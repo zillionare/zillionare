@@ -1,20 +1,17 @@
-Welcome to zillionare's documentation!
+欢迎加入大富翁AI量化社区！
 ======================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: 内容:
 
    readme
-   installation
-   usage
-   modules
    contributing
+   developer_guide
    authors
    history
 
-Indices and tables
+索引和搜索
 ==================
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

@@ -1,128 +1,73 @@
-.. highlight:: shell
+加入大富翁量化社区！
+=====================
 
-============
-Contributing
-============
+学习AI量化的最佳方式，就是加入量化社区，与大家一起成长。
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given.
+因此，Zillionare欢迎各位爱好者加入这一项目，共同学习和研究！
 
-You can contribute in many ways:
+1. 参与社区的方式
+-----------------
 
-Types of Contributions
-----------------------
+1.1 作为使用者和交易员
+``````````````````````
 
-Report Bugs
-~~~~~~~~~~~
+您可以利用大富翁提供的数据和因子，开发自己的策略。在此过程中，与社区成员进行交流，拓宽思路。也有可能在社区内找到您开发策略的用户。
 
-Report bugs at https://github.com/zillionare/zillionare/issues.
+1.2 提出需求
+`````````````
 
-If you are reporting a bug, please include:
+如果您有任何关于AI量化的需求，都可以通过 `Feature Request <https://github.com/zillionare/zillionare/issues>`_ 向我们提出。
 
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
+1.3 提交bug
+````````````
 
-Fix Bugs
-~~~~~~~~
+您也可以帮助我们发现软件中的各种bug并通过 `Bug Report <https://github.com/zillionare/zillionare/issues>`_ 向我们提出。
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
+1.4 撰写文档
+````````````
 
-Implement Features
-~~~~~~~~~~~~~~~~~~
+大富翁的开发者力图确保文档的丰富和完整，但总有我们考虑不到的地方。如果您在使用大富翁中有任何心得，欢迎通过博客、问答或者任何形式发布出来。您也可以参与我们的开发文档、使用教程的撰写。
 
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
+1.5 协同开发
+`````````````
 
-Write Documentation
-~~~~~~~~~~~~~~~~~~~
+对有编程能力的人来说，参与一个AI量化框架的构建当中，这将有助于您更快地熟悉数据、更有效地处理数据、挖掘出更多有效的数据特征，也避免掉进一些不太为人知的数据陷阱。
 
-zillionare could always use more documentation, whether as part of the
-official zillionare docs, in docstrings, or even on the web in blog posts,
-articles, and such.
+比如，量价关系对股价的涨跌有很重要的引领作用。但是如果您没有亲手进行过数据预处理，您可能会把每年10月的成交量未加修正地纳入计算。实际上，每年10月、2月因为长假休市的原因，月线数据反映出来的成交量必然小于其它月，但并不意味着市场缩量。使用了错误的数据进行机器学习，结果就只能是garbage in, garbage out。类似的情况还很多。
 
-Submit Feedback
-~~~~~~~~~~~~~~~
+因此，只要您有一定的编程经验，愿意遵守大富翁的开发规范，我们都欢迎您加入开发者社区，共同成长。大富翁在开发过程中，力图采用最新颖的技术、致力于遵守最佳实践，相信您加入这一社区，不但能对社区有所贡献，也能进一步熟悉Python最佳工程实践，培养协同开发能力。
 
-The best way to send feedback is to file an issue at https://github.com/zillionare/zillionare/issues.
+对参与社区的开发者（功能、Bug、文档、需求）,我们都将在首页credits中致谢！
 
-If you are proposing a feature:
-
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
-
-Get Started!
+2. 社区链接
 ------------
 
-Ready to contribute? Here's how to set up `zillionare` for local development.
+* 开发者交流QQ群142961883
 
-1. Fork the `zillionare` repo on GitHub.
-2. Clone your fork locally::
+ .. image:: http://images.jieyu.ai/images/2020-10/AI量化交易.png
+     :width: 150
+     :align: center
 
-    $ git clone git@github.com:your_name_here/zillionare.git
-
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
-
-    $ mkvirtualenv zillionare
-    $ cd zillionare/
-    $ python setup.py develop
-
-4. Create a branch for local development::
-
-    $ git checkout -b name-of-your-bugfix-or-feature
-
-   Now you can make your changes locally.
-
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
-
-    $ flake8 zillionare tests
-    $ python setup.py test or pytest
-    $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
-
-6. Commit your changes and push your branch to GitHub::
-
-    $ git add .
-    $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
-
-7. Submit a pull request through the GitHub website.
-
-Pull Request Guidelines
------------------------
-
-Before you submit a pull request, check that it meets these guidelines:
-
-1. The pull request should include tests.
-2. If the pull request adds functionality, the docs should be updated. Put
-   your new functionality into a function with a docstring, and add the
-   feature to the list in README.rst.
-3. The pull request should work for Python 3.5, 3.6, 3.7 and 3.8, and for PyPy. Check
-   https://travis-ci.com/zillionare/zillionare/pull_requests
-   and make sure that the tests pass for all supported Python versions.
-
-Tips
-----
-
-To run a subset of tests::
+* `Github <https://github.com/zillionare>`_
+* `头条号 <https://www.toutiao.com/c/user/token/MS4wLjABAAAA0QXxZJwnpC1wY6blkxm3BRwk01X5-9ny_VHKohDXK0E/>`_
 
 
-    $ python -m unittest tests.test_zillionare
+3. Awesome Zillionare
+----------------------
 
-Deploying
----------
+* `知乎专栏 <https://www.zhihu.com/column/jieyu>`_ 
+* `实战AI量化交易知乎版 <https://zhuanlan.zhihu.com/p/265809333>`_
+* `实战AI量化交易jupyter notebook版 <https://github.com/zillionare/AI-trading-tutorial>`_
+* `解语科技博客 <http://blog.jieyu.ai>`_
 
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
+4. 鸣谢
+--------
 
-$ bump2version patch # possible: major / minor / patch
-$ git push
-$ git push --tags
+感谢以下成员参与本项目！
 
-Travis will then deploy to PyPI if tests pass.
+* zhangping
+
+.. image:: https://avatars3.githubusercontent.com/u/5999245?s=460&u=c6b418fd390dbc0184e2570247279e458a847b1a&v=4
+    :width: 48
+    :target: https://github.com/teleping
+    :alt: zhangping
