@@ -1,5 +1,4 @@
 .. include:: ../README.rst
-.. include:: contributing.rst
 
 本项目由得到Pycharm开源赞助计划支持
 
