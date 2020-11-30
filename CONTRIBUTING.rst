@@ -59,15 +59,3 @@
 * `实战AI量化交易知乎版 <https://zhuanlan.zhihu.com/p/265809333>`_
 * `实战AI量化交易jupyter notebook版 <https://github.com/zillionare/AI-trading-tutorial>`_
 * `解语科技博客 <http://blog.jieyu.ai>`_
-
-4. 鸣谢
---------
-
-感谢以下成员参与本项目！
-
-* zhangping
-
-.. image:: https://avatars3.githubusercontent.com/u/5999245?s=460&u=c6b418fd390dbc0184e2570247279e458a847b1a&v=4
-    :width: 48
-    :target: https://github.com/teleping
-    :alt: zhangping
