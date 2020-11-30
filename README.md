@@ -57,7 +57,7 @@ Omega| 0.6| alpha| 高速分布式行情服务器
 Alpha|WIP |-|开发中
 Epsilon|WIP|-|开发中
 Gamma|-|-|规划中
-jqadaptor|0.2.x|-|Joinquant行情适配器
+jqadaptor|0.2.x|alpha|Joinquant行情适配器
 
 
 ---
