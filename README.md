@@ -1,8 +1,7 @@
 ![](http://images.jieyu.ai/images/hot/zillionbanner.jpg)
 
-<p align="center">
-<h1>大富翁AI量化社区欢迎您!</h1>
-</p>
+<h1 align="center">大富翁AI量化社区欢迎您!</h1>
+
 <p align="right">
 <a href="https://zillionare.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/zillionare/badge/?version=latest"></img></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
