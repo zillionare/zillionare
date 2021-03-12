@@ -3,21 +3,29 @@
 <h1 align="center">大富翁AI量化社区欢迎您!</h1>
 
 <p align="right">
-<a href="https://zillionare.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/zillionare/badge/?version=latest"></img></a>
+<a href="https://zillionare.readthedocs.io/zh_CN/latest/?badge=latest"><img src="https://readthedocs.org/projects/zillionare/badge/?version=latest"></img></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 </p>
 
 
+Zillionare（大富翁）是一个分布式高速量化交易框架。它基于Python 3.8以上版本构建，使用了异步IO和微服务技术，其目标是：
+
+- 分布式高速量化计算平台，算力可根据需要无缝扩展
+- 行情数据本地化存储，低延时同步，轻松支持实时触发分钟级别以上交易信号
+- 支持私有化部署，保护您的策略
+- 虚拟化部署，更易维护
+- 诸多量化因子
+- 基于机器学习的交易策略
+- 基于深度学习的交易策略
+- 高速回测框架
+
+!!! Note
+
+    大富翁有基础版和专业版两个版本。基础版完全开源、终生免费。专业版提供丰富的交易策略和定制功能。各个版本的功能发布进度请参考[[FIXME]]。
 
 
-大富翁是一个模块化、微服务架构的开源AI量化框架，提供行情数据的本地化存储，高速分布式行情服务，回测框架，策略因子，也提供机器学习和深度学习策略模型。
-
-**NOTE**
-
-本项目用于统领Zillionare各子项目，主要目的是提供一般性文档和公共信息。比如，Zillionare子项目遵循同样的开发规范，这份开发规范的详细说明就在本项目中提供。具体部署、使用各子项目，请见各子项目文档。
-
-除非是协助撰写文档，请不要clone本项目库，也不要通过 ``pip install zillionare`` 来安装本项目。您应该根据自己的需求，安装zillionarer的子项目。
-
+# 大富翁的技术优势
+    [[TODO: add introduce here]]
 大富翁由一系列子项目组成：
 
 ## Omicron
