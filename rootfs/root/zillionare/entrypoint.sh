@@ -1,5 +1,12 @@
 #! /bin/sh
-omega start
-echo "正在导入最近 $INIT_BARS_MONTHS 月的历史K线数据..."
-omega download $INIT_BARS_MONTHS
+omega start fetcher
+if [ -f ~/.ARCHIVED ]; then
+    echo "容器并非首次启动，跳过数据导入过程"
+else
+    echo "正在导入最近 $INIT_BARS_MONTHS 月的历史K线数据..."
+
+    omega download $INIT_BARS_MONTHS
+    touch ~/.ARCHIVED
+fi
+nohup jupyter notebook  --ip='*' --NotebookApp.token='' --NotebookApp.password='' --port 8888 --allow-root --notebook-dir='/tutorial' &
 python3 -m omega.jobs.main start
