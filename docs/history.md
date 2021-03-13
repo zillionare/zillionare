@@ -1,1 +1,3 @@
-{! ../HISTORY.md !}
+{% 
+    include-markdown "../HISTORY.md"
+%}
