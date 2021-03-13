@@ -28,10 +28,11 @@ release: clean config
 	pip download -i https://pypi.org/simple --no-deps -r ./requirements.txt --no-cache --only-binary ":all:" -d rootfs/root/
 	export VERSION=`cat ../version`; cat docker-compose.tpl | sed "s/zillionare:NOTAG/zillionare:${VERSION}/g" > docker-compose.yml
 	sudo -E docker-compose up --build -d
-# for develop build, use prepare-dev.sh to copy files
-# files included defaults.yaml and *.whl listed in requirements.txt (without version)
+	scp -P 31822 docker-compose.yml c.jieyu.ai:/var/www/stocks/release/docker/docker-compose-${VERSION}.yml
 
 dev: clean
+	# for develop build, use prepare-dev.sh to copy files
+	# files included defaults.yaml and *.whl listed in requirements.txt (without version)
 	./prepare-dev.sh
 	cp -r tutorial/* rootfs/tutorial/
 	export VERSION=`cat version`;cat docker-compose.tpl | sed "s/zillionare:NOTAG/zillionare:${VERSION}_DEV/g" > docker-compose.yml
