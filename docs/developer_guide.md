@@ -1,3 +1,24 @@
+
+# 大富翁产品矩阵
+
+## Zillionare
+
+统领大富翁各个子项目。Zillionare的一些功能往往是多个组件服务共同完成的，这些组件都有自己的版本编号，我们通过统一发布容器化部署版本的方式，将功能发布以一个完整、单一的视图呈现给用户。
+
+除了容器化部署版本之外，您还可以在这里找到帮助文档和教程。
+## Omega
+
+[Omega](https://github.com/zillionare/omega>) 是基于Sanic构建的微服务，它通过行情适配器来收发数据，通过Omicron来将这些数据存储到本地。Omega也是行情同步任务的管理者。
+
+通过前置Nginx，就可以负载均衡的方式提供分布式行情数据服务。此外，Omega还通过消息服务实现多进程之间的任务协作。这些进程可以运行在局域网内的不同的机器上。
+
+[使用文档](https://zillionare-omega.readthedocs.io/zh_CN/latest) [项目地址](https://github.com/zillionare/omega)
+## Omicron
+
+[Omicron](https://github.com/zillionare/omicron>) 提供了数据的本地存储读写和其它基础功能，比如交易日历和时间，Triggers，类型定义等。它是zillionare各子项目依赖的数据访问sdk。在您安装了Omega服务器之后，就通过Omicron这个sdk来使用行情数据。
+
+[使用文档](https://zillionare-omicron.readthedocs.io/zh_CN/latest/>) [项目地址](https://github.com/zillionare/omicron)
+
 =========
 开发指南
 =========
