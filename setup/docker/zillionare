@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo $#
+if [ $# != 1 ];then
+    cat << EOF
+     命令格式: zillionare args
+     Args:
+        start: 启动zillionare服务
+        stop: 停止zillionare服务
+        restart: 重启zillionare服务
+        down: 中止zillionare服务，并删除相关容器和镜像
+EOF
+fi
+
+if [ "$1" == "start" ]; then
+    sudo -E docker-compose up --build -d
+    exit 0
+fi
+
+if [ "$1" == "restart" ]; then
+    sudo -E docker-compose ??
+    exit 0
+fi
+
+if [ "$1" == "stop" ]; then
+    sudo -E docker-compose ??
+    exit 0
+
+fi
+
+if [ "$1" == "down" ]; then
+    sudo -E docker-compose ??
+    exit 0
+fi

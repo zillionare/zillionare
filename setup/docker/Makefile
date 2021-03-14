@@ -1,11 +1,12 @@
 .PHONY: clean
 repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
-repo_omega_file := https://api.github.com/repos/zillionare/omega/contents
+repo_omega_contents := https://api.github.com/repos/zillionare/omega/contents
 Headers_Accept := 'Accept: application/vnd.github.v3.raw'
 Headers_Auth := 'Authorization: token $(GH_TOKEN)'
 
-url_defaults_yaml := $(repo_omega_file)/omega/config/defaults.yaml
+url_omega_config := $(repo_omega_contents)/omega/config/defaults.yaml
 config_dir := rootfs/root/zillionare/omega/config
+tutorial_src_dir := ../../docs/tutorial
 
 clean:
 	sudo rm -rf docker-compose.yml
@@ -19,18 +20,18 @@ clean:
 
 config:
 	# download latest config file for omega
-	cd $(config_dir); curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(url_defaults_yaml) -O
+	cd $(config_dir); curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(url_omega_config) -O
 	# download all postgres init scripts into init/postgres/
 	curl -H $(Headers_Auth)  -H $(Headers_Accept) -L $(repo_omega_tar) | tar -C init/postgres/ -xz --wildcards "*/config/sql/*" --strip-components=3
-	cp -r ../docs/tutorial/* rootfs/tutorial/
+	cp -r ${tutorial_src_dir}/* rootfs/tutorial/
 
-release: clean config
+release:
+	echo "**** VERSION IS ${VERSION}"
 	pip download -i https://pypi.org/simple --no-deps -r ./requirements.txt --no-cache --only-binary ":all:" -d rootfs/root/
-	export VERSION=`cat ../version`; cat docker-compose.tpl | sed "s/zillionare:NOTAG/zillionare:${VERSION}/g" > docker-compose.yml
+	cat docker-compose.tpl | sed "s/zillionare:DEV_BUILD/zillionare:${VERSION}/g" > docker-compose.yml
 	sudo -E docker-compose up --build -d
-	scp -P 31822 docker-compose.yml c.jieyu.ai:/var/www/stocks/release/docker/docker-compose-${VERSION}.yml
 
-dev: clean
+dev:
 	# for develop build, use prepare-dev.sh to copy files
 	# files included defaults.yaml and *.whl listed in requirements.txt (without version)
 	./prepare-dev.sh

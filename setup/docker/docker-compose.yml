@@ -3,7 +3,7 @@ services:
   zillionare:
     build: .
     container_name: zillionare
-    image: zillionare/zillionare:NOTAG
+    image: zillionare/zillionare:1.0.0.a3
     depends_on:
       - postgres
       - redis
@@ -15,13 +15,13 @@ services:
     working_dir: /apps
     environment:
       - __cfg4py_server_role__=PRODUCTION
-      - INIT_BARS_MONTHS
+      - INIT_BARS_MONTHS=13
       - JQ_ACCOUNT
       - JQ_PASSWORD
       - LANG=C.UTF-8
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
+      - POSTGRES_USER=zillionare
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=zillionare
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - REDIS_HOST=redis
