@@ -1,0 +1,1032 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>安装指南 - 大富翁量化社区</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-安装大富翁docker发行版" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="大富翁量化社区" class="md-header-nav__button md-logo" aria-label="大富翁量化社区">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            大富翁量化社区
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              安装指南
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="大富翁量化社区" class="md-nav__button md-logo" aria-label="大富翁量化社区">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    大富翁量化社区
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          安装指南
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        安装指南
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-安装大富翁docker发行版" class="md-nav__link">
+    1. 安装大富翁Docker发行版
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 安装大富翁Docker发行版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-确认安装环境" class="md-nav__link">
+    1.1. 确认安装环境
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-运行安装程序" class="md-nav__link">
+    1.2. 运行安装程序
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2. 运行安装程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#安装到linux操作系统" class="md-nav__link">
+    安装到Linux操作系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#安装到其它操作系统" class="md-nav__link">
+    安装到其它操作系统
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#检查安装结果和管理服务" class="md-nav__link">
+    检查安装结果和管理服务
+  </a>
+  
+    <nav class="md-nav" aria-label="检查安装结果和管理服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux安装版" class="md-nav__link">
+    Linux安装版
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#其它操作系统" class="md-nav__link">
+    其它操作系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#检查策略服务器工作状态" class="md-nav__link">
+    检查策略服务器工作状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#如何定制您的安装" class="md-nav__link">
+    如何定制您的安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#排查安装错误" class="md-nav__link">
+    排查安装错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#下一步" class="md-nav__link">
+    下一步
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        大富翁量化交易教程
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="大富翁量化交易教程" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          大富翁量化交易教程
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/preface/" class="md-nav__link">
+        序言：股价是可以预测的吗
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial/chap1/" class="md-nav__link">
+        第1章：证券列表、日历和板块
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_guide/" class="md-nav__link">
+        大富翁量化框架深度解析
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        关于大富翁
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="关于大富翁" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          关于大富翁
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        授权许可
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/" class="md-nav__link">
+        版本历史
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authors/" class="md-nav__link">
+        关于开发者
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/zillionare/zillionare/discussions" class="md-nav__link">
+        社区
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+      
+      <label class="md-nav__link" for="nav-7">
+        链接
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="链接" data-md-level="1">
+        <label class="md-nav__title" for="nav-7">
+          <span class="md-nav__icon md-icon"></span>
+          链接
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.zhihu.com/column/jieyu" class="md-nav__link">
+        知乎专栏
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://zillionare.readthedocs.io/zh_CN/latest/contributing.htm" class="md-nav__link">
+        readthedocs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-安装大富翁docker发行版" class="md-nav__link">
+    1. 安装大富翁Docker发行版
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 安装大富翁Docker发行版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-确认安装环境" class="md-nav__link">
+    1.1. 确认安装环境
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-运行安装程序" class="md-nav__link">
+    1.2. 运行安装程序
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2. 运行安装程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#安装到linux操作系统" class="md-nav__link">
+    安装到Linux操作系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#安装到其它操作系统" class="md-nav__link">
+    安装到其它操作系统
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#检查安装结果和管理服务" class="md-nav__link">
+    检查安装结果和管理服务
+  </a>
+  
+    <nav class="md-nav" aria-label="检查安装结果和管理服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux安装版" class="md-nav__link">
+    Linux安装版
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#其它操作系统" class="md-nav__link">
+    其它操作系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#检查策略服务器工作状态" class="md-nav__link">
+    检查策略服务器工作状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#如何定制您的安装" class="md-nav__link">
+    如何定制您的安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#排查安装错误" class="md-nav__link">
+    排查安装错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#下一步" class="md-nav__link">
+    下一步
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>安装指南</h1>
+                
+                <p>大富翁提供了两种安装方式。</p>
+<p>推荐新手使用Docker发行版的安装方式。这种方式下，您只需要非常简单的配置即可快速使用大富翁。</p>
+<p>高级安装模式允许您配置复杂的网络环境和多机部署，以充分施展大富翁的性能。关于高级安装模式，请参考 <mark><a href="404.md">TODO</a></mark></p>
+<h2 id="1-安装大富翁docker发行版">1. 安装大富翁Docker发行版<a class="headerlink" href="#1-安装大富翁docker发行版" title="Permanent link">&para;</a></h2>
+<h3 id="11-确认安装环境">1.1. 确认安装环境<a class="headerlink" href="#11-确认安装环境" title="Permanent link">&para;</a></h3>
+<p>在安装大富翁之前，请先确认您的安装环境中已经安装了 <strong>docker engine</strong> 和 <strong>docker-compose</strong>。前者是一个Native程序，后者是一个Python module，可以通过<code>pip</code>来安装。</p>
+<details class="info"><summary>Info</summary><p>大富翁使用了<code>docker-compose</code>来进行容器编排，编排配置文件的版本是<code>v3.6</code>。对应要求的<code>docker engine</code>的版本是18.02，对应的<code>docker-compose</code>版本是<code>1.27.0+</code>。</p>
+<p>大富翁1.0进行测试时，使用的<code>docker engine</code>的版本是<code>19.03</code>, <code>docker-compose</code>的版本是<code>1.28.5</code>。一般而言，只要您使用的版本满足上面的要求，都应该可以安装成功。</p>
+</details>
+<p>此外，由于大富翁当前只提供了对聚宽数据源的对接，所以您还需要在<a href="https://www.joinquant.com">聚宽官网</a>上申请一个账号。</p>
+<h3 id="12-运行安装程序">1.2. 运行安装程序<a class="headerlink" href="#12-运行安装程序" title="Permanent link">&para;</a></h3>
+<h4 id="安装到linux操作系统">安装到Linux操作系统<a class="headerlink" href="#安装到linux操作系统" title="Permanent link">&para;</a></h4>
+<p>您可以在这里下载<a href="../_attachment/zillionare.sh">大富翁安装程序</a>，并在命令行界面运行以下命令：
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 下载安装程序到本地</span>
+curl http://www.jieyu.ai/_attachment/zillionare.sh -o zillionare.sh
+
+<span class="c1"># 运行安装程序</span>
+sudo -E bash zillionare.sh --target /usr/local/zillionare -- --jq_account <span class="nv">$JQ_ACCOUNT</span> --jq_password <span class="nv">$JQ_PASSWORD</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>您需要将这里的<code>$JQ_ACCOUNT</code>和<code>$JQ_PASSWORD</code>替换成您申请的聚宽账号。</p>
+<details class="info"><summary>Info</summary><p>安装程序需要将一些文件拷贝到/usr/local/zillionre目录下，并且调用<code>docker-compose</code>命令来启动服务。</p>
+<p>一般情况下，<code>/usr/local</code>目录是<code>root</code>权限，但可以通过<code>sudo</code>授权访问。而<code>docker engine</code>也常常是通过<code>sudo</code>命令来安装的，因此在调用<code>docker</code>命令时，如果是非<code>root</code>用户，也就需要通过<code>sudo</code>来授权。</p>
+<p><code>--target</code>指定了安装程序存放文件的位置。一般建议就使用我们推荐的<code>/usr/local/zillionare</code>目录。<code>/usr/local</code>目录是Linux下安装用户程序的标准目录。</p>
+<p>注意命令行中未接参数的<code>--</code>。它出现在这里的原因是，我们使用了<a href="https://github.com/megastep/makeself">makeself</a>来进行打包。这是一个广泛使用的生成自解压shell程序的应用。根据<code>makeself</code>的要求，在<code>--</code>之后的是传递给安装脚本的运行参数，而在<code>--</code>之前的参数，都将传递给<code>makeself</code>自己使用。因此，要运行安装程序，您不光要传递参数给<code>zillionare.sh</code>，还要按照正确的次序传递。</p>
+<p>最后，是<code>--jq_account</code>和<code>--jq_password</code>参数。注意到我们使用<code>-E</code>选项来调用安装脚本，因此，如果您当前的环境变量中已包含了<code>JQ_ACCOUNT</code>和<code>JQ_PASSWORD</code>变量，您可以直接拷贝上面的命令来运行，而无须进行修改。</p>
+</details>
+<p>在安装过程中，您将从控制台看到构建docker镜像和容器的一些信息。如果一切正常，最终将输出以下信息：
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="go">Successfully built 96ac04414e07</span>
+<span class="go">Successfully tagged zillionare/zillionare:1.0.0.a3</span>
+<span class="go">WARNING: Image for service zillionare was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.</span>
+<span class="go">redis is up-to-date</span>
+<span class="go">Creating postgres ... done</span>
+<span class="go">Creating zillionare ... done</span>
+</code></pre></div>
+</td></tr></table></p>
+<details class="tip"><summary>Tip</summary><p>这里出现一个警告，您完全可以忽略这个警告。</p>
+</details>
+<p>在安装结束后，大富翁服务将自动启动。</p>
+<p>现在，您可以跳转到<a href="#安装到其它操作系统">检查安装结果和管理服务</a>继续阅读。</p>
+<h4 id="安装到其它操作系统">安装到其它操作系统<a class="headerlink" href="#安装到其它操作系统" title="Permanent link">&para;</a></h4>
+<p>如果您使用其它操作系统，您需要从源文件开始安装。不过，安装过程也很简单。</p>
+<p>首先，从<a href="http://www.jieyu.ai/_attachment/zillionare.tar.gz">这里</a>下载压缩包。然后将其解压到某个<strong>空</strong>文件夹。</p>
+<p>接下来，您需要进入该文件夹，新建一个名为.env的文件，文件内容如下：
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>JQ_ACCOUNT=%replace_with_your_account%
+JQ_PASSWORD=%replace_with_your_password
+</code></pre></div>
+</td></tr></table></p>
+<details class="warning" open="open"><summary>Warning</summary><p>注意这里的JQ_ACCOUNT等变量必须为大写。</p>
+</details>
+<p>然后，通过运行<code>docker-compose up</code>命令启动服务。注意您需要在安装文件夹位置下运行这个命令。</p>
+<h2 id="检查安装结果和管理服务">检查安装结果和管理服务<a class="headerlink" href="#检查安装结果和管理服务" title="Permanent link">&para;</a></h2>
+<h3 id="linux安装版">Linux安装版<a class="headerlink" href="#linux安装版" title="Permanent link">&para;</a></h3>
+<p>在Linux安装版下，我们提供了一些便捷的命令来管理服务。
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>sudo zillionare
+
+-- output --
+     命令格式: zillionare args
+     Args:
+        start: 启动zillionare服务
+        stop: 停止zillionare服务
+        restart: 重启zillionare服务
+        down: 中止zillionare服务，并删除相关容器
+        log: 显示zillionare日志
+        status: 显示zillionare容器运行状态
+</code></pre></div>
+</td></tr></table></p>
+<p>所以，您可以通过<code>start</code>, <code>stop</code>, <code>restart</code>来启动和停止服务。由于我们刚刚完成安装，所以您可能希望知道服务的状态：</p>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>      sudo zillionare status
+</code></pre></div>
+</td></tr></table>
+这会显示类似下面的信息：
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="go">   Name                 Command               State                                   Ports                                 </span>
+<span class="go">----------------------------------------------------------------------------------------------------------------------------</span>
+<span class="go">postgres     docker-entrypoint.sh postgres    Up      5432/tcp                                                              </span>
+<span class="go">redis        docker-entrypoint.sh sh -c ...   Up      6379/tcp                                                              </span>
+<span class="go">zillionare   /root/zillionare/entrypoint.sh   Up      0.0.0.0:3180-&gt;3180/tcp, 0.0.0.0:3181-&gt;3181/tcp, 0.0.0.0:8888-&gt;8888/tcp</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>您还可以通过<code>sudo zillionare log</code>来更进一步地观察大富翁当前的状态。</p>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>sudo zillionare log
+</code></pre></div>
+</td></tr></table>
+如果您是在安装之后立刻运行的上述命令，那么输出的最后几行很可能是：
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="go">正在启动zillionare-omega fetcher...</span>
+<span class="go">启动的jqadaptor实例少于配置要求（或尚未启动），正在启动中。。。</span>
+<span class="go">   impl   |     port   |  pids</span>
+<span class="go">jqadaptor |     3181   |  [48]</span>
+<span class="go">正在导入最近 13 月的历史K线数据...</span>
+</code></pre></div>
+</td></tr></table></p>
+<h3 id="其它操作系统">其它操作系统<a class="headerlink" href="#其它操作系统" title="Permanent link">&para;</a></h3>
+<p>我们没有在其它操作系统上提供类似Linux版下提供的那些命令。不过，那些命令最终都是通过<code>docker-comose</code>或者<code>docker</code>来实现的。</p>
+<p>这里我们给一个命令对照表供参考：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Linux</th>
+<th>其它操作系统</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动服务</td>
+<td>sudo zillionare start</td>
+<td>docker-compose up</td>
+<td>需要在安装目录下运行</td>
+</tr>
+<tr>
+<td>暂停服务</td>
+<td>sudo zillionare stop</td>
+<td>docker-compose stop</td>
+<td>需要在安装目录下运行</td>
+</tr>
+<tr>
+<td>重启服务</td>
+<td>sudo zillionare restart</td>
+<td>docker-compose restart</td>
+<td>需要在安装目录下运行</td>
+</tr>
+<tr>
+<td>停止并删除容器</td>
+<td>sudozillioare down</td>
+<td>docker-compose down</td>
+<td>需要在安装目录下运行</td>
+</tr>
+<tr>
+<td>获取状态</td>
+<td>sudo zillionare status</td>
+<td>docker-compose status</td>
+<td>需要在安装目录下运行</td>
+</tr>
+<tr>
+<td>获取日志</td>
+<td>sudo zillionare log</td>
+<td>docker logs -f zillionare</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="检查策略服务器工作状态">检查策略服务器工作状态<a class="headerlink" href="#检查策略服务器工作状态" title="Permanent link">&para;</a></h3>
+<p>随容器发布的除了大富翁应用外，还有一个Jupyter Notebook服务及相关教程。在您安装完成后，请打开浏览器，输入以下网址：</p>
+<p><code>http://zillionare:8888/</code></p>
+<p>这里请将zillionare替换成您刚刚运行安装程序的那台机器的IP。页面打开后，会显示我们的量化交易教程。</p>
+<h2 id="如何定制您的安装">如何定制您的安装<a class="headerlink" href="#如何定制您的安装" title="Permanent link">&para;</a></h2>
+<p>您可以通过安装时传入参数（如果是非Linux平台，则是通过修改.env文件）来进行一些定制。</p>
+<p>大富翁允许您在初始化时，导入历史行情数据。当前默认为导入13个月（含30分钟及以上K线）。如果您对数据要求比较高，并且机器硬件性能足够（全市场每1000条k线需要0.75GB内存），也可以修改参数，以导入更多的k线数据。</p>
+<p>如果是Linux发行版，您需要在运行安装脚本时指定<code>--init_bars_months</code>参数：</p>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>sudo -E bash zillionare.sh --target ... -- --jq_account my_account --jq_password my_passwd --init_bars_months <span class="m">24</span>
+</code></pre></div>
+</td></tr></table>
+上面的命令将导入24个月的K线数据。</p>
+<p>如果是其它操作系统，您需要修改安装目录下的.env文件（参见<a href="#安装到其它操作系统"></a>:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>INIT_BARS_MONTHS=24
+</code></pre></div>
+</td></tr></table></p>
+<details class="warning" open="open"><summary>Warning</summary><p>注意这里的变量必须为大写，以下同</p>
+</details>
+<p>其它参数的定制，在使用语法上类似，所以下面就简单列出这些参数，至于如何修改，请参见上面的内容：</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>作用</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JQ_ACCOUNT</td>
+<td>聚宽账号，必须提供</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td>JQ_PASSWORD</td>
+<td>聚宽账号密码，必须提供</td>
+<td>无</td>
+<td></td>
+</tr>
+<tr>
+<td>INIT_BARS_MONTHS</td>
+<td>初始化数据的月数</td>
+<td>13</td>
+<td></td>
+</tr>
+<tr>
+<td>POSTGRES_USER</td>
+<td>数据库用户名</td>
+<td>zillionare</td>
+<td>允许使用现有的数据库，下同</td>
+</tr>
+<tr>
+<td>POSTGRES_PASSWORD</td>
+<td>数据库密码</td>
+<td>123456</td>
+<td></td>
+</tr>
+<tr>
+<td>POSTGRES_DB</td>
+<td>数据库名</td>
+<td>zillionare</td>
+<td>即使使用现有数据库，也推荐单独创建名为zillionare的schema，以单独存放数据</td>
+</tr>
+<tr>
+<td>POSTGRES_HOST</td>
+<td>数据库服务器</td>
+<td>postgres</td>
+<td></td>
+</tr>
+<tr>
+<td>POSTGRES_PORT</td>
+<td>数据库服务器监听端口</td>
+<td>5432</td>
+<td></td>
+</tr>
+<tr>
+<td>REDIS_HOST</td>
+<td>redis服务器</td>
+<td>redis</td>
+<td>允许您使用现有的redis服务器</td>
+</tr>
+<tr>
+<td>REDIS_PORT</td>
+<td>redis服务器监听端口</td>
+<td>6379</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<details class="info"><summary>Info</summary><p>一般情况下，您不需要配置数据库服务器和Redis缓存服务器。大富翁提供上述定制参数的主要目的有二，一是避免服务器端口冲突；二是如果您确实已经部署了这两种服务器，希望能够复用。</p>
+<p>数据库复用是比较常见的。但不推荐对Redis缓存服务器复用。Redis没有数据库那样丰富的层次结构，无法辟出一块空间来单独存放zillionare的相关数据，因此可能产生数据冲突。为了避免键冲突，请尽量为zillionare单独分配Redis服务器。</p>
+</details>
+<h2 id="排查安装错误">排查安装错误<a class="headerlink" href="#排查安装错误" title="Permanent link">&para;</a></h2>
+<p>由于使用了Docker容器来进行部署，一般来说不太容易出现错误。但也可能因为以下原因导致安装或者运行失败：</p>
+<ol>
+<li>没有提供聚宽账号，或者当日Quota不足</li>
+<li>服务器端口冲突</li>
+<li>在安装过程中遇到网络错误，导致镜像和容器生成失败</li>
+</ol>
+<p>如果确实遇到了这些问题，请参考 <mark><a href="404.md">大富翁量化框架深度解析</a></mark> 中的 <mark>常见故障部分</mark> 进行排查。</p>
+<h2 id="下一步">下一步<a class="headerlink" href="#下一步" title="Permanent link">&para;</a></h2>
+<p>现在，既然大富翁已经在正常运行了，您可能想立刻开始编写交易策略。</p>
+<p>但是在立即动手之前，也许您可以看看<a href="../tutorial/">大富翁量化交易教程</a></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                简介
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../tutorial/preface/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                序言：股价是可以预测的吗
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
