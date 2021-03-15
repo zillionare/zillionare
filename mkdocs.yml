@@ -1,9 +1,12 @@
 site_name: 大富翁量化社区
 
+#strict: true
 nav:
   - 简介: index.md
-  - 新手指南: getting_started.md
-  - 大富翁量化交易教程: tutorial.md
+  - 安装指南: getting_started.md
+  - 大富翁量化交易教程:
+      - 序言：股价是可以预测的吗: tutorial/preface.md
+      - 第1章：证券列表、日历和板块: tutorial/chap1.ipynb
   - 大富翁量化框架深度解析: developer_guide.md
   - 关于大富翁:
     - 授权许可: license.md
@@ -12,7 +15,7 @@ nav:
   - 社区: https://github.com/zillionare/zillionare/discussions
   - 链接:
     - 知乎专栏: https://www.zhihu.com/column/jieyu
-    - readthedocs: https://zillionare.readthedocs.io/zh_CN/latest/contributing.html
+    - readthedocs: https://zillionare.readthedocs.io/zh_CN/latest/contributing.htm
 
 theme:
   name: material
@@ -21,7 +24,10 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
   - attr_list
   - pymdownx.highlight:
       linenums: true
@@ -34,5 +40,6 @@ markdown_extensions:
       slugify: !!python/name:pymdownx.slugs.uslugify
 plugins:
   - include-markdown
+  - mknotebooks
   - search:
       lang: ja
