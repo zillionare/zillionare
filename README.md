@@ -149,14 +149,7 @@ JoinQuant行情数据适配器，是目前大富翁惟一提供的行情数据�
 
 ## 更多
 
-进一步了解大富翁，请跳转到 [文档](https://zillionare.readthedocs.io/en/latest/) 进一步阅读，谢谢！
-
-## 加入社区
-
- * QQ群: 142961883
- * 头条号: 解语科技
- * 知乎圈子： Python与量化交易
- * 知乎专栏: 解语科技
+进一步了解大富翁，请跳转到 [解语官方网站](http://www.jieyu.com) 进一步阅读，谢谢！
 
 <!--
 <p align="center">
