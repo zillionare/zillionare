@@ -29,7 +29,7 @@ release:
 	echo "**** VERSION IS ${VERSION}"
 	pip download -i https://pypi.org/simple --no-deps -r ./requirements.txt --no-cache --only-binary ":all:" -d rootfs/root/
 	cat docker-compose.tpl | sed "s/zillionare:DEV_BUILD/zillionare:${VERSION}/g" > docker-compose.yml
-	sudo -E docker-compose up --build -d
+	sudo -E docker-compose build --force-rm
 
 dev:
 	# for develop build, use prepare-dev.sh to copy files

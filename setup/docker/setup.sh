@@ -91,4 +91,4 @@ done
 # 将INSTALLATION_DIR替换为当前工作路径
 sed -i "s|INSTALLATION_DIR|${PWD}|g" zillionare
 cp $PWD/zillionare /usr/local/bin/zillionare
-docker-compose up --build -d
+zillionare start
