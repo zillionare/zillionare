@@ -36,68 +36,59 @@ do
             shift
             ;;
         --jq_account)
-            jq_account="$2"
+            echo "JQ_ACCOUNT=$2" >> .env
             shift
             shift
             ;;
         --jq_password)
-            jq_password="$2"
+            echo "JQ_PASSWORD=$2" >> .env
             shift
             shift
             ;;
         --init_bars_months) 
-            init_bars_months="$2"
+            echo "INIT_BARS_MONTHS=$2" >> .env
             shift
             shift
             ;;
         --postgres_host) 
-            postgres_host="$2"
+            echo "POSTGRES_HOST=$2" >> .env
             shift
             shift
             ;;
         --postgres_port) 
-            postgres_port="$2"
+            echo "POSTGRES_PORT=$2" >> .env
             shift
             shift
             ;;
         --postgres_db)
-            postgres_host="$2"
+            echo "POSTGRES_DB=$2" >> .env
             shift
             shift
             ;;
         --postgres_user)
-            postgres_user="$2"
+            echo "POSTGRES_USER=$2" >> .env
             shift
             shift
             ;;
         --postgres_password)
-            postgres_password="$2"
+            echo "POSTGRES_PASSWORD=$2" >> .env
             shift
             shift
             ;;
         --redis_host)
-            redis_host="$2"
+            echo "REDIS_HOST=$2" >> .env
             shift
             shift
             ;;
         --redis_port)
-            redis_port="$2"
+            echo "REDIS_PORT=$2" >> .env
             shift
             shift
             ;;
     esac
 done
 
-cat << EOF > .env
-INIT_BARS_MONTHS=$init_bars_months
-JQ_ACCOUNT=$jq_account
-JQ_PASSWORD=$jq_password
-POSTGRES_USER=$postgres_user
-POSTGRES_PASSWORD=$postgres_password
-POSTGRES_DB=$postgres_db
-POSTGRES_HOST=$postgres_host
-POSTGRES_PORT=$postgres_port
-REDIS_HOST=$redis_host
-REDIS_PORT=$redis_port
-EOF
-sudo -E docker-compose up --build -d
+# 将INSTALLATION_DIR替换为当前工作路径
+sed -i "s|INSTALLATION_DIR|${PWD}|g" zillionare
+cp $PWD/zillionare /usr/local/bin/zillionare
+docker-compose up --build -d

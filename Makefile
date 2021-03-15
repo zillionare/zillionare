@@ -11,7 +11,7 @@ release: clean config
 # files included defaults.yaml and *.whl listed in requirements.txt (without version)
 dev: clean config
 	cd setup/docker; make dev
-dist:
+dist: release
 	# build installation script and publish it to www.jieyu.ai
 	# currently `publish` just put it into docs/_attachment folder, then refer it in a
 	# md file manually

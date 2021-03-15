@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo $#
+home_dir=INSTALLATION_DIR
+cd $home_dir
+
 if [ $# != 1 ];then
     cat << EOF
      命令格式: zillionare args
@@ -8,27 +10,28 @@ if [ $# != 1 ];then
         start: 启动zillionare服务
         stop: 停止zillionare服务
         restart: 重启zillionare服务
-        down: 中止zillionare服务，并删除相关容器和镜像
+        down: 中止zillionare服务，并删除相关容器.
 EOF
 fi
 
 if [ "$1" == "start" ]; then
-    sudo -E docker-compose up --build -d
+    docker-compose up -d
     exit 0
 fi
 
 if [ "$1" == "restart" ]; then
-    sudo -E docker-compose ??
+    docker-compose stop zillionare
+    docker-compose up -d
     exit 0
 fi
 
 if [ "$1" == "stop" ]; then
-    sudo -E docker-compose ??
+    docker-compose stop zillionare
     exit 0
 
 fi
 
 if [ "$1" == "down" ]; then
-    sudo -E docker-compose ??
+    docker-compose down
     exit 0
 fi
