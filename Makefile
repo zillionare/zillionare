@@ -1,5 +1,6 @@
 clean:
 	@rm docs/_attachment/zillionare.sh 2>/dev/null ||:
+	@rm docs/_attachment/zillionare.tar.gz 2>/dev/null ||:
 	cd setup/docker; make clean
 
 config:

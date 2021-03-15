@@ -37,51 +37,62 @@ do
             ;;
         --jq_account)
             echo "JQ_ACCOUNT=$2" >> .env
+            # TO AVOID enviroment variable conflict by chance
+            export JQ_ACCOUNT=$2
             shift
             shift
             ;;
         --jq_password)
             echo "JQ_PASSWORD=$2" >> .env
+            export JQ_PASSWORD=$2
             shift
             shift
             ;;
         --init_bars_months) 
             echo "INIT_BARS_MONTHS=$2" >> .env
+            export INIT_BARS_MONTHS=$2
             shift
             shift
             ;;
         --postgres_host) 
             echo "POSTGRES_HOST=$2" >> .env
+            export POSTGRES_HOST=$2
             shift
             shift
             ;;
         --postgres_port) 
             echo "POSTGRES_PORT=$2" >> .env
+            export POSTGRES_PORT=$2
             shift
             shift
             ;;
         --postgres_db)
             echo "POSTGRES_DB=$2" >> .env
+            export POSTGRES_DB=$2
             shift
             shift
             ;;
         --postgres_user)
             echo "POSTGRES_USER=$2" >> .env
+            export POSTGRES_USER=$2
             shift
             shift
             ;;
         --postgres_password)
             echo "POSTGRES_PASSWORD=$2" >> .env
+            export POSTGRES_PASSWORD=$2
             shift
             shift
             ;;
         --redis_host)
             echo "REDIS_HOST=$2" >> .env
+            export REDIS_HOST=$2
             shift
             shift
             ;;
         --redis_port)
             echo "REDIS_PORT=$2" >> .env
+            export REDIS_PORT=$2
             shift
             shift
             ;;
@@ -91,4 +102,4 @@ done
 # 将INSTALLATION_DIR替换为当前工作路径
 sed -i "s|INSTALLATION_DIR|${PWD}|g" zillionare
 cp $PWD/zillionare /usr/local/bin/zillionare
-zillionare start
+docker-compose up --build -d
