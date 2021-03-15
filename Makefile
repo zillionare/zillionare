@@ -1,6 +1,6 @@
 clean:
-	@rm docs/_attachment/zillionare.sh 2>/dev/null ||:
-	@rm docs/_attachment/zillionare.tar.gz 2>/dev/null ||:
+	@rm docs/assets/zillionare.sh 2>/dev/null ||:
+	@rm docs/assets/zillionare.tar.gz 2>/dev/null ||:
 	cd setup/docker; make clean
 
 config:
@@ -14,7 +14,7 @@ dev: clean config
 	cd setup/docker; make dev
 dist: release
 	# build installation script and publish it to www.jieyu.ai
-	# currently `publish` just put it into docs/_attachment folder, then refer it in a
+	# currently `publish` just put it into docs/assets folder, then refer it in a
 	# md file manually
 	export VERSION=`cat version`;cd setup; make dist
-	chmod +x docs/_attachment/zillionare.sh
+	chmod +x docs/assets/zillionare.sh
