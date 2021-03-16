@@ -22,7 +22,7 @@ config:
 	# download latest config file for omega
 	cd $(config_dir); curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(url_omega_config) -O
 	# download all postgres init scripts into init/postgres/
-	curl -H $(Headers_Auth)  -H $(Headers_Accept) -L $(repo_omega_tar) | tar -C init/postgres/ -xz --wildcards "*/config/sql/*" --strip-components=3
+	curl -H $(Headers_Auth)  -H $(Headers_Accept) -L $(repo_omega_tar) | tar -C init/postgres/ -xz --wildcards "*/config/sql/*" --strip-components=4
 	cp -r ${tutorial_src_dir}/* rootfs/tutorial/
 
 release:
