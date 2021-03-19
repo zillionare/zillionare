@@ -1,9 +1,12 @@
 version: "3.6"
 services:
   zillionare:
-    build: .
+    build:
+      context: .
+      args:
+        PYPI_INDEX_URL: ${PYPI_INDEX_URL:-https://mirrors.aliyun.com/pypi/simple/}
     container_name: zillionare
-    image: zillionare/zillionare:1.0.0.a3
+    image: zillionare:${VERSION:-DEV_BUILD}
     depends_on:
       - postgres
       - redis
@@ -15,17 +18,17 @@ services:
     working_dir: /apps
     environment:
       - __cfg4py_server_role__=PRODUCTION
-      - INIT_BARS_MONTHS=13
+      - INIT_BARS_MONTHS=${INIT_BARS_MONTHS:-13}
       - JQ_ACCOUNT
       - JQ_PASSWORD
       - LANG=C.UTF-8
-      - POSTGRES_USER=zillionare
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=zillionare
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - POSTGRES_USER=${POSTGRES_USER:-zillionare}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456}
+      - POSTGRES_DB=${POSTGRES_DB:-zillionare}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
       - TZ=Asia/Shanghai
   redis:
     image: redis:5.0.10-alpine
@@ -41,8 +44,8 @@ services:
     expose: 
       - 5432
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB=zillionare
+      - POSTGRES_USER=${POSTGRES_USER:-zillionare}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456}
+      - POSTGRES_DB=${POSTGRES_DB:-zillionare}
     volumes:
       - ./init/postgres:/docker-entrypoint-initdb.d

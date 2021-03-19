@@ -1,13 +1,13 @@
 # vim:set ft=dockerfile:
 FROM ubuntu:20.04 
-ENV TZ=Asia/Shanghai
 WORKDIR /
 COPY rootfs ./
-ENV __cfg4py_server_role__ PRODUCTION
-RUN	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-	&& apt-get update\
+
+ARG PYPI_INDEX_URL
+
+RUN	apt-get update\
 	&& apt-get install -y --no-install-recommends python3.8 python3-pip build-essential python3.8-dev vim iputils-ping \ 
-	&& pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple/ \
+	&& pip3 config set global.index-url $PYPI_INDEX_URL \
 	&& for file in `ls ./root/*.whl`; do pip3 install --no-cache-dir $file;done \
 	&& pip3 install jupyter jupyter_contrib_nbextensions matplotlib \
 	&& jupyter contrib nbextension install --user \

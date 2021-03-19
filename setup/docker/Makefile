@@ -8,8 +8,9 @@ url_omega_config := $(repo_omega_contents)/omega/config/defaults.yaml
 config_dir := rootfs/root/zillionare/omega/config
 tutorial_src_dir := ../../docs/tutorial
 
+image:="zillionare/zillionare:${VERSION}"
+
 clean:
-	sudo rm -rf docker-compose.yml
 	sudo rm -f rootfs/root/*.whl
 	sudo rm -rf init/postgres/*
 	sudo rm -rf init/redis/*
@@ -26,15 +27,13 @@ config:
 	cp -r ${tutorial_src_dir}/* rootfs/tutorial/
 
 release:
-	echo "**** VERSION IS ${VERSION}"
 	pip download -i https://pypi.org/simple --no-deps -r ./requirements.txt --no-cache --only-binary ":all:" -d rootfs/root/
-	cat docker-compose.tpl | sed "s/zillionare:DEV_BUILD/zillionare:${VERSION}/g" > docker-compose.yml
 	sudo -E docker-compose build --force-rm
+	sudo docker rmi ${image}
 
 dev:
 	# for develop build, use prepare-dev.sh to copy files
 	# files included defaults.yaml and *.whl listed in requirements.txt (without version)
 	./prepare-dev.sh
-	cp -r tutorial/* rootfs/tutorial/
 	export VERSION=`cat version`;cat docker-compose.tpl | sed "s/zillionare:NOTAG/zillionare:${VERSION}_DEV/g" > docker-compose.yml
 	sudo -E docker-compose up --build -d

@@ -13,4 +13,4 @@ for f in $(sudo docker exec -it dev bash -c "ls /apps/omega/dist/*.whl"); do sud
 for f in $(sudo docker exec -it dev bash -c "ls /apps/omega/tests/packages/*.whl"); do sudo docker cp dev:`echo $f | sed 's/\r//g'` rootfs/root;done
 
 # use latest jq-adaptors, Be aware that sometimes we should use local jq-adaptor build
-pip download --no-deps zillionare-omega-adaptors-jq==0.3.5 --no-cache --only-binary ":all:" -d rootfs/root/
+pip download --no-deps zillionare-omega-adaptors-jq==0.3.6 --no-cache --only-binary ":all:" -d rootfs/root/
