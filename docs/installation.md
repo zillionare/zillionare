@@ -1,3 +1,7 @@
+---
+disqus: jieyu
+---
+
 大富翁提供了两种安装方式。
 
 推荐新手使用Docker发行版的安装方式。这种方式下，您只需要非常简单的配置即可快速使用大富翁。
@@ -32,27 +36,43 @@ sudo -E bash zillionare.sh --target /usr/local/zillionare -- --jq_account $JQ_AC
 
 ??? Info
 
-      安装程序需要将一些文件拷贝到/usr/local/zillionre目录下，并且调用`docker-compose`命令来启动服务。
+      执行以上命令，安装程序就会将一些文件拷贝到/usr/local/zillionare目录下，并且调用`docker-compose`命令来启动服务。
       
       一般情况下，`/usr/local`目录是`root`权限，但可以通过`sudo`授权访问。而`docker engine`也常常是通过`sudo`命令来安装的，因此在调用`docker`命令时，如果是非`root`用户，也就需要通过`sudo`来授权。
 
-      `--target`指定了安装程序存放文件的位置。一般建议就使用我们推荐的`/usr/local/zillionare`目录。`/usr/local`目录是Linux下安装用户程序的标准目录。
+      `--target`指定了安装程序存放文件的位置。一般建议就使用我们推荐的`/usr/local/zillionare`目录。`/usr/local`目录是Linux下安装用户程序的标准目录。如果您**忽略**了这个参数，那么zillionare将会安装到您当前位于的目录。
 
-      注意命令行中未接参数的`--`。它出现在这里的原因是，我们使用了[makeself](https://github.com/megastep/makeself)来进行打包。这是一个广泛使用的生成自解压shell程序的应用。根据`makeself`的要求，在`--`之后的是传递给安装脚本的运行参数，而在`--`之前的参数，都将传递给`makeself`自己使用。因此，要运行安装程序，您不光要传递参数给`zillionare.sh`，还要按照正确的次序传递。
+      然后是分割符"--"。我们使用了[makeself](https://github.com/megastep/makeself)来进行打包。这是一个广泛使用的生成自解压shell程序的应用。根据`makeself`的要求，在`--`之后的是传递给安装脚本的运行参数，而在`--`之前的参数，都将传递给`makeself`自己使用。这个"--"一定不能省略。
 
-      最后，是`--jq_account`和`--jq_password`参数。注意到我们使用`-E`选项来调用安装脚本，因此，如果您当前的环境变量中已包含了`JQ_ACCOUNT`和`JQ_PASSWORD`变量，您可以直接拷贝上面的命令来运行，而无须进行修改。
+      然后是运行zillionare需要的参数。核心参数是`jq_account`和`jq_password`。
+
+??? Warning
+
+      如果您输入的安装命令格式不正确，可能产生高CPU的情况。常见的命令格式错误有：
+
+      1. 缺少用以分割的"--"。 注意命令行中，在--target与--jq_account之间多出来的`--`。这个一定不能省略。
+
+      2. 安装程序的参数与它们的取值之间，使用**空格**，而不是**等号**来连接。
+
 
 在安装过程中，您将从控制台看到构建docker镜像和容器的一些信息。如果一切正常，最终将输出以下信息：
 ```console
 Successfully built 96ac04414e07
 Successfully tagged zillionare/zillionare:1.0.0.a3
-WARNING: Image for service zillionare was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
 redis is up-to-date
 Creating postgres ... done
 Creating zillionare ... done
 ```
+
 ??? Tip
-      这里出现一个警告，您完全可以忽略这个警告。
+      在安装过程中，您的控制台可能出现以红色字体输出的日志信息。如果它们属于nbextension安装过程中的输出，则无需担心。这是nbextension的一个易用性问题。
+
+      nbextension的安装日志类似如下：
+      ```
+      [I 15:36:07 InstallContribNbextensionsApp] Up to date: /root/.local/share/jupyter/nbextensions/ruler/main.js
+      [I 15:36:07 InstallContribNbextensionsApp] Up to date: /root/.local/share/jupyter/nbextensions/ruler/ruler_editor.yaml
+      [I 15:36:07 InstallContribNbextensionsApp] - Validating: OK
+      ```
 
 在安装结束后，大富翁服务将自动启动。
 
@@ -138,7 +158,7 @@ jqadaptor |     3181   |  [48]
 
 随容器发布的除了大富翁应用外，还有一个Jupyter Notebook服务及相关教程。在您安装完成后，请打开浏览器，输入以下网址：
 
-`http://zillionare:8888/`
+`http://ip_of_your_docker_host:8888/`
 
 这里请将zillionare替换成您刚刚运行安装程序的那台机器的IP。页面打开后，会显示我们的量化交易教程。
 
@@ -190,6 +210,7 @@ INIT_BARS_MONTHS=24
 1. 没有提供聚宽账号，或者当日Quota不足
 2. 服务器端口冲突
 3. 在安装过程中遇到网络错误，导致镜像和容器生成失败
+4. 在安装Linux版本时，命令格式错误。这在前面特别提到过了。
 
 如果确实遇到了这些问题，请参考 ==[大富翁量化框架深度解析](404.md)== 中的 ==常见故障部分== 进行排查。
 
@@ -197,4 +218,4 @@ INIT_BARS_MONTHS=24
 
 现在，既然大富翁已经在正常运行了，您可能想立刻开始编写交易策略。
 
-但是在立即动手之前，也许您可以看看[大富翁量化交易教程](tutorial.md)
+但是在立即动手之前，也许您可以看看[大富翁量化交易教程](tutorial/preface.md)
