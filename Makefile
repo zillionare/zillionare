@@ -1,29 +1,110 @@
 update_config:=1
-clean:
-	@rm docs/assets/zillionare.sh 2>/dev/null ||:
-	@rm docs/assets/zillionare.tar.gz 2>/dev/null ||:
-	cd setup/docker; make clean
+export VERSION:=$(shell cat version)
+image_name:=zillionare:${VERSION}
 
-config:
-	cp version setup/docker/
-	cd setup/docker; make config
+requirements := setup/requirements.txt
+repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
+Headers_Accept := 'Accept: application/vnd.github.v3.raw'
+Headers_Auth := 'Authorization: token $(GH_TOKEN)'
+
+image_root := setup/docker/rootfs/
+
+omega_config_dir := ${image_root}/root/zillionare/omega/config
+postgres_init_dir := ${image_root}/../init/postgres
+
+tutorial_src := docs/tutorial/*
+tutorial_dst_dir := ${image_root}/tutorial/
+
+# build artifacts
+artifact_exe := docs/assets/zillionare.sh
+artifact_tar := $(shell pwd)/docs/assets/zillionare.tar.gz
+
+# from where to build artifact_tar?
+archive_src := ${image_root}/..
+
+# installation dir for dist test
+install_to := /usr/local/zillionare
+
+clean:
+	# artifacts
+	sudo rm ${artifact_exe} 2>/dev/null ||:
+	sudo rm ${artifact_tar} 2>/dev/null ||:
+
+	# clean image rootfs
+	sudo rm -f ${image_root}/*.whl
+	sudo rm -rf ${postgres_init_dir}/*
+	sudo rm -rf ${omega_config_dir}/*
+	sudo rm -rf ${tutorial_dst_dir}/* 2>/dev/null ||:
+
+	# remove docker related
+	# remove containers created if exists
+	sudo zillionare down 2 > /dev/null ||:
+	sudo docker rm -f zillionare 2 > /dev/null ||:
+	sudo docker rmi ${image_name} 2>/dev/null ||:
+	sudo docker image prune -f --filter dangling=true 2>/dev/null||:
+	
+config_release:
+	# get the tar ball from gh://zillionare/omega/release
+	curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(repo_omega_tar) -o /tmp/omega.src.${version}.tar.gz
+	# omega config
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${omega_config_dir} --wildcards "*/config/defaults.yaml" --strip-components=3
+	# postgres init scripts
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${postgres_init_dir} --wildcards "*/config/sql/*" --strip-components=4
+	# artifacts/deps
+	pip download -i https://pypi.org/simple --no-deps -r ${requirements} --no-cache --only-binary ":all:" -d ${image_root}
+
+	cp -r ${tutorial_src} ${tutorial_dst_dir}
+
+config_dev:
+	# omega config
+	sudo docker cp dev:/apps/omega/omega/config/defaults.yaml ${omega_config_dir}
+	sudo chmod -R 777 ${omega_config_dir}
+	# postgres init scripts
+	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/omega/config/sql/*"); do sudo docker cp dev:$$f ${postgres_init_dir};done
+	# omega build artifact
+	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/dist/*.whl"); do sudo docker cp dev:$$f ${image_root};done
+	# copy deps
+	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/tests/packages/*.whl"); do sudo docker cp dev:$$f ${image_root};done
+
+	# use latest jq-adaptors, Be aware that sometimes we should use local jq-adaptor build
+	pip download -i https://pypi.org/simple --no-deps zillionare-omega-adaptors-jq==0.3.6 --no-cache --only-binary ":all:" -d ${image_root}
+
+	# tutorials
+	cp -r ${tutorial_src} ${tutorial_dst_dir}
 
 ifeq (${update_config}, 1)
-release: clean config
+release: clean config_release build
+dev: clean config_dev build
+else
+release: build
+dev: build
 endif
 
-release:
-	export VERSION=`cat version`;cd setup/docker; make release
+build:
+	cd ${image_root}/..; sudo -E docker-compose build --force-rm
+	sudo docker rmi ${image_name}
 
-# for develop build, use prepare-dev.sh to copy files
-# files included defaults.yaml and *.whl listed in requirements.txt (without version)
-dev: clean config
-	cp -r tutorial setup/docker/rootfs/
-	cd setup/docker; make dev
+# set local variables for test target
+test: tmp_artifact=/tmp/zillionare_${VERSION}.sh
+test: tmp_installation_dir=/tmp/zillionare
+
+test: dev
+	export tmp_artifact=/tmp/zillionare_${VERSION}.sh
+	export tmp_installation_dir=/tmp/zillionare_${VERSION}
+
+	makeself --current --tar-quietly ${archive_src} ${tmp_artifact} "zillionare_${VERSION}" ./setup.sh
+	chmod +x ${tmp_artifact}
+	sudo -E ${tmp_artifact} --target ${tmp_installation_dir} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
+	sudo zillionare log
 
 dist: release
-	# build installation script and publish it to www.jieyu.ai
-	# currently `publish` just put it into docs/assets folder, then refer it in a
-	# md file manually
-	export VERSION=`cat version`;cd setup; make dist
-	chmod +x docs/assets/zillionare.sh
+	makeself --current --tar-quietly ${archive_src} ${artifact_exe} "zillionare_${VERSION}" ./setup.sh
+	cd setup/docker \
+	&& tar -zvcf ${artifact_tar} . \
+	&& cd -
+	chmod +x ${artifact_exe}
+	sudo -E ${artifact_exe} --target ${install_to} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
+
+publish:
+	echo "Make sure your run make dist and check result first"
+	mkdocs gh-deploy
