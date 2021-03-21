@@ -22,7 +22,7 @@ function help() {
         --init_bars_months: 初始化导入的K线数据月数，默认13个月
 
     示例：
-        ./zillionare.sh --jq_account=18688888888 --jq_password=my_secret
+        sudo ./setup.sh --jq_account 18688888888 --jq_password my_secret
 EOF
 }
 
