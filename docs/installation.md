@@ -154,13 +154,15 @@ jqadaptor |     3181   |  [48]
 | 获取状态    | sudo zillionare status  | docker-compose status     | 需要在安装目录下运行 |
 | 获取日志    | sudo zillionare log     | docker logs -f zillionare |            |
 
-## 检查策略服务器工作状态
+## 检查Notebook工作状态
 
 随容器发布的除了大富翁应用外，还有一个Jupyter Notebook服务及相关教程。在您安装完成后，请打开浏览器，输入以下网址：
 
 `http://ip_of_your_docker_host:8888/`
 
 这里请将zillionare替换成您刚刚运行安装程序的那台机器的IP。页面打开后，会显示我们的量化交易教程。
+
+![](http://images.jieyu.ai/images/202103/20210321104648.png){: style="width:300px"}
 
 # 如何定制您的安装
 
@@ -216,6 +218,6 @@ INIT_BARS_MONTHS=24
 
 # 下一步
 
-现在，既然大富翁已经在正常运行了，您可能想立刻开始编写交易策略。
+现在，大富翁已经在正常运行了。我们为您准备了[大富翁量化交易教程](tutorial/preface)，通过这个教程，您能了解到如何使用大富翁来获取数据，以及提取量化因子，构建基于机器学习（深度学习）的交易策略。
 
-但是在立即动手之前，也许您可以看看[大富翁量化交易教程](tutorial/preface.md)
+这部教程是使用Jupyter Notebook来写的。在您刚刚安装好的大富翁里，已经内置了这部教程（请参见[](#检查Notebook工作状态)。您也可以打开Notebook的页面来阅读，并运行里面的代码片段，这样上手可能会更快一些。
