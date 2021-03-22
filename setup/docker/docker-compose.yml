@@ -11,9 +11,9 @@ services:
       - postgres
       - redis
     ports:
-      - "3181:3181"
-      - "3180:3180"
-      - "8888:8888"
+      - "3181"
+      - "3180"
+      - "${NOTEBOOK_PORT:-8888}:8888"
     
     working_dir: /apps
     environment:
@@ -35,14 +35,14 @@ services:
     image: redis:5.0.10-alpine
     container_name: redis
     restart: always
-    expose: 
+    ports: 
       - 6379
     command: sh -c 'redis-server --appendonly yes'
   postgres:
     image: postgres:10
     container_name: postgres
     restart: always
-    expose: 
+    ports: 
       - 5432
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-zillionare}
