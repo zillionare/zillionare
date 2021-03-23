@@ -154,7 +154,41 @@ jqadaptor |     3181   |  [48]
 | 获取状态    | sudo zillionare status  | docker-compose status     | 需要在安装目录下运行 |
 | 获取日志    | sudo zillionare log     | docker logs -f zillionare |            |
 
-## 检查Notebook工作状态
+## 检查服务状态
+
+在安装中，我们一共创建了5个服务，一般来说，有三个您需要关注一下它们的状态，即Quotes fetcher服务， jobs服务和Notebook服务。另外两个， redis和postgres都是从官方镜像创建的，一般情况下并不会出现问题。
+
+### 服务端口
+在host机器上运行一下命令，以查看各种服务的监听端口：
+```
+sudo docker ps -a
+```
+下面是输出示例：
+```console
+Names        PORTS
+zillionare   0.0.0.0:32771->3180/tcp, 0.0.0.0:32770->3181/tcp, 0.0.0.0:8888->8888/tcp
+```
+为了输出美观，这里省略了一些列，并重排了次序。
+
+这里可以看到有三个映射的端口，32771映射到了3180，这个是jobs进程的监听端口；32770映射到了3181，这个是Quotes Fetcher的监听端口；8888映射到了8888端口，这个是Jupyter notebook的监听端口。
+
+### Quotes Fetcher服务
+Zillionare架构在微服务之上，因此行情数据获取（Quotes fetcher)也是一个服务。可以通过以下命令来查看其状态：
+
+```
+curl -L ip_of_your_docker_host:32771/sys/version
+```
+或者在浏览器中打开上面的地址。您应该看到一个纯文本的版本信息。注意您要根据[](#服务端口)中的结果来调整这里的端口。
+
+### Jobs服务
+
+Zillionare使用jobs来管理各种任务，jobs本身也是一个服务。您可以通过以下命令来查看其状态：
+```
+curl -L ip_of_your_docker_host:32770/jobs/status
+```
+或者在浏览器上打开上面的地址。如果没有任何错误信息，则说明一切工作正常。注意您要根据[](#服务端口)中的结果来调整这里的端口。
+
+### Notebook 服务
 
 随容器发布的除了大富翁应用外，还有一个Jupyter Notebook服务及相关教程。在您安装完成后，请打开浏览器，输入以下网址：
 
@@ -200,6 +234,7 @@ INIT_BARS_MONTHS=24
 | POSTGRES_PORT     | 数据库服务器监听端口           | 5432       |                                              |
 | REDIS_HOST        | redis服务器             | redis      | 允许您使用现有的redis服务器                             |
 | REDIS_PORT        | redis服务器监听端口         | 6379       |                                              |
+| NOTEBOOK_PORT     | Jupyter Notebook监听端口 | 8888 | 允许您自定义notebook的端口，以便在端口冲突时使用 |
 
 ??? Info
       一般情况下，您不需要配置数据库服务器和Redis缓存服务器。大富翁提供上述定制参数的主要目的有二，一是避免服务器端口冲突；二是如果您确实已经部署了这两种服务器，希望能够复用。
@@ -210,7 +245,7 @@ INIT_BARS_MONTHS=24
 由于使用了Docker容器来进行部署，一般来说不太容易出现错误。但也可能因为以下原因导致安装或者运行失败：
 
 1. 没有提供聚宽账号，或者当日Quota不足
-2. 服务器端口冲突
+2. Notebook端口冲突，请增加环境变量NOTEBOOK_PORT，设置为其它值
 3. 在安装过程中遇到网络错误，导致镜像和容器生成失败
 4. 在安装Linux版本时，命令格式错误。这在前面特别提到过了。
 
@@ -218,6 +253,6 @@ INIT_BARS_MONTHS=24
 
 # 下一步
 
-现在，大富翁已经在正常运行了。我们为您准备了[大富翁量化交易教程](tutorial/preface)，通过这个教程，您能了解到如何使用大富翁来获取数据，以及提取量化因子，构建基于机器学习（深度学习）的交易策略。
+现在，大富翁已经在正常运行了。我们为您准备了[大富翁量化交易教程](tutorial/preface.ipynb)，通过这个教程，您能了解到如何使用大富翁来获取数据，以及提取量化因子，构建基于机器学习（深度学习）的交易策略。
 
 这部教程是使用Jupyter Notebook来写的。在您刚刚安装好的大富翁里，已经内置了这部教程（请参见[](#检查Notebook工作状态)。您也可以打开Notebook的页面来阅读，并运行里面的代码片段，这样上手可能会更快一些。

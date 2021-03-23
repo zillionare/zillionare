@@ -10,6 +10,6 @@
 5. omega download在某些网络环境下超时严重
    禁止ipv6以后，速度达到了1.35MB/s。
    ```
-   sysctl -w net.ipv6.conf.default.disable_ipv6=1
+   sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
    ```
