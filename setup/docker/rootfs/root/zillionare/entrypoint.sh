@@ -13,4 +13,4 @@ else
     touch ~/.ARCHIVED
 fi
 nohup jupyter notebook  --ip='*' --NotebookApp.token='' --NotebookApp.password='' --port 8888 --allow-root --notebook-dir='/tutorial' &
-python3 -m omega.jobs.main start
+python3 -m omega.jobs start
