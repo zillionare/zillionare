@@ -12,8 +12,8 @@ image_root := setup/docker/rootfs/
 omega_config_dir := ${image_root}/root/zillionare/omega/config
 postgres_init_dir := ${image_root}/../init/postgres
 
-tutorial_src := docs/tutorial/*
-tutorial_dst_dir := ${image_root}/tutorial/
+tutorial_src := ${shell pwd}/docs/tutorial/
+tutorial_dst := ${shell pwd}/docs/assets/tutorial.tar.gz
 
 # build artifacts
 artifact_exe := docs/assets/zillionare.sh
@@ -53,8 +53,6 @@ config_release:
 	# artifacts/deps
 	pip download -i https://pypi.org/simple --no-deps -r ${requirements} --no-cache --only-binary ":all:" -d ${image_root}
 
-	cp -r ${tutorial_src} ${tutorial_dst_dir}
-
 config_dev:
 	# omega config
 	sudo docker cp dev:/apps/omega/omega/config/defaults.yaml ${omega_config_dir}
@@ -68,9 +66,6 @@ config_dev:
 
 	# use latest jq-adaptors, Be aware that sometimes we should use local jq-adaptor build
 	pip download -i https://pypi.org/simple --no-deps zillionare-omega-adaptors-jq==0.3.6 --no-cache --only-binary ":all:" -d ${image_root}
-
-	# tutorials
-	cp -r ${tutorial_src} ${tutorial_dst_dir}
 
 ifeq (${update_config}, 1)
 release: clean config_release build
@@ -104,6 +99,9 @@ dist: release
 	&& cd -
 	chmod +x ${artifact_exe}
 	sudo -E ${artifact_exe} --target ${install_to} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
+	cd ${tutorial_src} \
+	&& tar -zvcf ${tutorial_dst} ./* \
+	&& cd -
 
 publish:
 	echo "Make sure your run make dist and check result first"

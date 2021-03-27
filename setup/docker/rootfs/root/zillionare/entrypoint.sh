@@ -12,5 +12,8 @@ else
     omega download $INIT_BARS_MONTHS
     touch ~/.ARCHIVED
 fi
+
+mkdir /tutorial ||:
+wget -c http://www.jieyu.ai/assets/tutorial.tar.gz && tar -xzf tutorial.tar.gz -C tutorial/
 nohup jupyter notebook  --ip='*' --NotebookApp.token='' --NotebookApp.password='' --port 8888 --allow-root --notebook-dir='/tutorial' &
 python3 -m omega.jobs start
