@@ -13,3 +13,5 @@
    sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
    ```
+
+6. 对K线应该设置过期缓存
