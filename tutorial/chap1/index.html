@@ -69,6 +69,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#证券列表板块和k线数据" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -376,9 +381,36 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第1章：证券列表、日历和板块
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         第1章：证券列表、日历和板块
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#证券列表板块和k线数据" class="md-nav__link">
+    证券列表、板块和K线数据
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -508,6 +540,35 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#证券列表板块和k线数据" class="md-nav__link">
+    证券列表、板块和K线数据
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -550,7 +611,15 @@
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="证券列表板块和k线数据">证券列表、板块和K线数据<a class="headerlink" href="#证券列表板块和k线数据" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>欢迎来到大富翁量化教程第一章。在这一章里，我们将学习如何获取市场证券列表，如何获取某一支证券的K线数据，以及获取概念板块。</p>
+<p>我们选择从这些功能开始这部教程是有原因的。如果你想要制定一个覆盖全市场的交易策略，你就需要知道如何获取所有的证券列表，并且一一获取它们的k线数据，进行运算，并发出交易信号。此外，如果你觉得最近有值得关注的概念板块，你也可能只想关注这些概念板块里的证券品种。</p>
 </div>
 </div>
 </div>
@@ -586,7 +655,7 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>首先，这段代码引入了omicron这个核心库。Omicron主要负责数据的持久化、读数据，以及基础量化因子的计算。同时，还提供了大富翁中的一些核心类型的定义，比如帧类型(FrameType)，时间帧的相关计算(timeframe)等等。</p>
 <p>这里还出现了<a href="https://pypi.org/project/cfg4py/">cfg4py</a>。Cfg4Py是一个非常好用的配置管理工具，提供了配置热更新、代码提示和自动完成、环境变量替换、多部署环境自适应、层级式配置管理(cascading)、配置模版等功能。</p>
-<p>Zillionare使用了Cfg4Py来管理配置。上面的第6行中，我们先对配置模块进行初始化。这让Omicron可以知道数据库和缓存的连接信息。关于这部分是如何工作的，请参见<a href="404.md">TODO://diveintozillionare/configure</a>。如果您是使用我们提供的docker运行环境，那么一切配置使用随发行时附带的配置就好，这里只需要知道要使用Omicron，必须先进行配置初始化就可以了。</p>
+<p>Zillionare使用了Cfg4Py来管理配置。上面的第6行中，我们先对配置模块进行初始化。这让Omicron可以知道数据库和缓存的连接信息。关于这部分是如何工作的，请参见<a href="404.md">TODO://diveintozillionare/configure</a>。如果您是使用我们提供的docker运行环境，那么您完全不用在意这些配置信息。只需要知道要使用Omicron，必须先进行配置初始化就可以了。</p>
 </div>
 </div>
 </div>
@@ -612,82 +681,60 @@
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="scoped">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+<code>2021-03-25 22:38:12,024 E 13911 omicron.client.quotes_fetcher:_quotes_server_get:29 | Cannot connect to host localhost:3181 ssl:default [Connect call failed (&#39;::1&#39;, 3181, 0, 0)]
+Traceback (most recent call last):
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/connector.py&#34;, line 969, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs)  # type: ignore  # noqa
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/asyncio/base_events.py&#34;, line 1025, in create_connection
+    raise exceptions[0]
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/asyncio/base_events.py&#34;, line 1010, in create_connection
+    sock = await self._connect_sock(
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/asyncio/base_events.py&#34;, line 924, in _connect_sock
+    await self.sock_connect(sock, address)
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/asyncio/selector_events.py&#34;, line 496, in sock_connect
+    return await fut
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/asyncio/selector_events.py&#34;, line 528, in _sock_connect_cb
+    raise OSError(err, f&#39;Connect call failed {address}&#39;)
+TimeoutError: [Errno 110] Connect call failed (&#39;::1&#39;, 3181, 0, 0)
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+The above exception was the direct cause of the following exception:
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-    </tr>
-  </thead>
-<tbody>
-    <tr>
-      <th>0</th>
-      <td>000001.XSHE</td>
-      <td>平安银行</td>
-      <td>PAYH</td>
-      <td>1991-04-03</td>
-      <td>2200-01-01</td>
-      <td>stock</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>000001.XSHG</td>
-      <td>上证指数</td>
-      <td>SZZS</td>
-      <td>1991-07-15</td>
-      <td>2200-01-01</td>
-      <td>index</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>000002.XSHE</td>
-      <td>万科A</td>
-      <td>WKA</td>
-      <td>1991-01-29</td>
-      <td>2200-01-01</td>
-      <td>stock</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>000002.XSHG</td>
-      <td>A股指数</td>
-      <td>AGZS</td>
-      <td>1992-02-21</td>
-      <td>2200-01-01</td>
-      <td>index</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>000003.XSHG</td>
-      <td>B股指数</td>
-      <td>BGZS</td>
-      <td>1992-02-21</td>
-      <td>2200-01-01</td>
-      <td>index</td>
-    </tr>
-  </tbody>
-</table>
+Traceback (most recent call last):
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/omicron/client/quotes_fetcher.py&#34;, line 24, in _quotes_server_get
+    async with client.get(url, json=params) as resp:
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/client.py&#34;, line 1117, in __aenter__
+    self._resp = await self._coro
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/client.py&#34;, line 520, in _request
+    conn = await self._connector.connect(
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/connector.py&#34;, line 535, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/connector.py&#34;, line 892, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/connector.py&#34;, line 1051, in _create_direct_connection
+    raise last_exc
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/connector.py&#34;, line 1020, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+  File &#34;/home/userroot/miniconda3/envs/zillionare/lib/python3.8/site-packages/aiohttp/connector.py&#34;, line 975, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host localhost:3181 ssl:default [Connect call failed (&#39;::1&#39;, 3181, 0, 0)]
+2021-03-25 22:38:12,076 W 13911 omicron.client.quotes_fetcher:_quotes_server_get:30 | failed to fetch security_list with args: None
+</code>
+</pre>
 </div>
+</div>
+<div class="output_area">
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-13-853e1c48d216&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">import</span> pandas <span class="ansi-green-fg">as</span> pd
+<span class="ansi-green-intense-fg ansi-bold">      2</span> secs <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">await</span> omicron<span class="ansi-blue-fg">.</span>models<span class="ansi-blue-fg">.</span>securities<span class="ansi-blue-fg">.</span>get_security_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>pd<span class="ansi-blue-fg">.</span>DataFrame<span class="ansi-blue-fg">(</span>data<span class="ansi-blue-fg">=</span>secs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;NoneType&#39; object is not subscriptable</pre>
 </div>
 </div>
 </div>
@@ -697,9 +744,9 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>返回值包括证券代码（如000001.XSHG）,证券名称（如平安银行，上证指数等），证券简码(如PAYX)，该证券的上市交易日，终止上市时间，以及证券类型。</p>
-<p>最后一栏是证券类型。大富翁支持的证券类型主要有股票(stock)，指数(index),对于ETF基金(etf),此外还有分级(fja,fjb,fjm），场内交易货币基金和其它基金，由于目前只接入了聚宽一家数据源，聚宽是支持这些类型的，所以目前大富翁也因此支持这些类型定义。不过，这部分定义未来可能会有所更改。但是，对于<code>stock</code>和<code>index</code>的定义，会一直保持不变。</p>
+<p>最后一栏是证券类型。大富翁支持的证券类型主要有股票(stock)，指数(index),对于ETF基金(etf),此外还有分级(fja,fjb,fjm），场内交易货币基金和其它基金。目前大富翁只接入了聚宽一家数据源，聚宽是支持这些类型的，所以大富翁当下也因此支持这些类型定义。不过，这部分定义未来可能会有所更改。但是，对于<code>stock</code>和<code>index</code>的定义，会一直保持不变。</p>
 <p>这里提示一下关于上市交易日和终止上市时间的使用。在做短线交易时，我们并不需要获取那些已退市证券的数据，这时就要使用终止上市时间来进行过滤。有时候为了获取足够长的数据来进行演算，我们也需要使用上市交易日来过滤掉一些刚上市不久、数据还不够充分的数据。</p>
-<p>证券代码在不同的行情软件中，表示方法并不一致。上交所和深交所原始数据中，并没有上述代码中的".XSHG"这样的后缀，因此，000001在不同的市场上可能都存在，只是定义不同。比如000001在上交所这边代表上证指数，而在深交所则代表平安银行。如果你拿到的是这样的数据，则需要先进行转码处理。在大富翁的数据中，后缀是证券交易所的代码。这样处理是比较恰当的。每个证交所都会保证自己的编码系统的惟一性。</p>
+<p>证券代码在不同的行情软件中，表示方法并不一致。上交所和深交所原始数据中，并没有上述代码中的".XSHG"这样的后缀，因此，000001这样的代码在不同的市场上可能都存在，只是含义不同。比如000001在上交所这边代表上证指数，而在深交所则代表平安银行。如果你拿到的是这样的数据，则需要先进行转码处理。在大富翁的数据中，我们使用了带交易所编号的全码，这样处理是比较恰当的。每个证交所都会保证自己的编码系统的惟一性，因此这个全码就惟一标识了一支证券品种。</p>
 <p>上面的代码中引入了pandas这个库。这里并不是必须的，我们在这里引用它，只是因为通过它可以使得输出更整洁美观一点。<code>omicron.models.securities.get_security_list()</code>返回的数据类型是numpy数组。在zillionare中，更广泛使用的数据结构是numpy的structured array，与dataframe相比，它在易用性、性能和内存占用上，都更加有优势。当然，这个对比仅限于行情数据处理这个场景。在其它场景下，也可能dataframe更有优势。</p>
 </div>
 </div>
@@ -724,17 +771,6 @@
 </code></pre></div>
 </td></tr></table>
 
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="output_text output_subarea output_execute_result">
-<pre>
-<code>[&#39;000001.XSHG&#39;, &#39;000002.XSHG&#39;, &#39;000003.XSHG&#39;]</code>
-</pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
@@ -787,22 +823,16 @@
 </td></tr></table>
 
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="output_text output_subarea output_execute_result">
-<pre>
-<code>3940</code>
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>接下来，让我们看看行情数据：</p>
+<p>Security类包含了证券的最基本的信息，比如代码、名字、上市日期等。</p>
+<p>但每支证券（股票）还会有自己的行业属性、地域属性（总部或者注册地），此外还有概念（题材）等属性。除此之外，象通达信软件，还会给每支股票打上风格属性，比如"新股"、"近期强势"、"超跌"等。</p>
+<p>在A股，市场炒作气氛浓郁时，会发生炒地图（比如自贸区、成渝规划）、炒概念（比如2020年的免税、地摊）、炒行业（2020年下半年的光伏既是概念、也是行业。光伏景气是一个行业全产业链的景气）。对短线炒题材的选手来说，如何蹭到具有多个概念的股票，是很重要的选股策略。</p>
+<p>大富翁在1.0中并未提供这些概念分类，因为我们的目标是为量化交易提供高性能的计算平台，而不是简单重复其它工具都有的功能。但是，由于大富翁集成了jqdatasdk,jqdatasdk的这些功能，对您来说也是完全开箱即用的。</p>
+<p>这里我们以如何找出同时具有多个概念的个股为例，来讲解聚宽相关的API。</p>
+<p>假设我们要获取具有"智能电网"、"物联网”概念属性的深圳本地股：</p>
 </div>
 </div>
 </div>
@@ -813,8 +843,296 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 获取地域。这里要使用finance中的查询</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">jqdatasdk</span> <span class="k">as</span> <span class="nn">jq</span>
 
+<span class="n">account</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;JQ_ACCOUNT&#39;</span><span class="p">]</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;JQ_PASSWORD&#39;</span><span class="p">]</span>
+<span class="n">jq</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>提示：当前环境 pandas 版本高于 0.25，get_price 与 get_fundamentals_continuously 接口 panel 参数将固定为 False
+注意：0.25 以上版本 pandas 不支持 panel，如使用该数据结构和相关函数请注意修改
+auth success 
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>首先我们要引入jqdatasdk并且登录进去。我们这里使用的方法是，通过环境变量设置您的聚宽账号和密码，然后通过<code>os.environ</code>来获取它们。这是一种出于安全考虑的技巧：即使您分享了您的策略，也不会意外泄露您的账号和密码。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">jqdatasdk</span> <span class="kn">import</span> <span class="n">finance</span>
+<span class="kn">from</span> <span class="nn">jqdatasdk</span> <span class="kn">import</span> <span class="n">query</span>
+
+<span class="c1"># 通过jqdatasdk获取证券列表</span>
+<span class="n">securities</span> <span class="o">=</span> <span class="n">jq</span><span class="o">.</span><span class="n">get_all_securities</span><span class="p">()</span>
+<span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;000001.XSHE&#39;</span>
+<span class="n">rec</span> <span class="o">=</span> <span class="n">finance</span><span class="o">.</span><span class="n">run_query</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="n">finance</span><span class="o">.</span><span class="n">STK_COMPANY_INFO</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">finance</span><span class="o">.</span><span class="n">STK_COMPANY_INFO</span><span class="o">.</span><span class="n">code</span><span class="o">==</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">#我们使用下面的函数，将前面获得的securities对象加上两列，即province和city</span>
+<span class="k">def</span> <span class="nf">add_region_info</span><span class="p">(</span><span class="n">securities</span><span class="p">):</span>
+    <span class="n">company_infos</span> <span class="o">=</span> <span class="n">finance</span><span class="o">.</span><span class="n">run_query</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="n">finance</span><span class="o">.</span><span class="n">STK_COMPANY_INFO</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">securities</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">company_infos</span><span class="p">[</span><span class="n">company_infos</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">code</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;province&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">add_region_info</span><span class="p">(</span><span class="n">securities</span><span class="p">)</span>
+<span class="n">securities</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+</td></tr></table>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="scoped">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>display_name</th>
+      <th>name</th>
+      <th>start_date</th>
+      <th>end_date</th>
+      <th>type</th>
+      <th>province</th>
+      <th>city</th>
+    </tr>
+  </thead>
+<tbody>
+    <tr>
+      <th>000001.XSHE</th>
+      <td>平安银行</td>
+      <td>PAYH</td>
+      <td>1991-04-03</td>
+      <td>2200-01-01</td>
+      <td>stock</td>
+      <td>广东</td>
+      <td>深圳市</td>
+    </tr>
+    <tr>
+      <th>000002.XSHE</th>
+      <td>万科A</td>
+      <td>WKA</td>
+      <td>1991-01-29</td>
+      <td>2200-01-01</td>
+      <td>stock</td>
+      <td>广东</td>
+      <td>深圳市</td>
+    </tr>
+    <tr>
+      <th>000004.XSHE</th>
+      <td>国华网安</td>
+      <td>GHWA</td>
+      <td>1990-12-01</td>
+      <td>2200-01-01</td>
+      <td>stock</td>
+      <td>广东</td>
+      <td>深圳市</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>可以看到，与前面的输出信息相比，这里的输出多了公司所在地省市的信息。下面我们看看如何获取概念板块：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 获取概念板块</span>
+<span class="n">concepts</span> <span class="o">=</span> <span class="n">jq</span><span class="o">.</span><span class="n">get_concepts</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">query_stock_by_concept</span><span class="p">(</span><span class="n">query_concepts</span><span class="p">,</span> <span class="n">province</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">stocks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">query_concepts</span><span class="p">:</span>
+        <span class="n">concept</span> <span class="o">=</span> <span class="n">concepts</span><span class="p">[</span><span class="n">concepts</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">concept</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">concept</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">members</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">jq</span><span class="o">.</span><span class="n">get_concept_stocks</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">stocks</span> <span class="o">=</span> <span class="n">members</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stocks</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">stocks</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">province</span> <span class="ow">and</span> <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">province</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">city</span> <span class="ow">and</span> <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">city</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="c1">#jq.get_concept_stocks(&#39;GN001&#39;)</span>
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">query_stock_by_concept</span><span class="p">([</span><span class="s1">&#39;智能电网&#39;</span><span class="p">,</span><span class="s1">&#39;物联网&#39;</span><span class="p">],</span><span class="s1">&#39;广东&#39;</span><span class="p">,</span><span class="s1">&#39;深圳市&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>[&#39;300044.XSHE&#39;, &#39;300514.XSHE&#39;]
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>经过查询，我们得到两只股票，300044.XSHE和300514.XSHE。如果我们通过这两个代码来构造Security对象，就可以得到它们的名字：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">Security</span><span class="p">(</span><span class="s1">&#39;300044.XSHE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">display_name</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>赛为智能
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>好了！受相关限制，一些知名的大V是不会在头条或者微博里晒他们选的股的，但会提示相关概念。现在，你是不是能跟上他们的步子了呢？</p>
+<p>接下来，让我们看看如何获取行情数据：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="n">sec</span> <span class="o">=</span> <span class="n">Security</span><span class="p">(</span><span class="s2">&quot;000001.XSHE&quot;</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 <span class="k">await</span> <span class="n">sec</span><span class="o">.</span><span class="n">load_bars</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">FrameType</span><span class="o">.</span><span class="n">DAY</span><span class="p">)</span>
@@ -864,11 +1182,11 @@
 <div class="output_area">
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>
-<code>2021-03-22 18:05:21,262 I 43778 gino.engine._SAEngine:_execute_context:1234 | SELECT valuation.frame, valuation.circulating_cap 
+<code>2021-03-25 23:01:19,505 I 13911 gino.engine._SAEngine:_execute_context:1234 | SELECT valuation.frame, valuation.circulating_cap 
 FROM valuation 
 WHERE valuation.code IN ($1) AND valuation.frame &lt;= $2 ORDER BY valuation.frame DESC 
  LIMIT $3
-2021-03-22 18:05:21,265 I 43778 gino.engine._SAEngine:_execute_context:1236 | (&#39;000001.XSHE&#39;, datetime.date(2020, 12, 11), 9)
+2021-03-25 23:01:19,507 I 13911 gino.engine._SAEngine:_execute_context:1236 | (&#39;000001.XSHE&#39;, datetime.date(2020, 12, 11), 9)
 </code>
 </pre>
 </div>
@@ -895,8 +1213,81 @@ WHERE valuation.code IN ($1) AND valuation.frame &lt;= $2 ORDER BY valuation.fra
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>在上面的API中，我们定义了行情数据的起始和结束区间。但是，在量化交易中，我们常常需要知道某个区间包含多少条数据记录。比如，当我们要计算2020年12月5日这一天，某支股票的季线、月线和10日线时，更方便的使用方法是指定结束日期，和要获取的记录条数。至于这段时间的起点是哪一天，我们并不特别关心。</p>
-<p>由于存在节假日休市的情况，在上述场景下，要正确地计算出起始日期就更困难了。因此，Omicron提供了一个<code>timeframe</code>模块，来帮助做时间帧方面的计算。</p>
+<p>现在，让我们用get_bars来做一点实际的工作。我们来画一条平吉林森工今天（2020年10月13日）的分时线。</p>
+<p>注意分时线的均线有两种算法。我们对个股是用截止当前的成交额（使用numpy的cumsum函数），除以截止当前的成交量来求得的。它对波动起到有效地平滑作用，而且成交量越小的价格，在最终均价中占的权重也越小，从而滤掉了做骗线的杂波。对于指数，上述方法似乎不对，可能跟指数编制方法有关，所以这里使用的是截止当前时刻的指数平均。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">arrow</span> <span class="c1"># arrow是一个时间处理库</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">arrow</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;2020-10-13 15:00:00&#39;</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="s1">&#39;Asia/Shanghai&#39;</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="o">-</span><span class="mi">240</span><span class="p">,</span> <span class="n">FrameType</span><span class="o">.</span><span class="n">MIN1</span><span class="p">)</span>
+
+<span class="n">bars_jlsg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Security</span><span class="p">(</span><span class="s1">&#39;600189.XSHG&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_bars</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">FrameType</span><span class="o">.</span><span class="n">MIN1</span><span class="p">)</span>
+<span class="n">bars_sh</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Security</span><span class="p">(</span><span class="s1">&#39;000001.XSHG&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load_bars</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">FrameType</span><span class="o">.</span><span class="n">MIN1</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1"># matplotlib是常用的绘图库</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># 大盘走势,为便于比较，使用了涨跌幅</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars_sh</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars_sh</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">bars_sh</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># 吉林森工的股价变化</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># 吉林森工的均价线</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;volume&#39;</span><span class="p">]))</span><span class="o">/</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+</td></tr></table>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_text output_subarea output_execute_result">
+<pre>
+<code>[&lt;matplotlib.lines.Line2D at 0x7f1ab1101a90&gt;]</code>
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>上图中，黄色的线是个股的收盘分时线，绿色线是其均价线，蓝色线是大盘均价线。</p>
+<p>从图中可以看出，一开盘在大盘下探时，吉林森工股价就快速上涨，此后随大盘微跌，但均价线支撑有力。在午后确认大盘企稳后，主力快速拉升到涨停。</p>
+<p>这就是教程的第一个策略：通过分时线与大盘走势对比，来确定个股的强弱。是否有效，还请大家验证。要完全量化这一策略，还需要检测波峰波谷，然后进行个股与大盘的对比。</p>
 </div>
 </div>
 </div>
@@ -932,6 +1323,14 @@ WHERE valuation.code IN ($1) AND valuation.frame &lt;= $2 ORDER BY valuation.fra
 </pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>在上面的API中，我们定义了行情数据的起始和结束区间。但是，在量化交易中，我们常常需要知道某个区间包含多少条数据记录。比如，当我们要计算2020年12月5日这一天，某支股票的季线、月线和10日线时，更方便的使用方法是指定结束日期，和要获取的记录条数。至于这段时间的起点是哪一天，我们并不特别关心。</p>
+<p>由于存在节假日休市的情况，在上述场景下，要正确地计算出起始日期就更困难了。因此，Omicron提供了一个<code>timeframe</code>模块，来帮助做时间帧方面的计算。</p>
 </div>
 </div>
 </div>
@@ -1106,180 +1505,10 @@ WHERE valuation.code IN ($1) AND valuation.frame &lt;= $2 ORDER BY valuation.fra
 
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>现在，让我们用get_bars来做一点实际的工作。我们来画一条平吉林森工今天（2020年10月13日）的分时线。
-注意分时线的均线有两种算法。我们对个股是用截止当前的成交额（使用numpy的cumsum函数），除以截止当前的成交量来求得的。它对波动起到有效地平滑作用，而且成交量越小的价格，在最终均价中占的权重也越小，从而滤掉了做骗线的杂波。对于指数，上述方法似乎不对，可能跟指数编制方法有关，所以这里使用的是截止当前时刻的指数平均。</p>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="s1">&#39;high&#39;</span><span class="p">,</span><span class="s1">&#39;low&#39;</span><span class="p">,</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="s1">&#39;volume&#39;</span><span class="p">,</span> <span class="s1">&#39;money&#39;</span><span class="p">]</span>
-<span class="n">bars</span> <span class="o">=</span> <span class="n">jq</span><span class="o">.</span><span class="n">get_bars</span><span class="p">(</span><span class="s1">&#39;600189.XSHG&#39;</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="s1">&#39;1m&#39;</span><span class="p">,</span> <span class="n">end_dt</span><span class="o">=</span><span class="s1">&#39;2020-10-13 15:00:00&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span><span class="n">df</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">bars_sh</span> <span class="o">=</span> <span class="n">jq</span><span class="o">.</span><span class="n">get_bars</span><span class="p">(</span><span class="s1">&#39;000001.XSHG&#39;</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="s1">&#39;1m&#39;</span><span class="p">,</span> <span class="n">end_dt</span><span class="o">=</span><span class="s1">&#39;2020-10-13 15:00:00&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span><span class="n">df</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</code></pre></div>
-</td></tr></table>
-
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 大盘走势,为便于比较，使用了涨跌幅</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars_sh</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars_sh</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">bars_sh</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="c1"># 吉林森工的股价变化</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="c1"># 吉林森工的均价线</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;volume&#39;</span><span class="p">]))</span><span class="o">/</span><span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-</code></pre></div>
-</td></tr></table>
-
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>上图中，黄色的线是个股的收盘分时线，绿色线是其均价线，蓝色线是大盘均价线。从图中可以看出，一开盘在大盘下探时，吉林森工股价就快速上涨，此后随大盘微跌，但均价线支撑有力。在午后确认大盘企稳后，主力快速拉升到涨停。这就是教程的第一个策略：通过分时线与大盘走势对比，来确定个股的强弱。是否有效，还请大家验证。</p>
-<p>下面，我们快速过一些其它跟行情数据相关API。</p>
-<ul>
-<li>get_price(security, start_date=None, end_date=None, frequency='daily')
-这个API的作用与get_bars类似，但允许传入开始和结束时间。在最新的版本里，这个函数的功能似乎比get_bars要强一些，比如可以取到涨停价和跌停价。</li>
-<li>get_call_auction 取集合竞价数据
-获得的集合竞价是早间的集合竞价值，最晚于09:28分前返回。</li>
-</ul>
-<p>下面介绍jq的非行情相关API。</p>
-<p>每支证券（股票）都有自己的行业属性、地域属性（总部或者注册地），此外还有概念（题材）属性。除此之外，象通达信软件，还会给每支股票打上风格属性，比如"新股"、"近期强势"、"超跌"等。在A股，市场炒作气氛浓郁时，会发生炒地图（比如最近的深圳本地股，前段时间的海南自贸）、炒概念（前段时间的免税、地摊）、炒行业（近期的光伏既是概念、也是行业。光伏景气是一个行业全产业链的景气）。对短线炒题材的选手来说，如何蹭到具有多个概念的股票，是很重要的选股策略。</p>
-<p>这里我们以如何找出同时具有多个概念的个股为例，来讲解jq相关的API。</p>
-<p>假设我们要获取具有"智能电网"、"物联网”概念属性的深圳本地股：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 获取地域。这里要使用finance中的查询</span>
-<span class="kn">from</span> <span class="nn">jqdatasdk</span> <span class="kn">import</span> <span class="n">finance</span>
-<span class="kn">from</span> <span class="nn">jqdatasdk</span> <span class="kn">import</span> <span class="n">query</span>
-<span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;000001.XSHE&#39;</span>
-<span class="n">rec</span> <span class="o">=</span> <span class="n">finance</span><span class="o">.</span><span class="n">run_query</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="n">finance</span><span class="o">.</span><span class="n">STK_COMPANY_INFO</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">finance</span><span class="o">.</span><span class="n">STK_COMPANY_INFO</span><span class="o">.</span><span class="n">code</span><span class="o">==</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="s1">&#39;province&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">rec</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-</code></pre></div>
-</td></tr></table>
-
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">#我们使用下面的函数，将前面获得的securities对象加上两列，即province和city</span>
-<span class="k">def</span> <span class="nf">add_region_info</span><span class="p">(</span><span class="n">securities</span><span class="p">):</span>
-    <span class="n">company_infos</span> <span class="o">=</span> <span class="n">finance</span><span class="o">.</span><span class="n">run_query</span><span class="p">(</span><span class="n">query</span><span class="p">(</span><span class="n">finance</span><span class="o">.</span><span class="n">STK_COMPANY_INFO</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">securites</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-        <span class="n">rec</span> <span class="o">=</span> <span class="n">company_infos</span><span class="p">[</span><span class="n">company_infos</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">code</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;province&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">securities</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">add_region_info</span><span class="p">(</span><span class="n">securites</span><span class="p">)</span>
-</code></pre></div>
-</td></tr></table>
-
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1"># 获取概念板块</span>
-<span class="n">concepts</span> <span class="o">=</span> <span class="n">jq</span><span class="o">.</span><span class="n">get_concepts</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">query_stock_by_concept</span><span class="p">(</span><span class="n">query_concepts</span><span class="p">,</span> <span class="n">province</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">stocks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">query_concepts</span><span class="p">:</span>
-        <span class="n">concept</span> <span class="o">=</span> <span class="n">concepts</span><span class="p">[</span><span class="n">concepts</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">concept</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">continue</span>
-
-        <span class="n">idx</span> <span class="o">=</span> <span class="n">concept</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">members</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">jq</span><span class="o">.</span><span class="n">get_concept_stocks</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">stocks</span> <span class="o">=</span> <span class="n">members</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">stocks</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
-
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">stocks</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">province</span> <span class="ow">and</span> <span class="n">securites</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">province</span><span class="p">:</span>
-            <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">city</span> <span class="ow">and</span> <span class="n">securites</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">city</span><span class="p">:</span>
-            <span class="k">continue</span>
-
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">results</span>
-
-<span class="c1">#jq.get_concept_stocks(&#39;GN001&#39;)</span>
-<span class="n">stocks</span> <span class="o">=</span> <span class="n">query_stock_by_concept</span><span class="p">([</span><span class="s1">&#39;智能电网&#39;</span><span class="p">,</span><span class="s1">&#39;物联网&#39;</span><span class="p">],</span><span class="s1">&#39;广东&#39;</span><span class="p">,</span><span class="s1">&#39;深圳市&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>
 </code></pre></div>
 </td></tr></table>
 
@@ -1294,9 +1523,7 @@ WHERE valuation.code IN ($1) AND valuation.frame &lt;= $2 ORDER BY valuation.fra
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>好了！受相关限制，一些知名的大V是不会在头条或者微博里晒他们选的股的，但会提示相关概念。现在，你是不是能跟上他们的步子了呢？</p>
-</div>
+<div class="text_cell_render border-box-sizing rendered_html"></div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
