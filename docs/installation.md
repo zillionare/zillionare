@@ -23,10 +23,10 @@ disqus: jieyu
 ## 1.2. 运行安装程序
 
 ### 安装到Linux操作系统
-您可以在这里下载[大富翁安装程序](assets/zillionare.sh)，并在命令行界面运行以下命令：
+您可以在这里下载[大富翁安装程序](download/zillionare.sh?latest)，并在命令行界面运行以下命令：
 ```bash
 # 下载安装程序到本地
-curl http://www.jieyu.ai/assets/zillionare.sh -o zillionare.sh
+curl http://www.jieyu.ai/download/zillionare.sh?latest -o zillionare.sh
 
 # 运行安装程序
 sudo -E bash zillionare.sh --target /usr/local/zillionare -- --jq_account $JQ_ACCOUNT --jq_password $JQ_PASSWORD
@@ -81,7 +81,7 @@ Creating zillionare ... done
 ### 安装到其它操作系统
 如果您使用其它操作系统，您需要从源文件开始安装。不过，安装过程也很简单。
 
-首先，从[这里](http://www.jieyu.ai/assets/zillionare.tar.gz)下载压缩包。然后将其解压到某个**空**文件夹。
+首先，从[这里](http://www.jieyu.ai/download/zillionare.tar.gz)下载压缩包。然后将其解压到某个**空**文件夹。
 
 接下来，您需要进入该文件夹，新建一个名为.env的文件，文件内容如下：
 ```text

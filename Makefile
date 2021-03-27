@@ -13,11 +13,11 @@ omega_config_dir := ${image_root}/root/zillionare/omega/config
 postgres_init_dir := ${image_root}/../init/postgres
 
 tutorial_src := ${shell pwd}/docs/tutorial/
-tutorial_dst := ${shell pwd}/docs/assets/tutorial.tar.gz
+tutorial_dst := ${shell pwd}/docs/download/tutorial.tar.gz
 
 # build artifacts
-artifact_exe := docs/assets/zillionare.sh
-artifact_tar := $(shell pwd)/docs/assets/zillionare.tar.gz
+artifact_exe := docs/download/zillionare.sh
+artifact_tar := $(shell pwd)/docs/download/zillionare.tar.gz
 
 # from where to build artifact_tar?
 archive_src := ${image_root}/..

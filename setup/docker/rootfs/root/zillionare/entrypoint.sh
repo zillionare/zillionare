@@ -14,6 +14,7 @@ else
 fi
 
 mkdir /tutorial ||:
-wget -c http://www.jieyu.ai/assets/tutorial.tar.gz && tar -xzf tutorial.tar.gz -C tutorial/
+rm tutorial.tar.gz ||:
+wget -c http://www.jieyu.ai/download/tutorial.tar.gz?latest -O tutorial.tar.gz && tar -xzf tutorial.tar.gz -C tutorial/
 nohup jupyter notebook  --ip='*' --NotebookApp.token='' --NotebookApp.password='' --port 8888 --allow-root --notebook-dir='/tutorial' &
 python3 -m omega.jobs start
