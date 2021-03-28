@@ -34,7 +34,6 @@ clean:
 	sudo rm -f ${image_root}/*.whl
 	sudo rm -rf ${postgres_init_dir}/*
 	sudo rm -rf ${omega_config_dir}/*
-	sudo rm -rf ${tutorial_dst_dir}/* 2>/dev/null ||:
 
 	# remove docker related
 	# remove containers created if exists
