@@ -1,5 +1,6 @@
 # 如何使用zillionare docker images
     ## 安装docker/docker-compose
+    ## 安装makeself
     ## 启动zillionare
     ## 检查zillionare是否正常工作
         ### 查看log
