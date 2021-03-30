@@ -1,3 +1,7 @@
+
+# use safe-rm to avoid delete important files accidentaly
+rm := safe-rm
+
 update_config:=1
 export VERSION:=$(shell cat version)
 image_name:=zillionare:${VERSION}
@@ -25,15 +29,18 @@ archive_src := ${image_root}/..
 # installation dir for dist test
 install_to := /usr/local/zillionare
 
+print_vars:
+	# use this to find undefined variables
+	$(foreach v, $(.VARIABLES), $(if $(filter file,$(origin $(v))), $(info $(v)=$($(v)))))
 clean:
-	# artifacts
-	sudo rm ${artifact_exe} 2>/dev/null ||:
-	sudo rm ${artifact_tar} 2>/dev/null ||:
-
 	# clean image rootfs
-	sudo rm -f ${image_root}/*.whl
-	sudo rm -rf ${postgres_init_dir}/*
-	sudo rm -rf ${omega_config_dir}/*
+	if [ -n "${image_root}" ]; then sudo ${rm} -f ${image_root}/*.whl ||: ; fi
+
+	if [ -n "${postgres_init_dir}" ]; then sudo ${rm} -rf ${postgres_init_dir}/*; fi
+	if [ -n "${omega_config_dir}" ]; then sudo ${rm} -rf ${omega_config_dir}/*; fi
+
+	mkdir -p ${image_root}/root/zillionare/omega/config
+	mkdir -p ${postgres_init_dir}
 
 	# remove docker related
 	# remove containers created if exists
@@ -64,7 +71,7 @@ config_dev:
 	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/tests/packages/*.whl"); do sudo docker cp dev:$$f ${image_root};done
 
 	# use latest jq-adaptors, Be aware that sometimes we should use local jq-adaptor build
-	pip download -i https://pypi.org/simple --no-deps zillionare-omega-adaptors-jq==0.3.6 --no-cache --only-binary ":all:" -d ${image_root}
+	pip download -i https://pypi.org/simple --no-deps zillionare-omega-adaptors-jq==1.0.2 --no-cache --only-binary ":all:" -d ${image_root}
 
 ifeq (${update_config}, 1)
 release: clean config_release build
@@ -75,6 +82,7 @@ dev: build
 endif
 
 build:
+	echo ${VERSION} > ${image_root}/../version
 	cd ${image_root}/..; sudo -E docker-compose build --force-rm
 	sudo docker rmi ${image_name}
 
