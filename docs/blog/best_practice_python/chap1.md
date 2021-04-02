@@ -6,50 +6,61 @@
 
 对于新手来讲，可能更熟悉Windows系统。但是，Python从诞生之初，就与开源社区结缘，Python中大量的第三方库，往往在类Unix环境下测试更充分，或者优先推出。类Unix系统似乎天生是程序员的首选平台。
 
-现在，就连Windows自身也在积极拥抱Linux了。有一句调侃的话说，最好的Linux发行版是哪一家的？微软。这是真的，通过Win10的WSL发行的Ubuntu，已经得到相当数量的下载，很可能已经是Ubuntu的发行量第一的渠道了。
-
-所以，如果您只有Windows电脑，我也建议您基于Linux来构建开发环境。当然，您并不需要重装系统。您只需要使用虚拟化技术，就可以同时工作在两种操作系统下了。
+现在，就连Windows自身也在积极拥抱Linux了。有一句调侃的话说，最好的Linux发行版是哪一家的？微软。这是真的，通过Win10的WSL（Windows Subsystem for Linux)发行的Ubuntu，已经得到相当数量的下载，很可能已经是Ubuntu的发行量第一的渠道了。
 
 ???+ Readmore
     Unix是最早出现的多用户服务器操作系统之一。由Bell实验室发明。现在比较常见和容易得到的Unix操作系统有加州伯克利大学从1975年起开发的FreeBSD。进入20世纪80年代以来，出现了现代Windows和MacOS的雏形，分别由微软和苹果公司开发，现在已成为排名第一和第三的桌面电脑操作系统。上世纪90年代，Linux操作系统异军突起，随着云计算的发展，Linux因为其开源带来的低成本特征，迅速占领了服务器操作系统的头把交椅。
 
     Ubuntu是Linux的一个重要的发行版，其桌面版在国内十分流行。
 
+如果您只有Windows电脑，我们推荐一种融合式开发环境，即程序的运行和调试都发生成Linux环境下，而IDE本身运行在Windows之中。当然，这需要借助Windows的虚拟化能力。
+
+在接下来的一节里，我们要简单介绍如何在Windows下构建一个基于虚拟化技术的Linux环境。如果您已经有了一台Linux机器（或者MacOS)，则可以跳过这一节。
 ## Windows下的虚拟Linux环境
 
-如果您已经有了一台Linux机器（或者MacOS),请跳过这一节阅读。
+在Windows上构建Linux虚拟化环境，主要有三种方案，即WSL, Docker和虚拟机方案。
 
-如果您使用的Windows版本是Win10专业版（及以上）版本，您就可以使用wsl方案。如果使用的是Win7，或者Win10家庭版，WSL无法在这些操作系统上运行，您可以选择使用docker或者虚拟机的方案。
+如果您使用的Windows版本是Win10专业版（及以上）版本，您就可以使用WSL方案。如果使用的是Win7，或者Win10家庭版，WSL是无法在这些操作系统上运行的，您可以选择使用docker或者虚拟机的方案。
 
 在这里我们只介绍安装WSL来获得Linux虚拟机的方法。您也可以使用通过Docker，或者虚拟机（VMWare或者VirtualBox)来使用Linux的方法。这些技术方案已经成熟很多年，不需要特别介绍了。如果您还不熟悉，网上可以找到很多教程。
 
+???+ Info
+    我们在hub.docker.com上提供了一个Python的开发环境，已经配置好了git, conda, ssh, redis, postgres等服务。您可以通过下面的命令来获得它的镜像：
+
+    docker pull zillionare/python-dev-machine
+
 ### 安装WSL
 
-WSL是Windows Subsystem for Linux的首字母简写。它是基于Windows的Hyper-v架构一种比Docker更为轻量级的虚拟化技术。
+WSL是Windows Subsystem for Linux的首字母简写。它基于Windows的Hyper-v架构，是一种比Docker更为轻量级的虚拟化技术。
 
 ???+ Readmore
-    Docker最初是一种基于Linux容器隔离技术诞生的一种虚拟化技术。当其在Linux下运行时，可以与Host操作系统共享资源，因此是一种十分轻量的虚拟化技术。在Windows下使用Docker，Windows必须先模拟出来一个Linux的操作系统，这个操作系统层必须静态分割和独占主机的资源，比如CPU和内存。因此，在Windows一旦启动了Docker服务，无论您当前是否有容器在运行，都要占用相当一部分CPU和内存资源。
+    Docker最初是一种基于Linux容器隔离技术诞生的一种虚拟化技术。当其在Linux下运行时，可以与Host操作系统共享资源，因而是一种十分轻量的虚拟化技术。在Windows下使用Docker，Windows必须先模拟出来一个Linux的操作系统，然后在其之上，再运行docker层。这个操作系统层必须静态分割和独占主机的资源，比如CPU和内存。一旦Windows启动了Docker服务，无论您当前是否有容器在运行，都要占用相当一部分CPU和内存资源。
 
     因此，在Windows下要开启Linux虚拟机，首先考虑的是安装WSL。
 
-WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux体验（兼容所有系统调用），但与宿主机的隔离性更强一些，融合体验要差一点。当在两个系统间来回读写文件时，版本二性能会弱一些，这也是我们推荐版本一的重要原因。当您使用版本一时，是可以在WSL里创建文件，然后在Windows中打开它的；反之亦然。版本二要么不能这么使用，要么有严重的性能问题。
+WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux体验（兼容所有系统调用），但与宿主机的融合体验要差一点。当在两个系统间来回读写文件时，版本二性能会弱一些，这也是我们推荐版本一的重要原因。当您使用版本一时，是可以在WSL里创建文件，然后在Windows中打开它的；反之亦然。
 
 关于两者的区别的详细比较，可以阅读[WSL两个版本的比较](https://docs.microsoft.com/en-us/windows/wsl/compare-versions)
 
 
-首先，要启用"适用于Linux的Windows子系统“功能：
+下面，我们正式介绍如何启用WSL：
+
+首先，要通过"启用或关闭Windows功能"命令，来启用"适用于Linux的Windows子系统"功能：
 ![](http://images.jieyu.ai/images/2020-05/20200503185200[1].png)
 接下来，从应用商店搜索安装Ubuntu就可以了：
 ![](http://images.jieyu.ai/images/2020-05/20200503191417[1].png)
+
+??? Tips
+    在Windows中，如果您不知道如何进入某个设置界面，一般可以直接在搜索框里搜索入口。
 
 ??? Tips
     如果启用WSL失败，请检查启用或者关闭Windows功能中，是否启用了"虚拟机平台”（有的Windows版本里，可能叫Hyper-v支持），并且检查BIOS里相关虚拟化支持。
 
     如果您的机器不是太老旧的话，一般无须关注BIOS选项。它们一般是打开虚拟化支持的。
 
-安装完成后，可以在搜索栏输入ubuntu进入命令行窗口。这样就启动了WSL。如果您关闭了这个窗口，那么这个子系统，以及里面运行的程序，就一同关闭了。
+安装完成后，可以在搜索栏输入`ubuntu`进入命令行窗口。这样就启动了WSL。如果您关闭了这个窗口，那么这个子系统，以及里面运行的程序，就一同关闭了。
 
-如果您安装的是版本二，那么您可以完全按照自己掌握的Linux操作系统知识来使用WSL。如果是版本一的话，您要记住，WSL与Linux的主要区别是，它没有rc，init.d这样的系统。除此之外，几乎所有应用程序都是可以运行的，除了它们不能以服务的方式启动之外。
+如果您安装的是版本二，那么您可以完全按照自己掌握的Linux操作系统知识来使用WSL。如果是版本一的话，您要记住，WSL与Linux的主要区别是，它没有rc，init.d这样的系统。除此之外,似乎跟普通的Linux也没有什么区别，您一样可以运行所有的Linux原生应用程序，除了它们不能作为服务运行。
 
 ??? Tips
     在WSL里安装程序，一样要使用apt。因此，您也需要设置国内源。
@@ -67,6 +78,84 @@ WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux
     deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
     deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
     ```
+
+??? Tips
+    通过WSL安装的`ubuntu`本身不会随Windwows而启动。如果您在WSL里安装了Redis等应用的话，您一般也需要在WSL启动后，在命令行窗口中逐一启动它。为了得到更好的使用体验，我们可以通过脚本使WSL随Windows一起启动，并且自动启动指定的服务（比如redis)。请参见[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)
+
+现在，操作系统已经设置好了，我们来看看IDE（集成开发环境）。
+
+## 安装集成开发环境
+### 如何选择IDE
+
+Python最好的开发工具是Pycharm和Vscode。Pycharm更容易上手，但随着时间推移，您会发现，vscode可能是更适合开源项目开发。
+
+这里就Pycharm与vscode的主要差异进行一个比较。Pycharm有两个版本，社区版免费，专业版需要支付费用。如果在中国区付款很方便的话，这个费用还是值得的。
+
+| 功能         | vscode   | pycharm社区版 | pycharm专业版       |
+| ---------- | -------- | ---------- | ---------------- |
+| 开箱即用       | 需要安装各种插件 | Yes        | Yes              |
+| 远程调试       | Yes      | No         | Yes              |
+| 远程文件夹      | 直接编辑     | No         | 本地与远程映射，sftp部署模式 |
+| scm        | 安装扩展     | Yes        | Yes              |
+| code merge | 没有三路归并   | 三路归并       | 三路归并             |
+| wsl支持      | Yes      | No         | Yes              |
+|数据库支持| 通过第三方|集成|集成|
+|作为其它语言的IDE|Yes|可用于js开发，支持常见框架|同社区版|
+|作为文本编辑器|轻量、高速|启动较慢，不合适|同社区版|
+
+总的来说，除了代码合并，数据库支持之外，Vscode基本上都可以通过插件配置到与Pycharm专业版近似的程度。Vscode在展示DataFrame之类的数据表格方面不如Pycharm，不过这项功能并不是所有人都需要。但是目前还没出现能跟Pycharm匹敌的支持三路归并的vscode扩展，这是在多人协作开发过程中不可或缺的功能。为了弥补这个缺撼，我会在机器上安装一份Pycharm社区版，在需要时通过它来完成代码合并。
+
+Pycharm能很准确地识别未使用的导入并自动清除，关于这一点，Vscode还没有扩展可以实现。Pycharm自己提供了语法检查功能，有自己定义的rules。Vscode下一般通过扩展，使用开源社区广泛接受的规则，这一点上，vscode更适合开源项目开发。
+
+基于保护投资的考虑，我们建议花一点时间来学习使用Vscode。之后用以其它语言开发也很容易切换。而且Vscode真的非常适合开源项目的开发，各种工具之间的协作性非常好。
+
+### 安装Vscode
+
+vscode从[这里](https://code.visualstudio.com/)下载安装。
+
+安装完成后，最主要的工作就是配置各种扩展，否则，Vscode是无法用于Python开发的。
+
+我们推荐的扩展有：
+
+#### Python
+
+扩展id为ms-python.python，由微软团队开发，系官方扩展。它提供了调试、语法检查、代码提示与自动完成、代码格式化、代码重构、单元测试管理器等功能。其中有一些功能需要其它扩展，比如Pylance来支持。
+
+安装完成这个扩展之后，您的IDE还将具有Jupyter Notebook功能。
+
+安装完成之后，最重要的配置，是配置Python解释器。关于这一点，我们在的顼介绍配置虚拟运行环境之后，再来讲解。
+
+#### Pylance
+微软开发的Python语言支持工具，提供代码的静态检查，代码自动完成等。它能够提示代码中使用了未定义的变量、变量声明了但未使用等许多语法错误。
+
+#### Kite AutoComplete AI
+
+又一个代码自动完成工具。与Pylance相比，它可以提供更详细的帮助文档，还会提示其它人的类似代码供参考。比如，当你创建一个Redis Client时，可能会为如何初始化它而犯愁，Kite就会提示你，其它人一般都如何初始化这个对象，有时候这会比阅读文档更快捷。
+
+在安装Kite的vs-code扩展时，还要注意同时安装kite服务器。
+
+#### Remote ssh/Remote wsl
+
+根据您使用的Linux版本，选择安装Remote ssh或者Remote wsl。前者仅当您有一台单独的Linux机器，比如运行在Docker的container之中，或者虚拟机、或者任何其它远程机器上。后者用于您在本机上安装的wsl。
+
+如果您安装的是wsl v2,可以只使用Remote ssh，因为wsl v2就象一台虚拟机。
+
+安装完成remote-ssh之后，在side bar上会出现一个连接电脑的icon。
+
+![](http://images.jieyu.ai/images/202104/20210402225647.png)
+
+Remote ssh/wsl的工作理念时，您连接远程服务器/wsl后，直接打开在远程服务器(wsl)上的文件进行编程、调试和运行。对于Remote-ssh，您需要提供如何连接远程服务器的方式，然后就可以象本地一样操作。
+
+对于wsl，vscode会帮你启动它。当然，如果您按照[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)提供的方法实现了wsl的自动启动，并配置了ssh server的话，您也可以只使用remote-ssh的方案。毕竟，这时候的wsl已经是一台可以通过ssh远程访问的Linux机器了。
+
+这个扩展也是我喜欢vscode甚于Pycharm的地方。在Pycharm专业版中，配置远程开发比较复杂，要配置ssh连接和sftp部署、以及文件夹映射等。文件都是在本地编辑的，在运行调试之前，必须先将其同步到远程服务器上。尽管并不常见，但有时候这种同步也会出错。
+
+#### GitLens, Git Graph, Git commit plugin, gitignore
+顾名思义，这几个扩展是跟代码管理相关的。
+
+Gitlens提供了
+
+
 
 
 
