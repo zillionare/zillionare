@@ -1,85 +1,115 @@
-.PHONY: clean clean-test clean-pyc clean-build docs help
-.DEFAULT_GOAL := help
 
-define BROWSER_PYSCRIPT
-import os, webbrowser, sys
+# use safe-rm to avoid delete important files accidentaly
+rm := safe-rm
 
-from urllib.request import pathname2url
+update_config:=1
+export VERSION:=$(shell cat version)
+image_name:=zillionare:${VERSION}
 
-webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
-endef
-export BROWSER_PYSCRIPT
+requirements := setup/requirements.txt
+repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
+Headers_Accept := 'Accept: application/vnd.github.v3.raw'
+Headers_Auth := 'Authorization: token $(GH_TOKEN)'
 
-define PRINT_HELP_PYSCRIPT
-import re, sys
+image_root := setup/docker/rootfs/
 
-for line in sys.stdin:
-	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
-	if match:
-		target, help = match.groups()
-		print("%-20s %s" % (target, help))
-endef
-export PRINT_HELP_PYSCRIPT
+omega_config_dir := ${image_root}/root/zillionare/omega/config
+postgres_init_dir := ${image_root}/../init/postgres
 
-BROWSER := python -c "$$BROWSER_PYSCRIPT"
+tutorial_src := ${shell pwd}/docs/tutorial/
+tutorial_dst := ${shell pwd}/docs/download/tutorial.tar.gz
 
-help:
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+# build artifacts
+artifact_exe := docs/download/zillionare.sh
+artifact_tar := $(shell pwd)/docs/download/zillionare.tar.gz
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+# from where to build artifact_tar?
+archive_src := ${image_root}/..
 
-clean-build: ## remove build artifacts
-	rm -fr build/
-	rm -fr dist/
-	rm -fr .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+# installation dir for dist test
+install_to := /usr/local/zillionare
 
-clean-pyc: ## remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+print_vars:
+	# use this to find undefined variables
+	$(foreach v, $(.VARIABLES), $(if $(filter file,$(origin $(v))), $(info $(v)=$($(v)))))
+clean:
+	# clean image rootfs
+	if [ -n "${image_root}" ]; then sudo ${rm} -f ${image_root}/*.whl ||: ; fi
 
-clean-test: ## remove test and coverage artifacts
-	rm -fr .tox/
-	rm -f .coverage
-	rm -fr htmlcov/
-	rm -fr .pytest_cache
+	if [ -n "${postgres_init_dir}" ]; then sudo ${rm} -rf ${postgres_init_dir}/*; fi
+	if [ -n "${omega_config_dir}" ]; then sudo ${rm} -rf ${omega_config_dir}/*; fi
 
-lint: ## check style with flake8
-	flake8 zillionare tests
+	mkdir -p ${image_root}/root/zillionare/omega/config
+	mkdir -p ${postgres_init_dir}
 
-test: ## run tests quickly with the default Python
-	python setup.py test
+	# remove docker related
+	# remove containers created if exists
+	sudo zillionare down 2 > /dev/null ||:
+	sudo docker rm -f zillionare 2 > /dev/null ||:
+	sudo docker rmi ${image_name} 2>/dev/null ||:
+	sudo docker image prune -f --filter dangling=true 2>/dev/null||:
+	
+config_release:
+	# get the tar ball from gh://zillionare/omega/release
+	curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(repo_omega_tar) -o /tmp/omega.src.${version}.tar.gz
+	# omega config
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${omega_config_dir} --wildcards "*/config/defaults.yaml" --strip-components=3
+	# postgres init scripts
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${postgres_init_dir} --wildcards "*/config/sql/*" --strip-components=4
+	# artifacts/deps
+	pip download -i https://pypi.org/simple --no-deps -r ${requirements} --no-cache --only-binary ":all:" -d ${image_root}
 
-test-all: ## run tests on every Python version with tox
-	tox
+config_dev:
+	# omega config
+	sudo docker cp dev:/apps/omega/omega/config/defaults.yaml ${omega_config_dir}
+	sudo chmod -R 777 ${omega_config_dir}
+	# postgres init scripts
+	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/omega/config/sql/*"); do sudo docker cp dev:$$f ${postgres_init_dir};done
+	# omega build artifact
+	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/dist/*.whl"); do sudo docker cp dev:$$f ${image_root};done
+	# copy deps
+	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/tests/packages/*.whl"); do sudo docker cp dev:$$f ${image_root};done
 
-coverage: ## check code coverage quickly with the default Python
-	coverage run --source zillionare setup.py test
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
+	# use latest jq-adaptors, Be aware that sometimes we should use local jq-adaptor build
+	pip download -i https://pypi.org/simple --no-deps zillionare-omega-adaptors-jq==1.0.2 --no-cache --only-binary ":all:" -d ${image_root}
 
-docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/zillionare.rst
-	rm -f docs/modules.rst
-	#sphinx-apidoc -o docs/ zillionare
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
-	#$(BROWSER) docs/_build/html/index.html
+ifeq (${update_config}, 1)
+release: clean config_release build
+dev: clean config_dev build
+else
+release: build
+dev: build
+endif
 
-servedocs: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+build:
+	echo ${VERSION} > ${image_root}/../version
+	cd ${image_root}/..; sudo -E docker-compose build --force-rm
+	sudo docker rmi ${image_name}
 
-release: dist ## package and upload a release
-	twine upload dist/*
+# set local variables for test target
+test: tmp_artifact=/tmp/zillionare_${VERSION}.sh
+test: tmp_installation_dir=/tmp/zillionare
 
-dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
-	ls -l dist
+test: dev
+	export tmp_artifact=/tmp/zillionare_${VERSION}.sh
+	export tmp_installation_dir=/tmp/zillionare_${VERSION}
 
-install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	makeself --current --tar-quietly ${archive_src} ${tmp_artifact} "zillionare_${VERSION}" ./setup.sh
+	chmod +x ${tmp_artifact}
+	sudo -E ${tmp_artifact} --target ${tmp_installation_dir} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
+	sudo zillionare log
+
+dist: release
+	makeself --current --tar-quietly ${archive_src} ${artifact_exe} "zillionare_${VERSION}" ./setup.sh
+	cd setup/docker \
+	&& tar -zvcf ${artifact_tar} . \
+	&& cd -
+	chmod +x ${artifact_exe}
+	sudo -E ${artifact_exe} --target ${install_to} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
+	cd ${tutorial_src} \
+	&& tar -zvcf ${tutorial_dst} ./* \
+	&& cd -
+
+publish:
+	echo "Make sure your run make dist and check result first"
+	mkdocs gh-deploy

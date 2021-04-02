@@ -1,0 +1,55 @@
+#!/bin/bash
+
+home_dir=INSTALLATION_DIR
+cd $home_dir
+
+function help {
+    cat << EOF
+     命令格式: zillionare args
+     Args:
+        start: 启动zillionare服务
+        stop: 停止zillionare服务
+        restart: 重启zillionare服务
+        down: 中止zillionare服务，并删除相关容器
+        log: 显示zillionare日志
+        status: 显示zillionare容器运行状态
+EOF
+}
+
+if [ $# != 1 ];then
+    help
+fi
+
+if [ "$1" == "start" ]; then
+    docker-compose up -d
+    exit 0
+fi
+
+if [ "$1" == "restart" ]; then
+    docker-compose stop zillionare
+    docker-compose up -d
+    exit 0
+fi
+
+if [ "$1" == "stop" ]; then
+    docker-compose stop zillionare
+    exit 0
+
+fi
+
+if [ "$1" == "down" ]; then
+    docker-compose down
+    exit 0
+fi
+
+if [ "$1" == "log" ]; then
+    docker logs -f zillionare
+    exit 0
+fi
+
+if [ "$1" == "status" ]; then
+    docker-compose ps -a
+    exit 0
+fi
+
+help
