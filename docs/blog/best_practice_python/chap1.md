@@ -82,6 +82,9 @@ WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux
 ??? Tips
     通过WSL安装的`ubuntu`本身不会随Windwows而启动。如果您在WSL里安装了Redis等应用的话，您一般也需要在WSL启动后，在命令行窗口中逐一启动它。为了得到更好的使用体验，我们可以通过脚本使WSL随Windows一起启动，并且自动启动指定的服务（比如redis)。请参见[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)
 
+??? Tips
+    在Windows下远程访问Linux机器，现在最好的终端当属微软推出的Windows Terminal。您可以从微软应用商店下载安装这个程序。它是多Tab的，同时支持横向和纵向切分窗口。作为之前cmder的重度使用者，在使用了Windows Terminal一段时间之后，大有相见恨晚的遗憾。cmder性能太差，打字时容易吞字符，Windows Terminal则完全没有这个问题。
+
 现在，操作系统已经设置好了，我们来看看IDE（集成开发环境）。
 
 ## 安装集成开发环境
@@ -109,7 +112,7 @@ Pycharm能很准确地识别未使用的导入并自动清除，关于这一点�
 
 基于保护投资的考虑，我们建议花一点时间来学习使用Vscode。之后用以其它语言开发也很容易切换。而且Vscode真的非常适合开源项目的开发，各种工具之间的协作性非常好。
 
-### 安装Vscode
+### Vscode及扩展的安装
 
 vscode从[这里](https://code.visualstudio.com/)下载安装。
 
@@ -144,17 +147,52 @@ vscode从[这里](https://code.visualstudio.com/)下载安装。
 
 ![](http://images.jieyu.ai/images/202104/20210402225647.png)
 
-Remote ssh/wsl的工作理念时，您连接远程服务器/wsl后，直接打开在远程服务器(wsl)上的文件进行编程、调试和运行。对于Remote-ssh，您需要提供如何连接远程服务器的方式，然后就可以象本地一样操作。
+Remote ssh的工作原理是，它把远程文件夹虚拟成本地文件夹。在您连接远程服务器后，可直接打开在远程服务器上的文件进行编程、调试和运行。在这个过程中，您只需要告诉扩展如何连接远程服务器就可以了。
 
 对于wsl，vscode会帮你启动它。当然，如果您按照[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)提供的方法实现了wsl的自动启动，并配置了ssh server的话，您也可以只使用remote-ssh的方案。毕竟，这时候的wsl已经是一台可以通过ssh远程访问的Linux机器了。
 
-这个扩展也是我喜欢vscode甚于Pycharm的地方。在Pycharm专业版中，配置远程开发比较复杂，要配置ssh连接和sftp部署、以及文件夹映射等。文件都是在本地编辑的，在运行调试之前，必须先将其同步到远程服务器上。尽管并不常见，但有时候这种同步也会出错。
+这个扩展也是我喜欢vscode甚于Pycharm的地方。在Pycharm专业版中，配置远程开发比较繁琐，要配置ssh连接和sftp部署、以及文件夹映射等。文件都是在本地编辑的，在运行调试之前，必须先将其同步到远程服务器上。偶尔这种同步还会出错。
 
-#### GitLens, Git Graph, Git commit plugin, gitignore
+#### GitLens, Git Graph, Git commit plugin, gitignore, Github Pull Request
 顾名思义，这几个扩展是跟代码管理相关的。
 
-Gitlens提供了
+使用vscode的Python程序员中，大约有1/4会安装Gitlens。我们通过它来管理branches, commits，File history, tags等等。如果您还不太了解这些概念，我们会在后面专门介绍。
 
+Gutter blame是我非常喜欢的一个Gitlens功能。很多时候，我们在开发某个功能时，可能顺手改了某个小bug。对于bug的修改，一般遵循一个bug一次提交的原则。如果某个文件同时涉及功能和bug修改，没有这个Gutter blame的话，我们就必须将同一文件的两处修改混在一起提交，而通过Gutter blame，则可以单独提交这个bug fix：
+
+![](http://images.jieyu.ai/images/202104/20210403093433.png)
+
+上述截图中，红色框显示了一个Gutter blame，黄色框显示了变更的详细情况，比如通过"-"显示被移除的代码，通过"+"显示新增的代码。绿色框中的"+"号，则是用于提交此单项修改的提示。
+
+???Tips
+    此项功能Pycharm是开箱即用。Pycharm在SCM管理这一块做的非常好，UI也做得很直观，符合直觉。
+
+curent line hover则是另一个我非常喜欢的功能。当你把光标移动到一行代码的结尾部分，就可能出现类似下面的提示框：
+
+![](http://images.jieyu.ai/images/202104/20210403094408.png)
+
+Current line hover清楚地提示了这行代码的历史。
+
+Git Grpah启动后，会独占一个完整的工作窗口，这样可以一次性把commit的相关信息展示全，因此与Git lens相比，查找更方便。比如，当我们准备某一个版本的发布时，可能需要列出上一个版本以来所有的bug fix,这在git graph中是比较容易实现的。当然，更好的方法是平时就做好project管理，在提交bug和功能需求时，通过triage，将其规划到指定的版本中。
+
+Git commit plugin虽然人气没有前两款高，但也是很值得推荐的一款扩展。它的主要作用是编辑commit message。它提供了一个commit的标准分类（据说源自于angular js团队），并且按照分类，给每个commit带上了emoji功能。对commmit进行标准化分类，能够有效地提高code review和查找效率。比如我们在进行code review时，一般可以直接跳过标记为docs, build等类型的提交（当然提交者也必须严格按规范，只提交该类型的修改，而不要夹杂其它修改）。
+
+gitignore扩展用来辅助.gitignore文件的编辑。您可以从侧边栏的Sourch Control的文件列表中，右键打开菜单，添加选中的文件到.gitignore文件中。
+
+Github Pull Request则是一个管理Github issues的工具。通过这个扩展，可以让您直接从vscode连接、加载github issues, 以及创建新的github issues。另外，它还有一个很好的功能，就是可以只通过一个点击，就帮您为待修复的bug创建专门的bug修复分支。
+
+#### Markdown相关插件
+
+在软件开发过程中，当然也少不了文档写作。Markdown是现在更流行的文档格式。推荐的扩展有Markdown preview Enhanced, Markdown table from csv。前者用显示Markdonw文档。后者可以将一段csv格式的内容转换成Markdown格式的表格，反之亦然。
+
+到此为止，Vscode及Python开发所需要的扩展就安装好了。但是，到目前为止，我们还不能开始代码的调试，因为我们还没有指定Python解释器。在下一章，构建Python虚拟运行环境中，我们会详细讲到。
+
+# 思考题
+1. 为什么做Python开发，推荐的工作环境要构建在类Unix环境下？
+2. 要使用基于图形界面的开发工具，又要在Linux环境下运行和调试Python程序，有哪些方法？
+3. 什么是WSL？它有哪几个版本？主要区别是什么？
+4. 开发Python最流行的集成开发环境（IDE）有哪些？如何进行选择？
+5. Vscode是什么？选择vscode来进行Python开发和调试，必须安装哪一个扩展？
 
 
 
