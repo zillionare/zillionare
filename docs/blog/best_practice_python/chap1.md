@@ -1,44 +1,64 @@
 # 开发环境和工具
 
-如果您打算长期使用Python作为开发语言，并且想要开发一些严肃认真的项目，而不仅仅是在处理数据、完成一些自动化任务时临时用用Python的话，推荐您始终使用类Unix的操作系统来构建开发环境。
+选择开发环境的第一步，是选择操作系统。对于一些新手程序员来讲，可能更熟悉Windows系统。但是，Python从诞生之初，就与开源社区结缘，Python中大量的第三方库，往往在类Unix环境下测试更充分，或者优先推出。类Unix系统似乎天生是程序员的首选平台。
 
-这里所指的类unix操作系统，是指各种Linux发行版和MacOS。如果您正在使用FreeBSD等一些正宗的Unix操作系统，当然也是可以的。不过从使用人数、社区活跃度来讲，使用MacOs，或者Ubuntu都是不错的选择。
+这里所指的类Unix操作系统，是指各种Linux发行版和MacOS。这些操作系统在内核、文件系统的组织方式、用户接口等方面都有较多相似性。
 
-对于新手来讲，可能更熟悉Windows系统。但是，Python从诞生之初，就与开源社区结缘，Python中大量的第三方库，往往在类Unix环境下测试更充分，或者优先推出。类Unix系统似乎天生是程序员的首选平台。
-
-现在，就连Windows自身也在积极拥抱Linux了。有一句调侃的话说，最好的Linux发行版是哪一家的？微软。这是真的，通过Win10的WSL（Windows Subsystem for Linux)发行的Ubuntu，已经得到相当数量的下载，很可能已经是Ubuntu的发行量第一的渠道了。
+如果您打算长期使用Python作为开发语言，并且想要开发一些严肃认真的项目，而不仅仅是在处理数据、完成一些自动化任务时临时用用Python的话，推荐您始终使用类Unix的操作系统来构建开发环境。更具体一点，如果您不是正在使用MacOs的话，那么我们推荐您使用Linux的一个发行版--Ubuntu来做为您的开发环境的操作系统。
 
 ???+ Readmore
-    Unix是最早出现的多用户服务器操作系统之一。由Bell实验室发明。现在比较常见和容易得到的Unix操作系统有加州伯克利大学从1975年起开发的FreeBSD。进入20世纪80年代以来，出现了现代Windows和MacOS的雏形，分别由微软和苹果公司开发，现在已成为排名第一和第三的桌面电脑操作系统。上世纪90年代，Linux操作系统异军突起，随着云计算的发展，Linux因为其开源带来的低成本特征，迅速占领了服务器操作系统的头把交椅。
+    Unix, Linux，Windows和MacOs是主流的非移动端操作系统。
 
-    Ubuntu是Linux的一个重要的发行版，其桌面版在国内十分流行。
+    Unix由Bell实验室发明，是最早出现的多用户服务器操作系统之一。现在比较常见和容易得到的Unix操作系统有FreeBSD，是由加州伯克利大学从1975年起开发的。
+    
+    进入20世纪80年代以来，出现了现代Windows和MacOS的雏形，分别由微软和苹果公司开发，现在已成为排名前列的桌面电脑操作系统。发展至今，Windows在桌面端和服务器市场都占据重要位置，MacOS则成为高端消费品领域的翘楚，成为重视性能和体验的开发者的选择。
+    
+    上世纪90年代，Linux操作系统异军突起，随着云计算的发展，Linux因为其开源带来的低成本特征，迅速占领了服务器操作系统的头把交椅。云计算的需求也大大促进了Linux各种虚拟化技术（如容器技术）的发展，也更加巩固了其在云计算领域的地位。现在，就连微软也在积极拥抱Linux了。有一句调侃的话说，最好的Linux发行版是哪一家的？微软。这是真的，通过Win10的WSL（Windows Subsystem for Linux)发行的Ubuntu，很可能已经是Ubuntu的发行量第一的渠道了。
 
-如果您只有Windows电脑，我们推荐一种融合式开发环境，即程序的运行和调试都发生成Linux环境下，而IDE本身运行在Windows之中。当然，这需要借助Windows的虚拟化能力。
+    CentOs和Ubuntu是Linux的两个重要的免费发行版，CentOS的更新更为稳健，多用于服务器；Ubuntu更倾向于吸纳技术的最新进展，其桌面版在国内十分流行。
 
-在接下来的一节里，我们要简单介绍如何在Windows下构建一个基于虚拟化技术的Linux环境。如果您已经有了一台Linux机器（或者MacOS)，则可以跳过这一节。
+    从流派上看，除了Windows外，其它几种操作系统都深受Unix影响。比如类Unix操作系统都有一致的文件系统，而Windows则大异其趣；在进程启动和调度方式上，Windows也与其它家泾渭分明，比如没有Unix下的fork机制和信号机制。在用户接口上，类Unix系统有着强大的命令行和脚本功能，Windows则以图形界面见长，其命令行接口一直为人所诟病。在网络服务能力上，Windows很早推出了性能强大的完成端口，而类Uninx系统则落后一局，其select机制沿用了好久，后来才相继被kqueue/epoll技术取代。
+
+    正是因为操作系统之间的这些重要差别，编写跨操作系统的应用从来就不是很容易的事。因此，一些偏重于服务器的应用或者程序库，往往优先推出Linux版本，尤其是一些开源社区软件。
+    
+    Python的主要应用领域，一是服务器应用及运维，二是人工智能和大数据领域，使用Python编写桌面端程序是比较少见的。因此，这也是我们推荐您使用Linux操作系统的原因。
+
+
+当然，推荐使用Linux操作系统，并不意味着就要抛弃Windows。如果您只有Windows电脑，我们推荐一种融合式开发环境，即程序的运行和调试都发生成Linux环境下，而IDE本身运行在Windows之中。
+
+在接下来的一节里，我们要简单介绍如何在Windows下构建一个基于虚拟化技术的Linux环境，以便作为Python程序的运行和调试环境。如果您已经有了一台Linux机器（或者MacOS)，则可以跳过这一节。
 ## Windows下的虚拟Linux环境
 
-在Windows上构建Linux虚拟化环境，主要有三种方案，即WSL, Docker和虚拟机方案。
+在Windows上构建虚拟的Linux环境，主要有三种方案，即WSL, Docker和虚拟机方案。
 
 如果您使用的Windows版本是Win10专业版（及以上）版本，您就可以使用WSL方案。如果使用的是Win7，或者Win10家庭版，WSL是无法在这些操作系统上运行的，您可以选择使用docker或者虚拟机的方案。
 
-在这里我们只介绍安装WSL来获得Linux虚拟机的方法。您也可以使用通过Docker，或者虚拟机（VMWare或者VirtualBox)来使用Linux的方法。这些技术方案已经成熟很多年，不需要特别介绍了。如果您还不熟悉，网上可以找到很多教程。
+在这里我们只介绍安装WSL来获得Linux虚拟机的方法。您也可以使用通过Docker，或者虚拟机（VMWare或者VirtualBox)来安装Linux的方法。这些技术方案已经成熟很多年，不需要特别介绍了。如果您还不熟悉，网上可以找到很多教程。
 
-???+ Info
-    我们在hub.docker.com上提供了一个Python的开发环境，已经配置好了git, conda, ssh, redis, postgres等服务。您可以通过下面的命令来获得它的镜像：
+???+ Readmore
+    虚拟机在Windows下本身以应用程序运行，模拟出一个完全隔离的、资源独占的操作系统出来。虚拟机启动和关闭都有一定的时间占用。当没有客户机运行时，虚拟机软件也不需要运行，不占用计算资源。
+
+    Docker是一种基于Linux容器隔离诞生的一种虚拟化技术。当其在Linux下运行时，可以与Host操作系统共享资源，因而是一种十分轻量的虚拟化技术。在Windows下使用Docker，Windows必须先模拟出来一个Linux的操作系统，然后在其之上，再运行docker层。这个操作系统层必须静态分割和独占主机的资源，比如CPU和内存。一旦Windows启动了Docker服务，无论您当前是否有容器在运行，都要占用相当一部分CPU和内存资源。因此，与虚拟机相比，即使没有客户机（在这里更准确的说法是容器）在运行，也要占用计算资源。但是容器的启动速度要远远快于虚拟机。
+
+    WSL是Windows Subsystem for Linux的首字母简写，为Windows提供了一个Linux子系统。
+    
+    WSL是一种非常轻量的虚拟化技术，它根据需要动态分割主机资源，启动非常迅速。当不需要使用WSL时，只要退出所有的窗口，资源即释放。因此，在Windows下要开启Linux虚拟机，首先考虑的是安装WSL。
+
+    针对无法安装WSL，选择使用Docker来运行Linux的用户，我们已在hub.docker.com上提供了一个Python的开发环境镜像，已经配置好了git, conda, ssh, redis, postgres等服务。您可以通过下面的命令来获得它的镜像：
 
     docker pull zillionare/python-dev-machine
 
+    然后运行下面的命令将其启动起来：
+
+    ```
+    # 将这里的{host_port}替换成你主机上空闲的任何端口
+    docker run -d -name dev -p {host}:22 python-dev-machine
+    ```
+    接下来，就可以通过Winows Terminal连接{host}端口，远程登录这台机器了。
+
 ### 安装WSL
 
-WSL是Windows Subsystem for Linux的首字母简写。它基于Windows的Hyper-v架构，是一种比Docker更为轻量级的虚拟化技术。
-
-???+ Readmore
-    Docker最初是一种基于Linux容器隔离技术诞生的一种虚拟化技术。当其在Linux下运行时，可以与Host操作系统共享资源，因而是一种十分轻量的虚拟化技术。在Windows下使用Docker，Windows必须先模拟出来一个Linux的操作系统，然后在其之上，再运行docker层。这个操作系统层必须静态分割和独占主机的资源，比如CPU和内存。一旦Windows启动了Docker服务，无论您当前是否有容器在运行，都要占用相当一部分CPU和内存资源。
-
-    因此，在Windows下要开启Linux虚拟机，首先考虑的是安装WSL。
-
-WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux体验（兼容所有系统调用），但与宿主机的融合体验要差一点。当在两个系统间来回读写文件时，版本二性能会弱一些，这也是我们推荐版本一的重要原因。当您使用版本一时，是可以在WSL里创建文件，然后在Windows中打开它的；反之亦然。
+WSL有两个版本。版本二更象传统的虚拟机技术，提供了完全的Linux体验（兼容所有系统调用），但与宿主机的融合体验要差一点。当在两个系统间来回读写文件时，版本二性能会弱一些，这也是我们推荐版本一的重要原因。当您使用版本一时，是可以在WSL里创建文件，然后在Windows中打开它的；反之亦然。
 
 关于两者的区别的详细比较，可以阅读[WSL两个版本的比较](https://docs.microsoft.com/en-us/windows/wsl/compare-versions)
 
@@ -47,7 +67,7 @@ WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux
 
 首先，要通过"启用或关闭Windows功能"命令，来启用"适用于Linux的Windows子系统"功能：
 ![](http://images.jieyu.ai/images/2020-05/20200503185200[1].png)
-接下来，从应用商店搜索安装Ubuntu就可以了：
+接下来，从应用商店搜索安装Ubuntu：
 ![](http://images.jieyu.ai/images/2020-05/20200503191417[1].png)
 
 ??? Tips
@@ -80,17 +100,17 @@ WSL有两个版本。版本二更象是虚拟机技术，提供了完全的Linux
     ```
 
 ??? Tips
-    通过WSL安装的`ubuntu`本身不会随Windwows而启动。如果您在WSL里安装了Redis等应用的话，您一般也需要在WSL启动后，在命令行窗口中逐一启动它。为了得到更好的使用体验，我们可以通过脚本使WSL随Windows一起启动，并且自动启动指定的服务（比如redis)。请参见[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)
+    通过WSL安装的`ubuntu`本身不会随Windwows而启动。如果您在WSL里安装了Redis等应用的话，您一般也需要在WSL启动后，在命令行窗口中逐一启动它。为了得到更好的使用体验，我们可以设置WSL随Windows一起启动，并且自动启动指定的服务（比如redis)。请参见[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)
 
 ??? Tips
-    在Windows下远程访问Linux机器，现在最好的终端当属微软推出的Windows Terminal。您可以从微软应用商店下载安装这个程序。它是多Tab的，同时支持横向和纵向切分窗口。作为之前cmder的重度使用者，在使用了Windows Terminal一段时间之后，大有相见恨晚的遗憾。cmder性能太差，打字时容易吞字符，Windows Terminal则完全没有这个问题。
+    在Windows下远程访问Linux机器，现在最好的终端当属微软推出的[Windows Terminal](https://github.com/microsoft/terminal)。您可以从微软应用商店下载安装这个程序。它是多Tab的，同时支持横向和纵向切分窗口。作为之前cmder的重度使用者，在使用了Windows Terminal一段时间之后，大有相见恨晚的遗憾。cmder性能太差，打字时容易吞字符，Windows Terminal则完全没有这个问题。
 
 现在，操作系统已经设置好了，我们来看看IDE（集成开发环境）。
 
 ## 安装集成开发环境
 ### 如何选择IDE
 
-Python最好的开发工具是Pycharm和Vscode。Pycharm更容易上手，但随着时间推移，您会发现，vscode可能是更适合开源项目开发。
+Python最好的专业开发工具是Pycharm和Vscode。Pycharm更容易上手，但随着时间推移，您会发现，vscode可能是更适合开源项目开发。
 
 这里就Pycharm与vscode的主要差异进行一个比较。Pycharm有两个版本，社区版免费，专业版需要支付费用。如果在中国区付款很方便的话，这个费用还是值得的。
 
@@ -126,30 +146,28 @@ vscode从[这里](https://code.visualstudio.com/)下载安装。
 
 安装完成这个扩展之后，您的IDE还将具有Jupyter Notebook功能。
 
-安装完成之后，最重要的配置，是配置Python解释器。关于这一点，我们在的顼介绍配置虚拟运行环境之后，再来讲解。
+安装完成之后，最重要的配置，是配置Python解释器。关于这一点，我们在后面介绍配置虚拟运行环境之后，再来讲解。//TODO
 
 #### Pylance
 微软开发的Python语言支持工具，提供代码的静态检查，代码自动完成等。它能够提示代码中使用了未定义的变量、变量声明了但未使用等许多语法错误。
 
 #### Kite AutoComplete AI
 
-又一个代码自动完成工具。与Pylance相比，它可以提供更详细的帮助文档，还会提示其它人的类似代码供参考。比如，当你创建一个Redis Client时，可能会为如何初始化它而犯愁，Kite就会提示你，其它人一般都如何初始化这个对象，有时候这会比阅读文档更快捷。
+又一个代码自动完成工具。与Pylance相比，它可以提供更详细的帮助文档，还可以提示他人的代码供参考。比如，当你创建一个Redis Client时，可能会为如何初始化它而犯愁，Kite就会提示你，其它人一般都如何初始化这个对象，有时候这会比阅读文档更快捷。
 
 在安装Kite的vs-code扩展时，还要注意同时安装kite服务器。
 
 #### Remote ssh/Remote wsl
 
-根据您使用的Linux版本，选择安装Remote ssh或者Remote wsl。前者仅当您有一台单独的Linux机器，比如运行在Docker的container之中，或者虚拟机、或者任何其它远程机器上。后者用于您在本机上安装的wsl。
+根据您使用的Linux版本，选择安装Remote wsl或者Remote ssh。这两个工具帮助我们实现在wsl/linux上的远程开发。如果您是使用的WSL方案，则需要安装remote wsl，否则，请安装remote ssh。如果您按照[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)里的方法将WSL设置为自启动，并开启了ssh server的话，也可以仅使用remote-ssh来进行远程开发。两者的体验几乎是一样的。
 
-如果您安装的是wsl v2,可以只使用Remote ssh，因为wsl v2就象一台虚拟机。
+另外，如果您安装的是wsl v2,可以只使用Remote ssh，因为wsl v2就象一台虚拟机。
 
 安装完成remote-ssh之后，在side bar上会出现一个连接电脑的icon。
 
 ![](http://images.jieyu.ai/images/202104/20210402225647.png)
 
 Remote ssh的工作原理是，它把远程文件夹虚拟成本地文件夹。在您连接远程服务器后，可直接打开在远程服务器上的文件进行编程、调试和运行。在这个过程中，您只需要告诉扩展如何连接远程服务器就可以了。
-
-对于wsl，vscode会帮你启动它。当然，如果您按照[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)提供的方法实现了wsl的自动启动，并配置了ssh server的话，您也可以只使用remote-ssh的方案。毕竟，这时候的wsl已经是一台可以通过ssh远程访问的Linux机器了。
 
 这个扩展也是我喜欢vscode甚于Pycharm的地方。在Pycharm专业版中，配置远程开发比较繁琐，要配置ssh连接和sftp部署、以及文件夹映射等。文件都是在本地编辑的，在运行调试之前，必须先将其同步到远程服务器上。偶尔这种同步还会出错。
 
@@ -173,11 +191,11 @@ curent line hover则是另一个我非常喜欢的功能。当你把光标移动
 
 Current line hover清楚地提示了这行代码的历史。
 
-Git Grpah启动后，会独占一个完整的工作窗口，这样可以一次性把commit的相关信息展示全，因此与Git lens相比，查找更方便。比如，当我们准备某一个版本的发布时，可能需要列出上一个版本以来所有的bug fix,这在git graph中是比较容易实现的。当然，更好的方法是平时就做好project管理，在提交bug和功能需求时，通过triage，将其规划到指定的版本中。
+Git Grpah启动后，会独占一个完整的工作窗口，这样可以一次性把commit的相关信息展示全，因此与Git lens相比，查找更方便。比如，当我们准备某一个版本的发布时，可能需要列出上一个版本以来所有的bug fix,这在git graph中是比较容易实现的。当然，更好的方法是平时就做好project管理，在提交bug和功能需求后，通过评审，将其规划到指定的版本中。
 
 Git commit plugin虽然人气没有前两款高，但也是很值得推荐的一款扩展。它的主要作用是编辑commit message。它提供了一个commit的标准分类（据说源自于angular js团队），并且按照分类，给每个commit带上了emoji功能。对commmit进行标准化分类，能够有效地提高code review和查找效率。比如我们在进行code review时，一般可以直接跳过标记为docs, build等类型的提交（当然提交者也必须严格按规范，只提交该类型的修改，而不要夹杂其它修改）。
 
-gitignore扩展用来辅助.gitignore文件的编辑。您可以从侧边栏的Sourch Control的文件列表中，右键打开菜单，添加选中的文件到.gitignore文件中。
+gitignore扩展用来辅助.gitignore文件的编辑。您可以从侧边栏的Source Control的文件列表中，右键打开菜单，添加选中的文件到.gitignore文件中。
 
 Github Pull Request则是一个管理Github issues的工具。通过这个扩展，可以让您直接从vscode连接、加载github issues, 以及创建新的github issues。另外，它还有一个很好的功能，就是可以只通过一个点击，就帮您为待修复的bug创建专门的bug修复分支。
 

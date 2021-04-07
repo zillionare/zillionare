@@ -146,6 +146,9 @@ conda deactivate              #退出当前的虚拟环境
 
 pip和pipenv都是[pypa(Python Packaging Authority (PyPA)](https://www.pypa.io/en/latest/)的产品。
 
+# 配置vscode中的解释器
+
+在上一章中讲到，安装完成ms-python扩展后，最重要的配置是配置Python解释器。
 # 思考题
 1. 有哪三个重要原因，使得我们需要创建Python虚拟运行环境？
 2. 什么是virtualenv? 它与venv是什么关系？
