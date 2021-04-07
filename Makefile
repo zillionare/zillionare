@@ -51,7 +51,7 @@ clean:
 	
 config_release:
 	# get the tar ball from gh://zillionare/omega/release
-	curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(repo_omega_tar) -o /tmp/omega.src.${version}.tar.gz
+	curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(repo_omega_tar) -o /tmp/omega.src.${VERSION}.tar.gz
 	# omega config
 	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${omega_config_dir} --wildcards "*/config/defaults.yaml" --strip-components=3
 	# postgres init scripts
