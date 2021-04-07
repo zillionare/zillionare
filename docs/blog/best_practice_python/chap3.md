@@ -107,7 +107,7 @@ cookiecutter本意是饼干制造机。在这里，cookiecutter是一个生产�
 ??? Readmore
     console script是Python的分发包的一种功能，允许在安装过程中，将指定的python脚本安装到用户可执行程序路径下,直接从命令行调用，就象原生的shell命令一样。
 
-随着时间的推移，Poetry作为依赖管理和构建工具越来越得到重视，上述模板也需要与时俱进。
+需要注意的是，上述模板中使用的打包工具是setup tools，它的依赖管理功能较弱，现在已逐渐被Poetry替代。[briggySmalls](https://github.com/briggySmalls/cookiecutter-pypackage)的这个模板，在上述模板的基础上，采用了Poetry.
 
 
 

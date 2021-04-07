@@ -23,3 +23,7 @@
     for f in $(shell "ls /apps/omega/omega/config/sql/*"); do sudo docker cp $$f ${postgres_init_dir};done
     ```
     注意这里的`$$f`
+5. 如何发现未定义的变量？
+    make --warn-undefined-variables -n TARGET | grep warning
+6. safe-rm?
+    可以安装safe-rm，并通过它来调用rm。但是，safe-rm并不能拯救 rm /*

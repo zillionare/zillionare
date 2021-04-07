@@ -100,7 +100,7 @@ WSL有两个版本。版本二更象传统的虚拟机技术，提供了完全�
     ```
 
 ??? Tips
-    通过WSL安装的`ubuntu`本身不会随Windwows而启动。如果您在WSL里安装了Redis等应用的话，您一般也需要在WSL启动后，在命令行窗口中逐一启动它。为了得到更好的使用体验，我们可以设置WSL随Windows一起启动，并且自动启动指定的服务（比如redis)。请参见[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)
+    通过WSL安装的`ubuntu`本身不会随Windwows而启动。如果您在WSL里安装了Redis等应用的话，您一般也需要在WSL启动后，在命令行窗口中逐一启动它。为了得到更好的使用体验，我们可以设置WSL随Windows一起启动，并且自动启动指定的服务（比如redis)。请参见[WSL服务自启动技巧](/blog/tools/how_to_run_app_as_service_in_wsl.md)
 
 ??? Tips
     在Windows下远程访问Linux机器，现在最好的终端当属微软推出的[Windows Terminal](https://github.com/microsoft/terminal)。您可以从微软应用商店下载安装这个程序。它是多Tab的，同时支持横向和纵向切分窗口。作为之前cmder的重度使用者，在使用了Windows Terminal一段时间之后，大有相见恨晚的遗憾。cmder性能太差，打字时容易吞字符，Windows Terminal则完全没有这个问题。
@@ -159,7 +159,7 @@ vscode从[这里](https://code.visualstudio.com/)下载安装。
 
 #### Remote ssh/Remote wsl
 
-根据您使用的Linux版本，选择安装Remote wsl或者Remote ssh。这两个工具帮助我们实现在wsl/linux上的远程开发。如果您是使用的WSL方案，则需要安装remote wsl，否则，请安装remote ssh。如果您按照[WSL服务自启动技巧](blog/tools/how_to_run_app_as_service_in_wsl.md)里的方法将WSL设置为自启动，并开启了ssh server的话，也可以仅使用remote-ssh来进行远程开发。两者的体验几乎是一样的。
+根据您使用的Linux版本，选择安装Remote wsl或者Remote ssh。这两个工具帮助我们实现在wsl/linux上的远程开发。如果您是使用的WSL方案，则需要安装remote wsl，否则，请安装remote ssh。如果您按照[WSL服务自启动技巧](/blog/tools/how_to_run_app_as_service_in_wsl.md)里的方法将WSL设置为自启动，并开启了ssh server的话，也可以仅使用remote-ssh来进行远程开发。两者的体验几乎是一样的。
 
 另外，如果您安装的是wsl v2,可以只使用Remote ssh，因为wsl v2就象一台虚拟机。
 
