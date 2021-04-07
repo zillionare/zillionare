@@ -9,7 +9,7 @@ image_name:=zillionare:${VERSION}
 requirements := setup/requirements.txt
 repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
 Headers_Accept := 'Accept: application/vnd.github.v3.raw'
-Headers_Auth := 'Authorization: token $(GH_TOKEN)'
+Headers_Auth := 'Authorization: token ${GH_TOKEN}'
 
 image_root := setup/docker/rootfs/
 
