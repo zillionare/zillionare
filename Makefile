@@ -16,7 +16,7 @@ image_root := setup/docker/rootfs/
 omega_config_dir := ${image_root}/root/zillionare/omega/config
 postgres_init_dir := ${image_root}/../init/postgres
 
-tutorial_src := ${shell pwd}/docs/tutorial/
+tutorial_src := ${shell pwd}/docs/zillionare/tutorial/
 tutorial_dst := ${shell pwd}/docs/download/tutorial.tar.gz
 
 # build artifacts
