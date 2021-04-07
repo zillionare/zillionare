@@ -29,9 +29,6 @@ archive_src := ${image_root}/..
 # installation dir for dist test
 install_to := /usr/local/zillionare
 
-print_vars:
-	# use this to find undefined variables
-	$(foreach v, $(.VARIABLES), $(if $(filter file,$(origin $(v))), $(info $(v)=$($(v)))))
 clean:
 	# clean image rootfs
 	if [ -n "${image_root}" ]; then sudo ${rm} -f ${image_root}/*.whl ||: ; fi
