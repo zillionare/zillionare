@@ -9,8 +9,8 @@ image_name:=zillionare:${VERSION}
 requirements := setup/requirements.txt
 
 req_jq_adaptor := ${shell cat setup/requirements.txt |grep 'adaptors-jq' |tr -d '\n'}
-req_omega := ${shell cat setup/requirements.txt |grep 'omega' |tr -d '\n'}
-req_omicron := ${shell cat setup/requirements.txt |grep 'omicron' |tr -d '\n'}
+req_omega := ${shell cat setup/requirements.txt |grep 'omega==' |tr -d '\n'}
+req_omicron := ${shell cat setup/requirements.txt |grep 'omicron==' |tr -d '\n'}
 
 dev_repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/master
 repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
