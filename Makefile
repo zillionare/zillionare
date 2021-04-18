@@ -7,6 +7,12 @@ export VERSION:=$(shell cat version)
 image_name:=zillionare:${VERSION}
 
 requirements := setup/requirements.txt
+
+req_jq_adaptor := ${shell cat setup/requirements.txt |grep 'adaptors-jq' |tr -d '\n'}
+req_omega := ${shell cat setup/requirements.txt |grep 'omega' |tr -d '\n'}
+req_omicron := ${shell cat setup/requirements.txt |grep 'omicron' |tr -d '\n'}
+
+dev_repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/master
 repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
 Headers_Accept := 'Accept: application/vnd.github.v3.raw'
 Headers_Auth := 'Authorization: token ${GH_TOKEN}'
@@ -60,17 +66,20 @@ config_release:
 
 config_dev:
 	# omega config
-	sudo docker cp dev:/apps/omega/omega/config/defaults.yaml ${omega_config_dir}
+	curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(dev_repo_omega_tar) -o /tmp/omega.src.${VERSION}.tar.gz
+	# omega config
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${omega_config_dir} --wildcards "*/config/defaults.yaml" --strip-components=3
 	sudo chmod -R 777 ${omega_config_dir}
-	# postgres init scripts
-	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/omega/config/sql/*"); do sudo docker cp dev:$$f ${postgres_init_dir};done
-	# omega build artifact
-	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/dist/*.whl"); do sudo docker cp dev:$$f ${image_root};done
-	# copy deps
-	for f in $(shell sudo docker exec -it dev bash -c "ls /apps/omega/tests/packages/*.whl"); do sudo docker cp dev:$$f ${image_root};done
 
-	# use latest jq-adaptors, Be aware that sometimes we should use local jq-adaptor build
-	pip download -i https://pypi.org/simple --no-deps zillionare-omega-adaptors-jq==1.0.2 --no-cache --only-binary ":all:" -d ${image_root}
+	# postgres init scripts
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${postgres_init_dir} --wildcards "*/config/sql/*.sql" --strip-components=4
+
+	# download artifacts from testpypi
+	pip download -i https://test.pypi.org/simple --no-deps ${req_jq_adaptor} --no-cache --only-binary ":all:" -d ${image_root}
+	pip download -i https://test.pypi.org/simple --no-deps ${req_omega} --no-cache --only-binary ":all:" -d ${image_root}
+	pip download -i https://test.pypi.org/simple --no-deps ${req_omicron} --no-cache --only-binary ":all:" -d ${image_root}
+
+	ls -l ${image_root}
 
 ifeq (${update_config}, 1)
 release: clean config_release build
