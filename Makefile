@@ -35,9 +35,11 @@ archive_src := ${image_root}/..
 # installation dir for dist test
 install_to := /usr/local/zillionare
 
-clean:
+tools:
 	sudo apt update
-	sudo apt install safe-rm
+	sudo apt install -y safe-rm
+	sudo apt install -y makeself
+clean: tools
 	# clean image rootfs
 	if [ -n "${image_root}" ]; then sudo ${rm} -f ${image_root}/*.whl ||: ; fi
 
