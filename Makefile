@@ -30,6 +30,8 @@ archive_src := ${image_root}/..
 install_to := /usr/local/zillionare
 
 clean:
+	sudo apt update
+	sudo apt install safe-rm
 	# clean image rootfs
 	if [ -n "${image_root}" ]; then sudo ${rm} -f ${image_root}/*.whl ||: ; fi
 
