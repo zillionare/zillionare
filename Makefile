@@ -75,7 +75,7 @@ config_dev:
 	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${postgres_init_dir} --wildcards "*/config/sql/*.sql" --strip-components=4
 
 	# download artifacts from testpypi
-	pip download -i https://test.pypi.org/simple --no-deps ${req_jq_adaptor} --no-cache --only-binary ":all:" -d ${image_root}
+	pip download --no-deps ${req_jq_adaptor} --no-cache --only-binary ":all:" -d ${image_root}
 	pip download -i https://test.pypi.org/simple --no-deps ${req_omega} --no-cache --only-binary ":all:" -d ${image_root}
 	pip download -i https://test.pypi.org/simple --no-deps ${req_omicron} --no-cache --only-binary ":all:" -d ${image_root}
 
