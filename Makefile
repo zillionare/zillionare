@@ -2,6 +2,7 @@
 # use safe-rm to avoid delete important files accidentaly
 rm := safe-rm
 
+server_role := DEV
 update_config:=1
 export VERSION:=$(shell cat version)
 image_name:=zillionare:${VERSION}
@@ -66,6 +67,8 @@ config_release:
 	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${postgres_init_dir} --wildcards "*/config/sql/*" --strip-components=4
 	# artifacts/deps
 	pip download -i https://pypi.org/simple --no-deps -r ${requirements} --no-cache --only-binary ":all:" -d ${image_root}
+
+	$(eval server_role=PRODUCTION)
 
 config_dev:
 	# omega config
