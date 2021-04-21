@@ -98,7 +98,7 @@ endif
 
 build:
 	echo ${VERSION} > ${image_root}/../version
-	cd ${image_root}/..; sudo -E docker-compose build --force-rm
+	export __cfg4py_server_role__=${server_role};cd ${image_root}/..; sudo -E docker-compose build --force-rm
 	sudo docker rmi ${image_name}
 
 # set local variables for test target
@@ -112,6 +112,7 @@ test: dev
 	makeself --current --tar-quietly ${archive_src} ${tmp_artifact} "zillionare_${VERSION}" ./setup.sh
 	chmod +x ${tmp_artifact}
 	sudo -E ${tmp_artifact} --target ${tmp_installation_dir} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
+	sudo docker logs zillionare
 
 dist: release
 	makeself --current --tar-quietly ${archive_src} ${artifact_exe} "zillionare_${VERSION}" ./setup.sh
