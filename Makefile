@@ -9,8 +9,8 @@ image_name:=zillionare:${VERSION}
 requirements := setup/requirements.txt
 
 req_jq_adaptor := ${shell cat setup/requirements.txt |grep 'adaptors-jq' |tr -d '\n'}
-req_omega := ${shell cat setup/requirements.txt |grep 'omega==' |tr -d '\n'}
-req_omicron := ${shell cat setup/requirements.txt |grep 'omicron==' |tr -d '\n'}
+req_omega := ${shell cat setup/requirements.txt |grep -e 'omega==' -e 'omega$$' |tr -d '\n'}
+req_omicron := ${shell cat setup/requirements.txt |grep -e 'omicron==' -e 'omicron$$' |tr -d '\n'}
 
 dev_repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/master
 repo_omega_tar := https://api.github.com/repos/zillionare/omega/tarball/release
@@ -37,8 +37,9 @@ install_to := /usr/local/zillionare
 
 tools:
 	sudo apt update
-	sudo apt install -y safe-rm
-	sudo apt install -y makeself
+	sudo apt-get install -y safe-rm
+	sudo apt-get install -y makeself
+
 clean: tools
 	# clean image rootfs
 	if [ -n "${image_root}" ]; then sudo ${rm} -f ${image_root}/*.whl ||: ; fi
@@ -76,8 +77,9 @@ config_dev:
 	# postgres init scripts
 	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${postgres_init_dir} --wildcards "*/config/sql/*.sql" --strip-components=4
 
-	# download artifacts from testpypi
 	pip download --no-deps ${req_jq_adaptor} --no-cache --only-binary ":all:" -d ${image_root}
+
+	# download omega/omicron from testpypi
 	pip download -i https://test.pypi.org/simple --no-deps ${req_omega} --no-cache --only-binary ":all:" -d ${image_root}
 	pip download -i https://test.pypi.org/simple --no-deps ${req_omicron} --no-cache --only-binary ":all:" -d ${image_root}
 
