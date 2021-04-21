@@ -44,22 +44,30 @@ pip install cfg4py
 
 # [Python Project Wizard](https://zillionare.github.io/cookiecutter-pypackage)
 
-配套《Python最佳工程实践》开发的Python Project Wizard。通过Wizard，可以快速创建一个Python项目的框架，并具有以下功能：
+配套《Python最佳实践》开发的Python Project Wizard。通过Wizard，可以快速创建一个Python项目的框架，并具有以下功能：
 
-1. 使用Poetry来管理项目版本和依赖，构建和发布到PyPI。
-2. 使用Mkdocs和Markdown来写作文档。文档支持表格、图像、admonition等功能，并提供实时预览。
-3. cascading quality control:
-    - pre-commit hooks强制每次代码提交时进行语法和风格检查。
-    - 本地执行通过tox命令，对支持的Python版本矩阵执行单元测试和Lint。
-    - 集成Github Actions CI，在代码Push到Github后，自动运行CI
-4. 自动发布版本到PyPI。当推送代码到release branch，并且带有tag时，CI会在测试通过后自动发布。
-5. 使用Gitpages来托管文档。当文档推送到master, main或者release branch之后，自动构建并发布到git pages。
-6. 使用flak8作为代码检查工具，black作为格式化工具。
-7. 通过Codecov来托管测试覆盖报告，为您的开源程序提供信任徽章。
-8. 提供基于google fire的命令行接口（可选）。
+* [Poetry]  通过Poetry来管理版本、依赖、构建和发布
+* [Mkdocs] 撰写基于Markdown的文档，常见扩展也已经配置
+* [Pytest] 使用Pytest进行单元测试（unittest仍然支持，并且直接可用）
+* [Codecov] 生成coverage report，并且由[Codecov]背书，开源项目必备
+* [Tox] 对代码进行矩阵化测试（包含风格检查和语法检查）
+* 使用[Black] 和 [Isort]格式化代码
+* 使用[Flake8] 和 [Flake8-docstrings]对代码和docstrings进行语法检查
+* [Pre-commit hooks] 代码提交前强制进行风格和语法检查，以及格式化
+* [Mkdocstrings] 自动生成API文档
+* 生成基于[Python Fire]的命令行接口
+* 已配置好Github持续集成，包括以下功能：
+    - 集成测试
+    - 集成测试通过后，自动发布dev build到testpypi，供测试
+    - 检测到新的tag（以字母v开头）后，从release分支上自动发布文档和wheels包
+    - 自动提取change log到release Notes
+    - 自动发布github release
+* 使用git pages来托管文档
 
-[安装说明](https://zillionare.github.io/cookiecutter-pypackage/tutorial/)
-
+安装:
+```
+ppw
+```
 
 # [Python开发环境Docker镜像](https://hub.docker.com/r/zillionare/python-dev-machine)
 
@@ -82,3 +90,17 @@ pip install cfg4py
 
 [大富翁]: https://github.com/zillionare
 [Cookiecutter]: https://cookiecutter.readthedocs.io/en/1.7.2/
+[Poetry]: https://python-poetry.org/
+[Mkdocs]: https://www.mkdocs.org
+[Pytest]: https://pytest.org
+[Codecov]: https://codecov.io
+[Tox]: https://tox.readthedocs.io
+[Black]: https://github.com/psf/black
+[Isort]: https://github.com/PyCQA/isort
+[Flake8]: https://flake8.pycqa.org
+[Flake8-docstrings]: https://pypi.org/project/flake8-docstrings/
+[Mkdocstrings]: https://mkdocstrings.github.io/
+[Python Fire]: https://github.com/google/python-fire
+[Github actions]: https://github.com/features/actions
+[Git Pages]: https://pages.github.com
+[Pre-commit hooks]: https://pre-commit.com/
