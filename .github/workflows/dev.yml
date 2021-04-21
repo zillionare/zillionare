@@ -1,31 +1,32 @@
-name: publish documentation
+name: dev build & test
 on:
   push:
     branches: [ main, master, release ]
 jobs:
-  deploy:
+  test:
+    env:
+      JQ_ACCOUNT: "${{secrets.JQ_ACCOUNT}}"
+      JQ_PASSWORD: ${{secrets.JQ_PASSWORD}}
+      PYPI_INDEX_URL: https://pypi.org/simple
+      INIT_BARS_MONTHS: 1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: "recursive" 
           fetch-depth: 0       # Fetch all history for .GitInfo and .Lastmod
+
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: '3.7'
+          python-version: '3.8'
           architecture: 'x64'
 
-      - name: Install dependencies
+      - name: Test docs building
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements_dev.txt
+          mkdocs build
 
-      - name: Build site
-        run: mkdocs build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
-          publish_dir: ./site
+      - name: Test docker image building
+        run: make test
