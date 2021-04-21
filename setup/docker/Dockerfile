@@ -4,6 +4,7 @@ WORKDIR /
 COPY rootfs ./
 
 ARG PYPI_INDEX_URL
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN	apt-get update\
 	&& apt-get -qq install -y --no-install-recommends python3.8 python3-pip build-essential python3.8-dev vim iputils-ping wget tzdata \ 
