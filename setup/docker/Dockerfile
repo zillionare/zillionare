@@ -1,12 +1,12 @@
 # vim:set ft=dockerfile:
-FROM ubuntu:20.04 
+FROM ubuntu:20.04
 WORKDIR /
 COPY rootfs ./
 
 ARG PYPI_INDEX_URL
 
 RUN	apt-get update\
-	&& apt-get -qq install -y --no-install-recommends python3.8 python3-pip build-essential python3.8-dev vim iputils-ping wget\ 
+	&& apt-get -qq install -y --no-install-recommends python3.8 python3-pip build-essential python3.8-dev vim iputils-ping wget tzdata \ 
 	&& pip3 config set global.index-url $PYPI_INDEX_URL \
 	&& pip3 install $(echo *omega-*.whl) \
 	&& pip3 install --force-reinstall $(echo *adaptors*.whl) \
