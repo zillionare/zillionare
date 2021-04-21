@@ -1,9 +1,10 @@
 #! /bin/sh
 # wait for postgres, it's better to use other more reliable method
 echo "containers envars are:"
-printenv |grep 'POSTGRES\|JQ_ACCOUNT\|REDIS'
+printenv |grep -v 'PASSWORD'
 sleep 5
 omega start fetcher
+sleep 5
 if [ -f ~/.ARCHIVED ]; then
     echo "容器并非首次启动，跳过数据导入过程"
 else
