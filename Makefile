@@ -109,7 +109,6 @@ test: dev
 	makeself --current --tar-quietly ${archive_src} ${tmp_artifact} "zillionare_${VERSION}" ./setup.sh
 	chmod +x ${tmp_artifact}
 	sudo -E ${tmp_artifact} --target ${tmp_installation_dir} -- --jq_account ${JQ_ACCOUNT} --jq_password ${JQ_PASSWORD} --redis_host redis --postgres_host postgres
-	sudo zillionare log
 
 dist: release
 	makeself --current --tar-quietly ${archive_src} ${artifact_exe} "zillionare_${VERSION}" ./setup.sh
