@@ -9,14 +9,14 @@
     
     您需要事先在机器上安装Docker-engine和Docker compose。请参见[安装指南](../installation.md#安装到Linux操作系统)。
     
-    [点击这里下载](/download/zillionare_1.0.0.a6.sh?latest)
+    [点击这里下载](/download/zillionare.sh?latest)
 
 === "Other OS"
     以压缩包方式提供，适用于其它操作系统。
     
     您需要事先在机器上安装Docker-engine和Docker compose。请参见[安装指南](../installation.md#安装到其它操作系统)。
     
-    [点击这里下载](/downlooad/zillionare_1.0.0.a6.tar.gz?latest)
+    [点击这里下载](/downlooad/zillionare.tar.gz?latest)
 
 === "Pip"
     您也可以通过Pip来分别安装各项服务。
