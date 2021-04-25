@@ -41,7 +41,7 @@ archive_src := ${image_root}/..
 install_to := /usr/local/zillionare
 
 tools:
-	sudo apt update
+	sudo apt-get update
 	sudo apt-get install -y safe-rm
 	sudo apt-get install -y makeself
 
@@ -84,6 +84,7 @@ config_dev:
 	curl -H $(Headers_Auth) -H $(Headers_Accept) -L $(dev_repo_omega_tar) -o /tmp/omega.src.${VERSION}.tar.gz
 	# omega config
 	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${omega_config_dir} --wildcards "*/config/defaults.yaml" --strip-components=3
+	tar -xzf /tmp/omega.src.${VERSION}.tar.gz -C ${omega_config_dir} --wildcards "*/config/dev.yaml" --strip-components=3
 	sudo chmod -R 777 ${omega_config_dir}
 
 	# postgres init scripts
