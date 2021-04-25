@@ -54,6 +54,7 @@ clean: tools
 
 	mkdir -p ${image_root}/root/zillionare/omega/config
 	mkdir -p ${postgres_init_dir}
+	mkdir -p docs/download ||:
 
 	# remove docker related
 	# remove containers created if exists
