@@ -16,7 +16,22 @@
     注意这里`shell`和`echo`都不能省略
 
 3. 为何在Makefile中声明的环境变量不起作用？
-    在Makefile中，每个target都是一个单独的shell,所以环境变量声明必须在target内部声明，仅对本target有效。
+    在Makefile中，每个recipe都是一个单独的shell，所以命令：
+    ```
+    mytarget:
+        export MYVAR=myvar
+        echo "MYVAR is $(myvar)"
+    ```
+    将不会输出"MYVAR is myvar"
+
+    正确的语法是使用target variable
+
+    ```
+    # next line will defined a target variable and export it
+    mytarget: export MYVAR := myvar
+    mytarget:
+        echo "MYVAR is ${myvar}"
+    ```
 
 4. 如何在make中遍历文件并执行copy?
     ```
