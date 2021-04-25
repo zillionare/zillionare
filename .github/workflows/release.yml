@@ -39,11 +39,11 @@ jobs:
           ls -l .
           ls -l docs/download
 
-     - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-versions }}
 
-      - name: Test docs building
+      - name: build docs
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements_dev.txt
