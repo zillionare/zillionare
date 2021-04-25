@@ -1,6 +1,10 @@
 
 # use safe-rm to avoid delete important files accidentaly
 rm := safe-rm
+pypi := https://pypi.org/simple
+dev_build_pypi := https://pypi.org/simple
+
+init_bars_month := 1
 
 server_role := DEV
 update_config:=1
@@ -72,6 +76,8 @@ config_release:
 	pip download -i https://pypi.org/simple --no-deps -r ${requirements} --no-cache --only-binary ":all:" -d ${image_root}
 
 	$(eval server_role=PRODUCTION)
+	$(eval pypi=https://mirrors.aliyun.com/pypi/simple)
+	$(eval init_bars_month=13)
 
 config_dev:
 	# omega config
@@ -85,9 +91,9 @@ config_dev:
 
 	pip download --no-deps ${req_jq_adaptor} --no-cache --only-binary ":all:" -d ${image_root}
 
-	# download omega/omicron from testpypi
-	pip download -i https://test.pypi.org/simple --no-deps ${req_omega} --no-cache --only-binary ":all:" -d ${image_root}
-	pip download -i https://test.pypi.org/simple --no-deps ${req_omicron} --no-cache --only-binary ":all:" -d ${image_root}
+	# download omega/omicron
+	pip download -i ${dev_build_pypi} --no-deps ${req_omega} --no-cache --only-binary ":all:" -d ${image_root}
+	pip download -i ${dev_build_pypi} --no-deps ${req_omicron} --no-cache --only-binary ":all:" -d ${image_root}
 
 	ls -l ${image_root}
 
@@ -101,12 +107,16 @@ endif
 
 build:
 	echo ${VERSION} > ${image_root}/../version
-	export __cfg4py_server_role__=${server_role};cd ${image_root}/..; sudo -E docker-compose build --force-rm
+
+	cd ${image_root}/..; sudo -E docker-compose build --force-rm
 	sudo docker rmi ${image_name}
 
 # set local variables for test target
 test: tmp_artifact=/tmp/zillionare_${VERSION}.sh
 test: tmp_installation_dir=/tmp/zillionare
+test: export PYPI_INDEX_URL := ${pypi} 
+test: export __cfg4py_server_role__ := ${server_role}
+test: export INIT_BARS_MONTHS := ${init_bars_month}
 
 test: dev
 	export tmp_artifact=/tmp/zillionare_${VERSION}.sh
