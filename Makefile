@@ -57,6 +57,9 @@ clean: tools
 	sudo docker rm -f zillionare 2 > /dev/null ||:
 	sudo docker rmi ${image_name} 2>/dev/null ||:
 	sudo docker image prune -f --filter dangling=true 2>/dev/null||:
+
+	sudo rm -rf /tmp/zillionare_*
+	sudo rm -rf ${install_to}
 	
 config_release:
 	# get the tar ball from gh://zillionare/omega/release
