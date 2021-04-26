@@ -24,7 +24,7 @@
     ```bash
     pip install zillionare-omega
     ```
-    请参见 ==[TODO](404.md)==
+    请参见 [安装Omega](https://zillionare.github.io/omega/deployment/)
 
 # [Cfg4Py](https://pypi.org/project/cfg4py/)
 
