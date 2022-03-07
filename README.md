@@ -140,3 +140,9 @@ Zillionare（大富翁）是一个分布式高速量化交易框架。它基于P
 
 [大富翁量化框架深度解析](zillionare/diveintozillionare/index.md)从大富翁开发者的角度，介绍了大富翁开发过程中的技术选型思考、各种技术栈包括构建工具链如何使用。这也是一本面向工程实践的Python学习手册。
 
+鸣谢
+=========
+
+Zillionare采用以下技术构建:
+- ![JetBrains Black Box Logo logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_square.svg) [Pycharm开源项目支持计划](https://www.jetbrains.com/?from=zillionare-omega)
+
