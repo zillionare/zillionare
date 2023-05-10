@@ -1,0 +1,2907 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://www.jieyu.ai/coursea/cheese/outline/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>大纲 - 大富翁量化</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-导论" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="大富翁量化" class="md-header__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            大富翁量化
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              大纲
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      首页
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../intro/" class="md-tabs__link md-tabs__link--active">
+        课程
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../products/" class="md-tabs__link">
+      产品
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../jupyter/" class="md-tabs__link">
+      在线量化环境
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../contact/" class="md-tabs__link">
+      联系我们
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.zhihu.com/people/hbaaron" class="md-tabs__link">
+      知乎
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="大富翁量化" class="md-nav__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    大富翁量化
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          课程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="课程" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          课程
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          大富翁量化金融实战
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="大富翁量化金融实战" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          大富翁量化金融实战
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          大纲
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        大纲
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-导论" class="md-nav__link">
+    1. 导论
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 导论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-什么是量化交易" class="md-nav__link">
+    1.1. 什么是量化交易
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-量化交易的知识体系" class="md-nav__link">
+    1.2. 量化交易的知识体系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-课程目标和定位" class="md-nav__link">
+    1.3. 课程目标和定位
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-如何学习本课程" class="md-nav__link">
+    1.4. 如何学习本课程
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4. 如何学习本课程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-在线实验环境介绍" class="md-nav__link">
+    1.4.1. 在线实验环境介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-参考书籍" class="md-nav__link">
+    1.4.2. 参考书籍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-指导老师和社群资源" class="md-nav__link">
+    1.4.3. 指导老师和社群资源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-证券数据源" class="md-nav__link">
+    2. 证券数据源
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 证券数据源">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-交易所及证券代码" class="md-nav__link">
+    2.1. 交易所及证券代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-akshare" class="md-nav__link">
+    2.2. Akshare
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. Akshare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-akshare数据简介" class="md-nav__link">
+    2.2.1. Akshare数据简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-如何获取实时数据" class="md-nav__link">
+    2.2.2. 如何获取实时数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-如何获取历史数据" class="md-nav__link">
+    2.2.3. 如何获取历史数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-如何获取交易日历" class="md-nav__link">
+    2.2.4. 如何获取交易日历
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-如何获取证券列表" class="md-nav__link">
+    2.2.5. 如何获取证券列表
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-tushare" class="md-nav__link">
+    2.3. Tushare
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Tushare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-tushare数据简介" class="md-nav__link">
+    2.3.1. Tushare数据简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-股票历史数据" class="md-nav__link">
+    2.3.2. 股票历史数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-证券列表" class="md-nav__link">
+    2.3.3. 证券列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-交易日历" class="md-nav__link">
+    2.3.4. 交易日历
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-聚宽本地数据" class="md-nav__link">
+    2.4. 聚宽本地数据
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. 聚宽本地数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-聚宽和聚宽本地数据简介" class="md-nav__link">
+    2.4.1. 聚宽和聚宽本地数据简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-股票历史数据" class="md-nav__link">
+    2.4.2. 股票历史数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-证券列表" class="md-nav__link">
+    2.4.3. 证券列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-交易日历" class="md-nav__link">
+    2.4.4. 交易日历
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-baostock简介" class="md-nav__link">
+    2.5. BaoStock简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-yfinance简介" class="md-nav__link">
+    2.6. YFinance简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-大富翁量化框架" class="md-nav__link">
+    2.7. 大富翁量化框架
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7. 大富翁量化框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-大富翁量化框架简介" class="md-nav__link">
+    2.7.1. 大富翁量化框架简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-实时历史股票数据" class="md-nav__link">
+    2.7.2. 实时/历史股票数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-证券列表筛选查询过滤" class="md-nav__link">
+    2.7.3. 证券列表筛选，查询，过滤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274-交易日历" class="md-nav__link">
+    2.7.4. 交易日历
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275-通过数据解读a股" class="md-nav__link">
+    2.7.5. 通过数据解读A股
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#276-行业板块概念板块数据获取" class="md-nav__link">
+    2.7.6. 行业板块，概念板块数据获取
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-初识策略" class="md-nav__link">
+    3. 初识策略
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 初识策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-小市值策略基本面策略" class="md-nav__link">
+    3.1. 小市值策略(基本面策略)
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. 小市值策略(基本面策略)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-规模因子fama三因子与小市值策略" class="md-nav__link">
+    3.1.1. 规模因子（FAMA三因子）与小市值策略
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-策略实现" class="md-nav__link">
+    3.1.2. 策略实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-策略优化讨论" class="md-nav__link">
+    3.1.3. 策略优化讨论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-布林带策略技术分析策略" class="md-nav__link">
+    3.2. 布林带策略(技术分析策略)
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 布林带策略(技术分析策略)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-策略简介" class="md-nav__link">
+    3.2.1. 策略简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-策略实现" class="md-nav__link">
+    3.2.2. 策略实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-策略优化讨论" class="md-nav__link">
+    3.2.3. 策略优化讨论
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324-omicron与coursea环境下的策略相关功能库" class="md-nav__link">
+    3.2.4. omicron与coursea环境下的策略相关功能库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-网格交易法" class="md-nav__link">
+    3.3. 网格交易法
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3. 网格交易法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-什么是网格交易" class="md-nav__link">
+    3.3.1. 什么是网格交易
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-网格交易如何实现" class="md-nav__link">
+    3.3.2. 网格交易如何实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-网格交易优化方向讨论" class="md-nav__link">
+    3.3.3. 网格交易优化方向讨论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-金融数据处理" class="md-nav__link">
+    4. 金融数据处理
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 金融数据处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-numpy和pands" class="md-nav__link">
+    4.1. Numpy和Pands
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. Numpy和Pands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-numpy" class="md-nav__link">
+    4.1.1. Numpy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-pandas" class="md-nav__link">
+    4.1.2. Pandas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-talib" class="md-nav__link">
+    4.2. Talib
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. Talib">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-安装talib" class="md-nav__link">
+    4.2.1. 安装Talib
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2.1. 安装Talib">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4211-unubtulinux下安装talib" class="md-nav__link">
+    4.2.1.1. Unubtu/Linux下安装Talib
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4212-windows下安装talib" class="md-nav__link">
+    4.2.1.2. Windows下安装Talib
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-常见指标函数" class="md-nav__link">
+    4.2.2. 常见指标函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-模式识别函数" class="md-nav__link">
+    4.2.3. 模式识别函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-数字信号处理" class="md-nav__link">
+    4.3. 数字信号处理
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3. 数字信号处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-zigzag与顶底标记" class="md-nav__link">
+    4.3.1. zigzag与顶底标记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-一维聚类与平台突破" class="md-nav__link">
+    4.3.2. 一维聚类与平台突破
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-曲线直线拟合" class="md-nav__link">
+    4.3.3. 曲线（直线）拟合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#434-凹凸性拐头判断" class="md-nav__link">
+    4.3.4. 凹凸性（拐头）判断
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-常用数学基础概念概率与统计" class="md-nav__link">
+    4.4. 常用数学基础概念（概率与统计）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-金融数据可视化" class="md-nav__link">
+    5. 金融数据可视化
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 金融数据可视化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-绘图基础理论" class="md-nav__link">
+    5.1. 绘图基础理论
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1. 绘图基础理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-绘图对象及组合关系" class="md-nav__link">
+    5.1.1. 绘图对象及组合关系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-k线图解" class="md-nav__link">
+    5.1.2. K线图解
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-matplotlib静态大众" class="md-nav__link">
+    5.2. Matplotlib(静态，大众)
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2. Matplotlib(静态，大众)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-matplotlib简介" class="md-nav__link">
+    5.2.1. Matplotlib简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-matplotlib柱状图绘制" class="md-nav__link">
+    5.2.2. Matplotlib柱状图绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-matplotlib折线图绘制" class="md-nav__link">
+    5.2.3. Matplotlib折线图绘制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-plotly交互式可视化" class="md-nav__link">
+    5.3. Plotly(交互式可视化)
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3. Plotly(交互式可视化)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-plotly简介" class="md-nav__link">
+    5.3.1. Plotly简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-go对象及常见图形线散点柱绘制" class="md-nav__link">
+    5.3.2. go对象及常见图形（线、散点、柱）绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-plotlyexpress库简介" class="md-nav__link">
+    5.3.3. plotly.express库简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534-plotly股票分析图绘制" class="md-nav__link">
+    5.3.4. Plotly股票分析图绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3.4. Plotly股票分析图绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5341-k线图绘制" class="md-nav__link">
+    5.3.4.1. k线图绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5342-子图与技术指标叠加" class="md-nav__link">
+    5.3.4.2. 子图与技术指标叠加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5343-图形标注类别标签" class="md-nav__link">
+    5.3.4.3. 图形标注、类别标签
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535-dash简介" class="md-nav__link">
+    5.3.5. Dash简介
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-pyecharts及常见图形绘制" class="md-nav__link">
+    5.4. PyEcharts及常见图形绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4. PyEcharts及常见图形绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541-pyecharts简介" class="md-nav__link">
+    5.4.1. PyEcharts简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#542-pyecharts下的点线柱图和k线图" class="md-nav__link">
+    5.4.2. PyEcharts下的点、线、柱图和K线图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-股票策略回测" class="md-nav__link">
+    6. 股票策略回测
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 股票策略回测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-策略评估指标" class="md-nav__link">
+    6.1. 策略评估指标
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1. 策略评估指标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-mdd" class="md-nav__link">
+    6.1.1. MDD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-sharpe" class="md-nav__link">
+    6.1.2. SHARPE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-sortino" class="md-nav__link">
+    6.1.3. SORTINO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-winrate" class="md-nav__link">
+    6.1.4. WinRate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#615-anr年化收益率" class="md-nav__link">
+    6.1.5. ANR（年化收益率）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-volatility波动率" class="md-nav__link">
+    6.1.6. volatility（波动率）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#617-资产收益" class="md-nav__link">
+    6.1.7. 资产收益
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#618-benchmark与超额收益率" class="md-nav__link">
+    6.1.8. Benchmark与超额收益率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-回测指标可视化" class="md-nav__link">
+    6.2. 回测指标可视化
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. 回测指标可视化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-quantstats" class="md-nav__link">
+    6.2.1. Quantstats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-资产收益曲线" class="md-nav__link">
+    6.2.2. 资产收益曲线
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-事件驱动的回测模型" class="md-nav__link">
+    6.3. 事件驱动的回测模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-矢量化回测模型" class="md-nav__link">
+    6.4. 矢量化回测模型
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. 矢量化回测模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641-机器学习回测模型" class="md-nav__link">
+    6.4.1. 机器学习回测模型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-回测陷阱" class="md-nav__link">
+    6.5. 回测陷阱
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5. 回测陷阱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651-信号闪烁" class="md-nav__link">
+    6.5.1. 信号闪烁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652-未来函数" class="md-nav__link">
+    6.5.2. 未来函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#653-偷价" class="md-nav__link">
+    6.5.3. 偷价
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#654-不可能成交的价格" class="md-nav__link">
+    6.5.4. 不可能成交的价格
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#655-过度拟合" class="md-nav__link">
+    6.5.5. 过度拟合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#656-幸存者偏差" class="md-nav__link">
+    6.5.6. 幸存者偏差
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#657-冲击成本" class="md-nav__link">
+    6.5.7. 冲击成本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#658-复权影响" class="md-nav__link">
+    6.5.8. 复权影响
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#659-撮合算法" class="md-nav__link">
+    6.5.9. 撮合算法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-回测框架" class="md-nav__link">
+    6.6. 回测框架
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6. 回测框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#661-大富翁backtesting" class="md-nav__link">
+    6.6.1. 大富翁backtesting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#662-backtestingpy" class="md-nav__link">
+    6.6.2. backtesting.py
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#663-backtrader" class="md-nav__link">
+    6.6.3. backtrader
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-模拟盘和实盘接口" class="md-nav__link">
+    7. 模拟盘和实盘接口
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 模拟盘和实盘接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-接入实盘的相关法规" class="md-nav__link">
+    7.1. 接入实盘的相关法规
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-使用模拟盘" class="md-nav__link">
+    7.2. 使用模拟盘
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-基于gui的接入方案" class="md-nav__link">
+    7.3. 基于GUI的接入方案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-基于api的接入方案" class="md-nav__link">
+    7.4. 基于API的接入方案
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4. 基于API的接入方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741-文件单和东财emc-trade" class="md-nav__link">
+    7.4.1. 文件单和东财EMC Trade
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742-ptrade" class="md-nav__link">
+    7.4.2. Ptrade
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#743-qmt" class="md-nav__link">
+    7.4.3. QMT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#744-大富翁trderclient" class="md-nav__link">
+    7.4.4. 大富翁trderclient
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://zillionare.github.io/best-practice-python/" class="md-nav__link">
+        Python能做大项目
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/" class="md-nav__link">
+        产品
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../jupyter/" class="md-nav__link">
+        在线量化环境
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        联系我们
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.zhihu.com/people/hbaaron" class="md-nav__link">
+        知乎
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-导论" class="md-nav__link">
+    1. 导论
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 导论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-什么是量化交易" class="md-nav__link">
+    1.1. 什么是量化交易
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-量化交易的知识体系" class="md-nav__link">
+    1.2. 量化交易的知识体系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-课程目标和定位" class="md-nav__link">
+    1.3. 课程目标和定位
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-如何学习本课程" class="md-nav__link">
+    1.4. 如何学习本课程
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4. 如何学习本课程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-在线实验环境介绍" class="md-nav__link">
+    1.4.1. 在线实验环境介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-参考书籍" class="md-nav__link">
+    1.4.2. 参考书籍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-指导老师和社群资源" class="md-nav__link">
+    1.4.3. 指导老师和社群资源
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-证券数据源" class="md-nav__link">
+    2. 证券数据源
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 证券数据源">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-交易所及证券代码" class="md-nav__link">
+    2.1. 交易所及证券代码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-akshare" class="md-nav__link">
+    2.2. Akshare
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. Akshare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-akshare数据简介" class="md-nav__link">
+    2.2.1. Akshare数据简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-如何获取实时数据" class="md-nav__link">
+    2.2.2. 如何获取实时数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-如何获取历史数据" class="md-nav__link">
+    2.2.3. 如何获取历史数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-如何获取交易日历" class="md-nav__link">
+    2.2.4. 如何获取交易日历
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-如何获取证券列表" class="md-nav__link">
+    2.2.5. 如何获取证券列表
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-tushare" class="md-nav__link">
+    2.3. Tushare
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. Tushare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-tushare数据简介" class="md-nav__link">
+    2.3.1. Tushare数据简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-股票历史数据" class="md-nav__link">
+    2.3.2. 股票历史数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-证券列表" class="md-nav__link">
+    2.3.3. 证券列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-交易日历" class="md-nav__link">
+    2.3.4. 交易日历
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-聚宽本地数据" class="md-nav__link">
+    2.4. 聚宽本地数据
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. 聚宽本地数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-聚宽和聚宽本地数据简介" class="md-nav__link">
+    2.4.1. 聚宽和聚宽本地数据简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-股票历史数据" class="md-nav__link">
+    2.4.2. 股票历史数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-证券列表" class="md-nav__link">
+    2.4.3. 证券列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-交易日历" class="md-nav__link">
+    2.4.4. 交易日历
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-baostock简介" class="md-nav__link">
+    2.5. BaoStock简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-yfinance简介" class="md-nav__link">
+    2.6. YFinance简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-大富翁量化框架" class="md-nav__link">
+    2.7. 大富翁量化框架
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7. 大富翁量化框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-大富翁量化框架简介" class="md-nav__link">
+    2.7.1. 大富翁量化框架简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-实时历史股票数据" class="md-nav__link">
+    2.7.2. 实时/历史股票数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-证券列表筛选查询过滤" class="md-nav__link">
+    2.7.3. 证券列表筛选，查询，过滤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274-交易日历" class="md-nav__link">
+    2.7.4. 交易日历
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275-通过数据解读a股" class="md-nav__link">
+    2.7.5. 通过数据解读A股
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#276-行业板块概念板块数据获取" class="md-nav__link">
+    2.7.6. 行业板块，概念板块数据获取
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-初识策略" class="md-nav__link">
+    3. 初识策略
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 初识策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-小市值策略基本面策略" class="md-nav__link">
+    3.1. 小市值策略(基本面策略)
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. 小市值策略(基本面策略)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-规模因子fama三因子与小市值策略" class="md-nav__link">
+    3.1.1. 规模因子（FAMA三因子）与小市值策略
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-策略实现" class="md-nav__link">
+    3.1.2. 策略实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-策略优化讨论" class="md-nav__link">
+    3.1.3. 策略优化讨论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-布林带策略技术分析策略" class="md-nav__link">
+    3.2. 布林带策略(技术分析策略)
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 布林带策略(技术分析策略)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-策略简介" class="md-nav__link">
+    3.2.1. 策略简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-策略实现" class="md-nav__link">
+    3.2.2. 策略实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-策略优化讨论" class="md-nav__link">
+    3.2.3. 策略优化讨论
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324-omicron与coursea环境下的策略相关功能库" class="md-nav__link">
+    3.2.4. omicron与coursea环境下的策略相关功能库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-网格交易法" class="md-nav__link">
+    3.3. 网格交易法
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3. 网格交易法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-什么是网格交易" class="md-nav__link">
+    3.3.1. 什么是网格交易
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-网格交易如何实现" class="md-nav__link">
+    3.3.2. 网格交易如何实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-网格交易优化方向讨论" class="md-nav__link">
+    3.3.3. 网格交易优化方向讨论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-金融数据处理" class="md-nav__link">
+    4. 金融数据处理
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 金融数据处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-numpy和pands" class="md-nav__link">
+    4.1. Numpy和Pands
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. Numpy和Pands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-numpy" class="md-nav__link">
+    4.1.1. Numpy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-pandas" class="md-nav__link">
+    4.1.2. Pandas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-talib" class="md-nav__link">
+    4.2. Talib
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. Talib">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-安装talib" class="md-nav__link">
+    4.2.1. 安装Talib
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2.1. 安装Talib">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4211-unubtulinux下安装talib" class="md-nav__link">
+    4.2.1.1. Unubtu/Linux下安装Talib
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4212-windows下安装talib" class="md-nav__link">
+    4.2.1.2. Windows下安装Talib
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-常见指标函数" class="md-nav__link">
+    4.2.2. 常见指标函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-模式识别函数" class="md-nav__link">
+    4.2.3. 模式识别函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-数字信号处理" class="md-nav__link">
+    4.3. 数字信号处理
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3. 数字信号处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-zigzag与顶底标记" class="md-nav__link">
+    4.3.1. zigzag与顶底标记
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-一维聚类与平台突破" class="md-nav__link">
+    4.3.2. 一维聚类与平台突破
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-曲线直线拟合" class="md-nav__link">
+    4.3.3. 曲线（直线）拟合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#434-凹凸性拐头判断" class="md-nav__link">
+    4.3.4. 凹凸性（拐头）判断
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-常用数学基础概念概率与统计" class="md-nav__link">
+    4.4. 常用数学基础概念（概率与统计）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-金融数据可视化" class="md-nav__link">
+    5. 金融数据可视化
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 金融数据可视化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-绘图基础理论" class="md-nav__link">
+    5.1. 绘图基础理论
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1. 绘图基础理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-绘图对象及组合关系" class="md-nav__link">
+    5.1.1. 绘图对象及组合关系
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-k线图解" class="md-nav__link">
+    5.1.2. K线图解
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-matplotlib静态大众" class="md-nav__link">
+    5.2. Matplotlib(静态，大众)
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2. Matplotlib(静态，大众)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-matplotlib简介" class="md-nav__link">
+    5.2.1. Matplotlib简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-matplotlib柱状图绘制" class="md-nav__link">
+    5.2.2. Matplotlib柱状图绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-matplotlib折线图绘制" class="md-nav__link">
+    5.2.3. Matplotlib折线图绘制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-plotly交互式可视化" class="md-nav__link">
+    5.3. Plotly(交互式可视化)
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3. Plotly(交互式可视化)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-plotly简介" class="md-nav__link">
+    5.3.1. Plotly简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-go对象及常见图形线散点柱绘制" class="md-nav__link">
+    5.3.2. go对象及常见图形（线、散点、柱）绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-plotlyexpress库简介" class="md-nav__link">
+    5.3.3. plotly.express库简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534-plotly股票分析图绘制" class="md-nav__link">
+    5.3.4. Plotly股票分析图绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3.4. Plotly股票分析图绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5341-k线图绘制" class="md-nav__link">
+    5.3.4.1. k线图绘制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5342-子图与技术指标叠加" class="md-nav__link">
+    5.3.4.2. 子图与技术指标叠加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5343-图形标注类别标签" class="md-nav__link">
+    5.3.4.3. 图形标注、类别标签
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535-dash简介" class="md-nav__link">
+    5.3.5. Dash简介
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-pyecharts及常见图形绘制" class="md-nav__link">
+    5.4. PyEcharts及常见图形绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4. PyEcharts及常见图形绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541-pyecharts简介" class="md-nav__link">
+    5.4.1. PyEcharts简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#542-pyecharts下的点线柱图和k线图" class="md-nav__link">
+    5.4.2. PyEcharts下的点、线、柱图和K线图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-股票策略回测" class="md-nav__link">
+    6. 股票策略回测
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 股票策略回测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-策略评估指标" class="md-nav__link">
+    6.1. 策略评估指标
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1. 策略评估指标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-mdd" class="md-nav__link">
+    6.1.1. MDD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-sharpe" class="md-nav__link">
+    6.1.2. SHARPE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-sortino" class="md-nav__link">
+    6.1.3. SORTINO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-winrate" class="md-nav__link">
+    6.1.4. WinRate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#615-anr年化收益率" class="md-nav__link">
+    6.1.5. ANR（年化收益率）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-volatility波动率" class="md-nav__link">
+    6.1.6. volatility（波动率）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#617-资产收益" class="md-nav__link">
+    6.1.7. 资产收益
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#618-benchmark与超额收益率" class="md-nav__link">
+    6.1.8. Benchmark与超额收益率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-回测指标可视化" class="md-nav__link">
+    6.2. 回测指标可视化
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. 回测指标可视化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-quantstats" class="md-nav__link">
+    6.2.1. Quantstats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-资产收益曲线" class="md-nav__link">
+    6.2.2. 资产收益曲线
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-事件驱动的回测模型" class="md-nav__link">
+    6.3. 事件驱动的回测模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-矢量化回测模型" class="md-nav__link">
+    6.4. 矢量化回测模型
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. 矢量化回测模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641-机器学习回测模型" class="md-nav__link">
+    6.4.1. 机器学习回测模型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-回测陷阱" class="md-nav__link">
+    6.5. 回测陷阱
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5. 回测陷阱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651-信号闪烁" class="md-nav__link">
+    6.5.1. 信号闪烁
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652-未来函数" class="md-nav__link">
+    6.5.2. 未来函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#653-偷价" class="md-nav__link">
+    6.5.3. 偷价
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#654-不可能成交的价格" class="md-nav__link">
+    6.5.4. 不可能成交的价格
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#655-过度拟合" class="md-nav__link">
+    6.5.5. 过度拟合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#656-幸存者偏差" class="md-nav__link">
+    6.5.6. 幸存者偏差
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#657-冲击成本" class="md-nav__link">
+    6.5.7. 冲击成本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#658-复权影响" class="md-nav__link">
+    6.5.8. 复权影响
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#659-撮合算法" class="md-nav__link">
+    6.5.9. 撮合算法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-回测框架" class="md-nav__link">
+    6.6. 回测框架
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6. 回测框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#661-大富翁backtesting" class="md-nav__link">
+    6.6.1. 大富翁backtesting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#662-backtestingpy" class="md-nav__link">
+    6.6.2. backtesting.py
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#663-backtrader" class="md-nav__link">
+    6.6.3. backtrader
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-模拟盘和实盘接口" class="md-nav__link">
+    7. 模拟盘和实盘接口
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 模拟盘和实盘接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-接入实盘的相关法规" class="md-nav__link">
+    7.1. 接入实盘的相关法规
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-使用模拟盘" class="md-nav__link">
+    7.2. 使用模拟盘
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-基于gui的接入方案" class="md-nav__link">
+    7.3. 基于GUI的接入方案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-基于api的接入方案" class="md-nav__link">
+    7.4. 基于API的接入方案
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4. 基于API的接入方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741-文件单和东财emc-trade" class="md-nav__link">
+    7.4.1. 文件单和东财EMC Trade
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742-ptrade" class="md-nav__link">
+    7.4.2. Ptrade
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#743-qmt" class="md-nav__link">
+    7.4.3. QMT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#744-大富翁trderclient" class="md-nav__link">
+    7.4.4. 大富翁trderclient
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/zillionare/zillionare/edit/master/docs/coursea/cheese/outline.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+  <h1>大纲</h1>
+
+<h3 id="1-导论">1. 导论<a class="headerlink" href="#1-导论" title="Permanent link">&para;</a></h3>
+<h4 id="11-什么是量化交易">1.1. 什么是量化交易<a class="headerlink" href="#11-什么是量化交易" title="Permanent link">&para;</a></h4>
+<h4 id="12-量化交易的知识体系">1.2. 量化交易的知识体系<a class="headerlink" href="#12-量化交易的知识体系" title="Permanent link">&para;</a></h4>
+<h4 id="13-课程目标和定位">1.3. 课程目标和定位<a class="headerlink" href="#13-课程目标和定位" title="Permanent link">&para;</a></h4>
+<h4 id="14-如何学习本课程">1.4. 如何学习本课程<a class="headerlink" href="#14-如何学习本课程" title="Permanent link">&para;</a></h4>
+<h5 id="141-在线实验环境介绍">1.4.1. 在线实验环境介绍<a class="headerlink" href="#141-在线实验环境介绍" title="Permanent link">&para;</a></h5>
+<h5 id="142-参考书籍">1.4.2. 参考书籍<a class="headerlink" href="#142-参考书籍" title="Permanent link">&para;</a></h5>
+<h5 id="143-指导老师和社群资源">1.4.3. 指导老师和社群资源<a class="headerlink" href="#143-指导老师和社群资源" title="Permanent link">&para;</a></h5>
+<h3 id="2-证券数据源">2. 证券数据源<a class="headerlink" href="#2-证券数据源" title="Permanent link">&para;</a></h3>
+<h4 id="21-交易所及证券代码">2.1. 交易所及证券代码<a class="headerlink" href="#21-交易所及证券代码" title="Permanent link">&para;</a></h4>
+<h4 id="22-akshare">2.2. Akshare<a class="headerlink" href="#22-akshare" title="Permanent link">&para;</a></h4>
+<h5 id="221-akshare数据简介">2.2.1. Akshare数据简介<a class="headerlink" href="#221-akshare数据简介" title="Permanent link">&para;</a></h5>
+<h5 id="222-如何获取实时数据">2.2.2. 如何获取实时数据<a class="headerlink" href="#222-如何获取实时数据" title="Permanent link">&para;</a></h5>
+<h5 id="223-如何获取历史数据">2.2.3. 如何获取历史数据<a class="headerlink" href="#223-如何获取历史数据" title="Permanent link">&para;</a></h5>
+<h5 id="224-如何获取交易日历">2.2.4. 如何获取交易日历<a class="headerlink" href="#224-如何获取交易日历" title="Permanent link">&para;</a></h5>
+<h5 id="225-如何获取证券列表">2.2.5. 如何获取证券列表<a class="headerlink" href="#225-如何获取证券列表" title="Permanent link">&para;</a></h5>
+<h4 id="23-tushare">2.3. Tushare<a class="headerlink" href="#23-tushare" title="Permanent link">&para;</a></h4>
+<h5 id="231-tushare数据简介">2.3.1. Tushare数据简介<a class="headerlink" href="#231-tushare数据简介" title="Permanent link">&para;</a></h5>
+<h5 id="232-股票历史数据">2.3.2. 股票历史数据<a class="headerlink" href="#232-股票历史数据" title="Permanent link">&para;</a></h5>
+<h5 id="233-证券列表">2.3.3. 证券列表<a class="headerlink" href="#233-证券列表" title="Permanent link">&para;</a></h5>
+<h5 id="234-交易日历">2.3.4. 交易日历<a class="headerlink" href="#234-交易日历" title="Permanent link">&para;</a></h5>
+<h4 id="24-聚宽本地数据">2.4. 聚宽本地数据<a class="headerlink" href="#24-聚宽本地数据" title="Permanent link">&para;</a></h4>
+<h5 id="241-聚宽和聚宽本地数据简介">2.4.1. 聚宽和聚宽本地数据简介<a class="headerlink" href="#241-聚宽和聚宽本地数据简介" title="Permanent link">&para;</a></h5>
+<h5 id="242-股票历史数据">2.4.2. 股票历史数据<a class="headerlink" href="#242-股票历史数据" title="Permanent link">&para;</a></h5>
+<h5 id="243-证券列表">2.4.3. 证券列表<a class="headerlink" href="#243-证券列表" title="Permanent link">&para;</a></h5>
+<h5 id="244-交易日历">2.4.4. 交易日历<a class="headerlink" href="#244-交易日历" title="Permanent link">&para;</a></h5>
+<h4 id="25-baostock简介">2.5. BaoStock简介<a class="headerlink" href="#25-baostock简介" title="Permanent link">&para;</a></h4>
+<h4 id="26-yfinance简介">2.6. YFinance简介<a class="headerlink" href="#26-yfinance简介" title="Permanent link">&para;</a></h4>
+<h4 id="27-大富翁量化框架">2.7. 大富翁量化框架<a class="headerlink" href="#27-大富翁量化框架" title="Permanent link">&para;</a></h4>
+<h5 id="271-大富翁量化框架简介">2.7.1. 大富翁量化框架简介<a class="headerlink" href="#271-大富翁量化框架简介" title="Permanent link">&para;</a></h5>
+<h5 id="272-实时历史股票数据">2.7.2. 实时/历史股票数据<a class="headerlink" href="#272-实时历史股票数据" title="Permanent link">&para;</a></h5>
+<h5 id="273-证券列表筛选查询过滤">2.7.3. 证券列表筛选，查询，过滤<a class="headerlink" href="#273-证券列表筛选查询过滤" title="Permanent link">&para;</a></h5>
+<h5 id="274-交易日历">2.7.4. 交易日历<a class="headerlink" href="#274-交易日历" title="Permanent link">&para;</a></h5>
+<h5 id="275-通过数据解读a股">2.7.5. 通过数据解读A股<a class="headerlink" href="#275-通过数据解读a股" title="Permanent link">&para;</a></h5>
+<h5 id="276-行业板块概念板块数据获取">2.7.6. 行业板块，概念板块数据获取<a class="headerlink" href="#276-行业板块概念板块数据获取" title="Permanent link">&para;</a></h5>
+<h3 id="3-初识策略">3. 初识策略<a class="headerlink" href="#3-初识策略" title="Permanent link">&para;</a></h3>
+<h4 id="31-小市值策略基本面策略">3.1. 小市值策略(基本面策略)<a class="headerlink" href="#31-小市值策略基本面策略" title="Permanent link">&para;</a></h4>
+<h5 id="311-规模因子fama三因子与小市值策略">3.1.1. 规模因子（FAMA三因子）与小市值策略<a class="headerlink" href="#311-规模因子fama三因子与小市值策略" title="Permanent link">&para;</a></h5>
+<h5 id="312-策略实现">3.1.2. 策略实现<a class="headerlink" href="#312-策略实现" title="Permanent link">&para;</a></h5>
+<h5 id="313-策略优化讨论">3.1.3. 策略优化讨论<a class="headerlink" href="#313-策略优化讨论" title="Permanent link">&para;</a></h5>
+<h4 id="32-布林带策略技术分析策略">3.2. 布林带策略(技术分析策略)<a class="headerlink" href="#32-布林带策略技术分析策略" title="Permanent link">&para;</a></h4>
+<h5 id="321-策略简介">3.2.1. 策略简介<a class="headerlink" href="#321-策略简介" title="Permanent link">&para;</a></h5>
+<h5 id="322-策略实现">3.2.2. 策略实现<a class="headerlink" href="#322-策略实现" title="Permanent link">&para;</a></h5>
+<h5 id="323-策略优化讨论">3.2.3. 策略优化讨论<a class="headerlink" href="#323-策略优化讨论" title="Permanent link">&para;</a></h5>
+<h5 id="324-omicron与coursea环境下的策略相关功能库">3.2.4. omicron与coursea环境下的策略相关功能库<a class="headerlink" href="#324-omicron与coursea环境下的策略相关功能库" title="Permanent link">&para;</a></h5>
+<h4 id="33-网格交易法">3.3. 网格交易法<a class="headerlink" href="#33-网格交易法" title="Permanent link">&para;</a></h4>
+<h5 id="331-什么是网格交易">3.3.1. 什么是网格交易<a class="headerlink" href="#331-什么是网格交易" title="Permanent link">&para;</a></h5>
+<h5 id="332-网格交易如何实现">3.3.2. 网格交易如何实现<a class="headerlink" href="#332-网格交易如何实现" title="Permanent link">&para;</a></h5>
+<h5 id="333-网格交易优化方向讨论">3.3.3. 网格交易优化方向讨论<a class="headerlink" href="#333-网格交易优化方向讨论" title="Permanent link">&para;</a></h5>
+<h3 id="4-金融数据处理">4. 金融数据处理<a class="headerlink" href="#4-金融数据处理" title="Permanent link">&para;</a></h3>
+<h4 id="41-numpy和pands">4.1. Numpy和Pands<a class="headerlink" href="#41-numpy和pands" title="Permanent link">&para;</a></h4>
+<h5 id="411-numpy">4.1.1. Numpy<a class="headerlink" href="#411-numpy" title="Permanent link">&para;</a></h5>
+<h5 id="412-pandas">4.1.2. Pandas<a class="headerlink" href="#412-pandas" title="Permanent link">&para;</a></h5>
+<h4 id="42-talib">4.2. Talib<a class="headerlink" href="#42-talib" title="Permanent link">&para;</a></h4>
+<h5 id="421-安装talib">4.2.1. 安装Talib<a class="headerlink" href="#421-安装talib" title="Permanent link">&para;</a></h5>
+<h6 id="4211-unubtulinux下安装talib">4.2.1.1. Unubtu/Linux下安装Talib<a class="headerlink" href="#4211-unubtulinux下安装talib" title="Permanent link">&para;</a></h6>
+<h6 id="4212-windows下安装talib">4.2.1.2. Windows下安装Talib<a class="headerlink" href="#4212-windows下安装talib" title="Permanent link">&para;</a></h6>
+<h5 id="422-常见指标函数">4.2.2. 常见指标函数<a class="headerlink" href="#422-常见指标函数" title="Permanent link">&para;</a></h5>
+<h5 id="423-模式识别函数">4.2.3. 模式识别函数<a class="headerlink" href="#423-模式识别函数" title="Permanent link">&para;</a></h5>
+<h4 id="43-数字信号处理">4.3. 数字信号处理<a class="headerlink" href="#43-数字信号处理" title="Permanent link">&para;</a></h4>
+<h5 id="431-zigzag与顶底标记">4.3.1. zigzag与顶底标记<a class="headerlink" href="#431-zigzag与顶底标记" title="Permanent link">&para;</a></h5>
+<h5 id="432-一维聚类与平台突破">4.3.2. 一维聚类与平台突破<a class="headerlink" href="#432-一维聚类与平台突破" title="Permanent link">&para;</a></h5>
+<h5 id="433-曲线直线拟合">4.3.3. 曲线（直线）拟合<a class="headerlink" href="#433-曲线直线拟合" title="Permanent link">&para;</a></h5>
+<h5 id="434-凹凸性拐头判断">4.3.4. 凹凸性（拐头）判断<a class="headerlink" href="#434-凹凸性拐头判断" title="Permanent link">&para;</a></h5>
+<h4 id="44-常用数学基础概念概率与统计">4.4. 常用数学基础概念（概率与统计）<a class="headerlink" href="#44-常用数学基础概念概率与统计" title="Permanent link">&para;</a></h4>
+<h3 id="5-金融数据可视化">5. 金融数据可视化<a class="headerlink" href="#5-金融数据可视化" title="Permanent link">&para;</a></h3>
+<h4 id="51-绘图基础理论">5.1. 绘图基础理论<a class="headerlink" href="#51-绘图基础理论" title="Permanent link">&para;</a></h4>
+<h5 id="511-绘图对象及组合关系">5.1.1. 绘图对象及组合关系<a class="headerlink" href="#511-绘图对象及组合关系" title="Permanent link">&para;</a></h5>
+<h5 id="512-k线图解">5.1.2. K线图解<a class="headerlink" href="#512-k线图解" title="Permanent link">&para;</a></h5>
+<h4 id="52-matplotlib静态大众">5.2. Matplotlib(静态，大众)<a class="headerlink" href="#52-matplotlib静态大众" title="Permanent link">&para;</a></h4>
+<h5 id="521-matplotlib简介">5.2.1. Matplotlib简介<a class="headerlink" href="#521-matplotlib简介" title="Permanent link">&para;</a></h5>
+<h5 id="522-matplotlib柱状图绘制">5.2.2. Matplotlib柱状图绘制<a class="headerlink" href="#522-matplotlib柱状图绘制" title="Permanent link">&para;</a></h5>
+<h5 id="523-matplotlib折线图绘制">5.2.3. Matplotlib折线图绘制<a class="headerlink" href="#523-matplotlib折线图绘制" title="Permanent link">&para;</a></h5>
+<h4 id="53-plotly交互式可视化">5.3. Plotly(交互式可视化)<a class="headerlink" href="#53-plotly交互式可视化" title="Permanent link">&para;</a></h4>
+<h5 id="531-plotly简介">5.3.1. Plotly简介<a class="headerlink" href="#531-plotly简介" title="Permanent link">&para;</a></h5>
+<h5 id="532-go对象及常见图形线散点柱绘制">5.3.2. go对象及常见图形（线、散点、柱）绘制<a class="headerlink" href="#532-go对象及常见图形线散点柱绘制" title="Permanent link">&para;</a></h5>
+<h5 id="533-plotlyexpress库简介">5.3.3. plotly.express库简介<a class="headerlink" href="#533-plotlyexpress库简介" title="Permanent link">&para;</a></h5>
+<h5 id="534-plotly股票分析图绘制">5.3.4. Plotly股票分析图绘制<a class="headerlink" href="#534-plotly股票分析图绘制" title="Permanent link">&para;</a></h5>
+<h6 id="5341-k线图绘制">5.3.4.1. k线图绘制<a class="headerlink" href="#5341-k线图绘制" title="Permanent link">&para;</a></h6>
+<h6 id="5342-子图与技术指标叠加">5.3.4.2. 子图与技术指标叠加<a class="headerlink" href="#5342-子图与技术指标叠加" title="Permanent link">&para;</a></h6>
+<h6 id="5343-图形标注类别标签">5.3.4.3. 图形标注、类别标签<a class="headerlink" href="#5343-图形标注类别标签" title="Permanent link">&para;</a></h6>
+<h5 id="535-dash简介">5.3.5. Dash简介<a class="headerlink" href="#535-dash简介" title="Permanent link">&para;</a></h5>
+<h4 id="54-pyecharts及常见图形绘制">5.4. PyEcharts及常见图形绘制<a class="headerlink" href="#54-pyecharts及常见图形绘制" title="Permanent link">&para;</a></h4>
+<h5 id="541-pyecharts简介">5.4.1. PyEcharts简介<a class="headerlink" href="#541-pyecharts简介" title="Permanent link">&para;</a></h5>
+<h5 id="542-pyecharts下的点线柱图和k线图">5.4.2. PyEcharts下的点、线、柱图和K线图<a class="headerlink" href="#542-pyecharts下的点线柱图和k线图" title="Permanent link">&para;</a></h5>
+<h3 id="6-股票策略回测">6. 股票策略回测<a class="headerlink" href="#6-股票策略回测" title="Permanent link">&para;</a></h3>
+<h4 id="61-策略评估指标">6.1. 策略评估指标<a class="headerlink" href="#61-策略评估指标" title="Permanent link">&para;</a></h4>
+<h5 id="611-mdd">6.1.1. MDD<a class="headerlink" href="#611-mdd" title="Permanent link">&para;</a></h5>
+<h5 id="612-sharpe">6.1.2. SHARPE<a class="headerlink" href="#612-sharpe" title="Permanent link">&para;</a></h5>
+<h5 id="613-sortino">6.1.3. SORTINO<a class="headerlink" href="#613-sortino" title="Permanent link">&para;</a></h5>
+<h5 id="614-winrate">6.1.4. WinRate<a class="headerlink" href="#614-winrate" title="Permanent link">&para;</a></h5>
+<h5 id="615-anr年化收益率">6.1.5. ANR（年化收益率）<a class="headerlink" href="#615-anr年化收益率" title="Permanent link">&para;</a></h5>
+<h5 id="616-volatility波动率">6.1.6. volatility（波动率）<a class="headerlink" href="#616-volatility波动率" title="Permanent link">&para;</a></h5>
+<h5 id="617-资产收益">6.1.7. 资产收益<a class="headerlink" href="#617-资产收益" title="Permanent link">&para;</a></h5>
+<h5 id="618-benchmark与超额收益率">6.1.8. Benchmark与超额收益率<a class="headerlink" href="#618-benchmark与超额收益率" title="Permanent link">&para;</a></h5>
+<h4 id="62-回测指标可视化">6.2. 回测指标可视化<a class="headerlink" href="#62-回测指标可视化" title="Permanent link">&para;</a></h4>
+<h5 id="621-quantstats">6.2.1. Quantstats<a class="headerlink" href="#621-quantstats" title="Permanent link">&para;</a></h5>
+<h5 id="622-资产收益曲线">6.2.2. 资产收益曲线<a class="headerlink" href="#622-资产收益曲线" title="Permanent link">&para;</a></h5>
+<h4 id="63-事件驱动的回测模型">6.3. 事件驱动的回测模型<a class="headerlink" href="#63-事件驱动的回测模型" title="Permanent link">&para;</a></h4>
+<h4 id="64-矢量化回测模型">6.4. 矢量化回测模型<a class="headerlink" href="#64-矢量化回测模型" title="Permanent link">&para;</a></h4>
+<h5 id="641-机器学习回测模型">6.4.1. 机器学习回测模型<a class="headerlink" href="#641-机器学习回测模型" title="Permanent link">&para;</a></h5>
+<h4 id="65-回测陷阱">6.5. 回测陷阱<a class="headerlink" href="#65-回测陷阱" title="Permanent link">&para;</a></h4>
+<h5 id="651-信号闪烁">6.5.1. 信号闪烁<a class="headerlink" href="#651-信号闪烁" title="Permanent link">&para;</a></h5>
+<h5 id="652-未来函数">6.5.2. 未来函数<a class="headerlink" href="#652-未来函数" title="Permanent link">&para;</a></h5>
+<h5 id="653-偷价">6.5.3. 偷价<a class="headerlink" href="#653-偷价" title="Permanent link">&para;</a></h5>
+<h5 id="654-不可能成交的价格">6.5.4. 不可能成交的价格<a class="headerlink" href="#654-不可能成交的价格" title="Permanent link">&para;</a></h5>
+<h5 id="655-过度拟合">6.5.5. 过度拟合<a class="headerlink" href="#655-过度拟合" title="Permanent link">&para;</a></h5>
+<h5 id="656-幸存者偏差">6.5.6. 幸存者偏差<a class="headerlink" href="#656-幸存者偏差" title="Permanent link">&para;</a></h5>
+<h5 id="657-冲击成本">6.5.7. 冲击成本<a class="headerlink" href="#657-冲击成本" title="Permanent link">&para;</a></h5>
+<h5 id="658-复权影响">6.5.8. 复权影响<a class="headerlink" href="#658-复权影响" title="Permanent link">&para;</a></h5>
+<h5 id="659-撮合算法">6.5.9. 撮合算法<a class="headerlink" href="#659-撮合算法" title="Permanent link">&para;</a></h5>
+<h4 id="66-回测框架">6.6. 回测框架<a class="headerlink" href="#66-回测框架" title="Permanent link">&para;</a></h4>
+<h5 id="661-大富翁backtesting">6.6.1. 大富翁backtesting<a class="headerlink" href="#661-大富翁backtesting" title="Permanent link">&para;</a></h5>
+<h5 id="662-backtestingpy">6.6.2. backtesting.py<a class="headerlink" href="#662-backtestingpy" title="Permanent link">&para;</a></h5>
+<h5 id="663-backtrader">6.6.3. backtrader<a class="headerlink" href="#663-backtrader" title="Permanent link">&para;</a></h5>
+<h3 id="7-模拟盘和实盘接口">7. 模拟盘和实盘接口<a class="headerlink" href="#7-模拟盘和实盘接口" title="Permanent link">&para;</a></h3>
+<h4 id="71-接入实盘的相关法规">7.1. 接入实盘的相关法规<a class="headerlink" href="#71-接入实盘的相关法规" title="Permanent link">&para;</a></h4>
+<h4 id="72-使用模拟盘">7.2. 使用模拟盘<a class="headerlink" href="#72-使用模拟盘" title="Permanent link">&para;</a></h4>
+<h4 id="73-基于gui的接入方案">7.3. 基于GUI的接入方案<a class="headerlink" href="#73-基于gui的接入方案" title="Permanent link">&para;</a></h4>
+<h4 id="74-基于api的接入方案">7.4. 基于API的接入方案<a class="headerlink" href="#74-基于api的接入方案" title="Permanent link">&para;</a></h4>
+<h5 id="741-文件单和东财emc-trade">7.4.1. 文件单和东财EMC Trade<a class="headerlink" href="#741-文件单和东财emc-trade" title="Permanent link">&para;</a></h5>
+<h5 id="742-ptrade">7.4.2. Ptrade<a class="headerlink" href="#742-ptrade" title="Permanent link">&para;</a></h5>
+<h5 id="743-qmt">7.4.3. QMT<a class="headerlink" href="#743-qmt" title="Permanent link">&para;</a></h5>
+<h5 id="744-大富翁trderclient">7.4.4. 大富翁trderclient<a class="headerlink" href="#744-大富翁trderclient" title="Permanent link">&para;</a></h5>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../intro/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 简介" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              简介
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../../products/" class="md-footer__link md-footer__link--next" aria-label="下一页: 产品" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              产品
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener" title="知乎" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M170.54 148.13v217.54l23.43.01 7.71 26.37 42.01-26.37h49.53V148.13H170.54zm97.75 193.93h-27.94l-27.9 17.51-5.08-17.47-11.9-.04V171.75h72.82v170.31zm-118.46-94.39H97.5c1.74-27.1 2.2-51.59 2.2-73.46h51.16s1.97-22.56-8.58-22.31h-88.5c3.49-13.12 7.87-26.66 13.12-40.67 0 0-24.07 0-32.27 21.57-3.39 8.9-13.21 43.14-30.7 78.12 5.89-.64 25.37-1.18 36.84-22.21 2.11-5.89 2.51-6.66 5.14-14.53h28.87c0 10.5-1.2 66.88-1.68 73.44H20.83c-11.74 0-15.56 23.62-15.56 23.62h65.58C66.45 321.1 42.83 363.12 0 396.34c20.49 5.85 40.91-.93 51-9.9 0 0 22.98-20.9 35.59-69.25l53.96 64.94s7.91-26.89-1.24-39.99c-7.58-8.92-28.06-33.06-36.79-41.81L87.9 311.95c4.36-13.98 6.99-27.55 7.87-40.67h61.65s-.09-23.62-7.59-23.62v.01zm412.02-1.6c20.83-25.64 44.98-58.57 44.98-58.57s-18.65-14.8-27.38-4.06c-6 8.15-36.83 48.2-36.83 48.2l19.23 14.43zm-150.09-59.09c-9.01-8.25-25.91 2.13-25.91 2.13s39.52 55.04 41.12 57.45l19.46-13.73s-25.67-37.61-34.66-45.86h-.01zM640 258.35c-19.78 0-130.91.93-131.06.93v-101c4.81 0 12.42-.4 22.85-1.2 40.88-2.41 70.13-4 87.77-4.81 0 0 12.22-27.19-.59-33.44-3.07-1.18-23.17 4.58-23.17 4.58s-165.22 16.49-232.36 18.05c1.6 8.82 7.62 17.08 15.78 19.55 13.31 3.48 22.69 1.7 49.15.89 24.83-1.6 43.68-2.43 56.51-2.43v99.81H351.41s2.82 22.31 25.51 22.85h107.94v70.92c0 13.97-11.19 21.99-24.48 21.12-14.08.11-26.08-1.15-41.69-1.81 1.99 3.97 6.33 14.39 19.31 21.84 9.88 4.81 16.17 6.57 26.02 6.57 29.56 0 45.67-17.28 44.89-45.31v-73.32h122.36c9.68 0 8.7-23.78 8.7-23.78l.03-.01z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/zillionare" target="_blank" rel="noopener" title="Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="mailto: aaron_yang@jieyu.ai" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
