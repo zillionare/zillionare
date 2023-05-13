@@ -1,32 +1,46 @@
-# 大富翁
+!!! info "大富翁量化框架"
+    大富翁是一款量化交易软件。它提供行情数据同步、量化因子、回测框架（驱动、撮合和图表）、交易客户端、模拟服务器及实盘接口。
 
-大富翁是一款量化交易软件。它提供行情数据同步、量化因子计算和基于机器学习（深度学习）的交易策略。
+一些朋友关注了本项目，也接到一些咨询。关于本项目状态进行一些说明。本项目1.0版于2022年初发布，当前仍然可用，但只提供了以下功能：
 
-您可以通过pip来安装大富翁，也可以通过下面的安装文件来安装基于Docker的发行版。
+1. Omega服务器，进行行情数据同步和保存。行情数据保存在redis中（受限于物理内存容量，建议只存到30分钟），财务数据保存在postgres中
+2. Omicron数据SDK。SDK提供了对行情数据的存取，以及证券列表的运算、日期时间的计算等。
+3. 基于docker compose的部署
 
-=== "Linux"
-    以可执行文件的方式提供，适用于Linux。
-    
-    您需要事先在机器上安装Docker-engine和Docker compose。请参见[安装指南](../installation.md#安装到Linux操作系统)。
-    
-    [点击这里下载](/download/zillionare.sh?latest)
+## 2.0的状态
+2.0已经开发完毕，在公司内部使用已超过9个月，代码也开源了，但对外发布之前，还有不少工作要做，主要是：
 
-=== "Other OS"
-    以压缩包方式提供，适用于其它操作系统。
-    
-    您需要事先在机器上安装Docker-engine和Docker compose。请参见[安装指南](../installation.md#安装到其它操作系统)。
-    
-    [点击这里下载](/downlooad/zillionare.tar.gz?latest)
+1. 文档补全
+2. 安装部署补全
+3. 部分维护工作（特别是由于第三方造成的数据维护）还需要进一步自动化和智能化。
 
-=== "Pip"
-    您也可以通过Pip来分别安装各项服务。
+预计这个开源发布还要等较长时间，目前我们只为商业合作伙伴提供咨询、培训和部署服务（基于全部或者部分组件）。
 
-    ```bash
-    pip install zillionare-omega
-    ```
-    请参见 ==[TODO](404.md)==
+## 2.0的功能
+1. Omega服务器，盘中提供1分钟行情及实时行情（延时低至5秒）。数据存储使用了InfluxDB（时间序列数据库）和minio。在公司内部，我们已保存了超过30亿条行情数据（按关系型数据库的记录概念算），即从2005年以来的每一分钟数据。
+2. Omicron数据SDK。接口基本同1.0版，主要是实现上，由对接redis改为从InfluxDB中取数据
+3. backtesting server。提供回测时的交易撮合（使用分钟线，更准确）、账户管理和回测指标计算。
+4. trader server。提供一个标准化的交易服务器，并且使用与backtesting server一样的API。 trader server通过各种adaptor来对接券商实盘API。
+5. trader client。对接trader server和backtesting server的交易客户端。
+6. Alpha research platform。投研平台界面及通用算法因子等。
+7. Pluto（暂未开源），内部使用的策略和算法。基于这些算法，我们的一个内部实盘在2021年取得年代156%的最高收益。
+## 1.0
+关于1.0，请见[1.0](1.0.md)
 
-# [Cfg4Py](https://pypi.org/project/cfg4py/)
+### [Omega](https://github.com/zillionare/omega)
+Omega是大富翁的数据服务器，将上游数据源提供的数据实时本地化。
+
+### [Omicron](https://zillionare.github.io/omicron)
+Omicron是大富翁的核心模块，提供了数据访问API，策略基类，K线图绘制、日历和证券列表运算、回测收益图绘制等功能。
+### [Backtesting](https://zillionare.github.io/backtesting)
+Backtesting是大富翁的回测服务器，提供了回测时的撮合功能。
+### [Trader-Client](https://zillionare.github.io/trader-client/)
+大富翁交易客户端。一套API，提供回测、模拟和实盘接口。
+### [Trader-server](https://github.com/zillionare/trader-server)
+大富翁交易网关，提供模拟盘和实盘接口。
+
+## 公共模块库
+### [Cfg4Py](https://pypi.org/project/cfg4py/)
 
 Cfg4Py是一个Python库，用于解析和管理您的配置文件。它提供以下功能：
 
@@ -42,9 +56,32 @@ Cfg4Py是一个Python库，用于解析和管理您的配置文件。它提供�
 pip install cfg4py
 ```
 
-# [Python Project Wizard](https://zillionare.github.io/cookiecutter-pypackage)
+### [Pyemit](https://github.com/zillionare/pyemit)
+提供了基于redis的简单易用的进程间消息通讯机制和简易RPC服务。
 
-配套《Python最佳实践》开发的Python Project Wizard。通过Wizard，可以快速创建一个Python项目的框架，并具有以下功能：
+## 开发环境构建
+### [Python开发环境Docker镜像](https://hub.docker.com/r/zillionare/python-dev-machine)
+
+您的开发环境最好构建在容器之中。这样做有以下好处：
+
+1. 始终使用一致的开发环境，可以提高开发效率。
+2. 测试时往往需要干净的环境，通过使用镜像，我们可以随时构建一个新的、干净的容器来执行测试。
+3. 防止开发中误删除文件。如果是在容器中发生误删除文件的操作，最多也就损坏了容器本身，不至于要重装系统。
+
+这个镜像包括以下功能：
+
+1. ssh服务器
+2. git, python3, wget, vim, miniconda
+3. 安装了redis和postgres
+
+## 安装
+```
+    docker pull zillionare/python-dev-machine
+```
+
+### [Python Project Wizard](https://zillionare.github.io/cookiecutter-pypackage)
+
+配套《Python能做大项目》开发的Python Project Wizard。通过Wizard，可以快速创建一个Python项目的框架，并具有以下功能：
 
 * [Poetry]  通过Poetry来管理版本、依赖、构建和发布
 * [Mkdocs] 撰写基于Markdown的文档，常见扩展也已经配置
@@ -69,38 +106,3 @@ pip install cfg4py
 ppw
 ```
 
-# [Python开发环境Docker镜像](https://hub.docker.com/r/zillionare/python-dev-machine)
-
-您的开发环境最好构建在容器之中。这样做有以下好处：
-
-1. 始终使用一致的开发环境，可以提高开发效率。
-2. 测试时往往需要干净的环境，通过使用镜像，我们可以随时构建一个新的、干净的容器来执行测试。
-3. 防止开发中误删除文件。如果是在容器中发生误删除文件的操作，最多也就损坏了容器本身，不至于要重装系统。
-
-这个镜像包括以下功能：
-
-1. ssh服务器
-2. git, python3, wget, vim, miniconda
-3. 安装了redis和postgres
-
-## 安装
-```
-    docker pull zillionare/python-dev-machine
-```
-
-[大富翁]: https://github.com/zillionare
-[Cookiecutter]: https://cookiecutter.readthedocs.io/en/1.7.2/
-[Poetry]: https://python-poetry.org/
-[Mkdocs]: https://www.mkdocs.org
-[Pytest]: https://pytest.org
-[Codecov]: https://codecov.io
-[Tox]: https://tox.readthedocs.io
-[Black]: https://github.com/psf/black
-[Isort]: https://github.com/PyCQA/isort
-[Flake8]: https://flake8.pycqa.org
-[Flake8-docstrings]: https://pypi.org/project/flake8-docstrings/
-[Mkdocstrings]: https://mkdocstrings.github.io/
-[Python Fire]: https://github.com/google/python-fire
-[Github actions]: https://github.com/features/actions
-[Git Pages]: https://pages.github.com
-[Pre-commit hooks]: https://pre-commit.com/
