@@ -160,7 +160,7 @@ K线形态检测在一个散户为主的市场中非常有用，它是将**波�
 
 请加微信：
 
-![](https://images.jieyu.ai/images/hot/quantfans_99.jpg)
+![](https://images.jieyu.ai/images/hot/quantfans.jpg)
 
 注意是github过来咨询课程的。
 
