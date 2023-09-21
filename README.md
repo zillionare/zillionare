@@ -112,7 +112,7 @@ K线形态检测在一个散户为主的市场中非常有用，它是将**波�
 
 我们当然可以运用它来做更多的事情，比如检测M头和W底：
 
-![](https://images.jieyu.ai/images/2023/06/double_top_detected.png)
+<p><img src="https://images.jieyu.ai/images/2023/06/double_top_detected.png" width="600px"></p>
 
 或者平台整理突破（这里我们把机器学习里的二维聚类算法移植到了一维时间序列上）：
 
