@@ -1,109 +1,27 @@
+<h1 align="center">大富翁AI量化社区欢迎您!</h1>
 
-## 1. 大富翁和大富翁量化课程
+## 大富翁量化框架
 
 大富翁是可以本地部署的开源量化框架，自2019年起开发，2022年底2.0基本完成，功能齐全，能容纳超大规模数据（目前在生产环境已存储超30亿条行情数据）。
 
 大富翁的起名有两重寓意，一是希望这个框架的使用者们，都能实现财富自由。另一方面，大富翁也是一款投资游戏的名字 -- 财富终究只是一场大富翁游戏。在这场游戏中，**努力和才能固然重要，但运气始终是不可或缺的**。
 
+## 课程及服务
 
-## 2. 课程简介
+《大富翁量化金融实战课程》火热开播中。学完本课程，你将完全有能力独立编写策略、进行回测和实盘，或者进入券商、机构和私募的量化岗。详情介绍请见[课程详情介绍](./docs/coursea/cheese/intro.md)
 
-本课程是一门**中高级**课程，它面向打算进入量化交易领域的学生、程序员和正在从事主观交易的机构投资者和个人投资者。
+<div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
 
-课程涵盖了量化交易的全流程，即如何获取数据，如何考察数据的分布、关联性，因子和模式的发现和提取，如何编写策略、进行回测和评估，最终将策略接入实盘。
-
-学习完成本课程的内容之后，您将会对量化交易有全面和系统的了解，能够独立实施量化策略的开发、调试、回测及实盘交易，并且能评估和改进自己的策略。您将有能力复现论文、经典量化交易策略或者实现策略思想。如果自己已经有了成功的交易经验，则将有如虎添翼之感。
-
-!!! tip
-    本课程并非面试指南。完成本课程后，您将有能力在任何一家投资机构开展工作，但要获得这些机构的offer，从我们的跟踪情况来看，您还需要刷一些面试宝典，补充部分数学知识、基础算法题和了解一些 brain teaser的应对技巧。
-
-    相关资料在我们的课程和社群中都有推荐。
-
-这门课定位于市场容量更大的股票市场，不涉及到期货、期权交易，因此，也就不需要涉及BS公式，伊滕引理或Markov这一类比较艰深的数学知识。对多数人而言，不把时间浪费在这些品种上，反而更容易取得财富上的成功。
-
-在交易中，最重要的并不是数学或者什么别的技能，而是我们对规律的发现和洞察能力：
-<br>
-<br>
-
-<div style="font-style:italic;color:grey;text-align:right">Algebra is like sheet music. The important thing is not can you read it, it's can you hear it.<br>-- Movie 'Oppenheimer'</div>
-
-<br>
-
-但是，如果您立志成为顶尖机构中管理数百亿资产的操盘者，您就将需要了解几乎所有交易品种，以便分散风险并实现对冲。您可以在学完本课程后，沿着我们给出的学习[路线图](#roadmap)继续深造，成为领域专家。
-
-课程媒介为录播视频、Notebook文稿和每周一次答疑辅导。文字稿部分约40万字节。本课程将为学员提供可运行这些Notebook的实验环境，在该实验环境中：
-
-* 192核CPU和256GB内存（学员共享）
-* Jupyter Lab策略开发环境
-* 超过30亿条分钟级行情数据，并提供盘中实时数据
-* 回测服务。您可以立即编写策略并运行回测
-* 仿真交易。本环境中可提供仿真交易，供您检验自己的策略
-
-这是一门比较硬核的课程，我们在内容编排上做到了顺序讲述、层层递进、前后照应、取舍得当。在内容上，还有许多其它地方难得一见的知识点，我们列举一二：
-
-!!! question
-    1. A股报价的最小单位是分。很多情况下，我们需要将小数四舍五入到百分位。2元以下的个股出现舍入误差时，我们将承受0.5%的损失。如果每天进行一次这样的交易，年化损失会达到惊人的247%！可是，您使用的四舍五入方法，它是正确的吗？
-    2. 有人说回测中要使用后复权，这个结论是正确的吗？你将如何证明？
-    3. 除了min, max, 还有哪些函数可能是未来函数，您能给出一个清单吗？
-    4. 如果您的策略在回测中得到夏普是2，一般而言，这是个不错的策略。但在实盘中，它开始回撤了，夏普也在变差。当回撤达到多少时，可以断定，策略的运行环境已不存在，必须中止实盘（其它人可能告诉您，量化程序一旦运行，就必须扛过去）？
-
-## 3. 课程大纲及编排说明
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-1.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-2.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-3.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-4.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-5.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-6.png)
-
-!!! tip
-    更详细的课程大纲（具体到三级标题），可联系助教索取。
-
-## 4. 量化知识体系与本课程定位
-
-量化交易不仅在国内是新生事物，就连直到在华尔街点据主流地位，也不过 20 多年历史。因此，关于量化交易，很少看到体系化的知识结构梳理。
-
-我们根据自己的经验，结合国内外同类课程、同行交流的结果，通过对主流量化框架、量化常用库的梳理和对重要论文的阅读梳理，总结出如下学习<span id="roadmap">路线图</span>：
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-roadmap.png)
-
-在这个路线图中，最下面一层可以看作是学习量化的前置条件。关于 Python 基础，我们有较好的英文教材可以提供。该教材比较简练，不需要花很多时间就能学完，并且与我们的课程能很好衔接。工具部分可以在学习过程中，边练边学。数学部分只要达到过这个基础即可，在我们的课程中，会带领大家复习相关的内容。
-
-最上面一层，您可以在入行之后，根据自己的目标，有选择性地深入学习。
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-intro-teacher.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-intro-ta.png)
-
-## 5. 鸣谢
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-intro-babt.png)
+## 量化社群
 
 
-
-## 6. 课程注册流程
-
-每月一日开启新一期学习营。第一周到第三周都将获得早鸟价折扣。
-
-* 联系 quantfans_99 （宽粉） 确定优惠价格，获取购买链接和用户协议
-* 通过平台购买课程
-* 购买完成当日，助教开通实验账号，将课程登录网址、账号密码发送给学员
-* 助教将学员加入当期学员微信群，以便接受会议通知
-* 学员开始学习，并在开营后的每周日晚，参加课程答疑
-* 4 个月后，学员结束课程学习。此时可根据我们提示的路线图，进一步深造
-
-课程实验环境如下：
-
- ![75%](https://images.jieyu.ai/images/2023/10/welcome-to-zillionare-course.png) 
- ![50%](https://images.jieyu.ai/images/2023/10/cheese-course-lab.png)
-
-近期参考优惠价：
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-pricing.png)
-
-![](https://images.jieyu.ai/images/2023/10/cheese-course-contact.png)
+<div style="display:flex;justify-content:space-evenly;align-items:center;height:150px;">
+<div>
+    <img src="https://images.jieyu.ai/images/hot/quantfans.png" width="150px">
+    <div style="position:absolute;bottom:50px;left:28%">宽粉</div>
+</div>
+<div style="margin-top:-20px">
+    <img src="https://images.jieyu.ai/images/hot/gzh_258.jpg" width="125px">
+    <div style="position:absolute;left:68%">公众号</div>
+</div>
+</div>
