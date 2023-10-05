@@ -11,7 +11,7 @@
         <link rel="canonical" href="http://www.jieyu.ai/_drafts/bash%E6%8A%80%E5%B7%A7/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -580,46 +580,46 @@
 <span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nv">POSITIONAL</span><span class="o">=()</span>
-<span class="k">while</span> <span class="o">[[</span> <span class="nv">$#</span> -gt <span class="m">0</span> <span class="o">]]</span>
+<span class="k">while</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">do</span>
 <span class="nv">key</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
 
-<span class="k">case</span> <span class="nv">$key</span> <span class="k">in</span>
-    -e<span class="p">|</span>--extension<span class="o">)</span>
-    <span class="nv">EXTENSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
-    <span class="nb">shift</span> <span class="c1"># past argument</span>
-    <span class="nb">shift</span> <span class="c1"># past value</span>
-    <span class="p">;;</span>
-    -s<span class="p">|</span>--searchpath<span class="o">)</span>
-    <span class="nv">SEARCHPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
-    <span class="nb">shift</span> <span class="c1"># past argument</span>
-    <span class="nb">shift</span> <span class="c1"># past value</span>
-    <span class="p">;;</span>
-    -l<span class="p">|</span>--lib<span class="o">)</span>
-    <span class="nv">LIBPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
-    <span class="nb">shift</span> <span class="c1"># past argument</span>
-    <span class="nb">shift</span> <span class="c1"># past value</span>
-    <span class="p">;;</span>
-    --default<span class="o">)</span>
-    <span class="nv">DEFAULT</span><span class="o">=</span>YES
-    <span class="nb">shift</span> <span class="c1"># past argument</span>
-    <span class="p">;;</span>
-    *<span class="o">)</span>    <span class="c1"># unknown option</span>
-    <span class="nv">POSITIONAL</span><span class="o">+=(</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="o">)</span> <span class="c1"># save it in an array for later</span>
-    <span class="nb">shift</span> <span class="c1"># past argument</span>
-    <span class="p">;;</span>
+<span class="k">case</span><span class="w"> </span><span class="nv">$key</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span>-e<span class="p">|</span>--extension<span class="o">)</span>
+<span class="w">    </span><span class="nv">EXTENSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past argument</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past value</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span>-s<span class="p">|</span>--searchpath<span class="o">)</span>
+<span class="w">    </span><span class="nv">SEARCHPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past argument</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past value</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span>-l<span class="p">|</span>--lib<span class="o">)</span>
+<span class="w">    </span><span class="nv">LIBPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past argument</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past value</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span>--default<span class="o">)</span>
+<span class="w">    </span><span class="nv">DEFAULT</span><span class="o">=</span>YES
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past argument</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span>*<span class="o">)</span><span class="w">    </span><span class="c1"># unknown option</span>
+<span class="w">    </span><span class="nv">POSITIONAL</span><span class="o">+=(</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="o">)</span><span class="w"> </span><span class="c1"># save it in an array for later</span>
+<span class="w">    </span><span class="nb">shift</span><span class="w"> </span><span class="c1"># past argument</span>
+<span class="w">    </span><span class="p">;;</span>
 <span class="k">esac</span>
 <span class="k">done</span>
-<span class="nb">set</span> -- <span class="s2">&quot;</span><span class="si">${</span><span class="nv">POSITIONAL</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># restore positional parameters</span>
+<span class="nb">set</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">POSITIONAL</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="c1"># restore positional parameters</span>
 
-<span class="nb">echo</span> <span class="s2">&quot;FILE EXTENSION  = </span><span class="si">${</span><span class="nv">EXTENSION</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;SEARCH PATH     = </span><span class="si">${</span><span class="nv">SEARCHPATH</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;LIBRARY PATH    = </span><span class="si">${</span><span class="nv">LIBPATH</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;DEFAULT         = </span><span class="si">${</span><span class="nv">DEFAULT</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;Number files in SEARCH PATH with EXTENSION:&quot;</span> <span class="k">$(</span>ls -1 <span class="s2">&quot;</span><span class="si">${</span><span class="nv">SEARCHPATH</span><span class="si">}</span><span class="s2">&quot;</span>/*.<span class="s2">&quot;</span><span class="si">${</span><span class="nv">EXTENSION</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> wc -l<span class="k">)</span>
-<span class="k">if</span> <span class="o">[[</span> -n <span class="nv">$1</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Last line of file specified as non-opt/last argument:&quot;</span>
-    tail -1 <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FILE EXTENSION  = </span><span class="si">${</span><span class="nv">EXTENSION</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SEARCH PATH     = </span><span class="si">${</span><span class="nv">SEARCHPATH</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;LIBRARY PATH    = </span><span class="si">${</span><span class="nv">LIBPATH</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;DEFAULT         = </span><span class="si">${</span><span class="nv">DEFAULT</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Number files in SEARCH PATH with EXTENSION:&quot;</span><span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span>-1<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SEARCHPATH</span><span class="si">}</span><span class="s2">&quot;</span>/*.<span class="s2">&quot;</span><span class="si">${</span><span class="nv">EXTENSION</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Last line of file specified as non-opt/last argument:&quot;</span>
+<span class="w">    </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
 <span class="k">fi</span>
 </code></pre></div></td></tr></table></div></li>
 </ol>

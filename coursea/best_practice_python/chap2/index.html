@@ -11,11 +11,11 @@
         <link rel="canonical" href="http://www.jieyu.ai/coursea/best_practice_python/chap2/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
-        <title>构建Python虚拟运行时环境 - 大富翁量化</title>
+        <title>Chap2 - 大富翁量化</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              构建Python虚拟运行时环境
+              Chap2
             
           </span>
         </div>
@@ -598,7 +598,7 @@
   </a>
 
 
-  <h1>构建Python虚拟运行时环境</h1>
+  <h1>Chap2</h1>
 
 <h2 id="构建python虚拟运行时环境">构建Python虚拟运行时环境<a class="headerlink" href="#构建python虚拟运行时环境" title="Permanent link">&para;</a></h2>
 <p>任何一个程序员都不可能从头到脚去开发程序的每一个模块。我们必然要借鉴和使用他人的开发成果，同时也希望我们的开发成果被更多的人使用。这样就必然引出一个问题： 如果我们的程序中使用了他人开发的模块，并且使用了它的早期版本；而另一个程序也使用了同样的模块，但使用的是晚期版本，这时候两个程序应该如何共存？</p>
@@ -627,7 +627,7 @@
 <p>多数从事数据科学的人会安装完整的anaconda。这一般会占用你硬盘上好几个G的初始空间，并且随着虚拟环境的创建持续增长。对从事工程开发的人来说，则可以从miniconda开始。两者的区别是，前者包含了很多科学计算用的工程包，比如numpy, scipy， sklearn等等，还有一个名为spyder的集成开发工具。后者只包含了包和虚拟环境管理系统。</p>
 <p>Miniconda的下载地址在<a href="https://docs.conda.io/en/latest/miniconda.html">这里</a>。一般是50M上下，包含了一个基本的Python解释器。Miniconda的python版本并不重要，因为后面我们都将为虚拟环境安装特定版本的Python。</p>
 <p>我们将Miniconda安装到WSL中，因此，我们应该运行下面的命令（如果您使用Ubuntu，这些命令也是一样的，下同）：
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sh &lt;<span class="o">(</span>curl -s https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="o">)</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sh<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-s<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="o">)</span>
 </code></pre></div></td></tr></table></div></p>
 <p><img alt="" src="http://images.jieyu.ai/images/2020-10/20201012220906.png" /></p>
 <p>如果WSL上没有安装curl，请先通过<code>suod apt install curl</code>来安装。</p>
@@ -667,10 +667,10 @@ ssl_verify: true
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 首先安装cfg4py</span>
-pip install cfg4py
+pip<span class="w"> </span>install<span class="w"> </span>cfg4py
 
 <span class="c1"># 让cfg4py提示我们如何更改conda源</span>
-cfg4py hint conda --usage
+cfg4py<span class="w"> </span>hint<span class="w"> </span>conda<span class="w"> </span>--usage
 </code></pre></div></td></tr></table></div>
 <p>我们将得到以下输出：
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -689,34 +689,34 @@ cfg4py hint conda --usage
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code>Usage: execute command:
-conda config --add channels %url
-or edit your ~/.condarc to add the following:
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code>Usage:<span class="w"> </span>execute<span class="w"> </span>command:
+conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>%url
+or<span class="w"> </span>edit<span class="w"> </span>your<span class="w"> </span>~/.condarc<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>the<span class="w"> </span>following:
 
-- tsinghua:
-    channels:
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
-    ssl_verify: <span class="nb">true</span>
-- ustc:
-    channels:
-    - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
-    - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
-    - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
-    ssl_verify: <span class="nb">true</span>
+-<span class="w"> </span>tsinghua:
+<span class="w">    </span>channels:
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+<span class="w">    </span>ssl_verify:<span class="w"> </span><span class="nb">true</span>
+-<span class="w"> </span>ustc:
+<span class="w">    </span>channels:
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+<span class="w">    </span>-<span class="w"> </span>https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+<span class="w">    </span>ssl_verify:<span class="w"> </span><span class="nb">true</span>
 </code></pre></div></td></tr></table></div>
 cfg4py还可以提示如何配置pip源，apt源等。</p>
 </details>
 <h3 id="创建虚拟环境">创建虚拟环境<a class="headerlink" href="#创建虚拟环境" title="Permanent link">&para;</a></h3>
 <p>我们使用conda来创建虚拟环境：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>conda create -n your_env_name <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>your_env_name<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
 </code></pre></div></td></tr></table></div>
 <p>上面的命令将在你的miniconda安装目录的envs目录下，创建一个名为your_env_name的文件夹，并将python 3.8及相关文件安装到这个目录下。安装完成时，conda会提示你使用以下命令：
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>conda activate your_env_name  <span class="c1">#激活python虚拟环境</span>
-conda deactivate              <span class="c1">#退出当前的虚拟环境</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>your_env_name<span class="w">  </span><span class="c1">#激活python虚拟环境</span>
+conda<span class="w"> </span>deactivate<span class="w">              </span><span class="c1">#退出当前的虚拟环境</span>
 </code></pre></div></td></tr></table></div></p>
 <p>当虚拟环境激活时，命令提示符一般会显示为虚拟环境名字；此时运行python，会启动当前虚拟环境下安装的Python版本，而此后加载的Python库，都来自于该虚拟环境下通过conda或者pip命令安装的库。</p>
 <p>关于conda还有一些常见的命令，这里一并提一下：
@@ -730,9 +730,9 @@ conda deactivate              <span class="c1">#退出当前的虚拟环境</spa
 <p>在上面的创建命令中，使用的是CPython发行版。conda还允许您使用特殊的Python版本，比如Intel发行版：
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>conda update conda
-conda config --add channels intel
-conda create -n idp intelpython3_core <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>update<span class="w"> </span>conda
+conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>intel
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>idp<span class="w"> </span>intelpython3_core<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>
 </code></pre></div></td></tr></table></div></p>
 <p>使用Intel版的Python的一个原因是，它可能提供了更强性能的数学计算功能。具体可以看<a href="https://software.intel.com/en-us/articles/using-intel-distribution-for-python-with-anaconda">这里</a>。这对从事数据分析为主的程序员还是比较有帮助的。</p>
 </details>
