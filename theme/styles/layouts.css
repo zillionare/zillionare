@@ -1,0 +1,215 @@
+:root {
+    --slidev-theme-primary: #3D3C42;
+    --slidev-theme-secondary: #0095d1;
+    --slidev-theme-3rd: #c36eda;
+    --slidev-theme-4th: #B75651;
+    color: var(--slidev-theme-primary);
+    background-color: #FEFBF6;
+    counter-reset: h2counter;
+}
+
+.slidev-layout {
+    @apply h-full text-$slidev-theme-primary;
+
+
+    p+h2,
+    ul+h2,
+    table+h2 {
+        @apply mt-10;
+    }
+
+    h1 {
+        @apply text-4xl text-left ml-2 mb-8 mt-8;
+    }
+
+
+    h2 {
+        @apply text-3xl text-left ml-4 mb-4;
+    }
+
+    h3 {
+        @apply text-2xl text-left ml-14 mb-4;
+    }
+
+    h4 {
+        @apply text-xl text-left ml-28 mb-2;
+    }
+
+    h5 {
+        @apply text-base;
+    }
+
+    h6 {
+        @apply text-sm pt-1 uppercase tracking-widest font-500 -ml-[0.05em];
+    }
+
+    h6:not(.opacity-100) {
+        @apply opacity-40;
+    }
+
+    p {
+        font-size: 4vw;
+        line-height: 6vw;
+        margin: 1.5rem 0;
+        /* color: #606060; */
+    }
+
+    pre {
+        font-size: 2vw !important;
+        line-height: 3.5vw !important;
+    }
+}
+
+.slidev-layout.cover {
+    @apply h-full grid;
+
+    h1 {
+        @apply text-6xl text-left h-80 c-white ml-2;
+    }
+
+    h1:after {
+        border-bottom: none;
+    }
+}
+
+.slidev-layout.default {
+    h1 {
+        font-size: 7vw;
+        margin: 1rem 0 4rem 0;
+        border-radius: 0 1em 1em 0;
+        /* background: var(--slidev-theme-primary); */
+        opacity: 0.8;
+        padding: 1rem 2rem;
+        line-height: 5vw;
+        color: var(--slidev-theme-secondary);
+        border-left: var(--slidev-theme-secondary) 10px solid;
+    }
+
+    h2 {
+        font-size: 5vw;
+        border-left: var(--slidev-theme-3rd) 10px solid;
+        line-height: 1.8rem;
+        padding: 1rem 2rem;
+        color: var(--slidev-theme-3rd);
+        margin: 4rem 0;
+    }
+
+    h3 {
+        font-size: 4vw;
+        font-weight: 700;
+        line-height: 1.5rem;
+        margin-left: 0;
+        padding: 0.8rem 1rem;
+        border-left: var(--slidev-theme-4th) 10px solid;
+    }
+
+    h4 {
+        font-size: 3.3vw;
+        font-weight: 550;
+        line-height: 1.5rem;
+        margin-left: 0;
+        padding: 0.5rem 1rem;
+        border-left: grey 10px solid;
+        color: grey;
+    }
+
+    p {
+        margin: 2rem 0;
+        font-size: 3.3vw;
+        line-height: 5.5vw;
+    }
+
+    li {
+        font-size: 3vw;
+        font-style: italic;
+        font-weight: 100;
+        opacity: 0.8;
+    }
+}
+
+.slidev-layout.intro {
+    @apply h-full grid;
+
+    h1 {
+        color: inherit;
+        @apply text-6xl leading-20;
+    }
+}
+
+.slidev-layout.fact {
+    @apply text-center grid h-full;
+
+    h1 {
+        @apply text-8xl font-700;
+    }
+
+    h1+p {
+        @apply font-700 text-2xl;
+    }
+}
+
+.slidev-layout.statement {
+    @apply text-center grid h-full;
+}
+
+.slidev-layout.quote {
+    @apply grid h-full;
+
+    h1+p {
+        @apply mt-2;
+    }
+}
+
+.slidev-layout.section {
+    h1 {
+        @apply text-5xl font-500 leading-20 ml-10 mb-1;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-image: linear-gradient(to right, var(--slidev-theme-primary), white) 1;
+    }
+
+    h1:after {
+        content: unset;
+    }
+
+    h2 {
+        @apply text-2xl font-300 ml-10;
+    }
+
+    h2:before {
+        content: unset;
+    }
+}
+
+.slidev-layout.center {
+
+    h1,
+    h2,
+    h3,
+    p {
+        @apply text-center;
+    }
+
+    h1:after,
+    h2:before,
+    h3:before {
+        content: unset;
+    }
+
+    h1 {
+        @apply text-6xl font-500 leading-20 ml-10 mb-6 text-center;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-image: linear-gradient(to left, white 0%, var(--slidev-theme-primary) 50%, white 100%)1;
+    }
+}
+
+.line.slidev-vclick-target.highlighted {
+    font-size: 2.5vw !important;
+    line-height: 5vw !important;
+    white-space: pre-wrap;
+
+    &:before {
+        padding-right: 2.5rem;
+    }
+}
