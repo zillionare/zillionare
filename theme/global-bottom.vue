@@ -10,6 +10,6 @@
     v-if="$slidev.nav.currentLayout !== 'cover'"
     class="absolute bottom-0 right-0 p-2 flex items-center"
   >
-    <span style="font-size:3vw">@quantfans_99 (宽粉)</span>
+    <span style="font-size:3vw">@量化风云</span>
   </footer>
 </template>
