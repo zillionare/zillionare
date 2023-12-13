@@ -1,0 +1,2257 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://www.jieyu.ai/python/best-practice-python/chap09/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>09 持续集成 - 大富翁量化</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-常见的在线ci服务" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="大富翁量化" class="md-header__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            大富翁量化
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              09 持续集成
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      首页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../coursea/cheese/intro/" class="md-tabs__link">
+        量化课程
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../chap01/" class="md-tabs__link md-tabs__link--active">
+        Python
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/cornnors_rsi/" class="md-tabs__link">
+        量化知识
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../products/" class="md-tabs__link">
+        产品系列
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../contact/" class="md-tabs__link">
+        联系和关注
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="大富翁量化" class="md-nav__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    大富翁量化
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          量化课程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="量化课程" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          量化课程
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          量化金融实战课程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="量化金融实战课程" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          量化金融实战课程
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coursea/cheese/intro/" class="md-nav__link">
+        课程简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coursea/cheese/outline/" class="md-nav__link">
+        课程大纲
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          专题
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="专题" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          专题
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_1" type="checkbox" id="__nav_3_1_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_1_1">
+          Python能做大项目
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python能做大项目" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Python能做大项目
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap01/" class="md-nav__link">
+        01 为什么要学 Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap02/" class="md-nav__link">
+        02 编程开发环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap03/" class="md-nav__link">
+        03 构建Python虚拟环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap04/" class="md-nav__link">
+        04 项目布局和项目生成向导
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap05/" class="md-nav__link">
+        05 Poetry 项目管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap06/" class="md-nav__link">
+        06 10倍速！高效编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap07/" class="md-nav__link">
+        07 代码单元测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap08/" class="md-nav__link">
+        08 代码版本管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        09 持续集成
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap10/" class="md-nav__link">
+        10 撰写技术文档
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap11/" class="md-nav__link">
+        11 发布应用
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          数据分析与可视化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="数据分析与可视化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          数据分析与可视化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/dash/" class="md-nav__link">
+        Dash-用Python也能做网页
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/how-to-scale/" class="md-nav__link">
+        量化策略中如何进行缩放和归一化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/matplotlib-1/" class="md-nav__link">
+        matplotlib的布局问题（1）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/matplotlib-2/" class="md-nav__link">
+        matplotlib的布局问题（2）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/qq-plot/" class="md-nav__link">
+        为什么Q-Q图可用来进行统计推断
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          量化知识
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="量化知识" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          量化知识
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_1">
+          策略研究
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="策略研究" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          策略研究
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/cornnors_rsi/" class="md-nav__link">
+        康纳RSI指标详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
+        关于寻找顶和底的一些思考
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          量化库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="量化库" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          量化库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
+        量化实盘接入方式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          量化杂谈
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="量化杂谈" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          量化杂谈
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
+        花开曾倾国
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
+        东印度公司
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../products/">产品系列</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="产品系列" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          产品系列
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/zillionare_installation/" class="md-nav__link">
+        大富翁安装指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/gm-adaptor-installation/" class="md-nav__link">
+        实盘交易接口
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          联系和关注
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="联系和关注" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          联系和关注
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        Contact
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/zillionare/zillionare/edit/master/docs/python/best-practice-python/chap09.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<p>当一组开发者共同开发一个项目时，各种冲突似乎不可避免。我们在第8章介绍了分支和gitflow工作流模型，从而解决了代码冲突的问题。但是，代码合并只能达到表面上的和谐。不同的人开发的代码能否协同工作，最终还得通过测试来检验。</p>
+<p>在已经介绍过的开发流程中，开发者在签入代码并推送到远程服务器之前，应该通过tox执行的单元测试和代码检查。但是，如果开发者有意忽略这些步骤，不良代码仍然能溜进仓库。此外，尽管我们虚拟化了测试环境，但仍然有可能在一名开发者机器上通过的测试，不能在另一个环境里运行。比如，可能引入了新的配置项，这些配置项存在于本地环境，但其它人并不知道；或者更改了本地数据库，但相应的变更脚本并没有集成进来，等等。如果只要有新的代码签入，就能在一台公共机器上自动执行所有测试以确保代码正确性，显然可以更早地发现问题，降低后期维护成本。这就是持续集成的意义所在。</p>
+<p>持续集成是一种 DevOps 软件开发实践。采用持续集成时，开发人员会定期将代码变更合并到一个中央存储库中，之后系统会自动运行构建和测试操作。持续集成通常是指软件发布流程的构建或集成阶段，需要用到自动化组件（例如 CI 或构建服务）和文化组件（指组织的流程和规范等，例如学习频繁地集成）。持续集成的主要目标是更快发现并解决缺陷，提高软件质量，并减少验证和发布新软件更新所需的时间。</p>
+<h1 id="1-常见的在线ci服务">1. 常见的在线CI服务<a class="headerlink" href="#1-常见的在线ci服务" title="Permanent link">&para;</a></h1>
+<p>我们先来认识一下持续集成领域的头部玩家。Jekins是持续集成领域的老大哥，Jenkins自诞生之日起，至今已发展了近20年，社区、生态最为完善。Gitlab最初是基于Git的代码托管平台，自版本8.0起，开始提供持续集成功能。其优点是与代码仓库无缝集成，原生地支持代码仓库各类事件触发流水线。不足之处是，无论Jekins还是Gitlab，都需要自己搭建服务器，这对于开源项目和个人开发者来说，成本太高了。</p>
+<p>构建CI服务器的成本是昂贵的。在虚拟机没有广泛应用之前，这个成本就更为昂贵。你需要为你的应用将要部署到的每一种操作系统至少准备一台机器。如果你的应用需要部署到从windows到Linux到Macos上的各个版本，你可能就需要准备至少十台以上的机器硬件。虚拟化的出现大大降低了CI的成本，随后是容器化的出现，进一步降低了CI的成本。但是，即便是这样，对开源项目，自行搭建和维护CI服务器的成本仍然是昂贵的。比如，如果你的应用需要部署到MacOs上，你必须至少有一到多台苹果的服务器，因为其它机器上都无法虚拟化出来macos的容器。</p>
+<p>这就是为什么我们推荐使用在线CI服务的原因。好消息是，对开源项目，有相当多的在线CI服务是免费的。这里我们仅仅介绍Travis CI和Github Actions。</p>
+<p>Travis CI是一个基于云的持续集成服务，它可以帮助开发者在Github上构建和测试代码，从而减少发布软件的时间。Travis CI为开源项目提供了一定量的服务时间，对于私有项目，则需要付费--计划起价是每月69美元。这个定价本身也说明了持续集成的价值，以及要实现持续集成，所需要消耗的资源。</p>
+<p>Github Actions是Github在2020年前后推出的持续集成服务，它的优点同gitlab CI一样，也在于与代码托管服务无缝集成，不需要自己搭建服务器。在价格方面，Github Actions对开源项目也是免费使用的，与Travis CI相比，给出的免费quota更多，足堪使用。因此，我们本章就略过Travis CI，直接介绍Github Actions。</p>
+<h1 id="2-github-actions">2. Github Actions<a class="headerlink" href="#2-github-actions" title="Permanent link">&para;</a></h1>
+<p>Github Actions是一个持续集成与交付的平台，它使得我们可以将构建、测试和部署像流水线一样自动化。您可以创建工作流程来构建和测试存储库的每个拉取请求，或将合并的拉取请求部署到生产环境。</p>
+<p>GitHub Actions 不仅仅是 DevOps，还允许您在存储库中发生其他事件时运行工作流程。 例如，您可以运行工作流程，以便在有人在您的存储库中创建新问题时自动添加相应的标签。</p>
+<p>GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行工作流程，您也可以在自己的数据中心或云基础架构中托管自己的自托管运行器。</p>
+<h2 id="21-github-actions的架构和概念">2.1. Github Actions的架构和概念<a class="headerlink" href="#21-github-actions的架构和概念" title="Permanent link">&para;</a></h2>
+<p>Github Actions由工作流(workflow)、事件(Event)、作业(job)、操作(Action)和执行者(runner)等组件构成。</p>
+<p>工作流通过在项目根目录的.github/workflows目录下面的yaml文件来定义，我们也可以简单地将其当成脚本来理解。工作流中定义了哪些事件可以触发工作流，工作流中应该包含哪些作业，以及作业应该在什么样的执行者（容器）中运行。一个存储库中可以有多个工作流，分别执行不同的任务集。</p>
+<p>事件是能引发工作流运行的特定事件，比如当有人创建拉取请求、或者将提交(commit)推送到存储库时，这就是一个能触发工作流的事件。</p>
+<p>作业(job)是工作流中在同一运行器上执行的一组步骤（steps)。 每个步骤(step)要么是一个将要执行的 shell 脚本，要么是一个将要运行的操作(Action）。 步骤按顺序执行，并且相互依赖。 由于每个步骤都在同一运行器上执行，因此您可以将数据从一个步骤共享到另一个步骤。 例如，可以有一个生成应用程序的步骤，后跟一个测试已生成应用程序的步骤。</p>
+<p>一个工作流中可以有多个作业。作业之间默认没有依赖关系，并且彼此并行运行。 但我们也可以配置一个作业依赖于另一个作业，此时，它将等待从属作业完成，然后才能运行。 例如，对于没有依赖关系的不同体系结构，您可能有多个构建作业，以及一个依赖于这些作业的打包作业。 构建作业将并行运行，当它们全部成功完成后，打包作业将运行。</p>
+<p>操作(Action)是用于 GitHub Actions 平台的自定义应用程序，它执行复杂但经常重复的任务。 使用操作可帮助减少在工作流程文件中编写的重复代码量。 操作可以从 GitHub 拉取 git 存储库，为您的构建环境设置正确的工具链，或设置对云提供商的身份验证。</p>
+<p>您可以编写自己的操作，也可以在 GitHub Marketplace 中找到要在工作流程中使用的操作。</p>
+<p>执行者(runner)是运行工作流的服务器。每个执行者一次可以运行一个作业。 GitHub 提供 Ubuntu Linux、Microsoft Windows 和 macOS 运行器来运行您的工作流程；每个工作流程运行都在新预配的全新虚拟机（或者容器）中执行。</p>
+<p>下面的图展示了Github Actions的架构：</p>
+<p><img alt="" src="assets/img/chap09/overview-actions.png" /></p>
+<h2 id="22-工作流语法概述">2.2. 工作流语法概述<a class="headerlink" href="#22-工作流语法概述" title="Permanent link">&para;</a></h2>
+<p>在了解了Github Actions的架构之后，我们通过一个例子，来讲解如何定义工作流。</p>
+<p>我们先看ppw生成的一个工作流文件：</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dev.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev build CI</span>
+
+<span class="c1"># 定义哪些事件可以触发工作流，以及筛选条件</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># 当存储库有push或者pull_request事件时触发</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*&#39;</span>
+<span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*&#39;</span>
+
+<span class="c1"># 定义作业集</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># 工作流包含三个作业，分别是test, publish_dev_build, notification</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># 定义作业的运行环境，这里使用了矩阵式定义</span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python-versions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;3.8&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;3.9&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;3.10&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ubuntu-latest</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">windows-latest</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">macos-latest</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.os }}</span>
+<span class="w">    </span><span class="c1"># 将步骤的输出提升为作业的输出，以便它们可以在作业之间共享</span>
+<span class="w">    </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">package_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.package_version }}</span>
+<span class="w">      </span><span class="nt">package_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.package_name }}</span>
+<span class="w">      </span><span class="nt">repo_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.repo_name }}</span>
+<span class="w">      </span><span class="nt">repo_owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.repo_owner }}</span>
+
+<span class="w">    </span><span class="c1"># 这是启用外部服务的一个示例</span>
+<span class="w">    </span><span class="c1"># services:</span>
+<span class="w">    </span><span class="c1">#   redis:</span>
+<span class="w">    </span><span class="c1">#     image: redis</span>
+<span class="w">    </span><span class="c1">#     options: &gt;-</span>
+<span class="w">    </span><span class="c1">#       --health-cmd &quot;redis-cli ping&quot;</span>
+<span class="w">    </span><span class="c1">#       --health-interval 10s</span>
+<span class="w">    </span><span class="c1">#       --health-timeout 5s</span>
+<span class="w">    </span><span class="c1">#       --health-retries 5</span>
+<span class="w">    </span><span class="c1">#     ports:</span>
+<span class="w">    </span><span class="c1">#       - 6379:6379</span>
+
+<span class="w">    </span><span class="c1"># 步骤集代表了一系列的任务，这些任务将作为作业的一部分执行</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># 作业是在容器里执行的，我们需要先将代码检出到这个干净的容器里</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-versions }}</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip</span>
+<span class="w">          </span><span class="no">pip install tox tox-gh-actions poetry</span>
+
+<span class="w">      </span><span class="c1"># 这一步里，我们设置了一些变量，将其输出到控制台，从而可以在第85行提升为job的输出</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Declare variables for convenient use</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variables_step</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=repo_owner::${GITHUB_REPOSITORY%/*}&quot;</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=repo_name::${GITHUB_REPOSITORY#*/}&quot;</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=package_name::`poetry version | awk &#39;{print $1}&#39;`&quot;</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=package_version::`poetry version --short`&quot;</span>
+<span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+
+<span class="w">      </span><span class="c1"># 执行单元测试和代码检查。</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test with tox</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tox</span>
+
+<span class="w">      </span><span class="c1"># 通过codecov上传测试覆盖率。</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codecov/codecov-action@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">fail_ci_if_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="nt">publish_dev_build</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># 只有test作业完成，我们才开始本作业</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">    </span><span class="c1"># 指定本作业运行的操作系统环境。</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># 这一步只需要在任意一个python版本上运行</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.9&#39;</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip</span>
+<span class="w">          </span><span class="no">pip install poetry tox tox-gh-actions</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build documentation</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">poetry install -E doc</span>
+<span class="w">          </span><span class="no">poetry run mkdocs build</span>
+<span class="w">          </span><span class="no">git config --global user.name Docs deploy</span>
+<span class="w">          </span><span class="no">git config --global user.email docs@dummy.bot.com</span>
+<span class="w">          </span><span class="no">poetry run mike deploy -p -f --ignore &quot;`poetry version --short`.dev&quot;</span>
+<span class="w">          </span><span class="no">poetry run mike set-default -p &quot;`poetry version --short`.dev&quot;</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build wheels and source tarball</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">poetry version $(poetry version --short)-dev.$GITHUB_RUN_NUMBER</span>
+<span class="w">          </span><span class="no">poetry lock</span>
+<span class="w">          </span><span class="no">poetry build</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">publish to Test PyPI</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypa/gh-action-pypi-publish@release/v1</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">__token__</span>
+<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TEST_PYPI_API_TOKEN}}</span>
+<span class="w">          </span><span class="nt">repository_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://test.pypi.org/legacy/</span>
+<span class="w">          </span><span class="nt">skip_existing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="nt">notification</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">test</span><span class="p p-Indicator">,</span><span class="nv">publish_dev_build</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martialonline/workflow-status@v2</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build success notification via email</span>
+<span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.check.outputs.status == &#39;success&#39; }}</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dawidd6/action-send-mail@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">server_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_SERVER }}</span>
+<span class="w">          </span><span class="nt">server_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PORT }}</span>
+<span class="w">          </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_FROM }}</span>
+<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PASSWORD }}</span>
+<span class="w">          </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-bot</span>
+<span class="w">          </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}</span>
+<span class="w">          </span><span class="nt">subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.test.outputs.package_name }}.${{ needs.test.outputs.package_version}} build successfully</span>
+<span class="w">          </span><span class="nt">convert_markdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">html_body</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">## Build Success</span>
+<span class="w">            </span><span class="no">${{ needs.test.outputs.package_name }}.${{ needs.test.outputs.package_version }} is built and published to test pypi</span>
+
+<span class="w">            </span><span class="no">## Change Details</span>
+<span class="w">            </span><span class="no">${{ github.event.head_commit.message }}</span>
+
+<span class="w">            </span><span class="no">For more information, please check change history at https://${{ needs.test.outputs.repo_owner }}.github.io/${{ needs.test.outputs.repo_name }}/${{ needs.test.outputs.package_version }}/history</span>
+
+<span class="w">            </span><span class="no">## Package Download</span>
+<span class="w">            </span><span class="no">The pacakge is available at: https://test.pypi.org/project/${{ needs.test.outputs.package_name }}/</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build failure notification via email</span>
+<span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.check.outputs.status == &#39;failure&#39; }}</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dawidd6/action-send-mail@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">server_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_SERVER }}</span>
+<span class="w">          </span><span class="nt">server_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PORT }}</span>
+<span class="w">          </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_FROM }}</span>
+<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PASSWORD }}</span>
+<span class="w">          </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-bot</span>
+<span class="w">          </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}</span>
+<span class="w">          </span><span class="nt">subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.test.outputs.package_name }}.${{ needs.test.outputs.package_version}} build failure</span>
+<span class="w">          </span><span class="nt">convert_markdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">html_body</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">## Change Details</span>
+<span class="w">            </span><span class="no">${{ github.event.head_commit.message }}</span>
+
+<span class="w">            </span><span class="no">## View Log</span>
+<span class="w">            </span><span class="no">https://github.com/${{ needs.test.outputs.repo_owner }}/${{ needs.test.outputs.repo_name }}/actions</span>
+</code></pre></div></td></tr></table></div>
+<p>这是一个名为dev build CI的作业，它将在任一分支发生提交和pull request时触发。它包含三个作业，即test(执行单元测试)、publish_dev_build(构建并发布开发版本到test_pypi)和notification(在构建成功或失败时发送邮件通知)。三者之间有依赖关系，如果test作业失败，publish_dev_build会取消；但是无论test/publish_dev_build作业是否成功，notification作业都会执行，并根据前两个作业的状态发送邮件通知。</p>
+<p>这是一个比较简单的作业，也涉及了我们在CI中需要做的几乎所有事情。在代码中我们加入了较多的注释，建议读者结合下面的讲解，仔细阅读代码。</p>
+<h3 id="221-定义触发条件">2.2.1. 定义触发条件<a class="headerlink" href="#221-定义触发条件" title="Permanent link">&para;</a></h3>
+<p>第4行到第14行配置了工作流的触发条件。触发条件一节由关键字<strong>'on'</strong>引起。在它的下一层，我们可以定义多个触发事件，并为每个触发事件，指定类型和过滤器。一个完整的触发条件配置如下：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">on</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*&#39;</span>
+<span class="w">        </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v*</span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">branches</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">        </span><span class="nt">types</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">created</span>
+<span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;30</span><span class="nv"> </span><span class="s">5</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">1,3&#39;</span>
+</code></pre></div></td></tr></table></div>
+在上面的示例中，'push', 'label', 'tags'和'schedule'都是事件关键字。可用的事件关键字可参见<a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a>。</p>
+<p>在事件的下一级，是定义活动类型和筛选器的地方。不是所有的事件都有活动类型，即使有，它们的活动类型也很可能不一样。比如，<code>push</code>事件就没有活动类型，而<code>label</code>事件有<code>created</code>, <code>edited</code>和<code>deleted</code>三种活动类型，而<code>issues</code>事件的活动类型则是<code>opened</code>和<code>labeled</code>等。要想知道事件有哪些活动类型，可以参考<a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a>。</p>
+<p>筛选器有branches和tags两种，分别用于指定分支和标签。从上面的示例可以看出，筛选器的值支持glob模式，即你可以使用<em>,</em>*, +, ?和!等通配符。除了示例中的正向匹配外，还可以使用branches-ignore或者tags-ignore来反向匹配。</p>
+<p>上面的示例还展示了一种特殊的事件，即 'schedule' 事件。这将导致工作流周期性地运行。这可以用来运行一些安全性扫描、依赖升级扫描等工作。</p>
+<h3 id="222-定义作业集">2.2.2. 定义作业集<a class="headerlink" href="#222-定义作业集" title="Permanent link">&para;</a></h3>
+<p>接下来工作流声明了三个作业，即test, publish_dev_build和notification。作业定义一节由关键字<strong>'jobs'</strong>引起。在它的下一层，我们可以定义多个作业，并为每个作业，指定运行环境和运行步骤。</p>
+<p>每个作业都有自己的id和名字。在上述例子中，test, publish_dev_build和notification都是作业id。作业id是必须的，但是作业名字是可选的。如果没有指定作业名字，那么作业名字将默认为作业id。作业名字可以用来在GitHub Actions的界面上显示作业的名称。</p>
+<p>在作业publish_dev_build中，我们通过关键字<code>needs</code>来定义了它对作业<code>test</code>的依赖。我们在第114行还看到，作业还可以依赖到一组作业。当我们指定作业依赖时，要注意只能使用作业的id，而不是作业的名字。</p>
+<p>接下来我们为作业定义执行环境。执行环境是通过关键字 'runs-on' 来定义的。有些任务只需要在一台机器上执行就可以了，比如构建和发布；有些任务则需要在所有的机器上、并以多个python运行时来运行。</p>
+<p>比如，publish_dev_build作业只在ubuntu_latest和python 3.9这个组合上运行。我们是通过第78行和第83行来指定的。但对测试任务，我们希望它在所有机器上都运行，并且还要运行在不同的python版本上。为了表达简洁起见，github actions引入了矩阵的概念。</p>
+<p>我们通过strategy.matrix来定义测试矩阵。在示例第20~23行定义的矩阵中，我们定义了python版本和操作系统列表。这个定义随后就被使用了，在第24行，我们通过{{matrix.os}}来引用了其中的操作系统定义。第22行的python-versions是一个特殊的关键字，它用来指示我们要使用的python版本。如果我们的开发语言不是python，这里的指定将没有意义。</p>
+<p>接下来我们需要为作业定义具体执行哪些任务，它们被归类在步骤集(steps)中。步骤集是一个包含多个步骤的列表。而每一个步骤，要么是一个shell命令（或者一组shell命令），要么是一个action。如果要运行shell命令，我们使用下面的语法：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;step name&gt;</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;shell command&gt;</span>
+</code></pre></div></td></tr></table></div>
+如果要运行一组shell命令，我们使用:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;step name&gt;</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">&lt;shell command 1&gt;</span>
+<span class="w">    </span><span class="no">&lt;shell command 2&gt;</span>
+<span class="w">    </span><span class="no">...</span>
+</code></pre></div></td></tr></table></div>
+注意上述两组语法的不同之处，不能混淆。</p>
+<p>至于action，我们前面已经讲过了，它是用于 GitHub Actions 平台的自定义应用程序。您可以自己编写action，也可以在Github的应用市场上查找他人开发的应用。</p>
+<p>每一个步骤都可以指定python运行时。我们在第48行看到，这里<code>{{ matrix.python-versions }}</code>使用的是矩阵中定义的python版本。而在第84行，我们则直接指定了一个python的版本。这里还要注意，版本号是一个字符串，q我们可以使用<code>'3.10'</code>，但不能使用<code>3.10</code>，后者将会被yaml解析为<code>3.1</code>，从而出现找不到python版本的问题。</p>
+<p>最后，我们介绍一下job运行时的条件控制。我们已经介绍过了job之间的依赖关系，这可以算作是一种条件。还有一种情况，比如示例中的notification作业，我们要求它只能在前两个作业都完成后才运行，但无论成功与否，都要运行，但会根据前面作业的状态，发出不同内容的通知邮件，此时，我们就需要引入<code>if</code>条件控制。</p>
+<p><code>if</code>条件控制可以作用于作业作用域（如第116行所示），也可以作用于步骤作用域（如第123行所示）。在作业作用域中，我们可以使用<code>success()</code>、<code>failure()</code>、<code>cancelled()</code>、<code>always()</code>等函数来指定在何种情况下才运行本作业。在步骤作用域中，我们则可以进行简单的条件判断，来指标本步骤是否运行。</p>
+<p>在进行条件判断时，我们必然需要使用变量。现在，我们需要全面地介绍一下在工作流中变量的使用。通过变量，结合各种控制条件，我们才能实现一些高级的技巧。
+Github中的变量分为两种，一种是系统变量，一种是作业变量。系统变量是Github平台提供的，作业变量是我们自己定义的。无论那一种变量，我们都通过<code>${{ }}</code>来引用。</p>
+<p>系统变量按级别可以定义在组织、存储库或者环境上。比如<code>secrets</code>就定义在存储库级别上，我们可以通过<code>${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}</code>来访问它的值，这需要我们在存储库里事先定义<code>BUILD_NOTIFY_MAIL_RCPT</code>这个变量。Github提供了一些默认变量，比如<code>GITHUB_REPOSITORY</code>（你在第59行，声明变量那一节可以看到它的使用）等。</p>
+<p>作业变量的使用比较特殊，我们看看下面的例子：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">  </span><span class="nt">notification</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">test</span><span class="p p-Indicator">,</span><span class="nv">publish_dev_build</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build success notification via email</span>
+<span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.check.outputs.status == &#39;success&#39; }}</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dawidd6/action-send-mail@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.test.outputs.package_name }}.</span>
+</code></pre></div></td></tr></table></div>
+例子中，我们通过${{ needs.test.outputs.package_name }}来引用在第24行声明的<code>package_name</code>变量。变量是通过<code>{job_id}.outputs.{variable}</code>来引用的，这并没有什么奇怪的地方。但是要注意它还有一个<code>needs</code>作用域。这表明，如果我们使用变量的地方，其所属的作业如果没有声明依赖到<code>test</code>作业，那么这个变量是无法被引用的。</p>
+<p>示例中没有展示环境变量的用法，这里我们给一个示例，请读者结合注释自行研究：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code>env:
+  # 声明了一个全局上下文的环境变量
+  DAY_OF_WEEK: Monday
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      # 声明了一个作业上下文的环境变量
+      Greeting: Hello
+    steps:
+      - name: &quot;Say Hello Mona it&#39;s Monday&quot;
+        # 使用时我们在变量前加一个`env.`的约束
+        if: ${{ env.DAY_OF_WEEK == &#39;Monday&#39; }}
+        # 当使用的环境变量是在作业内声明时，我们可以省略`env.`的约束
+        run: echo &quot;$Greeting $First_Name. Today is $DAY_OF_WEEK!&quot;
+        env:
+          # 声明了步骤上下文的环境变量
+          First_Name: Mona
+</code></pre></div></td></tr></table></div></p>
+<h3 id="223-连接其它服务">2.2.3. 连接其它服务<a class="headerlink" href="#223-连接其它服务" title="Permanent link">&para;</a></h3>
+<p>在示例的第31行到第40行，有一段被注释的代码，这是用来启用redis服务的。Github Actions通过容器技术来提供这些服务。理论上，只要在docker hub上存在某个服务的image（镜像），我们就可以在Github Actions中使用它。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>要注意的是，如果我们要在workflow中使用服务，执行者(runner)必须是ubuntu操作系统，而不是能其它Linux系统，或者windows和MacOS</p>
+</div>
+<p>我们的工作流可以运行在执行者(runner)上，也可以运行在容器里（该容器运行在runner上）。如果工作流运行在容器里，则需要通过自定义的桥接网络来连接运行在容器里的服务。如果工作流就运行在执行者(runner)上，那么我们可以将容器的端口映射到执行者上，这样我们就可以直接访问容器里的服务了。</p>
+<p>在工作流中使用服务，一般需要等待容器完全启动被初始化成功。这就是第96行的工作。</p>
+<h2 id="23-第三方应用和actions">2.3. 第三方应用和Actions<a class="headerlink" href="#23-第三方应用和actions" title="Permanent link">&para;</a></h2>
+<p>我们已经在示例中看到了一些来自应用市场的action，比如actions/checkout, actions/setup-python, pypa/gh-action-pypi-publish, dawidd6/action-send-mail, codecove/Codecov等等。这里'/'之前的是action的作者，其中actions是Github官方的action，其它的都是第三方的action。例子中的action，它们的名字就已经说明了其功能，因此这里不再赘述。</p>
+<p>下面介绍其它一些使用较多的第三方actions，其中有一些我们进行了简要说明并举例了使用方法。如果我们没有进行特别说明，或者您想进一步了解相关信息，可以访问<a href="https://github.com/marketplace/actions">marketplace</a>查看相关文档。</p>
+<h3 id="231-github-pages部署">2.3.1. Github pages部署<a class="headerlink" href="#231-github-pages部署" title="Permanent link">&para;</a></h3>
+<p>这个action可以用来将静态网站部署到Github Pages上。在ppw生成的项目中，它与mkdocs/mike配合使用。其ID是JamesIves/github-pages-deploy-action，使用示例如下：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code>name: Build and Deploy
+on: [push]
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the &#39;build&#39; folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
+</code></pre></div></td></tr></table></div></p>
+<h3 id="232-构建和发布docker镜像">2.3.2. 构建和发布docker镜像<a class="headerlink" href="#232-构建和发布docker镜像" title="Permanent link">&para;</a></h3>
+<p>显然，作为持续部署的一个步骤，docker镜像的构建也应该通过CI/CD服务器来完成并发布。这是docker官方的一个action， id是docker/build-push-action。</p>
+<h3 id="233-gh-release">2.3.3. GH Release<a class="headerlink" href="#233-gh-release" title="Permanent link">&para;</a></h3>
+<p>一般地，Python项目的发布都是通过PyPI来完成的。但是，我们也可以将其发布到Github Release上。这个action的id是softprops/action-gh-release。</p>
+<h3 id="234-制订发布草案">2.3.4. 制订发布草案<a class="headerlink" href="#234-制订发布草案" title="Permanent link">&para;</a></h3>
+<p>编写release notes是一件枯燥乏味的事。这个action可以帮助我们自动生成release notes。它的id是relase-drafter/release-drafter。</p>
+<p>这个action可以与GH Release一起使用。</p>
+<p>还有一些好玩的action，比如一个生成贪吃蛇游戏的action，id是Platane/snk。它会生成如下的贪吃蛇游戏:</p>
+<p><img alt="" src="assets/img/chap09/github-contribution-grid-snake.svg" /></p>
+<h3 id="235-通知消息">2.3.5. 通知消息<a class="headerlink" href="#235-通知消息" title="Permanent link">&para;</a></h3>
+<p>我们已经介绍了邮件通知。在应用市场里，还有各种各样的通知action，比如Slack通知，id是Ilshidur/action-slack。</p>
+<h3 id="236-giscus">2.3.6. Giscus<a class="headerlink" href="#236-giscus" title="Permanent link">&para;</a></h3>
+<p>Giscus是一个基于Github Discussion的评论系统。它的id是giscus/giscus。如果你使用了gitpages作为博客和静态站系统，你可以在Github上安装它，并在博客和静态站系统中增加评论功能。</p>
+<h2 id="24-通过github-ci发布python库">2.4. 通过Github CI发布Python库<a class="headerlink" href="#24-通过github-ci发布python库" title="Permanent link">&para;</a></h2>
+<p>我们在前面看到的例子来自于<code>ppw</code>生成的项目下的.github\workflows\dev.yml文件。这个文件定义的工作流适用于所有的分支，在每次push时都会触发。它的作用是进行集成测试，构建测试包并发布到testpypi，并发布非正式文档到Github Pages上。</p>
+<p>正式的版本发布工作交给了release.yml。这个工作流仅适用于main分支，并且只有当main分支上有打标签事件发生，并且标签是以'v'字线开头时，才会真正运行。下面是这个工作流的内容：
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">release.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Publish package on release branch if it&#39;s tagged with &#39;v*&#39;</span>
+
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build &amp; release</span>
+
+<span class="c1"># Controls when the action will run.</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Triggers the workflow on push or pull request events but only for the master branch</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">master</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;v*&#39;</span>
+
+<span class="w">  </span><span class="c1"># Allows you to run this workflow manually from the Actions tab</span>
+<span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span>
+
+<span class="c1"># A workflow run is made up of one or more jobs that can run sequentially or in parallel</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">release</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python-versions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;3.9&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="c1"># map step outputs to job outputs so they can be share among jobs</span>
+<span class="w">    </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">package_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.package_version }}</span>
+<span class="w">      </span><span class="nt">package_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.package_name }}</span>
+<span class="w">      </span><span class="nt">repo_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.repo_name }}</span>
+<span class="w">      </span><span class="nt">repo_owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.variables_step.outputs.repo_owner }}</span>
+
+<span class="w">    </span><span class="c1"># Steps represent a sequence of tasks that will be executed as part of the job</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build change log</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build_changelog</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mikepenz/release-changelog-builder-action@v3.2.0</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-versions }}</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip</span>
+<span class="w">          </span><span class="no">pip install tox-gh-actions poetry</span>
+
+<span class="w">        </span><span class="c1"># declare package_version, repo_owner, repo_name, package_name so you may use it in web hooks.</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Declare variables for convenient use</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variables_step</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=repo_owner::${GITHUB_REPOSITORY%/*}&quot;</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=repo_name::${GITHUB_REPOSITORY#*/}&quot;</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=package_name::`poetry version | awk &#39;{print $1}&#39;`&quot;</span>
+<span class="w">          </span><span class="no">echo &quot;::set-output name=package_version::`poetry version --short`&quot;</span>
+<span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">publish documentation</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">poetry install -E dev</span>
+<span class="w">          </span><span class="no">poetry run mkdocs build</span>
+<span class="w">          </span><span class="no">git config --global user.name Docs deploy</span>
+<span class="w">          </span><span class="no">git config --global user.email docs@dummy.bot.com</span>
+<span class="w">          </span><span class="no">poetry run mike deploy -p -f --ignore `poetry version --short`</span>
+<span class="w">          </span><span class="no">poetry run mike set-default -p `poetry version --short`</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build wheels and source tarball</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">poetry lock</span>
+<span class="w">          </span><span class="no">poetry build</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create Release</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create_release</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/create-release@v1</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">tag_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ github.ref_name }}</span>
+<span class="w">          </span><span class="nt">release_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Release ${{ github.ref_name }}</span>
+<span class="w">          </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.build_changelog.outputs.changelog }}</span>
+<span class="w">          </span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">          </span><span class="nt">prerelease</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">publish to PYPI</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypa/gh-action-pypi-publish@release/v1</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">__token__</span>
+<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.PYPI_API_TOKEN }}</span>
+<span class="w">          </span><span class="nt">skip_existing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="nt">notification</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">release</span>
+<span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martialonline/workflow-status@v2</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build success notification via email</span>
+<span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.check.outputs.status == &#39;success&#39; }}</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dawidd6/action-send-mail@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">server_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_SERVER }}</span>
+<span class="w">          </span><span class="nt">server_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PORT }}</span>
+<span class="w">          </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_FROM }}</span>
+<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PASSWORD }}</span>
+<span class="w">          </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-bot</span>
+<span class="w">          </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}</span>
+<span class="w">          </span><span class="nt">subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.release.outputs.package_name }}.${{ needs.release.outputs.package_version}} build successfully</span>
+<span class="w">          </span><span class="nt">convert_markdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">html_body</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">## Build Success</span>
+<span class="w">            </span><span class="no">${{ needs.release.outputs.package_name }}.${{ needs.release.outputs.package_version }} is built and published to PYPI</span>
+
+<span class="w">            </span><span class="no">## Change Details</span>
+<span class="w">            </span><span class="no">${{ github.event.head_commit.message }}</span>
+
+<span class="w">            </span><span class="no">For more information, please check change history at https://${{ needs.release.outputs.repo_owner }}.github.io/${{ needs.release.outputs.repo_name }}/${{ needs.release.outputs.package_version }}/history</span>
+
+<span class="w">            </span><span class="no">## Package Download</span>
+<span class="w">            </span><span class="no">The pacakge is available at: https://pypi.org/project/${{ needs.release.outputs.package_name }}/</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build failure notification via email</span>
+<span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.check.outputs.status == &#39;failure&#39; }}</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dawidd6/action-send-mail@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">server_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_SERVER }}</span>
+<span class="w">          </span><span class="nt">server_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PORT }}</span>
+<span class="w">          </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_FROM }}</span>
+<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_PASSWORD }}</span>
+<span class="w">          </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-bot</span>
+<span class="w">          </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}</span>
+<span class="w">          </span><span class="nt">subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.release.outputs.package_name }}.${{ needs.release.outputs.package_version}} build failure</span>
+<span class="w">          </span><span class="nt">convert_markdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">html_body</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">## Change Details</span>
+<span class="w">            </span><span class="no">${{ github.event.head_commit.message }}</span>
+
+<span class="w">            </span><span class="no">## Status: ${{ steps.check.outputs.status }}</span>
+
+
+<span class="w">            </span><span class="no">## View Log</span>
+<span class="w">            </span><span class="no">https://github.com/${{ needs.release.outputs.repo_owner }}/${{ needs.release.outputs.repo_name }}/actions</span>
+
+
+<span class="w">      </span><span class="c1"># - name: Dingtalk Robot Notify</span>
+<span class="w">      </span><span class="c1">#   if: always()</span>
+<span class="w">      </span><span class="c1">#   uses: leafney/dingtalk-action@v1.0.0</span>
+<span class="w">      </span><span class="c1">#   env:</span>
+<span class="w">      </span><span class="c1">#     DINGTALK_ACCESS_TOKEN: ${{ secrets.DINGTALK_ACCESS_TOKEN }}</span>
+<span class="w">      </span><span class="c1">#     DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}</span>
+<span class="w">      </span><span class="c1">#   with:</span>
+<span class="w">      </span><span class="c1">#     msgtype: markdown</span>
+<span class="w">      </span><span class="c1">#     title: CI Notification | Success</span>
+<span class="w">      </span><span class="c1">#     text: |</span>
+<span class="w">      </span><span class="c1">#       ### Build Success</span>
+<span class="w">      </span><span class="c1">#       ${{ needs.release.outputs.package_version_full }} is built and published to test pypi</span>
+<span class="w">      </span><span class="c1">#       ### Change History</span>
+<span class="w">      </span><span class="c1">#       Please check change history at https://${{ needs.release.outputs.repo_owner }}.github.io/${{ needs.release.outputs.repo_name }}/history</span>
+<span class="w">      </span><span class="c1">#       ### Package Download</span>
+<span class="w">      </span><span class="c1">#       Please download the pacakge at: https://test.pypi.org/project/${{ needs.release.outputs.repo_name }}/</span>
+</code></pre></div></td></tr></table></div>
+这个工作流用到的语法特性前面已经讲过了。不过值得一提的是，这里使用了一个钉钉机器人，可以在构建完成（或者失败）时，向指定的钉钉群里发送一个通知。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../chap08/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 08 代码版本管理" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              08 代码版本管理
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../chap10/" class="md-footer__link md-footer__link--next" aria-label="下一页: 10 撰写技术文档" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              10 撰写技术文档
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener" title="知乎" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M170.54 148.13v217.54l23.43.01 7.71 26.37 42.01-26.37h49.53V148.13H170.54zm97.75 193.93h-27.94l-27.9 17.51-5.08-17.47-11.9-.04V171.75h72.82v170.31zm-118.46-94.39H97.5c1.74-27.1 2.2-51.59 2.2-73.46h51.16s1.97-22.56-8.58-22.31h-88.5c3.49-13.12 7.87-26.66 13.12-40.67 0 0-24.07 0-32.27 21.57-3.39 8.9-13.21 43.14-30.7 78.12 5.89-.64 25.37-1.18 36.84-22.21 2.11-5.89 2.51-6.66 5.14-14.53h28.87c0 10.5-1.2 66.88-1.68 73.44H20.83c-11.74 0-15.56 23.62-15.56 23.62h65.58C66.45 321.1 42.83 363.12 0 396.34c20.49 5.85 40.91-.93 51-9.9 0 0 22.98-20.9 35.59-69.25l53.96 64.94s7.91-26.89-1.24-39.99c-7.58-8.92-28.06-33.06-36.79-41.81L87.9 311.95c4.36-13.98 6.99-27.55 7.87-40.67h61.65s-.09-23.62-7.59-23.62v.01zm412.02-1.6c20.83-25.64 44.98-58.57 44.98-58.57s-18.65-14.8-27.38-4.06c-6 8.15-36.83 48.2-36.83 48.2l19.23 14.43zm-150.09-59.09c-9.01-8.25-25.91 2.13-25.91 2.13s39.52 55.04 41.12 57.45l19.46-13.73s-25.67-37.61-34.66-45.86h-.01zM640 258.35c-19.78 0-130.91.93-131.06.93v-101c4.81 0 12.42-.4 22.85-1.2 40.88-2.41 70.13-4 87.77-4.81 0 0 12.22-27.19-.59-33.44-3.07-1.18-23.17 4.58-23.17 4.58s-165.22 16.49-232.36 18.05c1.6 8.82 7.62 17.08 15.78 19.55 13.31 3.48 22.69 1.7 49.15.89 24.83-1.6 43.68-2.43 56.51-2.43v99.81H351.41s2.82 22.31 25.51 22.85h107.94v70.92c0 13.97-11.19 21.99-24.48 21.12-14.08.11-26.08-1.15-41.69-1.81 1.99 3.97 6.33 14.39 19.31 21.84 9.88 4.81 16.17 6.57 26.02 6.57 29.56 0 45.67-17.28 44.89-45.31v-73.32h122.36c9.68 0 8.7-23.78 8.7-23.78l.03-.01z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/zillionare" target="_blank" rel="noopener" title="Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="mailto: aaron_yang@jieyu.ai" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
