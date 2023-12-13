@@ -1,6 +1,8 @@
 ---
-title: Dash: 核心概念、路由、Auth 与 Pitfall
+title: Dash-用Python也能做网页
 ---
+
+# Dash: 核心概念、路由、Auth 与 Pitfall
 
 Dash 是一个通过 python 语言来开发 web 界面，并在运行时将前端编译成 html/js/css 并运行的框架。其主要特点是：
 

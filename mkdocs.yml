@@ -4,20 +4,9 @@ repo_url: https://github.com/zillionare/zillionare
 repo_name: zillionare
 #strict: true
 
-nav:
-  - 首页: index.md
-  - 课程:
-    - 大富翁量化金融实战:
-      - 简介: coursea/cheese/intro.md
-      - 大纲: coursea/cheese/outline.md
-    - Python能做大项目: https://zillionare.github.io/best-practice-python/
-  - 产品: products/index.md
-  - 在线量化环境: jupyter.md
-  - 联系我们: contact.md
-  - 知乎: https://www.zhihu.com/people/hbaaron
-
 theme:
   name: material
+  custom_dir: docs/assets/overrides
   language: zh
   logo: assets/logo.png
   palette:
@@ -45,13 +34,13 @@ markdown_extensions:
   - pymdownx.details
   - admonition
   - toc:
-      baselevel: 2
+      baselevel: 1
       permalink: true
       slugify: !!python/name:pymdownx.slugs.uslugify
   - meta
 plugins:
   - include-markdown
-  - mknotebooks
+  - awesome-pages
   - search:
       lang: ja
 extra:
@@ -64,11 +53,13 @@ extra:
       name: Github
     - icon: material/email
       link: "mailto: aaron_yang@jieyu.ai"
-# extra_css:
-#   - assets/css/card.less
-#   - assets/css/table.less
+
 # extra_javascript:
 #   - assets/less.js
 google_analytics:
   - UA-27842639-4
   - auto
+extra_css:
+  - assets/css/extra.css
+  # - assets/css/card.less
+  # - assets/css/table.less
