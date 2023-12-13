@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="http://www.jieyu.ai/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+        <link rel="canonical" href="http://www.jieyu.ai/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
-        <title>关于寻找顶和底的一些思考 - 大富翁量化</title>
+        <title>投资组合理论与实战(3) - 优化算法 - 大富翁量化</title>
       
     
     
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#minimize_scalar" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -111,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              关于寻找顶和底的一些思考
+              投资组合理论与实战(3) - 优化算法
             
           </span>
         </div>
@@ -1010,11 +1015,69 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../mpt-3/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          投资组合理论与实战(3) - 优化算法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         投资组合理论与实战(3) - 优化算法
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#minimize_scalar" class="md-nav__link">
+    minimize_scalar
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-minimize-方法" class="md-nav__link">
+    使用 minimize 方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#这一次我们要求每个标的至少分配1的权重" class="md-nav__link">
+    这一次，我们要求每个标的至少分配1%的权重
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#绘制图形" class="md-nav__link">
+    绘制图形
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1038,19 +1101,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
         关于寻找顶和底的一些思考
       </a>
-      
     </li>
   
 
@@ -1390,6 +1445,42 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#minimize_scalar" class="md-nav__link">
+    minimize_scalar
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-minimize-方法" class="md-nav__link">
+    使用 minimize 方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#这一次我们要求每个标的至少分配1的权重" class="md-nav__link">
+    这一次，我们要求每个标的至少分配1%的权重
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#绘制图形" class="md-nav__link">
+    绘制图形
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1402,16 +1493,142 @@
                 
                   
 
-  <a href="https://github.com/zillionare/zillionare/edit/master/docs/investment/策略研究/关于寻找顶和底的一些思考.md" title="编辑此页" class="md-content__button md-icon">
+  <a href="https://github.com/zillionare/zillionare/edit/master/docs/investment/策略研究/mpt-3.md" title="编辑此页" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-  <h1>关于寻找顶和底的一些思考</h1>
+<p>寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：</p>
+<p><img alt="" src="https://images.jieyu.ai/images/2023/12/mpt-optimize-formula.png" /></p>
+<p>我们可以使用 Scipy.optimize工具库来求解类似问题。</p>
+<p><strong>scipy.optimize包的主要功能</strong>
+* SciPy Optimize提供最小化(或最大化)目标函数的功能，可能存在约束。
+* 它包括解决非线性问题(支持局部和全局优化算法) ，线性规划，约束和非线性最小二乘，根寻找和曲线拟合。
+* 当我们需要优化输入函数的参数时，scipy.optimize包含很多有用的方法，并可以处理不同种类的函数</p>
+<p>它提供以下方法：
+* minimize_scalar( )：使一个变量最小化
+* minimize( )：使多个变量最小化
+* curve_fit( )：寻找最优曲线，适合a set of data
+* root_scalar( )：求一个变量的零点
+* root( )：求多个变量的零点
+* linprog( )：在线性等式和不等式的约束下，最小化线性目标函数</p>
+<p>在这些方法中，我们主要介绍<strong>minimize_scalar</strong>和<strong>minimize</strong>。</p>
+<h3 id="minimize_scalar">minimize_scalar<a class="headerlink" href="#minimize_scalar" title="Permanent link">&para;</a></h3>
+<p>有一类问题，比如解方程，它的解是一个数字，此时就可以用 minimize_scalar 方法来求解。</p>
+<p>例如，我们的函数为：</p>
+<p><span class="arithmatex">\(y=3x^4-2x+1\)</span></p>
+<p>minimize_scalar( )就是帮助我们找到函数最小值(y最小)时精确的坐标。通俗地说，就是解方程。</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize_scalar</span>
 
-<p>scipy当中有一些信号处理函数，可以用来发现顶和底，比如<code>argrelextrema</code>。
-比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法：</p>
+<span class="k">def</span> <span class="nf">objective_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="c1"># 定义需要求解的函数</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective_function</span><span class="p">)</span>
+<span class="c1"># 求出函数的最小值</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+我们重点解释一下输出结果，这将在后面继续使用：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code> message: 
+          Optimization terminated successfully;
+          The returned value satisfies the termination criteria
+          (using xtol = 1.48e-08 )
+ success: True
+     fun: 0.17451818777634331
+       x: 0.5503212087491959
+     nit: 12
+    nfev: 15
+</code></pre></div></td></tr></table></div>
+<p>这里的fun是函数值，x是变量值，如果我们把x的值代入到公式 <span class="arithmatex">\(3*x^4-2*x+1\)</span>，我们会得得到0.17,即fun的值。</p>
+<p>要注意，不是所有情况都能进行优化求解的。比如，<span class="arithmatex">\(y=x^3\)</span>没有最小值，如果我们对它求解，会导致overflowerror.</p>
+<p>另外的情况是，存在多个最小值的情况，此时minimize_scalar不能保证找到函数的全局最小值。</p>
+<p>我们以<span class="arithmatex">\(y=x^4-x^2\)</span>为例，它存在多个最小值，minimize_scalar ()不能保证找到函数的全局最小值。我们尝试一下：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize_scalar</span>
+<span class="c1"># help(minimize)</span>
+
+<span class="k">def</span> <span class="nf">objective_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective_function</span><span class="p">)</span>
+<span class="n">res</span>
+</code></pre></div></td></tr></table></div>
+我们将得到如下结果：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code> message: 
+          Optimization terminated successfully;
+          The returned value satisfies the termination criteria
+          (using xtol = 1.48e-08 )
+ success: True
+     fun: -0.24999999999999994
+       x: 0.7071067853059209
+     nit: 11
+    nfev: 14
+</code></pre></div></td></tr></table></div>
+<p>这样求解出来的方程的根是0.707。但我们知道，该方程至少还有一个-0.707的根，因此， minimize_scalar默认情况下，是无法找出全部的根的。但我们可能通过设定参数，来控制用于优化的求解器。一共有三种设定方式：
+* brent:布伦特算法，也是该函数的默认算法
+* golden:黄金分割算法，根据已有研究，该方式效果略差于brent
+* bounded:布伦特算法的“有界实现”</p>
+<p>brent和golden属于bracket：这是一个由两个或三个元素组成的序列，它提供了对最小区域边界的初始猜测。但是，这些求解器<strong>并不保证所找到的最小值将在此范围内</strong>。</p>
+<p>bounded属于bounds：这是一个两个元素的序列，严格限制搜索区域的最小值。因此当最小值在已知范围内时，限制搜索区域才是有用的。这个概念我们在后面还将进一步接触。我们来看使用bounds方式的例子：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 当我们采用bounds方式限定时</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective_function</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">res</span>
+</code></pre></div></td></tr></table></div>
+<p>现在，我们求解的x将落在区间(-1,0)之间，我们因此得到：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code> message: Solution found.
+ success: True
+  status: 0
+     fun: -0.24999999999998732
+       x: -0.707106701474177
+     nit: 10
+    nfev: 10
+</code></pre></div></td></tr></table></div>
+<p>这次我们得到了期望中的负数解。</p>
+<p>不过，最佳资产组合的求解要比这个复杂，我们必须使用另一个方法，即<code>minimize</code>方法，具体优化算法则是最小顺序二乘法。</p>
+<h3 id="使用-minimize-方法">使用 minimize 方法<a class="headerlink" href="#使用-minimize-方法" title="Permanent link">&para;</a></h3>
+<p>在前面的示例中，我们了解了目标函数、bounds限定方式以及求解结果 OptimizeResults对象，特别是它的<code>fun</code>属性和<code>x</code>属性。接下来我们还要介绍约束（constraints）概念。掌握这些概念之后，就基本掌握了凸优化。</p>
+<p>我们先来看<code>minimize</code>方法的签名：</p>
 <p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1423,138 +1640,94 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bs_signals</span><span class="p">(</span><span class="n">bars</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">argrelextrema</span>
-    <span class="n">ma</span> <span class="o">=</span> <span class="n">moving_average</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
-
-    <span class="n">peak_indexes</span> <span class="o">=</span> <span class="n">argrelextrema</span><span class="p">(</span><span class="n">ma</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">)</span>
-    <span class="n">peaks</span> <span class="o">=</span> <span class="n">peak_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="c1"># Find valleys(min).</span>
-    <span class="n">valley_indexes</span> <span class="o">=</span> <span class="n">argrelextrema</span><span class="p">(</span><span class="n">ma</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">)</span>
-    <span class="n">valleys</span> <span class="o">=</span> <span class="n">valley_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">valleys</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span>
-
-    <span class="n">bars</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
-    <span class="c1"># Plot main graph.</span>
-    <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bars</span><span class="p">)),</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bars</span><span class="p">)),</span> <span class="n">ma</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Plot peaks.</span>
-    <span class="n">peak_x</span> <span class="o">=</span> <span class="n">peaks</span>
-    <span class="n">peak_y</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="n">peak_x</span><span class="p">]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">peak_x</span><span class="p">,</span> <span class="n">peak_y</span><span class="p">,</span> <span class="s1">&#39;gv&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Peaks&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Plot valleys.</span>
-    <span class="n">valley_x</span> <span class="o">=</span> <span class="n">valleys</span>
-    <span class="n">valley_y</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="n">valley_x</span><span class="p">]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">valley_x</span><span class="p">,</span> <span class="n">valley_y</span><span class="p">,</span> <span class="s1">&#39;r^&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valleys&quot;</span><span class="p">)</span>
-
-    <span class="n">trades</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">gains</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="n">vertex</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="o">*</span><span class="n">peaks</span><span class="p">,</span> <span class="o">*</span><span class="n">valleys</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vertex</span><span class="p">:</span>
-        <span class="n">buy</span> <span class="o">=</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">valleys</span>
-        <span class="n">sell</span> <span class="o">=</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">peaks</span>
-        <span class="k">if</span> <span class="n">buy</span> <span class="ow">and</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;buy&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">],</span>
-                <span class="s2">&quot;buy_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
-            <span class="p">}</span>
-
-        <span class="k">elif</span> <span class="n">sell</span> <span class="ow">and</span> <span class="n">order</span><span class="p">:</span>
-            <span class="n">buy</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="s2">&quot;buy&quot;</span><span class="p">]</span>
-            <span class="n">sell</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
-            <span class="n">gain</span> <span class="o">=</span> <span class="n">sell</span> <span class="o">/</span> <span class="n">buy</span>
-            <span class="n">order</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                <span class="s2">&quot;sell&quot;</span><span class="p">:</span> <span class="n">sell</span><span class="p">,</span>
-                <span class="s2">&quot;sell_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">],</span>
-                <span class="s2">&quot;gain&quot;</span><span class="p">:</span> <span class="n">gain</span>
-            <span class="p">})</span>
-
-            <span class="n">gains</span> <span class="o">*=</span> <span class="n">gain</span>
-            <span class="n">trades</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">return</span> <span class="n">gains</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">trades</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code>scipy.optimize.minimize(fun, 
+                        x0, 
+                        args=(), 
+                        method=None, 
+                        jac=None, 
+                        hess=None, 
+                        hessp=None, 
+                        bounds=None, 
+                        constraints=(), 
+                        tol=None, 
+                        callback=None, 
+                        options=None)
 </code></pre></div></td></tr></table></div>
-上面的函数使用<code>argrelextrema</code>来查找均线的顶和底。这里使用均线，是因为均线相对平滑，去除了一些噪音。这里的<code>moving_average</code>定义为:
+我们重点介绍跟本章主题相关的参数，主要是<code>fun</code>, <code>x0</code>, <code>method</code>, <code>bounds</code>和<code>constraints</code>。</p>
+<p>这里的<code>fun</code>是指目标函数，之前我们已经接触过这个概念。如果目标函数需要传入参数，则它的参数将通过<code>args</code>来传入。</p>
+<p>优化方法使用一系列迭代来进行求解满足目标函数的物理量<code>x</code>，它需要从一组初始值开始。<code>x0</code>就是我们提供给优化方法的初始值。它的最终结果，将通过OptimalResult.x来传递回来。</p>
+<p>对不同的问题，有不同的优化方案。<code>minimize</code>方法支持了大约14种优化方案，此外还允许你自定义优化算法。在进行优化求解之前，我们一般需要指定一种优化算法。</p>
+<p><code>bound</code>和<code>constraints</code>参数，我们将我们结合有效前沿求解问题，来介绍如何使用。同时，也讲解其它参数的使用。</p>
+<p>我们先来构建一个最小方差的投资组合。我们先来定义目标函数：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">portfolio_sd</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">returns</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">253</span><span class="p">)</span> <span class="o">@</span> <span class="n">w</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>注意这里的常数253。我们使用它来将收益进行年化。这是一种粗略但简单的方法。接下来，我们需要定义约束条件，以实现“在某个收益率时，波动最小”这个需求。首先，我们要定义年化收益率：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">portfolio_returns</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span><span class="p">))</span> <span class="o">*</span> <span class="mi">253</span>
+</code></pre></div></td></tr></table></div>
+<p>然后，我们来定义约束。minimize方法要求通过dict来传入约束条件。它支持两种表达式，即'eq'和'ineq'。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">constraints</span> <span class="o">=</span> <span class="p">({</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+<p>这里定义了一个约束。'eq'表明'fun'指向的表达式必须等于零。'fun'的值可以是lambda表达式，也可以是常规函数。这个lambda表达式的含义是，权重x的各项之和，必须等于1（这是显然的！）。需要指出的是，这里的<code>fun</code>并不是<code>minimize</code>首个参数的<code>fun</code>，而是一种约束条件。它的参数是惟一的，即<code>minimize</code>的第二个参数<code>x0</code>所代表的那个物理量。</p>
+<p>我们也可以指定一个'ineq'表达式，这意味着<code>fun</code>指向的表达式或者函数，其返回值必须大于零。
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">def</span> <span class="nf">moving_average</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">win</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">win</span><span class="p">)</span> <span class="o">/</span> <span class="n">win</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">constraints</span> <span class="o">=</span> <span class="p">({</span>
+    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">})</span>
 </code></pre></div></td></tr></table></div>
-它使用了卷积来求简单移动平均值。numpy的卷积运算速度很快，但如果想要更快的速度，可以使用<a href="https://github.com/pydata/bottleneck">bottleneck</a>的<code>move_mean</code>，最高可以快6000多倍（取自官方文档，不一定是和np.convolve方法比较）。</p>
-<p>通过给<code>argrelextrem</code>传入不同的比较函数（例子中是<code>np.less</code>和<code>np.greater</code>)，我们可以分别查找极大值和极小值，记为peaks和valleys。</p>
-<p>然后我们把均线、收盘价线和极值点画在同一个图上。最后，我们假设在低点买入，在高点卖出，就可以计算出策略的收益。</p>
-<p>下图是我们以东方电气2021年11月2日为止点，对60个交易日内进行信号发现的结果：
-<img alt="" src="https://images.jieyu.ai/images/202110/20211030231630.png" /></p>
-<p>可以看出，仅仅使用默认参数，<code>argrelextrem</code>就能较好地发现顶和底。我们得到的最终收益是35%，而同期该股实际上是不涨不跌。</p>
-<p>非常惊人，just too good to be true.</p>
-<p>那么倒底哪里错了？</p>
-<p>原因出在<code>argrelextrem</code>的工作方式。它只有在股价已经向下走时，才能检测出一个顶点已经存在。这是一个未来函数。它意味着，只有在明天才可能识别出今天应该发出的信号。但我们不可能返回昨天来完成交易。</p>
-<p>为了进一步验证上述观点，我们取2021年9月3日前后的两张图来对比：
-<img alt="" src="https://images.jieyu.ai/images/202110/20211102215632.png" />
-上图是截止9月3日的图。从后面的结果来看，<code>argrelextrem</code>应该在这一天标注出一个底点。但是它并没有。
-<img alt="" src="https://images.jieyu.ai/images/202110/20211102215539.png" />
-上图的时间是9月6日，这次它标注出来一个底点，但是标注在前一天。</p>
-<p>由于均值线使用的是收盘价，这意味着，只有在9月6日收盘后，我们才能识别9月3日是一个低点。如果这时我们按9月6日的收盘价（实际交易还要晚一点，只能使用第二天的开盘价）来买入，情况会如何？</p>
-<p>我们把上面的方法中，买卖价都顺延一天，得到的收益率是-13%。如果我们在起点时，以开盘价买入，在终点以收盘价卖出，则还可以收益8.4%。在动用高大上的数学方法后，成功地亏掉了21%。这里我们取得是5日均线。取10日、或者3日，都逃不掉亏损的命运。</p>
-<p>理想是美好的，现实是残酷的。</p>
-<p>然而。。。</p>
-<p>老股民很容易观察到，在位置5附近，股价已经滞涨好几天了，均线也在走平。有句股谚，三天不创新高就要抛（这是对运做强势股而言）。这是因为，如果三天不创新高，则均线就会象上图中位置5附近一样走平，接下来既可能突破平台开启第二浪，也可能下跌。因此，我们的策略可以是这样，通过算法检测到均线走平，发出预警（此时可以部分减仓），等待明确的信号再决定是否清仓（反之则是买入）。</p>
-<p>假设我们能在<code>argrelextrem</code>前一天发现走平的信号。如果此时处于高位，则卖出一半，待<code>argrelextrem</code>报出信号后，再卖出全部仓位。这样，上面函数的开仓、平仓部分就改为：
+同样的，这里的<code>x</code>是传入的是在迭代过程中的、我们要求解的满足目标函数的物理量。在最佳投资组合求解示例中，它是各项资产的权重。因此，x[0]就表示第0号资产的权重必须大于0。这是我们在本例中，另外一个约束。</p>
+<p>实际上，我们对资产权重的约束是[0,1]，上述表达式只能完成一半目标。正确的做法是使用bounds：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+有多少个资产，我们就要建立多少个这样的有界约束。</p>
+<p>现在，我们把所有的材料放在一起“煮”：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+    <span class="n">fun</span> <span class="o">=</span> <span class="n">portfolio_sd</span><span class="p">,</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="p">,</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">,</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="n">constraints</span>
+<span class="p">)</span>
+<span class="n">res</span>
+</code></pre></div></td></tr></table></div>
+这样我们得到以下结果：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code> message: Optimization terminated successfully
+ success: True
+  status: 0
+     fun: 0.14842169691096224
+       x: [ 2.500e-01  2.500e-01  2.500e-01  2.500e-01]
+     nit: 1
+     jac: [ 0.000e+00  0.000e+00  0.000e+00  0.000e+00]
+    nfev: 5
+    njev: 1
+</code></pre></div></td></tr></table></div>
+nit表明函数运行的次数，由于我们并没有加上收益率约束，所以这个函数实际上什么也没干，我们从x的值可以看出这一点。</p>
+<p>我们加上收益率约束再试一次:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1568,30 +1741,131 @@
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">if</span> <span class="n">buy</span> <span class="ow">and</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;buy&quot;</span><span class="p">:</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="s2">&quot;buy_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">}</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">constraints</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">portfolio_returns</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">}</span>
+<span class="p">)</span>
 
-<span class="k">elif</span> <span class="n">sell</span> <span class="ow">and</span> <span class="n">order</span><span class="p">:</span>
-    <span class="n">buy</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="s2">&quot;buy&quot;</span><span class="p">]</span>
-    <span class="n">sell</span> <span class="o">=</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
-    <span class="n">gain</span> <span class="o">=</span> <span class="n">sell</span> <span class="o">/</span> <span class="n">buy</span>
-    <span class="n">order</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-        <span class="s2">&quot;sell&quot;</span><span class="p">:</span> <span class="n">sell</span><span class="p">,</span>
-        <span class="s2">&quot;sell_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
-        <span class="s2">&quot;gain&quot;</span><span class="p">:</span> <span class="n">gain</span>
-    <span class="p">})</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+    <span class="n">fun</span> <span class="o">=</span> <span class="n">portfolio_sd</span><span class="p">,</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="p">,</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">,</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="n">constraints</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res</span>
 </code></pre></div></td></tr></table></div>
-这样我们得到的收益是5%。虽然不如买入并持有好，但毕竟这是我们凭实力挣的钱，而不是靠赌运气。所以这个收益可重复。</p>
-<p>现在，问题就变成了，如何检测均线走平？这个问题回答起来也并不那么容易。不过我们先来看看这里的检测峰和谷的方法的实际作用。</p>
-<p>从上面的分析可以看出，峰和谷的检测是后验的，即只有当峰和谷已经走出来，上面的算法才能检测到。虽然它对投资可能没有直接的指导意义，但我们也可以用它来标注数据，以供机器学习使用。</p>
-<p>下图显示了使用上述方法，对上证指数一段时间的峰和谷进行标注的结果：
-<img alt="" src="https://images.jieyu.ai/images/202111/20211111170152.png" /></p>
-<p>我们先是使用均线对波动进行平滑，然后通过argrelextrem进行峰和谷的检测，然后在此基础上，对峰和谷进行一些小的修正，使之与股价、而不是均线对齐。我们采用沪指过去6年的30分钟线，共发现734个顶点和738个底点，制作成为标注数据。</p>
-<p>有了这些标注数据，我们就可以训练和检验自己的机器学习模型了。出人意料的是，数据量并不大。这也说明在A股市场上，趋势一旦形成，往往还能持续一段时间。这也是量化模型能够有用武之地的一个注脚。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>注意我们在这里加了一个options参数。通过它可以进一步揭示迭代过程。</p>
+</div>
+<p>这次仍然只迭代一次就结束了，但权重x的值变了。我们用它求解出来权重值看一下，得到的组合收益是否为0.1：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">portfolio_returns</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+返回结果的确是0.1，说明求解过程正确。同时，只迭代一次就得到正确结果，这个效率也令人满意。</p>
+<p>现在，如果我们再来求解有效前沿，应该怎么做？</p>
+<p>显然，我们应该先找出该组合的理论最大、最小收益，然后在这个区间里进行线性划分，将每一个收益点作为约束条件，求解出对应的资产分配权重，然后再依据这个权重分配，计算其它指标，比如sharpe。</p>
+<p>组合的理论最大收益是把所有的仓位都分配给表现最好的股票得到的；反之，如果所有的仓位都分配给表现最差的资产，则我们会得到最小收益。</p>
+<p>returns表记录了每一个标的的daily return，我们可以用下面的方法来求每一个标的的年化：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">all_annual_returns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">returns</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">253</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">all_annual_returns</span><span class="p">)</span>
+<span class="n">worst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">all_annual_returns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">worst</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>我们得到资产组合的最大收益是20%，最差收益是-28%。现在我们来求解有效前沿，这一次，我们给足完整的代码：</p>
+<p>```python {.line-numbers}
+sharpes = []
+vols = []
+weights = []
+rets = []</p>
+<p>all_annual_returns = (1 + returns.mean()) ** 253 - 1
+best = np.max(all_annual_returns)
+worst = np.min(all_annual_returns)</p>
+<p>x0 = np.ones(len(stocks)) / len(stocks)
+constraints = (
+    {'type': 'eq', 'fun': lambda x: np.sum(x) - 1},
+    {'type': 'eq', 'fun': lambda x: portfolio_returns(x) - target}
+)</p>
+<h1 id="这一次我们要求每个标的至少分配1的权重">这一次，我们要求每个标的至少分配1%的权重<a class="headerlink" href="#这一次我们要求每个标的至少分配1的权重" title="Permanent link">&para;</a></h1>
+<p>bounds = tuple((0.01, 1) for _ in stocks)</p>
+<p>for target in np.linspace(worst, best, 100):
+    res = minimize(
+        fun = portfolio_sd,
+        x0 = x0,
+        method = 'SLSQP',
+        bounds = bounds,
+        constraints = constraints
+    )</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>vols.append(res.fun)
+weights.append(res.x)
+rets.append(target)
+
+# 计算sharpe
+sharpe = sharpe_ratio(returns.dot(res.x))
+sharpes.append(sharpe)
+</code></pre></div></td></tr></table></div>
+<h1 id="绘制图形">绘制图形<a class="headerlink" href="#绘制图形" title="Permanent link">&para;</a></h1>
+<p>plt.scatter(vols, rets, c=sharpes, cmap='RdYlBu')
+pos = np.argmax(sharpes)
+plt.colorbar(label='Sharpe Ratio')
+plt.scatter(vols[pos], rets[pos], marker='*', s=80, color='red')</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>运行总共花了11秒。看上去比运行5000次蒙特卡洛模拟还要慢，但是，它是几乎涵盖了可能的每一种组合。这是5000次蒙特卡洛模拟做不到的。
+
+代码中有一些地方需要进一步解释。我们在前面讲解过lambda表达式`np.sum(x) - 1`中x的来源。您应该注意到，我们并没有在任何地方声明它。实际上，它只是一个形式参数，您可以使用任何变量名，`minimize`方法都会将迭代中的根变量传递给它 -- 在这个例子中，就是求解中的权重矩阵。然而，另一个约束条件：
+
+```markdown
+    lambda x: portfolio_returns(x) - target
+</code></pre></div></td></tr></table></div>
+<p>这里的target来自何处？它的值又是如何传递的呢？实际上，我们必须提前使用这个变量，但只到第19行，我们才在for循环中声明这个变量，并且将最新的值传递给了lambda表达式。</p>
+<p>还有一个浮点数问题。即'eq'表达式，它的结果是要跟0相比较的。但是由于各种浮点误差，理论上等于零的表达式，在计算机看来可能不等于0。比如， 在 portfolio_returns(x) - target &lt; 0.001的时候，其实我们已经可以认为这个优化到位了，但minimize会一直寻找到这个差值小于1e-7为止。</p>
+<p>我们可以通过对portfolio_returns的返回值和target进行取整（比如，小数点后3位）来加快计算速度，但当我们这样做的时候，要注意由于不知道<code>minimize</code>内部实现时的步长，有可能导致优化失败。</p>
+<p>如果我们有进一步加快速度的需要，可以考虑使用scipy.optimize包中的另外一个方法，<code>fmin_slsqp</code>:</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code>    scipy.optimize.fmin_slsqp(
+        func, 
+        x0, 
+        eqcons=(), 
+        bounds=(), 
+        acc=1e-06, 
+        iprint=1, 
+        disp=None, 
+        full_output=0, 
+        epsilon=1.4901161193847656e-08, 
+        callback=None)
+</code></pre></div></td></tr></table></div>
+它提供了<code>acc</code>和<code>epsilon</code>这两个参数，应该跟我们这里的思路是一致的。它的默认值也可能就是<code>minimize</code>内部实现时的默认值。它也是顺序最小二乘法优化方法。只不过文档比较少，也没有示例。这里就不展开了，供大家参考。</p>
+<p>我们已经探讨了资产组合理论的方方面面，并且学会了如何使用蒙特卡洛方法和凸优化方法来求解约束条件下的最佳资产组合。</p>
+<p>但是，在实际投资中，我们遇到的情况会更复杂，并不是我们上面介绍的方法就可以完全 cover 的。比如，我们可能会遇到以下情况（需求）：</p>
+<ol>
+<li>在均值、方差模型中，我们把收益率为正的波动也计入进来了。但实际上，我们可能只关注收益率为负的那部分波动 -- 这正是策略评估指标 - sortino 指标被发明出来的原因。这只是我们优化模型的路径之一。我们可能还希望实现各种新的发现，但时间和能力可能都不允许。</li>
+<li>迄今为止，我们只考虑了权重为正的情况。也就是，我们只允许做多。但实际上，通过做空来对冲风险的需求也是存在的。如果我们要允许做空，又该如何？</li>
+<li>尽管我们的标的池里有 500 个标的，但如果必须将投资组合限制为最多 10 项资产，又该如何处理？这可不仅仅是从中挑选 10 支标的再把前面的流程走一遍那么简单。毕竟，该如何从 500 个标的的标的池里，选出最佳的 10 支呢？</li>
+<li>如果我们希望进行行业中性化呢（即每个行业均衡配置资产，而不要出现资产主要配置在某一个行业内的情况）？</li>
+</ol>
 
 
   
@@ -1614,7 +1888,7 @@
     <nav class="md-footer__inner md-grid" aria-label="页脚" >
       
         
-        <a href="../mpt-4/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 投资组合理论与实战(4) - PyportfolioOpt工具库" rel="prev">
+        <a href="../mpt-2/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 投资组合理论与实战(2) - 蒙特卡洛方法" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1623,20 +1897,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              投资组合理论与实战(4) - PyportfolioOpt工具库
+              投资组合理论与实战(2) - 蒙特卡洛方法
             </div>
           </div>
         </a>
       
       
         
-        <a href="../../%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-footer__link md-footer__link--next" aria-label="下一页: 量化实盘接入方式" rel="next">
+        <a href="../mpt-4/" class="md-footer__link md-footer__link--next" aria-label="下一页: 投资组合理论与实战(4) - PyportfolioOpt工具库" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              量化实盘接入方式
+              投资组合理论与实战(4) - PyportfolioOpt工具库
             </div>
           </div>
           <div class="md-footer__button md-icon">

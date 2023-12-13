@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="http://www.jieyu.ai/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">
+        <link rel="canonical" href="http://www.jieyu.ai/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
-        <title>关于寻找顶和底的一些思考 - 大富翁量化</title>
+        <title>投资组合理论与实战(2) - 蒙特卡洛方法 - 大富翁量化</title>
       
     
     
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#确定最佳投资组合" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -111,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              关于寻找顶和底的一些思考
+              投资组合理论与实战(2) - 蒙特卡洛方法
             
           </span>
         </div>
@@ -996,11 +1001,48 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../mpt-2/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          投资组合理论与实战(2) - 蒙特卡洛方法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         投资组合理论与实战(2) - 蒙特卡洛方法
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#确定最佳投资组合" class="md-nav__link">
+    确定最佳投资组合
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1038,19 +1080,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
         关于寻找顶和底的一些思考
       </a>
-      
     </li>
   
 
@@ -1390,6 +1424,21 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#确定最佳投资组合" class="md-nav__link">
+    确定最佳投资组合
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1402,17 +1451,142 @@
                 
                   
 
-  <a href="https://github.com/zillionare/zillionare/edit/master/docs/investment/策略研究/关于寻找顶和底的一些思考.md" title="编辑此页" class="md-content__button md-icon">
+  <a href="https://github.com/zillionare/zillionare/edit/master/docs/investment/策略研究/mpt-2.md" title="编辑此页" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-  <h1>关于寻找顶和底的一些思考</h1>
+  <h1>投资组合理论与实战(2) - 蒙特卡洛方法</h1>
 
-<p>scipy当中有一些信号处理函数，可以用来发现顶和底，比如<code>argrelextrema</code>。
-比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法：</p>
-<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p>
+<p>主要操作我们在上一节已经介绍过，这一步主要做的事情是不断地重复。我们先把代码给出来，再进行解释：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">num_ports</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_ports</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">)))</span>
+<span class="n">vol_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_ports</span><span class="p">)</span>
+<span class="n">sharpe_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_ports</span><span class="p">)</span>
+<span class="n">port_return_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_ports</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">returns</span><span class="p">)))</span>
+<span class="n">cov_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_ports</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_ports</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">)))</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>  
+
+    <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">weights</span>
+
+    <span class="n">weighted_returns</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">*</span> <span class="n">returns</span>
+    <span class="n">port_return_i</span> <span class="o">=</span> <span class="n">weighted_returns</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">port_return_arr</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">port_return_i</span>
+
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">port_return_i</span><span class="p">)</span>
+    <span class="n">cov_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov</span>
+    <span class="n">vol_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+    <span class="n">sharpe_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sharpe_ratio</span><span class="p">(</span><span class="n">port_return_i</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>我们主要定义了这样四个数组：</p>
+<ol>
+<li>权重矩阵 all_weights。我们打算重复 5000 次采样，由于资产组合共有 4 个标的，所以，它是一个 5000 * 4 的矩阵。每一行对应一次资产组合分配。</li>
+<li>夏普率数组。它是一个 size 为 5000 的数组，记录了每一次计算出来的 sharepe 率。</li>
+<li>波动率数组。它也是一个 size 为 5000 的数组，记录了每一次计算邮来的波动率。</li>
+<li>port_return_arr，在示例中，它是一个 5000 * 241 大小的矩阵，每一行记录了组合在过去一年中每一天的收益。</li>
+</ol>
+<p>当上述代码运行完成之后，我们就得到了 5000 组夏普值。根据夏普值的定义，我们直接找到夏普值最大的那一组，就是风险最小、收益最高的资产组合。</p>
+<h3 id="确定最佳投资组合">确定最佳投资组合<a class="headerlink" href="#确定最佳投资组合" title="Permanent link">&para;</a></h3>
+<p>我们使用 np.argmax 来寻找夏普最大时的位置，此点即为最佳投资组合：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 检查最高的 SHARPE</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">sharpe_arr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">sharpe_arr</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stocks&quot;</span><span class="p">,</span> <span class="n">stocks</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Portfolio Allocation:&quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<p>这样我们得到资产分配方案类似如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>标的 1</th>
+<th>标的 2</th>
+<th>标的 3</th>
+<th>标的 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>比例</td>
+<td>35.3%</td>
+<td>0.3%</td>
+<td>0.8%</td>
+<td>64%</td>
+</tr>
+</tbody>
+</table>
+<p>我们将上述试验结果绘制成图形，来看看是否符合有效前沿理论：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">annual_return</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">port_return_arr</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">vol_arr</span><span class="p">,</span> <span class="n">annual_return</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">sharpe_arr</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">vol_arr</span><span class="p">[</span><span class="n">pos</span><span class="p">],</span> <span class="n">annual_return</span><span class="p">[</span><span class="n">pos</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>我们以波动率为 x 轴，年化回报为 y 轴。在每一个 x 上，都存在若干组年化回报数据，有正有负。显然，对于同一个 x，正好是那些处在有效前沿上的组合，正好是收益最大或者亏损最大的组合。</p>
+<p>按照 MPT 理论，只有那些在 y 轴上方，且处于有效前沿上的才是值得关注的组合，然后根据我们的风险承受能力，来选择这条线上对应的组合。</p>
+<p>我们把夏普率最高的那组方案，用红色的点标注出来。</p>
+<p><img alt="" src="https://images.jieyu.ai/images/2023/10/mpt-sharpe-vol.png" /></p>
+<p>从走势图来看，我们这样求出来的资产组合确实是最优的。但是，如果我们将它与文章开头的那个图相比，我们会得出什么结论？</p>
+<ol>
+<li>
+<p>这把牌不行。如果你愿意承担较大风险，这把牌也不能给你想要的收益。浪得不够狠。</p>
+</li>
+<li>
+<p>资产组合并没有形成直观的有效前沿，原因主要是投资组合整体的收益率受组合内资产的收益率限制，即min(组合内资产收益率)≤资产组合收益率≤max(组合内资产收益率)，因此并不是能实现所有收益率。</p>
+</li>
+</ol>
+<p>因此我们得到结论：<strong>你得重新选标的。</strong></p>
+<p>另外，如果你现在就急于用MPT来进行投资。。。你还得再学点啥。</p>
+<p>历史当然总是在重复自己，一切历史都是当代史。但是仍然有很多东西要讨论。</p>
+<p>首先，我们应该放多少支标的到这个组合里来？我们的示例中只使用了4支，如果我们对沪深300或者中证1000来做指增，会不会更好一点？</p>
+<p>其次，上述两幅图是针对同一资产组合，不同时间段情况所形成，很明显收益及风险都有较大差异。如果我们在不同的时间点来优化投资组合，我们得到的仓位显然会有所不同。因此我们提出问题：我们应该多久计算一次并执行调仓？会不会有这样一种情况，每次调仓是在用过去的最优解，而它很快就变成了次优或者最劣解？也就是，这个组合它的动量周期是多久？</p>
+<p>显然，任何一个有价值的方案，往往都不是一篇短文能cover的，我们会在后续的文章中不断深入探讨这个问题。</p>
+<p>好，我们先放下这些问题，先来看一个技术问题：</p>
+<p><strong>执行上述循环5000次，我们花了大约 5.2 秒。</strong></p>
+<p>这是只有4支标的的情况。很显然，随着标的数的增加，我们需要暴力搜索的空间也随之变大。这种方法，在标的数增加到50支、100支时，是否还可行呢？</p>
+<p>在讨论可行性问题前，我们可以尝试进行一些速度优化。</p>
+<p><img alt="" src="https://images.jieyu.ai/images/2023/12/vectorize_vs_for.png" /></p>
+<p>我们可以使用下面的算法，把部分计算移出了循环：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1447,151 +1621,71 @@
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bs_signals</span><span class="p">(</span><span class="n">bars</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">argrelextrema</span>
-    <span class="n">ma</span> <span class="o">=</span> <span class="n">moving_average</span><span class="p">(</span><span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">empyrical</span> <span class="kn">import</span> <span class="n">sharpe_ratio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">num_ports</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">all_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_ports</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">))</span>
 
-    <span class="n">peak_indexes</span> <span class="o">=</span> <span class="n">argrelextrema</span><span class="p">(</span><span class="n">ma</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">)</span>
-    <span class="n">peaks</span> <span class="o">=</span> <span class="n">peak_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_weights</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">all_weights</span> <span class="o">=</span> <span class="n">all_weights</span><span class="o">/</span><span class="n">all_weights</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
 
-    <span class="c1"># Find valleys(min).</span>
-    <span class="n">valley_indexes</span> <span class="o">=</span> <span class="n">argrelextrema</span><span class="p">(</span><span class="n">ma</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">)</span>
-    <span class="n">valleys</span> <span class="o">=</span> <span class="n">valley_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># got 241 daily summed returns over 5000 iters</span>
+<span class="n">all_port_returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">all_weights</span><span class="p">,</span><span class="n">returns</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 
-    <span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">valleys</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+<span class="n">all_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">all_port_returns</span><span class="p">)</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
 
-    <span class="n">bars</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
-    <span class="c1"># Plot main graph.</span>
-    <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bars</span><span class="p">)),</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bars</span><span class="p">)),</span> <span class="n">ma</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1"># 计算波动率</span>
+<span class="n">all_vol</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_sharpe</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="c1"># Plot peaks.</span>
-    <span class="n">peak_x</span> <span class="o">=</span> <span class="n">peaks</span>
-    <span class="n">peak_y</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="n">peak_x</span><span class="p">]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">peak_x</span><span class="p">,</span> <span class="n">peak_y</span><span class="p">,</span> <span class="s1">&#39;gv&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Peaks&quot;</span><span class="p">)</span>
+<span class="n">annual_return</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">all_port_returns</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
-    <span class="c1"># Plot valleys.</span>
-    <span class="n">valley_x</span> <span class="o">=</span> <span class="n">valleys</span>
-    <span class="n">valley_y</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">][</span><span class="n">valley_x</span><span class="p">]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">valley_x</span><span class="p">,</span> <span class="n">valley_y</span><span class="p">,</span> <span class="s1">&#39;r^&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valleys&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_ports</span><span class="p">):</span>
+    <span class="n">all_vol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">all_weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">all_cov</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">all_weights</span><span class="p">[</span><span class="n">i</span><span class="p">]))))</span>
+    <span class="n">all_sharpe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sharpe_ratio</span><span class="p">(</span><span class="n">all_port_returns</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 
-    <span class="n">trades</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">gains</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;计算用时&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span>
 
-    <span class="n">vertex</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="o">*</span><span class="n">peaks</span><span class="p">,</span> <span class="o">*</span><span class="n">valleys</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vertex</span><span class="p">:</span>
-        <span class="n">buy</span> <span class="o">=</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">valleys</span>
-        <span class="n">sell</span> <span class="o">=</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">peaks</span>
-        <span class="k">if</span> <span class="n">buy</span> <span class="ow">and</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;buy&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">],</span>
-                <span class="s2">&quot;buy_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
-            <span class="p">}</span>
+<span class="c1"># 绘图</span>
+<span class="n">all_vol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_vol</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">all_vol</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">sell</span> <span class="ow">and</span> <span class="n">order</span><span class="p">:</span>
-            <span class="n">buy</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="s2">&quot;buy&quot;</span><span class="p">]</span>
-            <span class="n">sell</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;close&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
-            <span class="n">gain</span> <span class="o">=</span> <span class="n">sell</span> <span class="o">/</span> <span class="n">buy</span>
-            <span class="n">order</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                <span class="s2">&quot;sell&quot;</span><span class="p">:</span> <span class="n">sell</span><span class="p">,</span>
-                <span class="s2">&quot;sell_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="p">],</span>
-                <span class="s2">&quot;gain&quot;</span><span class="p">:</span> <span class="n">gain</span>
-            <span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">all_vol</span><span class="p">,</span> <span class="n">annual_return</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">all_sharpe</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">)</span>
 
-            <span class="n">gains</span> <span class="o">*=</span> <span class="n">gain</span>
-            <span class="n">trades</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">return</span> <span class="n">gains</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">trades</span>
+<span class="n">max_sharpe_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">all_sharpe</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">all_vol</span><span class="p">[</span><span class="n">max_sharpe_pos</span><span class="p">],</span> <span class="n">annual_return</span><span class="p">[</span><span class="n">max_sharpe_pos</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-上面的函数使用<code>argrelextrema</code>来查找均线的顶和底。这里使用均线，是因为均线相对平滑，去除了一些噪音。这里的<code>moving_average</code>定义为:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<p>不过，在按行计算波动率和夏普率的时候，我不得不做出妥协，改用循环。在这种情况下（投资组合中只有4只标的），我们现在的执行时间需要0.65秒。提升了大概8倍的速度（初始为5.2s左右）。</p>
+<p>PyPortfolioOpt的作者曾在一个示例中用到了这样的方法：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">def</span> <span class="nf">moving_average</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">win</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">win</span><span class="p">)</span> <span class="o">/</span> <span class="n">win</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>n_samples = 10000
+w = np.random.dirichlet(np.ones(ef.n_assets), n_samples)
+rets = w.dot(ef.expected_returns)
+stds = np.sqrt(np.diag(w @ ef.cov_matrix @ w.T))
+sharpes = rets / stds
 </code></pre></div></td></tr></table></div>
-它使用了卷积来求简单移动平均值。numpy的卷积运算速度很快，但如果想要更快的速度，可以使用<a href="https://github.com/pydata/bottleneck">bottleneck</a>的<code>move_mean</code>，最高可以快6000多倍（取自官方文档，不一定是和np.convolve方法比较）。</p>
-<p>通过给<code>argrelextrem</code>传入不同的比较函数（例子中是<code>np.less</code>和<code>np.greater</code>)，我们可以分别查找极大值和极小值，记为peaks和valleys。</p>
-<p>然后我们把均线、收盘价线和极值点画在同一个图上。最后，我们假设在低点买入，在高点卖出，就可以计算出策略的收益。</p>
-<p>下图是我们以东方电气2021年11月2日为止点，对60个交易日内进行信号发现的结果：
-<img alt="" src="https://images.jieyu.ai/images/202110/20211030231630.png" /></p>
-<p>可以看出，仅仅使用默认参数，<code>argrelextrem</code>就能较好地发现顶和底。我们得到的最终收益是35%，而同期该股实际上是不涨不跌。</p>
-<p>非常惊人，just too good to be true.</p>
-<p>那么倒底哪里错了？</p>
-<p>原因出在<code>argrelextrem</code>的工作方式。它只有在股价已经向下走时，才能检测出一个顶点已经存在。这是一个未来函数。它意味着，只有在明天才可能识别出今天应该发出的信号。但我们不可能返回昨天来完成交易。</p>
-<p>为了进一步验证上述观点，我们取2021年9月3日前后的两张图来对比：
-<img alt="" src="https://images.jieyu.ai/images/202110/20211102215632.png" />
-上图是截止9月3日的图。从后面的结果来看，<code>argrelextrem</code>应该在这一天标注出一个底点。但是它并没有。
-<img alt="" src="https://images.jieyu.ai/images/202110/20211102215539.png" />
-上图的时间是9月6日，这次它标注出来一个底点，但是标注在前一天。</p>
-<p>由于均值线使用的是收盘价，这意味着，只有在9月6日收盘后，我们才能识别9月3日是一个低点。如果这时我们按9月6日的收盘价（实际交易还要晚一点，只能使用第二天的开盘价）来买入，情况会如何？</p>
-<p>我们把上面的方法中，买卖价都顺延一天，得到的收益率是-13%。如果我们在起点时，以开盘价买入，在终点以收盘价卖出，则还可以收益8.4%。在动用高大上的数学方法后，成功地亏掉了21%。这里我们取得是5日均线。取10日、或者3日，都逃不掉亏损的命运。</p>
-<p>理想是美好的，现实是残酷的。</p>
-<p>然而。。。</p>
-<p>老股民很容易观察到，在位置5附近，股价已经滞涨好几天了，均线也在走平。有句股谚，三天不创新高就要抛（这是对运做强势股而言）。这是因为，如果三天不创新高，则均线就会象上图中位置5附近一样走平，接下来既可能突破平台开启第二浪，也可能下跌。因此，我们的策略可以是这样，通过算法检测到均线走平，发出预警（此时可以部分减仓），等待明确的信号再决定是否清仓（反之则是买入）。</p>
-<p>假设我们能在<code>argrelextrem</code>前一天发现走平的信号。如果此时处于高位，则卖出一半，待<code>argrelextrem</code>报出信号后，再卖出全部仓位。这样，上面函数的开仓、平仓部分就改为：
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">if</span> <span class="n">buy</span> <span class="ow">and</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;buy&quot;</span><span class="p">:</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
-        <span class="s2">&quot;buy_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">}</span>
-
-<span class="k">elif</span> <span class="n">sell</span> <span class="ow">and</span> <span class="n">order</span><span class="p">:</span>
-    <span class="n">buy</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="s2">&quot;buy&quot;</span><span class="p">]</span>
-    <span class="n">sell</span> <span class="o">=</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">close</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
-    <span class="n">gain</span> <span class="o">=</span> <span class="n">sell</span> <span class="o">/</span> <span class="n">buy</span>
-    <span class="n">order</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-        <span class="s2">&quot;sell&quot;</span><span class="p">:</span> <span class="n">sell</span><span class="p">,</span>
-        <span class="s2">&quot;sell_at&quot;</span><span class="p">:</span> <span class="n">bars</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
-        <span class="s2">&quot;gain&quot;</span><span class="p">:</span> <span class="n">gain</span>
-    <span class="p">})</span>
-</code></pre></div></td></tr></table></div>
-这样我们得到的收益是5%。虽然不如买入并持有好，但毕竟这是我们凭实力挣的钱，而不是靠赌运气。所以这个收益可重复。</p>
-<p>现在，问题就变成了，如何检测均线走平？这个问题回答起来也并不那么容易。不过我们先来看看这里的检测峰和谷的方法的实际作用。</p>
-<p>从上面的分析可以看出，峰和谷的检测是后验的，即只有当峰和谷已经走出来，上面的算法才能检测到。虽然它对投资可能没有直接的指导意义，但我们也可以用它来标注数据，以供机器学习使用。</p>
-<p>下图显示了使用上述方法，对上证指数一段时间的峰和谷进行标注的结果：
-<img alt="" src="https://images.jieyu.ai/images/202111/20211111170152.png" /></p>
-<p>我们先是使用均线对波动进行平滑，然后通过argrelextrem进行峰和谷的检测，然后在此基础上，对峰和谷进行一些小的修正，使之与股价、而不是均线对齐。我们采用沪指过去6年的30分钟线，共发现734个顶点和738个底点，制作成为标注数据。</p>
-<p>有了这些标注数据，我们就可以训练和检验自己的机器学习模型了。出人意料的是，数据量并不大。这也说明在A股市场上，趋势一旦形成，往往还能持续一段时间。这也是量化模型能够有用武之地的一个注脚。</p>
+计算速度非常之快（小于0.1秒），但需要对其中的ef.cov_matrix进行替换，感兴趣的同学可以研究下它的源码。</p>
+<p>对于一个仅有4支标的的组合来说，这个速度（不到1秒）显然可以令人满意了。但我们也在上一篇文章中，提出一个问题，随着标的数的增加，使用蒙特卡洛模拟方法，我们需要暴力搜索的空间也随之变大。那么，究竟会增大多少呢，此时还可不可行？</p>
+<p>我们先来看只有两支标的情况。假设资产权重的间隔是1%，即某个资产要么分配1%，要么分配2%，而不会分配1.05%这样的非整数权重。这样我们就可以算得，如果要把这些权重分布全部模拟到，搜索空间将是：</p>
+<p>A: 1-100 ~ 101个选择项
+B: 1个选择项</p>
+<p>当A的权重选定以后，在权重和为1的约束下，B就只有一个选择。因此，总共是101次搜索。</p>
+<p>当如果标的数量上升，我们为了模拟尽可能多的情况，一定会扩大模拟次数，因此总的运行时长迅速上涨。同时随着标的数的增加，我们要搜索的次数需要呈指数级增加，而不是按标的数线性增加。</p>
+<p>因此，搜索次数是一个组合问题。假设存在四个标的，并不是简单的4×100就可以模拟出所有组合，而是存在：
+<span class="arithmatex">\(C_{99}^3\)</span>种分配方案。</p>
+<p>对任意n个标的，每个标的的权重间隔按1%计算的话，这个搜索空间将是：</p>
+<p><span class="arithmatex">\(C_{101-(n-1)}^{n-1}\)</span>次。如果我们有50支标的，则需要搜索最少<strong>1.998e+21亿</strong>次！</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>可以使用 math.comb来计算组合数。</p>
+</div>
+<p>所以，使用蒙特卡洛方法，会存在无法穷尽所有样本空间的可能性。我们必须采用数学的方法，来优化这个求解过程。</p>
 
 
   
@@ -1614,7 +1708,7 @@
     <nav class="md-footer__inner md-grid" aria-label="页脚" >
       
         
-        <a href="../mpt-4/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 投资组合理论与实战(4) - PyportfolioOpt工具库" rel="prev">
+        <a href="../mpt-1/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 投资组合理论与实战(1) - 基本概念" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1623,20 +1717,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              投资组合理论与实战(4) - PyportfolioOpt工具库
+              投资组合理论与实战(1) - 基本概念
             </div>
           </div>
         </a>
       
       
         
-        <a href="../../%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-footer__link md-footer__link--next" aria-label="下一页: 量化实盘接入方式" rel="next">
+        <a href="../mpt-3/" class="md-footer__link md-footer__link--next" aria-label="下一页: 投资组合理论与实战(3) - 优化算法" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              量化实盘接入方式
+              投资组合理论与实战(3) - 优化算法
             </div>
           </div>
           <div class="md-footer__button md-icon">
