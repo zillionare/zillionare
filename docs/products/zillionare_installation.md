@@ -25,7 +25,7 @@ table {
 </style>
 
 <h1>大富翁2.0安装指南</h1>
-!!! Important
+!!! tip
     安装文件目前仅对大富翁量化课程学员及重要客户开放。联系请加 quantfans_99 (宽粉) 微信
 
 我们通过docker集群向大家提供zillionare 2.0。该集群包含以下容器：
