@@ -35,15 +35,21 @@ markdown_extensions:
   - toc:
       baselevel: 1
       permalink: true
-      slugify: !!python/name:pymdownx.slugs.uslugify
   - meta
 plugins:
   - include-markdown
   - awesome-pages
   - blog
-  - tags
+  - tags:
+      tags_file: tags.md
+  - rss:
+      categories:
+        - categories
+        - tags
+      date_from_meta:
+        as_creation: date
   - search:
-      lang: ja
+      lang: zh
 extra:
   social:
     - icon: fontawesome/brands/zhihu

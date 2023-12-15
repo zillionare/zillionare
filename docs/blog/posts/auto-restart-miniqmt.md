@@ -9,7 +9,7 @@ tags:
     - qmt
 ---
 
-miniqmt在使用中，难免会遇到不稳定的时候。目前，xtquant包还没有提供自动重连的功能。当我们发现xtquant工作不正常的时候，需要重启miniqmt，重建新的连接（一定要使用新的sessionid）。问题是，有些版本的qmt，比如国金的版本，并没有提供免密登录，怎么办？
+实盘交易接口miniqmt在使用中，难免会遇到不稳定的时候。目前，xtquant包还没有提供自动重连的功能。当我们发现xtquant工作不正常的时候，需要重启miniqmt，重建新的连接（一定要使用新的sessionid）。问题是，有些版本的qmt，比如国金的版本，并没有提供免密登录，怎么办？
 
 <!-- more -->
 
@@ -17,7 +17,7 @@ miniqmt在使用中，难免会遇到不稳定的时候。目前，xtquant包还
 
 linkMini文件是在qmt（注意和miniqmt，即极简模式相对应）登录后生成的，它只存在很短的时间，立刻又被删除了。因此，我们需要把这个文件copy出来：
 
-```
+```batch
 :loop
 if exist linkMini (
     copy linkMini linkMini_copy 
@@ -43,7 +43,7 @@ goto loop
 
 此时我们就可以自动重启miniqmt了，因为有参数传递，所以，我们要通过脚本来实现：
 
-```
+``` batch
 @echo on
 title run MiniQmt without logon
 
@@ -55,4 +55,4 @@ taskkill /F /IM xtMiniQmt.exe /T
 start "" "xtMiniQmt.exe" linkMini
 ```
 
-end of story!
+该方案由量化群里小伙伴提出，特别感谢！
