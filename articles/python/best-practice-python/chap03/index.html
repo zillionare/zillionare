@@ -1,0 +1,2403 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="量化框架、量化策略、量化资源分享">
+      
+      
+      
+        <link rel="canonical" href="http://www.jieyu.ai/articles/python/best-practice-python/chap03/">
+      
+      
+        <link rel="prev" href="../chap02/">
+      
+      
+        <link rel="next" href="../chap04/">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>03 构建Python虚拟环境 - 大富翁量化</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-EHVH3XCS1V"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-EHVH3XCS1V",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-EHVH3XCS1V",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="大富翁量化" class="md-header__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../../assets/img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            大富翁量化
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              03 构建Python虚拟环境
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../coursea/cheese/intro/" class="md-tabs__link">
+          
+  
+    
+  
+  量化课程
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../products/" class="md-tabs__link">
+          
+  
+    
+  
+  量化产品
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-tabs__link">
+          
+  
+    
+  
+  策略研究
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chap01/" class="md-tabs__link">
+          
+  
+    
+  
+  学Python
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../blog" class="md-tabs__link">
+        
+  
+    
+  
+  博客
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags" class="md-tabs__link">
+        
+  
+    
+  
+  文章分类
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../contact/" class="md-tabs__link">
+          
+  
+    
+  
+  联系和关注
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="大富翁量化" class="md-nav__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../../assets/img/logo.png" alt="logo">
+
+    </a>
+    大富翁量化
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    量化课程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            量化课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    大富翁量化课程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            大富翁量化课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coursea/cheese/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课程简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coursea/cheese/outline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课程大纲
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    量化产品
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            量化产品
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../products/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    产品系列
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            产品系列
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/zillionare_installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大富翁安装指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/gm-adaptor-installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实盘交易接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    策略研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            策略研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    量化知识
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            量化知识
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    策略研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            策略研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    资本资产定价模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/cornnors_rsi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    康纳RSI指标详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(1) - 基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(2) - 蒙特卡洛方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(3) - 优化算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(4) - PyportfolioOpt工具库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于寻找顶和底的一些思考
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    量化库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            量化库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    量化实盘接入方式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    量化数据的持久化方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_3" id="__nav_4_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    量化杂谈
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            量化杂谈
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    花开曾倾国
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    东印度公司
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    学Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            学Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_1" id="__nav_5_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    专题
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            专题
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_1_1" id="__nav_5_1_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python能做大项目
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_1_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Python能做大项目
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 为什么要学 Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 编程开发环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    03 构建Python虚拟环境
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 项目布局和项目生成向导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 Poetry 项目管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 10倍速！高效编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 代码单元测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08 代码版本管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09 持续集成
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10 撰写技术文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11 发布应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_2" id="__nav_5_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据分析与可视化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            数据分析与可视化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dash-用Python也能做网页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/how-to-scale/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    量化策略中如何进行缩放和归一化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/matplotlib-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    matplotlib的布局问题（1）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/matplotlib-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    matplotlib的布局问题（2）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/qq-plot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么Q-Q图可用来进行统计推断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    博客
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文章分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    联系和关注
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            联系和关注
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>在上一章里，我们讨论了构建开发环境的基本步骤，如选择操作系统、选择集成开发环境等。现在我们可以着手编写代码了，但要能运行和调试程序，还需要指定Python运行时（或者称之为解释器）。特别地，如果你使用的开发工具是VS Code，那么这一步是必须的：因为VS Code并不是只为开发Python应用程序而设计的，它支持好多种开发语言。因此，要使得VS Code知道你的工程项目是基于Python的，就必须为它指定Python运行时。</p>
+<p>Python有两个主要的运行时版本，Python 2.x和Python 3.x。Python 3.x是对2.x版本的破坏性升级。当前，需要在3.x版本下运行的应用程序和组件越来越多了，然而，像MacOs或者Ubuntu这样的操作系统，它的一些老旧版本仍然依赖Python 2.x来运行一些核心功能，比如包管理。因此，在这些系统上，Python 2.x仍然是缺省安装的Python运行时版本。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Python 2.7是Python 2.x系列的最后一个版本，已于2020年1月1日终止维护；Python 3.7则于2023年6月27日终止维护。因此，当您开始一个新的项目时，应该尽可能避开这些老旧的Python版本。</p>
+</div>
+<p>这会是你在开发Python应用时的将会遇到的第一个问题：你想要开发一个Python应用程序，使用了最新的Python版本，有着大量酷炫的新特征和新功能。但当你的应用程序部署时，可能被部署到各种各样的机器上，这些机器上缺省安装的Python版本，并不是你开发时指定的版本。如果强行升级系统缺省安装的Python版本，则可能会破坏其它应用程序；而如果不进行升级，则又没办法运行你的程序。</p>
+<p>即使目标机器和你的应用程序使用了同样的Python版本，类似的冲突还可能发生在其它组件上。比如Django是Python社区中最负盛名的web开发框架。它依赖于SQLAlchemy -- Python社区中另一个同样颇负盛名的开源orm框架。如果你的程序也依赖于SQLAlchemy，并且你使用了SQLAlchemy 1.4以上的版本，而Django使用了它的早期版本，那么很不幸，这两个应用程序将无法共用同一个Python环境： SQLAlchemy 1.4相对于之前的版本，是完全不兼容的破坏性更新。</p>
+<p>这类问题被称之为依赖地狱。依赖地狱并不是Python独有的问题，它是所有的软件系统都会面临的问题。</p>
+<h1 id="1">1. 依赖地狱<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>在构建软件系统时，通常都会涉及功能复用的问题。毕竟，“重新发明轮子”是一种不必要的浪费。功能复用可能发生在源代码级别、二进制级别或者服务级别。源代码级别就是在我们的工程中，直接使用他人的代码源码；二进制级别是指在我们的应用中使用第三方库；服务级别的复用，则是程序功能以服务的方式独立运行，其它应用通过网络请求来使用这种功能。</p>
+<p>当我们使用二进制级别的复用时，就常常会遇到依赖地狱问题。比如在上面Django的例子中，如果没有一种方法可以向Django和你的应用分别提供不同版本的SQLAlchemy，则这两个应用将无法同时运行在同一台机器上。</p>
+<p>依赖地狱并不是Python独有的问题。所有的程序开发语言都会遇到类似的问题。解决这个问题的方法之一，就是将程序的运行环境彼此隔离起来。比如，应用程序所依赖的第三方库，不是安装到系统目录中，而是安装到单独的目录中：比如，随着该应用程序一起安装到该应用程序所占的目录中，并且，只从这个目录中加载依赖的第三方库。</p>
+<p>Python解释器本身也可以看成一个普通的应用程序。因此，当我们安装一个Python应用程序时，可以将该程序依赖的Python运行时，及相关的第三方库，都安装到一个单独的目录中。这样，当我们运行该应用程序时，就从该目录中启动Python，如果Python只从（或者优先）该目录加载第三方库的话，我们就实现了某种程度的隔离。这种思想，就是虚拟运行环境的思想，它是解决Python依赖地狱问题的一个主要方法。</p>
+<p>既然我们提到了“隔离”一词，我们不妨再稍稍引申一下。在第二章我们提到了虚拟机和Docker容器，这些是解决资源冲突，对资源进行隔离的方法。现在，通过容器以(微)服务的方式来部署Python应用程序也越来越常见，其中也有简化安装环境、避免依赖地狱等方面的考虑。</p>
+<p>在这一章我们主要讲如何构建虚拟运行环境，这样可以完全解决运行时与其它应用程序之间可能发生的依赖地狱问题。然而，依赖地狱还有其它多种表现形式，我们后面还会在讲述Poetry那一章再探讨这个问题。</p>
+<h1 id="2">2. 使用虚拟环境逃出依赖地狱<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<p>Python的虚拟环境方案可谓源远流长，种类繁多。如果你接触Python已经有一段时间了，那么你很可能听说过annaconda, virutalenv, venv, pip, pipenv, poetry, pyenv, pyvenv, pyenv-virtualenv, virtualenvwrapper, pyenv-virtualenvwrapper等相似概念。   </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在Zen of Python之中提到的一个重要原则就是：
+There should be one -- and preferably only one -- obvious way to do it.
+永远都应该只有一种显而易见的解决之道</p>
+<p>从Python的虚拟环境解决方案之多来看，要达到这样的境界似乎是困难的。人们试图建造巴别塔，但上帝会毁灭它。不过，类似的困境并非 Python 独有。比如， Javascript 在其高歌猛进、攻城掠寨式的行进中，自身的语法也在发生剧烈的改变，以至于有人不得不开发一个模块来翻译不同版的 Javascript 语法，这个模块就叫 Babel （巴别塔），倒也恰如其分。</p>
+</div>
+<p>在上面这些令人眼花缭乱的词语中，Annaconda(以下简称conda)和Virtualenv是一对儿对手，Pipenv则和Poetry相互竞争。而Venv则是其中血统最为纯正的一个，得到了Python官方的祝福。</p>
+<p>pipenv和poetry，尽管常常被人在讨论虚拟环境的场合下提起，也确实与虚拟环境相关，但他们所做的工作都远远超过了虚拟环境本身——它们的主要功能是提供依赖管理，poetry还提供了构建和打包功能（我们将在第五章——Poetry那一章中来详细介绍）。</p>
+<p>venv不是一个独立的工具，它只是一个模块。venv是从Python 3.8起，标准库里提供的一个模块，你可以使用<code>python -m venv</code>来运行它。它的目标与virtualenv比较接近，但只提供了virutalenv的一个命令子集。由于它是标准库提供的，因此许多工具，比如poetry, pyenv现在都是基于它来构建的。因此，如果你是某个工具的开发者，我想你需要掌握它；否则，你将在使用poetry等工具时，自然而然地接触和使用到它，但可能并不知道，幕后英雄其实是venv。</p>
+<p>conda和Virtualenv都是用来创建和管理Python虚拟环境的工具，有着相似的命令行接口，不同之处在于：</p>
+<ol>
+<li>Conda是一个多语言、跨平台的虚拟环境管理器，而Virtualenv则只用于Python。</li>
+<li>通过Conda可以管理（安装、升级）Python版本，而virtualenv则没有这个能力。</li>
+<li>缺省安装下，conda会占用大约100MB的磁盘空间，而virtualenv则只需要占用更少的空间（约10MB）。这可能既是优势，也是缺点。virtualenv通过使用对原生库的符号链接来减少对硬盘空间的使用，这使得对原生库的隔离并未真正实现--如果你的应用程序不仅仅依赖Python库，还依赖于原生库，则仍然可能产生依赖冲突，导致你的程序出现一些很难查找原因的错误。而在conda虚拟环境中，所有的依赖都是完全隔离的。</li>
+<li>缺省地，conda对虚拟环境进行集中式管理，所有的虚拟环境都在一个目录下，而virtualenv则倾向于将虚拟环境放在当前目录下。长期来看，非集中式管理可能导致这些虚拟环境呈碎片化而难于被追踪。</li>
+</ol>
+<p>上述第3点可能是最重要的差异。我们很难保证Python应用程序永远只依赖于纯的Python库。事实上，一些性能相关的模块，往往是用c++或者其它语言来开发的。Lapack（一个常用的线性代数库，Python中最著名的科学计算库Numpy和scipy都依赖于此）或者OpenSSL都是常见的例子。</p>
+<p>在本书中，我们只推荐使用Annaconda。但对virtualenv和venv，读者需要知道的是，如果正在开发一个生成和构建虚拟环境的工具（或者模块）—— 比如，为一个容器构建一个虚拟环境，或者为分布式程序动态构建一个远程的虚拟环境--那么venv或者virtualenv将是不二之选，因为conda并不是一个轻量级的工具。</p>
+<p>对上面没有提到的那些技术，我们将不会在本书中详细介绍它，这里仅对它们做一个概括性的描述：</p>
+<ol>
+<li>pyenv是一个脚本，不能在windows环境下使用。它的作用是拦截你对python工具链的调用，为你选择正确的python版本。此外，你也可以使用它来安装多个版本的python。它的功能完全可以诸如annaconda之类的工具替代。但如果你使用virtualenv的话，那么很有可能你仍然需要使用pyenv来安装和选择python版本。它目前在github上有超过28k的star。</li>
+<li>pyenv-virtualenv则是pyenv的一个插件，它将pyenv和virtualenv结合在一起，从而使得我们可以同时方便地使用两者的命令。如果不在乎这种便利性，也可以分别使用pyenv和virtualenv。</li>
+<li>Virtualenv wrapper是virtualenv的一个扩展集，提供了诸如mkvirtualenv, lssitepackages, workon等命令。workon是用来在不同的virtualenv目录中进行切换的命令。</li>
+<li>pyenv-virutalenvwrapper则是pyenv的另一个插件，由pyenv的作者开发，它将pyenv和virtualenvwrapper的功能集成在一起。基于这些扩展，virtualenv就拥有了类似conda的全部功能。</li>
+<li>pyvenv（请不要与pyenv相混淆）是仅在python3.3到python3.7才有的一个官方脚本，但从python3.8开始，它已经被标准库venv代替了。</li>
+</ol>
+<p>在读过上面这段文字之后，你可以在之后完全忽略这些奇奇怪怪的方言。几乎你需要的任何管理虚拟环境的功能，都可以从本书推荐的方案中得到。</p>
+<h2 id="21-anaconda">2.1. Anaconda：一站式管理的虚拟环境<a class="headerlink" href="#21-anaconda" title="Permanent link">&para;</a></h2>
+<p>Anaconda包揽了从安装python版本、创建虚拟环境和切换虚拟环境的所有功能。它的官方网站是<a href="https://www.anaconda.org/">Anaconda.org</a>。它是所有从事数据科学或者深度学习的人的当然之选。它自带的包管理系统，提供了许多流行的机器学习库预编译版本，因此你不用自己去熟悉gcc和c/c++代码的编译过程。</p>
+<h3 id="211-anaconda">2.1.1. 安装Anaconda<a class="headerlink" href="#211-anaconda" title="Permanent link">&para;</a></h3>
+<p>安装Anaconda请从这里<a href="https://www.anaconda.com/products/distribution">^anaconda</a>页面下载安装包。除非您使用Anaconda进行科学计算，否则建议您下载最新的miniconda<a href="https://docs.conda.io/en/latest/miniconda.html">^miniconda</a>安装包。</p>
+<p>以Ubuntu为例，无论是Ananconda还是Miniconda，其安装文件都是一个包含了安装数据文件的shell脚本，您可以通过wget或者curl将其下载下来，然后执行这个脚本进行安装。</p>
+<p>安装过程中，首先要求你阅读并接受Anaconda的服务条款，然后选择将要安装的目录。在完成文件拷贝之后，会询问你是否要运行conda init以初始化conda环境，推荐选择yes，这样conda会修改你的shell初始化脚本。要使用conda，这一步是必须的。</p>
+<p>conda安装完成后，就会在你的系统上生成第一个虚拟环境，称为<code>base</code>。现在可以列一下刚刚安装了conda的目录，这里面最重要的目录是envs，后面创建的新的python虚拟环境都会在这里。但现在它是空的，尽管已经有了一个名为base的虚拟环境，但这个虚拟环境，指向的是安装目录下的/bin目录下的python。</p>
+<h3 id="212-conda">2.1.2. 配置conda环境<a class="headerlink" href="#212-conda" title="Permanent link">&para;</a></h3>
+<p>conda安装后，一般情况下，无须配置即可使用。但是，如果我们需要使用代理服务器，或者变更conda源以加快下载速度，则需要配置conda。</p>
+<p>conda的配置文件是用户目录下的.condarc，它是一个YAML格式的文件。这个文件直到你第一次调用conda config时才会产生，比如，增加一个conda源：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>conda-forge
+</code></pre></div></td></tr></table></div>
+<p>我们也可以直接编辑.condarc文件:
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">.condarc</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.aliyun.com/anaconda/pkgs/free/</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mirrors.aliyun.com/anaconda/pkgs/main/</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file:///some/local/directory</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">proxy_servers</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://user:pass@corp.com:8080</span>
+<span class="w">    </span><span class="nt">https</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://user:pass@corp.com:8080</span>
+<span class="w">    </span><span class="nt">ssl_verify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+</code></pre></div></td></tr></table></div>
+上述示例中，首先配置了conda源。我们添加了国内常用的阿里镜像，并且添加了一个本地目录。如果我们有一些内部安装包，就可以放在这个目录下。当conda无法从阿里镜像服务器上找到这些包时（显然会找不到），就会搜索这个目录。上面所有的路径都失效时，conda最后会使用系统默认的源来搜索。这种情况多见于某个包有了最新的版本，但镜像服务器还没有同步过去的情形。</p>
+<p>有时候访问conda的官方源时，我们需要使用代理服务器来进行加速。上面的示例显示了如何进行这些配置。有一些代理服务器对ssl验证支持的不是太好，这种情况下，你需要设置ssl_verify为False,正如以上示例所示。</p>
+<p>conda还允许其它一些配置，如果有需要，推荐读者进一步阅读配置conda<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html">^config</a>。</p>
+<h3 id="213">2.1.3. 创建和管理虚拟环境<a class="headerlink" href="#213" title="Permanent link">&para;</a></h3>
+<p>现在，我们来创建一个虚拟环境，并且通过conda的一些命令来看看如何管理它。</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+</code></pre></div></td></tr></table></div>
+上述命令创建了一个名为test的虚拟环境，并且安装python=3.8。现在我们查看一下，当前系统中，都存在哪些虚拟环境：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>list
+
+<span class="c1"># 输出应该类似于：</span>
+<span class="c1"># conda environments:</span>
+<span class="c1">#</span>
+base<span class="w">           </span>/root/miniconda3
+<span class="nb">test</span><span class="w">           </span>/root/miniconda3/envs/test
+</code></pre></div></td></tr></table></div>
+上面的输出表明，我们在/root下安装了一个miniconda，并且还创建了一个名为test的虚拟环境。这个虚拟环境的文件夹是/root/miniconda3/envs/test。</p>
+<p>现在让我们切换到新创建的这个虚拟环境中：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>activate<span class="w"> </span><span class="nb">test</span>
+</code></pre></div></td></tr></table></div>
+现在，你的shell提示符应该修改为类似于：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>(test) root@ubuntu:~# 
+</code></pre></div></td></tr></table></div>
+我们的测试是在一个ubuntu虚拟机上，直接使用了root账户来进行测试。所以，上面的提示符中，root是当前用户名。在当前用户名之前的(test)，表明我们当前处在test虚拟环境中。</p>
+<p>要往这个虚拟环境中安装一个包，可以使用conda install命令：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$ conda install PACKAGENAME
+</code></pre></div></td></tr></table></div></p>
+<p>现在，假设我们要移除这个虚拟环境：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 退出当前的虚拟环境test，以便可以删除它</span>
+$<span class="w"> </span>conda<span class="w"> </span>deactivate
+$<span class="w"> </span>conda<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>--name<span class="w"> </span><span class="nb">test</span>
+</code></pre></div></td></tr></table></div>
+上述命令不会给你确认的机会，所以，在使用这个命令之前，必须小心。当然，conda这样设计并没有任何问题，虚拟环境本身就应该是可以随时创建和随时销毁的。如果不小心删除错误，那么重建一个就好了。后悔药一直都在。</p>
+<p>在结束这一节内容之前，我们还想介绍一些高级使用方法，掌握这些方法，会在出现疑难问题时，更加容易解决问题。</p>
+<p>首先，我们可以通过conda info命令来检查conda安装的一些关键信息：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>conda<span class="w"> </span>info
+
+<span class="w">     </span>active<span class="w"> </span>environment<span class="w"> </span>:<span class="w"> </span>base
+<span class="w">    </span>active<span class="w"> </span>env<span class="w"> </span>location<span class="w"> </span>:<span class="w"> </span>/root/miniconda3
+<span class="w">       </span>user<span class="w"> </span>config<span class="w"> </span>file<span class="w"> </span>:<span class="w"> </span>/root/.condarc
+<span class="w">          </span>conda<span class="w"> </span>version<span class="w"> </span>:<span class="w"> </span><span class="m">4</span>.13.0
+<span class="w">         </span>python<span class="w"> </span>version<span class="w"> </span>:<span class="w"> </span><span class="m">3</span>.8.12.final.0
+<span class="w">       </span>base<span class="w"> </span>environment<span class="w"> </span>:<span class="w"> </span>/root/miniconda3<span class="w">  </span><span class="o">(</span>writable<span class="o">)</span>
+<span class="w">      </span>conda<span class="w"> </span>av<span class="w"> </span>data<span class="w"> </span>dir<span class="w"> </span>:<span class="w"> </span>/root/miniconda3/etc/conda
+<span class="w">           </span>channel<span class="w"> </span>URLs<span class="w"> </span>:<span class="w"> </span>https://mirrors.aliyun.com/anaconda/pkgs/main/linux-64
+<span class="w">                          </span>https://mirrors.aliyun.com/anaconda/pkgs/main/noarch
+<span class="w">                          </span>https://repo.anaconda.com/pkgs/main/linux-64
+<span class="w">                          </span>https://repo.anaconda.com/pkgs/main/noarch
+<span class="w">                          </span>https://repo.anaconda.com/pkgs/r/linux-64
+<span class="w">                          </span>https://repo.anaconda.com/pkgs/r/noarch
+<span class="w">          </span>package<span class="w"> </span>cache<span class="w"> </span>:<span class="w"> </span>/root/miniconda3/pkgs
+<span class="w">                          </span>/root/.conda/pkgs
+<span class="w">       </span>envs<span class="w"> </span>directories<span class="w"> </span>:<span class="w"> </span>/root/miniconda3/envs
+<span class="w">                          </span>/root/.conda/envs
+</code></pre></div></td></tr></table></div>
+上面的内容是conda info的输出（为了简洁起见，删掉了一些不重要的内容），它揭示了一些关键信息：</p>
+<ol>
+<li>当前我们处于base虚拟环境下。这是当你安装了conda之后，就默认存在的一个虚拟环境。它的文件目录是/root/miniconda3。如果你是在test虚拟环境下，则active env location应该指向/root/miniconda3/envs/test</li>
+<li>配置文件在/root/.condarc下。前面我们介绍配置conda时，已经用过这个文件了，但是为简洁起见，在那里并没有告诉读者这个文件的位置。现在你就知道，如果不清楚conda配置文件的位置，可以使用conda info命令来查看。</li>
+<li>上述输出还显示了conda源的配置。</li>
+<li>conda下载安装包时，会将其缓存。package cache告诉我们conda缓存安装包的位置。当我们发现安装包的行为不正常时，有可能要清除这个缓存。</li>
+<li>最后，envs directories告诉我们，所有虚拟环境的文件目录位置何在。我们可以列一下/root/miniconda3/envs目录：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>ls /root/miniconda3/envs
+# 输出中包含test
+ls /root/miniconda3/envs/test
+# 输出中将包含以下重要目录：
+bin # 在bin目录下，存放有python, pip等重要命令
+lib # 在lib下，存放有python3.x目录，site-packages等安装包将最终安装到这里。
+</code></pre></div></td></tr></table></div></li>
+</ol>
+<p>另一个对查错有用的重要命令，是conda list。它将列出当前conda环境下已安装的库（package）。</p>
+<h3 id="214">2.1.4. 几个常见问题<a class="headerlink" href="#214" title="Permanent link">&para;</a></h3>
+<ol>
+<li>可以重命名一个虚拟环境吗？
+从conda 4.14起，conda支持重命名虚拟环境：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$ conda rename -n old_name -d new_name
+</code></pre></div></td></tr></table></div>
+不过，上述命令其实只是conda create和conda remove的简单组合，所以，在旧的conda版本下，你可以：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>$ conda create --name new_name --clone old_name
+$ conda env remove --name old_name
+</code></pre></div></td></tr></table></div></li>
+<li>如何追踪一个虚拟环境的变更？
+这是conda提供的一个有用的功能之一，即可以追踪一个虚拟环境的变更历史：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code># 切换到关注的虚拟环境，并运行以下命令：
+$ conda list --revisions
+
+# 恢复变更到某个镜像点
+$ conda install --revision 2
+</code></pre></div></td></tr></table></div>
+注意区分conda list与conda env list。后者是列出虚拟环境，前者则是列出当前虚拟环境里安装的packages和版本。</li>
+</ol>
+<p>如果想全面而快速地了解conda命令，可以参考conda小抄<a href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">^cheatsheet</a>。</p>
+<h2 id="22-pythonpip">2.2. 轻量的Python包安装工具Pip<a class="headerlink" href="#22-pythonpip" title="Permanent link">&para;</a></h2>
+<p>在上一节，我们介绍了如何往虚拟环境中安装程序库：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$ conda install PACKAGENAME
+</code></pre></div></td></tr></table></div>
+您也可以使用pip来安装程序库：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$ pip install PACKAGENAME
+</code></pre></div></td></tr></table></div>
+实际上，以您前面创建的test环境为例，conda已经把pip安装到了/root/miniconda3/test/bin目录下：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$ ls /root/miniconda3/envs/test/bin
+</code></pre></div></td></tr></table></div></p>
+<p>Pip有很多有用的功能，这里简单介绍一些：
+1.  从wheel文件或者github进行安装。
+2.  从本地文件目录进行安装。这在开发调试阶段中非常有用。它的命令是 pip install -e path/to/your/source。这里的 ‘-e’ 是关键。这样一来，我们每一次对源代码的修改，都会自动生效，而不再次安装。
+3.  仅下载wheel文件，而不进行安装。
+4.  安装非正式发布的文件，比如某个alpha版本。需要使用选项’--pre’。
+如果我们执行pip安装命令时，提示找不到某个包，在排除了键入错误之后，那么很可能是在当前使用的Python版本下，不存在该包。</p>
+<h2 id="23-vs-code">2.3. 配置VS Code中的解释器<a class="headerlink" href="#23-vs-code" title="Permanent link">&para;</a></h2>
+<p>我们已经创建了一个虚拟环境，安装了python。但要在VS Code下开发python应用程序，我们还得在VS Code中完成相关的配置。</p>
+<p>在VS Code中，打开命令面板(在mac下是cmd+shift+p, 其它操作系统中是ctrl + shift + p)，输入 Python: select Interpreter，如下图所示：</p>
+<p><img alt="" src="https://images.jieyu.ai/images/20220820220821195956.png" /></p>
+<p>就会出现如下图所示的列表（您的电脑上显示会有所不同）：</p>
+<p><img alt="" src="https://images.jieyu.ai/images/20220820220821200119.png" /></p>
+<p>如果要选择前面创建的test环境，也可以直接在这里输入：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>/root/miniconda3/envs/test/bin/python
+</code></pre></div></td></tr></table></div></p>
+<p>此外，您也可以在VS Code的状态栏中，寻找类似下面的提示文字：</p>
+<p><img alt="" src="https://images.jieyu.ai/images/202211/20221224143053.png" />
+然后点击它，也可进入"python: Select Interpreter"菜单。</p>
+<p>大功告成！</p>
+<p>至此，您就完成了最基础的开发环境设置：IDE已经安装好，并且要使用的python版本也已经指定！现在，您就可以编写一个最简单的python程序：
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+把这个程序存为helloworld.py，然后可以在命令行下，通过<code>python helloworld.py</code>来运行它！</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener" title="知乎" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M170.54 148.13v217.54l23.43.01 7.71 26.37 42.01-26.37h49.53V148.13H170.54zm97.75 193.93h-27.94l-27.9 17.51-5.08-17.47-11.9-.04V171.75h72.82v170.31zm-118.46-94.39H97.5c1.74-27.1 2.2-51.59 2.2-73.46h51.16s1.97-22.56-8.58-22.31h-88.5c3.49-13.12 7.87-26.66 13.12-40.67 0 0-24.07 0-32.27 21.57-3.39 8.9-13.21 43.14-30.7 78.12 5.89-.64 25.37-1.18 36.84-22.21 2.11-5.89 2.51-6.66 5.14-14.53h28.87c0 10.5-1.2 66.88-1.68 73.44H20.83c-11.74 0-15.56 23.62-15.56 23.62h65.58C66.45 321.1 42.83 363.12 0 396.34c20.49 5.85 40.91-.93 51-9.9 0 0 22.98-20.9 35.59-69.25l53.96 64.94s7.91-26.89-1.24-39.99c-7.58-8.92-28.06-33.06-36.79-41.81L87.9 311.95c4.36-13.98 6.99-27.55 7.87-40.67h61.65s-.09-23.62-7.59-23.62v.01zm412.02-1.6c20.83-25.64 44.98-58.57 44.98-58.57s-18.65-14.8-27.38-4.06c-6 8.15-36.83 48.2-36.83 48.2l19.23 14.43zm-150.09-59.09c-9.01-8.25-25.91 2.13-25.91 2.13s39.52 55.04 41.12 57.45l19.46-13.73s-25.67-37.61-34.66-45.86h-.01zM640 258.35c-19.78 0-130.91.93-131.06.93v-101c4.81 0 12.42-.4 22.85-1.2 40.88-2.41 70.13-4 87.77-4.81 0 0 12.22-27.19-.59-33.44-3.07-1.18-23.17 4.58-23.17 4.58s-165.22 16.49-232.36 18.05c1.6 8.82 7.62 17.08 15.78 19.55 13.31 3.48 22.69 1.7 49.15.89 24.83-1.6 43.68-2.43 56.51-2.43v99.81H351.41s2.82 22.31 25.51 22.85h107.94v70.92c0 13.97-11.19 21.99-24.48 21.12-14.08.11-26.08-1.15-41.69-1.81 1.99 3.97 6.33 14.39 19.31 21.84 9.88 4.81 16.17 6.57 26.02 6.57 29.56 0 45.67-17.28 44.89-45.31v-73.32h122.36c9.68 0 8.7-23.78 8.7-23.78l.03-.01z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/zillionare" target="_blank" rel="noopener" title="Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto: aaron_yang@jieyu.ai" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../../../assets/js/ad.js"></script>
+      
+        <script src="../../../../assets/js/less.js"></script>
+      
+    
+  </body>
+</html>

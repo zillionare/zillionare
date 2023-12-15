@@ -1,0 +1,4085 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="量化框架、量化策略、量化资源分享">
+      
+      
+      
+        <link rel="canonical" href="http://www.jieyu.ai/articles/python/best-practice-python/chap07/">
+      
+      
+        <link rel="prev" href="../chap06/">
+      
+      
+        <link rel="next" href="../chap08/">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>07 代码单元测试 - 大富翁量化</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-EHVH3XCS1V"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-EHVH3XCS1V",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-EHVH3XCS1V",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="大富翁量化" class="md-header__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../../assets/img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            大富翁量化
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              07 代码单元测试
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../coursea/cheese/intro/" class="md-tabs__link">
+          
+  
+    
+  
+  量化课程
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../products/" class="md-tabs__link">
+          
+  
+    
+  
+  量化产品
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-tabs__link">
+          
+  
+    
+  
+  策略研究
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../chap01/" class="md-tabs__link">
+          
+  
+    
+  
+  学Python
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../blog" class="md-tabs__link">
+        
+  
+    
+  
+  博客
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags" class="md-tabs__link">
+        
+  
+    
+  
+  文章分类
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../contact/" class="md-tabs__link">
+          
+  
+    
+  
+  联系和关注
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="大富翁量化" class="md-nav__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+      
+  <img src="../../../../assets/img/logo.png" alt="logo">
+
+    </a>
+    大富翁量化
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zillionare/zillionare" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zillionare
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    量化课程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            量化课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    大富翁量化课程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            大富翁量化课程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coursea/cheese/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课程简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coursea/cheese/outline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课程大纲
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    量化产品
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            量化产品
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../products/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    产品系列
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            产品系列
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/zillionare_installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大富翁安装指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../products/gm-adaptor-installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实盘交易接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    策略研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            策略研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    量化知识
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            量化知识
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_1" id="__nav_4_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    策略研究
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            策略研究
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    资本资产定价模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/cornnors_rsi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    康纳RSI指标详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(1) - 基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(2) - 蒙特卡洛方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(3) - 优化算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    投资组合理论与实战(4) - PyportfolioOpt工具库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于寻找顶和底的一些思考
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    量化库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            量化库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    量化实盘接入方式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    量化数据的持久化方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_3" id="__nav_4_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    量化杂谈
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            量化杂谈
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    花开曾倾国
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    东印度公司
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    学Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            学Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_1" id="__nav_5_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    专题
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            专题
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_1_1" id="__nav_5_1_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python能做大项目
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_1_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Python能做大项目
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 为什么要学 Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 编程开发环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 构建Python虚拟环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 项目布局和项目生成向导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 Poetry 项目管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 10倍速！高效编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    07 代码单元测试
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    07 代码单元测试
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 测试代码的组织
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. PYTEST
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PYTEST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. 测试用例的组装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. pytest 断言
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 5
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 6
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="示例 7 - 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#23-pytest-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. pytest fixture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 7
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 8
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest-asyncio-event_loop-fixture-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      PYTEST-ASYNCIO 已经提供了一个 EVENT_LOOP 的 FIXTURE, 但它是 FUNCTION 级别的
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      这里我们需要一个 SESSION 级别的 FIXTURE，所以我们需要重新实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="这里我们需要一个 SESSION 级别的 FIXTURE，所以我们需要重新实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. MOCK 魔法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. MOCK 魔法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. 基础概念与基本使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. 基础概念与基本使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.1. 作为装饰器使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 11
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-under-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      FUNCTION UNDER TEST
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      TESTING CODE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TESTING CODE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. 特殊场合下的 mock
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 特殊场合下的 mock">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1. 修改实例的属性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 19
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test_foopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      TEST_FOO.PY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TEST_FOO.PY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#323-builtin" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.3. builtin 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.4. 让时间就停留在这一刻
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.5. 如何制造一场“混乱”？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-coverage-" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Coverage - 衡量测试的覆盖率
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Coverage - 衡量测试的覆盖率">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pycoverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. 配置 Pycoverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. 发布覆盖率报告
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. TOX 实现矩阵测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. TOX 实现矩阵测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. 什么是 Tox？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Tox 的工作原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. 如何配置 Tox
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3. 如何配置 Tox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1. [tox] 节
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-testenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2. [testenv]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-testenvlint" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.3. [testenv.lint]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08 代码版本管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09 持续集成
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10 撰写技术文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chap11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11 发布应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_2" id="__nav_5_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据分析与可视化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            数据分析与可视化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dash-用Python也能做网页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/how-to-scale/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    量化策略中如何进行缩放和归一化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/matplotlib-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    matplotlib的布局问题（1）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/matplotlib-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    matplotlib的布局问题（2）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualize/qq-plot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么Q-Q图可用来进行统计推断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    博客
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文章分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    联系和关注
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            联系和关注
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 测试代码的组织
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. PYTEST
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PYTEST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. 测试用例的组装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. pytest 断言
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 5
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 6
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="示例 7 - 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#23-pytest-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. pytest fixture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 7
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 8
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest-asyncio-event_loop-fixture-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      PYTEST-ASYNCIO 已经提供了一个 EVENT_LOOP 的 FIXTURE, 但它是 FUNCTION 级别的
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      这里我们需要一个 SESSION 级别的 FIXTURE，所以我们需要重新实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="这里我们需要一个 SESSION 级别的 FIXTURE，所以我们需要重新实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. MOCK 魔法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. MOCK 魔法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. 基础概念与基本使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. 基础概念与基本使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1.1. 作为装饰器使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 11
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-under-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      FUNCTION UNDER TEST
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      TESTING CODE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TESTING CODE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. 特殊场合下的 mock
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 特殊场合下的 mock">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1. 修改实例的属性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例 7 - 19
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test_foopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      TEST_FOO.PY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TEST_FOO.PY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#323-builtin" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.3. builtin 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.4. 让时间就停留在这一刻
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.5. 如何制造一场“混乱”？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-coverage-" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Coverage - 衡量测试的覆盖率
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Coverage - 衡量测试的覆盖率">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pycoverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. 配置 Pycoverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. 发布覆盖率报告
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. TOX 实现矩阵测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. TOX 实现矩阵测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. 什么是 Tox？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Tox 的工作原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. 如何配置 Tox
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3. 如何配置 Tox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1. [tox] 节
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-testenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2. [testenv]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-testenvlint" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.3. [testenv.lint]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p>单元测试的概念可能多数读者都有接触过。作为开发人员，我们编写一个个测试用例，测试框架发现这些测试用例，将它们组装成测试 suite 并运行，收集测试报告，并且提供测试基础设施（断言、mock、setup 和 teardown 等）。Python 当中最主流的单元测试框架有三种，Pytest, nose 和 Unittest，其中 Unittest 是标准库，其它两种是第三方工具。在 ppw 向导生成的项目中，就使用了 Pytest 来驱动测试。</p>
+<p>这里主要比较一下 pytest 和 unittest。多数情况下，当我们选择单元测试框架时，选择二者之一就好了。unitttest 基于类来组织测试用例，而 pytest 则是函数式的，基于模块来组织测试用例，同时它也提供了 group 概念来组织测试用例。pytest 的 mock 是基于第三方的 pytest-mock，而 pytest-mock 实际上只是对标准库中的 mock 的简单封装。单元测试都会有 setup 和 teardown 的概念，unittest 直接使用了 setUp 和 tearDown 作为测试入口和结束的 API，在 pytest 中，则是通过 fixture 来实现，这方面学习曲线可能稍微陡峭一点。在断言方面，pytest 使用 python 的关键字 assert 进行断言，比 unittest 更为简洁，不过断言类型上没有 unittest 丰富。</p>
+<p>另外一个值得一提的区别是，unittest 从 python 3.8 起就内在地支持 asyncio，而在 pytest 中，则需要插件 pytest-asyncio 来支持。但两者在测试的兼容性上并没有大的不同。</p>
+<p>pytest 的主要优势是有：</p>
+<ol>
+<li>pytest 的测试用例更简洁。由于测试用例并不是正式代码，开发者当然希望少花时间在这些代码上，因此代码的简洁程度很重要。</li>
+<li>提供了命令行工具。如果我们仅使用 unittest，则执行单元测试必须要使用<code>python -m unittest</code>来执行；而通过 pytest 来执行单元测试，我们只需要调用<code>pytest .</code>即可。</li>
+<li>pytest 提供了 marker，可以更方便地决定哪些用例执行或者不执行。</li>
+<li>pytest 提供了参数化测试。</li>
+</ol>
+<p>这里我们简要地举例说明一下什么是参数化测试，以便读者理解为什么参数化测试是一个值得一提的优点。
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 示例 7 - 1</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">src.example</span> <span class="kn">import</span> <span class="n">get_time_of_day</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;datetime_obj, expect&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Night&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Night&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Morning&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Afternoon&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Afternoon&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Evening&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Evening&quot;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_get_time_of_day</span><span class="p">(</span><span class="n">datetime_obj</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">mocker</span><span class="p">):</span>
+    <span class="n">mock_now</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;src.example.datetime&quot;</span><span class="p">)</span>
+    <span class="n">mock_now</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime_obj</span>
+
+    <span class="k">assert</span> <span class="n">get_time_of_day</span><span class="p">()</span> <span class="o">==</span> <span class="n">expect</span><span class="err">​</span>
+</code></pre></div></td></tr></table></div>
+在这个示例中，我们希望用不同的时间参数，来测试 get_time_of_day 这个方法。如果使用 unittest，我们需要写一个循环，依次调用 get_time_of_day()，然后对比结果。而在 pytest 中，我们只需要使用 parametrize 这个注解，就可以传入参数数组（包括期望的结果），进行多次测试，不仅代码量要少不少，更重要的是，这种写法更加清晰。</p>
+<p>基于以上原因，在后面的内容中，我们将以 pytest 为例进行介绍。</p>
+<h2 id="1">1. 测试代码的组织<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>我们一般将所有的测试代码都归类在项目根目录下的 tests 文件夹中。每个测试文件的名字，要么使用 test_<em>.py，要么使用</em>_test.py。这是测试框架的要求。如此以来，当我们执行命令如<code>pytest tests</code>时，测试框架就能从这些文件中发现测试用例，并组合成一个个待执行的 suite。</p>
+<p>在 test_*.py 中，函数名一样要遵循一定的模式，比如使用 test_xxx。不遵循规则的测试函数，不会被执行。</p>
+<p>一般来说，测试文件应该与功能模块文件一一对应。如果被测代码有多重文件夹，对应的测试代码也应该按同样的目录来组织。这样做的目的，是为了将商业逻辑与其测试代码对应起来，方便我们添加新的测试用例和对测试用例进行重构。</p>
+<p>比如在 ppw 生成的示例工程中，我们有：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>sample
+├── sample
+│   ├── __init__.py
+│   ├── app.py
+│   └── cli.py
+├── tests
+│   ├── __init__.py
+│   ├── test_app.py
+│   └── test_cli.py
+</code></pre></div></td></tr></table></div>
+注意这里面的__init__.py 文件，如果缺少这个文件的话，tests 就不会成为一个合法的包，从而导致 pytest 无法正确导入测试用例。</p>
+<h2 id="2-pytest">2. PYTEST<a class="headerlink" href="#2-pytest" title="Permanent link">&para;</a></h2>
+<p>使用 pytest 写测试用例很简单。假设 sample\app.py 如下所示：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 示例 7 - 2</span>
+<span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+则我们的 test_app.py 只需要有以下代码即可完成测试：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 示例 7 - 3</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">sample.app</span> <span class="kn">import</span> <span class="n">inc</span>
+
+<span class="k">def</span> <span class="nf">test_inc</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">inc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+</code></pre></div></td></tr></table></div>
+这比 unittest 下的代码要简洁很多。</p>
+<h3 id="21">2.1. 测试用例的组装<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>在 pytest 中，pytest 会按传入的文件（或者文件夹），搜索其中的测试用例并组装成测试集合 (suite)。除此之外，它还能通过 pytest.mark 来标记哪些测试用例是需要执行的，哪些测试用例是需要跳过的。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 示例 7 - 4</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">webtest</span>
+<span class="k">def</span> <span class="nf">test_send_http</span><span class="p">():</span>
+    <span class="k">pass</span>  <span class="c1"># perform some webtest test for your app</span>
+
+<span class="k">def</span> <span class="nf">test_something_quick</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">test_another</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">test_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+<p>然后我们就可以选择只执行标记为 webtest 的测试用例：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>pytest<span class="w"> </span>-v<span class="w"> </span>-m<span class="w"> </span><span class="nv">webtest</span>
+
+<span class="o">===========================</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>session<span class="w"> </span><span class="nv">starts</span><span class="w"> </span><span class="o">============================</span>
+platform<span class="w"> </span>linux<span class="w"> </span>--<span class="w"> </span>Python<span class="w"> </span><span class="m">3</span>.x.y,<span class="w"> </span>pytest-7.x.y,<span class="w"> </span>pluggy-1.x.y<span class="w"> </span>--<span class="w"> </span><span class="nv">$PYTHON_PREFIX</span>/bin/python
+cachedir:<span class="w"> </span>.pytest_cache
+rootdir:<span class="w"> </span>/home/sweet/project
+collecting<span class="w"> </span>...<span class="w"> </span>collected<span class="w"> </span><span class="m">4</span><span class="w"> </span>items<span class="w"> </span>/<span class="w"> </span><span class="m">3</span><span class="w"> </span>deselected<span class="w"> </span>/<span class="w"> </span><span class="m">1</span><span class="w"> </span>selected
+
+test_server.py::test_send_http<span class="w"> </span>PASSED<span class="w">                                </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+
+<span class="o">=====================</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>passed,<span class="w"> </span><span class="m">3</span><span class="w"> </span>deselected<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span>.12s<span class="w"> </span><span class="o">======================</span>
+</code></pre></div></td></tr></table></div>
+从输出可以看出，只有 test_send_http 被执行了。</p>
+<p>这里的 webtest 是自定义的标记。pytest 还内置了这些标记，有的也可以用来筛选用例：
+1. pytest.mark.filterwarnings， 给测试用例添加 filterwarnings 标记，可以忽略警告信息。
+2. pytest.mark.skip，给测试用例添加 skip 标记，可以跳过测试用例。
+3. pytest.mark.skipif, 给测试用例添加 skipif 标记，可以根据条件跳过测试用例。
+4. pytest.mark.xfail, 在某些条件下（比如运行在某个 os 上），用例本应该失败，此时就应使用此标记，以便在测试报告中标记出来。
+5. pytest.mark.parametrize, 给测试用例添加参数化标记，可以根据参数化的参数执行多次测试用例。</p>
+<p>这些标记可以用 pytest --markers 命令查看。</p>
+<h3 id="22-pytest">2.2. pytest 断言<a class="headerlink" href="#22-pytest" title="Permanent link">&para;</a></h3>
+<p>在测试时，当我们调用一个方法之后，会希望将其返回结果与期望结果进行比较，以决定该测试是否通过。这被称之为测试断言。</p>
+<p>pytest 中的断言巧妙地拦截并复用了 python 内置的函数 assert，由于您很可能已经接触过 assert 了，因而使得这一部分的学习成本变得非常低。</p>
+<p>```python {.line-numbers}</p>
+<h1 id="7-5">示例 7 - 5<a class="headerlink" href="#7-5" title="Permanent link">&para;</a></h1>
+<p>def test_assertion():
+    # 判断基本变量相等
+    assert "loud noises".upper() == "LOUD NOISES"</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code># 判断列表相等
+assert [1, 2, 3] == list((1, 2, 3))
+
+# 判断集合相等
+assert set([1, 2, 3]) == {1, 3, 2}
+
+# 判断字典相等
+assert dict({
+    &quot;one&quot;: 1,
+    &quot;two&quot;: 2
+}) == {
+    &quot;one&quot;: 1,
+    &quot;two&quot;: 2
+}
+
+# 判断浮点数相等
+# 缺省地， ORIGIN  ± 1E-06
+assert 2.2 == pytest.approx(2.2 + 1e-6)
+assert 2.2 == pytest.approx(2.3, 0.1)
+
+# 如果要判断两个浮点数组是否相等，我们需要借助 NUMPY.TESTING
+import numpy
+
+arr1 = numpy.array([1., 2., 3.])
+arr2 = arr1 + 1e-6
+numpy.testing.assert_array_almost_equal(arr1, arr2)
+
+# 异常断言：有些用例要求能抛出异常
+with pytest.raises(ValueError) as e:
+    raise ValueError(&quot;some error&quot;)
+
+msg = e.value.args[0]
+assert msg == &quot;some error&quot;
+</code></pre></div></td></tr></table></div>
+<p><code>上面的代码分别演示了如何判断内置类型、列表、集合、字典、浮点数和浮点数组是否相等。这部分语法跟标准 python 语法并无二致。pytest 与 unittest 一样，都没有提供如何判断两个浮点数数组是否相等的断言，如果有这个需求，我们可以求助于 numpy.testing，正如例子中第 25~30 行所示。
+
+有时候我们需要测试错误处理，看函数是否正确地抛出了异常，代码 32~37 演示了异常断言的使用。注意这里我们不应该这么写：</code>python</p>
+<h1 id="7-6">示例 7 - 6<a class="headerlink" href="#7-6" title="Permanent link">&para;</a></h1>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>try:
+    # CALL SOME_FUNC WILL RAISE VALUEERROR
+except ValueError as e:
+    assert str(e) == &quot;some error&quot;:
+else:
+    assert False
+</code></pre></div></td></tr></table></div>
+<p>```
+上述代码看上去逻辑正确，但它混淆了异常处理和断言，使得他人一时难以分清这段代码究竟是在处理测试代码中的异常呢，还是在测试被调用函数能否正确抛出异常，明显不如异常断言那样清晰。</p>
+<h3 id="23-pytest-fixture">2.3. pytest fixture<a class="headerlink" href="#23-pytest-fixture" title="Permanent link">&para;</a></h3>
+<p>一般而言，我们的测试用例很可能需要依赖于一些外部资源，比如数据库、缓存、第三方微服务等。这些外部资源的初始化和销毁，我们希望能够在测试用例执行前后自动完成，即自动完成 setup 和 teardown 的操作。这时候，我们就需要用到 pytest 的 fixture。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在单元测试中是否需要使用外部资源是一个见仁见智的问题。有的看法认为，一旦引入外部资源，测试用例就不再是单元测试，而是集成测试。时代总在发展，特别是进入容器化时代后，在测试中快速创建一个专属的数据库服务器变得十分快捷和容易，这可能要比我们通过大量的 mock 来进行外部资源隔离更容易，因此我们也没必要于拘泥于这些过去的看法。</p>
+</div>
+<p>假定我们有一个测试用例，它需要连接数据库，代码如下（参见 code/chap07/sample/app.py)</p>
+<p>```python {.line-numbers}</p>
+<h1 id="7-7">示例 7 - 7<a class="headerlink" href="#7-7" title="Permanent link">&para;</a></h1>
+<p>import asyncpg
+import datetime</p>
+<p>async def add_user(conn: asyncpg.Connection, name: str, date_of_birth: datetime.date)-&gt;int:
+    # INSERT A RECORD INTO THE CREATED TABLE.
+    await conn.execute('''
+        INSERT INTO users(name, dob) VALUES($1, $2)
+    ''', name, date_of_birth)</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code># SELECT A ROW FROM THE TABLE.
+row: asyncpg.Record = await conn.fetchrow(
+    &#39;SELECT * FROM users WHERE name = $1&#39;, &#39;Bob&#39;)
+# *ROW* NOW CONTAINS
+# ASYNCPG.RECORD(ID=1, NAME=&#39;BOB&#39;, DOB=DATETIME.DATE(1984, 3, 1))
+return row[&quot;id&quot;]
+</code></pre></div></td></tr></table></div>
+<p><code>我们先展示测试代码（参见 code/chap07/sample/test_app.py)，再结合代码讲解 fixture 的使用：</code>python {.line-numbers}</p>
+<h1 id="7-8">示例 7 - 8<a class="headerlink" href="#7-8" title="Permanent link">&para;</a></h1>
+<p>import pytest
+from sample.app import add_user
+import pytest_asyncio
+import asyncio
+</p>
+<h1 id="pytest-asyncio-event_loop-fixture-function">PYTEST-ASYNCIO 已经提供了一个 EVENT_LOOP 的 FIXTURE, 但它是 FUNCTION 级别的<a class="headerlink" href="#pytest-asyncio-event_loop-fixture-function" title="Permanent link">&para;</a></h1>
+<h1 id="session-fixture">这里我们需要一个 SESSION 级别的 FIXTURE，所以我们需要重新实现<a class="headerlink" href="#session-fixture" title="Permanent link">&para;</a></h1>
+<p>@pytest.fixture(scope="session")
+def event_loop():
+    policy = asyncio.get_event_loop_policy()
+    loop = policy.new_event_loop()
+    yield loop
+    loop.close()
+
+@pytest_asyncio.fixture(scope='session')
+async def db():
+    import asyncpg
+    conn = await asyncpg.connect('postgresql://zillionare:123456@localhost/bpp')
+    yield conn
+
+    await conn.close()
+
+@pytest.mark.asyncio
+async def test_add_user(db):
+    import datetime
+    user_id = await add_user(db, 'Bob', datetime.date(2022, 1, 1))
+    assert user_id == 1
+```
+我们的功能代码很简单，就是往 users 表里插入一条记录，并返回它在表中的 id。测试代码调用 add_user 这个函数，然后检测返回值是否为 1（如果每次测试前都新建数据库或者清空表的话，那么返回的 ID 就应该是 1）。</p>
+<p>这个测试显然需要连接数据库，因此我们需要在测试前创建一个数据库连接，然后在测试结束后关闭连接。并且，我们还会有多个测试用例需要连接数据库，因此我们希望数据库连接是一个全局的资源，可以在多个测试用例中共享。这就是 fixture 的用武之地。</p>
+<p>fixture 是一些函数，pytest 会在执行测试函数之前（或之后）加载运行它们。但与 unitest 中的 setup 和 teardown 不同，pytest 中的 fixture 依赖是显式声明的。比如，在上面的 test_add_user 显式依赖了 db 这个 fixture（通过在函数声明中传入 db 作为参数），而 db 则又显示依赖 event_loop 这个 fixture。即使文件中还存在其它 fixture, test_add_user 也不会依赖到这些 fixture，因为依赖必须显式声明。</p>
+<p>上面的代码中，我们演示的是对异步函数 add_user 的测试。显然，异步函数必须在某个 event loop 中执行，并且相关的初始化 (setup) 和退出操作 (teardown) 也必须在同一个 loop 中执行。这里是分别通过 pytest.mark.asyncio, pytest_asyncio 等 fixture 来实现的：</p>
+<p>首先，我们需要将测试用例标注为异步执行，即上面的代码第 21 行。其次，test_add_user 需要一个数据库连接，该连接由 fixture <code>db</code>来提供。这个连接的获得也是异步的，因此，我们不能使用 pytest.fixutre 来声明该函数，而必须使用@pytest_asyncio.fixture 来声明该函数。</p>
+<p>最后，我们还必须提供一个 event_loop 的 fixture，它是一切的关键。当某个函数被 pytest.mark.asyncio 装饰时，该函数将在 event_loop 提供的 event loop 中执行。</p>
+<p>我们还要介绍一下出现在第 6 行和第 13 行中的 scope='session'。这个参数表示 fixture 的作用域，它有四个可选值：function, class, module 和 session。默认值是 function，表示 fixture 只在当前测试函数中有效。在上面的示例中，我们希望这个 event loop 在一次测试中都有效，所以将 scope 设置为 session。</p>
+<p>上面的例子是关于异步模式下的测试的。对普通函数的测试更简单一些。我们不需要 pytest.mark.asynio 这个装饰器，也不需要 event_loop 这个 fixture。所有的 pytest_asyncio.fixture 都换成 pytest.fixture 即可（显然，它必须、也只能装饰普通函数，而非由 async 定义的函数）。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>如果我们使用 unittest 来对异步代码进行测试，要注意首先测试类要从 unittest.IsolatedAsyncioTestCase 继承，然后测试函数要以 async def 定义。并且 setup 和 teardown 都要换成它们的异步版本 asyncSetup、asyncTeardown。</p>
+<p>注意只有从 python 3.8 开始，unittest 才直接支持异步测试。在 python 3.7 及之前的版本中，我们需要使用第三方库 aiounittest。</p>
+</div>
+<p>我们通过上面的例子演示了 fixture。与 markers 类似，要想知道我们的测试环境中存在哪些 fixtures，可以通过 pytest --fixtures 来显示当前环境中所有的 fixture。
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>pytest<span class="w"> </span>--fixtures
+
+-------------<span class="w"> </span>fixtures<span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>faker.contrib.pytest.plugin<span class="w"> </span>--------------
+faker<span class="w"> </span>--<span class="w"> </span>.../faker/contrib/pytest/plugin.py:24
+<span class="w">    </span>Fixture<span class="w"> </span>that<span class="w"> </span>returns<span class="w"> </span>a<span class="w"> </span>seeded<span class="w"> </span>and<span class="w"> </span>suitable<span class="w"> </span><span class="sb">``</span>Faker<span class="sb">``</span><span class="w"> </span>instance.
+
+-------------<span class="w"> </span>fixtures<span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>pytest_asyncio.plugin<span class="w"> </span>-----------------
+event_loop<span class="w"> </span>--<span class="w"> </span>.../pytest_asyncio/plugin.py:511
+<span class="w">    </span>Create<span class="w"> </span>an<span class="w"> </span>instance<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>event<span class="w"> </span>loop<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="k">case</span>.
+
+...
+
+-------------<span class="w"> </span>fixtures<span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>tests.test_app<span class="w"> </span>----------------
+event_loop<span class="w"> </span><span class="o">[</span>session<span class="w"> </span>scope<span class="o">]</span><span class="w"> </span>--<span class="w"> </span>tests/test_app.py:45
+
+db<span class="w"> </span><span class="o">[</span>session<span class="w"> </span>scope<span class="o">]</span><span class="w"> </span>--<span class="w"> </span>tests/test_app.py:52
+</code></pre></div></td></tr></table></div></p>
+<p>这里我们看到 faker.contrib 提供了一个名为 faker 的 fixture, 我们之前安装的、支持异步测试的 pytest_asyncio 也提供了名为 event_loop 的 fixture（为节省篇幅，其它几个省略了），以及我们自己测试代码中定义的 event_loop 和 db 这两个 fixture。</p>
+<p>Pytest 还提供了一类特别的 fixture，即 pytest-mock。为了讲解方便，我们先安装 pytest-mock 这个插件，看看它提供的 fixture。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pytest-mock
+pytest<span class="w"> </span>--fixture
+
+-------<span class="w"> </span>fixtures<span class="w"> </span>defined<span class="w"> </span>from<span class="w"> </span>pytest_mock.plugin<span class="w"> </span>--------
+class_mocker<span class="w"> </span><span class="o">[</span>class<span class="w"> </span>scope<span class="o">]</span><span class="w"> </span>--<span class="w"> </span>.../pytest_mock/plugin.py:419
+<span class="w">    </span>Return<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>that<span class="w"> </span>has<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>interface<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>mock<span class="sb">`</span><span class="w"> </span>module,<span class="w"> </span>but
+<span class="w">    </span>takes<span class="w"> </span>care<span class="w"> </span>of<span class="w"> </span>automatically<span class="w"> </span>undoing<span class="w"> </span>all<span class="w"> </span>patches<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span><span class="nb">test</span><span class="w"> </span>method.
+
+mocker<span class="w"> </span>--<span class="w"> </span>.../pytest_mock/plugin.py:419
+<span class="w">    </span>Return<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>that<span class="w"> </span>has<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>interface<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>mock<span class="sb">`</span><span class="w"> </span>module,<span class="w"> </span>but
+<span class="w">    </span>takes<span class="w"> </span>care<span class="w"> </span>of<span class="w"> </span>automatically<span class="w"> </span>undoing<span class="w"> </span>all<span class="w"> </span>patches<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span><span class="nb">test</span><span class="w"> </span>method.
+
+module_mocker<span class="w"> </span><span class="o">[</span>module<span class="w"> </span>scope<span class="o">]</span><span class="w"> </span>--<span class="w"> </span>.../pytest_mock/plugin.py:419
+<span class="w">    </span>Return<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>that<span class="w"> </span>has<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>interface<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>mock<span class="sb">`</span><span class="w"> </span>module,<span class="w"> </span>but
+<span class="w">    </span>takes<span class="w"> </span>care<span class="w"> </span>of<span class="w"> </span>automatically<span class="w"> </span>undoing<span class="w"> </span>all<span class="w"> </span>patches<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span><span class="nb">test</span><span class="w"> </span>method.
+
+package_mocker<span class="w"> </span><span class="o">[</span>package<span class="w"> </span>scope<span class="o">]</span><span class="w"> </span>--<span class="w"> </span>.../pytest_mock/plugin.py:419
+<span class="w">    </span>Return<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>that<span class="w"> </span>has<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>interface<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>mock<span class="sb">`</span><span class="w"> </span>module,<span class="w"> </span>but
+<span class="w">    </span>takes<span class="w"> </span>care<span class="w"> </span>of<span class="w"> </span>automatically<span class="w"> </span>undoing<span class="w"> </span>all<span class="w"> </span>patches<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span><span class="nb">test</span><span class="w"> </span>method.
+
+session_mocker<span class="w"> </span><span class="o">[</span>session<span class="w"> </span>scope<span class="o">]</span><span class="w"> </span>--<span class="w"> </span>.../pytest_mock/plugin.py:419
+<span class="w">    </span>Return<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>that<span class="w"> </span>has<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>interface<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>mock<span class="sb">`</span><span class="w"> </span>module,<span class="w"> </span>but
+<span class="w">    </span>takes<span class="w"> </span>care<span class="w"> </span>of<span class="w"> </span>automatically<span class="w"> </span>undoing<span class="w"> </span>all<span class="w"> </span>patches<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span><span class="nb">test</span><span class="w"> </span>method.
+</code></pre></div></td></tr></table></div>
+<p>可以看到 pytest-mock 提供了 5 个不同级别的 fixture。关于什么是 mock，这是下一节的内容。</p>
+<h2 id="3-mock">3. MOCK 魔法<a class="headerlink" href="#3-mock" title="Permanent link">&para;</a></h2>
+<p>在单元测试时，我们希望测试环境尽可能单纯、可控。因此我们不希望依赖于用户输入，不希望连接无法独占的数据库或者第三方微服务等。这时候，我们需要通 mock 来模拟出这些外部接口。mock 可能是单元测试中最核心的技术。</p>
+<div class="admonition readmore">
+<p class="admonition-title">Readmore</p>
+<p>感谢容器技术！现在单元测试中，越来越多地连接数据库、缓存和第三方微服务了。因为对有一些接口进行 mock 的代价，已经超过了 launch 一个容器，初始化数据库再开始测试了。</p>
+</div>
+<p>无论是 unittest 还是 pytest，都是直接或者间接使用了 unittest 中的 mock 模块。所以，当你遇到 mock 相关的问题，请参阅 <a href="https://docs.python.org/3/library/unittest.mock.html">mock</a>。我们接下来关于 mock 的介绍，也将以 Unittest 中的 mock 为主。不过，两个框架的 mock，在基本概念上都是相通的。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>python 从 3.8 起，才对 async 模式下的 mock 有比较完备的支持。由于 Python 3.7 已经走到生命尽头，所以本书也不介绍 Python 3.7 中， async 模式下的 mock 如何实现了。</p>
+</div>
+<p>unittest.mock 模块提供了最核心的 Mock 类。当我们用 Mock 类的一个实例来替换被测试系统的某些部分之后，我们就可以对它的使用方式做出断言。这包括检查哪些方法（属性）被调用以及调用它们的参数如何。我们还可以设定返回值或者令其抛出异常，以改变执行路径。</p>
+<p>除此之外，mock 模块还提供了 patch 方法和 MagicMock 子类。MagicMock 区别于 Mock 的地方在于，它自动实现了对 Python 中类对象中的魔法函数的 mock（这是它的名字的来源！），比如__iter__等。patch 则是一个带上下文管理的工具，它能自动复原我们对系统的更改。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>实际上，多数时候，我们用到的是 MagicMock 对象，而不是 Mock。</p>
+</div>
+<h3 id="31">3.1. 基础概念与基本使用<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>最基础的 mock 的概念可以通过下面的代码得到演示：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 示例 7 - 9</span>
+<span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">MagicMock</span>
+<span class="n">thing</span> <span class="o">=</span> <span class="n">ProductionClass</span><span class="p">()</span>
+<span class="n">thing</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">(</span><span class="n">return_value</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">thing</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+<span class="n">thing</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>这段代码假设我们有一个被测试类 ProductionClass，当我们调用它的 method 方法时，它有一些不便在单元测试下运行的情况（比如需要连接数据库），因此，我们希望能跳过对它的调用，而直接返回我们指定的一些值。</p>
+<p>在这里我们能拿到 ProductionClass 实例对像的引用，所以，我们可以直接修改它的 method 属性，使之指向一个 MagicMock 对象。MagicMock 对象有一些重要的属性和方法。</p>
+<p>这里出现的 return_value 是第一个重要的属性。它的意思时，当被替换的对象（这里是 method）被调用时，返回值应该是 3。与之类似的另一个属性是 side_effect。它同样也在 mock 被调用时，返回设置的值。但 return_value 与 side_effect 有重要区别：两者的返回值都可以设置为数组（或者其它可迭代对象），但通过 side_effect 设置返回值时，每次调用 mock，它都返回 side_effect 中的下一个迭代值；而 return_value 则会将设置值全部返回。另外，如果两者同时设置，side_effect 优先返回。请看下面的示例：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 示例 7 - 10</span>
+<span class="kn">import</span> <span class="nn">unittest.mock</span>
+
+<span class="n">side_effect</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">Mock</span><span class="p">(</span><span class="n">return_value</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="n">side_effect</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">side_effect</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">())</span>
+</code></pre></div></td></tr></table></div>
+<p>输出结果将是：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>1
+2
+foo
+4
+5
+</code></pre></div></td></tr></table></div>
+<p>我们给 side_effect 设置了 5 个值，在 5 次重复测试时，它分别依次返回下一个迭代值。注意这里我们通过 unittest.mock.DEFAULT，来让其中一次迭代，返回了 return_value 的设置值。当然，本质上，这仍然是对 side_effect 的一个迭代结果。</p>
+<p>这里还出现了它的一个重要方法，assert_called_with，即检查被替换的方法是否被以期望的参数调用了。除此之外，还可以断言被调用的次数，等等。</p>
+<p>!!! note:
+    如果你之前接触过其它 mock 框架的话，可能需要注意，python 中的 mock 是<code>action -&gt; assertion</code>模式，而不是其它语言中常见的<code>record -&gt; replay</code>模式。</p>
+<p>这个例子非常简单。但它也演示了使用 Mock 的精髓，即生成 Mock 实例，设置行为（比如返回值），替换生产系统中的对象（方法、属性等），最后，检验结果。</p>
+<p>很多时候，我们会通过 patch 的方式来使用 mock。又有两种主要的方式：</p>
+<h4 id="311">3.1.1. 作为装饰器使用<a class="headerlink" href="#311" title="Permanent link">&para;</a></h4>
+<p>假如我们有一个文件系统相关的操作，为了正常运行，必须在测试环境下构建目录，增加某些文件。为了简单起见，我们希望通过 mock 来模拟这个环境。</p>
+<p>```python {.line-numbers}</p>
+<h1 id="7-11">示例 7 - 11<a class="headerlink" href="#7-11" title="Permanent link">&para;</a></h1>
+<p>import os</p>
+<h1 id="function-under-test">FUNCTION UNDER TEST<a class="headerlink" href="#function-under-test" title="Permanent link">&para;</a></h1>
+<p>class Foo:
+    def get_files(self, dir_: str):
+        return os.list_dir(dir_)</p>
+<h1 id="testing-code">TESTING CODE<a class="headerlink" href="#testing-code" title="Permanent link">&para;</a></h1>
+<p>from unittest.mock import patch
+from unittest import TestCase</p>
+<p>class FooTest(TestCase):
+    @patch('<strong>main</strong>.Foo.get_files')
+    def test_get_files(self, mocked):
+        mocked.return_value = ["readme.md"]
+        foo = Foo()
+        self.assertListEqual(foo.get_files(), ["readme.md"])</p>
+<p>test = FooTest()
+test.test_get_files()
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code>我们对关键代码进行一些解释。首先，通过装饰器语法进行 mock 时，我们的测试函数会多一个参数（这里是 mocked，但名字可以由我们任意指定）。这里使用多个 patch 装饰器也是可以的，每增加一个装饰器，测试函数就会多增加一个参数。
+
+其次，我们要对 Foo.get_files 进行 mock，但我们在 Foo.get_files 之前，加上了一个__main__的前缀。这是由于类 Foo 的定义处在顶层模块中。在 Python 中，任何一个符号（类、方法或者变量）都处在某个模块（module）之下。如果这段代码存为磁盘文件 foo.py，那么模块名就是 foo；我们在别的模块中引入 Foo.get_files 时，应该使用 foo.Foo.get_files。但在这里，由于我们是同模块引用，因此它的前缀是__main__。
+
+!!! info
+    使用 mock 的关键，是要找到引用被 mock 对象的正确方式。在 Python 中，一切都是对象。这些对象通过具有层次结构的命名空间来进行寻址。以 patch 方法为例，它处在 mock 模块之中，而 mock 模块又是包 unittest 的下级模块，因此，我们就使用 unittest.mock.patch 来引用它，这也与导入路径是一致的。&lt;br&gt;&lt;br&gt;但是，像这里的脚本，如果一个对象不是系统内置对象，又不存在于任何包中，那么它的名字空间就是__main__，正如这里的示例__main__.Foo 一样。关于寻址，还存在其它的情况，我们会在后面介绍 builtin 对象以及错误的引用那两节中进行介绍。
+
+通过装饰器语法传入进来的 mock 对象，它的行为是未经设置的。因此，我们要在这里先设置它的返回值，然后再调用业务逻辑函数 foo.get_files -- 由于它已经被 mock 了，所以会返回我们设置的返回值。
+
+#### 3.1.2. 在块级代码中使用
+
+当我们通过装饰器来使用 mock 时，实际上它仍然是有上下文的，在函数退出之后，mock 对系统的更改就复原了。但是，有时候我们更希望使用代码块级别的 patch，一方面可以更精准地限制 mock 的使用范围，另一方面，它的语法会更简练，因为我们可以一行代码完成 mock 行为的设置。
+
+```python{.line-numbers}
+# 示例 7 - 12
+import os
+
+# FUNCTION UNDER TEST
+class Foo:
+    def get_files(self, dir_: str):
+        return os.list_dir(dir_)
+
+# TESTING CODE
+from unittest.mock import patch
+from unittest import TestCase
+
+class FooTest(TestCase):
+    def test_get_files(self):
+        with patch(&#39;__main__.Foo.get_files&#39;, return_value=[&quot;readme.md&quot;]):
+            foo = Foo()
+            self.assertListEqual(foo.get_files(), [&quot;readme.md&quot;])
+
+test = FooTest()
+test.test_get_files()
+</code></pre></div></td></tr></table></div>
+这里仅用一行代码就完成了替换和设置。</p>
+<p>在实践中，使用 mock 可能并不像看起来那么容易。有一些情景对初学者而言会比较难以理解。一旦熟悉之后，你会发现，你对 Python 的底层机制，有了更深入的理解。下面，我们就介绍这些场景下如何使用 mock。</p>
+<h3 id="32-mock">3.2. 特殊场合下的 mock<a class="headerlink" href="#32-mock" title="Permanent link">&para;</a></h3>
+<h4 id="321">3.2.1. 修改实例的属性<a class="headerlink" href="#321" title="Permanent link">&para;</a></h4>
+<p>前面的例子中，我们给 patch 传入的 target 是一个字符串，显然，在 patch 作用域内，所有的新生成的对象都会被 patch。如果在 patch 之前，对象已经生成了，我们则需要使用<code>patch.object</code>来完成 patch。这样做的另一个好处是，我们可以有选择性地 patch 部分对象。</p>
+<p>```python {.line-numbers}</p>
+<h1 id="7-19">示例 7 - 19<a class="headerlink" href="#7-19" title="Permanent link">&para;</a></h1>
+<p>def bar():
+    logger = logging.getLogger(<strong>name</strong>)
+    logger.info("please check if I was called")</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>root_logger = logging.getLogger()
+root_logger.info(&quot;this is not intercepted&quot;)
+</code></pre></div></td></tr></table></div>
+<h1 id="test_foopy">TEST_FOO.PY<a class="headerlink" href="#test_foopy" title="Permanent link">&para;</a></h1>
+<p>from sample.core.foo import bar</p>
+<p>logger = logging.getLogger('sample.core.foo')
+with mock.patch.object(logger, 'info') as m:
+    bar()
+    m.assert_called_once_with("please check if I was called")
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code>在 bar 方法里，两个 logger(root_logger 和&#39;sample.core.foo&#39;对应的 logger) 都被调用，但我们只拦截了后一个 logger 的`info`方法，结果验证它被调用，且仅被调用一次。
+
+这里要提及 pytest 中 mocker.patch 与 unitest.mock.patch 的一个细微差别。后者进行 patch 时，可以返回 mock 对象，我们可以通过它进行更多的检查（见上面示例代码中的第 14，16 行）；但 mocker.patch 的返回值是 None。
+#### 3.2.2. 异步对象
+从 3.8 起，unittest.mock 一般就不再区分同步和异步对象，比如：
+
+```python
+# FUNCTION UNDER TEST
+
+class Foo:
+    async def bar():
+        pass
+
+# TESTING CODE
+class FooTest(TestCase):
+    async def test_bar(self):
+        foo = Foo()
+        with patch(&quot;__main__.Foo.bar&quot;, return_value=&quot;hello from async mock!&quot;):
+            res = await foo.bar()
+            print(res)
+
+test = FooTest()
+await test.test_bar()
+</code></pre></div></td></tr></table></div></p>
+<p>原函数 bar 的返回值为空。但输出结果是 "hello from async mock"，说明该函数被 mock 了。</p>
+<p>被 mock 的方法 bar 是一个异步函数，如果我们只需要 mock 它的返回值的话，仍然是用同样的方法，直接给 return_value 赋值就好。如果我们要将其替换成另一个函数，也只需要将该函数声明成为异步函数即可。</p>
+<p>但是，如果我们要 mock 的是一个异步的生成器，则方法会有所不同：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># FUNCTION UNDER TEST</span>
+<span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">mock</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">bar</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="sa">f</span><span class="s2">&quot;called </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">th&quot;</span>
+
+<span class="c1"># TESTING CODE</span>
+<span class="k">class</span> <span class="nc">FooTest</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">test_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="s2">&quot;__main__.Foo.bar&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">mocked</span><span class="p">:</span>
+            <span class="n">mocked</span><span class="o">.</span><span class="n">return_value</span><span class="o">.</span><span class="fm">__aiter__</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">([</span><span class="n">i</span> <span class="k">async</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">foo</span><span class="o">.</span><span class="n">bar</span><span class="p">()])</span>
+
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">FooTest</span><span class="p">()</span>
+<span class="k">await</span> <span class="n">test</span><span class="o">.</span><span class="n">test_bar</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+理解这段代码的关键是，我们要 mock 的对象是 bar 方法，它的返回值（即 mocked.return_value）是一个 coroutine。我们需要对该 coroutine 的__aiter__方法设置返回值，这样才能得到正确的结果。此外，由于__aiter__本身就是迭代器的意思，所以，即使我们设置它的 return_value，而不是 side_effect 为一个列表，它也会按次返回迭代结果，而不是整个 list。这是与我们前面介绍 return_value 和 side_effect 的区别时所讲的内容相区别的。</p>
+<p>同样需要特别注意的是 async with 方法。你需要 mock 住它的__aexit__，将其替换成你要实现的方法。</p>
+<h4 id="323-builtin">3.2.3. builtin 对象<a class="headerlink" href="#323-builtin" title="Permanent link">&para;</a></h4>
+<p>如果我们有一个程序，读取用户从控制台输入的参数，根据该参数进行计算。显然，我们需要 Mock 用户输入，否则单元测试没法自动化。</p>
+<p>在 Python 中，接受用户控制台输入的函数是 input。要 mock 这个方法，按照前面学习中得到的经验，我们需要知道它属于哪个名字空间。在 Python 中，像 input, open, eval 等一类的函数大约有 80 个左右，被称为 <a href="https://docs.python.org/3/library/functions.html">builtin（内置函数）</a>。</p>
+<p>在 mock 它们时，我们使用 builtins 名字空间来进行引用：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;builtins.input&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="s2">&quot;input is mocked&quot;</span><span class="p">):</span>
+    <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;please say something:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>执行上述代码时，用户并不会有机会真正输入数据，input 方法被 mock，并且会返回"input is mocked"。</p>
+<h4 id="324">3.2.4. 让时间就停留在这一刻<a class="headerlink" href="#324" title="Permanent link">&para;</a></h4>
+<p>有时候我们会在代码中，通过 datetime.datetime.now() 来获取系统的当前时间。显然，在不同的时间测试，我们会得到不同的取值，导致测试结果无法固定。因此，这也是需要被 mock 的对象。</p>
+<p>要实现对这个方法的 mock，可能比我们一开始以为的要难一些。我们的推荐是，使用 freezegun 这个库，而避开自己去 mock 它。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 请使用 PYTEST 来运行，或者自行改写为 UNITTEST</span>
+<span class="kn">from</span> <span class="nn">freezegun</span> <span class="kn">import</span> <span class="n">freeze_time</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="c1"># FREEZE TIME FOR A PYTEST STYLE TEST:</span>
+
+<span class="nd">@freeze_time</span><span class="p">(</span><span class="s2">&quot;2012-01-14&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_case2</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">!=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">freeze_time</span><span class="p">(</span><span class="s2">&quot;2012-01-14&quot;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">!=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>注意 Python 的时间库很多，如果您使用的是其它的库来获取当前时间，则 freeze_gun 很可能会不起作用。不过，对第三方的时间库，一般很容易实现 mock。</p>
+<h4 id="325">3.2.5. 如何制造一场“混乱”？<a class="headerlink" href="#325" title="Permanent link">&para;</a></h4>
+<p>假设我们有一个爬虫在抓取百度的热搜词。它的功能主要由 crawl_baidu 来实现。我们另外有一个函数在调用它，以保存 crawl_baidu 的返回结果。我们想知道，如果 crawl_baidu 中抛出异常，那么调用函数是否能够正确处理这种情况。</p>
+<p>这里的关键是，我们要让 crawl_baidu 能抛出异常。当然，我们不能靠拔网线来实现这一点。</p>
+<p>```python{.line-numbers}
+import httpx
+from httpx import get, ConnectError
+from unittest.mock import patch
+from unittest import TestCase</p>
+<p>def crawl_baidu():
+    return httpx.get("https://www.baidu.com")</p>
+<p>class ConnectivityTest(TestCase):
+    def test_connectivity(self):
+        with patch('httpx.get', side_effect=["ok", ConnectError("disconnected")]):
+            print(crawl_baidu())</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>        with self.assertRaises(ConnectError):
+            crawl_baidu()
+</code></pre></div></td></tr></table></div>
+<p>case = ConnectivityTest()
+case.test_connectivity()
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code>crawl_baidu 依靠 httpx.get 来爬取数据。我们通过 mock httpx.get 方法，让它有时返回正常结果，有时返回异常。这是通过 side_effect 来实现的。
+
+注意第 14 行，我们使用的是 self.assertRaises，而不是 try-except 来捕捉异常。两者都能够实现检查异常是否抛出的功能。但通过 self.assertRaises，我们强调了这里应该抛出一个异常，它是我们测试逻辑的一部分。而 try-except 则应该用来处理真正的异常。
+
+#### 3.2.6. 消失的魔法
+
+再强调一遍，“使用 mock 的关键，是要找到引用被 mock 对象的正确方式。”而正确引用的关键，则是这样一句“咒语”
+
+!!! Warning
+    Mock an item where it is used, not where it came from
+
+    在对象被使用的地方进行 mock, 而不是在它出生的地方。
+
+我们通过一个简单的例子来说明这一点：
+
+```python {.line-numbers}
+from os import system
+from unittest import mock
+import pytest
+
+def echo():
+    system(&#39;echo &quot;Hello&quot;&#39;)
+
+with mock.patch(&#39;os.system&#39;, side_effect=[Exception(&quot;patched&quot;)]) as mocked:
+    with pytest.raises(Exception) as e:
+        echo()
+</code></pre></div></td></tr></table></div></p>
+<p>我们在 echo 方法中，调用了系统的 echo 命令。在测试中，我们试图 mock 住 os.system 方法，让它一被调用，就返回一个异常。然后我们通过 pytest 来检查，如果异常抛出，则证明 mock 成功，否则，mock 失败。</p>
+<p>但是如果我们运行这个示例，只会得到一个友好的问候，No errors, No warnings! 为什么？</p>
+<p>因为当我们在 echo() 函数中调用 system 函数时，此时的 system 存在于__main__名字空间，而不是 os 的名字空间。os 名字空间是 system 出生的地方，而__main__名字空间才是使用它的地方。因此，我们应该 patch 的对象是'<strong>main</strong>.system'，而不是'os.system'。</p>
+<p>现在，让我们将<code>os.system</code>改为<code>__main__.system</code>，重新运行，你会发现，魔法又生效了！</p>
+<p>在配套代码中，还有一个名为 where_to_patch 的示例，我们也来看一下。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># FOO.PY</span>
+<span class="k">def</span> <span class="nf">get_name</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Alice&quot;</span>
+
+<span class="c1"># BAR.PY</span>
+<span class="kn">from</span> <span class="nn">.foo</span> <span class="kn">import</span> <span class="n">get_name</span>
+
+<span class="k">class</span> <span class="nc">Bar</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">get_name</span><span class="p">()</span>
+
+<span class="c1"># TEST.PY</span>
+<span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">patch</span>
+
+<span class="kn">from</span> <span class="nn">where_to_patch.bar</span> <span class="kn">import</span> <span class="n">Bar</span>
+
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;where_to_patch.foo.get_name&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="s2">&quot;Bob&quot;</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Bob&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p>测试代码会抛出 <code>AssertionError: assert "Alice" == "Bob"的错误。如果我们把</code>where_to_patch.foo<code>改为</code>where_to_patch.bar`，则测试通过。这个稍微扩展了一下的例子，进一步清晰地演示了如何正确引用被 mock 对象。</p>
+<h2 id="4-coverage-">4. Coverage - 衡量测试的覆盖率<a class="headerlink" href="#4-coverage-" title="Permanent link">&para;</a></h2>
+<p>我们已经掌握了如何进行单元测试。接下来，一个很自然的问题浮现出来，我们如何知道单元测试的质量呢？这就提出了测试覆盖率的概念。覆盖率测量通常用于衡量测试的有效性。它可以显示您的代码的哪些部分已被测试过，哪些没有。</p>
+<p>coverage.py 是最常用的测量 Python 程序代码覆盖率的工具。它监视您的程序，记录代码的哪些部分已被执行，然后分析源代码以识别已执行和未执行的代码。</p>
+<p>我们可以通过下面的方法来安装 coverage.py：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>coverage
+</code></pre></div></td></tr></table></div>
+要收集测试覆盖率数据，我们只需要在原来的测试命令前加上 coverage run 即可。比如，如果我们之前是使用<code>pytest arg1 arg2 arg3</code>来进行测试，则现在我们使用：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>coverage<span class="w"> </span>run<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>arg1<span class="w"> </span>arg2<span class="w"> </span>arg3
+</code></pre></div></td></tr></table></div></p>
+<p>当测试运行完成后，我们可以通过<code>coverage report -m</code>来查看测试覆盖率的报告：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>Name                      Stmts   Miss  Cover   Missing
+-------------------------------------------------------
+my_program.py                20      4    80%   33-35, 39
+my_other_module.py           56      6    89%   17-23
+-------------------------------------------------------
+TOTAL                        76     10    87%
+</code></pre></div></td></tr></table></div>
+如果希望得到更好的视觉效果，也可以使用 coverage html 命令来生成带注释的 HTML 报告，然后在浏览器中打开 htmlcov/index.html。
+<img alt="75%" src="https://images.jieyu.ai/images/2023/01/20230120204634.png" /></p>
+<p>不过，更多人选择使用 pytest-cov 插件来进行测试覆盖率的收集。这也是 ppw 的选择。通过 ppw 生成的工程，pytest-cov 已被加入到测试依赖中，因此也就自然安装到环境中去了。</p>
+<p>因此，通过 ppw 配置的工程，我们一般不需要直接调用 coverage 命令，而是使用 pytest 命令来进行测试。pytest-cov 插件会自动收集测试覆盖率数据，然后在测试完成后，自动将测试覆盖率报告打印到控制台上。如果希望生成带注释的 HTML 报告，可以使用<code>pytest --cov-report=html</code>命令。对 pytest 我们一般也不需要直接调用，而是通过 tox 来调用。</p>
+<p>默认情况下，coverage.py 将测试行（语句）覆盖率，但通过配置，还可以测量分支覆盖率。这需要一些配置。</p>
+<h3 id="41-pycoverage">4.1. 配置 Pycoverage<a class="headerlink" href="#41-pycoverage" title="Permanent link">&para;</a></h3>
+<p>配置文件的默认名称是。coveragerc，在 ppw 生成的工程中，这个文件处在项目根目录下（读者可以回到第 4 章的结束部分查看 ppw 生成的文件列表）。</p>
+<p>如果没有使用其他配置文件，Coverage.py 将从其他常用配置文件中读取设置。如果存在，它将自动从“setup.cfg”或“tox.ini”中读取。如果节 (section) 名称有“coverage:”前缀，则会当成是 coverage 的配置，比如.coveragerc 中有一节名为 run，当它出现在 tox.ini 中，节名字就应该是 [coverage:run]。</p>
+<p>我们也可以在 pyproject.toml 中配置 coverage。如果要使用这种方式，需要在 pyproject.toml 中添加一个名为 tool.coverage 的节，然后在这个节中添加配置项。</p>
+<p>coverage 的配置项遵循 ini 语法，示例如下：
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">.coveragerc</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">[run]</span>
+<span class="na">branch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[report]</span>
+<span class="c1"># REGEXES FOR LINES TO EXCLUDE FROM CONSIDERATION</span>
+<span class="na">exclude_lines</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="c1"># HAVE TO RE-ENABLE THE STANDARD PRAGMA</span>
+<span class="w">    </span><span class="na">pragma</span><span class="o">:</span><span class="w"> </span><span class="s">no cover</span>
+
+<span class="w">    </span><span class="c1"># DON&#39;T COMPLAIN ABOUT MISSING DEBUG-ONLY CODE:</span>
+<span class="w">    </span><span class="na">def __repr__</span>
+<span class="w">    </span><span class="na">if self\.debug</span>
+
+<span class="w">    </span><span class="c1"># DON&#39;T COMPLAIN IF TESTS DON&#39;T HIT DEFENSIVE ASSERTION CODE:</span>
+<span class="w">    </span><span class="na">raise AssertionError</span>
+<span class="w">    </span><span class="na">raise NotImplementedError</span>
+
+<span class="w">    </span><span class="c1"># DON&#39;T COMPLAIN IF NON-RUNNABLE CODE ISN&#39;T RUN:</span>
+<span class="w">    </span><span class="na">if 0</span><span class="o">:</span>
+<span class="w">    </span><span class="na">if __name__</span><span class="w"> </span><span class="o">=</span><span class="s">= .__main__.:</span>
+
+<span class="w">    </span><span class="c1"># DON&#39;T COMPLAIN ABOUT ABSTRACT METHODS, THEY AREN&#39;T RUN:</span>
+<span class="w">    </span><span class="na">@(abc\.)?abstractmethod</span>
+
+<span class="na">ignore_errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[html]</span>
+<span class="na">directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">coverage_html_report</span>
+</code></pre></div></td></tr></table></div>
+我们前面提到过可以让 coverage.py 按分支覆盖率来统计，这可以按照第 3 行一样进行配置。[report] 这一节中的配置项可以让 coverage.py 忽略一些不需要统计的代码，比如 debug 代码。[html] 这一节配置了如果生成的 html 文件存放在何处。如果没有指定，将存放在 htmlcov 目录下。</p>
+<p>[run] 这一节比较常用的配置项有 include 和 omit，用来特别把某个文件或者目录加入到测试覆盖，或者排除掉。在 [report] 这一节中，也有相同的配置项，两者有所区别。在 [report] 中指定 omit 或者 include，都仅适用于报告的生成，但不影响实际的测试覆盖率统计。</p>
+<h3 id="42">4.2. 发布覆盖率报告<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>如果我们的项目是开源项目，你可能希望把覆盖率报告发布到网上，这样其他人就可以看到你的项目的覆盖率了。这里我们使用 codecov.io 来发布覆盖率报告。</p>
+<p>codecov 是一个在线的代码覆盖率报告服务，它可以从 GitHub、Bitbucket、GitLab 等代码托管平台上获取代码覆盖率报告，然后生成一个在线的报告。这个报告可以让其他人看到你的项目的覆盖率情况。</p>
+<p>在 github 中设置 codecov 集成很简单，在浏览器中打开 https://github.com/apps/codecov 页面，点击完成安装，然后在 CI 过程中增加一个上传动作就可以了。在通过 ppw 创建的项目中，我们已经集成了这一步。如果你想在自己的项目中手动执行，则是：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code># LINUX
+$ curl -Os https://uploader.codecov.io/latest/linux/codecov 
+$ chmod +x codecov 
+$ ./codecov
+
+# WINDOWS
+$ ProgressPreference = &#39;SilentlyContinue&#39; 
+$ Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe 
+$ .\codecov.exe
+
+# MACOS
+$ curl -Os https://uploader.codecov.io/latest/macos/codecov
+$ chmod +x codecov
+$ ./codecov
+</code></pre></div></td></tr></table></div>
+我们强烈建议仅通过 CI 来上传覆盖率报告，而不是在本地执行。因为本地执行的覆盖率报告，可能会因为本地环境的不同而产生差异。另一方面，在 CI 中执行后，我们还能在 pull request 之后，得到这样的状态报告：
+<img alt="" src="https://images.jieyu.ai/images/2023/01/20230120213255.png" />
+并且还能在 pull request 的注释中看到覆盖率的变化：
+<img alt="" src="https://images.jieyu.ai/images/2023/01/20230120213318.png" />
+这会让你的开源项目看上去非常专业，不是吗？更重要的是，让你的潜在用户更加信任这是一个高质量的项目。</p>
+<h2 id="5-tox">5. TOX 实现矩阵测试<a class="headerlink" href="#5-tox" title="Permanent link">&para;</a></h2>
+<p>如果我们的软件支持 3 种操作系统，4 个 python 版本，我们就必须在 3 种操作系统上，分别创建 4 个虚拟环境，安装上我们的软件和依赖，再执行测试，上传测试报告。这个动作不仅相当繁琐，还很容易引入错误。</p>
+<p>tox 与 CI 结合，就可以帮助我们自动化完成这些环境的创建与测试执行。</p>
+<h3 id="51-tox">5.1. 什么是 Tox？<a class="headerlink" href="#51-tox" title="Permanent link">&para;</a></h3>
+<p>tox 是一个通用的 Python 虚拟环境管理和测试命令行工具，旨在自动化和标准化 Python 测试。它是简化 Python 软件的打包、测试和发布过程的更大愿景的一部分。大多数项目都使用它来确保软件在多个 Python 解释器版本之间的兼容性。</p>
+<p>实际上，tox 主要完成以下工作：
+1. 根据配置创建基于多个版本的 python 虚拟环境，并且保证这些虚拟环境的可复制性（需要与 poetry 或者其它依赖管理工具一起）。
+2. 在多个环境中运行测试和代码检查工具，比如 pytest 和 flake8, black, mypy 等。
+3. 隔离环境变量。tox 不会从系统传递任何环境变量到虚拟环境中，这样可以保证测试的可重复性。</p>
+<h3 id="52-tox">5.2. Tox 的工作原理<a class="headerlink" href="#52-tox" title="Permanent link">&para;</a></h3>
+<p>下图是 tox 文档显示的工作原理图：</p>
+<p><img alt="" src="https://images.jieyu.ai/images/2023/01/20230120223442.png" /></p>
+<p>根据这张图，tox 读取配置文件，打包待测试软件，按照配置文件创建虚拟环境，并安装待测试软件和依赖，然后依次执行测试命令。最终，当所有虚拟环境下的测试都通过后，tox 会生成测试报告。</p>
+<p>下面，我们主要通过一个典型的配置文件来介绍 tox 是如何配置和工作的。</p>
+<h3 id="53-tox">5.3. 如何配置 Tox<a class="headerlink" href="#53-tox" title="Permanent link">&para;</a></h3>
+<p>在 ppw 生成的项目中，存在以下 tox.ini 文件：
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">tox.ini</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">[tox]</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py38, py39, py310, lint</span>
+<span class="na">skipsdist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+
+<span class="k">[gh-actions]</span>
+<span class="na">python</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">3.10</span><span class="o">:</span><span class="w"> </span><span class="s">py310</span>
+<span class="w">    </span><span class="na">3.9</span><span class="o">:</span><span class="w"> </span><span class="s">py39</span>
+<span class="w">    </span><span class="na">3.8</span><span class="o">:</span><span class="w"> </span><span class="s">py38</span>
+
+<span class="k">[testenv:lint]</span>
+<span class="na">extras</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">dev</span>
+<span class="w">    </span><span class="na">doc</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">poetry</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">poetry run isort {{ cookiecutter.project_slug }}</span>
+<span class="w">    </span><span class="na">poetry run black {{ cookiecutter.project_slug }} tests</span>
+<span class="w">    </span><span class="na">poetry run flake8 {{ cookiecutter.project_slug }}</span>
+<span class="w">    </span><span class="na">poetry build</span>
+<span class="w">    </span><span class="na">poetry run mkdocs build</span>
+<span class="w">    </span><span class="na">poetry run twine check dist/*</span>
+
+<span class="k">[testenv]</span>
+<span class="na">passenv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">*</span>
+<span class="na">setenv</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">PYTHONPATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{toxinidir}</span>
+<span class="w">    </span><span class="na">PYTHONWARNINGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ignore</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="na">poetry</span>
+<span class="na">extras</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">test</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">poetry run pytest -s --cov</span><span class="o">=</span><span class="s">{{ cookiecutter.project_slug }} --cov-append --cov-report=xml --cov-report term-missing tests</span>
+</code></pre></div></td></tr></table></div></p>
+<p>配置文件仍然是标准的 ini 文件格式（tox 也支持通过 pyproject.toml 来进行配置）。我们主要关注以下几个部分：</p>
+<h4 id="531-tox">5.3.1. [tox] 节<a class="headerlink" href="#531-tox" title="Permanent link">&para;</a></h4>
+<p>在测试一个 package 之前，tox 首先需要构建一个 sdit 分发包。在打包这件事上，python 走过了很长的一段历程，打包工具和标准也经历了很多变化，这些我们将用专门的一章来介绍。现在我们需要知道的是，最新的标准是 PEP517 和 PEP518，tox 已经支持这两个标准。但是，如果项目本身不支持这两个 PEP，那么 tox 必须回到之前的打包方式。</p>
+<p>因此，tox 引入了 isolated_build 这个选项，如果设置为 true，tox 会使用 PEP517 和 PEP518 的方式来打包项目。如果设置为 false，tox 会使用传统的方式 (setup.py) 来打包项目。如果通过 poetry 创建项目，并且在 pyproject.toml 中设置了 requires 和 build-backend 项的话，那么我们是需要设置 isolated_build 为 true 的。</p>
+<p>在所有 ppw 创建的项目中，我们都设置了 isolated_build 为 true，这样才与 pyproject.toml 的设置一致。</p>
+<p>envlist 选项的含义正如它的名字所示。这里我们指定了 py38, py39, p310 和 lint 这 4 个环境。它们也是虚拟环境的名字，其中 py38, py39, py310 对应的 python 的版本是 3.8, 3.9, 3.10。这里我们还指定了一个 lint 环境，它是用来执行代码检查的。我们没有为它专门指定 python 的版本，因此它会使用当前的 python 版本。</p>
+<p>默认地，tox 会在项目根目录下创建.tox 目录，上述虚拟环境就创建在这个目录下：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">$ll</span><span class="w"> </span>.tox
+
+total<span class="w"> </span><span class="m">36</span>
+drwxrwxr-x<span class="w">  </span><span class="m">9</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:48<span class="w"> </span>./
+drwxrwxr-x<span class="w"> </span><span class="m">12</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:48<span class="w"> </span>../
+drwxrwxr-x<span class="w">  </span><span class="m">5</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:47<span class="w"> </span>.package/
+-rwxrwxr-x<span class="w">  </span><span class="m">1</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w">    </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:47<span class="w"> </span>.package.lock*
+drwxrwxr-x<span class="w">  </span><span class="m">3</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:47<span class="w"> </span>.tmp/
+drwxrwxr-x<span class="w">  </span><span class="m">2</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:47<span class="w"> </span>dist/
+drwxrwxr-x<span class="w">  </span><span class="m">6</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:48<span class="w"> </span>lint/
+drwxrwxr-x<span class="w">  </span><span class="m">2</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:47<span class="w"> </span>log/
+drwxrwxr-x<span class="w">  </span><span class="m">7</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:47<span class="w"> </span>py38/
+drwxrwxr-x<span class="w">  </span><span class="m">7</span><span class="w"> </span>aaron<span class="w"> </span>aaron<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">23</span>:48<span class="w"> </span>py39/
+</code></pre></div></td></tr></table></div>
+列目录时，显示出来存在 lint, py38 和 py39，我们可以进一步查看这些虚拟环境下的 python 版本。但是，我们没有看到 py310，这里因为在我测试时，系统还没有安装 python 3.10 这个版本，因此 tox 会跳过这个版本。</p>
+<p>skipsdist 选项用来指示 tox 是否要跳过构建 sdist 分发包的步骤。这个设置主要是为了兼容 python 应用程序，因为 tox 的测试对象除了 library 之外，还可能是服务或者简单的脚本集，这些服务或者脚本集是没有 setup.py 文件，也无法构建 sdist 分发包的。如果没有一个标志让 tox 来跳过构建 sdist 分发包的步骤，那么 tox 会报错：
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>ERROR: No pyproject.toml or setup.py file found. The expected locations are:
+  /Users/christophersamiullah/repos/tox_examples/basic/pyproject.toml or 
+  /Users/christophersamiullah/repos/tox_examples/basic/setup.py
+You can
+  1. Create one:
+     https://tox.readthedocs.io/en/latest/example/package.html
+  2. Configure tox to avoid running sdist:
+     https://tox.readthedocs.io/en/latest/example/general.html
+  3. Configure tox to use an isolated_build
+</code></pre></div></td></tr></table></div>
+这个选项在 tox 中是默认为 false 的，多数情况下无须配置。我们出于帮助大家理解 tox 工作原理的目的介绍它</p>
+<h4 id="532-testenv">5.3.2. [testenv]<a class="headerlink" href="#532-testenv" title="Permanent link">&para;</a></h4>
+<p>这一节的配置项适用于所有的虚拟环境。如果在某个虚拟环境下存在特别的选项和动作，需要象 [testenv:lint] 那样定义在自己的节中。</p>
+<p>这里我们还额外设置了一些环境变量字段。比如设置了 PYTHONPATH，另外也忽略了一些警告信息。如果我们使用的一些库没有更新，那么将在测试过程中打印大量的 deprecation 警告，从而干扰我们检查测试过程中的错误信息。当然，我们也应该至少在测试中打开一次这种警告，以便知道哪些用法已经需要更新。</p>
+<p>一般情况下，tox 是不会把宿主机上的环境变量传递给测试环境的。但有一些情况，比如重要服务的账号和口令，并不适合写在配置文件中，只能配置在宿主机的环境变量中。在这种情况下，我们需要通过 passenv 选项来指定需要传递的环境变量。这个选项的值是一个逗号分隔的字符串，可以是单个的环境变量，也可以象示例中那样，是一个通配符。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在团队开发中，并不是所有的开发者都有权接触到重要服务的账号与口令。如果这些秘密信息配置在代码文件或者相关的配置文件中，就会导致这些秘密暴露给了所有的开发者。此外，如果代码仓库使用的是 gitlab，还可能导致这些信息泄露到互联网上。正确的作法是将这些重要信息仅仅配置在宿主机的环境变量中，这样一来，就只有有权限访问那台机器的人才能接触到这些秘密。</p>
+<p>这是一种标准的做法，也得到了 github CI 的支持。在 github CI 中，可以通过在 workflow 文件中使用 env 选项来读取环境变量，再经由 tox 把这些环境变量传递给测试环境。</p>
+</div>
+<p>deps 选项声明了要在虚拟环境中需要安装的 python 库。不同的测试需要的依赖可能各不相同，但在 ppw 生成的项目中，一般我们只需要一个共同的依赖，即 poetry。因为后面的测试命令，我们都会通过 poetry 来调用。</p>
+<p>tox 在安装被测试包时，一般是不安装声明为 extra 依赖的。但是，为了运行测试和进行 lint，我们必须安装 pytest, flake8 这些库。在 ppw 生成的工程中，这些依赖被归类为 dev, test 和 doc 这些 extra 依赖。因此，我们也必须在测试中安装。其中 test 依赖是所有的环境都需要的，而 dev 和 doc 则是 lint 时所需要的，因此，我们在 [testenv] 中声明依赖到 test，而只在 [testenv:lint] 中依赖到 dev 和 doc。</p>
+<p>接下来就是 commands 字段。这是真正执行测试或者 lint 的地方。这里的命令是：</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>commands =
+    poetry run pytest -s --cov=%package_under_test% --cov-append --cov-report=xml 
+    --cov-report term-missing tests
+</code></pre></div></td></tr></table></div>
+"-s" 是告诉 pytest 不要捕获控制台输入输出。</p>
+<p>在 ppw 生成的工程里，我们已经集成了 pytest-coverage 插件，因此，通过适当的配置，我们就可以在测试时同时完成测试覆盖率的统计。--cov 用来指示代码覆盖的范围，这里%package_under_test%需要替换成为我们的库名字。--cov-append 表明此次测试的结果，将追加到之前的统计数据中，而不是完全替换之前的数据。--cov-report 将测试数据输出为 xml 格式。--cov-report 表明应该如何生成报告。</p>
+<p>最后，tests 是我们测试代码所在的文件夹。</p>
+<h4 id="533-testenvlint">5.3.3. [testenv.lint]<a class="headerlink" href="#533-testenvlint" title="Permanent link">&para;</a></h4>
+<p>这一节的语法与 [testenv] 并无二致。只不过要运行的命令不一样。这里就不再一一解释。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener" title="知乎" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M170.54 148.13v217.54l23.43.01 7.71 26.37 42.01-26.37h49.53V148.13H170.54zm97.75 193.93h-27.94l-27.9 17.51-5.08-17.47-11.9-.04V171.75h72.82v170.31zm-118.46-94.39H97.5c1.74-27.1 2.2-51.59 2.2-73.46h51.16s1.97-22.56-8.58-22.31h-88.5c3.49-13.12 7.87-26.66 13.12-40.67 0 0-24.07 0-32.27 21.57-3.39 8.9-13.21 43.14-30.7 78.12 5.89-.64 25.37-1.18 36.84-22.21 2.11-5.89 2.51-6.66 5.14-14.53h28.87c0 10.5-1.2 66.88-1.68 73.44H20.83c-11.74 0-15.56 23.62-15.56 23.62h65.58C66.45 321.1 42.83 363.12 0 396.34c20.49 5.85 40.91-.93 51-9.9 0 0 22.98-20.9 35.59-69.25l53.96 64.94s7.91-26.89-1.24-39.99c-7.58-8.92-28.06-33.06-36.79-41.81L87.9 311.95c4.36-13.98 6.99-27.55 7.87-40.67h61.65s-.09-23.62-7.59-23.62v.01zm412.02-1.6c20.83-25.64 44.98-58.57 44.98-58.57s-18.65-14.8-27.38-4.06c-6 8.15-36.83 48.2-36.83 48.2l19.23 14.43zm-150.09-59.09c-9.01-8.25-25.91 2.13-25.91 2.13s39.52 55.04 41.12 57.45l19.46-13.73s-25.67-37.61-34.66-45.86h-.01zM640 258.35c-19.78 0-130.91.93-131.06.93v-101c4.81 0 12.42-.4 22.85-1.2 40.88-2.41 70.13-4 87.77-4.81 0 0 12.22-27.19-.59-33.44-3.07-1.18-23.17 4.58-23.17 4.58s-165.22 16.49-232.36 18.05c1.6 8.82 7.62 17.08 15.78 19.55 13.31 3.48 22.69 1.7 49.15.89 24.83-1.6 43.68-2.43 56.51-2.43v99.81H351.41s2.82 22.31 25.51 22.85h107.94v70.92c0 13.97-11.19 21.99-24.48 21.12-14.08.11-26.08-1.15-41.69-1.81 1.99 3.97 6.33 14.39 19.31 21.84 9.88 4.81 16.17 6.57 26.02 6.57 29.56 0 45.67-17.28 44.89-45.31v-73.32h122.36c9.68 0 8.7-23.78 8.7-23.78l.03-.01z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/zillionare" target="_blank" rel="noopener" title="Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto: aaron_yang@jieyu.ai" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="../../../../assets/js/ad.js"></script>
+      
+        <script src="../../../../assets/js/less.js"></script>
+      
+    
+  </body>
+</html>
