@@ -4,7 +4,7 @@ title: Dash-用Python也能做网页
 
 # Dash: 核心概念、路由、Auth 与 Pitfall
 
-Dash 是一个通过 python 语言来开发 web 界面，并在运行时将前端编译成 html/js/css 并运行的框架。其主要特点是：
+Dash 是一个通过 python 语言来开发 web 界面，并在运行时将前端编译成 html/js/css 并运行的框架。它使得Python程序也可以成为全栈开发工程师。其主要特点是：
 
 1. 完全使用 Python 来开发，无论是界面元素还是服务端逻辑。Dash 不仅负责将 python 编写的界面元素转化为 html/js/css，而且负责前端与后端的交互。因此，程序员可以完全在 python 语言框架内完成全部工作。
 
@@ -19,6 +19,10 @@ flask.request.cookies.get("your cookie name")
 上述代码可以在全局使用，也可以 callback 方法中使用（这里的 callback 特指 Dash 的 app.callback）。
 
 3. 与 plotly 无缝集成，具有较强的可视化能力。尤为可贵的是，可视化是 web 交互式的，但又完全是通过 Python 来编程的（注意 javascript 提供了交互能力，而 python 是不可能的）。
+
+这一篇文章是我们在深入体验过Dash之后，就它的核心概念、路由、Auth等等进行的梳理，还介绍了一些常见的pitfall。
+
+我是量化风云，量化从业者，有多年量化框架和策略的研发经验。欢迎关注！如果需要本地化部署量化投研框架，可以使用 [Zillionare 2.0](http://www.jieyu.ai)。它基于Influxdb构建，目前在生产环境下已存储超过35亿条海量行情数据。
 
 ## 1. 核心概念
 

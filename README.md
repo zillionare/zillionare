@@ -6,8 +6,11 @@
 
 如果您不喜欢运气这个说法，其实它是周期的同义词。您也许会觉得看到一场壮观的狮子座流星雨需要好运气，但天文学家会告诉你，它其实每年11月就会降临一次。看到哈雷彗星更需要运气，因为它每隔75年左右的周期，才会接近地球一次。我们做金融量化，也要懂周期和择时，要顺势而为，这样才能沾到运气。
 
-!!! tip "大富翁量化课程开课啦！"
-    《大富翁量化金融实战课程》火热开播中。学完本课程，你将完全有能力独立编写策略、进行回测和实盘，或者进入券商、机构和私募的量化岗。详情介绍请见[课程详情介绍](./docs/coursea/cheese/intro.md)
+[![](docs/assets/img/course_promotion.png?1)](articles/coursea/cheese/intro)
+
+<!--
+!!! tip "大富翁量化课程本周最后优惠！"
+    《大富翁量化交易实战课》火热开课中。自带notebook环境，30亿条以上行情数据，支持回测和模拟盘。课程共约48小时（直播时长），约40万字节文字稿和700多个示例代码。
 
     <div style="display:flex;justify-content:space-evenly;align-items:center;height:160px;">
     <div style="display:flex;flex-flow:column;align-items:center;height:100%;justify-content:space-around">
@@ -19,6 +22,7 @@
         <div>公众号</div>
     </div>
     </div>
+-->
 
 ## 本站导读
 
@@ -32,3 +36,4 @@
 
 !!! info "产品系列"
     大富翁产品介绍、使用指南<br>[链接](products/)
+
