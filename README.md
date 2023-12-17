@@ -6,7 +6,7 @@
 
 如果您不喜欢运气这个说法，其实它是周期的同义词。您也许会觉得看到一场壮观的狮子座流星雨需要好运气，但天文学家会告诉你，它其实每年11月就会降临一次。看到哈雷彗星更需要运气，因为它每隔75年左右的周期，才会接近地球一次。我们做金融量化，也要懂周期和择时，要顺势而为，这样才能沾到运气。
 
-[![](docs/assets/img/course_promotion.png?1)](articles/coursea/cheese/intro)
+[![](docs/assets/img/course_promotion.png?1)](https://www.jieyu.ai/articles/coursea/cheese/intro)
 
 <!--
 !!! tip "大富翁量化课程本周最后优惠！"
