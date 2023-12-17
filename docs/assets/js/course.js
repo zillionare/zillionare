@@ -2,7 +2,7 @@
 var link="/articles/coursea/cheese/intro/"
 var img = "/assets/img/course_promotion.png"
 
-function insertAd(ad, minParas, minWords){
+function insertAd(minParas, minWords){
     // 如果已经包含了链接，则不再增加，以允许手动增加
     var links = document.querySelectorAll("a[href*='" + link + "']");
     if (links.length > 0){
@@ -25,7 +25,7 @@ function insertAd(ad, minParas, minWords){
         }
 
         if (paraCount >= minParas && wordCount >= minWords) {
-            console.log("find para", p)
+            console.log("find para", p, paraCount, wordCount)
             p.insertAdjacentHTML("afterend", ad)
             paraCount = 0
             wordCount = 0
@@ -40,7 +40,7 @@ function insertAd(ad, minParas, minWords){
 
 document$.subscribe(function() {
     console.log("call in ad")
-    insertAd(30, 3000)
+    insertAd(40, 4000)
     // fetch("/assets/ad/ad.txt").then(response =>{
     //     return response.text()
     // }).then(ad =>{
