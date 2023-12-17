@@ -2163,7 +2163,7 @@
 
 
 <h1 id="dash-auth-pitfall">Dash: 核心概念、路由、Auth 与 Pitfall<a class="headerlink" href="#dash-auth-pitfall" title="Permanent link">&para;</a></h1>
-<p>Dash 是一个通过 python 语言来开发 web 界面，并在运行时将前端编译成 html/js/css 并运行的框架。其主要特点是：</p>
+<p>Dash 是一个通过 python 语言来开发 web 界面，并在运行时将前端编译成 html/js/css 并运行的框架。它使得Python程序也可以成为全栈开发工程师。其主要特点是：</p>
 <ol>
 <li>
 <p>完全使用 Python 来开发，无论是界面元素还是服务端逻辑。Dash 不仅负责将 python 编写的界面元素转化为 html/js/css，而且负责前端与后端的交互。因此，程序员可以完全在 python 语言框架内完成全部工作。</p>
@@ -2182,6 +2182,8 @@
 <ol>
 <li>与 plotly 无缝集成，具有较强的可视化能力。尤为可贵的是，可视化是 web 交互式的，但又完全是通过 Python 来编程的（注意 javascript 提供了交互能力，而 python 是不可能的）。</li>
 </ol>
+<p>这一篇文章是我们在深入体验过Dash之后，就它的核心概念、路由、Auth等等进行的梳理，还介绍了一些常见的pitfall。</p>
+<p>我是量化风云，量化从业者，有多年量化框架和策略的研发经验。欢迎关注！如果需要本地化部署量化投研框架，可以使用 <a href="http://www.jieyu.ai">Zillionare 2.0</a>。它基于Influxdb构建，目前在生产环境下已存储超过35亿条海量行情数据。</p>
 <h2 id="1">1. 核心概念<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>在一般的 web 编程中，我们通常要为视图准备两个 handler，一个响应 GET 请求，提供初始化的界面，供用户操作；另一个响应 POST 请求，接收用户提交的数据，进行处理后，再重定向到新的视图。</p>
 <p>在 Dash 中，上述交互对用户是不可见的。我们准备一个视图，通过 callback 来处理用户的输入。当用户在前端进行输入时，dash 自动将这些消息 (click 事件或者值变更）及时传递给后端，应用在则 callback 中得到这些输入值，完成校验，将结果更新到同一个视图中的某些控件上，或者输出一个新的视图（如果指定的 Output 中绑定了某个 html 控件的 children 属性的话）。</p>
@@ -2643,8 +2645,26 @@
 
 
   
+    
+  
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 17, 2023</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
 
 
   

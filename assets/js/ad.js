@@ -1,6 +1,17 @@
 
+var link="/articles/coursea/cheese/intro/"
+var img = "/assets/img/course_promotion.png"
 
 function insertAd(ad, minParas, minWords){
+    // 如果已经包含了链接，则不再增加广告，以允许手动增加广告
+    var links = document.querySelectorAll("a[href*='" + link + "']");
+    if (links.length > 0){
+        console.log("已添加")
+        return
+    }
+
+    var ad = "<p><a href='" + link + "'target='_blank'>" + "<img src='" + img + "'/>" + "</p>"
+
     var paras = document.querySelectorAll("article p");
     var wordCount = 0
     var paraCount = 0
@@ -29,9 +40,10 @@ function insertAd(ad, minParas, minWords){
 
 document$.subscribe(function() {
     console.log("call in ad")
-    fetch("/assets/ad/ad.txt").then(response =>{
-        return response.text()
-    }).then(ad =>{
-        insertAd(ad, 30, 3000);
-    })
+    insertAd(30, 3000)
+    // fetch("/assets/ad/ad.txt").then(response =>{
+    //     return response.text()
+    // }).then(ad =>{
+    //     insertAd(ad, 30, 3000);
+    // })
 })
