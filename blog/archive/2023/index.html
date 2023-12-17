@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="量化框架、量化策略、量化资源分享">
+        <meta name="description" content="解剖量化框架软件,解读量化策略,分享量化课程与资源 for all quant traders">
       
       
       
         <link rel="canonical" href="http://www.jieyu.ai/blog/archive/2023/">
       
       
-        <link rel="prev" href="../../category/quantlib/">
+        <link rel="prev" href="../../category/strategy/">
       
       
       
@@ -2047,6 +2047,43 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2023-12-16 00:00:00">2023年12月16日</time></li>
+        
+          <li class="md-meta__item">
+            分类于
+            
+              <a href="../../category/strategy/" class="md-meta__link">strategy</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              需要 3 分钟阅读时间
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="_1"><a class="toclink" href="../../2023/12/16/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BD%92%E4%B8%80%E5%8C%96/">基于深度学习的量化策略如何实现归一化？</a></h2>
+<p>基于深度学习的量化策略如何实现归一化？本文首先辨析了归一化、标准化与正则化三个术语，然后分析了min-max, sin, sigmoid等归一化函数在量化中使用时常犯的错误，讲解了如何制作一个好的归一化函数。最后，以一些量化因子归一化示例作为结束。</p>
+
+    <nav class="md-post__action">
+      <a href="../../2023/12/16/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BD%92%E4%B8%80%E5%8C%96/">
+        继续阅读
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2023-12-14 00:00:00">2023年12月14日</time></li>
         
           <li class="md-meta__item">
@@ -2069,63 +2106,7 @@
   <div class="md-post__content md-typeset">
     <h2 id="miniqmt"><a class="toclink" href="../../2023/12/14/%E5%A6%82%E4%BD%95%E5%85%8D%E7%99%BB%E5%BD%95%E9%87%8D%E5%90%AFminiqmt/">如何免登录重启miniqmt?</a></h2>
 <p>实盘交易接口miniqmt在使用中，难免会遇到不稳定的时候。目前，xtquant包还没有提供自动重连的功能。当我们发现xtquant工作不正常的时候，需要重启miniqmt，重建新的连接（一定要使用新的sessionid）。问题是，有些版本的qmt，比如国金的版本，并没有提供免密登录，怎么办？</p>
-<!-- more -->
 
-<p>有一个非公开的方法。国金版的qmt在登录时，会生成一个linkMini的文件。该文件包含了密码及其它信息，当该文件存在于\bin.x64目录下时，miniqmt就能免登录启动。</p>
-<p>linkMini文件是在qmt（注意和miniqmt，即极简模式相对应）登录后生成的，它只存在很短的时间，立刻又被删除了。因此，我们需要把这个文件copy出来：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">:</span><span class="nl">loop</span>
-<span class="k">if</span> <span class="k">exist</span> linkMini <span class="p">(</span>
-    <span class="k">copy</span> linkMini linkMini_copy 
-    <span class="k">echo</span> finish
-    <span class="k">goto</span> <span class="nl">end</span>
-<span class="p">)</span>
-<span class="k">if</span> <span class="k">exist</span> linkmini <span class="p">(</span>
-    <span class="k">copy</span> linkmini linkMini_copy 
-    <span class="k">echo</span> finish
-    <span class="k">goto</span> <span class="nl">end</span>
-<span class="p">)</span>
-<span class="k">echo</span> continue
-timeout /t 0.1 <span class="p">&gt;</span>nul
-<span class="k">goto</span> <span class="nl">loop</span>
-<span class="p">:</span><span class="nl">end</span>
-</code></pre></div></td></tr></table></div>
-<p>这个脚本需要放到\bin.x64目录下运行。copy成功后，脚本就会自动退出。此时，我们也退出QMT，进入到bin.x64目录，复制一份linkMini_copy为linkMini，然后修改其安全属性：</p>
-<p><img alt="50%" src="https://images.jieyu.ai/images/2023/12/linkmini.png" /></p>
-<p>我们需要将system及users用户组下的权限中的允许完全取消，在拒绝部分，选中写入。这样设置之后，该文件变成只读，不会被qmt删除掉。</p>
-<p>此时我们就可以自动重启miniqmt了，因为有参数传递，所以，我们要通过脚本来实现：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">@</span><span class="k">echo</span> on
-<span class="k">title</span> run MiniQmt without logon
-
-<span class="k">set</span> <span class="nv">qmtPath</span><span class="p">=</span>D:\QMT\bin.x64
-<span class="k">CD</span> /D <span class="nv">%qmtPath%</span>
-
-taskkill /F /IM xtMiniQmt.exe /T
-
-<span class="k">start</span> <span class="s2">&quot;&quot;</span> <span class="s2">&quot;xtMiniQmt.exe&quot;</span> linkMini
-</code></pre></div></td></tr></table></div>
-<p>该方案由量化群里小伙伴提出，特别感谢！</p>
     <nav class="md-post__action">
       <a href="../../2023/12/14/%E5%A6%82%E4%BD%95%E5%85%8D%E7%99%BB%E5%BD%95%E9%87%8D%E5%90%AFminiqmt/">
         继续阅读
