@@ -3,7 +3,7 @@ var link="/articles/coursea/cheese/intro/"
 var img = "/assets/img/course_promotion.png"
 
 function insertAd(ad, minParas, minWords){
-    // 如果已经包含了链接，则不再增加广告，以允许手动增加广告
+    // 如果已经包含了链接，则不再增加，以允许手动增加
     var links = document.querySelectorAll("a[href*='" + link + "']");
     if (links.length > 0){
         console.log("已添加")
