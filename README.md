@@ -26,6 +26,11 @@
 
 ## 本站导读
 
+!!! tip "最新文章"
+    - [只廖廖数行，但很惊艳的代码](http://www.jieyu.ai/blog/2023/12/19/%E5%8F%AA%E5%BB%96%E5%BB%96%E6%95%B0%E8%A1%8C%E4%BD%86%E5%BE%88%E6%83%8A%E8%89%B3%E7%9A%84%E4%BB%A3%E7%A0%81/)
+    - [基于深度学习的量化策略如何实现归一化](http://www.jieyu.ai/blog/2023/12/16/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BD%92%E4%B8%80%E5%8C%96/)
+    - [如何免登录重启miniquant](http://www.jieyu.ai/blog/2023/12/14/%E5%A6%82%E4%BD%95%E5%85%8D%E7%99%BB%E5%BD%95%E9%87%8D%E5%90%AFminiqmt/)
+
 !!! info "Python能做大项目"
     关于Python如何搭建项目框架、进行质量管控的一本书，将由机械工业出版社出版。它介绍了如何进行依赖管理、单元测试、持续集成和技术文档撰写。
     <br>[书籍链接](python/best-practice-python/chap01)
@@ -36,4 +41,5 @@
 
 !!! info "产品系列"
     大富翁产品介绍、使用指南<br>[链接](products/)
+
 
