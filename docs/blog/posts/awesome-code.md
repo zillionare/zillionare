@@ -15,6 +15,8 @@ tags:
 
 这个项目只有零行代码，具有轻量级、跨平台、全自动不可描述之美，一举斩获github 50k :star:
 
+<!--more-->
+
 !!! tip
     在 github 上有一个高达 50k stars 的项目，名为 [nocode](https://github.com/kelseyhightower/nocode)。它确实做到了不产生任何 bug：
     
