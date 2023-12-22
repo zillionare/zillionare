@@ -89,3 +89,41 @@ Zillionare官方提供对聚宽数据服务的集成支持。您需要购买聚�
 
 安装和配置详情，请见[东财实盘交易部署指南](docs/products/gm-adapter-installation.md)
 
+## 配置
+
+### 聚宽账号
+```
+JQ_ACCOUNT=notset
+JQ_PASSWORD=passwd
+```
+
+### 邮件通知
+配置邮件通知后，系统自带的一些报警消息会通过邮件发送出来。你可以将邮件配置成邮件列表，以便运维人员可以收到通知。配置后，您也可以在策略中，使用`omicron.notify`里的方法，发出邮件通知。[文档](https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail)
+```
+MAIL_FROM=user@example.com
+MAIL_TO=user@example.com
+MAIL_PASSWORD=passwd
+MAIL_SERVER=127.0.0.1
+```
+### 钉钉通知
+
+邮件通知的实时性不太强，如果对实时性有要求，可以创建钉钉群，在群里配置机器人，然后将token和secret设置在下面的配置中：
+
+```
+DINGTALK_TOKEN=notset
+DINGTALK_SECRET=notset
+```
+
+同样地，该方法也存在于`omicron.notify`下。[文档](https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail)
+
+### 研究界面
+
+如果需要更改研究界面地址的前缀，请更改LAB_USER。如果要变更密码，请更改LAB_PASSWORD。
+```
+LAB_PASSWORD=1234
+LAB_USER=zillionare
+```
+
+## 从这里开始！
+
+可以在研究界面下新建一个notebook，上传以下[notebook](assets/getting-started.ipynb)，开始运行。
