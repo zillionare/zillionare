@@ -1,12 +1,14 @@
 <h1>大富翁量化社区欢迎您！</h1>
 
-如果您是在github中访问的，请打开[官网](https://www.jieyu.ai)以获得更好体验！
-
 大富翁的起名有两重寓意，一是希望这个框架的使用者们，都能实现财富自由。另一方面，大富翁也是一款投资游戏的名字 -- 财富终究只是一场大富翁游戏。在这场游戏中，**努力和才能固然重要，但运气始终是不可或缺的**。
 
 如果您不喜欢运气这个说法，其实它是周期的同义词。您也许会觉得看到一场壮观的狮子座流星雨需要好运气，但天文学家会告诉你，它其实每年11月就会降临一次。看到哈雷彗星更需要运气，因为它每隔75年左右的周期，才会接近地球一次。我们做金融量化，也要懂周期和择时，要顺势而为，这样才能沾到运气。
 
 [![](docs/assets/img/course_promotion.png?1)](https://www.jieyu.ai/articles/coursea/cheese/intro)
+
+您也可以直接点击链接[QQ群](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=h7w1DdAN-x_GWMWG6wo5JK5Sw1dKZDQg&authKey=Sfxbx43Z33qP1zjNXkPCCte3T1CfJ1%2FIn6ta4dzw4VoT3nZZgF5LyNZ%2FjuXRDNFY&noverify=0&group_code=578029127)进群领资料，1000多名小伙伴正在等你！
+
+群里资料目录请见[群共享资料](docs/resources.md)
 
 <!--
 !!! tip "大富翁量化课程本周最后优惠！"
