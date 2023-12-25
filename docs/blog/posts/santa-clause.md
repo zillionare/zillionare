@@ -13,6 +13,7 @@ tags:
 ## 圣诞节行情 Santa Claus Rally
 Santa Claus Rally 是指 12 月 25 日圣诞节前后股市的持续上涨这样一个现象。《股票交易员年鉴》的创始人 Yale Hirsch 于 1972 年创造了这个定义，他将当年最后五个交易日和次年前两个交易日的时间范围定义为反弹日期。
 
+<!--more-->
 
 ![R50](https://images.jieyu.ai/images/2023/12/santa-claus.png)
 

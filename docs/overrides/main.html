@@ -1,0 +1,71 @@
+{# page info #}
+{% set page_title = '' %}
+{% if page and page.meta and page.meta.title %}
+    {% set page_title = page.meta.title %}
+{% elif page and page.title and not page.is_homepage %}
+    {% set page_title = page.title %}
+{% endif %}
+
+{% if page.markdown == '' and page.parent.children %}
+    {% if page and page.meta and page.meta.title %}
+        {% set page_title = page.meta.title %}
+    {% else %}
+        {% set page_title = page.parent.title  %}
+    {% endif %}
+{% endif %}
+
+{% set page_description = '' %}
+{% if page and page.meta and page.meta.description %}
+    {% set page_description = page.meta.description %}
+{% elif page and page.description and not page.is_homepage %}
+    {% set page_description = page.description %}
+{% endif %}
+
+{% set page_url = page.canonical_url %}
+
+{% set page_image = config.site_url ~ "assets/banner.jpg" %}
+{% if page and page.meta and page.meta.banner %}
+    {% set page_image = page.canonical_url ~ page.meta.banner %}
+{% endif %}
+
+{% if page and page.meta and page.meta.tags %}
+    {% set page_tags = page.meta.tags %}
+{% endif %}
+
+{# template #}
+{% extends "base.html" %}
+
+{# title #}
+{% block htmltitle %}
+    <title>{{ page_title }} - {{ config.site_name }}</title>
+{% endblock %}
+
+{# sharing #}
+{% block extrahead %}
+    {% include "partials/ads.html" %}
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ page_title }} - {{ config.site_name }}" />
+    <meta property="og:description" content="{{ page_description }} - {{ config.site_description }}" />
+    <meta property="og:url" content="{{ page_url }}" />
+    <meta property="og:image" content="{{ page_image }}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ page_title }} - {{ config.site_name }}" />
+    <meta name="twitter:description" content="{{ page_description }} - {{ config.site_description }}" />
+    <meta name="twitter:image" content="{{ page_image }}" />
+{% endblock %}
+
+{# navigation #}
+{% block site_nav %}
+    {% include "partials/navigation.html" %}
+{% endblock %}
+
+{# content #}
+{% block content %}
+    {% include "partials/post-content.html" %}
+{% endblock %}

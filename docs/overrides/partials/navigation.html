@@ -1,0 +1,49 @@
+{% if nav %}
+    {% if page.meta and page.meta.hide %}
+        {% set hidden = "hidden" if "navigation" in page.meta.hide %}
+    {% endif %}
+
+    <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" {{ hidden }}>
+        <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
+                {% include "partials/nav.html" %}
+
+                {# show tags on the left side if the right side has toc #}
+                {% if page.toc %}
+                    <br>
+                    <br>
+                    <div class="tag-cloud-nav">
+                        {% include "partials/tag-cloud.html" %}
+                    </div>
+                {% endif %}
+                <br/>
+                {% include "partials/ads_sidebar.html" %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if not "toc.integrate" in features %}
+    {% if page.meta and page.meta.hide %}
+        {% set hidden = "hidden" if "toc" in page.meta.hide %}
+    {% endif %}
+
+    <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" {{ hidden }}>
+        <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
+                {% if not page.is_homepage %}
+                    {% include "partials/toc.html" %}
+                {% endif %}
+
+                {# show tags on the right side if there is no toc there #}
+                {% if page.is_homepage or not page.toc %}
+                    <div class="tag-cloud-toc">
+                        {% include "partials/tag-cloud.html" %}
+                    </div>
+                {% endif %}
+                <br/>
+                {% include "partials/ads_sidebar.html" %}
+            </div>
+        </div>
+    </div>
+{% endif %}

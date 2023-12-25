@@ -1,0 +1,42 @@
+{# the table of content page #}
+<style>
+    .md-typeset .toc {
+        display: none;
+    }
+    .md-typeset .toc label {
+        display: none;
+    }
+    .md-typeset .toc .md-nav {
+        font-size: unset;
+        line-height: 1.6;
+    }
+    .md-typeset .toc .md-nav--secondary {
+        margin-left: -2em;
+    }
+    .md-typeset .toc .md-nav__list {
+        margin: 0;
+    }
+    .md-typeset .toc ul {
+        list-style: none;
+    }
+    @media print {
+        .md-typeset .toc {
+            display: block;
+            page-break-after: always;
+        }
+        .md-typeset .toc .md-nav__link {
+            color: var(--md-typeset-a-color);
+        }
+        .md-typeset .toc .md-nav__link.md-nav__link--active {
+            font-weight: unset;
+        }
+        .md-typeset .toc + * {
+            margin-top: 0;
+        }
+    }
+</style>
+
+<div class="toc">
+    <h2>Table of Content</h2>
+    {% include "partials/toc.html" %}
+</div>
