@@ -15,11 +15,14 @@
 </div>
 </div>
 
-## 量化风云@小红书
+## 千人QQ群
+1000多量化人正在 [QQ群](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=zxYR3Hve6OMGLvEdgV4z_ONxcOF3hjMh&authKey=eoPjHqcwDIyiTQRNE6jGw1ReDajzXnGHtkAgwapdicr9n%2FPStD3FKit2miTi0zhC&noverify=0&group_code=578029127) 里等你！
+
+## 量化风云@小红书 （5万粉）
 我们在[小红书](https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c)上有接近5万人关注，是量化领域第一IP。搜索量化风云，按用户排序，第一个就是我们。欢迎点击[Follow](https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c)
 
 ![Alt text](assets/xhs_lhfy.png)
 
-## 量化风云@知乎
+## 量化风云@知乎 （万粉）
 我们在[知乎](https://www.zhihu.com/people/hbaaron)上有1.2万粉丝。欢迎点击[Follow](https://www.zhihu.com/people/hbaaron)
 
