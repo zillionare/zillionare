@@ -1,0 +1,80 @@
+{% from "partials/random-colors.html" import random_color %}
+
+{% set tags=[] %}
+
+{# scan all pages #}
+{% for p in pages %}
+  {% if p.page.meta.tags %}
+    {# extract tags if available #}
+    {% for tag in p.page.meta.tags %}
+      {% if tags|length %}
+        {% set ns = namespace(found=False) %}
+        {# read more about scope at 
+        https://jinja.palletsprojects.com/en/2.11.x/templates/#assignments
+        #}
+        {# check if tag exists, append to its page list #}
+        {% for item in tags %}
+          {% set t, ps = item %}
+          {% if tag == t %}
+            {% set ns.found = True %}
+            {# use "" to not add spaces in content #}
+            {{ ps.append(p.page) or "" }}
+          {% endif %}
+        {% endfor %}
+        {# if tag doesn't exist, create new page list#}
+        {% if not ns.found %}
+          {{ tags.append((tag, [p.page])) or "" }}
+        {% endif %}
+      {% else %}
+        {{ tags.append((tag, [p.page])) or "" }}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+<style>
+    .tag-cloud {
+        margin-top:1em;
+        margin-bottom: 0.5em;
+    }
+    .tag-cloud-content {
+        padding: 0 0.6rem;
+        {% if page.url == 'tags/' %}
+        text-align: center;
+        {% endif %}
+    }
+</style>
+
+<p class="md-nav tag-cloud">
+  <label class="md-nav__title">Tag cloud</label>
+</p>
+<div class="tag-cloud-content">
+    {% if tags|count %}
+        {% for item in tags %}
+            {% set tag, ps = item %}
+            {# create a link with tag name #}
+            {# font size is based on the page count #}
+            <a class="tag" href="{{ config.site_url }}tags/#{{ tag }}">
+                <span class="tag-name" style="
+                    {% set sz = ps|count %}
+                        {% if sz > 10 %}
+                            {% set sz = 10 %}
+                        {% endif %}
+                    {% if page.url == 'tags/' %}
+                        font-size:{{ 1+sz*0.05}}rem;
+                    {% else %}
+                        font-size:{{ 0.5+sz*0.05}}rem;
+                    {% endif %}
+                    color:{{ random_color( ) }};
+                ">
+                    {{- tag -}} &nbsp;
+                </span>
+                <!--<sup class="tag-count">{{- ps|count -}}</sup>-->
+            </a>
+        {% endfor %}
+    {% else %}
+        <p>
+            No tag found!
+        </p>
+    {% endif %}
+</div>

@@ -1,0 +1,42 @@
+{# edit button #}
+{% if page.edit_url %}
+    <a href="{{ page.edit_url }}" title="{{ lang.t('edit.link.title') }}" class="md-content__button md-icon">
+        {% include ".icons/material/pencil.svg" %}
+    </a>
+{% endif %}
+
+{% include "partials/post-cover.html" %}
+
+<hr class="screen-only">
+
+{% include "partials/post-toc.html" %}
+
+{# show the children pages if no content #}
+{% if page.markdown == '' and page.parent.children %}
+    <h2>Posts in this section:</h2>
+    <ol>
+        {% for obj in page.parent.children %}
+            {% if obj.is_section %}
+                {% set p = obj.children[0] %}
+                <li>
+                    <a href="{{ p.canonical_url }}">
+                        {%- if p.meta and p.meta.title -%}
+                            {{- p.meta.title -}}
+                        {%- else -%}
+                            {{- p.title -}}
+                        {%- endif -%}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+{% else %}
+    {# content #}
+    {{ page.content }}
+{% endif %}
+
+{% if page.markdown == '' and page.parent.children %}
+{% else %}
+    {# comment #}
+    {% include "partials/disqus.html" %}
+{% endif %}

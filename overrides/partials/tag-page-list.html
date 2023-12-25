@@ -1,0 +1,83 @@
+{% set tags=[] %}
+
+{# scan all pages #}
+{% for p in pages %}
+  {% set pg = p.page %}
+  {% set hidden = true if (pg.meta and pg.meta.hide and ('in_recent_list' in pg.meta.hide)) %}
+  {% if pg.meta.tags and not hidden %}
+    {# extract tags if available #}
+    {% for tag in pg.meta.tags %}
+      {% if tags|length %}
+        {% set ns = namespace(found=False) %} 
+        {# read more about scope at
+        https://jinja.palletsprojects.com/en/2.11.x/templates/#assignments 
+        #}
+        {# check if tag exists, append to its page list #}
+        {% for item in tags %}
+          {% set t, ps = item %}
+          {% if tag == t %}
+            {% set ns.found = True %}
+            {# use "" to not add spaces in content #}
+            {{ ps.append(pg) or "" }}
+          {% endif %}
+        {% endfor %}
+        {# if tag doesn't exist, create new page list#}
+        {% if not ns.found %}
+          {{ tags.append((tag, [pg])) or "" }}
+        {% endif %}
+      {% else %}
+        {{ tags.append((tag, [pg])) or "" }}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+<style>
+    .md-typeset .tag summary::before {
+        height: 1rem;
+        width: 1rem;
+        margin-top: 0.25em;
+    }
+</style>
+<div class="tag-page-list">
+  {% for item in tags %}
+    {% set tag, ps = item %}
+    <details class="tag" id={{ tag }}>
+      <summary>
+        {{- tag }} ({{- ps|count -}})
+        <a class="headerlink" href="#{{ tag }}">⚓︎</a>
+      </summary>
+      <ol>
+        {% for p in ps %}
+        <li>
+          <a href="{{ p.canonical_url }}">
+            {%- if p.meta and p.meta.title -%}
+              {{- p.meta.title -}}
+            {%- else -%}
+              {{- p.title -}}
+            {%- endif -%}
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+    </details>
+  {% endfor %}
+</div>
+
+<!-- expand page list for only selected tag -->
+<script>
+  [...document.getElementsByTagName("details")].forEach((D, _, A) => {
+    D.open = false
+    D.addEventListener("toggle", E =>
+      D.open && A.forEach(d =>
+        d != E.target && (d.open = false)
+      )
+    )
+  }
+  )
+
+  var hash = window.location.hash.substr(1);
+  if (hash) {
+    document.getElementById(hash).open = true;
+  }
+</script>

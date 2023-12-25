@@ -1,0 +1,86 @@
+{# the cover page #}
+<style>
+    .md-typeset .cover {
+        margin-bottom: 1em;
+    }
+    .md-typeset .page-category {
+        color: gray;
+        font-size: large;
+    }
+    .md-typeset .page-title {
+        margin-left: -0.0625em;
+    }
+    .md-typeset .page-extra {
+        color: gray;
+        font-size: small;
+    }
+    .md-typeset .page-tags {
+        margin: 0;
+    }
+    .md-typeset .page-date {
+        margin: 0;
+        text-align: end;
+    }
+    @media print {
+        .md-typeset .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .md-typeset .cover + * {
+            margin-top: 0;
+        }
+    }
+</style>
+
+<div class="cover">
+    {# category #}
+    {% if page.meta and page.meta.category %}
+    <span class="page-category">
+        {{ page.meta.category }} »
+    </span>
+    <br>
+    {% endif %}
+
+    {# title #}
+    <h1 class="page-title"> {{ page_title | d(config.site_name, true) }} </h1>
+
+    {# description #}
+    {% if page.meta and page.meta.description %}
+        <p class="page-description">
+            {{ page.meta.description }}
+        </p>
+    {% endif %}
+
+    {% if page.markdown == '' and page.parent.children %}
+
+    {% else %}
+        <div class="page-extra row">
+            <div class="col">
+            {% if page.meta and page.meta.tags %}
+                <p class="page-tags">
+                    {% for tag in page.meta.tags %}
+                        <a class="tag" href="{{ config.site_url }}tags/#{{tag}}">
+                            <span class="tag-name">
+                                #{{ tag }} &nbsp;
+                            </span>
+                        </a>
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            </div>
+            <div class="col">
+                <p class="page-date">
+                    <span>
+                    {% if page.meta.git_revision_date_localized_raw_iso_date %}
+                        {{ lang.t("source.file.date.updated") }}:
+                        {{ page.meta.git_revision_date_localized_raw_iso_date }}
+                    {% endif %}
+                    </span>
+                </p>
+            </div>
+        </div>
+    {% endif %}
+</div>

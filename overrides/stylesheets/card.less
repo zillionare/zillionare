@@ -1,0 +1,138 @@
+.markdown-preview.markdown-preview {
+@label-height: 5vw;
+
+.admon_template {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14);
+    position: relative;
+    margin: 2vw 0;
+    padding: 5vw 1vw 1vw 1vw;
+    border-radius: .2rem;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.05);
+
+    &:before{
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 2vw;
+        height: 3vw;
+        display: block;
+        content: "\00a0\00a0" attr(title);
+        font-weight: 400;
+        width: 100%;
+    }
+}
+
+.admon_purple {
+    .admon_template();
+    border-left: .4vw solid rgba(183, 150, 217, .8);
+    &:before {
+        border-bottom: 1px solid rgba(183, 150, 217, .2);
+        background-color: rgba(183, 150, 217, .1);
+    }
+}
+
+.admon_green {
+    .admon_template();
+    border-left: .4vw solid rgba(0, 191, 165, .8);
+    &:before {
+        border-bottom: 1px solid rgba(0, 191, 165, .2);
+        background-color: rgba(0, 191, 165, .1);
+    }
+}
+
+.admon_blue {
+    .admon_template();
+    border-left: .4vw solid rgba(0, 184, 212, .8);
+    &:before {
+        border-bottom: 1px solid rgba(0, 184, 212, .2);
+        background-color: rgba(0, 184, 212, .1);
+    }
+}
+
+
+.bar_template {
+    &:before {
+        position:absolute;
+        left:20px;
+        top:-15px;
+        color:white;
+        padding:0px 6px 0px 6px;
+    }
+    margin-top:20px;
+    margin-bottom:20px;
+    border:1px solid;
+    position:relative;
+    padding:@label-height/2;
+    border-radius: 5px;
+}
+
+
+.hat {
+    .bar_template();
+    &:before {
+        width: 50%;
+        left: 25%;
+        background-color: #7597ce;
+        content: attr(title);
+        height: 5vw;
+        line-height: 5vw;/* same height and line-height align vertically*/
+        text-align: center;
+    }
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .7);
+    margin: 2vw 0;
+    border:none;
+    border-radius: .2rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding-top: 5vw;
+}
+
+.def {
+    .bar_template();
+    &:before {
+        content: attr(name);
+        background-color:#d8b049;
+    }
+
+    background-color: #f3e9de;
+    border-color: #e6d303;
+  
+}
+
+.thm {//theorem
+    .bar_template();
+    &:before {
+        content: attr(name);
+        background-color:#42b51b;
+    }
+    background-color: #b2f1ce;
+    border-color: #e6d303;
+}
+
+.pf { //proof
+    .bar_template();
+
+    &:before {
+        content: "证明";
+        color: white;
+        background-color: rgb(73, 73, 255);
+    }
+    &:after {
+        content: "得证";
+        color: blue;
+    }
+    background-color:aqua;
+    border-color:lightpink;
+}
+
+.question {//question
+    .bar_template();
+    &:before {
+        content:attr(name);
+        color: white;
+        background-color:rgb(250, 151, 168);
+    }
+    background-color:rgb(252, 210, 217);
+    border-color:rgb(233, 88, 233)
+}
+}
