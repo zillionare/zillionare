@@ -6,7 +6,7 @@ date: 2023-12-14
 tags:
     - quantlib
     - python
-    - qmt
+    - xtquant
 ---
 
 实盘交易接口miniqmt在使用中，难免会遇到不稳定的时候。目前，xtquant包还没有提供自动重连的功能。当我们发现xtquant工作不正常的时候，需要重启miniqmt，重建新的连接（一定要使用新的sessionid）。问题是，有些版本的qmt，比如国金的版本，并没有提供免密登录，怎么办？

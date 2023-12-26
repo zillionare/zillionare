@@ -1,2 +1,5 @@
-# Blog
+---
+hide:
+    - title
+---
 

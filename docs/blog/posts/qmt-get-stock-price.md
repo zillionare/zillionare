@@ -6,11 +6,10 @@ date: 2023-12-21
 lunar: 11 月初九
 canvasWidth: 1200
 categories:
-    - QMT
+    - xtquant
 tags:
-    - QMT
     - 数据源
-    - XTQUANT
+    - xtquant
 ---
 
 !!! tip "学习要点"
