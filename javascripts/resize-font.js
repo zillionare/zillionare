@@ -1,204 +1,188 @@
-// fit-to-width.js
+/**
+ * @license resizeToFit 0.2.0-devel - Resize text until it fits to its container.
+ * ©2019  Mathias Nater, Zürich (mathiasnater at gmail dot com)
+ * https://github.com/mnater/resizeToFit
+ *
+ * Released under the MIT license
+ * http://mnater.github.io/resizeToFit/LICENSE
+ */
 
-/* 
+window.resizeToFit = (function makeResizeToFit() {
+    "use strict";
 
-Fits text to the width of its DOM container using various methods.
+    // Storage for elements to be fitted
+    const collection = new Map();
 
-The core function is ftw_fit(), to which you pass a DOM element or an array of DOM elements. This applies various width adjustment methods, until either succeeding or giving up. Default (which is easily configurable) is to first try CSS font-stretch, then CSS letter-spacing, then finally CSS transform.
+    // The cssHandler-object, created by init()
+    let cssHandler = null;
 
-*/
+    /**
+     * Factory for a CSS handling object
+     * @param {CSSStyleSheet} styleSheet - An existing CSSOM styleSheet
+     */
+    function makeCSSHandler(styleSheet) {
+        // Map selectors to rule-IDs
+        const sel2Id = new Map();
 
-// set up defaults for each method
-const ftw_methods = {
-	"font-stretch": {min: 0.00001, max: 0x8000 - 1/0x10000, bsFunction: ftw_setFontStretch},
-	"font-variation-settings:wdth": {min: -0x8000, max: 0x8000 - 1/0x10000, bsFunction: ftw_setFontVariationSettingsWdth},
-	"letter-spacing": {min: -0.05, max: 1, bsFunction: ftw_setLetterSpacing},
-	"word-spacing": {min: -0.2, max: 20, bsFunction: ftw_setWordSpacing},
-	"transform": {},
-	"ligatures": {}
-};
+        /**
+         * Creates or changes a CSS rule.
+         * @param {string} selector - The selector, where the properties are added to
+         * @param {array} properties - Array of properties. e.g. ["color: red", "font-size: 12px"]
+         */
+        function setProp(selector, properties) {
+            if (sel2Id.has(selector)) {
+                // Add to existing rule
+                const idx = sel2Id.get(selector);
+                properties.forEach(function eachProp(prop) {
+                    const propNameValue = prop.split(":");
+                    const propName = propNameValue[0].trim();
+                    const propValue = propNameValue[1].trim();
+                    styleSheet.cssRules.item(idx).style.setProperty(
+                        propName,
+                        propValue
+                    );
+                });
+            } else {
+                // Create new rule
+                let propString = "";
+                properties.forEach(function eachProp(prop) {
+                    propString += prop + "; ";
+                });
+                const idx = styleSheet.insertRule(
+                    selector + "{" + propString + "}",
+                    styleSheet.cssRules.length
+                );
+                sel2Id.set(selector, idx);
+            }
+        }
 
-// function to check if iterable
-const ftw_ArgIsIterable = object => object != null && typeof object[Symbol.iterator] === 'function';
+        /**
+         * Delete properties for a specified selector
+         * @param {string} selector - The selector, whose properties are deleted
+         * @param {array} properties - Array of properties. e.g. ["color", "font-size"]
+         */
+        function deleteProp(selector, properties) {
+            const idx = sel2Id.get(selector);
+            properties.forEach(function eachProp(prop) {
+                styleSheet.cssRules.item(idx).style.removeProperty(prop);
+            });
+        }
 
-function ftw_setFontStretch (el, val, operation) {
-	el.style.fontStretch = val + "%";
-}
+        return {
+            deleteProp,
+            setProp
+        };
+    }
 
-function ftw_setFontVariationSettingsWdth (el, val, operation) {
-	let fvsString = "'wdth' " + val;
-	if (operation.axes)
-		fvsString += "," + operation.axes;
-	el.style.fontVariationSettings = fvsString;
-}
+    /**
+     * Resize font-size of the element
+     * @param {DOMElement} el - The element whose text is to be resized
+     * @param {string} selector - The selector that found this element
+     * @returns {undefined}
+     */
+    function calculateFontSize(elObj, selector) {
+        // Previously calculated font-size for the same selector are stored in the `resizedSelectors`-Map.
+        const currentFontSize =
+            collection.get(selector).get("resizedFontSize") ||
+            elObj.originalFontSize;
 
-function ftw_setLetterSpacing (el, val) {
-	el.style.letterSpacing = val + "em";
-}
+        /*
+         * Calculate the font-size proportionally to clientWidth and scrollWidth
+         * but don't grow bigger than originalFontSize or currentFontSize
+         */
+        const el = elObj.element;
+        const newFontSize = Math.min(
+            el.clientWidth / el.scrollWidth * elObj.originalFontSize,
+            elObj.originalFontSize,
+            currentFontSize
+        );
 
-function ftw_setWordSpacing (el, val) {
-	el.style.wordSpacing = val + "em";
-}
+        // Store font-size for this selector
+        collection.get(selector).set("resizedFontSize", newFontSize);
+    }
 
-function ftw_Operation (method, min, max, maxDiff, maxIterations, axes) {
-	if (ftw_methods[method]) {
-		this.method = method;
-		this.min = min === undefined ? ftw_methods[method].min : min;
-		this.max = min === undefined ? ftw_methods[method].max : max;
-		this.bsFunction = ftw_methods[method].bsFunction;
-		this.maxDiff = maxDiff === undefined ? 1 : maxDiff; // allows 0
-		this.maxIterations = maxIterations === undefined ? 50 : maxIterations;
-		this.axes = axes;
-	}
-	else
-		this.method = null;
-}
+    /**
+     * Resize each element previously collected by init
+     * @returns {undefined}
+     */
+    function resize() {
+        // Call calculateFontSize() for each element in collection
+        collection.forEach(function eachSelectorC(selector) {
+            // Restart from scratch
+            selector.set("resizedFontSize", 0);
 
-// main function
-function ftw_fit (elements, ftwOperations, targetWidth) {
+            // Set properties to get accurate results for clientWidth and scrollWidth
+            cssHandler.setProp(
+                selector.get("name"),
+                ["overflow: hidden", "display: block", "font-size: " + selector.get("originalFontSize") + "px"]
+            );
 
-	let startTime = performance.now();
-	let config = {
-		operations: ftwOperations || ["font-variation-settings:wdth", "transform"]
-	};
-	let els;
+            // Calculate FontSize for each element
+            selector.get("elements").forEach(function eachElement(elObj) {
+                calculateFontSize(elObj, selector.get("name"));
+            });
 
-	// get all elements selected by the string elements
-	if (typeof elements === "string")
-		els = document.querySelectorAll(elements);
-	// is elements already a NodeList or array of elements? if so, fine; otherwise make it an array
-	else if (ftw_ArgIsIterable(elements))
-		els = elements;
-	else
-		els = [elements]; // convert to an array
+            // Remove properties needed for calculation, restoring original values
+            cssHandler.deleteProp(selector.get("name"), ["overflow", "display"]);
+        });
 
-	// user config?
-	if (!Array.isArray(config.operations)) {
-		if (!config.operations)
-			config.operations = ["font-stretch"];
-		else if (typeof config.operations === "string" || typeof config.operations === "object")
-			config.operations = [config.operations];
-	}
+        // Repaint
+        collection.forEach(function eachSelectorP(selector) {
+            if (selector.get("originalFontSize") !== selector.get("resizedFontSize")) {
+                cssHandler.setProp(
+                    selector.get("name"),
+                    ["font-size: " + selector.get("resizedFontSize") + "px"]
+                );
+            }
+        });
+    }
 
-	// for each element supplied by the user
-	for (let el of els)
-	{
-		let success = false;
-		config.targetWidth = targetWidth || el.clientWidth;
-		el.style.whiteSpace = "nowrap";
-		el.style.width = "max-content";
-		el.style.transform = "none";
+    /**
+     * Create a styleSheet and collect all elements. Then call resize().
+     * @param {array} selectors - An array of selectors that need to be resized
+     * @returns {undefined}
+     */
+    function init(selectors) {
+        // Let's create a new style sheet where we put the styles
+        const styleEl = document.createElement("style");
+        styleEl.id = "resizeToFit_Styles";
+        styleEl.type = "text/css";
+        document.head.appendChild(styleEl);
 
-		// for each operation specified by the user
-		for (let op of config.operations) {
-			let operation;
-			if (typeof op === "string")
-				operation = new ftw_Operation(op);
-			else
-				operation = new ftw_Operation(op.method, op.min, op.max, op.maxDiff, op.maxIterations, op.axes);
+        // Create cssHandler to easily manipulate the style sheet
+        cssHandler = makeCSSHandler(styleEl.sheet);
 
-			switch (operation.method) {
-				case "transform": ftw_fit_transform (el, config); break;
-				case "ligatures": ftw_fit_ligatures (el, config); break;
-				case "font-stretch":
-				case "font-variation-settings:wdth":
-				case "letter-spacing":
-				case "word-spacing":
-					success = ftw_fit_binary_search (el, operation, config.targetWidth);
-					break;
-				// ignore unrecognized methods
-			}
+        // Find all elements according to user provided selectors
+        selectors.forEach(function eachSelector(selector) {
+            const nodeList = document.querySelectorAll(selector);
+            const selectorData = new Map();
+            let originalSelectorFontSize = 0;
+            selectorData.set("name", selector);
+            selectorData.set("elements", []);
+            selectorData.set("resizedFontSize", 0);
+            nodeList.forEach(function eachElement(element) {
+                // Save original font-size to each element object
+                const computedStyles = window.getComputedStyle(element);
+                const originalElementFontSize = parseFloat(
+                    computedStyles.fontSize
+                );
+                const elObj = Object.create(null);
+                elObj.element = element;
+                elObj.originalFontSize = originalElementFontSize;
+                originalSelectorFontSize = Math.max(
+                    originalSelectorFontSize,
+                    originalElementFontSize
+                );
+                selectorData.get("elements").push(elObj);
+            });
+            selectorData.set("originalFontSize", originalSelectorFontSize);
+            collection.set(selector, selectorData);
+        });
+        resize();
+    }
 
-			if (success)
-			{
-				console.log (operation.method);
-				break;
-			}
-		}
-
-		// reset element width
-		el.style.width = config.targetWidth+"px"; // TODO: revert it to its original getComputedStyle() width, e.g. "10em"?
-	}
-
-	config.elapsedTime = performance.now() - startTime;
-	return config;
-}
-
-function ftw_fit_binary_search (el, operation, targetWidth) {
-
-	let iterations = 0;
-	let min = operation.min, max = operation.max;
-	let minClientWidth, maxClientWidth;
-	let done = false;
-	let success = false;
-
-	// checks before binary search
-	if (min > max)
-		done = true;
-	else {
-		operation.bsFunction(el, min, operation); // above the min?
-		if ((minClientWidth=el.clientWidth) >= targetWidth) {
-			done = true;
-			if (minClientWidth == targetWidth)
-				success = true;
-		}
-		else {
-			operation.bsFunction(el, max, operation); // below the max?
-			if ((maxClientWidth=el.clientWidth) < targetWidth) {
-				done = true;
-				if (maxClientWidth == targetWidth)
-					success = true;
-			}
-			else if (minClientWidth >= maxClientWidth) {// check width at min != width at max
-				done = true;
-			}
-		}
-	}
-
-	// the binary search
-	while (!done) {
-
-		let val = 0.5 * (min+max);
-		operation.bsFunction(el, val, operation); // set the CSS
-		let diff = el.clientWidth - targetWidth; // are we under or over?
-		if (diff <= 0) {
-			if (diff > -operation.maxDiff) { // SUCCESS: <maxDiff
-				console.log ("success, diff="+diff);
-				success = true;
-				done = true;
-			}
-			else
-				min = val; // we guessed too low
-		}
-		else
-			max = val; // we guessed too high
-
-		// next iteration
-		iterations++;
-		if (iterations >= operation.maxIterations) { // FAIL: wght did not converge
-			done = true;
-			if (diff>0) // better to leave the element at minWdth rather than > targetWidth
-				operation.bsFunction(el, min, operation);
-		}
-	}
-
-	return success;
-}
-
-
-function ftw_fit_transform (el, config) {
-	el.style.transformOrigin = "left";
-	el.style.transform = "scale(" + (config.targetWidth / el.clientWidth) + ",1)";
-}
-
-
-function ftw_fit_ligatures (el, config) {
-	el.style.fontFeatureSettings = "'liga' 1, 'dlig' 1";
-	// EXPERIMENTAL
-	// * to reduce width, should turn on ligatures
-	// * to increase width, should turn off ligatures
-	// * for both, should check the effect on width
-	// * should really add these to any existing settings using getComputedStyle
-	// Good candidate string: "VAMPIRE HELL" set in Skia
-}
-
+    return {
+        init,
+        resize
+    };
+}());
