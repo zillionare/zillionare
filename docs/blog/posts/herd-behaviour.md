@@ -4,10 +4,9 @@ date: 2023-12-27
 motto: 凌晨两点 我看到海棠花未眠
 lunar: 冬月十六
 categories:
-    - quantlib
+    - strategy
 tags:
-    - quantlib
-    - zarr
+    - strategy
 ---
 
 ![R50](https://images.jieyu.ai/images/2023/12/structual-modeling-herd-behaviour.png)
