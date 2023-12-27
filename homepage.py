@@ -17,7 +17,7 @@ def get_excerpt(text: str):
     excerpt = excerpt.replace("#", "").replace("\n", "<br>")
 
     # remove img
-    excerpt = re.sub(r"\!\[.*\]\(.*\)", "", excerpt)
+    # excerpt = re.sub(r"\!\[.*\]\(.*\)", "", excerpt)
 
     return excerpt
 
