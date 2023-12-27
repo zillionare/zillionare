@@ -4,6 +4,9 @@
 
 ## 近期文章
 
+!!! info "xtquant 中的板块数据"
+    !!! tip 笔记要点1. xtquant 中有哪些板块和板块分类？<br>    2. 如何获取板块的成份股？<br>    3. 如何获取指数的行情数据？<br><text-right>发表于 2023-12-27 [阅读](./docs/blog/posts/qmt-get-sector.md)</text-right>
+
 !!! info "Sharpe 5.5!遗憾规避因子"
     如果在你买入之后，股价下跌，你会在第二天急着抛吗？反之，如果在你卖出之后，股价上涨，你会反手追入吗？先别急着回答，我们来看看科学研究的结论是怎样的。关于这类问题，都是行为金融学研究的范畴。具体到这个场景，我们可以运用遗憾理论来解释。遗憾理论，又称遗憾规避理论（ Fear of Regret Theory），是行为金融学的重要理论之一，该理论认为，非理性的投资者在做决策时，会倾向于避免产生后悔情绪并追求自豪感，避免承认之前的决策失误。<br><text-right>发表于 2023-12-26 [阅读](./docs/blog/posts/regret.md)</text-right>
 
@@ -14,7 +17,7 @@
     个股的顶底强弱比较难以把握，它们的偶然性太强。董事长有可能跑路，个股也可能遇到突发利好（比如竞争对手仓库失火）。在个股的顶底处，**情绪占据主导地位，理性退避次席，技术指标出现钝化**，进入<red>现状不可描述，一切皆有可能</red>的状态。但是，行业指数作为多个随机变量的叠加，就会出现一定的规律性（受A4系统性影响的偶然性我们先排除在外，毕竟也不是天天有A4）。这是因子分析和技术分析可以一展身手的地方。<br><text-right>发表于 2023-12-24 [阅读](./docs/blog/posts/nh-nl.md)</text-right>
 
 !!! info "球队和硬币因子"
-    <br><br>球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以...<br><text-right>发表于 2023-12-23 [阅读](./docs/blog/posts/hockey-and-coin.md)</text-right>
+    球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以上的引用。这篇论文名为《Asset Pricing and Sports Betting》。<br><text-right>发表于 2023-12-23 [阅读](./docs/blog/posts/hockey-and-coin.md)</text-right>
 
 !!! info "Connor's RSI 我愿称之为年度最强指标"
     人们发明了各种技术指标。这些技术指标中，以价格因子居多，比如均线、ATR、MACD， RSI, JDK等。由于拥挤效应的存在，多数因子的有效性也越来越弱，或者说，它们的使用范围也越来越局限。但有一个因子，是基于著名的RSI的改进版。如果说在多因子时代，我们可以仅凭一个因子就构建出策略，并且还很有可能跑赢市场的话，它是不二之选。<br><text-right>发表于 2023-12-22 [阅读](./docs/blog/posts/connors-rsi.md)</text-right>
@@ -31,5 +34,3 @@
 !!! info "只廖廖数行，但很惊艳的代码"
     既然c/java/python等语言的索引都从零开始，因此我们的盘点也从一行代码也没有的项目开始 0行: No Code这个项目只有零行代码，具有轻量级、跨平台、全自动不可描述之美，一举斩获github 50k :star:<br><text-right>发表于 2023-12-19 [阅读](./docs/blog/posts/awesome-code.md)</text-right>
 
-!!! info "基于深度学习的量化策略如何实现归一化？"
-    基于深度学习的量化策略如何实现归一化？本文首先辨析了归一化、标准化与正则化三个术语，然后分析了min-max, sin, sigmoid等归一化函数在量化中使用时常犯的错误，讲解了如何制作一个好的归一化函数。最后，以一些量化因子归一化示例作为结束。<br><br><text-right>发表于 2023-12-16 [阅读](./docs/blog/posts/normalization.md)</text-right>
