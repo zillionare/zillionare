@@ -4,6 +4,9 @@
 
 ## 近期文章
 
+!!! info "200倍速！基于 HDF5 的证券数据存储"
+    ![R50](https://images.jieyu.ai/images/2023/12/hdf5-book.jpg)去年 15 日的笔记挖了个坑，给出了量化数据和因子的存储方案技术导图。这一篇笔记就开始填坑。即使我们购买了在线数据服务，比如 tushare, 聚宽的账号，我们仍然要构建自己的本地存储，为什么？<br><text-right>发表于 2024-01-02 [阅读](./docs/blog/posts/quantlib/hdf5.md)</text-right>
+
 !!! info "年终特稿：这个指标我愿称之为年度最强发现"
     如果说在多因子时代，我们可以仅凭一个因子就构建出策略，并且还很有可能跑赢市场的话，这个因子就是不二之选。<br><text-right>发表于 2023-12-29 [阅读](./docs/blog/posts/strategy/connors-rsi.md)</text-right>
 
@@ -30,7 +33,4 @@
 
 !!! info "量化数据免费方案之 QMT"
     !!! tip "学习要点"<br>    - xtquant 提供了数据和交易接口<br>    - xtquant 可以独立于 QMT 之外运行<br>    - download_history_data<br>    - download_history_data2<br>    - get_market_data<br><text-right>发表于 2023-12-21 [阅读](./docs/blog/posts/quantlib/qmt-get-stock-price.md)</text-right>
-
-!!! info "量化交易中的遗传算法"
-     什么是遗传算法？- 遗传算法利用自然选择的概念来确定问题的最佳解决方案。<br>- 遗传算法通常用作优化器，调整参数使得目标最优<br>- 遗传算法可以独立 | 在人工神经网络的构建中使用。<br><text-right>发表于 2023-12-20 [阅读](./docs/blog/posts/strategy/genetic-algorithms.md)</text-right>
 
