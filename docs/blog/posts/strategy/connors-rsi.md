@@ -11,15 +11,6 @@ tags:
     - 技术指标
 ---
 
-<div style="float:right;
-            font-size: 10vw;
-            color: color-mix(in srgb, #2898AE, white 60%);
-            transform:rotate(45deg);
-            text-align: center;
-            margin: 4vw 0vw;">
-    Connor's<br>RSI
-</div>
-
 如果说在多因子时代，我们可以仅凭一个因子就构建出策略，并且还很有可能跑赢市场的话，这个因子就是不二之选。
 
 <!--more-->
