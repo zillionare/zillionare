@@ -1,9 +1,19 @@
 import glob
+import os
 import re
 
 import arrow
 import frontmatter
 
+
+def change_last_update():
+    """主页最后更新日期要通过修改并提交docs/index.md来实现"""
+    index_file = os.path.join(os.path.dirname(__file__), "docs/index.md")
+    content = '{%\n    include-markdown "../README.md"\n%}\n'
+    now = arrow.now()
+    content += f'<!--{now.format("YYYY-MM-DD")}-->\n'
+    with open(index_file, 'w') as f:
+        f.write(content)
 
 def get_excerpt(text: str):
     pat = r"(.+)<!--more-->"
@@ -76,6 +86,8 @@ def build_index():
         f.write(intro)
         f.write(latest)
         f.write("\n\n")
+
+    change_last_update()
 
 build_index()
 
