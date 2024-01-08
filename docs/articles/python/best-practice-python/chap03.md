@@ -28,7 +28,7 @@ Python解释器本身也可以看成一个普通的应用程序。因此，当�
 
 在这一章我们主要讲如何构建虚拟运行环境，这样可以完全解决运行时与其它应用程序之间可能发生的依赖地狱问题。然而，依赖地狱还有其它多种表现形式，我们后面还会在讲述Poetry那一章再探讨这个问题。
 # 2. 使用虚拟环境逃出依赖地狱
-Python的虚拟环境方案可谓源远流长，种类繁多。如果你接触Python已经有一段时间了，那么你很可能听说过annaconda, virutalenv, venv, pip, pipenv, poetry, pyenv, pyvenv, pyenv-virtualenv, virtualenvwrapper, pyenv-virtualenvwrapper等相似概念。   
+Python的虚拟环境方案可谓源远流长，种类繁多。如果你接触Python已经有一段时间了，那么你很可能听说过annaconda, virutalenv, venv, pip, pipenv, poetry, pyenv, pyvenv, pyenv-virtualenv, virtualenvwrapper, pyenv-virtualenv wrapper等相似概念。   
 
 !!! Info
     在Zen of Python之中提到的一个重要原则就是：

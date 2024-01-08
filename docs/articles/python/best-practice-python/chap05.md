@@ -1,5 +1,24 @@
 ---
-title: 05 Poetry 项目管理
+title: "05 Poetry: 项目管理的诗和远方"
+slug: poetry-for-project-management
+date: 2023-12-26
+categories:
+    - Python
+tags:
+    - Python
+    - Poetry
+    - ppw
+puppeteer:
+    format: "A4"
+    scale: 1
+    margin:
+        top: 2.5 cm
+        right: 2cm
+        bottom: 2.5 cm
+        left: 2cm
+    displayHeaderFooter: true
+    headerTemplate: '<div style="width:100%; text-align:center; border-bottom: 1pt solid #eeeeee; margin: 20px 10px 10px; font-size: 10pt;padding-bottom:10px"><span class=title></span></div>'
+    footerTemplate: '<div style="display:flex; justify-content:space-around;width:100%;border-top: 1pt solid #eeeeee; margin: 10px 10px 20px; font-size: 8pt;color:#aaa"><div style="width:30%"><span class=pageNumber></span>/<span class=totalPages></span></div><div style="width:30%">大富翁量化课程</div><div style="width:30%">宽粉（quantfans_99)</div>'
 ---
 
 上一章里，我们通过 ppw 生成了一个规范的 python 项目，对初学者来说，许多闻所未闻、见所未见的概念和名词扑面而来，不免让人一时眼花缭乱，目不暇接。然而，如果我们不从头讲起，可能读者也无从理解，ppw 为何要应用这些技术，又倒底解决了哪些问题。
@@ -72,7 +91,7 @@ $ python foo/bar/data.py
 
 我希望这个程序在 macos, windows 和 linux 等操作系统上都能运行，并且可以运行在从 python 3.6 到 3.9 的所有版本上。
 
-这里出现第一个问题。你需要准备 12 个环境：三个操作系统，每个操作系统上 4 个 python 版本，而且还要考虑如何进行"可复现的部署"的问题。在通过 ppw 创建的项目中，这些仅仅是通过修改 tox.ini 和.github\dev.yaml 中相关配置就可以做到了。但在没有使用 ppw 之前，我只能这么做：
+这里出现第一个问题。我需要准备 12 个环境：三个操作系统，每个操作系统上 4 个 python 版本，而且还要考虑如何进行"可复现的部署"的问题。在通过 ppw 创建的项目中，这些仅仅是通过修改 tox.ini 和.github\dev.yaml 中相关配置就可以做到了。但在没有使用 ppw 之前，我只能这么做：
 
 在三台分别安装有 macos， windows 和 ubuntu 的机器上，分别创建 python 3.6 到 python 3.9 的虚拟环境，然后安装相同的依赖。首先，我通过`pip freeze`把开发机器上的依赖抓取出来：
 
@@ -183,7 +202,7 @@ setup(
 
 这四个问题，就是我们这一章要讨论的主题。我们将以 Poetry 为主要工具，结合 semantic versioning 来串起这一话题的讨论。
 
-# 1. SEMANTIC VERSIONING（基于语义的版本管理）
+## 1. SEMANTIC VERSIONING（基于语义的版本管理）
 
 在软件开发领域中，我们常常对同一软件进行不断的修补和更新，每次更新，我们都保留大部分原有的代码和功能，修复一些漏洞，引入一些新的构件。
 
@@ -191,11 +210,11 @@ setup(
 
 忒修斯船问题最早出自公元一世纪普鲁塔克的记载。它描述的是一艘可以在海上航行几百年的船，只要一块木板腐烂了，它就会被替换掉，以此类推，直到所有的功能部件都不是最开始的那些了。现在的问题是，最后的这艘船是原来的那艘忒修斯之船呢，还是一艘完全不同的船？如果不是原来的船，那么从什么时候起它就不再是原来的船了？
 
-忒修斯船之问，发生在很多领域。象 IBM 这样的百年老店，不仅 CEO 换了一任又一任，就连股权也在不停地变更。可能很少人有在意，今天的 IBM，跟百年之前的 IBM 还是不是同一家 IBM，就象我们很少关注，人类是从什么时候起，不再是动物一样。又比如，如果有一家创业公司，当初吸引你加入，后来创始人变现走人了，尽管公司名字可能没换，但公司新进了管理层和新同学，业务也可能发生了一些变化。这家公司，还是你当初加入的公司吗？你是要选择潇洒的离开，还是坚持留下来？
+忒修斯船之问，发生在很多领域。象 IBM 这样的百年老店，不仅 CEO 换了一任又一任，就连股权也在不停地变更。可能很少人有在意，今天的 IBM，跟百年之前的 IBM 还是不是同一家 IBM，就象我们很少关注，人类是从什么时候起，不再是智人一样。又比如，如果有一家创业公司，当初吸引你加入，后来创始人变现走人了，尽管公司名字可能没换，但公司新进了管理层和新同学，业务也可能发生了一些变化。这家公司，还是你当初加入的公司吗？你是要选择潇洒的离开，还是坚持留下来？
 
 在软件开发领域中，我们更是常常遇到同样的问题。每遇到一个漏洞（bug），我们就更换一块"木板"。随着这种修补和替换越来越多，软件也必然出现忒修斯船之问：现在的软件还是不是当初的软件，如果不是，那它是在什么时候不再是原来的软件了呢？
 
-当然，忒修斯船之问有着深刻的哲学内涵。我们在软件领域中，尽管也遇到同样的场景，但我们需要的回答就要简单很多：
+忒修斯船之问有着深刻的哲学内涵。我们在软件领域中，尽管也会遇到类似的问题，但回答就容易很多：
 
 软件应该如何向外界表明它已发生了实质性的变化；生态内依赖于该软件的其它软件，又应该如何识别软件的蜕变呢？
 
@@ -237,7 +256,7 @@ Sematic versioning 提议用一组简单的规则及条件来约束版本号的�
 
 此外，从 0.1 到 1.0 之前的每一个 minor 版本，都被认为在 API 上是不稳定的，都可能是破坏性的更新。因此，如果你的程序使用了还未定型到 1.0 版本的第三方库，你需要谨慎地声明依赖关系。而我们自己如果作为开发者，在软件功能稳定下来之前，不要轻易地将版本发布为1.0。
 
-# 2. POETRY：简洁清晰的项目管理工具
+## 2. POETRY：简洁清晰的项目管理工具
   
 ![](http://images.jieyu.ai/images/202104/1-BUUIee-t1I2eqTm0RtDNHQ.jpeg){width="50%"}
 
@@ -259,8 +278,7 @@ Sematic versioning 提议用一组简单的规则及条件来约束版本号的�
 Poetry 解决了所有这些问题（除了案例中的第一个，该问题要通过 tox 和 CI 来解决）。它提供了版本管理、依赖解析、构建和发布的一站式服务，并将所有的配置，集中到一个文件中，即 pyproject.toml。此外，Poetry 还提供了一个简单的工程创建向导。不过这个向导的功能仍然过于简单，我们的推荐则是使用上一章介绍的 python project wizard。
 
 !!! Info
-    实际上 Poetry 还会用到另一个文件，即 poetry.lock。这个文件并非独立文件，而是 Poetry 根据 pyproject.toml 生成的、锁定了依赖版本的最终文件。它的主要作用，是在一组开发者之间，帮助其它开发者省去依赖解析的时间。
-    
+    实际上 Poetry 还会用到另一个文件，即 poetry.lock。这个文件并非独立文件，而是 Poetry 根据 pyproject.toml 生成的、锁定了依赖版本的最终文件。它的主要作用，是在一组开发者之间，帮助其它开发者省去依赖解析的时间。<br>
     因此，当你通过 poetry 向项目中增加（或者移除）了新的依赖时，该文件会被更新。您应该把该文件也提交到代码仓库中。但是，该文件并不会发布给最终用户。
 
 
@@ -391,7 +409,7 @@ sample = 'sample.cli:main'
 
 在示例代码中，还有 [tool.black] 和 [tool.isort] 两个小节，分别是 black（代码格式化工具）和 isort（将导入进行排序的工具）的配置文件。它们是对 pyproject.toml 的扩展，并不是 poetry 所要求的。
 
-## 2.1. 版本管理
+### 2.1. 版本管理
 poetry 为我们的 package 提供了基于语义 (semantic version) 的版本管理功能。它通过`poetry version`这个命令，让我们查看 package 的版本，并且实现版本号的升级。
 
 假设您已经使用 [python project wizard] 生成了一个工程框架，那么应该可以在根目录下找到 pyproject.toml 文件，其中有一项：
@@ -454,10 +472,10 @@ Bumping version from 0.1.1a1 to 0.1.1
 poetry 暂时还没有提供从 alpha 转到 beta 版本系列的命令。如果有此需要，您需要手工编辑 pyproject.toml 文件。
 
 除了 poetry version prerelease 之外，我们还注意到上面列出的 premajor, preminor 和 prepatch 选项。它们的作用也是将版本号修改为 alpha 版本系列，但无论你运行多少次，它们并不会象 prerelease 选项一样，递增 alpha 版本号。所以在实际的 alpha 版本管理中，似乎只使用``poetry version prerelease``就可以了。
-## 2.2. 依赖管理
-### 2.2.1. 实现依赖管理的意义
+### 2.2. 依赖管理
+#### 2.2.1. 实现依赖管理的意义
 我们已经通过大量的例子说明了依赖管理的作用。总结起来，依赖管理不仅要检查项目中声明的直接依赖之间的冲突，还要检查它们各自的传递依赖之间的彼此兼容性。
-### 2.2.2. Poetry 进行依赖管理的相关命令
+#### 2.2.2. Poetry 进行依赖管理的相关命令
 在 Poetry 管理的工程中，当我们向工程中加入（或者更新）依赖时，总是使用``poetry add``命令，比如：``poetry add pytest``
 
 这里可以指定，也可以不指定版本号。命令在执行时，会对``pytest``所依赖的库进行解析，直到找到合适的版本为止。如果您指定了版本号，该版本与工程里已有的其它库不兼容的话，命令将会失败。
@@ -589,7 +607,7 @@ optional = true
 !!! Info
     注意，通过上述命令生成的 toml 文件的内容可能与 python project wizard 当前版本生成的有所不同。但 python project wizard 的未来版本最终将使用同样的语法。
 
-### 2.2.3. poetry 依赖解析的工作原理
+#### 2.2.3. poetry 依赖解析的工作原理
 
 在上一节，我们简单地介绍了如何使用 poetry 来向我们的项目中增加依赖。我们强调了依赖解析的困难，但并没有解释 poetry 是如何进行依赖解析的，它会遇到哪些困难，可能遭遇什么样的失败，以及应该如何排错。对于初学者来说，这往往是配置 poetry 项目时最困难和最耗时间的部分。
 
@@ -713,7 +731,7 @@ Package operations: 0 installs, 0 updates, 3 removals
 
 可以看出，不仅是 gino 本身被卸载，它的传递依赖 -- asyncpg 和 sqlalchemy 也被移除掉了。这是 pip 做不到的。
 
-## 2.3. 虚拟运行时
+### 2.3. 虚拟运行时
 
 Poetry 自己管理着虚拟运行时环境。当你执行``poetry install``命令时，Poetry 就会安装一个基于 venv 的虚拟环境，然后把项目依赖都安装到这个虚拟的运行环境中去。此后，当你通过 poetry 来执行其它命令时，比如``poetry pytest``，也会在这个虚拟环境中执行。反之，如果你直接执行``pytest``，则会报告一些模块无法导入，因为你的工程依赖并没有安装在当前的环境下。
 
@@ -721,12 +739,12 @@ Poetry 自己管理着虚拟运行时环境。当你执行``poetry install``命�
 
 但是 Poetry 的创建虚拟环境的功能也是有用的，主要是在测试时，通过 virtualenv/venv 创建虚拟环境速度非常快。
 
-## 2.4. 构建发行包
-### 2.4.1. Python 构建标准和工具的变化
+### 2.4. 构建发行包
+#### 2.4.1. Python 构建标准和工具的变化
 在 poetry 1.0 发布之前，打包一个 python 项目，需要准备 MANIFEST.in, setup.cfg, setup.py，makefile 等文件。这是 PyPA(python packaging authority) 的要求，只有遵循这些要求打出来的包，才可以上传到 pypi.org，从而向全世界发布。
 
 但是这一套系统也有不少问题，比如缺少构建时依赖声明，自动配置，版本管理。因此，[PEP 517](https://peps.python.org/pep-0517/) 被提出，然后基于 PEP 517, PEP 518 等一系列新的标准，Sébastien Eustace 开发了 poetry。
-### 2.4.2. 基于 Poetry 进行发行包的构建
+#### 2.4.2. 基于 Poetry 进行发行包的构建
 
 我们通过运行``poetry build``来打包，打包的文件约定俗成地放在 dist 目录下。
 
@@ -744,19 +762,19 @@ $ poetry publish
 ```
 上面的命令分别对发布到 test pypi 和 pypi 进行了演示。默认地 Poetry 支持 PyPI 发布，所以有些参数就不需要提供了。当然，一般情况下，我们都不应该直接运行`poetry publish`命令来发布版本。版本的发布，都应该通过 CI 机制来进行。这样的好处时，可以保证每次发布，都经过了完整的测试，并且，构建环境是始终一致的，不会出现因构建环境不一致，导致打出来的包有问题的情况。
 
-## 2.5. 其它重要的 Poetry 命令
+### 2.5. 其它重要的 Poetry 命令
 我们已经介绍了 poetry add, poetry remove, poetry show, poetry build, poetry publish, poetry version 等命令。还有一些命令也值得介绍。
-### 2.5.1. poetry lock
+#### 2.5.1. poetry lock
 该命令将进行依赖解析，锁定所有的依赖到最新的兼容版本，并将结果写入到 poetry.lock 文件中。通常，运行 poetry add 时也会生成新的锁定文件。
 
 在对代码执行测试、CI 或者发布之前，务必要确保 poetry.lock 存在，并且这个文件也应该提交到代码仓库中，这样所有的测试，CI 服务器，你的同侪开发者构建的环境才会是完全一致的。
 
-### 2.5.2. poetry export
+#### 2.5.2. poetry export
 
 ```
 $ poetry export -f requirements.txt --output requirements.txt
 ```
-### 2.5.3. poetry config
+#### 2.5.3. poetry config
 我们可以通过 poetry config --list 来查看当前配置项：
 ```
 cache-dir = "/path/to/cache/directory"
