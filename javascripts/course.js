@@ -1,6 +1,6 @@
 
-var link="/articles/coursea/cheese/intro/"
-var img = "/assets/img/course_promotion.png"
+var link="/articles/coursea/24lectures/intro/"
+var img = "https://images.jieyu.ai/images/hot/course_promotion.jpg"
 
 function insertAd(minParas, minWords){
     // 如果已经包含了链接，则不再增加，以允许手动增加
