@@ -1,9 +1,9 @@
 ---
 date: 2023-12-24
 categories:
-    - factor
+    - 因子
 tags:
-    - factor
+    - 因子
     - strategy
 motto: 你当像鸟飞向你的山
 title: 净新高占比因子

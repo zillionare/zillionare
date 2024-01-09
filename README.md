@@ -1,7 +1,9 @@
-
 大富翁 (Zillionare)是开源量化框架，提供数据本地化、回测、交易接入和量化分析底层库支持等一站式服务。<br><br>大富翁的起名有两重寓意，一是希望她的使用者们都能实现财富自由。另一方面，大富翁也是一款投资游戏的名字 -- 财富终究只是一场大富翁游戏，以示提醒大家，不要忽视运气的因素。<br><br>在投资中的运气，其实就是周期。千万不要做逆周期的投资。<br><br>Zillionare 最新版本是2.0，提供了海量数据存储（在我们的生产环境下，存储超过30亿条记录）和高性能访问能力。Zillionare是开源框架，您可以自行研究、拓展该框架。我们也提供付费服务。比如，2.0的Docker-compse 安装版本我们目前只对学员提供。<br><br>关于Zillionare的更多细节请访问[链接](articles/products/)
 
 ## 最新文章
+
+!!! info "Z-score 因子的深入思考"
+    最新（2024 年 1 月）出版的 SC 技术分析（Techical Analysis of Stock & Commodities）的第 4 条文章给到了 Z-score，原文标题为《Z-score: How to use it in Trading》。今天的笔记，就借此机会，同步推出我们对通过Z-score来构建量化因子的一些观点。<br><text-right>发表于 2024-01-04 [阅读](./docs/blog/posts/strategy/z-score-factor.md)</text-right>
 
 !!! info "存了50TB！pyarrow + parquet"
     <br>在上一篇笔记中，我们指出，如果我们只在日线级别上存储行情数据和因子，HDF5 无论如何都是够用了。即使是在存储了 40 年分钟线的单个股数据集上，查询时间也只花了 0.2 秒 -- 这个速度已经足够快了，如果我们不需要在分钟级别上进行横截面数据查询的话。<br><br><text-right>发表于 2024-01-03 [阅读](./docs/blog/posts/quantlib/pyarrow-plus-parquet.md)</text-right>
@@ -29,9 +31,6 @@
 
 !!! info "球队和硬币因子"
     球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以上的引用。这篇论文名为《Asset Pricing and Sports Betting》。<br><text-right>发表于 2023-12-23 [阅读](./docs/blog/posts/strategy/hockey-and-coin.md)</text-right>
-
-!!! info "QMT/XtQuant 之开发环境篇"
-    !!! tip 笔记要点<br>    1. XtQuant 获取及安装<br>    2. XtQuant 工作原理 （图2）<br>    3. 版本和文档一致性问题 （图3）<br>    4. 使用 VsCode 远程开发<br><text-right>发表于 2023-12-22 [阅读](./docs/blog/posts/quantlib/work-with-xtquant.md)</text-right>
 
 
 

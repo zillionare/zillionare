@@ -7,8 +7,12 @@ site_description: 解剖量化框架软件,解读量化策略,分享量化课程
 
 nav:
   - 首页: 'blog'
-  - 量化课程:
-    - ... | articles/coursea/cheese/**
+  - 大富翁课程:
+    - 量化二十四课:
+      - 简介: articles/coursea/24lectures/intro.md
+      - 课程大纲: articles/coursea/24lectures/outline.md
+      - FAQ: articles/coursea/24lectures/faq.md
+      - 内容详情: articles/coursea/24lectures/detail.md
   - 量化产品:
     - ... | articles/products/**
   - 策略研究:
@@ -16,7 +20,7 @@ nav:
   - 学Python:
     - ... | articles/python/**
   - 文章分类: tags
-  - 联系和关注: 
+  - Follow Us: 
     - contact.md
 theme:
   name: material
@@ -57,7 +61,6 @@ markdown_extensions:
       generic: true
 plugins:
   - include-markdown
-  - git-revision-date-localized
   - awesome-pages:
       collapse_single_pages: true
   - blog:
@@ -68,10 +71,12 @@ plugins:
       match_path: "(blog|articles)/.*"
       categories:
         - categories
-
         - tags
       date_from_meta:
-        as_creation: date
+        as_creation: "date"
+        as_update: true
+        datetime_format: "%Y-%m-%d %H:%M"
+        default_timezone: Asia/Shanghai
       use_git: false
   - search:
       lang: zh

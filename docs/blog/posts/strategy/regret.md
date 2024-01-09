@@ -5,9 +5,9 @@ slug: how-regret-factor-get-5.5-sharpe-ratio
 motto: 
 lunar: 冬月十四
 categories:
-    - factor
+    - 因子
 tags:
-    - factor
+    - 因子
 ---
 如果在你买入之后，股价下跌，你会在第二天急着抛吗？反之，如果在你卖出之后，股价上涨，你会反手追入吗？
 
