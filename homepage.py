@@ -130,7 +130,8 @@ def build_index():
             print(f"missing slug: {file}")
             continue
 
-        year, month, day = meta["date"].split("-")
+        date = meta["date"]
+        year, month, day = f"{date.year}", f"{date.month}", f"{date.day}"
         slug = meta["slug"]
         meta["link"] = f"blog/{year}/{month}/{day}/{slug}"
 
