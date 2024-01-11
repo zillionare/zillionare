@@ -131,7 +131,7 @@ def build_index():
             continue
 
         date = meta["date"]
-        year, month, day = f"{date.year}", f"{date.month}", f"{date.day}"
+        year, month, day = f"{date.year}", f"{date.month:02d}", f"{date.day:02d}"
         slug = meta["slug"]
         meta["link"] = f"blog/{year}/{month}/{day}/{slug}"
 
