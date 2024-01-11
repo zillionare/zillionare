@@ -1,38 +1,123 @@
-大富翁 (Zillionare)是开源量化框架，提供数据本地化、回测、交易接入和量化分析底层库支持等一站式服务。<br><br>大富翁的起名有两重寓意，一是希望她的使用者们都能实现财富自由。另一方面，大富翁也是一款投资游戏的名字 -- 财富终究只是一场大富翁游戏，以示提醒大家，不要忽视运气的因素。<br><br>在投资中的运气，其实就是周期。千万不要做逆周期的投资。<br><br>Zillionare 最新版本是2.0，提供了海量数据存储（在我们的生产环境下，存储超过30亿条记录）和高性能访问能力。Zillionare是开源框架，您可以自行研究、拓展该框架。我们也提供付费服务。比如，2.0的Docker-compse 安装版本我们目前只对学员提供。<br><br>关于Zillionare的更多细节请访问[链接](articles/products/)
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
 
-## 最新文章
+<style>
+@mixin BoxShadowHelper($level: 1){
+  @if $level == 1 {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  }
+  @if $level == 2 {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
+  }
+}
+a {transition: .25s all;}
+.card {
+  overflow: hidden;
+  @include BoxShadowHelper(1);
+  transition: .25s box-shadow;
+  &:focus,
+  &:hover {@include BoxShadowHelper(2);}
+}
+.card-inverse .card-img-overlay {
+  background-color: rgba(#333,.85);
+  border-color: rgba(#333,.85);
+}
+</style>
 
-!!! info "Z-score 因子的深入思考"
-    最新（2024 年 1 月）出版的 SC 技术分析（Techical Analysis of Stock & Commodities）的第 4 条文章给到了 Z-score，原文标题为《Z-score: How to use it in Trading》。今天的笔记，就借此机会，同步推出我们对通过Z-score来构建量化因子的一些观点。<br><text-right>发表于 2024-01-04 [阅读](./docs/blog/posts/strategy/z-score-factor.md)</text-right>
-
-!!! info "存了50TB！pyarrow + parquet"
-    <br>在上一篇笔记中，我们指出，如果我们只在日线级别上存储行情数据和因子，HDF5 无论如何都是够用了。即使是在存储了 40 年分钟线的单个股数据集上，查询时间也只花了 0.2 秒 -- 这个速度已经足够快了，如果我们不需要在分钟级别上进行横截面数据查询的话。<br><br><text-right>发表于 2024-01-03 [阅读](./docs/blog/posts/quantlib/pyarrow-plus-parquet.md)</text-right>
-
-!!! info "200倍速！基于 HDF5 的证券数据存储"
-    去年 15 日的笔记挖了个坑，给出了量化数据和因子的存储方案技术导图。这一篇笔记就开始填坑。即使我们购买了在线数据服务，比如 tushare, 聚宽的账号，我们仍然要构建自己的本地存储，为什么？<br><text-right>发表于 2024-01-02 [阅读](./docs/blog/posts/quantlib/hdf5.md)</text-right>
-
-!!! info "年终特稿：这个指标我愿称之为年度最强发现"
-    如果说在多因子时代，我们可以仅凭一个因子就构建出策略，并且还很有可能跑赢市场的话，这个因子就是不二之选。<br><text-right>发表于 2023-12-29 [阅读](./docs/blog/posts/strategy/connors-rsi.md)</text-right>
-
-!!! info "羊群效应及其因子化"
-    在之前的笔记中，我们多次将现代金融理论与A股中流行的股谚、规律和大V的经验之谈结合起来，我们戏称为现代金融理论的中国化。本篇笔记将继续沿着这一思路展开，介绍羊群效应，以及在A股中，它有哪些表现，如何实现因子化，等等。今天我们要介绍的股谚，是<red>养家心法</red>里中的一条，<red>得散户者得天下</red>。它实际上讲的是要充分利用羊群效应。<br><text-right>发表于 2023-12-28 [阅读](./docs/blog/posts/strategy/herd-behaviour.md)</text-right>
-
-!!! info "xtquant 中的板块数据"
-    !!! tip 笔记要点1. xtquant 中有哪些板块和板块分类？<br>    1. 如何获取板块的成份股？<br>    2. 如何获取指数的行情数据？<br><text-right>发表于 2023-12-27 [阅读](./docs/blog/posts/quantlib/qmt-get-sector.md)</text-right>
-
-!!! info "Sharpe 5.5!遗憾规避因子"
-    如果在你买入之后，股价下跌，你会在第二天急着抛吗？反之，如果在你卖出之后，股价上涨，你会反手追入吗？先别急着回答，我们来看看科学研究的结论是怎样的。关于这类问题，都是行为金融学研究的范畴。具体到这个场景，我们可以运用遗憾理论来解释。遗憾理论，又称遗憾规避理论（ Fear of Regret Theory），是行为金融学的重要理论之一，该理论认为，非理性的投资者在做决策时，会倾向于避免产生后悔情绪并追求自豪感，避免承认之前的决策失误。<br><text-right>发表于 2023-12-26 [阅读](./docs/blog/posts/strategy/regret.md)</text-right>
-
-!!! info "Santa Claus Rally"
-    <!--  --><br>每天坚持发贴 。千字左右，图文并茂。声明：这一天我们也没有漏发。<br>---Santa Claus Rally 是指 12 月 25 日圣诞节前后股市的持续上涨这样一个现象。《股票交易员年鉴》的创始人 Yale Hirsch 于 1972 年创造了这个定义，他将当年最后五个交易日和次年前两个交易日的时间范围定义为反弹日期。<br><text-right>发表于 2023-12-25 [阅读](./docs/blog/posts/strategy/santa-clause.md)</text-right>
-
-!!! info "净新高占比因子"
-    个股的顶底强弱比较难以把握，它们的偶然性太强。董事长有可能跑路，个股也可能遇到突发利好（比如竞争对手仓库失火）。在个股的顶底处，**情绪占据主导地位，理性退避次席，技术指标出现钝化**，进入<red>现状不可描述，一切皆有可能</red>的状态。但是，行业指数作为多个随机变量的叠加，就会出现一定的规律性（受A4系统性影响的偶然性我们先排除在外，毕竟也不是天天有A4）。这是因子分析和技术分析可以一展身手的地方。<br><text-right>发表于 2023-12-24 [阅读](./docs/blog/posts/strategy/nh-nl.md)</text-right>
-
-!!! info "球队和硬币因子"
-    球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以上的引用。这篇论文名为《Asset Pricing and Sports Betting》。<br><text-right>发表于 2023-12-23 [阅读](./docs/blog/posts/strategy/hockey-and-coin.md)</text-right>
-
-
-
-
-
+<div class="container m-t-md">
+  <!-- First row -->
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <!-- Card -->
+      <article class="card animated fadeInLeft">
+        <img class="card-img-top img-responsive" src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/1U2EGZ07GU.jpg" alt="Deer in nature" />
+        <div class="card-block">
+          <h4 class="card-title">Animal Farm</h4>
+          <h6 class="text-muted">George Orwell</h6>
+          <p class="card-text">Tired of their servitude to man, a group of farm animals revolt and establish their own society, only to be betrayed into worse servitude by their leaders, the pigs. This satire addresses the communist philosophy the Soviet Union.</p>
+          <a href="#" class="btn btn-primary">Read more</a>
+        </div>
+      </article><!-- .end Card -->
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <!-- Card -->
+      <article class="card animated fadeInUp">
+        <div class="card-block">
+          <h4 class="card-title">Life After Life</h4>
+          <h6 class="text-muted">Kate Atkinson</h6>
+        </div>
+        <img class="img-responsive" src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/SYC0YBA37V.jpg" alt="Leaf on the street" />
+        <div class="card-block">
+          <p class="card-text">On a cold and snowy night, Ursula Todd is born, the 3rd child of a wealthy banker and his wife. She dies before she can draw her first breath. On that same cold and snowy night, lets out a lusty wail.</p>
+        </div>
+        <div class="card-block text-center">
+          <div class="btn-group hidden-sm-down hidden-md-down" role="group" aria-label="Card buttons">
+            <a href="#" class="btn btn-primary">Read more</a>
+            <a href="#" class="btn btn-primary">Save for later</a>
+          </div>
+          <div class="btn-group-vertical hidden-lg-up" role="group" aria-label="Card buttons">
+            <a href="#" class="btn btn-primary">Read more</a>
+            <a href="#" class="btn btn-primary">Save for later</a>
+          </div>
+        </div>
+      </article><!-- .end Card -->
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <!-- Card -->
+      <article class="card animated fadeInRight">
+        <div class="card-block">
+          <h4 class="card-title">Wind, Sand and Stars</h4>
+          <h6 class="text-muted">Antoine de Saint-Exupéry</h6>
+          <p class="card-text">Story that captures the grandeur, danger, and isolation of flight. Its exciting account of air adventure, combined with lyrical prose and the spirit of a philosopher, makes it one of the most popular works ever written.</p>
+        </div>
+        <div class="card-block text-center">
+          <div class="btn-group hidden-sm-down hidden-md-down" role="group" aria-label="Card buttons">
+            <a href="#" class="card-link">Read more</a>
+            <a href="#" class="card-link">Save for later</a>
+          </div>
+          <div class="btn-group-vertical hidden-lg-up" role="group" aria-label="Card buttons">
+            <a href="#" class="card-link">Read more</a><br />
+            <a href="#" class="card-link">Save for later</a>
+          </div>
+        </div>
+        <img class="card-img-bottom img-responsive" src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/8SALDQRRZX.jpg" alt="White sand" />
+      </article><!-- .end Card -->
+    </div>
+  </div><!-- .end First row -->
+  <!-- Second row -->
+  <div class="row m-t-md">
+    <div class="col-xs-12 col-md-4">
+      <!-- Card -->
+      <article class="card card-inverse animated fadeInLeft">
+        <img class="img-responsive" src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/1U2EGZ07GU.jpg" alt="Deer in nature" />
+        <div class="card-img-overlay">
+          <h4 class="card-title">Animal Farm</h4>
+          <h6 class="text-muted">George Orwell</h6>
+          <p class="card-text">Tired of their servitude to man, a group of farm animals revolt and establish their own society...</p>
+        </div>
+      </article><!-- .end Card -->
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <!-- Card -->
+      <article class="card card-inverse animated fadeInDown">
+        <img class="img-responsive" src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/SYC0YBA37V.jpg" alt="Leaf on the street" />
+        <div class="card-img-overlay">
+          <h4 class="card-title">Life After Life</h4>
+          <h6 class="text-muted">Kate Atkinson</h6>
+          <p class="card-text">On a cold and snowy night, Ursula Todd is born, the 3rd child of a wealthy banker and his wife. She die...</p>
+        </div>
+      </article><!-- .end Card -->
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <!-- Card -->
+      <article class="card card-inverse animated fadeInRight">
+        <img class="img-responsive" src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/8SALDQRRZX.jpg" alt="White sand" />
+        <div class="card-img-overlay">
+          <h4 class="card-title">Wind, Sand and Stars</h4>
+          <h6 class="text-muted">Antoine de Saint-Exupéry</h6>
+          <p class="card-text">Story that captures the grandeur, danger, and isolation of flight. Its exciting account of air adventure...</p>
+        </div>
+      </article><!-- .end Card -->
+    </div>
+  </div><!-- .end Second row -->
+</div>
