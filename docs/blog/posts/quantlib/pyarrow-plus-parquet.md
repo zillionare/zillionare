@@ -1,5 +1,6 @@
 ---
 title: 存了50TB！pyarrow + parquet
+slug: pyarrow-plus-parquet
 date: 2024-01-03
 category: quantlib
 motto: time is an arrow, neither stands still or reverses

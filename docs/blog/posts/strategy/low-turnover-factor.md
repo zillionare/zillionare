@@ -10,6 +10,8 @@ lineNumbers: true
 tags: 
     - strategy
     - factor
+    - Alphalens
+    - 因子分析
 ---
 
 ![R50](https://images.jieyu.ai/images/2024/01/alphalens.jpg?2)

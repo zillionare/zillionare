@@ -2,6 +2,7 @@
 title: xtquant 中的板块数据
 date: 2023-12-27
 motto: 见天地 见众生 见自己<br>坚持学习 遇见更好的自己
+slug: qmt-set-sector
 lunar: 冬月十五
 categories:
     - xtquant

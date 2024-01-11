@@ -1,5 +1,5 @@
 ---
-title: Alphalens因子分析(2) - 低换手率因子秒杀98%的基金经理？
+title: Alphalens因子分析(2) - low turnover秒杀98%的基金经理!
 date: 2024-01-10
 slug: alphalens-and-low-turnover-factor-2
 categories:
@@ -10,8 +10,10 @@ tags:
     - strategy
     - factor
     - 因子分析
+    - Alphalens
 ---
 
+![R33](https://images.jieyu.ai/images/2024/01/kaiyun.jpg)
 上一篇笔记，我们已经为因子分析准备好了数据。这一篇笔记，我们就进行因子分析。分析过程在 Alphalens 中非常简单，核心是读懂它的报告。
 
 <!--more-->
@@ -19,11 +21,6 @@ tags:
 ## Alphalens 框架
 
 Alphalens 的主要模块是 utils, tears, performance 和 plotting。
-
-<div style="position: relative; width: 40%; float:right;padding: 0 2%">
-<img src="https://images.jieyu.ai/images/2024/01/kaiyun.jpg">
-<cap style="margin-top:1vh">大数据送你开运符，接了吧！</cap>
-</div>
 
 utils 主要功能是提供数据预处理，我们已经在上一篇笔记中，已经使用过 get_clean_factor_and_forward_returns 这个方法，实际上是由quantize_factor get_clean_factor和compute_forward_return 这样三个方法构成的。
 
