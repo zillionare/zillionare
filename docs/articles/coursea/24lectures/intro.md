@@ -51,7 +51,7 @@ tags:
 ![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-6.png)
 
 !!! tip
-    更详细的课程大纲（具体到三级标题），可联系助教索取。
+    更详细的课程大纲见[这里](articles/coursea/24lectures/intro.md)
 
 ## 3. 量化知识体系与本课程定位
 
@@ -69,25 +69,24 @@ tags:
 
 ![](https://images.jieyu.ai/images/2023/10/cheese-course-intro-ta.png)
 
-## 4. 鸣谢
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-intro-babt.png)
-
-
-
-## 5. 课程注册流程
+## 4. 课程注册流程
 
 * 联系 quantfans_99 （宽粉）进行咨询，获得下单链接
 * 通过平台购买课程
 * 购买完成当日，助教（宽粉）开通实验账号，将课程登录网址、账号密码发送给学员
 * 助教建立课程辅导群，邀请老师和学员加入
 * 学员开始学习，学习中遇到问题，通过微信群提问，私课班当天答疑。其它班每周日线上会议答疑。
-* 两个月后，学员结束课程学习。课程视频可永久观看。实验环境保留4个月，此后可申请免费保留（在资源足够的情况下）。
+* 两个月后，学员结束课程学习。课程视频可永久观看。实验环境保留4个月，此后可申请免费保留（在资源足够的情况下）。如果资源不够，学员可自行在本地部署。
 
 课程实验环境如下：
 
  ![75%](https://images.jieyu.ai/images/2023/10/welcome-to-zillionare-course.png) 
  ![50%](https://images.jieyu.ai/images/2023/10/cheese-course-lab.png)
 
-## 课程定价
+## 5. 课程定价
 2024年1月课程定价为4800元。
+
+本课程主体已经完成，后续会进行修订完善，补充示例、习题和策略（10个），并包含一个通过机器学习来组合多因子的策略。
+
+随着内容不断丰富，价格也将适当上调。
