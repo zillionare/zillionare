@@ -5,44 +5,27 @@ import re
 
 import arrow
 import frontmatter
-from numpy import rec
 
-fade_modes = ["fadeInLeft", "fadeInUp", "fadeInRight", "fadeInDown"]
-# img_modes = [f"card-img-{item}" for item in ("bottom", "overlay", "top")]
 img_mode = "card-img-top"
 
-style_files = """
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
-<style>
-.md-sidebar--primary {
-    width: 0%;
-}
-</style>
-"""
-
 cell = """
-<div class="col-xs-12 col-md-6">
-    <article class="card animated {fade_mode}">
+<div class="card">
+    <a href="{link}">
     <img class="{img_mode} img-responsive" src="{img_url}"/>
-    <div class="card-block">
+    <div class="card-body">
         <h4 class="card-title">{title}</h4>
-        <h6 class="text-muted">{date}</h6>
         <p class="card-text">{excerpt}</p>
-        <a href="{link}" class="btn btn-primary">Read more</a>
+        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>{date}</small></p>
     </div>
-    </article><!-- .end Card -->
-</div>
+    </a>
+</div><!--end-card-->
 """
 
-row_tpl = """
-<div class="row">
-{cells}
-</div>
-"""
 container_tpl = """
-<div class="container m-t-md">
-    {rows}
+<div class="as-grid m-t-md">
+<div class="card-columns">
+    {cards}
+</div>
 </div>
 """
 
@@ -139,8 +122,7 @@ def build_index():
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 
-    cells = []
-    rows = []
+    cards = []
     for i, meta in enumerate(metas[:12]):
         title = meta.get("title")
         date = meta.get("date")
@@ -148,32 +130,31 @@ def build_index():
         img_url = meta["img"]
         link = meta["link"]
 
-        fade_mode = fade_modes[i%4]
         card = cell.format_map({
             "title": title,
             "date": date,
             "excerpt": excerpt,
             "link": link,
             "img_url": img_url,
-            "fade_mode": fade_mode,
             "img_mode": img_mode,
         })
 
-        cells.append(card)
-        if (i + 1) % 2 == 0:
-            rows.append(row_tpl.format_map({"cells": "\n".join(cells)}))
-            cells = []
+        cards.append(card)
 
 
     body = container_tpl.format_map({
-        "rows": "\n".join(rows),
+        "cards": "\n".join(cards),
     })
 
+    header = ""
+    tpl = os.path.join(os.path.dirname(__file__), "docs/assets/templates/homepage.tpl")
+    with open(tpl, "r") as f:
+        header = f.read()
 
     with open('./README.md', "w", encoding='utf-8') as f:
         # f.write(about)
         # f.write(intro)
-        f.write(style_files)
+        f.write(header)
         f.write(body)
         f.write("\n\n")
 

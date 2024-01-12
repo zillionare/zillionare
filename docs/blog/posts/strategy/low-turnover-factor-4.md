@@ -1,5 +1,6 @@
 ---
 title: Alphalens因子分析(4) - Information Coefficient方法
+slug: low-turnover-factor-3
 date: 2024-01-12
 categories: 
     - strategy
@@ -11,7 +12,6 @@ tags:
     - Alphalens
 ---
 
-![](https://source.unsplash.com/random/360x200?cats)
 
 在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。
 
@@ -68,7 +68,7 @@ ic.head()
 
 ![](https://images.jieyu.ai/images/2024/01/alphalens-gpt4-ic.jpg)
 
-GPT4的回答是，IC均值在0.05以上，就表明因子的预测能力很强了。理论中的最佳值是1，金融预测中的最佳预期是0.05。理想很丰满，现实很骨感。
+GPT4的回答是，IC均值在0.05以上，就表明因子的预测能力很强了。理论中的最佳值是1，因子预测中的最佳预期是0.05。理想很丰满，现实很骨感。
 
 当我们使用随机变量的均值时，我们常常会担心这个均值是否受到了少数极值的影响。我们可以通过标准差来度量，不过最直观的方式是通过直方图，或者QQ图进行分析：
 
