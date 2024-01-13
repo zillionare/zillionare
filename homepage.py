@@ -225,7 +225,7 @@ def publish():
     write_readme(github_body, "")
 
     for cmd in [
-        "git add .",
+        "git add README.md",
         "git commit -m update",
         "git push",
 
