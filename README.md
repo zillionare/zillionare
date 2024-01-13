@@ -4,9 +4,9 @@
     
 <div class="card">
     <a href="https://www.jieyu.ai/blog/2024/01/12/low-turnover-factor-3">
+    <h4 class="card-title">Alphalens因子分析(4) - Information Coefficient方法</h4>
     <img src="https://source.unsplash.com/random/360x200?cats" style="width: 360px;" align="left"/>
     <div class="card-body">
-        <h4 class="card-title">Alphalens因子分析(4) - Information Coefficient方法</h4>
         <p class="card-text">在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。</p>
         <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2024-01-12</small></p>
     </div>
@@ -16,9 +16,10 @@
 
 <div class="card">
     <a href="https://www.jieyu.ai/blog/2024/01/11/low-turnover-factor-3">
+            <h4 class="card-title">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</h4>
+
     <img src="https://source.unsplash.com/random/360x200?cloud" style="width: 360px;" align="left"/>
     <div class="card-body">
-        <h4 class="card-title">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</h4>
         <p class="card-text">我们继续 Alphalens 因子分析报告的解读。在过去的两篇笔记中，我们都提到，运用 Alphalens 进行因子分析步骤很简单，但是如果不了解它背后的机制与逻辑，很容易得到似是而非的结论。<!--数据精度问题： akshare 是爬虫机制。它的数据来自于财经网站的网页。这些网页是供人阅读用的。因此，它在一些数据显示上，都要进行人性化处理。比如，对换手率，它只保留两位百分数点。对于大市值的沪深 300 而言，它们的换手率平常本来也就在 1%~5%之间波动，这样就引起了数据碰撞 (clash)。它对因子分析究竟有多大的影响不得而知。但是，可以肯定的是，当我们用不同的数据源来进行研究时，得到的结果会有不同。 --><br></p>
         <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2024-01-11</small></p>
     </div>
@@ -28,9 +29,10 @@
 
 <div class="card">
     <a href="https://www.jieyu.ai/blog/2024/01/10/alphalens-and-low-turnover-factor-2">
+                <h4 class="card-title">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</h4>
+
     <img src="https://images.jieyu.ai/images/2024/01/kaiyun.jpg" style="width: 360px;position:relative;float:left"/>
     <div class="card-body">
-        <h4 class="card-title">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</h4>
         <p class="card-text"><br>上一篇笔记，我们已经为因子分析准备好了数据。这一篇笔记，我们就进行因子分析。分析过程在 Alphalens 中非常简单，核心是读懂它的报告。</p>
         <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2024-01-10</small></p>
     </div>
@@ -40,9 +42,10 @@
 
 <div class="card">
     <a href="https://www.jieyu.ai/blog/2024/01/09/alphalens-and-low-turnover-factor-1">
+                <h4 class="card-title">Alphalens 因子分析 - 以低换手率因子为例(1)</h4>
+
     <img src="https://images.jieyu.ai/images/2024/01/alphalens.jpg?2" style="width: 360px;position:relative;float:left"/>
     <div class="card-body">
-        <h4 class="card-title">Alphalens 因子分析 - 以低换手率因子为例(1)</h4>
         <p class="card-text"><br>因子分析是量化研究的基本技能之一。通过因子分析，找出有效的因子，通过相关性去重后，就可以通过机器学习、线性回归等方法把因子组合起来，构成交易策略。这一篇笔记我们就介绍如何使用 Alphalens 来进行单因子分析。我们使用的因子是低换手率因子。</p>
         <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2024-01-09</small></p>
     </div>
