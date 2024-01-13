@@ -8,7 +8,7 @@
     <img src="https://source.unsplash.com/random/360x200?cats" style="width: 360px;" align="right"/>
     <div class="card-body">
         <p class="card-text">在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2024-01-12</small></p>
+        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2024-01-12</small><button>Read More</button></p>
     </div>
     </a>
 </div><!--end-card-->
