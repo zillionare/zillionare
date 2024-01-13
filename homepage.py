@@ -11,7 +11,20 @@ import frontmatter
 
 img_mode = "card-img-top"
 
-cell = """
+github_item = """
+<div class="card">
+    <a href="{link}">
+    <img src="{img_url}" style="width: 360px"/>
+    <div class="card-body">
+        <h4 class="card-title">{title}</h4>
+        <p class="card-text">{excerpt}</p>
+        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>{date}</small></p>
+    </div>
+    </a>
+</div><!--end-card-->
+"""
+
+web_item = """
 <div class="card">
     <a href="{link}">
     <img class="{img_mode} img-responsive" src="{img_url}"/>
@@ -88,7 +101,7 @@ def extract_article_meta(file):
     if "slug" not in meta:
         print(f"missing slug: {file}")
         part = file.split("articles")[1]
-        link = "/articles" + part.replace(".md", "")
+        link = "https://www.jieyu.ai/articles" + part.replace(".md", "")
     else:
         matched = re.match(r".*/articles(.+)/.*\.md", file)
         link = "/articles" + matched.group(1) + "/" + meta["slug"]
@@ -109,7 +122,7 @@ def extract_blog_meta(file):
     date = meta["date"]
     year, month, day = f"{date.year}", f"{date.month:02d}", f"{date.day:02d}"
     slug = meta["slug"]
-    meta["link"] = f"blog/{year}/{month}/{day}/{slug}"
+    meta["link"] = f"https://www.jieyu.ai/blog/{year}/{month}/{day}/{slug}"
 
     return meta
 
@@ -133,15 +146,16 @@ def build_index():
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 
-    cards = []
-    for i, meta in enumerate(metas[:12]):
+    web_cards = []
+    github_cards = []
+    for meta in metas[:12]:
         title = meta.get("title")
         date = meta.get("date")
         excerpt = meta.get("excerpt")
         img_url = meta["img"]
         link = meta["link"]
 
-        card = cell.format_map({
+        card = github_item.format_map({
             "title": title,
             "date": date,
             "excerpt": excerpt,
@@ -150,11 +164,25 @@ def build_index():
             "img_mode": img_mode,
         })
 
-        cards.append(card)
+        github_cards.append(card)
+
+        card = web_item.format_map({
+            "title": title,
+            "date": date,
+            "excerpt": excerpt,
+            "link": link,
+            "img_url": img_url,
+            "img_mode": img_mode,
+        })
+        web_cards.append(card)
 
 
-    body = container_tpl.format_map({
-        "cards": "\n".join(cards),
+    github_body = container_tpl.format_map({
+        "cards": "\n".join(github_cards),
+    })
+
+    web_body = container_tpl.format_map({
+        "cards": "\n".join(web_cards),
     })
 
     change_last_update()
@@ -164,7 +192,7 @@ def build_index():
     with open(tpl, "r") as f:
         styles = f.read()
 
-    return body, styles
+    return web_body, github_body, styles
 
 
 def write_readme(body, styles):
@@ -179,19 +207,23 @@ def execute(cmd):
     work_dir = os.path.dirname(__file__)
 
     print(f"Executing {cmd}")
-    proc = subprocess.Popen(shlex.split(cmd), stdout = subprocess.PIPE, stderr = subprocess.PIPE, cwd=work_dir)
-    (out, err) = proc.communicate()
-    ret_code = proc.wait()
+    try:
+        proc = subprocess.Popen(shlex.split(cmd), stdout = subprocess.PIPE, stderr = subprocess.PIPE, cwd=work_dir)
+        (out, err) = proc.communicate()
+        ret_code = proc.wait()
+    except Exception as e:
+        print(shlex.split(cmd))
+
 
 def publish():
-    body, styles = build_index()
-    write_readme(body, styles)
+    web_body, github_body, styles = build_index()
+    write_readme(web_body, styles)
 
     cmd = "mkdocs gh-deploy"
     execute(cmd)
 
     # 为github生成README
-    write_readme(body, "")
+    write_readme(github_body, "")
 
     for cmd in [
         "git add .",
