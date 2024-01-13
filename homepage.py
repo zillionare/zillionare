@@ -12,16 +12,14 @@ import frontmatter
 img_mode = "card-img-top"
 
 github_item = """
-<div class="card">
-    <a href="{link}">
-    <img src="{img_url}" style="width: 360px"/>
-    <div class="card-body">
-        <h4 class="card-title">{title}</h4>
-        <p class="card-text">{excerpt}</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>{date}</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
+<div>
+<h3>{title}</h3>
+<img src="{img_url}" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>{excerpt}</p>
+
+<p><span style="margin-right:20px">发表于 {date}</span><span><a href="{link}">点击阅读</a></span></p>
+
+</div><!--end-article-->
 """
 
 web_item = """
@@ -212,7 +210,8 @@ def execute(cmd):
         (out, err) = proc.communicate()
         ret_code = proc.wait()
     except Exception as e:
-        print(shlex.split(cmd))
+        print(e)
+        print(f"!!! FAILED: {cmd}, {work_dir}")
 
 
 def publish():
