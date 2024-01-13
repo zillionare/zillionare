@@ -8,7 +8,7 @@
 <img src="https://source.unsplash.com/random/360x200?mountain" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-12</span><span><a href="https://www.jieyu.ai/blog/2024/01/12/low-turnover-factor-3">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-12</span><span align="right"><a href="https://www.jieyu.ai/blog/2024/01/12/low-turnover-factor-3">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
