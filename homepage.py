@@ -2,6 +2,9 @@ import glob
 import os
 import random
 import re
+import shlex
+import subprocess
+from concurrent.futures import ProcessPoolExecutor
 
 import arrow
 import frontmatter
@@ -77,6 +80,39 @@ def get_meta(file):
         meta["img"] = img
         return meta
 
+def extract_article_meta(file):
+    meta = get_meta(file)
+    if "date" not in meta:
+        return
+    
+    if "slug" not in meta:
+        print(f"missing slug: {file}")
+        part = file.split("articles")[1]
+        link = "/articles" + part.replace(".md", "")
+    else:
+        matched = re.match(r".*/articles(.+)/.*\.md", file)
+        link = "/articles" + matched.group(1) + "/" + meta["slug"]
+
+    meta["link"] = link
+
+    return meta
+
+def extract_blog_meta(file):
+    meta = get_meta(file)
+    if "date" not in meta:
+        return
+
+    if "slug" not in meta:
+        print(f"missing slug: {file}")
+        return
+
+    date = meta["date"]
+    year, month, day = f"{date.year}", f"{date.month:02d}", f"{date.day:02d}"
+    slug = meta["slug"]
+    meta["link"] = f"blog/{year}/{month}/{day}/{slug}"
+
+    return meta
+
 def build_index():
     """生成README文件"""
 
@@ -86,39 +122,14 @@ def build_index():
 
     metas = []
     articles = glob.glob("./docs/articles/**/*.md", recursive=True)
-    for file in articles:
-        meta = get_meta(file)
-        if "date" not in meta:
-            continue
-        
-        if "slug" not in meta:
-            print(f"missing slug: {file}")
-            part = file.split("articles")[1]
-            link = "/articles" + part.replace(".md", "")
-        else:
-            matched = re.match(r".*/articles(.+)/.*\.md", file)
-            link = "/articles" + matched.group(1) + "/" + meta["slug"]
-
-        meta["link"] = link
-
-        metas.append(meta)
+    with ProcessPoolExecutor() as executor:
+        results = executor.map(extract_article_meta, articles)
+        metas.extend([meta for meta in results if meta is not None])
 
     posts = glob.glob("./docs/blog/**/*.md", recursive=True)
-    for file in posts:
-        meta = get_meta(file)
-        if "date" not in meta:
-            continue
-
-        if "slug" not in meta:
-            print(f"missing slug: {file}")
-            continue
-
-        date = meta["date"]
-        year, month, day = f"{date.year}", f"{date.month:02d}", f"{date.day:02d}"
-        slug = meta["slug"]
-        meta["link"] = f"blog/{year}/{month}/{day}/{slug}"
-
-        metas.append(meta)
+    with ProcessPoolExecutor() as executor:
+        results = executor.map(extract_blog_meta, posts)
+        metas.extend([meta for meta in results if meta is not None])
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 
@@ -146,19 +157,48 @@ def build_index():
         "cards": "\n".join(cards),
     })
 
-    header = ""
+    change_last_update()
+
+    styles = ""
     tpl = os.path.join(os.path.dirname(__file__), "docs/assets/templates/homepage.tpl")
     with open(tpl, "r") as f:
-        header = f.read()
+        styles = f.read()
 
+    return body, styles
+
+
+def write_readme(body, styles):
     with open('./README.md', "w", encoding='utf-8') as f:
         # f.write(about)
         # f.write(intro)
-        f.write(header)
+        f.write(styles)
         f.write(body)
         f.write("\n\n")
 
-    change_last_update()
+def execute(cmd):
+    work_dir = os.path.dirname(__file__)
 
-build_index()
+    print(f"Executing {cmd}")
+    proc = subprocess.Popen(shlex.split(cmd), stdout = subprocess.PIPE, stderr = subprocess.PIPE, cwd=work_dir)
+    (out, err) = proc.communicate()
+    ret_code = proc.wait()
 
+def publish():
+    body, styles = build_index()
+    write_readme(body, styles)
+
+    cmd = "mkdocs gh-deploy"
+    execute(cmd)
+
+    # 为github生成README
+    write_readme(body, "")
+
+    for cmd in [
+        "git add .",
+        "git commit -m update",
+        "git push",
+
+    ]:
+        execute(cmd)
+
+publish()
