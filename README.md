@@ -1,3 +1,4 @@
+<head>
 <link href="assets/css/bootstrap.min.4.0.css" rel="stylesheet" />
 <link href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,6 +57,7 @@ nav a {
     color: white;
 }
 </style>
+</head>
 
 <div class="as-grid m-t-md">
 <div class="card-columns">
