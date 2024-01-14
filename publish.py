@@ -202,16 +202,16 @@ def write_readme(body, styles):
         f.write("\n\n")
 
 def execute(cmd):
-    work_dir = os.path.dirname(__file__)
+    # work_dir = os.path.dirname(__file__)
 
     print(f"Executing {cmd}")
     try:
-        proc = subprocess.Popen(shlex.split(cmd), stdout = subprocess.PIPE, stderr = subprocess.PIPE, cwd=work_dir)
+        proc = subprocess.Popen(shlex.split(cmd), stdout = subprocess.PIPE, stderr = subprocess.PIPE)
         (out, err) = proc.communicate()
         ret_code = proc.wait()
     except Exception as e:
         print(e)
-        print(f"!!! FAILED: {cmd}, {work_dir}")
+        print(f"!!! FAILED: {cmd}")
 
 
 def publish():
