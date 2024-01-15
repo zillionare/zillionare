@@ -136,7 +136,7 @@ test_server.py::test_send_http PASSED                                [100%]
 
 pytest 中的断言巧妙地拦截并复用了 python 内置的函数 assert，由于您很可能已经接触过 assert 了，因而使得这一部分的学习成本变得非常低。
 
-```python {.line-numbers}
+```python
 # 示例 7 - 5
 def test_assertion():
     # 判断基本变量相等
@@ -197,7 +197,7 @@ def test_assertion():
 
 假定我们有一个测试用例，它需要连接数据库，代码如下（参见 code/chap07/sample/app.py)
 
-```python {.line-numbers}
+```python
 # 示例 7 - 7
 import asyncpg
 import datetime
@@ -217,7 +217,7 @@ async def add_user(conn: asyncpg.Connection, name: str, date_of_birth: datetime.
 ```
 我们先展示测试代码（参见 code/chap07/sample/test_app.py)，再结合代码讲解 fixture 的使用：
 
-```python {.line-numbers}
+```python
 # 示例 7 - 8
 import pytest
 from sample.app import add_user
@@ -394,7 +394,7 @@ foo
 
 假如我们有一个文件系统相关的操作，为了正常运行，必须在测试环境下构建目录，增加某些文件。为了简单起见，我们希望通过 mock 来模拟这个环境。
 
-```python {.line-numbers}
+```python
 # 示例 7 - 11
 import os
 
@@ -461,7 +461,7 @@ test.test_get_files()
 #### 3.2.1. 修改实例的属性
 前面的例子中，我们给 patch 传入的 target 是一个字符串，显然，在 patch 作用域内，所有的新生成的对象都会被 patch。如果在 patch 之前，对象已经生成了，我们则需要使用`patch.object`来完成 patch。这样做的另一个好处是，我们可以有选择性地 patch 部分对象。
 
-```python {.line-numbers}
+```python
 # 示例 7 - 19
 def bar():
     logger = logging.getLogger(__name__)
@@ -620,7 +620,7 @@ crawl_baidu 依靠 httpx.get 来爬取数据。我们通过 mock httpx.get 方�
 
 我们通过一个简单的例子来说明这一点：
 
-```python {.line-numbers}
+```python
 from os import system
 from unittest import mock
 import pytest

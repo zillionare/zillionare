@@ -1,13 +1,13 @@
 ---
 title: 06 10倍速！高效编码
 ---
-# 1. AI赋能的代码编写
+## 1. AI赋能的代码编写
 
 传统上，IDE的重要功能之一，就是代码自动完成、语法高亮、文档提示、错误诊断等等。随着人类进入深度学习时代，AI辅助编码则让程序员如虎添翼。
 
 我们首先介绍几个AI辅助编码的工具，然后再介绍常规的语法高亮、文档提示等功能。
 
-## 1.1. github copilot
+### 1.1. github copilot
 github copilot是github官方出品的AI辅助编码工具。它是基于大规模语料、超大规模的深度学习模型，结合了大量的编程经验，为开发者提供代码补全、代码片段联想、代码推荐等功能。copilot可以根据用户输入的一行注释，自动生成代码片段甚至整个函数，功能十分强大。
 
 !!! info
@@ -83,7 +83,7 @@ copilot的神奇之处，绝不只限于上面的举例。作者在实践中确�
 
 所以，Don't fly solo（copilot广告语），如果有可能，当你在代码的世界里遨游时，还是让copilot来伴飞吧。当然，copilot也有其不足，其中最重要的一点是，不能免费使用（学生除外），而且每个月10美金的费用对中国程序员来讲可能并不便宜。不仅如此，目前它只接受信用卡和paypal付款，因此在支付上也不够方便。
 
-## 1.2. tabnine
+### 1.2. tabnine
 
 另一个选项是[tabnine](https://www.tabnine.com/)，与copilot一样，它也提供了从自然语言到代码的转换，以及整段函数的生成等功能。一些评论认为，它比copilot多出的一个功能是，它能基于语法规则在一行还未结束时就给出代码提示，而copilot只能在一行结束后给出整段代码，即copilot需要更多的上下文信息。
 
@@ -125,7 +125,7 @@ Pylance在上面提到的代码自动完成之外，还能实现依赖自动导�
     ```
     这些配置项也可以在vscode中配置，但为了使开发成员使用一致的配置，建议都采用文件配置，并且使用git来管理。
 
-# 2. Type Hint （Type Annotations)
+## 2. Type Hint （Type Annotations）
 
 很多人谈到Python时，会觉得它作为一种动态语言，是没有类型检查能力的。这种说法并不准确，Python是弱类型语言，变量可以改变类型，但在运行时，仍然会有类型检查，类型检查失败，就会抛出TypeError：
 
@@ -293,10 +293,10 @@ def retry(url: Url, retry_count: int) ->None:
 
 如果您的代码都做好了type hint，那么IDE基本上能够提供和强类型语言类似的重构能力。需要强调的是，在重构之前，你应该先进行单元测试、代码lint和format，在没有错误之后，再进行重构。如此一来，如果重构之后，单元测试仍然能够通过，则基本表明重构是成功的。
 
-# 3. PEP8 - python代码风格指南
+## 3. PEP8 - python代码风格指南
 PEP8是2001年由Guido等人拟定的关于python代码风格的一份提案。PEP8的目的是为了提高python代码的可读性，使得python代码在不同的开发者之间保持一致的风格。PEP8的内容包括：代码布局，命名规范，代码注释，编码规范等。PEP8的内容非常多，在实践中，我们不需要专门去记忆它的规则，只要用对正确的代码格式化工具，最终呈现的代码就一定是符合PEP8标准的。在后面的小节里，我们会介绍这一工具 -- black，因此，我们不打算在此处过多着墨。
 
-# 4. Lint工具
+## 4. Lint工具
 
 Lint工具对代码进行逻辑检查和风格检查。逻辑检查是指象使用了未定义的变量，或者定义的变量未使用，没有按 type hint 的约定传入参数等等；风格检查是指变量命名风格、空白符、空行符的使用等。
 
@@ -304,14 +304,14 @@ Python社区有很多Lint工具，比如Plint, PyFlakes, pycodestyle, bandit, My
 
 在选择Lint工具时，重要的指标是报告错误的完全度和速度。过于完备的错误报告有时候也不见得就是最好，有时候会把你的大量精力牵涉到无意义的排查中 -- 纯粹基于静态分析的查错，有时也不可避免会出现错误；同时也使得运行速度降低。
 
-## 4.1. flake8
+### 4.1. flake8
 
 ``ppw``选择了flake8和mypy作为lint工具。flake8实际上是一组lint工具的组合，它由pycodestyle, pyflakes, mcccab组成。
 
-### pycodestyle
+### 4.2. pycodestyle
 pycodestyle用来检查代码风格（空格、缩进、换行、变量名、字符串单双引号等）是否符合PEP8标准。
 
-### pyflakes
+### 4.3. pyflakes
 pyflakes用来检查语法错误，比如，定义但未使用的局部变量，变量重定义错误，未使用的导入，格式化错误等等。人们通常拿它与pylint相对照。pyflakes与pylint相比，所能发现的语法错误会少一些，但误报率更低，速度也更快。在有充分单元测试的情况下，我们更推荐初学者使用pyflakes。
 
 下面是一个pylint报告错误，而pyflakes不能报告的例子：
@@ -358,12 +358,12 @@ else
 
 上述控制流图中，有9条边，7个结点，1个连接，因此它的复杂度为3。
 
-### mccabe
+### 4.4. mccabe
 mccabe的名字来源于Thomas J. McCabe，他于1976年在IEEE上发表了"A Complexity Measure"这篇论文，这篇重要文章，被其它学术论文引用超过8000次，被认为是软件工业领域最重要和最有影响力的论文之一，影响了一代人。33年之后，Thomas J. McCabe于2019年被ACM授予最有影响力论文奖。这个奖一年只授予一次，只有授奖当年11年之前的论文才有资格入选，迄今也只颁发了15届，约40人拿到了这个奖项。
 
 Tom McCabe提出，如果这个复杂度在10以下，该段代码就只是一段简单的过程，风险较低；11-20为中等风险；21-50属于高风险高复杂度；如果大于50，则该段代码是不可测试的，具有非常大的风险。
 
-### flake8的配置
+### 4.5. flake8的配置
 配置flake8，可以在根目录下放置.flake8文件。尽管可以把配置整合到pyproject.toml文件中，多数情况下，我们都推荐使用单独的配置文件，以减少pyproject.toml的复杂度。对后面将提到的其它工具的配置文件，我们也是一样的态度。
 
 .flake8是一个ini格式的文件，以下是一个示例：
@@ -395,7 +395,7 @@ exclude =
 ```
 
 我们排除了对test文件进行lint，这也是flake8开发者的推荐，尽管代码可读性十分重要，但是我们不应该在test代码的风格上花太多宝贵时间。这里最初几行配置，是为了与black兼容。如果不这样配置，那么经black格式化的文件，flake8总会报错，而这种报错并无任何意义。
-## 4.2. Mypy
+## 5. Mypy
 flake8承担了代码风格、部分语法错误和代码复杂度检查的工作。但是，它没有处理类型检查方面的错误，这项工作我们只能留给mypy来完成。
 
 ppw中已经集成了mypy模块，并会在tox运行时，自动进行类型检查。看上去，只要我们按照PEP484及几个关联的PEP来做好类型注解，然后简单地运行mypy，似乎就应该万事大吉？然而，实践总是比理论要丰富得多，深刻得多。mypy在运行检查时，常常会遇到第三方库还不支持类型注解的情况，或者因为配置错误，导致mypy得不到预期的结果。遇到这些问题时，就需要我们理解mypy的工作原理，并且对mypy进行一些配置，以便让它能够更好地工作。
@@ -508,7 +508,7 @@ ignore_missing_imports = true
 
 示例中给出的配置项目是我们认为较为重要，并且与默认值不同的那些。关于mypy所有配置项目及其含义可以参考[官方文档](https://mypy.readthedocs.io/en/stable/config_file.html)。这些配置项，既可以通过配置文件设置，也可以通过命令行方式直接传递给mypy。当然，使用命令行方式传递时，这些配置将在全局范围内发生作用。
 
-### 4.2.1. disallow_untyped_defs
+### 5.1. disallow_untyped_defs
 默认情况下，mypy的类型检查相当宽松，以便兼容一些陈旧的项目。如果我们想要更严格的类型检查，可以将disallow_untyped_defs设置为true。我们可以来测试一下：
 ```python title="test.py"
 def bar(name):
@@ -528,14 +528,14 @@ test.py:7: error: Function is missing a type annotation  [no-untyped-def]
 ```
 如果是通过配置文件来设置disallow_untyped_defs，象这种布尔量，分别设置为true或false即可。通过命令行传入参数一定是全局生效，而通过配置文件，则可以在更细致的粒度上进行配置。
 
-### allow-incomplete-defs
+### 5.2. allow-incomplete-defs
 在上面的配置中，还存在一个名为allow-incomplete-defs的选项，它针对的是函数参数只完成了部分注解的情况。有时候我们需要允许这种情况发生。此时，我们需要mypy仅针对个别场合进行以下配置：
 ```init
 [mypy-special_module]
 disallow_untyped_defs = false
 allow_incomplete_defs = true
 ```
-### 4.2.2. check_untyped_defs
+### 5.3. check_untyped_defs
 在下面的代码中，我们把字符串与一个整数相加。这显然并不合理。
 ```python
 def bar()->None:
@@ -546,7 +546,7 @@ def bar()->None:
 error: Unsupported operand types for + ("str" and "int")  [operator]
 ```
 但事事有例外。在例外情况下，我们也可以退而求其次，通过设置check_untyped_defs = True将可以检查出上述问题。
-### 4.2.3. disallow_any_unimported和ignore_missing_imports
+### 5.4. disallow_any_unimported和ignore_missing_imports
 我们在前面介绍过，如果mypy无法追踪一个导入库，就会将该模块的类型推断为`Any`，从而进一步传播到我们的代码里，使得更多的类型检查无法进行。如果我们想要禁止这种情况，可以将disallow_any_unimported设置为True。该参数的缺省值是false。
 
 一般地，我们应该在全局范围内将disallow_any_unimported设置为True，然后针对mypy报告出来的无法处理导入的错误，逐个解决。在ppw生成的项目中，如果我们选择了fire作为命令行工具，则会遇到以下错误：
@@ -561,7 +561,7 @@ $ pip install types-fire
 
 但如果既找不到合适的存根库，我们也没时间来写pyi文件，那么，我们可以将ignore_missing_imports设置为True，这样mypy就不会报错了。请参考上面的配置文件中的第24~26行，不过，我们应该尽力避免使用这个选项。
 
-### 4.2.4. implicit_optional
+### 5.5. implicit_optional
 如果有以下的代码：
 ```python
 def foo(arg: str = None) -> None:
@@ -569,7 +569,7 @@ def foo(arg: str = None) -> None:
 ```
 我们通过reveal_type得知，mypy将`arg`的类型推导为Optional[str]。这个推导本身没有错，但是，考虑到zen of python的要求， explicit is better than implicit，我们应该将arg的类型声明为`arg: Optional[str]`。从0.980起，mypy默认将implicit_optional设置为Flase（即禁止这样使用），因此，这个选项也没有出现在我们的示例中。
 
-### 4.2.5. warn_return_any
+### 5.6. warn_return_any
 一般情况下，我们不应该让函数返回类型为`Any`（如果真有类型不确定的情况，应该使用泛型）。因此，mypy应该检查这种情况并报告为错误。但是，mypy的缺省配置并不会禁止这种行为，我们需要自行修改。
 
 为了便于理解，我们给出以下错误代码：
@@ -587,17 +587,17 @@ def something_that_returns_any() -> Any:
 error: Returning Any from function declared to return "str"  [no-any-return]
 ```
 
-### 4.2.6. show_errors_codes and warn_unused_ignores
+### 5.7. show_errors_codes and warn_unused_ignores
 当我们使用了type ignore时，我们一般仍然希望mypy能够报告出错误消息（但不会使类型检查失败）。这可以通过设置show_errors_codes = True来实现，显示错误代码。这对于理解错误原因很有帮助。
 
 随着代码的不断演进，有时候type ignore会变得不再必要。比如，我们依赖的某个第三方库，随着新版本的发布，补全了类型注解。这种情况下，针对它的type ignore就不再必要。及时清理这些陈旧的设置是一种良好习惯。
 
-### 4.2.7. inline comment
+### 5.8. inline comment
 我们还可以通过在代码中添加注释来控制mypy的行为。比如，我们可以通过在代码中添加`# type: ignore`来忽略mypy的检查。如果该注释添加在文件的第一行，那么它将会忽略整个文件的检查。如果添加在某一行的末尾，那么它将会忽略该行的检查。
 
 一般我们更倾向于指定忽略某个具体的错误，而不是忽略整行检查。其语法是 `# type: ignore[<error-code>]`。
 
-# 5. Formatter工具
+## 6. Formatter工具
 Formatter工具也有很多种，但是我们几乎没有去考查其它的formatter，就选择了black，只因为它的logo:
 <figure>
     <img src="https://images.jieyu.ai/images/2023/01/20230116214626.png" width="250"/>
@@ -626,10 +626,10 @@ profile = "black"
 
 在vscode中，Lint工具可以检查出未使用的导入，然后您需要手动移除。移除未使用的`import`是必要的，它可以适当加快程序启动速度，降低内存占用，并且避免导入带来的副作用。
 
-!!! warning
+!!! Tips
     导入不熟悉的第三方库可能是危险的！一些库会在全局作用域加入一些可执行代码，因此当你导入这些库时，这些代码就会被执行。
 
-# 6. pre-commit hooks
+## 7. pre-commit hooks
 
 我们把[pre-commit hooks](https://pre-commit.com)放在这一章里介绍，是因为高效的编码也必须是正确的编码。有时候我们会觉得国内的公司不需要计划和文档，需求、设计和编码各方之间不需要反复协商和沟通，一个指令下来，就很快得到执行。这被认为是执行力强，是一大体制优势，但这些“执行力”强的公司，却又累得要死。方向不正确，累死又有何益？
 
@@ -647,7 +647,7 @@ pre-commit安装后，会在你的项目目录下创建一个.git/hooks目录，
 
 当出现错误时，您必须进行修复后，才能进行再次提交。
 
-## 6.1. pre-commit hooks的配置
+### 7.1. pre-commit hooks的配置
 在ppw生成的项目中，我们已经集成了这些配置：
 ```yaml
 repos:
