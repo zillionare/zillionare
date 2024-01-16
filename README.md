@@ -14,7 +14,7 @@
 
 <div>
 <h3>私募量化策略大盘点-2024年初</h3>
-<img src="https://source.unsplash.com/random/360x200?room" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?dogs" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>看了十几家私募路演报告，总结出2023年最有效的策略！因子挖掘还是以手工为主，最有效的因子（策略）仍然是技术类的趋势+反转，无论是CTA还是量化多头都是如此。模型构成基本上都是机器学习。其中树模型比神经网络占比更大一些，有的机构中使用率高达90%。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-14</span><span><a href="https://www.jieyu.ai/blog/2024/01/14/review-of-private-equity-quantitative-strategies-in-2024">点击阅读</a></span></p>
@@ -24,7 +24,7 @@
 
 <div>
 <h3>Jupyter Notebook中如何设置环境变量？</h3>
-<img src="https://source.unsplash.com/random/360x200?cloud" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?room" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>我们常常通过Jupyter Notebook来分享代码和演示分析结果。有时候，我们需要在代码中使用账号和密码，如果它们也被分享出去，可就大不妙了。正确的做法是把密码设置在环境变量中，在代码中读取环境变量。但是，Jupyter Notebook默认设置下，并不能读取到主机的环境变量。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-14</span><span><a href="https://www.jieyu.ai/blog/2024/01/14/how-to-set-env-in-jupyter-notebook">点击阅读</a></span></p>
@@ -34,7 +34,7 @@
 
 <div>
 <h3>Alphalens因子分析(4) - Information Coefficient方法</h3>
-<img src="https://source.unsplash.com/random/360x200?dogs" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?food" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-12</span><span><a href="https://www.jieyu.ai/blog/2024/01/12/low-turnover-factor-3">点击阅读</a></span></p>
@@ -84,7 +84,7 @@
 
 <div>
 <h3>大富翁量化24课编排说明</h3>
-<img src="https://source.unsplash.com/random/360x200?lion" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span> 01 课程内容<br>本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括：<br> 如何获取数据<br>我们会介绍akshare, tushare, jqdatasdk这些常用库，也会介绍机构在用什么数据库<br> Pyt...</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-04</span><span><a href="https://www.jieyu.ai/articles/coursea/24lectures/how-the-course-are-composed">点击阅读</a></span></p>
@@ -94,7 +94,7 @@
 
 <div>
 <h3>常见问题</h3>
-<img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?breakfast" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span> 报名流程和学习环境<br><br>!!! abstract "课程怎么学？"<br>    课程以视频、notebook和答疑方式提供。视频在荔枝微课上，notebook由我们提供的服务器host。每周提供一次集中答疑，时间是周日晚8点，形式为腾讯会议。<br><br><br>    购买后，加宽...</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-04</span><span><a href="https://www.jieyu.ai/articles/coursea/24lectures/faq">点击阅读</a></span></p>
