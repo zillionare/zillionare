@@ -53,7 +53,7 @@ def change_last_update():
         f.write(content)
 
 def get_and_remove_img_url(text: str):
-    groups = re.search(r"\!\[.*\]\((.*)\)", text)
+    groups = re.search(r"!\[[^\]]*\]\((.*?)\)", text)
     if groups is None:
         groups = re.search(r"<\s*img\s+src=[\'\"](.+)\s*>", text)
         if groups is None:
@@ -65,7 +65,7 @@ def get_and_remove_img_url(text: str):
     return groups.group(1), re.sub(r"\!\[.*\]\(.*\)", "", text)
 
 def get_excerpt(text: str):
-    pat = r"(.+)<!--more-->"
+    pat = r'(.*?)(?:<!--more-->)'
     result = re.search(pat, text, re.MULTILINE|re.DOTALL)
     if result  is not None:
         excerpt = result.group(1).replace("\n\n", "")
@@ -84,7 +84,7 @@ def get_meta(file):
         if img is None:
             print(f"请为文件{file}配图！")
 
-            keys = ["mountain", "cloud", "room", "cats", "dogs", "light", "girls", "food", "drink"]
+            keys = ["mountain", "cloud", "room", "cats", "dogs", "light", "girls", "food", "drink","flower", "bouquet", "star night", "breakfast", "tigger", "tiddy", "lion"]
             query = keys[random.randint(0, len(keys) - 1)]
             img = f"https://source.unsplash.com/random/360x200?{query}"
         meta["excerpt"] = excerpt
