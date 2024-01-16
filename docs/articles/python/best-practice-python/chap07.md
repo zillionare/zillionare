@@ -431,7 +431,7 @@ test.test_get_files()
 
 当我们通过装饰器来使用 mock 时，实际上它仍然是有上下文的，在函数退出之后，mock 对系统的更改就复原了。但是，有时候我们更希望使用代码块级别的 patch，一方面可以更精准地限制 mock 的使用范围，另一方面，它的语法会更简练，因为我们可以一行代码完成 mock 行为的设置。
 
-```python{.line-numbers}
+```python
 # 示例 7 - 12
 import os
 
@@ -583,7 +583,7 @@ def test_case2():
 
 这里的关键是，我们要让 crawl_baidu 能抛出异常。当然，我们不能靠拔网线来实现这一点。
 
-```python{.line-numbers}
+```python
 import httpx
 from httpx import get, ConnectError
 from unittest.mock import patch
