@@ -14,7 +14,7 @@
 
 <div>
 <h3>私募量化策略大盘点-2024年初</h3>
-<img src="https://source.unsplash.com/random/360x200?tiddy" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?room" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>看了十几家私募路演报告，总结出2023年最有效的策略！因子挖掘还是以手工为主，最有效的因子（策略）仍然是技术类的趋势+反转，无论是CTA还是量化多头都是如此。模型构成基本上都是机器学习。其中树模型比神经网络占比更大一些，有的机构中使用率高达90%。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-14</span><span><a href="https://www.jieyu.ai/blog/2024/01/14/review-of-private-equity-quantitative-strategies-in-2024">点击阅读</a></span></p>
@@ -24,7 +24,7 @@
 
 <div>
 <h3>Jupyter Notebook中如何设置环境变量？</h3>
-<img src="https://source.unsplash.com/random/360x200?cats" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?mountain" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>我们常常通过Jupyter Notebook来分享代码和演示分析结果。有时候，我们需要在代码中使用账号和密码，如果它们也被分享出去，可就大不妙了。正确的做法是把密码设置在环境变量中，在代码中读取环境变量。但是，Jupyter Notebook默认设置下，并不能读取到主机的环境变量。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-14</span><span><a href="https://www.jieyu.ai/blog/2024/01/14/how-to-set-env-in-jupyter-notebook">点击阅读</a></span></p>
@@ -34,7 +34,7 @@
 
 <div>
 <h3>Alphalens因子分析(4) - Information Coefficient方法</h3>
-<img src="https://source.unsplash.com/random/360x200?room" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?drink" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-12</span><span><a href="https://www.jieyu.ai/blog/2024/01/12/low-turnover-factor-3">点击阅读</a></span></p>
@@ -44,7 +44,7 @@
 
 <div>
 <h3>因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</h3>
-<img src="https://source.unsplash.com/random/360x200?dogs" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?mountain" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>我们继续 Alphalens 因子分析报告的解读。在过去的两篇笔记中，我们都提到，运用 Alphalens 进行因子分析步骤很简单，但是如果不了解它背后的机制与逻辑，很容易得到似是而非的结论。<!--数据精度问题： akshare 是爬虫机制。它的数据来自于财经网站的网页。这些网页是供人阅读用的。因此，它在一些数据显示上，都要进行人性化处理。比如，对换手率，它只保留两位百分数点。对于大市值的沪深 300 而言，它们的换手率平常本来也就在 1%~5%之间波动，这样就引起了数据碰撞 (clash)。它对因子分析究竟有多大的影响不得而知。但是，可以肯定的是，当我们用不同的数据源来进行研究时，得到的结果会有不同。 --><br></p>
 
 <p><span style="margin-right:20px">发表于 2024-01-11</span><span><a href="https://www.jieyu.ai/blog/2024/01/11/low-turnover-factor-3">点击阅读</a></span></p>
@@ -104,7 +104,7 @@
 
 <div>
 <h3>年终特稿：这个指标我愿称之为年度最强发现</h3>
-<img src="https://source.unsplash.com/random/360x200?drink" style="width: 300px" align="right"/>
+<img src="https://source.unsplash.com/random/360x200?cloud" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>如果说在多因子时代，我们可以仅凭一个因子就构建出策略，并且还很有可能跑赢市场的话，这个因子就是不二之选。</p>
 
 <p><span style="margin-right:20px">发表于 2023-12-29</span><span><a href="https://www.jieyu.ai/blog/2023/12/29/connor-rsi-the-best">点击阅读</a></span></p>
