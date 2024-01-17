@@ -78,8 +78,10 @@ def get_excerpt(text: str):
     return get_and_remove_img_url(excerpt)
 
 def get_meta(file):
+    # file = "/apps/zillionare/docs/blog/posts/quantlib/why-click-house-so-fast.md"
     with open(file, 'r', encoding='utf-8') as f:
         meta, content = frontmatter.parse(f.read())
+        
         img, excerpt = get_excerpt(content)
         if img is None:
             print(f"请为文件{file}配图！")
@@ -88,7 +90,10 @@ def get_meta(file):
             query = keys[random.randint(0, len(keys) - 1)]
             img = f"https://source.unsplash.com/random/360x200?{query}"
         meta["excerpt"] = excerpt
-        meta["img"] = img
+
+        if "img" not in meta:
+            meta["img"] = img
+
         return meta
 
 def extract_article_meta(file):
@@ -225,7 +230,7 @@ def publish():
     write_readme(github_body, "")
 
     for cmd in [
-        "git add README.md",
+        "git add .",
         "git commit -m update",
         "git push",
 

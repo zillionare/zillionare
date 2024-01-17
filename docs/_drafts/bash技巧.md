@@ -45,3 +45,5 @@ if [[ -n $1 ]]; then
     tail -1 "$1"
 fi
 ```
+
+2. 查找文件内容 find . -type f -print0 |xargs -0 grep -li cheese
