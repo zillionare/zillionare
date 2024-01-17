@@ -15,6 +15,8 @@
 
 
 
+    
+
 
 
 
@@ -29,29 +31,27 @@
       
       
       
-        <link rel="canonical" href="http://www.jieyu.ai/articles/python/visualize/how-to-scale/">
+        <link rel="canonical" href="http://www.jieyu.ai/blog/2024/01/17/one-table-to-rule-them-all-with-clickhouse/">
       
       
-        <link rel="prev" href="../dash/">
+        <link rel="prev" href="../../15/static-site-in-2024/">
       
       
-        <link rel="next" href="../matplotlib-1/">
       
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../../../../feed_rss_updated.xml">
       
-        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../../../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../../../feed_rss_updated.xml">
-      
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
     
     
-    <title>量化策略中如何进行缩放和归一化 - 大富翁量化</title>
+    <title>CH: One table to rule them all! - 大富翁量化</title>
 
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -70,11 +70,11 @@
       
     
     
-      <link rel="stylesheet" href="../../../../overrides/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../../overrides/stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../../overrides/stylesheets/katex.min.css">
+      <link rel="stylesheet" href="../../../../../overrides/stylesheets/katex.min.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -94,9 +94,9 @@
     
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="量化策略中如何进行缩放和归一化 - 大富翁量化" />
+    <meta property="og:title" content="CH: One table to rule them all! - 大富翁量化" />
     <meta property="og:description" content=" - 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader zipline CTA AI B圈 Python量化 聚宽 数字货币 金融大数据及量化分析" />
-    <meta property="og:url" content="http://www.jieyu.ai/articles/python/visualize/how-to-scale/" />
+    <meta property="og:url" content="http://www.jieyu.ai/blog/2024/01/17/one-table-to-rule-them-all-with-clickhouse/" />
     <meta property="og:image" content="http://www.jieyu.ai/assets/banner.jpg" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -104,7 +104,7 @@
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="量化策略中如何进行缩放和归一化 - 大富翁量化" />
+    <meta name="twitter:title" content="CH: One table to rule them all! - 大富翁量化" />
     <meta name="twitter:description" content=" - 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader zipline CTA AI B圈 Python量化 聚宽 数字货币 金融大数据及量化分析" />
     <meta name="twitter:image" content="http://www.jieyu.ai/assets/banner.jpg" />
 
@@ -124,6 +124,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -136,9 +141,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../../.." title="大富翁量化" class="md-header__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+    <a href="../../../../.." title="大富翁量化" class="md-header__button md-logo" aria-label="大富翁量化" data-md-component="logo">
       
-  <img src="../../../../assets/img/logo.png" alt="logo">
+  <img src="../../../../../assets/img/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -155,7 +160,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              量化策略中如何进行缩放和归一化
+              CH: One table to rule them all!
             
           </span>
         </div>
@@ -230,7 +235,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../blog" class="md-tabs__link">
+      <a href="../../../.." class="md-tabs__link">
         
   
     
@@ -255,7 +260,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../coursea/24lectures/intro/" class="md-tabs__link">
+        <a href="../../../../../articles/coursea/24lectures/intro/" class="md-tabs__link">
           
   
     
@@ -284,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../products/" class="md-tabs__link">
+        <a href="../../../../../articles/products/" class="md-tabs__link">
           
   
     
@@ -319,7 +324,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-tabs__link">
+        <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-tabs__link">
           
   
     
@@ -341,7 +346,11 @@
         
   
   
+  
     
+    
+      
+  
   
   
     
@@ -349,29 +358,17 @@
       
   
   
-    
-  
   
     
     
       
   
   
-    
-  
   
     
     
-      
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../best-practice-python/chap01/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../../../articles/python/best-practice-python/chap01/" class="md-tabs__link">
           
   
     
@@ -398,7 +395,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../tags" class="md-tabs__link">
+      <a href="../../../../../tags" class="md-tabs__link">
         
   
     
@@ -417,7 +414,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../contact/" class="md-tabs__link">
+        <a href="../../../../../contact/" class="md-tabs__link">
           
   
     
@@ -447,8 +444,10 @@
           
     
     
+        
+    
 
-    <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+    <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
         <div class="md-sidebar__scrollwrap">
             <div class="md-sidebar__inner">
                 
@@ -459,9 +458,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="大富翁量化" class="md-nav__button md-logo" aria-label="大富翁量化" data-md-component="logo">
+    <a href="../../../../.." title="大富翁量化" class="md-nav__button md-logo" aria-label="大富翁量化" data-md-component="logo">
       
-  <img src="../../../../assets/img/logo.png" alt="logo">
+  <img src="../../../../../assets/img/logo.png" alt="logo">
 
     </a>
     大富翁量化
@@ -488,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../blog" class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -599,7 +598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/intro/" class="md-nav__link">
+      <a href="../../../../../articles/coursea/24lectures/intro/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -620,7 +619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/outline/" class="md-nav__link">
+      <a href="../../../../../articles/coursea/24lectures/outline/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -641,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/faq/" class="md-nav__link">
+      <a href="../../../../../articles/coursea/24lectures/faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -662,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/detail/" class="md-nav__link">
+      <a href="../../../../../articles/coursea/24lectures/detail/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -766,7 +765,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../products/" class="md-nav__link ">
+            <a href="../../../../../articles/products/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -799,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../products/zillionare_installation/" class="md-nav__link">
+      <a href="../../../../../articles/products/zillionare_installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -820,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../products/gm-adaptor-installation/" class="md-nav__link">
+      <a href="../../../../../articles/products/gm-adaptor-installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -996,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1017,7 +1016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1038,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1059,7 +1058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1080,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-4/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-4/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1101,7 +1100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1180,7 +1179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1201,7 +1200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1275,7 +1274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1296,7 +1295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1317,7 +1316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/%E8%B5%B7%E5%BA%95%E7%99%BE%E4%BA%BF%E7%A7%81%E5%8B%9F%E5%88%9B%E5%A7%8B%E4%BA%BA/" class="md-nav__link">
+      <a href="../../../../../articles/investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/%E8%B5%B7%E5%BA%95%E7%99%BE%E4%BA%BF%E7%A7%81%E5%8B%9F%E5%88%9B%E5%A7%8B%E4%BA%BA/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1358,10 +1357,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1374,12 +1371,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -1393,7 +1390,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             学Python
@@ -1404,10 +1401,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -1419,12 +1414,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
         
           
           <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
@@ -1438,7 +1433,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_1">
             <span class="md-nav__icon md-icon"></span>
             Python
@@ -1554,7 +1549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap01/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap01/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1575,7 +1570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap02/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap02/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1596,7 +1591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap03/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap03/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1617,7 +1612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap04/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap04/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1638,7 +1633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap05/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap05/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1659,7 +1654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap06/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap06/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1680,7 +1675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap07/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap07/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1701,7 +1696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap08/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap08/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1722,7 +1717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap09/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap09/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1743,7 +1738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap10/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap10/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1764,7 +1759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap11/" class="md-nav__link">
+      <a href="../../../../../articles/python/best-practice-python/chap11/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1798,10 +1793,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -1819,12 +1812,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_2" >
         
           
           <label class="md-nav__link" for="__nav_5_1_2" id="__nav_5_1_2_label" tabindex="0">
@@ -1838,7 +1831,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_1_2">
             <span class="md-nav__icon md-icon"></span>
             数据分析与可视化
@@ -1852,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dash/" class="md-nav__link">
+      <a href="../../../../../articles/python/visualize/dash/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1870,17 +1863,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../../../articles/python/visualize/how-to-scale/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1889,7 +1875,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1902,7 +1887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matplotlib-1/" class="md-nav__link">
+      <a href="../../../../../articles/python/visualize/matplotlib-1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1923,7 +1908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../matplotlib-2/" class="md-nav__link">
+      <a href="../../../../../articles/python/visualize/matplotlib-2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1944,7 +1929,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../qq-plot/" class="md-nav__link">
+      <a href="../../../../../articles/python/visualize/qq-plot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1988,7 +1973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tags" class="md-nav__link">
+      <a href="../../../../../tags" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2052,7 +2037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../contact/" class="md-nav__link">
+      <a href="../../../../../contact/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2078,33 +2063,9 @@
 
                 
                 
-                <br/>
-                
-            </div>
-        </div>
-    </div>
-
-
-
-    
-
-    <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-        <div class="md-sidebar__scrollwrap">
-            <div class="md-sidebar__inner">
-                
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-</nav>
-                
-
-                
-                
-                    <div class="tag-cloud-toc">
+                    <br>
+                    <br>
+                    <div class="tag-cloud-nav">
                         
 
 
@@ -8275,7 +8236,7 @@
                     
                         font-size:0.75rem;
                     
-                    color:DarkRed;
+                    color:DarkGreen;
                 ">课程&nbsp;
                 </span>
                 <!--<sup class="tag-count">5</sup>-->
@@ -8291,7 +8252,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">story&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8307,7 +8268,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkBlue;
                 ">量化传奇&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8323,7 +8284,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateBlue;
                 ">Python&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8339,7 +8300,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateBlue;
                 ">Poetry&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8355,7 +8316,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkMagenta;
                 ">ppw&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8371,7 +8332,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGoldenrod;
                 ">statistics&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8387,7 +8348,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkOliveGreen;
                 ">CDF&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8403,7 +8364,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateGray;
                 ">KS-Test&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8419,7 +8380,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGreen;
                 ">algorithms&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8435,7 +8396,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateBlue;
                 ">machine learning&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8483,7 +8444,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkOrchid;
                 ">sklearn&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8499,7 +8460,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateGray;
                 ">quant&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -8515,7 +8476,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkSlateBlue;
                 ">algorithm&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -8531,7 +8492,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">jupyter-notebook&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8547,7 +8508,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">blog&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8563,7 +8524,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkGreen;
                 ">static-site&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8579,7 +8540,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkViolet;
                 ">tools&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8595,7 +8556,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateBlue;
                 ">quantlib&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -8611,7 +8572,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkRed;
                 ">xtquant&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -8643,7 +8604,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkGreen;
                 ">hdf5&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8659,7 +8620,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateBlue;
                 ">h5py&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8691,7 +8652,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkGoldenrod;
                 ">parquet&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8707,7 +8668,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkMagenta;
                 ">数据源&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8723,7 +8684,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkSlateBlue;
                 ">clickhouse&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8739,7 +8700,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">技术指标&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8755,7 +8716,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkViolet;
+                    color:DarkBlue;
                 ">factor&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -8787,7 +8748,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkCyan;
+                    color:DarkMagenta;
                 ">Alphalens&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -8803,7 +8764,7 @@
                     
                         font-size:0.75rem;
                     
-                    color:DarkCyan;
+                    color:DarkTurquoise;
                 ">因子&nbsp;
                 </span>
                 <!--<sup class="tag-count">5</sup>-->
@@ -8819,7 +8780,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">review&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8835,7 +8796,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkTurquoise;
                 ">zscore&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -8852,187 +8813,193 @@
     </div>
 
 
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
+
+    
+        
+    
+
+    <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+        <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
                 
-    
-
-    <a href="https://github.com/zillionare/zillionare/edit/master/docs/articles/python/visualize/how-to-scale.md" title="edit.link.title" class="md-content__button md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-    </a>
-
-
-
-<style>
-    .md-typeset .cover {
-        margin-bottom: 1em;
-    }
-    .md-typeset .page-category {
-        color: gray;
-        font-size: large;
-    }
-    .md-typeset .page-title {
-        margin-left: -0.0625em;
-    }
-    .md-typeset .page-extra {
-        color: gray;
-        font-size: small;
-    }
-    .md-typeset .page-tags {
-        margin: 0;
-    }
-    .md-typeset .page-date {
-        margin: 0;
-        text-align: end;
-    }
-    @media print {
-        .md-typeset .cover {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .md-typeset .cover + * {
-            margin-top: 0;
-        }
-    }
-</style>
-
-<div class="cover">
-    
-    
-
-    
-    <h1 class="page-title"> 量化策略中如何进行缩放和归一化 </h1>
-
-    
-    
-
-    
-        <div class="page-extra row">
-            <div class="col">
-            
-
-            </div>
-            <div class="col">
-                <p class="page-date">
-                    <span>
                     
-                    </span>
-                </p>
-            </div>
-        </div>
-    
-</div>
-
-<hr class="screen-only">
-
-
-<style>
-    .md-typeset .toc {
-        display: none;
-    }
-    .md-typeset .toc label {
-        display: none;
-    }
-    .md-typeset .toc .md-nav {
-        font-size: unset;
-        line-height: 1.6;
-    }
-    .md-typeset .toc .md-nav--secondary {
-        margin-left: -2em;
-    }
-    .md-typeset .toc .md-nav__list {
-        margin: 0;
-    }
-    .md-typeset .toc ul {
-        list-style: none;
-    }
-    @media print {
-        .md-typeset .toc {
-            display: block;
-            page-break-after: always;
-        }
-        .md-typeset .toc .md-nav__link {
-            color: var(--md-typeset-a-color);
-        }
-        .md-typeset .toc .md-nav__link.md-nav__link--active {
-            font-weight: unset;
-        }
-        .md-typeset .toc + * {
-            margin-top: 0;
-        }
-    }
-</style>
-
-<div class="toc">
-    <h2>Table of Content</h2>
-    
 
 <nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      那些以讹传讹的解决方案
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-click-house-is-so-fing-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why click house is so f**ing fast?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      实战！先存一个小目标
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
-</div>
+                
+
+                
+                
+                <br/>
+                
+            </div>
+        </div>
+    </div>
 
 
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
+                        <time datetime="2024-01-17 00:00:00" class="md-ellipsis">2024年1月17日</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3H9m3 2 4 13 3-1-4-13-3 1M5 5v13h3V5H5M3 19v2h18v-2H3Z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/quantlib/">quantlib</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 3 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
 
+<nav class="md-tags" >
+  
     
-    <p>缩放和归一化是机器学习中必然遇到的一个问题。在量化策略中，不管是否用到机器学习，我们也常常遇到类似问题。</p>
-<p>在《大富翁量化金融实战课》第12课中，对这个问题进行了较深入的讨论。这篇文章既是对该课内容的一个摘要，也是加入了一些新的思考，可以独立成篇。</p>
-<p>从数学上看，缩放（归一化）是从一个值域映射到另一个值域的过程。这种映射，有的是线性的（比如min-max scale），有时候则需要非线性映射，比如，我们常常需要将一个<span class="arithmatex">\((-\infin, +\infin)\)</span>的区间映射到<span class="arithmatex">\((-1, 1)\)</span>或者<span class="arithmatex">\((0, 1)\)</span>上。</p>
-<p>从量化交易的角度看，WR指标（William's R)就是一个典型的min-max scale，它的公式如下：</p>
-<div class="arithmatex">\[
-WR = \frac{max(high) - close}{max(high) - min(low)}
-\]</div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>在量化交易中使用min-max scale一定要非常小心。
-<br>它主要存在两个问题。
-<br>其一是它引入了未来数据（但不是在所有情况下都会引入未来数据，比如William's R在实时计算时，是不存在未来数据的；但在回测中是否引入未来数据，就要看你怎么用了。
-<br>其二是，使用经过min-max scale处理的数据来进行预测，预测值一定在[min, max]区间内。但是，股价不存在确定的min/max。如果我们根据当下经过min-max scale处理后的数据来预测未来的股价，预测出来的股价是不可能突破当下见到的最大值的，而实际上，股价是可以涨上天的。
-<br>与之对比，在鸢尾花数据集中，我们对花瓣的长度和宽度都可以进行min-max scale，因为我们的采样基本上能够代表总体，未来也基本上不会出现明显超出采样中的min/max的。</p>
-</div>
-<p>更多的时候，在量化中我们需要进行非线性映射。比如，我们曾经介绍过，地量是一种比较重要的交易信号。地量见地价。什么是地量？我们可以用当前成交量是多少个周期以来的最低值来度量。这个数值最小为1，最大可以是10天，也可以是一个月，一年或者更长，因此，它的取值范围从数学上看是<span class="arithmatex">\([1, +\infin]\)</span>。</p>
-<p>在第13课，我们介绍圆弧底的评价函数时，也讲到过圆弧底的宽度区间可能在<span class="arithmatex">\([3, +\infin)\)</span>之间。</p>
-<p>对这种值域范围不确定的，我们一般可以用S型函数来进行变换。这些函数包括：</p>
-<div class="arithmatex">\[
-f(x) = sigmoid(x) = \frac{1}{1 + e^{-x}} \tag 1
-\]</div>
-<div class="arithmatex">\[
-f(x) = tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \tag 2
-\]</div>
-<div class="arithmatex">\[
-f(x) = \frac{x}{1+|x|}  \tag 3
-\]</div>
-<div class="arithmatex">\[
-f(x) = \frac{x}{sqrt(1 + x^2)} \tag 4
-\]</div>
-<p>特殊情况下，如果我们的采样数据存在周期性特点，而且我们希望在变换后，保留它们在周期上的关联性，也可以用<span class="arithmatex">\(sin\)</span>和<span class="arithmatex">\(cos\)</span>函数。这种归一化方法，在著名的《attention is all you need》一文中就使用过（对token的位置进行编码）：</p>
-<p><img alt="10%" src="https://images.jieyu.ai/images/2023/07/attention_is_all_u_need_sin.png" /></p>
-<p>考虑到股价波动的周期性，也许类似的方法也应该在量化中找到运用。</p>
-<p>但是，使用sigmoid函数来进行归一化也存在一些问题。比如在地量那个例子中，13个周期以来的地量，与120天以来的地量相比，显然两者具有完全不同的信号含义：一支个股很容易出现13个周期以内的地量，而很难出现120个周期以内的地量。一旦出现，很容易出现一定幅度的反弹。</p>
-<p>然而，如果我们对其进行sigmoid归一化的话，它们的取值将会是一样的：</p>
-<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+    
+    
+      <a href="../../../../../tags/#clickhouse" class="md-tag">clickhouse</a>
+    
+  
+    
+    
+    
+      <a href="../../../../../tags/#" class="md-tag">量化数据存储</a>
+    
+  
+</nav>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigmoid(12) == sigmoid(13)?&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">sigmoid</span><span class="p">(</span><span class="mi">13</span><span class="p">)))</span>
-</code></pre></div></td></tr></table></div>
-从上例可以看出，实际上，当<span class="arithmatex">\(x &gt; 12\)</span>时，在计算中我们就已经无法区分函数值之间的差异了。</p>
-<p>因此，在使用中，我们一般要对sigmoid进行一些修改，使之在某个区间内，具有较高的响应灵敏度。公式如下：</p>
-<div class="arithmatex">\[
-f(x) = \frac{2}{1+e^{-\frac{ln(40000)}{b}.(x-b)+ln(0.005)}} - 1
-\]</div>
-<p>此时图形主要由参数b决定。当b为15时，图形如下：</p>
-<p><img alt="50%" src="https://images.jieyu.ai/images/2023/07/scaled_sigmoid_b_15.png" /></p>
-<p>该分布区间为[-1, 1]，x取值在[0,b]之间时分布密度较高。</p>
-<p>在非机器学习型的量化打分策略中，我们可能倾向于函数值域落在[0,1]之间（想想看，RSI和WR都在这个区间内，而不是[-1,1]）。所以，我们对上述公式略加修改，代码实现如下：</p>
+
+  
+  
+
+
+  <h1>CH: One table to rule them all!</h1>
+
+<p>前面几篇笔记我们讨论了存储海量行情数据的个人技术方案。它们之所以被称之为个人方案，并不是因为性能弱，而是指在这些方案中，数据都存储在本地，也只适合单机查询。</p>
+<p>数据源很贵 -- 在这个冬天，我们已经听说，某些上了规模的机构，也在让员工共享万得账号了。所以，共享网络存储，从而只需要一个数据账号，就成为合理的需求。更不必说，集中管理才可能让 IT 来进行数据维护，而分析师只需要专注于策略就好。</p>
+<!--more-->
+
+<hr />
+<h2 id="_1">那些以讹传讹的解决方案<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>都已经 2024 年了，但说到行情数据的存储，你仍然能看到推荐 mysql 的文章。这完全是错误的。不要说 mysql，就是 postgres 来了也不行。不要说 postgres，就是 sqlserver 甚至 oracle 来了都不行。</p>
+<p>其它不 work 的方案还包括 mongodb。mongodb 是挺能装的，但是它不适合行情数据这类时序数据的查询。</p>
+<p>Influxdb 是最早和最出名的时序数据库。但是它的社区版本性能还是偏弱，特别是它限制了查询的并发度。此外，它的引擎是 Go 语言，这仍然要比 C 慢好几倍。</p>
+<p>Dolphinedb 可能性能上强于 Influxdb 不少，但缺点也是社区版对性能的限制太多。Tidb 据说性能不错，但我们没有机会评测过它。</p>
+<p>不过如果有犹如王者般的 clickhouse 社区版摆在面前，还有什么必要去评估那些青铜呢？</p>
+<h2 id="why-click-house-is-so-fing-fast">Why click house is so f**ing fast?<a class="headerlink" href="#why-click-house-is-so-fing-fast" title="Permanent link">&para;</a></h2>
+<p>Clickhouse 是战斗民族开发的产品。它的开发者是俄国的搜索引擎 Yandex!（提到 Yandex! 时，不能漏了这个感叹号）。搜索引擎天生要处理很多查询和统计分析，所以就催生了这个性能怪兽。</p>
+<hr />
+<p>Clickhouse 的优化是全方位的。在硬件级别上，它利用了 SIMD CPU 指令。Clickhouse 特别强调他们使用了 SIMD 指令来进行并行优化，当你安装 clickhouse 时，它提供了一个检测工具，让你检测 SIMD 指令优化能否开启。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>印像中 SIMD 现在也不是多高端的技巧，有好些软件也利用了这种优化，不过 clickhouse 很会找卖点，有点类似小米的全玻璃摄像头的宣传。不过，充分利用硬件指令，确实是优化中很重要的一个方法。</p>
+</div>
+<p>数据结构上，Clickhouse 使用了列存储，这一点，其实像 parquet, hdf5 都是这样存储的。基于列存储，就有很多很好的压缩方案可用，一旦存盘的数据量变小，显然易见 IO 效率也会提升。</p>
+<p>但是它基于 merge-tree 的存储引擎，使得在查询上，不仅可以利用所有的 CPU 核和磁盘、还可以利用集群的所有 CPU 核和磁盘。这使得它的查询性能可以随硬件增加线性扩展。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>正如 clickhouse 自己所说的那样，所有这些技术，其它很多数据管理系统也可能在使用。但 clickhouse 能做到更快，关键在于细节优化。而细节优化之所以能更到位，是因为他们不是做通用场景，而是只关注列数据库。</p>
+</div>
+<hr />
+<p>在这一块，确实用了很多大数据的技巧，比如使用了 bloomfilter 的索引。它还留了一些优化技巧给使用者，这也是我们这篇笔记将要介绍的：如何设计一个能存储上百亿条行情数据的数据库，并达到最佳性能。</p>
+<h2 id="_2">实战！先存一个小目标<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>尽管在 clickhouse 中，我们可以把分钟线与日线存在一张表里，但是考虑到我们几乎不可能同时取两个不同周期的数据，所以，把它们分别按表存储显然更合理。所以，我们在举例时，就只以分钟线为例：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -9046,61 +9013,77 @@ f(x) = \frac{2}{1+e^{-\frac{ln(40000)}{b}.(x-b)+ln(0.005)}} - 1
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="k">def</span> <span class="nf">scaled_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;当`x`落在`[start,end]`区间时，函数值为[0,1]且在该区间有较好的响应灵敏度</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">start</span> <span class="o">-</span> <span class="n">end</span><span class="p">)</span>
-
-    <span class="n">score</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">40_000</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">start</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">5e-3</span><span class="p">)))</span>
-    <span class="k">return</span> <span class="n">score</span><span class="o">/</span><span class="mi">2</span>
-
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span><span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">scaled_sigmoid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;fit (0,1)&quot;</span><span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">scaled_sigmoid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;fit (0, 100)&quot;</span><span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">38</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">scaled_sigmoid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;fit (18, 38)&quot;</span><span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">ax4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
-<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;fit (0,100) with original&quot;</span><span class="p">)</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">bars_1m</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="o">`</span><span class="n">frame</span><span class="o">`</span><span class="w"> </span><span class="n">DateTime64</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span><span class="w"> </span><span class="n">ZSTD</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="n">symbol</span><span class="o">`</span><span class="w"> </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="k">open</span><span class="o">`</span><span class="w"> </span><span class="n">Float32</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span><span class="w"> </span><span class="n">ZSTD</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="n">high</span><span class="o">`</span><span class="w"> </span><span class="n">Float32</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span><span class="w"> </span><span class="n">ZSTD</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="n">low</span><span class="o">`</span><span class="w"> </span><span class="n">Float32</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span><span class="w"> </span><span class="n">ZSTD</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="k">close</span><span class="o">`</span><span class="w"> </span><span class="n">Float32</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span><span class="w"> </span><span class="n">ZSTD</span><span class="p">),</span>
+<span class="w">    </span><span class="o">`</span><span class="n">volume</span><span class="o">`</span><span class="w"> </span><span class="n">Float64</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">,</span>
+<span class="w">    </span><span class="o">`</span><span class="n">money</span><span class="o">`</span><span class="w"> </span><span class="n">Float64</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">,</span>
+<span class="w">    </span><span class="o">`</span><span class="n">factor</span><span class="o">`</span><span class="w"> </span><span class="n">Float64</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span><span class="w"> </span><span class="n">ZSTD</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MergeTree</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="n">symbol</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="" src="https://images.jieyu.ai/images/2023/06/scaled_sigmoid.png" /></p>
-<p>从上图可以看出，与原来的sigmoid相比，新的scaled_sigmoid函数在[start, end]区间有很好的响应灵敏度，此区域内的分布密度最高。</p>
+<hr />
+<p>这里我们看到使用 clickhouse 的第一个好处。它完全兼容了 sql 的核心语法。要知道在设计 zillionare 2.0 版时我们被 influxdb 折磨的不行 -- 天知道他们为什么抛弃了原先对 sql 的兼容，而独出心裁地设计了一种全新的查询语言！</p>
+<p>这意味着如果我们在团队内安装了 clickhouse -- 这常常是 IT 的活，分析师也就能直接上手 -- 因为做数据分析的人，你们都是懂 sql 的。</p>
+<p>这里有一些技巧，是普通的 SQL 中没有的。</p>
+<p>首先是 frame 字段中的 <strong>CODEC(Delta, ZSTD) 压缩</strong>。它巧妙地通过行间数据的差值，将列数据转换成为一个稀疏的数据向量 -- 这样可以大大减少存储空间和读取时间。实际上，在行情数据中，大量的时间戳都是相同的，或者只有很小的 delta。比如，如果我们把 5000 多支个股的分钟数据存入一张表，那么我们常常会看到连续 5000 个相同的时间戳，这些都可以存为 0！</p>
+<p><strong>OHLC 中的 default 值</strong>也给得颇有讲究。如果某天某个标的停牌，那么它的 OHLC 等数据就是空值。clickhouse 允许我们存空值。但这样一来，clickhouse 必须使用另外的文件来存储空值，并在查询时再通过 join 把空值连接起来。这会花掉一些时间。所以，这里我们使用了一个不可能的值作为默认值，这样所有的数据仍然存在一起，将会加快存储和运算速度。</p>
+<hr />
+<p>OHLC 数据的变化都很小，所以我们也通过 DELTA 编码压缩它们。而成交量和成交额的跳动则可能很大，启用压缩就会得不偿失。</p>
+<p>我们能做这些优化，是因为我们知道数据的分布特性 -- 就像数据分析师也必须懂得数据的分布特性一样 -- clickhouse 也是这样才能做好优化。</p>
+<p>我们在 OHLC 数据上使用了单精度，但对 factor 却使用了 64 位浮点数。这是必要的，尽管看上去它们都很小，但是，OHLC 数据的取值范围很小，不会有精度问题，而 factor 数据则不一样，它必须更准确。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>为什么我们会知道这个区别？因为我们在设计 zillionare 时，遇到过这个问题。当我们把 factor 设计为 32 位精度时，在回测时，计算用户的资产时，我们发现在 1 亿左右的资金时，出现了几元或者几十元的差额。你也许可以去看一下你正在使用的框架，是否有同样的问题。</p>
+</div>
+<p>Symbol 字段我们也使用了一种优化。通过这种编码，我们实际上在存储 Symbol 时，存储的是整数而非字符串，这样会大大提高存储效率和查询速度。这个方法，如果你熟悉 Pandas 的性能优化，就应该已经见过了 -- 它就是类似于 pandas 的 categorize 优化。</p>
+<p>最后，我们把 frame 和 symbo 设为主键。我们的大多数查询将基于这样两个字段的比较。</p>
+<hr />
+<p>我们设计的表，性能究竟怎么样？</p>
+<p>让我们先分别存入 100 万条、1000 万条和 1 亿条数据，并且分别计算插入时间和查询时间。在准备数据时，我们使用了全随机的数据，这点很重要。如果我们都使用相同的数据，那么速度会快一些。</p>
+<ul>
+<li>写入 1 百万条数据，用时 8.3 秒，查询结果为 200 行时，用时 0.1 秒。</li>
+<li>写入 1 千万条数据，用时 77.7 秒，查询结果为 2000 行时，用时 0.7 秒。</li>
+<li>写入 1 亿条数据，用时 16 分钟左右，查询结果为 20200 行时，用时 13.7 秒。</li>
+</ul>
+<p>这个结果已经很优秀了。但还看上去并没有超出预期，对吧？作为对比，我们在 influxdb 上，返回 100 万条记录时，花费 55 秒左右，其中网络传输和客户端重新组装数据占约 30 秒），这样看来，clickhouse在这一局很可能还没有超过influxdb。另外，在 1000 万级别下，优化到极致的 mysql 也能做到0.7秒以内的查询，不过它处理不了上亿条数据。</p>
+<p>为什么没有惊喜？我去看了一下我的测试环境：</p>
+<p>一个只有 8CPU,8GB 的虚拟机（当然底层是磁盘阵列），并且我已经开了 4 个 vscode 窗口，这样系统只剩下0.6GB的自由内存。我们测试Influxdb时，使用的是物理机，48CPU+96GB内存，总记录是30多亿条。</p>
+<p>改天再找机会在同样的环境下进行对比测试。不过，clickhouse 员工已经在类似的行情数据库上进行了测试：</p>
+<p>在一台 macbook pro 上，在 2.4 亿条记录中，进行 argmax 的查询，只用了 0.9 秒！这个速度虽然不够跑高频，但已足够多数场景下使用了。</p>
+<p>不过，clickhouse 的测试与我们的测试有很大差别：</p>
+<p>在 clickhouse 的测试中，它返回的数据量很小；而在我们的测试中，要求查询返回了 2 万条数据。</p>
+<p>这是另一个优化方向。把能做的事情放到 clickhouse server 端做。也就是，很多因子的计算，之前我们需要取数据回 python 端再计算的，现在如果有可能，直接让 clickhouse 来做，我们只要结果。</p>
+<p>这是我们后续笔记要发表的内容。</p>
 
 
 
-    
-    
 
 
-              </article>
-            </div>
-          
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
@@ -9167,18 +9150,18 @@ f(x) = \frac{2}{1+e^{-\frac{ln(40000)}{b}.(x-b)+ln(0.005)}} - 1
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
-        <script src="../../../../overrides/javascripts/course.js"></script>
+        <script src="../../../../../overrides/javascripts/course.js"></script>
       
-        <script src="../../../../overrides/javascripts/katex.js"></script>
+        <script src="../../../../../overrides/javascripts/katex.js"></script>
       
-        <script src="../../../../overrides/javascripts/katex.min.js"></script>
+        <script src="../../../../../overrides/javascripts/katex.min.js"></script>
       
-        <script src="../../../../overrides/javascripts/auto-render.min.js"></script>
+        <script src="../../../../../overrides/javascripts/auto-render.min.js"></script>
       
     
   </body>
