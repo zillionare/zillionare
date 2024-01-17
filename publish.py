@@ -84,7 +84,7 @@ def get_meta(file):
         if img is None:
             print(f"请为文件{file}配图！")
 
-            keys = ["mountain", "cloud", "room", "cats", "dogs", "light", "girls", "food", "drink","flower", "bouquet", "starry-night", "breakfast", "tigger", "tiddy", "lion"]
+            keys = ["mountain", "cloud", "room", "cats", "dogs", "light", "girls", "food", "drink","flower", "bouquet", "starry-night", "breakfast", "tigger", "teddy", "lion"]
             query = keys[random.randint(0, len(keys) - 1)]
             img = f"https://source.unsplash.com/random/360x200?{query}"
         meta["excerpt"] = excerpt
