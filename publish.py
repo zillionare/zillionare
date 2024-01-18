@@ -7,6 +7,7 @@ import subprocess
 from concurrent.futures import ProcessPoolExecutor
 
 import arrow
+import fire
 import frontmatter
 
 img_mode = "card-img-top"
@@ -219,6 +220,11 @@ def execute(cmd):
         print(f"!!! FAILED: {cmd}")
 
 
+def build():
+    web_body, github_body, styles = build_index()
+    write_readme(web_body, styles)
+
+
 def publish():
     web_body, github_body, styles = build_index()
     write_readme(web_body, styles)
@@ -237,4 +243,7 @@ def publish():
     ]:
         execute(cmd)
 
-publish()
+fire.Fire({
+    "build": build,
+    "publish": publish
+})

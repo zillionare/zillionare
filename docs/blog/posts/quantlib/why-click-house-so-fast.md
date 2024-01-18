@@ -1,5 +1,5 @@
 ---
-title: "CH: One table to rule them all!"
+title: "ClickHouse: One table to rule them all!"
 slug: one-table-to-rule-them-all-with-clickhouse
 date: 2024-01-17
 categories:
