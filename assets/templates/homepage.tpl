@@ -13,10 +13,6 @@
     display: none;
 }
 
-.md-sidebar--primary {
-    display: none;
-}
-
 .as-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
