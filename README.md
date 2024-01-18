@@ -5,7 +5,7 @@
 <div>
 <h3>量化研究员如何写一手好代码</h3>
 <img src="https://images.jieyu.ai/images/2024/01/thesus.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。<br><br>写一手高质量的代码的意义，对Quant developer来讲就更是自不待言了。这篇notebo...</p>
+<p><span>内容摘要:<br></span>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。写一手高质量的代码的意义，对Quant developer来讲就更是自不待言了。这篇notebook笔记就介绍一些python best practice。<br></p>
 
 <p><span style="margin-right:20px">发表于 2024-01-18</span><span><a href="https://www.jieyu.ai/blog/2024/01/18/how-to-manage-python-project-as-quanter">点击阅读</a></span></p>
 

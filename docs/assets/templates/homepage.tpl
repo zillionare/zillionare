@@ -30,6 +30,10 @@
     .card-columns {
         column-count: 3;
     }
+
+    .md-sidebar--primary {
+    display: none;
+    }
  }
 
 a .card-title {

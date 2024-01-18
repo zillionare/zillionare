@@ -15,36 +15,6 @@ tags:
 
 您可以点[【这里】](http://139.196.218.124:5180/preview/)登录，密码是1234。登录后，您将看到有一个使用说明文档，双击打开，会出现如下内容：
 
----
-
-# 欢迎预览大富翁量化课程！
-
-<img src="https://images.jieyu.ai/images/hot/quantfans.png?1" width="150px" align="right">
-
-Hi! 我是助教宽粉，跟您一样，也是正在学习量化。
-
-* **亲自体验** 大富翁量化课程的部分章节、习题，在courseware和exercise目录下。
-* **获取A股数据**（实时及历史数据。历史数据从2005年以来的全部A股行情数据，粒度细至分钟线，最近5秒数据）
-* **编写策略**，
-* **运行回测**
-* **若干量化策略**
-
-
-**如果策略需要实盘运行，需要开通量化权限，可联系我，微信号：quantfans_99**
-
-在本环境中，我们提供了正课中的导论及第2、3和第9课的练习。我们还提供了以下辅助阅读资料(supplements目录）：
-
-1. 现代资产组合理论（mpt.ipynb及pdf，长文）
-2. 康纳RSI策略(connor_rsi.ipynb)。您可能发现意想不到的惊喜！
-3. Python中的asyncio编程(asyncio.ipynb)。
-4. 量化研究员的Python最佳实践(best-practice-python.ipynb)
-5. 多进程提取因子(multi-process.ipynb)
-
-在supplements/data目录下，我们提供了在本环境中如何读取数据的示例文件。
-
-``` {note}
-    这是个预览环境，所有人共享，所以，文件是无法保存的。但您可以修改和运行它们！
-```
----
+![](https://images.jieyu.ai/images/2024/01/course-preview.jpg)
 
 如果想尝试一下，您可以点[【这里】](http://139.196.218.124:5180/preview/)登录，密码是1234。
