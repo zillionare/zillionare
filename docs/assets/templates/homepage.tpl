@@ -2,11 +2,12 @@
 <link href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
 <style>
-.md-typeset h1,
-.md-content__button {
+  .md-typeset h1,
+  .md-content__button {
     display: none;
-}
+  }
 
 .md-typeset hr {
     display: none;
@@ -14,9 +15,6 @@
 
 .md-sidebar--primary {
     display: none;
-}
-.md-sidebar--secondary {
-    display: none important!;
 }
 
 .as-grid {

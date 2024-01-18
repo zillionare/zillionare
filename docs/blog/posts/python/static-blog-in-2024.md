@@ -1,7 +1,7 @@
 ---
-title: 2024 年，如何打造惊艳的个人博客/出版系统并且赚点小钱？
+title: 2024年，免费博客赚钱方案
 slug: static-site-in-2024
-date: 2024-01-15
+date: 2024-01-01
 categories:
     - tools
 motto:

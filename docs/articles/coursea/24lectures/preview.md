@@ -1,6 +1,6 @@
 ---
 title: 课程预览
-date: 2024-01-18
+date: 2024-01-01
 slug: 24lectures-preview-env
 category: 课程
 tags: 
