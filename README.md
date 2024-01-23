@@ -13,6 +13,16 @@
 
 
 <div>
+<h3>左数效应 整数关口与光折射</h3>
+<img src="https://images.jieyu.ai/images/2024/01/pressure-of-price-integer-cat.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>常常有人问，新的因子/策略从哪里来？今天的笔记或许能启发你的思路。从1932年起，研究人员就注意到以9结尾的价格（比如$3.99），在消费者的认知中，要远远小于邻近的整数价格（$4.00）。后来这一效应被称为 left-digit effect。在证券交易中，类似的情况一样存在，不过它的表现形式是整数关口压力。</p>
+
+<p><span style="margin-right:20px">发表于 2024-01-23</span><span><a href="https://www.jieyu.ai/blog/2024/01/23/left-side-effect-integer-pressure">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>量化研究员如何写一手好代码</h3>
 <img src="https://images.jieyu.ai/images/2024/01/thesus.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。写一手高质量的代码的意义，对Quant developer来讲就更是自不待言了。这篇notebook笔记就介绍一些python best practice。<br></p>
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>共40万字，461段超过7000行代码（另有若干策略代码作为福利赠送，未计入），这门课用一句话介绍：涵盖了量化交易全流程、学完就能进入实战的课程。<br><br>这门课程共分六个部分，24个章节。下面是各个部分及章节主要内容介绍，也透露出我们在选题与课程编排方面的考虑：<br><br> 一、 数据从...</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-04</span><span><a href="https://www.jieyu.ai/articles/coursea/24lectures/detail">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>大富翁量化24课编排说明</h3>
-<img src="https://source.unsplash.com/random/360x200?breakfast" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span> 01 课程内容<br>本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括：<br> 如何获取数据<br>我们会介绍akshare, tushare, jqdatasdk这些常用库，也会介绍机构在用什么数据库<br> Pyt...</p>
-
-<p><span style="margin-right:20px">发表于 2024-01-04</span><span><a href="https://www.jieyu.ai/articles/coursea/24lectures/how-the-course-are-composed">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
