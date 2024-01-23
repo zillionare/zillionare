@@ -3,6 +3,16 @@
 <div class="card-columns">
     
 <div>
+<h3>龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</h3>
+<img src="https://images.jieyu.ai/images/2024/01/dragon-and-phoenix.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>作为量化人，我们敏锐地观察市场，不放过任何一个可能产生利润的机会。一旦发现这样的机会，我们决不会在乎其它人怎么看怎么想，书上有没有这么讲。**但是，大胆假设，小心求证。**今天带来的因子，挺魔幻的，我把它叫做魔性汉字。如果你难以接受这种无底线的炒作，那么，我们换一个名字：另类因子。</p>
+
+<p><span style="margin-right:20px">发表于 2024-01-23</span><span><a href="https://www.jieyu.ai/blog/2024/01/23/magic-hot-word-factor">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>量化研究员如何写一手好代码</h3>
 <img src="https://images.jieyu.ai/images/2024/01/thesus.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。写一手高质量的代码的意义，对Quant developer来讲就更是自不待言了。这篇notebook笔记就介绍一些python best practice。<br></p>
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span> 01 课程内容<br>本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括：<br> 如何获取数据<br>我们会介绍akshare, tushare, jqdatasdk这些常用库，也会介绍机构在用什么数据库<br> Pyt...</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-04</span><span><a href="https://www.jieyu.ai/articles/coursea/24lectures/how-the-course-are-composed">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>常见问题</h3>
-<img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span> 报名流程和学习环境<br><br>!!! abstract "课程怎么学？"<br>    课程以视频、notebook和答疑方式提供。视频在荔枝微课上，notebook由我们提供的服务器host。每周提供一次集中答疑，时间是周日晚8点，形式为腾讯会议。<br><br><br>    购买后，加宽...</p>
-
-<p><span style="margin-right:20px">发表于 2024-01-04</span><span><a href="https://www.jieyu.ai/articles/coursea/24lectures/faq">点击阅读</a></span></p>
 
 </div><!--end-article-->
 

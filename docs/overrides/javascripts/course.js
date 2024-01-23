@@ -3,7 +3,7 @@ var link="/articles/coursea/24lectures/intro/"
 var img = "https://images.jieyu.ai/images/hot/course_promotion.jpg"
 
 var ad = [
-    '<div class="admonition tip">',
+    '\n\n<div class="admonition tip">',
         '<p class="admonition-title">',
             '现在报名量化课程，立享优惠！',
         '</p>',

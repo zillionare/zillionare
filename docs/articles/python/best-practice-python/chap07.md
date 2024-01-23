@@ -1,6 +1,10 @@
 ---
 title: 07 代码单元测试
 ---
+
+!!! quote
+    Testing leads to failure. Failure leads to understanding.
+    
 单元测试的概念可能多数读者都有接触过。作为开发人员，我们编写一个个测试用例，测试框架发现这些测试用例，将它们组装成测试 suite 并运行，收集测试报告，并且提供测试基础设施（断言、mock、setup 和 teardown 等）。Python 当中最主流的单元测试框架有三种，Pytest, nose 和 Unittest，其中 Unittest 是标准库，其它两种是第三方工具。在 ppw 向导生成的项目中，就使用了 Pytest 来驱动测试。
 
 这里主要比较一下 pytest 和 unittest。多数情况下，当我们选择单元测试框架时，选择二者之一就好了。unitttest 基于类来组织测试用例，而 pytest 则是函数式的，基于模块来组织测试用例，同时它也提供了 group 概念来组织测试用例。pytest 的 mock 是基于第三方的 pytest-mock，而 pytest-mock 实际上只是对标准库中的 mock 的简单封装。单元测试都会有 setup 和 teardown 的概念，unittest 直接使用了 setUp 和 tearDown 作为测试入口和结束的 API，在 pytest 中，则是通过 fixture 来实现，这方面学习曲线可能稍微陡峭一点。在断言方面，pytest 使用 python 的关键字 assert 进行断言，比 unittest 更为简洁，不过断言类型上没有 unittest 丰富。
@@ -323,7 +327,7 @@ session_mocker [session scope] -- .../pytest_mock/plugin.py:419
 ## 3. MOCK 魔法
 在单元测试时，我们希望测试环境尽可能单纯、可控。因此我们不希望依赖于用户输入，不希望连接无法独占的数据库或者第三方微服务等。这时候，我们需要通 mock 来模拟出这些外部接口。mock 可能是单元测试中最核心的技术。
 
-!!! Readmore
+!!! note
     感谢容器技术！现在单元测试中，越来越多地连接数据库、缓存和第三方微服务了。因为对有一些接口进行 mock 的代价，已经超过了 launch 一个容器，初始化数据库再开始测试了。
 
 无论是 unittest 还是 pytest，都是直接或者间接使用了 unittest 中的 mock 模块。所以，当你遇到 mock 相关的问题，请参阅 [mock](https://docs.python.org/3/library/unittest.mock.html)。我们接下来关于 mock 的介绍，也将以 Unittest 中的 mock 为主。不过，两个框架的 mock，在基本概念上都是相通的。
@@ -383,7 +387,7 @@ foo
 
 这里还出现了它的一个重要方法，assert_called_with，即检查被替换的方法是否被以期望的参数调用了。除此之外，还可以断言被调用的次数，等等。
 
-!!! note:
+!!! note
     如果你之前接触过其它 mock 框架的话，可能需要注意，python 中的 mock 是`action -> assertion`模式，而不是其它语言中常见的`record -> replay`模式。
 
 这个例子非常简单。但它也演示了使用 Mock 的精髓，即生成 Mock 实例，设置行为（比如返回值），替换生产系统中的对象（方法、属性等），最后，检验结果。
@@ -553,6 +557,13 @@ with patch('builtins.input', return_value="input is mocked"):
 执行上述代码时，用户并不会有机会真正输入数据，input 方法被 mock，并且会返回"input is mocked"。
 
 #### 3.2.4. 让时间就停留在这一刻
+
+!!! quote
+    Verweile doch, du bist so schön!
+    你是如此美丽，请逗留片刻！
+
+    <p style="text-align:right"> -- 浮士德</p>
+
 有时候我们会在代码中，通过 datetime.datetime.now() 来获取系统的当前时间。显然，在不同的时间测试，我们会得到不同的取值，导致测试结果无法固定。因此，这也是需要被 mock 的对象。
 
 要实现对这个方法的 mock，可能比我们一开始以为的要难一些。我们的推荐是，使用 freezegun 这个库，而避开自己去 mock 它。
