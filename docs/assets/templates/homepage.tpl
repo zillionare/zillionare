@@ -38,10 +38,12 @@
 
 a .card-title {
     color: rgb(55, 58, 60);
+    font-size: 17px;
 }
 
 a .card-text {
     color: rgb(55, 58, 60);
+    font-size: 14px;
 }
 
 a:hover {
