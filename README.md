@@ -5,9 +5,9 @@
 <div>
 <h3>来自世坤！寻找Alpha 构建交易策略的量化方法</h3>
 <img src="https://images.jieyu.ai/images/2024/01/kitty-in-basket.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>问：常常看到有人说Alpha seeking，这究竟是什么意思？推荐这本《Finding Alphas: A Quantitative Approach to Building Trading Strategies》。我拿到的PDF是2019年的第二版。来自WorldQuant（世坤）的Igor Tulchinshky。</p>
+<p><span>内容摘要:<br></span>问：常常看到有人说Alpha seeking，这究竟是什么意思？自己回答不如推荐一本书：《Finding Alphas: A Quantitative Approach to Building Trading Strategies》，它的题目正好就是寻找Alpha。我拿到的PDF是2019年的第二版。来自WorldQuant（世坤）的Igor Tulchinshky等人，Igor Tulchinshky是世坤的创始人。</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-24 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/01/24/finding-alphas-a-quantitative-approach">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-25 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/01/25/finding-alphas-a-quantitative-approach">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
