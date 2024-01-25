@@ -1,7 +1,7 @@
 ---
 title: 左数效应 整数关口与光折射
 slug: left-side-effect-integer-pressure
-date: 2024-01-23
+date: 2024-01-24
 categories:
     - strategy
 motto:
