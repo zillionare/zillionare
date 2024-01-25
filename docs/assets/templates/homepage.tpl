@@ -54,5 +54,6 @@ a:hover {
 nav a {
     font-size: 0.8rem !important;
     color: white;
+    mix-blend-mode: difference;
 }
 </style>
