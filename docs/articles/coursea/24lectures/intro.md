@@ -100,4 +100,4 @@ tags:
 
 ## 6. 优惠券领取
 
-你可以在 [Github Repo](https://github.com/zillionare/zillionare)上为我们点赞，然后凭用户名向宽粉领取100元优惠券一张。优惠券可赠送给他人。每次课程可使用不超过总额20%的优惠券。
+你可以在 [Github Repo](https://github.com/zillionare/zillionare)上为我们点赞，然后凭用户名向宽粉（微信： quantfans_99 ）领取100元优惠券一张。优惠券可赠送给他人。每次课程可使用不超过总额20%的优惠券。
