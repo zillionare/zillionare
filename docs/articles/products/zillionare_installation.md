@@ -2,15 +2,10 @@
 <style>
 
 table {
-    width: 100vw;
     background-color: transparent;
     border-collapse: collapse;
     border-spacing: 0;
     display: table !important;
-
-    &>* {
-        text-align: center;
-    }
 
     th {
         background-color: #E7F7F5;
@@ -20,7 +15,9 @@ table {
     td {
         border: none;
     }
-
+}
+pre code {
+    white-space: pre-wrap;
 }
 </style>
 
@@ -92,6 +89,7 @@ Zillionare官方提供对聚宽数据服务的集成支持。您需要购买聚�
 ## 配置
 
 ### 聚宽账号
+
 ```
 JQ_ACCOUNT=notset
 JQ_PASSWORD=passwd
@@ -99,6 +97,7 @@ JQ_PASSWORD=passwd
 
 ### 邮件通知
 配置邮件通知后，系统自带的一些报警消息会通过邮件发送出来。你可以将邮件配置成邮件列表，以便运维人员可以收到通知。配置后，您也可以在策略中，使用`omicron.notify`里的方法，发出邮件通知。[文档](https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail)
+
 ```
 MAIL_FROM=user@example.com
 MAIL_TO=user@example.com
@@ -124,6 +123,80 @@ LAB_PASSWORD=1234
 LAB_USER=zillionare
 ```
 
+### 配置获取板块数据任务
+Zillionare的板块数据来自同花顺，使用的是爬虫技术。这些爬虫通过单独的进程运行，它们由crontab来启动。
+
+在我们容器打包时，未能实现给docker容器自动增加任务，因此，要获取同花顺板块数据，必须按以下步骤增加任务：
+
+1. 通过`docer exec -it zillionare-omega /bin/bash`进行容器的命令行模式
+2. 通过`crontab -e`来增加以下任务：
+```
+    # fetch members
+    35 11 * * * /root/zillionare/cronjobs/fetch_industry_list.sh
+    12 12 * * * /root/zillionare/cronjobs/fetch_concept_list.sh
+    # fetch bars 
+    15 18 * * * /root/zillionare/cronjobs/fetch_concept_bars.sh
+    50 18 * * * /root/zillionare/cronjobs/fetch_industry_bars.sh
+```
+
+### 配置实时价格爬虫
+
+尽管Zillionare要求使用聚宽的行情服务，但聚宽并不能提供实时行情。因此，Zillionare借助akshare来实时爬取实时价格。在Zillionare安装后，这个服务应该已经启动了。为了放心起见，请按以下步骤进行检查：
+
+1. 进入到zillionare-omega容器中。
+2. 切换到app账号，进入工作目录/home/app/zillionare/akshareprice
+3. 检查python app.py是否已经运行，如果已经运行，检查logs/server.log是否正常
+4. 上述步骤有任何异常，kill删掉该进程，然后执行下面的命令启动
+```
+    conda activate akshare
+    nohup python app.py &
+    #或者
+    nohup /home/app/minissh conda3/envs/akshare/bin/python app.py &
+```
+5. 检查日志，确定程序正常启动
+
+!!! warning
+    Akshare不能提供历史的板块数据。如果需要历史板块数据，可以向我们索取。在没有数据的时候，运行以下代码会出错：
+    ```python
+    from omicron.models.board import Board, BoardType
+
+    Board.init("omega")
+    concepts = await Board.board_list()
+    concepts[:10]
+
+    --- raise TypeError ---
+    TypeError: unhashable type: 'slice'
+    ```
+
+板块数据存放在omega容器的/data/zillionare/omega/boards.zarr目录下。如果同步任务正常运行，则会存在以下文件夹：
+
+![Alt text](ths-board-dir.png)
+
+## 验证安装
+运行`docker-compose up`之后，正常情况下应该输出：
+
+```
+zillionare-lab | [I 2024-02-23 05:55:30.463 ServerApp] Skipped non-installed server(s):...
+zillionare-backtesting | 2024-02-23 05:55:30,693 I 6 pyemit.emit:_listen:135 | listening on <aioredis.client.PubSub object at 0x7fab65abbd00>
+...
+zillionare-omega | waiting for influxdb start...
+zillionare-omega |   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+...
+zillionare-omega | 正在初始化系统数据...
+zillionare-omega | 系统数据初始化完毕...
+zillionare-omega | prepare to start Omega real price process for stock ...
+zillionare-omega | Omega stock price process started ...
+...
+```
+## 检查运行日志
+zillionare-omega的日志在/data/zillionare/omega/logs（宿主机）目录下。如果聚宽账号配置正确，经过了至少一个交易日的午夜，则应该可以看到以下日志：
+```
+2024-02-23 01:15:31,082 I 209 omega.master.tasks.calibration_task:sync_daily_bars_day:179 | daily_bars_sync_1d(2024-02-22 15:00:00)同步完成,参数为{'timeout': 600, 'name': 'daily_bars_sync_1d', 'frame_type': [<FrameType.DAY: '1d'>], 'end': datetime.datetime(2024, 2, 22, 15, 0), 'n_bars': None, 'state': 'master.task.daily_bars_sync_1d.state', 'scope': ['master.task.daily_bars_sync_1d.scope.stock.1d', 'master.task.daily_bars_sync_1d.scope.index.1d']}
+2024-02-23 01:15:31,084 I 209 omega.master.tasks.calibration_task:get_sync_date:63 | 所有数据已同步完毕
+
+```
+这表明数据同步服务正常工作。
+
 ## 从这里开始！
 
-可以在研究界面下新建一个notebook，上传以下[notebook](assets/getting-started.ipynb)，开始运行。
+可以在研究界面下新建一个notebook，上传以下[notebook](/assets/getting-started.ipynb)，开始运行。
