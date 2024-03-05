@@ -3,6 +3,16 @@
 <div class="card-columns">
     
 <div>
+<h3>量化人如何用好 Jupyter？（二）</h3>
+<img src="https://images.jieyu.ai/images/2024/03/galaxy.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>当我们使用 Jupyter 时，很显然我们的主要目的是探索数据。这篇文章将介绍如何利用 JupySQL 来进行数据查询--甚至代替你正在使用的 Navicat, dbeaver 或者 pgAdmin。此外，我们还将介绍如何更敏捷地探索数据，相信这些工具，可以帮你省下 90%的 c...</p>
+
+<p><span style="margin-right:20px">发表于 2024-03-05 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/03/05/how-to-use-jupyter-as-quant-researcher">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>量化人如何用好Jupyter环境？（一）</h3>
 <img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>网上有很多jupyter的使用技巧。但我相信，这篇文章会让你全面涨姿势。很多用法，你应该没见过。<br><br>- 显示多个对象值<br>- 魔法：%precision %psource %lsmagic %quickref等<br>- vscode中的interactive window<br>---<br><br>...</p>
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>看了十几家私募路演报告，总结出2023年最有效的策略！因子挖掘还是以手工为主，最有效的因子（策略）仍然是技术类的趋势+反转，无论是CTA还是量化多头都是如此。模型构成基本上都是机器学习。其中树模型比神经网络占比更大一些，有的机构中使用率高达90%。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-14 人气 890 </span><span><a href="https://www.jieyu.ai/blog/2024/01/14/review-of-private-equity-quantitative-strategies-in-2024">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>Jupyter Notebook中如何设置环境变量？</h3>
-<img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>我们常常通过Jupyter Notebook来分享代码和演示分析结果。有时候，我们需要在代码中使用账号和密码，如果它们也被分享出去，可就大不妙了。正确的做法是把密码设置在环境变量中，在代码中读取环境变量。但是，Jupyter Notebook默认设置下，并不能读取到主机的环境变量。</p>
-
-<p><span style="margin-right:20px">发表于 2024-01-14 人气 813 </span><span><a href="https://www.jieyu.ai/blog/2024/01/14/how-to-set-env-in-jupyter-notebook">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
