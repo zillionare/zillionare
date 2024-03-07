@@ -264,4 +264,3 @@ figure = go.Figure(data=chart, layout=go.Layout({
 
 最后，实际上dtale是自带服务器的。我们并不一定要在 notebook 中使用它。安装 dtale 之后，可以在命令行下运行`dtale`命令，然后再打开浏览器窗口就可以了。更详细的介绍，可以看这份 [中文文档](https://www.qixinbo.info/2022/12/17/dtale/)。
 
-这是我们为学员准备的量化课程中的入门知识，分Jupyter基础篇和高级篇。本文同时发表在基地，如果你无法查看本文中的🔗🔗，可以在基地寻找本文。
