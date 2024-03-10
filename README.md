@@ -3,11 +3,21 @@
 <div class="card-columns">
     
 <div>
-<h3>后见之明！错过6个涨停之后的复盘</h3>
+<h3>提速100倍！QMT复权信息因子化的高效算法</h3>
 <img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>QMT的XtQuant库提供了量化研究所需要的数据。它在一些API设计上面向底层多一些，应用层在使用时，还往往需要进行一些包装，比如复权就是如此。<br><br>这篇文章介绍了将XtQuant的除权信息转换成常常的复权因子的高性能算法。与官方示例相比，速度快了100多倍。<br><br>---<br><br>!!!...</p>
+
+<p><span style="margin-right:20px">发表于 2024-03-10 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/03/10/qmt-how-to-handle-dr-adjust">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
+<h3>后见之明！错过6个涨停之后的复盘</h3>
+<img src="https://source.unsplash.com/random/360x200?flower" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在今年1月2日和1月3日，旅游板块两支个股先后涨停，此后一支月内三倍，另一支连续6个涨停。事后复盘，我们如何在1月2日第一支个股涨停之后，通过量化分析，找出第二支股？<br><br>!!! warning<br>    无论复盘多么精彩，请注意，本文写作的目的只是分享量化技术：如何进行相关性分析。...</p>
 
-<p><span style="margin-right:20px">发表于 2024-03-07 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/03/07/hindsight-how-do-i-missed-dlsy">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-03-07 人气 780 </span><span><a href="https://www.jieyu.ai/blog/2024/03/07/hindsight-how-do-i-missed-dlsy">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -17,7 +27,7 @@
 <img src="https://images.jieyu.ai/images/2024/03/galaxy.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>当我们使用 Jupyter 时，很显然我们的主要目的是探索数据。这篇文章将介绍如何利用 JupySQL 来进行数据查询--甚至代替你正在使用的 Navicat, dbeaver 或者 pgAdmin。此外，我们还将介绍如何更敏捷地探索数据，相信这些工具，可以帮你省下 90%的 c...</p>
 
-<p><span style="margin-right:20px">发表于 2024-03-05 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/03/05/how-to-use-jupyter-as-quant-researcher">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-03-05 人气 847 </span><span><a href="https://www.jieyu.ai/blog/2024/03/05/how-to-use-jupyter-as-quant-researcher">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>前面几篇笔记我们讨论了存储海量行情数据的个人技术方案。它们之所以被称之为个人方案，并不是因为性能弱，而是指在这些方案中，数据都存储在本地，也只适合单机查询。数据源很贵 -- 在这个冬天，我们已经听说，某些上了规模的机构，也在让员工共享万得账号了。所以，共享网络存储，从而只需要一个数据账号，就成为合理的需求。更不必说，集中管理才可能让 IT 来进行数据维护，而分析师只需要专注于策略就好。</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-17 人气 293 </span><span><a href="https://www.jieyu.ai/blog/2024/01/17/one-table-to-rule-them-all-with-clickhouse">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>找校友！起底百亿私募创始人</h3>
-<img src="https://images.jieyu.ai/images/2024/01/routouline.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>国内百亿私募创始人的毕业学校新鲜出炉，有没有你的校友？从专业上看，数学（包括统计、金融数学）、计算机（含电子信息、软件）、物理是分布最多的专业。但也出现了文科专业（政治经济学）和商学专业。从地域分布上看，京、沪、浙领先，中部地区仅有江西财经大学为代表，西部地区仅有四川大学和西安交大两所高校入围。</p>
-
-<p><span style="margin-right:20px">发表于 2024-01-16 人气 813 </span><span><a href="/articles/investment/量化杂谈/founders-of-private-equity">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
