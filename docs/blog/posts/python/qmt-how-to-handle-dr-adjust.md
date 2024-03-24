@@ -1,10 +1,10 @@
 ---
-title: 提速100倍！QMT复权信息因子化的高效算法
+title: 提速100倍！QMT复权因子高效算法
 slug: qmt-how-to-handle-dr-adjust
 date: 2024-03-10
 categories:
     - qmt
-motto: 
+motto: It is the time you‘ve wasted for your rose makes your rose so important
 lunar:
 lineNumbers: true
 tags: 

@@ -3,7 +3,7 @@
 <div class="card-columns">
     
 <div>
-<h3>提速100倍！QMT复权信息因子化的高效算法</h3>
+<h3>提速100倍！QMT复权因子高效算法</h3>
 <img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>QMT的XtQuant库提供了量化研究所需要的数据。它在一些API设计上面向底层多一些，应用层在使用时，还往往需要进行一些包装，比如复权就是如此。<br><br>这篇文章介绍了将XtQuant的除权信息转换成常常的复权因子的高性能算法。与官方示例相比，速度快了100多倍。<br><br>---<br><br>!!!...</p>
 
@@ -53,11 +53,21 @@
 
 
 <div>
+<h3>4k stars! 如何实现按拼音首字母查询证券代码？</h3>
+<img src="https://images.jieyu.ai/images/2024/03/pypinyin.png" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>一个可能只有少数量化人才需要的功能 -- 按拼音首字母来查找证券。比如，当我们键入ZGPA时，就能搜索出中国平安，或者是它的代码。这是我们使用行情软件时常用的一个功能。<br><br>这个功能的关键是要实现汉字转拼音。有的数据源已经提供了这个查询。但不是所有的数据源都有这个功能。<br><br>---<br>...</p>
+
+<p><span style="margin-right:20px">发表于 2024-02-01 人气 771 </span><span><a href="https://www.jieyu.ai/blog/2024/02/01/pypinyin-introduction">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>给Pandas找个搭子，用SQL玩转Dataframe!</h3>
 <img src="https://images.jieyu.ai/images/2024/01/panda.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>对有一定SQL基础的人来说，pandas中的查询会有点繁琐。在这篇文章，我们将给Pandas找个搭子，在用SQL方便的地方，我们用SQL；在用原生查询方便的地方，我们就用原生查询。这个搭子会是谁呢？</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-29 人气 771 </span><span><a href="https://www.jieyu.ai/blog/2024/01/29/use-sql-query-with-pandas">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-29 人气 250 </span><span><a href="https://www.jieyu.ai/blog/2024/01/29/use-sql-query-with-pandas">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -67,7 +77,7 @@
 <img src="https://images.jieyu.ai/images/2024/01/switch-to-decimal.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>笔记[左数效应、整数关口与光折射](http://www.jieyu.ai/blog/2024/01/23/left-side-effect-integer-pressure/)中引用了南加州大学Lawrence Harris的[一篇论文](/assets/ebooks/Stock-price-clustering-and-price-discreteness.pdf)中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。但是，2001年，美股变更交易制度，由分数制切换为十进制。这个变化就导致了他的研究结论**作废**。</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-26 人气 250 </span><span><a href="https://www.jieyu.ai/blog/2024/01/26/switch-to-decimal">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-26 人气 767 </span><span><a href="https://www.jieyu.ai/blog/2024/01/26/switch-to-decimal">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -77,7 +87,7 @@
 <img src="https://images.jieyu.ai/images/2024/01/kitty-in-basket.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>问：常常看到有人说Alpha seeking，这究竟是什么意思？自己回答不如推荐一本书：《Finding Alphas: A Quantitative Approach to Building Trading Strategies》，它的题目正好就是寻找Alpha。我拿到的PDF是2019年的第二版。来自WorldQuant（世坤）的Igor Tulchinshky等人，Igor Tulchinshky是世坤的创始人。</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-25 人气 767 </span><span><a href="https://www.jieyu.ai/blog/2024/01/25/finding-alphas-a-quantitative-approach">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-25 人气 510 </span><span><a href="https://www.jieyu.ai/blog/2024/01/25/finding-alphas-a-quantitative-approach">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -87,7 +97,7 @@
 <img src="https://images.jieyu.ai/images/2024/01/pressure-of-price-integer-cat.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>常常有人问，新的因子/策略从哪里来？今天的笔记或许能启发你的思路。从1932年起，研究人员就注意到以9结尾的价格（比如\$3.99），在消费者的认知中，要远远小于邻近的整数价格（\$4.00）。后来这一效应被称为 left-digit effect。在证券交易中，类似的情况一样存在，不过它的表现形式是整数关口压力。</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-24 人气 510 </span><span><a href="https://www.jieyu.ai/blog/2024/01/24/left-side-effect-integer-pressure">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-24 人气 890 </span><span><a href="https://www.jieyu.ai/blog/2024/01/24/left-side-effect-integer-pressure">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -97,7 +107,7 @@
 <img src="https://images.jieyu.ai/images/2024/01/dragon-and-phoenix.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>作为量化人，我们敏锐地观察市场，不放过任何一个可能产生利润的机会。一旦发现这样的机会，我们决不会在乎其它人怎么看怎么想，书上有没有这么讲。**但是，大胆假设，小心求证。**今天带来的因子，挺魔幻的，我把它叫做魔性汉字。如果你难以接受这种无底线的炒作，那么，我们换一个名字：另类因子。</p>
 
-<p><span style="margin-right:20px">发表于 2024-01-23 人气 890 </span><span><a href="https://www.jieyu.ai/blog/2024/01/23/magic-hot-word-factor">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-23 人气 779 </span><span><a href="https://www.jieyu.ai/blog/2024/01/23/magic-hot-word-factor">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -107,17 +117,7 @@
 <img src="https://images.jieyu.ai/images/2024/01/thesus.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。写一手高质量的代码的意义，对Quant developer来讲就更是自不待言了。这篇notebook笔记就介绍一些python best practice。<br></p>
 
-<p><span style="margin-right:20px">发表于 2024-01-18 人气 779 </span><span><a href="https://www.jieyu.ai/blog/2024/01/18/how-to-manage-python-project-as-quanter">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>ClickHouse: One table to rule them all!</h3>
-<img src="https://images.jieyu.ai/images/2024/01/query-buillion-rows-in-ms.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>前面几篇笔记我们讨论了存储海量行情数据的个人技术方案。它们之所以被称之为个人方案，并不是因为性能弱，而是指在这些方案中，数据都存储在本地，也只适合单机查询。数据源很贵 -- 在这个冬天，我们已经听说，某些上了规模的机构，也在让员工共享万得账号了。所以，共享网络存储，从而只需要一个数据账号，就成为合理的需求。更不必说，集中管理才可能让 IT 来进行数据维护，而分析师只需要专注于策略就好。</p>
-
-<p><span style="margin-right:20px">发表于 2024-01-17 人气 293 </span><span><a href="https://www.jieyu.ai/blog/2024/01/17/one-table-to-rule-them-all-with-clickhouse">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-01-18 人气 293 </span><span><a href="https://www.jieyu.ai/blog/2024/01/18/how-to-manage-python-project-as-quanter">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
