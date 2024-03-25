@@ -1,7 +1,7 @@
 ---
 title: 4k stars! 如何实现按拼音首字母查询证券代码？
 slug: pypinyin-introduction
-date: 2024-02-01
+date: 2024-04-24
 img: https://images.jieyu.ai/images/2024/03/pypinyin.png
 categories:
     - python
