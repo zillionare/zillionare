@@ -3,7 +3,7 @@
 <div class="card-columns">
     
 <div>
-<h3>阴沟、月亮和Pandas - Wes Mckinney的传奇故事</h3>
+<h3>月亮和Pandas - Wes Mckinney的传奇故事</h3>
 <img src="https://images.jieyu.ai/images/2024/04/wes-mckinney-cover.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>正如死亡和税收不可避免，Pandas对量化人而言，也具有同样的地位 -- 每个人都不可避免地要与之打交道。而Wes Mckinney正是Pandas的创建者。Pandas是有史以来，最成功的Python库之一，以一已之力，开拓了Python的生存空间。<br><br>---<br><br>毛姆的《月亮和...</p>
 

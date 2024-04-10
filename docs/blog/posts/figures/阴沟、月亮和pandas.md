@@ -1,5 +1,5 @@
 ---
-title: 阴沟、月亮和Pandas - Wes Mckinney的传奇故事
+title: 月亮和Pandas - Wes Mckinney的传奇故事
 slug: legend-of-wes-mckinney
 date: 2024-04-10
 categories:
