@@ -3,7 +3,17 @@
 <div class="card-columns">
     
 <div>
-<h3>1赔10！3月27日，我抄底了！</h3>
+<h3>阴沟、月亮和Pandas - Wes Mckinney的传奇故事</h3>
+<img src="https://images.jieyu.ai/images/2024/04/wes-mckinney-cover.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>正如死亡和税收不可避免，Pandas对量化人而言，也具有同样的地位 -- 每个人都不可避免地要与之打交道。而Wes Mckinney正是Pandas的创建者。Pandas是有史以来，最成功的Python库之一，以一已之力，开拓了Python的生存空间。<br><br>---<br><br>毛姆的《月亮和...</p>
+
+<p><span style="margin-right:20px">发表于 2024-04-10 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/10/legend-of-wes-mckinney">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
+<h3>1赔10！中证1000应该这样抄底</h3>
 <img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span><!--<br>1. 上一篇文章<br>2. 如何计算抄底的赔率？<br>3. 抄底的意义：先手！<br>4. 最后的惊喜！其实，即使抄底失败，4993/4984，赚0.18%<br>5. 万一见到黑天鹅？！看看<br>--><br><br>3月28日那篇文章分析了前一日的下跌为什么是可能预见的。这一篇文章，我将用坚实的统计数...</p>
 
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>对有一定SQL基础的人来说，pandas中的查询会有点繁琐。在这篇文章，我们将给Pandas找个搭子，在用SQL方便的地方，我们用SQL；在用原生查询方便的地方，我们就用原生查询。这个搭子会是谁呢？</p>
 
 <p><span style="margin-right:20px">发表于 2024-01-29 人气 659 </span><span><a href="https://www.jieyu.ai/blog/2024/01/29/use-sql-query-with-pandas">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>改用十进制！点差如何影响策略</h3>
-<img src="https://images.jieyu.ai/images/2024/01/switch-to-decimal.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>笔记[左数效应、整数关口与光折射](http://www.jieyu.ai/blog/2024/01/23/left-side-effect-integer-pressure/)中引用了南加州大学Lawrence Harris的[一篇论文](/assets/ebooks/Stock-price-clustering-and-price-discreteness.pdf)中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。但是，2001年，美股变更交易制度，由分数制切换为十进制。这个变化就导致了他的研究结论**作废**。</p>
-
-<p><span style="margin-right:20px">发表于 2024-01-26 人气 109 </span><span><a href="https://www.jieyu.ai/blog/2024/01/26/switch-to-decimal">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
