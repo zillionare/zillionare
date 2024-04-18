@@ -3,11 +3,11 @@
 <div class="card-columns">
     
 <div>
-<h3>月亮和Pandas - Wes Mckinney的传奇故事</h3>
-<img src="https://images.jieyu.ai/images/2024/04/wes-mckinney-cover.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>正如死亡和税收不可避免，Pandas对量化人而言，也具有同样的地位 -- 每个人都不可避免地要与之打交道。而Wes Mckinney正是Pandas的创建者。Pandas是有史以来，最成功的Python库之一，以一已之力，开拓了Python的生存空间。<br><br>---<br><br>毛姆的《月亮和...</p>
+<h3>为了机器能学习，我标注了 2 万条行情数据</h3>
+<img src="https://images.jieyu.ai/images/2024/04/uchicago-hyde-park.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>芝加哥大学海德公园。芝大是经济学重镇，其学者开创了著名的芝加哥经济学派，共产生了 100 位诺奖、10 位菲尔兹奖、4 位图灵奖。今天量化人追逐的 **Alpha**， 最早就来自于 Michael Jessen 在芝大时的博士论文。<br><br>---<br><br>很多人对基于机器学习的量化策略很...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-10 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/10/legend-of-wes-mckinney">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-18 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/18/None">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
