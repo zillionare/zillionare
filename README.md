@@ -7,7 +7,7 @@
 <img src="https://source.unsplash.com/random/360x200?girls" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span><!--<br>1. 上一篇文章<br>2. 如何计算抄底的赔率？<br>3. 抄底的意义：先手！<br>4. 最后的惊喜！其实，即使抄底失败，4993/4984，赚0.18%<br>5. 万一见到黑天鹅？！看看<br>--><br><br>3月28日那篇文章分析了前一日的下跌为什么是可能预见的。这一篇文章，我将用坚实的统计数...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-08 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/04/08/None">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-08 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/04/08/how-to-buy-when-it-is-bottom">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
