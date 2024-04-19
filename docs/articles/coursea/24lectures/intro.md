@@ -2,6 +2,7 @@
 hide:
     - title
 title: 课程简介
+slug: introduction-to-24-lectures
 category: 课程
 tags: 
     - 课程

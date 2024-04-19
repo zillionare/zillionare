@@ -1,5 +1,6 @@
 ---
 title: 11 发布应用
+slug: publish-your-application
 ---
 
 我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。

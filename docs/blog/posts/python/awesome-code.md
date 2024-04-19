@@ -1,5 +1,6 @@
 ---
 title: 只廖廖数行，但很惊艳的代码
+slug: awesome-code
 date: 2023-12-19
 categories:
     - python

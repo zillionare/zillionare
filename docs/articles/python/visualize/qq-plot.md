@@ -1,5 +1,6 @@
 ---
 title: 为什么Q-Q图可用来进行统计推断
+slug: what-is-qq-plot
 ---
 
 # 原理

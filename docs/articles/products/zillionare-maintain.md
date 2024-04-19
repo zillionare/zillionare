@@ -1,4 +1,7 @@
-# Zillionare 2.0维护指南
+---
+title: Zillionare 2.0维护指南
+slug: zillionare-2.0-maintaining-guid
+---
 
 ## 行情数据同步原理
 

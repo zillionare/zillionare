@@ -1,6 +1,7 @@
 ---
 title: 球队和硬币因子
 date: 2023-12-23
+slug: hockey-and-coid
 lunar: 冬月十一
 motto: 要懂得钱为你工作 而不是相反
 categories:

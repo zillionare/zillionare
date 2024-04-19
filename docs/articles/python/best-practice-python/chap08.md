@@ -1,5 +1,6 @@
 ---
 title: 08 代码版本管理
+slug: version-control-with-git
 ---
 ## 1. 版本控制的意义
 

@@ -1,5 +1,6 @@
 ---
 title: matplotlib的布局问题（2）
+slug: layout-of-matplotlib-2
 ---
 
 上一期文章介绍了如何使用 GridSpect 来进行布局。当我们使用 GridSpec 布局时，一般是为了创建较复杂的布局，比如异形网格。这种情况下，我们往往是先生成若干小的网格，再通过 span 来合并网格，以生成异形网格。

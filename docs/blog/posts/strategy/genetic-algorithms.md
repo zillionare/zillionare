@@ -1,5 +1,6 @@
 ---
 title: 量化交易中的遗传算法
+slug: genetic-algo
 date: 2023-12-20
 categories:
     - strategies

@@ -4,6 +4,7 @@ import random
 import re
 import shlex
 import subprocess
+import sys
 from concurrent.futures import ProcessPoolExecutor
 
 import arrow
@@ -83,9 +84,11 @@ def get_meta(file):
     with open(file, 'r', encoding='utf-8') as f:
         meta, content = frontmatter.parse(f.read())
         
-        img, excerpt = get_excerpt(content)
-        if img is None:
-            print(f"请为文件{file}配图！")
+        _, excerpt = get_excerpt(content)
+
+        if meta.get("slug") is None:
+            print(f"请为文件{file}添加slug！")
+            sys.exit(0)
 
         meta["excerpt"] = excerpt
         return meta

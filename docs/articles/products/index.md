@@ -1,4 +1,7 @@
-<h1>大富翁开源产品系列</h1>
+---
+title: 大富翁开源产品系列
+slug: introduction-to-zillionare
+---
 
 ## 大富翁 (Zillionare )
 

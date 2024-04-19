@@ -1,5 +1,6 @@
 ---
 title: 投资组合理论与实战(4) - PyportfolioOpt工具库
+slug: mpt-4-pyportfolio
 ---
 这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些库都是比较底层的库，它们主要用于提供各种凸优化算法，不仅仅用于投资领域。
 

@@ -1,5 +1,6 @@
 ---
 title: 如何免登录重启miniqmt?
+slug: auto-restart-miniqmt
 categories:
     - quantlib
 date: 2023-12-14

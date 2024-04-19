@@ -1,5 +1,6 @@
 ---
 title: 06 10 倍速！高效编码
+slug: need-for-speed
 ---
 ## 1. AI 赋能的代码编写
 

@@ -1,3 +1,7 @@
+---
+title: Zillionare 2.0 故障排除
+slug: zillionare-2.0-troubleshooting
+---
 
 ## 1. 在omega日志中出现failed to build unclosed bar for ...错误
 这个错误如下图所示

@@ -1,5 +1,6 @@
 ---
 title: 07 代码单元测试
+slug: unittest-mock
 ---
 
 !!! quote

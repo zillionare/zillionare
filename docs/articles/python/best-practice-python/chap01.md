@@ -1,5 +1,6 @@
 ---
 title: 01 为什么要学 Python
+slug: why-should-we-learn-python
 puppeteer:
     format: "A4"
     scale: 1

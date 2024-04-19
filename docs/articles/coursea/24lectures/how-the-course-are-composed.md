@@ -1,5 +1,6 @@
 ---
 title: 大富翁量化24课编排说明
+slug: how-the-course-are-composed
 date: 2024-01-04
 category: 课程
 tags: 

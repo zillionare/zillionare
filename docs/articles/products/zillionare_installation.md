@@ -1,4 +1,7 @@
-
+---
+title: Zillionare 2.0 安装指南
+slug: installation-guide-for-zillionare-2.0
+---
 <style>
 
 table {

@@ -1,3 +1,8 @@
+---
+title: 东财量化接口安装指南
+slug: installation-guide-for-gm-adaptor
+---
+
 【目录】
 
 - [1.1. 安装](#11-安装)

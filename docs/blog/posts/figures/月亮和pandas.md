@@ -1,4 +1,3 @@
-#! https://zhuanlan.zhihu.com/p/691832313
 ---
 title: 月亮和Pandas - Wes Mckinney的传奇故事
 slug: legend-of-wes-mckinney

@@ -1,5 +1,6 @@
 ---
 title: Dash-用Python也能做网页
+slug: make-webpage-with-dash
 ---
 
 # Dash: 核心概念、路由、Auth 与 Pitfall

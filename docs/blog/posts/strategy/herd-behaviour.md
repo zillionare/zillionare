@@ -1,5 +1,6 @@
 ---
 title: 羊群效应及其因子化
+slug: herd-behaviour
 date: 2023-12-28
 motto: 凌晨两点 我看到海棠花未眠
 lunar: 冬月十六

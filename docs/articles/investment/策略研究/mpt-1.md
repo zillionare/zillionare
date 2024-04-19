@@ -1,5 +1,6 @@
 ---
 title: 投资组合理论与实战(1) - 基本概念
+slug: mpt-1-concepts
 ---
 
 

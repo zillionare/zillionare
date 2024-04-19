@@ -1,5 +1,6 @@
 ---
 title: 常见问题
+slug: faq
 date: 2024-01-04
 category: 课程
 tags: 
