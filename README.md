@@ -7,7 +7,7 @@
 <img src="https://images.jieyu.ai/images/2024/04/uchicago-hyde-park.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>芝加哥大学海德公园。芝大是经济学重镇，其学者开创了著名的芝加哥经济学派，共产生了 100 位诺奖、10 位菲尔兹奖、4 位图灵奖。今天量化人追逐的 **Alpha**， 最早就来自于 Michael Jessen 在芝大时的博士论文。<br><br>---<br><br>很多人对基于机器学习的量化策略很...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-18 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/18/None">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-18 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/18/how-to-label-data-with-jupyter">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
