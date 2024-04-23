@@ -3,11 +3,21 @@
 <div class="card-columns">
     
 <div>
+<h3>机器学习(XgBoost）预测顶和底</h3>
+<img src="https://images.jieyu.ai/images/2024/04/cmu.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span><br>之前的文章中，我们对中证1000指数进行了顶和底的标注。这一篇我们将利用这份标注数据，实现机器学习预测顶和底，并探讨一些机器学习的原理。<br><br>在这次实验中，我们将使用...</p>
+
+<p><span style="margin-right:20px">发表于 2024-04-23 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/23/ml-predict-peaks-valley-1">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>新国九条下，低波动因子重要性提升！</h3>
 <img src="https://ei.marketwatch.com/Multimedia/2013/01/07/Photos/MD/MW-AX868_haugen_20130107141040_MD.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>_Robert (Bob) Haugen, 低波动因子之父。图片来自MarketWatch_<br><br><br><br><br>之前我们有一期文章介绍了**低换手率因子**。它的背后的原理是，要买在**无人问津处，藏器待时，最终卖在人声鼎沸时**。这是一种博弈逻辑。<br><br>今天介绍的**低波动因子**，...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-22 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/22/why-low-volatility-factor-win">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-22 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2024/04/22/why-low-volatility-factor-win">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -17,7 +27,7 @@
 <img src="https://images.unsplash.com/photo-1530858085883-7ab22d96afcc?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在投资界，巴菲特与查理.芒格的神仙友谊，是他们财富神话之外的另一段传奇。巴菲特曾这样评价芒格：他用思想的力量拓展了我的视野，让我以火箭的速度，从猩猩进化到人类。<br><br>人生何幸能得到一知己。如果没有这样的机缘，在AI时代，至少我们做量化时，可以让AI来伴飞。<br><br>这篇文章，分享我用AI...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-19 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2024/04/19/do-not-fly-solo-use-a-pilot">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-19 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/04/19/do-not-fly-solo-use-a-pilot">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -27,7 +37,7 @@
 <img src="https://images.jieyu.ai/images/2024/04/uchicago-hyde-park.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>芝加哥大学海德公园。芝大是经济学重镇，其学者开创了著名的芝加哥经济学派，共产生了 100 位诺奖、10 位菲尔兹奖、4 位图灵奖。今天量化人追逐的 **Alpha**， 最早就来自于 Michael Jessen 在芝大时的博士论文。<br><br>---<br><br>很多人对基于机器学习的量化策略很...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-18 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/04/18/how-to-label-data-with-jupyter">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-18 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/04/18/how-to-label-data-with-jupyter">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -37,7 +47,7 @@
 <img src="https://images.jieyu.ai/images/2024/04/wes-mckinney-cover.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>正如死亡和税收不可避免，Pandas对量化人而言，也具有同样的地位 -- 每个人都不可避免地要与之打交道。而Wes Mckinney正是Pandas的创建者。Pandas是有史以来，最成功的Python库之一，以一已之力，开拓了Python的生存空间。<br><br>---<br><br>毛姆的《月亮和...</p>
 
-<p><span style="margin-right:20px">发表于 2024-04-10 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/04/10/legend-of-wes-mckinney">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-04-10 人气 780 </span><span><a href="https://www.jieyu.ai/blog/2024/04/10/legend-of-wes-mckinney">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>在今年1月2日和1月3日，旅游板块两支个股先后涨停，此后一支月内三倍，另一支连续6个涨停。事后复盘，我们如何在1月2日第一支个股涨停之后，通过量化分析，找出第二支股？<br><br>!!! warning<br>    无论复盘多么精彩，请注意，本文写作的目的只是分享量化技术：如何进行相关性分析。...</p>
 
 <p><span style="margin-right:20px">发表于 2024-03-07 人气 813 </span><span><a href="https://www.jieyu.ai/blog/2024/03/07/hindsight-how-do-i-missed-dlsy">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>量化人如何用好 Jupyter？（二）</h3>
-<img src="https://images.jieyu.ai/images/2024/03/galaxy.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>当我们使用 Jupyter 时，很显然我们的主要目的是探索数据。这篇文章将介绍如何利用 JupySQL 来进行数据查询--甚至代替你正在使用的 Navicat, dbeaver 或者 pgAdmin。此外，我们还将介绍如何更敏捷地探索数据，相信这些工具，可以帮你省下 90%的 c...</p>
-
-<p><span style="margin-right:20px">发表于 2024-03-05 人气 582 </span><span><a href="https://www.jieyu.ai/blog/2024/03/05/how-to-use-jupyter-as-quant-researcher">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
