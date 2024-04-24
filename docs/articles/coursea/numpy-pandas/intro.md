@@ -1,3 +1,8 @@
+---
+title: 简介
+slug: numpy-pandas-in-quant-trade
+---
+
 正如死亡和税收不可避免，Numpy和Pandas对量化人而言，也具有同样的地位 -- 每个量化人都不可避免地要与这两个库打交道。
 
 如果你去研究一些非常重要的量化库，比如alphalens, empyrical, backtrader, tushare, akshare, jqdatasdk等，或者一些非常优秀的量化框架比如quantaxis, zillionare, vnpy等等，你就会发现它们都依赖于numpy和pandas。实际上，一个库只要依赖于pandas，它也必将传递依赖到numpy。

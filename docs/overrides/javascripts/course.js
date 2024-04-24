@@ -33,7 +33,7 @@ function insertAd(minParas, minWords){
     } 
     // 如果已经包含了链接，则不再增加，以允许手动增加
     var links = document.querySelectorAll("a[href*='" + link + "']");
-    if (links.length > 0){
+    if (links.length > 2){//菜单栏总是包含对此链接的引用
         console.log("已添加")
         return
     }
