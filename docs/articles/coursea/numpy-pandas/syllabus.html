@@ -1,0 +1,621 @@
+<!DOCTYPE html><html><head>
+      <title>量化中的Numpy和Pandas</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/aaron/.vscode-server/extensions/shd101wyy.markdown-preview-enhanced-0.8.13/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600;color:#808080;}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<style>
+em {
+    font-size: 1vw;
+    font-style: italic;
+    color: #aaa;
+}
+</style>
+<p>§ 量化交易中的 NUMPY 和 PANDAS</p>
+<h1 style="text-align:center">课程大纲 </h1>
+
+<div style="column-count:2;column-gap:3vw">
+<h2 id="1-导论">1. 导论 </h2>
+<h2 id="2-numpy-核心语法-1">2. Numpy 核心语法 (1) </h2>
+<h3 id="21-基本数据结构">2.1. 基本数据结构 </h3>
+<h4 id="211-创建数组">2.1.1. 创建数组 </h4>
+<p><em>创建数组的常用方法，以及几个内置数组，这些数组在量化中也非常常用</em></p>
+<h4 id="212-增删改操作">2.1.2. 增删改操作 </h4>
+<p><em>如何向数组中追加、插入、删除元素，以及修改？</em></p>
+<h4 id="213-定位-读取和搜索">2.1.3. 定位、读取和搜索 </h4>
+<p><em>介绍indexing, slicing, searchsorted等</em></p>
+<h4 id="214-审视-inspecting-数组">2.1.4. 审视 (inspecting) 数组 </h4>
+<h3 id="22-数组操作">2.2. 数组操作 </h3>
+<h4 id="221-升维">2.2.1. 升维 </h4>
+<h4 id="222-降维">2.2.2. 降维 </h4>
+<h4 id="223-转置">2.2.3. 转置 </h4>
+<h2 id="3-numpy-核心语法-2">3. Numpy 核心语法 (2) </h2>
+<h3 id="31-运算类">3.1. 运算类 </h3>
+<h4 id="311-逻辑运算和比较">3.1.1. 逻辑运算和比较 </h4>
+<h4 id="312-集合运算">3.1.2. 集合运算 </h4>
+<h4 id="313-数学运算和统计">3.1.3. 数学运算和统计 </h4>
+<p><em>矩阵运算等数学运算及均值、方差、协方差、percentile 等统计函数</em></p>
+<h3 id="32-类型转换和-typing">3.2. 类型转换和 Typing </h3>
+<p><em>深入了解Numpy数据类型及其转换，以及Typing库，帮助我们写出健壮的代码</em></p>
+<h3 id="33-numpy-核心语法-3">3.3. Numpy 核心语法 (3) </h3>
+<h3 id="34-处理包含-npnan-的数据">3.4. 处理包含 np.nan 的数据 </h3>
+<p><em>我们从第三方获得的数据可能包含np.nan数据；技术指标在冷启动期的值也常常是np.nan。在数据包含None或者np.nan的情况下，如果计算其均值、最大值？将介绍 np.isnan, nanmean, nanmax 等 nan *函数</em></p>
+<h3 id="35-随机数和采样">3.5. 随机数和采样 </h3>
+<p><em>随机数和采样是量化的高频操作，在“造”数据方面非常好用</em></p>
+<h3 id="36-io-操作">3.6. IO 操作 </h3>
+<p><em>介绍如何读取csv、保存csv等io操作</em></p>
+<h3 id="37-日期和时间">3.7. 日期和时间 </h3>
+<p><em>从其它库中得到的行情数据的时间、日期，怎么转换？</em></p>
+<h3 id="38-字符串操作">3.8. 字符串操作 </h3>
+<p><em>如何在Numpy数组中进行字符串查找等操作?</em></p>
+<h3 id="39-structured-array">3.9. Structured Array </h3>
+<h2 id="4-numpy-量化场景应用案例">4. Numpy 量化场景应用案例 </h2>
+<h3 id="41-连续值统计">4.1. 连续值统计 </h3>
+<p><em>举例：如何高效地寻找连续涨停、N 连阳和计算 connor's rsi 中 streaks</em></p>
+<h3 id="42-cumsum-与分时均价线的计算">4.2. cumsum 与分时均价线的计算 </h3>
+<p><em>分时均价线在日内交易中非常重要，一般来说，两次攻击分时线不破，就是日内买入（卖出）的信号。我们要如何计算分时均线呢？</em></p>
+<h3 id="43-移动均线的计算">4.3. 移动均线的计算 </h3>
+<p><em>如何用 numpy 快速计算均线？介绍一个卷积算法</em></p>
+<h3 id="44-自适应参数如何选择才合理">4.4. 自适应参数如何选择才合理？ </h3>
+<p><em>很多时候，我们需要自适应参数。怎么选？percentile很多时候是个好方案</em></p>
+<h3 id="45-计算最大回撤">4.5. 计算最大回撤 </h3>
+<p><em>如果你有经验，就能判断出 2 月 7 日的大反弹。反弹之日，要找跌幅最大的股票。怎么选呢？</em></p>
+<h3 id="46-如何判断个股的长期走势">4.6. 如何判断个股的长期走势？ </h3>
+<p><em>不要买入长期看跌的个股。关键是，如何判断呢？这一节将介绍多项式回归</em></p>
+<h3 id="47-alpha101-中的函数例程">4.7. Alpha101 中的函数例程 </h3>
+<p><em>Alpha101 中有好几个基础函数，因子就构建在这些基础函数上。如何高效地实现它们？</em></p>
+<h3 id="48-寻找相似的k线">4.8. 寻找相似的k线 </h3>
+<p><em>介绍 corrcoef 和 correlate</em></p>
+<h3 id="49-资产组合的收益与波动率示例">4.9. 资产组合的收益与波动率示例 </h3>
+<p><em>从随机生成若干资产开始，计算资产的期望收益和波动率。这是高频应用场景之一。</em></p>
+<h2 id="5-numpy-高性能编程实践">5. Numpy 高性能编程实践 </h2>
+<h3 id="51-broadcasting">5.1. Broadcasting </h3>
+<p><em>深入Numpy高效的底层原理</em></p>
+<h3 id="52-使用-numexpr">5.2. 使用 NumExpr </h3>
+<h3 id="53-启用多线程">5.3. 启用多线程 </h3>
+<h3 id="54-使用bottleneck库">5.4. 使用bottleneck库 </h3>
+<h3 id="55-numpy-的其它替代方案">5.5. Numpy 的其它替代方案 </h3>
+<h2 id="6-pandas-核心语法1">6. Pandas 核心语法（1） </h2>
+<h3 id="61-基本数据结构">6.1. 基本数据结构 </h3>
+<h4 id="611-series">6.1.1. Series </h4>
+<h4 id="612-创建-dataframe">6.1.2. 创建 DataFrame </h4>
+<h4 id="613-快速探索-dataframe">6.1.3. 快速探索 DataFrame </h4>
+<p><em>index, info,describe,columns,head,tail 等</em></p>
+<h4 id="614-dataframe-的合并和连接">6.1.4. DataFrame 的合并和连接 </h4>
+<h4 id="615-删除行和列">6.1.5. 删除行和列 </h4>
+<h4 id="616-定位-读取和修改">6.1.6. 定位、读取和修改 </h4>
+<p><em>介绍Pandas中的索引(indexing)、数据选择</em></p>
+<h4 id="617-转置">6.1.7. 转置 </h4>
+<h4 id="618-重采样resample">6.1.8. 重采样（resample） </h4>
+<p><em>盘中实时获得分钟线惊人地昂贵。所以，我们需要从tick级数据自己合成。这就是重采样</em></p>
+<h2 id="7-pandas-核心语法-2">7. Pandas 核心语法 (2) </h2>
+<h3 id="71-逻辑运算和比较">7.1. 逻辑运算和比较 </h3>
+<p><em>dataframe中包含了我们提取的特征。要选取PE最大同时是PB最小的前30列，怎么做？</em></p>
+<h3 id="72-分组运算groupby">7.2. 分组运算（groupby） </h3>
+<p><em>因子分析数据表包含了行业标签和各公司的PE值。如何选出每个行业PE最强的5支</em></p>
+<h3 id="73-多重索引和高级索引">7.3. 多重索引和高级索引 </h3>
+<p><em>这是pandas中比较难懂的内容之一</em></p>
+<h3 id="74-窗口函数">7.4. 窗口函数 </h3>
+<p><em>用以计算移动平均等具有滑动窗口的指标</em></p>
+<h3 id="75-数学运算和统计">7.5. 数学运算和统计 </h3>
+<p><em>均值、方差、协方差、percentile,diff,pct_change,rank 等统计函数，量化基础</em></p>
+<h2 id="8-pandas-核心语法-3">8. Pandas 核心语法 (3) </h2>
+<h3 id="81-数据预处理类">8.1. 数据预处理类 </h3>
+<p><em>因子分析的预处理过程中，要进行缺失值、缩尾、去重等操作，怎么做？</em></p>
+<h3 id="82-io-操作">8.2. IO 操作 </h3>
+<p><em>如何将数据从csv,网页,数据库,parquet等地方读进来</em></p>
+<h4 id="821-csv">8.2.1. csv </h4>
+<p><em>除基本操作外，还将介绍读取 csv 时如何加速</em></p>
+<h4 id="822-pkl-和-hdf5">8.2.2. pkl 和 hdf5 </h4>
+<h4 id="823-parque">8.2.3. parque </h4>
+<h4 id="824-html-和-md">8.2.4. html 和 md </h4>
+<h4 id="825-sql">8.2.5. sql </h4>
+<h3 id="83-日期和时间">8.3. 日期和时间 </h3>
+<p><em>我们从其它库中得到的行情数据的时间、日期，怎么转换？</em></p>
+<h3 id="84-字符串操作">8.4. 字符串操作 </h3>
+<p><em>dataframe存放了证券基本信息，比如名字和代码。如何排除科创板？</em></p>
+<h2 id="9-pandas-核心语法4">9. Pandas 核心语法（4） </h2>
+<h3 id="91-表格和样式">9.1. 表格和样式 </h3>
+<p><em>让pandas拥有excel一样丰富的条件着色功能</em></p>
+<h3 id="92-pandas-内置绘图功能">9.2. Pandas 内置绘图功能 </h3>
+<h2 id="10-pandas-量化场景应用案例">10. Pandas 量化场景应用案例 </h2>
+<h3 id="101-通过rolling方法实现通达信例程">10.1. 通过rolling方法实现通达信例程 </h3>
+<p><em>实现通达信公式中的HHV,LLV,HHVBARS,LAST等方法</em></p>
+<h3 id="102-补齐分钟线缺失的复权因子">10.2. 补齐分钟线缺失的复权因子 </h3>
+<p><em>介绍最新版引入的as-of-join功能。量化必遇场景</em></p>
+<h3 id="103-为alphalens准备数据">10.3. 为Alphalens准备数据 </h3>
+<p><em>使用Alphalens进行因子分析时，最常用的dataframe操作</em></p>
+<h2 id="11-pandas-性能">11. Pandas 性能 </h2>
+<h3 id="111-内存优化">11.1. 内存优化 </h3>
+<p><em>使用category,以及更紧湊的数据类型压缩内存使用</em></p>
+<h3 id="112-优化迭代">11.2. 优化迭代 </h3>
+<p><em>使用 itertuples 而不是 iterrows, 使用 apply 来优化迭代，先筛选再计算</em></p>
+<h3 id="113-使用numpy和numba">11.3. 使用numpy和numba </h3>
+<h3 id="114-使用eval或者query">11.4. 使用eval或者query </h3>
+<h3 id="115-pandas-的其它替代方案">11.5. Pandas 的其它替代方案 </h3>
+<h4 id="1151-modin">11.5.1. modin </h4>
+<p><em>一行代码，实现pandas替代，并拥有多核、不受内存限制的计算能力</em></p>
+<h4 id="1152-polars">11.5.2. polars </h4>
+<p><em>最快的tableu解决方案</em></p>
+<h4 id="1153-dask">11.5.3. dask </h4>
+<p><em>分布式tableu，可运行在数千结点上</em></p>
+
+      </div>
+      <div class="md-sidebar-toc">
+<div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#1-导论" class="md-toc-link">
+            <ol>
+<li>导论</li>
+</ol>
+
+          </a></div><details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#2-numpy-核心语法-1" class="md-toc-link"><ol start="2">
+<li>Numpy 核心语法 (1)</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#21-基本数据结构" class="md-toc-link"><p>2.1. 基本数据结构</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#211-创建数组" class="md-toc-link">
+            <p>2.1.1. 创建数组</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#212-增删改操作" class="md-toc-link">
+            <p>2.1.2. 增删改操作</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#213-定位-读取和搜索" class="md-toc-link">
+            <p>2.1.3. 定位、读取和搜索</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#214-审视-inspecting-数组" class="md-toc-link">
+            <p>2.1.4. 审视 (inspecting) 数组</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#22-数组操作" class="md-toc-link"><p>2.2. 数组操作</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#221-升维" class="md-toc-link">
+            <p>2.2.1. 升维</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#222-降维" class="md-toc-link">
+            <p>2.2.2. 降维</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#223-转置" class="md-toc-link">
+            <p>2.2.3. 转置</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#3-numpy-核心语法-2" class="md-toc-link"><ol start="3">
+<li>Numpy 核心语法 (2)</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#31-运算类" class="md-toc-link"><p>3.1. 运算类</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#311-逻辑运算和比较" class="md-toc-link">
+            <p>3.1.1. 逻辑运算和比较</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#312-集合运算" class="md-toc-link">
+            <p>3.1.2. 集合运算</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#313-数学运算和统计" class="md-toc-link">
+            <p>3.1.3. 数学运算和统计</p>
+
+          </a></div>
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#32-类型转换和-typing" class="md-toc-link">
+            <p>3.2. 类型转换和 Typing</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#33-numpy-核心语法-3" class="md-toc-link">
+            <p>3.3. Numpy 核心语法 (3)</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#34-处理包含-npnan-的数据" class="md-toc-link">
+            <p>3.4. 处理包含 np.nan 的数据</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#35-随机数和采样" class="md-toc-link">
+            <p>3.5. 随机数和采样</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#36-io-操作" class="md-toc-link">
+            <p>3.6. IO 操作</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#37-日期和时间" class="md-toc-link">
+            <p>3.7. 日期和时间</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#38-字符串操作" class="md-toc-link">
+            <p>3.8. 字符串操作</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#39-structured-array" class="md-toc-link">
+            <p>3.9. Structured Array</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#4-numpy-量化场景应用案例" class="md-toc-link"><ol start="4">
+<li>Numpy 量化场景应用案例</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#41-连续值统计" class="md-toc-link">
+            <p>4.1. 连续值统计</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#42-cumsum-与分时均价线的计算" class="md-toc-link">
+            <p>4.2. cumsum 与分时均价线的计算</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#43-移动均线的计算" class="md-toc-link">
+            <p>4.3. 移动均线的计算</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#44-自适应参数如何选择才合理" class="md-toc-link">
+            <p>4.4. 自适应参数如何选择才合理？</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#45-计算最大回撤" class="md-toc-link">
+            <p>4.5. 计算最大回撤</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#46-如何判断个股的长期走势" class="md-toc-link">
+            <p>4.6. 如何判断个股的长期走势？</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#47-alpha101-中的函数例程" class="md-toc-link">
+            <p>4.7. Alpha101 中的函数例程</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#48-寻找相似的k线" class="md-toc-link">
+            <p>4.8. 寻找相似的k线</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#49-资产组合的收益与波动率示例" class="md-toc-link">
+            <p>4.9. 资产组合的收益与波动率示例</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#5-numpy-高性能编程实践" class="md-toc-link"><ol start="5">
+<li>Numpy 高性能编程实践</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#51-broadcasting" class="md-toc-link">
+            <p>5.1. Broadcasting</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#52-使用-numexpr" class="md-toc-link">
+            <p>5.2. 使用 NumExpr</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#53-启用多线程" class="md-toc-link">
+            <p>5.3. 启用多线程</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#54-使用bottleneck库" class="md-toc-link">
+            <p>5.4. 使用bottleneck库</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#55-numpy-的其它替代方案" class="md-toc-link">
+            <p>5.5. Numpy 的其它替代方案</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#6-pandas-核心语法1" class="md-toc-link"><ol start="6">
+<li>Pandas 核心语法（1）</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#61-基本数据结构" class="md-toc-link"><p>6.1. 基本数据结构</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#611-series" class="md-toc-link">
+            <p>6.1.1. Series</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#612-创建-dataframe" class="md-toc-link">
+            <p>6.1.2. 创建 DataFrame</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#613-快速探索-dataframe" class="md-toc-link">
+            <p>6.1.3. 快速探索 DataFrame</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#614-dataframe-的合并和连接" class="md-toc-link">
+            <p>6.1.4. DataFrame 的合并和连接</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#615-删除行和列" class="md-toc-link">
+            <p>6.1.5. 删除行和列</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#616-定位-读取和修改" class="md-toc-link">
+            <p>6.1.6. 定位、读取和修改</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#617-转置" class="md-toc-link">
+            <p>6.1.7. 转置</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#618-重采样resample" class="md-toc-link">
+            <p>6.1.8. 重采样（resample）</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#7-pandas-核心语法-2" class="md-toc-link"><ol start="7">
+<li>Pandas 核心语法 (2)</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#71-逻辑运算和比较" class="md-toc-link">
+            <p>7.1. 逻辑运算和比较</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#72-分组运算groupby" class="md-toc-link">
+            <p>7.2. 分组运算（groupby）</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#73-多重索引和高级索引" class="md-toc-link">
+            <p>7.3. 多重索引和高级索引</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#74-窗口函数" class="md-toc-link">
+            <p>7.4. 窗口函数</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#75-数学运算和统计" class="md-toc-link">
+            <p>7.5. 数学运算和统计</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#8-pandas-核心语法-3" class="md-toc-link"><ol start="8">
+<li>Pandas 核心语法 (3)</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#81-数据预处理类" class="md-toc-link">
+            <p>8.1. 数据预处理类</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#82-io-操作" class="md-toc-link"><p>8.2. IO 操作</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#821-csv" class="md-toc-link">
+            <p>8.2.1. csv</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#822-pkl-和-hdf5" class="md-toc-link">
+            <p>8.2.2. pkl 和 hdf5</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#823-parque" class="md-toc-link">
+            <p>8.2.3. parque</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#824-html-和-md" class="md-toc-link">
+            <p>8.2.4. html 和 md</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#825-sql" class="md-toc-link">
+            <p>8.2.5. sql</p>
+
+          </a></div>
+        </div>
+      </details>
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#83-日期和时间" class="md-toc-link">
+            <p>8.3. 日期和时间</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#84-字符串操作" class="md-toc-link">
+            <p>8.4. 字符串操作</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#9-pandas-核心语法4" class="md-toc-link"><ol start="9">
+<li>Pandas 核心语法（4）</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#91-表格和样式" class="md-toc-link">
+            <p>9.1. 表格和样式</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#92-pandas-内置绘图功能" class="md-toc-link">
+            <p>9.2. Pandas 内置绘图功能</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#10-pandas-量化场景应用案例" class="md-toc-link"><ol start="10">
+<li>Pandas 量化场景应用案例</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#101-通过rolling方法实现通达信例程" class="md-toc-link">
+            <p>10.1. 通过rolling方法实现通达信例程</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#102-补齐分钟线缺失的复权因子" class="md-toc-link">
+            <p>10.2. 补齐分钟线缺失的复权因子</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#103-为alphalens准备数据" class="md-toc-link">
+            <p>10.3. 为Alphalens准备数据</p>
+
+          </a></div>
+        </div>
+      </details>
+    <details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#11-pandas-性能" class="md-toc-link"><ol start="11">
+<li>Pandas 性能</li>
+</ol>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#111-内存优化" class="md-toc-link">
+            <p>11.1. 内存优化</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#112-优化迭代" class="md-toc-link">
+            <p>11.2. 优化迭代</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#113-使用numpy和numba" class="md-toc-link">
+            <p>11.3. 使用numpy和numba</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#114-使用eval或者query" class="md-toc-link">
+            <p>11.4. 使用eval或者query</p>
+
+          </a></div><details style="padding:0;;padding-left:24px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#115-pandas-的其它替代方案" class="md-toc-link"><p>11.5. Pandas 的其它替代方案</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#1151-modin" class="md-toc-link">
+            <p>11.5.1. modin</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#1152-polars" class="md-toc-link">
+            <p>11.5.2. polars</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#1153-dask" class="md-toc-link">
+            <p>11.5.3. dask</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+        </div>
+      </details>
+</div>
+</div>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    
+    
+    
+    
+    
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+document.body.setAttribute('html-show-sidebar-toc', true)
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  
+    </body></html>
