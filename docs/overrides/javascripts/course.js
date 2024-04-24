@@ -1,6 +1,7 @@
 
 var link="/articles/coursea/24lectures/intro/"
 var img = "https://images.jieyu.ai/images/hot/course_promotion.jpg"
+excludes = ["/articles/coursea"]
 
 var ad = [
     '\n\n<div class="admonition tip">',
@@ -24,6 +25,12 @@ var ad = [
 ].join('\n')
 
 function insertAd(minParas, minWords){
+    // 如果地址在exclude目录中，则不插入广告
+    for (i=0; i < excludes.length; i++){
+    if (location.pathname.indexOf(excludes[i]) == 0){
+        return
+    }
+    } 
     // 如果已经包含了链接，则不再增加，以允许手动增加
     var links = document.querySelectorAll("a[href*='" + link + "']");
     if (links.length > 0){
