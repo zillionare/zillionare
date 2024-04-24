@@ -5,7 +5,7 @@
 <div>
 <h3>机器学习(XgBoost）预测顶和底</h3>
 <img src="https://images.jieyu.ai/images/2024/04/cmu.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span><br>之前的文章中，我们对中证1000指数进行了顶和底的标注。这一篇我们将利用这份标注数据，实现机器学习预测顶和底，并探讨一些机器学习的原理。<br><br>在这次实验中，我们将使用...</p>
+<p><span>内容摘要:<br></span>之前的文章中，我们对中证1000指数进行了顶和底的标注。这一篇我们将利用这份标注数据，实现机器学习预测顶和底，并探讨一些机器学习的原理。<br><br>我们选取的特征非常简单--上影线和WR（William's R）的一个变种。选取这两个因子，是基于东吴证券高子剑在2020年6月的一份研报:...</p>
 
 <p><span style="margin-right:20px">发表于 2024-04-23 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/04/23/ml-predict-peaks-valley-1">点击阅读</a></span></p>
 
