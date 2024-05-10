@@ -69,7 +69,7 @@ tags:
     可以，这正是我们的优势之一。学完课程后，就可以使用我们的量化软件在本地部署，立即开始交易。<br><br>
     大富翁量化软件2.0是开源软件，但我们只对学员提供安装包和指导。部署2.0需要购买聚宽数据。
 
-!!! tip "大富翁量化软件未来规则？"
+!!! tip "大富翁量化软件未来规划？"
     我们正在开发2.1版本，预计今年6月前交付。这一版本将使用clickhouse作为数据库，以便能支持tick级数据存储并仍然保持很好的性能。在实盘接口和行情方面，我们将接入QMT。
 
 ## 其它问题
@@ -83,7 +83,7 @@ tags:
 
 !!! tip "可以介绍下老师吗?"
     <div style="width:150px; position: relative;float:right">
-        <img src="https://images.jieyu.ai/images/hot/me.jpg" style="width: 120px; display:inline-block"/>
+        <img src="https://images.jieyu.ai/images/hot/me.png" style="width: 120px; display:inline-block"/>
         <p style="text-align:center;width:120px"> Aaron </p>
     </div>
 
@@ -91,9 +91,9 @@ tags:
 
     -   海豚浏览器（红杉资本投资）副总裁
 
-    -   量化投资公司联创
+    -   格物致知（量化投资）联创
 
     -   Zillionare开源量化框架发起人
 
-    -   《Python能做大项目》作者（将由机械工业出版社出版）。
+    -   《Python高效编程实践指南》作者（机械工业出版社出版）。
 
