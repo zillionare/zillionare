@@ -51,7 +51,7 @@ h5 {
 em {
     font-size: 0.75em;
     font-style: italic;
-    color: #aaa;
+    color: #808080;
 }
 
  @media only screen and (max-width: 1024px) {
@@ -76,6 +76,7 @@ em {
 var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
 document.body.setAttribute('html-show-sidebar-toc', true)
 </script>
+<div class="main">
 <p>§ 量化二十四课</p>
 <h1 style="text-align:center">课程大纲 </h1>
 <div class="cols">
@@ -299,260 +300,261 @@ II. 初识策略
 <h5 id="14321-ic分析法的因子评价">14.3.2.1. IC分析法的因子评价 </h5>
 <h4 id="1433-分层回测法">14.3.3. 分层回测法 </h4>
 <h4 id="1434-三种方法的区别与联系">14.3.4. 三种方法的区别与联系 </h4>
-<h2 id="15-因子评价体系">15. 因子评价体系 </h2>
-<h2 id="16-alphalens及其它">16. Alphalens及其它 </h2>
-<h3 id="161-alphalens">16.1. Alphalens </h3>
-<h4 id="1611-alphalens调用流程">16.1.1. Alphalens调用流程 </h4>
-<h4 id="1612-数据预处理">16.1.2. 数据预处理 </h4>
-<h4 id="1613-因子分析">16.1.3. 因子分析 </h4>
-<h4 id="1614-alphalens常见错误和警告">16.1.4. Alphalens常见错误和警告 </h4>
-<h5 id="16141-时区问题">16.1.4.1. 时区问题 </h5>
-<h5 id="16142-maxlossexceederror">16.1.4.2. MaxLossExceedError </h5>
-<h5 id="16143-futurewarning">16.1.4.3. FutureWarning </h5>
-<h3 id="162-jqfactor和jqfactor-analyzer">16.2. JQFactor和jqfactor-analyzer </h3>
-<h3 id="163-sympy">16.3. sympy </h3>
-<h3 id="164-statistics">16.4. statistics </h3>
-<h3 id="165-statsmodels">16.5. statsmodels </h3>
-<h4 id="1651-ols普通最小二乘法估计">16.5.1. OLS（普通最小二乘法）估计 </h4>
-<h4 id="1652-比较ols与rlm">16.5.2. 比较OLS与RLM </h4>
-<h4 id="1653-arima模型与时间序列预测">16.5.3. ARIMA模型与时间序列预测 </h4>
-<h3 id="166-zipline">16.6. zipline </h3>
-<h3 id="167-pyfolio">16.7. pyfolio </h3>
-<h3 id="168-ta">16.8. ta </h3>
+<h3 id="144-因子评价体系">14.4. 因子评价体系 </h3>
+<h2 id="15-alphalens及其它">15. Alphalens及其它 </h2>
+<h3 id="151-alphalens">15.1. Alphalens </h3>
+<h4 id="1511-alphalens调用流程">15.1.1. Alphalens调用流程 </h4>
+<h4 id="1512-数据预处理">15.1.2. 数据预处理 </h4>
+<h4 id="1513-因子分析">15.1.3. 因子分析 </h4>
+<h4 id="1514-alphalens常见错误和警告">15.1.4. Alphalens常见错误和警告 </h4>
+<h5 id="15141-时区问题">15.1.4.1. 时区问题 </h5>
+<h5 id="15142-maxlossexceederror">15.1.4.2. MaxLossExceedError </h5>
+<h5 id="15143-futurewarning">15.1.4.3. FutureWarning </h5>
+<h3 id="152-jqfactor和jqfactor-analyzer">15.2. JQFactor和jqfactor-analyzer </h3>
+<h3 id="153-sympy">15.3. sympy </h3>
+<h3 id="154-statistics">15.4. statistics </h3>
+<h3 id="155-statsmodels">15.5. statsmodels </h3>
+<h4 id="1551-ols普通最小二乘法估计">15.5.1. OLS（普通最小二乘法）估计 </h4>
+<h4 id="1552-比较ols与rlm">15.5.2. 比较OLS与RLM </h4>
+<h4 id="1553-arima模型与时间序列预测">15.5.3. ARIMA模型与时间序列预测 </h4>
+<h3 id="156-zipline">15.6. zipline </h3>
+<h3 id="157-pyfolio">15.7. pyfolio </h3>
+<h3 id="158-ta">15.8. ta </h3>
 <div class="module">IV. 数据可视化</div>
 <p><em>绘图不仅仅为了创造美丽的可视化效果，更是为了释放数据的全部潜力，并揭示原本隐藏的insights。这一点在量化中也不例外。我们需要有能力绘制k线图、并且叠加回测信号以供我们调优策略，也需要绘制回测报告等。</em></p>
-<h2 id="17-matplotlib-绘图">17. Matplotlib 绘图 </h2>
-<h3 id="171-matplot-简介">17.1. matplot 简介 </h3>
-<h3 id="172-图是如何构成的">17.2. 图是如何构成的 </h3>
-<h4 id="1721-最顶层的概念">17.2.1. 最顶层的概念 </h4>
-<h4 id="1722-pyplot-figure与axes之间的关系">17.2.2. pyplot, Figure与Axes之间的关系 </h4>
-<h4 id="1723-layout">17.2.3. layout </h4>
-<h4 id="1724-figure-anatomy">17.2.4. Figure Anatomy </h4>
-<h3 id="173-高频使用对象">17.3. 高频使用对象 </h3>
-<h4 id="1731-axis">17.3.1. Axis </h4>
-<h5 id="17311-spine定位与隐藏">17.3.1.1. spine定位与隐藏 </h5>
-<h5 id="17312-共享x轴">17.3.1.2. 共享x轴 </h5>
-<h5 id="17313-刻度">17.3.1.3. 刻度 </h5>
-<h4 id="1732-文本和中文">17.3.2. 文本和中文 </h4>
-<h4 id="1733-样式和颜色">17.3.3. 样式和颜色 </h4>
-<h5 id="17331-colormap">17.3.3.1. colormap </h5>
-<h2 id="18-plotly-绘图">18. Plotly 绘图 </h2>
-<h3 id="181-plotly-中的基本概念">18.1. Plotly 中的基本概念 </h3>
-<h3 id="182-plotly-模块结构">18.2. Plotly 模块结构 </h3>
-<h4 id="1821-plotly-express">18.2.1. Plotly Express </h4>
-<h4 id="1822-graph-objects">18.2.2. Graph Objects </h4>
-<h4 id="1823-其它">18.2.3. 其它 </h4>
-<h3 id="183-比较-plotly-express-与-gofigure">18.3. 比较 plotly express 与 go.Figure </h3>
-<h3 id="184-plotly-股票分析图绘制">18.4. Plotly 股票分析图绘制 </h3>
-<h4 id="1841-k-线图绘制">18.4.1. K 线图绘制 </h4>
-<h4 id="1842-叠加技术指标">18.4.2. 叠加技术指标 </h4>
-<h4 id="1843-子图">18.4.3. 子图 </h4>
-<h4 id="1844-显示区域">18.4.4. 显示区域 </h4>
-<h4 id="1845-交互式提示">18.4.5. 交互式提示 </h4>
-<h3 id="185-色彩">18.5. 色彩 </h3>
-<h4 id="1851-离散色彩序列">18.5.1. 离散色彩序列 </h4>
-<h4 id="1852-连续色阶">18.5.2. 连续色阶 </h4>
-<h3 id="186-主题和模板">18.6. 主题和模板 </h3>
-<h3 id="187-dash-简介">18.7. Dash 简介 </h3>
-<h4 id="1871-hellow-world">18.7.1. Hellow World </h4>
-<h4 id="1872-连接到数据">18.7.2. 连接到数据 </h4>
-<h4 id="1873-增加交互式控件">18.7.3. 增加交互式控件 </h4>
-<h4 id="1874-美化应用程序">18.7.4. 美化应用程序 </h4>
-<h4 id="1875-深入dash">18.7.5. 深入Dash </h4>
-<h2 id="19-seaborn-与-pyecharts-绘图">19. Seaborn 与 PyEcharts 绘图 </h2>
-<h3 id="191-seaborn">19.1. Seaborn </h3>
-<h4 id="1911-seaborn-绘图概览">19.1.1. Seaborn 绘图概览 </h4>
-<h5 id="19111-统计关系的可视化">19.1.1.1. 统计关系的可视化 </h5>
-<h5 id="19112-数据分布的可视化">19.1.1.2. 数据分布的可视化 </h5>
-<h5 id="19113-二元分布的可视化">19.1.1.3. 二元分布的可视化 </h5>
-<h5 id="19114-联合分布和边缘分布">19.1.1.4. 联合分布和边缘分布 </h5>
-<h5 id="19115-回归拟合">19.1.1.5. 回归拟合 </h5>
-<h4 id="1912-主题">19.1.2. 主题 </h4>
-<h4 id="1913-调色板的使用">19.1.3. 调色板的使用 </h4>
-<h5 id="19131-定性调色板">19.1.3.1. 定性调色板 </h5>
-<h5 id="19132-连续调色板">19.1.3.2. 连续调色板 </h5>
-<h5 id="19133-发散调色板">19.1.3.3. 发散调色板 </h5>
-<h3 id="192-pyecharts">19.2. PyEcharts </h3>
-<h4 id="1921-在-notebookjupyterlab-中运行">19.2.1. 在 Notebook/Jupyterlab 中运行 </h4>
-<h4 id="1922-调用习惯">19.2.2. 调用习惯 </h4>
-<h4 id="1923-使用选项">19.2.3. 使用选项 </h4>
-<h4 id="1924-子图和布局">19.2.4. 子图和布局 </h4>
-<h5 id="19241-grid-布局">19.2.4.1. Grid 布局 </h5>
-<h5 id="19242-page-布局">19.2.4.2. Page 布局 </h5>
-<h5 id="19243-tab-布局">19.2.4.3. tab 布局 </h5>
-<h5 id="19244-timeline">19.2.4.4. Timeline </h5>
-<h3 id="193-关于颜色和美学">19.3. 关于颜色和美学 </h3>
+<h2 id="16-matplotlib-绘图">16. Matplotlib 绘图 </h2>
+<h3 id="161-matplot-简介">16.1. matplot 简介 </h3>
+<h3 id="162-图是如何构成的">16.2. 图是如何构成的 </h3>
+<h4 id="1621-最顶层的概念">16.2.1. 最顶层的概念 </h4>
+<h4 id="1622-pyplot-figure与axes之间的关系">16.2.2. pyplot, Figure与Axes之间的关系 </h4>
+<h4 id="1623-layout">16.2.3. layout </h4>
+<h4 id="1624-figure-anatomy">16.2.4. Figure Anatomy </h4>
+<h3 id="163-高频使用对象">16.3. 高频使用对象 </h3>
+<h4 id="1631-axis">16.3.1. Axis </h4>
+<h5 id="16311-spine定位与隐藏">16.3.1.1. spine定位与隐藏 </h5>
+<h5 id="16312-共享x轴">16.3.1.2. 共享x轴 </h5>
+<h5 id="16313-刻度">16.3.1.3. 刻度 </h5>
+<h4 id="1632-文本和中文">16.3.2. 文本和中文 </h4>
+<h4 id="1633-样式和颜色">16.3.3. 样式和颜色 </h4>
+<h5 id="16331-colormap">16.3.3.1. colormap </h5>
+<h2 id="17-plotly-绘图">17. Plotly 绘图 </h2>
+<h3 id="171-plotly-中的基本概念">17.1. Plotly 中的基本概念 </h3>
+<h3 id="172-plotly-模块结构">17.2. Plotly 模块结构 </h3>
+<h4 id="1721-plotly-express">17.2.1. Plotly Express </h4>
+<h4 id="1722-graph-objects">17.2.2. Graph Objects </h4>
+<h4 id="1723-其它">17.2.3. 其它 </h4>
+<h3 id="173-比较-plotly-express-与-gofigure">17.3. 比较 plotly express 与 go.Figure </h3>
+<h3 id="174-plotly-股票分析图绘制">17.4. Plotly 股票分析图绘制 </h3>
+<h4 id="1741-k-线图绘制">17.4.1. K 线图绘制 </h4>
+<h4 id="1742-叠加技术指标">17.4.2. 叠加技术指标 </h4>
+<h4 id="1743-子图">17.4.3. 子图 </h4>
+<h4 id="1744-显示区域">17.4.4. 显示区域 </h4>
+<h4 id="1745-交互式提示">17.4.5. 交互式提示 </h4>
+<h3 id="175-色彩">17.5. 色彩 </h3>
+<h4 id="1751-离散色彩序列">17.5.1. 离散色彩序列 </h4>
+<h4 id="1752-连续色阶">17.5.2. 连续色阶 </h4>
+<h3 id="176-主题和模板">17.6. 主题和模板 </h3>
+<h3 id="177-dash-简介">17.7. Dash 简介 </h3>
+<h4 id="1771-hellow-world">17.7.1. Hellow World </h4>
+<h4 id="1772-连接到数据">17.7.2. 连接到数据 </h4>
+<h4 id="1773-增加交互式控件">17.7.3. 增加交互式控件 </h4>
+<h4 id="1774-美化应用程序">17.7.4. 美化应用程序 </h4>
+<h4 id="1775-深入dash">17.7.5. 深入Dash </h4>
+<h2 id="18-seaborn-与-pyecharts-绘图">18. Seaborn 与 PyEcharts 绘图 </h2>
+<h3 id="181-seaborn">18.1. Seaborn </h3>
+<h4 id="1811-seaborn-绘图概览">18.1.1. Seaborn 绘图概览 </h4>
+<h5 id="18111-统计关系的可视化">18.1.1.1. 统计关系的可视化 </h5>
+<h5 id="18112-数据分布的可视化">18.1.1.2. 数据分布的可视化 </h5>
+<h5 id="18113-二元分布的可视化">18.1.1.3. 二元分布的可视化 </h5>
+<h5 id="18114-联合分布和边缘分布">18.1.1.4. 联合分布和边缘分布 </h5>
+<h5 id="18115-回归拟合">18.1.1.5. 回归拟合 </h5>
+<h4 id="1812-主题">18.1.2. 主题 </h4>
+<h4 id="1813-调色板的使用">18.1.3. 调色板的使用 </h4>
+<h5 id="18131-定性调色板">18.1.3.1. 定性调色板 </h5>
+<h5 id="18132-连续调色板">18.1.3.2. 连续调色板 </h5>
+<h5 id="18133-发散调色板">18.1.3.3. 发散调色板 </h5>
+<h3 id="182-pyecharts">18.2. PyEcharts </h3>
+<h4 id="1821-在-notebookjupyterlab-中运行">18.2.1. 在 Notebook/Jupyterlab 中运行 </h4>
+<h4 id="1822-调用习惯">18.2.2. 调用习惯 </h4>
+<h4 id="1823-使用选项">18.2.3. 使用选项 </h4>
+<h4 id="1824-子图和布局">18.2.4. 子图和布局 </h4>
+<h5 id="18241-grid-布局">18.2.4.1. Grid 布局 </h5>
+<h5 id="18242-page-布局">18.2.4.2. Page 布局 </h5>
+<h5 id="18243-tab-布局">18.2.4.3. tab 布局 </h5>
+<h5 id="18244-timeline">18.2.4.4. Timeline </h5>
+<h3 id="183-关于颜色和美学">18.3. 关于颜色和美学 </h3>
 <div class="module">V. 回测框架</div>
 <p><em>backtrader是最著名的开源回测框架，很多机构并没有量化投研系统的研发能力，在内部就常常使用backtrader做回测。我们用两个课时，深入讲解了backtrader的用法。</em></p>
-<h2 id="20-backtrader-回测框架1">20. backtrader 回测框架（1） </h2>
-<h3 id="201-快速开始">20.1. 快速开始 </h3>
-<h3 id="202-backtrader-语法糖">20.2. backtrader 语法糖 </h3>
-<h4 id="2021-时间线-line">20.2.1. 时间线 (Line) </h4>
-<h4 id="2022-运算符重载">20.2.2. 运算符重载 </h4>
-<h3 id="203-data-feeds">20.3. Data Feeds </h3>
-<h4 id="2031-genericcsvdata">20.3.1. GenericCSVData </h4>
-<h4 id="2032-pandas-feed">20.3.2. Pandas Feed </h4>
-<h4 id="2033-自定义一个-feed">20.3.3. 自定义一个 Feed </h4>
-<h4 id="2034-增加新的数据列">20.3.4. 增加新的数据列 </h4>
-<h3 id="204-多周期数据">20.4. 多周期数据 </h3>
-<h4 id="2041-多周期技术指标比较">20.4.1. 多周期技术指标比较 </h4>
-<h3 id="205-指标">20.5. 指标 </h3>
-<h4 id="2051-内置指标库">20.5.1. 内置指标库 </h4>
-<h4 id="2052-自定义指标">20.5.2. 自定义指标 </h4>
-<h5 id="20521-最小周期">20.5.2.1. 最小周期 </h5>
-<h2 id="21-backtrader-回测框架2">21. backtrader 回测框架（2） </h2>
-<h3 id="211-cerebro">21.1. Cerebro </h3>
-<h4 id="2111-增加记录器日志">21.1.1. 增加记录器（日志） </h4>
-<h4 id="2112-增加观察者">21.1.2. 增加观察者 </h4>
-<h4 id="2113-执行与绘图">21.1.3. 执行与绘图 </h4>
-<h3 id="212-order">21.2. Order </h3>
-<h4 id="2121-notify_order">21.2.1. notify_order </h4>
-<h3 id="213-交易代理">21.3. 交易代理 </h3>
-<h4 id="2131-资产与持仓查询">21.3.1. 资产与持仓查询 </h4>
-<h4 id="2132-成交量限制">21.3.2. 成交量限制 </h4>
-<h5 id="21321-fixedsize">21.3.2.1. FixedSize </h5>
-<h5 id="21322-fixedbarperc">21.3.2.2. FixedBarPerc </h5>
-<h5 id="21323-barpointperc">21.3.2.3. BarPointPerc </h5>
-<h4 id="2133-交易时机---cheat-on-open">21.3.3. 交易时机 - Cheat-On-Open </h4>
-<h4 id="2134-交易时机---cheat-on-close">21.3.4. 交易时机 - Cheat-on-Close </h4>
-<h4 id="2135-交易函数">21.3.5. 交易函数 </h4>
-<h5 id="21351-普通交易函数">21.3.5.1. 普通交易函数 </h5>
-<h5 id="21352-order_target-系列">21.3.5.2. order_target 系列 </h5>
-<h4 id="2136-组合交易">21.3.6. 组合交易 </h4>
-<h4 id="2137-oco-订单">21.3.7. OCO 订单 </h4>
-<h4 id="2138-滑点-交易费用">21.3.8. 滑点、交易费用 </h4>
-<h5 id="21381-固定滑点">21.3.8.1. 固定滑点 </h5>
-<h5 id="21382-百分比滑点">21.3.8.2. 百分比滑点 </h5>
-<h4 id="2139-交易费用">21.3.9. 交易费用 </h4>
-<h3 id="214-可视化">21.4. 可视化 </h3>
-<h4 id="2141-观察器">21.4.1. 观察器 </h4>
-<h5 id="21411-broker-观察器">21.4.1.1. Broker 观察器 </h5>
-<h5 id="21412-buysell-观察器">21.4.1.2. BuySell 观察器 </h5>
-<h5 id="21413-trade-观察器">21.4.1.3. Trade 观察器 </h5>
-<h5 id="21414-timereturn-观察器">21.4.1.4. TimeReturn 观察器 </h5>
-<h5 id="21415-drawdown-观察器">21.4.1.5. DrawDown 观察器 </h5>
-<h5 id="21416-benchmark-观察器">21.4.1.6. Benchmark 观察器 </h5>
-<h4 id="2142-定制绘图">21.4.2. 定制绘图 </h4>
-<h4 id="2143-收集回测数据">21.4.3. 收集回测数据 </h4>
-<h3 id="215-优化">21.5. 优化 </h3>
-<h3 id="216-小结">21.6. 小结 </h3>
-<h2 id="22-策略回测评估">22. 策略回测评估 </h2>
+<h2 id="19-backtrader-回测框架1">19. backtrader 回测框架（1） </h2>
+<h3 id="191-快速开始">19.1. 快速开始 </h3>
+<h3 id="192-backtrader-语法糖">19.2. backtrader 语法糖 </h3>
+<h4 id="1921-时间线-line">19.2.1. 时间线 (Line) </h4>
+<h4 id="1922-运算符重载">19.2.2. 运算符重载 </h4>
+<h3 id="193-data-feeds">19.3. Data Feeds </h3>
+<h4 id="1931-genericcsvdata">19.3.1. GenericCSVData </h4>
+<h4 id="1932-pandas-feed">19.3.2. Pandas Feed </h4>
+<h4 id="1933-自定义一个-feed">19.3.3. 自定义一个 Feed </h4>
+<h4 id="1934-增加新的数据列">19.3.4. 增加新的数据列 </h4>
+<h3 id="194-多周期数据">19.4. 多周期数据 </h3>
+<h4 id="1941-多周期技术指标比较">19.4.1. 多周期技术指标比较 </h4>
+<h3 id="195-指标">19.5. 指标 </h3>
+<h4 id="1951-内置指标库">19.5.1. 内置指标库 </h4>
+<h4 id="1952-自定义指标">19.5.2. 自定义指标 </h4>
+<h5 id="19521-最小周期">19.5.2.1. 最小周期 </h5>
+<h2 id="20-backtrader-回测框架2">20. backtrader 回测框架（2） </h2>
+<h3 id="201-cerebro">20.1. Cerebro </h3>
+<h4 id="2011-增加记录器日志">20.1.1. 增加记录器（日志） </h4>
+<h4 id="2012-增加观察者">20.1.2. 增加观察者 </h4>
+<h4 id="2013-执行与绘图">20.1.3. 执行与绘图 </h4>
+<h3 id="202-order">20.2. Order </h3>
+<h4 id="2021-notify_order">20.2.1. notify_order </h4>
+<h3 id="203-交易代理">20.3. 交易代理 </h3>
+<h4 id="2031-资产与持仓查询">20.3.1. 资产与持仓查询 </h4>
+<h4 id="2032-成交量限制">20.3.2. 成交量限制 </h4>
+<h5 id="20321-fixedsize">20.3.2.1. FixedSize </h5>
+<h5 id="20322-fixedbarperc">20.3.2.2. FixedBarPerc </h5>
+<h5 id="20323-barpointperc">20.3.2.3. BarPointPerc </h5>
+<h4 id="2033-交易时机---cheat-on-open">20.3.3. 交易时机 - Cheat-On-Open </h4>
+<h4 id="2034-交易时机---cheat-on-close">20.3.4. 交易时机 - Cheat-on-Close </h4>
+<h4 id="2035-交易函数">20.3.5. 交易函数 </h4>
+<h5 id="20351-普通交易函数">20.3.5.1. 普通交易函数 </h5>
+<h5 id="20352-order_target-系列">20.3.5.2. order_target 系列 </h5>
+<h4 id="2036-组合交易">20.3.6. 组合交易 </h4>
+<h4 id="2037-oco-订单">20.3.7. OCO 订单 </h4>
+<h4 id="2038-滑点-交易费用">20.3.8. 滑点、交易费用 </h4>
+<h5 id="20381-固定滑点">20.3.8.1. 固定滑点 </h5>
+<h5 id="20382-百分比滑点">20.3.8.2. 百分比滑点 </h5>
+<h4 id="2039-交易费用">20.3.9. 交易费用 </h4>
+<h3 id="204-可视化">20.4. 可视化 </h3>
+<h4 id="2041-观察器">20.4.1. 观察器 </h4>
+<h5 id="20411-broker-观察器">20.4.1.1. Broker 观察器 </h5>
+<h5 id="20412-buysell-观察器">20.4.1.2. BuySell 观察器 </h5>
+<h5 id="20413-trade-观察器">20.4.1.3. Trade 观察器 </h5>
+<h5 id="20414-timereturn-观察器">20.4.1.4. TimeReturn 观察器 </h5>
+<h5 id="20415-drawdown-观察器">20.4.1.5. DrawDown 观察器 </h5>
+<h5 id="20416-benchmark-观察器">20.4.1.6. Benchmark 观察器 </h5>
+<h4 id="2042-定制绘图">20.4.2. 定制绘图 </h4>
+<h4 id="2043-收集回测数据">20.4.3. 收集回测数据 </h4>
+<h3 id="205-优化">20.5. 优化 </h3>
+<h3 id="206-小结">20.6. 小结 </h3>
+<h2 id="21-策略回测评估">21. 策略回测评估 </h2>
 <p><em>回测结果怎么看？这是一个策略评估问题。这里我们还将解答一个问题，如果你的策略上线了，现在表现弱于预期，在何种情况下应该中止策略？这是一个常见的面试问题。</em></p>
-<h3 id="221-回报率">22.1. 回报率 </h3>
-<h4 id="2211-简单回报率">22.1.1. 简单回报率 </h4>
-<h4 id="2212-对数回报率">22.1.2. 对数回报率 </h4>
-<h4 id="2213-cumulative-returns">22.1.3. Cumulative Returns </h4>
-<h4 id="2214-aggregate-returns">22.1.4. Aggregate Returns </h4>
-<h4 id="2215-annual-return">22.1.5. Annual Return </h4>
-<h3 id="222-风险调整收益率">22.2. 风险调整收益率 </h3>
-<h4 id="2221-sharpe-ratio">22.2.1. sharpe ratio </h4>
-<h4 id="2222-sharpe-比率与资产曲线的关系">22.2.2. sharpe 比率与资产曲线的关系 </h4>
-<h4 id="2223-sortino-指标">22.2.3. sortino 指标 </h4>
-<h4 id="2224-max-drawdown-最大回撤">22.2.4. Max DrawDown （最大回撤） </h4>
-<h4 id="2225-sharpe-与-max-drawdown-的关系">22.2.5. Sharpe 与 max drawdown 的关系 </h4>
-<h4 id="2226-年化波动率">22.2.6. 年化波动率 </h4>
-<h4 id="2227-calmar-ratio">22.2.7. Calmar Ratio </h4>
-<h4 id="2228-omega-ratio">22.2.8. Omega Ratio </h4>
-<h3 id="223-基准对照类指标">22.3. 基准对照类指标 </h3>
-<h4 id="2231-information-ratio">22.3.1. information ratio </h4>
-<h4 id="2232-alphabeta">22.3.2. alpha/beta </h4>
-<h3 id="224-策略评估的可视化">22.4. 策略评估的可视化 </h3>
-<h4 id="2241-metrics">22.4.1. Metrics </h4>
-<h4 id="2242-plots">22.4.2. plots </h4>
-<h4 id="2243-basic-和-full">22.4.3. basic 和 full </h4>
-<h4 id="2244-html">22.4.4. html </h4>
-<h2 id="23-回测陷阱">23. 回测陷阱 </h2>
+<h3 id="211-回报率">21.1. 回报率 </h3>
+<h4 id="2111-简单回报率">21.1.1. 简单回报率 </h4>
+<h4 id="2112-对数回报率">21.1.2. 对数回报率 </h4>
+<h4 id="2113-cumulative-returns">21.1.3. Cumulative Returns </h4>
+<h4 id="2114-aggregate-returns">21.1.4. Aggregate Returns </h4>
+<h4 id="2115-annual-return">21.1.5. Annual Return </h4>
+<h3 id="212-风险调整收益率">21.2. 风险调整收益率 </h3>
+<h4 id="2121-sharpe-ratio">21.2.1. sharpe ratio </h4>
+<h4 id="2122-sharpe-比率与资产曲线的关系">21.2.2. sharpe 比率与资产曲线的关系 </h4>
+<h4 id="2123-sortino-指标">21.2.3. sortino 指标 </h4>
+<h4 id="2124-max-drawdown-最大回撤">21.2.4. Max DrawDown （最大回撤） </h4>
+<h4 id="2125-sharpe-与-max-drawdown-的关系">21.2.5. Sharpe 与 max drawdown 的关系 </h4>
+<h4 id="2126-年化波动率">21.2.6. 年化波动率 </h4>
+<h4 id="2127-calmar-ratio">21.2.7. Calmar Ratio </h4>
+<h4 id="2128-omega-ratio">21.2.8. Omega Ratio </h4>
+<h3 id="213-基准对照类指标">21.3. 基准对照类指标 </h3>
+<h4 id="2131-information-ratio">21.3.1. information ratio </h4>
+<h4 id="2132-alphabeta">21.3.2. alpha/beta </h4>
+<h3 id="214-策略评估的可视化">21.4. 策略评估的可视化 </h3>
+<h4 id="2141-metrics">21.4.1. Metrics </h4>
+<h4 id="2142-plots">21.4.2. plots </h4>
+<h4 id="2143-basic-和-full">21.4.3. basic 和 full </h4>
+<h4 id="2144-html">21.4.4. html </h4>
+<h2 id="22-回测陷阱">22. 回测陷阱 </h2>
 <p><em>你听说过的回测吃肉、实盘吃土的现象吗？它是如何造成的呢？这一节我们介绍回测陷阱，将以丰富的实战功力，助你快速补齐实战经验不足的问题。</em></p>
-<h3 id="231-幸存者偏差">23.1. 幸存者偏差 </h3>
-<h3 id="232-look-ahead-bias">23.2. Look-ahead bias </h3>
-<h4 id="2321-引用错误">23.2.1. 引用错误 </h4>
-<h4 id="2322-偷价">23.2.2. 偷价 </h4>
-<h4 id="2323-复权引起的前视偏差">23.2.3. 复权引起的前视偏差 </h4>
-<h4 id="2324-pit数据">23.2.4. PIT数据 </h4>
-<h3 id="233-复权引起的问题">23.3. 复权引起的问题 </h3>
-<h4 id="2331-使用复权数据的必要性">23.3.1. 使用复权数据的必要性 </h4>
-<h4 id="2332-后复权的问题">23.3.2. 后复权的问题 </h4>
-<h4 id="2333-复权相关的其它问题">23.3.3. 复权相关的其它问题 </h4>
-<h3 id="234-交易规则">23.4. 交易规则 </h3>
-<h4 id="2341-t1交易">23.4.1. T+1交易 </h4>
-<h4 id="2342-涨-跌限制">23.4.2. 涨、跌限制 </h4>
-<h3 id="235-过度拟合">23.5. 过度拟合 </h3>
-<h3 id="236-回测时长">23.6. 回测时长 </h3>
-<h3 id="237-回测与实盘的差异">23.7. 回测与实盘的差异 </h3>
-<h4 id="2371-信号闪烁">23.7.1. 信号闪烁 </h4>
-<h4 id="2372-冲击成本">23.7.2. 冲击成本 </h4>
-<h4 id="2373-不可能成交的价格">23.7.3. 不可能成交的价格 </h4>
-<h4 id="2374-撮合问题">23.7.4. 撮合问题 </h4>
-<h3 id="238-大富翁回测框架">23.8. 大富翁回测框架 </h3>
-<h4 id="2381-回测功能简介">23.8.1. 回测功能简介 </h4>
-<h5 id="23811-架构和风格">23.8.1.1. 架构和风格 </h5>
-<h4 id="2382-策略框架">23.8.2. 策略框架 </h4>
-<h5 id="23821-数据和数据格式">23.8.2.1. 数据和数据格式 </h5>
-<h5 id="23822-跨周期数据">23.8.2.2. 跨周期数据 </h5>
-<h5 id="23823-驱动模式与性能">23.8.2.3. 驱动模式与性能 </h5>
-<h5 id="23824-回测报告">23.8.2.4. 回测报告 </h5>
-<h4 id="2383-一个完整的策略示例">23.8.3. 一个完整的策略示例 </h4>
-<h4 id="2384-参数优化">23.8.4. 参数优化 </h4>
-<h3 id="239-参考文献">23.9. 参考文献 </h3>
+<h3 id="221-幸存者偏差">22.1. 幸存者偏差 </h3>
+<h3 id="222-look-ahead-bias">22.2. Look-ahead bias </h3>
+<h4 id="2221-引用错误">22.2.1. 引用错误 </h4>
+<h4 id="2222-偷价">22.2.2. 偷价 </h4>
+<h4 id="2223-复权引起的前视偏差">22.2.3. 复权引起的前视偏差 </h4>
+<h4 id="2224-pit数据">22.2.4. PIT数据 </h4>
+<h3 id="223-复权引起的问题">22.3. 复权引起的问题 </h3>
+<h4 id="2231-使用复权数据的必要性">22.3.1. 使用复权数据的必要性 </h4>
+<h4 id="2232-后复权的问题">22.3.2. 后复权的问题 </h4>
+<h4 id="2233-复权相关的其它问题">22.3.3. 复权相关的其它问题 </h4>
+<h3 id="224-交易规则">22.4. 交易规则 </h3>
+<h4 id="2241-t1交易">22.4.1. T+1交易 </h4>
+<h4 id="2242-涨-跌限制">22.4.2. 涨、跌限制 </h4>
+<h3 id="225-过度拟合">22.5. 过度拟合 </h3>
+<h3 id="226-回测时长">22.6. 回测时长 </h3>
+<h3 id="227-回测与实盘的差异">22.7. 回测与实盘的差异 </h3>
+<h4 id="2271-信号闪烁">22.7.1. 信号闪烁 </h4>
+<h4 id="2272-冲击成本">22.7.2. 冲击成本 </h4>
+<h4 id="2273-不可能成交的价格">22.7.3. 不可能成交的价格 </h4>
+<h4 id="2274-撮合问题">22.7.4. 撮合问题 </h4>
+<h3 id="228-大富翁回测框架">22.8. 大富翁回测框架 </h3>
+<h4 id="2281-回测功能简介">22.8.1. 回测功能简介 </h4>
+<h5 id="22811-架构和风格">22.8.1.1. 架构和风格 </h5>
+<h4 id="2282-策略框架">22.8.2. 策略框架 </h4>
+<h5 id="22821-数据和数据格式">22.8.2.1. 数据和数据格式 </h5>
+<h5 id="22822-跨周期数据">22.8.2.2. 跨周期数据 </h5>
+<h5 id="22823-驱动模式与性能">22.8.2.3. 驱动模式与性能 </h5>
+<h5 id="22824-回测报告">22.8.2.4. 回测报告 </h5>
+<h4 id="2283-一个完整的策略示例">22.8.3. 一个完整的策略示例 </h4>
+<h4 id="2284-参数优化">22.8.4. 参数优化 </h4>
+<h3 id="229-参考文献">22.9. 参考文献 </h3>
 <div class="module">VI. 接入实盘</div>
 <p><em>所有的准备，最终都是为了接入实盘。最后两节课，将为你介绍各种接入方案。</em></p>
-<h2 id="24-实盘交易接口-1">24. 实盘交易接口 (1) </h2>
-<h3 id="241-easytrader">24.1. easytrader </h3>
-<h4 id="2411-安装">24.1.1. 安装 </h4>
-<h4 id="2412-生命期">24.1.2. 生命期 </h4>
-<h5 id="24121-连接客户端">24.1.2.1. 连接客户端 </h5>
-<h5 id="24122-获取账户信息">24.1.2.2. 获取账户信息 </h5>
-<h5 id="24123-交易">24.1.2.3. 交易 </h5>
-<h4 id="2413-服务器模式">24.1.3. 服务器模式 </h4>
-<h4 id="2414-自动跟单">24.1.4. 自动跟单 </h4>
-<h3 id="242-东方财富-emc-智能交易终端">24.2. 东方财富 EMC 智能交易终端 </h3>
-<h4 id="2421-安装">24.2.1. 安装 </h4>
-<h5 id="24211-配置文件单目录">24.2.1.1. 配置文件单目录 </h5>
-<h4 id="2422-运行和维护">24.2.2. 运行和维护 </h4>
-<h5 id="24221-启动">24.2.2.1. 启动 </h5>
-<h5 id="24222-每日维护">24.2.2.2. 每日维护 </h5>
-<h4 id="2423-故障排除与帮助">24.2.3. 故障排除与帮助 </h4>
-<h4 id="2424-撮合配置规则">24.2.4. 撮合配置规则 </h4>
-<h3 id="243-trader-gm-adaptor">24.3. Trader-gm-adaptor </h3>
-<h4 id="2431-冒烟测试">24.3.1. 冒烟测试 </h4>
-<h4 id="2432-客户端与服务器交互">24.3.2. 客户端与服务器交互 </h4>
-<h5 id="24321-客户端请求">24.3.2.1. 客户端请求 </h5>
-<h5 id="24322-返回结果">24.3.2.2. 返回结果 </h5>
-<h4 id="2433-api-示例">24.3.3. API 示例 </h4>
-<h5 id="24331-资产表">24.3.3.1. 资产表 </h5>
-<h5 id="24332-持仓表">24.3.3.2. 持仓表 </h5>
-<h5 id="24333-限价买入">24.3.3.3. 限价买入 </h5>
-<h5 id="24334-市价买入">24.3.3.4. 市价买入 </h5>
-<h5 id="24335-限价卖出">24.3.3.5. 限价卖出 </h5>
-<h5 id="24336-市价卖出">24.3.3.6. 市价卖出 </h5>
-<h5 id="24337-取消委托">24.3.3.7. 取消委托 </h5>
-<h5 id="24338-查询当日委托">24.3.3.8. 查询当日委托 </h5>
-<h2 id="25-实盘交易接口2">25. 实盘交易接口（2） </h2>
-<h3 id="251-ptrade">25.1. ptrade </h3>
-<h4 id="2511-申请与安装">25.1.1. 申请与安装 </h4>
-<h4 id="2512-策略框架概述">25.1.2. 策略框架概述 </h4>
-<h5 id="25121-initialize">25.1.2.1. initialize </h5>
-<h5 id="25122-before_trading_start">25.1.2.2. before_trading_start </h5>
-<h5 id="25123-handle_data">25.1.2.3. handle_data </h5>
-<h5 id="25124-after_trading_end">25.1.2.4. after_trading_end </h5>
-<h4 id="2513-一个双均线策略">25.1.3. 一个双均线策略 </h4>
-<h4 id="2514-复权机制">25.1.4. 复权机制 </h4>
-<h3 id="252-qmt">25.2. QMT </h3>
-<h4 id="2521-安装和申请量化权限">25.2.1. 安装和申请量化权限 </h4>
-<h4 id="2522-功能概览">25.2.2. 功能概览 </h4>
-<h5 id="25221-我的板块">25.2.2.1. 我的板块 </h5>
-<h5 id="25222-模型研究">25.2.2.2. 模型研究 </h5>
-<h5 id="25223-模型交易">25.2.2.3. 模型交易 </h5>
-<h3 id="253-qmt-mini">25.3. QMT-Mini </h3>
-<h3 id="254-xtdata">25.4. XtData </h3>
-<h4 id="2541-获取证券列表">25.4.1. 获取证券列表 </h4>
-<h4 id="2542-获取交易日历">25.4.2. 获取交易日历 </h4>
-<h4 id="2543-获取行情数据">25.4.3. 获取行情数据 </h4>
-<h3 id="255-xttrader">25.5. XtTrader </h3>
-<h4 id="2551-封装成web服务">25.5.1. 封装成web服务 </h4>
+<h2 id="23-实盘交易接口-1">23. 实盘交易接口 (1) </h2>
+<h3 id="231-easytrader">23.1. easytrader </h3>
+<h4 id="2311-安装">23.1.1. 安装 </h4>
+<h4 id="2312-生命期">23.1.2. 生命期 </h4>
+<h5 id="23121-连接客户端">23.1.2.1. 连接客户端 </h5>
+<h5 id="23122-获取账户信息">23.1.2.2. 获取账户信息 </h5>
+<h5 id="23123-交易">23.1.2.3. 交易 </h5>
+<h4 id="2313-服务器模式">23.1.3. 服务器模式 </h4>
+<h4 id="2314-自动跟单">23.1.4. 自动跟单 </h4>
+<h3 id="232-东方财富-emc-智能交易终端">23.2. 东方财富 EMC 智能交易终端 </h3>
+<h4 id="2321-安装">23.2.1. 安装 </h4>
+<h5 id="23211-配置文件单目录">23.2.1.1. 配置文件单目录 </h5>
+<h4 id="2322-运行和维护">23.2.2. 运行和维护 </h4>
+<h5 id="23221-启动">23.2.2.1. 启动 </h5>
+<h5 id="23222-每日维护">23.2.2.2. 每日维护 </h5>
+<h4 id="2323-故障排除与帮助">23.2.3. 故障排除与帮助 </h4>
+<h4 id="2324-撮合配置规则">23.2.4. 撮合配置规则 </h4>
+<h3 id="233-trader-gm-adaptor">23.3. Trader-gm-adaptor </h3>
+<h4 id="2331-冒烟测试">23.3.1. 冒烟测试 </h4>
+<h4 id="2332-客户端与服务器交互">23.3.2. 客户端与服务器交互 </h4>
+<h5 id="23321-客户端请求">23.3.2.1. 客户端请求 </h5>
+<h5 id="23322-返回结果">23.3.2.2. 返回结果 </h5>
+<h4 id="2333-api-示例">23.3.3. API 示例 </h4>
+<h5 id="23331-资产表">23.3.3.1. 资产表 </h5>
+<h5 id="23332-持仓表">23.3.3.2. 持仓表 </h5>
+<h5 id="23333-限价买入">23.3.3.3. 限价买入 </h5>
+<h5 id="23334-市价买入">23.3.3.4. 市价买入 </h5>
+<h5 id="23335-限价卖出">23.3.3.5. 限价卖出 </h5>
+<h5 id="23336-市价卖出">23.3.3.6. 市价卖出 </h5>
+<h5 id="23337-取消委托">23.3.3.7. 取消委托 </h5>
+<h5 id="23338-查询当日委托">23.3.3.8. 查询当日委托 </h5>
+<h2 id="24-实盘交易接口2">24. 实盘交易接口（2） </h2>
+<h3 id="241-ptrade">24.1. ptrade </h3>
+<h4 id="2411-申请与安装">24.1.1. 申请与安装 </h4>
+<h4 id="2412-策略框架概述">24.1.2. 策略框架概述 </h4>
+<h5 id="24121-initialize">24.1.2.1. initialize </h5>
+<h5 id="24122-before_trading_start">24.1.2.2. before_trading_start </h5>
+<h5 id="24123-handle_data">24.1.2.3. handle_data </h5>
+<h5 id="24124-after_trading_end">24.1.2.4. after_trading_end </h5>
+<h4 id="2413-一个双均线策略">24.1.3. 一个双均线策略 </h4>
+<h4 id="2414-复权机制">24.1.4. 复权机制 </h4>
+<h3 id="242-qmt">24.2. QMT </h3>
+<h4 id="2421-安装和申请量化权限">24.2.1. 安装和申请量化权限 </h4>
+<h4 id="2422-功能概览">24.2.2. 功能概览 </h4>
+<h5 id="24221-我的板块">24.2.2.1. 我的板块 </h5>
+<h5 id="24222-模型研究">24.2.2.2. 模型研究 </h5>
+<h5 id="24223-模型交易">24.2.2.3. 模型交易 </h5>
+<h3 id="243-qmt-mini">24.3. QMT-Mini </h3>
+<h3 id="244-xtdata">24.4. XtData </h3>
+<h4 id="2441-获取证券列表">24.4.1. 获取证券列表 </h4>
+<h4 id="2442-获取交易日历">24.4.2. 获取交易日历 </h4>
+<h4 id="2443-获取行情数据">24.4.3. 获取行情数据 </h4>
+<h3 id="245-xttrader">24.5. XtTrader </h3>
+<h4 id="2451-封装成web服务">24.5.1. 封装成web服务 </h4>
 
       </div>
-      </div>
+      </div> <!--cols-->
+      </div> <!--main-->
       <div class="md-sidebar-toc">
 <div class="md-toc">
 <details style="padding:0;;padding-left:0px;" open="">
@@ -1687,18 +1689,16 @@ II. 初识策略
           </a></div>
         </div>
       </details>
-    
+    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#144-因子评价体系" class="md-toc-link">
+            <p>14.4. 因子评价体系</p>
+
+          </a></div>
         </div>
       </details>
-    <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#15-因子评价体系" class="md-toc-link">
-            <ol start="15">
-<li>因子评价体系</li>
-</ol>
-
-          </a></div><details style="padding:0;;padding-left:0px;" open="">
+    <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#16-alphalens及其它" class="md-toc-link"><ol start="16">
+          <a href="#15-alphalens及其它" class="md-toc-link"><ol start="15">
 <li>Alphalens及其它</li>
 </ol>
 </a>
@@ -1706,39 +1706,39 @@ II. 初识策略
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#161-alphalens" class="md-toc-link"><p>16.1. Alphalens</p>
+          <a href="#151-alphalens" class="md-toc-link"><p>15.1. Alphalens</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1611-alphalens调用流程" class="md-toc-link">
-            <p>16.1.1. Alphalens调用流程</p>
+          <a href="#1511-alphalens调用流程" class="md-toc-link">
+            <p>15.1.1. Alphalens调用流程</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1612-数据预处理" class="md-toc-link">
-            <p>16.1.2. 数据预处理</p>
+          <a href="#1512-数据预处理" class="md-toc-link">
+            <p>15.1.2. 数据预处理</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1613-因子分析" class="md-toc-link">
-            <p>16.1.3. 因子分析</p>
+          <a href="#1513-因子分析" class="md-toc-link">
+            <p>15.1.3. 因子分析</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#1614-alphalens常见错误和警告" class="md-toc-link"><p>16.1.4. Alphalens常见错误和警告</p>
+          <a href="#1514-alphalens常见错误和警告" class="md-toc-link"><p>15.1.4. Alphalens常见错误和警告</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#16141-时区问题" class="md-toc-link">
-            <p>16.1.4.1. 时区问题</p>
+          <a href="#15141-时区问题" class="md-toc-link">
+            <p>15.1.4.1. 时区问题</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#16142-maxlossexceederror" class="md-toc-link">
-            <p>16.1.4.2. MaxLossExceedError</p>
+          <a href="#15142-maxlossexceederror" class="md-toc-link">
+            <p>15.1.4.2. MaxLossExceedError</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#16143-futurewarning" class="md-toc-link">
-            <p>16.1.4.3. FutureWarning</p>
+          <a href="#15143-futurewarning" class="md-toc-link">
+            <p>15.1.4.3. FutureWarning</p>
 
           </a></div>
         </div>
@@ -1747,130 +1747,130 @@ II. 初识策略
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#162-jqfactor和jqfactor-analyzer" class="md-toc-link">
-            <p>16.2. JQFactor和jqfactor-analyzer</p>
+          <a href="#152-jqfactor和jqfactor-analyzer" class="md-toc-link">
+            <p>15.2. JQFactor和jqfactor-analyzer</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#163-sympy" class="md-toc-link">
-            <p>16.3. sympy</p>
+          <a href="#153-sympy" class="md-toc-link">
+            <p>15.3. sympy</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#164-statistics" class="md-toc-link">
-            <p>16.4. statistics</p>
+          <a href="#154-statistics" class="md-toc-link">
+            <p>15.4. statistics</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#165-statsmodels" class="md-toc-link"><p>16.5. statsmodels</p>
+          <a href="#155-statsmodels" class="md-toc-link"><p>15.5. statsmodels</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1651-ols普通最小二乘法估计" class="md-toc-link">
-            <p>16.5.1. OLS（普通最小二乘法）估计</p>
+          <a href="#1551-ols普通最小二乘法估计" class="md-toc-link">
+            <p>15.5.1. OLS（普通最小二乘法）估计</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1652-比较ols与rlm" class="md-toc-link">
-            <p>16.5.2. 比较OLS与RLM</p>
+          <a href="#1552-比较ols与rlm" class="md-toc-link">
+            <p>15.5.2. 比较OLS与RLM</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1653-arima模型与时间序列预测" class="md-toc-link">
-            <p>16.5.3. ARIMA模型与时间序列预测</p>
+          <a href="#1553-arima模型与时间序列预测" class="md-toc-link">
+            <p>15.5.3. ARIMA模型与时间序列预测</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#166-zipline" class="md-toc-link">
-            <p>16.6. zipline</p>
+          <a href="#156-zipline" class="md-toc-link">
+            <p>15.6. zipline</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#167-pyfolio" class="md-toc-link">
-            <p>16.7. pyfolio</p>
+          <a href="#157-pyfolio" class="md-toc-link">
+            <p>15.7. pyfolio</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#168-ta" class="md-toc-link">
-            <p>16.8. ta</p>
+          <a href="#158-ta" class="md-toc-link">
+            <p>15.8. ta</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#17-matplotlib-绘图" class="md-toc-link"><ol start="17">
+          <a href="#16-matplotlib-绘图" class="md-toc-link"><ol start="16">
 <li>Matplotlib 绘图</li>
 </ol>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#171-matplot-简介" class="md-toc-link">
-            <p>17.1. matplot 简介</p>
+          <a href="#161-matplot-简介" class="md-toc-link">
+            <p>16.1. matplot 简介</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#172-图是如何构成的" class="md-toc-link"><p>17.2. 图是如何构成的</p>
+          <a href="#162-图是如何构成的" class="md-toc-link"><p>16.2. 图是如何构成的</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1721-最顶层的概念" class="md-toc-link">
-            <p>17.2.1. 最顶层的概念</p>
+          <a href="#1621-最顶层的概念" class="md-toc-link">
+            <p>16.2.1. 最顶层的概念</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1722-pyplot-figure与axes之间的关系" class="md-toc-link">
-            <p>17.2.2. pyplot, Figure与Axes之间的关系</p>
+          <a href="#1622-pyplot-figure与axes之间的关系" class="md-toc-link">
+            <p>16.2.2. pyplot, Figure与Axes之间的关系</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1723-layout" class="md-toc-link">
-            <p>17.2.3. layout</p>
+          <a href="#1623-layout" class="md-toc-link">
+            <p>16.2.3. layout</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1724-figure-anatomy" class="md-toc-link">
-            <p>17.2.4. Figure Anatomy</p>
+          <a href="#1624-figure-anatomy" class="md-toc-link">
+            <p>16.2.4. Figure Anatomy</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#173-高频使用对象" class="md-toc-link"><p>17.3. 高频使用对象</p>
+          <a href="#163-高频使用对象" class="md-toc-link"><p>16.3. 高频使用对象</p>
 </a>
           </summary>
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#1731-axis" class="md-toc-link"><p>17.3.1. Axis</p>
+          <a href="#1631-axis" class="md-toc-link"><p>16.3.1. Axis</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#17311-spine定位与隐藏" class="md-toc-link">
-            <p>17.3.1.1. spine定位与隐藏</p>
+          <a href="#16311-spine定位与隐藏" class="md-toc-link">
+            <p>16.3.1.1. spine定位与隐藏</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#17312-共享x轴" class="md-toc-link">
-            <p>17.3.1.2. 共享x轴</p>
+          <a href="#16312-共享x轴" class="md-toc-link">
+            <p>16.3.1.2. 共享x轴</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#17313-刻度" class="md-toc-link">
-            <p>17.3.1.3. 刻度</p>
+          <a href="#16313-刻度" class="md-toc-link">
+            <p>16.3.1.3. 刻度</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1732-文本和中文" class="md-toc-link">
-            <p>17.3.2. 文本和中文</p>
+          <a href="#1632-文本和中文" class="md-toc-link">
+            <p>16.3.2. 文本和中文</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#1733-样式和颜色" class="md-toc-link"><p>17.3.3. 样式和颜色</p>
+          <a href="#1633-样式和颜色" class="md-toc-link"><p>16.3.3. 样式和颜色</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#17331-colormap" class="md-toc-link">
-            <p>17.3.3.1. colormap</p>
+          <a href="#16331-colormap" class="md-toc-link">
+            <p>16.3.3.1. colormap</p>
 
           </a></div>
         </div>
@@ -1883,116 +1883,116 @@ II. 初识策略
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#18-plotly-绘图" class="md-toc-link"><ol start="18">
+          <a href="#17-plotly-绘图" class="md-toc-link"><ol start="17">
 <li>Plotly 绘图</li>
 </ol>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#181-plotly-中的基本概念" class="md-toc-link">
-            <p>18.1. Plotly 中的基本概念</p>
+          <a href="#171-plotly-中的基本概念" class="md-toc-link">
+            <p>17.1. Plotly 中的基本概念</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#182-plotly-模块结构" class="md-toc-link"><p>18.2. Plotly 模块结构</p>
+          <a href="#172-plotly-模块结构" class="md-toc-link"><p>17.2. Plotly 模块结构</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1821-plotly-express" class="md-toc-link">
-            <p>18.2.1. Plotly Express</p>
+          <a href="#1721-plotly-express" class="md-toc-link">
+            <p>17.2.1. Plotly Express</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1822-graph-objects" class="md-toc-link">
-            <p>18.2.2. Graph Objects</p>
+          <a href="#1722-graph-objects" class="md-toc-link">
+            <p>17.2.2. Graph Objects</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1823-其它" class="md-toc-link">
-            <p>18.2.3. 其它</p>
+          <a href="#1723-其它" class="md-toc-link">
+            <p>17.2.3. 其它</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#183-比较-plotly-express-与-gofigure" class="md-toc-link">
-            <p>18.3. 比较 plotly express 与 go.Figure</p>
+          <a href="#173-比较-plotly-express-与-gofigure" class="md-toc-link">
+            <p>17.3. 比较 plotly express 与 go.Figure</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#184-plotly-股票分析图绘制" class="md-toc-link"><p>18.4. Plotly 股票分析图绘制</p>
+          <a href="#174-plotly-股票分析图绘制" class="md-toc-link"><p>17.4. Plotly 股票分析图绘制</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1841-k-线图绘制" class="md-toc-link">
-            <p>18.4.1. K 线图绘制</p>
+          <a href="#1741-k-线图绘制" class="md-toc-link">
+            <p>17.4.1. K 线图绘制</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1842-叠加技术指标" class="md-toc-link">
-            <p>18.4.2. 叠加技术指标</p>
+          <a href="#1742-叠加技术指标" class="md-toc-link">
+            <p>17.4.2. 叠加技术指标</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1843-子图" class="md-toc-link">
-            <p>18.4.3. 子图</p>
+          <a href="#1743-子图" class="md-toc-link">
+            <p>17.4.3. 子图</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1844-显示区域" class="md-toc-link">
-            <p>18.4.4. 显示区域</p>
+          <a href="#1744-显示区域" class="md-toc-link">
+            <p>17.4.4. 显示区域</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1845-交互式提示" class="md-toc-link">
-            <p>18.4.5. 交互式提示</p>
+          <a href="#1745-交互式提示" class="md-toc-link">
+            <p>17.4.5. 交互式提示</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#185-色彩" class="md-toc-link"><p>18.5. 色彩</p>
+          <a href="#175-色彩" class="md-toc-link"><p>17.5. 色彩</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1851-离散色彩序列" class="md-toc-link">
-            <p>18.5.1. 离散色彩序列</p>
+          <a href="#1751-离散色彩序列" class="md-toc-link">
+            <p>17.5.1. 离散色彩序列</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1852-连续色阶" class="md-toc-link">
-            <p>18.5.2. 连续色阶</p>
+          <a href="#1752-连续色阶" class="md-toc-link">
+            <p>17.5.2. 连续色阶</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#186-主题和模板" class="md-toc-link">
-            <p>18.6. 主题和模板</p>
+          <a href="#176-主题和模板" class="md-toc-link">
+            <p>17.6. 主题和模板</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#187-dash-简介" class="md-toc-link"><p>18.7. Dash 简介</p>
+          <a href="#177-dash-简介" class="md-toc-link"><p>17.7. Dash 简介</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1871-hellow-world" class="md-toc-link">
-            <p>18.7.1. Hellow World</p>
+          <a href="#1771-hellow-world" class="md-toc-link">
+            <p>17.7.1. Hellow World</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1872-连接到数据" class="md-toc-link">
-            <p>18.7.2. 连接到数据</p>
+          <a href="#1772-连接到数据" class="md-toc-link">
+            <p>17.7.2. 连接到数据</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1873-增加交互式控件" class="md-toc-link">
-            <p>18.7.3. 增加交互式控件</p>
+          <a href="#1773-增加交互式控件" class="md-toc-link">
+            <p>17.7.3. 增加交互式控件</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1874-美化应用程序" class="md-toc-link">
-            <p>18.7.4. 美化应用程序</p>
+          <a href="#1774-美化应用程序" class="md-toc-link">
+            <p>17.7.4. 美化应用程序</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1875-深入dash" class="md-toc-link">
-            <p>18.7.5. 深入Dash</p>
+          <a href="#1775-深入dash" class="md-toc-link">
+            <p>17.7.5. 深入Dash</p>
 
           </a></div>
         </div>
@@ -2002,7 +2002,7 @@ II. 初识策略
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#19-seaborn-与-pyecharts-绘图" class="md-toc-link"><ol start="19">
+          <a href="#18-seaborn-与-pyecharts-绘图" class="md-toc-link"><ol start="18">
 <li>Seaborn 与 PyEcharts 绘图</li>
 </ol>
 </a>
@@ -2010,60 +2010,60 @@ II. 初识策略
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#191-seaborn" class="md-toc-link"><p>19.1. Seaborn</p>
+          <a href="#181-seaborn" class="md-toc-link"><p>18.1. Seaborn</p>
 </a>
           </summary>
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#1911-seaborn-绘图概览" class="md-toc-link"><p>19.1.1. Seaborn 绘图概览</p>
+          <a href="#1811-seaborn-绘图概览" class="md-toc-link"><p>18.1.1. Seaborn 绘图概览</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19111-统计关系的可视化" class="md-toc-link">
-            <p>19.1.1.1. 统计关系的可视化</p>
+          <a href="#18111-统计关系的可视化" class="md-toc-link">
+            <p>18.1.1.1. 统计关系的可视化</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19112-数据分布的可视化" class="md-toc-link">
-            <p>19.1.1.2. 数据分布的可视化</p>
+          <a href="#18112-数据分布的可视化" class="md-toc-link">
+            <p>18.1.1.2. 数据分布的可视化</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19113-二元分布的可视化" class="md-toc-link">
-            <p>19.1.1.3. 二元分布的可视化</p>
+          <a href="#18113-二元分布的可视化" class="md-toc-link">
+            <p>18.1.1.3. 二元分布的可视化</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19114-联合分布和边缘分布" class="md-toc-link">
-            <p>19.1.1.4. 联合分布和边缘分布</p>
+          <a href="#18114-联合分布和边缘分布" class="md-toc-link">
+            <p>18.1.1.4. 联合分布和边缘分布</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19115-回归拟合" class="md-toc-link">
-            <p>19.1.1.5. 回归拟合</p>
+          <a href="#18115-回归拟合" class="md-toc-link">
+            <p>18.1.1.5. 回归拟合</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1912-主题" class="md-toc-link">
-            <p>19.1.2. 主题</p>
+          <a href="#1812-主题" class="md-toc-link">
+            <p>18.1.2. 主题</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#1913-调色板的使用" class="md-toc-link"><p>19.1.3. 调色板的使用</p>
+          <a href="#1813-调色板的使用" class="md-toc-link"><p>18.1.3. 调色板的使用</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19131-定性调色板" class="md-toc-link">
-            <p>19.1.3.1. 定性调色板</p>
+          <a href="#18131-定性调色板" class="md-toc-link">
+            <p>18.1.3.1. 定性调色板</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19132-连续调色板" class="md-toc-link">
-            <p>19.1.3.2. 连续调色板</p>
+          <a href="#18132-连续调色板" class="md-toc-link">
+            <p>18.1.3.2. 连续调色板</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19133-发散调色板" class="md-toc-link">
-            <p>19.1.3.3. 发散调色板</p>
+          <a href="#18133-发散调色板" class="md-toc-link">
+            <p>18.1.3.3. 发散调色板</p>
 
           </a></div>
         </div>
@@ -2073,43 +2073,43 @@ II. 初识策略
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#192-pyecharts" class="md-toc-link"><p>19.2. PyEcharts</p>
+          <a href="#182-pyecharts" class="md-toc-link"><p>18.2. PyEcharts</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1921-在-notebookjupyterlab-中运行" class="md-toc-link">
-            <p>19.2.1. 在 Notebook/Jupyterlab 中运行</p>
+          <a href="#1821-在-notebookjupyterlab-中运行" class="md-toc-link">
+            <p>18.2.1. 在 Notebook/Jupyterlab 中运行</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1922-调用习惯" class="md-toc-link">
-            <p>19.2.2. 调用习惯</p>
+          <a href="#1822-调用习惯" class="md-toc-link">
+            <p>18.2.2. 调用习惯</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1923-使用选项" class="md-toc-link">
-            <p>19.2.3. 使用选项</p>
+          <a href="#1823-使用选项" class="md-toc-link">
+            <p>18.2.3. 使用选项</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#1924-子图和布局" class="md-toc-link"><p>19.2.4. 子图和布局</p>
+          <a href="#1824-子图和布局" class="md-toc-link"><p>18.2.4. 子图和布局</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19241-grid-布局" class="md-toc-link">
-            <p>19.2.4.1. Grid 布局</p>
+          <a href="#18241-grid-布局" class="md-toc-link">
+            <p>18.2.4.1. Grid 布局</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19242-page-布局" class="md-toc-link">
-            <p>19.2.4.2. Page 布局</p>
+          <a href="#18242-page-布局" class="md-toc-link">
+            <p>18.2.4.2. Page 布局</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19243-tab-布局" class="md-toc-link">
-            <p>19.2.4.3. tab 布局</p>
+          <a href="#18243-tab-布局" class="md-toc-link">
+            <p>18.2.4.3. tab 布局</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#19244-timeline" class="md-toc-link">
-            <p>19.2.4.4. Timeline</p>
+          <a href="#18244-timeline" class="md-toc-link">
+            <p>18.2.4.4. Timeline</p>
 
           </a></div>
         </div>
@@ -2118,98 +2118,98 @@ II. 初识策略
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#193-关于颜色和美学" class="md-toc-link">
-            <p>19.3. 关于颜色和美学</p>
+          <a href="#183-关于颜色和美学" class="md-toc-link">
+            <p>18.3. 关于颜色和美学</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#20-backtrader-回测框架1" class="md-toc-link"><ol start="20">
+          <a href="#19-backtrader-回测框架1" class="md-toc-link"><ol start="19">
 <li>backtrader 回测框架（1）</li>
 </ol>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#201-快速开始" class="md-toc-link">
-            <p>20.1. 快速开始</p>
+          <a href="#191-快速开始" class="md-toc-link">
+            <p>19.1. 快速开始</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#202-backtrader-语法糖" class="md-toc-link"><p>20.2. backtrader 语法糖</p>
+          <a href="#192-backtrader-语法糖" class="md-toc-link"><p>19.2. backtrader 语法糖</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2021-时间线-line" class="md-toc-link">
-            <p>20.2.1. 时间线 (Line)</p>
+          <a href="#1921-时间线-line" class="md-toc-link">
+            <p>19.2.1. 时间线 (Line)</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2022-运算符重载" class="md-toc-link">
-            <p>20.2.2. 运算符重载</p>
+          <a href="#1922-运算符重载" class="md-toc-link">
+            <p>19.2.2. 运算符重载</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#203-data-feeds" class="md-toc-link"><p>20.3. Data Feeds</p>
+          <a href="#193-data-feeds" class="md-toc-link"><p>19.3. Data Feeds</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2031-genericcsvdata" class="md-toc-link">
-            <p>20.3.1. GenericCSVData</p>
+          <a href="#1931-genericcsvdata" class="md-toc-link">
+            <p>19.3.1. GenericCSVData</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2032-pandas-feed" class="md-toc-link">
-            <p>20.3.2. Pandas Feed</p>
+          <a href="#1932-pandas-feed" class="md-toc-link">
+            <p>19.3.2. Pandas Feed</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2033-自定义一个-feed" class="md-toc-link">
-            <p>20.3.3. 自定义一个 Feed</p>
+          <a href="#1933-自定义一个-feed" class="md-toc-link">
+            <p>19.3.3. 自定义一个 Feed</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2034-增加新的数据列" class="md-toc-link">
-            <p>20.3.4. 增加新的数据列</p>
+          <a href="#1934-增加新的数据列" class="md-toc-link">
+            <p>19.3.4. 增加新的数据列</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#204-多周期数据" class="md-toc-link"><p>20.4. 多周期数据</p>
+          <a href="#194-多周期数据" class="md-toc-link"><p>19.4. 多周期数据</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2041-多周期技术指标比较" class="md-toc-link">
-            <p>20.4.1. 多周期技术指标比较</p>
+          <a href="#1941-多周期技术指标比较" class="md-toc-link">
+            <p>19.4.1. 多周期技术指标比较</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#205-指标" class="md-toc-link"><p>20.5. 指标</p>
+          <a href="#195-指标" class="md-toc-link"><p>19.5. 指标</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2051-内置指标库" class="md-toc-link">
-            <p>20.5.1. 内置指标库</p>
+          <a href="#1951-内置指标库" class="md-toc-link">
+            <p>19.5.1. 内置指标库</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2052-自定义指标" class="md-toc-link"><p>20.5.2. 自定义指标</p>
+          <a href="#1952-自定义指标" class="md-toc-link"><p>19.5.2. 自定义指标</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#20521-最小周期" class="md-toc-link">
-            <p>20.5.2.1. 最小周期</p>
+          <a href="#19521-最小周期" class="md-toc-link">
+            <p>19.5.2.1. 最小周期</p>
 
           </a></div>
         </div>
@@ -2222,7 +2222,7 @@ II. 初识策略
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#21-backtrader-回测框架2" class="md-toc-link"><ol start="21">
+          <a href="#20-backtrader-回测框架2" class="md-toc-link"><ol start="20">
 <li>backtrader 回测框架（2）</li>
 </ol>
 </a>
@@ -2230,190 +2230,190 @@ II. 初识策略
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#211-cerebro" class="md-toc-link"><p>21.1. Cerebro</p>
+          <a href="#201-cerebro" class="md-toc-link"><p>20.1. Cerebro</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2111-增加记录器日志" class="md-toc-link">
-            <p>21.1.1. 增加记录器（日志）</p>
+          <a href="#2011-增加记录器日志" class="md-toc-link">
+            <p>20.1.1. 增加记录器（日志）</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2112-增加观察者" class="md-toc-link">
-            <p>21.1.2. 增加观察者</p>
+          <a href="#2012-增加观察者" class="md-toc-link">
+            <p>20.1.2. 增加观察者</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2113-执行与绘图" class="md-toc-link">
-            <p>21.1.3. 执行与绘图</p>
+          <a href="#2013-执行与绘图" class="md-toc-link">
+            <p>20.1.3. 执行与绘图</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#212-order" class="md-toc-link"><p>21.2. Order</p>
+          <a href="#202-order" class="md-toc-link"><p>20.2. Order</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2121-notify_order" class="md-toc-link">
-            <p>21.2.1. notify_order</p>
+          <a href="#2021-notify_order" class="md-toc-link">
+            <p>20.2.1. notify_order</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#213-交易代理" class="md-toc-link"><p>21.3. 交易代理</p>
+          <a href="#203-交易代理" class="md-toc-link"><p>20.3. 交易代理</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2131-资产与持仓查询" class="md-toc-link">
-            <p>21.3.1. 资产与持仓查询</p>
+          <a href="#2031-资产与持仓查询" class="md-toc-link">
+            <p>20.3.1. 资产与持仓查询</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2132-成交量限制" class="md-toc-link"><p>21.3.2. 成交量限制</p>
+          <a href="#2032-成交量限制" class="md-toc-link"><p>20.3.2. 成交量限制</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21321-fixedsize" class="md-toc-link">
-            <p>21.3.2.1. FixedSize</p>
+          <a href="#20321-fixedsize" class="md-toc-link">
+            <p>20.3.2.1. FixedSize</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21322-fixedbarperc" class="md-toc-link">
-            <p>21.3.2.2. FixedBarPerc</p>
+          <a href="#20322-fixedbarperc" class="md-toc-link">
+            <p>20.3.2.2. FixedBarPerc</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21323-barpointperc" class="md-toc-link">
-            <p>21.3.2.3. BarPointPerc</p>
+          <a href="#20323-barpointperc" class="md-toc-link">
+            <p>20.3.2.3. BarPointPerc</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2133-交易时机---cheat-on-open" class="md-toc-link">
-            <p>21.3.3. 交易时机 - Cheat-On-Open</p>
+          <a href="#2033-交易时机---cheat-on-open" class="md-toc-link">
+            <p>20.3.3. 交易时机 - Cheat-On-Open</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2134-交易时机---cheat-on-close" class="md-toc-link">
-            <p>21.3.4. 交易时机 - Cheat-on-Close</p>
+          <a href="#2034-交易时机---cheat-on-close" class="md-toc-link">
+            <p>20.3.4. 交易时机 - Cheat-on-Close</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2135-交易函数" class="md-toc-link"><p>21.3.5. 交易函数</p>
+          <a href="#2035-交易函数" class="md-toc-link"><p>20.3.5. 交易函数</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21351-普通交易函数" class="md-toc-link">
-            <p>21.3.5.1. 普通交易函数</p>
+          <a href="#20351-普通交易函数" class="md-toc-link">
+            <p>20.3.5.1. 普通交易函数</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21352-order_target-系列" class="md-toc-link">
-            <p>21.3.5.2. order_target 系列</p>
+          <a href="#20352-order_target-系列" class="md-toc-link">
+            <p>20.3.5.2. order_target 系列</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2136-组合交易" class="md-toc-link">
-            <p>21.3.6. 组合交易</p>
+          <a href="#2036-组合交易" class="md-toc-link">
+            <p>20.3.6. 组合交易</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2137-oco-订单" class="md-toc-link">
-            <p>21.3.7. OCO 订单</p>
+          <a href="#2037-oco-订单" class="md-toc-link">
+            <p>20.3.7. OCO 订单</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2138-滑点-交易费用" class="md-toc-link"><p>21.3.8. 滑点、交易费用</p>
+          <a href="#2038-滑点-交易费用" class="md-toc-link"><p>20.3.8. 滑点、交易费用</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21381-固定滑点" class="md-toc-link">
-            <p>21.3.8.1. 固定滑点</p>
+          <a href="#20381-固定滑点" class="md-toc-link">
+            <p>20.3.8.1. 固定滑点</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21382-百分比滑点" class="md-toc-link">
-            <p>21.3.8.2. 百分比滑点</p>
+          <a href="#20382-百分比滑点" class="md-toc-link">
+            <p>20.3.8.2. 百分比滑点</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2139-交易费用" class="md-toc-link">
-            <p>21.3.9. 交易费用</p>
+          <a href="#2039-交易费用" class="md-toc-link">
+            <p>20.3.9. 交易费用</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#214-可视化" class="md-toc-link"><p>21.4. 可视化</p>
+          <a href="#204-可视化" class="md-toc-link"><p>20.4. 可视化</p>
 </a>
           </summary>
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2141-观察器" class="md-toc-link"><p>21.4.1. 观察器</p>
+          <a href="#2041-观察器" class="md-toc-link"><p>20.4.1. 观察器</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21411-broker-观察器" class="md-toc-link">
-            <p>21.4.1.1. Broker 观察器</p>
+          <a href="#20411-broker-观察器" class="md-toc-link">
+            <p>20.4.1.1. Broker 观察器</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21412-buysell-观察器" class="md-toc-link">
-            <p>21.4.1.2. BuySell 观察器</p>
+          <a href="#20412-buysell-观察器" class="md-toc-link">
+            <p>20.4.1.2. BuySell 观察器</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21413-trade-观察器" class="md-toc-link">
-            <p>21.4.1.3. Trade 观察器</p>
+          <a href="#20413-trade-观察器" class="md-toc-link">
+            <p>20.4.1.3. Trade 观察器</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21414-timereturn-观察器" class="md-toc-link">
-            <p>21.4.1.4. TimeReturn 观察器</p>
+          <a href="#20414-timereturn-观察器" class="md-toc-link">
+            <p>20.4.1.4. TimeReturn 观察器</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21415-drawdown-观察器" class="md-toc-link">
-            <p>21.4.1.5. DrawDown 观察器</p>
+          <a href="#20415-drawdown-观察器" class="md-toc-link">
+            <p>20.4.1.5. DrawDown 观察器</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#21416-benchmark-观察器" class="md-toc-link">
-            <p>21.4.1.6. Benchmark 观察器</p>
+          <a href="#20416-benchmark-观察器" class="md-toc-link">
+            <p>20.4.1.6. Benchmark 观察器</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2142-定制绘图" class="md-toc-link">
-            <p>21.4.2. 定制绘图</p>
+          <a href="#2042-定制绘图" class="md-toc-link">
+            <p>20.4.2. 定制绘图</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2143-收集回测数据" class="md-toc-link">
-            <p>21.4.3. 收集回测数据</p>
+          <a href="#2043-收集回测数据" class="md-toc-link">
+            <p>20.4.3. 收集回测数据</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#215-优化" class="md-toc-link">
-            <p>21.5. 优化</p>
+          <a href="#205-优化" class="md-toc-link">
+            <p>20.5. 优化</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#216-小结" class="md-toc-link">
-            <p>21.6. 小结</p>
+          <a href="#206-小结" class="md-toc-link">
+            <p>20.6. 小结</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#22-策略回测评估" class="md-toc-link"><ol start="22">
+          <a href="#21-策略回测评估" class="md-toc-link"><ol start="21">
 <li>策略回测评估</li>
 </ol>
 </a>
@@ -2421,112 +2421,112 @@ II. 初识策略
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#221-回报率" class="md-toc-link"><p>22.1. 回报率</p>
+          <a href="#211-回报率" class="md-toc-link"><p>21.1. 回报率</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2211-简单回报率" class="md-toc-link">
-            <p>22.1.1. 简单回报率</p>
+          <a href="#2111-简单回报率" class="md-toc-link">
+            <p>21.1.1. 简单回报率</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2212-对数回报率" class="md-toc-link">
-            <p>22.1.2. 对数回报率</p>
+          <a href="#2112-对数回报率" class="md-toc-link">
+            <p>21.1.2. 对数回报率</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2213-cumulative-returns" class="md-toc-link">
-            <p>22.1.3. Cumulative Returns</p>
+          <a href="#2113-cumulative-returns" class="md-toc-link">
+            <p>21.1.3. Cumulative Returns</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2214-aggregate-returns" class="md-toc-link">
-            <p>22.1.4. Aggregate Returns</p>
+          <a href="#2114-aggregate-returns" class="md-toc-link">
+            <p>21.1.4. Aggregate Returns</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2215-annual-return" class="md-toc-link">
-            <p>22.1.5. Annual Return</p>
+          <a href="#2115-annual-return" class="md-toc-link">
+            <p>21.1.5. Annual Return</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#222-风险调整收益率" class="md-toc-link"><p>22.2. 风险调整收益率</p>
+          <a href="#212-风险调整收益率" class="md-toc-link"><p>21.2. 风险调整收益率</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2221-sharpe-ratio" class="md-toc-link">
-            <p>22.2.1. sharpe ratio</p>
+          <a href="#2121-sharpe-ratio" class="md-toc-link">
+            <p>21.2.1. sharpe ratio</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2222-sharpe-比率与资产曲线的关系" class="md-toc-link">
-            <p>22.2.2. sharpe 比率与资产曲线的关系</p>
+          <a href="#2122-sharpe-比率与资产曲线的关系" class="md-toc-link">
+            <p>21.2.2. sharpe 比率与资产曲线的关系</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2223-sortino-指标" class="md-toc-link">
-            <p>22.2.3. sortino 指标</p>
+          <a href="#2123-sortino-指标" class="md-toc-link">
+            <p>21.2.3. sortino 指标</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2224-max-drawdown-最大回撤" class="md-toc-link">
-            <p>22.2.4. Max DrawDown （最大回撤）</p>
+          <a href="#2124-max-drawdown-最大回撤" class="md-toc-link">
+            <p>21.2.4. Max DrawDown （最大回撤）</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2225-sharpe-与-max-drawdown-的关系" class="md-toc-link">
-            <p>22.2.5. Sharpe 与 max drawdown 的关系</p>
+          <a href="#2125-sharpe-与-max-drawdown-的关系" class="md-toc-link">
+            <p>21.2.5. Sharpe 与 max drawdown 的关系</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2226-年化波动率" class="md-toc-link">
-            <p>22.2.6. 年化波动率</p>
+          <a href="#2126-年化波动率" class="md-toc-link">
+            <p>21.2.6. 年化波动率</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2227-calmar-ratio" class="md-toc-link">
-            <p>22.2.7. Calmar Ratio</p>
+          <a href="#2127-calmar-ratio" class="md-toc-link">
+            <p>21.2.7. Calmar Ratio</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2228-omega-ratio" class="md-toc-link">
-            <p>22.2.8. Omega Ratio</p>
+          <a href="#2128-omega-ratio" class="md-toc-link">
+            <p>21.2.8. Omega Ratio</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#223-基准对照类指标" class="md-toc-link"><p>22.3. 基准对照类指标</p>
+          <a href="#213-基准对照类指标" class="md-toc-link"><p>21.3. 基准对照类指标</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2231-information-ratio" class="md-toc-link">
-            <p>22.3.1. information ratio</p>
+          <a href="#2131-information-ratio" class="md-toc-link">
+            <p>21.3.1. information ratio</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2232-alphabeta" class="md-toc-link">
-            <p>22.3.2. alpha/beta</p>
+          <a href="#2132-alphabeta" class="md-toc-link">
+            <p>21.3.2. alpha/beta</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#224-策略评估的可视化" class="md-toc-link"><p>22.4. 策略评估的可视化</p>
+          <a href="#214-策略评估的可视化" class="md-toc-link"><p>21.4. 策略评估的可视化</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2241-metrics" class="md-toc-link">
-            <p>22.4.1. Metrics</p>
+          <a href="#2141-metrics" class="md-toc-link">
+            <p>21.4.1. Metrics</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2242-plots" class="md-toc-link">
-            <p>22.4.2. plots</p>
+          <a href="#2142-plots" class="md-toc-link">
+            <p>21.4.2. plots</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2243-basic-和-full" class="md-toc-link">
-            <p>22.4.3. basic 和 full</p>
+          <a href="#2143-basic-和-full" class="md-toc-link">
+            <p>21.4.3. basic 和 full</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2244-html" class="md-toc-link">
-            <p>22.4.4. html</p>
+          <a href="#2144-html" class="md-toc-link">
+            <p>21.4.4. html</p>
 
           </a></div>
         </div>
@@ -2536,177 +2536,177 @@ II. 初识策略
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#23-回测陷阱" class="md-toc-link"><ol start="23">
+          <a href="#22-回测陷阱" class="md-toc-link"><ol start="22">
 <li>回测陷阱</li>
 </ol>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#231-幸存者偏差" class="md-toc-link">
-            <p>23.1. 幸存者偏差</p>
+          <a href="#221-幸存者偏差" class="md-toc-link">
+            <p>22.1. 幸存者偏差</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#232-look-ahead-bias" class="md-toc-link"><p>23.2. Look-ahead bias</p>
+          <a href="#222-look-ahead-bias" class="md-toc-link"><p>22.2. Look-ahead bias</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2321-引用错误" class="md-toc-link">
-            <p>23.2.1. 引用错误</p>
+          <a href="#2221-引用错误" class="md-toc-link">
+            <p>22.2.1. 引用错误</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2322-偷价" class="md-toc-link">
-            <p>23.2.2. 偷价</p>
+          <a href="#2222-偷价" class="md-toc-link">
+            <p>22.2.2. 偷价</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2323-复权引起的前视偏差" class="md-toc-link">
-            <p>23.2.3. 复权引起的前视偏差</p>
+          <a href="#2223-复权引起的前视偏差" class="md-toc-link">
+            <p>22.2.3. 复权引起的前视偏差</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2324-pit数据" class="md-toc-link">
-            <p>23.2.4. PIT数据</p>
+          <a href="#2224-pit数据" class="md-toc-link">
+            <p>22.2.4. PIT数据</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#233-复权引起的问题" class="md-toc-link"><p>23.3. 复权引起的问题</p>
+          <a href="#223-复权引起的问题" class="md-toc-link"><p>22.3. 复权引起的问题</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2331-使用复权数据的必要性" class="md-toc-link">
-            <p>23.3.1. 使用复权数据的必要性</p>
+          <a href="#2231-使用复权数据的必要性" class="md-toc-link">
+            <p>22.3.1. 使用复权数据的必要性</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2332-后复权的问题" class="md-toc-link">
-            <p>23.3.2. 后复权的问题</p>
+          <a href="#2232-后复权的问题" class="md-toc-link">
+            <p>22.3.2. 后复权的问题</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2333-复权相关的其它问题" class="md-toc-link">
-            <p>23.3.3. 复权相关的其它问题</p>
+          <a href="#2233-复权相关的其它问题" class="md-toc-link">
+            <p>22.3.3. 复权相关的其它问题</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#234-交易规则" class="md-toc-link"><p>23.4. 交易规则</p>
+          <a href="#224-交易规则" class="md-toc-link"><p>22.4. 交易规则</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2341-t1交易" class="md-toc-link">
-            <p>23.4.1. T+1交易</p>
+          <a href="#2241-t1交易" class="md-toc-link">
+            <p>22.4.1. T+1交易</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2342-涨-跌限制" class="md-toc-link">
-            <p>23.4.2. 涨、跌限制</p>
+          <a href="#2242-涨-跌限制" class="md-toc-link">
+            <p>22.4.2. 涨、跌限制</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#235-过度拟合" class="md-toc-link">
-            <p>23.5. 过度拟合</p>
+          <a href="#225-过度拟合" class="md-toc-link">
+            <p>22.5. 过度拟合</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#236-回测时长" class="md-toc-link">
-            <p>23.6. 回测时长</p>
+          <a href="#226-回测时长" class="md-toc-link">
+            <p>22.6. 回测时长</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#237-回测与实盘的差异" class="md-toc-link"><p>23.7. 回测与实盘的差异</p>
+          <a href="#227-回测与实盘的差异" class="md-toc-link"><p>22.7. 回测与实盘的差异</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2371-信号闪烁" class="md-toc-link">
-            <p>23.7.1. 信号闪烁</p>
+          <a href="#2271-信号闪烁" class="md-toc-link">
+            <p>22.7.1. 信号闪烁</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2372-冲击成本" class="md-toc-link">
-            <p>23.7.2. 冲击成本</p>
+          <a href="#2272-冲击成本" class="md-toc-link">
+            <p>22.7.2. 冲击成本</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2373-不可能成交的价格" class="md-toc-link">
-            <p>23.7.3. 不可能成交的价格</p>
+          <a href="#2273-不可能成交的价格" class="md-toc-link">
+            <p>22.7.3. 不可能成交的价格</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2374-撮合问题" class="md-toc-link">
-            <p>23.7.4. 撮合问题</p>
+          <a href="#2274-撮合问题" class="md-toc-link">
+            <p>22.7.4. 撮合问题</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#238-大富翁回测框架" class="md-toc-link"><p>23.8. 大富翁回测框架</p>
+          <a href="#228-大富翁回测框架" class="md-toc-link"><p>22.8. 大富翁回测框架</p>
 </a>
           </summary>
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2381-回测功能简介" class="md-toc-link"><p>23.8.1. 回测功能简介</p>
+          <a href="#2281-回测功能简介" class="md-toc-link"><p>22.8.1. 回测功能简介</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#23811-架构和风格" class="md-toc-link">
-            <p>23.8.1.1. 架构和风格</p>
+          <a href="#22811-架构和风格" class="md-toc-link">
+            <p>22.8.1.1. 架构和风格</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2382-策略框架" class="md-toc-link"><p>23.8.2. 策略框架</p>
+          <a href="#2282-策略框架" class="md-toc-link"><p>22.8.2. 策略框架</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#23821-数据和数据格式" class="md-toc-link">
-            <p>23.8.2.1. 数据和数据格式</p>
+          <a href="#22821-数据和数据格式" class="md-toc-link">
+            <p>22.8.2.1. 数据和数据格式</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#23822-跨周期数据" class="md-toc-link">
-            <p>23.8.2.2. 跨周期数据</p>
+          <a href="#22822-跨周期数据" class="md-toc-link">
+            <p>22.8.2.2. 跨周期数据</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#23823-驱动模式与性能" class="md-toc-link">
-            <p>23.8.2.3. 驱动模式与性能</p>
+          <a href="#22823-驱动模式与性能" class="md-toc-link">
+            <p>22.8.2.3. 驱动模式与性能</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#23824-回测报告" class="md-toc-link">
-            <p>23.8.2.4. 回测报告</p>
+          <a href="#22824-回测报告" class="md-toc-link">
+            <p>22.8.2.4. 回测报告</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2383-一个完整的策略示例" class="md-toc-link">
-            <p>23.8.3. 一个完整的策略示例</p>
+          <a href="#2283-一个完整的策略示例" class="md-toc-link">
+            <p>22.8.3. 一个完整的策略示例</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2384-参数优化" class="md-toc-link">
-            <p>23.8.4. 参数优化</p>
+          <a href="#2284-参数优化" class="md-toc-link">
+            <p>22.8.4. 参数优化</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#239-参考文献" class="md-toc-link">
-            <p>23.9. 参考文献</p>
+          <a href="#229-参考文献" class="md-toc-link">
+            <p>22.9. 参考文献</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#24-实盘交易接口-1" class="md-toc-link"><ol start="24">
+          <a href="#23-实盘交易接口-1" class="md-toc-link"><ol start="23">
 <li>实盘交易接口 (1)</li>
 </ol>
 </a>
@@ -2714,157 +2714,157 @@ II. 初识策略
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#241-easytrader" class="md-toc-link"><p>24.1. easytrader</p>
+          <a href="#231-easytrader" class="md-toc-link"><p>23.1. easytrader</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2411-安装" class="md-toc-link">
-            <p>24.1.1. 安装</p>
+          <a href="#2311-安装" class="md-toc-link">
+            <p>23.1.1. 安装</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2412-生命期" class="md-toc-link"><p>24.1.2. 生命期</p>
+          <a href="#2312-生命期" class="md-toc-link"><p>23.1.2. 生命期</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24121-连接客户端" class="md-toc-link">
-            <p>24.1.2.1. 连接客户端</p>
+          <a href="#23121-连接客户端" class="md-toc-link">
+            <p>23.1.2.1. 连接客户端</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24122-获取账户信息" class="md-toc-link">
-            <p>24.1.2.2. 获取账户信息</p>
+          <a href="#23122-获取账户信息" class="md-toc-link">
+            <p>23.1.2.2. 获取账户信息</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24123-交易" class="md-toc-link">
-            <p>24.1.2.3. 交易</p>
+          <a href="#23123-交易" class="md-toc-link">
+            <p>23.1.2.3. 交易</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2413-服务器模式" class="md-toc-link">
-            <p>24.1.3. 服务器模式</p>
+          <a href="#2313-服务器模式" class="md-toc-link">
+            <p>23.1.3. 服务器模式</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2414-自动跟单" class="md-toc-link">
-            <p>24.1.4. 自动跟单</p>
+          <a href="#2314-自动跟单" class="md-toc-link">
+            <p>23.1.4. 自动跟单</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#242-东方财富-emc-智能交易终端" class="md-toc-link"><p>24.2. 东方财富 EMC 智能交易终端</p>
+          <a href="#232-东方财富-emc-智能交易终端" class="md-toc-link"><p>23.2. 东方财富 EMC 智能交易终端</p>
 </a>
           </summary>
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2421-安装" class="md-toc-link"><p>24.2.1. 安装</p>
+          <a href="#2321-安装" class="md-toc-link"><p>23.2.1. 安装</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24211-配置文件单目录" class="md-toc-link">
-            <p>24.2.1.1. 配置文件单目录</p>
+          <a href="#23211-配置文件单目录" class="md-toc-link">
+            <p>23.2.1.1. 配置文件单目录</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2422-运行和维护" class="md-toc-link"><p>24.2.2. 运行和维护</p>
+          <a href="#2322-运行和维护" class="md-toc-link"><p>23.2.2. 运行和维护</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24221-启动" class="md-toc-link">
-            <p>24.2.2.1. 启动</p>
+          <a href="#23221-启动" class="md-toc-link">
+            <p>23.2.2.1. 启动</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24222-每日维护" class="md-toc-link">
-            <p>24.2.2.2. 每日维护</p>
+          <a href="#23222-每日维护" class="md-toc-link">
+            <p>23.2.2.2. 每日维护</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2423-故障排除与帮助" class="md-toc-link">
-            <p>24.2.3. 故障排除与帮助</p>
+          <a href="#2323-故障排除与帮助" class="md-toc-link">
+            <p>23.2.3. 故障排除与帮助</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2424-撮合配置规则" class="md-toc-link">
-            <p>24.2.4. 撮合配置规则</p>
+          <a href="#2324-撮合配置规则" class="md-toc-link">
+            <p>23.2.4. 撮合配置规则</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#243-trader-gm-adaptor" class="md-toc-link"><p>24.3. Trader-gm-adaptor</p>
+          <a href="#233-trader-gm-adaptor" class="md-toc-link"><p>23.3. Trader-gm-adaptor</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2431-冒烟测试" class="md-toc-link">
-            <p>24.3.1. 冒烟测试</p>
+          <a href="#2331-冒烟测试" class="md-toc-link">
+            <p>23.3.1. 冒烟测试</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2432-客户端与服务器交互" class="md-toc-link"><p>24.3.2. 客户端与服务器交互</p>
+          <a href="#2332-客户端与服务器交互" class="md-toc-link"><p>23.3.2. 客户端与服务器交互</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24321-客户端请求" class="md-toc-link">
-            <p>24.3.2.1. 客户端请求</p>
+          <a href="#23321-客户端请求" class="md-toc-link">
+            <p>23.3.2.1. 客户端请求</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24322-返回结果" class="md-toc-link">
-            <p>24.3.2.2. 返回结果</p>
+          <a href="#23322-返回结果" class="md-toc-link">
+            <p>23.3.2.2. 返回结果</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2433-api-示例" class="md-toc-link"><p>24.3.3. API 示例</p>
+          <a href="#2333-api-示例" class="md-toc-link"><p>23.3.3. API 示例</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24331-资产表" class="md-toc-link">
-            <p>24.3.3.1. 资产表</p>
+          <a href="#23331-资产表" class="md-toc-link">
+            <p>23.3.3.1. 资产表</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24332-持仓表" class="md-toc-link">
-            <p>24.3.3.2. 持仓表</p>
+          <a href="#23332-持仓表" class="md-toc-link">
+            <p>23.3.3.2. 持仓表</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24333-限价买入" class="md-toc-link">
-            <p>24.3.3.3. 限价买入</p>
+          <a href="#23333-限价买入" class="md-toc-link">
+            <p>23.3.3.3. 限价买入</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24334-市价买入" class="md-toc-link">
-            <p>24.3.3.4. 市价买入</p>
+          <a href="#23334-市价买入" class="md-toc-link">
+            <p>23.3.3.4. 市价买入</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24335-限价卖出" class="md-toc-link">
-            <p>24.3.3.5. 限价卖出</p>
+          <a href="#23335-限价卖出" class="md-toc-link">
+            <p>23.3.3.5. 限价卖出</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24336-市价卖出" class="md-toc-link">
-            <p>24.3.3.6. 市价卖出</p>
+          <a href="#23336-市价卖出" class="md-toc-link">
+            <p>23.3.3.6. 市价卖出</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24337-取消委托" class="md-toc-link">
-            <p>24.3.3.7. 取消委托</p>
+          <a href="#23337-取消委托" class="md-toc-link">
+            <p>23.3.3.7. 取消委托</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#24338-查询当日委托" class="md-toc-link">
-            <p>24.3.3.8. 查询当日委托</p>
+          <a href="#23338-查询当日委托" class="md-toc-link">
+            <p>23.3.3.8. 查询当日委托</p>
 
           </a></div>
         </div>
@@ -2877,7 +2877,7 @@ II. 初识策略
       </details>
     <details style="padding:0;;padding-left:0px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#25-实盘交易接口2" class="md-toc-link"><ol start="25">
+          <a href="#24-实盘交易接口2" class="md-toc-link"><ol start="24">
 <li>实盘交易接口（2）</li>
 </ol>
 </a>
@@ -2885,77 +2885,77 @@ II. 初识策略
         <div>
           <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#251-ptrade" class="md-toc-link"><p>25.1. ptrade</p>
+          <a href="#241-ptrade" class="md-toc-link"><p>24.1. ptrade</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2511-申请与安装" class="md-toc-link">
-            <p>25.1.1. 申请与安装</p>
+          <a href="#2411-申请与安装" class="md-toc-link">
+            <p>24.1.1. 申请与安装</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2512-策略框架概述" class="md-toc-link"><p>25.1.2. 策略框架概述</p>
+          <a href="#2412-策略框架概述" class="md-toc-link"><p>24.1.2. 策略框架概述</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25121-initialize" class="md-toc-link">
-            <p>25.1.2.1. initialize</p>
+          <a href="#24121-initialize" class="md-toc-link">
+            <p>24.1.2.1. initialize</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25122-before_trading_start" class="md-toc-link">
-            <p>25.1.2.2. before_trading_start</p>
+          <a href="#24122-before_trading_start" class="md-toc-link">
+            <p>24.1.2.2. before_trading_start</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25123-handle_data" class="md-toc-link">
-            <p>25.1.2.3. handle_data</p>
+          <a href="#24123-handle_data" class="md-toc-link">
+            <p>24.1.2.3. handle_data</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25124-after_trading_end" class="md-toc-link">
-            <p>25.1.2.4. after_trading_end</p>
+          <a href="#24124-after_trading_end" class="md-toc-link">
+            <p>24.1.2.4. after_trading_end</p>
 
           </a></div>
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2513-一个双均线策略" class="md-toc-link">
-            <p>25.1.3. 一个双均线策略</p>
+          <a href="#2413-一个双均线策略" class="md-toc-link">
+            <p>24.1.3. 一个双均线策略</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2514-复权机制" class="md-toc-link">
-            <p>25.1.4. 复权机制</p>
+          <a href="#2414-复权机制" class="md-toc-link">
+            <p>24.1.4. 复权机制</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#252-qmt" class="md-toc-link"><p>25.2. QMT</p>
+          <a href="#242-qmt" class="md-toc-link"><p>24.2. QMT</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2521-安装和申请量化权限" class="md-toc-link">
-            <p>25.2.1. 安装和申请量化权限</p>
+          <a href="#2421-安装和申请量化权限" class="md-toc-link">
+            <p>24.2.1. 安装和申请量化权限</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#2522-功能概览" class="md-toc-link"><p>25.2.2. 功能概览</p>
+          <a href="#2422-功能概览" class="md-toc-link"><p>24.2.2. 功能概览</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25221-我的板块" class="md-toc-link">
-            <p>25.2.2.1. 我的板块</p>
+          <a href="#24221-我的板块" class="md-toc-link">
+            <p>24.2.2.1. 我的板块</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25222-模型研究" class="md-toc-link">
-            <p>25.2.2.2. 模型研究</p>
+          <a href="#24222-模型研究" class="md-toc-link">
+            <p>24.2.2.2. 模型研究</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#25223-模型交易" class="md-toc-link">
-            <p>25.2.2.3. 模型交易</p>
+          <a href="#24223-模型交易" class="md-toc-link">
+            <p>24.2.2.3. 模型交易</p>
 
           </a></div>
         </div>
@@ -2964,39 +2964,39 @@ II. 初识策略
         </div>
       </details>
     <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#253-qmt-mini" class="md-toc-link">
-            <p>25.3. QMT-Mini</p>
+          <a href="#243-qmt-mini" class="md-toc-link">
+            <p>24.3. QMT-Mini</p>
 
           </a></div><details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#254-xtdata" class="md-toc-link"><p>25.4. XtData</p>
+          <a href="#244-xtdata" class="md-toc-link"><p>24.4. XtData</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2541-获取证券列表" class="md-toc-link">
-            <p>25.4.1. 获取证券列表</p>
+          <a href="#2441-获取证券列表" class="md-toc-link">
+            <p>24.4.1. 获取证券列表</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2542-获取交易日历" class="md-toc-link">
-            <p>25.4.2. 获取交易日历</p>
+          <a href="#2442-获取交易日历" class="md-toc-link">
+            <p>24.4.2. 获取交易日历</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2543-获取行情数据" class="md-toc-link">
-            <p>25.4.3. 获取行情数据</p>
+          <a href="#2443-获取行情数据" class="md-toc-link">
+            <p>24.4.3. 获取行情数据</p>
 
           </a></div>
         </div>
       </details>
     <details style="padding:0;;padding-left:24px;" open="">
         <summary class="md-toc-link-wrapper">
-          <a href="#255-xttrader" class="md-toc-link"><p>25.5. XtTrader</p>
+          <a href="#245-xttrader" class="md-toc-link"><p>24.5. XtTrader</p>
 </a>
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2551-封装成web服务" class="md-toc-link">
-            <p>25.5.1. 封装成web服务</p>
+          <a href="#2451-封装成web服务" class="md-toc-link">
+            <p>24.5.1. 封装成web服务</p>
 
           </a></div>
         </div>
