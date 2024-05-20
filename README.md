@@ -25,7 +25,7 @@
 <div>
 <h3>追随美的指引-纪念西蒙斯</h3>
 <img src="https://images.jieyu.ai/images/2024/05/simons-1.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span><!--<br>成就介绍<br><br>用数学打败巴菲特的人<br>主要成就是Chern-Simons理论，维布伦(Veblen)奖（丘成桐也获得过此奖）<br><br>他在25岁赴哈佛大学任教，26岁为美国军方破译密码，30岁成为纽约州立大学石溪分校的数学系主任，38岁获得了代表几何领域最高成就的奥斯瓦尔德·维布...</p>
+<p><span>内容摘要:<br></span>周六早上醒来，James Simons（西蒙斯）辞世的消息刷屏了。多数人知道他，是因为他的财富和量化对冲基金公司-文艺复兴。但他更值得为人纪念的身份，则是数学家和慈善家。<br><br>西蒙斯1938年生于麻省，毕业于MIT，在UC Berkeley获得博士学位。曾任职于MIT， Harva...</p>
 
 <p><span style="margin-right:20px">发表于 2024-05-11 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/05/11/be-guided-by-beauty">点击阅读</a></span></p>
 
