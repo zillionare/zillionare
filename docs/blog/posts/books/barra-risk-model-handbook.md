@@ -43,6 +43,5 @@ Barr Rosenberg大学主攻的是文学（UC Berkeley），后来才转攻经济�
 ![](https://images.jieyu.ai/images/2024/05/barra-handbook-toc-2.jpg)
 
 
-
-
+[下载](/assets/ebooks/barra_risk_model_handbook.pdf)
 
