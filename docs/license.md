@@ -1,3 +1,0 @@
-{%
-    include-markdown "../LICENSE.md"
-%}
