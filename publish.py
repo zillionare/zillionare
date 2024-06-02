@@ -248,7 +248,8 @@ def publish():
     ]:
         execute(cmd)
 
-fire.Fire({
-    "build": build,
-    "publish": publish
-})
+if __name__ == "__main__":
+    fire.Fire({
+        "build": build,
+        "publish": publish
+    })
