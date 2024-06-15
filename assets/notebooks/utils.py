@@ -2,34 +2,51 @@ import datetime
 import functools
 import os
 import pickle
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 import akshare as ak
 import arrow
 import numpy as np
 import pandas as pd
+import talib as ta
 from coretypes import Frame, FrameType
 from IPython.display import display
 from numpy.typing import NDArray
 from omicron import tf
+from omicron.models.stock import Stock
+from omicron.talib import moving_average, peaks_and_valleys
 from scipy.signal import argrelmax
 
+akbars = None
 
 @functools.lru_cache
-def get_secs(exclude_st=True, exclude_kcb=True, size=(0, 1)):
-    with open("/data/secs.pkl", "rb") as f:
-        df = pickle.load(f)
+def get_secs(exclude_st=True, exclude_kcb=False, size=(0, 1)):
+    """size： 按市值分位数进行过滤
+
+    0.97 => 675亿
+    0.3 => 21亿
+    0.618 => 50亿
+    """
+    df_cap = ak.stock_zh_a_spot_em()
+    df_cap.rename(columns = {
+        "代码": "symbol",
+        "流通市值": "market_cap",
+        "名称": "name"
+    }, inplace=True)
+
+    df = df_cap[["symbol", "name", "market_cap"]]
+    low = df.market_cap.quantile(size[0])
+    high = df.market_cap.quantile(size[1])
+
+    df = df[(df.market_cap >= low) & (df.market_cap <= high)]
+    if exclude_st:
+        df = df[df.name.str.find("ST")==-1]
         
-        if exclude_st:
-            df = df[df.name.str.find("ST")==-1]
+    if exclude_kcb:
+        df = df[~df.symbol.str.startswith("68")]
             
-        if exclude_kcb:
-            df = df[~df.symbol.str.startswith("68")]
-            
-        low = df.cap.quantile(size[0])
-        high = df.cap.quantile(size[1])
                          
-        return df[(df.cap >= low) & (df.cap <= high)].to_records(index=False)
+    return df.to_records(index=False)
     
 @functools.lru_cache
 def get_name(symbol):
@@ -37,6 +54,56 @@ def get_name(symbol):
     name = df[df.symbol == symbol]["name"]
     return name.item()
 
+@functools.lru_cache
+def get_code(name):
+    df = get_secs(exclude_st=False, exclude_kcb=False)
+    code = df[df.name == name]["symbol"]
+    return code.item()
+
+def get_cached_day_bars(symbol, end: datetime.date = None):
+    global akbars
+
+    if akbars is None:
+        with open("bars_ak.pkl", "rb") as f:
+            akbars = pickle.load(f)
+
+    bars = akbars.get(symbol)
+    if bars is not None and end is not None:
+        mask = bars["frame"] <= end
+        return bars[mask]
+    return bars
+
+def resample_day_bars(day_bars):
+    """将日线重采样为周线和月线"""
+    df = pd.DataFrame(day_bars)
+    df["factor"] = 1
+    day_bars = df.to_records(index=False)
+    wbars = Stock.resample(day_bars, FrameType.DAY, FrameType.WEEK)
+    monbars = Stock.resample(day_bars, FrameType.DAY, FrameType.MONTH)
+
+    return wbars, monbars
+
+
+def rsi_predict_high(target_rsi, close)->float:
+    """根据现有的收盘价及目标rsi,预测超过target_rsi时的收盘价"""
+    for pct in np.linspace(0.01, 0.1, 10):
+        price = close[-1] * (1 + pct)
+        closes = np.concatenate((close, [price]))
+        rsi = ta.RSI(closes, 6)
+        if rsi[-1] >= target_rsi:
+            return price
+    return None
+
+def rsi_predict_low(target_rsi, close)->float:
+    """根据现有的收盘价及目标rsi,预测低于target_rsi时的收盘价"""
+    for pct in np.linspace(0.01, 0.1, 10):
+        price = close[-1] * (1 + pct)
+        closes = np.concatenate((close, [price]))
+        rsi = ta.RSI(closes, 6)
+        if rsi[-1] <= target_rsi:
+            return price
+    return None
+    
 def get_index_bars(symbol: str, n: int, frame_type: FrameType, end: Optional[Frame]=None)-> NDArray:
     """获取指数行情数据
 
@@ -85,25 +152,28 @@ def get_index_bars(symbol: str, n: int, frame_type: FrameType, end: Optional[Fra
         mapper["日期"] = "frame"
 
     df = df.rename(mapper, axis=1)
-    
+
+    cols = ["frame", "open", "high", "low", "close", "volume", "amount"]
+
     if "turnover" in df.columns:
         df["turnover"] = df["turnover"] /100
-    df["frame"] = pd.to_datetime(df.frame).astype("O")
-
-    print(start, end, df)
-    if frame_type in [FrameType.MIN1, FrameType.MIN30]:
-        df = df[(df.frame >= start) & (df.frame <= end)]
-    
-    cols = ["frame", "open", "high", "low", "close", "volume", "amount"]
-    if "turnover" in df.columns:
         cols.append("turnover")
     if "pct" in df.columns:
         cols.append("pct")
+        df["pct"] = df["pct"] / 100
+
+    df["frame"] = pd.to_datetime(df.frame).astype("O")
+
+    if frame_type in [FrameType.MIN1, FrameType.MIN30]:
+        df = df[(df.frame >= start) & (df.frame <= end)]
         
     return df[cols].to_records(index=False)
 
 
-def get_bars(symbol: str, n: int, frame_type: FrameType,  end: Optional[Frame]=None, fq='qfq')-> NDArray:
+def get_bars(symbol: str, n: int, frame_type: FrameType, 
+             end: Optional[Frame]=None, 
+             start: Optional[Frame] = None,
+             fq='qfq')-> NDArray:
     """获取股票行情数据(仅限股票，不能用于获取指数)
 
         Args:
@@ -111,6 +181,7 @@ def get_bars(symbol: str, n: int, frame_type: FrameType,  end: Optional[Frame]=N
             n: 获取最近n个周期的数据
             frame_type: FrameType.MIN30, FrameType.DAY, FrameType.MONTH, FrameType.WEEK
             end: 截止日期/时间。如果未提供，则使用当前系统时间
+            start: 如果n>0,则start被忽略
         returns:
             返回一个结构化数组，包含以下字段：frame, open, high, low, close, volume, amount, turnover, pct
     """
@@ -143,7 +214,11 @@ def get_bars(symbol: str, n: int, frame_type: FrameType,  end: Optional[Frame]=N
 
     end = arrow.get(end or arrow.now("Asia/Shanghai")).naive
     floor_end = tf.floor(end, frame_type)
-    start = tf.shift(floor_end, -n, frame_type)
+    if n > 0:
+        start = tf.shift(floor_end, -n, frame_type)
+    else:
+        assert start is not None
+        
     if frame_type in [FrameType.MIN1, FrameType.MIN30]:
         df = ak.stock_zh_a_hist_min_em(symbol, period='30', adjust=fq)
         mapper["时间"] = "frame"
@@ -152,23 +227,42 @@ def get_bars(symbol: str, n: int, frame_type: FrameType,  end: Optional[Frame]=N
         end_at = end.strftime("%Y%m%d")
         df = ak.stock_zh_a_hist(symbol, period=period, start_date=start_at, end_date=end_at, adjust=fq)
         mapper["日期"] = "frame"
+        
 
     df = df.rename(mapper, axis=1)
     
-    columns = ["frame", "open", "high", "low", "close", "volume", "amount"]
-    if "pct" in df.columns:
-        df["pct"] = df["pct"]/100
-        columns.append("pct")
-    if "turnover" in df.columns:
-        df["turnover"] = df["turnover"] /100
-        columns.append("turnover")
+    df["pct"] = df["pct"]/100
+    df["turnover"] = df["turnover"] /100
 
     if frame_type in [FrameType.MIN1, FrameType.MIN30]:
         df["frame"] = pd.to_datetime(df.frame).astype("O")
         df = df[(df.frame >= start) & (df.frame <= end)]
         
-    return df[columns].to_records(index=False)
+    return df[["frame", "open", "high", "low", "close", "volume", "amount", "turnover", "pct"]].to_records(index=False)
 
+
+def fetch_day_bars_batch(symbols: List[str], start: datetime.date, end:datetime.date=None):
+    if end is None:
+        end = datetime.datetime.now()
+        end = tf.day_shift(end, 0)
+
+    barss = {}
+    if os.path.exists("bars_ak.pkl"):
+        with open("bars_ak.pkl", "rb") as f:
+            barss = pickle.load(f)
+            
+    for symbol in symbols:
+        bars = get_bars(symbol, 0, FrameType.DAY, end = end, start= start)
+        barss[symbol] = bars
+        
+    with open("bars_ak.pkl", "wb") as f:
+        pickle.dump(barss, f)
+
+    return barss
+
+def load_ak_bars():
+    with open("bars_ak.pkl", "rb") as f:
+        return pickle.load(f)
 
 def find_strike(bars:pd.DataFrame, threshold: float=0.33)->Tuple[float, pd.DataFrame]:
     """判断是否存在上涨超过9%的情况，如果存在，返回以该时刻为起点的bars，否则返回None.
@@ -250,8 +344,8 @@ def diag(symbol:str, at: datetime.datetime=None, show_msg=True):
     if at is None:
         at = arrow.now("Asia/Shanghai").floor('hour').replace(hour=15).naive
         
-    dbars = get_bars(symbol, 48, end=at.date())
-    mbars = get_m30_bars(symbol, 48, end=at)
+    dbars = get_bars(symbol, 48, end=at.date(), frame_type=FrameType.DAY)
+    mbars = get_bars(symbol, 48, end=at, frame_type = FrameType.MIN30)
     
         
     features = extract_features(dbars, mbars)
@@ -327,9 +421,9 @@ def diag(symbol:str, at: datetime.datetime=None, show_msg=True):
     msg.append(("20日涨幅、阳线率", flag, f"涨跌: {pnl:.1%} | 阳线: {br:.0%} | 最大涨幅: {max_r:.1%} | 涨跌比: {norm_r: .0%}"))
     
     # 上影线压力确认
-    pos, price = shadow_pressure(dbars)
-    if pos == -1:
-        msg.append(("上影线压力", "⚠️", f"压力位{price}"))
+    strength, price = shadow_pressure(dbars)
+    if strength:
+        msg.append(("上影线压力", "⚠️", f"压力位{price} 测试次数{strength}"))
         
     # 提示 顶背离
     div_flag, p0, dist = rsi_peak_divergent(dbars)
@@ -345,30 +439,68 @@ def diag(symbol:str, at: datetime.datetime=None, show_msg=True):
         display(styled)
     
     return features
-    
-def diag_month(symbol, frame: datetime.date=None, show_msg=True):
-    bars = get_bars(symbol, 48, end = frame, frame_type=FrameType.MONTH)
-    if len(bars) < 48:
-        return None
-    
-    close = bars["close"]
-    frames = bars["frame"]
 
-    rsi = ta.RSI(close.astype(np.float64), 6)[-5:]
-    rsi = array_math_round(rsi, 1)
-    name = get_name(symbol)
-    max_profit = round(np.max(close[-24:])/np.min(close[-24:])-1,3)
+def high_rsi(bars, n=-1):
+    """将n所指示的位置处的close替换为high之后，求得的该点的RSI"""
+    close = bars["close"].copy().astype(np.float64)
+    close[n] = bars["high"][n].astype(np.float64)
+    return ta.RSI(close, 6)[n]
+
+def low_rsi(bars, n=-1):
+    """将n所指示的位置处的close替换为low之后，求得的该点的RSI"""
+    close = bars["close"].copy().astype(np.float64)
+    close[n] = bars["low"][n].astype(np.float64)
+    return ta.RSI(close, 6)[n]
     
-    rsi_warning = (np.max(rsi) > 90) | (rsi[-1] < rsi[-2])
+
+def diag_month(symbol, frame: datetime.date=None, show_msg=True):
+    bars = get_cached_day_bars(symbol)
+    if bars is None or len(bars) < 48:
+        return
+
+    wbars, monbars = resample_day_bars(bars)
+    monclose = monbars["close"]
+    monframes = monbars["frame"]
+
+    rsi = ta.RSI(monclose.astype(np.float64), 6)[-5:]
+    rsi = np.round(rsi, 1)
+    name = get_name(symbol)
+    max_profit = round(np.max(monclose[-24:])/np.min(monclose[-24:])-1,3)
+
+    hrsi = high_rsi(wbars)
+    rsi_warning = (np.max(rsi) > 90) | (hrsi > 90)
     row = [name, symbol, max_profit]
     scores = []
-    for win in (5, 10, 20, 30):
-        ma = moving_average(close, win)[-12:]
-        score = math_round(arc_string_score(ma), 3)
+    mas = [monclose[-1]]
+    for win in (5, 10, 20):
+        n = {5:7}.get(win, 12)
+        ma = moving_average(monclose, win)[-n:]
+        mas.append(ma[-1])
+        score = round(arc_string_score(ma), 3)
         scores.append(score)
         row.append(score)
 
+    # bias
+    bias = round(mas[0] / np.mean(mas[1:]) - 1, 2)
+    # log(f"{name} bias: {bias}")
+
+    # convergency
+    conv = round((np.max(mas) - np.min(mas))/np.mean(mas), 2)
+    # log(f"{name} conv {conv}")
+    row.extend((bias, conv))
+    
+    # 以最大月涨幅作为波动
+    monreturns = (monclose[1:]/monclose[:-1] - 1)[-6:]
+    vol = np.max(monreturns)
+    row.append(round(vol,3))
+
+    # RSI
     row.extend((rsi_warning, rsi[-1]))
+    
+    # upper shadow ratio
+    wd = withdraw_ratio(monbars)[-1]
+    row.append(wd)
+
     
     msg = []
     flag = "⚠️" if max_profit > 1 else ""
@@ -377,7 +509,7 @@ def diag_month(symbol, frame: datetime.date=None, show_msg=True):
     else:
         flag = "✅"
         
-    msg.append((flag, "12月最大涨幅", f"{max_profit}"))
+    msg.append((flag, "24月最大涨幅", f"{max_profit}"))
     
     scores = np.array(scores)
 
@@ -385,7 +517,7 @@ def diag_month(symbol, frame: datetime.date=None, show_msg=True):
         flag = "⚠️"
     elif np.sum(scores > 0.001) >= 3:
         flag = "✅"
-    msg.append((flag, "均线走势", f"{scores[0]} {scores[1]} {scores[2]} {scores[3]}"))
+    msg.append((flag, "均线走势", f"{scores[0]} {scores[1]} {scores[2]}"))
     
     flag = "⚠️" if rsi_warning else "✅"
     msg.append((flag, "rsi报警", f"{np.max(rsi)} | {rsi[-1]}"))
@@ -395,8 +527,9 @@ def diag_month(symbol, frame: datetime.date=None, show_msg=True):
         df = pd.DataFrame(msg, columns=["flag", "item", "data"])
         styled = df.style.hide_index().hide_columns().set_properties(subset=["flag", "item", "data"],**{'text-align':'left'})
         display(styled)
-    
-    return row
+
+    # name, symbol, max_profit, a5, a10, a20, bias, conv, vol, rsi_warning, rsi, withdraw_ratio
+    return tuple(row)
 
 def reverse_volume_direction(bars) -> Tuple[float, int]:
     """最大成交量出现以后，逆向成交量的占比
@@ -722,7 +855,7 @@ def rsi_peak_divergent(
     
     return None, None, None
 
-def shadow_pressure(bars, win:int=5)->Tuple[int, float]:
+def shadow_pressure(bars, win:int=5)->Tuple[int, Union[float, None]]:
     """检测win周期内出现的上影线确认压力
     
     算法：最高点存在上影线，或者另一个接近最高点的，存在上影线
@@ -731,6 +864,8 @@ def shadow_pressure(bars, win:int=5)->Tuple[int, float]:
         603558 2024/3/20, -2, 11.03
         603558 2024/4/12, None, None
         603558 2024/1/17, True, 10.27
+    returns:
+        win周期内上影个数，上影处最高价
     """
     bars = bars[-win:]
     shadows = upper_shadow(bars)
@@ -740,11 +875,7 @@ def shadow_pressure(bars, win:int=5)->Tuple[int, float]:
     pos = np.argwhere(high >= hh * 0.99).flatten()
     pos2 = np.argwhere(shadows[pos] > 0.66).flatten()
     
-    if len(pos2) > 0:
-            latest = pos[pos2[-1]]
-            return latest - win, high[latest]
-    else:
-        return None, None
+    return len(pos), high[pos2[-1]] if len(pos2) > 0 else None
     
 
 def upper_shadow(bars):
@@ -754,6 +885,101 @@ def upper_shadow(bars):
     high = bars["high"]
     
     body = np.abs(close-opn)
-    shadow = high - np.select([close >= opn, close < opn], [close, opn])
+    shadow = high - np.maximum(close, opn)
     
-    return shadow / (body + shadow)
+    return round(shadow / (body + shadow + 1e-7),3)
+
+def withdraw_ratio(bars):
+    """上影百分比。使用今收代替昨收"""
+    return np.round((bars["high"]-bars["close"])/(bars["close"]),3)
+
+def df_peaks_and_valleys(bars):
+    """将顶底、时间、标志、坐标用DataFrame表示"""
+    flags = peaks_and_valleys(bars["close"])
+    frames = bars["frame"][flags != 0]
+    pvs = flags[flags != 0]
+    pos = np.argwhere(flags != 0).flatten()
+    span = np.insert(np.diff(pos), 0, 0)
+    return pd.DataFrame({
+        "frame": frames,
+        "flag": pvs,
+        "pos": pos,
+        "span": span
+    })
+
+def rsi_low_watermark(bars):
+    """通过对最小的RSI进行排列聚类，再取每一簇最小值的方法，寻找RSI局倍低位值
+    
+    bars的长度建议在60以上
+    """
+    rsi = ta.RSI(bars["close"].astype(np.float64), 6)
+
+    # 前18个RSI被认为是不准确的
+    # print(smallest_n_argpos(rsi[18:], int(len(rsi) * 0.3)))
+    pos = np.sort(smallest_n_argpos(rsi[18:], len(rsi)//5))
+
+    diff = np.diff(np.sort(pos))
+    
+    # padding to as same as pos
+    diff = np.insert(diff, 0, diff[0])
+    # print(diff)
+
+    # 进行聚类
+    v, s, l = find_runs(diff)
+
+    lr = []
+
+    # 保存调试信息
+    lr_pos = []
+    for i in range(0, len(v)):
+        b = pos[s[i]] + 18
+        e = pos[s[i]] + l[i] + 18
+        lr.append(np.min(rsi[b:e]))
+        lr_pos.append(np.argmin(rsi[b:e])+b)
+
+    # 去掉低位极值后，取最小的lr
+    lr = np.array(lr)
+    med = np.median(lr)
+    mad = np.median(np.abs(lr - med))
+    
+    clipped = np.clip(lr, med - 3 * mad, med + 3 * mad)
+    return np.min(clipped), np.array(lr_pos)
+
+def forward_returns(symbol, since, till=None):
+    """计算since起（以收盘价计），到till止的最大收益、最大损失"""
+    bars = get_cached_day_bars(symbol, till)
+    bars = bars[bars["frame"] >= since]
+
+    close = bars["close"]
+    c0 = close[0]
+    maxclose = np.argmax(close)
+    if maxclose == 0:
+        minclose = np.argmin(close)
+    else:
+        minclose = np.argmin(close[:maxclose])
+
+    return round((close[maxclose]-c0)/c0,2), round((close[minclose]-c0)/c0,2)
+
+def feature_washout(bars, threshold=0.05):
+    """返回在bars中最后一次洗盘结束的位置，-1表示最后一个bar, 0表示未找到"""
+        ## 找到20天内洗盘标志
+    close = bars["close"]
+    opn = bars["open"]
+    truerange = np.maximum(close[1:] - close[:-1], np.abs(opn-close)[1:]) 
+    # 百分比化
+    tr = truerange / close[1:]
+    sign = (opn < close)[1:] * 2 - 1
+    signed_tr = tr * sign
+    
+    binned = np.select([signed_tr > threshold, signed_tr < -threshold], [1, -1], 0)
+
+    # xpflag = [0] * 2
+    # for item in sliding_window_view(binned, window_shape = 3):
+    #     if np.array_equal([-1, -1, 1], item):
+    #         xpflag.append(1)
+    #     else:
+    #         xpflag.append(0)
+    for i in range(len(binned) - 3, 0, -1):
+        if np.array_equal([-1, -1, 1], binned[i:i+3]):
+            return i - len(binned) + 2
+    return 0
