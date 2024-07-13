@@ -153,13 +153,6 @@ def build_index():
         title = meta.get("title")
         date = meta.get("date")
         excerpt = meta.get("excerpt")
-
-        if "img" not in meta:
-            keys = ["mountain", "cloud", "room", "cats", "dogs", "light", "girls", "food", "drink","flower", "bouquet", "starry-night", "breakfast", "tigger", "teddy", "lion"]
-            query = keys[random.randint(0, len(keys) - 1)]
-            img = f"https://source.unsplash.com/random/360x200?{query}"
-            meta["img"] = img
-            
         img_url = meta["img"]
         link = meta["link"]
 
