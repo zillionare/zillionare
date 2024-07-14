@@ -119,7 +119,7 @@ def extract_blog_meta(file):
         print(f"missing slug: {file}")
         return
 
-    date = meta["date"]
+    date = arrow.get(meta["date"])
     year, month, day = f"{date.year}", f"{date.month:02d}", f"{date.day:02d}"
     slug = meta["slug"]
     meta["link"] = f"https://www.jieyu.ai/blog/{year}/{month}/{day}/{slug}"
