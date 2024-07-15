@@ -375,6 +375,16 @@ git push -u origin main
 ```
 接下来，我们将带领您深入这些工具，了解为什么在众多工具中，选择了这一种，它们又应该如何配置，如何使用等等。
 
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 [^kenneth]: [Kenneth Reitz](https://kennethreitz.org/) 开发的 [requests](https://github.com/psf/requests) 库非常著名。在 Github 上，用关键字 Python 搜索，再按`stars`数量来排名，该库排在前 10 名。
 [^coverage]: [coverage.py](https://coverage.readthedocs.io/en/coverage-5.5/) 的文档在这里：https://coverage.readthedocs.io
 [^cookiecutter]: https://cookiecutter.readthedocs.io

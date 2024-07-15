@@ -341,6 +341,16 @@ jobs:
 
 下面介绍一些使用较多的第三方 actions，其中有一些我们进行了简要说明并举例了使用方法。如果我们没有进行特别说明，或者您想进一步了解相关信息，可以访问 [marketplace](https://github.com/marketplace/actions) 查看相关文档。
 
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 ### 3.1. Github pages 部署
 这个 action 可以用来将静态网站部署到 Github Pages 上。在 ppw 生成的项目中，它与 mkdocs/mike 配合使用。其 ID 是 JamesIves/github-pages-deploy-action，使用示例如下：
 ```
@@ -490,3 +500,12 @@ jobs:
           skip_existing: true
 ```
 这个工作流用到的语法特性前面已经讲过了。这里就不再解释。
+
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>

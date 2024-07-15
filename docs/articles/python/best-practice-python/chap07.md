@@ -491,6 +491,17 @@ with mock.patch.object(logger, 'info') as m:
 这里要提及 pytest 中 mocker.patch 与 unitest.mock.patch 的一个细微差别。后者进行 patch 时，可以返回 mock 对象，我们可以通过它进行更多的检查（见上面示例代码中的第 11 行）；但 mocker.patch 的返回值是 None。
 
 这里要提及 pytest 中 mocker.patch 与 unitest.mock.patch 的一个细微差别。后者进行 patch 时，可以返回 mock 对象，我们可以通过它进行更多的检查（见上面示例代码中的第 15 行）；但 mocker.patch 的返回值是 None。
+
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 #### 3.2.2. 异步对象
 从 3.8 起，unittest.mock 一般就不再区分同步和异步对象，比如：
 
@@ -942,3 +953,13 @@ commands =
 这一节的语法与 [testenv] 并无二致。只不过要运行的命令不一样。这里就不再一一解释。
 
 [^pytest-session]: 根据 pytest 文档，pytest session 是指通过 pytest 命令启动的一次测试过程。
+
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+

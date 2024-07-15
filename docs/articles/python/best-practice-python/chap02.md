@@ -350,6 +350,16 @@ Copilot 根据前面的输入，自动生成了一个语法通顺的句子（这
 
 除了扩展外，VS Code 还有其他一些定制项，比如主题。如果您长期对着电脑工作，推荐您安装一些所谓夜间模式的主题。这些主题当中，Dracula Pycharm Theme 是比较有意思的一个主题。这个主题的名字来源于德古拉伯爵。德古拉伯爵是爱尔兰作家布莱姆·斯托克同名小说中的人物 —— 一个嗜血、专挑年轻美女下手的吸血鬼。这部小说后来被多次改编成电影。考虑到吸血鬼只在夜间出来活动，一款暗夜模式的主题使用这个名字倒也恰如其份。
 
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 限于篇幅，我们不可能一一介绍这些扩展。除了那些下载量极大的流行扩展，本章也介绍了一些比较小众的扩展。这些小众扩展在未来可能会消失（比如 VS Code 直接实现了其功能），或者被取代。重要的是，它们实现的功能，极大地提高了生产效率，这些方法和功能，是我们应该熟知的。
 
 ## 4. 其他开发环境
@@ -377,6 +387,7 @@ Spyder 包含在 Anaconda 发行版之内，所以一旦安装了 Anaconda，就
 我们主要介绍了三种类型的 Python 开发环境：适用于大型工程化开发的 Pycharm/VS Code，适用于探索式编程的 Jupyter Notebook，还有融合了两者特点的 Spyder。当然，在 Pycharm/VS Code 中，我们也可以打开和运行 Jupyter Notebook，这项功能集成到这两种 IDE 中已经有一段时间了。
 
 如果我们经常性的开发工作是构建高复用的组件库、或者复杂的应用程序，Pycharm/VS Code 是绝对的不二之选。这两种工具都近乎完美地与负责测试、持续集成以及代码管理、文档构建的工具集成在一起。反之，如果你的工作更多的是探索性的，似乎只使用 Jupyter Notebook 就够了。而 Spyder 则为两方面需求都要兼顾的用户，提供了一种选择。
+
 
 [^stackoverflow]: stackoverflow.com 是全球最知名的技术分享社区。程序员常常通过这个社区向他人请教自己遇到的技术问题。
 [^Linux]: 有一种说法，Mac Os 是最好的 Linux， Windows 也是最好的 Linux，只有 Linux 做不好 Linux。

@@ -277,6 +277,16 @@ $ git pull
 
 注意，本地仓库与服务器关联的命令（即`git remote add`）只需要执行一次；而每次创建了新的分支后，都要在第一次往该分支推送变更时，执行`git push -u ...`这个命令，以便在推送的同时，也完成本地分支与远程分支的绑定。一旦绑定完成，在随后的推送（或者拉取）动作中，就可以省略-u 参数。
 
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 ### 2.5. git 标签
 随着开发的进行，终有一天，我们会到达某个重要的节点，比如某个版本的完成。此时我们就会给仓库的状态打上标签，方便回溯。这就需要用到 git tag 的一系列命令。
 ```shell 
@@ -845,3 +855,13 @@ gh secret set BUILD_NOTIFY_MAIL_RCPT --body $BUILD_NOTIFY_MAIL_RCPT
 在 ppw 生成的项目中，当 CI 运行时，需要有 pypi 和 test.pypi 的 API key, 发布文档时需要 Github 的 API key, 以及 CI 完成时，需要发送邮件通知，这需要配置相关服务器信息及发件人、收件人信息等诸多敏感信息。
 
 通过上述脚本，我们把当前宿主机上的环境变量导入到了仓库的机密信息中，这样在 Github actions 中就可以直接使用了。这个过程中，我们既保证了方便，又保证了机密信息的安全性。
+
+
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>

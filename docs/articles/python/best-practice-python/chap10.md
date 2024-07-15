@@ -223,6 +223,16 @@ Markdown 起源于 2000 年代。在 2000 年前后，John Gruber 有一个博�
 
     John Gruber 反对 Markdown 的标准化工作，并且不允许工作组使用 Markdown 这个名字，不能不说令人遗憾。不知道这能不能算是屠龙少年终成龙的另一个实例。不过，在技术界这也并非孤例。一些人也认为，解决 Python 性能问题的最大阻碍，其实就来自于创建者 Guido，因为他认为 Python 的性能已经够好：如果有人认为 Python 性能不够好，那么他应该改用别的语言。提升 Python 语言的性能的过程中，决不允许出现版本 2 到版本 3 升级时的那种不兼容现象。
 
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 下面，我们就结合例子来看看 Markdown 的语法。注意，这里我们没有严格区分哪些是核心语法，哪些是 commonmark 扩展的语法，因为到目前为止，commonmark 的扩展已经为大多数编辑器所支持了。
 ### 4.1. 章节标题
 Markdown 的章节标题使用'#'来引起，‘#’的个数表示标题的级别，例如：
@@ -960,5 +970,15 @@ Sphinx + rst 这条技术栈比较成熟稳定，但学习曲线比较陡峭，r
 | 实时预览   | 第三方              | 内置               | mkdocs 实时预览更高效                                  |
 | 表达能力   | 非常强，够用        | -                  |
 | 生产效率   | 一般                | 高效               | -                                                      |
+
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
 
 [^khan]: 可罕学院是麻省理工及哈佛大学毕业生萨尔曼. 可汗创建的非营利教育机构，通过网格提供免费教材。他们对 Google style 文档风格的推荐出现在 [github](https://github.com/Khan/style-guides/blob/master/style/python.md#docstrings)

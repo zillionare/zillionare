@@ -459,6 +459,16 @@ d = 'x'         # OK
 3. 如果找到名为的存根文件 foo.pyi，则匹配。
 4. 如果找到名为的 Python 模块 foo.py，则匹配。
 
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
+
 规则比较复杂，不过一般情况下，我们也只需要大致了解即可，在遇到问题时，我们可以通过查阅 mypy 的文档 [如何找到导入库](https://mypy.readthedocs.io/en/latest/running_mypy.html#finding-imports) 来解决。总之，我们需要了解，如果某个导入库在上面的搜索之后不能找到，mypy 就会将该模块的类型推导为`Any`。
 
 除了上述获得`Any`的情况外，mypy 还会自动将`Any`类型传播到其他变量上。比如，如果一个变量的类型是`Any`，那么它的任何属性的类型也是`Any`，并且任何对类型为`Any`的调用，也将获得`Any`类型。请看下面的例子：
@@ -719,3 +729,13 @@ repos:
 mypy 的配置有点与众不同。它没有使用远程的 repo，而是使用了 local。mypy 官方并没有提供与 pre-commit 的集成，所以我们采用了直接在 pre-commit 中调用本地 mypy 命令的方法。
 
 这一章的主题是高效编码。我们先是介绍了代码自动完成工具，然后讲述了如何利用语法检查工具尽早发现并修复错误，避免把这些错误带入到测试甚至生产环境中。在我们介绍的方案中，语法检查是随着您的 coding 实时展开的，并在向代码库提交时，强制执行一次检查。后面您还会看到，在运行测试时，还会再做一次检查，通过这样分层式的设防与检查，帮助您的项目避免出现重大错误。
+
+<div style="width:70%;height:380px">
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+</div>
+<div style="margin-top: 10px;text-align:right;padding-right:10px;">
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
+</div>
+</div>
+
