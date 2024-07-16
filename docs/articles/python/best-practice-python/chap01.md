@@ -257,3 +257,7 @@ python -m http.server
 [^CP4E]: CP4E 运动：https://www.python.org/doc/essays/cp4e/
 [^TIOBE]: https://www.tiobe.com/tiobe-index/
 [^ray]: ChatGTP 对算力的需求是惊人的。因此，他们使用了 Ray 这个 Python 写成的共享内存式分布式计算平台。Ray 的开发者是 Anyscale 公司，由 UC Berkeley 的几位教授、以及 Databricks 的联合创始人共同成立。
+
+
+
+

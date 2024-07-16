@@ -1,0 +1,28 @@
+cmd=$1
+file=$2
+
+if [ "$#" == 3 ]; then
+    theme="/Users/aaronyang/slidev/themes/$3"
+else
+    theme="/Users/aaronyang/slidev/themes/portrait-excerpt"
+fi
+
+cd /Users/aaronyang/slidev/
+echo "进入目录：`pwd`"
+if [ $cmd = "serve" ]; then
+  npx --verbose slidev /Users/aaronyang/workspace/zillionare/$file -t $theme --remote 
+elif [ $cmd = "tunnel" ]; then
+  npx slidev /Users/aaronyang/workspace/zillionare/$file -t $theme --remote --tunnel --log info
+elif [ $cmd = "md" ]; then
+  mkdir -p /tmp/xhs
+  rm -rf /tmp/xhs/*
+  npx slidev export --format md -t $theme --output /tmp/xhs /Users/aaronyang/workspace/zillionare/$file
+  rm -f ~/workspace/zillionare/xhs_output/*
+  cp -r /tmp/xhs/* ~/workspace/zillionare/xhs_output/
+else
+    mkdir -p /tmp/xhs
+    rm -rf /tmp/xsh/*
+    npx slidev export --format png -t $theme --output /tmp/xhs /Users/aaronyang/workspace/zillionare/$file --wait-until load
+    rm -f ~/workspace/zillionare/xhs_output/*
+    cp -r /tmp/xhs/* ~/workspace/zillionare/xhs_output/
+fi
