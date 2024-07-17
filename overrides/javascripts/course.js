@@ -1,7 +1,7 @@
 
 var link="/articles/coursea/24lectures/intro/"
 var img = "https://images.jieyu.ai/images/hot/course_promotion.jpg"
-excludes = ["/articles/coursea"]
+excludes = ["/articles/coursea", "/articles/python/best-practice-python"]
 
 var ad = [
     '\n\n<div class="admonition tip">',
