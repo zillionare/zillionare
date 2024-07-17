@@ -11,6 +11,36 @@ import arrow
 import fire
 import frontmatter
 
+pictures = [
+    "https://images.jieyu.ai/images/hot/adventure.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/book-by-hand.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/book-on-curtain.png",
+    "https://images.jieyu.ai/images/hot/mybook/book-with-course.png",
+    "https://images.jieyu.ai/images/hot/mybook/book-with-flower.png",
+    "https://images.jieyu.ai/images/hot/mybook/book-with-hand.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/christmas.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/gift.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/girl-reading.png",
+    "https://images.jieyu.ai/images/hot/mybook/iphone-6.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/mac-and-book.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/mac-cd-book.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/man-wearing-tank-top.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/men-wearing-tank.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/promotion-long.png",
+    "https://images.jieyu.ai/images/hot/mybook/reading-content.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/screen-shot-and-book.png",
+    "https://images.jieyu.ai/images/hot/mybook/sports-bra-1.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/sports-bra-2.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/swimsuit.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/three-books.png",
+    "https://images.jieyu.ai/images/hot/mybook/women-holding-swear.jpg",
+    "https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg",
+]
+
 img_mode = "card-img-top"
 
 github_item = """
@@ -44,6 +74,9 @@ container_tpl = """
 </div>
 </div>
 """
+
+def random_pictures():
+    return random.choice(pictures)
 
 def change_last_update():
     """主页最后更新日期要通过修改并提交docs/index.md来实现"""
@@ -153,7 +186,7 @@ def build_index():
         title = meta.get("title")
         date = meta.get("date")
         excerpt = meta.get("excerpt")
-        img_url = meta["img"]
+        img_url = meta.get("img") or random_pictures()
         link = meta["link"]
 
         card = github_item.format_map({

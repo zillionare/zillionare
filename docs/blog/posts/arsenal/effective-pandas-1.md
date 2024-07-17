@@ -1,8 +1,7 @@
 ---
 title: Pandas高级技巧-1
-subtitle: 
 slug: effective-pandas-1
-date: 2024-7-15
+date: 2024-07-15
 category: arsenal
 motto: 知止而后有定 定而后能安 安而后能虑 虑而后能得 -- 大学
 img: https://images.unsplash.com/photo-1719014323201-d7ae3f83d260?q=80&w=1204
