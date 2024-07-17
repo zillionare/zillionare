@@ -2,7 +2,7 @@
 title: "风暴中的量化交易"
 slug: quant-trade-in-the-storm
 date: 2024-06-30
-categories:
+category:
   - Info
 tags:
   - Info

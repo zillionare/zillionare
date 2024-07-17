@@ -3,31 +3,21 @@
 <div class="card-columns">
     
 <div>
-<h3>你可能不知道的8个IPython技巧</h3>
-<img src="https://images.jieyu.ai/images/university/Mackey_Auditorium-Colorado.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>题图为科罗拉多大学博尔德分校的麦基礼堂。博尔德分校是科罗拉多大学系统的旗舰大学，共有5名诺奖学者，1名图灵奖。<br><br>IPython的作者Fernando Pérez在此攻读了粒子物理学博士学位。2001年，他将IPython作为业余项目开发，后来成为Jupyter项目的联合创始人。...</p>
-
-<p><span style="margin-right:20px">发表于 2024-07-16 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/07/16/8-ipython-skills-for-quant">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
 <h3>不能求二阶导的metrics<br>不是好的objective</h3>
 <img src="https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>&nbsp;<br>&nbsp;<br><br>!!!quote<br>    最消耗你的东西，不是别人，而是自己的念头。人生之苦，苦在执着。人生之难，难在放下。强大不是对抗，而是接受。一念放下，万般自由。<br><br><br>    To accept the things I cannot change...</p>
 
-<p><span style="margin-right:20px">发表于 2024-07-16 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2024/07/16/A-Portofolio-Strategy-Based-On-Xgboost-2">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-07-16 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/07/16/A-Portofolio-Strategy-Based-On-Xgboost-2">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
 
 <div>
-<h3>Pandas高级技巧-1</h3>
-<img src="https://images.unsplash.com/photo-1719014323201-d7ae3f83d260?q=80&w=1204" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>在量化领域，Pandas是不可或缺的工具，它以强大的数据处理和分析功能，极大地简化了数据操作流程。<br><br>今天我们介绍两个技巧，都跟因子检验场景相关。第一个技巧是日期按月对齐；第二个是如何提取分组的前n条记录。讲解的概念涉及到group操作、索引的frequency概念以及多级索引的...</p>
+<h3>你可能不知道的8个IPython技巧</h3>
+<img src="https://images.jieyu.ai/images/university/Mackey_Auditorium-Colorado.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>题图为科罗拉多大学博尔德分校的麦基礼堂。博尔德分校是科罗拉多大学系统的旗舰大学，共有5名诺奖学者，1名图灵奖。<br><br>IPython的作者Fernando Pérez在此攻读了粒子物理学博士学位。2001年，他将IPython作为业余项目开发，后来成为Jupyter项目的联合创始人。...</p>
 
-<p><span style="margin-right:20px">发表于 2024-7-15 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/07/15/effective-pandas-1">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-07-16 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2024/07/16/8-ipython-skills-for-quant">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -37,7 +27,17 @@
 <img src="https://images.jieyu.ai/images/university/university-college-london-library.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>!!! quote<br>    人的放纵是本能，自律才是修行。短时间让你快乐的东西，一定能够让你感到痛苦。反之，那些让你痛苦的东西，最终一定会让你功成名就。记住，低级的快乐，放纵即可拥有，高级的快乐，只有克制才能获得。 -- 罗素<br><br>放正文之前，先打个假，这段话不是罗素说的，是啰嗦说...</p>
 
-<p><span style="margin-right:20px">发表于 2024-07-15 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/07/15/A-Portofolio-Strategy-Based-On-Xgboost-1">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-07-15 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/07/15/A-Portofolio-Strategy-Based-On-Xgboost-1">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
+<h3>Pandas高级技巧-1</h3>
+<img src="https://images.unsplash.com/photo-1719014323201-d7ae3f83d260?q=80&w=1204" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>在量化领域，Pandas是不可或缺的工具，它以强大的数据处理和分析功能，极大地简化了数据操作流程。<br><br>今天我们介绍两个技巧，都跟因子检验场景相关。第一个技巧是日期按月对齐；第二个是如何提取分组的前n条记录。讲解的概念涉及到group操作、索引的frequency概念以及多级索引的...</p>
+
+<p><span style="margin-right:20px">发表于 2024-7-15 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/07/15/effective-pandas-1">点击阅读</a></span></p>
 
 </div><!--end-article-->
 

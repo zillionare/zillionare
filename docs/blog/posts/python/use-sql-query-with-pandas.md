@@ -3,8 +3,7 @@ title: 给Pandas找个搭子，用SQL玩转Dataframe!
 slug: use-sql-query-with-pandas
 date: 2024-01-29
 img: https://images.jieyu.ai/images/2024/01/panda.jpg
-categories:
-    - python
+category: arsenal
 motto: Do What you Love, the Money will Follow
 lunar:
 tags: 

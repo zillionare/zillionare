@@ -4,7 +4,7 @@ slug: jane-street-puzzles
 subtitle: 我与简街，只隔一道谜？！
 date: 2024-06-08
 img: https://images.jieyu.ai/images/2024/06/john-fawcett.jpg
-categories:
+category:
   - 职场
 tags:
   - 职场

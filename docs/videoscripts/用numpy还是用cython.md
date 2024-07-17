@@ -3,7 +3,7 @@ title: "Numpy: 吾剑未尝不利！"
 abstract: 有人说Numpy太慢，要用Cython加速。我默默地做了一个测试。
 slug: factor-analysis-4
 date: 2024-06-14
-categories:
+category:
   - 因子分析
 tags:
   - 因子分析

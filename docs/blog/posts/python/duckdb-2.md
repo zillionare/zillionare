@@ -2,8 +2,7 @@
 title: 为什么量化人应该使用duckdb？
 slug: why-should-you-use-duckdb
 date: 2024-02-01
-categories:
-    - python
+category: arsenal
 motto:
 lunar:
 tags: 

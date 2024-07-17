@@ -2,8 +2,7 @@
 title: 2024年，免费博客赚钱方案
 slug: static-site-in-2024
 date: 2024-01-01
-categories:
-    - tools
+category: arsenal
 motto:
 lunar:
 tags: 
@@ -58,7 +57,7 @@ plugins:
       tags_file: tags.md
   - rss:
       match_path: "(blog|articles)/.*"
-      categories:
+      category:
         - categories
         - tags
       date_from_meta:
@@ -66,7 +65,7 @@ plugins:
         as_update: true
   - rss:
       match_path: "(blog|articles)/.*"
-      categories:
+      category:
         - categories
         - tags
       date_from_meta:

@@ -3,13 +3,13 @@ title: 4k stars! 如何实现按拼音首字母查询证券代码？
 slug: pypinyin-introduction
 date: 2024-03-24
 img: https://images.jieyu.ai/images/2024/03/pypinyin.png
-categories:
-    - python
+category: arsenal
 motto:
 lunar:
 tags: 
     - quantlib
     - python
+    - pypinyin
 ---
 
 一个可能只有少数量化人才需要的功能 -- 按拼音首字母来查找证券。比如，当我们键入ZGPA时，就能搜索出中国平安，或者是它的代码。这是我们使用行情软件时常用的一个功能。

@@ -1,8 +1,7 @@
 ---
 title: 基于深度学习的量化策略如何实现归一化？
 slug: normalization-in-deep-learning
-categories:
-    - strategy
+category: strategy
 date: 2023-12-16
 tags:
     - algorithms

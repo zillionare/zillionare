@@ -2,8 +2,7 @@
 title: KS Test, 广义双曲分布和抄底沪指
 date: 2024-01-05
 slug: ks-test-and-cdf
-categories: 
-    - algo
+category: strategy
 motto: 无论上辈子造了什么孽，炒了 A 股，就都还清了
 lunar: 冬月廿四
 tags: 

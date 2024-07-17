@@ -2,14 +2,14 @@
 title: 提速100倍！QMT复权因子高效算法
 slug: qmt-how-to-handle-dr-adjust
 date: 2024-03-10
-categories:
-    - qmt
+category: arsenal
 motto: It is the time you‘ve wasted for your rose makes your rose so important
 lunar:
 lineNumbers: true
 tags: 
     - qmt
     - xtquant
+    - quantlib
 ---
 
 QMT的XtQuant库提供了量化研究所需要的数据。它在一些API设计上面向底层多一些，应用层在使用时，还往往需要进行一些包装，比如复权就是如此。

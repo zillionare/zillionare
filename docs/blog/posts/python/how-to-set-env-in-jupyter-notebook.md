@@ -2,13 +2,13 @@
 title: Jupyter Notebook中如何设置环境变量？
 slug: how-to-set-env-in-jupyter-notebook
 date: 2024-01-14
-categories:
-    - python
+category: arsenal
 motto:
 lunar:
 tags: 
     - python
     - jupyter-notebook
+    - quantlib
 ---
 
 我们常常通过Jupyter Notebook来分享代码和演示分析结果。有时候，我们需要在代码中使用账号和密码，如果它们也被分享出去，可就大不妙了。正确的做法是把密码设置在环境变量中，在代码中读取环境变量。但是，Jupyter Notebook默认设置下，并不能读取到主机的环境变量。
