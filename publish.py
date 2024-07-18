@@ -39,6 +39,9 @@ pictures = [
     "https://images.jieyu.ai/images/hot/mybook/three-books.png",
     "https://images.jieyu.ai/images/hot/mybook/women-holding-swear.jpg",
     "https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg",
+    "https://images.jieyu.ai/images/university/Mackey_Auditorium-Colorado.jpg",
+    "https://images.jieyu.ai/images/university/university-college-london-library.jpg",
+    "https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg"
 ]
 
 img_mode = "card-img-top"
