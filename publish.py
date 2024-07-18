@@ -261,10 +261,6 @@ def build():
 
 def publish():
     web_body, github_body, styles = build_index()
-    write_readme(web_body, styles)
-
-    cmd = "mkdocs gh-deploy"
-    execute(cmd)
 
     # 为github生成README
     write_readme(github_body, "")
@@ -276,6 +272,11 @@ def publish():
 
     ]:
         execute(cmd)
+
+    write_readme(web_body, styles)
+
+    cmd = "mkdocs gh-deploy"
+    execute(cmd)
 
 if __name__ == "__main__":
     fire.Fire({
