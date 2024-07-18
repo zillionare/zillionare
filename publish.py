@@ -263,19 +263,19 @@ def publish():
     web_body, github_body, styles = build_index()
     write_readme(web_body, styles)
 
-    cmd = "mkdocs gh-deploy"
-    execute(cmd)
+    # cmd = "mkdocs gh-deploy"
+    # execute(cmd)
 
-    # 为github生成README
-    write_readme(github_body, "")
+    # # 为github生成README
+    # write_readme(github_body, "")
 
-    for cmd in [
-        "git add .",
-        "git commit -m update",
-        "git push",
+    # for cmd in [
+    #     "git add .",
+    #     "git commit -m update",
+    #     "git push",
 
-    ]:
-        execute(cmd)
+    # ]:
+    #     execute(cmd)
 
 if __name__ == "__main__":
     fire.Fire({

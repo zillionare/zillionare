@@ -19,7 +19,7 @@ lineNumbers: true
 该建筑属于 MIT 的下属学院 Simmons University，由裁缝 John Simmons 捐建。Simmons Hall 被认为是 Boston 最美的一座建筑。Simmons University 对女性友好，该校的 MBA 课程是全球第一个专门为女性设计的 MBA 课程。到目前为止，其本科教育还是以女生为主，研究生阶段则是男女混合。
 </div>
 
-这是 Stat Arb 给独立自学量化的人开的一份清单。他的博客有 9000 多名付费用户，在量化圈比较有影响力。这个清单是 pdf 格式，74 页，内容非常全面。
+这是 Stat Arb 给独立自学量化的人开的一份清单。他的博客有 9000 多名付费用户。这个清单是 pdf 格式，74 页，内容非常全面。
 
 
 ---
