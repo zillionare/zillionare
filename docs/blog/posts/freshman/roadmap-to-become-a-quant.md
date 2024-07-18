@@ -12,8 +12,6 @@ tags:
 lineNumbers: true
 ---
 
-<div class="header-img-desc">
-
 题图为 MIT 的 Simmons University。版权声明 wiki/public domain。
 
 该建筑属于 MIT 的下属学院 Simmons University，由裁缝 John Simmons 捐建。Simmons Hall 被认为是 Boston 最美的一座建筑。Simmons University 对女性友好，该校的 MBA 课程是全球第一个专门为女性设计的 MBA 课程。到目前为止，其本科教育还是以女生为主，研究生阶段则是男女混合。

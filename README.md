@@ -5,7 +5,7 @@
 <div>
 <h3>问薪无愧！最全威的量化自学路线图</h3>
 <img src="https://images.jieyu.ai/images/university/simmons-hall.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span><div class="header-img-desc"><br><br>题图为 MIT 的 Simmons University。版权声明 wiki/public domain。<br><br>该建筑属于 MIT 的下属学院 Simmons University，由裁缝 John Simmons 捐建...</p>
+<p><span>内容摘要:<br></span>题图为 MIT 的 Simmons University。版权声明 wiki/public domain。<br><br>该建筑属于 MIT 的下属学院 Simmons University，由裁缝 John Simmons 捐建。Simmons Hall 被认为是 Boston 最美的一座...</p>
 
 <p><span style="margin-right:20px">发表于 2024-07-19 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/07/19/roadmap-to-be-a-quant-arb">点击阅读</a></span></p>
 
