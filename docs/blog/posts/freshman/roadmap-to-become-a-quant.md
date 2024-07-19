@@ -37,38 +37,31 @@ Stat Arb这个名字来自 Statistical Arbitrage（统计套利），真实身�
 
 
 
-
-
-
-
----
-
 ## 章节内容
 
 ![](https://images.jieyu.ai/images/2024/07/roadmap-chap-2.jpg)
 
----
 
 
 ![](https://images.jieyu.ai/images/2024/07/roadmap-chap8.jpg)
 
----
+
 
 ![](https://images.jieyu.ai/images/2024/07/roadmap-chap12.jpg)
 
----
+
 
 ![](https://images.jieyu.ai/images/2024/07/roadmap-careers.jpg)
 
----
+
 
 ![](https://images.jieyu.ai/images/2024/07/roadmap-pair-trading.jpg)
 
----
+
 
 ![](https://images.jieyu.ai/images/2024/07/roadmap-blog.jpg)
 
----
+
 
 ## chap01
 介绍了机器学习和算法交易相关的教科书，包括基础教材和进阶教材，如《Quantitative Trading 2nd edition》《Algorithmic Trading》《Machine Trading》等，并对一些模型和方法进行了评价。
