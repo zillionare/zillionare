@@ -1,10 +1,11 @@
 ---
-title: "问薪无愧！最全威的量化自学路线图"
+title: "问薪无愧！<br>自学量化大纲有这75页就够了"
 slug: roadmap-to-be-a-quant-arb
 date: 2024-07-19
 category: resources
 img: https://images.jieyu.ai/images/university/simmons-hall.jpg
 imgCopyRight: wiki/public domain
+motto: 红云随步起 一箭中青霄 鹿行千里远 争知去路遥
 tags:
   - freshman
   - resources
@@ -12,17 +13,16 @@ tags:
 lineNumbers: true
 ---
 
+
 题图为 MIT 的 Simmons University。版权声明 wiki/public domain。
 
 该建筑属于 MIT 的下属学院 Simmons University，由裁缝 John Simmons 捐建。Simmons Hall 被认为是 Boston 最美的一座建筑。Simmons University 对女性友好，该校的 MBA 课程是全球第一个专门为女性设计的 MBA 课程。到目前为止，其本科教育还是以女生为主，研究生阶段则是男女混合。
-</div>
-
-这是 Stat Arb 给独立自学量化的人开的一份清单。他的博客有 9000 多名付费用户。这个清单是 pdf 格式，74 页，内容非常全面。
 
 
----
+这是 Stat Arb 给自学量化的人开的一份清单。他的博客有 9000 多名付费用户。清单是 pdf 格式，74 页，内容非常全面。
 
 
+[【下载链接】](https://www.jieyu.ai/assets/ebooks/RoadmapUltimateEdition.pdf)
 
 Stat Arb这个名字来自 Statistical Arbitrage（统计套利），真实身份其实正在摸鱼的业内人士。不过这不重要，关键看他给的资源好不好。
 
@@ -45,7 +45,7 @@ Stat Arb这个名字来自 Statistical Arbitrage（统计套利），真实身�
 
 ## 章节内容
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-chap-2)
+![](https://images.jieyu.ai/images/2024/07/roadmap-chap-2.jpg)
 
 ---
 
@@ -54,19 +54,19 @@ Stat Arb这个名字来自 Statistical Arbitrage（统计套利），真实身�
 
 ---
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-chap12)
+![](https://images.jieyu.ai/images/2024/07/roadmap-chap12.jpg)
 
 ---
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-careers)
+![](https://images.jieyu.ai/images/2024/07/roadmap-careers.jpg)
 
 ---
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-pair-trading)
+![](https://images.jieyu.ai/images/2024/07/roadmap-pair-trading.jpg)
 
 ---
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-blog)
+![](https://images.jieyu.ai/images/2024/07/roadmap-blog.jpg)
 
 ---
 

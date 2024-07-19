@@ -3,7 +3,7 @@
 <div class="card-columns">
     
 <div>
-<h3>问薪无愧！最全威的量化自学路线图</h3>
+<h3>问薪无愧！<br>自学量化大纲有这75页就够了</h3>
 <img src="https://images.jieyu.ai/images/university/simmons-hall.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>题图为 MIT 的 Simmons University。版权声明 wiki/public domain。<br><br>该建筑属于 MIT 的下属学院 Simmons University，由裁缝 John Simmons 捐建。Simmons Hall 被认为是 Boston 最美的一座...</p>
 
