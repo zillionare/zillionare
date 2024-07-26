@@ -15,12 +15,21 @@ elif [ $cmd = "tunnel" ]; then
   npx slidev /Users/aaronyang/workspace/zillionare/$file -t $theme --remote --tunnel --log info
 elif [ $cmd = "md" ]; then
   mkdir -p /tmp/xhs
+  mkdir -p ~/workspace/zillionare/xhs_output/
   rm -rf /tmp/xhs/*
   npx slidev export --format md -t $theme --output /tmp/xhs /Users/aaronyang/workspace/zillionare/$file
   rm -f ~/workspace/zillionare/xhs_output/*
   cp -r /tmp/xhs/* ~/workspace/zillionare/xhs_output/
+elif [ $cmd = "pdf" ]; then
+  mkdir -p /tmp/xhs
+  mkdir -p ~/workspace/zillionare/xhs_output/
+  rm -rf /tmp/xhs/*
+  npx slidev export --format pdf -t $theme --output /tmp/quantide.pdf /Users/aaronyang/workspace/zillionare/$file --with-toc
+  rm -f ~/workspace/zillionare/xhs_output/*
+  cp -r /tmp/quantide.pdf ~/workspace/zillionare/xhs_output/
 else
     mkdir -p /tmp/xhs
+    mkdir -p ~/workspace/zillionare/xhs_output/
     rm -rf /tmp/xsh/*
     npx slidev export --format png -t $theme --output /tmp/xhs /Users/aaronyang/workspace/zillionare/$file --wait-until load
     rm -f ~/workspace/zillionare/xhs_output/*
