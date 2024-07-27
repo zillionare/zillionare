@@ -1,7 +1,7 @@
 ---
 title: 量化风云周报
 seq: 第 1 期
-slug: crowed-strike-postmoterm
+slug: quantide-weekly-0721
 date: 2024-07-21
 motto: 值得歌颂的不是苦难 而是你屹立不倒的意志
 lunar: 十六
@@ -21,9 +21,7 @@ aspectRatio: 10/16
 
 ## 下周重要日历
 
-* 周一，央行将公布 7 月 LPR 报价，融券保证金比例上调
-* 7 月 24 日起发行超长期特别国债
-* 本周将有三支...
+
 
 ## 本周 Po 文
 
