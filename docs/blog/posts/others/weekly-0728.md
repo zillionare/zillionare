@@ -21,8 +21,8 @@ aspectRatio: 10/16
 
 ## 下周重要日历
 
-* 周一，央行将公布 7 月 LPR 报价，融券保证金比例上调
-* 7 月 24 日起发行超长期特别国债
+* 下周“降息”大潮开启
+* 全球股市迎来超级央行周
 * 本周将有三支...
 
 ## 本周精选
@@ -64,6 +64,7 @@ hinton
 * 21 财经消息，广东证监局组织辖内私募基金开展自查：私募基金管理机构在宣传推介、资金募集、投资运作等业务环节是否合规，是否存在基金产品逾期，是否开展量化交易，是否存在异地经营情形等，量化交易、基金规模是否达标成自查重点。
 * 7 月 25 日，纳斯达克 100 指数下跌 3%，创下自 2022 年 12 月以来最大跌幅。日经指数本周继续下跌 5.9%，连跌 8 个交易日，创 2021 年 10 月来最长连跌记录。不过，美股周五全线上涨，道指更是周线 4 连涨。
 * 北向资金持续卖出。近 2 周以来累计已减持 307 亿元，月内净卖额达 288 亿元。
+* 央行罕见加场MLF操作 稳定月末流动性。7月25日，中国人民银行在月末时点新增一次中期借贷便利（MLF）操作，中标利率为2.3%，较前次下降20个基点。
 * 证监会研究谋划进一步全面深化资本市场改革开放的一揽子举措。吴清开展专题座谈会，与 10 家在华外资机构、QFII 代表深入交流，听取意见建议。
   
 <claimer>信息来源：财联社等，通过 Tushare.pro 接口综合汇编。</claimer>
@@ -71,6 +72,10 @@ hinton
 ---
 
 ## 下周重要日历
+
+* 多家银行下周起降自。7月26日招商银行、平安银行调整了人民币存款挂牌利率表，最高下调幅度为30个基点。广发银行也将在下周下调银行存款。广发银行对记者表示，下周银行存款下调的幅度会与四大行调整幅度保持一致。除了存款之外，大额存单也在下周同步下调。
+* 下周全球投资者将迎来超级周。首先，三大央行将公布利率决议。美联储将在周三召开议息会议。此外，几大科技巨头如微软、META、苹果等都将在这一周发布财报。
+* 7月31日（周三）统计局将发布PMI指数。前值读数为49.5。8月1日，财新发布制造业PMI。
 
 <claimer>信息来源：财联社等，通过 Tushare.pro 接口综合汇编。</claimer>
 ---
@@ -343,7 +348,7 @@ Alphalens无法揭示复杂的非线性关系，这是由于它的因子检验�
 
 # 量化投资顶刊有哪些(一)？
 
-1. <red>Journal of Finance</red> 大家都在说Alpha，最早提出Alpha概念，并沿用至今的，就是Michael Jessen于1968年提出的Jenssen's Alpha。论文《The Performance of Mutual Funds in the Period 1945-1964》就发表在《The Journal of Finance》上。1993年，Jegadeesh, Narasimhan等人发表《Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency》也是选择的这家。有效市场假说也是发表于这家期刊。
+1. <red>Journal of Finance</red> 创刊于1946年，是由美国金融协会（American Finance Association）主办的一份顶级学术期刊。它不仅吸引了世界各地顶尖学者的投稿，也是衡量学术成就和职业发展的重要指标。许多诺贝尔经济学奖得主的早期工作都曾在该期刊上发表，比如作为现代金融基石的现代资产组合理论（Markowitz）、资本资产定价模型(William Sharpe)、MM定理（Merton H. Miller）、有效市场假说（Eugene Fama）等。
 2. <red>Journal of Financial Economics</red>. Rolf Banz， 1981年发表《The relationship between return and market value of common stocks》（即小市值因子），就是选择的这一家。2015年Famma发表五因子模型，也是这家期刊。
 3. <red>Review of Financial Studies</red>，由牛津出版，是一本同行评审学术期刊。它在2020年的影响因子为5.814，在商业、金融类排名5/110。《Market Liquidity and Funding Liquidity》一文最早就发表在这里。在google学术上，它有超过6500次引用。
 4. <red>Journal of Portfolio Management</red>，专注于投资组合管理的实践和理论，包括量化策略和风险管理。
