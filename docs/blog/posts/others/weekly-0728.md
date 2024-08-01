@@ -1,5 +1,5 @@
 ---
-title: QuanTide Weekly
+title: "[0728] QuanTide Weekly"
 seq: 第 2 期
 slug: quantide-weekly
 date: 2024-07-28

@@ -1,7 +1,7 @@
 ---
 title: 一些和颜色相关的网站
 slug: a-palette-of-colorful-websites
-date: 2024-07-16
+date: 2024-07-28
 category: arsenal
 motto: less is more 小满胜万全
 img: https://images.jieyu.ai/images/2024/07/colors.jpg

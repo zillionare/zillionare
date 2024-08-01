@@ -1,5 +1,5 @@
 ---
-title: 量化风云周报
+title: "[0721] QuanTide Weekly"
 seq: 第 1 期
 slug: quantide-weekly-0721
 date: 2024-07-21
