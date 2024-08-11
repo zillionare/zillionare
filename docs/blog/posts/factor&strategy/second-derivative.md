@@ -87,13 +87,13 @@ def d2_factor(close: NDArray, win: int = 10) -> NDArray:
 
 然后我们通过 Alphalens 来进行因子检验。第一次调用 Alphalens，我们按 quantiles 分层，分层数为 10。
 
-![](https://images.jieyu.ai/images/2024/08/second-derivative-quantile-10.jpg)
+![](https://images.jieyu.ai/images/2024/08/second-derivative-quantile-10.jpg?1)
 
 从分层图来看，继续进行收益分析是没有意义的，我们必须先进行优化。
 
 ### 第一次调优
 
-考虑到做多收益在第 8 层达到最大值，所以，我们考虑 drop 掉第 9 层和第 10 层后进行分析，看看结果如何。
+考虑到做多收益在第 9 层达到最大值，所以，我们考虑 drop 掉第 10 层后进行分析，看看结果如何。
 
 通过 Alphalens 进行分析中，一般有三个步骤：
 
@@ -105,7 +105,7 @@ def d2_factor(close: NDArray, win: int = 10) -> NDArray:
 
 Alphalens 是在第二步实现的分层。然后它将第二步的输出，用作第 3 步的输入。
 
-所以，我们可以在拿到第 2 步的输出之后，drop 掉第 9 层和第 10 层，然后调用 create_full_tearsheet 来进行收益分析。这样，在 Alphalens 看来，top 分层就是第 8 层，所有的分析都是在这个基础上进行。
+所以，我们可以在拿到第 2 步的输出之后，drop 掉第 10 层，然后调用 create_full_tearsheet 来进行收益分析。这样，在 Alphalens 看来，top 分层就是第 9 层，所有的分析都是在这个基础上进行。
 
 <i>根据 Alphalens 的官方文档，这样做是允许的。</i>
 
@@ -113,7 +113,7 @@ Alphalens 是在第二步实现的分层。然后它将第二步的输出，用�
 
 ![](https://images.jieyu.ai/images/2024/08/second-derivative-factor-quantile.jpg)
 
-所以，要 drop 掉第 9 层和第 10 层，可以这样做：
+所以，要 drop 掉第 10 层，可以这样做：
 
 ```python
 factor_data = factor_data[factor_data.factor_quantile <= 8]
@@ -128,10 +128,10 @@ factor_data = factor_data[factor_data.factor_quantile <= 8]
 
 ![](https://images.jieyu.ai/images/2024/08/second-derivative-quantiles-8.jpg)
 
-这个图其实基本上就是完全还原了上一个图，只不过缺少第 9 层和第 10 层而已。但是，现在第 8 层就成了 top 分层，这是 Alphalens 在计算多空收益时，将要做多的一层。
+这个图其实基本上就是完全还原了上一个图，只不过缺少第 10 层而已。但是，现在第 9 层就成了 top 分层，这是 Alphalens 在计算多空收益时，将要做多的一层。
 
 !!! tip
-    由于我们在实盘交易中也一样可以 drop 掉第 9 层和第 10 层，因此这种操作是合理的。类似的手法，我们在 Alpha101 中也可以看到。
+    由于我们在实盘交易中也一样可以 drop 掉第 10 层，因此这种操作是合理的。类似的手法，我们在 Alpha101 中也可以看到。
 
 现在我们得到的 Alpha 是 23.2%（1D 年化），Beta 是-0.07，7 个月的累计收益是 11%左右。
 
@@ -231,7 +231,7 @@ plt.legend()
 
 尽管可以相信 Alphalens 是品质的保证，但比起一堆统计数字，你可能更愿意相信自己的卡姿兰大眼睛。
 
-所以，我决定把第 8 层的个股走势画出来。绘制方法是，先取出某一天（记为 T0）quantile = 8 的所有标的，然后再取出最近 8 天（截止 T0 为止）的收盘价。在绘图之前，先对收盘价起点归一化到 1。
+所以，我决定把第 9 层的个股走势画出来。绘制方法是，先取出某一天（记为 T0）quantile = 9 的所有标的，然后再取出最近 9 天（截止 T0 为止）的收盘价。在绘图之前，先对收盘价起点归一化到 1。
 
 绘图中，我们共使用了**199个样本**，代表性和稳健性都足够了。
 
