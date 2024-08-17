@@ -82,13 +82,3 @@ tags:
  ![75%](https://images.jieyu.ai/images/2023/10/welcome-to-zillionare-course.png) 
  ![50%](https://images.jieyu.ai/images/2023/10/cheese-course-lab.png)
 
-## 5. 课程定价
-2024年4月课程定价为4900元。
-
-本课程主体已经完成，后续会进行修订完善，补充示例、习题和策略（10个），并包含一个通过机器学习来组合多因子的策略。
-
-随着内容不断丰富，价格也将每月上调。
-
-## 6. 优惠券领取
-
-你可以在 [Github Repo](https://github.com/zillionare/zillionare)上为我们点赞，然后凭用户名向宽粉（微信： quantfans_99 ）领取100元优惠券一张。优惠券可赠送给他人。每次课程可使用不超过总额5%的优惠券。
