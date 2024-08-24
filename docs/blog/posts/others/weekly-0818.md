@@ -1,9 +1,9 @@
 ---
-title: "[0811] QuanTide Weekly"
-date: 2024-08-11
-seq: 第 4 期
+title: "[0818] QuanTide Weekly"
+date: 2024-08-18
+seq: 第 5 期
 category: others
-slug: quantide-weekly-0811
+slug: quantide-weekly-0818
 img: https://images.jieyu.ai/images/2024/08/kenneth-griffin.jpg
 stamp_width: 60%
 stamp_height: 60%

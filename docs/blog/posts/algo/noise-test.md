@@ -24,11 +24,17 @@ tags: [algo, 回测, 过拟合]
 
 在样本本身就不足的情况下，样本外测试就变得困难。于是，人们发明了一些拓展版本。
 
-其中一种拓展版本是 k-fold cross-validation，这是在机器学习中常见的概念。它是将数据集随机分成 K 个大小大致相等的子集，对于每一轮验证，选择一个子集作为验证集，其余 K-1 个子集作为训练集。模型在训练集上训练，在验证集上进行评估。这个过程重复 K 次，最终评估指标通常为 K 次验证结果的平均值。
+其中一种拓展版本是 k-fold cross-validation，这是在机器学习中常见的概念。
+
+它是将数据集随机分成 K 个大小大致相等的子集，对于每一轮验证，选择一个子集作为验证集，其余 K-1 个子集作为训练集。模型在训练集上训练，在验证集上进行评估。这个过程重复 K 次，最终评估指标通常为 K 次验证结果的平均值。
+
+这个过程可以简单地用下图表示：
 
 ![k-fold cross validation，by sklearn](https://images.jieyu.ai/images/2024/08/k-fold-cross-validation.png)
 
 但在时间序列分析（证券分析是其中典型的一种）中，k-fold方法是不适合的，因为时间序列分析有严格的顺序性。因此，从k-fold cross-validation特化出来一个版本，称为 rolling forecasting。你可以把它看成顺序版本的k-fold cross-validation。
+
+它可以简单地用下图表示：
 
 ![rolling forecasting, by tsfresh](https://images.jieyu.ai/images/2024/08/walk-forward-optimization.webp)
 

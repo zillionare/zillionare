@@ -103,7 +103,7 @@ def get_and_remove_img_url(text: str):
     return groups.group(1), re.sub(r"\!\[.*\]\(.*\)", "", text)
 
 def get_excerpt(text: str):
-    pat = r'(.*?)(?:<!--more-->)'
+    pat = r'(.*?)(?:<!--\s*more\s*-->)'
     result = re.search(pat, text, re.MULTILINE|re.DOTALL)
     if result  is not None:
         excerpt = result.group(1).replace("\n\n", "")
