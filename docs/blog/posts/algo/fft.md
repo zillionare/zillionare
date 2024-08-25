@@ -4,7 +4,7 @@ date: 2024-08-26
 category: algo
 slug: fft-and-stock-prediction
 motto: May the force be with you.
-img: https://images.jieyu.ai/images/2024/08/noise-test-title-image.jpg
+img: https://images.jieyu.ai/images/2024/08/may-the-force-be-with-you.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, FFT]

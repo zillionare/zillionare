@@ -4,7 +4,7 @@
     
 <div>
 <h3>快速傅里叶变换与股价预测研究</h3>
-<img src="https://images.jieyu.ai/images/2024/08/noise-test-title-image.jpg" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/2024/08/may-the-force-be-with-you.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>一个不证自明的事实：经济活动是有周期的。但是，这个事实似乎长久以来被量化界所忽略。无论是在资产定价理论，还是在趋势交易理论中我们几乎都找不到周期研究的位置 -- 在后者语境中，大家宁可使用“摆动”这样的术语（江湖术士之语），也不愿说破“周期”这个概念。<br><br><!-- 如果不是读过达...</p>
 
 <p><span style="margin-right:20px">发表于 2024-08-26 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/08/26/fft-and-stock-prediction">点击阅读</a></span></p>
