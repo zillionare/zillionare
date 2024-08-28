@@ -1,7 +1,7 @@
 ---
 hide:
     - title
-title: 课程简介
+title: 课程简介 - 量化24课
 slug: introduction-to-24-lectures
 category: 课程
 tags: 

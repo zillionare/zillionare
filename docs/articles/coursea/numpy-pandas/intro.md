@@ -1,6 +1,13 @@
 ---
-title: 简介
+hide:
+    - title
+title: 课程简介 - 量化交易场景下的Numpy&Pandas
 slug: numpy-pandas-in-quant-trade
+category: 课程
+tags: 
+    - 课程
+    - 因子投资
+    - 机器学习
 ---
 
 正如死亡和税收不可避免，Numpy和Pandas对量化人而言，也具有同样的地位 -- 每个量化人都不可避免地要与这两个库打交道。
