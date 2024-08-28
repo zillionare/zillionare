@@ -1,3 +1,7 @@
+---
+slug: 24-lectures-syllabus
+---
+
 <style>
 
 .cols {

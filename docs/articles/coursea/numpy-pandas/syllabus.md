@@ -1,3 +1,7 @@
+---
+slug: numpy-pandas-syllabus
+---
+
 <style>
 
 .cols {

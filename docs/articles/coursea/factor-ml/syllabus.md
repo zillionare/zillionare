@@ -1,3 +1,7 @@
+---
+slug: factor-machine-learning-syllabus
+---
+
 <style>
 
 .cols {
@@ -5,11 +9,25 @@
     column-gap: 2em;
 }
 
-h1, h2, h3, h4 {
+h1 {
     font-weight: 400 !important;
 }
+
+h2 {
+    margin-top: 2em;
+}
+
+h3 {
+    color: #303030 !important;
+    font-weight: 200 !important;
+    font-size: 1.2em;
+}
+
 h4 {
     color: #808080 !important;
+    font-weight: 100 !important;
+    font-size: 1em;
+    margin-left: 1em;
 }
 
 h5 {
@@ -26,20 +44,20 @@ more {
     font-size: 0.75em;
     color: #808080;
     /* border: 1px solid #ccc; */
-    margin: 10px 0;
+    margin: 2.5em 0 -1em 0;
     position: relative;
     cursor: pointer;
-    min-height: 2em;
+    /* min-height: 2em; */
     display: inline-block;
 }
 
 more::before {
-    content: 'More >';
+    content: '课程要点 >';
     position: absolute;
-    top: 50%;
+    /* top: 50%; */
     /* left: 100%; */
     transform: translate(0, -50%);
-    width: 4em;
+    width: 5em;
     height: 3em;
     /* background-color: #ccc; */
     transition: transform 0.3s ease;
@@ -56,6 +74,17 @@ more > p {
 
 more.expanded > p {
     display: block;
+}
+
+hr {
+    height: 1px !important;
+    color: #ddd !important;
+    border: none;
+    background-image: linear-gradient(to right, 
+                    rgba(0, 0, 0, 0.2), 
+                    rgba(0,0,0,0));
+    background-repeat: no-repeat;
+    width: 80%;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -90,11 +119,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<p>§ 因子分析与机器学习策略</p>
+<p>§ 因子投资与机器学习策略</p>
 <h1 style="text-align:center">课程大纲 </h1>
 <div class="cols">
 
+<a href="#declaration">大纲说明</a>
+
 ## 1. 导论
+
 ### 1.1. 因子投资的起源
 ### 1.2. 寻找 Alpha
 ### 1.3. 从 CAPM 拓展到多因子
@@ -104,9 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <more>
 
-这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。课程内容涵盖了因子挖掘、因子检验到构建机器学习模型的过程。如果要独立从事交易，还需要补充学习《量化 24 课》。
+这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。
+
+学完这门课程并完全掌握其内容，你将具有熟练的因子分析能力、掌握领先的机器学习策略构建方法，成为有创新研究能力和比较竞争优势的量化研究员。
+
+课程内容涵盖了因子挖掘、因子检验到构建机器学习模型的过程。如果要独立从事交易，还需要补充学习《量化 24 课》。
 
 </more>
+
+---
 
 ## 2. 因子预处理流程
 ### 2.1. 因子数据的来源
@@ -117,7 +155,12 @@ document.addEventListener('DOMContentLoaded', function() {
 #### 2.3.3. 分布调整
 #### 2.3.4. 标准化
 #### 2.3.5. 中性化
-### 2.4. 延伸阅读
+
+<more>
+
+这一章及下一章是因子检验的基础。我们将结合大量的示例代码，介绍因子检验的基本原理与技术实现细节，为后面理解Alphalens因子分析框架打下坚实基础。
+
+</more>
 
 ---
 
@@ -134,12 +177,28 @@ document.addEventListener('DOMContentLoaded', function() {
 #### 3.4.6. 分层回溯法实现
 ### 3.5. 三种方法的区别与联系
 
+<more>
+
+本章介绍了回归法、IC法和分层回溯法的原理及实现代码。这一章完成后，你已经可以自己实现一个简单的因子分析框架了。这对理解Alphalens的实现非常有帮助。
+
+</more>
+
+---
+
 ## 4. 初识 Alphalens
 ### 4.1. 斜率因子：定义和实现
 ### 4.2. 如何为 Alphalens 计算因子和收集价格数据
 ### 4.3. Alphalens 如何实现数据预处理
 ### 4.4. 因子分析与报表生成
 ### 4.5. 参考文献
+
+<more>
+
+Alphalens将因子检验过程进行了高度的抽象，把我们在前面两章讲到的步骤封装成两个函数，而大量的定制则是通过参数来实现。我们将介绍Alphalens要求的输入数据格式、它是如何通过参数来控制分层、缺失值处理、远期回报计算等行为的。
+
+通过这一章的学习，你将掌握Alphalens最基本的用法。
+
+</more>
 
 ---
 
@@ -154,7 +213,16 @@ document.addEventListener('DOMContentLoaded', function() {
 ### 5.2. 事件分析
 ### 5.3. IC 分析
 ### 5.4. 换手率分析
-### 5.5. 参考文献
+
+<more>
+
+Alphalens的报告并非不言自明。比如，它没有告诉你Alpha和beta各是什么单位，bps单位又是多少；它更不会告诉你，什么样的Alpha是好的，什么样的Alpha则是好到不能相信；有一些报表，它的计算方式与你想像的、或者曾听说的不太一样。
+
+为了准确地理解这些报告，我们使用了三种方式：1. 阅读、调试源码的方式。通过这种方式，我们发现bps是万分之一，定义在plotting.py这个文件中；2. 使用合成数据，这样我们理解了最好的因子理论上应该产生什么样的图表报告；3. 通过Github issues, Quantopian社区Archive的文档，从其它用户的问题中找到答案。
+
+这将是现阶段全网惟一一个真正讲透了Alphalens的教程。
+
+</more>
 
 ---
 
@@ -170,6 +238,14 @@ document.addEventListener('DOMContentLoaded', function() {
 #### 6.5.1. 有确定交易信号的因子
 #### 6.5.2. 离散值因子
 
+<more>
+
+这一章我们将介绍如何排除Alphalens在使用中可能遇到的错误，既有程序性的，也有逻辑性的。我们还介绍了如何进行日线以上级别的因子分析。很多网上教程甚至都没意识到这里会存在问题，因为他们从来没有做过这个级别的分析。
+
+我们还深入探讨了Alphalens的分层机制，包括如何处理因子值是离散值的情况。
+
+</more>
+
 ---
 
 ## 7. Alphalens 高级技巧（2）
@@ -184,12 +260,28 @@ document.addEventListener('DOMContentLoaded', function() {
 #### 7.3.2. 绘制参数高原
 ### 7.4. 关于多空组合的思考
 
+<more>
+
+使用Alphalens进行因子检验，就像做一场面试一样，你得尽可能暴露因子的潜能，然后才能评估它的好坏。这一章我们将介绍如何想尽办法把因子的潜能挖掘出来，同时，又不要受过拟合的欺骗。除了样本外检测之外，我们还会教你通过绘制参数高原来评估因子的过拟合程度。
+
+可视化很重要。尤其是你的工作，需要与他人合作时。
+
+</more>
+
 ---
 
 ## 8. Alpha101 因子介绍
 ### 8.1. Alpha101 因子中的数据和算子
 ### 8.2. Alpha101 因子解读
 ### 8.3. 如何实现 Alpha101 因子？
+
+<more>
+
+Alpha101因子库是World Quant发表于2015年的一个因子库。其中有80%的因子是在世坤正式使用（发布时间）的。我们将介绍如何读懂Alpha101因子的公式，实现它的算子。
+
+整个因子库的实现已经有较好的开源库，我们也将介绍。这会成为你的兵器库中的宝贝之一。
+
+</more>
 
 ---
 
@@ -200,48 +292,73 @@ document.addEventListener('DOMContentLoaded', function() {
 ### 9.1. Ta-lib 函数分组
 ### 9.2. 冷启动期 (unstable periods)
 <!--不是仅仅去掉 NAN 就稳定了。RSI 大概在 3 * win 之后才稳定-->
-### 9.3. 8 种移动平均线
-### 9.4. Overlap 研究
-#### 9.4.1. 布林带
-#### 9.4.2. Hilbert 趋势线和 Sine Wave Indicator
-#### 9.4.3. Parabolic Sar
-### 9.5. Momentum 指标
-#### 9.5.1. RSI
-<!-- RSI 翻新应用-->
-#### 9.5.2. ADX - 平均方向运动指数
-#### 9.5.3. APO - 绝对价格震荡指标
-#### 9.5.4. PPO - 百分比价格震荡指标
-#### 9.5.5. Aroon 振荡器
-#### 9.5.6. Money Flow Index
-#### 9.5.7. Balance of Power
-#### 9.5.8. William's R
-#### 9.5.9. Stochastic 随机振荡指标
-### 9.6. 成交量指标
-#### 9.6.1. Chaikin A/D Line
-#### 9.6.2. OBV
-### 9.7. 波动性指标
-#### 9.7.1. ATR 与 NATR - 平均真实波幅
+#### 9.2.1. RSI
+<!-- RSI 翻新应用, intelli RSI, Connor's RSI -->
+#### 9.2.2. ADX - 平均方向运动指数
+#### 9.2.3. APO - 绝对价格震荡指标
+#### 9.2.4. PPO - 百分比价格震荡指标
+#### 9.2.5. Aroon 振荡器
+#### 9.2.6. Money Flow Index
+#### 9.2.7. Balance of Power
+#### 9.2.8. William's R
+#### 9.2.9. Stochastic 随机振荡指标
+### 9.3. 成交量指标
+#### 9.3.1. Chaikin A/D Line
+#### 9.3.2. OBV
+### 9.4. 波动性指标
+#### 9.4.1. ATR 与 NATR - 平均真实波幅
+### 9.5. 8 种移动平均线
+### 9.6. Overlap 研究
+#### 9.6.1. 布林带
+#### 9.6.2. Hilbert 趋势线和 Sine Wave Indicator
+#### 9.6.3. Parabolic Sar
+### 9.7. Momentum 指标
+
+<more>
+
+Alpha101因子多数是量价因子，由于可以想到的原因，它没有重复早已存在多年的经典技术因子，但这些因子仍然有它的Alpha存在。这一节我们会简单介绍下talib库，讲解技术指标的冷启动期 -- 可能是一个比较冷的知识，冷启动期不止是NaN，比如，RSI的冷启动期就比较长，是win参数的3倍。
+
+Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的技术条件下，如何翻新这些因子。以RSI为例，我们会讲intelli-RSI，Connor's RSI。这样你不仅得到了一些新因子，还提升了自己创新研究的能力。
+
+即使是一些有经验的人，也可能是初次听说我们讲要介绍的一些因子。比如像Hilber Sine Wave，这可是在Trading View等平台上比较好卖的付费技术指标之一。
+
+</more>
+
+
+---
 
 ## 10. 其它因子
-### 10.1. 小概率事件
+### 10.1. 黑天鹅因子
 <!-- 单个极值事件，比如沪指单日最大跌幅、最大连续跌幅，背后是小概率事件发生后的回归 -->
-### 10.2. 最大回撤
-### 10.3. pct_rank
-### 10.4. 波动率
-### 10.5. z-score
-### 10.6. 夏普率
-### 10.7. 一阶导因子
-### 10.8. 二阶导因子
-### 10.9. 频域因子
-### 10.10. TSFresh 因子库
-### 10.11. 行为金融学因子
-#### 10.11.1. 整数关口因子
-#### 10.11.2. 冲压失败因子
+### 10.2. 策略评估类因子
+#### 10.2.1. 最大回撤
+#### 10.2.2. 波动率
+#### 10.2.3. 夏普率
+#### 10.2.4. 索提诺比率
+#### 10.2.5. Calmar 因子
+### 10.3. 导数因子
+#### 10.3.1. 一阶导因子
+#### 10.3.2. 二阶导因子
+### 10.4. 频域因子
+### 10.5. TSFresh 因子库
+### 10.6. 行为金融学因子
+#### 10.6.1. 整数关口因子
+#### 10.6.2. 压力/支撑因子
 <!--冲击前高、前低失败-->
-#### 10.11.3. 缺口因子
+#### 10.6.3. 缺口因子
 <!--逢缺必补-->
-#### 10.11.4. 遗憾规避理论因子
+#### 10.6.4. 遗憾规避理论因子
 <!-- 日内成交均线冲击、日间密集成交区冲击因子 -->
+
+<more>
+
+有一些小概率因子很容易做出来。也许正因为是这样的原因，它们没有名字，也没有上论文的机会。但是它们的Alpha真实存在。比如指数单日最大跌幅、最大连续跌幅等等。其背后的原理是极端事件之后的概率回归。
+
+总之，这是比较炫技和创新的一章。我们会介绍二阶导因子、频域因子、行为金融学因子。比如，频域因子是通过快速傅里叶变换或者小波变换，找出主力资金的操作周期来进行预测的因子。在其他人还停留在使用小波平滑噪声的阶段，我们已经开始使用它来探索主力资金的规律了！
+
+</more>
+
+---
 
 ## 11. 基本面因子和另类因子
 ### 11.1. Famma 五因子
@@ -258,6 +375,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--这是 CNN 网络得以应用的地方-->
 #### 11.2.4. 专利申请因子
 <!--包括专利申请通过、药品上市批准等，再向前挖就是药品中期试验数据-->
+### 11.3. 爬虫的技术路线
+<!-- request > scrapy > selenium > playright > extension -->
+
+<more>
+
+这一部分我们讲思路会比较多。因为另类因子要么去买，要么去爬。但我们不想讲爬虫。
+
+</more>
+
+---
 
 ## 12. 因子挖掘方法
 <!-- 新的技术发展、跨界融合 
@@ -266,15 +393,22 @@ document.addEventListener('DOMContentLoaded', function() {
 进入不同的频率。有一些因子在宏观上不行，但在高频中就可能有效。
 因子不是一切
 -->
-### 12.1. 改造传统技术指标
-### 12.2. 论文
-### 12.3. 同行、路演交流
-<!-- 2023 年的 DMA 策略 -->
-### 12.4. 网络资源
+### 12.1. 新因子从哪里来
+<!-- 改造传统技术指标、论文、同行、路演交流--》
+<!-- 从哪里找论文 金融顶刊-->
+<!-- 从自己或者别人的交易经验中来 -->
+<!-- 从涨停、强势个股中来。对非常强的个股，前面介绍的因子往往都是不能用的，有它们自己的技术局限。要构建自己的市场指标，比如涨停家数、上涨家数-->
+### 12.2. 网络资源
 <!--聚宽因子看板-->
-### 12.5. 因子正交性检测
+### 12.3. 因子正交性检测
 <!-- https://github.com/stefan-jansen/machine-learning-for-trading/blob/f652d79ab2f137d75d554af2cc437a5512b16069/24_alpha_factor_library/04_factor_evaluation.ipynb -->
-### 12.6. 因子不是一切！谈谈因子动物园
+### 12.4. 谈谈因子动物园
+
+<more>
+
+这也是谈天谈地比较务虚的一章，但依然干货满满。我们会谈一些找资源的方法，比如怎么找论文、数据等。到现在为止，我们已经介绍了好几百个因子（不算参数和周期），所以，我们也需要看看究竟有多少因子是独立的。所以，我们会介绍正交性检测方法。
+
+</more>
 
 ---
 
@@ -296,6 +430,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!--弄懂这些概念，帮助我们了解机器学习的局限在哪里，以及通用人工智能难在哪里。-->
 
+<more>
+
+机器学习快速入门。世界是连续的，还是量子？这是一个古老的哲学问题，也决定了机器学习的基本模型 -- 回归还是分类？
+
+</more>
+
+---
+
 ## 14. 机器学习核心概念
 <!-- 线性代数、梯度优化、反向传播、激活函数 -->
 ### 14.1. 偏差、方差
@@ -308,7 +450,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--通义千问，损失函数与距离函数的区别-->
 <!-- https://stackoverflow.com/a/47306502/13395693 -->
 <!-- 欧氏距离与 MSE 的区别-->
-## 15. sk-learn 通用工具包
+
+<more>
+
+这门课程是一门应用课程，不想涉及太多理论，但如果一点原理都不懂，就只能照搬照抄示例，无法进行任何拓展。因此，我们决定选择跟应用层密切相关的基本概念进行讲解 -- 只有了解了这些概念，我们才懂得如何选择目标函数，如何评估策略，如何防止过拟合等等。
+
+</more>
+
+---
+
+## 15. SKLearn 通用工具包
 ### 15.1. 数据预处理：preprocessing
 <!-- 标准化工具、归一化工具、缺失值处理、独一码编码 -->
 ### 15.2. metrics
@@ -316,6 +467,15 @@ document.addEventListener('DOMContentLoaded', function() {
 ### 15.3. 模型解释与可视化
 ### 15.4. 内置数据集
 <!-- load_iris, fetch_openml, make_classification-->
+
+<more>
+
+sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易用的接口赢得大家的喜爱。在这一章，我们先向大家介绍 sklearn 的通用工具包 -- 用来处理无论我们采用什么样的算法模型，都要遇到的那些共同问题，比如数据预处理、模型评估、模型解释与可视化和内置数据集。
+
+
+</more>
+
+---
 
 ## 16. 模型优化
 ### 16.1. 优化概述
@@ -333,6 +493,14 @@ document.addEventListener('DOMContentLoaded', function() {
 ### 16.4. Rolling Forecasting
 <!-- 用于模型的解释工具， inspection & visualization-->
 
+<more>
+
+量化领域的机器学习有它自己的特殊性，比如在交叉验证方面，我们实际上要使用的是一种称为 Rolling Forecasting（也称为 Walk-Forward Optimization 的方法）。
+
+</more>
+
+---
+
 ## 17. 聚类：寻找 Pair Trading 标的
 ### 17.1. 聚类算法概述
 <!-- kmeans vs DBSCAN vs HDBSCAN -->
@@ -347,6 +515,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- ADF 测试 -->
 #### 17.3.3. 配对选择
 <!-- https://github.com/quantrocket-codeload/quant-finance-lectures/blob/master/quant_finance_lectures/Lecture42-Introduction-to-Pairs-Trading.ipynb-->
+
+<more>
+
+在量化交易中，Pair Trading 是一类重要的套利策略，它的先决条件是找出能够配对的两个标的。这一章我们将介绍先进的 HDBSCAN 聚类方法，演示如何通过它来实现聚类，然后通过 statsmodels 中的相关方法来执行协整对检验，找到能够配对的标的。最后，我们还将演示如何将这一切组成一个完整的交易策略。
+
+这将是你学会的第一个有效的机器学习策略。
+
+</more>
+
+---
 
 ## 18. 从决策树到 XGBoost
 <!-- 决策树、随机森森、GBDT、XGBoost\LightGBM -->
@@ -365,6 +543,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- 我们将探索 max depth, colsample_bytree, subsample, min_child_weight, gamma, alpha, learning_rat 等参数的作用，并使用 grid_search_cv 和 RandomizedSearchCV 来进行超参数调优。-->
 
 <!-- LightGBM 与 XGBOOST 的比较 https://www.showmeai.tech/article-detail/195 -->
+
+<more>
+
+受限于金融数据的高噪声，现阶段端到端的交易策略还不太可行；又受限于标注数据的大小，深度学习等人工智能模型也不适用于交易策略的构建。在机器学习模型当中，目前最优秀的模型就是梯度提升决策树模型。代表实现是XGBoost和LightGBM。
+
+这一章将完整地介绍XGBoost模型，并且通过示例来演示如何使用、如何inspect和visualize生成的模型，如何执行交叉验证和参数调优。
+
+</more>
+
 ---
 
 ## 19. 基于 XGBoost 回归模型的价格预测
@@ -380,6 +567,18 @@ document.addEventListener('DOMContentLoaded', function() {
 2. 什么情况下均线才是稳定的？要增加哪些指标？
 -->
 
+<more>
+
+资产定价是量化研究的核心问题之一，如果能够给出资产的合理定价，那么就能给出交易信号。
+
+定价是个回归问题。尽管很难实现端到端的价格预测模型，我们还是以巧妙的构思，做出来一个可以预测未来价格的回归模型（理论上能自洽）。
+
+我们不能保证这个模型总是有效的，有许多改进方案我们还没来得及探索，但是，以此为出发点，你在机器学习交易模型构建上，已经占据了领先优势。
+
+</more>
+
+---
+
 ## 20. 基于 XGBoost 分类模型的交易策略
 <!--顶底预测模型-->
 ### 20.1. 策略原理
@@ -388,16 +587,32 @@ document.addEventListener('DOMContentLoaded', function() {
 #### 20.2.2. 模型实现代码
 #### 20.2.3. 模型评估与优化
 
+<more>
+
+在这一章，我们将构建一个基于XGBoost分类模型的交易模型。换句话说，它不负责预测价格，但能告诉你应该买入、还是卖出信号。学完这一章，你一定会认同，模型肯定就该这么构建，剩下的都是工作量而已：你需要构建系统、标注数据、构建特征，然后训练模型。
+
+</more>
+
+---
+
 ## 21. XGBoost 再思考
 ### 21.1. 更好的 XGBoost: LightGBM?
 ### 21.2. 如何构建组合？
 ### 21.3. 资产定价模型还是交易模型？
-### 21.5. 为什么是 XGBoost，而不是神经网络？ <!-- 标注数据量决定 -->
+### 21.4. 为什么是 XGBoost，而不是神经网络？ <!-- 标注数据量决定 -->
 
 <!-- [Predicting Chinese stock market using XGBoost multi-objective optimization with optimal weighting](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10936758/)
 -->
 
 <!-- 我们构建的是一个选股模型，还是交易模型？实际上，我们应该构建两个模型，第一个是买入模型，它同时具有选股和择时能力；第二个是卖出模型，它有择时能力，只负责判断何时卖出 -->
+
+<more>
+
+XGBoost很好，但LightGBM可能在内存占用、某些场景下的训练速度上会更优。这一章将介绍LightGBM如何使用。我们会给一个完整的例子，但不会涉及太多细节。这就是你常常在其它课程中会看到的那种内容。
+
+</more>
+
+---
 
 ## 22. 结语与展望
 ### 22.1. CNN 网络识别 K 线模式
@@ -415,6 +630,16 @@ document.addEventListener('DOMContentLoaded', function() {
 #### 22.3.1. kalman filter
 #### 22.3.2. Genentic Algo
 
+<more>
+
+前面讲过为什么深度学习还不太适合构建量化交易模型。这一章前面部分，我们会通过一个CNN识别k线模式的例子，来说明为什么。了解了这些局限之后，也许你能够发明一种新颖的模型，适合量化交易。这一部分没能教你可带走的工具和经验。但是如果你是研究型、创新型的人，你可能会觉得这一部分内容也非常有价值。
+
+强化学习是我们比较看好的一个方向，特别是用在商品期货和加密货币交易中。我们会介绍一些入门知识和学习资源。
+
+还有两个重要的智能算法，既不是机器学习，也不是深度学习或者强化学习，但在量化中确实也比较常用，就是kalman filter和genetic algo。我们会介绍一些入门知识和它们的应用场景，把更多的探索空间留给你。
+
+</more>
+
 </div>
 
 <!--机器学习相关 https://github.com/aialgorithm/Blog-->
@@ -424,3 +649,11 @@ document.addEventListener('DOMContentLoaded', function() {
 傅立叶与小波分析： https://cseweb.ucsd.edu/~baden/Doc/wavelets/polikar_wavelets.pdf
 
 -->
+
+<hr>
+
+<h2 id="declaration">说明</h2>
+<p>1. 本大纲并非课程教材目录，比如，许多章节有《延伸阅读》或者《参考文献》小节，均未在此显示。</p>
+<p>2. 课程内容还包括习题，未在此显示</p>
+<p>3. 课程内容还包括补充材料，比如完整的 Alpha101因子实现代码（从数据获取、因子提取、因子检验到回测）及其它示例代码，未在此显示</p>
+<p>4. 三级及三级以下目录有可能部分临时变更</p>
