@@ -1,7 +1,7 @@
 ---
 hide:
     - title
-title: 课程简介 - 因子投资与机器学习策略
+title: 课程简介
 slug: course-factor-ml-intro
 category: 课程
 tags: 
@@ -10,7 +10,9 @@ tags:
     - 机器学习
 ---
 
-这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。学完这门课程并完全掌握其内容，你将具有熟练的因子分析能力、掌握领先的机器学习策略构建方法，成为有创新研究能力和比较竞争优势的量化研究员。
+这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。
+
+学完这门课程并完全掌握其内容，你将具有熟练的因子分析能力、掌握领先的机器学习策略构建方法，成为有创新研究能力和比较竞争优势的量化研究员。
 
 ## 1. 课程目标
 
@@ -43,7 +45,10 @@ tags:
 
 只有掌握了因子检验的方法，我们才能判断挖掘出的因子是否有效。因此，因子检验方法是本课程的起点，从第 2 章开始，到第 7 章结束，共 6 个章节。
 
-![](https://images.jieyu.ai/images/2024/01/alphalens.jpg?float=left&width=200){ width="200" align=left }
+<div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
+<img src='https://images.jieyu.ai/images/2024/01/alphalens.jpg'>
+<span style='font-size:0.6rem'>Alphalens Logo</span>
+</div>
 
 我们将从介绍因子检验的原理入手，手动实现因子检验的各个流程；再介绍开源因子分析框架 Alphalens。我们不仅会介绍如何把 Alphalens 用起来，还会重点介绍如何解读它的报表、如何进行参数调优和排错。这部分包含了大量业界经验、正反例对比，内容之深、之新，是你目前在网络上无法看到的。
 
@@ -57,13 +62,19 @@ tags:
 
 如果掌握这些因子还嫌不够，我们还将在第 12 章介绍因子挖掘方法论。你可能是从我们发表在网上的各种因子与策略挖掘的精彩文章吸引，从而找到我们的，在这里，我们将把掌握的资源和方法论全部教授给你。
 
-![课程中介绍的因子](https://images.jieyu.ai/images/2024/08/factor-nav.jpg?width=400){ width="400"}
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2024/08/factor-nav.jpg'>
+<span style='font-size:0.8em'>各类因子</span>
+</div>
 
 在介绍 Alpha 101 因子时，我们把重点放在如何理解它的数据格式和实现算子上。这是理解 Alpha 101 的基础，掌握了这些算子，你就完全能够读懂和实现全部 Alpha 101 因子。然后，我们会介绍其中的几个因子。我们会告诉你如何阅读它复杂的表达式，如何理解作者的思路和意图。
 
 在实现 Alpha 101 因子上，由于已经有许多开源的实现存在，因此，我们不打算重新发明轮子，而是向你介绍一个我们认为实现最完整、正确率最高的一个开源库，并在我们的附录中可以直接上手使用它。此后，你可以把它纳入你的量化兵器库。
 
-![Hilbert Sine Wave](https://images.jieyu.ai/images/2024/08/better-sing-wave-indicator.jpg?width=500){width="500"}
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2024/08/better-sing-wave-indicator.jpg'>
+<span style='font-size:0.6rem'>Hilbert Sine Wave</span>
+</div>
 
 在第 9 章，我们将介绍 Ta-lib 库以及它实现的一些技术指标。我们将介绍均线、Overlap、Momemtum、成交量和波动性等 20 个左右的指标。有一些你可能已经比较熟悉了，比如均线，也有一些你可能不太熟悉，比如基于希尔伯特变换的趋势线和 Sine Wave Indicator（如[](#Hilbert Sine Wave)所示）。和其它章节一样，我们仍然会保持足够的研究深度，会介绍像冷启动期、如何将老的技术指标翻新应用（以 RSI 为例）等等。
 
@@ -72,12 +83,15 @@ tags:
 
 在第 11 章，我们介绍不属于任何归类，但仍然很重要的因子，比如小概率事件（黑天鹅）因子；我们会引入导数概念，介绍两个有效的一阶导、二阶导动量因子；时频变换构造频哉因子；我们还将介绍一些行为金融学因子，这是当前金融学的热门概念，在短线交易中非常有用。
 
-![傅立叶时频变换](https://images.jieyu.ai/images/2024/08/fft-decomposite.jpg?width=500)
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2024/08/fft-decomposite.jpg'>
+<span style='font-size:0.6rem'>通过FFT提取频域因子</span>
+</div>
 
 
 ### 3.3. 构建基于机器学习的交易策略
 
-![](https://images.jieyu.ai/images/2024/08/machine-learning.jpg?width=500){width="500"}
+<!-- ![](https://images.jieyu.ai/images/2024/08/machine-learning.jpg?width=500){width="500"} -->
 
 
 这一部分我们先快速介绍机器学习的核心概念（第 14 章）。我们会介绍损失函数、目标函数、度量函数、距离函数、偏差、方差、过拟合与正则化惩罚等核心概念。这些概念是机器学习核心概念中偏应用层面一些的概念，是我们不得不与之打交道的概念。
@@ -88,7 +102,11 @@ tags:
 !!! tip
     如果你需要深入理解机器学习和神经网络、自己能发明新的网络模型和机器学习算法，那么你还需要补充线性代数、梯度优化、反向传播和激活函数等知识。不过，对掌握我们这门课程，达到熟练运用已知的算法模型并会调参调优，掌握我们介绍的概念就足够了。
 
-![Scikit-Learn Logo](https://images.jieyu.ai/images/2024/08/sklearn-logo.png?width=250&float=left)
+
+<div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
+<img src='https://images.jieyu.ai/images/2024/08/sklearn-logo.png'>
+<span style='font-size:0.6rem'></span>
+</div>
 
 本课程选择的机器学习库是 sklearn。sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易用的接口赢得大家的喜爱。在第 15 章，我们先向大家介绍 sklearn 的通用工具包 -- 用来处理无论我们采用什么样的算法模型，都要遇到的那些共同问题，比如数据预处理、模型评估、模型解释与可视化和内置数据集。
 
@@ -104,7 +122,11 @@ tags:
 
 在第 18 章，我们将介绍 XGBoost，这是一种梯度提升决策树模型。由于金融数据高噪声的特性、以及难以获得大量有效标注数据原原因，使得梯度提升决策树模型目前仍然是在量化交易领域应用最广泛、效果最好的机器学习模型。
 
-![XGBoost Model](https://images.jieyu.ai/images/2024/08/scheme-of-xgbost-model.jpg?width=500)
+
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2024/08/scheme-of-xgbost-model.jpg'>
+<span style='font-size:0.6rem'></span>
+</div>
 
 
 我们会先从决策树模型讲起，介绍 XGBoost 一路走来的优化历程。然后以一个详尽的例子，介绍如何使用 XGBoost，训练一个模型并深入到它的内部：我们将可视化这个模型的重要特征、绘制出它的模型树。最后我们以介绍在 XGBoost 如何进行交叉验证和调优结束。
@@ -119,7 +141,11 @@ tags:
 
 第 21 章我们会对 XGBoost 模型进行更深入一些的拷问。我们介绍另一个梯度提升决策树模型的实现，即由微软开发的 LightGBM。一般认为，它在性能上要强于 XGBoost，内存占用更小，在其它指标上与 XGBoost 相比各有千秋。
 
-![LightGBM, by Hossain@medim](https://images.jieyu.ai/images/2024/08/lightGBM-by-Hossain-medium.jpeg?width=400)
+
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2024/08/lightGBM-by-Hossain-medium.jpeg'>
+<span style='font-size:0.6rem'>LightGBM, by Hossain@medim</span>
+</div>
 
 我们已经介绍了三个非常实用的例子，涵盖了套利交易、价格预测和交易模型。但是，资产管理中还有一个重要的课题，就是组合管理。基于机器学习，我们如何实现组合管理？我们也将在这一章回答这个问题。
 

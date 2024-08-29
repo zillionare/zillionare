@@ -1,7 +1,7 @@
 ---
 hide:
     - title
-title: 课程简介 - 量化交易场景下的Numpy&Pandas
+title: 课程简介
 slug: numpy-pandas-in-quant-trade
 category: 课程
 tags: 
