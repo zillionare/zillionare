@@ -15,18 +15,19 @@ h1 {
 
 h2 {
     margin-top: 2em;
+    font-size: 1.5em !important;
 }
 
 h3 {
     color: #303030 !important;
     font-weight: 200 !important;
-    font-size: 1.2em;
+    font-size: 1em !important;
 }
 
 h4 {
     color: #808080 !important;
     font-weight: 100 !important;
-    font-size: 1em;
+    font-size: 1em !important;
     margin-left: 1em;
 }
 
@@ -41,7 +42,7 @@ h5 {
 }
 
 more {
-    font-size: 0.75em;
+    font-size: 0.8em;
     color: #808080;
     /* border: 1px solid #ccc; */
     margin: 2.5em 0 -1em 0;
@@ -52,7 +53,7 @@ more {
 }
 
 more::before {
-    content: '课程要点 >';
+    content: '本章要点 >';
     position: absolute;
     /* top: 50%; */
     /* left: 100%; */
