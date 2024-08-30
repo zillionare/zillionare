@@ -309,6 +309,7 @@ Alpha101因子库是World Quant发表于2015年的一个因子库。其中有80%
 ### 9.4. 波动性指标
 #### 9.4.1. ATR 与 NATR - 平均真实波幅
 ### 9.5. 8 种移动平均线
+<!-- MAMA是John Ehler提出的指标，结合了Hilbert Transform Discriminator -->
 ### 9.6. Overlap 研究
 #### 9.6.1. 布林带
 #### 9.6.2. Hilbert 趋势线和 Sine Wave Indicator
