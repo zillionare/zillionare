@@ -313,6 +313,7 @@ Alpha101因子库是World Quant发表于2015年的一个因子库。其中有80%
 ### 9.6. Overlap 研究
 #### 9.6.1. 布林带
 #### 9.6.2. Hilbert 趋势线和 Sine Wave Indicator
+<!--参考材料： 如何计算顺势频率 https://dsp.stackexchange.com/questions/24487/calculate-and-interpret-the-instantaneous-frequency -->
 #### 9.6.3. Parabolic Sar
 ### 9.7. Momentum 指标
 
