@@ -327,7 +327,6 @@ Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的
 
 </more>
 
-
 ---
 
 ## 10. 其它因子
@@ -546,7 +545,7 @@ sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易
 <!-- 我们将探索 max depth, colsample_bytree, subsample, min_child_weight, gamma, alpha, learning_rat 等参数的作用，并使用 grid_search_cv 和 RandomizedSearchCV 来进行超参数调优。-->
 
 <!-- LightGBM 与 XGBOOST 的比较 https://www.showmeai.tech/article-detail/195 -->
-
+<!-- https://www.sciencedirect.com/science/article/pii/S0957417423023084 使用神经网络模型的加密货币盈利交易算法，认为MLP和XGBoost最好 -->
 <more>
 
 受限于金融数据的高噪声，现阶段端到端的交易策略还不太可行；又受限于标注数据的大小，深度学习等人工智能模型也不适用于交易策略的构建。在机器学习模型当中，目前最优秀的模型就是梯度提升决策树模型。代表实现是XGBoost和LightGBM。
@@ -650,7 +649,7 @@ XGBoost很好，但LightGBM可能在内存占用、某些场景下的训练速�
 <!-- confusion matrix: https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62-->
 <!--
 傅立叶与小波分析： https://cseweb.ucsd.edu/~baden/Doc/wavelets/polikar_wavelets.pdf
-
+<xgboost: https://www.jieyu.ai/assets/ebooks/Combining-Principal-Component-Analysis-Discrete-Wavelet-Transform-and-XGBoost-to-trade-in-the-financial-markets.pdf>
 -->
 
 <hr>
