@@ -5,7 +5,7 @@
 <div>
 <h3>金融/计量专业，硕士论文怎么确定研究课题？</h3>
 <img src="https://images.jieyu.ai/images/university/north-chapel.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>面对毕业论文的压力，选择一个既具有实际应用价值又能激发研究兴趣的主题至关重要。对金融/计量专业的学生来说，在众多研究领域中，量化交易是兼顾自己的专长、又有利于未来发展的一个选择。对其它相关专业，如果未来有意跨入量化交易行业，那么，利用撰写毕业论文的时机，提前进行学习和研究，也会对...</p>
+<p><span>内容摘要:<br></span>面对毕业论文的压力，选择一个既具有实际应用价值又能激发研究兴趣的主题至关重要。对金融/计量专业的学生来说，在众多研究领域中，量化交易是兼顾自己的专长、又有利于未来发展的一个选择。<br><br><!--<br>1. 如何确定研究课题？<br>2. 如何搜集和整理资料？<br>3. 如何使用AI工具？ 论文写作...</p>
 
 <p><span style="margin-right:20px">发表于 2024-09-04 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/09/04/how-to-determine-research-topic">点击阅读</a></span></p>
 
