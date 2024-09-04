@@ -1,5 +1,5 @@
 ---
-title: QuanTide带你读论文：PCA、离散小波和 XGBoost构建交易策略
+title: 带你读论文：PCA、离散小波和 XGBoost构建交易策略
 date: 2024-09-03
 category: algo
 slug: combining-pca-wavelet-and-xgboost
@@ -8,7 +8,7 @@ stamp_height: 60%
 tags: [algo, xgboost,PCA,wavelet]
 ---
 
-> 这是 Nobre, Neves 发表于 2019 年的 [一篇论文](https://www.sciencedirect.com/science/article/abs/pii/S0957417419300995?via%3Dihub)。在论文中，他们将 PCA, DWT，Gene Algo 和 XGBoost 有机结合在一起，生成了一个机器学习交易策略，取得了比 Buy-and-Hold 策略及另一个对照策略更好的回报。本文正文部分为原论文的摘要，在最后的 QuanTide 评论中，我提供了一些点评。
+> 这是 Nobre, Neves 发表于 2019 年的 [一篇论文](https://www.sciencedirect.com/science/article/abs/pii/S0957417419300995?via%3Dihub)。在论文一起，生成了一个机器学习交易策略，取得了比 Buy-and-Hold 策略及另一个对照策略更好的回报。本文正文部分为原论文的摘要，在最后的 QuanTide 评论中，我提供了一些点评。
 
 文章介绍了一种应用于金融领域的专家系统，该系统融合了主成分分析 (PCA)、离散小波变换 (DWT)、极限梯度提升 (XGBoost) 以及多目标优化遗传算法 (MOO-GA)，旨在为投资者提供最佳的买卖点信号，以期在较低的风险水平下实现较高的投资回报。
 
@@ -267,8 +267,6 @@ PAC 降维使得 XGBoost 二元分类器能够生成复杂度较低的模型，�
 
 论文中提到，他们使用了Min-Max来进行归一化。这一点上是个灾难的选择。我们只能对取值范围固定的数据进行Min-Max归一化，而股价的值域从理论上看，是$(0, +\infty)$。
 
-在我们学习量化的过程中，参考已发表的论文无疑是成长的捷径。但是，有些学者并身没有太多的实际交易经验，导致论文中也可能存在各种瑕疵，这无疑也会导致论文的结果无法在实战中运用。
-
-我们开设了《因子投资与机器学习策略》的课程，如果对这一领域感兴趣，但不得其门而入的，可以加入我们。
+在我们学习量化的过程中，参考已发表的论文无疑是成长的捷径。但是，有些学者并身没有太多的实际交易经验，导致论文中也可能存在各种瑕疵，这无疑也会导致论文的结果无法在实战中运用。因此，我们开设了《因子投资与机器学习策略》的课程，如果对这一领域感兴趣，但不得其门而入的，可以加入我们一起学习。
 
 该论文可在[这里](https://www.jieyu.ai/assets/ebooks/Combining-Principal-Component-Analysis-Discrete-Wavelet-Transform-and-XGBoost-to-trade-in-the-financial-markets.pdf)下载

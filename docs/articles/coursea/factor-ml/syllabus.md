@@ -650,6 +650,11 @@ XGBoost很好，但LightGBM可能在内存占用、某些场景下的训练速�
 <!--
 傅立叶与小波分析： https://cseweb.ucsd.edu/~baden/Doc/wavelets/polikar_wavelets.pdf
 <xgboost: https://www.jieyu.ai/assets/ebooks/Combining-Principal-Component-Analysis-Discrete-Wavelet-Transform-and-XGBoost-to-trade-in-the-financial-markets.pdf>
+
+有哪些论文是要看的：
+
+https://quant.stackexchange.com/questions/38886/what-are-the-quantitative-finance-papers-that-we-should-all-have-in-our-shelves
+
 -->
 
 <hr>
