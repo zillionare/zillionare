@@ -3,11 +3,21 @@
 <div class="card-columns">
     
 <div>
+<h3>牛人太多：小市值因子之父，毕业论文被大佬狂怼</h3>
+<img src="https://images.jieyu.ai/images/2024/09/rolf-banz.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>Rolf W. Banz，瑞士人，70 年代在芝加哥大学获得博士学位，并在该校任教过。此后他在伦敦经营了一家专注于小盘股投资的投资精品店，1991 年出售给 Alliance Capital。职业生涯的最后阶段，他回到了瑞士，在一家瑞士私人银行的资产管理子公司担任了高级职位。<br><br>...</p>
+
+<p><span style="margin-right:20px">发表于 2024-09-12 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/09/12/rolf-banz">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>[0908] QuanTide Weekly</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span> 本周要闻<br><br>* 央行：降准有空间 利率进一步下行面临一定约束<br>* 巴菲特再次减持美国银行，这次要做空自己的祖国？<br>* 存量房贷下调预期落空，沪指连续三日跌破2800点<br><br> 下周看点<br>* 周一，8月CPI/PPI 数据发布<br>* 周一，茅台业绩说明会，对白酒行业的未来发...</p>
 
-<p><span style="margin-right:20px">发表于 2024-09-08 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2024/09/08/quantide-weekly-0908">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-09-08 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/09/08/quantide-weekly-0908">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -17,14 +27,14 @@
 <img src="https://images.jieyu.ai/images/university/north-chapel.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>面对毕业论文的压力，选择一个既具有实际应用价值又能激发研究兴趣的主题至关重要。对金融/计量专业的学生来说，在众多研究领域中，量化交易是兼顾自己的专长、又有利于未来发展的一个选择。<br><br>今天是第一期，我们介绍如何确定研究课题。<br><br><br> 如何确定研究课题？<br><br>毕业论文最难的地方，是确...</p>
 
-<p><span style="margin-right:20px">发表于 2024-09-04 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/09/04/how-to-determine-research-topic">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-09-04 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/09/04/how-to-determine-research-topic">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
 
 <div>
 <h3>带你读论文：PCA、离散小波和 XGBoost构建交易策略</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>> 这是 Nobre, Neves 发表于 2019 年的 [一篇论文](https://www.sciencedirect.com/science/article/abs/pii/S0957417419300995?via%3Dihub)。在论文一起，生成了一个机器学习交易策略...</p>
 
 <p><span style="margin-right:20px">发表于 2024-09-03 人气 780 </span><span><a href="https://www.jieyu.ai/blog/2024/09/03/combining-pca-wavelet-and-xgboost">点击阅读</a></span></p>
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>有一个数据库项目，每月下载次数高达数百万，仅扩展的下载流量每天就超过 4 TB 。在 GitHub 和社交媒体平台上，该数据库拥有数以万计的 Stars 和粉丝，这是数据库类的产品难以企及的天花板。最近，这个极具人气的数据库迎来了自己的第一个大版本。<br><br>这个项目，就是 DuckD...</p>
 
 <p><span style="margin-right:20px">发表于 2024-08-16 人气 767 </span><span><a href="https://www.jieyu.ai/blog/2024/08/16/duckdb-has-reached-1.0">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>OpenBB实战！轻松获取海外市场数据</h3>
-<img src="https://images.jieyu.ai/images/2024/08/unsplash-claudio.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>你有没有这样的经历？常常看到一些外文的论文或者博文，研究方法很好，结论也很吸引人，忍不住就想复现一下。<br><br>但是，这些文章用的数据往往都是海外市场的。我们怎么才能获得**免费的**海外市场数据呢？<br><br>之前有 yfinance，但是从 2021 年 11 月起，就对内陆地区不再提供服...</p>
-
-<p><span style="margin-right:20px">发表于 2024-08-13 人气 510 </span><span><a href="https://www.jieyu.ai/blog/2024/08/13/all-about-openbb-as-a-newhand">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
