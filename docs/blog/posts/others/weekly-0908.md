@@ -8,6 +8,8 @@ stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, numpy, pandas]
 seq: 第 8 期
+fonts:
+    sans: 'ZhuqueFangsong, sans-serif'
 ---
 
 ### 本周要闻
