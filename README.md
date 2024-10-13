@@ -3,28 +3,38 @@
 <div class="card-columns">
     
 <div>
+<h3>地量见地价？我拿一年的上证数据算了算</h3>
+<img src="https://images.jieyu.ai/images/university/toronto.webp" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span><br><br>股谚云，天量见天价、地量见地价。今天我们就来验证一下。<br><br>要把股谚量化，...</p>
+
+<p><span style="margin-right:20px">发表于 2024-10-13 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/10/13/An-enigma-find-range-which-i-is-the-minimum-number">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>[1013] QuanTide Weekly</h3>
 <img src="https://images.jieyu.ai/images/university/toronto.webp" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span><style><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertical-align...</p>
 
-<p><span style="margin-right:20px">发表于 2024-10-13 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/10/13/quantide-weekly-1013">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-10-13 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2024/10/13/quantide-weekly-1013">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
 
 <div>
 <h3>[0929] QuanTide Weekly</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/hot/mybook/book-with-course.png" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span> 本周要闻<br>* 大涨！沪指本周大涨12.8%，沪深300上涨15.7%。<br>* 首份市值管理指引文件出炉，明确指数成分股与破净股的市值管理<br>* 长江证券：银行、地产、建筑和非银等板块或更有可能受益于破净公司估值提升计划<br><br><br> 下周看点<br>* 周一：财新发布9月PMI数据<br>...</p>
 
-<p><span style="margin-right:20px">发表于 2024-09-29 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2024/09/29/quantide-weekly-0929">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-09-29 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/09/29/quantide-weekly-0929">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
 
 <div>
 <h3>[0922] QuanTide Weekly</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span> 本周要闻<br>* 何立峰会见中美经济工作组美方代表团<br>* 公安机关严查资本市场“小作文”，三名造谣者被罚<br>* 证监会全面优化券商风控指标体系<br>* 美“生物安全法案”未被纳入参议院2025财年国防授权法案<br>* 贵州茅台：拟以30亿元-60亿元回购股份用于注销，上市以来首次发布回...</p>
 
 <p><span style="margin-right:20px">发表于 2024-09-22 人气 780 </span><span><a href="https://www.jieyu.ai/blog/2024/09/22/quantide-weekly-0922">点击阅读</a></span></p>
@@ -108,16 +118,6 @@
 <p><span>内容摘要:<br></span>一个不证自明的事实：经济活动是有周期的。但是，这个事实似乎长久以来被量化界所忽略。无论是在资产定价理论，还是在趋势交易理论中我们几乎都找不到周期研究的位置 -- 在后者语境中，大家宁可使用“摆动”这样的术语，也不愿说破“周期”这个概念。<br><br>这篇文章里，我们就来探索股市中的周期。我...</p>
 
 <p><span style="margin-right:20px">发表于 2024-08-26 人气 779 </span><span><a href="https://www.jieyu.ai/blog/2024/08/26/fft-and-stock-prediction">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>高效量化编程: Mask Array应用和find_runs</h3>
-<img src="https://images.jieyu.ai/images/2024/08/noise-test-title-image.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>在很多量化场景下，我们都需要统计某个事件连续发生了多少次，比如，连续涨跌停、N连阳、计算Connor's RSI中的streaks等等。</p>
-
-<p><span style="margin-right:20px">发表于 2024-08-25 人气 293 </span><span><a href="https://www.jieyu.ai/blog/2024/08/25/effective-numpy-1">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
