@@ -6,19 +6,7 @@ slug: how-to-count-continuous-buy-limit
 img: https://images.jieyu.ai/images/university/harvard.jpg
 tags: [tools, pandas]
 ---
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 
 ![题图: 哈佛大学](https://images.jieyu.ai/images/university/harvard.jpg)
 

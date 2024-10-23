@@ -5,7 +5,7 @@
 <div>
 <h3>Pandas连续涨停统计</h3>
 <img src="https://images.jieyu.ai/images/university/harvard.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span><style scoped><br>    .dataframe tbody tr th:only-of-type {<br>        vertical-align: middle;<br>    }<br><br>    .dataframe tbody tr th {<br>        vertica...</p>
+<p><span>内容摘要:<br></span><br><br>常常需要快速统计出一段时间内，最强的股和最弱的股，以便研究该区间内，强势股和弱势股有什么特点。<br><br>如果使用循环，这就跟掰着手指头数数没啥区别，各...</p>
 
 <p><span style="margin-right:20px">发表于 2024-10-23 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/10/23/how-to-count-continuous-buy-limit">点击阅读</a></span></p>
 
