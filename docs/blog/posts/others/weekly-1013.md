@@ -11,29 +11,6 @@ seq: 第 12 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
 ---
-<style>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-        background-color: #404040;
-        color: white;
-    }
-
-    table tr:nth-child(odd) {
-    background-color: #f2f2f2;
-    }
-    table tr:nth-child(even) {
-        background-color: #ffffff;
-    }
-
-</style>
 
 ### 本周要闻
 * 10月25日起，存量房贷统一下调！
