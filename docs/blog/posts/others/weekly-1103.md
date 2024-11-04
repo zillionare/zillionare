@@ -3,7 +3,7 @@ title: "[1103] QuanTide Weekly"
 date: 2024-11-03
 category: others
 slug: quantide-weekly-1103
-img: https://images.jieyu.ai/images/2024/10/larry-willimans-card.jpg
+img: https://images.jieyu.ai/images/2024/10/fft.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, factor]

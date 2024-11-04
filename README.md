@@ -4,7 +4,7 @@
     
 <div>
 <h3>[1103] QuanTide Weekly</h3>
-<img src="https://images.jieyu.ai/images/2024/10/larry-willimans-card.jpg" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/2024/10/fft.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span> 本周要闻<br>* 英伟达和宣伟公司纳入道指<br>* 制造业PMI时隔5个月重返景气区间<br>* 三季报收官，8成上市公司实现盈利<br><br><br> 下周看点<br>* 周二：美国大选投票日（美东时间）<br>* 周二：财新发布10月服务业PMI<br>* 4日-8日，人常会：增量政策工具或将揭晓<br>* 周六：...</p>
 
 <p><span style="margin-right:20px">发表于 2024-11-03 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2024/11/03/quantide-weekly-1103">点击阅读</a></span></p>
