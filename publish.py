@@ -6,6 +6,7 @@ import shlex
 import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
+from typing import List
 
 import arrow
 import fire
@@ -77,6 +78,65 @@ container_tpl = """
 </div>
 </div>
 """
+
+mystAdmons = {
+    "info": "hint",
+    "hint": "hint",
+    "warning": "warning",
+    "attention": "warning",
+    "note": "note",
+    "tip": "tip",
+    "failure": "error",
+    "more": "seealso",
+    "important": "important",
+    "bug": "error",
+}
+
+def seek_adnomition_end(i, lines):
+    for m in range(i, len(lines)):
+        # 防止在!!! tip之后出现空行
+        if lines[m] == "":
+            continue
+
+        if not (lines[m].startswith("    ") or lines[m].startswith("\t")):
+            return m
+
+def replace_adnomition(lines, i, m):
+    """replace indented lines to myst adnomition due to myst 2.4.2 bug"""
+    matched = re.search(r"(tip|warning|note|attention|hint|more)", lines[i], flags=re.I)
+    tag = "note"
+    if matched is not None:
+        tag = mystAdmons.get(matched.group(1).lower())
+
+    content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
+    return [f"``` {{{tag}}}", *content, "```"]
+
+
+def to_myst_adnomition(lines: List[str]):
+    buffer = []
+    i: int = 0
+
+    for j in range(len(lines)):
+        if i >= len(lines):
+            break
+
+        line = lines[i]
+        if line.startswith("!!!"):
+            m = seek_adnomition_end(i + 1, lines)
+            repl = replace_adnomition(lines, i, m)
+
+            buffer.extend(repl)
+            i = m
+            continue
+        else:
+            buffer.append(line)
+            i += 1
+
+    return buffer
+
+def strip_html_comments(content: str) -> str:
+    return re.sub(r"<!--.*?-->", "", content, flags=re.DOTALL)
+
 
 def random_pictures():
     return random.choice(pictures)
@@ -278,8 +338,64 @@ def publish():
     cmd = "mkdocs gh-deploy"
     execute(cmd)
 
+def convert_to_ipynb(in_file: str):
+    stem = os.path.splitext(os.path.basename(in_file))[0]
+
+    preprocessed = os.path.join("/tmp/", f"{stem}.md")
+    preprocess(in_file, preprocessed)
+
+    if out_file is None:
+        out_dir = os.path.dirname(in_file)
+        out_file = os.path.join(out_dir, f"{stem}.ipynb")
+    print(f"converting {preprocessed} to {out_file}")
+
+    os.system(f"notedown --match=python {preprocessed} > {out_file}")
+    # cmd = f"pandoc -f markdown -t ipynb {preprocessed} -o {out_file}"
+    # os.system(cmd)
+    return out_file
+def paid(src, dst):
+    """隐藏付费内容
+    
+    1. 将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
+    2. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
+    """
+    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype="">加入星球，查看源码，持续更新量化策略</a>'
+    root = os.path.dirname(__file__)
+    src = os.path.join(root, src)
+
+    # 先备份
+    execute("git add .")
+
+    # 发布到研究环境
+    with open(src, "r", encoding='utf-8') as f:
+        content = f.read()
+        lines = strip_html_comments(content).split("\n")
+        lines = to_myst_adnomition(lines)
+
+    filename = os.path.basename(src)
+    out_md = os.path.join("/tmp", filename)
+    with open(out_md, "w", encoding="utf-8") as f:
+        f.writelines("\n".join(lines))
+
+    out_ipynb = out_md.replace(".md", ".ipynb")
+    os.system(f"notedown --match=python {out_md} > {out_ipynb}")
+    print(f"copy {out_ipynb} to research:{dst}")
+    os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
+
+    # 准备发布到网站、公众号的内容
+    pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
+                         re.DOTALL)
+
+    def replace_paid_content(match):
+        return f"{prompt}\n<!--PAID CONTENT START-->\n<!--{match.group(1)}-->\n<!--PAID CONTENT END-->"
+
+    new_content = pattern.sub(replace_paid_content, content)
+    with open(src, "w", encoding='utf-8') as f:
+        f.write(new_content)
+
 if __name__ == "__main__":
     fire.Fire({
         "build": build,
-        "publish": publish
+        "publish": publish,
+        "paid": paid
     })
