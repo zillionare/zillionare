@@ -137,6 +137,11 @@ def to_myst_adnomition(lines: List[str]):
 def strip_html_comments(content: str) -> str:
     return re.sub(r"<!--.*?-->", "", content, flags=re.DOTALL)
 
+def strip_output(content: str) ->str:
+    """部分输出结果在文章页面是以图片展示的。转换为ipynb前，需要去掉"""
+    pattern = r'<!-- BEGIN IPYNB STRIPOUT -->.*?<!-- END IPYNB STRIPOUT -->'
+    # 使用 re.sub 替换匹配的内容
+    return re.sub(pattern, "", content, flags=re.DOTALL)
 
 def random_pictures():
     return random.choice(pictures)
@@ -353,7 +358,7 @@ def convert_to_ipynb(in_file: str):
     # cmd = f"pandoc -f markdown -t ipynb {preprocessed} -o {out_file}"
     # os.system(cmd)
     return out_file
-def paid(src, dst, preview=True):
+def paid(src, dst, preview=False):
     """隐藏付费内容
 
     Args:
@@ -361,10 +366,11 @@ def paid(src, dst, preview=True):
         dst: 因子，算法和策略, Numpy&Pandas中的一个
         preview: 是否在浏览器中预览
     
-    1. 将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
-    2. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
+    1. 将<!-- BEGIN IPYNB STRIPOUT -->与<!-- BEGIN IPYNB STRIPOUT -->之间的内容删除
+    2. 基于1，将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
+    3. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
     """
-    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype="">加入星球，查看源码，持续更新量化策略</a>'
+    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype=""><div><img src="https://images.jieyu.ai/images/hot/logo/zsxq.png"><div style="width:100%;text-align:center;color:blue">点击链接|扫码 加入星球，解锁代码</div></div></a>'
     root = os.path.dirname(__file__)
     src = os.path.join(root, src)
 
@@ -374,7 +380,7 @@ def paid(src, dst, preview=True):
     # 发布到研究环境
     with open(src, "r", encoding='utf-8') as f:
         content = f.read()
-        lines = strip_html_comments(content).split("\n")
+        lines = strip_html_comments(strip_output(content)).split("\n")
         lines = to_myst_adnomition(lines)
 
     filename = os.path.basename(src)
@@ -393,9 +399,17 @@ def paid(src, dst, preview=True):
                          re.DOTALL)
 
     def replace_paid_content(match):
-        return f"{prompt}\n<!--PAID CONTENT START-->\n<!--{match.group(1)}-->\n<!--PAID CONTENT END-->"
+        code = match.group(1).split("\n")[:10]
+        code.extend(["...",
+                     "余下代码，请加入星球后阅读",
+                     "```\n"])
+        code = "\n".join(code)
+        return f"<!--PAID CONTENT START-->\n" \
+               f"{code}\n{prompt}\n" \
+               f"<!--PAID CONTENT END-->"
 
     new_content = pattern.sub(replace_paid_content, content)
+
     with open(src, "w", encoding='utf-8') as f:
         f.write(new_content)
 
