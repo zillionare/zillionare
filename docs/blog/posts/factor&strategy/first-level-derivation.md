@@ -202,7 +202,9 @@ plt.show()
 
 不过，在构建机器学习模型之前，我们可以先用这个特性构建一个因子。
 
+<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype="">点击查看源码</a>
 <!--PAID CONTENT START-->
+<!--
 ```python
 def calc_first_derivative(df, win:int):
     df["log"] = np.log(df.close)
@@ -214,6 +216,7 @@ end = datetime.date(2023,12,31)
 np.random.seed(78)
 _ = alphatest(2000, start, end, calc_factor = lambda x: calc_first_derivative(x, 10), top=9, long_short=False)
 ```
+-->
 <!--PAID CONTENT END-->
 
 我使用2018年到2023年间随机抽取的2000支个股，进行了因子验证，得到以下结果：
@@ -264,7 +267,9 @@ John Ehler在[这篇文章](https://www.mesasoftware.com/papers/RECURRING%20PHAS
 
 不过，我完成了一个类似的研究。这个研究旨在揭示fft变换之后的直流分量的意义。
 
+<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype="">点击查看源码</a>
 <!--PAID CONTENT START-->
+<!--
 
 ```python
 waves = np.fft.fft(y)
@@ -294,6 +299,7 @@ labels = ["y", "y2", "差分"]
 lines = [line1, line2, line3]
 plt.legend(lines, labels, loc="upper left")
 ```
+-->
 <!--PAID CONTENT END-->
 
 对图1中的时间序列进行fft变换后，去掉直流分量，再逆变换回来，将两者进行对比，我们会得到这样的一个图:

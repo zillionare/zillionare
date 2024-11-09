@@ -353,8 +353,13 @@ def convert_to_ipynb(in_file: str):
     # cmd = f"pandoc -f markdown -t ipynb {preprocessed} -o {out_file}"
     # os.system(cmd)
     return out_file
-def paid(src, dst):
+def paid(src, dst, preview=True):
     """隐藏付费内容
+
+    Args:
+        src: 输入文章路径
+        dst: 因子，算法和策略, Numpy&Pandas中的一个
+        preview: 是否在浏览器中预览
     
     1. 将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
     2. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
@@ -379,8 +384,9 @@ def paid(src, dst):
 
     out_ipynb = out_md.replace(".md", ".ipynb")
     os.system(f"notedown --match=python {out_md} > {out_ipynb}")
-    print(f"copy {out_ipynb} to research:{dst}")
-    os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
+    if not preview:
+        print(f"copy {out_ipynb} to research:{dst}")
+        os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
 
     # 准备发布到网站、公众号的内容
     pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
