@@ -370,7 +370,7 @@ def paid(src, dst, preview=False):
     2. 基于1，将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
     3. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
     """
-    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype=""><div><img src="https://images.jieyu.ai/images/hot/logo/zsxq.png"><div style="width:100%;text-align:center;color:blue">点击链接|扫码 加入星球，解锁代码</div></div></a>'
+    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype=""><div><img src="https://images.jieyu.ai/images/hot/logo/zsxq.png"><div style="width:100%;text-align:center;color:blue">完整代码在星球中。点击链接|扫码 加入星球，即可解锁</div></div></a>'
     root = os.path.dirname(__file__)
     src = os.path.join(root, src)
 
