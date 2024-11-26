@@ -10,12 +10,6 @@ stamp_height: 60%
 tags: [factor, strategy, herd-behaviour]
 ---
 
-<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/starry-night.jpg'>
-<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>因为黑夜，更能看见满天星光 | ©️ Nathan Jennings</span>
-</div>
-
-
 
 今天跟一位朋友聊天，他想换到量化行业，有点担心是否有点为时已晚，又或者大环境不好。于是我用这句话鼓励他：
 

@@ -1,4 +1,12 @@
 ---
+title: 周一到周五，哪天能买股？做对了夏普22.5！
+img: https://images.jieyu.ai/images/university/caltech-Annenberg_center.jpg
+date: 2024-11-24
+category: factor&strategy
+slug: week-day-factor
+stamp_width: 60%
+stamp_height: 60%
+tags: [factor,strategy]
 ---
 
 在第12课我们讲了如何从量、价、时、空四个维度来拓展因子（或者策略）。在时间维度上，我们指出从周一到周五，不同的时间点买入，收益是不一样的。这篇文章我们就来揭示下，究竟哪一天买入收益更高。

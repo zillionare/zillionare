@@ -148,7 +148,7 @@ import jieba
 from collections import Counter
 import time
 
-data_home = "/tmp/news"
+data_home = "/data/news"
 def init():
     stocks = get_stock_list(datetime.date(2024,11,1), code_only=False)
     stocks = set(stocks.name)
@@ -170,31 +170,6 @@ def count_words(news, stocks)->pd.DataFrame:
     df.set_index('date', inplace=True)
 
     return df
-
-def fetch_news(start, end):
-    # tushare对新闻接口调用次数及单次返回的新闻条数都有限制
-    start_ = start.strftime('%Y%m%d')
-    end_ = end.strftime('%Y%m%d')
-
-    for i in range(1000):
-        offset = i * 1000
-        df = pro.news(**{
-            "start_date": start_,
-            "end_date": end_,
-            "src": "sina",
-            "limit": 1000,
-            "offset": offset
-        }, fields=[
-            "datetime",
-            "content",
-            "title",
-            "channels",
-            "score"
-        ])
-
-        df.to_csv(os.path.join(data_home, f"{start_}_{end_}.news.csv"))
-        if len(df) == 0:
-            break
 
 def count_words_in_files(stocks, ma_groups=None):
     ma_groups = ma_groups or [30, 60, 250]
@@ -219,11 +194,47 @@ def count_words_in_files(stocks, ma_groups=None):
     
     return df.sort_index(), unstacked.sort_index()
 
+def retry_fetch(start, end, offset):
+    i = 1
+    while True:
+        try:
+            df =pro.news(**{
+                "start_date": start,
+                "end_date": end,
+                "src": "sina",
+                "limit": 1000,
+                "offset": offset
+            }, fields=[
+                "datetime",
+                "content",
+                "title",
+                "channels",
+                "score"])
+            return df
+        except Exception as e:
+            print(f"fetch_new failed, retry after {i} hours")
+            time.sleep(i * 3600)
+            i = min(i*2, 10)
+
+def fetch_news(start, end):
+    for i in range(1000):
+        offset = i * 1000
+        df = retry_fetch(start, end, offset)
+
+        df_start = arrow.get(df.iloc[0]["datetime"]).format("YYYYMMDD_HHmmss")
+        df_end = arrow.get(df.iloc[-1]["datetime"]).format("YYYYMMDD_HHmmss")
+        df.to_csv(os.path.join(data_home, f"{df_start}_{df_end}.news.csv"))
+        if len(df) == 0:
+            break
+
+        # tushare对新闻接口调用次数及单次返回的新闻条数都有限制
+        time.sleep(3.5 * 60)
+
 stocks = init()
 start = datetime.date(2023, 1, 4)
-end = datetime.date(2023, 12, 30)
-# fetch_news(start, end)
-factor, raw = count_words_in_files(stocks)
+end = datetime.date(2024, 11, 20)
+fetch_news(start, end)
+# factor, raw = count_words_in_files(stocks)
 ```
 
 最终因子化要通过factor["count"]/factor["ma_30"]来计算并执行rank，这里的ma_30可以替换为ma_60, ma_250等。

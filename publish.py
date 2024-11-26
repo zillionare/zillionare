@@ -375,7 +375,8 @@ def paid(src, dst, preview=False):
     src = os.path.join(root, src)
 
     # 先备份
-    execute("git add .")
+    execute(f"git add {src}")
+    execute(f"git commit -m {src}")
 
     # 发布到研究环境
     with open(src, "r", encoding='utf-8') as f:
@@ -410,7 +411,7 @@ def paid(src, dst, preview=False):
 
     new_content = pattern.sub(replace_paid_content, content)
 
-    with open(src, "w", encoding='utf-8') as f:
+    with open(out_md, "w", encoding='utf-8') as f:
         f.write(new_content)
 
 if __name__ == "__main__":
