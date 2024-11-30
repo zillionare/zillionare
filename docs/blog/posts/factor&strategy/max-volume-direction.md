@@ -10,6 +10,12 @@ stamp_height: 60%
 tags: [factor, strategy, herd-behaviour]
 ---
 
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2024/11/starry-night.jpg'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>因为黑夜，更能看见满天星光 | ©️ Nathan Jennings</span>
+</div>
+
+
 
 今天跟一位朋友聊天，他想换到量化行业，有点担心是否有点为时已晚，又或者大环境不好。于是我用这句话鼓励他：
 
@@ -79,20 +85,35 @@ Banz 用到的数据来自 1926 年到 1975 年。这些数据就在芝大的 CR
 
 <!--PAID CONTENT START-->
 
-
-
-
 ```python
-def max_volume_direction(df_, win=40):
-    df = df_.copy()
-    df.index = np.arange(len(df))
-    df["flag"] = np.select([df["close"] > df["open"], df["close"] < df["open"]], [1, -1], 0)
-    df["move_vol_avg"] = df["volume"].rolling(window=win, min_periods=win).mean().shift(1)
-...
-余下代码，请加入星球后阅读
-```
+import pandas as pd
 
-<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype=""><div><img src="https://images.jieyu.ai/images/hot/logo/zsxq.png"><div style="width:100%;text-align:center;color:blue">完整代码在星球中。点击链接|扫码 加入星球，即可解锁</div></div></a>
+def max_volume_direction(df, win=40):
+    df["flag"] = np.select([
+        df["close"] > df["open"],
+        df["close"] < df["open"]
+    ], [1, -1], 0)
+    df["move_vol_avg"] = df["volume"].rolling(window=win, min_periods=win).mean().shift(1)
+    df["argmax"] = df['volume'].rolling(win, min_periods=win).apply(lambda x: x.idxmax())
+    df.fillna(0, inplace=True)
+    df["move_vol_max"] = df.apply(lambda row: df.loc[row['argmax'], 'volume'], axis=1)
+    df['vr'] = df['move_vol_max'] / df['move_vol_avg'] * df["flag"]
+    df["span"] = df.index - df["argmax"]
+
+    def calc_rolling_net_balance(df):
+        pos = df["argmax"].iloc[-1] + 1
+        sub = df.loc[pos:,]
+        return (sub["flag"] * sub["volume"]).sum() / df["move_vol_max"].iloc[-1]
+
+    balances = []
+    for sub in df.rolling(win):
+        b = calc_rolling_net_balance(sub)
+        balances.append(b)
+
+    df["move_balance"] = balances
+
+    return df[["vr", "move_balance", "span"]]
+```
 <!--PAID CONTENT END-->
 
 这段代码的逻辑是，如果某个bar的成交量相对于过去一段时间的平均成交量异常放大（用该bar的成交量除以平均成交量，记为vr），那么它就可能是主力的操作。我们认为，该根bar的方向，有较大概率是此后主力的运作方向。
@@ -104,39 +125,64 @@ def max_volume_direction(df_, win=40):
 我们拿一个样本测试一下：
 
 ```python
-def test(bars, thresh=5):
-    df = max_volume_direction(bars, 40)
+import akshare as ak
+def test(df):
+    df["volume"] = df["volume"].astype(int)
+    max_volume_direction(df, 5)
 
-    cs = Candlestick(bars, height=750)
-    # add up markers
-    x = df[df.vr > thresh].index
-    y = df[df.vr > thresh]["close"] * 1.05
-    cs.add_marks(x, y, name="up", marker="triangle-up")
+    _, ax = plt.subplots(figsize=(20, 10))
+    ax.plot(df["day"], df["close"])
 
-    # add down markers
-    x = df[df.vr < -thresh].index
-    y = df[df.vr < -thresh]["close"] * 0.95
-    cs.add_marks(x, y, name="down", marker="triangle-down", color="green")
+    x = df[df.vr > 4].index
+    y = df[df.vr > 4]["close"]
+    color = 'r'
+    ax.scatter(x, y, c=color, marker="^", s=100)
+    for i in x:
+        row = df.iloc[i]
+        ax.text(i, 
+                y[i], 
+                f"{row.vr:.1f} {row['day'][5:16]}", 
+                fontsize=24, 
+                color=color)
 
-    cs.plot()
+    x = df[df.vr < -4].index
+    y = df[df.vr < -4]["close"]
+    color = 'g'
+    ax.scatter(x, y, c=color, marker="v", s=100)
+    for i in x:
+        row = df.iloc[i]
+        ax.text(i, 
+                y[i], 
+                f"{row.vr:.1f} {row['day'][5:16]}", 
+                fontsize=24, 
+                color=color)
 
-code = "sz002466"
-bars = ak.stock_zh_a_minute(symbol=code, period="30", adjust="qfq")
-bars = bars[-150:].copy()
+    ticks = range(0, len(df), 8)
+    labels = df['day'].iloc[ticks]
+    plt.xticks(ticks, labels, rotation=45, ha='right')
+    plt.show()
 
-bars.set_index("day", inplace=True)
-bars["volume"] = bars.volume.astype(int)
+code = "sz000001"
+df = ak.stock_zh_a_minute(symbol=code, period="30", adjust="qfq")
+df = df[-240:].copy()
+df.index = np.arange(240)
 
-test(bars)
+test(df)
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/11/zlyz-tqly.jpg)
+![](https://images.jieyu.ai/images/2024/11/max-volume-direction-payh.png)
 <!-- END IPYNB STRIPOUT -->
 
-在测试中，我们设置vr的阈值为5。在一些比较激进的个股上，设置为8以上可能效果会更好。
+在测试中，我们设置vr的阈值为4。在一些比较激进的个股上，设置为8以上可能效果会更好。
 
-在示例中，我们看到三个向上箭头。其中前两个出现后，随后股价下跌，但反向成交量很小，表明没有对手抛盘。于是主力随后又进行了拉升。第三个箭头出现后，此后出现了比较明显的抛压信号（墓碑线），随后股价下跌。
+在这个简单的例子中，效果比较明显。最初的几个标记需要忽略，因为存在冷启动期。但从9月30日10时起，我们看到：
 
-当然，我们还需要对其进行大规模的测试。这些正是《因子分析与机器学习策略》要介绍的内容。在因子创新上，我们从量、价、时、空四个维度，都给出了创新的思路和方向，保持关注，持续为你更新！
+1. 9月30日10时， 主力的方向是进攻，连续上涨
+2. 10月8日10时，主力的方向是下杀，多头抵抗了一段时间，最终下跌
+3. 10月14日10时，主力下杀，短期下跌，随后小幅上涨、横盘，最终下跌
+4. 10月21日10时，主力下杀，强化了前一个信号。
+5. 11月12日10时，主力上攻，未来走势还可以再看看。
+
+当然，重要的是我们自己找到策略思路，并且能用程序的语言将其验证并实施。这些正是《因子分析与机器学习策略》要介绍的内容。在因子创新上，我们从量、价、时、空四个维度，都给出了创新的思路和方向，保持关注，持续为你更新！
 
