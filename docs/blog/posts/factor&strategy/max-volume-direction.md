@@ -89,15 +89,18 @@ Banz 用到的数据来自 1926 年到 1975 年。这些数据就在芝大的 CR
 import pandas as pd
 
 def max_volume_direction(df, win=40):
+    old_index = df.index.copy()
+    df = df.reset_index().set_index(np.arange(len(df)))
     df["flag"] = np.select([
         df["close"] > df["open"],
         df["close"] < df["open"]
     ], [1, -1], 0)
+
     df["move_vol_avg"] = df["volume"].rolling(window=win, min_periods=win).mean().shift(1)
     df["argmax"] = df['volume'].rolling(win, min_periods=win).apply(lambda x: x.idxmax())
     df.fillna(0, inplace=True)
     df["move_vol_max"] = df.apply(lambda row: df.loc[row['argmax'], 'volume'], axis=1)
-    df['vr'] = df['move_vol_max'] / df['move_vol_avg'] * df["flag"]
+    df['vr'] = df['volume'] / df['move_vol_avg'] * df["flag"]
     df["span"] = df.index - df["argmax"]
 
     def calc_rolling_net_balance(df):
@@ -112,7 +115,7 @@ def max_volume_direction(df, win=40):
 
     df["move_balance"] = balances
 
-    return df[["vr", "move_balance", "span"]]
+    return df[["vr", "move_balance", "span"]].set_index(old_index)
 ```
 <!--PAID CONTENT END-->
 
@@ -125,11 +128,15 @@ def max_volume_direction(df, win=40):
 我们拿一个样本测试一下：
 
 ```python
+import akshare as ak
 def test(bars, thresh=5):
+    bars.index = np.arange(len(bars))
     df = max_volume_direction(bars, 40)
 
+    bars.rename(columns={"day": "date"}, inplace=True)
     cs = Candlestick(bars, height=750)
     # add up markers
+    df["close"] = bars["close"]
     x = df[df.vr > thresh].index
     y = df[df.vr > thresh]["close"] * 1.05
     cs.add_marks(x, y, name="up", marker="triangle-up")
@@ -145,15 +152,16 @@ code = "sz002466"
 bars = ak.stock_zh_a_minute(symbol=code, period="30", adjust="qfq")
 bars = bars[-150:].copy()
 
-bars.set_index("day", inplace=True)
 bars["volume"] = bars.volume.astype(int)
 
 test(bars)
 ```
 
-<!-- BEGIN IPYNB STRIPOUT -->
+```attention
+    由于akshare无法按时间段获取30分钟线，并且只能获取固定长度的30分钟线（更早的会丢弃）k线，所以，这段代码运行的结果将会与下图不同。
+```
+
 ![](https://images.jieyu.ai/images/2024/11/zlyz-tqly.jpg)
-<!-- END IPYNB STRIPOUT -->
 
 在测试中，我们设置vr的阈值为5。在一些比较激进的个股上，设置为8以上可能效果会更好。
 
