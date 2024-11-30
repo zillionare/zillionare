@@ -137,13 +137,13 @@ def test(bars, thresh=5):
     cs = Candlestick(bars, height=750)
     # add up markers
     df["close"] = bars["close"]
-    x = df[df.vr > thresh].index
-    y = df[df.vr > thresh]["close"] * 1.05
+    x = df[np.isfinite(df.vr) & (df.vr > thresh)].index
+    y = df[np.isfinite(df.vr) & (df.vr > thresh)]["close"] * 1.05
     cs.add_marks(x, y, name="up", marker="triangle-up")
 
     # add down markers
-    x = df[df.vr < -thresh].index
-    y = df[df.vr < -thresh]["close"] * 0.95
+    x = df[np.isfinite(df.vr) & (df.vr < -thresh)].index
+    y = df[np.isfinite(df.vr) & (df.vr < -thresh)]["close"] * 0.95
     cs.add_marks(x, y, name="down", marker="triangle-down", color="green")
 
     cs.plot()
@@ -157,9 +157,8 @@ bars["volume"] = bars.volume.astype(int)
 test(bars)
 ```
 
-```attention
+!!! attention
     由于akshare无法按时间段获取30分钟线，并且只能获取固定长度的30分钟线（更早的会丢弃）k线，所以，这段代码运行的结果将会与下图不同。
-```
 
 ![](https://images.jieyu.ai/images/2024/11/zlyz-tqly.jpg)
 
