@@ -148,7 +148,7 @@ import jieba
 from collections import Counter
 import time
 
-data_home = "/data/news"
+data_home = "/tmp/news"
 def init():
     stocks = get_stock_list(datetime.date(2024,11,1), code_only=False)
     stocks = set(stocks.name)
@@ -159,12 +159,18 @@ def init():
 
 def count_words(news, stocks)->pd.DataFrame:
     data = []
-    for dt, content, _ in news.to_records(index=False):
-        words = jieba.cut(content)
-        word_counts = Counter(words)
-        for word, count in word_counts.items():
-            if word in stocks:
-                data.append((dt, word, count))
+    for dt, content, *_ in news.to_records(index=False):
+        if content is None or not isinstance(content, str):
+            continue
+
+        try:
+            words = jieba.cut(content)
+            word_counts = Counter(words)
+            for word, count in word_counts.items():
+                if word in stocks:
+                    data.append((dt, word, count))
+        except Exception as e:
+            print(dt, content)
     df = pd.DataFrame(data, columns=['date', 'word', 'count'])
     df["date"] = pd.to_datetime(df['date'])
     df.set_index('date', inplace=True)
@@ -240,3 +246,89 @@ factor, raw = count_words_in_files(stocks)
 最终因子化要通过factor["count"]/factor["ma_30"]来计算并执行rank，这里的ma_30可以替换为ma_60, ma_250等。
 
 
+<!--难点： jieba如何分词？ 英文天然是根据空格和标点符号来分词的，除了typo之外，分词都是准确的；但中文不同。-->
+
+## 发现新概念
+
+让我们把所有的新闻记录合并，按天切分。每一天的新闻称为一个document。我们再来找找看这些document里面有没有什么新词。
+
+```python
+def get_documents():
+    files = glob.glob(os.path.join(data_home, "*.news.csv"))
+    dfs = []
+    for file in files:
+        news = pd.read_csv(file, index_col=0)
+
+        dfs.append(news.set_index("datetime"))
+
+    df = pd.concat(dfs)
+    df.index = pd.to_datetime(df.index)
+    return df.dropna(subset=['content']).resample("D").agg({'content': '\n'.join})
+
+daily_docs = get_documents()
+```
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+import re
+
+def remove_numbers(text):
+    # 使用正则表达式移除所有数字（包括整数、小数和百分比）
+    return re.sub(r'\d+(\.\d+)?%?', '', text)
+
+def jieba_tokenizer(text):
+    text = remove_numbers(text)
+    return list(jieba.cut(text))
+
+def find_new_words_with_tfidf(daily_docs):
+    vectorizer = TfidfVectorizer(tokenizer=jieba_tokenizer)
+    tfidf_matrix = vectorizer.fit_transform(daily_docs['content'])
+    feature_names = vectorizer.get_feature_names_out()
+    
+    new_words_per_day = {}
+    seen_words = set()
+    
+    for i, date in enumerate(daily_docs.index):
+        # 获取当天的 TF-IDF 向量
+        tfidf_vector = tfidf_matrix[i].toarray().flatten()
+        
+        # 获取当天的词及其对应的 TF-IDF 值
+        word_tfidf_dict = dict(zip(feature_names, tfidf_vector))
+        
+        # 只保留当天比较重要的词：使用 TF-IDF 值的 24% 分位数
+        tfidf_values = np.array(list(word_tfidf_dict.values()))
+        threshold = np.percentile(tfidf_values, 25)
+
+        important = {word: score for word, score in word_tfidf_dict.items() if score >= threshold}
+        
+        # 获取当天的新词
+        new_words = set(important.keys()) - seen_words
+        
+        # 更新已见词集合
+        seen_words.update(word_tfidf_dict.keys())
+    
+        # 存储当天的新词
+        new_words_per_day[date] = new_words
+    
+    return new_words_per_day
+
+# 找出新词
+new_words_per_day = find_new_words_with_tfidf(daily_docs)
+
+# 查看结果
+for date, new_words in new_words_per_day.items():
+    print(f"Date: {date}, New Words: {new_words}")
+```
+
+```python
+# 查看结果
+for date, new_words in new_words_per_day.items():
+    if "谷子" in new_words:
+        print(f"Date: {date}, {len(new_words)}", new_words)
+
+# df = pd.DataFrame([(date, len(new_words)) for date, new_words in new_words_per_day.items()],columns=["date", "new_words"])
+
+# df.set_index("date", inplace=True)
+# df["m7"] = df["new_words"].rolling(7).mean()
+# df.plot()
+```
