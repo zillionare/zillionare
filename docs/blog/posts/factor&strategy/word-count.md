@@ -224,6 +224,9 @@ news = pro.news(src='sina',
 我们把获取的新闻数据先保存到本地，以免后面还可能进行其它挖掘：
 
 ````markdown
+
+请在本地尝试以下代码，不要在Quantide Reseach环境中运行！！
+
 ```python
 def retry_fetch(start, end, offset):
     i = 1
