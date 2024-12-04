@@ -104,7 +104,10 @@ $$
 
 插播一则招人启事，这是我司新办公地：
 
-![](https://images.jieyu.ai/images/hot/my-company.jpg)
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/hot/my-company.jpg'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
+</div>
 
 新场子肯定缺人。但这个地方还在注册中，所以提前发招聘信息，算是粉丝福利。
 
