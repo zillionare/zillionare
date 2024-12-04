@@ -102,6 +102,7 @@ $$
 
 比如，『可以清心也』这几个字，可以排列成『以清心也可』，也可以排列成『心也可以清』，或者『清心也可以』，都是语句通顺的文章。
 
+<!-- BEGIN IPYNB STRIPOUT -->
 插播一则招人启事，这是我司新办公地：
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
@@ -113,6 +114,8 @@ $$
 
 !!! info
     急招课程助理（武汉高校，三个月以上实习生可）若干人。课程助理要求有一定的量化基础，能编辑一些量化方向的文章，热爱学习，有自媒体经验更好。
+
+<!-- END IPYNB STRIPOUT -->
 
 在实际应用中，我们可以使用 sklearn 的 TfidfVectorizer 来实现 TF-IDF 的计算：
 
