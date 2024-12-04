@@ -223,32 +223,45 @@ news = pro.news(src='sina',
 
 我们把获取的新闻数据先保存到本地，以免后面还可能进行其它挖掘：
 
+````markdown
 ```python
+def retry_fetch(start, end, offset):
+    i = 1
+    while True:
+        try:
+            df =pro.news(**{
+                "start_date": start,
+                "end_date": end,
+                "src": "sina",
+                "limit": 1000,
+                "offset": offset
+            }, fields=[
+                "datetime",
+                "content",
+                "title",
+                "channels",
+                "score"])
+            return df
+        except Exception as e:
+            print(f"fetch_new failed, retry after {i} hours")
+            time.sleep(i * 3600)
+            i = min(i*2, 10)
+
 def fetch_news(start, end):
-    # tushare 对新闻接口调用次数及单次返回的新闻条数都有限制
-    # 我们姑且设置为每 30 天做为一批次调用
-    # 如果是 production code，需要仔细调试这个限制，以免遗漏新闻
-    date_range = pd.date_range(start=start, end=end)
-    dates = pd.DataFrame([], index = date_range)
-    freq = '30D'
-    grouped = dates.groupby(pd.Grouper(freq=freq))
-    groups = [group for _, group in grouped][::-1]
+    for i in range(1000):
+        offset = i * 1000
+        df = retry_fetch(start, end, offset)
 
-    for group in groups:
-        period_start, period_end = group.index[0], group.index[-1]
-        start = period_start.strftime('%Y%m%d')
-        end = period_end.strftime('%Y%m%d')
+        df_start = arrow.get(df.iloc[0]["datetime"]).format("YYYYMMDD_HHmmss")
+        df_end = arrow.get(df.iloc[-1]["datetime"]).format("YYYYMMDD_HHmmss")
+        df.to_csv(os.path.join(data_home, f"{df_start}_{df_end}.news.csv"))
+        if len(df) == 0:
+            break
 
-        news = pro.news(src='sina', 
-                        date=start,
-                        end_date=end,
-        )
-
-        csv_file = os.path.join(data_home, f"{start}-{end}.news.csv")
-        news.to_csv(csv_file)
-        # 每小时能访问 20 次
-        time.sleep(181)
+        # tushare 对新闻接口调用次数及单次返回的新闻条数都有限制
+        time.sleep(3.5 * 60)
 ```
+````
 
 在统计新闻中上市公司出现的词频时，我们需要先给 jieba 增加自定义词典，以免出现分词错误。比如，如果不添加关键词『万科 A』，那么它一定会被 jieba 分解为万科和 A 两个词。
 
@@ -377,46 +390,7 @@ def count_words_in_files(stocks, ma_groups=None):
     
     return df.sort_index(), unstacked.sort_index()
 
-def retry_fetch(start, end, offset):
-    i = 1
-    while True:
-        try:
-            df =pro.news(**{
-                "start_date": start,
-                "end_date": end,
-                "src": "sina",
-                "limit": 1000,
-                "offset": offset
-            }, fields=[
-                "datetime",
-                "content",
-                "title",
-                "channels",
-                "score"])
-            return df
-        except Exception as e:
-            print(f"fetch_new failed, retry after {i} hours")
-            time.sleep(i * 3600)
-            i = min(i*2, 10)
-
-def fetch_news(start, end):
-    for i in range(1000):
-        offset = i * 1000
-        df = retry_fetch(start, end, offset)
-
-        df_start = arrow.get(df.iloc[0]["datetime"]).format("YYYYMMDD_HHmmss")
-        df_end = arrow.get(df.iloc[-1]["datetime"]).format("YYYYMMDD_HHmmss")
-        df.to_csv(os.path.join(data_home, f"{df_start}_{df_end}.news.csv"))
-        if len(df) == 0:
-            break
-
-        # tushare 对新闻接口调用次数及单次返回的新闻条数都有限制
-        time.sleep(3.5 * 60)
-
 stocks = init()
-start = datetime.date(2023, 1, 4)
-end = datetime.date(2024, 11, 20)
-# fetch_news(start, end)
 factor, raw = count_words_in_files(stocks)
 factor.tail(20)
 ```
@@ -429,9 +403,12 @@ factor.tail(20)
 
 尽管没有直接的结果，但是我们的研究演示了对文本数据如何建模的一个方法，也演示了如何使用TF-IDF，并且在因子化方向也比较有新意，希望能对读者有所启发。
 
+<!-- BEGIN IPYNB STRIPOUT -->
 我们已经抓取的新闻数据截止到今年的 8 月 20 日，每天都会往前追赶大约 10 天左右。这些数据和上述代码，可以在我们的 quantide research 平台上获取和运行。加入星球，即可获得平台账号。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://images.jieyu.ai/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
+<!-- END IPYNB STRIPOUT -->
+
