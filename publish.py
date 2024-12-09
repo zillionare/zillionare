@@ -358,7 +358,18 @@ def convert_to_ipynb(in_file: str):
     # cmd = f"pandoc -f markdown -t ipynb {preprocessed} -o {out_file}"
     # os.system(cmd)
     return out_file
-def paid(src, dst, preview=False):
+
+def fa(src, ipynb=True):
+    """隐藏付费内容
+    """
+    prompt = '![](https://images.jieyu.ai/images/hot/course/factor-ml/promotion.png)'
+    paid(src, None, prompt, preview=False, ipynb=ipynb)
+
+def xq(src, dst, preview=False):
+    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype=""><div><img src="https://images.jieyu.ai/images/hot/logo/zsxq.png"><div style="width:100%;text-align:center;color:blue">完整代码在星球中。点击链接|扫码 加入星球，即可解锁</div></div></a>'
+
+    paid(src, dst, prompt, preview, ipynb=True)
+def paid(src, dst, prompt='', preview=False, ipynb=True):
     """隐藏付费内容
 
     Args:
@@ -370,15 +381,9 @@ def paid(src, dst, preview=False):
     2. 基于1，将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
     3. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
     """
-    prompt = '<a class="weapp_text_link js_weapp_entry" style="font-size:17px;" data-miniprogram-appid="wx4f706964b979122a" data-miniprogram-path="pages/topics/topics?group_id=28885284828481" data-miniprogram-applink="" data-miniprogram-nickname="知识星球" href="" data-miniprogram-type="text" data-miniprogram-servicetype=""><div><img src="https://images.jieyu.ai/images/hot/logo/zsxq.png"><div style="width:100%;text-align:center;color:blue">完整代码在星球中。点击链接|扫码 加入星球，即可解锁</div></div></a>'
     root = os.path.dirname(__file__)
     src = os.path.join(root, src)
 
-    # 先备份
-    execute(f"git add {src}")
-    execute(f"git commit -m {src}")
-
-    # 发布到研究环境
     with open(src, "r", encoding='utf-8') as f:
         content = f.read()
         lines = strip_html_comments(strip_output(content)).split("\n")
@@ -389,25 +394,25 @@ def paid(src, dst, preview=False):
     with open(out_md, "w", encoding="utf-8") as f:
         f.writelines("\n".join(lines))
 
-    out_ipynb = out_md.replace(".md", ".ipynb")
-    os.system(f"notedown --match=python {out_md} > {out_ipynb}")
-    if not preview:
-        print(f"copy {out_ipynb} to research:{dst}")
-        os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
+    if ipynb:
+        out_ipynb = out_md.replace(".md", ".ipynb")
+        os.system(f"notedown --match=python {out_md} > {out_ipynb}")
+        if not preview:
+            print(f"copy {out_ipynb} to research:{dst}")
+            os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
 
     # 准备发布到网站、公众号的内容
     pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
                          re.DOTALL)
 
     def replace_paid_content(match):
-        code = match.group(1).split("\n")[:10]
-        code.extend(["...",
-                     "余下代码，请加入星球后阅读",
-                     "```\n"])
-        code = "\n".join(code)
-        return f"<!--PAID CONTENT START-->\n" \
-               f"{code}\n{prompt}\n" \
-               f"<!--PAID CONTENT END-->"
+        if getattr(replace_paid_content, 'called', False) == False:
+            replace_paid_content.called = True
+            return f"<!--PAID CONTENT START-->\n" \
+                f"{prompt}\n" \
+                f"<!--PAID CONTENT END-->"
+        else:
+            return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
 
     new_content = pattern.sub(replace_paid_content, content)
 
@@ -418,5 +423,6 @@ if __name__ == "__main__":
     fire.Fire({
         "build": build,
         "publish": publish,
-        "paid": paid
+        "xq": xq,
+        "fa": fa
     })

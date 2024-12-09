@@ -414,4 +414,3 @@ factor.tail(20)
 <span style='font-size:0.6rem'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
-
