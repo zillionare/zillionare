@@ -406,13 +406,14 @@ def paid(src, dst, prompt='', preview=False, ipynb=True):
                          re.DOTALL)
 
     def replace_paid_content(match):
-        if getattr(replace_paid_content, 'called', False) == False:
-            replace_paid_content.called = True
-            return f"<!--PAID CONTENT START-->\n" \
-                f"{prompt}\n" \
-                f"<!--PAID CONTENT END-->"
-        else:
-            return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
+        # if getattr(replace_paid_content, 'called', False) == False:
+        #     replace_paid_content.called = True
+        #     return f"<!--PAID CONTENT START-->\n" \
+        #         f"{prompt}\n" \
+        #         f"<!--PAID CONTENT END-->"
+        # else:
+        #     return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
+        return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
 
     new_content = pattern.sub(replace_paid_content, content)
 
