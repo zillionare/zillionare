@@ -27,7 +27,7 @@
 <img src="https://images.jieyu.ai/images/hot/mybook/book-with-course.png" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在第13课中，拿决策树介绍了机器学习的原理之后，有的学员已经积极开始思考，之前学习了那么多因子，但都是单因子模型，可否使用决策树模型把这些因子整合到一个策略里呢？<br><br>在与学员交流之后，我已经把思路进行了分享。这也是我们第13课的习题，我把参考答案跟大家分享一下。<br><br>预告一下，我们...</p>
 
-<p><span style="margin-right:20px">发表于 2024-12-6 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/12/06/machine-learning-made-decision-easy">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-12-06 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/12/06/machine-learning-made-decision-easy">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
