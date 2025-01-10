@@ -5,7 +5,7 @@
 <div>
 <h3>hdbscan 聚类算法扫描配对交易 速度提升99倍</h3>
 <img src="https://images.jieyu.ai/images/2025/01/quantfan-by-ai.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>配对交易是一种交易策略，由摩根士丹利的量化分析师农齐奥。塔尔塔里亚在 20 世纪 80 年代首创。他现在是意大利雅典娜资产管理公司的创始人。<br><br><div style='width:50%;text-align:center;margin: 0 auto 1rem'><br><img s...</p>
+<p><span>内容摘要:<br></span>配对交易是一种交易策略，由摩根士丹利的量化分析师农齐奥.塔尔塔里亚在 20 世纪 80 年代首创。他现在是意大利雅典娜资产管理公司的创始人。该策略涉及监控两只历史上相关性较强的证券，并监控两者之间的价格差。一旦价格差超出一个阈值（比如 n 倍的标准差），价格回归就是大概率事件，于是交易者就做空价格高的一支，做多价格低的一支，从而获利。</p>
 
 <p><span style="margin-right:20px">发表于 2025-01-07 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2025/01/07/hdbscan-to-find-pair-trade">点击阅读</a></span></p>
 
