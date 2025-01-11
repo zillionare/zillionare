@@ -5,7 +5,7 @@
 <div>
 <h3>hdbscan 聚类算法扫描配对交易 速度提升99倍</h3>
 <img src="https://images.jieyu.ai/images/2025/01/quantfan-by-ai.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>配对交易是一种交易策略，由摩根士丹利的量化分析师农齐奥。塔尔塔里亚在 20 世纪 80 年代首创。他现在是意大利雅典娜资产管理公司的创始人。<br><br><div style='width:50%;text-align:center;margin: 0 auto 1rem'><br><img s...</p>
+<p><span>内容摘要:<br></span>配对交易是一种交易策略，由摩根士丹利的量化分析师农齐奥.塔尔塔里亚在 20 世纪 80 年代首创。他现在是意大利雅典娜资产管理公司的创始人。该策略涉及监控两只历史上相关性较强的证券，并监控两者之间的价格差。一旦价格差超出一个阈值（比如 n 倍的标准差），价格回归就是大概率事件，于是交易者就做空价格高的一支，做多价格低的一支，从而获利。</p>
 
 <p><span style="margin-right:20px">发表于 2025-01-07 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2025/01/07/hdbscan-to-find-pair-trade">点击阅读</a></span></p>
 
@@ -27,7 +27,7 @@
 <img src="https://images.jieyu.ai/images/hot/mybook/book-with-course.png" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>在第13课中，拿决策树介绍了机器学习的原理之后，有的学员已经积极开始思考，之前学习了那么多因子，但都是单因子模型，可否使用决策树模型把这些因子整合到一个策略里呢？<br><br>在与学员交流之后，我已经把思路进行了分享。这也是我们第13课的习题，我把参考答案跟大家分享一下。<br><br>预告一下，我们...</p>
 
-<p><span style="margin-right:20px">发表于 2024-12-6 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/12/06/machine-learning-made-decision-easy">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2024-12-06 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2024/12/06/machine-learning-made-decision-easy">点击阅读</a></span></p>
 
 </div><!--end-article-->
 

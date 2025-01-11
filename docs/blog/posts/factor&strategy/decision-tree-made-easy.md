@@ -1,6 +1,6 @@
 ---
 title: 如果模型预测准确率超过85%，这台印钞机应该值多少马内？
-date: 2024-12-6
+date: 2024-12-06
 category: factor&strategy
 slug: machine-learning-made-decision-easy
 motto: 
