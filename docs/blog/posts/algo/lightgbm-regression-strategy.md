@@ -270,6 +270,66 @@ print(y_pred)
 
 所以，要增强lightgbm的预测能力，我们必须改进特征，把提取出来的规律喂给它。lightgbm能帮助我们的在于，它能知道每个规律的统计分布，知道如何平衡多个特征的影响。
 
+## 有效评估指标
+
+在v0版中，我们还看到一个问题，就是传统的评估指标对量化交易并没有什么效果。**因为模型只是拿昨天的收盘价糊弄了一下，数据就并没有很差**。即使我们训练出一个模型，它的mape指标（这已经是很多论文推荐的适合量化的指标了）降到0.5%，又能如何？我们心里一样没底。
+
+所以，我们需要根据交易的需要，自己发明『有效的』评估指标。
+
+```python
+def eval_model(model, X_test, data, long_threshold = 0.02, show_trace=False):
+    df = data.rename(columns={"c1": "prev", "target": "actual"})
+    df = df.loc[X_test.index]
+    
+    concern_cols = ["date", "asset", "prev", "actual", "pred" ,"pred_ret", "ret"]
+    df["pred"] = model.predict(X_test.values)
+    
+    error = mean_absolute_percentage_error(df["actual"], df["pred"])
+
+    print(f"mape is {error:.3f}")
+                                       
+    df["pred_ret"] = df["pred"]/df["prev"] - 1
+
+    long_df = df.query(f"pred_ret > {long_threshold}")
+
+    print(f'actual p&l {long_df["ret"].mean():.2%}')
+
+    if show_trace:
+        symbols = long_df["asset"].unique()[:9]
+        fig, axes = plt.subplots(3, 3, figsize=(12, 6))
+        axes = axes.flatten()
+        
+        for i, symbol in enumerate(symbols):
+            bars = df.query(f"asset == '{symbol}'")
+            axes[i].plot(bars[["actual", "pred"]], label=["actual", "pred"])
+
+            # mark signals
+            x = bars.query(f"pred_ret > {long_threshold}").index
+            y = bars.loc[x]["pred"]
+            axes[i].scatter(x, y, marker='x', color='red')
+            axes[i].set_title(symbol)
+            axes[i].legend()
+        plt.tight_layout()
+        
+    return long_df[concern_cols]
+
+eval_model(model, X_test, data, show_trace = True)
+```
+
+这个函数的主要功能有这样几点：
+1. 计算出mape指标
+2. 计算在预测收益大于指标阈值时，以t0收盘价买入，t1收盘价卖出，得到的p&l均值。这才是我们要追求的目标。
+3. 对预测收益大于指标阈值的样本，随机挑选几支进行可视化。
+
+<div style='width:75%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://images.jieyu.ai/images/2025/01/blog-17-eval-model-output.jpg'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>eval model的可视化</span>
+</div>
+这个评估指标合理多了。毕竟，在实际交易中，我们只会关注那些预测上涨较多的样本。如果这部分样本预测结果正确，那么模型就是有效的。
+
+现在，根据新的评估函数，之前的模型在2023年11月到12月期间，mape值为0.017，但如果你挑预测上涨2%的个股买入，平均每次能亏0.73%。
+
+lightgbm是个好算法，但它不是银弹，更没有点石成金的魔法。
 
 ## v1: 增强特征工程
 
