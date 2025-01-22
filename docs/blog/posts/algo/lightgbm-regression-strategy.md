@@ -277,11 +277,12 @@ print(y_pred)
 所以，我们需要根据交易的需要，自己发明『有效的』评估指标。
 
 ```python
-def eval_model(model, X_test, data, long_threshold = 0.02, show_trace=False):
+from matplotlib.dates import WeekdayLocator
+
+def eval_model(model, X_test, data, long_threshold = 0.02, traces:int = 0):
     df = data.rename(columns={"c1": "prev", "target": "actual"})
     df = df.loc[X_test.index]
     
-    concern_cols = ["date", "asset", "prev", "actual", "pred" ,"pred_ret", "ret"]
     df["pred"] = model.predict(X_test.values)
     
     error = mean_absolute_percentage_error(df["actual"], df["pred"])
@@ -294,26 +295,39 @@ def eval_model(model, X_test, data, long_threshold = 0.02, show_trace=False):
 
     print(f'actual p&l {long_df["ret"].mean():.2%}')
 
-    if show_trace:
-        symbols = long_df["asset"].unique()[:9]
-        fig, axes = plt.subplots(3, 3, figsize=(12, 6))
+    if traces > 0:
+        row = int(np.sqrt(traces))
+        col = int(traces / row)
+
+        if row * col < traces:
+            row += 1
+
+        symbols = long_df["asset"].unique()[:traces]
+        _, axes = plt.subplots(row, col, figsize=(row * 4, col * 2))
         axes = axes.flatten()
         
         for i, symbol in enumerate(symbols):
-            bars = df.query(f"asset == '{symbol}'")
-            axes[i].plot(bars[["actual", "pred"]], label=["actual", "pred"])
+            close = df.query(f"asset == '{symbol}'")[["prev", "date"]].set_index("date")
+            x = list(close.index.strftime("%m/%d"))
+            axes[i].plot(x, close, label="close")
 
+            pred_close = df.query(f"asset == '{symbol}'")["pred"]
+            axes[i].plot(x[1:], pred_close[:-1], label="pred")
+
+            locator = WeekdayLocator()
+            axes[i].xaxis.set_major_locator(locator)
+            
             # mark signals
-            x = bars.query(f"pred_ret > {long_threshold}").index
-            y = bars.loc[x]["pred"]
-            axes[i].scatter(x, y, marker='x', color='red')
+            signal_dates = df.query(f"pred_ret > {long_threshold}")["date"]
+            x = [i.strftime("%m/%d") for i in signal_dates]
+            y = close.loc[signal_dates]
+            axes[i].scatter(x, y, marker='^', color='red')
             axes[i].set_title(symbol)
             axes[i].legend()
-        plt.tight_layout()
-        
-    return long_df[concern_cols]
 
-eval_model(model, X_test, data, show_trace = True)
+        plt.tight_layout()
+
+eval_model(model, X_test, data, traces = 6)
 ```
 
 这个函数的主要功能有这样几点：
