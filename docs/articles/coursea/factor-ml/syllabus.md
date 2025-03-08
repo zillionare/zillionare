@@ -15,19 +15,18 @@ h1 {
 
 h2 {
     margin-top: 2em;
-    font-size: 1.5em !important;
 }
 
 h3 {
     color: #303030 !important;
     font-weight: 200 !important;
-    font-size: 1em !important;
+    font-size: 1.2em;
 }
 
 h4 {
     color: #808080 !important;
     font-weight: 100 !important;
-    font-size: 1em !important;
+    font-size: 1em;
     margin-left: 1em;
 }
 
@@ -42,7 +41,7 @@ h5 {
 }
 
 more {
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: #808080;
     /* border: 1px solid #ccc; */
     margin: 2.5em 0 -1em 0;
@@ -53,7 +52,7 @@ more {
 }
 
 more::before {
-    content: '本章要点 >';
+    content: '课程要点 >';
     position: absolute;
     /* top: 50%; */
     /* left: 100%; */
@@ -214,6 +213,7 @@ Alphalens将因子检验过程进行了高度的抽象，把我们在前面两�
 ### 5.2. 事件分析
 ### 5.3. IC 分析
 ### 5.4. 换手率分析
+### 5.5. 参考文献
 
 <more>
 
@@ -293,63 +293,60 @@ Alpha101因子库是World Quant发表于2015年的一个因子库。其中有80%
 ### 9.1. Ta-lib 函数分组
 ### 9.2. 冷启动期 (unstable periods)
 <!--不是仅仅去掉 NAN 就稳定了。RSI 大概在 3 * win 之后才稳定-->
-#### 9.2.1. RSI
+### 9.3. 震荡类指标
+#### 9.3.1. RSI
 <!-- RSI 翻新应用, intelli RSI, Connor's RSI -->
-#### 9.2.2. ADX - 平均方向运动指数
-#### 9.2.3. APO - 绝对价格震荡指标
-#### 9.2.4. PPO - 百分比价格震荡指标
-#### 9.2.5. Aroon 振荡器
-#### 9.2.6. Money Flow Index
-#### 9.2.7. Balance of Power
-#### 9.2.8. William's R
-#### 9.2.9. Stochastic 随机振荡指标
-### 9.3. 成交量指标
-#### 9.3.1. Chaikin A/D Line
-#### 9.3.2. OBV
-### 9.4. 波动性指标
-#### 9.4.1. ATR 与 NATR - 平均真实波幅
-### 9.5. 8 种移动平均线
-<!-- MAMA是John Ehler提出的指标，结合了Hilbert Transform Discriminator -->
-### 9.6. Overlap 研究
-#### 9.6.1. 布林带
-#### 9.6.2. Hilbert 趋势线和 Sine Wave Indicator
-<!--参考材料： 如何计算顺势频率 https://dsp.stackexchange.com/questions/24487/calculate-and-interpret-the-instantaneous-frequency -->
-#### 9.6.3. Parabolic Sar
-### 9.7. Momentum 指标
-
+#### 9.3.2. ADX - 平均方向运动指数
+#### 9.3.3. APO - 绝对价格震荡指标
+#### 9.3.4. PPO - 百分比价格震荡指标
+#### 9.3.5. Aroon 振荡器
+#### 9.3.6. Money Flow Index
+#### 9.3.7. Balance of Power
+#### 9.3.8. William's R
+#### 9.3.9. Stochastic 随机振荡指标
+### 9.4. 成交量指标
+#### 9.4.1. Chaikin A/D Line
+#### 9.4.2. OBV
+### 9.5. 波动性指标
+#### 9.5.1. ATR 与 NATR - 平均真实波幅
+### 9.6. 8 种移动平均线
+### 9.7. Overlap 研究
+#### 9.7.1. 布林带
+#### 9.7.2. Hilbert 趋势线和 Sine Wave Indicator
+#### 9.7.3. Parabolic Sar
+### 9.8. Momentum 指标
 <more>
 
 Alpha101因子多数是量价因子，由于可以想到的原因，它没有重复早已存在多年的经典技术因子，但这些因子仍然有它的Alpha存在。这一节我们会简单介绍下talib库，讲解技术指标的冷启动期 -- 可能是一个比较冷的知识，冷启动期不止是NaN，比如，RSI的冷启动期就比较长，是win参数的3倍。
 
 Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的技术条件下，如何翻新这些因子。以RSI为例，我们会讲intelli-RSI，Connor's RSI。这样你不仅得到了一些新因子，还提升了自己创新研究的能力。
 
-即使是一些有经验的人，也可能是初次听说我们讲要介绍的一些因子。比如像Hilber Sine Wave，这可是在Trading View等平台上比较好卖的付费技术指标之一。
+即使是一些有经验的人，也可能是初次听说我们讲要介绍的一些因子。比如像Hilbert Sine Wave，这可是在Trading View等平台上比较好卖的付费技术指标之一。
 
 </more>
 
+
 ---
 
-## 10. 其它因子
-### 10.1. 黑天鹅因子
+## 10. 其它量价因子
+### 10.1. 小概率事件
 <!-- 单个极值事件，比如沪指单日最大跌幅、最大连续跌幅，背后是小概率事件发生后的回归 -->
-### 10.2. 策略评估类因子
-#### 10.2.1. 最大回撤
-#### 10.2.2. 波动率
-#### 10.2.3. 夏普率
-#### 10.2.4. 索提诺比率
-#### 10.2.5. Calmar 因子
-### 10.3. 导数因子
-#### 10.3.1. 一阶导因子
-#### 10.3.2. 二阶导因子
-### 10.4. 频域因子
-### 10.5. TSFresh 因子库
-### 10.6. 行为金融学因子
-#### 10.6.1. 整数关口因子
-#### 10.6.2. 压力/支撑因子
+### 10.2. 最大回撤
+### 10.3. pct_rank
+### 10.4. 波动率
+### 10.5. z-score
+### 10.6. 夏普率
+### 10.7. 一阶导因子
+### 10.8. 二阶导因子
+### 10.9. 频域因子
+### 10.10. TSFresh 因子库
+### 10.11. 行为金融学因子
+#### 10.11.1. 整数关口因子
+#### 10.11.2. 冲压失败因子
 <!--冲击前高、前低失败-->
-#### 10.6.3. 缺口因子
+#### 10.11.3. 缺口因子
 <!--逢缺必补-->
-#### 10.6.4. 遗憾规避理论因子
+#### 10.11.4. 遗憾规避理论因子
 <!-- 日内成交均线冲击、日间密集成交区冲击因子 -->
 
 <more>
@@ -366,10 +363,20 @@ Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的
 ### 11.1. Famma 五因子
 #### 11.1.1. 市场因子
 #### 11.1.2. 规模因子
+<!--
+小市值效应中的幸存者偏差：The Delisting Bias in CRSP's Nasdaq Data and Its Implications for the Size Effect" (by Tyler Shumway and Vincent Warther) 
+
+rolf banz如何错过了低波动因子 https://www.rolfbanz.ch/2012/09/low-beta-anomaly-some-early-evidence/
+
+毕业论文被大佬狂怼： http://www.jieyu.ai/blog/2024/09/12/rolf-banz/
+-->
+
 #### 11.1.3. 价值因子
 #### 11.1.4. 盈利因子
 #### 11.1.5. 投资因子
 ### 11.2. 另类因子
+<!-- 掘金冷门数据 https://pdf.dfcfw.com/pdf/H3_AP202204011556464427_1.pdf -->
+
 #### 11.2.1. 社交媒体情绪因子
 <!--股吧排名、热搜-->
 #### 11.2.2. 网络流量因子
@@ -394,14 +401,46 @@ Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的
 进入到不同的交易品种。不是所有的因子都在所有的市场和交易品种上被认真的尝试过
 进入不同的频率。有一些因子在宏观上不行，但在高频中就可能有效。
 因子不是一切
+
+从其它领域借用名词： 信息断食 https://www.wenxuecity.com/news/2024/09/15/125777979.html
 -->
 ### 12.1. 新因子从哪里来
 <!-- 改造传统技术指标、论文、同行、路演交流--》
 <!-- 从哪里找论文 金融顶刊-->
 <!-- 从自己或者别人的交易经验中来 -->
 <!-- 从涨停、强势个股中来。对非常强的个股，前面介绍的因子往往都是不能用的，有它们自己的技术局限。要构建自己的市场指标，比如涨停家数、上涨家数-->
+
+<!-- 
+
+创新来自于边缘地带。创新来自于“混搭”。罗素选择的是如何用逻辑解释数学，这一独特的角度才使他最终成为一代宗师。我们讲到，从来就没有什么新技术，创新来自于继承和综合。很多学哲学的朋友觉得罗素的学生维特根斯坦更牛，也有人觉得另一位哲学家弗雷格比罗素的思想更早。的确，罗素就像一块海绵，一直在从别人那里吸取知识，随时准备改变自己的想法，罗素后期受维特根斯坦影响很大。但是，罗素的特点是集大成，他的整合能力更强，所以，综合来看，我们应该承认，罗素对哲学的影响更大。
+
+尤其要熟悉罗素开创的数理逻辑。
+
+罗素认为，我们的日常语言很混乱，容易误导，吵了半天，其实大家说的不是一回事，这很容易产生坏的哲学，逻辑则可以澄清和消除这些误解，更好地处理抽象的概念。
+
+其次著名心理学家卡尼曼指出，我们的大脑中有系统一和系统二。系统二就包括了逻辑推理，但这不是我们天生就熟悉的，所以特别需要后天去学习和锻炼。
+
+新的技术指标：
+
+Awesome Oscillator https://www.ifcmarkets.hk/en/ntx-indicators/awesome-oscillator
+Relative Volatility Index https://www.tradingview.com/support/solutions/43000594684-relative-volatility-index/ RVI 指标首次出现在 1993 年的《Technical Analysis of Stocks & Commodities》杂志上。
+Relative Vigor Index: https://www.investopedia.com/terms/r/relative_vigor_index.asp
+Average Daily Range: https://tw.tradingview.com/scripts/adr/
+Williams Alligator: https://www.investopedia.com/articles/trading/072115/exploring-williams-alligator-indicator.asp
+Connors RSI: 
+Smoothed Moving Average: https://trendspider.com/learning-center/what-is-the-smoothed-moving-average-sma/
+PVT: https://www.tradingview.com/support/solutions/43000502345-price-volume-trend-pvt/
+
+```python https://github.com/TA-Lib/ta-lib-python/issues/622
+def PVT(c, v):
+    return np.cumsum(v[1:] * np.diff(c) / c[:-1])
+```
+
+-->
 ### 12.2. 网络资源
-<!--聚宽因子看板-->
+<!--聚宽因子看板
+[^yzkb]:  [聚宽的因子看板](https://www.joinquant.com/view/factorlib/list)。在这里我们可以浏览一些常见的因子分类，及各类因子在当前市场环境下的表现。
+-->
 ### 12.3. 因子正交性检测
 <!-- https://github.com/stefan-jansen/machine-learning-for-trading/blob/f652d79ab2f137d75d554af2cc437a5512b16069/24_alpha_factor_library/04_factor_evaluation.ipynb -->
 ### 12.4. 谈谈因子动物园
@@ -469,9 +508,12 @@ Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的
 ### 15.3. 模型解释与可视化
 ### 15.4. 内置数据集
 <!-- load_iris, fetch_openml, make_classification-->
-
+<!-- https://github.com/stefan-jansen/machine-learning-for-trading/tree/main/06_machine_learning_process -->
 <more>
 
+<!--如何阅读困惑矩阵-->
+<!--1. https://www.v7labs.com/blog/confusion-matrix-guide-->
+<!-- 2. 三分类困惑矩阵：https://digitalcommons.aaru.edu.jo/cgi/viewcontent.cgi?article=1115&context=erjeng-->
 sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易用的接口赢得大家的喜爱。在这一章，我们先向大家介绍 sklearn 的通用工具包 -- 用来处理无论我们采用什么样的算法模型，都要遇到的那些共同问题，比如数据预处理、模型评估、模型解释与可视化和内置数据集。
 
 
@@ -494,7 +536,7 @@ sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易
 
 ### 16.4. Rolling Forecasting
 <!-- 用于模型的解释工具， inspection & visualization-->
-
+<!-- knn 预测 https://github.com/sammanthp007/Stock-Price-Prediction-Using-KNN-Algorithm -->
 <more>
 
 量化领域的机器学习有它自己的特殊性，比如在交叉验证方面，我们实际上要使用的是一种称为 Rolling Forecasting（也称为 Walk-Forward Optimization 的方法）。
@@ -528,13 +570,13 @@ sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易
 
 ---
 
-## 18. 从决策树到 XGBoost
+## 18. 从决策树到 LightGBM
 <!-- 决策树、随机森森、GBDT、XGBoost\LightGBM -->
 ### 18.1. 决策树
 <!-- https://github.com/edyoda/data-science-complete-tutorial/blob/master/6.%20Decision%20Tree.ipynb -->
 #### 18.1.1. 决策树分类 <!-- https://scikit-learn.org/stable/modules/tree.html#classification -->
 #### 18.1.2. 决策树回归
-### 18.2. XGBoost
+### 18.2. LightGBM
 <!-- https://github.com/datacamp/Machine-Learning-With-XGboost-live-training/blob/master/notebooks/Machine-Learning-with-XGBoost-solution.ipynb -->
 #### 18.2.1. 熟悉训练数据
 #### 18.2.2. 构建第一个分类器
@@ -545,18 +587,20 @@ sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易
 <!-- 我们将探索 max depth, colsample_bytree, subsample, min_child_weight, gamma, alpha, learning_rat 等参数的作用，并使用 grid_search_cv 和 RandomizedSearchCV 来进行超参数调优。-->
 
 <!-- LightGBM 与 XGBOOST 的比较 https://www.showmeai.tech/article-detail/195 -->
-<!-- https://www.sciencedirect.com/science/article/pii/S0957417423023084 使用神经网络模型的加密货币盈利交易算法，认为MLP和XGBoost最好 -->
+
 <more>
 
 受限于金融数据的高噪声，现阶段端到端的交易策略还不太可行；又受限于标注数据的大小，深度学习等人工智能模型也不适用于交易策略的构建。在机器学习模型当中，目前最优秀的模型就是梯度提升决策树模型。代表实现是XGBoost和LightGBM。
 
-这一章将完整地介绍XGBoost模型，并且通过示例来演示如何使用、如何inspect和visualize生成的模型，如何执行交叉验证和参数调优。
+由于LightGBM在多数任务上，无论是速度还是准确率都超越了XGBoost，所以，我们的课程将重点介绍LightGBM。
+
+这一章将完整地介绍LightGBM模型，并且通过示例来演示如何使用、如何inspect和visualize生成的模型，如何执行交叉验证和参数调优。
 
 </more>
 
 ---
 
-## 19. 基于 XGBoost 回归模型的价格预测
+## 19. 基于 LightGBM 回归模型的价格预测
 ### 19.1. 策略原理
 <!-- 
 均线与价格之间的线性变换
@@ -581,64 +625,64 @@ sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易
 
 ---
 
-## 20. 基于 XGBoost 分类模型的交易策略
+## 20. 基于 LightGBM 分类模型的交易策略
 <!--顶底预测模型-->
-### 20.1. 策略原理
-### 20.2. 策略实现
-#### 20.2.1. 数据标注工具
-#### 20.2.2. 模型实现代码
-#### 20.2.3. 模型评估与优化
+### 20.1. 策略实现
+#### 20.1.1. 顶底查找算法
+#### 20.1.2. 标注工具
+##### 20.1.2.1. 基本布局
+##### 20.1.2.2. 初始化
+##### 20.1.2.3. 部件更新
+#### 20.1.3. 构建模型
+##### 20.1.3.1. 模型基类
+##### 20.1.3.2. V2
+##### 20.1.3.3. V3
+### 20.2. 算法优化
+#### 20.2.1. 样本平衡
+#### 20.2.2. 多周期及微观数据
+#### 20.2.3. 市场氛围
+#### 20.2.4. id作为特征
 
 <more>
 
-在这一章，我们将构建一个基于XGBoost分类模型的交易模型。换句话说，它不负责预测价格，但能告诉你应该买入、还是卖出信号。学完这一章，你一定会认同，模型肯定就该这么构建，剩下的都是工作量而已：你需要构建系统、标注数据、构建特征，然后训练模型。
+在这一章，我们将构建一个基于 LightGBM 分类模型的交易模型。换句话说，它不负责预测价格，但能告诉你应该买入、还是卖出信号。学完这一章，你一定会认同，模型肯定就该这么构建，剩下的都是工作量而已：你需要构建系统、标注数据、构建特征，然后训练模型。
 
 </more>
 
 ---
 
-## 21. XGBoost 再思考
-### 21.1. 更好的 XGBoost: LightGBM?
-### 21.2. 如何构建组合？
-### 21.3. 资产定价模型还是交易模型？
-### 21.4. 为什么是 XGBoost，而不是神经网络？ <!-- 标注数据量决定 -->
+## 21. 未来新世界
+<!-- 参考视频： https://www.3blue1brown.com/lessons/mlp -->
+### 21.1. 如何获得免费算力 <!-- 标注数据量决定 -->
 
 <!-- [Predicting Chinese stock market using XGBoost multi-objective optimization with optimal weighting](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10936758/)
 -->
 
-<!-- 我们构建的是一个选股模型，还是交易模型？实际上，我们应该构建两个模型，第一个是买入模型，它同时具有选股和择时能力；第二个是卖出模型，它有择时能力，只负责判断何时卖出 -->
-
-<more>
-
+<!-- 我们构建的是一个选股模型，还是交易模型？实际上，我们应该构建两个模型，第一个是买入模型，它同时具有选股和择时能力；第二个是卖出模型，它有择时能力，只负责判断何时卖出
 XGBoost很好，但LightGBM可能在内存占用、某些场景下的训练速度上会更优。这一章将介绍LightGBM如何使用。我们会给一个完整的例子，但不会涉及太多细节。这就是你常常在其它课程中会看到的那种内容。
+-->
 
-</more>
-
----
-
-## 22. 结语与展望
-### 22.1. CNN 网络识别 K 线模式
-#### 22.1.1. 如何获得免费 GPU 资源
-#### 22.1.2. 示例
-#### 22.1.3. CNN 模式识别的问题
-##### 22.1.3.1. 数据集增广
-##### 22.1.3.2. 错放的容错能力
+### 21.2. CNN 价格预测
+#### 21.2.1. 如何为训练提供数据
+#### 21.2.2. 如何构建特征数据
+#### 21.2.3. 如何定义模型
+#### 21.2.4. 训练
+#### 21.2.5. 生产部署
+#### 21.2.6. CNN的原理与性能优化
+### 21.3. Transformer
 <!--CNN 有容错能力，对关键点的识别有误差，这与人脸识别不一样-->
-### 22.2. Reinforcement Learning
-#### 22.2.1. 强化学习基础
-#### 22.2.2. 为什么强化学习适合量化交易？ <!-- 商品和加密货币 -->
-#### 22.2.3. 强化学习资源
-### 22.3. 其它重要智能算法
-#### 22.3.1. kalman filter
-#### 22.3.2. Genentic Algo
+### 21.4. Reinforcement Learning
+### 21.5. 其它重要智能算法
+#### 21.5.1. kalman filter
+#### 21.5.2. Genentic Algo
 
 <more>
 
-前面讲过为什么深度学习还不太适合构建量化交易模型。这一章前面部分，我们会通过一个CNN识别k线模式的例子，来说明为什么。了解了这些局限之后，也许你能够发明一种新颖的模型，适合量化交易。这一部分没能教你可带走的工具和经验。但是如果你是研究型、创新型的人，你可能会觉得这一部分内容也非常有价值。
+前面讲过为什么深度学习还不太适合构建量化交易模型。这一章前面部分，我们会通过一个CNN预测价格的例子，来说明为什么。了解了这些局限之后，也许你能够发明一种新颖的模型，适合量化交易。这一部分没能教你可带走的工具和经验。但是如果你是研究型、创新型的人，你也会觉得这一部分内容也非常有价值。
 
 强化学习是我们比较看好的一个方向，特别是用在商品期货和加密货币交易中。我们会介绍一些入门知识和学习资源。
 
-还有两个重要的智能算法，既不是机器学习，也不是深度学习或者强化学习，但在量化中确实也比较常用，就是kalman filter和genetic algo。我们会介绍一些入门知识和它们的应用场景，把更多的探索空间留给你。
+还有两个重要的智能算法，既不是机器学习，也不是深度学习或者强化学习，但在量化中确实也比较常用，就是kalman filter和genetic algo，不过，这一部分我们没有代码，把更多的探索空间留给了你。。
 
 </more>
 
@@ -649,18 +693,12 @@ XGBoost很好，但LightGBM可能在内存占用、某些场景下的训练速�
 <!-- confusion matrix: https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62-->
 <!--
 傅立叶与小波分析： https://cseweb.ucsd.edu/~baden/Doc/wavelets/polikar_wavelets.pdf
-<xgboost: https://www.jieyu.ai/assets/ebooks/Combining-Principal-Component-Analysis-Discrete-Wavelet-Transform-and-XGBoost-to-trade-in-the-financial-markets.pdf>
-
-有哪些论文是要看的：
-
-https://quant.stackexchange.com/questions/38886/what-are-the-quantitative-finance-papers-that-we-should-all-have-in-our-shelves
-
 -->
 
+<!-- 重写本课开场白，可以参考罗闻全： https://open.163.com/newview/movie/free?pid=SHK5ITQ33&mid=KHK5ITSBB -->
 <hr>
 
 <h2 id="declaration">说明</h2>
-<p>1. 本大纲并非课程教材目录，比如，许多章节有《延伸阅读》或者《参考文献》小节，均未在此显示。</p>
+<p>1. 本大纲并非课程教材目录，比如，课程中许多章节有《延伸阅读》小节，未在此显示。</p>
 <p>2. 课程内容还包括习题，未在此显示</p>
 <p>3. 课程内容还包括补充材料，比如完整的 Alpha101因子实现代码（从数据获取、因子提取、因子检验到回测）及其它示例代码，未在此显示</p>
-<p>4. 三级及三级以下目录有可能部分临时变更</p>
