@@ -1,13 +1,16 @@
 ---
-title: 量化人怎么用Numpy——课程简介
-slug: ta-lib-is-reloaded
+title: 量化人学Numpy和Pandas - 这是你的量化母语
+slug: numpy-pandas-for-quant-trader-01
 date: 2025-03-08
-category: arsenal
+category: tools
 motto: You only live once, but if you do it right, once is enough
-img: https://images.jieyu.ai/images/2024/12/book-of-sun-le.jpg
+img: https://images.jieyu.ai/images/2025/03/moon-and-sixpence.jpg
+stamp_width: 60%
+stamp_height: 60%
 tags: 
     - tools
     - programming
+    - Numpy
 ---
 
 
