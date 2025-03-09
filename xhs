@@ -1,14 +1,16 @@
 cmd=$1
 file=$2
+home="$HOME"
 
 if [ "$#" == 3 ]; then
-    theme="/Users/aaronyang/workspace/slidev_themes/themes/$3"
+    theme="$home/workspace/slidev_themes/themes/$3"
 else
-    theme="/Users/aaronyang/workspace/slidev_themes/themes/portrait-excerpt"
+    theme="$home/workspace/slidev_themes/themes/portrait-excerpt"
+    echo $theme
 fi
 
 project_dir=`pwd`
-cd /Users/aaronyang/workspace/slidev_themes
+cd ~/workspace/slidev_themes
 echo "进入目录：`pwd`"
 if [ $cmd = "serve" ]; then
   npx --verbose slidev $project_dir/$file -t $theme --remote 
