@@ -1,5 +1,6 @@
 ---
 title: 量化人怎么用Numpy——核心语法[1]
+<<<<<<< HEAD
 slug: numpy-pandas-for-quant-trader-02
 date: 2025-03-09
 category: tools
@@ -11,6 +12,16 @@ tags:
     - tools
     - programming
     - Numpy
+=======
+slug: ta-lib-is-reloaded
+date: 2025-03-09
+category: arsenal
+motto: You only live once, but if you do it right, once is enough
+img: https://images.jieyu.ai/images/2024/12/book-of-sun-le.jpg
+tags: 
+    - tools
+    - programming
+>>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
 ---
 
 ## 1. 基本数据结构
