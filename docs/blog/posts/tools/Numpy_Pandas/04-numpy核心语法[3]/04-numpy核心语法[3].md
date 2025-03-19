@@ -13,7 +13,136 @@ tags:
     - Numpy
 ---
 
-## 1. 处理包含 np.nan 的数据
+## 1. 类型转换和 Typing
+
+在不同的库之间交换数据，常常会遇到格式问题。比如，我们从第三方数据源拿到的行情数据，它们用的时间字段常常会是字符串（这是代码少写了几行吗？！）。有一些库在存储行情时，对 OHLC 这些字段进行了优化，使用了 4 个字节的浮点数，但如果要传给 talib 进行指标计算，就必须先转换成 8 个字节的浮点数，等等，这就有了类型转换的需求。
+
+此外，我们还会遇到需要将 numpy 数据类型转换为 python 内置类型，比如，将 numpy.float64 转换为 float 的情况。
+
+### 1.1. Numpy 内部类型转换
+Numpy 内部类型转换，我们只需要使用 astype 
+
+---
+
+```python
+x = np.array (['2023-04-01', '2023-04-02', '2023-04-03'])
+print (x.astype (dtype='datetime64[D]'))
+
+x = np.array (['2014', '2015'])
+print (x.astype (np.int32))
+
+x = np.array ([2014, 2015])
+print (x.astype (np.str_))
+```
+
+!!! tips
+    如何将 boolean array 转换成整数类型，特别是，将 True 转为 1，False 转为 - 1？
+    在涉及到阴阳线的相关计算中，我们常常需要将 open > close 这样的条件转换为符号 1 和 - 1，以方便后续计算。这个转换可以用：
+
+    ```python
+    >>> x = np.array ([True, False])
+    >>> x * 2 - 1
+    ... array ([ 1, -1])
+    ```
+### 1.2. Numpy 类型与 Python 内置类型转换
+
+如果我们要将 Numpy 数组转换成 Python 数组，可以使用 tolist 函数。
+
+```python
+x = np.array ([1, 2, 3])
+print (x.tolist ())
+```
+
+我们通过 item () 函数，将 Numpy 数组中的元素转换成 Python 内置类型。
+
+```python
+x = np.array (['2023-04-01', '2023-04-02'])
+y = x.astype ('M8[s]')
+y [0].item ()
+```
+---
+
+!!! warning
+    一个容易忽略的事实是，当我们从 Numpy 数组中取出一个标量时，我们都应该把它转换成为 Python 对象后再使用。否则，会发生一些隐藏的错误，比如下面的例子：
+
+    ```python
+    import json
+    x = np.arange (5)
+    print (json.dumps ([0]))
+    print (x [0])
+
+    json.dumps ([x [0]])
+    ```
+    这里最后一行会出错。提示 type int64 is not JSON serializable。把最后一行换成 json.dumps ([x [0].item ()]) 则可以正常执行。
+
+
+### 1.3. Typing
+从 Python 3.1 起，就开始引入类型注解 (type annotation)，到 Python 3.8，基本上形成了完整的类型注解体系。我们经常看到函数的参数类型注解，比如，下面的代码:
+
+```python
+from typing import List
+def add (a: List [int], b: int) -> List [int]:
+    return [i + b for i in a]
+```
+
+从此，Python 代码也就有了静态类型检查支持。
+
+NumPy 的 Typing 模块提供了一系列类型别名（type aliases）和协议（protocols），使得开发者能够在类型注解中更精确地表达 NumPy 数组的类型信息。这有助于静态分析工具、IDE 以及类型检查器提供更准确的代码补全、类型检查和错误提示。
+
+这个模块提供的主要类型是 ArrayLike, NDArray 和 DType。
+
+---
+
+```python
+import numpy
+from numpy.typing import ArrayLike, NDArray, DTypeLike
+import numpy as np
+
+def calculate_mean (data: ArrayLike) -> float:
+    """计算输入数据的平均值，数据可以是任何 ArrayLike 类型"""
+    return np.mean (data)
+
+def add_one_to_array (arr: NDArray [np.float64]) -> NDArray [np.float64]:
+    """向一个浮点数数组的每个元素加 1，要求输入和输出都是 np.float64 类型的数组"""
+    return arr + 1
+
+def convert_to_int (arr: NDArray, dtype: DTypeLike) -> NDArray:
+    """将数组转换为指定的数据类型"""
+    return arr.astype (dtype)
+```
+
+如果你是在像 vscode 这样的 IDE 中使用上述函数，你就可以看到函数的类型提示。如果传入的参数类型不对，还能在编辑期间，就得到错误提示。
+
+## 2. 拓展阅读
+
+### 2.1. Numpy 的数据类型
+
+在 Numpy 中，有以下常见数据类型。每一个数字类型都有一个别名。在需要传入 dtype 参数的地方，一般两者都可以使用。另外，别名在字符串类型、时间和日期类型上，支持得更好。比如，'S5' 是 Ascii 码字符串别外，它除了指定数据类型之外，还指定了字符串长度。datetime64 [S] 除了表明数据是时间日期类型之外，还表明它的精度到秒。
+
+---
+
+| 类型           | 别名                                                                                                                |
+| -------------- | ------------------------------------------------------------------------------------------------------------------- |
+| np.int8        | i1                                                                                                                  |
+| np.int16       | i2                                                                                                                  |
+| np.int32       | i4                                                                                                                  |
+| np.int64       | i8                                                                                                                  |
+| np.uint8       | u1                                                                                                                  |
+| np.uint16      | u2                                                                                                                  |
+| np.uint32      | u4                                                                                                                  |
+| np.uint64      | u8                                                                                                                  |
+| np.float16     | f2                                                                                                                  |
+| np.float32     | f4，还可指定结尾方式，比如 '<f4'，表示小端字节序，'=' 表示当前系统字节序，'>f4' 表示大端字节序。其它 float 类型同。 |
+| np.float64     | f8                                                                                                                  |
+| np.float128    | f16                                                                                                                 |
+| np.bool_       | b1                                                                                                                  |
+| np.str_        | U (后接长度，例如 U10)                                                                                              |
+| np.bytes_      | S (后接长度，例如 S5)                                                                                               |
+| np.datetime64  | M8 和 M8[D] M8[h] M8[m] M8[s]，也可写作 datetime64[D] 等                                                            |
+| np.timedelta64 | m8 和 m8[D] m8[h] m8[m] m8[s] 等                                                                                    |
+
+
+## 3. 处理包含 np.nan 的数据
 
 在量化分析中，我们常常会遇到数据为 np.nan 情况。比如，某公司上年利润为负数，今年利润实现正增长，请问要如何表示公司的 YoY 的利润增长呢？
 
@@ -26,7 +155,7 @@ tags:
 
 但是，如果我们要对返回的数组进行统计，比如求均值、最大值、排序，对包含 np.nan 或者 None 的数组，应该如何处理？
 
-### 1.1. 包含 np.nan 和 np.inf 的数组运算
+### 3.1. 包含 np.nan 和 np.inf 的数组运算
 
 在 numpy 中，提供了对带 np.nan 的数组进行运算的支持。比如有以下数组：
 
@@ -80,7 +209,7 @@ array([ 1.,  3.,  6.,  6., 10., 15.])
 
 除了上述函数，np.isnan 和 np.isinf 函数，也能处理包含 np.nan/np.inf 元素的数组。它们的作用是判断数组中的元素是否为 nan/inf，返回值是一个 bool 数组。
 
-### 1.2. 包含 None 的数组运算
+### 3.2. 包含 None 的数组运算
 在上一节中，我们介绍的函数能够处理包含 np.nan 和 np.inf 的数组。但是，在 Python 中，None 是任何类型的一个特殊值，如果一个数组包含 None 元素，我们常常仍然会期望能对它进行 sum, mean, max 等运算。但是，Numpy 并没有专门为此准备对应的函数。
 
 但是，我们可以通过 astype 将数组转换为 float 类型，在此过程中，所有的 None 元素都转换为 np.nan，然后就可以进行运算了。
@@ -92,7 +221,7 @@ x.astype(np.float64)
 
 输出为：`array([3., 4., nan, 55.])`
 
-### 1.3. 性能提升
+### 3.3. 性能提升
 
 当我们调用 np.nan *函数时，它的性能会比普通的函数慢很多。因此，如果性能是我们关注的问题，我们可以使用 bottleneck 这个库中的同名函数。
 
@@ -116,7 +245,7 @@ x[pos] = np.nan
 !!! info
     根据 bottleneck 的文档，它的许多函数，要比 Numpy 中的同名函数快 10 倍左右。
 
-## 2. 随机数和采样
+## 4. 随机数和采样
 
 随机数和采样是量化中的高频使用的操作。在造数据方面非常好用。我们在前面的示例中，已经使用过了 normal() 函数，它是来自 numpy.random 模块下的一个重要函数。借由这个函数，我们就能生成随机波动、但总体上来看又是上涨、下跌或者震荡的价格序列。
 
@@ -157,7 +286,7 @@ plt.legend(lines, legend)
 
 ---
 
-### 2.1. The legacy: np.random module
+### 4.1. The legacy: np.random module
 
 迄今为止，我们在网上看到的多数关于 numpy random 的教程，都是使用的 np.random module 下面的函数。除了 normal 方法之外，random 包中还有以下函数：
 
@@ -209,7 +338,7 @@ choice 方法在量化中有比较具体的应用。比如，我们可能想要�
 
 seed 函数用来设置随机数生成器的种子。在进行单元测试，或者进行演示时（这两种情况下，我们都需要始终生成相同的随机数序列）非常有用。
 
-### 2.2. New Style: default_rng
+### 4.2. New Style: default_rng
 
 我们在上一节介绍了一些随机数生成函数，但没有介绍它的原理。Numpy 生成的随机数是伪随机数，它们是使用一个随机数生成器（RNG）来生成的。RNG 的输出是随机的，但是相同的输入总是会生成相同的输出。我们调用的每一个方法，实际上是在这个序列上的一个抽取动作（根据输入的 size/shape）。
 
@@ -233,7 +362,7 @@ rng 拥有大多数前一节中提到的方法，比如 normal, f, gamma 等；�
 !!! warning
     在 numpy 中还存在一个 RandomState 类。它使用了较慢的梅森扭曲器生成伪随机数。现在，这个类已经过时，不再推荐使用。 
 
-### 2.3. 数据集平衡示例
+### 4.3. 数据集平衡示例
 
 我们已经介绍了 choice 的功能，现在我们来举一个例子，如何使用 choice 来平衡数据集。
 
@@ -304,12 +433,12 @@ np.concatenate(results)
 
 这段示例代码可用以多个标签的情况。如果要进行 over sampling，只要把其中的 min 换成 max 就可以了。
 
-## 3. IO 操作
+## 5. IO 操作
 
 我们直接使用 Numpy 读写文件的场合并不多。提高 IO 读写性能一直都不是 Numpy 的重点，我们也只需要稍加了解即可。
 
 <!--应该使用 parquet 文件格式，使用 pyarrow 等库来进行读取-->
-### 3.1. 读写 CSV 文件
+### 5.1. 读写 CSV 文件
 Numpy 可以从 CSV 格式的文本文件中读取数据，主要有以下方法：
 
 | api        | 描述                                              |
@@ -406,7 +535,7 @@ np.asarray(list(csv.reader()))
 pd.read_csv(buffer).to_records()
 ```
 
-### 3.2. 读写二进制文件
+### 5.2. 读写二进制文件
 
 如果我们不需要与外界交换数据，数据都是自产自销型的，也可以使用二进制文件来保存数据。
 
@@ -414,7 +543,7 @@ pd.read_csv(buffer).to_records()
 
 如果要保存多个数组，则可以使用 savez 命令。这样保存的文件，文件扩展名为.npz。如果有更复杂的需求，可以使用 Hdf5，pyarrow 等库来进行保存数据。
 
-## 4. 日期和时间
+## 6. 日期和时间
 
 一些第三方数据源传递给我们的行情数据，常常会用字符串形式，或者整数（从 unix epoch time 起）格式来表示行情的时间。比如，akshare 和 tushare 许多接口给出的行情数据就是字符串格式；而 QMT 很多时候，会将行情时间用整数表示。掌握这些格式与 Numpy 的日期时间格式转换、以及 Numpy 到 Python 对象的时间日期转换是非常有必要的。
 
@@ -610,7 +739,7 @@ conv_time(1693152000000)
 
 ---
 
-## 字符串操作
+## 7. 字符串操作
 
 你的数据源、或者本地存储方案很可能使用 Numpy Structured Array 或者 Rec Array 返回证券列表。很显然，证券列表中一定会包括字符串，因为它一定会存在证券代码列和证券名称列。有一些还会返回证券的地域属性和其它属性，这也往往是字符串。
 
@@ -716,7 +845,7 @@ Numpy 中的字符串函数另一个比较常用的场景，就是执行格式�
 !!! question
     2024 年 5 月 10 日起，南京化纤走出 7 连板行情，短短 7 日，股价翻倍。市场上还有哪些名字中包含化纤的个股？它们的涨跌是否存在相关性或者跨周期相关性？
 
-## Masked Array
+## 8. Masked Array
 
 你可能常常在一些接近底层的库中，看到 Numpy masked array 的用法。Masked Array 是 Numpy 中很重要的概念。考虑这样的情景，你有一个数据集，其中包含了一些缺失的数据或者无效值。这些”不合格“的数据，可能以 np.nan，np.inf, None 或者其它仅仅是语法上有效的值来表示（比如，在 COVID-19 数据集中，病例数出现负数）的。如何在保持数据集的完整性不变的前提下，仍然能对数据进行运算呢？
 
@@ -779,7 +908,7 @@ g_mask = np.ma.array(g,mask=mask)
 
     bottleneck 要比 numpy 快接近 5 倍。如果你使用的 numpy 版本较旧，那么 bottleneck 还会快得更多。
 
-## ufunc
+## 9. ufunc
 ufunc 是 Numpy 中的重要概念，它对两个输入数组同时进行逐元素的操作（比如，相加，比较大小等）。在 Numpy 中大约定义了 61 个左右的 ufunc。这些操作都是由底层的 C 语言实现的，并且支持向量化，因此，它们往往具有更快的速度。
 
 比如，在 numpy 中，求数组中的最大值，有两个相似的函数， `np.max`和`np.maximum`可以达成这一目标。后者是 ufunc，前者不是，两者除了用法上有所区别之外，后者的速度也要快一些。

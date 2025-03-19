@@ -1,36 +1,31 @@
 ---
-title: 量化人怎么用Numpy——核心语法[1]
-<<<<<<< HEAD
+title: Numpy核心语法[1]
+series: 量化人的 Numpy 和 Pandas
+seq: "02"
+fonts:
+    sans: 'AlibabaPuHuiTi-Thin, sans-serif'
 slug: numpy-pandas-for-quant-trader-02
-date: 2025-03-09
+date: 2025-03-18
 category: tools
-motto: Every single day counts.
-img: https://images.jieyu.ai/images/2024/12/book-of-sun-le.jpg
-stamp_width: 60%
-stamp_height: 60%
+motto: Make Every Single Day Count - Grow with Quantide
+img: https://images.jieyu.ai/images/2025/02/grow-with-quantide.jpg
 tags: 
     - tools
     - programming
     - Numpy
-=======
-slug: ta-lib-is-reloaded
-date: 2025-03-09
-category: arsenal
-motto: You only live once, but if you do it right, once is enough
-img: https://images.jieyu.ai/images/2024/12/book-of-sun-le.jpg
-tags: 
-    - tools
-    - programming
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
 ---
+
+
+NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个多维度、同质并且大小固定的数组对象。
+
+为了表达记录类型的数据，Numpy又拓展出名为Structured Array的数据结构。
+
+---
+
+它用一个 void 类型的元组来表示一条记录，从而使得 numpy 也可以用来表达记录型的数据。因此，在 Numpy 中，实际上跟数组有关的数据类型主要是两种。
+
 
 ## 1. 基本数据结构
-
-NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个表示多维度、同质并且大小固定的数组对象。
-
-ndarray 只能存放同质的数组对象，这样使得它无法表达记录类型的数据。因此，numpy 又拓展出了名为 structured array 的数据结构。它用一个 void 类型的元组来表示一条记录，从而使得 numpy 也可以用来表达记录型的数据。因此，在 Numpy 中，实际上跟数组有关的数据类型主要是两种。
-
----
 
 前一种数组格式广为人知，我们将以它为例介绍多数 Numpy 操作。而后一种数据格式，在量化中也常常用到，比如，通过聚宽[1]的jqdatasdk获得的行情数据，就允许返回这种数据类型，与 DataFrame 相比，在存取上有不少简便之处。我们将在后面专门用一个章节来介绍。
 
@@ -50,6 +45,8 @@ import numpy as np
 
 为了在 Notebook 中运行这些示例时，能更加醒目地显示结果，我们首先定义一个 cprint 函数，它将原样输出提示信息，但对变量使用红色字体来输出，以示区别：
 
+---
+
 ```python
 from termcolor import colored
 
@@ -62,8 +59,6 @@ cprint("这是提示信息，后接红色字体输出的变量值：{}", "hello!
 ```
 
 接下来，我们将介绍基本的增删改查操作。
-
----
 
 ### 1.1. 创建数组
 
@@ -78,6 +73,8 @@ cprint("create a simple numpy array: {}", arr)
 #### 1.1.2. 预置特殊数组
 很多时候，我们希望 Numpy 为我们创建一些具有特殊值的数组。Numpy 也的确提供了这样的支持，比如：
 
+---
+
 | 函数                | 描述                                                                                                             |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | zeros<br>zeros_like | 创建全 0 的数。zeros_like 接受另一个数组，并生成相同形状和数据类型的 zeros 数组。常用于初始化。以下*_like 类推。 |
@@ -90,8 +87,6 @@ cprint("create a simple numpy array: {}", arr)
 | random.dirichlet    | 创建一个符合狄利克雷分布的随机数组                                                                               |
 | arange              | 创建一个递增数组                                                                                                 |
 | linspace            | 创建一个线性增长数组。与 arange 的区别在于，此方法默认生成全闭区间数组。并且，它的元素之间的间隔可以为浮点数。   |
-
----
 
 <!--还有一些比较小众的预置函数，比如 np.indices-->
 
@@ -109,6 +104,8 @@ cprint("狄利克雷分布的数组：\n{}",np.random.dirichlet(np.ones(10)))
 cprint("顺序增长的数组：\n{}", np.arange(10))
 cprint("线性增长数组：\n{}", np.linspace(0, 2, 9))
 ```
+
+---
 
 !!! warning
     尽管 empty 函数的名字暗示它应该生成一个空数组，但实际上生成的数组，每个元素都是有值的，只不过这些值既不是 np.nan，也不是 None，而是随机值。我们在使用 empty 生成的数组之前，一定要对它进行初始化，处理掉这些随机值。
@@ -135,9 +132,9 @@ for i, alpha in enumerate((-0.01, 0, 0.01)):
     axes[i].plot(close)
 ```
 
----
-
 绘制的图形如下：
+
+---
 
 ![](https://images.jieyu.ai/images/2024/04/same-vol-different-trend.jpg)
 
@@ -190,15 +187,15 @@ cprint("通过 arr.copy: {}", np.arange(5).copy())
 
 # 使用切片，提取原数组的一部分
 cprint("通过切片：{}", np.arange(5)[:2])
-
-# 合并两个数组
-arr = np.concatenate((np.arange(3), np.arange(2)))
-cprint("通过 concatenate 合并：{}", arr)
 ```
 
 ---
 
 ```python
+# 合并两个数组
+arr = np.concatenate((np.arange(3), np.arange(2)))
+cprint("通过 concatenate 合并：{}", arr)
+
 # 重复一个数组
 arr = np.repeat(np.arange(3), 2)
 cprint("通过 repeat 重复原数组：{}", arr)
@@ -229,7 +226,11 @@ cprint("按 axis=1 拼接：\n{}", np.concatenate((arr, arr), axis=1))
 ```
 
 ### 1.2. 增加/删除和修改元素
-Numpy 数组是固定大小的，一般我们不推荐频繁地往数组中增加或者删除元素。但如果确实有这种需求，我们可以使用下面的方法来实现增加或者删除：
+Numpy 数组是固定大小的，一般我们不推荐频繁地往数组中增加或者删除元素。
+
+---
+
+但如果确实有这种需求，我们可以使用下面的方法来实现增加或者删除：
 <!--
 如果要频繁地执行增加和删除数组元素这种会改变数组大小的操作，一般我们会使用 Python 的 list 作为数据结构，而不是使用 numpy 的 array.
 -->
@@ -240,7 +241,6 @@ Numpy 数组是固定大小的，一般我们不推荐频繁地往数组中增�
 | insert | 向`obj`（可以是下标、slicing）指定的位置处，插入数值`value`（可以是标量，也可以是数组） |
 | delete | 删除指定下标处的元素                                                                    |
 
----
 
 示例如下：
 
@@ -281,6 +281,8 @@ append 默认就是在行的方向上进行操作，这里的 axis=0 可以省�
 
 有时候我们需要修改个别元素的值，应该这样操作：
 
+---
+
 ```python
 arr = np.arange(6).reshape(2,3)
 
@@ -312,8 +314,6 @@ arr[0,2] = 3
 
 Numpy 中索引和切片语法大致类似于 Python，主要区别在于对多维数组的支持：
 
----
-
 ```python
 arr = np.arange(6).reshape((3,2))
 cprint("原始数组：\n{}", arr)
@@ -329,6 +329,8 @@ cprint("fancy index: 使用下标数组：\n {}", arr[[2, 1, 0]])
 ```
 
 上述切片语法在 Python 中也存在，但只能支持到一维，因此，对下面的 Python 数组，类似操作会出错：
+
+---
 
 ```python
 arr = np.arange(6).reshape((3,2)).tolist()
@@ -355,8 +357,6 @@ arr[1, :]
 | np.argmin       | 返回数组中最小元素的索引（注意不是返回满足条件的最小索引） |
 | np.argmax       | 返回数组中最大元素的索引                                   |
 
----
-
 ```python
 # 查找
 arr = [0, 2, 2, 2, 3]
@@ -369,6 +369,11 @@ cprint("arr[arr > 1]: {}", arr[arr > 1])
 
 # NONZERO 的用法
 mask = np.nonzero(arr > 1)
+```
+
+---
+
+```python
 cprint("nonzero 返回结果是：{}", mask)
 cprint("筛选后的数组是：{}", arr[mask])
 
@@ -422,9 +427,11 @@ print("Ranks:", ranks)
 ```
 -->
 
+在量化中，有很多情况需要实现筛选功能。比如，在计算上下影线时，我们是用公式$(high - max(open, close))/(high - low)$来进行计算的。
+
 ---
 
-在量化中，有很多情况需要实现筛选功能。比如，在计算上下影线时，我们是用公式$(high - max(open, close))/(high - low)$来进行计算的。如果我们要一次性地计算过去 n 个周期的所有上影线，并且不使用循环的话，那么我们就要使用 np.where, np.select 等筛选功能。
+如果我们要一次性地计算过去 n 个周期的所有上影线，并且不使用循环的话，那么我们就要使用 np.where, np.select 等筛选功能。
 
 <!--单就这一功能而言，还有更高效地实现方式-->
 
@@ -458,11 +465,13 @@ arr = np.arange(6)
 cprint("np.where: {}", np.where(arr > 3, 3, arr))
 ```
 
-这段代码实现了将 3 以上的数字截断为 3 的功能。这种功能被称为 clip，在因子预处理中是非常常用的一个技巧，用来处理异常值 (outlier)。
-
-但它没有办法实现两端截断。此时，但 np.select 能做到，这是 np.where 与 np.select 的主要区别：
+这段代码实现了将 3 以上的数字截断为 3 的功能。
 
 ---
+
+这种功能被称为 clip，在因子预处理中是非常常用的一个技巧，用来处理异常值 (outlier)。
+
+但它没有办法实现两端截断。此时，但 np.select 能做到，这是 np.where 与 np.select 的主要区别：
 
 ```python
 arr = np.arange(6)
@@ -542,7 +551,11 @@ dt = np.dtype('>i4')
 cprint("byteorder is: {}", dt.byteorder)
 cprint("name of the type is: {}", dt.name)
 cprint('is ">i4" a np.int32?: {}', dt.type is np.int32)
+```
 
+---
+
+```python
 # 复杂的 DTYPE
 complex = np.dtype([('name', 'U8'), ('score', 'f4')])
 arr = np.array([('Aaron', 85), ('Zoe', 90)], dtype=complex)
@@ -555,8 +568,6 @@ cprint("Dtype of structured array: {}", arr.dtype)
 <!--
 这里我们是通过 np.ones 生成的数组，数组的各元素都是 1。注意我们得到的 dtype 是 np.float64，这也是 Numpy 中最常见的数据类型。
 -->
-
----
 
 从第 3 行到第 6 行，我们分别输出了数组的 shape, ndim, size 和 len 等属性。ndim 告诉我们数组的维度。shape 告诉我们每个维度的 size 是多少。shape 本身是一个 tuple, 这个 tuple 的 size，也等于 ndim。
 
@@ -571,6 +582,9 @@ size 在不带参数时，返回的是 shape 各元素取值的乘积。len 返�
 
 #### 1.5.1. 升维
 我们可以通过 reshape, hstack, vstack 来改变数组的维度：
+
+---
+
 ```python
 
 cprint("increase ndim with reshape:\n{}", 
@@ -589,7 +603,6 @@ np.hstack((np.array([[1],[2],[3]]), np.array([[4], [5], [6]])))
 通过 ravel, flatten, reshape, *split 等操作对数组进行降维。
 <!--很多操作，比如像 argwhere，会返回升维的结果，此时我们可能需要在使用前，对其降维-->
 
----
 
 ```python
 
@@ -610,6 +623,8 @@ np.ravel([[1,2,3],[4, 5, 6]])
 
 这里一共介绍了 4 种方法。ravel 与 flatten 用法比较接近。ravel 的行为与 flatten 类似，只不过 ravel 是 np 的一个函数，可作用于 ArrayLike 的数组。
 
+---
+
 通过 reshape 来进行扁平化也是常用操作。此外，还介绍了 vsplit, hsplit 函数，它们的作用刚好与 vstack，hstack 相反。
 
 #### 1.5.3. 转置
@@ -628,18 +643,12 @@ cprint("nonzero: {}", np.array(np.nonzero(x > 1)).T)
 
 当然，由于 reshape 函数极其强大，我们也可以使用它来完成转置：
 
----
-
 ```python
 cprint("transposing array from \n{} to \n{}", 
     np.arange(6).reshape((2,3)),
     np.arange(6).reshape((3,2)))
 ```
 
----
-***版权声明
-本课程全部文字、图片、代码、习题等所有材料，除声明引用外，均由作者本人开发。所有草稿版本均通过第三方 git 服务进行管理，作为拥有版权的证明。未经书面作者授权，请勿引用。***
+<hr>
 
-[^dirichlet]: 狄利克雷，德国数学家。他对数论、傅里叶级数理论和其他数学分析学领域有杰出贡献，并被认为是最早给出现代函数定义的数学家之一和解析数论创始人之一。Dirichlet 数组不仅仅是作为 MPT 求解中的初始值。在 [A selective Portofolio Management Algorithm with Off-Policy Reinforcement Learning Using Dirichlet Distribution](https://www.jieyu.ai/assets/ebooks/off-policy-reinforcement-learning-using-dirichlet-distribution.pdf) 中，作者还提出了一种以狄利克雷分布为策略，计算多个最优投资组合的算法。
-
-[^聚宽]: 聚宽是数据服务商，提供付费的行情数据、因子数据、财务数据等其它数据。他们的网站是www.joinquant.com
+狄利克雷，德国数学家。他对数论、傅里叶级数理论和其他数学分析学领域有杰出贡献，并被认为是最早给出现代函数定义的数学家之一和解析数论创始人之一。Dirichlet 数组可作为 MPT 求解中的初始值。
