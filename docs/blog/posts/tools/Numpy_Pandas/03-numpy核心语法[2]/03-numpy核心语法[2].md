@@ -8,7 +8,7 @@ fonts:
 date: 2025-03-19
 category: tools
 motto: Fortune favors the bold.
-img: https://images.jieyu.ai/images/2024/12/book-of-sun-le.jpg
+img: https://images.jieyu.ai/images/2025/02/fortune-favors-the-bold.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -79,13 +79,12 @@ print (f"secs [0] 的 size 是 {secs [0].size}")
 print (f"secs [0] 的 length 是 {len (secs [0])}")
 ```
 
-可以看出，secs 数组是 ** 一维数组 **，它的 shape (2,) 也正是一维数组的 shape 的表示法。前一节还介绍过这几个属性的关系，大家可以自行验证下是否仍然得到满足。
+可以看出，secs 数组是 **一维数组**，它的 shape (2,) 也正是一维数组的 shape 的表示法。前一节还介绍过这几个属性的关系，大家可以自行验证下是否仍然得到满足。
 
 ---
 
-<!--
-这里 size 仍然等于 shape 各元素的取值之积。注意对 secs 而言，它的 size 与 length 是相等的，但对 secs [0] 而言，它的 size 和 length 是不相等的。我们在开发大富翁时，遇到过由此产生的一个 bug。
--->
+!!! tip
+    这里 size 仍然等于 shape 各元素的取值之积。注意对 secs 而言，它的 size 与 length 是相等的，但对 secs [0] 而言，它的 size 和 length 是不相等的。我们在开发 Zillionare 量化框架时时，遇到过由此产生的一个 bug。
 
 但 secs 的元素类型则是 numpy.void，它在本质上是一个 named tuple，所以，我们可以这样访问其中的任一字段：
 
@@ -111,9 +110,10 @@ for (frame, code, opn, high, low, close) in secs:
 
 Numpy structured array 在这部分的语法要比 Pandas 的 DataFrame 易用许多。我们在后面介绍 Pandas 时，还会提及这一点。
 
-<!-- 易错：
+---
 
-修改 cell 值时，下面的语法不能互换：
+!!! warning
+    修改 cell 值时，索引的先后不能互换：
     ```python
         data = np.array ([("aaron", "label")], dtype=[("name", "O"), ("label", "O")])
         filter = data ["name"] == "aaron"
@@ -124,31 +124,35 @@ Numpy structured array 在这部分的语法要比 Pandas 的 DataFrame 易用�
         # this won't change
         data [filter]["label"] = new_label
     ```
-
--->
+    这里的最后一行，并不会生效。
 
 ## 2. 运算类
 ### 2.1. 比较和逻辑运算
 
----
 
 我们在上一节介绍定位、查找时，已经接触到了数据比较，比如:`arr > 1`。它的结果将数组中的每一个元素都与 1 进行比较，并且返回一个布尔型的数组。
 
 现在，我们要扩充比较的指令：
 
-| 函数      | 描述                                                                          |
-| --------- | ----------------------------------------------------------------------------- |
-| all       | 如果数组中的元素全为真，返回 True。可用以判断一组条件是否同时成立。           |
-| any       | 如果数组中至少有一个元素为真，则返回 True。用以判断一组条件是否至少有一个成立 |
-| isclose   | 判断两个数组中的元素是否一一近似相等，返回所有的比较结果                      |
-| allclose  | 判断两个数组中的元素是否全部近似相等                                          |
-| equal     | 判断两个数组中的元素是否一一相等，返回所有的比较结果。                        |
-| not_equal | 一一判断两个数组中的元素是否不相等，返回所有的比较结果                        |
-| isfinite  | 是否为数字且不为无限大                                                        |
-| isnan     | 测试是否为非数字                                                              |
-| isnat     | 测试对象是否不为时间类型                                                      |
-| isneginf  | 测试对象是否为负无限大                                                        |
-| isposinf  | 测试对象是否为正无限大                                                        |
+| 函数     | 描述                                                                          |
+| -------- | ----------------------------------------------------------------------------- |
+| all      | 如果数组中的元素全为真，返回 True。可用以判断一组条件是否同时成立。           |
+| any      | 如果数组中至少有一个元素为真，则返回 True。用以判断一组条件是否至少有一个成立 |
+| isclose  | 判断两个数组中的元素是否一一近似相等，返回所有的比较结果                      |
+| allclose | 判断两个数组中的元素是否全部近似相等                                          |
+
+---
+
+| 函数      | 描述                                                   |
+| --------- | ------------------------------------------------------ |
+| equal     | 判断两个数组中的元素是否一一相等，返回所有的比较结果。 |
+| not_equal | 一一判断两个数组中的元素是否不相等，返回所有的比较结果 |
+| isfinite  | 是否为数字且不为无限大                                 |
+| isnan     | 测试是否为非数字                                       |
+| isnat     | 测试对象是否不为时间类型                               |
+| isneginf  | 测试对象是否为负无限大                                 |
+| isposinf  | 测试对象是否为正无限大                                 |
+
 
 ```python
 # 开启多行输出模式
@@ -164,16 +168,14 @@ np.any (returns <= 0)
 
 # 模拟一个起始价格为 8 元的价格序列
 prices = np.cumprod (1+returns) * 8
-```
----
 
-```python
 # 对应的涨停价如下
 buy_limit_prices = [8.03, 8.1, 8.1, 8.3]
 
 # 判断是否涨停
 np.isclose (prices, buy_limit_prices, atol=1e-2)
 ```
+---
 
 !!! tip
     为什么需要存在判断近似相等的函数？这是因为，数字分为整型和浮点型。凡是带小数点的数字，都可以看成浮点型。许多浮点数不能精确表达，所以它们是不会相等的，只能比较两个浮点数的差值，如果差值的绝对值小于某个可以接受的小数，才能认为这两个数近似相等。
@@ -191,9 +193,9 @@ np.sum (returns > 0)
 
 在上一节进行比较的示例中，我们都只使用了单个条件。如果我们要按多个条件的组合进行查找，就需要依靠逻辑运算来实现。
 
----
-
 在 Numpy 中，逻辑运算既可以通过函数、也可以通过运算符来完成：
+
+---
 
 | 函数        | 运算符 | 描述             | python 等价物 |
 | ----------- | ------ | ---------------- | ------------- |
@@ -202,15 +204,15 @@ np.sum (returns > 0)
 | logical_not | ~      | 执行逻辑或操作   | not           |
 | logical_xor | '^'    | 执行逻辑异或操作 | xor           |
 
-<!--
 
-如果你对编程语言不是特别熟悉，就会难以理解这里的布尔运算，但它们在量化中运用非常广泛，并且在后面讲 pandas 时，我们还会遇到
+!!! tip
+    如果你对编程语言不是特别熟悉，就会难以理解这里的布尔运算，但它们在量化中运用非常广泛，并且在后面讲 pandas 时，我们还会遇到
 
-逻辑与 a&b 的含义是， 只有当条件 a 与 b 都为真时，表达式才成立
-逻辑或 a|b 的含义是，a 与 b 之中，任何一个为真即成立
-逻辑非～b 的含义是，如果 b 为真，则表达式不成立，反之则成立
-逻辑异或 a ^ b 的含义是，
--->
+    逻辑与 a&b 的含义是， 只有当条件 a 与 b 都为真时，表达式才成立
+    逻辑或 a|b 的含义是，a 与 b 之中，任何一个为真即成立
+    逻辑非～b 的含义是，如果 b 为真，则表达式不成立，反之则成立
+    逻辑异或 a ^ b 的含义是，只有两个不同时才为真。
+
 
 逻辑运算有什么用呢？比如我们在选股时，有以下表格数据：
 
@@ -232,9 +234,9 @@ tickers = np.array ([
 ], dtype=[("ticker", "O"), ("pe", "f4"), ("mom", "f4")])
 ```
 
-现在，我们要找出求 PE < 35, 动量 (mom) > 0.2 的记录，那么我们可以这样构建条件表达式：
-
 ---
+
+现在，我们要找出求 PE < 35, 动量 (mom) > 0.2 的记录，那么我们可以这样构建条件表达式：
 
 ```python
 (tickers ["pe"] < 35) & (tickers ["mom"] > 0.2)
@@ -255,10 +257,11 @@ np.array ((1,1,0,0)) & np.array ((0, 1, 1, 0))
 
 在量化中使用异或操作的例子仍然最可能来自于选股。比如，如果我们要求两个选股条件，只能有一个成立时，才买入；否则不买入，就可以使用异或运算。
 
-!!! tip
-    投资者为什么可能想要找到那些只满足一个条件的股票？这可能是因为他们认为这两个条件可能互相冲突，或者他们想要在两种投资策略之间进行平衡。
-
 ---
+
+!!! tip
+    在多个条件中，投资者为什么会想要只有一个条件成立？这可能是因为他们认为这两个条件可能互相冲突，或者他们想要在两种投资策略之间进行平衡。
+
 
 ### 2.2. 集合运算
 
@@ -284,9 +287,9 @@ diff = np.setdiff1d (x, y)
 print ("x - y:", diff)
 ```
 
-此外，我们还可能使用 `in1d (a1, a2)` 方法来判断 a1 中的元素是否都在 a2 中存在。比如，在调仓换股中，如果当前持仓都在买入计划中，则不需要执行调仓。
-
 ---
+
+此外，我们还可能使用 `in1d (a1, a2)` 方法来判断 a1 中的元素是否都在 a2 中存在。比如，在调仓换股中，如果当前持仓都在买入计划中，则不需要执行调仓。
 
 ### 2.3. 数学运算和统计
 Numpy 中数学相关的运算有线性代数运算（当然还有基本代数运算）、统计运算、金融指标运算等等。
@@ -305,10 +308,6 @@ port_vol = np.sqrt (np.dot (np.dot (weights, cov), weights.T))
 下面通过一个具体的例子来说明矩阵乘法的过程：
 
 假设我们有两个矩阵 A 和 B：
-
-<hr>
-
-《投资组合理论与实战》发表在 www.jieyu.ai 上。
 
 ---
 
@@ -403,7 +402,9 @@ np.percentile（或者 np.quantile）的常见应用是计算 25%, 50% 和 75% �
 ```python
 import numpy as np
 def moving_average (data, window_size):
-    return np.convolve (data, np.ones (window_size)/window_size, 'valid')
+    return np.convolve(data,
+                       np.ones(window_size)/window_size, 
+                       'valid')
 ```
 
 ---
@@ -455,7 +456,12 @@ plt.show ()
 
 这将生成下图：
 
-<div style='width:75%;text-align:center;margin: 0 auto 1rem'>
+<div style='width:60%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://images.jieyu.ai/images/2024/04/np-polyfit.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
+
+<hr>
+
+题图： Photo by Steve Harvey on Unsplash
+      

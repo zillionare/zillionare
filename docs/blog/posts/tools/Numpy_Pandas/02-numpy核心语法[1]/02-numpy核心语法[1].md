@@ -15,6 +15,7 @@ tags:
     - Numpy
 ---
 
+## 1. 基本数据结构
 
 NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个多维度、同质并且大小固定的数组对象。
 
@@ -573,14 +574,14 @@ cprint("Dtype of structured array: {}", arr.dtype)
 
 size 在不带参数时，返回的是 shape 各元素取值的乘积。len 返回的是第一维的长度。
 
-### 1.5. 数组操作
+## 2. 数组操作
 <!--介绍引起数组形状、size 等改变的相关操作-->
 
 我们在前面的例子中，已经看到过一些引起数组形状改变的例子。比如，要生成一个$3×2$的数组，我们先用 np.arange(6) 来生成一个一维数组，再将它的形状改变为 (2, 3)。
 
 另一个例子是使用 np.concatenate，从而改变了数组的行或者列。
 
-#### 1.5.1. 升维
+### 2.1. 升维
 我们可以通过 reshape, hstack, vstack 来改变数组的维度：
 
 ---
@@ -598,7 +599,7 @@ cprint("createing from stack: {}",
 np.hstack((np.array([[1],[2],[3]]), np.array([[4], [5], [6]])))
 ```
 
-#### 1.5.2. 降维
+### 2.2. 降维
 
 通过 ravel, flatten, reshape, *split 等操作对数组进行降维。
 <!--很多操作，比如像 argwhere，会返回升维的结果，此时我们可能需要在使用前，对其降维-->
@@ -627,7 +628,7 @@ np.ravel([[1,2,3],[4, 5, 6]])
 
 通过 reshape 来进行扁平化也是常用操作。此外，还介绍了 vsplit, hsplit 函数，它们的作用刚好与 vstack，hstack 相反。
 
-#### 1.5.3. 转置
+### 2.3. 转置
 
 此外，对数组进行转置也是此类例子中的一个。比如，在前面我们提到，np.argwhere 的结果，实际上是 np.nonzero 的转置，我们来验证一下：
 
@@ -641,7 +642,11 @@ cprint("nonzero: {}", np.array(np.nonzero(x > 1)).T)
 
 两次输出结果完全一样。在这里，我们是通过`.T`来实现的转置，它是一个语法糖，正式的函数是`transpose`。
 
+
+---
+
 当然，由于 reshape 函数极其强大，我们也可以使用它来完成转置：
+
 
 ```python
 cprint("transposing array from \n{} to \n{}", 
