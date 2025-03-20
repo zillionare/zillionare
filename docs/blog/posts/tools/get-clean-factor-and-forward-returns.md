@@ -3,7 +3,7 @@ title: 12个参数，48个组合，这么复杂的函数怎么学？
 slug: get-clean-factor-and-forward-returns
 date: 2024-07-26
 category: tools
-motto: Learning how to fall teaches you how to land
+motto: Learning how to fall teaches you how to land.
 img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%

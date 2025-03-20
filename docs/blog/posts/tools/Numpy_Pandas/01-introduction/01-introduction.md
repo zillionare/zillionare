@@ -11,17 +11,9 @@ tags:
     - tools
     - programming
     - Numpy
-<<<<<<< HEAD
     - Pandas
 ---
 
-
-=======
----
-
-
-
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
 <!--
 # 课程简介
 ## 课程编排说明
@@ -35,17 +27,8 @@ Pandas生态环境
 
 如果你去研究一些非常重要的量化库，比如alphalens, empyrical, backtrader, tushare, akshare, jqdatasdk等，或者一些非常优秀的量化框架比如quantaxis, zillionare, vnpy等等，你就会发现它们都依赖于numpy和pandas。实际上，一个库只要依赖于pandas，它也必将传递依赖到numpy。
 
-<<<<<<< HEAD
----
-
 具体地说，Numpy和Pandas不仅为量化人提供了类似于表格的数据结构 -- Numpy structured array和Pandas DataFrame -- 这对于包括行情数据在内的诸多数据的中间存储是必不可少的；它还提供了许多基础算法。
 
-=======
-具体地说，Numpy和Pandas不仅为量化人提供了类似于表格的数据结构 -- Numpy structured array和Pandas DataFrame -- 这对于包括行情数据在内的诸多数据的中间存储是必不可少的；它还提供了许多基础算法。
-
----
-
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
 比如：
 
 1. 在配对交易(pair trade)中，相关性计算是非常重要的一环。无论是Numpy还是Pandas都提供了相关性计算函数。
@@ -56,13 +39,10 @@ Pandas生态环境
 
 ## 课程编排说明
 
-<<<<<<< HEAD
-紧扣量化场景来介绍Numpy和Pandas是本课的一大特点。我们通过分析重要的、流行度较高的量化库源码，找出其中使用numpy和pandas的地方，再进行归类的提炼，并结合一些量化社区中常问的相关问题 -- 这些往往是量化人在使用numpy/pandas时遇到的困难所在 -- 来进行课程编排，确保既系统讲解这两个重要的库，又保证学员在学习后，能立即将学习到的方法与技巧运用到工作中，迅速提高自己的生产力。任何高效地学习都离不开高强度的练习。本课程安排了大量的练习。无论是演示代码、还是练习，我们都尽可能安排在量化场景下完成，这样会增强您的代入感。但是，这往往也要求您能理解这些场景和数据。
-=======
 紧扣量化场景来介绍Numpy和Pandas是本课的一大特点。我们通过分析重要的、流行度较高的量化库源码，找出其中使用numpy和pandas的地方，再进行归类的提炼，并结合一些量化社区中常问的相关问题 -- 这些往往是量化人在使用numpy/pandas时遇到的困难所在 -- 来进行课程编排，确保既系统讲解这两个重要的库，又保证学员在学习后，能立即将学习到的方法与技巧运用到工作中，迅速提高自己的生产力。
 
 任何高效地学习都离不开高强度的练习。本课程安排了大量的练习。无论是演示代码、还是练习，我们都尽可能安排在量化场景下完成，这样会增强您的代入感。但是，这往往也要求您能理解这些场景和数据。
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
+
 
 在编写本课程时，作者阅读了大量书籍、博文、论文和开源项目代码。其中一部分与教材关联度较高的，我们以延伸阅读、脚注的方式提供参考链接。如果学员有时间，也可以阅读这部分内容，以获得跟作者同样的视野景深。但如果你时间紧张，也完全可以跳过这些内容，只关注我们课程内容的主线就好。
 
@@ -81,11 +61,8 @@ Numpy是Python科学计算中的基础包，它是一款开源软件，允许在
 
 Numpy提供了多维数组对象、各种派生对象（比如掩码数组 -- masked array）以及各种用于数组操作的高性能例程，包括数学、逻辑、形状操作、排序、选择、I/O 、离散傅里叶变换、基本线性代数、基本统计运算、随机模拟等等。下图提供了一个更详细的说明：
 
-<<<<<<< HEAD
 ![60%](https://images.jieyu.ai/images/2024/04/numpy-features.jpg)
-=======
-![40%](https://images.jieyu.ai/images/2024/04/numpy-features.jpg)
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
+
 
 ---
 
@@ -102,11 +79,8 @@ Numpy广泛运用于学术界、金融界和工业界，具有成熟、快速、
 
 Numpy还是Pandas, scipy[^scipy], statsmodels[^statsmodels]和scikit-learn[^scikit-learn]等众多知名Python库的底层依赖库。
 
-<<<<<<< HEAD
-
-=======
 ---
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
+
 
 ## 什么是Pandas
 
@@ -116,11 +90,8 @@ Pandas的名字来源于术语Panel Data(面板数据)和Python Data Analysis，
 
 自2010年成为开源项目以来，pandas已经发展成为相当大的一个库，开发者社区已发展到超过2500名不同的贡献者。
 
-<<<<<<< HEAD
 ---
 
-=======
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
 <!--
 ```markmap
 
@@ -150,10 +121,8 @@ Pandas的名字来源于术语Panel Data(面板数据)和Python Data Analysis，
 
 ![60%](https://images.jieyu.ai/images/2024/04/pandas-features.jpg)
 
-<<<<<<< HEAD
-=======
 ---
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
+
 
 
 Pandas提供了Series, DataFrame两种数据结构。它曾经还提供了Panel这种三维数据结构，但最终放弃了。与Excel相比，它能更快速地分析更大的数据（一般小于1千万行，主要取决于机器的物理内存）。
@@ -167,11 +136,8 @@ Pandas提供了Series, DataFrame两种数据结构。它曾经还提供了Panel�
 
 如果要推荐一本讲解Pandas的书，毫无疑问，没人任何书籍能比[《Python for Data Analysis》](https://wesmckinney.com/book/)更权威了。因为它是由Pandas的创建者Wes McKinney撰写的！这本书现在提供有网页版供开放访问。读者也可点击[此链接](https://wesmckinney.com/book/)阅读。在2023年4月进行更新后，它现在支持到了pandas 2.0版本。
 
-<<<<<<< HEAD
 ---
 
-=======
->>>>>>> 420be9aeea2846f7b9efd59bbbefc070dcb01ab9
 Wes Mckinney是Pandas的创建者和终生仁慈独裁者。他现在居住在田纳西的纳什维尔，是DataPad的CEO和联合创始人。
 
 他本科毕业于MIT，是数学和统计学博士（杜克大学）。在AQR资本管理公司工作期间，学习了Python并开始构建pandas。他同时还是Apache Arrow的联合创建者。
