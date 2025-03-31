@@ -1,10 +1,14 @@
 ---
-title: 量化人怎么用Numpy——核心语法[3]
+title: Numpy核心语法[3]
+seq: "04"
+series: 量化人的Numpy&Pandas
+fonts:
+    sans: 'AlibabaPuHuiTi-Thin, sans-serif'
 slug: numpy-pandas-for-quant-trader-04
 date: 2025-03-09
 category: tools
 motto: Be dazzling! You are qualified.
-img: https://images.jieyu.ai/images/2024/12/book-of-sun-le.jpg
+img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -13,12 +17,13 @@ tags:
     - Numpy
 ---
 
-## 1. 类型转换和 Typing
 
-在不同的库之间交换数据，常常会遇到格式问题。比如，我们从第三方数据源拿到的行情数据，它们用的时间字段常常会是字符串（这是代码少写了几行吗？！）。有一些库在存储行情时，对 OHLC 这些字段进行了优化，使用了 4 个字节的浮点数，但如果要传给 talib 进行指标计算，就必须先转换成 8 个字节的浮点数，等等，这就有了类型转换的需求。
+在不同的库之间交换数据，常常会遇到格式问题。比如，我们从第三方数据源拿到的行情数据，它们用的时间字段常常会是字符串。有一些库在存储行情时，对 OHLC 这些字段进行了优化，使用了 4 个字节的浮点数，但如果要传给 talib 进行指标计算，就必须先转换成 8 个字节的浮点数，等等，这就有了类型转换的需求。
+
+---
 
 此外，我们还会遇到需要将 numpy 数据类型转换为 python 内置类型，比如，将 numpy.float64 转换为 float 的情况。
-
+## 1. 类型转换和 Typing
 ### 1.1. Numpy 内部类型转换
 Numpy 内部类型转换，我们只需要使用 astype 
 
@@ -35,7 +40,7 @@ x = np.array ([2014, 2015])
 print (x.astype (np.str_))
 ```
 
-!!! tips
+!!! tip
     如何将 boolean array 转换成整数类型，特别是，将 True 转为 1，False 转为 - 1？
     在涉及到阴阳线的相关计算中，我们常常需要将 open > close 这样的条件转换为符号 1 和 - 1，以方便后续计算。这个转换可以用：
 
@@ -145,6 +150,8 @@ def convert_to_int (arr: NDArray, dtype: DTypeLike) -> NDArray:
 ## 3. 处理包含 np.nan 的数据
 
 在量化分析中，我们常常会遇到数据为 np.nan 情况。比如，某公司上年利润为负数，今年利润实现正增长，请问要如何表示公司的 YoY 的利润增长呢？
+
+---
 
 !!! info
     np.nan 是 numpy 中的一个特殊值，表示“Not a Number”，即“不是数字”。注意，在 Numpy 中，尽管 np.nan 不是一个数字，但它确实数字类型。确切地说，它是 float 类型。此外，在 float 类型中，还存在 np.inf（正无穷大）和负无穷大 (np.NINF，或者-np.inf)。
