@@ -15,6 +15,7 @@ tags:
     - tools
     - programming
     - Numpy
+    - Pandas
     - pandas
 ---
 
