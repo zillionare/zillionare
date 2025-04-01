@@ -168,12 +168,20 @@ def get_and_remove_img_url(text: str):
     return groups.group(1), re.sub(r"\!\[.*\]\(.*\)", "", text)
 
 def get_excerpt(text: str):
+    """第一个<!--more-->之前的正式文本作为文章摘要，或者第一个---之前的正式文本作为摘要，或者前140字符"""
     pat = r'(.*?)(?:<!--\s*more\s*-->)'
     result = re.search(pat, text, re.MULTILINE|re.DOTALL)
+    excerpt = None
     if result  is not None:
         excerpt = result.group(1).replace("\n\n", "")
-    else:
-        excerpt = text[:140] + "..."
+    
+    if excerpt is None:
+        pat = r"(.*?)(?:---\s*)"
+        result = re.search(pat, text, re.MULTILINE|re.DOTALL)
+        if result is not None:
+            excerpt = result.group(1).replace("\n\n", "")
+        else:
+            excerpt = text[:140] + "..."
 
     # remove header
     excerpt = excerpt.replace("#", "").replace("\n", "<br>")
@@ -414,5 +422,6 @@ if __name__ == "__main__":
     fire.Fire({
         "build": build,
         "publish": publish,
-        "xq": xq
+        "xq": xq,
+        "meta": extract_blog_meta
     })

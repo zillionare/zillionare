@@ -22,8 +22,6 @@ tags:
 
 ---
 
----
-
 此外，我们还会遇到需要将 numpy 数据类型转换为 python 内置类型，比如，将 numpy.float64 转换为 float 的情况。
 ## 1. 类型转换和 Typing
 ### 1.1. Numpy 内部类型转换
