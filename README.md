@@ -3,9 +3,9 @@
 <div class="card-columns">
     
 <div>
-<h3>致命的 ID-DuckDB 中的 Returning 子句之谜</h3>
-<img src="https://images.jieyu.ai/images/2025/05/20250514202750.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>『华生，你是否曾思考过，在数据库的深处，隐藏着多少不为人知的秘密？』福尔摩斯放下手中的烟斗，凝视着窗外伦敦的雾霭。<br>"福尔摩斯，我承认数据库对我而言如同迷宫。"我诚实地回答，我正在记录福尔摩斯最新的冒险。<br>"今天早晨，一位焦虑的开发者前来求助，他遇到了一个令人费解的谜题。"福尔摩...</p>
+<h3>致命的 ID -- DuckDB 中的 Returning 子句之谜</h3>
+<img src="https://images.jieyu.ai/images/2025/05/20250514210946.png" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>『华生，你是否曾思考过，在数据库的深处，隐藏着多少不为人知的秘密？』福尔摩斯放下手中的烟斗，凝视着窗外伦敦的雾霭。<br><br>『福尔摩斯，我承认数据库对我而言如同迷宫。』我诚实地回答，我正在记录福尔摩斯最新的冒险。<br><br>『今天早晨，一位焦虑的开发者前来求助，他遇到了一个令人费解的谜题。』福...</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-14 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2025/05/14/IDENTITY-The-Mystery-of-the-Returning-Clause">点击阅读</a></span></p>
 
