@@ -1,4 +1,15 @@
-# 21 天驯化 AI 打工仔：开发量化交易系统
+---
+title: 21天驯化AI打工仔 - 开发量化交易系统
+slug: Taming-the-AI-Worker-in-21-Days-2
+date: 2025-05-11
+category: tools
+motto: You only live once, but if you do it right, once is enough
+img: https://images.jieyu.ai/images/2025/05/20250514202750.png
+tags: 
+    - tools
+    - programming
+---
+
 ## （二）实现 ClickHome 数据库
 
 今天是第二天，我计划实现如下任务：
