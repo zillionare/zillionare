@@ -1,4 +1,15 @@
-# 21 天驯化 AI 打工仔：开发量化交易系统（四）通用的数据交换格式 SQEP 与 symbol 编码的性能测试
+---
+title: 21天驯化AI打工仔 - SQEP与symbol编码性能测试
+slug: Taming-the-AI-Worker-in-21-Days-5
+date: 2025-05-18
+category: tools
+motto: You only live once, but if you do it right, once is enough
+img: https://images.jieyu.ai/images/2025/05/20250514202750.png
+tags: 
+    - tools
+    - programming
+    - Augment
+---
 
 ## 前言
 
@@ -52,20 +63,20 @@ SQEP-BAR-DAY 是标准行情交换协议 (Standard Quotes Exchange Protocol) 中
 
 SQEP-BAR-DAY 包含以下标准字段：
 
-| 字段名 | 数据类型 | 说明 |
-|-------|---------|------|
-| symbol | str/int | 股票代码。推荐使用整型编码以提高性能 |
-| frame | datetime.date | 交易日期 |
-| open | float64 | 开盘价 |
-| high | float64 | 最高价 |
-| low | float64 | 最低价 |
-| close | float64 | 收盘价 |
-| vol | float64 | 成交量 |
-| amount | float64 | 成交额 |
-| adjust | float64 | 复权因子 |
-| st | bool | 是否为 ST 股票（可选扩展字段） |
-| buy_limit | float64 | 涨停价（可选扩展字段） |
-| sell_limit | float64 | 跌停价（可选扩展字段） |
+| 字段名     | 数据类型      | 说明                                 |
+| ---------- | ------------- | ------------------------------------ |
+| symbol     | str/int       | 股票代码。推荐使用整型编码以提高性能 |
+| frame      | datetime.date | 交易日期                             |
+| open       | float64       | 开盘价                               |
+| high       | float64       | 最高价                               |
+| low        | float64       | 最低价                               |
+| close      | float64       | 收盘价                               |
+| vol        | float64       | 成交量                               |
+| amount     | float64       | 成交额                               |
+| adjust     | float64       | 复权因子                             |
+| st         | bool          | 是否为 ST 股票（可选扩展字段）       |
+| buy_limit  | float64       | 涨停价（可选扩展字段）               |
+| sell_limit | float64       | 跌停价（可选扩展字段）               |
 
 ### 1.2. 编码约定
 
