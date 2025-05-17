@@ -15,7 +15,7 @@
 <div>
 <h3>Augment随手记</h3>
 <img src="https://images.jieyu.ai/images/hot/gallery/banner/IMG_20250510_112543.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>Duckdb是一个年轻而迷人的数据库。它的备份可以简单到通过拷贝文件来完成 -- 但前提是，没有其它进程独占她。如果你的服务使用了duckdb，而且还在不停地读写她，你该怎么给她一个备份呢？<br><br>我们把这个问题抛给了Augment.<br><br><!--excerpt--><br><br>To Augm...</p>
+<p><span>内容摘要:<br></span>Duckdb是一个年轻而迷人的数据库。它的备份可以简单到通过拷贝文件来完成 -- 但前提是，没有其它进程独占她。如果你的服务使用了duckdb，而且还在不停地读写她，你该怎么给她一个备份呢？<br><br>我们把这个问题抛给了Augment.<br><br><br>To Augment:<br><br>> 增加一个后台任...</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-17 人气 292 </span><span><a href="https://www.jieyu.ai/blog/2025/05/17/augment-daily-dose-1">点击阅读</a></span></p>
 
@@ -25,7 +25,7 @@
 <div>
 <h3>致命的 ID -- DuckDB 中的 Returning 子句之谜</h3>
 <img src="https://images.jieyu.ai/images/2025/05/20250514210946.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，我们找到了根本原因，并且通过坚实的实验验证了结论。<br><br><!--excerpt--><br><br><br>『华生，你是...</p>
+<p><span>内容摘要:<br></span>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，我们找到了根本原因，并且通过坚实的实验验证了结论。<br><br>『华生，你是否曾思考过，在数据库的深处，隐藏着...</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-14 人气 198 </span><span><a href="https://www.jieyu.ai/blog/2025/05/14/IDENTITY-The-Mystery-of-the-Returning-Clause">点击阅读</a></span></p>
 
