@@ -3,7 +3,7 @@ title: Augment随手记
 date: 2025-05-17
 category: tools
 slug: augment-daily-dose-1
-img: 
+img: https://images.jieyu.ai/images/hot/gallery/banner/IMG_20250510_112543.jpg
 tags:
   - AI
   - Augment
@@ -14,7 +14,7 @@ Duckdb是一个年轻而迷人的数据库。它的备份可以简单到通过�
 
 我们把这个问题抛给了Augment.
 
-<!--excerpt-->
+---
 
 To Augment:
 
