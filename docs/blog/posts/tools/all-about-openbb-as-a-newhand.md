@@ -1,5 +1,5 @@
 ---
-title: OpenBB实战！轻松获取海外市场数据
+title: OpenBB 实战！轻松获取海外市场数据
 date: 2024-08-13
 category: tools
 slug: all-about-openbb-as-a-newhand

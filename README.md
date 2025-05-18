@@ -5,7 +5,7 @@
 <div>
 <h3>21天驯化AI打工仔 - SQEP与symbol编码性能测试</h3>
 <img src="https://images.jieyu.ai/images/2025/05/20250514202750.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span> 前言"007，我们需要讨论一个重要的性能优化问题，"我一边敲击键盘一边对我的 AI 助手说道。"什么问题？我已经准备好了，"007 回应道，它的语音合成器发出了一种几乎可以称为热情的声音。"在量化交易系统中，数据查询性能至关重要。我们需要测试一下股票代码编码方式对查询速度的影响。"前三天，我们讨论了如何从 Tushare 获取 OHLC (开盘价、最高价、最低价、收盘价) 数据和调整因子 (adj_factor)。当时我们存储的数据结构如下：```python<br>{<br>    "timestamp": "时间戳",<br>    "ts_code": "股票代码",<br>    "ohlc": {<br>        "ts_code": "股票代码",<br>        "open": "开盘价",<br>        "high": "最高价",<br>        "low": "最低价",<br>        "close": "收盘价",<br>        "vol": "成交量"<br>    },<br>    "adj_factor": {<br>        "ts_code": "股票代码",<br>        "trade_date": "交易日期",<br>        "adj_factor": "复权因子"<br>    }<br>}<br>```现在，我们需要设计一种通用的数据交换格式（Standard Quotes Exchange Protocol, SQEP）。这种格式的工作原理是：由数据生产者（因为只有生产者才了解原始数据的具体格式）将数据转换为这种标准格式，然后再将其推送到 Redis 中供消费者使用。"在金融数据处理中，毫秒级的延迟可能意味着巨大的差异，"007 解释道，"特别是在高频交易场景下，查询性能的优化至关重要。"我点点头："没错，其中一个关键问题是股票代码 symbol 的数据类型选择。理论上，整数类型的查询和比较操作应该比字符串更高效，但我们需要实际测试来验证这一点。""我可以帮你设计一个严谨的实验，"007 建议道，"我们可以生成足够大的数据集，然后在相同条件下比较 string 和 int64 类型的查询性能。"于是，我和 007 决定生成 1 亿条股票数据，对 string 类型和 int64 类型的 symbol 进行严谨公平的性能测试，以量化分析不同编码方式对查询效率的实际影响。这个实验将帮助我们在构建高性能量化交易系统时做出更明智的技术选择。 1. SQEP-BAR-DAY 日线场景下的数据交换格式"设计一个好的数据交换格式需要考虑多方面因素，"007 分析道，"包括数据完整性、传输效率、存储空间和查询性能。"SQEP-BAR-DAY 是标准行情交换协议 (Standard Quotes Exchange Protocol) 中用于日线数据的格式规范。该格式设计用于在不同系统组件间高效传输和处理股票日线数据，确保数据的一致性和互操作性。这种标准化的数据格式解决了量化交易系统中一个常见的痛点：不同数据源提供的数据格式各不相同，导致系统需要为每个数据源编写特定的处理逻辑。通过 SQEP，我们可以将这种复杂性隔离在数据生产者端，让消费者端的代码更加简洁和通用。 1.1. 字段定义SQEP-BAR-DAY 包含以下标准字段：| 字段名     | 数据类型      | 说明                                 |<br>| </p>
+<p><span>内容摘要:<br></span>"007，我们需要讨论一个重要的性能优化问题，"我一边敲击键盘一边对我的 AI 助手说道。"什么问题？我已经准备好了，"007 回应道，它的语音合成器发出了一种几乎可以称为热情的声音。"在量化交易系统中，数据查询性能至关重要。我们需要测试一下股票代码编码方式对查询速度的影响。"</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-18 人气 934 </span><span><a href="https://www.jieyu.ai/blog/2025/05/18/Taming-the-AI-Worker-in-21-Days-5">点击阅读</a></span></p>
 
@@ -35,7 +35,7 @@
 <div>
 <h3>21天驯化AI打工仔 - 如何存储10亿个Symbol?</h3>
 <img src="https://images.jieyu.ai/images/2025/05/20250514202750.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span> 前言<br>第一天，我们讨论了如何从Tushare获取OHLC(开盘价、最高价、最低价、收盘价)数据和调整因子(adj_factor)。当时我们存储的数据结构如下：```python<br>{<br>    "timestamp": "时间戳",<br>    "ts_code": "股票代码",<br>    "ohlc": {<br>        "ts_code": "股票代码",<br>        "open": "开盘价",<br>        "high": "最高价",<br>        "low": "最低价",<br>        "close": "收盘价",<br>        "vol": "成交量"<br>    }, <br>    "adj_factor": {<br>        "ts_code": "股票代码",<br>        "trade_date": "交易日期",<br>        "adj_factor": "复权因子"<br>    }<br>}<br>```现在，我们需要设计一种通用的数据交换格式（Standard Quotes Exchange Protocol, SQEP）。这种格式的工作原理是：由数据生产者（因为只有生产者才了解原始数据的具体格式）将数据转换为这种标准格式，然后再将其推送到Redis中供消费者使用。 1. SQEP-BAR-DAY 日线场景下的数据交换格式SQEP-BAR-DAY 是标准行情交换协议(Standard Quotes Exchange Protocol)中用于日线数据的格式规范。该格式设计用于在不同系统组件间高效传输和处理股票日线数据，确保数据的一致性和互操作性。 1.1. 字段定义SQEP-BAR-DAY 包含以下标准字段：| 字段名     | 数据类型      | 说明                                 |<br>| </p>
+<p><span>内容摘要:<br></span>现在，我们需要设计一种通用的数据交换格式（Standard Quotes Exchange Protocol, SQEP）。这种格式的工作原理是：由数据生产者（因为只有生产者才了解原始数据的具体格式）将数据转换为这种标准格式，然后再将其推送到Redis中供消费者使用。</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-14 人气 407 </span><span><a href="https://www.jieyu.ai/blog/2025/05/14/Taming-the-AI-Worker-in-21-Days-4">点击阅读</a></span></p>
 
@@ -45,7 +45,7 @@
 <div>
 <h3>21天驯化AI打工仔 - 数据库的优化</h3>
 <img src="https://images.jieyu.ai/images/2025/05/20250514202750.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span> 前言<br>五一小长假之前，我在搭档 007 的帮助下已经成功实现了从 Tushare 获取 OHLC 数据，并通过 Redis 消息队列将数据存储到 ClickHouse 数据库。为了进一步完善量化交易系统的数据支持，今天我们将聚焦于数据库的优化设计，主要涉及获取日线复权因子、获取分钟线数据以及计算分钟线数据（例如 15 分钟）三个方面。五一结束之后，我们计划通过这些优化，能够为量化交易策略提供更丰富、更精细的数据，从而提升系统的性能和决策能力。 1. 获取日线的复权因子<br>> 我：007！帮我在 `data_producer.py` 和 `data_consumer.py` 中添加获取日线因子的代码。<br>> <br>> 007：🫡收到请求，正在处理...为了在 `data_consumer.py` 和 `data_producer.py` 中补充因子的数据，我们需要对原代码进行一些修改。主要思路是在生产者代码中获取因子数据并封装到数据结构中，然后在消费者代码中处理这些因子数据。因为后续我们要收集分钟级的数据，所以我新建了一张表，命名为 `daily_data`，用于存储日线因子数据。<br>;<br>``` 2.2. 修改生产者代码，添加分钟线数据获取功能<br>007 还是采用 tushare 来获取分钟线数据，并添加到数据表中。但是，这里获取分钟线数据我并不打算用 tushare 作为数据源，而是打算采用 qmt 提供的 API 接口来获取分钟级的数据。<!--<br>!!! note 改用 qmt 的一些理由<br>    QMT（迅投极速策略交易系统）相较于 Tushare 在获取分钟线数据方面有一些优势，以下是具体原因：    | 比较维度           | QMT                                                                                                                                                                                                                          | Tushare                                                                                                                                                                                  |<br>    | </p>
+<p><span>内容摘要:<br></span>五一小长假之前，我在搭档 007 的帮助下已经成功实现了从 Tushare 获取 OHLC 数据，并通过 Redis 消息队列将数据存储到 ClickHouse 数据库。为了进一步完善量化交易系统的数据支持，今天我们将聚焦于数据库的优化设计，主要涉及获取日线复权因子、获取分钟线数据以及计算分钟线数据（例如 15 分钟）三个方面。五一结束之后，我们计划通过这些优化，能够为量化交易策略提供更丰富、更精细的数据，从而提升系统的性能和决策能力。</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-13 人气 780 </span><span><a href="https://www.jieyu.ai/blog/2025/05/13/Taming-the-AI-Worker-in-21-Days-3">点击阅读</a></span></p>
 
@@ -55,7 +55,7 @@
 <div>
 <h3>21天驯化AI打工仔 - 开发量化交易系统</h3>
 <img src="https://images.jieyu.ai/images/2025/05/20250514202750.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span> （二）实现 ClickHome 数据库<br><br>今天是第二天，我计划实现如下任务：<br>1. 安装 ClickHouse 和 DBeaver<br>2. 创建 ClickHouse 数据表<br>3. 修改 Redis 消息队列代码以支持 ClickHouse 存储<br><br>我唤醒了 007，它今天是...</p>
+<p><span>内容摘要:<br></span>今天是第二天，我计划实现如下任务：<br>1. 安装 ClickHouse 和 DBeaver<br>2. 创建 ClickHouse 数据表<br>3. 修改 Redis 消息队列代码以支持 ClickHouse 存储我唤醒了 007，它今天是要陪我一起战斗代码的。</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-11 人气 847 </span><span><a href="https://www.jieyu.ai/blog/2025/05/11/Taming-the-AI-Worker-in-21-Days-2">点击阅读</a></span></p>
 
@@ -65,7 +65,7 @@
 <div>
 <h3>21天驯化AI打工仔 - 我如何获取量化数据</h3>
 <img src="https://images.jieyu.ai/images/2025/05/20250514202750.png" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>IDEA：本人和本人的 AI黑奴 的相互协作，能不能在短短 21 天内开发出一套量化交易系统？<br><br>这么有意思的挑战，不如就从今天开始吧！“数据是一切开始的基础”，我打算先安排 AI黑奴 从数据获取开始做起。（感觉叫 AI黑奴 不太好听，那就给它取个名字叫：007号打码机，希望00...</p>
+<p><span>内容摘要:<br></span>IDEA：本人和本人的 AI黑奴 的相互协作，能不能在短短 21 天内开发出一套量化交易系统？这么有意思的挑战，不如就从今天开始吧！“数据是一切开始的基础”，我打算先安排 AI黑奴 从数据获取开始做起。（感觉叫 AI黑奴 不太好听，那就给它取个名字叫：007号打码机，希望007号“牛码”可以“码力全开”）好！下面我们正式准备开发工作！</p>
 
 <p><span style="margin-right:20px">发表于 2025-05-10 人气 992 </span><span><a href="https://www.jieyu.ai/blog/2025/05/10/Taming-the-AI-Worker-in-21-Days-1">点击阅读</a></span></p>
 
