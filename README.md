@@ -83,11 +83,31 @@
 
 
 <div>
+<h3>20 - Pandas应用案例[3]</h3>
+<img src="https://images.jieyu.ai/images/hot/mybook/men-wearing-tank.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的 1/3；Dask 则支持分布式计算，轻松处理 TB 级数据。”</p>
+
+<p><span style="margin-right:20px">发表于 2025-04-05 人气 861 </span><span><a href="/articles/python/numpy&pandas/numpy-pandas-for-quant-trader-20">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
+<h3>19 - Pandas应用案例[2]</h3>
+<img src="https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg" style="width: 300px" align="right"/>
+<p><span>内容摘要:<br></span>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT 编译，数值计算性能可媲美 C 语言。”</p>
+
+<p><span style="margin-right:20px">发表于 2025-04-05 人气 537 </span><span><a href="/articles/python/numpy&pandas/numpy-pandas-for-quant-trader-19">点击阅读</a></span></p>
+
+</div><!--end-article-->
+
+
+<div>
 <h3>Pandas应用案例[3]</h3>
 <img src="https://images.jieyu.ai/images/hot/mybook/men-wearing-tank.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的 1/3；Dask 则支持分布式计算，轻松处理 TB 级数据。”</p>
 
-<p><span style="margin-right:20px">发表于 2025-04-05 人气 861 </span><span><a href="https://www.jieyu.ai/blog/2025/04/05/numpy-pandas-for-quant-trader-20">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-04-05 人气 134 </span><span><a href="https://www.jieyu.ai/blog/2025/04/05/numpy-pandas-for-quant-trader-20">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -97,27 +117,7 @@
 <img src="https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT 编译，数值计算性能可媲美 C 语言。”</p>
 
-<p><span style="margin-right:20px">发表于 2025-04-05 人气 537 </span><span><a href="https://www.jieyu.ai/blog/2025/04/05/numpy-pandas-for-quant-trader-19">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>Pandas应用案例[1]</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/christmas.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivot_table 和 set_index，可以轻松完成格式转换，为因子分析奠定基础。”</p>
-
-<p><span style="margin-right:20px">发表于 2025-04-04 人气 134 </span><span><a href="https://www.jieyu.ai/blog/2025/04/04/numpy-pandas-for-quant-trader-18">点击阅读</a></span></p>
-
-</div><!--end-article-->
-
-
-<div>
-<h3>Pandas核心语法[7]</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" style="width: 300px" align="right"/>
-<p><span>内容摘要:<br></span>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，轻松满足数据可视化需求。”</p>
-
-<p><span style="margin-right:20px">发表于 2025-04-03 人气 771 </span><span><a href="https://www.jieyu.ai/blog/2025/04/03/numpy-pandas-for-quant-trader-17">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-04-05 人气 771 </span><span><a href="https://www.jieyu.ai/blog/2025/04/05/numpy-pandas-for-quant-trader-19">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
