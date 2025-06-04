@@ -10,14 +10,14 @@ tags:
     - programming
 ---
 
-## （二）实现 ClickHome 数据库
-
 今天是第二天，我计划实现如下任务：
 1. 安装 ClickHouse 和 DBeaver
 2. 创建 ClickHouse 数据表
 3. 修改 Redis 消息队列代码以支持 ClickHouse 存储
 
 我唤醒了 007，它今天是要陪我一起战斗代码的。
+
+---
 
 ## 1. 安装 ClickHouse 和 DBeaver
 我使用的是 mac 系统，电脑里还没有安装 ClickHouse 和 DBeaver，所以我首先需要安装它们。
