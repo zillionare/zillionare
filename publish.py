@@ -1,16 +1,23 @@
+import datetime
 import glob
 import os
 import random
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
-from typing import List
+from pathlib import Path
+from typing import List, Optional
 
 import arrow
+import black
 import fire
 import frontmatter
+import nbformat
+from loguru import logger
+from slugify import slugify
 
 pictures = [
     "https://images.jieyu.ai/images/hot/adventure.jpg",
@@ -92,6 +99,62 @@ mystAdmons = {
     "bug": "error",
 }
 
+def get_copyrights() -> str:
+    copyright = """\n```{attention} 版权声明
+本课程全部文字、图片、代码、习题等所有材料，除声明引用外，版权归<b>匡醍</b>所有。所有草稿版本均通过第三方服务进行管理，作为拥有版权的证明。未经作者书面授权，请勿引用和传播。联系我们：公众号 Quantide"""
+
+    return copyright
+
+def update_notebook_metadata(
+    notebook_path: Path,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
+    price: Optional[float] = None,
+    publish_date: Optional[datetime.datetime] = None,
+    img: Optional[str] = None,
+) -> bool:
+    """更新 notebook 的 metadata,来自provision系统
+
+    Args:
+        notebook_path: notebook 文件路径
+        title: 标题
+        description: 描述
+        price: 价格
+        publish_date: 发布日期
+        img: 图片 URL
+
+    Returns:
+        bool: 更新是否成功
+    """
+    try:
+        # 读取 notebook
+        nb = nbformat.read(notebook_path, as_version=4)
+
+        # 获取当前 metadata
+        metadata = nb.get("metadata", {})
+
+        # 更新 metadata
+        if title is not None:
+            metadata["title"] = title
+        if description is not None:
+            metadata["excerpt"] = description
+        if price is not None:
+            metadata["price"] = price
+        if publish_date is not None:
+            metadata["date"] = publish_date.strftime("%Y-%m-%d %H:%M:%S")
+        if img is not None:
+            metadata["img"] = img
+
+        # 设置更新后的 metadata
+        nb["metadata"] = metadata
+
+        # 写入 notebook
+        nbformat.write(nb, notebook_path)
+
+        return True
+    except Exception as e:
+        logger.error(f"Error updating notebook metadata: {e}")
+        return False
 def seek_adnomition_end(i, lines):
     for m in range(i, len(lines)):
         # 防止在!!! tip之后出现空行
@@ -100,6 +163,8 @@ def seek_adnomition_end(i, lines):
 
         if not (lines[m].startswith("    ") or lines[m].startswith("\t")):
             return m
+    
+    return len(lines)
 
 def replace_adnomition(lines, i, m):
     """replace indented lines to myst adnomition due to myst 2.4.2 bug"""
@@ -189,15 +254,14 @@ def get_excerpt(text: str):
     return get_and_remove_img_url(excerpt)
 
 def get_meta(file):
-    # file = "/apps/zillionare/docs/blog/posts/quantlib/why-click-house-so-fast.md"
     with open(file, 'r', encoding='utf-8') as f:
         meta, content = frontmatter.parse(f.read())
         
         _, excerpt = get_excerpt(content)
 
         if meta.get("slug") is None:
-            print(f"请为文件{file}添加slug！")
-            sys.exit(0)
+            meta["slug"] = slugify(Path(file).stem)
+            
 
         meta["excerpt"] = excerpt
         return meta
@@ -332,7 +396,7 @@ def build():
     write_readme(web_body, styles)
 
 
-def publish():
+def publish_web():
     web_body, github_body, styles = build_index()
 
     # 为github生成README
@@ -351,23 +415,75 @@ def publish():
     cmd = "mkdocs gh-deploy"
     execute(cmd)
 
+def format_code_blocks_in_markdown(content: str):
+    code_block_pattern = re.compile(r"```\s*python(.*?)```", re.DOTALL)
+
+    def format_match(match):
+        code = match.group(1).strip()
+        try:
+            # 使用 Black 格式化代码
+            formatted_code = black.format_str(code, mode=black.FileMode())
+            return f"```python\n{formatted_code}\n```"
+        except Exception as e:
+            print(f"Error formatting code block: {e}")
+            return match.group(0)
+
+    # 替换所有代码块
+    formatted_content = code_block_pattern.sub(format_match, content)
+    return formatted_content
+
+def preprocess(in_file: Path, out_file: Path)->dict:
+    meta = get_meta(in_file)
+
+    with open(in_file, "r") as f:
+        content = f.read()
+        content = strip_output(content)
+        content = strip_html_comments(content)
+        content = format_code_blocks_in_markdown(content)
+
+        lines = to_myst_adnomition(content.split("\n"))
+
+
+        with open(out_file, "w", encoding="utf-8") as f:
+            content = "\n".join(lines)
+            f.write(content)
+
+            if content.find("版权声明") == -1:
+                f.write(get_copyrights())
+
+        return meta
 def convert_to_ipynb(in_file: str):
-    stem = os.path.splitext(os.path.basename(in_file))[0]
+    in_path = Path(in_file)
 
-    preprocessed = os.path.join("/tmp/", f"{stem}.md")
-    preprocess(in_file, preprocessed)
+    preprocessed = os.path.join("/tmp/", f"{in_path.stem}.md")
+    preprocessed = Path("/tmp") / in_path.name
+    meta = preprocess(in_path, preprocessed)
 
-    if out_file is None:
-        out_dir = os.path.dirname(in_file)
-        out_file = os.path.join(out_dir, f"{stem}.ipynb")
+    out_file = in_path.with_suffix(".ipynb")
+
     print(f"converting {preprocessed} to {out_file}")
-
     os.system(f"notedown --match=python {preprocessed} > {out_file}")
-    # cmd = f"pandoc -f markdown -t ipynb {preprocessed} -o {out_file}"
-    # os.system(cmd)
+
+    update_notebook_metadata(out_file, 
+                             meta.get("title", ""), 
+                             meta.get("excerpt", ""), 
+                             meta.get("price", 0),
+                             meta.get("date", arrow.now().date()),
+                             meta.get("img", ""))
+
     return out_file
 
-def xq(src, dst, preview=False, ipynb=True):
+def preview_notebook(file: str):
+    """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
+    out_ipynb = convert_to_ipynb(file)
+    
+    dst = Path("~/courses/blog/articles").expanduser()
+    if not dst.exists():
+        dst.mkdir(parents=True)
+
+    shutil.copy(out_ipynb, dst)
+
+def publish_blog(src, dst, preview=False, ipynb=True):
     """隐藏付费内容
 
     Args:
@@ -421,7 +537,8 @@ def xq(src, dst, preview=False, ipynb=True):
 if __name__ == "__main__":
     fire.Fire({
         "build": build,
-        "publish": publish,
-        "xq": xq,
-        "meta": extract_blog_meta
+        "web": publish_web,
+        "blog": publish_blog,
+        "meta": extract_blog_meta,
+        "preview": preview_notebook
     })
