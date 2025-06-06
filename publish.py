@@ -6,7 +6,7 @@ import re
 import shlex
 import shutil
 import subprocess
-import sys
+
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import List, Optional
@@ -15,9 +15,8 @@ import arrow
 import black
 import fire
 import frontmatter
-import nbformat
 from loguru import logger
-from slugify import slugify
+import nbformat
 
 pictures = [
     "https://images.jieyu.ai/images/hot/adventure.jpg",
@@ -148,6 +147,14 @@ def update_notebook_metadata(
         # 设置更新后的 metadata
         nb["metadata"] = metadata
 
+        # 确保所有 markdown 单元格有有效内容
+        for cell in nb.cells:
+            if cell.cell_type == "markdown":
+                if not hasattr(cell, "source") or cell.source is None:
+                    cell.source = " "  # 使用空字符串代替 None
+                elif isinstance(cell.source, str) and cell.source.strip() == "":
+                    cell.source = " "  # 避免空字符串导致验证失败
+
         # 写入 notebook
         nbformat.write(nb, notebook_path)
 
@@ -194,7 +201,11 @@ def to_myst_adnomition(lines: List[str]):
             i = m
             continue
         else:
-            buffer.append(line)
+            # 确保代码块不为空
+            if line.strip() == "" and (i+1 < len(lines) and lines[i+1].startswith("`````")):
+                buffer.append(" ")  # 在代码块前添加空格占位符
+            else:
+                buffer.append(line)
             i += 1
 
     return buffer
@@ -246,7 +257,10 @@ def get_excerpt(text: str):
         if result is not None:
             excerpt = result.group(1).replace("\n\n", "")
         else:
-            excerpt = text[:140] + "..."
+            excerpt = text[:137] + "..."
+
+    if len(excerpt) > 140:
+        excerpt = excerpt[:137] + "..."
 
     # remove header
     excerpt = excerpt.replace("#", "").replace("\n", "<br>")
@@ -255,48 +269,35 @@ def get_excerpt(text: str):
 
 def get_meta(file):
     with open(file, 'r', encoding='utf-8') as f:
-        meta, content = frontmatter.parse(f.read())
-        
-        _, excerpt = get_excerpt(content)
+        content = f.read()
+        meta, body = frontmatter.parse(content)
 
-        if meta.get("slug") is None:
-            meta["slug"] = slugify(Path(file).stem)
-            
-
+        _, excerpt = get_excerpt(body)
         meta["excerpt"] = excerpt
         return meta
 
 def extract_article_meta(file):
+    """在构建README时使用"""
     meta = get_meta(file)
-    if "date" not in meta:
-        return
+
+    if file.startswith("docs/articles") or file.startswith("./docs/articles"):
+        relpath = Path(file.replace("docs/articles/", ""))
+        if "slug" in meta:
+            link = f'/articles{relpath.parent}/{meta["slug"]}'
+        else:
+            link = f'/articles{relpath.parent}/{relpath.stem}'
+            meta["slug"] = link
+
+        meta["link"] = meta["slug"]
+        meta["date"] = meta.get("date") or arrow.now().date()
+        return meta
+
+    # 对blog，一定要有date
+    if "date" not in meta and not file.endswith("index.md"):
+        raise ValueError(f"blog must have date: {file}")
     
-    if "slug" not in meta:
-        print(f"missing slug: {file}")
-        part = file.split("articles")[1]
-        link = "https://www.jieyu.ai/articles" + part.replace(".md", "")
-    else:
-        matched = re.match(r".*/articles(.+)/.*\.md", file)
-        link = "/articles" + matched.group(1) + "/" + meta["slug"]
-
-    meta["link"] = link
-
-    return meta
-
-def extract_blog_meta(file):
-    meta = get_meta(file)
-    if "date" not in meta:
-        return
-
-    if "slug" not in meta:
-        print(f"missing slug: {file}")
-        return
-
-    date = arrow.get(meta["date"])
-    year, month, day = f"{date.year}", f"{date.month:02d}", f"{date.day:02d}"
-    slug = meta["slug"]
-    meta["link"] = f"https://www.jieyu.ai/blog/{year}/{month}/{day}/{slug}"
-
+    # 博客文章，需要获取Link
+    meta["link"] = file.replace(".md", "").replace("docs/", "")
     return meta
 
 def build_index():
@@ -307,15 +308,11 @@ def build_index():
     # intro = "## 最新文章\n\n"
 
     metas = []
-    articles = glob.glob("./docs/articles/**/*.md", recursive=True)
-    with ProcessPoolExecutor() as executor:
-        results = executor.map(extract_article_meta, articles)
-        metas.extend([meta for meta in results if meta is not None])
 
     posts = glob.glob("./docs/blog/**/*.md", recursive=True)
     with ProcessPoolExecutor() as executor:
-        results = executor.map(extract_blog_meta, posts)
-        metas.extend([meta for meta in results if meta is not None])
+        results = executor.map(extract_article_meta, posts)
+        metas.extend([meta for meta in results if (meta is not None and meta.get("date") is not None)])
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 
@@ -396,7 +393,7 @@ def build():
     write_readme(web_body, styles)
 
 
-def publish_web():
+def publish_jieyu():
     web_body, github_body, styles = build_index()
 
     # 为github生成README
@@ -416,14 +413,14 @@ def publish_web():
     execute(cmd)
 
 def format_code_blocks_in_markdown(content: str):
-    code_block_pattern = re.compile(r"```\s*python(.*?)```", re.DOTALL)
+    code_block_pattern = re.compile(r"``\s*python(.*?)```", re.DOTALL)
 
     def format_match(match):
         code = match.group(1).strip()
         try:
             # 使用 Black 格式化代码
             formatted_code = black.format_str(code, mode=black.FileMode())
-            return f"```python\n{formatted_code}\n```"
+            return f"``python\n{formatted_code}\n```"
         except Exception as e:
             print(f"Error formatting code block: {e}")
             return match.group(0)
@@ -442,14 +439,15 @@ def preprocess(in_file: Path, out_file: Path)->dict:
         content = format_code_blocks_in_markdown(content)
 
         lines = to_myst_adnomition(content.split("\n"))
+        # 确保没有空行导致解析错误
+        lines = [line if line.strip() != "" else " " for line in lines]
 
-
-        with open(out_file, "w", encoding="utf-8") as f:
+        with open(out_file, "w", encoding="utf-8") as f_out:
             content = "\n".join(lines)
-            f.write(content)
+            f_out.write(content)
 
             if content.find("版权声明") == -1:
-                f.write(get_copyrights())
+                f_out.write(get_copyrights())
 
         return meta
 def convert_to_ipynb(in_file: str):
@@ -483,7 +481,7 @@ def preview_notebook(file: str):
 
     shutil.copy(out_ipynb, dst)
 
-def publish_blog(src, dst, preview=False, ipynb=True):
+def publish_quantide(src, dst, preview=False, ipynb=True):
     """隐藏付费内容
 
     Args:
@@ -515,7 +513,7 @@ def publish_blog(src, dst, preview=False, ipynb=True):
             print(f"copy {out_ipynb} to research:{dst}")
             os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
 
-    # 准备发布到网站、公众号的内容
+    # 准备发布到quantide课程网站和公众号的内容
     pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
                          re.DOTALL)
 
@@ -537,8 +535,8 @@ def publish_blog(src, dst, preview=False, ipynb=True):
 if __name__ == "__main__":
     fire.Fire({
         "build": build,
-        "web": publish_web,
-        "blog": publish_blog,
-        "meta": extract_blog_meta,
-        "preview": preview_notebook
+        "jieyu": publish_jieyu,
+        "quantide": publish_quantide,
+        "preview": preview_notebook,
+        "meta": extract_article_meta
     })

@@ -1,11 +1,16 @@
 ---
-title: "蒙特卡洛：看似很高端的技术，其实很暴力很初级"
+title: 蒙特卡洛：看似很高端的技术，其实很暴力很初级
 date: 2025-06-05
 category: algo
 img: https://images.jieyu.ai/images/hot/course/factor-ml/fa-platinum.png
 price: 0
-tags: [monte-carlo, algo, VaR]
+tags:
+- monte-carlo
+- algo
+- VaR
+
 ---
+
 
 5 月 20 号那天，人工智能界出了个大事。Builder.AI 宣告破产。这是一家由印度裔创始人 Sachin Dev Duggal 于 2016 年在伦敦创立的公司，曾凭借“AI 驱动的无代码 App 开发平台”概念风光无限，估值一度高达 17 亿美元。
 
