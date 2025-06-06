@@ -482,7 +482,7 @@ def preview_notebook(file: str):
     shutil.copy(out_ipynb, dst)
 
 def publish_quantide(src, dst, preview=False, ipynb=True):
-    """隐藏付费内容
+    """隐藏付费内容，发布到quantide.cn
 
     Args:
         src: 输入文章路径
