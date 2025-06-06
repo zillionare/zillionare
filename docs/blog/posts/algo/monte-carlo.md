@@ -1,9 +1,8 @@
 ---
 title: "蒙特卡洛：看似很高端的技术，其实很暴力很初级"
-date: 2025-06-04
+date: 2025-06-05
 category: algo
-motto: 
-img: 
+img: https://images.jieyu.ai/images/hot/course/factor-ml/fa-platinum.png
 price: 0
 tags: [monte-carlo, algo, VaR]
 ---
