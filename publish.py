@@ -207,6 +207,7 @@ def to_myst_adnomition(lines: List[str]):
 def to_gmf_admonition(lines: List[str]):
     """Convert CommonMark admonition format to GitHub Markdown Format (GMF)."""
     
+    allowed_types = ["NOTE", "TIP", "CAUTION", "IMPORTANT", "QUESTION", "WARNING"]
     result = []
     i = 0
     while i < len(lines):
@@ -215,8 +216,10 @@ def to_gmf_admonition(lines: List[str]):
         # 检测CommonMark admonition起始行
         if line.startswith('!!! '):
             # 提取admonition类型
-            admonition_type = line[4:].strip()
-            
+            admonition_type = (line[4:].strip()).upper()
+            if admonition_type not in allowed_types:
+                admonition_type = "NOTE"
+
             # 收集内容块
             content = []
             j = i + 1
