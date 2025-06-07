@@ -101,7 +101,7 @@ mystAdmons = {
 
 def get_copyrights() -> str:
     copyright = """\n```{attention} 版权声明
-本课程全部文字、图片、代码、习题等所有材料，除声明引用外，版权归<b>匡醍</b>所有。所有草稿版本均通过第三方服务进行管理，作为拥有版权的证明。未经作者书面授权，请勿引用和传播。联系我们：公众号 Quantide"""
+本课程全部文字、图片、代码、习题等所有材料，除声明引用外，版权归<b>匡醍</b>所有。所有草稿版本均通过第三方服务进行管理，作为拥有版权的证明。未经作者书面授权，请勿引用和传播。联系我们：公众号 Quantide\n```"""
 
     return copyright
 
@@ -186,10 +186,7 @@ def to_myst_adnomition(lines: List[str]):
     buffer = []
     i: int = 0
 
-    for j in range(len(lines)):
-        if i >= len(lines):
-            break
-
+    while i < len(lines):
         line = lines[i]
         if line.startswith("!!!"):
             m = seek_adnomition_end(i + 1, lines)
@@ -197,7 +194,6 @@ def to_myst_adnomition(lines: List[str]):
 
             buffer.extend(repl)
             i = m
-            continue
         else:
             buffer.append(line)
             i += 1
@@ -263,25 +259,36 @@ def change_last_update():
         f.write(content)
 
 def get_and_remove_img_url(text: str):
-    groups = re.search(r"!\[[^\]]*\]\((.*?)\)", text)
-    if groups is None:
-        groups = re.search(r"<\s*img\s+src=[\'\"](.+)\s*>", text)
-        if groups is None:
-            return None, text
-        
-        url = groups.group(1)
-        return url, re.sub(r"<\s*img\s+src=[\'\"].+\s*[\'\"]>", "", text)
+    # 简化函数，避免复杂的正则表达式导致的问题
+    try:
+        # 查找 markdown 格式的图片
+        groups = re.search(r"!\[[^\]]*\]\((.*?)\)", text)
+        if groups is not None:
+            url = groups.group(1)
+            text_without_img = re.sub(r"!\[.*?\]\(.*?\)", "", text)
+            return url, text_without_img
 
-    return groups.group(1), re.sub(r"\!\[.*\]\(.*\)", "", text)
+        # 查找 HTML 格式的图片
+        groups = re.search(r"<img[^>]+src=['\"]([^'\"]+)['\"][^>]*>", text)
+        if groups is not None:
+            url = groups.group(1)
+            text_without_img = re.sub(r"<img[^>]*>", "", text)
+            return url, text_without_img
+
+        return None, text
+    except Exception as e:
+        print(f"Error in get_and_remove_img_url: {e}")
+        return None, text
 
 def get_excerpt(text: str):
-    """第一个<!--more-->之前的正式文本作为文章摘要，或者第一个---之前的正式文本作为摘要，或者前140字符"""
+    """第一个<!--more-->之前的正式文本作为文章摘要，或者前140字符"""
     pat = r'(.*?)(?:<!--\s*more\s*-->)'
     result = re.search(pat, text, re.MULTILINE|re.DOTALL)
     excerpt = None
     if result  is not None:
         excerpt = result.group(1).replace("\n\n", "")
-    
+
+    # 如果没有找到 <!--more--> 标记，再看有没有 ---，最后使用前140字符
     if excerpt is None:
         pat = r"(.*?)(?:---\s*)"
         result = re.search(pat, text, re.MULTILINE|re.DOTALL)
@@ -442,7 +449,7 @@ def format_code_blocks_in_markdown(content: str):
         try:
             # 使用 Black 格式化代码
             formatted_code = black.format_str(code, mode=black.FileMode())
-            return f"``python\n{formatted_code}\n```"
+            return f"```python\n{formatted_code}\n```"
         except Exception as e:
             print(f"Error formatting code block: {e}")
             return match.group(0)
@@ -540,10 +547,10 @@ def publish_quantide(src: str, category: str = ""):
                              meta.get("img", ""))
     
     # 将文件部署到quantide课程平台
-    cmd = f'ssh omega "mkdir -p ~/course/blog/articles/{category}"'
+    cmd = f'ssh omega "mkdir -p ~/courses/blog/articles/{category}"'
     os.system(cmd)
 
-    cmd = f'scp {notebook} omega:~/course/blog/articles/{category}/{notebook.name}'
+    cmd = f'scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}'
     os.system(cmd)
 
 def prepare_gzh(src: str):
