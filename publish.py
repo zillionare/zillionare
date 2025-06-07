@@ -6,7 +6,7 @@ import re
 import shlex
 import shutil
 import subprocess
-
+import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import List, Optional
@@ -15,8 +15,9 @@ import arrow
 import black
 import fire
 import frontmatter
-from loguru import logger
 import nbformat
+from loguru import logger
+from slugify import slugify
 
 pictures = [
     "https://images.jieyu.ai/images/hot/adventure.jpg",
@@ -104,6 +105,11 @@ def get_copyrights() -> str:
 
     return copyright
 
+def absolute_path(path: Path) -> Path:
+    if not path.is_absolute():
+        return (Path(__file__).parent / path).expanduser()
+    else:
+        return path.expanduser()
 def update_notebook_metadata(
     notebook_path: Path,
     title: Optional[str] = None,
@@ -146,14 +152,6 @@ def update_notebook_metadata(
 
         # 设置更新后的 metadata
         nb["metadata"] = metadata
-
-        # 确保所有 markdown 单元格有有效内容
-        for cell in nb.cells:
-            if cell.cell_type == "markdown":
-                if not hasattr(cell, "source") or cell.source is None:
-                    cell.source = " "  # 使用空字符串代替 None
-                elif isinstance(cell.source, str) and cell.source.strip() == "":
-                    cell.source = " "  # 避免空字符串导致验证失败
 
         # 写入 notebook
         nbformat.write(nb, notebook_path)
@@ -201,19 +199,49 @@ def to_myst_adnomition(lines: List[str]):
             i = m
             continue
         else:
-            # 确保代码块不为空
-            if line.strip() == "" and (i+1 < len(lines) and lines[i+1].startswith("`````")):
-                buffer.append(" ")  # 在代码块前添加空格占位符
-            else:
-                buffer.append(line)
+            buffer.append(line)
             i += 1
 
     return buffer
 
+def to_gmf_admonition(lines: List[str]):
+    """Convert CommonMark admonition format to GitHub Markdown Format (GMF)."""
+    
+    result = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        
+        # 检测CommonMark admonition起始行
+        if line.startswith('!!! '):
+            # 提取admonition类型
+            admonition_type = line[4:].strip()
+            
+            # 收集内容块
+            content = []
+            j = i + 1
+            while j < len(lines) and lines[j].startswith(' ' * 2):
+                content.append(lines[j][2:])  # 移除缩进
+                j += 1
+            
+            # 添加转换后的内容
+            result.append(f'>[!{admonition_type}]')
+            for content_line in content:
+                result.append(f'    {content_line}')  # 添加单空格缩进
+            
+            # 跳过已处理的行
+            i = j
+        else:
+            # 普通行直接添加
+            result.append(line)
+            i += 1
+    
+    return result
+
 def strip_html_comments(content: str) -> str:
     return re.sub(r"<!--.*?-->", "", content, flags=re.DOTALL)
 
-def strip_output(content: str) ->str:
+def strip_output_region(content: str) ->str:
     """部分输出结果在文章页面是以图片展示的。转换为ipynb前，需要去掉"""
     pattern = r'<!-- BEGIN IPYNB STRIPOUT -->.*?<!-- END IPYNB STRIPOUT -->'
     # 使用 re.sub 替换匹配的内容
@@ -257,47 +285,38 @@ def get_excerpt(text: str):
         if result is not None:
             excerpt = result.group(1).replace("\n\n", "")
         else:
-            excerpt = text[:137] + "..."
-
-    if len(excerpt) > 140:
-        excerpt = excerpt[:137] + "..."
+            excerpt = text[:140] + "..."
 
     # remove header
     excerpt = excerpt.replace("#", "").replace("\n", "<br>")
+    if len(excerpt) > 140:
+        excerpt = excerpt[:137] + "..."
 
     return get_and_remove_img_url(excerpt)
 
 def get_meta(file):
     with open(file, 'r', encoding='utf-8') as f:
-        content = f.read()
-        meta, body = frontmatter.parse(content)
-
-        _, excerpt = get_excerpt(body)
+        meta, content = frontmatter.parse(f.read())
+        
+        _, excerpt = get_excerpt(content)
         meta["excerpt"] = excerpt
         return meta
 
-def extract_article_meta(file):
-    """在构建README时使用"""
+def extract_meta_for_jieyu_index(file):
+    if "docs/articles" in file or "index.md" in file: # 这是文章，或者目录
+        return None
+
     meta = get_meta(file)
+    if "date" not in meta:
+        raise ValueError(f"❌博客文章{file} 没有 date 字段")
 
-    if file.startswith("docs/articles") or file.startswith("./docs/articles"):
-        relpath = Path(file.replace("docs/articles/", ""))
-        if "slug" in meta:
-            link = f'/articles{relpath.parent}/{meta["slug"]}'
-        else:
-            link = f'/articles{relpath.parent}/{relpath.stem}'
-            meta["slug"] = link
+    # 对于 blog 文章，始终使用文件路径生成链接，忽略 slug
+    # 因为 MkDocs blog 插件基于文件路径生成 URL，不使用 slug
+    path = Path(file)
+    relpath = path.relative_to("docs/blog/posts")
+    link = Path("/blog/posts") / relpath.with_suffix("")
+    meta["link"] = str(link) + "/"
 
-        meta["link"] = meta["slug"]
-        meta["date"] = meta.get("date") or arrow.now().date()
-        return meta
-
-    # 对blog，一定要有date
-    if "date" not in meta and not file.endswith("index.md"):
-        raise ValueError(f"blog must have date: {file}")
-    
-    # 博客文章，需要获取Link
-    meta["link"] = file.replace(".md", "").replace("docs/", "")
     return meta
 
 def build_index():
@@ -311,7 +330,7 @@ def build_index():
 
     posts = glob.glob("./docs/blog/**/*.md", recursive=True)
     with ProcessPoolExecutor() as executor:
-        results = executor.map(extract_article_meta, posts)
+        results = executor.map(extract_meta_for_jieyu_index, posts)
         metas.extend([meta for meta in results if (meta is not None and meta.get("date") is not None)])
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
@@ -413,7 +432,7 @@ def publish_jieyu():
     execute(cmd)
 
 def format_code_blocks_in_markdown(content: str):
-    code_block_pattern = re.compile(r"``\s*python(.*?)```", re.DOTALL)
+    code_block_pattern = re.compile(r"```\s*python(.*?)```", re.DOTALL)
 
     def format_match(match):
         code = match.group(1).strip()
@@ -429,93 +448,8 @@ def format_code_blocks_in_markdown(content: str):
     formatted_content = code_block_pattern.sub(format_match, content)
     return formatted_content
 
-def preprocess(in_file: Path, out_file: Path)->dict:
+def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_right: bool = False, admon_style: str = "gmf", strip_paid: bool = False)->dict:
     meta = get_meta(in_file)
-
-    with open(in_file, "r") as f:
-        content = f.read()
-        content = strip_output(content)
-        content = strip_html_comments(content)
-        content = format_code_blocks_in_markdown(content)
-
-        lines = to_myst_adnomition(content.split("\n"))
-        # 确保没有空行导致解析错误
-        lines = [line if line.strip() != "" else " " for line in lines]
-
-        with open(out_file, "w", encoding="utf-8") as f_out:
-            content = "\n".join(lines)
-            f_out.write(content)
-
-            if content.find("版权声明") == -1:
-                f_out.write(get_copyrights())
-
-        return meta
-def convert_to_ipynb(in_file: str):
-    in_path = Path(in_file)
-
-    preprocessed = os.path.join("/tmp/", f"{in_path.stem}.md")
-    preprocessed = Path("/tmp") / in_path.name
-    meta = preprocess(in_path, preprocessed)
-
-    out_file = in_path.with_suffix(".ipynb")
-
-    print(f"converting {preprocessed} to {out_file}")
-    os.system(f"notedown --match=python {preprocessed} > {out_file}")
-
-    update_notebook_metadata(out_file, 
-                             meta.get("title", ""), 
-                             meta.get("excerpt", ""), 
-                             meta.get("price", 0),
-                             meta.get("date", arrow.now().date()),
-                             meta.get("img", ""))
-
-    return out_file
-
-def preview_notebook(file: str):
-    """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
-    out_ipynb = convert_to_ipynb(file)
-    
-    dst = Path("~/courses/blog/articles").expanduser()
-    if not dst.exists():
-        dst.mkdir(parents=True)
-
-    shutil.copy(out_ipynb, dst)
-
-def publish_quantide(src, dst, preview=False, ipynb=True):
-    """隐藏付费内容，发布到quantide.cn
-
-    Args:
-        src: 输入文章路径
-        dst: 因子，算法和策略, Numpy&Pandas中的一个
-        preview: 是否在浏览器中预览
-    
-    1. 将<!-- BEGIN IPYNB STRIPOUT -->与<!-- BEGIN IPYNB STRIPOUT -->之间的内容删除
-    2. 基于1，将文章复制到/tmp下，转换为ipynb并拷贝到reseach环境
-    3. 将<!--PAID CONTENT START-->与<!--PAID CONTENT END-->之间的内容删除注释掉并保存
-    """
-    root = os.path.dirname(__file__)
-    src = os.path.join(root, src)
-
-    with open(src, "r", encoding='utf-8') as f:
-        content = f.read()
-        lines = strip_html_comments(strip_output(content)).split("\n")
-        lines = to_myst_adnomition(lines)
-
-    filename = os.path.basename(src)
-    out_md = os.path.join("/tmp", filename)
-    with open(out_md, "w", encoding="utf-8") as f:
-        f.writelines("\n".join(lines))
-
-    if ipynb:
-        out_ipynb = out_md.replace(".md", ".ipynb")
-        os.system(f"notedown --match=python {out_md} > {out_ipynb}")
-        if not preview:
-            print(f"copy {out_ipynb} to research:{dst}")
-            os.system(f"scp {out_ipynb} omega:/data/course/notebooks/research/readonly/{dst}")
-
-    # 准备发布到quantide课程网站和公众号的内容
-    pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
-                         re.DOTALL)
 
     def replace_paid_content(match):
         # if getattr(replace_paid_content, 'called', False) == False:
@@ -527,16 +461,101 @@ def publish_quantide(src, dst, preview=False, ipynb=True):
         #     return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
         return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
 
-    new_content = pattern.sub(replace_paid_content, content)
+    with open(in_file, "r") as f:
+        content = f.read()
+        if strip_output:
+            content = strip_output_region(content)
 
-    with open(out_md, "w", encoding='utf-8') as f:
-        f.write(new_content)
+        if strip_paid:
+            pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
+                         re.DOTALL)
+            content = pattern.sub(replace_paid_content, content)
+            
+        content = strip_html_comments(content)
+        content = format_code_blocks_in_markdown(content)
+
+        if admon_style == "myst":
+            lines = to_myst_adnomition(content.split("\n"))
+        elif admon_style == "gmf":
+            lines = to_gmf_admonition(content.split("\n"))
+        else:
+            raise ValueError(f"Invalid admon_style: {admon_style}")
+
+        with open(out_file, "w", encoding="utf-8") as f:
+            content = "\n".join(lines)
+            f.write(content)
+
+            if content.find("版权声明") == -1 and copy_right:
+                f.write(get_copyrights())
+
+        return meta
+def convert_to_ipynb(in_file: str|Path)->Path:
+    """将markdown转换为notebook，存放在in_file同一目录下。"""
+    src = absolute_path(Path(in_file))
+    dst = src.with_suffix(".ipynb")
+
+    print(f"converting {src} to {dst}")
+    os.system(f"notedown --match=python {src} > {dst}")
+    return dst
+
+def preview_notebook(file: str):
+    """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
+    src = absolute_path(Path(file))
+    tmp_md = Path("/tmp")/src.name
+    preprocess(src, tmp_md, admon_style="myst")
+
+    notebook = convert_to_ipynb(file)
+    
+    dst = Path("~/courses/blog/articles/").expanduser()
+    if not dst.exists():
+        dst.mkdir(parents=True)
+
+    shutil.copy(notebook, dst/notebook.name)
+
+def publish_quantide(src: str, category: str = ""):
+    """将文章发布到quantide课程平台
+
+    1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
+    2. 添加copyright
+    3. 将admonition转换为myst格式
+    4. 转换为notebook，增加元数据，发布到quantide
+
+    Args:
+        src: 输入文章路径
+        category: 分类
+    """
+    md = absolute_path(Path(src))
+    preprocessed = Path("/tmp") / md.name
+    meta = preprocess(md, preprocessed, strip_output=True, copy_right=True, admon_style="myst")
+
+    notebook = convert_to_ipynb(preprocessed)
+    update_notebook_metadata(notebook, 
+                             meta.get("title", ""), 
+                             meta.get("excerpt", ""), 
+                             meta.get("price", 0),
+                             meta.get("date", arrow.now().date()),
+                             meta.get("img", ""))
+    
+    # 将文件部署到quantide课程平台
+    cmd = f'ssh omega "mkdir -p ~/course/blog/articles/{category}"'
+    os.system(cmd)
+
+    cmd = f'scp {notebook} omega:~/course/blog/articles/{category}/{notebook.name}'
+    os.system(cmd)
+
+def prepare_gzh(src: str):
+    """将文章复制到/tmp下，转换为ipynb并拷贝到research环境"""
+    md = absolute_path(Path(src))
+    preprocessed = Path("/tmp") / md.name
+    preprocess(md, preprocessed, strip_paid = True)
+    print(f"✅ 文章已适合作为公众号发表，请前往{preprocessed}查看")
 
 if __name__ == "__main__":
     fire.Fire({
         "build": build,
         "jieyu": publish_jieyu,
         "quantide": publish_quantide,
-        "preview": preview_notebook,
-        "meta": extract_article_meta
+        "gzh": prepare_gzh,
+        "meta": extract_meta_for_jieyu_index,
+        "preview": preview_notebook
     })
