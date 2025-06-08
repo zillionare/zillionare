@@ -6,7 +6,6 @@ import re
 import shlex
 import shutil
 import subprocess
-import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import List, Optional
@@ -16,8 +15,11 @@ import black
 import fire
 import frontmatter
 import nbformat
+import requests
 from loguru import logger
-from slugify import slugify
+
+quantide_api_url = os.environ.get("QUANTIDE_API_URL")
+API_TOKEN = os.environ.get("API_TOKEN")
 
 pictures = [
     "https://images.jieyu.ai/images/hot/adventure.jpg",
@@ -522,18 +524,22 @@ def preview_notebook(file: str):
 
     shutil.copy(notebook, dst/notebook.name)
 
-def publish_quantide(src: str, category: str = ""):
+def publish_quantide(src: str, category: str = "", price: int = 0):
     """将文章发布到quantide课程平台
 
     1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
     2. 添加copyright
     3. 将admonition转换为myst格式
     4. 转换为notebook，增加元数据，发布到quantide
+    5. 向后台注册资源
 
     Args:
         src: 输入文章路径
         category: 分类
     """
+    if price not in (0, 10, 20, 40, 80, 100, 200, 360):
+        raise ValueError(f"博客文章的价格必须是:  10, 20, 40, 80, 100, 200, 360中的一个")
+    
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
     meta = preprocess(md, preprocessed, strip_output=True, copy_right=True, admon_style="myst")
@@ -546,12 +552,40 @@ def publish_quantide(src: str, category: str = ""):
                              meta.get("date", arrow.now().date()),
                              meta.get("img", ""))
     
+    meta["course"] = "blog"
+    meta["resource"] = "articles"
+    meta["description"] = meta.get("excerpt", "")
+    meta["rel_path"] = f"articles/{category}/{notebook.name}"
+    
+    if price not in (0, 360):
+        meta["price"] = price - 0.1
+    else:
+        meta["price"] = price
+
     # 将文件部署到quantide课程平台
     cmd = f'ssh omega "mkdir -p ~/courses/blog/articles/{category}"'
     os.system(cmd)
 
     cmd = f'scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}'
     os.system(cmd)
+
+    if API_TOKEN is not None:
+        response = requests.post(
+            f"{quantide_api_url}/api/admin/resources/publish",
+            headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {API_TOKEN}"
+                },
+            json={
+                "meta": meta,
+                "allow_all": price == 0
+            }
+        )
+        if response.status_code == 200:
+            print("✅ 发布成功")
+        else:
+            print("❌ 发布失败")
+            print(response.text)
 
 def prepare_gzh(src: str):
     """将文章复制到/tmp下，转换为ipynb并拷贝到research环境"""
