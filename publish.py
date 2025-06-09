@@ -516,7 +516,7 @@ def preview_notebook(file: str):
     tmp_md = Path("/tmp")/src.name
     preprocess(src, tmp_md, admon_style="myst")
 
-    notebook = convert_to_ipynb(file)
+    notebook = convert_to_ipynb(tmp_md)
     
     dst = Path("~/courses/blog/articles/").expanduser()
     if not dst.exists():
@@ -569,7 +569,7 @@ def publish_quantide(src: str, category: str = "", price: int = 0):
     cmd = f'scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}'
     os.system(cmd)
 
-    if API_TOKEN is not None:
+    if not API_TOKEN:
         response = requests.post(
             f"{quantide_api_url}/api/admin/resources/publish",
             headers={
