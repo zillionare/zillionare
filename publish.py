@@ -162,25 +162,69 @@ def update_notebook_metadata(
     except Exception as e:
         logger.error(f"Error updating notebook metadata: {e}")
         return False
-def seek_adnomition_end(i, lines):
-    for m in range(i, len(lines)):
-        # 防止在!!! tip之后出现空行
-        if lines[m] == "":
-            continue
 
-        if not (lines[m].startswith("    ") or lines[m].startswith("\t")):
-            return m
+def seek_adnomition_end(i, lines):
+    """
+    寻找 admonition 块的结束位置
+    规则：遇到连续两个空行时结束，但要忽略 fenced code blocks 内部的空行
+    """
+    in_fenced_block = False
+    fenced_pattern = re.compile(r'^\s*```')
+    consecutive_empty_lines = 0
     
+    for m in range(i, len(lines)):
+        line = lines[m]
+        
+        # 检查是否进入或退出 fenced code block
+        if fenced_pattern.match(line):
+            in_fenced_block = not in_fenced_block
+            consecutive_empty_lines = 0  # 重置空行计数
+            continue
+        
+        # 如果不在 fenced code block 内，检查空行
+        if not in_fenced_block:
+            if line == "":
+                consecutive_empty_lines += 1
+                # 如果遇到连续两个空行，则结束 admonition
+                if consecutive_empty_lines >= 2:
+                    return m - 1  # 返回第一个空行的位置
+            else:
+                consecutive_empty_lines = 0  # 重置空行计数
+        
     return len(lines)
 
 def replace_adnomition(lines, i, m):
-    """replace indented lines to myst adnomition due to myst 2.4.2 bug"""
+    """
+    将 admonition 转换为 myst 格式
+    处理 fenced code blocks：将 ```python 转换为 ````python
+    """
     matched = re.search(r"(tip|warning|note|attention|hint|more)", lines[i], flags=re.I)
     tag = "note"
     if matched is not None:
         tag = mystAdmons.get(matched.group(1).lower())
 
-    content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
+    # 处理内容，移除 admonition 缩进并转换 fenced code blocks
+    content = []
+    fenced_pattern = re.compile(r'^(\s*)(```)(.*)')
+    
+    for line in lines[i + 1 : m]:
+        # 移除 admonition 的缩进（4个空格或1个制表符）
+        if line.startswith("    "):
+            processed_line = line[4:]
+        elif line.startswith("\t"):
+            processed_line = line[1:]
+        else:
+            processed_line = line
+        
+        # 检查是否是 fenced code block 标记
+        fenced_match = fenced_pattern.match(processed_line)
+        if fenced_match:
+            # 将 ``` 转换为 ````（增加一个反引号）
+            indent, backticks, rest = fenced_match.groups()
+            processed_line = f"{indent}`{backticks}{rest}"
+        
+        content.append(processed_line)
+    
     return [f"``` {{{tag}}}", *content, "```"]
 
 
