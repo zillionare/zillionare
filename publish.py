@@ -162,71 +162,25 @@ def update_notebook_metadata(
     except Exception as e:
         logger.error(f"Error updating notebook metadata: {e}")
         return False
-
 def seek_adnomition_end(i, lines):
-    """
-    寻找 admonition 块的结束位置
-    规则：
-    遇到连续两个空行时结束，但要忽略 fenced code blocks 内部的空行
-    其它情况都不算结束
-    """
-    in_fenced_block = False
-    fenced_pattern = re.compile(r'^\s*```')
-    consecutive_empty_lines = 0
-
     for m in range(i, len(lines)):
-        line = lines[m]
-
-        # 检查是否进入或退出 fenced code block
-        if fenced_pattern.match(line):
-            in_fenced_block = not in_fenced_block
-            consecutive_empty_lines = 0  # 重置空行计数
+        # 防止在!!! tip之后出现空行
+        if lines[m] == "":
             continue
 
-        # 如果不在 fenced code block 内，检查空行
-        if not in_fenced_block:
-            if line == "":
-                consecutive_empty_lines += 1
-                # 如果遇到连续两个空行，则结束 admonition
-                if consecutive_empty_lines >= 2:
-                    return m - 1  # 返回第一个空行的位置
-            else:
-                consecutive_empty_lines = 0  # 重置空行计数
-
+        if not (lines[m].startswith("    ") or lines[m].startswith("\t")):
+            return m + 1 # 修复：将 m 改为 m + 1
+    
     return len(lines)
 
 def replace_adnomition(lines, i, m):
-    """
-    将 admonition 转换为 myst 格式
-    处理 fenced code blocks：将 ```python 转换为 ````python
-    """
+    """replace indented lines to myst adnomition due to myst 2.4.2 bug"""
     matched = re.search(r"(tip|warning|note|attention|hint|more)", lines[i], flags=re.I)
     tag = "note"
     if matched is not None:
         tag = mystAdmons.get(matched.group(1).lower())
 
-    # 处理内容，移除 admonition 缩进并转换 fenced code blocks
-    content = []
-    fenced_pattern = re.compile(r'^(\s*)(```)(.*)')
-    
-    for line in lines[i + 1 : m]:
-        # 移除 admonition 的缩进（4个空格或1个制表符）
-        if line.startswith("    "):
-            processed_line = line[4:]
-        elif line.startswith("\t"):
-            processed_line = line[1:]
-        else:
-            processed_line = line
-        
-        # 检查是否是 fenced code block 标记
-        fenced_match = fenced_pattern.match(processed_line)
-        if fenced_match:
-            # 将 ``` 转换为 ````（增加一个反引号）
-            indent, backticks, rest = fenced_match.groups()
-            processed_line = f"{indent}`{backticks}{rest}"
-        
-        content.append(processed_line)
-    
+    content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
     return [f"``` {{{tag}}}", *content, "```"]
 
 
@@ -248,81 +202,42 @@ def to_myst_adnomition(lines: List[str]):
 
     return buffer
 
-def replace_admonition_gmf(lines, i, m):
-    """
-    将 admonition 转换为 GMF 格式
-    空行处理：
-    - fenced code blocks 内的空行转换为 ">"
-    - fenced code blocks 外的空行转换为 "> <br>"
-    """
-    allowed_types = ["NOTE", "TIP", "CAUTION", "IMPORTANT", "QUESTION", "WARNING"]
-
-    # 提取admonition类型
-    matched = re.search(r"(tip|warning|note|attention|hint|more|important|caution|question)", lines[i], flags=re.I)
-    admonition_type = "NOTE"
-    if matched is not None:
-        admonition_type = matched.group(1).upper()
-        if admonition_type not in allowed_types:
-            admonition_type = "NOTE"
-
-    # 处理内容，移除 admonition 缩进，并跟踪 fenced code blocks
-    content = []
-    in_fenced_block = False
-    fenced_pattern = re.compile(r'^\s*```')
-
-    for line in lines[i + 1 : m]:
-        # 移除 admonition 的缩进（4个空格或1个制表符）
-        if line.startswith("    "):
-            processed_line = line[4:]
-        elif line.startswith("\t"):
-            processed_line = line[1:]
-        else:
-            # 空行或其他行保持原样
-            processed_line = line
-
-        # 先记录当前的 fenced block 状态
-        current_in_fenced = in_fenced_block
-
-        # 然后检查是否进入或退出 fenced code block
-        if fenced_pattern.match(processed_line):
-            in_fenced_block = not in_fenced_block
-
-        content.append((processed_line, current_in_fenced))
-
-    # 构建GMF格式的admonition
-    result = [f">[!{admonition_type}]"]
-    for content_line, was_in_fenced in content:
-        if content_line == "":
-            if was_in_fenced:
-                # fenced code blocks 内的空行使用简单的 ">"
-                result.append(">")
-            else:
-                # fenced code blocks 外的空行使用 "> <br>" 来保持原文空行的语义
-                result.append("> <br>")
-        else:
-            result.append(f"> {content_line}")
-
-    return result
-
-
 def to_gmf_admonition(lines: List[str]):
     """Convert CommonMark admonition format to GitHub Markdown Format (GMF)."""
-    buffer = []
-    i: int = 0
-
+    
+    allowed_types = ["NOTE", "TIP", "CAUTION", "IMPORTANT", "QUESTION", "WARNING"]
+    result = []
+    i = 0
     while i < len(lines):
         line = lines[i]
-        if line.startswith("!!!"):
-            m = seek_adnomition_end(i + 1, lines)
-            repl = replace_admonition_gmf(lines, i, m)
+        
+        # 检测CommonMark admonition起始行
+        if line.startswith('!!! '):
+            # 提取admonition类型
+            admonition_type = (line[4:].strip()).upper()
+            if admonition_type not in allowed_types:
+                admonition_type = "NOTE"
 
-            buffer.extend(repl)
-            i = m
+            # 收集内容块
+            content = []
+            j = i + 1
+            while j < len(lines) and lines[j].startswith(' ' * 2):
+                content.append(lines[j][2:])  # 移除缩进
+                j += 1
+            
+            # 添加转换后的内容
+            result.append(f'>[!{admonition_type}]')
+            for content_line in content:
+                result.append(f'    {content_line}')  # 添加单空格缩进
+            
+            # 跳过已处理的行
+            i = j
         else:
-            buffer.append(line)
+            # 普通行直接添加
+            result.append(line)
             i += 1
-
-    return buffer
+    
+    return result
 
 def strip_html_comments(content: str) -> str:
     return re.sub(r"<!--.*?-->", "", content, flags=re.DOTALL)
