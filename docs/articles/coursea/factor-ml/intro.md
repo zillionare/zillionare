@@ -167,7 +167,7 @@ tags:
 
 本课程只涵盖了量化交易中的部分知识。如果要独立从事交易或者做完量化全栈工作，建议补充学习 [《量化 24 课》](https://www.jieyu.ai/articles/coursea/24lectures/intro/)。本课程与《量化 24 课》的区别是，本课程内容更为专精，《量化 24 课》内容更广泛，涵盖更全面。
 
-!!! tip 立即报名！
+!!! tip "立即报名！"
     扫码报名，锁定最低价格！
 
     <img src="https://images.jieyu.ai/images/hot/quantfans.png" style="width: 150px;position:relative;float:right"/>

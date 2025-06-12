@@ -102,21 +102,6 @@ $$
 
 比如，『可以清心也』这几个字，可以排列成『以清心也可』，也可以排列成『心也可以清』，或者『清心也可以』，都是语句通顺的文章。
 
-<!-- BEGIN IPYNB STRIPOUT -->
-插播一则招人启事，这是我司新办公地：
-
-<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/hot/my-company.jpg'>
-<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
-</div>
-
-新场子肯定缺人。但这个地方还在注册中，所以提前发招聘信息，算是粉丝福利。
-
-!!! info
-    急招课程助理（武汉高校，三个月以上实习生可）若干人。课程助理要求有一定的量化基础，能编辑一些量化方向的文章，热爱学习，有自媒体经验更好。
-
-<!-- END IPYNB STRIPOUT -->
-
 在实际应用中，我们可以使用 sklearn 的 TfidfVectorizer 来实现 TF-IDF 的计算：
 
 ```python
@@ -223,10 +208,12 @@ news = pro.news(src='sina',
 
 我们把获取的新闻数据先保存到本地，以免后面还可能进行其它挖掘：
 
+!!! attention
+    即使是高级账号，tushare对每天能调用的新闻条数也是有限制的。所以，请在您本地安装tushare, 申请高级账号来运行以下代码，不要在Quantide Reseach环境中运行！！
+    
+    运行代码前，需要指定data_home变量，以便将news保存到本地。
+
 ````markdown
-
-请在本地尝试以下代码，不要在Quantide Reseach环境中运行！！
-
 ```python
 def retry_fetch(start, end, offset):
     i = 1
@@ -328,11 +315,12 @@ def count_words_in_files(stocks, ma_groups=None):
         df[f"ma_{win}"] = unstacked.rolling(window=win).mean().stack()
     
     return df
-
-count_words_in_files(stocks)
 ```
 
 最后，完整的代码如下：
+
+!!! attention
+    以下代码需要先将新闻数据存在放在变量data_home指定的目录，否则会报错。
 
 ```python
 import os
@@ -341,7 +329,7 @@ import jieba
 from collections import Counter
 import time
 
-data_home = "/data/news"
+data_home = "/data/rw/news"
 def init():
     stocks = get_stock_list(datetime.date(2024,12,2), code_only=False)
     stocks = set(stocks.name)

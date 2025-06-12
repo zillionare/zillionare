@@ -68,9 +68,8 @@ tags:
 * 购买完成当日，助教（宽粉）开通课程环境账号，将课程登录网址、账号密码发送给学员
 * 助教建立课程辅导群，邀请老师和学员加入
 * 学员开始学习，学习中遇到问题，通过微信群提问，私课班当天答疑。其它班通过微信群答疑。
-* 课程视频仍可永久观看。为学员分配的独占课程环境自开通之日起4个月内有效。此后仍可在两年内使用公用环境（与独占环境一致，但资源共享）。
+* 课程视频仍可永久观看。服务器资源根据套餐决定。
 
 课程实验环境如下：
 
- ![75%](https://images.jieyu.ai/images/2023/10/welcome-to-zillionare-course.png) 
- ![50%](https://images.jieyu.ai/images/2023/10/cheese-course-lab.png)
+ ![66%](https://images.jieyu.ai/images/hot/course/academy.jpg) 

@@ -5,7 +5,6 @@ strong: [augment, Cusor, Trae]
 img: https://images.jieyu.ai/images/2025/04/20250423201107.png
 fonts:
     sans: 'AlibabaPuHuiTi-Thin, sans-serif'
-slug: how-do-i-workout-a-complex-project-using-augment
 date: 2025-04-21
 category: tools
 tags: 
