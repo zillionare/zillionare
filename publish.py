@@ -166,8 +166,9 @@ def seek_adnomition_end(i, lines):
     """
     寻找 admonition 块的结束位置
     规则：
-    遇到连续两个空行时结束，但要忽略 fenced code blocks 内部的空行
-    其它情况都不算结束
+    1. 遇到连续两个空行时结束，但要忽略 fenced code blocks 内部的空行
+    2. 遇到新的 admonition 开始行（!!! 开头）时结束
+    3. 其它情况都不算结束
     """
     in_fenced_block = False
     fenced_pattern = re.compile(r'^\s*```')
@@ -176,13 +177,17 @@ def seek_adnomition_end(i, lines):
     for m in range(i, len(lines)):
         line = lines[m]
 
+        # 特殊处理：如果遇到新的 admonition 开始，则结束当前 admonition
+        if line.startswith("!!!"):
+            return m
+
         # 检查是否进入或退出 fenced code block
         if fenced_pattern.match(line):
             in_fenced_block = not in_fenced_block
             consecutive_empty_lines = 0  # 重置空行计数
             continue
 
-        # 如果不在 fenced code block 内，检查空行
+        # 如果不在 fenced code block 内，检查空行和缩进
         if not in_fenced_block:
             if line == "":
                 consecutive_empty_lines += 1
@@ -190,6 +195,10 @@ def seek_adnomition_end(i, lines):
                 if consecutive_empty_lines >= 2:
                     return m - 1  # 返回第一个空行的位置
             else:
+                # 检查是否是有效的 admonition 内容行（以4个空格或制表符开头）
+                if not (line.startswith("    ") or line.startswith("\t")):
+                    # 遇到非缩进行，admonition 结束
+                    return m
                 consecutive_empty_lines = 0  # 重置空行计数
 
     return len(lines)
@@ -520,7 +529,7 @@ def format_code_blocks_in_markdown(content: str):
     formatted_content = code_block_pattern.sub(format_match, content)
     return formatted_content
 
-def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_right: bool = False, admon_style: str = "gmf", strip_paid: bool = False)->dict:
+def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_right: bool = False, admon_style: str | None = None, strip_paid: bool = False)->dict:
     meta = get_meta(in_file)
 
     def replace_paid_content(match):
@@ -550,6 +559,8 @@ def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_r
             lines = to_myst_adnomition(content.split("\n"))
         elif admon_style == "gmf":
             lines = to_gmf_admonition(content.split("\n"))
+        elif admon_style is None:
+            lines = content.split("\n")  # 保持原始 admonition 格式不变
         else:
             raise ValueError(f"Invalid admon_style: {admon_style}")
 
