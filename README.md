@@ -2,8 +2,8 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 我是一名软件工程师、量化交易人和创业者。《Python高效编程最佳实践指南》的作者。我也是一系列开源软件的开发者或者维护者。
 
-    >[!tip]
-    >我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询
+>[!tip]
+>我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询
     
 
 <div class="as-grid m-t-md">
