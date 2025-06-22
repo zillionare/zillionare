@@ -1,0 +1,84 @@
+# RSS新闻源配置文件
+# 每个源包含名称、URL和分类标签
+
+sources:
+  # 真实可用的RSS源
+  - name: "Reuters Business"
+    url: "https://feeds.reuters.com/reuters/businessNews"
+    category: "business"
+    encoding: "utf-8"
+
+  - name: "BBC Business"
+    url: "http://feeds.bbci.co.uk/news/business/rss.xml"
+    category: "business"
+    encoding: "utf-8"
+
+  - name: "Financial Times"
+    url: "https://www.ft.com/rss/home/us"
+    category: "finance"
+    encoding: "utf-8"
+
+  - name: "MarketWatch"
+    url: "http://feeds.marketwatch.com/marketwatch/topstories/"
+    category: "markets"
+    encoding: "utf-8"
+
+  - name: "Yahoo Finance"
+    url: "https://feeds.finance.yahoo.com/rss/2.0/headline"
+    category: "finance"
+    encoding: "utf-8"
+
+  - name: "Seeking Alpha"
+    url: "https://seekingalpha.com/feed.xml"
+    category: "investment"
+    encoding: "utf-8"
+
+# AI模型配置
+ai_config:
+  # 使用OpenAI API
+  openai:
+    # api_key: "${OPENAI_API_KEY}"  # 从环境变量读取
+    api_key: sk-5U1uLFQyX5IynCLLe5esNEQxzt0N9nPCmeYs08Tv0GXoz9xE
+    model: "gpt-3.5-turbo"
+    max_tokens: 1000
+    
+  # 量化交易关键词
+  quant_keywords:
+    - "量化交易"
+    - "算法交易"
+    - "程序化交易"
+    - "高频交易"
+    - "因子投资"
+    - "风险管理"
+    - "回测"
+    - "策略"
+    - "alpha"
+    - "beta"
+    - "夏普比率"
+    - "最大回撤"
+    - "机器学习"
+    - "深度学习"
+    - "人工智能"
+    - "数据挖掘"
+    - "技术分析"
+    - "基本面分析"
+
+# 抓取配置
+crawler_config:
+  # 请求头配置
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    Accept-Language: "zh-CN,zh;q=0.9,en;q=0.8"
+    
+  # 超时设置
+  timeout: 30
+  
+  # 重试次数
+  max_retries: 3
+  
+  # 延迟设置（秒）
+  delay_between_requests: 1
+  
+  # 最大文章数量
+  max_articles_per_source: 20
