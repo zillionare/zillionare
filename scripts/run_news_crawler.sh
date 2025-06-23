@@ -25,7 +25,9 @@ show_help() {
     echo ""
     echo "可用命令:"
     echo "  test                    运行系统测试"
-    echo "  crawl                   运行一次新闻抓取"
+    echo "  crawl                   运行一次新闻抓取（原版）"
+    echo "  enhanced-crawl          运行增强版新闻抓取（需要OpenAI API）"
+    echo "  test-enhanced           测试增强版爬虫"
     echo "  schedule                启动定时调度器"
     echo "  stats                   显示统计信息"
     echo "  search <keyword>        搜索文章"
@@ -36,7 +38,9 @@ show_help() {
     echo ""
     echo "示例:"
     echo "  $0 test                 # 运行系统测试"
-    echo "  $0 crawl                # 抓取新闻"
+    echo "  $0 crawl                # 抓取新闻（原版）"
+    echo "  $0 enhanced-crawl       # 增强版抓取（需要OpenAI API）"
+    echo "  $0 test-enhanced        # 测试增强版爬虫"
     echo "  $0 search 量化交易       # 搜索量化交易相关文章"
     echo "  $0 recent 3             # 显示最近3天的文章"
     echo "  $0 clean 15             # 清理15天前的文件"
@@ -67,8 +71,25 @@ run_test() {
 
 # 运行爬虫
 run_crawl() {
-    echo -e "${BLUE}开始抓取新闻...${NC}"
+    echo -e "${BLUE}开始抓取新闻（原版）...${NC}"
     poetry run python scripts/news_crawler.py "$@"
+}
+
+# 运行增强版爬虫
+run_enhanced_crawl() {
+    echo -e "${BLUE}开始增强版新闻抓取...${NC}"
+    if [ -z "$OPENAI_API_KEY" ]; then
+        echo -e "${RED}错误: 需要设置 OPENAI_API_KEY 环境变量${NC}"
+        echo "请设置: export OPENAI_API_KEY=your-api-key"
+        exit 1
+    fi
+    poetry run python scripts/enhanced_news_crawler.py "$@"
+}
+
+# 测试增强版爬虫
+test_enhanced() {
+    echo -e "${BLUE}测试增强版爬虫...${NC}"
+    poetry run python scripts/test_enhanced_crawler.py
 }
 
 # 启动调度器
@@ -129,6 +150,13 @@ main() {
         "crawl")
             shift
             run_crawl "$@"
+            ;;
+        "enhanced-crawl")
+            shift
+            run_enhanced_crawl "$@"
+            ;;
+        "test-enhanced")
+            test_enhanced
             ;;
         "schedule")
             shift
