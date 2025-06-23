@@ -1,0 +1,100 @@
+name: Daily News Crawler
+
+on:
+  schedule:
+    # 每天 UTC+8 上午 8:00 运行 (UTC 00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  crawl-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+    
+    - name: Install dependencies
+      run: poetry install --no-root
+    
+    - name: Create quant_news branch if not exists
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 检查 quant_news 分支是否存在
+        if git show-ref --verify --quiet refs/remotes/origin/quant_news; then
+          echo "quant_news branch exists, checking out"
+          git checkout quant_news
+          git pull origin quant_news
+        else
+          echo "Creating new quant_news branch"
+          git checkout --orphan quant_news
+          git rm -rf .
+          echo "# Quantitative Trading News" > README.md
+          echo "" >> README.md
+          echo "This branch contains translated quantitative trading news articles." >> README.md
+          echo "" >> README.md
+          echo "## Structure" >> README.md
+          echo "" >> README.md
+          echo "- \`news/YYYY-MM-DD/article-title.md\` - Daily news articles" >> README.md
+          git add README.md
+          git commit -m "Initial commit for quant_news branch"
+          git push origin quant_news
+        fi
+        
+        # 切换回 master 分支进行爬取
+        git checkout master
+    
+    - name: Run news crawler
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        poetry run python scripts/enhanced_news_crawler.py
+    
+    - name: Commit and push news articles
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 检查是否有新文章
+        if [ -d "temp_news" ] && [ "$(ls -A temp_news)" ]; then
+          # 切换到 quant_news 分支
+          git checkout quant_news
+          
+          # 复制新文章
+          cp -r temp_news/* . 2>/dev/null || true
+          
+          # 添加并提交
+          git add .
+          if git diff --staged --quiet; then
+            echo "No new articles to commit"
+          else
+            git commit -m "Add news articles for $(date -u +%Y-%m-%d)"
+            git push origin quant_news
+            echo "Successfully pushed new articles"
+          fi
+        else
+          echo "No new articles found"
+        fi
