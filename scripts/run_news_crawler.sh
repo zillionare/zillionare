@@ -28,6 +28,7 @@ show_help() {
     echo "  crawl                   运行一次新闻抓取（原版）"
     echo "  enhanced-crawl          运行增强版新闻抓取（需要OpenAI API）"
     echo "  test-enhanced           测试增强版爬虫"
+    echo "  debug                   调试增强版爬虫问题"
     echo "  schedule                启动定时调度器"
     echo "  stats                   显示统计信息"
     echo "  search <keyword>        搜索文章"
@@ -41,6 +42,7 @@ show_help() {
     echo "  $0 crawl                # 抓取新闻（原版）"
     echo "  $0 enhanced-crawl       # 增强版抓取（需要OpenAI API）"
     echo "  $0 test-enhanced        # 测试增强版爬虫"
+    echo "  $0 debug                # 调试增强版爬虫问题"
     echo "  $0 search 量化交易       # 搜索量化交易相关文章"
     echo "  $0 recent 3             # 显示最近3天的文章"
     echo "  $0 clean 15             # 清理15天前的文件"
@@ -90,6 +92,12 @@ run_enhanced_crawl() {
 test_enhanced() {
     echo -e "${BLUE}测试增强版爬虫...${NC}"
     poetry run python scripts/test_enhanced_crawler.py
+}
+
+# 调试增强版爬虫
+debug_crawler() {
+    echo -e "${BLUE}调试增强版爬虫...${NC}"
+    poetry run python scripts/debug_crawler.py
 }
 
 # 启动调度器
@@ -157,6 +165,9 @@ main() {
             ;;
         "test-enhanced")
             test_enhanced
+            ;;
+        "debug")
+            debug_crawler
             ;;
         "schedule")
             shift
