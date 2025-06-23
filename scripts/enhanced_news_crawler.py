@@ -22,7 +22,7 @@ import requests
 import feedparser
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
-import openai
+from openai import OpenAI
 from dateutil import parser as date_parser
 from slugify import slugify
 
@@ -72,10 +72,13 @@ class EnhancedNewsCrawler:
         self._setup_session()
         
         # 检查OpenAI API密钥
-        openai.api_key = os.getenv("OPENAI_API_KEY")
-        if not openai.api_key:
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
             logger.error("OPENAI_API_KEY is required for enhanced crawler")
             sys.exit(1)
+
+        # 初始化OpenAI客户端
+        self.openai_client = OpenAI(api_key=api_key)
         
         # 创建临时目录
         self.temp_dir = Path("temp_news")
@@ -229,7 +232,7 @@ class EnhancedNewsCrawler:
 - 公司财报、市场新闻、政策解读等不算量化交易相关
 """
 
-            response = openai.ChatCompletion.create(
+            response = self.openai_client.chat.completions.create(
                 model=self.config.get('ai_config', {}).get('openai', {}).get('model', 'gpt-3.5-turbo'),
                 messages=[
                     {"role": "system", "content": "你是一个专业的量化交易分析师，能够准确识别与量化交易相关的内容。请严格按照要求的格式回答。"},
@@ -285,7 +288,7 @@ class EnhancedNewsCrawler:
 内容：[翻译后的内容，保持Markdown格式]
 """
 
-            response = openai.ChatCompletion.create(
+            response = self.openai_client.chat.completions.create(
                 model=self.config.get('ai_config', {}).get('openai', {}).get('model', 'gpt-3.5-turbo'),
                 messages=[
                     {"role": "system", "content": "你是一个专业的金融翻译专家，擅长翻译量化交易相关内容。请保持翻译的专业性和准确性。"},

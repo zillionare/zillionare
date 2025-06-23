@@ -28,8 +28,12 @@ logger = logging.getLogger(__name__)
 def debug_rss_sources():
     """调试RSS源"""
     print("=== 调试RSS源 ===")
-    
+
     try:
+        # 临时设置API key进行测试
+        if not os.getenv("OPENAI_API_KEY"):
+            os.environ["OPENAI_API_KEY"] = "test-key-for-rss-testing"
+
         crawler = EnhancedNewsCrawler("rss.yaml")
         sources = crawler.config.get('sources', [])
         
@@ -72,18 +76,18 @@ def debug_openai_connection():
     print(f"✓ API Key已设置 (长度: {len(api_key)})")
     
     try:
-        import openai
-        openai.api_key = api_key
-        
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key)
+
         # 测试简单请求
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "user", "content": "请回答'测试成功'"}
             ],
             max_tokens=10
         )
-        
+
         result = response.choices[0].message.content.strip()
         print(f"✓ OpenAI API连接成功: {result}")
         return True
