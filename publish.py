@@ -212,10 +212,7 @@ def replace_adnomition(lines, i, m):
         tag = mystAdmons.get(matched.group(1).lower(), "note")  # 提供默认值
 
     content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
-    return [f"```
-` {{{tag}}}", *content, "
-````"]
-n [f"```` {{{tag}}}", *content, "````"]
+    return [f"```` {{{tag}}}", *content, "````"]
 
 
 def to_myst_adnomition(lines: List[str]):
