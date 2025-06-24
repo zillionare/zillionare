@@ -204,14 +204,18 @@ def seek_adnomition_end(i, lines):
     return len(lines)
 
 def replace_adnomition(lines, i, m):
-    """replace indented lines to myst adnomition due to myst 2.4.2 bug"""
+    """replace indented lines to myst adnomition due to myst 2.4.2 bug
+    使用4个反引号以避免嵌套fenced code blocks的问题"""
     matched = re.search(r"(tip|warning|note|attention|hint|more|info|important)", lines[i], flags=re.I)
     tag = "note"
     if matched is not None:
         tag = mystAdmons.get(matched.group(1).lower(), "note")  # 提供默认值
 
     content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
-    return [f"``` {{{tag}}}", *content, "```"]
+    return [f"```
+` {{{tag}}}", *content, "
+````"]
+n [f"```` {{{tag}}}", *content, "````"]
 
 
 def to_myst_adnomition(lines: List[str]):

@@ -80,27 +80,25 @@ def calc_rsrs_factor(df: pd.DataFrame, win: int = 18):
 
 !!! tip
     在这里我们使用了一个快速的向量化算法。如果你感到难以理解这个算法，那么，它对应的 vanilla 版本是这样：
+    ```python
+    def calc_rsrs_vanilla(df, N):
+            df = df.copy()
+            temp = [np.nan] * N
 
+            for row in range(len(df) - N):
+                y = df['high'][row : row + N]
+                x = df['low'][row : row + N]
 
-```python
-def calc_rsrs_vanilla(df, N):
-        df = df.copy()
-        temp = [np.nan] * N
+                # 确保 x 和 y 的长度都为 N，并且没有 NaN 值
+                if len(x) == N and len(y) == N and not x.isnull().any() and not y.isnull().any():
+                    beta = np.polyfit(x, y, 1)[0]
+                    temp.append(beta)
+                else:
+                    temp.append(np.nan)
 
-        for row in range(len(df) - N):
-            y = df['high'][row : row + N]
-            x = df['low'][row : row + N]
-
-            # 确保 x 和 y 的长度都为 N，并且没有 NaN 值
-            if len(x) == N and len(y) == N and not x.isnull().any() and not y.isnull().any():
-                beta = np.polyfit(x, y, 1)[0]
-                temp.append(beta)
-            else:
-                temp.append(np.nan)
-
-        df['rsrs'] = temp
-        return df
-```
+            df['rsrs'] = temp
+            return df
+    ```
 
 
 在对比测试中，vanilla 版本的运行时间如果是 4.3ms 的话，那么向量化版本的运行时间则仅为 317us，快了 10 倍多。
@@ -267,7 +265,7 @@ describe(hs300_factor.to_frame(), 'RSRS', '2018-2025 斜率数据分布')
 start = "20180101"
 end = "20250601"
 
-hs300 = pro.index_daily(ts_code = "000300.SH", start = start, end = end)
+hs300 = pro.index_daily(ts_code = "000300.SH", start_date = start, end_date = end)
 hs300.index = pd.to_datetime(hs300["trade_date"])
 hs300 = hs300.sort_index(ascending=True)
 
