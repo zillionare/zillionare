@@ -206,13 +206,26 @@ def seek_adnomition_end(i, lines):
 def replace_adnomition(lines, i, m):
     """replace indented lines to myst adnomition due to myst 2.4.2 bug
     使用4个反引号以避免嵌套fenced code blocks的问题"""
-    matched = re.search(r"(tip|warning|note|attention|hint|more|info|important)", lines[i], flags=re.I)
+    # 匹配类型和可能的标题（两种格式：带引号和不带引号）
+    matched = re.search(r"(tip|warning|note|attention|hint|more|info|important|failure|bug)(?:\s+\"([^\"]+)\"|(?:\s+(.+)))?", lines[i], flags=re.I)
     tag = "note"
+    title = ""
+    
     if matched is not None:
         tag = mystAdmons.get(matched.group(1).lower(), "note")  # 提供默认值
+        # 检查两种可能的标题格式
+        if matched.group(2):  # 引号包裹的标题
+            title = matched.group(2)
+        elif matched.group(3):  # 不带引号的标题
+            title = matched.group(3)
 
     content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
-    return [f"```` {{{tag}}}", *content, "````"]
+    
+    # 如果有标题，则添加到MyST格式中
+    if title:
+        return [f"```` {{{tag}}} {title}", *content, "````"]
+    else:
+        return [f"```` {{{tag}}}", *content, "````"]
 
 
 def to_myst_adnomition(lines: List[str]):
