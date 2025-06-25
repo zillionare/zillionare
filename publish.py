@@ -555,8 +555,8 @@ def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_r
         #         f"{prompt}\n" \
         #         f"<!--PAID CONTENT END-->"
         # else:
-        #     return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
-        return f"<!--PAID CONTENT START-->\n<!--PAID CONTENTEND-->"
+        #     return f"<!--PAID CONTENT START-->\n<!--PAID CONTENT END-->"
+        return f"<!--PAID CONTENT START-->\n<!--PAID CONTENT END-->"
 
     with open(in_file, "r") as f:
         content = f.read()
@@ -601,10 +601,10 @@ def preview_notebook(file: str):
     """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
     src = absolute_path(Path(file))
     tmp_md = Path("/tmp")/src.name
-    preprocess(src, tmp_md, admon_style="myst")
+    preprocess(src, tmp_md, strip_output=True, admon_style="myst")
 
     notebook = convert_to_ipynb(tmp_md)
-    
+
     dst = Path("~/courses/blog/articles/").expanduser()
     if not dst.exists():
         dst.mkdir(parents=True)
