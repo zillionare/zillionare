@@ -410,7 +410,7 @@ def extract_meta_for_jieyu_index(file):
     path = Path(file)
     relpath = path.relative_to("docs/blog/posts")
     link = Path("/blog/posts") / relpath.with_suffix("")
-    meta["link"] = str(link) + "/"
+    meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
 
     return meta
 
@@ -460,15 +460,17 @@ def build_index():
     about_me = "I'm a software developer, quantitative trader and entrepreneur。 Teaching machine learning, trading and software development. Author of 'Best Practices for Python'. \n\n我是一名软件工程师、量化交易人和创业者。《Python高效编程最佳实践指南》的作者。我也是一系列开源软件的开发者或者维护者。"
 
     latest_article = container_tpl.format_map({
-        "cards": "\n".join([github_cards[0]]),
+        "cards": "\n".join(github_cards[:3]),
     })
 
     tip = "\n".join([
         ">[!tip]", 
-        ">我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询"
+        ">我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询",
+        "",
+        "## 最新文章"
     ])
 
-    github_body = "\n".join([about_me, tip, latest_article])
+    github_body = "\n".join([about_me, tip, latest_article, "更多精彩好文，请访问[匡醍量化](https://www.jieyu.ai)"])
 
     web_body = container_tpl.format_map({
         "cards": "\n".join(web_cards),
