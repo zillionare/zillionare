@@ -19,7 +19,7 @@ import requests
 from loguru import logger
 
 quantide_api_url = os.environ.get("QUANTIDE_API_URL")
-API_TOKEN = os.environ.get("API_TOKEN")
+API_TOKEN = os.environ.get("QUANTIDE_API_TOKEN")
 
 pictures = [
     "https://images.jieyu.ai/images/hot/adventure.jpg",
@@ -614,7 +614,7 @@ def preview_notebook(file: str):
 
     shutil.copy(notebook, dst/notebook.name)
 
-def publish_quantide(src: str, category: str = "", price: int = 0):
+def publish_quantide(src: str, category:str, price: int = 40):
     """将文章发布到quantide课程平台
 
     1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
@@ -627,9 +627,6 @@ def publish_quantide(src: str, category: str = "", price: int = 0):
         src: 输入文章路径
         category: 分类
     """
-    if price not in (0, 10, 20, 40, 80, 100, 200, 360):
-        raise ValueError(f"博客文章的价格必须是:  10, 20, 40, 80, 100, 200, 360中的一个")
-    
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
     meta = preprocess(md, preprocessed, strip_output=True, copy_right=True, admon_style="myst")
@@ -643,9 +640,13 @@ def publish_quantide(src: str, category: str = "", price: int = 0):
                              meta.get("img", ""))
     
     meta["course"] = "blog"
+    meta["division"] = "blog"
     meta["resource"] = "articles"
     meta["description"] = meta.get("excerpt", "")
     meta["rel_path"] = f"articles/{category}/{notebook.name}"
+    meta["publish_date"] = arrow.get(meta.get("date", arrow.now())).format("YYYY-MM-DD")
+    if "date" in meta:
+        del meta["date"]
     
     if price not in (0, 360):
         meta["price"] = price - 0.1
@@ -659,7 +660,8 @@ def publish_quantide(src: str, category: str = "", price: int = 0):
     cmd = f'scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}'
     os.system(cmd)
 
-    if not API_TOKEN:
+    if API_TOKEN:
+        quantide_api_url = "http://localhost:403"
         response = requests.post(
             f"{quantide_api_url}/api/admin/resources/publish",
             headers={
