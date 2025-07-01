@@ -661,7 +661,6 @@ def publish_quantide(src: str, category:str, price: int = 40):
     os.system(cmd)
 
     if API_TOKEN:
-        quantide_api_url = "http://localhost:403"
         response = requests.post(
             f"{quantide_api_url}/api/admin/resources/publish",
             headers={
