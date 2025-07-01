@@ -18,7 +18,10 @@ import nbformat
 import requests
 from loguru import logger
 
-quantide_api_url = os.environ.get("QUANTIDE_API_URL")
+if os.environ.get("debug"):
+    quantide_api_url = "http://localhost:403"
+else:
+    quantide_api_url = os.environ.get("QUANTIDE_API_URL")
 API_TOKEN = os.environ.get("QUANTIDE_API_TOKEN")
 
 pictures = [
