@@ -30,7 +30,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>魔鬼都在细节里！如何实现强化学习交易模型</h3>
+<h3>强化学习模型能否自我演化出交易智慧？</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250625204449.png" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>!!! abstract 内容摘要<br>    * 强化学习已在摩根大通及全球顶级投资机构中使用。<br>    * 与监督学习不同，强化学习不会在每一步都只接受标准答案，它会尝试、忍受短期的损失，博取长期的收益。这就使得它有了对抗金融数据噪声的能力。<br>    * ...</p>
 
