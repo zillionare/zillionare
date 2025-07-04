@@ -84,18 +84,18 @@ def calc_candle_up_std_factor(barss, win = 20):
 
 !!! attention
     ```python
-from alphalens.performance import factor_alpha_beta
-    start = datetime.date(2009,1,1 )
-    end = datetime.date(2020,4,30)
-    barss = load_bars(start, end, 50)
+    from alphalens.performance import factor_alpha_beta
+        start = datetime.date(2009,1,1 )
+        end = datetime.date(2020,4,30)
+        barss = load_bars(start, end, 50)
 
-    up_std_factor = calc_candle_up_std_factor(barss, 20)
-    prices = barss["price"].unstack(level = 1)
-    merged = get_clean_factor_and_forward_returns(up_std_factor, prices, quantiles=5)
+        up_std_factor = calc_candle_up_std_factor(barss, 20)
+        prices = barss["price"].unstack(level = 1)
+        merged = get_clean_factor_and_forward_returns(up_std_factor, prices, quantiles=5)
 
-    alpha = factor_alpha_beta(merged)
-    alpha
-```
+        alpha = factor_alpha_beta(merged)
+        alpha
+    ```
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -120,16 +120,16 @@ alpha
 
 !!! warning
     不要慌！ 这段代码注定应该报错。
-```python
-File ~/miniforge3/envs/zillionare/lib/python3.12/site-packages/pandas/core/arrays/datetimelike.py:2162, in TimelikeOps._validate_frequency(cls, index, freq, **kwargs)
-    2156     raise err
-    -> 2162 raise ValueError(
-    2163     f"Inferred frequency {inferred} from passed values "
-    2164     f"does not conform to passed frequency {freq.freqstr}"
-    2165 ) from err
+    ```python
+    File ~/miniforge3/envs/zillionare/lib/python3.12/site-packages/pandas/core/arrays/datetimelike.py:2162, in TimelikeOps._validate_frequency(cls, index, freq, **kwargs)
+        2156     raise err
+        -> 2162 raise ValueError(
+        2163     f"Inferred frequency {inferred} from passed values "
+        2164     f"does not conform to passed frequency {freq.freqstr}"
+        2165 ) from err
 
-    ValueError: Inferred frequency None from passed values does not conform to passed frequency C
-```
+        ValueError: Inferred frequency None from passed values does not conform to passed frequency C
+    ```
 calc_candle_up_std_factor 函数返回的数据，只包含每个月末的日期，Alphalens 无法从中推断出交易日历，因此抛出了异常。
 
 !!! tip
@@ -388,7 +388,20 @@ def _process_single_month(
 <!--PAID CONTENT START-->
 
 我们先造一点数据，再来演示。
+
 ```python
+def key_frames(bars, dates):
+    df = dates.to_frame(name = "date")
+    month_starts = df.resample('MS')['date'].first()
+    month_ends = df.resample('BME')['date'].last()
+
+    key_frames = bars[
+        (bars.index.get_level_values(0).isin(month_ends) |
+        bars.index.get_level_values(0).isin(month_starts))
+    ]
+
+    return key_frames
+
 factor_data = [
     (pd.Timestamp('2023-01-31'), "A", 1.0),
     (pd.Timestamp('2023-01-31'), "B", 2.0)
@@ -431,6 +444,7 @@ expected.style.format("{:.2%}")
 <!-- END IPYNB STRIPOUT -->
 
 回测和结果可视化只要三行代码：
+
 ```python
 moonshot = Moonshot()
 
@@ -478,12 +492,11 @@ ms.plot_cumulative_returns_by_quantiles()
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
+<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703193457.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
-</div>
 
 <!--PAID CONTENT START-->
 尽管我们只用了 50 支个股来进行回测，如果将 universe 参数改为 3000，效果也仍然会很好。
@@ -571,66 +584,27 @@ ms.plot_cumulative_returns_by_quantiles()
 
 <!--PAID CONTENT START-->
 ```python
-def calc_ubl_factor(barss, win = 20):
+def calc_ubl_factor(barss, win=20):
     from scipy.stats import zscore
 
     up_std = calc_candle_up_std_factor(barss, win)
     wr_down = calc_wr_down_factor(barss, win)
 
     # 截面 zscore
-    z_scored_up_std_factor = (up_std.groupby("date")
-                                    .transform(lambda x: zscore(x, nan_policy="omit")))
-    z_scored_wr_down = (wr_down.groupby("date")
-                                .transform(lambda x: zscore(x, nan_policy="omit")))
+    z_scored_up_std_factor = up_std.groupby("date").transform(
+        lambda x: zscore(x, nan_policy="omit")
+    )
+    z_scored_wr_down = wr_down.groupby("date").transform(
+        lambda x: zscore(x, nan_policy="omit")
+    )
 
     return z_scored_up_std_factor + z_scored_wr_down
 
-start = datetime.date(2009, 1, 1)
-end = datetime.date(2020, 4, 30)
-barss = load_bars(start, end, universe = 50)
-factor = calc_wr_down_factor(barss, 20)
-
-ms = Moonshot()
-ms.backtest(factor, barss)
-ms.plot_cumulative_returns_by_quantiles()
-```
-
-calc_candle_up_std_factor(barss, win)
-lc_wr_down_factor(barss, win)
-
-    # 截面 zscore
-    z_scored_up_std_factor = (up_std.groupby("date")
-                                    .transform(lambda x: zscore(x, nan_policy="omit")))
-    z_scored_wr_down = (wr_down.groupby("date")
-                                .transform(lambda x: zscore(x, nan_policy="omit")))
-
-    return z_scored_up_std_factor + z_scored_wr_down
 
 start = datetime.date(2009, 1, 1)
 end = datetime.date(2020, 4, 30)
-barss = load_bars(start, end, universe = 50)
-factor = calc_wr_down_factor(barss, 20)
-
-ms = Moonshot()
-ms.backtest(factor, barss)
-ms.plot_cumulative_returns_by_quantiles()
-```
-
-calc_candle_up_std_factor(barss, win)
-    wr_down = calc_wr_down_factor(barss, win)
-
-    # 截面 zscore
-    z_scored_up_std_factor = (up_std.groupby("date")
-                                    .transform(lambda x: zscore(x, nan_policy="omit")))
-    z_scored_wr_down = (wr_down.groupby("date")
-                                .transform(lambda x: zscore(x, nan_policy="omit")))
-
-    return z_scored_up_std_factor + z_scored_wr_down
-
-start = datetime.date(2009, 1, 1)
-end = datetime.date(2020, 4, 30)
-barss = load_bars(start, end, universe = 50)
-factor = calc_wr_down_factor(barss, 20)
+barss = load_bars(start, end, universe=50)
+factor = calc_ubl_factor(barss, 20)
 
 ms = Moonshot()
 ms.backtest(factor, barss)
