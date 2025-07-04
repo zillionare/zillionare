@@ -128,7 +128,7 @@ def calculate_williams_r_ratio(bars):
 
 ```python
 def calc_monthly(daily_factor, aggfunc, win=20):
-    dates = barss.index.get_level_values('date').unique().sort_values()
+    dates = daily_factor.index.get_level_values('date').unique().sort_values()
     month_ends = dates.to_frame(name = "date").resample('BME').last().values
 
     dfs = []
@@ -158,7 +158,9 @@ def calc_monthly(daily_factor, aggfunc, win=20):
 
 ```python
 def calc_candle_up_std_factor(barss, win = 20):
-    up_shadow = barss.groupby("asset", group_keys=False).apply(lambda x: calculate_shadow_ratio(x)[0]).sort_index()
+    up_shadow = (barss.groupby("asset", group_keys=False)
+                      .apply(lambda x: calculate_shadow_ratio(x)[0])
+                      .sort_index())
 
     return calc_monthly(up_shadow, "std", win)
 ```
@@ -176,7 +178,9 @@ def calc_candle_up_std_factor(barss, win = 20):
 
 ```python
 def calc_wr_down_factor(barss, win = 20):
-    wr_down = barss.groupby("asset", group_keys=False).apply(lambda x: calculate_williams_r_ratio(x)[1]).sort_index()
+    wr_down = (barss.groupby("asset", group_keys=False)
+                    .apply(lambda x: calculate_williams_r_ratio(x)[1])
+                    .sort_index())
 
     return calc_monthly(wr_down, "mean", win)
 ```
@@ -252,4 +256,3 @@ display(calc_wr_down_factor(barss, 20))
 量化不只是有一个 idea，就能自动付诸实施。量化交易策略的成功，既需要我们『天才』般的创意与创新，也需要我们能够深入每一个细节，正确实现它。这往往需要经过系统的训练。匡醍的量化课程以其严谨、体系化的课程内容著称，如果你正在寻找这样一门课程，强烈推荐你学习匡醍的『量化二十四课』和『因子挖掘与机器学习策略』课程。
 
 本文为系列文章，下一篇我们将进行因子回测，来验证研报的结论。欢迎关注订阅，及时得到更新。本文（及后续文章）附有源代码，可在 Quantide Research 平台阅读和运行。
-
