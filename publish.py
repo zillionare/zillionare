@@ -62,12 +62,14 @@ img_mode = "card-img-top"
 github_item = """
 <div>
 <h3>{title}</h3>
-<img src="{img_url}" style="width: 300px" align="right"/>
+<img src="{img_url}" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>{excerpt}</p>
 
 <p><span style="margin-right:20px">发表于 {date} 人气 {readers} </span><span><a href="{link}">点击阅读</a></span></p>
 
 </div><!--end-article-->
+<br/>
+<br/>
 """
 
 web_item = """
