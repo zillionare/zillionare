@@ -388,7 +388,6 @@ def _process_single_month(
 <!--PAID CONTENT START-->
 
 我们先造一点数据，再来演示。
-
 ```python
 def key_frames(bars, dates):
     df = dates.to_frame(name = "date")
@@ -444,8 +443,8 @@ expected.style.format("{:.2%}")
 <!-- END IPYNB STRIPOUT -->
 
 回测和结果可视化只要三行代码：
-
 ```python
+from moonshot import Moonshot
 moonshot = Moonshot()
 
 # 执行回测（使用2个分位数）
@@ -478,8 +477,6 @@ actual.style.format("{:.2%}")
 
 <!--PAID CONTENT START-->
 ```python
-from moonshot import Moonshot
-
 start = datetime.date(2009, 1, 1)
 end = datetime.date(2020, 4, 30)
 barss = load_bars(start, end, 50)
