@@ -11,10 +11,10 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
     
 <div>
 <h3>『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png" style="width: 300px" align="right"/>
+<img src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>上一期文章中，我们复现了研报的因子构建部分，分别是影线因子、威廉影线因子以及由此组合而来的 UBL 因子。这一期我们将对这些因子进行检验。<br><br>因子检验固然是因子挖掘中必不可少的一环，但它应该是一个 routine 的工作 -- 我们不应该每次都重新发明轮子。然而...</p>
 
-<p><span style="margin-right:20px">发表于 2025-07-03 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/ubl-2/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-07-04 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/ubl-2/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -24,7 +24,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>头上三柱香，不死也赔光。这是一句股谚，说得是如果在高位出现三根长上影线，那么股价短期内很可能会下跌。因为上影线代表了上面的抛压特别大。这种说法能得到统计数据上的验证吗？来自东吴证券的一份研报，就讨论了这个问题。<br><br>这份研报给出一个很价值的结论，那就是，影线好不好...</p>
 
-<p><span style="margin-right:20px">发表于 2025-06-29 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/ubl/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-06-29 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/ubl/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 
@@ -34,7 +34,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250625204449.png" style="width: 300px" align="right"/>
 <p><span>内容摘要:<br></span>!!! abstract 内容摘要<br>    * 强化学习已在摩根大通及全球顶级投资机构中使用。<br>    * 与监督学习不同，强化学习不会在每一步都只接受标准答案，它会尝试、忍受短期的损失，博取长期的收益。这就使得它有了对抗金融数据噪声的能力。<br>    * ...</p>
 
-<p><span style="margin-right:20px">发表于 2025-06-25 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/构建强化学习交易模型/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-06-25 人气 407 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/构建强化学习交易模型/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 

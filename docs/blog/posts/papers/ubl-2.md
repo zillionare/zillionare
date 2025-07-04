@@ -1,7 +1,6 @@
 ---
 title: "『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地"
-date: 2025-07-03
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png
+date: 2025-07-04
 category: papers
 tags: 
     - papers
