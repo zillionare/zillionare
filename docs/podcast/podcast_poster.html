@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>量化好声音 - 播客宣传图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .poster {
+            width: 1400px;
+            height: 1400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+        
+        .main-title {
+            font-size: 120px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: 8px;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 48px;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0.9;
+            letter-spacing: 4px;
+            z-index: 2;
+        }
+        
+        .hosts {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 80px;
+            z-index: 2;
+        }
+        
+        .host {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .host-aaron {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: url('https://images.jieyu.ai/images/hot/instructor/portrait-half.jpg');
+            background-size: 150%;
+            background-position-x: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 6px solid rgba(255,255,255,0.5);
+        }
+
+        .host-flora {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: url('https://images.jieyu.ai/images/hot/instructor/flora-2.jpg');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 6px solid rgba(255,255,255,0.5);
+        }
+        
+        .host-name {
+            font-size: 36px;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .content-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 80px;
+            margin-bottom: 60px;
+            border: 2px solid rgba(255,255,255,0.2);
+            max-width: 1200px;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 56px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+        
+        .section-subtitle {
+            font-size: 32px;
+            text-align: center;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #a8e6cf;
+            margin-bottom: 15px;
+        }
+        
+        .feature-desc {
+            font-size: 28px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        
+        .bottom-section {
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px 60px;
+            max-width: 1200px;
+            z-index: 2;
+        }
+        
+        .bottom-title {
+            font-size: 48px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .bottom-subtitle {
+            font-size: 28px;
+            text-align: center;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .circle1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 5%;
+        }
+        
+        .circle2 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            left: 8%;
+        }
+        
+        .circle3 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="decorative-elements">
+            <div class="circle circle1"></div>
+            <div class="circle circle2"></div>
+            <div class="circle circle3"></div>
+        </div>
+        
+        <h1 class="main-title">量化好声音</h1>
+        <p class="subtitle">洞悉量化新声，探索交易前沿</p>
+        
+        <div class="hosts">
+            <div class="host">
+                <div class="host-aaron"></div>
+                <div class="host-name">Aaron</div>
+            </div>
+            <div class="host">
+                <div class="host-flora"></div>
+                <div class="host-name">Flora</div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <!-- <h2 class="section-title">量化好声音</h2> -->
+            <p class="section-subtitle">精选研报，前瞻科技，对话大咖<br>让您在Quant之路上认知升级、策略启发、洞悉风险</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-title">每晚</div>
+                    <div class="feature-desc">22时更新</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">专业</div>
+                    <div class="feature-desc">深度解读</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">大咖</div>
+                    <div class="feature-desc">专家访谈</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-section">
+            <h3 class="bottom-title">匡醍.传播知识和希望</h3>
+            <p class="bottom-subtitle">（可在睡前、开车中、地铁里坚持学习！）</p>
+        </div>
+    </div>
+</body>
+</html>
