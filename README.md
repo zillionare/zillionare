@@ -1,210 +1,51 @@
-<link href="assets/css/bootstrap.min.4.0.css" rel="stylesheet" />
-<link href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+I'm a software developer, quantitative trader and entrepreneur。 Teaching machine learning, trading and software development. Author of 'Best Practices for Python'. 
 
+我是一名软件工程师、量化交易人和创业者。《Python高效编程最佳实践指南》的作者。我也是一系列开源软件的开发者或者维护者。
+>[!tip]
+>我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询
 
-<style>
-  .md-typeset h1,
-  .md-content__button {
-    display: none;
-  }
-
-.md-typeset hr {
-    display: none;
-}
-
-.as-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-}
-
-
-
-@media (min-width: 768px) { 
-    .card-columns {
-        column-count: 2;
-    }
- }
-
-@media (min-width: 1200px) { 
-    .card-columns {
-        column-count: 3;
-    }
-
-    .md-sidebar--primary {
-    display: none;
-    }
- }
-
-a .card-title {
-    color: rgb(55, 58, 60);
-    font-size: 17px;
-}
-
-a .card-text {
-    color: rgb(55, 58, 60);
-    font-size: 14px;
-}
-
-a:hover {
-    color: inherit;
-    text-decoration: inherit;
-}
-
-nav a {
-    font-size: 0.8rem !important;
-    color: white;
-    mix-blend-mode: difference;
-}
-</style>
+## 最新文章
 
 <div class="as-grid m-t-md">
 <div class="card-columns">
     
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/papers/ubl-2/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</h4>
-        <p class="card-text">上一期文章中，我们复现了研报的因子构建部分，分别是影线因子、威廉影线因子以及由此组合而来的 UBL 因子。这一期我们将对这些因子进行检验。<br><br>因子检验固然是因子挖掘中必不可少的一环，但它应该是一个 routine 的工作 -- 我们不应该每次都重新发明轮子。然而...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-07-04</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
+<div>
+<h3>『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</h3>
+<img src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>上一期文章中，我们复现了研报的因子构建部分，分别是影线因子、威廉影线因子以及由此组合而来的 UBL 因子。这一期我们将对这些因子进行检验。<br><br>因子检验固然是因子挖掘中必不可少的一环，但它应该是一个 routine 的工作 -- 我们不应该每次都重新发明轮子。然而...</p>
+
+<p><span style="margin-right:20px">发表于 2025-07-04 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/ubl-2/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
 
 
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/papers/ubl/">
-    <img class="card-img-top img-responsive" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png"/>
-    <div class="card-body">
-        <h4 class="card-title">『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</h4>
-        <p class="card-text">头上三柱香，不死也赔光。这是一句股谚，说得是如果在高位出现三根长上影线，那么股价短期内很可能会下跌。因为上影线代表了上面的抛压特别大。这种说法能得到统计数据上的验证吗？来自东吴证券的一份研报，就讨论了这个问题。<br><br>这份研报给出一个很价值的结论，那就是，影线好不好...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-29</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
+<div>
+<h3>『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>头上三柱香，不死也赔光。这是一句股谚，说得是如果在高位出现三根长上影线，那么股价短期内很可能会下跌。因为上影线代表了上面的抛压特别大。这种说法能得到统计数据上的验证吗？来自东吴证券的一份研报，就讨论了这个问题。<br><br>这份研报给出一个很价值的结论，那就是，影线好不好...</p>
+
+<p><span style="margin-right:20px">发表于 2025-06-29 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/ubl/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
 
 
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/factor-strategy/构建强化学习交易模型/">
-    <img class="card-img-top img-responsive" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250625204449.png"/>
-    <div class="card-body">
-        <h4 class="card-title">强化学习模型能否自我演化出交易智慧？</h4>
-        <p class="card-text">!!! abstract 内容摘要<br>    * 强化学习已在摩根大通及全球顶级投资机构中使用。<br>    * 与监督学习不同，强化学习不会在每一步都只接受标准答案，它会尝试、忍受短期的损失，博取长期的收益。这就使得它有了对抗金融数据噪声的能力。<br>    * ...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-25</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
+<div>
+<h3>强化学习模型能否自我演化出交易智慧？</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250625204449.png" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>!!! abstract 内容摘要<br>    * 强化学习已在摩根大通及全球顶级投资机构中使用。<br>    * 与监督学习不同，强化学习不会在每一步都只接受标准答案，它会尝试、忍受短期的损失，博取长期的收益。这就使得它有了对抗金融数据噪声的能力。<br>    * ...</p>
 
+<p><span style="margin-right:20px">发表于 2025-06-25 人气 407 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/构建强化学习交易模型/">点击阅读</a></span></p>
 
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/tools/quantstats-reloaded/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">Quantstats Reloaded</h4>
-        <p class="card-text">Quantstats 是一款用于交易策略绩效分析的 Python 库，深受量化圈用户喜爱，在 Github 上获得了超过 5.8k 的 stars。但很遗憾，由于原作者长期未维护，现在新安装的 Quantstats，尤其是在 Python 3.12 及以上高版本中，几乎无法...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-16</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/hot/mybook/swimsuit.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</h4>
-        <p class="card-text">> 当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！<br><br>"007，我们的日线数据定时获取系统已经很稳定了，但现在我需要更细粒度的数据——分...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-15</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/hot/mybook/gift.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</h4>
-        <p class="card-text">> 当分笔数据如潮水般涌来，如何让系统智能地将它们合成为有价值的分钟线数据？本文带你深入量化交易系统的核心——数据合成与系统架构优化的世界！<br><br>"007，我们的实时分笔数据订阅系统已经基本完成，但现在我遇到了一个新的挑战。"我一边查看着 Redis 中堆积如山的...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-15</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/papers/研报该如何复现/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/2025/05/20250514202750.png"/>
-    <div class="card-body">
-        <h4 class="card-title">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</h4>
-        <p class="card-text">如何读懂并复现研？这是我们学员提出来的一个问题。读懂并复现一篇研报，在理解研报的核心思想之外，看懂高频常用术语（行话、俚语）、实现概念到代码的转换、懂得如何获得数据是占80%的常规工作。在上一篇《RSRS择时指标》中，我们的重点在于复现策略本身。这一篇文章，我们重点介绍如何...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-11</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/tools/AI-tools/remote-agent/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/2025/05/remote-poster.png"/>
-    <div class="card-body">
-        <h4 class="card-title">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</h4>
-        <p class="card-text">6 月 7 日，当我启动 Augment 准备继续编写策略时，弹出一条消息提示，大致是，我们刚刚发布了 Remote Agent，你要不要试一试？这个试用需要登录 github 账号，所以我的第一直觉就是，关掉它，我不需要它。<br><br><div style='widt...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-10</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/papers/rsrs择时指标/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/2025/05/20250514202750.png"/>
-    <div class="card-body">
-        <h4 class="card-title">RSRS 择时指标</h4>
-        <p class="card-text">RSRS 因子在 2005 年 3 月到 2017 年 3 月的上证 50 指数上，12 年总收益 **1432.36%**，年化 **24.84%**，夏普 1.42。同期指数收益仅为 290.13%。该指标的大致思想是，将每日最高价与最低价分别视为阻力位与支撑位，把给定...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-09</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/algo/monte-carlo/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/hot/course/factor-ml/fa-platinum.png"/>
-    <div class="card-body">
-        <h4 class="card-title">蒙特卡洛：看似很高端的技术，其实很暴力很初级</h4>
-        <p class="card-text">我们常常想知道投资组合在未来的某一天，最大损失会是多少，估算方法之一就是蒙特卡洛。尽管它在计算性能上不占优势，却最让人心里踏实 -- 毕竟，**它是一种把几乎所有的路径都走了一遍，再回来告诉你一路上的风险与风景的方法**。她看起来很高端，实际上只是很暴力。今天就带你认识她。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-05</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/2025/05/20250514202750.png"/>
-    <div class="card-body">
-        <h4 class="card-title">21天驯化AI打工仔 - 日线数据的定时获取（2）</h4>
-        <p class="card-text">> 数据如同血液，字段则是血型标记。本章带你深入A股数据的"涨跌停"与"ST"世界，让007助手为你揭秘如何用Tushare API完美修复那些缺失的关键字段，让量化策略在真实市场环境中游刃有余！<br><br> 前言<br>根据上一章节，我们基本实现了日线定时获取的基本架...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-03</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://www.jieyu.ai/blog/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/">
-    <img class="card-img-top img-responsive" src="https://images.jieyu.ai/images/2025/05/20250514202750.png"/>
-    <div class="card-body">
-        <h4 class="card-title">21天驯化AI打工仔 - 日线数据的定时获取</h4>
-        <p class="card-text">"时间就是金钱，效率就是生命"，这句话在量化交易领域体现得淋漓尽致。今天是我和007合作的第六天，我决定要解决一个困扰我已久的问题：如何实现日线数据的自动定时获取？<br><br>"007，我需要一个可靠的系统，能够在每个交易日收盘后自动从Tushare获取当天的日线数据，...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2025-06-01</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
+</div><!--end-article-->
+<br/>
+<br/>
 
 </div>
 </div>
 
+更多精彩好文，请访问[匡醍量化](https://www.jieyu.ai)
 
