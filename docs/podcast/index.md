@@ -5,6 +5,14 @@ title: 量化好声音播客
 <div class="podcast-grid">
   <div class="podcast-card">
     <div class="podcast-info">
+      <h3><a href="/podcast/14-all-about-hft/">高频变高危：监管新规下的市场变局</a></h3>
+      <p class="podcast-date">2025-07-10</p>
+      <p class="podcast-desc">深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势</p>
+      <audio controls><source src="https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/14-final.mp3" type="audio/mpeg">您的浏览器不支持音频播放。</audio>
+    </div>
+  </div>
+  <div class="podcast-card">
+    <div class="podcast-info">
       <h3><a href="/podcast/10-trading-agents/">多智能体交易框架：AI如何模拟真实交易团队决策？</a></h3>
       <p class="podcast-date">2025-07-10</p>
       <p class="podcast-desc">一个月内GitHub暴增7k星标的TradingAgents框架有何特别？本期节目揭秘这个由UC Berkeley和MIT学者开发的多智能体交易系统如何模拟真实交易团队协作。不同于传统金融大模型仅专注于NLP任务，TradingAgents通过结构化通讯协议让AI扮演分析师、研究员、交易员和风控等角色，实现『真理越辩越明』的决策机制。回测显示，该框架在Apple、Google等标的上年化收益提升30%，最大回撤仅2.11%。AI交易团队时代，人类金融专业人士将如何应对？</p>
