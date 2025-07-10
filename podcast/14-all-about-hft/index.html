@@ -8,14 +8,14 @@
 
 
 
-
-
-
-
-
-
-
     
+
+
+
+
+
+
+
 
 
 
@@ -27,33 +27,33 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="匡醍 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader AI Python量化 聚宽 数字货币 金融大数据及量化分析 Quantide quantide">
+        <meta name="description" content="深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势">
       
       
       
-        <link rel="canonical" href="http://www.quantide.cn/articles/python/numpy%26pandas/18-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B1%5D/">
+        <link rel="canonical" href="http://www.quantide.cn/podcast/14-all-about-hft/">
       
       
-        <link rel="prev" href="../17-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B7%5D/">
+        <link rel="prev" href="../13-ubl-2/">
       
       
-        <link rel="next" href="../19-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B2%5D/">
+        <link rel="next" href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../../../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../../../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
-    <title>18 - Pandas应用案例[1] - 匡醍量化|大富翁量化</title>
+    <title>高频变高危：监管新规下的市场变局 - 匡醍量化|大富翁量化</title>
 
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -72,11 +72,11 @@
       
     
     
-      <link rel="stylesheet" href="../../../../overrides/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../overrides/stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../../overrides/stylesheets/katex.min.css">
+      <link rel="stylesheet" href="../../overrides/stylesheets/katex.min.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -96,9 +96,9 @@
     
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="18 - Pandas应用案例[1] - 匡醍量化|大富翁量化" />
-    <meta property="og:description" content=" - 匡醍 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader AI Python量化 聚宽 数字货币 金融大数据及量化分析 Quantide quantide" />
-    <meta property="og:url" content="http://www.quantide.cn/articles/python/numpy%26pandas/18-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B1%5D/" />
+    <meta property="og:title" content="高频变高危：监管新规下的市场变局 - 匡醍量化|大富翁量化" />
+    <meta property="og:description" content="深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势 - 匡醍 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader AI Python量化 聚宽 数字货币 金融大数据及量化分析 Quantide quantide" />
+    <meta property="og:url" content="http://www.quantide.cn/podcast/14-all-about-hft/" />
     <meta property="og:image" content="http://www.quantide.cn/assets/banner.jpg" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -106,8 +106,8 @@
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="18 - Pandas应用案例[1] - 匡醍量化|大富翁量化" />
-    <meta name="twitter:description" content=" - 匡醍 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader AI Python量化 聚宽 数字货币 金融大数据及量化分析 Quantide quantide" />
+    <meta name="twitter:title" content="高频变高危：监管新规下的市场变局 - 匡醍量化|大富翁量化" />
+    <meta name="twitter:description" content="深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势 - 匡醍 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader AI Python量化 聚宽 数字货币 金融大数据及量化分析 Quantide quantide" />
     <meta name="twitter:image" content="http://www.quantide.cn/assets/banner.jpg" />
 
   </head>
@@ -126,11 +126,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#1-rolling" class="md-skip">
-          跳转至
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -143,9 +138,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../../.." title="匡醍量化|大富翁量化" class="md-header__button md-logo" aria-label="匡醍量化|大富翁量化" data-md-component="logo">
+    <a href="../.." title="匡醍量化|大富翁量化" class="md-header__button md-logo" aria-label="匡醍量化|大富翁量化" data-md-component="logo">
       
-  <img src="../../../../assets/img/logo.png" alt="logo">
+  <img src="../../assets/img/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -162,7 +157,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              18 - Pandas应用案例[1]
+              高频变高危：监管新规下的市场变局
             
           </span>
         </div>
@@ -269,7 +264,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../coursea/factor-ml/intro/" class="md-tabs__link">
+        <a href="../../articles/coursea/factor-ml/intro/" class="md-tabs__link">
           
   
   
@@ -301,7 +296,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../products/" class="md-tabs__link">
+        <a href="../../articles/products/" class="md-tabs__link">
           
   
   
@@ -322,6 +317,8 @@
   
   
   
+    
+  
   
     
     
@@ -329,11 +326,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../../podcast/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -372,7 +371,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-tabs__link">
+        <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-tabs__link">
           
   
   
@@ -396,7 +395,12 @@
   
   
   
+  
     
+    
+      
+  
+  
   
   
     
@@ -405,22 +409,11 @@
   
   
   
-    
-  
   
     
     
-      
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../best-practice-python/chap01/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../articles/python/best-practice-python/chap01/" class="md-tabs__link">
           
   
   
@@ -446,7 +439,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../tags" class="md-tabs__link">
+      <a href="../../tags" class="md-tabs__link">
         
   
   
@@ -467,7 +460,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../contact/" class="md-tabs__link">
+        <a href="../../contact/" class="md-tabs__link">
           
   
   
@@ -510,9 +503,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="匡醍量化|大富翁量化" class="md-nav__button md-logo" aria-label="匡醍量化|大富翁量化" data-md-component="logo">
+    <a href="../.." title="匡醍量化|大富翁量化" class="md-nav__button md-logo" aria-label="匡醍量化|大富翁量化" data-md-component="logo">
       
-  <img src="../../../../assets/img/logo.png" alt="logo">
+  <img src="../../assets/img/logo.png" alt="logo">
 
     </a>
     匡醍量化|大富翁量化
@@ -657,7 +650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/factor-ml/intro/" class="md-nav__link">
+      <a href="../../articles/coursea/factor-ml/intro/" class="md-nav__link">
         
   
   
@@ -680,7 +673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/factor-ml/syllabus.html" class="md-nav__link">
+      <a href="../../articles/coursea/factor-ml/syllabus.html" class="md-nav__link">
         
   
   
@@ -764,7 +757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/intro/" class="md-nav__link">
+      <a href="../../articles/coursea/24lectures/intro/" class="md-nav__link">
         
   
   
@@ -787,7 +780,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/syllabus.html" class="md-nav__link">
+      <a href="../../articles/coursea/24lectures/syllabus.html" class="md-nav__link">
         
   
   
@@ -810,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/faq/" class="md-nav__link">
+      <a href="../../articles/coursea/24lectures/faq/" class="md-nav__link">
         
   
   
@@ -833,7 +826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/detail/" class="md-nav__link">
+      <a href="../../articles/coursea/24lectures/detail/" class="md-nav__link">
         
   
   
@@ -856,7 +849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/24lectures/preview.md" class="md-nav__link">
+      <a href="../../articles/coursea/24lectures/preview.md" class="md-nav__link">
         
   
   
@@ -934,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/numpy-pandas/intro/" class="md-nav__link">
+      <a href="../../articles/coursea/numpy-pandas/intro/" class="md-nav__link">
         
   
   
@@ -957,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coursea/numpy-pandas/syllabus.html" class="md-nav__link">
+      <a href="../../articles/coursea/numpy-pandas/syllabus.html" class="md-nav__link">
         
   
   
@@ -1069,7 +1062,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../products/" class="md-nav__link ">
+            <a href="../../articles/products/" class="md-nav__link ">
               
   
   
@@ -1104,7 +1097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../products/zillionare_installation/" class="md-nav__link">
+      <a href="../../articles/products/zillionare_installation/" class="md-nav__link">
         
   
   
@@ -1127,7 +1120,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../products/zillionare-maintain/" class="md-nav__link">
+      <a href="../../articles/products/zillionare-maintain/" class="md-nav__link">
         
   
   
@@ -1150,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../products/zillionare-troubleshooting/" class="md-nav__link">
+      <a href="../../articles/products/zillionare-troubleshooting/" class="md-nav__link">
         
   
   
@@ -1173,7 +1166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../products/gm-adaptor-installation/" class="md-nav__link">
+      <a href="../../articles/products/gm-adaptor-installation/" class="md-nav__link">
         
   
   
@@ -1208,8 +1201,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1219,17 +1214,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
@@ -1242,7 +1240,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             播客
@@ -1253,6 +1251,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1279,15 +1279,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../podcast/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -1306,7 +1306,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             Podcast
@@ -1322,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../podcast/10-trading-agents/" class="md-nav__link">
+      <a href="../10-trading-agents/" class="md-nav__link">
         
   
   
@@ -1345,7 +1345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../podcast/11-Jane-Street/" class="md-nav__link">
+      <a href="../11-Jane-Street/" class="md-nav__link">
         
   
   
@@ -1368,7 +1368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../podcast/12-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%98%AF%E6%80%8E%E4%B9%88%E6%8E%A7%E5%88%B6%E9%A3%8E%E9%99%A9%E7%9A%84/" class="md-nav__link">
+      <a href="../12-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%98%AF%E6%80%8E%E4%B9%88%E6%8E%A7%E5%88%B6%E9%A3%8E%E9%99%A9%E7%9A%84/" class="md-nav__link">
         
   
   
@@ -1391,7 +1391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../podcast/13-ubl-2/" class="md-nav__link">
+      <a href="../13-ubl-2/" class="md-nav__link">
         
   
   
@@ -1411,10 +1411,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../../podcast/14-all-about-hft/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1425,6 +1432,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1601,7 +1609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-nav__link">
+      <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/capm/" class="md-nav__link">
         
   
   
@@ -1624,7 +1632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/" class="md-nav__link">
+      <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/" class="md-nav__link">
         
   
   
@@ -1647,7 +1655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/" class="md-nav__link">
+      <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-2/" class="md-nav__link">
         
   
   
@@ -1670,7 +1678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/" class="md-nav__link">
+      <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-3/" class="md-nav__link">
         
   
   
@@ -1693,7 +1701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-4/" class="md-nav__link">
+      <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-4/" class="md-nav__link">
         
   
   
@@ -1716,7 +1724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
+      <a href="../../articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" class="md-nav__link">
         
   
   
@@ -1794,7 +1802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
+      <a href="../../articles/investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E5%AE%9E%E7%9B%98%E6%8E%A5%E5%85%A5/" class="md-nav__link">
         
   
   
@@ -1817,7 +1825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" class="md-nav__link">
+      <a href="../../articles/investment/%E9%87%8F%E5%8C%96%E5%BA%93/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" class="md-nav__link">
         
   
   
@@ -1897,7 +1905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
+      <a href="../../articles/investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/tulipmania/" class="md-nav__link">
         
   
   
@@ -1920,7 +1928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
+      <a href="../../articles/investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/voc/" class="md-nav__link">
         
   
   
@@ -1943,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/%E8%B5%B7%E5%BA%95%E7%99%BE%E4%BA%BF%E7%A7%81%E5%8B%9F%E5%88%9B%E5%A7%8B%E4%BA%BA/" class="md-nav__link">
+      <a href="../../articles/investment/%E9%87%8F%E5%8C%96%E6%9D%82%E8%B0%88/%E8%B5%B7%E5%BA%95%E7%99%BE%E4%BA%BF%E7%A7%81%E5%8B%9F%E5%88%9B%E5%A7%8B%E4%BA%BA/" class="md-nav__link">
         
   
   
@@ -1986,10 +1994,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -1999,20 +2005,17 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -2025,7 +2028,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             学Python
@@ -2036,10 +2039,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2056,11 +2057,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
         
           
           <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
@@ -2076,7 +2077,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_1">
             <span class="md-nav__icon md-icon"></span>
             Python
@@ -2155,7 +2156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap01/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap01/" class="md-nav__link">
         
   
   
@@ -2178,7 +2179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap02/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap02/" class="md-nav__link">
         
   
   
@@ -2201,7 +2202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap03/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap03/" class="md-nav__link">
         
   
   
@@ -2224,7 +2225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap04/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap04/" class="md-nav__link">
         
   
   
@@ -2247,7 +2248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap05/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap05/" class="md-nav__link">
         
   
   
@@ -2270,7 +2271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap06/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap06/" class="md-nav__link">
         
   
   
@@ -2293,7 +2294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap07/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap07/" class="md-nav__link">
         
   
   
@@ -2316,7 +2317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap08/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap08/" class="md-nav__link">
         
   
   
@@ -2339,7 +2340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap09/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap09/" class="md-nav__link">
         
   
   
@@ -2362,7 +2363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap10/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap10/" class="md-nav__link">
         
   
   
@@ -2385,7 +2386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../best-practice-python/chap11/" class="md-nav__link">
+      <a href="../../articles/python/best-practice-python/chap11/" class="md-nav__link">
         
   
   
@@ -2413,10 +2414,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2467,11 +2466,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2" >
         
           
           <label class="md-nav__link" for="__nav_6_1_2" id="__nav_6_1_2_label" tabindex="0">
@@ -2487,7 +2486,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_1_2">
             <span class="md-nav__icon md-icon"></span>
             量化人的Numpy和Pandas
@@ -2501,7 +2500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-introduction/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/01-introduction/" class="md-nav__link">
         
   
   
@@ -2524,7 +2523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B1%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/02-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B1%5D/" class="md-nav__link">
         
   
   
@@ -2547,7 +2546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B2%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/03-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B2%5D/" class="md-nav__link">
         
   
   
@@ -2570,7 +2569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B3%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/04-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B3%5D/" class="md-nav__link">
         
   
   
@@ -2593,7 +2592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B4%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/05-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B4%5D/" class="md-nav__link">
         
   
   
@@ -2616,7 +2615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B5%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/06-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B5%5D/" class="md-nav__link">
         
   
   
@@ -2639,7 +2638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B6%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/07-numpy%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B6%5D/" class="md-nav__link">
         
   
   
@@ -2662,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-numpy%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B1%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/08-numpy%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B1%5D/" class="md-nav__link">
         
   
   
@@ -2685,7 +2684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-numpy%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B2%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/09-numpy%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B2%5D/" class="md-nav__link">
         
   
   
@@ -2708,7 +2707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-numpy%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B3%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/10-numpy%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B3%5D/" class="md-nav__link">
         
   
   
@@ -2731,7 +2730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B1%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/11-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B1%5D/" class="md-nav__link">
         
   
   
@@ -2754,7 +2753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B2%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/12-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B2%5D/" class="md-nav__link">
         
   
   
@@ -2777,7 +2776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B3%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/13-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B3%5D/" class="md-nav__link">
         
   
   
@@ -2800,7 +2799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B4%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/14-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B4%5D/" class="md-nav__link">
         
   
   
@@ -2823,7 +2822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B5%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/15-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B5%5D/" class="md-nav__link">
         
   
   
@@ -2846,7 +2845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B6%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/16-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B6%5D/" class="md-nav__link">
         
   
   
@@ -2869,7 +2868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B7%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/17-pandas%E6%A0%B8%E5%BF%83%E8%AF%AD%E6%B3%95%5B7%5D/" class="md-nav__link">
         
   
   
@@ -2889,30 +2888,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    18 - Pandas应用案例[1]
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../articles/python/numpy%26pandas/18-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B1%5D/" class="md-nav__link">
         
   
   
@@ -2923,348 +2902,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-rolling" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 通过rolling方法实现通达信例程
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. 通过rolling方法实现通达信例程">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-hhvn" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1. HHV（N周期内最高值）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-llvn" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2. LLV（N周期内最低值）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-hhvbars" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3. HHVBARS（最高值到当前周期的距离）​
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14-last" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.4. LAST（条件连续满足的周期数）​
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#15" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.5. 示例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 补齐分钟线缺失的复权因子
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 补齐分钟线缺失的复权因子">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1. 基础语法和示例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.1. 基础语法和示例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#211" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.1. 基础语法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#212" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2. 基础示例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2. 进阶技巧
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2. 进阶技巧">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1. 多标的匹配（股票代码分组）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#222" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2. 动态调整因子生效时间
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#223" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3. 处理缺失值
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3. 与其他方法对比
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 为Alphalens准备数据
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 为Alphalens准备数据">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1. 数据格式规范（Alphalens 强制要求）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.1. 数据格式规范（Alphalens 强制要求）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#311" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1.1. 因子数据格式
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#312" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1.2. ​价格数据格式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2. 关键预处理操作
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.2. 关键预处理操作">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#321" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.1. 时间索引对齐
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#322" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.2. 异常值处理
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#323" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.3. 缺失值处理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3. 高级操作技巧
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.3. 高级操作技巧">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#331" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.1. 多因子
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#332" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.2. ​行业中性化处理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4. 数据验证与接口对接
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.4. 数据验证与接口对接">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#341" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4.1. 格式验证
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#342-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4.2. Alphalens 接口调用
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.5. 常见问题解决方案
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3277,7 +2914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B2%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/19-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B2%5D/" class="md-nav__link">
         
   
   
@@ -3300,7 +2937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B3%5D/" class="md-nav__link">
+      <a href="../../articles/python/numpy%26pandas/20-pandas%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%5B3%5D/" class="md-nav__link">
         
   
   
@@ -3384,7 +3021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visualize/dash/" class="md-nav__link">
+      <a href="../../articles/python/visualize/dash/" class="md-nav__link">
         
   
   
@@ -3407,7 +3044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visualize/how-to-scale/" class="md-nav__link">
+      <a href="../../articles/python/visualize/how-to-scale/" class="md-nav__link">
         
   
   
@@ -3430,7 +3067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visualize/matplotlib-1/" class="md-nav__link">
+      <a href="../../articles/python/visualize/matplotlib-1/" class="md-nav__link">
         
   
   
@@ -3453,7 +3090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visualize/matplotlib-2/" class="md-nav__link">
+      <a href="../../articles/python/visualize/matplotlib-2/" class="md-nav__link">
         
   
   
@@ -3476,7 +3113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visualize/qq-plot/" class="md-nav__link">
+      <a href="../../articles/python/visualize/qq-plot/" class="md-nav__link">
         
   
   
@@ -3522,7 +3159,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tags" class="md-nav__link">
+      <a href="../../tags" class="md-nav__link">
         
   
   
@@ -3589,7 +3226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../contact/" class="md-nav__link">
+      <a href="../../contact/" class="md-nav__link">
         
   
   
@@ -3617,9 +3254,33 @@
 
                 
                 
-                    <br>
-                    <br>
-                    <div class="tag-cloud-nav">
+                <br/>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+    <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+        <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
+                
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+</nav>
+                
+
+                
+                
+                    <div class="tag-cloud-toc">
                         
 
 
@@ -136849,7 +136510,7 @@
                     
                         font-size:0.8500000000000001rem;
                     
-                    color:DarkRed;
+                    color:DarkGreen;
                 ">课程&nbsp;
                 </span>
                 <!--<sup class="tag-count">7</sup>-->
@@ -136865,7 +136526,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkBlue;
                 ">因子投资&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -136881,7 +136542,7 @@
                     
                         font-size:0.9rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateBlue;
                 ">机器学习&nbsp;
                 </span>
                 <!--<sup class="tag-count">8</sup>-->
@@ -136897,7 +136558,7 @@
                     
                         font-size:0.8rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkRed;
                 ">story&nbsp;
                 </span>
                 <!--<sup class="tag-count">6</sup>-->
@@ -136913,7 +136574,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkGreen;
                 ">量化传奇&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -136945,7 +136606,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateGray;
                 ">Poetry&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -136961,7 +136622,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOrchid;
                 ">ppw&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -136979,7 +136640,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkCyan;
+                    color:DarkViolet;
                 ">tools&nbsp;
                 </span>
                 <!--<sup class="tag-count">63</sup>-->
@@ -136997,7 +136658,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateGray;
                 ">programming&nbsp;
                 </span>
                 <!--<sup class="tag-count">52</sup>-->
@@ -137015,7 +136676,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateBlue;
                 ">Numpy&nbsp;
                 </span>
                 <!--<sup class="tag-count">40</sup>-->
@@ -137033,7 +136694,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkViolet;
+                    color:DarkMagenta;
                 ">Pandas&nbsp;
                 </span>
                 <!--<sup class="tag-count">22</sup>-->
@@ -137051,7 +136712,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGreen;
+                    color:DarkOrchid;
                 ">pandas&nbsp;
                 </span>
                 <!--<sup class="tag-count">13</sup>-->
@@ -137067,7 +136728,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkCyan;
+                    color:DarkRed;
                 ">算法&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -137083,7 +136744,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkOliveGreen;
                 ">hdbscan&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137099,7 +136760,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">聚类&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137115,7 +136776,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkBlue;
                 ">选股&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137131,7 +136792,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkTurquoise;
                 ">Algo&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137147,7 +136808,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkOliveGreen;
                 ">minimum&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137163,7 +136824,7 @@
                     
                         font-size:0.95rem;
                     
-                    color:DarkViolet;
+                    color:DarkMagenta;
                 ">numpy&nbsp;
                 </span>
                 <!--<sup class="tag-count">9</sup>-->
@@ -137179,7 +136840,7 @@
                     
                         font-size:0.8rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOliveGreen;
                 ">algo&nbsp;
                 </span>
                 <!--<sup class="tag-count">6</sup>-->
@@ -137195,7 +136856,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkBlue;
                 ">FFT&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137211,7 +136872,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkRed;
                 ">模式识别&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137227,7 +136888,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">配对交易&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137243,7 +136904,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateBlue;
                 ">GBDT&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137259,7 +136920,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateGray;
                 ">LightGBM&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137275,7 +136936,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOrchid;
                 ">XGBoost&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137291,7 +136952,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkOliveGreen;
                 ">statistics&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137307,7 +136968,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateBlue;
                 ">CDF&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137323,7 +136984,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkCyan;
                 ">KS-Test&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137355,7 +137016,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkGoldenrod;
                 ">VaR&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137371,7 +137032,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkCyan;
                 ">回测&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137387,7 +137048,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkGreen;
                 ">过拟合&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137403,7 +137064,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkRed;
                 ">algorithms&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137419,7 +137080,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkSlateBlue;
                 ">machine learning&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137437,7 +137098,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkOrchid;
                 ">strategy&nbsp;
                 </span>
                 <!--<sup class="tag-count">27</sup>-->
@@ -137453,7 +137114,7 @@
                     
                         font-size:0.95rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkBlue;
                 ">python&nbsp;
                 </span>
                 <!--<sup class="tag-count">9</sup>-->
@@ -137469,7 +137130,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">sklearn&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137485,7 +137146,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkRed;
                 ">Info&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137501,7 +137162,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkTurquoise;
                 ">interview&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137517,7 +137178,7 @@
                     
                         font-size:0.8500000000000001rem;
                     
-                    color:DarkViolet;
+                    color:DarkTurquoise;
                 ">career&nbsp;
                 </span>
                 <!--<sup class="tag-count">7</sup>-->
@@ -137533,7 +137194,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkRed;
                 ">xgboost&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137549,7 +137210,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkBlue;
                 ">PCA&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137565,7 +137226,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkRed;
                 ">wavelet&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137581,7 +137242,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateBlue;
                 ">Figures&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137597,7 +137258,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGoldenrod;
                 ">Behavioral Economics&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137613,7 +137274,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkRed;
+                    color:DarkGreen;
                 ">人物&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -137629,7 +137290,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkGreen;
                 ">职场&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137645,7 +137306,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">Quantopian&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137661,7 +137322,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateBlue;
                 ">figure&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137677,7 +137338,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">Banz&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137693,7 +137354,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkTurquoise;
                 ">rsi&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137709,7 +137370,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">zigzag&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137725,7 +137386,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">穹顶压力&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137741,7 +137402,7 @@
                     
                         font-size:0.8rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkTurquoise;
                 ">因子&nbsp;
                 </span>
                 <!--<sup class="tag-count">6</sup>-->
@@ -137757,7 +137418,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkBlue;
                 ">pe&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137805,7 +137466,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkOrchid;
                 ">Xgboost&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137823,7 +137484,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkBlue;
+                    color:DarkGreen;
                 ">factor&nbsp;
                 </span>
                 <!--<sup class="tag-count">14</sup>-->
@@ -137839,7 +137500,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkOliveGreen;
                 ">alpha101&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137855,7 +137516,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkOrchid;
                 ">alpha&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137871,7 +137532,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkGreen;
+                    color:DarkTurquoise;
                 ">技术指标&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -137887,7 +137548,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkRed;
                 ">wave&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137903,7 +137564,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkMagenta;
                 ">quant&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137919,7 +137580,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkTurquoise;
                 ">algorithm&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -137935,7 +137596,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">pearson&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137951,7 +137612,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkViolet;
                 ">spearman&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -137967,7 +137628,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkBlue;
+                    color:DarkMagenta;
                 ">因子分析&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -137983,7 +137644,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkGreen;
+                    color:DarkOliveGreen;
                 ">Alphalens&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -137999,7 +137660,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkCyan;
                 ">涨停板&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138015,7 +137676,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkGoldenrod;
                 ">herd-behaviour&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138031,7 +137692,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkBlue;
                 ">因子策略&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138047,7 +137708,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkSlateGray;
                 ">momentum&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138063,7 +137724,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkBlue;
+                    color:DarkGoldenrod;
                 ">因子评估&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138079,7 +137740,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkOliveGreen;
                 ">review&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138095,7 +137756,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkOrchid;
                 ">trade&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138127,7 +137788,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">indicators&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138143,7 +137804,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkMagenta;
                 ">zscore&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138159,7 +137820,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkSlateBlue;
                 ">波动率&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138175,7 +137836,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkMagenta;
                 ">强化学习&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138191,7 +137852,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGreen;
                 ">顶背离&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138207,7 +137868,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkCyan;
                 ">freshman&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138223,7 +137884,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateBlue;
                 ">resources&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138241,7 +137902,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGreen;
+                    color:DarkCyan;
                 ">others&nbsp;
                 </span>
                 <!--<sup class="tag-count">17</sup>-->
@@ -138257,7 +137918,7 @@
                     
                         font-size:0.75rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">AI&nbsp;
                 </span>
                 <!--<sup class="tag-count">5</sup>-->
@@ -138273,7 +137934,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkOliveGreen;
                 ">DeepSeek&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138289,7 +137950,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkTurquoise;
                 ">network&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138307,7 +137968,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkTurquoise;
                 ">weekly&nbsp;
                 </span>
                 <!--<sup class="tag-count">14</sup>-->
@@ -138323,7 +137984,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkGreen;
+                    color:DarkOliveGreen;
                 ">papers&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -138339,7 +138000,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkOrchid;
+                    color:DarkViolet;
                 ">研报&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -138355,7 +138016,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkRed;
                 ">UBL&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138373,7 +138034,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkBlue;
                 ">quantlib&nbsp;
                 </span>
                 <!--<sup class="tag-count">13</sup>-->
@@ -138389,7 +138050,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkBlue;
                 ">jupyter-notebook&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138405,7 +138066,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkSlateGray;
                 ">pypinyin&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138421,7 +138082,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">qmt&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -138437,7 +138098,7 @@
                     
                         font-size:0.75rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">xtquant&nbsp;
                 </span>
                 <!--<sup class="tag-count">5</sup>-->
@@ -138453,7 +138114,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkOrchid;
                 ">blog&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138469,7 +138130,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkRed;
                 ">static-site&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138485,7 +138146,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">duckdb&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -138501,7 +138162,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateBlue;
                 ">工具&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -138517,7 +138178,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateGray;
                 ">colors&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138533,7 +138194,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOrchid;
                 ">free resources&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138549,7 +138210,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkOliveGreen;
                 ">barra&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138565,7 +138226,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkViolet;
                 ">world quant&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138581,7 +138242,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkBlue;
                 ">Alpha&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138597,7 +138258,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkOliveGreen;
                 ">pdf&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138613,7 +138274,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkMagenta;
                 ">openbb&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138661,7 +138322,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateBlue;
                 ">arsenal&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138677,7 +138338,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOliveGreen;
                 ">copilot&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138693,7 +138354,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateGray;
                 ">vscode&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138709,7 +138370,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGreen;
+                    color:DarkOliveGreen;
                 ">code&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138725,7 +138386,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGoldenrod;
                 ">量化数据存储&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -138741,7 +138402,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateGray;
                 ">hdf5&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138757,7 +138418,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateGray;
                 ">h5py&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138773,7 +138434,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateGray;
                 ">cursor&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138789,7 +138450,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">augment&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -138805,7 +138466,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">trae&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138821,7 +138482,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOliveGreen;
                 ">Jupyter&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138837,7 +138498,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkRed;
                 ">jupysql&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138853,7 +138514,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateBlue;
                 ">pyarrow&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138869,7 +138530,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkMagenta;
                 ">parquet&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138885,7 +138546,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGreen;
                 ">数据源&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138901,7 +138562,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkTurquoise;
                 ">quantstats&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138917,7 +138578,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkViolet;
                 ">实盘&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138933,7 +138594,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkOliveGreen;
                 ">clickhouse&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138949,7 +138610,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkGoldenrod;
                 ">notebook&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -138965,7 +138626,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkOliveGreen;
                 ">redis&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -138997,7 +138658,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkViolet;
                 ">AI-tools&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -139014,371 +138675,13 @@
     </div>
 
 
-
-    
-
-    <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-        <div class="md-sidebar__scrollwrap">
-            <div class="md-sidebar__inner">
-                
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-rolling" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 通过rolling方法实现通达信例程
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. 通过rolling方法实现通达信例程">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-hhvn" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1. HHV（N周期内最高值）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-llvn" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2. LLV（N周期内最低值）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-hhvbars" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3. HHVBARS（最高值到当前周期的距离）​
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14-last" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.4. LAST（条件连续满足的周期数）​
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#15" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.5. 示例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 补齐分钟线缺失的复权因子
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 补齐分钟线缺失的复权因子">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1. 基础语法和示例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.1. 基础语法和示例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#211" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.1. 基础语法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#212" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2. 基础示例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2. 进阶技巧
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2. 进阶技巧">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1. 多标的匹配（股票代码分组）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#222" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2. 动态调整因子生效时间
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#223" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3. 处理缺失值
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3. 与其他方法对比
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 为Alphalens准备数据
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 为Alphalens准备数据">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1. 数据格式规范（Alphalens 强制要求）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.1. 数据格式规范（Alphalens 强制要求）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#311" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1.1. 因子数据格式
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#312" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1.2. ​价格数据格式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2. 关键预处理操作
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.2. 关键预处理操作">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#321" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.1. 时间索引对齐
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#322" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.2. 异常值处理
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#323" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.3. 缺失值处理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3. 高级操作技巧
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.3. 高级操作技巧">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#331" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.1. 多因子
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#332" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.2. ​行业中性化处理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4. 数据验证与接口对接
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.4. 数据验证与接口对接">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#341" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4.1. 格式验证
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#342-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4.2. Alphalens 接口调用
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.5. 常见问题解决方案
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                
-
-                
-                
-                <br/>
-                
-            </div>
-        </div>
-    </div>
-
-
           
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
     
 
-    <a href="https://github.com/zillionare/zillionare/edit/master/docs/articles/python/numpy&pandas/18-pandas应用案例[1].md" title="edit.link.title" class="md-content__button md-icon">
+    <a href="https://github.com/zillionare/zillionare/edit/master/docs/podcast/14-all-about-hft.md" title="edit.link.title" class="md-content__button md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
 
@@ -139422,49 +138725,20 @@
 <div class="cover">
     
     
-    <span class="page-category">
-        tools »
-    </span>
-    <br>
-    
 
     
-    <h1 class="page-title"> 18 - Pandas应用案例[1] </h1>
+    <h1 class="page-title"> 高频变高危：监管新规下的市场变局 </h1>
 
     
+    
+        <p class="page-description">
+            深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势
+        </p>
     
 
     
         <div class="page-extra row">
             <div class="col">
-            
-                <p class="page-tags">
-                    
-                        <a class="tag" href="http://www.quantide.cn/tags/#tools">
-                            <span class="tag-name">
-                                #tools &nbsp;
-                            </span>
-                        </a>
-                    
-                        <a class="tag" href="http://www.quantide.cn/tags/#programming">
-                            <span class="tag-name">
-                                #programming &nbsp;
-                            </span>
-                        </a>
-                    
-                        <a class="tag" href="http://www.quantide.cn/tags/#Numpy">
-                            <span class="tag-name">
-                                #Numpy &nbsp;
-                            </span>
-                        </a>
-                    
-                        <a class="tag" href="http://www.quantide.cn/tags/#Pandas">
-                            <span class="tag-name">
-                                #Pandas &nbsp;
-                            </span>
-                        </a>
-                    
-                </p>
             
 
             </div>
@@ -139528,831 +138802,73 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-rolling" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 通过rolling方法实现通达信例程
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. 通过rolling方法实现通达信例程">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-hhvn" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1. HHV（N周期内最高值）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-llvn" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2. LLV（N周期内最低值）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-hhvbars" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3. HHVBARS（最高值到当前周期的距离）​
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14-last" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.4. LAST（条件连续满足的周期数）​
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#15" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.5. 示例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. 补齐分钟线缺失的复权因子
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 补齐分钟线缺失的复权因子">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#21" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1. 基础语法和示例
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.1. 基础语法和示例">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#211" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.1. 基础语法
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#212" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2. 基础示例
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#22" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2. 进阶技巧
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2.2. 进阶技巧">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#221" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1. 多标的匹配（股票代码分组）
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#222" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2. 动态调整因子生效时间
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#223" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3. 处理缺失值
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#23" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.3. 与其他方法对比
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 为Alphalens准备数据
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. 为Alphalens准备数据">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1. 数据格式规范（Alphalens 强制要求）
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.1. 数据格式规范（Alphalens 强制要求）">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#311" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1.1. 因子数据格式
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#312" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1.2. ​价格数据格式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2. 关键预处理操作
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.2. 关键预处理操作">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#321" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.1. 时间索引对齐
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#322" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.2. 异常值处理
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#323" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.3. 缺失值处理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3. 高级操作技巧
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.3. 高级操作技巧">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#331" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.1. 多因子
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#332" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.2. ​行业中性化处理
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4. 数据验证与接口对接
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3.4. 数据验证与接口对接">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#341" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4.1. 格式验证
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#342-alphalens" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4.2. Alphalens 接口调用
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.5. 常见问题解决方案
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
 </div>
 
 
 
     
-    <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivot_table 和 set_index，可以轻松完成格式转换，为因子分析奠定基础。”</p>
-<hr />
-<h2 id="1-rolling">1. 通过rolling方法实现通达信例程<a class="headerlink" href="#1-rolling" title="Permanent link">&para;</a></h2>
-<p><strong>通达信</strong> 是一款由中国深圳市财富趋势科技股份有限公司开发的金融投资软件，主要用于股票、期货等金融市场的行情分析、技术研究和交易执行。通达信在国内券商中的覆盖率超过80%，服务包括招商证券、广发证券等头部机构。支持超5000万投资者，峰值并发用户达800万，以界面简洁、行情更新快著称。适用于个人投资者、专业交易员及量化分析，尤其适合需要快速响应行情和技术分析的场景。</p>
-<p><strong>rolling</strong> 是 pandas 库中用于执行滚动窗口计算的核心方法，适用于时间序列或数据框的滑动统计分析。以下是其核心要点：
-- 功能：对数据按固定窗口大小（如时间周期或观测值数量）滑动，并在每个窗口内执行聚合或自定义计算（如均值、极值等）
-- 典型应用：移动平均、波动率计算（标准差）、技术指标（如MACD）等。</p>
-<p>核心参数：
-| 参数        | 说明                                                    |
-| ----------- | ------------------------------------------------------- |
-| window      | 窗口大小（整数或时间偏移，如 '5D'）                     |
-| min_periods | 窗口内最少有效数据量，否则结果为 NaN（默认等于 window） |
-| center      | 窗口对齐方式（False为右对齐，True为居中）               |
-| win_type    | 窗口权重类型（如 'gaussian'）                           |</p>
-<h3 id="11-hhvn">1.1. HHV（N周期内最高值）<a class="headerlink" href="#11-hhvn" title="Permanent link">&para;</a></h3>
-<hr />
-<p>通达信定义：HHV(X, N) 表示在最近 N 个周期内序列 X 的最高值。可以通过 pandas 实现：
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">HHV</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div></p>
-<h3 id="12-llvn">1.2. LLV（N周期内最低值）<a class="headerlink" href="#12-llvn" title="Permanent link">&para;</a></h3>
-<p>通达信定义：LLV(X, N) 表示在最近 N 个周期内序列 X 的最低值。
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">LLV</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div></p>
-<h3 id="13-hhvbars">1.3. HHVBARS（最高值到当前周期的距离）​<a class="headerlink" href="#13-hhvbars" title="Permanent link">&para;</a></h3>
-<p>通达信定义：HHVBARS(X, N) 表示最近 N 个周期内，最高值所在位置到当前周期的距离（周期数）。
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">HHVBARS</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_find_idx</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_find_idx</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div></p>
-<hr />
-<h3 id="14-last">1.4. LAST（条件连续满足的周期数）​<a class="headerlink" href="#14-last" title="Permanent link">&para;</a></h3>
-<p>通达信定义：LAST(X, A, B) 表示过去 B 个周期中，有至少 A 个周期满足条件 X。
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">LAST</span><span class="p">(</span><span class="n">condition</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">condition</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">a</span>
-</code></pre></div></td></tr></table></div></p>
-<h3 id="15">1.5. 示例<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+    <style>
+.bg-light {
+    background-color: #fcfefe;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.bg-dark {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+</style>
 
-<span class="c1"># 导入数据</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">load_bars</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
-
-<span class="c1"># 应用函数</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;HHV_5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">HHV</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>       <span class="c1"># 5日最高价</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;LLV_5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LLV</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;low&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>        <span class="c1"># 5日最低价</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;HHVBARS_5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">HHVBARS</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 最高价距离当前的天数</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;LAST_UP_3_5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LAST</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 5日内至少3日上涨</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<hr />
-<p><img alt="" src="https://images.jieyu.ai/images/2025/03/078.png" /></p>
-<h2 id="2">2. 补齐分钟线缺失的复权因子<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
-<p>量化分析中，可能在处理股票分钟线数据时，复权因子数据存在缺失，需要根据时间进行临近匹配，确保每个分钟数据点都有正确的复权因子。复权因子通常是在股票发生拆分或分红时调整的，这些事件的时间点可能不会正好匹配分钟线的每个时间戳，例如：
-- 复权因子生效时间：2025-03-27 10:30:00（事件触发时刻）
-- 分钟线时间戳：2025-03-27 10:30:01、10:30:02（交易数据）</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>传统 merge 或 join 方法无法匹配此类时间邻近但非严格相等的数据，需用 ​as-of join 功能解决。使用 merge_asof 可以找到每个分钟线时间点之前最近的复权因子，确保正确应用调整。</p>
-</div>
-<p>merge_asof 是 Pandas &gt;=0.19.0 引入的时间导向非精确匹配函数，专为此类场景设计。</p>
-<h3 id="21">2.1. 基础语法和示例<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
-<h4 id="211">2.1.1. 基础语法<a class="headerlink" href="#211" title="Permanent link">&para;</a></h4>
-<hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span>
-    <span class="n">left</span><span class="p">,</span>          <span class="c1"># 左表（分钟线数据）</span>
-    <span class="n">right</span><span class="p">,</span>         <span class="c1"># 右表（复权因子数据）</span>
-    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>     <span class="c1"># 时间列名（必须排序）</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">,</span>  <span class="c1"># 匹配方向：向前/向后/最近</span>
-    <span class="n">tolerance</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1min&#39;</span><span class="p">),</span>  <span class="c1"># 最大时间差</span>
-    <span class="n">allow_exact_matches</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># 是否允许精确匹配</span>
-<span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="212">2.1.2. 基础示例<a class="headerlink" href="#212" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># 生成示例数据（假设复权因子在非整分钟时间点更新）</span>
-<span class="n">minute_data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;2025-03-27 10:29:58&#39;</span><span class="p">,</span>  <span class="c1"># 完整日期+时间</span>
-        <span class="s1">&#39;2025-03-27 10:30:01&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;2025-03-27 10:30:03&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;2025-03-27 10:30:05&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;2025-03-27 10:30:08&#39;</span>  <span class="c1"># 确保所有时间包含日期</span>
-    <span class="p">],</span>
-    <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">100.2</span><span class="p">,</span> <span class="mf">101.5</span><span class="p">,</span> <span class="mf">102.0</span><span class="p">,</span> <span class="mf">101.8</span><span class="p">,</span> <span class="mf">103.2</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">df_trade</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">minute_data</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-<span class="n">adjust_data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;2025-03-27 10:29:55&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;2025-03-27 10:30:00&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;2025-03-27 10:30:06&#39;</span>
-    <span class="p">],</span>
-</code></pre></div></td></tr></table></div>
-<hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="s1">&#39;adjust_factor&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">df_adjust</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adjust_data</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
-<span class="c1"># 强制转换为 datetime 类型（处理混合格式）</span>
-<span class="n">df_trade</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
-    <span class="n">df_trade</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> 
-    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> 
-    <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span>
-<span class="p">)</span>
-<span class="n">df_adjust</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
-    <span class="n">df_adjust</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> 
-    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> 
-    <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span>
-<span class="p">)</span>
-<span class="k">assert</span> <span class="n">df_trade</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="s2">&quot;交易数据时间列转换失败&quot;</span>
-<span class="k">assert</span> <span class="n">df_adjust</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="s2">&quot;复权因子时间列转换失败&quot;</span>
-<span class="c1"># 关键步骤：按时间向前匹配最近的复权因子</span>
-<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span>
-    <span class="n">df_trade</span><span class="p">,</span>
-    <span class="n">df_adjust</span><span class="p">,</span>
-    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">,</span>  <span class="c1"># 取&lt;=当前时间的最近值</span>
-    <span class="n">tolerance</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 最多允许1分钟间隔</span>
-<span class="p">)</span>
-<span class="n">merged</span>
-</code></pre></div></td></tr></table></div>
-<p><img alt="50%" src="https://images.jieyu.ai/images/2025/03/079.png" /></p>
-<hr />
-<h3 id="22">2.2. 进阶技巧<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
-<h4 id="221">2.2.1. 多标的匹配（股票代码分组）<a class="headerlink" href="#221" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 假设数据包含多只股票</span>
-<span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span>
-    <span class="n">df_trade</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">),</span>
-    <span class="n">df_adjust</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">),</span>
-    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
-    <span class="n">by</span><span class="o">=</span><span class="s1">&#39;symbol&#39;</span><span class="p">,</span>  <span class="c1"># 按股票代码分组匹配</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span>
-<span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="222">2.2.2. 动态调整因子生效时间<a class="headerlink" href="#222" title="Permanent link">&para;</a></h4>
-<p>若复权因子生效时间需要提前或延后，可预处理右表时间：
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">df_adjust</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_adjust</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 延后30秒生效</span>
-<span class="n">df_adjust</span>
-</code></pre></div></td></tr></table></div></p>
-<p><img alt="50%" src="https://images.jieyu.ai/images/2025/03/080.png" /></p>
-<hr />
-<h4 id="223">2.2.3. 处理缺失值<a class="headerlink" href="#223" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;adjust_factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;adjust_factor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>  <span class="c1"># 前向填充缺失值</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="23">2.3. 与其他方法对比<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>适用场景</th>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>merge_asof</td>
-<td>时间邻近匹配</td>
-<td>处理非对齐时间戳效率高</td>
-<td>需预先排序数据</td>
-</tr>
-<tr>
-<td>merge</td>
-<td>精确时间匹配</td>
-<td>结果精确</td>
-<td>无法处理时间偏差</td>
-</tr>
-<tr>
-<td>concat</td>
-<td>简单堆叠</td>
-<td>快速合并</td>
-<td>不处理时间关联</td>
-</tr>
-</tbody>
-</table>
-<h2 id="3-alphalens">3. 为Alphalens准备数据<a class="headerlink" href="#3-alphalens" title="Permanent link">&para;</a></h2>
-<p>在使用Alphalens进行因子分析时，我们往往需要将因子数据和价格数据整理成特定的格式。Alphalens要求因子数据是一个具有双重索引（日期和资产）的Series，而价格数据是DataFrame，行是日期，列是资产，值是价格。这一点非常重要，如果格式不对，Alphalens会报错。</p>
-<p>因此，我们需要知道如何从原始数据转换到这种格式。这里我们考虑使用pivot_table来转换价格数据，以及使用set_index来创建因子数据的双重索引。</p>
-<h3 id="31-alphalens">3.1. 数据格式规范（Alphalens 强制要求）<a class="headerlink" href="#31-alphalens" title="Permanent link">&para;</a></h3>
-<hr />
-<h4 id="311">3.1.1. 因子数据格式<a class="headerlink" href="#311" title="Permanent link">&para;</a></h4>
-<p>需构建<strong>双重索引</strong>的 Series，索引顺序为：<strong>日期 -&gt; 资产代码，值为因子数值</strong>：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 原始数据示例（含日期、股票代码、因子值）</span>
-<span class="n">raw_factor</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2025-03-25&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-03-25&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-03-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-03-26&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
-<span class="p">})</span>
-
-<span class="c1"># 转换为Alphalens格式</span>
-<span class="n">factor</span> <span class="o">=</span> <span class="n">raw_factor</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">])[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
-<span class="n">factor</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-    <span class="c1"># 确保日期为datetime类型</span>
-    <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">factor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)),</span>  
-     <span class="n">factor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s1">&#39;symbol&#39;</span><span class="p">)]</span>
-<span class="p">)</span>
-<span class="n">factor</span>
-</code></pre></div></td></tr></table></div>
-<p><img alt="50%" src="https://images.jieyu.ai/images/2025/03/081.png" /></p>
-<h4 id="312">3.1.2. ​价格数据格式<a class="headerlink" href="#312" title="Permanent link">&para;</a></h4>
-<hr />
-<p>需构建 ​<strong>日期为索引、资产代码为列名</strong> 的 DataFrame：
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 原始数据示例（含日期、股票代码、收盘价）</span>
-<span class="n">raw_price</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2025-03-25&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-03-25&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-03-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-03-26&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;close&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">285</span><span class="p">]</span>
-<span class="p">})</span>
-
-<span class="c1"># 转换为Alphalens格式</span>
-<span class="n">prices</span> <span class="o">=</span> <span class="n">raw_price</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;close&#39;</span><span class="p">)</span>
-<span class="n">prices</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">prices</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># 日期转换为datetime类型</span>
-</code></pre></div></td></tr></table></div></p>
-<p><img alt="50%" src="https://images.jieyu.ai/images/2025/03/081.png" /></p>
-<h3 id="32">3.2. 关键预处理操作<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
-<h4 id="321">3.2.1. 时间索引对齐<a class="headerlink" href="#321" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 检查时间范围是否重叠</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;因子时间范围:&quot;</span><span class="p">,</span><span class="n">factor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-      <span class="p">,</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;价格时间范围:&quot;</span><span class="p">,</span><span class="n">prices</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="n">prices</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-</code></pre></div></td></tr></table></div>
-<hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 若存在时间缺口，用前向填充（避免未来数据）</span>
-<span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="322">3.2.2. 异常值处理<a class="headerlink" href="#322" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Winsorize去极值（保留98%数据）</span>
-<span class="n">factor_clipped</span> <span class="o">=</span> <span class="n">factor</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-    <span class="n">lower</span><span class="o">=</span><span class="n">factor</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
-    <span class="n">upper</span><span class="o">=</span><span class="n">factor</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="c1"># 标准化处理（Z-score）</span>
-<span class="n">factor_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">factor</span> <span class="o">-</span> <span class="n">factor</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">factor</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="323">3.2.3. 缺失值处理<a class="headerlink" href="#323" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 删除缺失值超过50%的资产</span>
-<span class="n">valid_symbols</span> <span class="o">=</span> <span class="n">factor</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span>
-<span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">valid_symbols</span><span class="p">[</span><span class="n">valid_symbols</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
-
-<span class="c1"># 前向填充剩余缺失值</span>
-<span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s1">&#39;symbol&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="33">3.3. 高级操作技巧<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
-<h4 id="331">3.3.1. 多因子<a class="headerlink" href="#331" title="Permanent link">&para;</a></h4>
-<hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 假设存在动量因子和市值因子</span>
-<span class="n">factor_mom</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># 动量因子数据</span>
-<span class="n">factor_size</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># 市值因子数据</span>
-
-<span class="c1"># 横向拼接为MultiIndex列</span>
-<span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-    <span class="p">[</span><span class="n">factor_mom</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;momentum&#39;</span><span class="p">),</span> <span class="n">factor_size</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)],</span>
-    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-<span class="p">)</span>
-
-<span class="c1"># 转换为双层索引</span>
-<span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">swaplevel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="332">3.3.2. ​行业中性化处理<a class="headerlink" href="#332" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 假设有行业分类数据</span>
-<span class="n">industries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
-    <span class="s1">&#39;AAPL&#39;</span><span class="p">:</span> <span class="s1">&#39;Technology&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;MSFT&#39;</span><span class="p">:</span> <span class="s1">&#39;Technology&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;XOM&#39;</span><span class="p">:</span> <span class="s1">&#39;Energy&#39;</span>
-<span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;industry&#39;</span><span class="p">)</span>
-
-<span class="c1"># 按行业分组标准化</span>
-<span class="n">factor_neutral</span> <span class="o">=</span> <span class="n">factor</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
-    <span class="n">industries</span><span class="p">,</span> <span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="34">3.4. 数据验证与接口对接<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
-<h4 id="341">3.4.1. 格式验证<a class="headerlink" href="#341" title="Permanent link">&para;</a></h4>
-<hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># 检查因子索引层级</span>
-<span class="k">assert</span> <span class="n">factor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">],</span> <span class="s2">&quot;因子索引命名错误&quot;</span>
-
-<span class="c1"># 检查价格数据类型</span>
-<span class="k">assert</span> <span class="n">prices</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s2">&quot;价格数据列名应为资产代码&quot;</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="342-alphalens">3.4.2. Alphalens 接口调用<a class="headerlink" href="#342-alphalens" title="Permanent link">&para;</a></h4>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">alphalens.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_clean_factor_and_forward_returns</span>
-
-<span class="c1"># 生成分析数据集</span>
-<span class="n">factor_data</span> <span class="o">=</span> <span class="n">get_clean_factor_and_forward_returns</span><span class="p">(</span>
-    <span class="n">factor</span><span class="o">=</span><span class="n">factor</span><span class="p">,</span>
-    <span class="n">prices</span><span class="o">=</span><span class="n">prices</span><span class="p">,</span>
-    <span class="n">periods</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>  <span class="c1"># 1/5/10日收益率</span>
-    <span class="n">quantiles</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>         <span class="c1"># 分为5组</span>
-    <span class="n">filter_zscore</span><span class="o">=</span><span class="mi">3</span>      <span class="c1"># 剔除3倍标准差外的异常值</span>
-<span class="p">)</span>
-
-<span class="c1"># 生成完整分析报告</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">alphalens</span>
-<span class="n">alphalens</span><span class="o">.</span><span class="n">tears</span><span class="o">.</span><span class="n">create_full_tear_sheet</span><span class="p">(</span><span class="n">factor_data</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<hr />
-<h3 id="35">3.5. 常见问题解决方案<a class="headerlink" href="#35" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>问题现象</th>
-<th>解决方法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ValueError: 价格数据包含未来信息</td>
-<td>检查价格数据时间戳是否晚于因子时间戳，用prices = prices.shift(1) 滞后一期</td>
-</tr>
-<tr>
-<td>KeyError: 资产代码不匹配</td>
-<td>使用prices.columns.intersection(factor.index.get_level_values('symbol')) 取交集</td>
-</tr>
-<tr>
-<td>图表显示空白</td>
-<td>在Jupyter Notebook中运行，并添加%matplotlib inline 魔术命令</td>
-</tr>
-</tbody>
-</table>
-<p>通过上述操作，可高效完成从原始数据到Alphalens兼容格式的转换，确保因子分析的准确性。实际应用中建议先在小样本数据上测试，再扩展至全量数据。</p>
+<div class="bg-light"><p>Flora：量化好声音 每晚都要听。大家好，我是Flora，欢迎回来。</p></div>
+<div class="bg-dark"><p>Aaron：大家好，我是Aaron，欢迎收听我们这一期播客</p></div>
+<div class="bg-light"><p><strong>Flora</strong>: 今天咱们要聊一聊高频交易的那些事，包括它的定义，它的策略，它一些比较有争议的地方</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 好，不过我先歪个楼，因为今天有一个非常大的事儿，得跟大家播报一下。</p></div>
+<div class="bg-light"><p><strong>Flora</strong>: 跟马斯克有关吧</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 对，就是Grok 4的发布。发布到现在不到4小时。据说这个模型在HLE的考试中，得到到了45%的高分。</p></div>
+<div class="bg-light"><p><strong>Flora</strong>: HLE这个词展开来讲，其实挺唬人的，它是Humanities Last Exam，人类最后的考试。</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 没错。人类最后的考试。在这场考试中，Grok 4领先，之前最强的是Gemini Pro，这次领先了接近一倍的分数。马斯克今天还在凡尔赛，后面就没有题可以训练了，因为这个Grok，已经超过多数博士生水平了。</p></div>
+<div class="bg-light"><p><strong>Flora</strong>: 真是人类最后的考试没错了。不过，马斯克也常常跳票。Grok 4是否真的这么强，我们让子弹先飞一会儿。我们先回到今天的主题。</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 我们先从高频交易的定义开始。这次交易新规，也是明确地给出了定义。</p></div>
+<div class="bg-light"><p>Flora：根据新规，每秒300笔上以的申报，或者单账户、单日申报达到2万笔就属于高频交易啦。那我们先从一个比较hot的问题开始，为什么高频交易需要被特别监管呢？</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 其实高频交易一直是市场中不安分的那个坏孩子。这些年来，在全球市场上，频频被罚。机构利用速度和资金优势，操纵市场，放大了市场波动，损害他人特别是散户的利益，也确实应该被监管。最近的事儿就是大家都知道了，简街，在印度市场上，因为操纵市场被罚了。</p></div>
+<div class="bg-light"><p><strong>Flora</strong>: Aaron，那高频交易到底能快到什么速度？</p></div>
+<div class="bg-dark"><p>Aaron：高频交易速度的演进真的很惊人。在21世纪初，高频交易的执行时间还是以秒为单位，但到了2010年，这个时间已经缩短到毫秒甚至微秒级别。现在的高频交易系统追求的是纳秒级的优势。为了达到这么高的速度，很多公司会甚至把服务器直接放在交易所旁边，这叫做"co-location"。</p></div>
+<div class="bg-light"><p>Flora：所以这真是军备竞赛啊。那对散户来讲，是不是很不公平？</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 对，正是这样，不光是对散户，对市场上其它资金，比如像养老基金，也很不公平。另外，过度投机很容易放大市场波动，造成踩踏事故，所以，加强监管真的是必须的。</p></div>
+<div class="bg-light"><p>Flora：所以，高频交易究竟是谁在做，有哪些策略呢？这个Aaron能不能帮我们梳理一下？</p></div>
+<div class="bg-dark"><p>Aaron：做高频交易的公司吧，一般来说可以可以分为三类吧。一类是套利者，然后是自营交易商，还有一类是做市商。他们的策略，据不完全统计，大约有30多种。主要是一些套利策略，还有一些是利用市场微观结构来进行的一些策略等等。</p></div>
+<div class="bg-light"><p>Flora：高频交易里面的这些套利的策略到底是怎么操作的，然后他们会面临一些什么样的监管的问题呢？</p></div>
+<div class="bg-dark"><p>Aaron：套利其实是高频交易里面最基础的一个策略。它其实就是利用同一个资产，在不同的市场或者说不同的时间，它的价格是不一样的，然后你通过这种价格差来获利。比如说某一个资产，它可能在纽交所的交易价格是150美元，同时它在另一个交易所的价格是150.01美元，这个时候你就可以通过非常快速的操作，在低价的地方买入，在高价的地方卖出，就赚取这0.01美元的差价。这个东西看起来很少，但是如果你有非常大的交易量的话，这个收益也是很可观的。</p></div>
+<div class="bg-light"><p>Flora：哇 这个真的是要快。看起来也只是一些很朴素的算法，不是那么高大上哈。</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 没错</p></div>
+<div class="bg-light"><p><strong>Aaron</strong>: 然后这个完全是靠速度和规则来玩的。还有一些套利的策略，比如说统计套利，它可能就要用到一些数学模型，来预测。比如说有两只资产，它的价格走势本来是很相关的，但是突然之间，它们两个之间出现了一个偏离，这个时候你可能就会买入，被低估的那一只，同时卖出被高估的那一只，等到它们的价格回归之后再进行平仓。</p></div>
+<div class="bg-dark"><p>这些策略的话其实频率不一定很高，但是它可能在短期内会有大量的交易，所以同样它也会触及到监管的红线</p></div>
+<div class="bg-light"><p><strong>Flora</strong>: 那高频交易里面的这种利用时间差，来获利的这种策略到底是怎么操作的？</p></div>
+<div class="bg-dark"><p><strong>Aaron</strong>: 这种策略其实就是利用,信息传播的速度差来获利。比如说有一个养老基金，它要在纽交所买入大量的资产，这个订单信息从纽约传到芝加哥，是需要16毫秒的，高频交易者他们就在纽约提前得知了这个消息，然后他们就会抢先在芝加哥买入这些资产，等养老基金的订单到了之后，他们再以一个更高的价格卖给他们</p></div>
+<div class="bg-light"><p>为了能够更快的获得这个信息，有一些公司甚至在纽约和芝加哥之间，铺设了微波的通讯线路，因为微波它的传输速度要比光纤快大概30%左右，所以他们就可以快4毫秒拿到这个信息</p></div>
+<div class="bg-dark"><p>Flora：所以这个也是为什么大家会说，它是一种掠夺性的交易，就是你并没有创造任何价值，你只是在利用这种速度和信息差来获利，所以它对于市场的公平性是有损害的</p></div>
+<div class="bg-light"><p>Aaron：另外一个跟这个很像的就是做市，做市的话其实是你要提供流动性，然后自己是要通过买卖价差来获利。所以做市商他一般是要承诺持续的提供双边的报价，所以他不会说像这种延迟套利一样，我可以随时就退出市场，所以这是他们一个很本质的区别</p></div>
+<div class="bg-dark"><p>Flora：听说高频交易中有一些颇有争议的策略，比如报价填充和spoofing？</p></div>
+<div class="bg-light"><p>Aaron：对，报价填充是一种市场操纵形式，就是虚假申报并撤销。当你虚假申报之后，这个价格就开始在网上传播，然后你又快速撤销它，那其它投资者可能刚刚拿到未撤销的报价，做了一个决定，从而就上当受骗了。spoofing则是在此基础上更进一步，加上了反向操作。</p></div>
+<div class="bg-dark"><p>Flora：这种做法合法吗？</p></div>
+<div class="bg-light"><p>Aaron：在多数市场上都是不合法的。城堡投资在2014年就因为报价填充被罚款过。涛合投资2019年被罚了接近7000万美金。但是有一些市场，特别是加密货币市场是没有监管的，所以，这些高频策略很可能在这些市场上还非常流行。</p></div>
+<div class="bg-dark"><p>Flora：看起来高频交易确实很容易走偏啊。那有没有利用高频数据，但又是比较合规的操作呢？</p></div>
+<div class="bg-light"><p>Aaron：有许多被动操作，一般认为是合规的。比如，tick trading，订单流等等。拿Tick trading来说，它通常旨在识别市场中大订单的开始。例如，养老基金的大额买单会在几小时甚至几天内执行，由于需求增加会导致价格上涨。套利者可以尝试发现这种情况，买入证券，再卖给养老基金，从中获利。这个过程基本上是被动的，目前来看，算是合规的。</p></div>
+<div class="bg-dark"><p>Flora：在限制高频交易方面，除了利用法规方法外，有没有一些技术创新可以解决这些问题？</p></div>
+<div class="bg-light"><p>Aaron：这方面也有的。比如IEX就推出了减速带产品，强行给订单增加一个350微秒的延时。这个做法尽管遭到了象城堡投资这样的基金公司，甚至是纳斯达克的反对，但最终还是得到了普遍认可，现在纳斯达克，以及一些著名的现货外汇交易平台，都推出了自己的减速带产品，用来抑制过度投机。</p></div>
+<div class="bg-dark"><p>Flora：抑制过度投机，倡导公平交易正是监管的目标，也是这次量化交易新规推出的初衷。所以，你认为量化交易新规推出后，各投资机构在策略上会有哪些转变？</p></div>
+<div class="bg-light"><p><strong>Aaron</strong>: 在对高频交易有了明确的定义之后，很显然大家在高频交易上面的竞赛会得到降级。之后大家可能应该从拼速度，转向拼策略，转向中低频策略。对于高频数据的利用，也会从直接利用，转向降频使用。</p></div>
+<div class="bg-dark"><p><strong>Flora</strong>: 这个怎么说？</p></div>
+<div class="bg-light"><p><strong>Aaron</strong>: 就是从高频数据，比如订单流、level 2数据当中，发现其中的交易模式，进而识别出交易对手和对手意图。比如，如果你能识别养老基金在买入的话，那么可以象之前提到的高频交易一样，选择做它的对手盘，但也可以做它的朋友，一起加仓。现在有了机器学习、强化学习等技术的加持，现在做这个事儿，应该难度是降低了。</p></div>
+<div class="bg-dark"><p><strong>Flora</strong>: Aaron, 你在开头提到了有超过30多种高频交易策略。但我们今天只介绍了其中的一小部分。如果想了解其它交易策略，有没有什么参考资料？</p></div>
+<div class="bg-light"><p><strong>Aaron</strong>: 这方面的参考资料不少。链接太长，就请参考我们的文字稿，或者公众号文章吧</p></div>
+<div class="bg-dark"><p><strong>Flora</strong>: 好的，那今天的节目就是这样。量化好声音，每晚都要听。我们下期再见</p></div>
+<div class="bg-light"><p><strong>Aaron</strong>: 再见！</p></div>
+<div class="bg-dark"><p>https://www.daytrading.com/hft-strategies</p></div>
 
 
 
@@ -140431,18 +138947,18 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
       
-        <script src="../../../../overrides/javascripts/course.js"></script>
+        <script src="../../overrides/javascripts/course.js"></script>
       
-        <script src="../../../../overrides/javascripts/katex.js"></script>
+        <script src="../../overrides/javascripts/katex.js"></script>
       
-        <script src="../../../../overrides/javascripts/katex.min.js"></script>
+        <script src="../../overrides/javascripts/katex.min.js"></script>
       
-        <script src="../../../../overrides/javascripts/auto-render.min.js"></script>
+        <script src="../../overrides/javascripts/auto-render.min.js"></script>
       
     
   </body>
