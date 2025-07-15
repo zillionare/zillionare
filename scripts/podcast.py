@@ -19,8 +19,8 @@ def to_gmf_admonition(lines: list[str]):
     output = []
     last_speaker = None
     for line in lines:
-        if ':' in line:
-            speaker, content = line.split(':', 1)
+        if ':' in line or "：" in line:
+            speaker, content = re.split(r'[:：]', line, 1)
             speaker = speaker.strip('* ')
             content = content.strip()
         else:

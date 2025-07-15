@@ -13,6 +13,14 @@ title: 量化好声音播客
   </div>
   <div class="podcast-card">
     <div class="podcast-info">
+      <h3><a href="/podcast/pressure-of-prices-integer-podcast/">『让这束光照进股市：整数关口的物理密码』</a></h3>
+      <p class="podcast-date">2025-07-15</p>
+      <p class="podcast-desc">为何3.99元比4元便宜很多？股价突破100元为何如此艰难？一位罗马尼亚学者竟用光学折射公式预测股价走势，让这束光照进股市之后，这套『物理密码』能否破解市场之谜？</p>
+      <audio controls><source src="https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/01-final.MP3" type="audio/mpeg">您的浏览器不支持音频播放。</audio>
+    </div>
+  </div>
+  <div class="podcast-card">
+    <div class="podcast-info">
       <h3><a href="/podcast/15/">机构散户交易识别：算法指纹与动量反转</a></h3>
       <p class="podcast-date">2025-07-11</p>
       <p class="podcast-desc">两大券商研报揭露A股市场惊人秘密！国泰君安用傅里叶变换『透视』机构算法交易，如同基因检测般精准识别大资金动向；东吴证券发现散户与机构的交易占比竟能预测股价反转！当传统动量因子失效，新的量化武器悄然崛起。机构的每一笔算法单都在高频数据中留下『指纹』，而散户的羊群效应正被精确量化。这场看不见的博弈中，谁掌握了交易者结构的密码，谁就握住了市场的脉搏。</p>
