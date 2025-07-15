@@ -5,6 +5,22 @@ title: 量化好声音播客
 <div class="podcast-grid">
   <div class="podcast-card">
     <div class="podcast-info">
+      <h3><a href="/podcast/16/">『经济周期解密：藏在数据里的齿轮』</a></h3>
+      <p class="podcast-date">2025-07-15</p>
+      <p class="podcast-desc">v1</p>
+      <audio controls><source src="https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/16-final.mp3" type="audio/mpeg">您的浏览器不支持音频播放。</audio>
+    </div>
+  </div>
+  <div class="podcast-card">
+    <div class="podcast-info">
+      <h3><a href="/podcast/15/">机构散户交易识别：算法指纹与动量反转</a></h3>
+      <p class="podcast-date">2025-07-11</p>
+      <p class="podcast-desc">两大券商研报揭露A股市场惊人秘密！国泰君安用傅里叶变换『透视』机构算法交易，如同基因检测般精准识别大资金动向；东吴证券发现散户与机构的交易占比竟能预测股价反转！当传统动量因子失效，新的量化武器悄然崛起。机构的每一笔算法单都在高频数据中留下『指纹』，而散户的羊群效应正被精确量化。这场看不见的博弈中，谁掌握了交易者结构的密码，谁就握住了市场的脉搏。</p>
+      <audio controls><source src="https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/15-final.mp3" type="audio/mpeg">您的浏览器不支持音频播放。</audio>
+    </div>
+  </div>
+  <div class="podcast-card">
+    <div class="podcast-info">
       <h3><a href="/podcast/14-all-about-hft/">高频变高危：监管新规下的市场变局</a></h3>
       <p class="podcast-date">2025-07-10</p>
       <p class="podcast-desc">深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势</p>
