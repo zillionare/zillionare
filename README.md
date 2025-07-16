@@ -10,7 +10,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
-<h3>信号滤波改造均线，一个12年前的策略为何仍能跑赢大盘？</h3>
+<h3>Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/neom-tSwRu3Jh0EM-unsplash.jpg" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>传统移动平均线（MA）是技术分析中常用的趋势跟踪指标，通过对股票价格或指数在一定天数内的平均值进行计算，以刻画其变动方向。MA 的计算天数越多，其平滑性越好，但随之而来的时滞（延迟）影响也越严重。这意味着 MA 指标在跟踪趋势时容易出现“跟不紧”甚至“跟不上”的情况，平滑性...</p>
 
