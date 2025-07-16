@@ -3,7 +3,9 @@ title: "π-thon以及他的朋友们"
 date: 2025-07-15
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png
 category: python
-motto:
+motto: 相信自己能做到，你就已经成功了一半
+desc: 在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝对是Python发展史上的有一个分水岭。
+seq: 宽粉读研报
 lunar:
 tags: 
     - quantlib
@@ -19,6 +21,8 @@ tags:
 在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝对是Python发展史上的有一个分水岭。
 
 这个版本将在今年的程序员节（10月24日）发布，版本号正是神奇的数字π。
+
+---
 
 ## No Gil, No!
 
