@@ -18,7 +18,6 @@ import nbformat
 import requests
 from loguru import logger
 
-
 quantide_api_url = os.environ.get("QUANTIDE_API_URL")
 
 API_TOKEN = os.environ.get("QUANTIDE_API_TOKEN")
@@ -397,8 +396,9 @@ def get_meta(file):
     with open(file, 'r', encoding='utf-8') as f:
         meta, content = frontmatter.parse(f.read())
         
-        _, excerpt = get_excerpt(content)
-        meta["excerpt"] = excerpt
+        if not "excerpt" in meta:
+            _, excerpt = get_excerpt(content)
+            meta["excerpt"] = excerpt
         return meta
 
 def extract_meta_for_jieyu_index(file):
