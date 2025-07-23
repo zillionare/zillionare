@@ -10,35 +10,35 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>量化面试神题：圆上随机点的概率陷阱</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>常常有人问，做量化交易需要什么样的数学基础？<br><br>不同领域的量化研究员需要数学基础是不一样的，一般是期权 > 高频 > 期货 > 股票中低频量化。<br><br>今天我们就聊聊各个领域要求的数学基础，并且以一道经典的量化面试题（来自绿皮书），介绍在概率知识上，从低...</p>
+
+<p><span style="margin-right:20px">发表于 2025-07-24 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/algo/pdf-is-all-you-need/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
+<h3>原作者失联8个月，我们接手维护后他突然回来了</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/kamil-pietrzak-AlA8S9tALAs-unsplash.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>Quantstats是非常著名的量化策略评估与可视化库。从2024年底起约8个月里，它没有得到积极的维护，出现了在Python 3.12以上，完全无法运行等严重bug。好消息是，最近一周，原作者 Ran Aroussi 已经恢复了对这个库的维护，并且连发了5个版本（从0.0...</p>
+
+<p><span style="margin-right:20px">发表于 2025-07-23 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/quantstats-reload-news/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>『译研报04』 年化25%的策略到底有没有翻车？</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/neom-diving.jpg" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>LLT均线策略回测结果好到难以置信，年化收益竟达25%！但当我们用显微镜审视每个细节时，发现了隐藏的致命陷阱：未来数据泄露、信号对齐错误、交易成本设置不当...这些看似微小的技术细节，正是导致『回测买地球、实盘亏成狗』的真正元凶</p>
 
-<p><span style="margin-right:20px">发表于 2025-07-21 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/04-年化25%的策略为何翻车/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/neom-tSwRu3Jh0EM-unsplash.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>传统移动平均线（MA）是技术分析中常用的趋势跟踪指标，通过对股票价格或指数在一定天数内的平均值进行计算，以刻画其变动方向。MA 的计算天数越多，其平滑性越好，但随之而来的时滞（延迟）影响也越严重。这意味着 MA 指标在跟踪趋势时容易出现“跟不紧”甚至“跟不上”的情况，平滑性...</p>
-
-<p><span style="margin-right:20px">发表于 2025-07-16 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/03-低延迟趋势线与交易择时/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>π-thon以及他的朋友们</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>最近的Python社区热闹异常。在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝对是Python发展史上的有一个分水岭。这个版本将在今年的程序...</p>
-
-<p><span style="margin-right:20px">发表于 2025-07-15 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/python/it-is-π-thon/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-07-21 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/papers/04-年化25%的策略为何翻车/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
