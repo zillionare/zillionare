@@ -5,6 +5,14 @@ title: 量化好声音播客
 <div class="podcast-grid">
   <div class="podcast-card">
     <div class="podcast-info">
+      <h3><a href="/podcast/23-小市值因子为什么在A股表现如此显著？/">23-小市值因子为什么在A股表现如此显著？</a></h3>
+      <p class="podcast-date">2025-08-05</p>
+      <p class="podcast-desc">23-小市值因子为什么在A股表现如此显著？</p>
+      <audio controls><source src="https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/08/23-final.mp3" type="audio/mpeg">您的浏览器不支持音频播放。</audio>
+    </div>
+  </div>
+  <div class="podcast-card">
+    <div class="podcast-info">
       <h3><a href="/podcast/16/">『经济周期解密：藏在数据里的齿轮』</a></h3>
       <p class="podcast-date">2025-07-15</p>
       <p class="podcast-desc">v1</p>

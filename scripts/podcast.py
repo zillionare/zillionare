@@ -7,35 +7,126 @@ input_text = '''**Flora**: 量化好声音 睡前听一听。欢迎大家，我�
 **Aaron**: 好的，这方面可以分享的招数比较多。今天先给大家讲一招，就是打比赛。
 **Flora**: 打比赛？能具体一点吗？'''
 
+import base64
 import os
 import re
+import subprocess
 from pathlib import Path
+from typing import Union
 
 import arrow
 import fire
+import requests
+
+
+def upload_audio_to_github(audio_path: str, year: int, month: int) -> str:
+    """上传音频文件到 GitHub podcast 仓库
+
+    Args:
+        audio_path: 本地音频文件路径
+        year: 年份
+        month: 月份
+        seq: 序号
+
+    Returns:
+        上传后的文件 URL
+    """
+    audio_file = Path(audio_path)
+    if not audio_file.exists():
+        raise FileNotFoundError(f"Audio file not found: {audio_path}")
+
+    # 目标文件名
+    target_filename = audio_file.name.lower()
+    target_path = f"{year:04d}/{month:02d}/{target_filename}"
+
+    # 使用 gh CLI 上传文件
+    try:
+        # 首先克隆或切换到 podcast 仓库
+        podcast_repo_url = "git@github.com:zillionare/podcast.git"
+        temp_dir = Path("/tmp/podcast_upload")
+
+        # 清理并创建临时目录
+        if temp_dir.exists():
+            subprocess.run(["rm", "-rf", str(temp_dir)], check=True)
+
+        # 克隆仓库
+        subprocess.run([
+            "git", "clone", podcast_repo_url, str(temp_dir)
+        ], check=True)
+
+        # 创建目标目录
+        target_dir = temp_dir / f"{year:04d}" / f"{month:02d}"
+        target_dir.mkdir(parents=True, exist_ok=True)
+
+        # 复制音频文件
+        target_file = target_dir / target_filename
+
+        # 检查文件是否已存在且内容相同
+        if target_file.exists():
+            # 比较文件内容
+            with open(audio_file, 'rb') as f1, open(target_file, 'rb') as f2:
+                if f1.read() == f2.read():
+                    print(f"✅ Audio file already exists and is identical: {target_path}")
+                    cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+                    return cdn_url
+
+        subprocess.run(["cp", str(audio_file), str(target_file)], check=True)
+
+        # 提交并推送
+        os.chdir(temp_dir)
+        subprocess.run(["git", "add", "."], check=True)
+
+        # 检查是否有变更需要提交
+        result = subprocess.run(["git", "diff", "--staged", "--quiet"], capture_output=True)
+        if result.returncode == 0:
+            print(f"✅ Audio file already up to date: {target_path}")
+            cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+            return cdn_url
+
+        subprocess.run([
+            "git", "commit", "-m", f"Add podcast {target_filename} audio for {year:04d}-{month:02d}"
+        ], check=True)
+        subprocess.run(["git", "push"], check=True)
+
+        # 返回 CDN URL
+        cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+        print(f"✅ Audio uploaded successfully: {cdn_url}")
+        return cdn_url
+
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Failed to upload audio: {e}")
+        raise
+    finally:
+        # 清理临时目录
+        if temp_dir.exists():
+            subprocess.run(["rm", "-rf", str(temp_dir)], capture_output=True)
 
 
 def to_gmf_admonition(lines: list[str]):
     output = []
     last_speaker = None
     for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+
         if ':' in line or "：" in line:
             speaker, content = re.split(r'[:：]', line, 1)
-            speaker = speaker.strip('* ')
+            speaker = speaker.strip('* ').capitalize()  # 首字母大写
             content = content.strip()
         else:
             speaker, content = '', line.strip()
 
         if content == '':
             continue
-        
+
         if speaker != last_speaker:
             if last_speaker is not None:
                 output.append('')  # 插入空行
-            if speaker == 'Flora':
+            if speaker.lower() == 'flora':
                 output.append('>[!tip] Flora: ' + content)
-            elif speaker == 'Aaron':
-                output.append('>[!note]Aaron: ' + content)
+            elif speaker.lower() == 'aaron':
+                output.append('>[!note] Aaron: ' + content)
             else:
                 output.append('> ' + line.strip())
         else:
@@ -44,7 +135,7 @@ def to_gmf_admonition(lines: list[str]):
 
     return output
 
-def pretty(src: str, dst: Path|str=""):
+def pretty(src: str, dst: Union[Path, str]=""):
     src_ = Path(src)
     if dst == "":
         dst = Path(__file__).parent.parent / "docs/podcast" / src_.name
@@ -96,7 +187,7 @@ def to_cm_admonition(lines: list[str]):
 
     return output
 
-def to_commonmark(src: str, dst: Path|str="", seq=1):
+def to_commonmark(src: str, dst: Union[Path, str]="", seq=1):
     """将对话文本转换为CommonMark格式的admonition
 
     Args:
@@ -141,28 +232,51 @@ def to_commonmark(src: str, dst: Path|str="", seq=1):
 def to_alternating_paragraphs(lines: list[str]):
     output = []
     is_odd = True  # 用于交替背景色
-    
-    for line in lines:
-        if ':' in line:
-            speaker, content = line.split(':', 1)
-            speaker = speaker.strip('* ')
-            content = content.strip()
-        else:
-            speaker, content = '', line.strip()
 
-        if content == '':
+    for line in lines:
+        line = line.strip()
+        if not line:
             continue
-        
+
+        # 处理 GMF admonition 格式
+        if line.startswith('>[!tip] ') or line.startswith('>[!note] '):
+            # 提取说话人和内容
+            if line.startswith('>[!tip] '):
+                content = line[8:]  # 去掉 '>[!tip] '
+            else:  # >[!note]
+                content = line[9:]  # 去掉 '>[!note] '
+
+            if ':' in content:
+                speaker, text = content.split(':', 1)
+                speaker = speaker.strip()
+                text = text.strip()
+            else:
+                speaker, text = '', content.strip()
+        elif line.startswith('> '):
+            # 处理续行内容
+            text = line[2:]  # 去掉 '> '
+            speaker = ''
+        elif ':' in line:
+            # 处理原始格式
+            speaker, text = line.split(':', 1)
+            speaker = speaker.strip('* ')
+            text = text.strip()
+        else:
+            speaker, text = '', line.strip()
+
+        if text == '':
+            continue
+
         # 交替背景色的CSS类
         bg_class = "bg-light" if is_odd else "bg-dark"
         is_odd = not is_odd
-        
+
         if speaker:
             # 说话人加粗显示
-            output.append(f'<div class="{bg_class}"><p><strong>{speaker}</strong>: {content}</p></div>')
+            output.append(f'<div class="{bg_class}"><p><strong>{speaker}</strong>: {text}</p></div>')
         else:
-            output.append(f'<div class="{bg_class}"><p>{content}</p></div>')
-    
+            output.append(f'<div class="{bg_class}"><p>{text}</p></div>')
+
     # 添加必要的CSS样式
     css = """
 <style>
@@ -183,23 +297,29 @@ def to_alternating_paragraphs(lines: list[str]):
     output.insert(0, css)
     return output
 
-def to_alternating(src: str, dst: Path|str=""):
+def to_alternating(src: str, audio: str, dst: Union[Path, str]=""):
     """将对话文本转换为交替背景色的段落，说话人加粗显示
 
     Args:
-        src: 源文件路径
+        src: 源文件路径（pretty 命令的输出）
+        audio: 音频文件路径
         dst: 目标文件路径，默认为docs/podcast/源文件名
     """
     src_ = Path(src)
+
+    # 如果src_是相对路径，则将其转换为相对于docs/podcast下的文件路径
+    if not src_.is_absolute():
+        src_ = Path(__file__).parent.parent / "docs/podcast" / src_
+
     if dst == "":
-        dst = Path(__file__).parent.parent / "docs/podcast" / src_.name
+        dst = Path(__file__).parent.parent / "docs/podcast" / src_
     else:
         dst = Path(dst)
 
     # 确保目标目录存在
     dst.parent.mkdir(parents=True, exist_ok=True)
 
-    with open(src, "r", encoding = "utf-8") as f:
+    with open(src_, "r", encoding = "utf-8") as f:
         lines = f.readlines()
 
     output = to_alternating_paragraphs(lines)
@@ -208,16 +328,20 @@ def to_alternating(src: str, dst: Path|str=""):
     year = arrow.now().year
     month = arrow.now().month
 
-    # 从文件名中提取序号
-    filename_match = re.match(r'^(\d+)', src_.stem)
-    seq = int(filename_match.group(1)) if filename_match else 1
+    # 上传音频文件到 GitHub
+    audio_name = Path(audio).name.lower()
+    try:
+        audio_url = upload_audio_to_github(audio, year, month)
+    except Exception as e:
+        print(f"⚠️  Failed to upload audio, using placeholder URL: {e}")
+        audio_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{year:04d}/{month:02d}/{audio_name}"
 
     frontmatter = [
         "---",
         "title: " + src_.stem,
         "description: " + src_.stem,
         "date: " + arrow.now().format("YYYY-MM-DD"),
-        "audio: " + f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{year:04d}/{month:02d}/{seq:02d}-final.MP3",
+        "audio: " + audio_url,
         "---",
         ""
     ]
