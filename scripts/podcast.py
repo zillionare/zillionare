@@ -47,7 +47,7 @@ def to_gmf_admonition(lines: list[str]):
 def pretty(src: str, dst: Path|str=""):
     src_ = Path(src)
     if dst == "":
-        dst = Path("/tmp/") / src_.name
+        dst = Path(__file__).parent.parent / "docs/podcast" / src_.name
 
     with open(src, "r", encoding = "utf-8") as f:
         lines = f.readlines()
