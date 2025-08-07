@@ -10,7 +10,6 @@ input_text = '''**Flora**: 量化好声音 睡前听一听。欢迎大家，我�
 import base64
 import os
 import re
-import subprocess
 from pathlib import Path
 from typing import Union
 
@@ -20,13 +19,12 @@ import requests
 
 
 def upload_audio_to_github(audio_path: str, year: int, month: int) -> str:
-    """上传音频文件到 GitHub podcast 仓库
+    """使用 GitHub API 直接上传音频文件到 podcast 仓库
 
     Args:
         audio_path: 本地音频文件路径
         year: 年份
         month: 月份
-        seq: 序号
 
     Returns:
         上传后的文件 URL
@@ -35,71 +33,72 @@ def upload_audio_to_github(audio_path: str, year: int, month: int) -> str:
     if not audio_file.exists():
         raise FileNotFoundError(f"Audio file not found: {audio_path}")
 
-    # 目标文件名
+    # 获取 GitHub token
+    token = os.getenv("PODCAST")
+    if not token:
+        raise ValueError("PODCAST environment variable not set")
+
+    # 目标文件名和路径
     target_filename = audio_file.name.lower()
     target_path = f"{year:04d}/{month:02d}/{target_filename}"
 
-    # 使用 gh CLI 上传文件
+    # GitHub API 配置
+    repo_owner = "zillionare"
+    repo_name = "podcast"
+    api_base = "https://api.github.com"
+
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json",
+        "Content-Type": "application/json"
+    }
+
     try:
-        # 首先克隆或切换到 podcast 仓库
-        podcast_repo_url = "git@github.com:zillionare/podcast.git"
-        temp_dir = Path("/tmp/podcast_upload")
+        # 读取音频文件内容并编码为 base64
+        with open(audio_file, 'rb') as f:
+            audio_content = f.read()
 
-        # 清理并创建临时目录
-        if temp_dir.exists():
-            subprocess.run(["rm", "-rf", str(temp_dir)], check=True)
+        audio_base64 = base64.b64encode(audio_content).decode('utf-8')
 
-        # 克隆仓库
-        subprocess.run([
-            "git", "clone", podcast_repo_url, str(temp_dir)
-        ], check=True)
+        # 检查文件是否已存在
+        check_url = f"{api_base}/repos/{repo_owner}/{repo_name}/contents/{target_path}"
+        check_response = requests.get(check_url, headers=headers)
 
-        # 创建目标目录
-        target_dir = temp_dir / f"{year:04d}" / f"{month:02d}"
-        target_dir.mkdir(parents=True, exist_ok=True)
+        sha = None
+        if check_response.status_code == 200:
+            # 文件已存在，检查内容是否相同
+            existing_file = check_response.json()
 
-        # 复制音频文件
-        target_file = target_dir / target_filename
+            if existing_file['content'].replace('\n', '') == audio_base64:
+                print(f"✅ Audio file already exists and is identical: {target_path}")
+                cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+                return cdn_url
 
-        # 检查文件是否已存在且内容相同
-        if target_file.exists():
-            # 比较文件内容
-            with open(audio_file, 'rb') as f1, open(target_file, 'rb') as f2:
-                if f1.read() == f2.read():
-                    print(f"✅ Audio file already exists and is identical: {target_path}")
-                    cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
-                    return cdn_url
+            sha = existing_file['sha']  # 需要 SHA 来更新文件
 
-        subprocess.run(["cp", str(audio_file), str(target_file)], check=True)
+        # 上传或更新文件
+        upload_data = {
+            "message": f"Add podcast {target_filename} audio for {year:04d}-{month:02d}",
+            "content": audio_base64,
+            "branch": "main"
+        }
 
-        # 提交并推送
-        os.chdir(temp_dir)
-        subprocess.run(["git", "add", "."], check=True)
+        if sha:
+            upload_data["sha"] = sha  # 更新现有文件需要 SHA
 
-        # 检查是否有变更需要提交
-        result = subprocess.run(["git", "diff", "--staged", "--quiet"], capture_output=True)
-        if result.returncode == 0:
-            print(f"✅ Audio file already up to date: {target_path}")
+        upload_url = f"{api_base}/repos/{repo_owner}/{repo_name}/contents/{target_path}"
+        upload_response = requests.put(upload_url, headers=headers, json=upload_data)
+
+        if upload_response.status_code in [200, 201]:
             cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+            print(f"✅ Audio uploaded successfully: {cdn_url}")
             return cdn_url
+        else:
+            raise Exception(f"Upload failed: {upload_response.status_code} - {upload_response.text}")
 
-        subprocess.run([
-            "git", "commit", "-m", f"Add podcast {target_filename} audio for {year:04d}-{month:02d}"
-        ], check=True)
-        subprocess.run(["git", "push"], check=True)
-
-        # 返回 CDN URL
-        cdn_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
-        print(f"✅ Audio uploaded successfully: {cdn_url}")
-        return cdn_url
-
-    except subprocess.CalledProcessError as e:
+    except Exception as e:
         print(f"❌ Failed to upload audio: {e}")
         raise
-    finally:
-        # 清理临时目录
-        if temp_dir.exists():
-            subprocess.run(["rm", "-rf", str(temp_dir)], capture_output=True)
 
 
 def to_gmf_admonition(lines: list[str]):
@@ -307,8 +306,8 @@ def to_alternating(src: str, audio: str, dst: Union[Path, str]=""):
     """
     src_ = Path(src)
 
-    # 如果src_是相对路径，则将其转换为相对于docs/podcast下的文件路径
-    if not src_.is_absolute():
+    # 如果src_是相对路径且只是文件名（不包含路径分隔符），则将其转换为相对于docs/podcast下的文件路径
+    if not src_.is_absolute() and '/' not in str(src_) and '\\' not in str(src_):
         src_ = Path(__file__).parent.parent / "docs/podcast" / src_
 
     if dst == "":
