@@ -50,7 +50,7 @@ tags: [Moonshot, 回测, 研报]
 
 现在，这份数据看起来如下图所示：
 
-<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
+<div style='width:55%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806132427.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图3 月行情数据</span>
 </div>
@@ -61,20 +61,18 @@ tags: [Moonshot, 回测, 研报]
 
 现在，计算收益就变得很简单。比如，计算基准收益就是：
 
-```python
-df.groupby("month").apply(
-    lambda x: (x.close / x.open - 1).mean()
-)
+```{code-block} python
+df.groupby("month").apply(lambda x: (x.close / x.open - 1).mean())
 ```
 
-<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806133629.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图4 基准收益计算</span>
 </div>
 
 如果要计算组合的收益率呢？我们需要增加一列，先标记出哪些股票在当月的股票池中：
 
-<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
+<div style='width:50%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806135848.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图5 组合收益计算</span>
 </div>
@@ -91,10 +89,8 @@ $$
 
 就能得到每月的策略收益。这一步相当于执行代码：
 
-```python
-df.groupby("month").apply(
-    lambda group: group[group["flag"] == 1]["returns"].mean()
-)
+```{code-block} python
+df.groupby("month").apply(lambda group: group[group["flag"] == 1]["returns"].mean())
 ```
 
 到这一步为止，我们已经明确了要实现一个极简的月度回测框架，大致上要做的事情如下：
@@ -112,18 +108,23 @@ df.groupby("month").apply(
 
 ```python
 class Moonshot:
-    def __init__(self, daily_bars:pd.DataFrame):
-        self.data: pd.DataFrame = resample_to_month(daily_bars, open='first', close='last')
-        self.data['flag'] = 1
+    def __init__(self, daily_bars: pd.DataFrame):
+        self.data: pd.DataFrame = resample_to_month(
+            daily_bars, open="first", close="last"
+        )
+        self.data["flag"] = 1
 
-        self.strategy_returns: pd.Series|None = None
-        self.benchmark_returns: pd.Series|None = None
-        self.analyzer: StrategyAnalyzer|None = None
+        self.strategy_returns: pd.Series | None = None
+        self.benchmark_returns: pd.Series | None = None
+        self.analyzer: StrategyAnalyzer | None = None
 
-    def append_factor(self, data: pd.DataFrame, factor_col: str, resample_method: str|None=None) -> None:
+    def append_factor(
+        self, data: pd.DataFrame, factor_col: str, resample_method: str | None = None
+    ) -> None:
         """将因子数据添加到回测数据(即self.data)中。
 
-        如果resample_method参数不为None, 则需要重采样为月频，并且使用resample_method指定的方法。否则，认为因子已经是月频的，将直接添加到回测数据中。
+        如果resample_method参数不为None, 则需要重采样为月频，并且使用resample_method指定的方法。
+        否则，认为因子已经是月频的，将直接添加到回测数据中。
 
         使用本方法，一次只能添加一个因子。
 
@@ -138,13 +139,13 @@ class Moonshot:
             data_copy = data.copy()
 
             # 确保date列是datetime类型
-            if not pd.api.types.is_datetime64_any_dtype(data_copy['date']):
-                data_copy['date'] = pd.to_datetime(data_copy['date'])
+            if not pd.api.types.is_datetime64_any_dtype(data_copy["date"]):
+                data_copy["date"] = pd.to_datetime(data_copy["date"])
 
-            data_copy['month'] = data_copy['date'].dt.to_period('M')
+            data_copy["month"] = data_copy["date"].dt.to_period("M")
 
             # 检查是否有重复的(month, asset)组合
-            duplicates = data_copy.duplicated(subset=['month', 'asset'])
+            duplicates = data_copy.duplicated(subset=["month", "asset"])
             if duplicates.any():
                 duplicate_count = duplicates.sum()
                 raise ValueError(
@@ -154,11 +155,11 @@ class Moonshot:
                     "如：resample_method='last'、'mean'、'first'等"
                 )
 
-            factor_data = data_copy.set_index(['month', 'asset'])[[factor_col]]
+            factor_data = data_copy.set_index(["month", "asset"])[[factor_col]]
 
-        self.data = self.data.join(factor_data, how='left')
+        self.data = self.data.join(factor_data, how="left")
 
-    def screen(self, screen_method, **kwargs) -> 'Moonshot':
+    def screen(self, screen_method, **kwargs) -> "Moonshot":
         """应用股票筛选器
 
         Args:
@@ -172,50 +173,55 @@ class Moonshot:
             flags = screen_method(**kwargs)
 
             # 当月选股，下月开仓
-            flags = flags.groupby(level='asset').shift(1).fillna(0).astype(int)
-            
+            flags = flags.groupby(level="asset").shift(1).fillna(0).astype(int)
+
             # 与现有flag进行逻辑与运算
-            self.data['flag'] = self.data['flag'] & flags
-
-        return self
-    
-def calculate_returns(self)->'Moonshot':
-        """计算策略收益率和基准收益率（向量化实现）
-        
-        使用向量化操作计算：
-        1. 策略收益：每月flag=1的股票的等权平均收益
-        2. 基准收益：每月所有股票的等权平均收益
-        """    
-        # 计算所有股票的月收益率 (close - open) / open
-        self.data['monthly_return'] = (self.data['close'] - self.data['open']) / self.data['open']
-        
-        # 按月分组计算策略收益（flag=1的股票等权平均）
-        def calculate_strategy_return(group):
-            selected = group[group.get('flag', 0) == 1]
-            if len(selected) > 0:
-                return selected['monthly_return'].mean()
-            else:
-                return 0.0
-        
-        strategy_returns = self.data.groupby('month').apply(calculate_strategy_return)
-        strategy_returns.name = 'strategy_returns'
-
-        # 向量化计算基准收益（所有股票等权平均）
-        benchmark_returns = self.data.groupby('month')['monthly_return'].mean()
-        benchmark_returns.name = 'benchmark_returns'
-
-        # 存储结果
-        self.strategy_returns = strategy_returns
-        self.benchmark_returns = benchmark_returns
-        
-        self.analyzer = StrategyAnalyzer(
-            strategy_returns=self.strategy_returns,
-            benchmark_returns=self.benchmark_returns
-        )
+            self.data["flag"] = self.data["flag"] & flags
 
         return self
 
-## 调用示例
+
+def calculate_returns(self) -> "Moonshot":
+    """计算策略收益率和基准收益率（向量化实现）
+
+    使用向量化操作计算：
+    1. 策略收益：每月flag=1的股票的等权平均收益
+    2. 基准收益：每月所有股票的等权平均收益
+    """
+    # 计算所有股票的月收益率 (close - open) / open
+    self.data["monthly_return"] = (self.data["close"] - self.data["open"]) / self.data[
+        "open"
+    ]
+
+    # 按月分组计算策略收益（flag=1的股票等权平均）
+    def calculate_strategy_return(group):
+        selected = group[group.get("flag", 0) == 1]
+        if len(selected) > 0:
+            return selected["monthly_return"].mean()
+        else:
+            return 0.0
+
+    strategy_returns = self.data.groupby("month").apply(calculate_strategy_return)
+    strategy_returns.name = "strategy_returns"
+
+    # 向量化计算基准收益（所有股票等权平均）
+    benchmark_returns = self.data.groupby("month")["monthly_return"].mean()
+    benchmark_returns.name = "benchmark_returns"
+
+    # 存储结果
+    self.strategy_returns = strategy_returns
+    self.benchmark_returns = benchmark_returns
+
+    self.analyzer = StrategyAnalyzer(
+        strategy_returns=self.strategy_returns, benchmark_returns=self.benchmark_returns
+    )
+
+    return self
+```
+
+Moonshot 的使用方法如下：
+
+```{code-block}python
 daily_bars = ...
 ms = Moonshot(daily_bars)
 
@@ -238,13 +244,8 @@ Moonshot 在初始化时，就要求我们传入日线行情数据，以便它�
 
 在 pandas 中，已经提供了 resample 方法：
 
-```python
-df.groupby('asset')
-    .resample('ME'
-    ).agg({
-    'open': 'first', 
-    'close': 'last'
-})
+```{code-block} python
+df.groupby("asset").resample("ME").agg({"open": "first", "close": "last"})
 ```
 
 但是，在数据量较大时（比如50万条记录左右），这个方法就比较慢，在一次运行中，我大约等待了10多秒。原因是 pandas 的聚合操作一直是它的性能短板，这也是像 polars 或者 duckdb 的优势所在。
@@ -257,68 +258,83 @@ def resample_to_month(data: pd.DataFrame, **kwargs) -> pd.DataFrame:
 
     Example:
         >>> resample_to_month(data, close='last', high='max', low='min', open='first', volume='sum')
-    
+
     参数:
         data: DataFrame，需包含'date'和'asset'列。数据不要求有序。
         **kwargs: 关键字参数，格式为"列名=聚合方式"
                 支持的聚合方式：'first'（首个值）、'last'（最后一个值）、
                                 'mean'（平均值）、'max'（最大值）、'min'（最小值）
-    
+
     返回:
         重采样后的DataFrame
     """
     df = pl.from_pandas(data)
-    df = df.with_columns(pl.col('date').cast(pl.Datetime))
-    
+    df = df.with_columns(pl.col("date").cast(pl.Datetime))
+
     df = df.with_columns(
         pl.concat_str(
             [
-                pl.col('date').dt.year().cast(pl.Utf8),
-                pl.lit('-'),
-                pl.col('date').dt.month().cast(pl.Utf8).str.pad_start(2, fill_char='0')
+                pl.col("date").dt.year().cast(pl.Utf8),
+                pl.lit("-"),
+                pl.col("date").dt.month().cast(pl.Utf8).str.pad_start(2, fill_char="0"),
             ]
-        ).alias('month')
+        ).alias("month")
     )
-    
+
     # 定义支持的聚合方式映射（列名 -> 聚合表达式）
     agg_methods = {
-        'first': lambda col: col.sort_by(pl.col('date')).first(),
-        'last': lambda col: col.sort_by(pl.col('date')).last(),
-        'mean': lambda col: col.mean(),
-        'max': lambda col: col.max(),
-        'min': lambda col: col.min(),
-        'sum': lambda col: col.sum()
+        "first": lambda col: col.sort_by(pl.col("date")).first(),
+        "last": lambda col: col.sort_by(pl.col("date")).last(),
+        "mean": lambda col: col.mean(),
+        "max": lambda col: col.max(),
+        "min": lambda col: col.min(),
+        "sum": lambda col: col.sum(),
     }
-    
+
     # 构建聚合表达式列表
     agg_exprs = []
     for col_name, method in kwargs.items():
         if col_name not in df.columns:
             raise ValueError(f"数据中不存在列: {col_name}")
-        
+
         # 检查聚合方式是否支持
         if method not in agg_methods:
-            raise ValueError(f"不支持的聚合方式: {method}，支持的方式为: {list(agg_methods.keys())}")
-        
+            raise ValueError(
+                f"不支持的聚合方式: {method}，支持的方式为: {list(agg_methods.keys())}"
+            )
+
         # 添加聚合表达式
-        agg_exprs.append(
-            agg_methods[method](pl.col(col_name)).alias(col_name)
-        )
-    
+        agg_exprs.append(agg_methods[method](pl.col(col_name)).alias(col_name))
+
     if not agg_exprs:
         raise ValueError("至少需要指定一个列的聚合方式（如open='first'）")
-    
-    result = df.group_by(
-        pl.col('asset'),
-        pl.col('month')
-    ).agg(agg_exprs).sort(pl.col('month'), pl.col('asset'))
-    
-    result = result.to_pandas()
-    result['month'] = pd.PeriodIndex(result['month'], freq='M')
 
-    return result.set_index(['month', 'asset'])
+    result = (
+        df.group_by(pl.col("asset"), pl.col("month"))
+        .agg(agg_exprs)
+        .sort(pl.col("month"), pl.col("asset"))
+    )
+
+    result = result.to_pandas()
+    result["month"] = pd.PeriodIndex(result["month"], freq="M")
+
+    return result.set_index(["month", "asset"])
 ```
 
 这个函数接受 dataframe 作为输入，最后也返回一个 dataframe，只在中间过程中使用polars。额外的数据格式转换会有可以忽略的性能损失，但是，坚持使用 dataframe 作为各个模块、各个方法之间的数据传递格式，会大大降低 coding 的难度。
+
+现在，我们使用真实的数据，构造一个 Moonshot 对象，看看 resample_to_month() 函数的运行结果如何。
+
+```python
+start = datetime.date(2018, 1, 1)
+end = datetime.date(2023, 12, 31)
+
+barss = load_bars(start, end, 100)
+ms = Moonshot(barss.reset_index())
+
+ms.data
+```
+
+现在我们看到，数据确实被重采样成了月度数据，并且索引是已经被设置为月度时间戳。
 
 这一期内容就到这里。下一期我们将实现研报中的第一个筛选器 -- 股息率。我们将完整地实现获取数据、定义筛选器方法，并且进行一个完整的回测。

@@ -53,7 +53,7 @@ tags: [Moonshot, 回测, 研报, tushare]
 下面是获取日线行情数据的方法，注意返回的数据中，已附带了复权因子。随后我们可以根据自己的需要，对任何时间段，自由进行前后复权。
 
 ```python
-def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame|None:
+def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame | None:
     """通过 tushare 接口，获取日线行情数据
 
     返回数据未复权，但包含了复权因子，因此可以增量获取叠加。返回数据为升序。
@@ -72,28 +72,26 @@ def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame|None:
     for date in pd.bdate_range(start, end):
         try:
             str_date = date.strftime("%Y%m%d")
-            df = pro.daily(trade_date = str_date)
+            df = pro.daily(trade_date=str_date)
             if df.empty:
                 continue
 
             try:
-                adj_factor = pro.adj_factor(ts_code='', trade_date=str_date)
+                adj_factor = pro.adj_factor(ts_code="", trade_date=str_date)
                 if adj_factor.empty:
                     continue
             except Exception:
                 continue
 
-            df = pd.merge(df, adj_factor, on = ["ts_code", "trade_date"], how="inner")
+            df = pd.merge(df, adj_factor, on=["ts_code", "trade_date"], how="inner")
 
             # 重命名列并转换数据类型
-            df = df.rename(columns={
-                'trade_date': 'date',
-                "vol": "volume",
-                "ts_code": "asset"
-            })
+            df = df.rename(
+                columns={"trade_date": "date", "vol": "volume", "ts_code": "asset"}
+            )
 
             # tushare返回的是字符串格式的日期，如'20231229'
-            df['date'] = pd.to_datetime(df['date'], format='%Y%m%d')
+            df["date"] = pd.to_datetime(df["date"], format="%Y%m%d")
 
             all_data.append(df)
 
@@ -107,7 +105,19 @@ def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame|None:
     # 合并所有数据。由获取数据逻辑知此时数据已为有序
     result = pd.concat(all_data, ignore_index=True)
 
-    result = result[['date', 'asset', 'open', 'high', 'low', 'close', 'volume', 'amount', 'adj_factor']]
+    result = result[
+        [
+            "date",
+            "asset",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "amount",
+            "adj_factor",
+        ]
+    ]
 
     return result
 ```
@@ -260,64 +270,63 @@ def hfq_adjustment(
 import polars as pl
 from pathlib import Path
 
+
 class ParquetUnifiedStorage:
     def __init__(self, file_path: str):
         self.file_path = file_path
         self._start_date = None
         self._end_date = None
         self._load_date_range()
-    
+
     def _load_date_range(self):
         """从文件中加载日期范围并缓存"""
         if not Path(self.file_path).exists():
             self._start_date = None
             self._end_date = None
             return
-            
+
         # 使用LazyFrame提高大文件处理效率
         lazy_df = pl.scan_parquet(self.file_path)
-        
+
         # 获取最小和最大日期
-        date_range = lazy_df.select([
-            pl.min('date').alias('start_date'),
-            pl.max('date').alias('end_date')
-        ]).collect()
-        
+        date_range = lazy_df.select(
+            [pl.min("date").alias("start_date"), pl.max("date").alias("end_date")]
+        ).collect()
+
         # 缓存结果
-        self._start_date = date_range[0, 'start_date']
-        self._end_date = date_range[0, 'end_date']
-    
+        self._start_date = date_range[0, "start_date"]
+        self._end_date = date_range[0, "end_date"]
+
     def _update_date_range(self, df: pl.DataFrame):
         """根据新数据更新日期范围缓存"""
         if df.is_empty():
             return
-            
+
         # 获取新数据的日期范围
-        new_dates = df.select([
-            pl.min('date').alias('min_date'),
-            pl.max('date').alias('max_date')
-        ])
-        
-        new_min = new_dates[0, 'min_date']
-        new_max = new_dates[0, 'max_date']
-        
+        new_dates = df.select(
+            [pl.min("date").alias("min_date"), pl.max("date").alias("max_date")]
+        )
+
+        new_min = new_dates[0, "min_date"]
+        new_max = new_dates[0, "max_date"]
+
         # 更新缓存的日期范围
         if self._start_date is None or new_min < self._start_date:
             self._start_date = new_min
         if self._end_date is None or new_max > self._end_date:
             self._end_date = new_max
-    
+
     @property
     def start(self):
         """获取数据起始日期"""
         return self._start_date
-    
+
     @property
     def end(self):
         """获取数据终止日期"""
         return self._end_date
-    
-    def append_data(self, df: pl.DataFrame|pd.DataFrame):
+
+    def append_data(self, df: pl.DataFrame | pd.DataFrame):
         """追加数据到Parquet文件"""
         if isinstance(df, pd.DataFrame):
             df = pl.from_pandas(df)
@@ -326,38 +335,41 @@ class ParquetUnifiedStorage:
             # 读取现有数据
             existing_df = pl.read_parquet(self.file_path)
             # 合并并去重
-            combined_df = pl.concat([existing_df, df]).unique(['date', 'asset'])
+            combined_df = pl.concat([existing_df, df]).unique(["date", "asset"])
         else:
             combined_df = df
-        
+
         # 按 date 和 asset 排序以优化查询
-        combined_df = combined_df.sort(['date', 'asset'])
-        
+        combined_df = combined_df.sort(["date", "asset"])
+
         # 写入文件（自动压缩）
-        combined_df.write_parquet(self.file_path, compression='snappy')
-        
+        combined_df.write_parquet(self.file_path, compression="snappy")
+
         # 更新日期范围缓存
         self._update_date_range(df)
-    
-    def query_stock_bars(self, asset: str, start_date: datetime.date = None, end_date: datetime.date = None):
+
+    def query_stock_bars(
+        self,
+        asset: str,
+        start_date: datetime.date = None,
+        end_date: datetime.date = None,
+    ):
         """查询个股数据"""
         lazy_df = pl.scan_parquet(self.file_path)
-        
+
         # 构建过滤条件
-        filters = [pl.col('asset') == asset]
-        
+        filters = [pl.col("asset") == asset]
+
         if start_date:
-            filters.append(pl.col('date') >= start_date)
+            filters.append(pl.col("date") >= start_date)
         if end_date:
-            filters.append(pl.col('date') <= end_date)
-        
+            filters.append(pl.col("date") <= end_date)
+
         return lazy_df.filter(pl.all_horizontal(filters)).collect()
-    
+
     def query_cross_section(self, date: datetime.date):
         """查询截面数据"""
-        return (pl.scan_parquet(self.file_path)
-                .filter(pl.col('date') == date)
-                .collect())
+        return pl.scan_parquet(self.file_path).filter(pl.col("date") == date).collect()
 ```
 
 框架的核心 API 是：
@@ -369,8 +381,7 @@ class ParquetUnifiedStorage:
 
 下面的代码演示了它的用法：
 
-```
-{code-block} python
+```python
 # 本地文件，可以存在，也可以不存在
 store = ParquetUnifiedStorage("/tmp/bars.parquet")
 
@@ -395,121 +406,4 @@ print(store.end)
 store.query_stock_bars("000001.SZ")
 ```
 
-现在，你就有了一个最简单的本地数据缓存框架。 # 获取最小和最大日期
-        date_range = lazy_df.select([
-            pl.min('date').alias('start_date'),
-            pl.max('date').alias('end_date')
-        ]).collect()
-        
-        # 缓存结果
-        self._start_date = date_range[0, 'start_date']
-        self._end_date = date_range[0, 'end_date']
-    
-    def _update_date_range(self, df: pl.DataFrame):
-        """根据新数据更新日期范围缓存"""
-        if df.is_empty():
-            return
-            
-        # 获取新数据的日期范围
-        new_dates = df.select([
-            pl.min('date').alias('min_date'),
-            pl.max('date').alias('max_date')
-        ])
-        
-        new_min = new_dates[0, 'min_date']
-        new_max = new_dates[0, 'max_date']
-        
-        # 更新缓存的日期范围
-        if self._start_date is None or new_min < self._start_date:
-            self._start_date = new_min
-        if self._end_date is None or new_max > self._end_date:
-            self._end_date = new_max
-    
-    @property
-    def start(self):
-        """获取数据起始日期"""
-        return self._start_date
-    
-    @property
-    def end(self):
-        """获取数据终止日期"""
-        return self._end_date
-    
-    def append_data(self, df: pl.DataFrame|pd.DataFrame):
-        """追加数据到Parquet文件"""
-        if isinstance(df, pd.DataFrame):
-            df = pl.from_pandas(df)
-
-        if Path(self.file_path).exists():
-            # 读取现有数据
-            existing_df = pl.read_parquet(self.file_path)
-            # 合并并去重
-            combined_df = pl.concat([existing_df, df]).unique(['date', 'asset'])
-        else:
-            combined_df = df
-        
-        # 按 date 和 asset 排序以优化查询
-        combined_df = combined_df.sort(['date', 'asset'])
-        
-        # 写入文件（自动压缩）
-        combined_df.write_parquet(self.file_path, compression='snappy')
-        
-        # 更新日期范围缓存
-        self._update_date_range(df)
-    
-    def query_stock_bars(self, asset: str, start_date: datetime.date = None, end_date: datetime.date = None):
-        """查询个股数据"""
-        lazy_df = pl.scan_parquet(self.file_path)
-        
-        # 构建过滤条件
-        filters = [pl.col('asset') == asset]
-        
-        if start_date:
-            filters.append(pl.col('date') >= start_date)
-        if end_date:
-            filters.append(pl.col('date') <= end_date)
-        
-        return lazy_df.filter(pl.all_horizontal(filters)).collect()
-    
-    def query_cross_section(self, date: datetime.date):
-        """查询截面数据"""
-        return (pl.scan_parquet(self.file_path)
-                .filter(pl.col('date') == date)
-                .collect())
-```
-
-框架的核心 API 是：
-
-1. append_data，用来向本地存储追加数据（向前和向后都允许）
-2. query_stock_bars，查询单支股票的行情
-3. query_cross_section，查询某一日所有个股的数据
-4. start 和 end 两个属性，帮助我们确定本地缓存的行情数据的起止日期。
-
-下面的代码演示了它的用法：
-
-```{code-block} python
-# 本地文件，可以存在，也可以不存在
-store = ParquetUnifiedStorage("/tmp/bars.parquet")
-
-# 获取历史行情数据
-start = datetime.date(2019, 10, 8)
-end = datetime.date(2019, 10, 12)
-bars = fetch_bars(start, end)
-
-# 存入本地
-store.append_data(bars)
-
-# 查询起止日期
-print(store.start, store.end)
-
-# 追加新数据
-dt = datetime.date(2019, 10, 14)
-bars = fetch_bars(dt, dt)
-store.append_data(bars)
-
-# 查询
-print(store.end)
-store.query_stock_bars("000001.SZ")
-```
-
-现在，你就有了一个最简单的本地数据缓存框架。
+现在，你就有了一个最简单的本地数据缓存框架，并且获得了日线行情数据。在下一期文章里，我们将介绍如何获取股息率数据，并且调用 moonshot，实现按股息率进行筛选股票，并验证筛选的效果。
