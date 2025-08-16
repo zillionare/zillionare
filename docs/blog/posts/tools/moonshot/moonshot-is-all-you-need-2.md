@@ -121,14 +121,11 @@ def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame | None:
 
     return result
 ```
-
 通过此方法获得三个月的日线数据，大约需要165秒。如果是以增量的方式（即事先预存了全部历史数据，此后每日运行一次获取当日新增数据），则运行一次只需要2.7秒左右。
 
 ## 复权
 
 前一节返回的日线数据是没有复权的。我们把复权函数独立出来。首先是前复权。
-
-
 ```python
 def qfq_adjustment(
     df: pd.DataFrame, adj_factor_col: str = "adj_factor"
@@ -187,9 +184,7 @@ def qfq_adjustment(
 
     return result.to_pandas()
 ```
-
 这是执行后复权的代码：
-
 ```python
 def hfq_adjustment(
     df: pd.DataFrame, adj_factor_col: str = "adj_factor"
@@ -244,7 +239,6 @@ def hfq_adjustment(
     # 转换回pandas DataFrame
     return result.to_pandas()
 ```
-
 要注意前后复权中，除了复权因子的应用方法不一样之外，对成交量的处理有重大不同：对前复权，我们一般要进行成交量复权；但对于后复权，我们一般保持原始值。
 
 !!! info 为何在前后复权中，对成交量的处理不一样？
@@ -265,7 +259,6 @@ def hfq_adjustment(
 即使仅仅是为了复现本研报，我们也最好将从 tushare 获得的各项数据缓存下来。因为我们的复现步骤不太可能一次成功。使用缓存的数据，将大大加快我们的效率。
 
 如果是为了长期研究，我们就更有必要这么做了 -- 并且要坚持更新。下面的极简框架演示了如何高效实现这一点：
-
 ```python
 import polars as pl
 from pathlib import Path
@@ -371,7 +364,6 @@ class ParquetUnifiedStorage:
         """查询截面数据"""
         return pl.scan_parquet(self.file_path).filter(pl.col("date") == date).collect()
 ```
-
 框架的核心 API 是：
 
 1. append_data，用来向本地存储追加数据（向前和向后都允许）
@@ -380,7 +372,6 @@ class ParquetUnifiedStorage:
 4. start 和 end 两个属性，帮助我们确定本地缓存的行情数据的起止日期。
 
 下面的代码演示了它的用法：
-
 ```python
 # 本地文件，可以存在，也可以不存在
 store = ParquetUnifiedStorage("/tmp/bars.parquet")
@@ -405,5 +396,7 @@ store.append_data(bars)
 print(store.end)
 store.query_stock_bars("000001.SZ")
 ```
+
+现在，你就有了一个最简单的本地数据缓存框架，并且获得了日线行情数据。在下一期文章里，我们将介绍如何获取股息率数据，并且调用 moonshot，实现按股息率进行筛选股票，并验证筛选的效果。
 
 现在，你就有了一个最简单的本地数据缓存框架，并且获得了日线行情数据。在下一期文章里，我们将介绍如何获取股息率数据，并且调用 moonshot，实现按股息率进行筛选股票，并验证筛选的效果。
