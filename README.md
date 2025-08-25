@@ -10,11 +10,23 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>涨到溢出！PEPE告诉我，大盘还能涨几多？</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：<br><br><div style='width:66%;text-align:center;margin: 0 auto 1rem'><br><img src='https:/...</p>
+
+<p><span style="margin-right:20px">发表于 2025-08-26 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/is-the-Ashare-market-overvalued/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>『Moonshot is all you need』 03 -</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" style="height: 200px" align="right"/>
+<img src="https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>None</p>
 
-<p><span style="margin-right:20px">发表于 2025-08-16 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-3/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-08-16 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-3/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -26,19 +38,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815160810.png" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>本篇聚焦月线策略回测的『数据难题』，揭秘如何通过 tushare 高效获取、复权行情数据并实现本地缓存，彻底解决Alphalens在月线回测上的短板。跟随实战案例，掌握复权原理与缓存技巧，为复杂研报复现打下坚实基础。</p>
 
-<p><span style="margin-right:20px">发表于 2025-08-15 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-2/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>PDF is all you need(3)</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线时，你是否想过这背后隐藏着怎样的数学奥秘？从概率密度到期望值，从离散到连续，这篇文章将带你揭开随机世界的神秘面纱。想知道如何用积分计算抄底成功率吗？准备好，数学的魔法即将开始！</p>
-
-<p><span style="margin-right:20px">发表于 2025-08-08 人气 407 </span><span><a href="https://www.jieyu.ai/blog/posts/algo/pdf-is-all-you-need-3/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-08-15 人气 407 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-2/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>

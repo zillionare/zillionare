@@ -1,12 +1,10 @@
 ---
-title: 涨到溢出！PEPE告诉我，A 股有没有被高估？
-date: 2024-10-26
+title: 涨到溢出！PEPE告诉我，大盘还能涨几多？
+date: 2025-08-26
 category: factor&strategy
 slug: is-the-ashare-market-overvalued
 motto: "如果这个世界不喜欢你，那它就是我的敌人了"
-img: https://images.jieyu.ai/images/2024/10/tushare-pe-plot.png
-stamp_width: 60%
-stamp_height: 60%
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg
 tags: [strategy, pe, tushare]
 ---
 
