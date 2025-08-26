@@ -184,7 +184,9 @@ def qfq_adjustment(
 
     return result.to_pandas()
 ```
+
 这是执行后复权的代码：
+
 ```python
 def hfq_adjustment(
     df: pd.DataFrame, adj_factor_col: str = "adj_factor"
