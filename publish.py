@@ -52,7 +52,7 @@ pictures = [
     "https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg",
     "https://images.jieyu.ai/images/university/Mackey_Auditorium-Colorado.jpg",
     "https://images.jieyu.ai/images/university/university-college-london-library.jpg",
-    "https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg"
+    "https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg",
 ]
 
 img_mode = "card-img-top"
@@ -104,17 +104,21 @@ mystAdmons = {
     "bug": "error",
 }
 
+
 def get_copyrights() -> str:
     copyright = """\n```{attention} 版权声明
 本课程全部文字、图片、代码、习题等所有材料，除声明引用外，版权归<b>匡醍</b>所有。所有草稿版本均通过第三方服务进行管理，作为拥有版权的证明。未经作者书面授权，请勿引用和传播。联系我们：公众号 Quantide\n```"""
 
     return copyright
 
+
 def absolute_path(path: Path) -> Path:
     if not path.is_absolute():
         return (Path(__file__).parent / path).expanduser()
     else:
         return path.expanduser()
+
+
 def update_notebook_metadata(
     notebook_path: Path,
     title: Optional[str] = None,
@@ -165,6 +169,8 @@ def update_notebook_metadata(
     except Exception as e:
         logger.error(f"Error updating notebook metadata: {e}")
         return False
+
+
 def seek_adnomition_end(i, lines):
     """
     寻找 admonition 块的结束位置
@@ -174,7 +180,7 @@ def seek_adnomition_end(i, lines):
     3. 其它情况都不算结束
     """
     in_fenced_block = False
-    fenced_pattern = re.compile(r'^\s*```')
+    fenced_pattern = re.compile(r"^\s*```")
     consecutive_empty_lines = 0
 
     for m in range(i, len(lines)):
@@ -206,14 +212,19 @@ def seek_adnomition_end(i, lines):
 
     return len(lines)
 
+
 def replace_adnomition(lines, i, m):
     """replace indented lines to myst adnomition due to myst 2.4.2 bug
     使用4个反引号以避免嵌套fenced code blocks的问题"""
     # 匹配类型和可能的标题（两种格式：带引号和不带引号）
-    matched = re.search(r"(tip|warning|note|attention|hint|more|info|important|failure|bug)(?:\s+\"([^\"]+)\"|(?:\s+(.+)))?", lines[i], flags=re.I)
+    matched = re.search(
+        r"(tip|warning|note|attention|hint|more|info|important|failure|bug)(?:\s+\"([^\"]+)\"|(?:\s+(.+)))?",
+        lines[i],
+        flags=re.I,
+    )
     tag = "note"
     title = ""
-    
+
     if matched is not None:
         tag = mystAdmons.get(matched.group(1).lower(), "note")  # 提供默认值
         # 检查两种可能的标题格式
@@ -223,7 +234,7 @@ def replace_adnomition(lines, i, m):
             title = matched.group(3)
 
     content = [line.lstrip(" \t") for line in lines[i + 1 : m]]
-    
+
     # 如果有标题，则添加到MyST格式中
     if title:
         return [f"```` {{{tag}}} {title}", *content, "````"]
@@ -249,6 +260,7 @@ def to_myst_adnomition(lines: List[str]):
 
     return buffer
 
+
 def replace_admonition_gmf(lines, i, m):
     """
     将 admonition 转换为 GMF 格式
@@ -259,7 +271,11 @@ def replace_admonition_gmf(lines, i, m):
     allowed_types = ["NOTE", "TIP", "CAUTION", "IMPORTANT", "QUESTION", "WARNING"]
 
     # 提取admonition类型
-    matched = re.search(r"(tip|warning|note|attention|hint|more|important|caution|question)", lines[i], flags=re.I)
+    matched = re.search(
+        r"(tip|warning|note|attention|hint|more|important|caution|question)",
+        lines[i],
+        flags=re.I,
+    )
     admonition_type = "NOTE"
     if matched is not None:
         admonition_type = matched.group(1).upper()
@@ -269,7 +285,7 @@ def replace_admonition_gmf(lines, i, m):
     # 处理内容，移除 admonition 缩进，并跟踪 fenced code blocks
     content = []
     in_fenced_block = False
-    fenced_pattern = re.compile(r'^\s*```')
+    fenced_pattern = re.compile(r"^\s*```")
 
     for line in lines[i + 1 : m]:
         # 移除 admonition 的缩进（4个空格或1个制表符）
@@ -325,17 +341,21 @@ def to_gmf_admonition(lines: List[str]):
 
     return buffer
 
+
 def strip_html_comments(content: str) -> str:
     return re.sub(r"<!--.*?-->", "", content, flags=re.DOTALL)
 
-def strip_output_region(content: str) ->str:
+
+def strip_output_region(content: str) -> str:
     """部分输出结果在文章页面是以图片展示的。转换为ipynb前，需要去掉"""
-    pattern = r'<!-- BEGIN IPYNB STRIPOUT -->.*?<!-- END IPYNB STRIPOUT -->'
+    pattern = r"<!-- BEGIN IPYNB STRIPOUT -->.*?<!-- END IPYNB STRIPOUT -->"
     # 使用 re.sub 替换匹配的内容
     return re.sub(pattern, "", content, flags=re.DOTALL)
 
+
 def random_pictures():
     return random.choice(pictures)
+
 
 def change_last_update():
     """主页最后更新日期要通过修改并提交docs/index.md来实现"""
@@ -343,8 +363,9 @@ def change_last_update():
     content = '{%\n    include-markdown "../README.md"\n%}\n'
     now = arrow.now()
     content += f'<!--{now.format("YYYY-MM-DD")}-->\n'
-    with open(index_file, 'w') as f:
+    with open(index_file, "w") as f:
         f.write(content)
+
 
 def get_and_remove_img_url(text: str):
     # 简化函数，避免复杂的正则表达式导致的问题
@@ -368,18 +389,19 @@ def get_and_remove_img_url(text: str):
         print(f"Error in get_and_remove_img_url: {e}")
         return None, text
 
+
 def get_excerpt(text: str):
     """第一个<!--more-->之前的正式文本作为文章摘要，或者前140字符"""
-    pat = r'(.*?)(?:<!--\s*more\s*-->)'
-    result = re.search(pat, text, re.MULTILINE|re.DOTALL)
+    pat = r"(.*?)(?:<!--\s*more\s*-->)"
+    result = re.search(pat, text, re.MULTILINE | re.DOTALL)
     excerpt = None
-    if result  is not None:
+    if result is not None:
         excerpt = result.group(1).replace("\n\n", "")
 
     # 如果没有找到 <!--more--> 标记，再看有没有 ---，最后使用前140字符
     if excerpt is None:
         pat = r"(.*?)(?:---\s*)"
-        result = re.search(pat, text, re.MULTILINE|re.DOTALL)
+        result = re.search(pat, text, re.MULTILINE | re.DOTALL)
         if result is not None:
             excerpt = result.group(1).replace("\n\n", "")
         else:
@@ -392,17 +414,19 @@ def get_excerpt(text: str):
 
     return get_and_remove_img_url(excerpt)
 
+
 def get_meta(file):
-    with open(file, 'r', encoding='utf-8') as f:
+    with open(file, "r", encoding="utf-8") as f:
         meta, content = frontmatter.parse(f.read())
-        
+
         if not "excerpt" in meta:
             _, excerpt = get_excerpt(content)
             meta["excerpt"] = excerpt
         return meta
 
+
 def extract_meta_for_jieyu_index(file):
-    if "docs/articles" in file or "index.md" in file: # 这是文章，或者目录
+    if "docs/articles" in file or "index.md" in file:  # 这是文章，或者目录
         return None
 
     meta = get_meta(file)
@@ -418,14 +442,21 @@ def extract_meta_for_jieyu_index(file):
 
     return meta
 
+
 def build_index():
-    """web 首页和github profile """
+    """web 首页和github profile"""
     metas = []
 
     posts = glob.glob("./docs/blog/**/*.md", recursive=True)
     with ProcessPoolExecutor() as executor:
         results = executor.map(extract_meta_for_jieyu_index, posts)
-        metas.extend([meta for meta in results if (meta is not None and meta.get("date") is not None)])
+        metas.extend(
+            [
+                meta
+                for meta in results
+                if (meta is not None and meta.get("date") is not None)
+            ]
+        )
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 
@@ -439,46 +470,63 @@ def build_index():
         img_url = meta.get("img") or random_pictures()
         link = meta["link"]
 
-        card = github_item.format_map({
-            "title": title,
-            "date": date,
-            "excerpt": excerpt,
-            "readers": random.randint(100, 1000),
-            "link": link,
-            "img_url": img_url,
-            "img_mode": img_mode,
-        })
+        card = github_item.format_map(
+            {
+                "title": title,
+                "date": date,
+                "excerpt": excerpt,
+                "readers": random.randint(100, 1000),
+                "link": link,
+                "img_url": img_url,
+                "img_mode": img_mode,
+            }
+        )
 
         github_cards.append(card)
 
-        card = web_item.format_map({
-            "title": title,
-            "date": date,
-            "excerpt": excerpt,
-            "link": link,
-            "img_url": img_url,
-            "img_mode": img_mode,
-        })
+        card = web_item.format_map(
+            {
+                "title": title,
+                "date": date,
+                "excerpt": excerpt,
+                "link": link,
+                "img_url": img_url,
+                "img_mode": img_mode,
+            }
+        )
         web_cards.append(card)
 
     about_me = "I'm a software developer, quantitative trader and entrepreneur。 Teaching machine learning, trading and software development. Author of 'Best Practices for Python'. \n\n我是一名软件工程师、量化交易人和创业者。《Python高效编程最佳实践指南》的作者。我也是一系列开源软件的开发者或者维护者。"
 
-    latest_article = container_tpl.format_map({
-        "cards": "\n".join(github_cards[:3]),
-    })
+    latest_article = container_tpl.format_map(
+        {
+            "cards": "\n".join(github_cards[:3]),
+        }
+    )
 
-    tip = "\n".join([
-        ">[!tip]", 
-        ">我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询",
-        "",
-        "## 最新文章"
-    ])
+    tip = "\n".join(
+        [
+            ">[!tip]",
+            ">我们教授《匡醍.量化24课》、《匡醍.因子分析与机器学习策略》和《匡醍.量化人的Numpy和Pandas》等系列课程，帮助你从入门到精通，完全掌握量化交易。课程都配有视频、在线运行的Notebook、习题和答疑。请前往公众号 Quantide 咨询",
+            "",
+            "## 最新文章",
+        ]
+    )
 
-    github_body = "\n".join([about_me, tip, latest_article, "更多精彩好文，请访问[匡醍量化](https://www.jieyu.ai)"])
+    github_body = "\n".join(
+        [
+            about_me,
+            tip,
+            latest_article,
+            "更多精彩好文，请访问[匡醍量化](https://www.jieyu.ai)",
+        ]
+    )
 
-    web_body = container_tpl.format_map({
-        "cards": "\n".join(web_cards),
-    })
+    web_body = container_tpl.format_map(
+        {
+            "cards": "\n".join(web_cards),
+        }
+    )
 
     change_last_update()
 
@@ -491,19 +539,22 @@ def build_index():
 
 
 def write_readme(body, styles):
-    with open('./README.md', "w", encoding='utf-8') as f:
+    with open("./README.md", "w", encoding="utf-8") as f:
         # f.write(about)
         # f.write(intro)
         f.write(styles)
         f.write(body)
         f.write("\n\n")
 
+
 def execute(cmd):
     # work_dir = os.path.dirname(__file__)
 
     print(f"Executing {cmd}")
     try:
-        proc = subprocess.Popen(shlex.split(cmd), stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+        proc = subprocess.Popen(
+            shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
         (out, err) = proc.communicate()
         ret_code = proc.wait()
     except Exception as e:
@@ -526,7 +577,6 @@ def publish_jieyu():
         "git add .",
         "git commit -m update",
         "git push",
-
     ]:
         execute(cmd)
 
@@ -534,6 +584,7 @@ def publish_jieyu():
 
     cmd = "mkdocs gh-deploy"
     execute(cmd)
+
 
 def format_code_blocks_in_markdown(content: str):
     code_block_pattern = re.compile(r"```\s*python(.*?)```", re.DOTALL)
@@ -552,7 +603,15 @@ def format_code_blocks_in_markdown(content: str):
     formatted_content = code_block_pattern.sub(format_match, content)
     return formatted_content
 
-def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_right: bool = False, admon_style: str | None = None, strip_paid: bool = False)->dict:
+
+def preprocess(
+    in_file: Path,
+    out_file: Path,
+    strip_output: bool = False,
+    copy_right: bool = False,
+    admon_style: str | None = None,
+    strip_paid: bool = False,
+) -> dict:
     meta = get_meta(in_file)
 
     def replace_paid_content(match):
@@ -571,10 +630,11 @@ def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_r
             content = strip_output_region(content)
 
         if strip_paid:
-            pattern = re.compile(r'<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->',
-                         re.DOTALL)
+            pattern = re.compile(
+                r"<!--PAID CONTENT START-->(.*?)<!--PAID CONTENT END-->", re.DOTALL
+            )
             content = pattern.sub(replace_paid_content, content)
-            
+
         content = strip_html_comments(content)
         content = format_code_blocks_in_markdown(content)
 
@@ -595,7 +655,9 @@ def preprocess(in_file: Path, out_file: Path, strip_output: bool = False, copy_r
                 f.write(get_copyrights())
 
         return meta
-def convert_to_ipynb(in_file: str|Path)->Path:
+
+
+def convert_to_ipynb(in_file: str | Path) -> Path:
     """将markdown转换为notebook，存放在in_file同一目录下。"""
     src = absolute_path(Path(in_file))
     dst = src.with_suffix(".ipynb")
@@ -604,10 +666,11 @@ def convert_to_ipynb(in_file: str|Path)->Path:
     os.system(f"notedown --match=python {src} > {dst}")
     return dst
 
+
 def preview_notebook(file: str):
     """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
     src = absolute_path(Path(file))
-    tmp_md = Path("/tmp")/src.name
+    tmp_md = Path("/tmp") / src.name
     preprocess(src, tmp_md, strip_output=True, admon_style="myst")
 
     notebook = convert_to_ipynb(tmp_md)
@@ -616,9 +679,10 @@ def preview_notebook(file: str):
     if not dst.exists():
         dst.mkdir(parents=True)
 
-    shutil.copy(notebook, dst/notebook.name)
+    shutil.copy(notebook, dst / notebook.name)
 
-def publish_quantide(src: str, category:str, price: int = 40):
+
+def publish_quantide(src: str, category: str, price: int = 40):
     """将文章发布到quantide课程平台
 
     1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
@@ -633,16 +697,20 @@ def publish_quantide(src: str, category:str, price: int = 40):
     """
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
-    meta = preprocess(md, preprocessed, strip_output=True, copy_right=True, admon_style="myst")
+    meta = preprocess(
+        md, preprocessed, strip_output=True, copy_right=True, admon_style="myst"
+    )
 
     notebook = convert_to_ipynb(preprocessed)
-    update_notebook_metadata(notebook, 
-                             meta.get("title", ""), 
-                             meta.get("excerpt", ""), 
-                             meta.get("price", 0),
-                             meta.get("date", arrow.now().date()),
-                             meta.get("img", ""))
-    
+    update_notebook_metadata(
+        notebook,
+        meta.get("title", ""),
+        meta.get("excerpt", ""),
+        meta.get("price", 0),
+        meta.get("date", arrow.now().date()),
+        meta.get("img", ""),
+    )
+
     meta["course"] = "blog"
     meta["division"] = "blog"
     meta["resource"] = "articles"
@@ -651,7 +719,7 @@ def publish_quantide(src: str, category:str, price: int = 40):
     meta["publish_date"] = arrow.get(meta.get("date", arrow.now())).format("YYYY-MM-DD")
     if "date" in meta:
         del meta["date"]
-    
+
     if price not in (0, 360):
         meta["price"] = price - 0.1
     else:
@@ -661,20 +729,17 @@ def publish_quantide(src: str, category:str, price: int = 40):
     cmd = f'ssh omega "mkdir -p ~/courses/blog/articles/{category}"'
     os.system(cmd)
 
-    cmd = f'scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}'
+    cmd = f"scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}"
     os.system(cmd)
 
     if API_TOKEN:
         response = requests.post(
             f"{quantide_api_url}/api/admin/resources/publish",
             headers={
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {API_TOKEN}"
-                },
-            json={
-                "meta": meta,
-                "allow_all": price == 0
-            }
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {API_TOKEN}",
+            },
+            json={"meta": meta, "allow_all": price == 0},
         )
         if response.status_code == 200:
             print("✅ 发布成功")
@@ -682,19 +747,23 @@ def publish_quantide(src: str, category:str, price: int = 40):
             print("❌ 发布失败")
             print(response.text)
 
+
 def prepare_gzh(src: str):
     """将文章复制到/tmp下，转换为ipynb并拷贝到research环境"""
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
-    preprocess(md, preprocessed, strip_paid = True)
+    preprocess(md, preprocessed, strip_paid=True)
     print(f"✅ 文章已适合作为公众号发表，请前往{preprocessed}查看")
 
+
 if __name__ == "__main__":
-    fire.Fire({
-        "build": build,
-        "jieyu": publish_jieyu,
-        "quantide": publish_quantide,
-        "gzh": prepare_gzh,
-        "meta": extract_meta_for_jieyu_index,
-        "preview": preview_notebook
-    })
+    fire.Fire(
+        {
+            "build": build,
+            "jieyu": publish_jieyu,
+            "quantide": publish_quantide,
+            "gzh": prepare_gzh,
+            "meta": extract_meta_for_jieyu_index,
+            "preview": preview_notebook,
+        }
+    )

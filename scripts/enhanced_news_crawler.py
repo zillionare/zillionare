@@ -29,18 +29,23 @@ from slugify import slugify
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('news_crawler.log'),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("news_crawler.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger(__name__)
 
+
 class NewsArticle:
     """新闻文章数据类"""
-    def __init__(self, title: str, url: str, content: str = "", 
-                 published: Optional[datetime] = None, source: str = ""):
+
+    def __init__(
+        self,
+        title: str,
+        url: str,
+        content: str = "",
+        published: Optional[datetime] = None,
+        source: str = "",
+    ):
         self.title = title
         self.url = url
         self.content = content
@@ -50,7 +55,7 @@ class NewsArticle:
         self.is_quant_related = False
         self.translated_content = ""
         self.analysis_reason = ""
-        
+
     def get_safe_filename(self, crawl_date: str) -> str:
         """生成安全的文件名"""
         # 使用slugify处理标题
@@ -59,18 +64,19 @@ class NewsArticle:
             # 如果标题无法转换，使用URL的hash
             url_hash = hashlib.md5(self.url.encode()).hexdigest()[:8]
             safe_title = f"article_{url_hash}"
-        
+
         return f"news/{crawl_date}/{safe_title}.md"
+
 
 class EnhancedNewsCrawler:
     """增强版新闻爬虫"""
-    
+
     def __init__(self, config_path: str = "rss.yaml"):
         self.config_path = config_path
         self.config = self._load_config()
         self.session = requests.Session()
         self._setup_session()
-        
+
         # 检查OpenAI API密钥
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
@@ -79,123 +85,133 @@ class EnhancedNewsCrawler:
 
         # 初始化OpenAI客户端
         self.openai_client = OpenAI(api_key=api_key)
-        
+
         # 创建临时目录
         self.temp_dir = Path("temp_news")
         self.temp_dir.mkdir(exist_ok=True)
-        
+
         # 统计信息
         self.stats = {
-            'total_articles': 0,
-            'quant_related': 0,
-            'non_quant': 0,
-            'translation_success': 0,
-            'translation_failed': 0
+            "total_articles": 0,
+            "quant_related": 0,
+            "non_quant": 0,
+            "translation_success": 0,
+            "translation_failed": 0,
         }
-    
+
     def _load_config(self) -> Dict:
         """加载配置文件"""
         try:
-            with open(self.config_path, 'r', encoding='utf-8') as f:
+            with open(self.config_path, "r", encoding="utf-8") as f:
                 return yaml.safe_load(f)
         except Exception as e:
             logger.error(f"Failed to load config: {e}")
             return {}
-    
+
     def _setup_session(self):
         """设置请求会话"""
-        headers = self.config.get('crawler_config', {}).get('headers', {})
+        headers = self.config.get("crawler_config", {}).get("headers", {})
         self.session.headers.update(headers)
-        
-        timeout = self.config.get('crawler_config', {}).get('timeout', 30)
+
+        timeout = self.config.get("crawler_config", {}).get("timeout", 30)
         self.session.timeout = timeout
-    
+
     def fetch_rss_feeds(self) -> List[NewsArticle]:
         """获取RSS源中的文章列表"""
         articles = []
-        sources = self.config.get('sources', [])
-        
+        sources = self.config.get("sources", [])
+
         for source in sources:
             try:
                 logger.info(f"Fetching from {source['name']}")
                 articles.extend(self._fetch_single_source(source))
-                
-                delay = self.config.get('crawler_config', {}).get('delay_between_requests', 1)
+
+                delay = self.config.get("crawler_config", {}).get(
+                    "delay_between_requests", 1
+                )
                 time.sleep(delay)
-                
+
             except Exception as e:
                 logger.error(f"Error fetching from {source['name']}: {e}")
                 continue
-        
+
         return articles
-    
+
     def _fetch_single_source(self, source: Dict) -> List[NewsArticle]:
         """从单个RSS源获取文章"""
         articles = []
-        max_articles = self.config.get('crawler_config', {}).get('max_articles_per_source', 20)
-        
+        max_articles = self.config.get("crawler_config", {}).get(
+            "max_articles_per_source", 20
+        )
+
         try:
-            feed = feedparser.parse(source['url'])
-            
+            feed = feedparser.parse(source["url"])
+
             if feed.entries:
                 for entry in feed.entries[:max_articles]:
                     article = NewsArticle(
-                        title=entry.get('title', ''),
-                        url=entry.get('link', ''),
-                        source=source['name']
+                        title=entry.get("title", ""),
+                        url=entry.get("link", ""),
+                        source=source["name"],
                     )
-                    
-                    if hasattr(entry, 'published'):
+
+                    if hasattr(entry, "published"):
                         try:
                             article.published = date_parser.parse(entry.published)
                         except:
                             pass
-                    
+
                     articles.append(article)
             else:
                 logger.warning(f"No entries found in RSS feed: {source['name']}")
-                
+
         except Exception as e:
             logger.error(f"Error parsing source {source['name']}: {e}")
-        
+
         return articles
-    
+
     def fetch_article_content(self, article: NewsArticle) -> bool:
         """获取文章正文内容"""
         try:
             logger.info(f"Fetching content for: {article.title}")
             response = self.session.get(article.url)
             response.raise_for_status()
-            
-            soup = BeautifulSoup(response.content, 'html.parser')
-            
+
+            soup = BeautifulSoup(response.content, "html.parser")
+
             # 移除脚本和样式标签
             for script in soup(["script", "style", "nav", "footer", "header"]):
                 script.decompose()
-            
+
             # 尝试找到主要内容区域
             content_selectors = [
-                'article', '.article-content', '.content', '.post-content',
-                '.entry-content', '.article-body', '#content', '.main-content'
+                "article",
+                ".article-content",
+                ".content",
+                ".post-content",
+                ".entry-content",
+                ".article-body",
+                "#content",
+                ".main-content",
             ]
-            
+
             content_element = None
             for selector in content_selectors:
                 content_element = soup.select_one(selector)
                 if content_element:
                     break
-            
+
             if not content_element:
-                content_element = soup.find('body')
-            
+                content_element = soup.find("body")
+
             if content_element:
                 article.markdown_content = md(str(content_element))
                 article.content = content_element.get_text().strip()
                 return True
-            
+
         except Exception as e:
             logger.error(f"Error fetching content for {article.url}: {e}")
-        
+
         return False
 
     def analyze_with_openai(self, article: NewsArticle) -> bool:
@@ -233,31 +249,36 @@ class EnhancedNewsCrawler:
 """
 
             response = self.openai_client.chat.completions.create(
-                model=self.config.get('ai_config', {}).get('openai', {}).get('model', 'gpt-3.5-turbo'),
+                model=self.config.get("ai_config", {})
+                .get("openai", {})
+                .get("model", "gpt-3.5-turbo"),
                 messages=[
-                    {"role": "system", "content": "你是一个专业的量化交易分析师，能够准确识别与量化交易相关的内容。请严格按照要求的格式回答。"},
-                    {"role": "user", "content": prompt}
+                    {
+                        "role": "system",
+                        "content": "你是一个专业的量化交易分析师，能够准确识别与量化交易相关的内容。请严格按照要求的格式回答。",
+                    },
+                    {"role": "user", "content": prompt},
                 ],
                 max_tokens=200,
-                temperature=0.1
+                temperature=0.1,
             )
 
             result = response.choices[0].message.content.strip()
             logger.info(f"AI analysis for '{article.title}': {result}")
 
             # 解析结果
-            lines = result.split('\n')
+            lines = result.split("\n")
             judgment_line = ""
             reason_line = ""
 
             for line in lines:
-                if line.startswith('判断：'):
+                if line.startswith("判断："):
                     judgment_line = line
-                elif line.startswith('理由：'):
+                elif line.startswith("理由："):
                     reason_line = line
 
             article.is_quant_related = "是" in judgment_line
-            article.analysis_reason = reason_line.replace('理由：', '').strip()
+            article.analysis_reason = reason_line.replace("理由：", "").strip()
 
             return True
 
@@ -269,11 +290,13 @@ class EnhancedNewsCrawler:
         """翻译文章内容为中文"""
         try:
             # 如果原文已经是中文，可能不需要翻译
-            chinese_chars = len(re.findall(r'[\u4e00-\u9fff]', article.content))
+            chinese_chars = len(re.findall(r"[\u4e00-\u9fff]", article.content))
             total_chars = len(article.content)
 
             if total_chars > 0 and chinese_chars / total_chars > 0.3:
-                logger.info(f"Article '{article.title}' appears to be in Chinese, skipping translation")
+                logger.info(
+                    f"Article '{article.title}' appears to be in Chinese, skipping translation"
+                )
                 article.translated_content = article.markdown_content
                 return True
 
@@ -289,22 +312,27 @@ class EnhancedNewsCrawler:
 """
 
             response = self.openai_client.chat.completions.create(
-                model=self.config.get('ai_config', {}).get('openai', {}).get('model', 'gpt-3.5-turbo'),
+                model=self.config.get("ai_config", {})
+                .get("openai", {})
+                .get("model", "gpt-3.5-turbo"),
                 messages=[
-                    {"role": "system", "content": "你是一个专业的金融翻译专家，擅长翻译量化交易相关内容。请保持翻译的专业性和准确性。"},
-                    {"role": "user", "content": prompt}
+                    {
+                        "role": "system",
+                        "content": "你是一个专业的金融翻译专家，擅长翻译量化交易相关内容。请保持翻译的专业性和准确性。",
+                    },
+                    {"role": "user", "content": prompt},
                 ],
                 max_tokens=2000,
-                temperature=0.3
+                temperature=0.3,
             )
 
             result = response.choices[0].message.content.strip()
 
             # 解析翻译结果
-            lines = result.split('\n', 1)
+            lines = result.split("\n", 1)
             if len(lines) >= 2:
-                translated_title = lines[0].replace('标题：', '').strip()
-                translated_content = lines[1].replace('内容：', '').strip()
+                translated_title = lines[0].replace("标题：", "").strip()
+                translated_content = lines[1].replace("内容：", "").strip()
 
                 # 更新文章标题和内容
                 if translated_title:
@@ -347,7 +375,7 @@ class EnhancedNewsCrawler:
 *本文由AI自动翻译，如有错误请以原文为准。*
 """
 
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, "w", encoding="utf-8") as f:
                 f.write(markdown_content)
 
             logger.info(f"Saved article: {filename}")
@@ -363,19 +391,19 @@ class EnhancedNewsCrawler:
         logger.info(f"DISCARDED - URL: {article.url}")
         logger.info(f"DISCARDED - Reason: {article.analysis_reason}")
 
-        self.stats['non_quant'] += 1
+        self.stats["non_quant"] += 1
 
     def run(self):
         """运行主流程"""
         logger.info("Starting enhanced news crawler...")
 
-        crawl_date = datetime.now().strftime('%Y-%m-%d')
+        crawl_date = datetime.now().strftime("%Y-%m-%d")
         logger.info(f"Crawl date: {crawl_date}")
 
         # 1. 获取文章列表
         articles = self.fetch_rss_feeds()
         logger.info(f"Found {len(articles)} articles")
-        self.stats['total_articles'] = len(articles)
+        self.stats["total_articles"] = len(articles)
 
         if not articles:
             logger.warning("No articles found")
@@ -402,11 +430,11 @@ class EnhancedNewsCrawler:
                     continue
 
                 logger.info(f"Article is quant-related: {article.title}")
-                self.stats['quant_related'] += 1
+                self.stats["quant_related"] += 1
 
                 # 翻译文章
                 if self.translate_article(article):
-                    self.stats['translation_success'] += 1
+                    self.stats["translation_success"] += 1
 
                     # 保存文章
                     if self.save_article(article, crawl_date):
@@ -414,11 +442,13 @@ class EnhancedNewsCrawler:
                     else:
                         logger.error(f"Failed to save: {article.title}")
                 else:
-                    self.stats['translation_failed'] += 1
+                    self.stats["translation_failed"] += 1
                     logger.error(f"Failed to translate: {article.title}")
 
                 # 延迟请求
-                delay = self.config.get('crawler_config', {}).get('delay_between_requests', 2)
+                delay = self.config.get("crawler_config", {}).get(
+                    "delay_between_requests", 2
+                )
                 time.sleep(delay)
 
             except Exception as e:
@@ -439,8 +469,10 @@ class EnhancedNewsCrawler:
         logger.info(f"Translation successful: {self.stats['translation_success']}")
         logger.info(f"Translation failed: {self.stats['translation_failed']}")
 
-        if self.stats['total_articles'] > 0:
-            quant_rate = (self.stats['quant_related'] / self.stats['total_articles']) * 100
+        if self.stats["total_articles"] > 0:
+            quant_rate = (
+                self.stats["quant_related"] / self.stats["total_articles"]
+            ) * 100
             logger.info(f"Quant-related rate: {quant_rate:.1f}%")
 
 

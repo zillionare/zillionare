@@ -50,11 +50,11 @@ def fetch_dv_ttm(start: datetime, end: datetime) -> pd.DataFrame:
     return pd.concat(dfs)
 
 
-df = fetch_dv_ttm(datetime.date(2019, 10, 8), datetime.date(2019, 11, 1))
+df = fetch_dv_ttm(datetime.date(2019, 10, 8), datetime.date(2019, 10, 12))
 df
 ```
 
-在示例期间共有19个交易日。获取19个交易日的数据，大约花了10.3秒。相当于每0.5秒能获取一天的数据。这样获取一年的数据，大约需要2分钟。
+大约每0.5秒能获取一天的数据。这样获取一年的数据，大约需要2分钟。
 
 !!! info
     根据后面策略的需要，我们通过这段代码，将[2018年8月1日 ~ 2023年11月30日]期间的数据存入本地磁盘。
@@ -71,118 +71,58 @@ df
 
 <!--PAID CONTENT START-->
 ```python
-class Moonshot:
-    def __init__(self, daily_bars: pd.DataFrame):
-        self.data: pd.DataFrame = resample_to_month(
-            daily_bars, open="first", close="last"
-        )
-        self.data["flag"] = 1
+import sys
+from pathlib import Path
 
-        self.strategy_returns: pd.Series | None = None
-        self.benchmark_returns: pd.Series | None = None
-        self.analyzer: StrategyAnalyzer | None = None
-
-    def append_factor(
-        self, data: pd.DataFrame, factor_col: str, resample_method: str | None = None
-    ) -> None:
-        """将因子数据添加到回测数据(即self.data)中。
-
-        如果resample_method参数不为None, 则需要重采样为月频，并且使用resample_method指定的方法。
-        否则，认为因子已经是月频的，将直接添加到回测数据中。
-
-        使用本方法，一次只能添加一个因子。
-
-        Args:
-            data: 因子数据，需包含'date'和'asset'列
-            factor_col: 因子列名
-            resample_method: 如果需要对因子重采样，此列为重采样方法。
-        """
-        if resample_method is not None:
-            factor_data = resample_to_month(data, **{factor_col: resample_method})
-        else:
-            data_copy = data.copy()
-
-            # 确保date列是datetime类型
-            if not pd.api.types.is_datetime64_any_dtype(data_copy["date"]):
-                data_copy["date"] = pd.to_datetime(data_copy["date"])
-
-            data_copy["month"] = data_copy["date"].dt.to_period("M")
-
-            # 检查是否有重复的(month, asset)组合
-            duplicates = data_copy.duplicated(subset=["month", "asset"])
-            if duplicates.any():
-                duplicate_count = duplicates.sum()
-                raise ValueError(
-                    f"发现 {duplicate_count} 个重复的(month, asset)组合。"
-                    "当resample_method=None时，传入的数据必须是无重复的月度数据。"
-                    "如果您的数据是日频或有重复记录，请指定resample_method参数，"
-                    "如：resample_method='last'、'mean'、'first'等"
-                )
-
-            factor_data = data_copy.set_index(["month", "asset"])[[factor_col]]
-
-        self.data = self.data.join(factor_data, how="left")
-
-    def screen(self, screen_method, **kwargs) -> "Moonshot":
-        """应用股票筛选器
-
-        Args:
-            screen_method: 筛选方法（可调用对象）
-            **kwargs: 筛选器参数
-
-        Returns:
-            Moonshot: 返回自身以支持链式调用
-        """
-        if callable(screen_method):
-            flags = screen_method(**kwargs)
-
-            # 当月选股，下月开仓
-            flags = flags.groupby(level="asset").shift(1).fillna(0).astype(int)
-
-            # 与现有flag进行逻辑与运算
-            self.data["flag"] = self.data["flag"] & flags
-
-        return self
-
-
-def calculate_returns(self) -> "Moonshot":
-    """计算策略收益率和基准收益率（向量化实现）
-
-    使用向量化操作计算：
-    1. 策略收益：每月flag=1的股票的等权平均收益
-    2. 基准收益：每月所有股票的等权平均收益
-    """
-    # 计算所有股票的月收益率 (close - open) / open
-    self.data["monthly_return"] = (self.data["close"] - self.data["open"]) / self.data[
-        "open"
-    ]
-
-    # 按月分组计算策略收益（flag=1的股票等权平均）
-    def calculate_strategy_return(group):
-        selected = group[group.get("flag", 0) == 1]
-        if len(selected) > 0:
-            return selected["monthly_return"].mean()
-        else:
-            return 0.0
-
-    strategy_returns = self.data.groupby("month").apply(calculate_strategy_return)
-    strategy_returns.name = "strategy_returns"
-
-    # 向量化计算基准收益（所有股票等权平均）
-    benchmark_returns = self.data.groupby("month")["monthly_return"].mean()
-    benchmark_returns.name = "benchmark_returns"
-
-    # 存储结果
-    self.strategy_returns = strategy_returns
-    self.benchmark_returns = benchmark_returns
-
-    self.analyzer = StrategyAnalyzer(
-        strategy_returns=self.strategy_returns, benchmark_returns=self.benchmark_returns
-    )
-
-    return self
+# 获取当前 notebook 的目录路径
+notebook_dir = Path("__file__").resolve().parent
+sys.path.extend([str(notebook_dir/"moonshoot.py"), str(notebook_dir/"helper.py")])
 ```
 <!--PAID CONTENT END-->
+
+```python
+from moonshot import Moonshot
+
+def dividend_yield_screen(data: pd.DataFrame, n: int = 500)->pd.Series:
+    """股息率筛选方法
+    
+    对每个月的股息率进行排名，选择前n名股票，标记为1，
+    与现有flag进行逻辑与运算
+    
+    Args:
+        n: 每月选择的股票数量，默认500
+    """
+    logger.info("开始进行股息率筛选...")
+    
+    if 'dv_ttm' not in data.columns:
+        raise ValueError("数据中不存在 dv_ttm 列，无法应用筛选器")
+    
+    def rank_top_n(group):
+        # 计算每个股票在当月的排名（降序，股息率高的排名靠前）
+        ranks = group.rank(method='first', ascending=False)
+
+        return (ranks <= n).astype(int)
+    
+    # 按date分组，对 dividend_rate_ttm 进行排名筛选
+    dividend_flags = data.groupby(level='month')['dv_ttm'].transform(rank_top_n)
+
+    logger.info(f"已筛选出前{n}名股息率股")
+    return dividend_flags
+
+start = datetime.date(2018, 1, 1)
+end = datetime.date(2023, 12, 31)
+
+barss = load_bars(start, end, -1)
+ms = Moonshot(barss.reset_index())
+
+dv_ttm = load_dv_ttm(start, end, Path(data_home / "rw/dv_ttm.parquet"))
+ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
+
+# 添加股息率筛选器
+(ms.screen(dividend_yield_screen, data = ms.data, n=500)
+    .calculate_returns()
+    .report())
+```
 
 ## 题外话： Tushare 中的分页读取
 
@@ -192,8 +132,6 @@ def calculate_returns(self) -> "Moonshot":
 
 !!! tip
     A 股是在最近几年才扩容到今天的5413家的。在2018年之前，上市股总数大约在1800家之间。所以，当我们遍历到那一年之前时，每次请求就只利用了不到1/3的返回容量，性能浪费就更大了。
-
-
 
 分页查询的参数在正式文档中没有给出。但我们可以通过[数据工具](https://tushare.pro/webclient/)来查看某个 API 是否有支持分页.
 
