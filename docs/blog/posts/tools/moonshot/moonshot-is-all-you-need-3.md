@@ -1,11 +1,17 @@
 ---
-title: 『Moonshot is all you need』 03 - 
-date: 2025-08-16
-excerpt: 
+title: 涨时重势，跌时重质，Moonshot首测股息率因子给出结论
+date: 2025-08-28
+excerpt: 涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。
 category: tools
 tags: [Moonshot, 回测, 研报, tushare]
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815160810.png
 ---
+
+!!! abstract
+    1. 在 tushare 中如何获取股息率？如何利用其分页机制，加快取数据的速度？
+    2. 如何实现按股息率筛选？特别介绍 pandas的transform 与 apply方法比较
+    3. 股息率数据的 alpha
+
 
 这是复现基本面月度调仓策略的第三篇。在第一篇里，我们介绍了月度调仓的核心思想。在第二篇里，我们介绍了研报要求的数据清单，并以 tushare 为例，介绍了如何获取日线行情数据，并且实现了数据增量更新的一个高性能、但又极简的框架。
 
@@ -56,14 +62,6 @@ df
 
 大约每0.5秒能获取一天的数据。这样获取一年的数据，大约需要2分钟。
 
-!!! info
-    根据后面策略的需要，我们通过这段代码，将[2018年8月1日 ~ 2023年11月30日]期间的数据存入本地磁盘。
-
-    ```python
-        data_home = Path("/tmp/moonshot/data")
-        df.to_parquet(data_home / "dv_ttm.parquet")
-    ```
-
 
 ## 根据股息率筛选
 
@@ -108,21 +106,62 @@ def dividend_yield_screen(data: pd.DataFrame, n: int = 500)->pd.Series:
 
     logger.info(f"已筛选出前{n}名股息率股")
     return dividend_flags
+```
 
+这个筛选方法是 pandas 中常用的 groupby/apply 套路。类似的方法有 apply, transform ，agg和map等。它们的主要不同，在于对输入输出的类型不同。
+
+map 只能接收 Series 对象作为输入，按单个元素进行转换映射，输出与输入长度一致；transform, agg, apply在输入上，既可以是 Series，也可以是 DataFrame； 但agg 会导致输出数据维度缩减；transform 则保持不变（一对一映射变换）；而 apply 则较为灵活，输出形状较复杂。
+
+```python
 start = datetime.date(2018, 1, 1)
 end = datetime.date(2023, 12, 31)
 
-barss = load_bars(start, end, -1)
-ms = Moonshot(barss.reset_index())
+store_path = data_home / "rw/bars.parquet"
+bars_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_bars)
 
-dv_ttm = load_dv_ttm(start, end, Path(data_home / "rw/dv_ttm.parquet"))
+barss = bars_store.load_data(start, end)
+ms = Moonshot(barss)
+
+store_path = data_home / "rw/dv_ttm.parquet"
+dv_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_dv_ttm)
+
+dv_ttm = dv_store.load_data(start, end)
+
 ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
-
 # 添加股息率筛选器
 (ms.screen(dividend_yield_screen, data = ms.data, n=500)
     .calculate_returns()
     .report())
 ```
+
+Moonshot 的代码很简单，但也很强大：要按股息率，在每月结尾时进行股票池筛选，筛选器函数的核心部分仅令4行代码即可完成。这得益于我们梳理出来的清晰的数据结构。
+
+最终要应用这个筛选器也很简单。我们首先获取日线行情数据，初始化一个 Moonshot 对象，然后再获得同样频率下的 dv_ttm（即股息率）数据，通过 append_factor 方法将股息率数据添加到 Moonshot 中: 在这里，我们让 moonshot 框架自动完成了月线重采样以及数据的对齐操作。
+
+最后，让 screen 方法开始工作，计算收益，绘制策略评估指标。由于 moonshot 在设计上使用了了链式调用，所以，这里的工作任务是一气呵成。
+
+最后，策略报告显示，在2018年到2023年间，股息率筛选本身就具有一定的 alpha：
+
+<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250828194603.png'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>累积收益对照</span>
+</div>
+
+从图中可以看出，在2018年、2022和2023年，下跌之中，股息率较高的个股更加抗跌；而在19年到2021年间，股市处于上涨之中，股息率高的个股，上涨就不如其它个股。
+
+**涨时重势，跌时重质**。这句股谚在这张图中得到充分体现。
+
+为什么在股市上升期，股息率较高的个股涨势不如其它个股？**因为在这些个股中，存在相当比例的价值投资者，他们时刻会警惕价格有没有过度偏价值，从而股息率成为价格的锚定工具；而垃圾股的炒作全凭想像和故事，反倒不会受到任何锚定物的牵绊**。
+
+同样地，在股市下降期，股息率较高的个股不容易下跌：因为一旦价格向下过份偏离，价值投资者就会入场。
+
+但长期来看，股息率较高的个股，累积收益会更高，存在显著的 alpha和夏普；而它们的波动更小，投资体验更好。时间的玫瑰，更值得拥有。
+
+## ParquetUnifiedStorage
+
+ParquetUnifiedStorage是一个简单的本地存储方案。我们在上一篇文章中介绍过，在本节中我们进一步进行了拓展，使得它可以支持多种数据存取，并且能自动更新。
+
+它的用法是，在定义 store 时，就传入一个回调函数，用来在本地缓存没有数据时，能够自动从数据源中获取数据。如此一来，调用者就只需要使用 store.load_data(start, end)就能自动获取在[start, end]区间的数据，同时又充分利用了缓存。这会是我们在进行小型研究，没有技术团队支持时的好帮手。
 
 ## 题外话： Tushare 中的分页读取
 
@@ -132,6 +171,7 @@ ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
 
 !!! tip
     A 股是在最近几年才扩容到今天的5413家的。在2018年之前，上市股总数大约在1800家之间。所以，当我们遍历到那一年之前时，每次请求就只利用了不到1/3的返回容量，性能浪费就更大了。
+
 
 分页查询的参数在正式文档中没有给出。但我们可以通过[数据工具](https://tushare.pro/webclient/)来查看某个 API 是否有支持分页.
 
