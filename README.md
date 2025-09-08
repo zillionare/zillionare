@@ -24,7 +24,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div>
 <h3>涨到溢出！PEPE告诉我，大盘还能涨几多？</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：<br><br><div style='width:66%;text-align:center;margin: 0 auto 1rem'><br><img src='https:/...</p>
+<p><span>内容摘要:<br></span>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：</p>
 
 <p><span style="margin-right:20px">发表于 2025-08-26 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/is-the-Ashare-market-overvalued/">点击阅读</a></span></p>
 

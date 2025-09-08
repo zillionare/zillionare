@@ -409,10 +409,12 @@ def get_excerpt(text: str):
 
     # remove header
     excerpt = excerpt.replace("#", "").replace("\n", "<br>")
+    excerpt = remove_incomplete_html_tags(excerpt)
+
     if len(excerpt) > 140:
         excerpt = excerpt[:137] + "..."
 
-    return get_and_remove_img_url(excerpt)
+    return excerpt
 
 
 def get_meta(file):
@@ -420,8 +422,7 @@ def get_meta(file):
         meta, content = frontmatter.parse(f.read())
 
         if not "excerpt" in meta:
-            _, excerpt = get_excerpt(content)
-            meta["excerpt"] = excerpt
+            meta["excerpt"] = get_excerpt(content)
         return meta
 
 
@@ -594,7 +595,7 @@ def format_code_blocks_in_markdown(content: str):
         try:
             # 使用 Black 格式化代码
             formatted_code = black.format_str(code, mode=black.FileMode())
-            return f"```python\n{formatted_code}\n```"
+            return f"``python\n{formatted_code}\n```"
         except Exception as e:
             print(f"Error formatting code block: {e}")
             return match.group(0)
@@ -754,6 +755,66 @@ def prepare_gzh(src: str):
     preprocessed = Path("/tmp") / md.name
     preprocess(md, preprocessed, strip_paid=True)
     print(f"✅ 文章已适合作为公众号发表，请前往{preprocessed}查看")
+
+
+def remove_incomplete_html_tags(text):
+    """
+    移除未闭合的HTML标签及其后面的内容
+    
+    Args:
+        text (str): 需要处理的文本
+        
+    Returns:
+        str: 处理后的文本
+    """
+    # 使用栈来跟踪未闭合的标签
+    tag_stack = []
+    result = []
+    i = 0
+    
+    while i < len(text):
+        if text[i] == '<':
+            # 找到标签的结束位置
+            tag_end = text.find('>', i)
+            if tag_end == -1:
+                # 未找到结束的>，这是一个不完整的标签，移除它及其后面所有内容
+                break
+            
+            tag_content = text[i:tag_end+1]
+            result.append(tag_content)
+            
+            # 解析标签
+            if tag_content.startswith('</'):
+                # 结束标签
+                tag_name = tag_content[2:-1].strip().split()[0]
+                if tag_stack and tag_stack[-1] == tag_name:
+                    tag_stack.pop()
+            elif tag_content.endswith('/>'):
+                # 自闭合标签
+                pass
+            else:
+                # 开始标签
+                tag_name = tag_content[1:-1].strip().split()[0]
+                # 不将自闭合标签放入栈中
+                if tag_name.lower() not in ['img', 'br', 'hr', 'input', 'meta', 'link', 'area', 'base', 'col', 'embed', 'source', 'track', 'wbr']:
+                    tag_stack.append(tag_name)
+            
+            i = tag_end + 1
+        else:
+            result.append(text[i])
+            i += 1
+    
+    # 如果还有未闭合的标签，我们需要找到导致问题的标签并截断
+    if tag_stack:
+        # 找到文本中最后一个未闭合标签的开始位置
+        for j in range(len(result) - 1, -1, -1):
+            if isinstance(result[j], str) and result[j].startswith('<') and not result[j].startswith('</') and not result[j].endswith('/>'):
+                tag_name = result[j][1:-1].strip().split()[0]
+                if tag_name in tag_stack:
+                    # 截断到这个标签之前
+                    return ''.join(result[:j])
+    
+    return ''.join(result)
 
 
 if __name__ == "__main__":

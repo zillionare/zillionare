@@ -10,6 +10,8 @@ tags: [strategy, pe, tushare]
 
 这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：
 
+<!-- more --->
+
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825205342.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
