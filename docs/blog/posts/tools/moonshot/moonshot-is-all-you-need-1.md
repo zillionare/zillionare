@@ -3,7 +3,7 @@ title: 『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架
 date: 2025-08-06
 excerpt: 中金的一个基本面策略，年化收益率达到了29%。但是，复现并不容易。它集合了事件选股和因子选股两种框架 -- 这导致没有现成的回测框架可用，同时，各种周期的数据对齐也让人如陷迷宫。在这个系列的视频里，你将和我一起，从零打造一个名为 Moonshot 的回测框架：清晰、模块化、易上手、易拓展。本期为第一期。我们将介绍关键思想，核心数据结构，链式调用技巧
 category: tools
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815160810.png
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/5.jpg
 tags: [Moonshot, 回测, 研报]
 ---
 

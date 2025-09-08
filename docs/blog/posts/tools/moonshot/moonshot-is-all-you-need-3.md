@@ -4,7 +4,7 @@ date: 2025-08-28
 excerpt: 涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。
 category: tools
 tags: [Moonshot, 回测, 研报, tushare]
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815160810.png
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg
 ---
 
 !!! abstract
@@ -70,11 +70,12 @@ df
 <!--PAID CONTENT START-->
 ```python
 import sys
-from pathlib import Path
+sys.path.append(str(Path(".").parent))
 
-# 获取当前 notebook 的目录路径
-notebook_dir = Path("__file__").resolve().parent
-sys.path.extend([str(notebook_dir/"moonshoot.py"), str(notebook_dir/"helper.py")])
+from helper import (ParquetUnifiedStorage, dividend_yield_screen, fetch_bars,
+                    fetch_dv_ttm)
+import tushare as ts
+from moonshot import Moonshot
 ```
 <!--PAID CONTENT END-->
 
@@ -128,10 +129,13 @@ dv_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_
 dv_ttm = dv_store.load_data(start, end)
 
 ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
-# 添加股息率筛选器
-(ms.screen(dividend_yield_screen, data = ms.data, n=500)
+
+# 筛选！回测！报告
+(
+    ms.screen(dividend_yield_screen, data=ms.data, n=500)
     .calculate_returns()
-    .report())
+    .report(output="v3.html")
+)
 ```
 
 Moonshot 的代码很简单，但也很强大：要按股息率，在每月结尾时进行股票池筛选，筛选器函数的核心部分仅令4行代码即可完成。这得益于我们梳理出来的清晰的数据结构。
