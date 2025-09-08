@@ -10,11 +10,23 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>研报复现之如何正确筛选『连续两年分红』股票（附代码）</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金2023年12月的一份研报，名为《在手之鸟，红利优选策略》。</p>
+
+<p><span style="margin-right:20px">发表于 2025-09-09 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-4/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>涨时重势，跌时重质，Moonshot首测股息率因子给出结论</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。</p>
 
-<p><span style="margin-right:20px">发表于 2025-08-28 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-3/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-08-28 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-3/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -26,19 +38,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：</p>
 
-<p><span style="margin-right:20px">发表于 2025-08-26 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/is-the-Ashare-market-overvalued/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/4.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>本篇聚焦月线策略回测的『数据难题』，揭秘如何通过 tushare 高效获取、复权行情数据并实现本地缓存，彻底解决Alphalens在月线回测上的短板。跟随实战案例，掌握复权原理与缓存技巧，为复杂研报复现打下坚实基础。</p>
-
-<p><span style="margin-right:20px">发表于 2025-08-15 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-2/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-08-26 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/is-the-Ashare-market-overvalued/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
