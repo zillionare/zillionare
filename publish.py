@@ -595,7 +595,7 @@ def format_code_blocks_in_markdown(content: str):
         try:
             # 使用 Black 格式化代码
             formatted_code = black.format_str(code, mode=black.FileMode())
-            return f"``python\n{formatted_code}\n```"
+            return f"```python\n{formatted_code}\n```"
         except Exception as e:
             print(f"Error formatting code block: {e}")
             return match.group(0)
