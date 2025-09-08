@@ -1,5 +1,10 @@
 ---
 date: 2023-01-01
+title: 研报复现之如何正确筛选『连续两年分红』股票（附代码）
+category: tools
+excerpt: 这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金2023年12月的一份研报，名为《在手之鸟，红利优选策略》。
+tags: [Moonshot, 回测, 研报, tushare]
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg
 ---
 
 这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金2023年12月的一份研报，名为《在手之鸟，红利优选策略》。它是一个基本面策略，通过这份研报的实现，我们可以了解到：
