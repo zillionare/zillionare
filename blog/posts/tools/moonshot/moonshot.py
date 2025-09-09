@@ -120,7 +120,7 @@ class Moonshot:
     def append_factor(self, data: pd.DataFrame, factor_col: str, resample_method: str|None=None) -> None:
         """将因子数据添加到回测数据(即self.data)中。
 
-        如果resample_method参数不为None, 则需要重采样为月频，并且使用resample_method指定的方法。否则，认为因子已经是月频的，将直接添加到回测数据中。
+        如果resample_method参数不为None, 则需要重采样为月频，并且使用resample_method指定的方法。否则，认为因子已经是月频的，且以'month', 'asset'为索引 ，将直接添加到回测数据中。
 
         使用本方法，一次只能添加一个因子。
 
@@ -130,36 +130,14 @@ class Moonshot:
             resample_method: 如果需要对因子重采样，此列为重采样方法。
         """
         # 检查必需的列是否存在
-        if 'date' not in data.columns:
-            raise ValueError("因子数据中不存在'date'列")
-        if 'asset' not in data.columns:
-            raise ValueError("因子数据中不存在'asset'列")
         if factor_col not in data.columns:
             raise ValueError(f"因子数据中不存在列: {factor_col}")
 
         if resample_method is not None:
+            assert ('date' in data.columns and 'asset' in data.columns), "缺少'date'/'asset'列"
             factor_data = resample_to_month(data, **{factor_col: resample_method})
         else:
-            data_copy = data.copy()
-
-            # 确保date列是datetime类型
-            if not pd.api.types.is_datetime64_any_dtype(data_copy['date']):
-                data_copy['date'] = pd.to_datetime(data_copy['date'])
-
-            data_copy['month'] = data_copy['date'].dt.to_period('M')
-
-            # 检查是否有重复的(month, asset)组合
-            duplicates = data_copy.duplicated(subset=['month', 'asset'])
-            if duplicates.any():
-                duplicate_count = duplicates.sum()
-                raise ValueError(
-                    f"发现 {duplicate_count} 个重复的(month, asset)组合。"
-                    "当resample_method=None时，传入的数据必须是无重复的月度数据。"
-                    "如果您的数据是日频或有重复记录，请指定resample_method参数，"
-                    "如：resample_method='last'、'mean'、'first'等"
-                )
-
-            factor_data = data_copy.set_index(['month', 'asset'])[[factor_col]]
+            factor_data = data[[factor_col]]
 
         self.data = self.data.join(factor_data, how='left')
     
