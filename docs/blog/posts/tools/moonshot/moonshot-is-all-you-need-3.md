@@ -69,9 +69,6 @@ df
 
 <!--PAID CONTENT START-->
 ```python
-import sys
-sys.path.append(str(Path(".").parent))
-
 from helper import (ParquetUnifiedStorage, dividend_yield_screen, fetch_bars,
                     fetch_dv_ttm)
 import tushare as ts
@@ -118,23 +115,24 @@ start = datetime.date(2018, 1, 1)
 end = datetime.date(2023, 12, 31)
 
 store_path = data_home / "rw/bars.parquet"
-bars_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_bars)
+bars_store = ParquetUnifiedStorage(store_path=store_path, fetch_data_func=fetch_bars)
 
 barss = bars_store.load_data(start, end)
 ms = Moonshot(barss)
 
 store_path = data_home / "rw/dv_ttm.parquet"
-dv_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_dv_ttm)
+dv_store = ParquetUnifiedStorage(store_path=store_path, fetch_data_func=fetch_dv_ttm)
 
 dv_ttm = dv_store.load_data(start, end)
 
-ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
+ms.append_factor(dv_ttm, "dv_ttm", resample_method="last")
 
+output = get_jupyter_root_dir() / "reports/moonshot_v3.html"
 # 筛选！回测！报告
 (
     ms.screen(dividend_yield_screen, data=ms.data, n=500)
     .calculate_returns()
-    .report(output="v3.html")
+    .report(output=output)
 )
 ```
 

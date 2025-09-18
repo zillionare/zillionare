@@ -11,10 +11,22 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
     
 <div>
 <h3>研报复现之如何正确筛选『连续两年分红』股票（附代码）</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金2023年12月的一份研报，名为《在手之鸟，红利优选策略》。</p>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金 2023 年 12 月的一份研报，名为《在手之鸟，红利优选策略》。</p>
 
-<p><span style="margin-right:20px">发表于 2025-09-09 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-4/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-09-18 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-4/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
+<h3>不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</h3>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg" style="height: 200px" align="right"/>
+<p><span>内容摘要:<br></span>许多量化人都会构建自己的量化库，为此投入了大量时间。这样做真的值得吗？我个人的答案是肯定的，因为我也是千千万万个自己造轮子的人之一。<br><br>探索的意义就在于探索本身。物理学家费曼一生留下许多名言，这一句正好说明了为什么值得重复去造轮子：<br><br>!!! inf...</p>
+
+<p><span style="margin-right:20px">发表于 2025-09-17 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/alphasuite/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -26,19 +38,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg" style="height: 200px" align="right"/>
 <p><span>内容摘要:<br></span>涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。</p>
 
-<p><span style="margin-right:20px">发表于 2025-08-28 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-3/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>涨到溢出！PEPE告诉我，大盘还能涨几多？</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：</p>
-
-<p><span style="margin-right:20px">发表于 2025-08-26 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/is-the-Ashare-market-overvalued/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-08-28 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-3/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
