@@ -383,7 +383,6 @@ if __name__ == '__main__':
     sys.path.append(str(startup_file))
     from helper import (ParquetUnifiedStorage, dividend_yield_screen,
                         fetch_bars, fetch_dv_ttm)
-    from startup import data_home, load_bars, pro_api
 
 
     start = datetime.date(2018, 1, 1)
