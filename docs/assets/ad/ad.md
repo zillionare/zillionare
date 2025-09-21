@@ -10,9 +10,8 @@
 <p>面向策略研究员的专业课程，涵盖<b>因子挖掘</b>、<b>因子检验</b>、<b>机器学习</b>、<b>强化学习</b>的策略开发，立即构建你的个人竞争优势！</p>
 
 <ol>
-<div style="text-align:center;width:120px;float:right;margin-top:-20px">
-<img src="https://images.jieyu.ai/images/hot/quantfans.png"/>
-<span>课程助教: 宽粉</span>
+<div style="text-align:center;width:120px;float:right;margin-top:-40px">
+<img src="https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans_100.jpg"/>
 </div>
 
 <li>独家精讲 Alphalens 分析报告，助你精通因子挖掘和调优。</li>
