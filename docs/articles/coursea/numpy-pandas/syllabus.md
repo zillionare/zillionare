@@ -50,10 +50,6 @@ em {
 
 
 </style>
-<script>
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-document.body.setAttribute('html-show-sidebar-toc', true)
-</script>
 
 <p>§ 量化交易中的 NUMPY 和 PANDAS</p>
 <h1 style="text-align:center">课程大纲 </h1>
@@ -208,3 +204,41 @@ change datatype
 Pandas Index
 pivot_table https://www.joinquant.com/view/community/detail/92d2ccab2d412dbfa7df366369e6373b
 -->
+
+<script>
+    var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+    sidebarTOCBtn.addEventListener('click', function (event) {
+        event.stopPropagation()
+        if (document.body.hasAttribute('html-show-sidebar-toc')) {
+            document.body.removeAttribute('html-show-sidebar-toc')
+        } else {
+            document.body.setAttribute('html-show-sidebar-toc', true)
+        }
+    })
+
+    var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+    document.body.setAttribute('html-show-sidebar-toc', true)
+    window.addEventListener('load', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        // Read the 'level' parameter from the URL
+        const level = parseInt(urlParams.get('level'), 10);
+
+        // If 'level' is not specified or is not a number, do nothing.
+        if (isNaN(level)) {
+            return;
+        }
+
+        const h3s = document.querySelectorAll('h3');
+        const h4s = document.querySelectorAll('h4');
+
+        // Control visibility based on the level
+        if (level === 1) {
+            // Level 1: Hide h3 and h4
+            h3s.forEach(h => h.style.display = 'none');
+            h4s.forEach(h => h.style.display = 'none');
+        } else if (level === 2) {
+            // Level 2: Hide only h4
+            h4s.forEach(h => h.style.display = 'none');
+        }
+        // For level 3 or higher, all headings remain visible by default.
+    });
