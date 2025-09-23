@@ -1,7 +1,7 @@
 
 var link = "/articles/coursea/24lectures/intro/"
 var img = "https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/course-promo-quantfan-100.jpg"
-excludes = ["/articles/coursea", "/articles/python/best-practice-python"]
+excludes = ["/articles/coursea", "/articles/express", "/articles/python/best-practice-python"]
 
 var ad = [
     '<div class="admonition tip">',
