@@ -458,8 +458,9 @@ def build_index():
     metas = []
 
     posts = glob.glob("./docs/blog/**/*.md", recursive=True)
+    articles = glob.glob("./docs/articles/express/*.md", recursive=True)
     with ProcessPoolExecutor() as executor:
-        results = executor.map(extract_meta_for_jieyu_index, posts)
+        results = executor.map(extract_meta_for_jieyu_index, posts + articles)
         metas.extend(
             [
                 meta
@@ -467,26 +468,6 @@ def build_index():
                 if (meta is not None and meta.get("date") is not None)
             ]
         )
-
-    # Also collect docs/articles (and docs/article) if they have frontmatter with a date
-    # This allows README to feature content from the articles section as well
-    article_patterns = ["./docs/articles/express/*.md"]
-    article_files = []
-    for pattern in article_patterns:
-        article_files.extend(glob.glob(pattern, recursive=True))
-
-    for file in article_files:
-        try:
-            meta = get_meta(file)  # parse frontmatter and fill excerpt if missing
-            if "date" not in meta:
-                continue  
-            relpath = Path(file).relative_to("docs").with_suffix("")
-            link = "https://www.jieyu.ai/" + str(relpath).replace("\\", "/") + "/"
-            meta["link"] = link
-            metas.append(meta)
-        except Exception as e:
-            # Skip files that can't be parsed; keep build resilient
-            logger.warning(f"跳过无法解析 frontmatter 的文章: {file} ({e})")
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 
