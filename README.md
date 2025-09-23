@@ -10,23 +10,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
-<h3>谁压垮了这个基站？用XGBoost如何进行时序事件归因</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/20.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>本文通过一个“基站宕机”的真实案例，演示了如何将时序数据转化为机器学习模型可用的特征，并利用XGBoost进行事件归因。文章提供了从数据处理、模型训练到结果解释的完整Python代码，并深入探讨了XGBoost在处理时序问题时的正确范式，强调了特征工程在其中的核心价值。</p>
+<h3>9月23日资讯速递</h3>
+<img src="https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg" style="height: 200px" align="right"/>
+<p>著名的对冲基金经理，Mark Spitznagel警告称，一场大规模的经济崩溃可能会与美国历史上最严重的经济衰退相媲美。是 Universa Investments 的创始人，也是华尔街的“危机专家”，他在最近接受《华尔街日报》采访时直言不讳地阐述了这一点。Universa 在 2008 年雷曼兄弟破产、2020 年新冠疫情期间大赚数十亿美元，甚至在 2015 年“闪电崩盘”期间的某一天获得了 10 亿美元的收益。</p>
 
-<p><span style="margin-right:20px">发表于 2025-09-20 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/algo/谁压垮了这个基站/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>研报复现之如何正确筛选『连续两年分红』股票（附代码）</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金 2023 年 12 月的一份研报，名为《在手之鸟，红利优选策略》。</p>
-
-<p><span style="margin-right:20px">发表于 2025-09-18 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/moonshot/moonshot-is-all-you-need-4/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-09-23 人气 292 </span><span><a href="https://www.jieyu.ai/articles/express/九月/0923/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -34,11 +22,24 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</h3>
-<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>许多量化人都会构建自己的量化库，为此投入了大量时间。这样做真的值得吗？我个人的答案是肯定的，因为我也是千千万万个自己造轮子的人之一。<br><br>探索的意义就在于探索本身。物理学家费曼一生留下许多名言，这一句正好说明了为什么值得重复去造轮子：<br><br>!!! inf...</p>
+<h3>9月22日资讯速递</h3>
+<img src="https://images.jieyu.ai/images/hot/mybook/book-with-course.png" style="height: 200px" align="right"/>
+<p>量化交易严重依赖于对大规模表格数据的分析、处理和推理。这些数据包括历史价格（OHLCV）、财务报表、宏观经济指标、另类数据等。但是，人工智能在表格数据的预测、推理方面的表现一直落后于其它领域。在有了大模型（LLMs）之后，情况是否会有所不同？
+</p>
 
-<p><span style="margin-right:20px">发表于 2025-09-17 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/tools/alphasuite/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-09-22 人气 407 </span><span><a href="https://www.jieyu.ai/articles/express/九月/0922/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
+<h3>9月21日资讯速递</h3>
+<img src="https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg" style="height: 200px" align="right"/>
+<p>一组近期的量化金融及Python技术发展的深度文章合集，内容面向量化领域专业人士。</p>
+
+<p><span style="margin-right:20px">发表于 2025-09-21 人气 780 </span><span><a href="https://www.jieyu.ai/articles/express/九月/0921/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>

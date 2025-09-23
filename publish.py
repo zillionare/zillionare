@@ -61,7 +61,7 @@ github_item = """
 <div>
 <h3>{title}</h3>
 <img src="{img_url}" style="height: 200px" align="right"/>
-<p><span>内容摘要:<br></span>{excerpt}</p>
+<p>{excerpt}</p>
 
 <p><span style="margin-right:20px">发表于 {date} 人气 {readers} </span><span><a href="{link}">点击阅读</a></span></p>
 
@@ -458,7 +458,7 @@ def build_index():
     metas = []
 
     posts = glob.glob("./docs/blog/**/*.md", recursive=True)
-    articles = glob.glob("./docs/articles/express/*.md", recursive=True)
+    articles = glob.glob("./docs/articles/express/**/*.md", recursive=True)
     with ProcessPoolExecutor() as executor:
         results = executor.map(extract_meta_for_jieyu_index, posts + articles)
         metas.extend(
@@ -549,11 +549,12 @@ def build_index():
     return web_body, github_body, styles
 
 
-def write_readme(body, styles):
+def write_readme(body, styles: str|None = None):
     with open("./README.md", "w", encoding="utf-8") as f:
         # f.write(about)
         # f.write(intro)
-        f.write(styles)
+        if styles is not None:
+            f.write(styles)
         f.write(body)
         f.write("\n\n")
 
@@ -573,9 +574,12 @@ def execute(cmd):
         print(f"!!! FAILED: {cmd}")
 
 
-def build():
+def build(mode: str="github"):
     web_body, github_body, styles = build_index()
-    write_readme(web_body, styles)
+    if mode == "github":
+        write_readme(github_body)
+    else:
+        write_readme(web_body, styles)
 
 
 def publish_jieyu():
