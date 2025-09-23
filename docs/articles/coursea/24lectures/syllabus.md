@@ -52,6 +52,9 @@ em {
 
 <p>§ 量化二十四课</p>
 <h1 style="text-align:center">课程大纲 </h1>
+<div class="module">I. 证券常识与数据源</div>
+
+<em>这一部分介绍最量化交易必须掌握的证券常识，比如复权。复权是量化交易中不可回避的问题，将贯穿我们课程始终，但我们在网上看到的答案，很多是错的。这一节还会告诉你一个意想不到的问题，Python 在四舍五入上也有问题</em>
 
 ## 1. 导论
 ### 1.1. 证券投资和量化交易的发展
@@ -67,10 +70,6 @@ em {
 ### 1.6. 如何学习本课程
 #### 1.6.1. 预备知识
 #### 1.6.2. 在线量化环境介绍
-  
-<div class="module">I. 证券常识与数据源</div>
-
-<em>这一部分介绍最量化交易必须掌握的证券常识，比如复权。复权是量化交易中不可回避的问题，将贯穿我们课程始终，但我们在网上看到的答案，很多是错的。这一节还会告诉你一个意想不到的问题，Python 在四舍五入上也有问题</em>
 
 ## 2. 证券常识及数据源之 Akshare
 ### 2.1. 交易所及证券代码
@@ -569,31 +568,44 @@ II. 初识策略
 ### 24.5. XtTrader
 #### 24.5.1. 封装成 web 服务
   
-<script>
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-document.body.setAttribute('html-show-sidebar-toc', true)
-window.addEventListener('load', function() {
-const urlParams = new URLSearchParams(window.location.search);
-// Read the 'level' parameter from the URL
-const level = parseInt(urlParams.get('level'), 10);
+    <script>
+        var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+        sidebarTOCBtn.addEventListener('click', function (event) {
+            event.stopPropagation()
+            if (document.body.hasAttribute('html-show-sidebar-toc')) {
+                document.body.removeAttribute('html-show-sidebar-toc')
+            } else {
+                document.body.setAttribute('html-show-sidebar-toc', true)
+            }
+        })
 
-// If 'level' is not specified or is not a number, do nothing.
-if (isNaN(level)) {
-    return;
-}
+        var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+        document.body.setAttribute('html-show-sidebar-toc', true)
+        window.addEventListener('load', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Read the 'level' parameter from the URL
+            const level = parseInt(urlParams.get('level'), 10);
 
-const h3s = document.querySelectorAll('h3');
-const h4s = document.querySelectorAll('h4');
+            // If 'level' is not specified or is not a number, do nothing.
+            if (isNaN(level)) {
+                return;
+            }
 
-// Control visibility based on the level
-if (level === 1) {
-    // Level 1: Hide h3 and h4
-    h3s.forEach(h => h.style.display = 'none');
-    h4s.forEach(h => h.style.display = 'none');
-} else if (level === 2) {
-    // Level 2: Hide only h4
-    h4s.forEach(h => h.style.display = 'none');
-}
-// For level 3 or higher, all headings remain visible by default.
-});
-</script>
+            const h3s = document.querySelectorAll('h3');
+            const h4s = document.querySelectorAll('h4');
+            const h5s = document.querySelectorAll('h5');
+
+            // Control visibility based on the level
+            if (level === 1) {
+                // Level 1: Hide h3 and h4
+                h3s.forEach(h => h.style.display = 'none');
+                h4s.forEach(h => h.style.display = 'none');
+                h5s.forEach(h => h.style.display = 'none');
+            } else if (level === 2) {
+                // Level 2: Hide only h4
+                h4s.forEach(h => h.style.display = 'none');
+                h5s.forEach(h => h.style.display = 'none');
+            }
+            // For level 3 or higher, all headings remain visible by default.
+        });
+    </script>

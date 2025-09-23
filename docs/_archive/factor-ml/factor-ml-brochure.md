@@ -162,7 +162,7 @@ title: 因子投资与机器学习策略
 </div><!--blackboard-->
 
 <div class="contact">
-<img src="https://images.jieyu.ai/images/hot/quantfans.png"/>
+<img src="https://images.jieyu.ai/images/hot/quantfans_100.jpg"/>
 <span>扫码加课程助教</span>
 </div>
 

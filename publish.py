@@ -427,19 +427,28 @@ def get_meta(file):
 
 
 def extract_meta_for_jieyu_index(file):
-    if "docs/articles" in file or "index.md" in file:  # 这是文章，或者目录
+    name = Path(file).name
+    if name == "index.md" or name.startswith("_"):
         return None
 
     meta = get_meta(file)
-    if "date" not in meta:
+    if "date" not in meta and "docs/blog" in file:
+        print(file, name)
         raise ValueError(f"❌博客文章{file} 没有 date 字段")
 
     # 对于 blog 文章，始终使用文件路径生成链接，忽略 slug
     # 因为 MkDocs blog 插件基于文件路径生成 URL，不使用 slug
-    path = Path(file)
-    relpath = path.relative_to("docs/blog/posts")
-    link = Path("/blog/posts") / relpath.with_suffix("")
-    meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
+    if "docs/blog" in file:
+        path = Path(file)
+        relpath = path.relative_to("docs/blog/posts")
+        link = Path("/blog/posts") / relpath.with_suffix("")
+        meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
+    else:
+        path = Path(file)
+        relpath = path.relative_to("docs/articles")
+        link = Path("/articles") / relpath.with_suffix("")
+        meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
+
 
     return meta
 
@@ -458,6 +467,26 @@ def build_index():
                 if (meta is not None and meta.get("date") is not None)
             ]
         )
+
+    # Also collect docs/articles (and docs/article) if they have frontmatter with a date
+    # This allows README to feature content from the articles section as well
+    article_patterns = ["./docs/articles/express/*.md"]
+    article_files = []
+    for pattern in article_patterns:
+        article_files.extend(glob.glob(pattern, recursive=True))
+
+    for file in article_files:
+        try:
+            meta = get_meta(file)  # parse frontmatter and fill excerpt if missing
+            if "date" not in meta:
+                continue  
+            relpath = Path(file).relative_to("docs").with_suffix("")
+            link = "https://www.jieyu.ai/" + str(relpath).replace("\\", "/") + "/"
+            meta["link"] = link
+            metas.append(meta)
+        except Exception as e:
+            # Skip files that can't be parsed; keep build resilient
+            logger.warning(f"跳过无法解析 frontmatter 的文章: {file} ({e})")
 
     metas = sorted(metas, key=lambda x: arrow.get(x["date"]), reverse=True)
 

@@ -689,41 +689,44 @@ XGBoost很好，但LightGBM可能在内存占用、某些场景下的训练速�
 <p>2. 课程内容还包括习题，未在此显示</p>
 <p>3. 课程内容还包括补充材料，比如完整的 Alpha101因子实现代码（从数据获取、因子提取、因子检验到回测）及其它示例代码，未在此显示</p>
 
-<script>
-    var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-    sidebarTOCBtn.addEventListener('click', function (event) {
-        event.stopPropagation()
-        if (document.body.hasAttribute('html-show-sidebar-toc')) {
-            document.body.removeAttribute('html-show-sidebar-toc')
-        } else {
-            document.body.setAttribute('html-show-sidebar-toc', true)
-        }
-    })
+    <script>
+        var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+        sidebarTOCBtn.addEventListener('click', function (event) {
+            event.stopPropagation()
+            if (document.body.hasAttribute('html-show-sidebar-toc')) {
+                document.body.removeAttribute('html-show-sidebar-toc')
+            } else {
+                document.body.setAttribute('html-show-sidebar-toc', true)
+            }
+        })
 
-    var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-    document.body.setAttribute('html-show-sidebar-toc', true)
-    window.addEventListener('load', function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        // Read the 'level' parameter from the URL
-        const level = parseInt(urlParams.get('level'), 10);
+        var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+        document.body.setAttribute('html-show-sidebar-toc', true)
+        window.addEventListener('load', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Read the 'level' parameter from the URL
+            const level = parseInt(urlParams.get('level'), 10);
 
-        // If 'level' is not specified or is not a number, do nothing.
-        if (isNaN(level)) {
-            return;
-        }
+            // If 'level' is not specified or is not a number, do nothing.
+            if (isNaN(level)) {
+                return;
+            }
 
-        const h3s = document.querySelectorAll('h3');
-        const h4s = document.querySelectorAll('h4');
+            const h3s = document.querySelectorAll('h3');
+            const h4s = document.querySelectorAll('h4');
+            const h5s = document.querySelectorAll('h5');
 
-        // Control visibility based on the level
-        if (level === 1) {
-            // Level 1: Hide h3 and h4
-            h3s.forEach(h => h.style.display = 'none');
-            h4s.forEach(h => h.style.display = 'none');
-        } else if (level === 2) {
-            // Level 2: Hide only h4
-            h4s.forEach(h => h.style.display = 'none');
-        }
-        // For level 3 or higher, all headings remain visible by default.
-    });
+            // Control visibility based on the level
+            if (level === 1) {
+                // Level 1: Hide h3 and h4
+                h3s.forEach(h => h.style.display = 'none');
+                h4s.forEach(h => h.style.display = 'none');
+                h5s.forEach(h => h.style.display = 'none');
+            } else if (level === 2) {
+                // Level 2: Hide only h4
+                h4s.forEach(h => h.style.display = 'none');
+                h5s.forEach(h => h.style.display = 'none');
+            }
+            // For level 3 or higher, all headings remain visible by default.
+        });
     </script>

@@ -230,15 +230,19 @@ pivot_table https://www.joinquant.com/view/community/detail/92d2ccab2d412dbfa7df
 
         const h3s = document.querySelectorAll('h3');
         const h4s = document.querySelectorAll('h4');
+        const h5s = document.querySelectorAll('h5');
 
         // Control visibility based on the level
         if (level === 1) {
             // Level 1: Hide h3 and h4
             h3s.forEach(h => h.style.display = 'none');
             h4s.forEach(h => h.style.display = 'none');
+            h5s.forEach(h => h.style.display = 'none');
         } else if (level === 2) {
             // Level 2: Hide only h4
             h4s.forEach(h => h.style.display = 'none');
+            h5s.forEach(h => h.style.display = 'none');
         }
         // For level 3 or higher, all headings remain visible by default.
     });
+</script>

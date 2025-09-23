@@ -5,31 +5,6 @@ repo_name: zillionare
 site_description: 匡醍 量化软件 量化资源 免费资料 量化课程 CQF 大富翁 backtrader AI Python量化 金融大数据及量化分析 Quantide quantide
 #strict: true
 
-nav:
-  - 最新文章: '/'
-  - 量化课程:
-    - 因子投资与机器学习策略:
-      - 简介: articles/coursea/factor-ml/intro.md
-      - 课程大纲: articles/coursea/factor-ml/syllabus.html
-    - 量化二十四课:
-      - 简介: articles/coursea/24lectures/intro.md
-      - 课程大纲: articles/coursea/24lectures/syllabus.html
-      - FAQ: articles/coursea/24lectures/faq.md
-      - 内容详情: articles/coursea/24lectures/detail.md
-      - 课程预览: articles/coursea/24lectures/preview.md
-    - 量化中的Numpy和Pandas:
-      - 简介: articles/coursea/numpy-pandas/intro.md
-      - 课程大纲: articles/coursea/numpy-pandas/syllabus.html
-  - 量化产品:
-    - ... | articles/products/**
-  - 播客: https://www.youtube.com/channel/UCu7m4hFZ3any38pyVCBa06w
-  - 策略研究:
-    - ... | articles/investment/**
-  - 学Python:
-    - ... | articles/python/**
-  - 文章分类: tags
-  - Follow Us:
-    - contact.md
 theme:
   name: material
   language: zh
@@ -46,6 +21,8 @@ exclude_docs: |
   _drafts/**
   _archive/**
   videoscripts/**
+not_in_nav: |
+  /articles/express/resources.md
 markdown_extensions:
   - footnotes
   - pymdownx.emoji:
@@ -73,8 +50,8 @@ markdown_extensions:
       generic: true
 plugins:
   - include-markdown
-  - awesome-pages:
-      collapse_single_pages: true
+  - awesome-nav:
+      flatten_single_child_sections: true
   - blog:
       blog_dir: blog/posts
       # date_format: "%Y-%m-%d"

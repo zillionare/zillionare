@@ -161,8 +161,6 @@ tags:
 2. 部分话题的结论是开放性的、探索性的，不适合作为正式内容讲授。
 我们为本课程精心准备了大量的习题。你应该充分利用这些习题来巩固和拓展自己学到的知识与技能。这些习题多数是自动批改的，因此你可以及时了解到自己知识掌握的程度。
 
-习题分发、提交作业和获取老师批阅结果流程都是自动化的，通过 Nbgrader 来实现。如果你之前没有接触过 Nbgrader，可以在 [课程须知](../课程须知.ipynb) 的关于作业一节中掌握它的使用方法。
-
 视频、教材和习题内容相互补充，相当于报一门课，得三门课！
 
 本课程只涵盖了量化交易中的部分知识。如果要独立从事交易或者做完量化全栈工作，建议补充学习 [《量化 24 课》](https://www.jieyu.ai/articles/coursea/24lectures/intro/)。本课程与《量化 24 课》的区别是，本课程内容更为专精，《量化 24 课》内容更广泛，涵盖更全面。
@@ -170,7 +168,7 @@ tags:
 !!! tip "立即报名！"
     扫码报名，锁定最低价格！
 
-    <img src="https://images.jieyu.ai/images/hot/quantfans.png" style="width: 150px;position:relative;float:right"/>
+    <img src="https://images.jieyu.ai/images/hot/quantfans_100.jpg" style="width: 150px;position:relative;float:right"/>
 
     * 全网独家精讲 Alphalens 分析报告，助你精通因子检验和调优。
     * 超 400 个独立因子，分类精讲底层逻辑，学完带走 350+ 因子实现。

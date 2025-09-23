@@ -7,6 +7,29 @@ import tushare as ts
 from loguru import logger
 
 
+def ensure_date(date: datetime.datetime | str | datetime.date)->datetime.date:
+    """将输入的日期转换为datetime.date类型
+
+    Args:
+        date: 输入的日期，可以是datetime.datetime、str或datetime.date类型
+            如果是str类型，格式必须为'%Y%m%d'
+
+    Returns:
+        datetime.date: 转换后的日期
+
+    Raises:
+        ValueError: 当输入的日期类型不支持时抛出
+    """
+    if isinstance(date, str):
+        return datetime.datetime.strptime(date, "%Y%m%d").date()
+    elif isinstance(date, datetime.datetime):
+        return date.date()
+    elif isinstance(date, datetime.date):
+        return date
+    else:
+        raise ValueError(f"Unsupported date type: {type(date)}")
+
+
 def resample_to_month(data: pd.DataFrame, **kwargs) -> pd.DataFrame:
     """
     按月重采样，支持任意列的聚合方式
@@ -139,121 +162,9 @@ def hfq_adjustment(df: pd.DataFrame, adj_factor_col: str) -> pd.DataFrame:
     
     return df
 
-def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame | None:
-    """通过 tushare 接口，获取日线行情数据
 
-    返回数据未复权，但包含了复权因子，因此可以增量获取叠加。返回数据为升序。
 
-    Args:
-        start: 开始日期
-        end: 结束日期
 
-    Returns:
-        DataFrame: 包含date, asset, open,high,low,close,volume,amount,adj_factor
-    """
-    all_data = []
-
-    pro = ts.pro_api()
-
-    for date in pd.bdate_range(start, end):
-        try:
-            str_date = date.strftime("%Y%m%d")
-            df = pro.daily(trade_date=str_date)
-            if df.empty:
-                continue
-
-            try:
-                adj_factor = pro.adj_factor(ts_code="", trade_date=str_date)
-                if adj_factor.empty:
-                    continue
-            except Exception:
-                continue
-
-            df = pd.merge(df, adj_factor, on=["ts_code", "trade_date"], how="inner")
-            
-            # 只有当合并后的df不为空时才添加
-            if not df.empty:
-                # 重命名列并转换数据类型
-                df = df.rename(
-                    columns={"trade_date": "date", "vol": "volume", "ts_code": "asset"}
-                )
-
-                # tushare返回的是字符串格式的日期，如'20231229'
-                df["date"] = pd.to_datetime(df["date"], format="%Y%m%d")
-
-                all_data.append(df)
-
-        except Exception as e:
-            print(f"Error loading data for {date}: {e}")
-            continue
-
-    if not all_data:
-        # 返回空的DataFrame而不是None，保持数据类型一致性
-        return pd.DataFrame(columns=["date", "asset", "open", "high", "low", "close", "volume", "amount", "adj_factor"])
-
-    # 合并所有数据。由获取数据逻辑知此时数据已为有序
-    result = pd.concat(all_data, ignore_index=True)
-
-    result = result[
-        [
-            "date",
-            "asset",
-            "open",
-            "high",
-            "low",
-            "close",
-            "volume",
-            "amount",
-            "adj_factor",
-        ]
-    ]
-    
-    # 确保 date 列为 datetime.date 类型
-    if not pd.api.types.is_datetime64_any_dtype(result['date']):
-        # 如果不是 datetime 类型，先转换为 datetime
-        result['date'] = pd.to_datetime(result['date'], format='%Y%m%d')
-    
-    # 转换为 date 类型
-    result['date'] = result['date'].dt.date
-
-    return result
-
-def fetch_dv_ttm(start: datetime.date, end: datetime.date) -> pd.DataFrame:
-    """从tushare获取股息率数据
-    
-    Args:
-        start: 开始日期
-        end: 结束日期
-        
-    Returns:
-        包含股息率等数据的DataFrame
-    """    
-    pro = ts.pro_api()
-    cols = "ts_code,trade_date,dv_ttm,total_mv,turnover_rate,pe_ttm"
-    dfs = []
-    for dt in pd.bdate_range(start, end):
-        dtstr = dt.strftime("%Y%m%d")
-        df = pro.daily_basic(trade_date=dtstr, fields=cols)
-        # 只有当df不为空时才添加到列表中
-        if not df.empty:
-            dfs.append(df)
-    
-    # 如果没有获取到任何数据，返回空的DataFrame
-    if not dfs:
-        return pd.DataFrame(columns=["ts_code", "trade_date", "dv_ttm", "total_mv", "turnover_rate", "pe_ttm"])
-
-    df = pd.concat(dfs)
-    df = df.rename(columns={"trade_date": "date", "ts_code": "asset"})
-    
-    # 确保 date 列为 datetime.date 类型
-    if not pd.api.types.is_datetime64_any_dtype(df['date']):
-        # 如果不是 datetime 类型，先转换为 datetime
-        df['date'] = pd.to_datetime(df['date'], format='%Y%m%d')
-    
-    # 转换为 date 类型
-    df['date'] = df['date'].dt.date
-    
-    return df
 
 def dividend_yield_screen(data: pd.DataFrame, n: int = 500) -> pd.Series:
     """股息率筛选方法
@@ -287,8 +198,8 @@ class ParquetUnifiedStorage:
     def __init__(self, store_path: str|Path, fetch_data_func=None):
         self.file_path = store_path
         self.fetch_data_func = fetch_data_func
-        self._start_date = None
-        self._end_date = None
+        self._start_date: datetime.date|None = None
+        self._end_date: datetime.date|None = None
         self._load_date_range()
     
     def __str__(self)->str:
@@ -312,17 +223,6 @@ class ParquetUnifiedStorage:
         # 缓存结果，并确保为date类型
         start_date = date_range[0, 'start_date']
         end_date = date_range[0, 'end_date']
-        
-        # 如果是datetime类型，转换为date类型
-        if hasattr(start_date, 'date'):
-            self._start_date = start_date.date()
-        else:
-            self._start_date = start_date
-            
-        if hasattr(end_date, 'date'):
-            self._end_date = end_date.date()
-        else:
-            self._end_date = end_date
     
     def _update_date_range(self, df: pl.DataFrame):
         """根据新数据更新日期范围缓存"""
@@ -335,19 +235,12 @@ class ParquetUnifiedStorage:
             pl.max('date').alias('max_date')
         ])
         
-        new_min = new_dates[0, 'min_date']
-        new_max = new_dates[0, 'max_date']
-        
-        # 如果是datetime类型，转换为date类型
-        if hasattr(new_min, 'date'):
-            new_min = new_min.date()
-        if hasattr(new_max, 'date'):
-            new_max = new_max.date()
-        
+        new_min = ensure_date(new_dates[0, 'min_date'])
+        new_max = ensure_date(new_dates[0, 'max_date'])
         # 更新缓存的日期范围
-        if self._start_date is None or new_min < self._start_date:
+        if self._start_date is None or (new_min is not None and new_min < self._start_date):
             self._start_date = new_min
-        if self._end_date is None or new_max > self._end_date:
+        if self._end_date is None or (new_max is not None and new_max > self._end_date):
             self._end_date = new_max
     
     def load_data(self, start: datetime.date, end: datetime.date) -> pd.DataFrame:
@@ -535,11 +428,6 @@ class ParquetUnifiedStorage:
         
         # 构建过滤条件
         filters = [pl.col('asset') == asset]
-        
-        assert isinstance(start_date, datetime.date) and (not isinstance(start_date, datetime.datetime)), "start_date必须为date类型"
-
-        assert isinstance(end_date, datetime.date) and (not isinstance(end_date, datetime.datetime)), "end_date必须为date类型"
-
         filters.append(pl.col('date') >= start_date)
         filters.append(pl.col('date') <= end_date)
         
@@ -555,10 +443,6 @@ class ParquetUnifiedStorage:
         Returns:
             DataFrame: 查询结果
         """
-        assert isinstance(start_date, datetime.date) and (not isinstance(start_date, datetime.datetime)), "start_date必须为date类型"
-
-        assert isinstance(end_date, datetime.date) and (not isinstance(end_date, datetime.datetime)), "end_date必须为date类型"
-            
         lazy_df = pl.scan_parquet(self.file_path)
         
         # 构建过滤条件
