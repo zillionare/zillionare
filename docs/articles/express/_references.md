@@ -4,9 +4,9 @@ not_in_nav: true
 
 [] https://github.com/je-suis-tm/quant-trading
 [] https://github.com/wilsonfreitas/awesome-quant
-[] https://www.tidy-finance.org/python/
+[x] https://www.tidy-finance.org/python/
 [] https://github.com/shashankvemuri/Finance
-[] https://github.com/stefan-jansen/machine-learning-for-trading
+[x] https://github.com/stefan-jansen/machine-learning-for-trading
 [] https://wesmckinney.com/book/
 
 
