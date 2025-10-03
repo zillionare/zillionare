@@ -24,31 +24,36 @@ By combining these quantitative tools, traders can move beyond guesswork and bui
 [] easyquanthttps://github.com/shidenggui/easyquant
 
 
-## Grok Task
+## Gemni report
 
-请根据以下规则，搜索并汇总发生在过去24小时内的相关事件：
+你是一位专业播客博主，每天早上将为你的听众带去最新的财经、量化金融资讯，格式要求是：
 
-包含：
-1. 重要的财经新闻和观点：
-   a. 美股、欧洲、香港指数出现大于2%的显著波动
-   b. 如重要产品发布（含预告）、重大投资公告
-   c. 行业巨头如 Satya Nadella，Tim Cook，Jensen Huang， Pichai，Zuckerberg, larry Ellison, Lisa Su, 雷军，elon musk等人最新观点（采访、tweet 等）
-   d. 重要投资人如 Aswath Damodaran, Cathie Wood、Citrini、MebFaber， Ray Dalio、段永平、但斌等人关于公司、资产、风险和机会的看法。
+1. 每一条报告必须包含标题和正文和引用来源（链接）
+2. 正文必须使用简洁的段落格式或项目符号列表，保持专业且易读的风格。
+3. 每个类别可以有0到多条，一共筛选出10条。
+
+主题包含：
+
+1. 重要的财经新闻和观点（限3条以内，不要关注过于宏观的经济政策，聚焦在话题性比较强、关注度高的科技巨头公司和人物的消息上面）：
+    a. 美股、欧洲、香港指数出现大于2%的显著波动
+    b. 如重要产品发布（含预告）、重大投资公告
+    c. 行业巨头如 Satya Nadella，Tim Cook，Jensen Huang， Pichai，Zuckerberg, larry Ellison, Lisa Su, 雷军，elon musk等人最新观点（采访、tweet 等）
+    d. 重要投资人如 Aswath Damodaran, Cathie Wood、Citrini、MebFaber， Ray Dalio、段永平、但斌等（可扩展到资管规模50亿美金以上，或者社媒上10万粉比以上的人物）人关于投资、财经、金融和量化的看法。
 2. 主要对冲基金的重大新闻事件，特别是丑闻、重要人事变动、重大技术变革、最新岗位、竞赛、招聘信息
-3. reddit, x, facebook, instagram,linkedin, 雪球上 KOL（多于10k followers） 发表的关于投资的最新观点
-4. python, numpy, pandas, polars, duckdb, clickhouse, postgresql, influxdb, redis, matplotlib, backtrader, vectorbot, statsmodels, scikit-learn, plotly, seaborn, ta-lib 等重要量化库的重大版本更新、重要新闻；关于这些库的最新博客介绍等。
-5. 最新出版的财经类，量化交易、量化金融方面的重要书籍，中文版和英文版
+3. reddit, x, facebook, instagram,linkedin, 雪球上 KOL（多于100k followers） 发表的关于投资的最新观点
+4. python, numpy, pandas, polars, duckdb, clickhouse, postgresql, influxdb, redis, matplotlib, backtrader, vectorbot, statsmodels, scikit-learn, plotly, seaborn, ta-lib 等重要量化库的主要版本更新、重要新闻；关于这些库的最新博客介绍，回答为何值得关注的问题
+5. 最新出版的财经类，量化交易、量化金融方面的重要书籍，中文版和英文版，给出推荐语
 6. 强化学习、llm 在量化交易方面的最新研究、应用、案例分析等，特别是出现在https://www.alphaxiv.org/?sort=Hot中的
 7. 一句经典的语录，比如从《纳瓦尔宝典》、《穷查理宝典》中提取，必须使用原文。
 
+
 排除：
+
 1. 加密货币相关的新闻和观点
 2. 个股的交易信号、交易策略收益等诱导性内容
-3. 排除无法公开访问的内容，例如需要登录才能查看的内容
+3. 排除无法公开访问的内容，例如需要登录才能查看的内容 
 
-最终输出的将是一个包含10条新闻摘要的列表，每个事件都是一个列表项，约100~140字的 summary，随后附有链接，并且链接一定是可以访问的真实链接。
 
-一个类别可以有一到多个事件；如果当天没有某个类别的事件，则不必列出。
 
 ---
 
