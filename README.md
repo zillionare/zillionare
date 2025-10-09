@@ -10,35 +10,35 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>在量化交易中，掌握ARMA/GARCH 的重要性？</h3>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg" style="height: 200px" align="right"/>
+<p>证券交易数据是非常典型的时间序列数据，而 ARMA 与 GARCH 又是两种常用的时间序列模型。如何评估这两种模型在量化交易中的作用？</p>
+
+<p><span style="margin-right:20px">发表于 2025-10-10 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/does-arma-garch-matter-in-quant/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
+<h3>硕士在读，如何才能入行量化交易</h3>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/5.jpg" style="height: 200px" align="right"/>
+<p>硕士在读，如何才能入行量化交易？这篇文章从如何获得面试、如何通过面试以及如何通过见习期考核给你支招。</p>
+
+<p><span style="margin-right:20px">发表于 2025-10-05 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/如何才能入行量化交易/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>聪明钱概念策略，另一个价格行为交易策略？</h3>
 <img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg" style="height: 200px" align="right"/>
 <p>!!! abstract<br>    - **什么是聪明钱概念交易策略？**<br>    - **SMC 关键概念**<br>    - **如何使用聪明钱概念交易策略进行交易**<br>    - **聪明钱概念与价格行为有什么区别？**<br>    - **SMC...</p>
 
-<p><span style="margin-right:20px">发表于 2025-10-04 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/smart-money-concept/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>10月4日资读速递</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg" style="height: 200px" align="right"/>
-<p>从此，我便是一个交易团队！Trading Agents-CN 是Trading Agents 的本地化版本。</p>
-
-<p><span style="margin-right:20px">发表于 2025-10-04 人气 198 </span><span><a href="https://www.jieyu.ai/articles/express/十月/1004/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>9 月 29 日资读速递</h3>
-<img src="https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg" style="height: 200px" align="right"/>
-<p>印度 IT 股因美签新规暴跌 8%，微软纳德拉忙拉 xAI 防落伍，苹果砸钱自建 AI 追赶 Siri 大升级！量化界 LLM+RL 混搭提升夏普，Polars 云端分布式搞定大数据，DuckDB 加密 HTAP 更稳当。芒格直言风险非波动，乃资本永损或回报不足。悬念：AI 时代，谁主沉浮？</p>
-
-<p><span style="margin-right:20px">发表于 2025-09-29 人气 780 </span><span><a href="https://www.jieyu.ai/articles/express/九月/0929/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-10-04 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/smart-money-concept/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
