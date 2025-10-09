@@ -43,6 +43,11 @@ Prophet 是基于加法模型（趋势 + 季节性 + 节假日效应）设计，
 
 写完这一篇，刚好2025年诺贝尔物理学奖颁布。今年的诺奖授予加州大学等三位学者，以表彰他们『在电路中实现宏观量子力学隧穿效应和能量量子化』 的开创性工作。
 
+<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251009230959.png'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
+</div>
+
 简言之，之前我们总认为量子力学只在微观尺度上发挥作用。薛定谔的猫就是对量子力学适用范围的质疑。该思想实验以一个似是而非的悖论提出了这一质疑。但是，现在我们可以说：
 
 量子力学没有明确的宏观 - 微观边界，因为超导电路的尺寸可达毫米级。现在，也许是时候重新设计薛定谔的猫的实验了。
