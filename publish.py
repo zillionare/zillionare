@@ -106,7 +106,7 @@ mystAdmons = {
 
 
 def get_copyrights() -> str:
-    copyright = """\n```{attention} 版权声明
+    copyright = """\n\n```{attention} 版权声明
 本课程全部文字、图片、代码、习题等所有材料，除声明引用外，版权归<b>匡醍</b>所有。所有草稿版本均通过第三方服务进行管理，作为拥有版权的证明。未经作者书面授权，请勿引用和传播。联系我们：公众号 Quantide\n```"""
 
     return copyright
@@ -686,7 +686,7 @@ def preview_notebook(file: str):
     """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
     src = absolute_path(Path(file))
     tmp_md = Path("/tmp") / src.name
-    preprocess(src, tmp_md, strip_output=True, admon_style="myst")
+    preprocess(src, tmp_md, strip_output=True, admon_style="myst", copy_right=True)
 
     notebook = convert_to_ipynb(tmp_md)
 
@@ -697,7 +697,7 @@ def preview_notebook(file: str):
     shutil.copy(notebook, dst / notebook.name)
 
 
-def publish_quantide(src: str, category: str, price: int = 40):
+def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = None):
     """将文章发布到quantide课程平台
 
     1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
@@ -747,7 +747,11 @@ def publish_quantide(src: str, category: str, price: int = 40):
     cmd = f"scp {notebook} omega:~/courses/blog/articles/{category}/{notebook.name}"
     os.system(cmd)
 
-    if API_TOKEN:
+    if not API_TOKEN:
+        print("✅ 文件已拷贝")
+        return
+    
+    if not rid:
         response = requests.post(
             f"{quantide_api_url}/api/admin/resources/publish",
             headers={
@@ -755,12 +759,26 @@ def publish_quantide(src: str, category: str, price: int = 40):
                 "Authorization": f"Bearer {API_TOKEN}",
             },
             json={"meta": meta, "allow_all": price == 0},
+            timeout=30
         )
         if response.status_code == 200:
             print("✅ 发布成功")
         else:
             print("❌ 发布失败")
             print(response.text)
+
+        return
+    
+    # 修改已存在的资源
+    response = requests.put(
+        f"{quantide_api_url}/api/admin/resources/{rid}",
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {API_TOKEN}",
+        },
+        json={"meta": meta, "allow_all": price == 0},
+        timeout = 30
+    )
 
 
 def prepare_gzh(src: str):

@@ -10,11 +10,23 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>鳄鱼线，让趋势成为你的朋友</h3>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg" style="height: 200px" align="right"/>
+<p> 1. 策略核心观点<br>本文构建了一个包含短、中、长期综合考量的鳄鱼线投资策略。它通过吸纳不同时间跨度的信息生成投资信号。严格的多空信号标准使其有着优秀的beta收益。此外，通过不断地纳入AO、分形以及MACD因子，其投资表现越来越好。<br> 2. 引言<br><br...</p>
+
+<p><span style="margin-right:20px">发表于 2025-10-13 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/alligator/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！</h3>
 <img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/11.jpg" style="height: 200px" align="right"/>
 <p>近期，三家外资高频量化巨头被海关调查。这一事件揭开了高频交易领域一个公开的秘密：硬件竞速。本文盘点了高频量化的那些招数。</p>
 
-<p><span style="margin-right:20px">发表于 2025-10-11 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/others/need-for-speed/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-10-11 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/others/need-for-speed/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -22,23 +34,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>在量化交易中，掌握ARMA/GARCH 的重要性？</h3>
-<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg" style="height: 200px" align="right"/>
-<p>证券交易数据是非常典型的时间序列数据，而 ARMA 与 GARCH 又是两种常用的时间序列模型。如何评估这两种模型在量化交易中的作用？</p>
+<h3>每日7点【10月11日】</h3>
+<img src="https://images.jieyu.ai/images/hot/mybook/book-with-course.png" style="height: 200px" align="right"/>
+<p>多位著名投资人警告糖分过高！接下来是否会『轻断食』？</p>
 
-<p><span style="margin-right:20px">发表于 2025-10-10 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/does-arma-garch-matter-in-quant/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>硕士在读，如何才能入行量化交易</h3>
-<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/5.jpg" style="height: 200px" align="right"/>
-<p>硕士在读，如何才能入行量化交易？这篇文章从如何获得面试、如何通过面试以及如何通过见习期考核给你支招。</p>
-
-<p><span style="margin-right:20px">发表于 2025-10-05 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/如何才能入行量化交易/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-10-11 人气 407 </span><span><a href="https://www.jieyu.ai/articles/express/十月/1011/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
