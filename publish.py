@@ -618,6 +618,35 @@ def format_code_blocks_in_markdown(content: str):
     formatted_content = code_block_pattern.sub(format_match, content)
     return formatted_content
 
+def convert_md_images(text: str, width: str) -> str:
+    """Convert markdown images to HTML with width and caption.
+    - Avoid converting inside fenced code blocks (```)
+    - Use alt text as caption and () content as src
+    """
+    img_pattern = re.compile(r"!\[(.*?)\]\((.*?)\)")
+    lines = text.split("\n")
+    in_code = False
+    new_lines: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code = not in_code
+            new_lines.append(line)
+            continue
+        if not in_code:
+            def repl(m) -> str:
+                title = m.group(1).strip()
+                src = m.group(2).strip()
+                return (
+                    f"<div style='width:{width};text-align:center;margin: 0 auto 1rem'>\n"
+                    f"<img src='{src}'>\n"
+                    f"<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>{title}</span>\n"
+                    f"</div>"
+                )
+            line = img_pattern.sub(repl, line)
+        new_lines.append(line)
+    return "\n".join(new_lines)
+
 
 def preprocess(
     in_file: Path,
@@ -626,6 +655,7 @@ def preprocess(
     copy_right: bool = False,
     admon_style: str | None = None,
     strip_paid: bool = False,
+    alt_img: str | None = None,
 ) -> dict:
     meta = get_meta(in_file)
 
@@ -637,9 +667,9 @@ def preprocess(
         #         f"<!--PAID CONTENT END-->"
         # else:
         #     return f"<!--PAID CONTENT START-->\n<!--PAID CONTENT END-->"
-        return f"<!--PAID CONTENT START-->\n<!--PAID CONTENT END-->"
+        return "<!--PAID CONTENT START-->\n<!--PAID CONTENT END-->"
 
-    with open(in_file, "r") as f:
+    with open(in_file, "r", encoding="utf-8") as f:
         content = f.read()
         if strip_output:
             content = strip_output_region(content)
@@ -652,6 +682,10 @@ def preprocess(
 
         content = strip_html_comments(content)
         content = format_code_blocks_in_markdown(content)
+
+        # If alt_img (width) is provided, convert markdown images to HTML blocks
+        if alt_img:
+            content = convert_md_images(content, alt_img)
 
         if admon_style == "myst":
             lines = to_myst_adnomition(content.split("\n"))
@@ -682,11 +716,11 @@ def convert_to_ipynb(in_file: str | Path) -> Path:
     return dst
 
 
-def preview_notebook(file: str):
+def preview_notebook(file: str, alt_img: str | None = None):
     """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
     src = absolute_path(Path(file))
     tmp_md = Path("/tmp") / src.name
-    preprocess(src, tmp_md, strip_output=True, admon_style="myst", copy_right=True)
+    preprocess(src, tmp_md, strip_output=True, admon_style="myst", copy_right=True, alt_img=alt_img)
 
     notebook = convert_to_ipynb(tmp_md)
 
@@ -697,7 +731,7 @@ def preview_notebook(file: str):
     shutil.copy(notebook, dst / notebook.name)
 
 
-def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = None):
+def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = None, alt_img: str | None = None):
     """将文章发布到quantide课程平台
 
     1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
@@ -713,7 +747,7 @@ def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = N
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
     meta = preprocess(
-        md, preprocessed, strip_output=True, copy_right=True, admon_style="myst"
+        md, preprocessed, strip_output=True, copy_right=True, admon_style="myst", alt_img=alt_img
     )
 
     notebook = convert_to_ipynb(preprocessed)
