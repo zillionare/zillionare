@@ -638,10 +638,10 @@ def convert_md_images(text: str, width: str) -> str:
                 title = m.group(1).strip()
                 src = m.group(2).strip()
                 return (
-                    f"<div style='width:{width};text-align:center;margin: 0 auto 1rem'>\n"
-                    f"<img src='{src}'>\n"
-                    f"<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>{title}</span>\n"
-                    f"</div>"
+                    f"<figure style='width:{width};margin: 0 auto 1rem; padding: 0;'>\n"
+                    f"<img src='{src}' style='width: 100%; height: auto; display: block; margin: 0 auto;'>\n"
+                    f"<figcaption style='font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;'>{title}</figcaption>\n"
+                    f"</figure>"
                 )
             line = img_pattern.sub(repl, line)
         new_lines.append(line)
