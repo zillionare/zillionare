@@ -8,13 +8,20 @@ import numpy as np
 import pandas as pd
 import polars as pl
 import quantstats as qs
-from helper import fetch_bars, resample_to_month
+from helper import (resample_to_month)
+from fetchers import fetch_bars
 from loguru import logger
 
 
 class StrategyAnalyzer:
-    """策略分析器，通过代理模式集成QuantStats的分析功能"""
-    def __init__(self, strategy_returns: pd.Series, benchmark_returns: Optional[pd.Series] = None):
+    """策略分析器，通过代理模式集成QuantStats的分析功能
+    
+    !!! attention
+        本分析器仅适用于 Moonshot，因为一些参数我们指定了默认值，且暂时未提供修改
+    
+    
+    """
+    def __init__(self, strategy_returns: pd.Series, benchmark_returns: Optional[pd.Series] = None, annual_periods: int = 12):
         """
         初始化分析器
         
@@ -24,6 +31,8 @@ class StrategyAnalyzer:
         """
         self.strategy_returns = self._validate_returns(strategy_returns, "策略收益率")
         self.benchmark_returns = self._validate_returns(benchmark_returns, "基准收益率") if benchmark_returns is not None else None
+
+        self.annual_periods = annual_periods
         
         # 初始化QuantStats代理方法
         self._setup_proxy_methods()
@@ -43,8 +52,8 @@ class StrategyAnalyzer:
         # 核心指标代理方法
         self.sharpe = lambda: qs.stats.sharpe(self.strategy_returns)
         self.max_drawdown = lambda: qs.stats.max_drawdown(self.strategy_returns)
-        self.cagr = lambda: qs.stats.cagr(self.strategy_returns)
-        self.alpha = lambda: qs.stats.information_ratio(self.strategy_returns, self.benchmark_returns) if self.benchmark_returns is not None else None
+        self.cagr = lambda: qs.stats.cagr(self.strategy_returns, periods = self.annual_periods)
+        self.alpha = lambda: qs.stats.alpha(self.strategy_returns, self.benchmark_returns) if self.benchmark_returns is not None else None
         self.beta = lambda: qs.stats.volatility(self.strategy_returns) if self.benchmark_returns is not None else None
         
         # 报告生成代理方法
@@ -67,7 +76,7 @@ class StrategyAnalyzer:
         
         def plot_returns():
             """绘制策略累计收益率曲线"""
-            qs.plots.returns(self.strategy_returns)
+            qs.plots.returns(self.strategy_returns, benchmark=self.benchmark_returns)
         
         def plot_drawdown():
             """绘制最大回撤曲线"""
@@ -327,11 +336,19 @@ class Moonshot:
         
         # 按月分组计算策略收益（flag=1的股票等权平均）
         def calculate_strategy_return(group):
-            selected = group[group.get('flag', 0) == 1]
-            if len(selected) > 0:
-                return selected['monthly_return'].mean()
-            else:
-                return 0.0
+            long_positions = group[group.get('flag', 0) == 1]
+            short_positions = group[group.get('flag', 0) == -1]
+
+            long_return = 0.0
+            short_return = 0.0
+
+            if len(long_positions) > 0:
+                long_return = long_positions['monthly_return'].mean()
+            
+            if len(short_positions) > 0:
+                short_return = -short_positions['monthly_return'].mean()
+            
+            return long_return + short_return
         
         # 向量化计算策略收益
         strategy_returns = self.data.groupby(level='month').apply(calculate_strategy_return)
@@ -381,9 +398,13 @@ if __name__ == '__main__':
 
     startup_file = Path("~/courses/blog/.startup/").expanduser()
     sys.path.append(str(startup_file))
-    from helper import (ParquetUnifiedStorage, dividend_yield_screen,
-                        fetch_bars, fetch_dv_ttm)
+    from helper import (ParquetUnifiedStorage, dividend_yield_screen)
+    from fetchers import (fetch_bars, fetch_dv_ttm, fetch_fina_audit)
 
+    if Path("/data").exists():
+        data_home = Path("/data")
+    else:
+        data_home = Path("~/workspace/data/").expanduser()
 
     start = datetime.date(2018, 1, 1)
     end = datetime.date(2023, 12, 31)
