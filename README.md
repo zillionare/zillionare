@@ -10,11 +10,23 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</h3>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg" style="height: 200px" align="right"/>
+<p>本文对华证与 Wind 的 ESG 评分分别构建“按披露日横截面分层、T+1 生效、前向填充到日频、等权持有到下一次披露”的策略框架，在最长可追溯样本期内进行系统回测.</p>
+
+<p><span style="margin-right:20px">发表于 2025-10-26 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/ESG策略初探-02/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>如何选择量化交易基金，Max Dama 给你的7个建议</h3>
 <img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/23.jpg" style="height: 200px" align="right"/>
 <p>对于想要在量化交易行业发展的新人，可能并不知道该如何挑选一家公司。因此，他们很容易在选择第一份工作时犯错。这个错误可能会导致你日后放弃这个行业，而事实上，你可能非常适合这个行业并取得成功。没有经验的人很容易犯错；但我想提供一些指导，帮助你避免一些常见的陷阱。</p>
 
-<p><span style="margin-right:20px">发表于 2025-10-23 人气 934 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/successfully-starting-a-career-in-quant-research/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-10-23 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/successfully-starting-a-career-in-quant-research/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -26,19 +38,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/22.jpg" style="height: 200px" align="right"/>
 <p>从化石燃料到金融市场，绿色转型已不可逆。到2024年，151个国家宣布碳中和目标，120个将其纳入法律，86个给出清晰路线图。资本正在用估值与资金流向表态：可持续发展是新的共识。而在资本对“可持续价值”的抉择中，**ESG**正成为衡量企业与经济体可持续竞争力的核心标尺</p>
 
-<p><span style="margin-right:20px">发表于 2025-10-22 人气 292 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/ESG策略初探-01/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>金融行业买方与卖方：利润与稳定性的背后逻辑</h3>
-<img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/21.jpg" style="height: 200px" align="right"/>
-<p>买方利润更高，卖方更稳定？这篇文章从商业模式、收入结构和风险承担角度，深入解析金融行业买方与卖方的本质区别，助你精准把握职业选择方向。</p>
-
-<p><span style="margin-right:20px">发表于 2025-10-21 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/career&figure/买卖双方/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-10-22 人气 198 </span><span><a href="https://www.jieyu.ai/blog/posts/factor-strategy/ESG策略初探-01/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>

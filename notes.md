@@ -21,3 +21,22 @@ i人e人
 多巴胺
 偷感
 盗人
+
+## 资源
+
+### 播客
+https://signalsandthreads.com/ Ron Minshky 与**简街**工程师的对话
+
+
+### Max Dama
+Quantitative Trading Summary(量化交易摘要)： https://blog.headlandstech.com/2017/08/03/quantitative-trading-summary/
+Opinion: Rationalizing Latency Competition in High-Frequency Trading： https://blog.headlandstech.com/2024/05/
+
+### 高频交易
+
+在高频交易中，除了速度最快的公司，其他公司如何生存？
+https://www.reddit.com/r/quant/comments/1ghzvct/in_hft_how_can_any_firm_other_than_the_fastest/?chainedPosts=t3_1msbqpz
+
+### 策略
+
+https://www.reddit.com/r/algotrading/comments/1ob5xao/built_a_regimebased_overnight_mean_reversion
