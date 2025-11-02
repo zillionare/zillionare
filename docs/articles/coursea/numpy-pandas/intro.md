@@ -27,21 +27,13 @@ tags:
 为了惠及更多读者，我们采取了分级定价策略：
 
 === "Plan A"
-    !!! tip "仅19.9元！"
-        您可以通过[公众号订阅我们的课程](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI2MzE3MzY4Ng==&action=getalbum&album_id=3428193044133249027#wechat_redirect)，或者在小红书上购买，定价为19.9元。您将获得公众号文章的阅读权限，或者是我们导出的pdf电子文档（适用于小红书购买的情况）。
-        <br><br>适合人群：有充足的时间可以自学，并且遇到困难能自行解决。
+    !!! tip "免费"
+        您可以通过在[匡醍量化](https://www.jieyu.ai/articles/python/numpy%26pandas/01-introduction/)这里免费阅读课程文本。
 === "Plan B"
-    !!! tip "仅199元!"
-        基于此方案，您将获得Plan A的全部权利，叠加视频录播课程。
-        <br><br>适合人群：可以利用通勤时间看视频，回到办公室浏览下课件文本。
-=== ":material-fire: Plan C"
-    !!! tip "799元"
-        学习编程的最好方式就是进行练习。您将获得Plan B的全部权益，除此之外，您还将获得：
-        <ul>
-        <li>在线课程环境，无须安装即可阅读教材及运行代码</li>
-        <li>大量练习题及作业批改</li>
-        <li>为期2个月的不限次答疑</li>
-        </ul>
+    !!! tip "仅99元!"
+        我们提供了可在线运行的 notebook。它与 Plan A的内容几乎一样，但是每一段代码都可以运行（如果你熟悉 notebook，就能理解）。你可以修改它，运行它，而不用对着我们的课程文本复制、粘贴以及担心依赖库和数据从哪儿来。
+
+        您可以在[小红书](https://www.xiaohongshu.com/goods-detail/67f4d677ab6a3e0001e5bb84?t=1762062506298&xsec_token=ABstLThUDfUaYjgAOEyrahdZ7G6MeNK3ln85SXgObCR88%3D&xsec_source=pc_arkselfshare)上购买。
 
 ## 课程编排说明
 
