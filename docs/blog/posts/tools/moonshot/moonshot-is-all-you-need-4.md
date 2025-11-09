@@ -32,13 +32,9 @@ img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape
 <!--PAID CONTENT START-->
 ```python
 import tushare as ts
-
-from helper import (
-    ParquetUnifiedStorage,
-    dividend_yield_screen,
-    fetch_bars,
-    fetch_dv_ttm,
-)
+from helper import qfq_adjustment
+from fetchers import fetch_bars
+from store import ParquetUnifiedStorage, CalendarModel
 from moonshot import Moonshot
 ```
 <!--PAID CONTENT END-->
@@ -128,7 +124,7 @@ def fetch_dividend(start: datetime.date, end: datetime.date):
 ```{code-block} python
 # 本段代码已在课程环境中运行，数据已缓存，请勿重复运行
 path = data_home / "rw/dividend.parquet"
-store = ParquetUnifiedStorage(store_path = path)
+store = ParquetUnifiedStorage(path, calendar)
 
 for yr in (2018, 2019, 2020, 2021, 2022, 2023):
     start = datetime.date(yr, 1, 1)
@@ -145,7 +141,7 @@ store
 <!-- BEGIN IPYNB STRIPOUT -->
 ```python
 path = data_home / "rw/dividend.parquet"
-store = ParquetUnifiedStorage(store_path = path)
+store = ParquetUnifiedStorage(path, calendar)
 
 for yr in (2018, 2019, 2020, 2021, 2022, 2023):
     start = datetime.date(yr, 1, 1)
@@ -191,7 +187,7 @@ store
 def pre_process(
     store, start: datetime.date | None = None, end: datetime.date | None = None
 ):
-    df = store.load_data(start or store.start, end or store.end)
+    df = store.get_and_fetch(start or store.start, end or store.end, call_direct=True)
 
     df["end_date"] = pd.to_datetime(df["end_date"])
     df["ann_date"] = pd.to_datetime(df["ann_date"])
@@ -209,13 +205,19 @@ def pre_process(
     cols = ["asset", "month", "fiscal_year"]
     return df[cols].set_index(["asset", "month"])
 
-path = data_home / "rw/dividend.parquet"
-store = ParquetUnifiedStorage(store_path=path)
 
-df = pre_process(store)
+calendar = CalendarModel(data_home / "rw/calendar.parquet")
+
+path = data_home / "rw/dividend.parquet"
+store = ParquetUnifiedStorage(path, calendar, fetch_data_func = fetch_dividend)
+
+start = datetime.date(2018, 11,30)
+end = datetime.date(2023,11,30)
+df = pre_process(store, start, end)
 display(df.head())
 
 df.query("asset == '000001.SZ'")
+
 ```
 
 预处理的核心思想是把细粒度的时间数据转换成粗粒度的时间数据。这是月度回测中的核心技巧之一。在经过这样的转换之后，数据的查找、对齐和偏移计算就会易如反掌了。
@@ -344,9 +346,9 @@ start = datetime.date(2018, 1, 1)
 end = datetime.date(2023, 12, 31)
 
 store_path = data_home / "rw/bars.parquet"
-bars_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_bars)
+bars_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_bars)
 
-barss = bars_store.load_data(start, end)
+barss = bars_store.get_and_fetch(start, end)
 ms = Moonshot(barss)
 
 # consecative_div 示例 example-consective-div
@@ -354,8 +356,8 @@ ms.append_factor(consective_div, "consective_div")
 
 # 我们把上一篇的股息率筛选也加上
 store_path = data_home / "rw/dv_ttm.parquet"
-dv_store = ParquetUnifiedStorage(store_path = store_path, fetch_data_func=fetch_dv_ttm)
-dv_ttm = dv_store.load_data(start, end)
+dv_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_dv_ttm)
+dv_ttm = dv_store.get_and_fetch(start, end)
 ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
 
 output = get_jupyter_root_dir() / "reports/moonshot_v4.html"

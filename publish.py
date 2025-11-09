@@ -449,7 +449,6 @@ def extract_meta_for_jieyu_index(file):
         link = Path("/articles") / relpath.with_suffix("")
         meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
 
-
     return meta
 
 
@@ -549,7 +548,7 @@ def build_index():
     return web_body, github_body, styles
 
 
-def write_readme(body, styles: str|None = None):
+def write_readme(body, styles: str | None = None):
     with open("./README.md", "w", encoding="utf-8") as f:
         # f.write(about)
         # f.write(intro)
@@ -574,7 +573,7 @@ def execute(cmd):
         print(f"!!! FAILED: {cmd}")
 
 
-def build(mode: str="github"):
+def build(mode: str = "github"):
     web_body, github_body, styles = build_index()
     if mode == "github":
         write_readme(github_body)
@@ -618,6 +617,7 @@ def format_code_blocks_in_markdown(content: str):
     formatted_content = code_block_pattern.sub(format_match, content)
     return formatted_content
 
+
 def convert_md_images(text: str, width: str) -> str:
     """Convert markdown images to HTML with width and caption.
     - Avoid converting inside fenced code blocks (```)
@@ -634,6 +634,7 @@ def convert_md_images(text: str, width: str) -> str:
             new_lines.append(line)
             continue
         if not in_code:
+
             def repl(m) -> str:
                 title = m.group(1).strip()
                 src = m.group(2).strip()
@@ -643,6 +644,7 @@ def convert_md_images(text: str, width: str) -> str:
                     f"<figcaption style='font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;'>{title}</figcaption>\n"
                     f"</figure>"
                 )
+
             line = img_pattern.sub(repl, line)
         new_lines.append(line)
     return "\n".join(new_lines)
@@ -720,7 +722,14 @@ def preview_notebook(file: str, alt_img: str | None = None):
     """将markdown转换为ipynb，部署到本地的~/courses/blog目录"""
     src = absolute_path(Path(file))
     tmp_md = Path("/tmp") / src.name
-    preprocess(src, tmp_md, strip_output=True, admon_style="myst", copy_right=True, alt_img=alt_img)
+    preprocess(
+        src,
+        tmp_md,
+        strip_output=True,
+        admon_style="myst",
+        copy_right=True,
+        alt_img=alt_img,
+    )
 
     notebook = convert_to_ipynb(tmp_md)
 
@@ -731,7 +740,13 @@ def preview_notebook(file: str, alt_img: str | None = None):
     shutil.copy(notebook, dst / notebook.name)
 
 
-def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = None, alt_img: str | None = None):
+def publish_quantide(
+    src: str,
+    category: str,
+    price: int = 40,
+    rid: int | None = None,
+    alt_img: str | None = None,
+):
     """将文章发布到quantide课程平台
 
     1. 删除markdown中，代码的运行结果（避免与notebook的运行结果重复）
@@ -747,7 +762,12 @@ def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = N
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
     meta = preprocess(
-        md, preprocessed, strip_output=True, copy_right=True, admon_style="myst", alt_img=alt_img
+        md,
+        preprocessed,
+        strip_output=True,
+        copy_right=True,
+        admon_style="myst",
+        alt_img=alt_img,
     )
 
     notebook = convert_to_ipynb(preprocessed)
@@ -784,7 +804,7 @@ def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = N
     if not API_TOKEN:
         print("✅ 文件已拷贝")
         return
-    
+
     if not rid:
         response = requests.post(
             f"{quantide_api_url}/api/admin/resources/publish",
@@ -793,7 +813,7 @@ def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = N
                 "Authorization": f"Bearer {API_TOKEN}",
             },
             json={"meta": meta, "allow_all": price == 0},
-            timeout=30
+            timeout=30,
         )
         if response.status_code == 200:
             print("✅ 发布成功")
@@ -802,7 +822,7 @@ def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = N
             print(response.text)
 
         return
-    
+
     # 修改已存在的资源
     response = requests.put(
         f"{quantide_api_url}/api/admin/resources/{rid}",
@@ -811,7 +831,7 @@ def publish_quantide(src: str, category: str, price: int = 40, rid: int|None = N
             "Authorization": f"Bearer {API_TOKEN}",
         },
         json={"meta": meta, "allow_all": price == 0},
-        timeout = 30
+        timeout=30,
     )
 
 
@@ -826,10 +846,10 @@ def prepare_gzh(src: str):
 def remove_incomplete_html_tags(text):
     """
     移除未闭合的HTML标签及其后面的内容
-    
+
     Args:
         text (str): 需要处理的文本
-        
+
     Returns:
         str: 处理后的文本
     """
@@ -837,50 +857,69 @@ def remove_incomplete_html_tags(text):
     tag_stack = []
     result = []
     i = 0
-    
+
     while i < len(text):
-        if text[i] == '<':
+        if text[i] == "<":
             # 找到标签的结束位置
-            tag_end = text.find('>', i)
+            tag_end = text.find(">", i)
             if tag_end == -1:
                 # 未找到结束的>，这是一个不完整的标签，移除它及其后面所有内容
                 break
-            
-            tag_content = text[i:tag_end+1]
+
+            tag_content = text[i : tag_end + 1]
             result.append(tag_content)
-            
+
             # 解析标签
-            if tag_content.startswith('</'):
+            if tag_content.startswith("</"):
                 # 结束标签
                 tag_name = tag_content[2:-1].strip().split()[0]
                 if tag_stack and tag_stack[-1] == tag_name:
                     tag_stack.pop()
-            elif tag_content.endswith('/>'):
+            elif tag_content.endswith("/>"):
                 # 自闭合标签
                 pass
             else:
                 # 开始标签
                 tag_name = tag_content[1:-1].strip().split()[0]
                 # 不将自闭合标签放入栈中
-                if tag_name.lower() not in ['img', 'br', 'hr', 'input', 'meta', 'link', 'area', 'base', 'col', 'embed', 'source', 'track', 'wbr']:
+                if tag_name.lower() not in [
+                    "img",
+                    "br",
+                    "hr",
+                    "input",
+                    "meta",
+                    "link",
+                    "area",
+                    "base",
+                    "col",
+                    "embed",
+                    "source",
+                    "track",
+                    "wbr",
+                ]:
                     tag_stack.append(tag_name)
-            
+
             i = tag_end + 1
         else:
             result.append(text[i])
             i += 1
-    
+
     # 如果还有未闭合的标签，我们需要找到导致问题的标签并截断
     if tag_stack:
         # 找到文本中最后一个未闭合标签的开始位置
         for j in range(len(result) - 1, -1, -1):
-            if isinstance(result[j], str) and result[j].startswith('<') and not result[j].startswith('</') and not result[j].endswith('/>'):
+            if (
+                isinstance(result[j], str)
+                and result[j].startswith("<")
+                and not result[j].startswith("</")
+                and not result[j].endswith("/>")
+            ):
                 tag_name = result[j][1:-1].strip().split()[0]
                 if tag_name in tag_stack:
                     # 截断到这个标签之前
-                    return ''.join(result[:j])
-    
-    return ''.join(result)
+                    return "".join(result[:j])
+
+    return "".join(result)
 
 
 if __name__ == "__main__":

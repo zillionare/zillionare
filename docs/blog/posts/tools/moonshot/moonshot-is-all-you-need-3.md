@@ -45,7 +45,7 @@ def daily_basic(
 ```python
 # example-1
 def fetch_dv_ttm(start: datetime, end: datetime) -> pd.DataFrame:
-    pro = pro_api()
+    pro = ts.pro_api()
     cols = "ts_code,trade_date,dv_ttm,total_mv,turnover_rate,pe_ttm"
     dfs = []
     for dt in pd.bdate_range(start, end):
@@ -69,9 +69,10 @@ df
 
 <!--PAID CONTENT START-->
 ```python
-from helper import (ParquetUnifiedStorage, dividend_yield_screen, fetch_bars,
-                    fetch_dv_ttm)
 import tushare as ts
+from helper import qfq_adjustment
+from fetchers import fetch_bars
+from store import ParquetUnifiedStorage, CalendarModel
 from moonshot import Moonshot
 ```
 <!--PAID CONTENT END-->
@@ -114,16 +115,18 @@ map 只能接收 Series 对象作为输入，按单个元素进行转换映射�
 start = datetime.date(2018, 1, 1)
 end = datetime.date(2023, 12, 31)
 
-store_path = data_home / "rw/bars.parquet"
-bars_store = ParquetUnifiedStorage(store_path=store_path, fetch_data_func=fetch_bars)
+calendar = CalendarModel(data_home / "rw/calendar.parquet")
 
-barss = bars_store.load_data(start, end)
+store_path = data_home / "rw/bars.parquet"
+bars_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_bars)
+
+barss = bars_store.get_and_fetch(start, end)
 ms = Moonshot(barss)
 
 store_path = data_home / "rw/dv_ttm.parquet"
-dv_store = ParquetUnifiedStorage(store_path=store_path, fetch_data_func=fetch_dv_ttm)
+dv_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_dv_ttm)
 
-dv_ttm = dv_store.load_data(start, end)
+dv_ttm = dv_store.get_and_fetch(start, end)
 
 ms.append_factor(dv_ttm, "dv_ttm", resample_method="last")
 
@@ -131,9 +134,10 @@ output = get_jupyter_root_dir() / "reports/moonshot_v3.html"
 # 筛选！回测！报告
 (
     ms.screen(dividend_yield_screen, data=ms.data, n=500)
-    .calculate_returns()
-    .report(output=output)
+    .calculate_returns(True)
+    .report(output=output, periods_per_year=12)
 )
+
 ```
 
 Moonshot 的代码很简单，但也很强大：要按股息率，在每月结尾时进行股票池筛选，筛选器函数的核心部分仅令4行代码即可完成。这得益于我们梳理出来的清晰的数据结构。
@@ -199,7 +203,7 @@ ParquetUnifiedStorage是一个简单的本地存储方案。我们在上一篇�
 def _fetch_dv_ttm(start: datetime.date, end: datetime.date):
     """递归获取完整的daily_basic数据，处理offset限制问题"""
     dfs = []
-    pro = pro_api()
+    pro = ts.pro_api()
     cols = "ts_code,trade_date,dv_ttm,total_mv,turnover_rate,pe_ttm"
 
     page_size = 6_000

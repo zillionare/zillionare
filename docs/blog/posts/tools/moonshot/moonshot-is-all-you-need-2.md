@@ -67,7 +67,7 @@ def fetch_bars(start: datetime.date, end: datetime.date) -> pd.DataFrame | None:
     """
     all_data = []
 
-    pro = pro_api()
+    pro = ts.pro_api()
 
     for date in pd.bdate_range(start, end):
         try:
