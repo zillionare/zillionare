@@ -33,7 +33,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape
 ```python
 import tushare as ts
 from helper import qfq_adjustment
-from fetchers import fetch_bars
+from fetchers import fetch_bars_ext, fetch_dv_ttm
 from store import ParquetUnifiedStorage, CalendarModel
 from moonshot import Moonshot
 ```
@@ -91,26 +91,38 @@ print("imp_ann_date 一次返回数据：", len(df_imp))
 下面的代码演示了如何取区间 [start, end] 之间的数据：
 
 ```python
-import time
-
 def fetch_dividend(start: datetime.date, end: datetime.date):
-    dates = pd.date_range(start, end)
+    """每年分红除权情况
+
+    Args:
+        start (datetime.date): 起始日期
+        end (datetime.date): 截止日期
+
+    Returns:
+        返回 dataframe, date 为公告日期，fiscal_year 为公告对应财年
+    """
     dfs = []
     limit = 2000
-    for dt in dates:
+    pro = ts.pro_api()
+    for yr in range(start.year, end.year + 1):
+        dt = f"{yr}1231"
         # 对每一个交易日，都可能有超过 limit 条记录
         for offset in range(0, 99):
-            str_date = dt.strftime("%Y%m%d")
-            df = pro.dividend(end_date=str_date, offset=offset * limit)
+            df = pro.dividend(end_date=dt, offset=offset * limit, limit=limit)
             dfs.append(df)
             if len(df) < 2000:
                 break
 
     # 如果取太快，会导致 tushare 拒绝访问
-    time.sleep(0.125)
     data = pd.concat(dfs)
     data["date"] = pd.to_datetime(data["ann_date"]).dt.date
-    return data.rename(columns={"ts_code": "asset"})
+    data["fiscal_year"] = pd.to_datetime(data["end_date"]).dt.year
+
+    return (
+        data.rename(columns={"ts_code": "asset"})
+        .drop(["end_date", "ann_date"], axis=1)
+        .dropna(subset=["date"])
+    )
 ```
 
 !!! attention
@@ -188,16 +200,11 @@ def pre_process(
     store, start: datetime.date | None = None, end: datetime.date | None = None
 ):
     df = store.get_and_fetch(start or store.start, end or store.end, call_direct=True)
-
-    df["end_date"] = pd.to_datetime(df["end_date"])
-    df["ann_date"] = pd.to_datetime(df["ann_date"])
-
-    df["fiscal_year"] = df["end_date"].dt.year
-    df["month"] = df["ann_date"].dt.to_period("M")
+    df["month"] = pd.to_datetime(df["date"]).dt.to_period("M")
 
     # 某些个股在一个财年，可能会有多次分红，我们取最早的一次
     (
-        df.sort_values(["asset", "fiscal_year", "ann_date"])
+        df.sort_values(["asset", "fiscal_year", "date"])
         .groupby(["asset", "fiscal_year"], as_index=False)
         .first()
     )
@@ -209,15 +216,14 @@ def pre_process(
 calendar = CalendarModel(data_home / "rw/calendar.parquet")
 
 path = data_home / "rw/dividend.parquet"
-store = ParquetUnifiedStorage(path, calendar, fetch_data_func = fetch_dividend)
+store = ParquetUnifiedStorage(path, calendar, fetch_data_func=fetch_dividend)
 
-start = datetime.date(2018, 11,30)
-end = datetime.date(2023,11,30)
+start = datetime.date(2018, 10, 30)
+end = datetime.date(2023, 11, 30)
 df = pre_process(store, start, end)
 display(df.head())
 
 df.query("asset == '000001.SZ'")
-
 ```
 
 预处理的核心思想是把细粒度的时间数据转换成粗粒度的时间数据。这是月度回测中的核心技巧之一。在经过这样的转换之后，数据的查找、对齐和偏移计算就会易如反掌了。
@@ -256,7 +262,8 @@ all_months = pd.period_range(start=months.min(), end=months.max(), freq="M")
 index = pd.MultiIndex.from_product([all_assets, all_months], names=["asset", "month"])
 
 # result_df 目前是一个空表格
-result_df = pd.DataFrame(columns = ["consective_div"], index=index)
+result_df = pd.DataFrame(columns=["consective_div"], index=index)
+result_df.tail()
 ```
 
 接下来，我们把前面得到的关于 fiscal_year 和 announce_ym 的表格展开到与上述 result_df 对齐。对齐之后，剩下的计算就会变成是从一个表格映射到另一个表格那样简单。
@@ -279,14 +286,14 @@ expanded.tail()
 ```python
 # example-consective-div
 def calc_asset_flag(group: pd.DataFrame):
-    df = group.copy()
+    df = group.droplevel(level=0)
 
-    df["month_num"] = df.index.levels[1].month
-    df["year"] = df.index.levels[1].year
+    df["month_num"] = df.index.month
+    df["year"] = df.index.year
 
     # 这里无法使用 rolling，因为 rolling 后面要跟聚合函数，不能返回 set
     df["prev_fiscal_set"] = [
-        set(df.iloc[max(0, i - 24) : i]["fiscal_year"]) for i in range(len(df))
+        set(x) for x in df["fiscal_year"].rolling(24)
     ]
 
     def calc_row_flag(row):
@@ -305,7 +312,8 @@ def calc_asset_flag(group: pd.DataFrame):
 
     df["consective_div"] = df.apply(calc_row_flag, axis=1)
 
-    return df.drop(columns=["month_num", "year", "prev_fiscal_set"]).droplevel(level=0)
+    return df.drop(columns=["month_num", "year", "prev_fiscal_set"])
+
 
 consective_div = expanded.groupby(level="asset").apply(calc_asset_flag)
 consective_div.tail()
@@ -339,14 +347,43 @@ df_[df_.div_proc == '实施'][["ts_code", "end_date", "ann_date"]]
 ## 应用分红筛选
 
 ```python
+from IPython.display import clear_output
+
+def dividend_yield_screen(data: pd.DataFrame, n: int = 500) -> pd.Series:
+    """股息率筛选方法
+
+    对每个月的股息率进行排名，选择前n名股票，标记为1，
+    与现有flag进行逻辑与运算
+
+    Args:
+        n: 每月选择的股票数量，默认500
+    """
+    logger.info("开始进行股息率筛选...")
+
+    if "dv_ttm" not in data.columns:
+        raise ValueError("数据中不存在 dv_ttm 列，无法应用筛选器")
+
+    def rank_top_n(group):
+        # 计算每个股票在当月的排名（降序，股息率高的排名靠前）
+        ranks = group.rank(method="first", ascending=False)
+
+        return (ranks <= n).astype(int)
+
+    # 按date分组，对 dividend_rate_ttm 进行排名筛选
+    dividend_flags = data.groupby(level="month")["dv_ttm"].transform(rank_top_n)
+
+    logger.info(f"已筛选出前{n}名股息率股")
+    return dividend_flags
+
 def consective_dividend_screen(data):
     return data.consective_div
+
 
 start = datetime.date(2018, 1, 1)
 end = datetime.date(2023, 12, 31)
 
 store_path = data_home / "rw/bars.parquet"
-bars_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_bars)
+bars_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_bars_ext)
 
 barss = bars_store.get_and_fetch(start, end)
 ms = Moonshot(barss)
@@ -358,17 +395,18 @@ ms.append_factor(consective_div, "consective_div")
 store_path = data_home / "rw/dv_ttm.parquet"
 dv_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_dv_ttm)
 dv_ttm = dv_store.get_and_fetch(start, end)
-ms.append_factor(dv_ttm, "dv_ttm", resample_method = 'last')
+ms.append_factor(dv_ttm, "dv_ttm", resample_method="last")
 
 output = get_jupyter_root_dir() / "reports/moonshot_v4.html"
 # 筛选！ 回测！ 报告！
 (
-    ms.screen(dividend_yield_screen, data = ms.data, n=500)
-   .screen(consective_dividend_screen, data = ms.data)
-   .calculate_returns()
-   .report(output = output)
+    ms.screen(dividend_yield_screen, data=ms.data, n=500)
+    .screen(consective_dividend_screen, data=ms.data)
+    .calculate_returns(True)
+    .report(kind="html", output=output, periods_per_year=12)
 )
 
+clear_output()
 ```
 
 最终，我们得到以下报告：
@@ -380,12 +418,6 @@ output = get_jupyter_root_dir() / "reports/moonshot_v4.html"
 
 !!! info
     研究平台用户请双击 /reports/moonshot_v4.html 来查看更详细的报告。此目录和文件可以 jupyter lab 的侧边栏中找到。
-
-你也许已经发现，在加入新的筛选条件之后，策略的超额收益、相对夏普超额（如果可以这么说的话）都超过了前一期。尽管报告是这么说的，也确实应该如此，不过任何时候，在面对回测时的好消息时，你都应该再核对一遍：
-
-这**两次回测的时间区间不一样，所以，它们无法直接比较**。尽管我们获取数据时，都使用了一样的起止区间，但是，『连续两年分红』筛选存在一个两年的『冷启动』期。它导致了策略必须在指定的起始时间之后两年才能开始回测。
-
-尽管这里存在需要数据对齐的问题，幸运的是，Moonshot 默默承担了一切。
 
 <!-- BEGIN IPYNB STRIPOUT -->
 ## 后记

@@ -336,7 +336,7 @@ clear_output()
 
 这是一些重要的策略评估指标对照：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251109220126.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251110185908.png)
 
 5年来，红利策略的累计收益是112.65%，而沪深300只有9.2%。红利策略的年化达到了16%；同期沪深300只有1.84%。
 
