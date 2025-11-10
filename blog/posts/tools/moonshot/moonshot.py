@@ -24,6 +24,9 @@ class Moonshot:
         Args:
             daily_bars: 列字段包含date, asset以及open, close的已复权数据，其中date必须为datetime.date类型
         """
+        if daily_bars.index.duplicated().any():
+            raise ValueError("数据有重复")
+        
         self.data: pd.DataFrame = resample_to_month(
             daily_bars, open="first", close="last"
         )
@@ -325,10 +328,14 @@ class Moonshot:
         )
 
         # 后续使用 close
+        if self.data.index.duplicated().any():
+            self.data = self.data[~self.data.index.duplicated(keep = 'last')]
         prices = self.data["close"].unstack(level="asset")
         returns = prices.pct_change().mean(axis=1)
         returns.iloc[0] = first_month_returns
 
+        # make quantstatus happy
+        returns.name = "benchmark"
         return returns
 
     def _calculate_position_returns(
