@@ -4,7 +4,7 @@ slug: 8-ipython-skills-for-quant
 date: 2024-07-16
 category: arsenal
 motto: Let Your Light Shine！
-img: https://images.jieyu.ai/images/university/Mackey_Auditorium-Colorado.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Mackey_Auditorium-Colorado.jpg
 stamp: freshman
 stamp_width: 60%
 stamp_height: 60%
@@ -32,7 +32,7 @@ IPython 由 Fernando Pérez 在 2001 年创建，旨在为科研人员和数据�
 
 IPython的成功，也催生了Jupyter。2014年，Jupyter 从 IPython 项目中分离出来，并扩展到其它语言。Jupyter这个名字，正是来源于 Julia、Python 和 R 这三种语言的首字母组合。
 
-![50%](https://images.jieyu.ai/images/2024/07/jupyter.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter.jpg)
 
 尽管有了Jupyter Notebook，但在今天，我们仍然有很多理由使用ipython，核心原因就是，它比Jupyter更轻量 -- 无论是从安装角度还是使用角度。更轻，但仍然长袖擅舞，颇有飞燕之姿。
 
@@ -55,7 +55,7 @@ pip install ipython
 
 输入pd.后按 Tab 键，就可列出 pandas 模块的所有属性和方法。再按一次Tab键，就会导航到具体API上，再回车就能输入啦！
 
-![](https://images.jieyu.ai/images/2024/07/ipython-tips-2.gif)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-tips-2.gif)
 
 _小宠*书用户看不到这里的动画，抱歉_
 
@@ -135,7 +135,7 @@ example_function()
 
 ---
 
-![](https://images.jieyu.ai/images/2024/07/ipython-debug.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-debug.jpg)
 
 
 ### 8. 使用bookmark
@@ -151,7 +151,7 @@ example_function()
 
 .image {
     float: left;
-    shape-outside: url('https://images.jieyu.ai/images/2024/07/jupyter-page-mockup.png');
+    shape-outside: url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png');
     shape-margin: 1em;
     shape-image-threshold: 0.2;
 }
@@ -171,13 +171,13 @@ example_function()
 
 <div class="wrap">
 
-<img class="image" src="https://images.jieyu.ai/images/2024/07/jupyter-page-mockup.png"/>
+<img class="image" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png"/>
 
 ## 往期相关笔记
 <p>我们也发过两期关于Jupyter使用技巧的笔记，验证过了，确实80%的人没用过！</p>
 
-<a href="http://www.jieyu.ai/blog/2024/03/04/how-to-use-jupyter-as-quant-researcher/">量化人如何用好Jupyter环境？（一）</a>
-<a href="http://www.jieyu.ai/blog/2024/03/05/how-to-use-jupyter-as-quant-researcher/">量化人如何用好 Jupyter？（二）</a>
+<a href="https://blog.quantide.cn/blog/2024/03/04/how-to-use-jupyter-as-quant-researcher/">量化人如何用好Jupyter环境？（一）</a>
+<a href="https://blog.quantide.cn/blog/2024/03/05/how-to-use-jupyter-as-quant-researcher/">量化人如何用好 Jupyter？（二）</a>
 
 
 </div>

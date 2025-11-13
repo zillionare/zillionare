@@ -3,7 +3,7 @@ title: Jane Street出谜，答对入职！
 slug: jane-street-puzzles
 subtitle: 我与简街，只隔一道谜？！
 date: 2024-06-08
-img: https://images.jieyu.ai/images/2024/06/john-fawcett.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg
 category:
   - 职场
 tags:

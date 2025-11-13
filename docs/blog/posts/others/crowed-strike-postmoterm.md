@@ -2,7 +2,7 @@
 title: 全球Windows机器蓝屏，作为量化人，我的检讨来了
 slug: crowed-strike-postmoterm
 date: 2024-07-20
-img: https://images.jieyu.ai/images/2024/07/bsod.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/bsod.jpg
 category: others
 tags:
   - others
@@ -16,7 +16,7 @@ lineNumbers: true
 
 这个错误也是由于另一个比较少见的错误引起的。CrowdStrike软件使用了微软部署在美国中部的云服务Azure，但刚好这个数据中心出现了异常。
 
-![](https://images.jieyu.ai/images/2024/07/crowd-strike.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/crowd-strike.jpg)
 
 这个异常就导致了CrowdStrike在获取配置时，导入了错误的配置信息。这些错误信息下发后，软件终端基于错误的配置运行，就会在Windows终端额外加一个名为csagent.sys的驱动，而这个驱动存在bug，会导致系统陷入蓝屏死循环。
 
@@ -26,7 +26,7 @@ lineNumbers: true
 
 这里提几条建议。
 
-![](https://images.jieyu.ai/images/2024/07/CI-CD-process.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/CI-CD-process.png)
 
 第一，一定要达成高覆盖的单元测试和CI/CD流程。一定要意识到任何软件、硬件系统都是有bug的。在你构建量化交易系统时，一定要达成高覆盖单元测试和CI/CD流程。
 
@@ -38,7 +38,7 @@ lineNumbers: true
 
 传统上，量化团队都是金融专业的人领导的，他们可能缺乏软件工程的经验，不太懂测试、CI/CD这些专业知识，正因为这样，我写完《Python高效编程实践》这本书之后，特地请了两位金融界的大咖来推荐。因为自己做量化金融有好多年了，知道这个领域，非常需要系统化的软件工程方法来确保软件质量。
 
-![](https://images.jieyu.ai/images/hot/mybook/girl-reading.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png)
 
 第二，关闭一切自动更新。生产环境下一切自动更新都是非常危险的，必须关闭。只有经过严格测试的更新，才能应用。
 
@@ -51,7 +51,7 @@ lineNumbers: true
 灰度发布同样适用于量化系统。2012年8月1日，骑士资本在纳斯达克交易所部署了一个新的交易软件，但是由于没有充分测试，该软件在激活时触发了一系列错误的交易指令，导致公司在45分钟内损失了约4.4亿美元。最终导致了它被Jefferies Group收购。
 
 <div style='width:75%;text-align:center;margin-bottom:1rem'>
-<img src='https://images.jieyu.ai/images/2024/07/knight-capital-case.jpg' style="box-shadow:0 2px 5px rgba(0,0,0,0.3)">
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/knight-capital-case.jpg' style="box-shadow:0 2px 5px rgba(0,0,0,0.3)">
 <span style='font-style:italic;font-size:0.8rem'>骑士资本案例报告</span>
 </div>
 
@@ -64,7 +64,7 @@ lineNumbers: true
 
 第三，构建可控的系统。
 
-![](https://images.jieyu.ai/images/2024/07/i-robot.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/i-robot.jpg)
 
 如果你的交易信号系统构建在AI模型之上，那么，风控模型就一定不要构建在黑盒子之上，一定要设置熔断机制，到点无条件地止损（当然这会引起其它家的量化也跟进止损，但换个角度，如果你跑得太晚，那么被埋的就是你自己）。
 

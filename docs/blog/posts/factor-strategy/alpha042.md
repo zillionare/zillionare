@@ -4,13 +4,13 @@ date: 2024-10-18
 category: factor&strategy
 slug: alpha042
 motto: 俟河之清 人寿几何
-img: https://images.jieyu.ai/images/university/Free-University-tibilisi.webp
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor,alpha101,alpha]
 ---
 
-![题图：第比利斯自由大学，Kahushadze在此任教](https://images.jieyu.ai/images/university/Free-University-tibilisi.webp)
+![题图：第比利斯自由大学，Kahushadze在此任教](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp)
 
 《101个公式化因子》是Zura Kahushadze于2015年发表的paper。在这篇paper中，他拿出了在worldquant广泛使用的因子中，便于公式化的因子（约80个），加上其它自创因子，共101个，集结发表在预印论文网站arXiv上。
 
@@ -25,9 +25,9 @@ tags: [factor,alpha101,alpha]
 
 回测结果表明，这一因子的年代收益达到16.1%， 累计收益达到7倍（15年）。
 
-![](https://images.jieyu.ai/images/2024/10/alpha042-alpha-beta.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-alpha-beta.png)
 
-![](https://images.jieyu.ai/images/2024/10/alpha042-cumulative-return.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-cumulative-return.png)
 
 ---
 
@@ -71,17 +71,17 @@ tags: [factor,alpha101,alpha]
 
 不仅是了解其含义非常困难，就是实现它也不是件容易的事。而且，Alpha101中还存在大量待优化的部分，以及少部分错误（对于一篇免费、公开的文章，仍然是相当宝贵的资源）。比如，对于42号因子，它仍然有改进空间。这是我们改进后的因子表现（同等条件下，源码仅对学员开放）：
 
-![](https://images.jieyu.ai/images/2024/10/alpha042-refactored-returns.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactored-returns.png)
 
 我们看到，年化alpha有了1.5%的上涨。而下面这张分层收益图，懂行的人一看就知道，简直是完美。西蒙斯所谓追随美的指引，应该就是指的这种图了。
 
-![](https://images.jieyu.ai/images/2024/10/alpha042-refactor-quantile.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-quantile.png)
 
 ---
 
 累积收益图也很完美。A股2008年触顶6124之后，持续下跌数年，但这期间此因子的收益仍然保持上涨。
 
-![](https://images.jieyu.ai/images/2024/10/alpha042-refactor-culmulative-return.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-culmulative-return.png)
 
 
 不过，Alpha101确实很难懂。比如公式001看起来并不复杂：

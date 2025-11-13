@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-12
 date: 2025-03-29
 category: tools
 motto: If you want to go fast, go alone. If you want to go far, go together.
-img: https://images.jieyu.ai/images/hot/mybook/book-with-hand.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -51,7 +51,7 @@ print(s_reindexed)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/009.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/009.png)
 
 示例 2：使用填充方法
 对于时间序列这样的有序数据，重建索引时可能需要做一些插值或填值处理。method选项可以达到此目的，例如使用ffill可以实现前向填充。
@@ -61,7 +61,7 @@ s_reindexed = s.reindex(new_index, method='ffill')
 print(s_reindexed)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/010.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/010.png)
 
 ---
 
@@ -72,7 +72,7 @@ s_reindexed = s.reindex(new_index, fill_value=-1)
 print(s_reindexed)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/011.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/011.png)
 
 ### 1.2. 删除指定轴上的项
 在 Pandas 中，Series 删除指定轴上的项可以通过 `drop()` 方法实现。Series 是一维数据结构，因此删除操作通常是针对索引（行）进行的。
@@ -100,7 +100,7 @@ print(new_obj)
 print(obj.drop(["d","c"]))
 ```
 
-<!--![50%](https://images.jieyu.ai/images/2025/03/012.png)-->
+<!--![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/012.png)-->
 
 ### 1.3. 索引、选取和过滤
 [索引选取]
@@ -169,7 +169,7 @@ print(result)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/013.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/013.png)
 
 如果你使用过数据库，可以认为这类似于join操作。
 
@@ -267,7 +267,7 @@ obj
 ```
 
 
-![50%](https://images.jieyu.ai/images/2025/03/014.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/014.png)
 
 索引的is_unique属性可以告诉我们索引值是否唯一：
 ```python
@@ -283,5 +283,5 @@ print(obj["a"])
 print(obj["c"])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/015.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/015.png)
 

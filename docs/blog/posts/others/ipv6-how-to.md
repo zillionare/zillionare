@@ -2,7 +2,7 @@
 title: 当我在星巴克连上家里的服务器，IPV6，你是值得的
 slug: ipv6-how-to
 date: 2024-07-29
-img: https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg
 category: others
 tags:
   - network
@@ -46,7 +46,7 @@ IPV6地址也有公网和私域之分。公网地址以2开头，私域地址以
 
 
 
-![](https://images.jieyu.ai/images/2024/07/original-connection.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/original-connection.jpg)
 
 我们要修改的正是红框内的连接，而不是其它连接。当前它的连接方式是PPPoE，一般来说，其它模式，比如桥接，也会在这个单选框下。另外，IP协议版本这里要注意，一定要选择IPv4/IPv6。
 
@@ -59,7 +59,7 @@ IPV6地址也有公网和私域之分。公网地址以2开头，私域地址以
 
 下图就是我们修改后的配置：
 
-![](https://images.jieyu.ai/images/2024/07/20240729094230.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/20240729094230.png)
 
 
 
@@ -74,16 +74,16 @@ IPV6地址也有公网和私域之分。公网地址以2开头，私域地址以
 
 在WAN设置中，我们将连接方式改为PPPoE，并填写光猫的IP地址、用户名和密码。如果它同时提供了IPv4和IPv6两个选项，我们在IPv6中，选择启用，并且设置为复用IPv4拨号线路即可。其它的都保持默认。
 
-![](https://images.jieyu.ai/images/2024/07/ipv6-router-settings.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-router-settings.jpg)
 
 再转到LAN设置，我们需要对IPv6进行一些设置。
 
-![](https://images.jieyu.ai/images/2024/07/ipv6-lan-router.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-lan-router.jpg)
 
 我们还要开启DHCPv6服务，并设置IPv6地址池，重点是设置DNS：
 
 
-![](https://images.jieyu.ai/images/2024/07/ipv6-dns-settings.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-dns-settings.jpg)
 
 
 ## 测试是否获得公网IPv6地址

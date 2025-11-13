@@ -24,7 +24,7 @@ plt.scatter(sorted(X), sorted(Y), s=1)
 plt.plot(X, X, color='orange')
 ```
 
-![](https://images.jieyu.ai/images/2023/07/lesson12-qq-plot-2.png?1)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-2.png?1)
 
 上面的例子中，我们从标准正态分布中抽样分别抽样两次，得到$X$和$Y$，对它们进行排序后进行绘图，就得到了一个分布在 45 度直线两侧的散点图。
 
@@ -53,7 +53,7 @@ for i, n in enumerate((10, 20, 40, 80, 160, 320, 640, 1280)):
     ax.plot(X, X, '--', color='grey')
 ```
 
-![](https://images.jieyu.ai/images/2023/07/lesson12-qq-plot-4.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-4.png)
 
 从图中可以看出，当 n 大于等于 320 时，大多数点都落在直线两侧附近。
 
@@ -80,7 +80,7 @@ plt.text(10, 2, "[X,Y]", color='blue')
 plt.text(10, 3.5, "[X, (X-loc)/scale]", color='red')
 ```
 
-![](https://images.jieyu.ai/images/2023/07/lesson12-qq-plot-3.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-3.png)
 
 我们也可以考虑先将$X$进行 zscore 化，这样再与标准正态分布的采样进行绘图。如果$X$服从正态分布，此时得到的图形，仍然是多数点分布在$y=x$直线两侧的散点图。
 
@@ -111,6 +111,6 @@ plt.show()
 
 上述代码将绘制出这个图形：
 
-![](https://images.jieyu.ai/images/2023/07/lesson12-qq-plot-5.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-5.png)
 
 另外， 在 statsmodels 库中，也通过 graphics.gofplots 提供了 qqplot 方法。

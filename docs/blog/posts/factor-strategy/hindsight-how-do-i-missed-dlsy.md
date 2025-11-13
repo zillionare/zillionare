@@ -21,7 +21,7 @@ tags:
 
 ## 一个3倍，一个6连板
 
-![](https://images.jieyu.ai/images/2024/03/cbs-vs-dlsy.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-dlsy.jpg)
 
 这是两支个股在2024年1月17日前60日收盘价图。图中红色虚线是个股启动时间。A大概是受董宇辉小作文、或者尔滨旅游热题材发酵带动，于1月2日率先启动。
 
@@ -86,7 +86,7 @@ plt.show()
 
 绘图时，我们以$x_0$为x轴，以$x_i$为y轴，如果$x_0$与$x_1$完全正相关，那么将绘制出一条$45^。$向上的直线。这其实就是QQ-Plot的原理。
 
-![](https://images.jieyu.ai/images/2024/03/correlation-three.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/correlation-three.jpg)
 
 从左图过渡到右图，只需要在$x_0$中不断掺入噪声即可。读者可以自己尝试一下。
 
@@ -99,7 +99,7 @@ plt.show()
 
 上面的例子演示的是皮尔逊相关系数的求法，这里使用的是np.corrcoef。它的结果是一个矩阵，所以上例中的变量rho，其取值实际上是：
 
-![50%](https://images.jieyu.ai/images/2024/03/rho-by-numpy.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/rho-by-numpy.jpg)
 
 在这个矩阵中，对角线上的值是自相关系数，显然它们都应该为1。实际上我们要得到时间序列$s_1$和$s_2$之间的相关系数，应该取$\rho[0][1]$，对$s_1$和$s_3$之间的相关系数，应该取$\rho[0][2]$，依次类推，这些可以在代码第13行看到。
 
@@ -145,13 +145,13 @@ async def qqplot(x, y, n=60, end):
 当我们使用 pearson > 0.75的判断条件时，在该板块的22支个股中，筛选出5支个股。如果使用spearman > 0.75来判断，则只会选出4支，并且这4支都在pearson筛选出的范围内。这里为排版美观起见，只给出共同的4支：
 
 
-![L50](https://images.jieyu.ai/images/2024/03/cbs-vs-xzly.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-xzly.jpg)
 
-![R50](https://images.jieyu.ai/images/2024/03/cbs-vs-zxly.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-zxly.jpg)
 
-![L50](https://images.jieyu.ai/images/2024/03/cbs-vs-stsd.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-stsd.jpg)
 
-![R50](https://images.jieyu.ai/images/2024/03/cbs-corr-dlsy.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-corr-dlsy.jpg)
 
 ---
 

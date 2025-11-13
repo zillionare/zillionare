@@ -150,7 +150,7 @@ Jupyter的魔法很多，记不住怎么办？这里有两个魔法可以用。�
 
 ---
 
-![](https://images.jieyu.ai/images/2024/03/lsmagic.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/lsmagic.jpg)
 
 确实太多魔法了！不过，很多命令是操作系统命令的一部分。另一个同样性质的魔法指令是%quickref，它的输出大致如下：
 
@@ -177,7 +177,7 @@ Example magic function calls:
 
 ## 2. 在vscode中使用jupyter
 
-![R50](https://images.jieyu.ai/images/2024/03/vscode-jupyter-debug.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/vscode-jupyter-debug.jpg)
 
 如果有可能，我们应该尽可能地利用vscode的jupyter notebook。vscode中的jupyter可能在界面元素的安排上弱于浏览器（即原生Jupyter），比如，单元格之间的间距太大，无法有效利用屏幕空间，菜单命令少于原生jupyter等等。但仍然vscode中的jupyter仍然有一些我们难于拒绝的功能。
 
@@ -195,7 +195,7 @@ Example magic function calls:
 
 notebook适于探索。但如果最终我们要将其工程化，我们还必须将其转换成为python文件。vscode提供了非常好的notebook转python文件功能。下面是本文的notebook版本转换成python时的样子：
 
-![](https://images.jieyu.ai/images/2024/03/notebook-to-python.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/notebook-to-python.jpg)
 
 ---
 
@@ -203,7 +203,7 @@ notebook适于探索。但如果最终我们要将其工程化，我们还必须
 
 vscode编辑器会把这些标记当成分隔符。每个分隔符，引起一个新的单元格，直到遇到下一个分隔符为止。这些单元格仍然是可以执行的。由于配置的原因，在我的工作区里，隐藏了这些toolbar,实际上它们看起来像下图这样。
 
-![66%](https://images.jieyu.ai/images/2024/03/vscode-interactive-window.png)
+![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/vscode-interactive-window.png)
 
 这个特性被称为Python Interactive Window，可以在vscode的文档[vscode](https://code.visualstudio.com/docs/python/jupyter-support-py)中查看。
 

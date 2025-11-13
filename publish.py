@@ -23,36 +23,36 @@ quantide_api_url = os.environ.get("QUANTIDE_API_URL")
 API_TOKEN = os.environ.get("QUANTIDE_API_TOKEN")
 
 pictures = [
-    "https://images.jieyu.ai/images/hot/adventure.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/book-by-hand.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/book-on-curtain.png",
-    "https://images.jieyu.ai/images/hot/mybook/book-with-course.png",
-    "https://images.jieyu.ai/images/hot/mybook/book-with-flower.png",
-    "https://images.jieyu.ai/images/hot/mybook/book-with-hand.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/christmas.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/gift.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/girl-hold-book-face.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/girl-reading.png",
-    "https://images.jieyu.ai/images/hot/mybook/iphone-6.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/mac-and-book.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/mac-cd-book.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/man-wearing-tank-top.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/men-wearing-tank.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/promotion-long.png",
-    "https://images.jieyu.ai/images/hot/mybook/reading-content.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/screen-shot-and-book.png",
-    "https://images.jieyu.ai/images/hot/mybook/sports-bra-1.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/sports-bra-2.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/swimsuit.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/three-books.png",
-    "https://images.jieyu.ai/images/hot/mybook/women-holding-swear.jpg",
-    "https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg",
-    "https://images.jieyu.ai/images/university/Mackey_Auditorium-Colorado.jpg",
-    "https://images.jieyu.ai/images/university/university-college-london-library.jpg",
-    "https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/adventure.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-by-hand.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-on-curtain.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-course.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iphone-6.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/mac-and-book.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/mac-cd-book.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/promotion-long.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/reading-content.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/screen-shot-and-book.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/sports-bra-1.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/sports-bra-2.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/swimsuit.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/three-books.png",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-holding-swear.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Mackey_Auditorium-Colorado.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/university-college-london-library.jpg",
+    "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/ucl-wilkins-building.jpg",
 ]
 
 img_mode = "card-img-top"
@@ -442,12 +442,12 @@ def extract_meta_for_jieyu_index(file):
         path = Path(file)
         relpath = path.relative_to("docs/blog/posts")
         link = Path("/blog/posts") / relpath.with_suffix("")
-        meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
+        meta["link"] = "https://blog.quantide.cn" + str(link) + "/"
     else:
         path = Path(file)
         relpath = path.relative_to("docs/articles")
         link = Path("/articles") / relpath.with_suffix("")
-        meta["link"] = "https://www.jieyu.ai" + str(link) + "/"
+        meta["link"] = "https://blog.quantide.cn" + str(link) + "/"
 
     return meta
 
@@ -528,7 +528,7 @@ def build_index():
             about_me,
             tip,
             latest_article,
-            "更多精彩好文，请访问[匡醍量化](https://www.jieyu.ai)",
+            "更多精彩好文，请访问[匡醍量化](https://blog.quantide.cn)",
         ]
     )
 

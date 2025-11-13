@@ -47,7 +47,7 @@ tags:
 只有掌握了因子检验的方法，我们才能判断挖掘出的因子是否有效。因此，因子检验方法是本课程的起点，从第 2 章开始，到第 7 章结束，共 6 个章节。
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/2024/01/alphalens.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg'>
 <span style='font-size:0.6rem'>Alphalens Logo</span>
 </div>
 
@@ -64,7 +64,7 @@ tags:
 如果掌握这些因子还嫌不够，我们还将在第 12 章介绍因子挖掘方法论。你可能是从我们发表在网上的各种因子与策略挖掘的精彩文章吸引，从而找到我们的，在这里，我们将把掌握的资源和方法论全部教授给你。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/08/factor-nav.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/factor-nav.jpg'>
 <span style='font-size:0.8em'>各类因子</span>
 </div>
 
@@ -73,7 +73,7 @@ tags:
 在实现 Alpha 101 因子上，由于已经有许多开源的实现存在，因此，我们不打算重新发明轮子，而是向你介绍一个我们认为实现最完整、正确率最高的一个开源库，并在我们的附录中可以直接上手使用它。此后，你可以把它纳入你的量化兵器库。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/08/better-sing-wave-indicator.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/better-sing-wave-indicator.jpg'>
 <span style='font-size:0.6rem'>Hilbert Sine Wave</span>
 </div>
 
@@ -84,32 +84,32 @@ tags:
 在第 11 章，我们将介绍不属于任何归类，但仍然很重要的因子，比如小概率事件（黑天鹅）因子；我们会引入导数概念，介绍两个有效的一阶导、二阶导动量因子；时频变换构造频域因子；我们还将介绍一些行为金融学因子，这是当前金融学的热门概念，在短线交易中非常有用。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/08/fft-decomposite.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fft-decomposite.jpg'>
 <span style='font-size:0.6rem'>通过 FFT 提取频域因子</span>
 </div>
 
 ### 3.3. 构建基于机器学习的交易策略
 
-<!-- ![](https://images.jieyu.ai/images/2024/08/machine-learning.jpg?width=500){width="500"} -->
+<!-- ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/machine-learning.jpg?width=500){width="500"} -->
 
 这一部分我们先快速介绍机器学习的核心概念（第 14 章）。我们会介绍损失函数、目标函数、度量函数、距离函数、偏差、方差、过拟合与正则化惩罚等核心概念。这些概念是机器学习核心概念中偏应用层面一些的概念，是我们不得不与之打交道的概念。
 
-<!-- ![机器学习基础概念](https://images.jieyu.ai/images/2024/08/loss-objective-metrics.jpg?width=500) -->
+<!-- ![机器学习基础概念](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/loss-objective-metrics.jpg?width=500) -->
 
 !!! tip
     如果你需要深入理解机器学习和神经网络、自己能发明新的网络模型和机器学习算法，那么你还需要补充线性代数、梯度优化、反向传播和激活函数等知识。不过，对掌握我们这门课程，达到熟练运用已知的算法模型并会调参调优，掌握我们介绍的概念就足够了。
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/2024/08/sklearn-logo.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sklearn-logo.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 本课程选择的机器学习库是 sklearn。sklearn 是一个非常强大的机器学习库，以丰富的模型和简单易用的接口赢得大家的喜爱。在第 15 章，我们先向大家介绍 sklearn 的通用工具包 -- 用来处理无论我们采用什么样的算法模型，都要遇到的那些共同问题，比如数据预处理、模型评估、模型解释与可视化和内置数据集。
 
-<!-- ![Cross Validation](https://images.jieyu.ai/images/2024/08/k-fold-cross-validation.png?width=500) -->
+<!-- ![Cross Validation](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png?width=500) -->
 第 16 章我们会介绍模型优化方法，这是多数从事机器学习与人工智能的人所能掌握的核心技能，也是我们做出一个优秀的机器学习交易模型的关键之一。我们将演示如何使交叉验证、如何使用网格搜索 (GridSearch)、随机搜索 (RandomizedSearch) 等方法。
 
-<!-- ![Rolling Forecasting](https://images.jieyu.ai/images/2024/08/walk-forward-optimization.webp?width=500) -->
+<!-- ![Rolling Forecasting](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp?width=500) -->
 
 量化领域的机器学习有它自己的特殊性，比如在交叉验证方面，我们实际上要使用的是一种称为 Rolling Forecasting（也称为 Walk-Forward Optimization 的方法）。我们将在第 16 章的最后部分，详细介绍这种方法以及它的实现。
 
@@ -118,7 +118,7 @@ tags:
 在第 18 章，我们将介绍 XGBoost，这是一种梯度提升决策树模型。由于金融数据高噪声的特性、以及难以获得大量有效标注数据原原因，使得梯度提升决策树模型目前仍然是在量化交易领域应用最广泛、效果最好的机器学习模型。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/08/scheme-of-xgbost-model.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/scheme-of-xgbost-model.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -135,7 +135,7 @@ tags:
 第 21 章我们会对 XGBoost 模型进行更深入一些的拷问。我们介绍另一个梯度提升决策树模型的实现，即由微软开发的 LightGBM。一般认为，它在性能上要强于 XGBoost，内存占用更小，在其它指标上与 XGBoost 相比各有千秋。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/08/lightGBM-by-Hossain-medium.jpeg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lightGBM-by-Hossain-medium.jpeg'>
 <span style='font-size:0.6rem'>LightGBM, by Hossain@medim</span>
 </div>
 
@@ -147,7 +147,7 @@ tags:
 
 最后，还有两个无法归入到上面所有这些类别 -- 无论是机器学习、深度学习还是强化学习，但仍然非常重要的智能算法 -- Kalman Filter 和 Genentic Algorithm。
 
-整个课程的大纲可以在 [这里](https://www.jieyu.ai/articles/coursea/factor-ml/syllabus.html) 查阅。
+整个课程的大纲可以在 [这里](https://blog.quantide.cn/articles/coursea/factor-ml/syllabus.html) 查阅。
 
 ## 4. 课程编排
 
@@ -163,12 +163,12 @@ tags:
 
 视频、教材和习题内容相互补充，相当于报一门课，得三门课！
 
-本课程只涵盖了量化交易中的部分知识。如果要独立从事交易或者做完量化全栈工作，建议补充学习 [《量化 24 课》](https://www.jieyu.ai/articles/coursea/24lectures/intro/)。本课程与《量化 24 课》的区别是，本课程内容更为专精，《量化 24 课》内容更广泛，涵盖更全面。
+本课程只涵盖了量化交易中的部分知识。如果要独立从事交易或者做完量化全栈工作，建议补充学习 [《量化 24 课》](https://blog.quantide.cn/articles/coursea/24lectures/intro/)。本课程与《量化 24 课》的区别是，本课程内容更为专精，《量化 24 课》内容更广泛，涵盖更全面。
 
 !!! tip "立即报名！"
     扫码报名，锁定最低价格！
 
-    <img src="https://images.jieyu.ai/images/hot/quantfans_100.jpg" style="width: 150px;position:relative;float:right"/>
+    <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans_100.jpg" style="width: 150px;position:relative;float:right"/>
 
     * 全网独家精讲 Alphalens 分析报告，助你精通因子检验和调优。
     * 超 400 个独立因子，分类精讲底层逻辑，学完带走 350+ 因子实现。

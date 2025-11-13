@@ -203,7 +203,7 @@ pip install ppw
 ppw
 ```
 这里会提示输入一些信息。
-![](https://images.jieyu.ai/images/202211/20221224180300.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224180300.png)
 
 注意 project_slug 是 github repo 的名字，默认也是您的程序库的名字。这个名字中间不能有空格和"-"。
 
@@ -273,7 +273,7 @@ CI 已设置为自动发布 codecoverage report，但需要您在 codecov[^codec
 ### 3.9. 设置 GitHub Pages
 CI 已设置为自动发布文档到 git pages。但您需要在您的项目中启用它。启用的方法是，在 repo > settings > pages 中，选中以下两项：
 
-![](https://images.jieyu.ai/images/202211/20221225094224.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221225094224.png)
 
 ### 3.10. Github 自动化脚本
 对初次使用 github 的人来说，从创建 git 仓库开始的一些操作可能会比较困难；即使是对熟练使用 github 的人，这些步骤也会比较繁琐易错。因此，在 python project wizard 创建的项目中，都会存在一个 repo.sh 脚本：
@@ -321,7 +321,7 @@ git push -u origin main
 
 个人token需要在 Account > Settings > Developer Settings > Personal Access Tokens路径下进行设置：
 
-![](https://images.jieyu.ai/images/2023/12/github_token.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/github_token.png)
 
 一旦设置了这个token，您可以把它加入到自己开发机器上的环境变量中，然后在上面的脚本中引用它。此后，当您创建新的项目时，就可以不再打开github.com网页，而是直接通过上述脚本来完成创建新repo的工作。
 
@@ -376,8 +376,8 @@ git push -u origin main
 接下来，我们将带领您深入这些工具，了解为什么在众多工具中，选择了这一种，它们又应该如何配置，如何使用等等。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

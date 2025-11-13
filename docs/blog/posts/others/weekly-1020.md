@@ -3,7 +3,7 @@ title: "[1020] QuanTide Weekly"
 date: 2024-10-20
 category: others
 slug: quantide-weekly-1020
-img: https://images.jieyu.ai/images/university/toronto.webp
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, numpy, pandas]
@@ -45,7 +45,7 @@ fonts:
 
 最近和一位做量化的私募大佬聊了一下行情，他给我发了这张图片。
 
-![75%](https://images.jieyu.ai/images/2024/10/roger-trend.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/roger-trend.jpg)
 
 这个底部点位，他**又一次**精准命中了（3143那个点，不是3066。周五上证实际下探到3152点）。不过，我更好奇的是他的研究方法，也就图的下半部分。知道大致的底之后，再结合缺口、前低等一些信息，确实有可能比较精准地预测底部点位。
 
@@ -60,7 +60,7 @@ fonts:
 所谓旗形整理（或者说三角形检测），就是下面这张图：
 
 
-![](https://images.jieyu.ai/images/2024/10/flag-pattern-1.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-1.jpg)
 
 
 在这张图，每次上涨的局部高点连接起来，构成压力线；而下跌的局部低点连起来，构成支撑线。
@@ -75,11 +75,11 @@ fonts:
 
 下图显示了随时间推移，震荡幅度越来越小的情况。
 
-![75%](https://images.jieyu.ai/images/2024/10/flag-pattern-2.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-2.jpg)
 
 最终，股价会选择方向。一旦选择方向，就往往会有一波较大的行情（或者下跌）：
 
-![75%](https://images.jieyu.ai/images/2024/10/flag-pattern-3.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-3.jpg)
 
 ---
 
@@ -93,11 +93,11 @@ fonts:
 
 现在，我们就来看如何实现。首先，我们有这样一个标的：
 
-![75%](https://images.jieyu.ai/images/2024/10/605158-1.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/605158-1.png)
 
 这是已经上涨后的。我们再来看它上涨前的：
 
-![75%](https://images.jieyu.ai/images/2024/10/605158.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/605158.png)
 
 
 ---
@@ -211,7 +211,7 @@ def trendline(df):
 
 最后，我们对该标的在上涨之前的形态进行检测，得到以下结果：
 
-<img src="https://images.jieyu.ai/images/2024/10/flag-pattern-605148.png" style="position:relative;margin-top:-100px;z-index:-1; width:90%"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-605148.png" style="position:relative;margin-top:-100px;z-index:-1; width:90%"/>
 
 ---
 
@@ -219,17 +219,17 @@ def trendline(df):
 
 我们再来看一个最近一个月翻了7倍的标的：
 
-<img src="https://images.jieyu.ai/images/2024/10/flag-pattern-830799-full-period.png" style="position:relative;margin-top:-100px;z-index:-1"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830799-full-period.png" style="position:relative;margin-top:-100px;z-index:-1"/>
 
 这是未上涨前的形态：
 
-<img src="https://images.jieyu.ai/images/2024/10/flag-pattern-830179-before-advance.png" style="position:relative;margin-top:-100px;z-index:-1"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830179-before-advance.png" style="position:relative;margin-top:-100px;z-index:-1"/>
 
 这是检测出来的旗形整理：
 
 ---
 
-![](https://images.jieyu.ai/images/2024/10/flag-pattern-830179-detection.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830179-detection.jpg)
 
 完美捕捉！
 
@@ -237,7 +237,7 @@ def trendline(df):
 
 代码(可运行的ipynb文件)放在知识星球里。正在建设，所以目前是最低价格。
 
-![](https://images.jieyu.ai/images/hot/logo/zsxq.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
 
 如果有一些代码和术语看不明白（比如为何以ATR来决定整理结束），这些都是我们量化24课的内容，欢迎报名！
 
@@ -245,18 +245,18 @@ def trendline(df):
 
 ## 好课开讲！
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/1.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## 目标清晰 获得感强
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/2.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## 为什么选择QuanTide的课程？
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/3.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 
 

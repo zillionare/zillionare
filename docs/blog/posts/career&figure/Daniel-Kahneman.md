@@ -2,7 +2,7 @@
 title: 没能上热搜，但卡尼曼值得我们纪念
 slug: in-memory-of-Daniel-Kahneman
 date: 2024-04-01
-img: https://images.jieyu.ai/images/2024/04/Hebrew.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/Hebrew.jpg
 category: career
 motto: A reliable way to make people believe in falsehoods is frequent repetition, because familiarity is not easily distinguished from truth.       Daniel Kahneman
 lunar:
@@ -38,7 +38,7 @@ Be the change you seek!
 ---
 
 <div class="L50">
-<img src="https://images.jieyu.ai/images/2024/03/Daniel_Kahneman_(3283955327)_(cropped).jpg">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/Daniel_Kahneman_(3283955327)_(cropped).jpg">
 <cap>图片来自wiki，遵照cc-by-2.0协议使用</cap>
 </div>
 
@@ -77,7 +77,7 @@ $$
 价值函数v是一个非对称的$S$形函数，在心理中性参考点之上即收益区间，它是凹函数；而在参考点之下即损失区间，它是凸函数。因此，每一单位的收益（损失）增加，只会得到缩小的收益（损失）**价值**。换言之，当收益从0到100时主观价值感受，要大于收益从100到200时的主观价值感受。此外，价值函数在损失部分更加陡峭，意味着**失去100元的痛苦要大于得到100元的愉悦**。
 
 <div class="L50">
-<img src="https://images.jieyu.ai/images/2024/04/value-function.jpg">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/value-function.jpg">
 <cap>图片来源: sciencedirect.com</cap>
 </div>
 
@@ -116,7 +116,7 @@ $$
 ---
 
 <div class="L33">
-<img src="https://images.jieyu.ai/images/2024/04/think-fast-and-slow.jpg">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/think-fast-and-slow.jpg">
 <cap>思考，快与慢。图片来自douban</cap>
 </div>
 

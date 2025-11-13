@@ -4,13 +4,13 @@ slug: switch-to-decimal
 date: 2024-01-26
 category: strategy
 motto: 那些杀不死我们的，使我们更强大
-img: https://images.jieyu.ai/images/2024/01/switch-to-decimal.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/switch-to-decimal.jpg
 tags: 
     - trade
     - history
 ---
 
-笔记[左数效应、整数关口与光折射](http://www.jieyu.ai/blog/2024/01/23/left-side-effect-integer-pressure/)中引用了南加州大学Lawrence Harris的[一篇论文](/assets/ebooks/Stock-price-clustering-and-price-discreteness.pdf)中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。
+笔记[左数效应、整数关口与光折射](https://blog.quantide.cn/blog/2024/01/23/left-side-effect-integer-pressure/)中引用了南加州大学Lawrence Harris的[一篇论文](/assets/ebooks/Stock-price-clustering-and-price-discreteness.pdf)中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。
 
 但是，2001年，美股变更交易制度，由分数制切换为十进制。这个变化就导致了他的研究结论**作废**。
 
@@ -28,7 +28,7 @@ tags:
 
 ---
 
-![](https://images.jieyu.ai/images/2024/01/stock-price-clustering.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/stock-price-clustering.jpg)
 
 当最小点差改为十进制，即最小单位变化为0.01美元时，这样一些事情发生了：首先，订单撮合时的**时间优先的价值变低了**。因为点差很小，所以交易者可以略微提高价格，从而优先成交。而在此之前，由于点差较大，想提高价格会导致利润发生较大的变化，从而宁愿保持价格不变，多排队一段时间。因此，十进制会稍稍增加一些交易量，因为成交更容易了。
 

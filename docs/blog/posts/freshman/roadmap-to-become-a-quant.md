@@ -3,7 +3,7 @@ title: "问薪无愧！<br>自学量化大纲有这75页就够了"
 slug: roadmap-to-be-a-quant-arb
 date: 2024-07-19
 category: resources
-img: https://images.jieyu.ai/images/university/simmons-hall.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/simmons-hall.jpg
 imgCopyRight: wiki/public domain
 motto: 红云随步起 一箭中青霄 鹿行千里远 争知去路遥
 tags:
@@ -22,13 +22,13 @@ lineNumbers: true
 这是 Stat Arb 给自学量化的人开的一份清单。他的博客有 9000 多名付费用户。清单是 pdf 格式，74 页，内容非常全面。
 
 
-[【下载链接】](https://www.jieyu.ai/assets/ebooks/RoadmapUltimateEdition.pdf)
+[【下载链接】](https://blog.quantide.cn/assets/ebooks/RoadmapUltimateEdition.pdf)
 
 Stat Arb这个名字来自 Statistical Arbitrage（统计套利），真实身份其实正在摸鱼的业内人士。不过这不重要，关键看他给的资源好不好。
 
 我拿到的这个清单是 2024~2025 版，刚刚发布半个月。之前他每年都有发布这样一个清单，并且一直在根据情况变化，及时修订。内容非常全面，不同职业规划目标的读者，都能从中受益。
 
-![](https://images.jieyu.ai/images/2024/07/stat-arb-roadmap.png?2)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/stat-arb-roadmap.png?2)
 
 我个人最喜欢的是它的数据资源部分。相当一部分资源是免费的，尤其是 crypto 项目和 kaggle 上的数据集，大约几十个G。它也提供了一部分付费数据转储的，但可能访问时需要密码，这些密码在❌（🐦）上可以找到。
 
@@ -39,27 +39,27 @@ Stat Arb这个名字来自 Statistical Arbitrage（统计套利），真实身�
 
 ## 章节内容
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-chap-2.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap-2.jpg)
 
 
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-chap8.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap8.jpg)
 
 
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-chap12.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap12.jpg)
 
 
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-careers.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-careers.jpg)
 
 
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-pair-trading.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-pair-trading.jpg)
 
 
 
-![](https://images.jieyu.ai/images/2024/07/roadmap-blog.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-blog.jpg)
 
 
 

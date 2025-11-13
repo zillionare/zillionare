@@ -12,7 +12,7 @@ tags:
     - h5py
 ---
 
-![R50](https://images.jieyu.ai/images/2023/12/hdf5-book.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hdf5-book.jpg)
 
 去年 15 日的笔记挖了个坑，给出了量化数据和因子的存储方案技术导图。这一篇笔记就开始填坑。
 
@@ -31,7 +31,7 @@ tags:
 
 这一篇笔我们介绍 HDF5，这是最适合个人交易者的入门方案。HDF5 可以处理相当大容量的数据。
 
-![L50](https://images.jieyu.ai/images/2024/01/hdf5-national-lab-report.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/hdf5-national-lab-report.jpg)
 
 根据 Kesheng Wu 等人的研究，他们分析 2007 年到 2012 年 7 月间的期货交易数据，以构建 VPIN 因子时，处理的交易数据达 30 亿条，CSV 文件的大小达到了 140GB。当使用这么多数据进行 VPIN 计算时，**使用 CSV 文件的时间是 142 秒；将其转换成 HDF5 格式后，同样的计算则只花了 0.4 秒，HDF5快了200多倍！**
 
@@ -43,7 +43,7 @@ HDF5 官方版本是基于 C/C++ 的，但也像 MATLAB、Java、Python、R 和 
 
 作为量化人，我们使用最多的是 h5py。
 
-![](https://images.jieyu.ai/images/2023/12/h5py-logo.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/h5py-logo.jpg)
 <cap>h5py 的 logo</cap>
 
 ## HDF5 的基本概念
@@ -203,7 +203,7 @@ pip install --no-binary=h5py h5py
 
 解决方案之一是将数据切分为多个dataset，每个 dataset 的名字与时间关联起来，这样在进行与时间相关的查询时，就可以获得较好的加速。另一个方法是使用 fastquery，它建立了一个基于 bitmap 的索引。不过我并没有看到现成的 python 库。
 
-![R50](https://images.jieyu.ai/images/2024/01/modin.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/modin.jpg)
 
 另一个方案可能是，仅仅将 hdf5 作为基础的持久化设施，而对它的查询操作，全部通过 modin -- 这是 pandas 的平替，可以载入远大于物理内存的文件--来操作数据集。
 

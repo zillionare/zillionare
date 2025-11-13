@@ -3,7 +3,7 @@ title: 高薪金领都用啥编程语言？SQL、Python领航，附排名！
 slug: the-most-important-coding-language-in-fintech
 date: 2024-06-10
 motto: 瞄准月亮射去吧，即使你错过了，也将落在星辰之中 - Les Brown
-img: https://images.jieyu.ai/images/2024/06/fencing.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/fencing.jpg
 category:
   - 人物
 tags:
@@ -22,7 +22,7 @@ tags:
 
 根据Revelio Labs 的数据，在金融服务业最受欢迎的编程语言前十排名如下：
 
-![](https://images.jieyu.ai/images/2024/06/coding-language-in-finance.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/coding-language-in-finance.png)
 
 你可能想不到，SQL在金融领域有着王者般的地位。在整个科技领域，SQL与岗位的相关性只占18%，但在金融招聘领域中，却有25%左右的岗位要求掌握SQL。
 
@@ -32,7 +32,7 @@ tags:
 
 ---
 
-![](https://images.jieyu.ai/images/2024/06/tiobe-ranking-2024-6.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/tiobe-ranking-2024-6.png)
 
 
 但是，金融行业对C++和Rust这样的互联网热门编程语言的需求并不大，尽管这两种语言在高频交易中不可或缺，但毕竟高频交易比较小众、无法吸纳大资金，因此行业的重心不会在这里。
@@ -46,7 +46,7 @@ Java位列三甲也是意料之中。大量的事务系统，包括公司网站�
 Javascript能上榜，很可能也是因为这样的用途。投资公司为了保持神秘和高科技形象，他们的网页也常常做的比较酷炫。比如Millennium（千禧年）的官网上，就常常使用Javascript炫技。在他们最新的主页上，展示了js制作的磁力线效果和各种reveal特效。
 
 <div style='width:"75%";text-align:center;margin-bottom:1rem'>
-<img src='https://images.jieyu.ai/images/2024/06/millennium.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/millennium.png'>
 <span style='font-style:italic;font-size:0.8rem'>千禧官网</span>
 </div>
 
@@ -79,6 +79,6 @@ R排在第4名也不意外。R语言在数据科学领域被广泛使用，R语�
 
 关于Python，在工程技巧方面可以参考我的新书《Python高效编程实战指南》（预定7月开售），算法方面可以多刷leetcode、kaggle的题，或者简街、千禧的puzzle专栏，我们的专栏也不时会有一些性能优化的技巧。
 
-![50%](https://images.jieyu.ai/images/hot/book-cover-with-bridge.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/book-cover-with-bridge.jpg)
 
 关于SQL，如果是开发岗，需要了解数据分区规划、索引优化、SQL优化等，如果是数据分析岗，则只需要了解如何构建复杂的查询即可。这些查询主要是窗口函数应用、子查询与自连接、复杂条件筛选与分组等。

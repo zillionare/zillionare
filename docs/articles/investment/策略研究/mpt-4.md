@@ -6,7 +6,7 @@ slug: mpt-4-pyportfolio
 
 [Pyportfolio](https://pyportfolioopt.readthedocs.io) 则是一个专门用于资产组合优化的库。这个库最初由 Robert Martin 开发。他是一名交易员，Python 爱好者和天体物理学家。这个库在 github 上获得了接近 4k 的 stars。
 
-![](https://images.jieyu.ai/images/2023/12/pyportfolioopt.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/pyportfolioopt.png)
 
 Pyportfolio 提供了以下功能：
 
@@ -80,11 +80,11 @@ prices.tail()
 
 我们将得到以下结果：
 
-![](https://images.jieyu.ai/images/2023/12/mpt-5-price-df.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-5-price-df.png)
 
 我们将各资产走势绘制成下图：
 
-![](https://images.jieyu.ai/images/2023/12/mpt-equity-wave.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-equity-wave.png)
 
 上述代码中，技巧可能在第24行，它将多个dataframe按行进行拼接，最终成为一张宽表。这种格式，在使用pyfolio进行因子分析时，也曾使用过。
 
@@ -101,7 +101,7 @@ sample_cov.head()
 ```
 结果如下：
 
-![](https://images.jieyu.ai/images/2023/12/mpt-cov.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov.png)
 
 区别在于，如果我们使用PyPortfolioOpt的sample_cov方法，就不需要进行收益率计算和去无效值操作，即一步操作，完成以下功能：
 
@@ -117,7 +117,7 @@ cov = returns.cov()
 plotting.plot_covariance(sample_cov, plot_correlation=True)
 ```
 
-![](https://images.jieyu.ai/images/2023/12/mpt-cov-visualize.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov-visualize.png)
 
 ### 求解最优资产组合
 
@@ -186,7 +186,7 @@ plt.show()
 
 最终我们会得到下图：
 
-![](https://images.jieyu.ai/images/2023/12/mpt_ef_with_random_port.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt_ef_with_random_port.png)
 
 这里有几点需要说明：
 
@@ -203,7 +203,7 @@ w = w/sum(w)
 ## CAPM与MPT
 前面一个系列讲解了CAPM。它与MPT有着千丝万缕的联系。首先，我们在求解最佳夏普率时，使用了 tangency portfolio，即切线投资组合这一说法（注释第6行）。切线投资组合是一种位于风险回报空间中有效前沿与最高可能资本市场线 (CML) 相切点的投资组合。
 
-![](https://images.jieyu.ai/images/2023/12/mpt-cml.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cml.png)
 
 这里的切线的斜率，就是夏普率。
 

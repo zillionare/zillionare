@@ -21,7 +21,7 @@ tags: [strategy, pe, tushare]
 
 ## 温故而知新
 
-在2024年9月，我们曾发表[《节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？》](https://www.jieyu.ai/blog/posts/factor-strategy/Is-the-A-share-market-undervalued)一文。在那篇文章中，我们使用了`akshare`获取了上证指数的市盈率数据，并通过分位数和趋势分析，探讨了当时A股市场的估值情况。
+在2024年9月，我们曾发表[《节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？》](https://blog.quantide.cn/blog/posts/factor-strategy/Is-the-A-share-market-undervalued)一文。在那篇文章中，我们使用了`akshare`获取了上证指数的市盈率数据，并通过分位数和趋势分析，探讨了当时A股市场的估值情况。
 
 当时我们的结论是：
 

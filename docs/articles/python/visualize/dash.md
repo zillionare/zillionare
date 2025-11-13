@@ -23,7 +23,7 @@ flask.request.cookies.get("your cookie name")
 
 这一篇文章是我们在深入体验过Dash之后，就它的核心概念、路由、Auth等等进行的梳理，还介绍了一些常见的pitfall。
 
-我是量化风云，量化从业者，有多年量化框架和策略的研发经验。欢迎关注！如果需要本地化部署量化投研框架，可以使用 [Zillionare 2.0](http://www.jieyu.ai)。它基于Influxdb构建，目前在生产环境下已存储超过35亿条海量行情数据。
+我是量化风云，量化从业者，有多年量化框架和策略的研发经验。欢迎关注！如果需要本地化部署量化投研框架，可以使用 [Zillionare 2.0](https://blog.quantide.cn)。它基于Influxdb构建，目前在生产环境下已存储超过35亿条海量行情数据。
 
 ## 1. 核心概念
 
@@ -312,6 +312,6 @@ layout = html.Div(
 
 routing.py 能够提供路由的关键原因是，rootElement 是后面所有视图的父结点，只要这个节点存在，路由机制就有效。
 
-![](https://images.jieyu.ai/images/2023/07/dash-gotcha.jpeg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash-gotcha.jpeg)
 
 从上图可以看出，即使切换到了 logout 视图，这个 rootElement 仍然存在。因此，在 routing 中，我们必须将新的视图更新到“page-content"节点下，而不是 rootElement 中。否则，我们将摧毁这个总路由。

@@ -17,7 +17,7 @@ slug: tulip-charm
 
 荷兰人为了表达他们对这种植物的喜爱，使用军衔来区分各种品种，比如，郁金香最高贵的品种叫做"永远的奥古斯都"，因为其花瓣上的紫色花纹透露出帝王般的尊贵。奥古斯都的下一级是"总督"，接着是"元帅"、"将军"。
 
-![](https://images.jieyu.ai/images/2023/02/augusidu.jpeg){: .img-center-75}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/augusidu.jpeg){: .img-center-75}
 
 投机者用郁金香的种子 — 一种球茎来进行交易。最贵的品种奥古斯都，买入价相当于占地50万平方米的房产（比故宫略大一点）的价格，或者相当于八只肥猪、四只肥公牛、两吨奶油、一千磅乳酪、一个银制杯子、一包衣服、一张床外加一条船。
 
@@ -41,7 +41,7 @@ slug: tulip-charm
 
 郁金香球茎可在6月初被挖出，必须在9月份又重新种下去。因此，郁金香种子的现货交易只能在夏季的四个月中完成，但金钱并不愿意在其余的八个月里休息。
 
-![](https://images.jieyu.ai/images/2023/02/tulip01.jpg){: .img-center-75}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip01.jpg){: .img-center-75}
 
 在这个时间段里，买家和卖家会达成在夏季交割郁金香球茎的协议：协议将涉及到种类、数量（或者重量）、价格、货物交割和货款支付的日期。这种事先达成协议，但在未来执行的交易，就是期货交易。
 
@@ -53,7 +53,7 @@ slug: tulip-charm
 
 这样，传统的远期协议（即**期货交易协议**）就演变为所谓的**期权协议**。荷兰议会及时批准了这个议案，使之成为法令。这实际上是全球最早的关于期权的法律，也为此后的300多年期权交易、以及后来的量化金融开辟了道路。
 
-![](https://images.jieyu.ai/images/2023/02/tulip02.jpg){: .img-center-75}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip02.jpg){: .img-center-75}
 
 **期权是一个伟大的发明。它为供需双方提供了一个稳定的价格预期，从而让生产企业可以据此制定有效的生产计划**。
 
@@ -67,7 +67,7 @@ slug: tulip-charm
 
 在这个例子中，**期权起到了调节生产，平抑波动的作用，从而使得生产与消费得以用一种连续、可预测的方式进行**。期权固然是一种投机工具，但我们不应该忘记它的本来作用。
 
-![](https://images.jieyu.ai/images/2023/02/tulip03.jpg){: .img-center-75}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip03.jpg){: .img-center-75}
 
 期权交易一旦诞生，一个问题也就随之而来，**农夫给中间人支付的权利金，应该怎么定价呢？**
 
@@ -87,4 +87,4 @@ slug: tulip-charm
 
 如果您喜欢《定价未来 - 撼动华尔街的量化金融史》这本书，可以在点击[这里](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BANcJK1olXgAAV1dfAE8XBV8IGloQWQcCVF5UDkIeBl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmoMGlsVXQ8EXVdYFxJSXzI4YCBQJnpgKVo4axdoW2hoTVsLPXxeNFJROEonA24JGV4SWgAGV25tCEwnQgEIGlkTXgAKUW5cOEsQBWkPHVkVVQYBUFttD0seMzZbSwtWA1kyZG5eOEwXCnsOaRpHSQBwZG5dOEgnA2YOGV4XVAcESF5cCUsSH28PHV0SWwQCU11dD0MnAW4JH1IlbQ)购买。
 
-![](https://images.jieyu.ai//images/2023/03/s27351873.jpg){: .img-center-50}
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}

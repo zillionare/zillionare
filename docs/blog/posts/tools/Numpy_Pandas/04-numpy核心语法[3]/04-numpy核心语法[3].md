@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-04
 date: 2025-03-09
 category: tools
 motto: Be dazzling! You are qualified.
-img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 

@@ -4,7 +4,7 @@ slug: one-table-to-rule-them-all-with-clickhouse
 date: 2024-01-17
 category: arsenal
 motto: Storms make people stronger and never last forever
-img: https://images.jieyu.ai/images/2024/01/query-buillion-rows-in-ms.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/query-buillion-rows-in-ms.jpg
 lunar:
 tags: 
     - clickhouse

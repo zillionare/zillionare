@@ -28,7 +28,7 @@ tags:
 
 假设我们有以下数据：
 
-![](https://images.jieyu.ai/images/2024/07/pandas-freq-m.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m.jpg)
 
 ---
 
@@ -41,7 +41,7 @@ df.index = df.index.to_period(freq='M')
 
 经过转换，就会生成下面的结果：
 
-![](https://images.jieyu.ai/images/2024/07/pandas-freq-m-result.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m-result.jpg)
 
 这样的转换尽管实现了对齐，但会丢失具体的日期信息。我们也可以使用groupby来实现同样的功能：
 
@@ -57,7 +57,7 @@ df.index = df.index.to_period(freq='M')
 结果是：
 
 
-![50%](https://images.jieyu.ai/images/2024/07/padas-group-by-m.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/padas-group-by-m.jpg)
 
 语法要点是，asset与index构成一个事实上的惟一索引，我们现在要调整索引的日期，按'asset'进行分组，并且通过Grouper来指定分组的频率。Grouper是作用在索引上的。
 
@@ -136,5 +136,5 @@ Name: asset, dtype: object
 
 今天介绍的两个小技巧，都是因子检验中常常遇到的。熟悉掌握Pandas技巧，就能快速搞定因子检验，加快我们因子研发的迭代速度，你学会了吗？
 
-![](https://images.jieyu.ai/images/hot/quant-resources.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quant-resources.jpg)
 

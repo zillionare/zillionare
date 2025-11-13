@@ -85,7 +85,7 @@ ax_dict["image"].imshow([[1, 2], [2, 1]])
 identify_axes(ax_dict)
 ```
 
-![50%]](https://images.jieyu.ai/images/2023/07/promo-pyvisual-matplot-2-1.png)
+![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvisual-matplot-2-1.png)
 
 这个方法的优美之处在于，我们在创建每个子图时，就给了它们一个名字，后面绘图（第 12 到第 15 行）时，可以直接使用名字来引用这些子图。
 
@@ -103,7 +103,7 @@ identify_axes(ax_dict)
 
 这里我们定义 ABCD 4 个子图，仅仅是通过 mosaic = "AB;CD"就完成了指定。
 
-![50%]](https://images.jieyu.ai/images/2023/07/promotion-mosaic-abcd.png)
+![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abcd.png)
 
 如果我们把 mosaic 指定为这样：
 ```
@@ -129,7 +129,7 @@ identify_axes(axd)
 
 对 Axes 的引用非常直观，我们直接使用 axd["A"] 或者 axd["C"] 即可。
 
-![50%]](https://images.jieyu.ai/images/2023/07/promotion-mosaic-abdccd.png)
+![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abdccd.png)
 
 如果我们需要一些更怪异的布局，比如，在某个位置上，我们想留空：
 
@@ -142,7 +142,7 @@ identify_axes(axd)
 
 使用"."的地方将会留空。这将生成下图：
 
-![50%]](https://images.jieyu.ai/images/2023/07/promo-pyvis-matplot-4.png)
+![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-4.png)
 
 上面我们生成的都是均匀长度的子图（在合并之前）。subplot_mosaic 接受 gridspec_kw 参数：
 
@@ -179,6 +179,6 @@ axd = plt.figure(layout="constrained").subplot_mosaic(
 identify_axes(axd, fontsize=36)
 ```
 
-![50%]](https://images.jieyu.ai/images/2023/07/promo-pyvis-matplot-2-5.png)
+![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-2-5.png)
 
 好，看完这一期文章，你应该完全精通 matplotlib 的布局了！

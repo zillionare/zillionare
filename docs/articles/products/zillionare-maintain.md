@@ -9,7 +9,7 @@ slug: zillionare-2.0-maintaining-guid
 
 在Zillionare的docker容器构建时，我们只打包了2022年1月到2023年2月的30分钟及以上级别的数据，供回测研究使用。因此，在您安装之后，数据库中的数据未能覆盖全面。一个全面覆盖的数据，应该包括从2005年1月起的所有分钟线及以上级别（即5,15,30,60分钟、日线、周线、月线）。
 
-![](https://images.jieyu.ai/images/2024/02/data-sync-pointer.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/data-sync-pointer.jpg)
 
 我们通过epoch_start，sync head，sync tail指针（在redis数据库中，db1）及当前时间来确定已经同步的数据范围，和需要同步的数据范围，见上图。在我们发布zillionare的容器时，我们将sync head设置为了epoch_start，因此，一旦您配置了聚宽账号，数据同步将优先补齐从2022年12月30日之后到现在的数据。等到这部分数据追赶完成之后，您可以修改redis数据库中的头指针，使之与influxdb中数据的实际起点重合。这样，Zillionare将利用您每天剩余的quota来向后补齐数据，只到数据补齐到epoch_start(即2005年1月4日为止)。您也可以在同步一定量的数据之后，如果不需要更早的数据了，可以将该指针再次改回到epoch_start以结束同步。
 

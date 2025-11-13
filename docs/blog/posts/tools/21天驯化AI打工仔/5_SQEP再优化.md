@@ -4,7 +4,7 @@ slug: Taming-the-AI-Worker-in-21-Days-5
 date: 2025-05-18
 category: tools
 motto: You only live once, but if you do it right, once is enough
-img: https://images.jieyu.ai/images/2025/05/20250514202750.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
 tags: 
     - tools
     - programming
@@ -682,15 +682,15 @@ JSON 和 CSV 在不同数据量下的性能对比：
 
 JSON 和 CSV 序列化和反序列化的时间对比图：
 
-![](https://images.jieyu.ai/images/2025/05/no_metadata_serialization_benchmark.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_serialization_benchmark.png)
 
 JSON 和 CSV Redis 操作（LPUSH 和 RPOP+反序列化）的时间对比图：
 
-![](https://images.jieyu.ai/images/2025/05/no_metadata_redis_benchmark.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_redis_benchmark.png)
 
 JSON 和 CSV 数据大小的对比图：
 
-![](https://images.jieyu.ai/images/2025/05/no_metadata_size_benchmark.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_size_benchmark.png)
 
 
 **我**：「这些结果真是令人惊讶！CSV 在几乎所有测试中都表现得比 JSON 好，特别是在数据大小和反序列化性能方面。」
@@ -1253,7 +1253,7 @@ for i in range(0, len(df), batch_size):
 
 我们考虑到的优化方法：<font color=red>直接使用 df 进行测试，不再构造 dfs</font>。
 
-![](https://images.jieyu.ai/images/2025/05/batch_size_developped.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_developped.png)
 
 注意到，这里我们测试了两种方法：
 
@@ -1276,15 +1276,15 @@ for i in range(0, len(df), batch_size):
 
 批处理的 Redis 操作（LPUSH 和 RPOP+反序列化）的操作数对比：
 
-![](https://images.jieyu.ai/images/2025/05/batch_size_ops_benchmark.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_ops_benchmark.png)
 
 批处理的 Redis 操作（LPUSH 和 RPOP+反序列化）的时间对比：
 
-![](https://images.jieyu.ai/images/2025/05/batch_size_time_benchmark.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_time_benchmark.png)
 
 批处理大小对性能的影响：
 
-![](https://images.jieyu.ai/images/2025/05/batch_size_optimal_benchmark.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_optimal_benchmark.png)
 
 > **007**：「从测试结果来看，批处理大小为 <font color=red>10000</font> 时，系统性能达到最佳。这是因为这个大小在网络通信开销和内存压力之间取得了良好的平衡。」
 >
@@ -1311,4 +1311,4 @@ for i in range(0, len(df), batch_size):
 
 在量化交易的世界里，性能就是金钱。通过这次 SQEP 的再优化，我们不仅提升了系统性能，也加深了对数据传输本质的理解。正如 007 所说，这是一场关于毫秒和字节的较量，而我们，已经找到了制胜之道。
 
-![](https://images.jieyu.ai/images/2025/05/quantide3.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/quantide3.jpg)

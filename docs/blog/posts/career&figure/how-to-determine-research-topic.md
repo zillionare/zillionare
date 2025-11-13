@@ -4,7 +4,7 @@ date: 2024-09-04
 category: career&figure
 slug: how-to-determine-research-topic
 motto: 
-img: https://images.jieyu.ai/images/university/north-chapel.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/north-chapel.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [career, 课程]
@@ -22,7 +22,7 @@ tags: [career, 课程]
 在大师看来，有时候问题本身甚至比答案更为重要。据说有人曾建议希尔伯特去解决费马猜想问题，希尔伯特却笑了笑回答说： “我为什么要杀掉一只会下金蛋的鹅呢？” 在希尔伯特看来，一个像费马猜想那样的数学问题对数学的价值是无可估量的。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/09/tomb-david-hilbert.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/tomb-david-hilbert.jpg'>
 <span style='font-size:0.6rem'>希尔伯特之墓，by By Kassandro - Own work, CC BY-SA 3.0</span>
 </div>
 
@@ -39,14 +39,14 @@ tags: [career, 课程]
 
 一是资产定价研究。这是从上世纪50年代以来，由马科维茨和他的学生威廉.夏普等人开始，经过Stephen Ross，Fama等人努力，形成了因子投资与资产组合管理的理论体系。这也是经济学诺奖的一个大宝库。
 
-![](https://images.jieyu.ai/images/2024/09/carousel-miller-sharpe-fama.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/carousel-miller-sharpe-fama.jpg)
 
 二是衍生品与期权定价研究。这是由巴什利耶从1900年起开创，经过伊藤清、布莱克.费雪和迈伦.斯科尔斯等人的努力，最终以期权定价公式--BS公式提出为鼎盛时期的一个领域。
 
 
 三是技术分析派。这一派以应用为主导，没有构建自己的理论体系，拿来主义比较多。比如，信息论的开山祖师香农贡献了网格交易法，他的同事，同在贝尔实验室的约翰.凯利发现了凯利公式，随后被另一名同事爱德华.索普用于赌场有股票市场中。
 
-![凯利公式-来自《孤注一掷》片头](https://images.jieyu.ai/images/2024/09/guzhuyizhi.jpg)
+![凯利公式-来自《孤注一掷》片头](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/guzhuyizhi.jpg)
 
 信息论、统计、数字信号处理等学科都被用于交易，构成了量化交易很重要的一个分支。最著名的量化基金文艺复兴，早期把IBM viavoice实验室的人一锅端了，主要就是看中他们的数字信号上的研究能力。
 
@@ -60,7 +60,7 @@ tags: [career, 课程]
 
 这些畅销书对建立自己的行业发展史观是很有帮助的：
 
-![定价未来，中信出版社](https://images.jieyu.ai/images/2024/09/pricing-the-future.png)
+![定价未来，中信出版社](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pricing-the-future.png)
 
 1. 打开量化投资的黑箱，Rishi K. Narang著。本书被认为是系统性量化入门的最佳书籍之一。
 2. 宽客人生: 华尔街的数量金融大师。这本书介绍了西蒙斯、爱德华.索普等著名投资大师成功的秘诀。
@@ -119,7 +119,7 @@ tags: [career, 课程]
 
 BS公式部分来源于物理学中的热传导方程；爱德华.索普把凯利公式运用到赌场和股票，结果大获成功 -- 这本来是为研究长途电话线噪声而建立的理论。用在通讯方面的很多信号处理技术成为了量化算法；马科维茨是率先把统计学用在金融领域的人（这个说法可能不太正确，对很多人来说，保罗·萨缪尔森才是先驱。不过，这主要取决于如何区分金融学与经济学），仅靠均值方差理论就获得了诺贝尔奖。现在在量化中广泛使用的遗传算法，很显然来自于生物学的一些基本原理的启发。
 
-![Lcy++@cnblogs](https://images.jieyu.ai/images/2024/09/gene-algo.jpg)
+![Lcy++@cnblogs](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/gene-algo.jpg)
 
 
 现在，很多人都有一些机器学习和神经网络方面的知识储备。如果你一时想不到其它方向的联姻，那么可以试一试将AI与金融联系起来，并且尝试加密货币这样的新方向。
@@ -143,7 +143,7 @@ BS公式部分来源于物理学中的热传导方程；爱德华.索普把凯�
 有一个六度空间理论，意思说，你与这地球上的任何一个人之间，最多只隔着5个人。要找到某个特定的人，需要找到恰当的节点。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/09/six-degrees-of-seperation.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/six-degrees-of-seperation.jpg'>
 <span style='font-size:0.6rem'>by C-C@sgpjbg.com</span>
 </div>
 在这个时代，知识博主就是非常好的结点。以我的小某书为例，我曾经解读过某个国外知名学者的论文，结果就在笔记评论区，遇到了他的学生。所以，如果有人要找这位学者，就有可能通过我的笔记找到他的学生，再接触到他。又比如，在我的课程中，据不完全统计（有的学员不愿意分享身份，我们也不会多问），有四五家私募（含基金）的老总级的人物（有的是为自己公司员工培训报名），所以在我的群里，就能链接上业界人士。

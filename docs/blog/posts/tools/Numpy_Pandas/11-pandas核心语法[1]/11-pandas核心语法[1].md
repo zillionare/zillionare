@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-11
 date: 2025-03-28
 category: tools
 motto: You have within you right now, everything you need to deal with whatever the world can throw at you.
-img: https://images.jieyu.ai/images/hot/mybook/girl-reading.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -45,7 +45,7 @@ obj
 
 ---
 
-![](https://images.jieyu.ai/images/2025/03/003.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/003.png)
 
 通过 `pd.Series()` 直接转换 Python 列表，默认生成从 0 开始的整数索引。
 
@@ -57,7 +57,7 @@ obj = Series({"a": 4, "b": 3, "c": 2, "d": 1})
 obj
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/004.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/004.png)
 
 ---
 
@@ -74,7 +74,7 @@ obj = Series([90, 85, 92], index=["数学", "英语", "物理"], dtype="float64"
 obj
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/005.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/005.png)
 
 ### 1.2.4. 创建带时间戳索引的Series
 生成时间序列数据：
@@ -85,7 +85,7 @@ s = Series([100, 200, 300, 400], index=dates)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/006.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/006.png)
 
 ### 1.2.5. 查询数组值和索引对象
 可以通过Series的array和index属性获取其数组值和索引对象：
@@ -96,7 +96,7 @@ print("索引对象：{}", obj.index)
 ```
 
 
-![](https://images.jieyu.ai/images/2025/03/007.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/007.png)
 
 与Numpy数组相比，可以通过索引的标签选取Series中的单个或一组值：
 ```python
@@ -116,7 +116,7 @@ print(obj * 2)
 print(np.exp(obj))
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/008.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/008.png)
 
 ---
 
@@ -142,33 +142,33 @@ print(obj)
 
 下面总结一下常用的索引的方法和属性：
 
-| **方法/属性**          | ​**描述**                                                                 | ​**示例**                                                                 |
-|------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| **`append`**           | 连接额外的索引对象，生成一个新的索引。                                      | `new_index = index1.append(index2)`                                     |
-| **`diff`**             | 计算索引的差集。                                                         | `diff_index = index1.diff(index2)`                                      |
-| **`intersection`**     | 计算索引的交集。                                                         | `common_index = index1.intersection(index2)`                            |
-| **`union`**            | 计算索引的并集。                                                         | `union_index = index1.union(index2)`                                    |
-| **`isin`**             | 返回一个布尔数组，表示每个值是否包含在传递的集合中。                        | `bool_array = index.isin(['a', 'b'])`                                   |
-| **`delete`**           | 删除指定位置的元素，返回新的索引。                                         | `new_index = index.delete(0)`                                           |
-| **`drop`**             | 删除传递的值，返回新的索引。                                               | `new_index = index.drop('a')`                                           |
-| **`insert`**           | 在指定位置插入元素，返回新的索引。                                         | `new_index = index.insert(1, 'new_value')`                               |
-| **`is_monotonic`**     | 返回 `True`，如果索引是单调递增或递减的。                                   | `is_monotonic = index.is_monotonic`                                     |
-| **`is_unique`**        | 返回 `True`，如果索引没有重复的值。                                         | `is_unique = index.is_unique`                                           |
+| **方法/属性**      | ​**描述**                                            | ​**示例**                                    |
+| ------------------ | ---------------------------------------------------- | -------------------------------------------- |
+| **`append`**       | 连接额外的索引对象，生成一个新的索引。               | `new_index = index1.append(index2)`          |
+| **`diff`**         | 计算索引的差集。                                     | `diff_index = index1.diff(index2)`           |
+| **`intersection`** | 计算索引的交集。                                     | `common_index = index1.intersection(index2)` |
+| **`union`**        | 计算索引的并集。                                     | `union_index = index1.union(index2)`         |
+| **`isin`**         | 返回一个布尔数组，表示每个值是否包含在传递的集合中。 | `bool_array = index.isin(['a', 'b'])`        |
+| **`delete`**       | 删除指定位置的元素，返回新的索引。                   | `new_index = index.delete(0)`                |
+| **`drop`**         | 删除传递的值，返回新的索引。                         | `new_index = index.drop('a')`                |
+| **`insert`**       | 在指定位置插入元素，返回新的索引。                   | `new_index = index.insert(1, 'new_value')`   |
+| **`is_monotonic`** | 返回 `True`，如果索引是单调递增或递减的。            | `is_monotonic = index.is_monotonic`          |
+| **`is_unique`**    | 返回 `True`，如果索引没有重复的值。                  | `is_unique = index.is_unique`                |
 
 ---
 
-| **方法/属性**          | ​**描述**                                                                 | ​**示例**                                                                 |
-|------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| **`unique`**           | 返回索引的唯一值数组。                                                     | `unique_values = index.unique()`                                        |
-| **`reindex`**          | 根据新索引重新排列数据，缺失值用 `NaN` 填充。                                | `new_series = series.reindex(new_index)`                                |
-| **`reset_index`**      | 重置索引为默认整数索引，原索引变为列。                                       | `df_reset = df.reset_index()`                                           |
-| **`set_index`**        | 将某一列设置为索引。                                                      | `df.set_index('column_name', inplace=True)`                              |
-| **`sort_values`**      | 对索引进行排序。                                                         | `sorted_index = index.sort_values()`                                    |
-| **`to_series`**        | 将索引转换为 `Series`。                                                   | `index_series = index.to_series()`                                      |
-| **`values`**           | 返回索引的 NumPy 数组。                                                   | `index_values = index.values`                                           |
-| **`name`**             | 获取或设置索引的名称。                                                     | `index_name = index.name`                                               |
-| **`shape`**            | 返回索引的形状（长度）。                                                   | `index_shape = index.shape`                                             |
-| **`size`**             | 返回索引的长度。                                                         | `index_size = index.size`                                               |
+| **方法/属性**     | ​**描述**                                     | ​**示例**                                   |
+| ----------------- | --------------------------------------------- | ------------------------------------------- |
+| **`unique`**      | 返回索引的唯一值数组。                        | `unique_values = index.unique()`            |
+| **`reindex`**     | 根据新索引重新排列数据，缺失值用 `NaN` 填充。 | `new_series = series.reindex(new_index)`    |
+| **`reset_index`** | 重置索引为默认整数索引，原索引变为列。        | `df_reset = df.reset_index()`               |
+| **`set_index`**   | 将某一列设置为索引。                          | `df.set_index('column_name', inplace=True)` |
+| **`sort_values`** | 对索引进行排序。                              | `sorted_index = index.sort_values()`        |
+| **`to_series`**   | 将索引转换为 `Series`。                       | `index_series = index.to_series()`          |
+| **`values`**      | 返回索引的 NumPy 数组。                       | `index_values = index.values`               |
+| **`name`**        | 获取或设置索引的名称。                        | `index_name = index.name`                   |
+| **`shape`**       | 返回索引的形状（长度）。                      | `index_shape = index.shape`                 |
+| **`size`**        | 返回索引的长度。                              | `index_size = index.size`                   |
 
 
 以下是一个与金融量化相关的代码示例，展示了如何使用 Pandas 计算股票的移动平均线（MA）和相对强弱指数（RSI）：

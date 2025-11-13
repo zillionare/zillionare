@@ -2,7 +2,7 @@
 title: DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了
 slug: deep-seek-just-dig-a-hole-not-yet-a-gravedigger
 date: 2025-02-10
-img: https://images.jieyu.ai/images/2025/02/IMG_20250204_110950.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg
 category: others
 tags:
   - others
@@ -20,7 +20,7 @@ tags:
 我们的数据是以字典的方式组织，并保存在磁盘上的：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/20250210121041.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210121041.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -31,7 +31,7 @@ tags:
 最终，它要返回一个DataFrame，以date和asset（即股票代码）为双重索引，包含了OHLC，volume等列，并且这些列要根据end进行前复权（这种复权方式称为动态前复权）。此外，还将包含一个amount列，这一列则无须复权。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/20250210202407.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210202407.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

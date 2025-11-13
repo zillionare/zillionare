@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-13
 date: 2025-03-30
 category: tools
 motto: In every walk of life, people can make a difference, and everyone has the ability to do it.
-img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -38,7 +38,7 @@ frame = pd.DataFrame(data)
 frame
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/016.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/016.png)
 
 生成的DataFrame会自动加上索引（和Series一样），且全部列会按照data键（键的顺序取决于在字典中插入的顺序）的顺序有序排列。
 （如果你使用的是Jupyter notebook，pandas的DataFrame对象会展示为对浏览器更为友好的HTML表格）
@@ -53,7 +53,7 @@ print(frame.head())
 print(frame.tail())
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/017.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/017.png)
 
 下面还有几种创建DataFrame的情况：
 
@@ -76,7 +76,7 @@ frame3 = pd.DataFrame(populations)
 frame3
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/018.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/018.png)
 
 
 使用类似于Numpy数组的方法，可以对 DataFrame 进行转置（交换行和列）：
@@ -86,7 +86,7 @@ frame3
 frame3.T
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/019.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/019.png)
 
 
 
@@ -99,7 +99,7 @@ frame3.T
 pd.DataFrame(populations,index=["2001","2002","2003"])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/020.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/020.png)
 
 
 由Series组成的字典差不多也是一样的用法：
@@ -110,7 +110,7 @@ pdata = {"Ohio":frame3["Ohio"][:-1],"Nevada":frame3["Nevada"][:2]}
 pd.DataFrame(pdata)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/021.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/021.png)
 
 
 可以向DataFrame构造器输入的数据：
@@ -145,7 +145,7 @@ frame3
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/022.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/022.png)
 
 ```python
 # 二维的ndarray的DataFrame形式返回
@@ -155,7 +155,7 @@ frame3.to_numpy()
 frame2.to_numpy()
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/023.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/023.png)
 
 
 
@@ -278,7 +278,7 @@ del frame2["eastern"]
 print(frame2.columns)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/026.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/026.png)
 
 ### 1.1.4. 定位、读取和修改
 <!--_介绍Pandas中的索引(indexing)、数据选择_-->
@@ -292,7 +292,7 @@ print(frame2.year)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/024.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/024.png)
 
 
 如果列名包含空格或下划线以外的符号，是不能用点属性的方式访问的。
@@ -313,7 +313,7 @@ frame2["debt"] = val
 print(frame2)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/025.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/025.png)
 
 ---
 
@@ -327,7 +327,7 @@ print(frame2.iloc[2])
 ```
 
 
-![50%](https://images.jieyu.ai/images/2025/03/027.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/027.png)
 
 
 ### 1.1.5. 转置

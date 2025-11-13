@@ -2,7 +2,7 @@
 title: 4k stars! 如何实现按拼音首字母查询证券代码？
 slug: pypinyin-introduction
 date: 2024-03-24
-img: https://images.jieyu.ai/images/2024/03/pypinyin.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/pypinyin.png
 category: arsenal
 motto:
 lunar:

@@ -81,7 +81,7 @@ $$
 
 两者的变换图形如下：
 
-![50%](https://images.jieyu.ai/images/2023/06/comarison_tanh_sigmoid.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/comarison_tanh_sigmoid.png)
 
 ### sine
 
@@ -133,7 +133,7 @@ def scaled_sigmoid(x, start, end):
 
 下面的图，显示了当数据主要分布在不同的[start, end]区间时，变换后的sigmoid方法都能使得中心分布有最好的响应灵敏度 -- 这也是为什么我们要做z-score变换的原因。
 
-![](https://images.jieyu.ai/images/2023/06/scaled_sigmoid.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png)
 
 在子图1中，我们让数据在[0,1]之间有最好的响应灵敏度。子图2中，如果数据经常落在50附近，正负50之间波动，也能得到最好的响应灵敏度。子图4则显示的是原始的sigmoid在[0,100]之间的取值情况。
 

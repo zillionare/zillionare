@@ -1,6 +1,6 @@
 ---
 title: 周一到周五，哪天能买股？做对了夏普22.5！
-img: https://images.jieyu.ai/images/university/caltech-Annenberg_center.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/caltech-Annenberg_center.jpg
 date: 2024-11-24
 category: factor&strategy
 slug: week-day-factor
@@ -35,7 +35,7 @@ df.tail(10)
 df.close.plot()
 ```
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/11/中证1000-2005-2024.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/中证1000-2005-2024.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 如果我们从2005年1月4日买入并持有的话，19年间大约是得到5倍的收益。记住这个数字。
@@ -317,7 +317,7 @@ returns_1d.swaplevel().unstack().plot()
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/11/week-day-factor-cum-returns-1.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/week-day-factor-cum-returns-1.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 从累积收益图中我们可以看到，周五买入的收益最高，约为5.47倍。看起来这个结果只比买入并持有略好一点，但实际上，资金占有率只有买入并持有的20%。因此，如果算年化Alpha的话，它要比买入并持有高许多。
@@ -348,7 +348,7 @@ for tm in ("周一", "周二", "周三", "周四", "周五"):
 你可能读了很多文章，花了很多时间尝试复现它，最终却一无所获：要么代码不完整、要么数据拿不到，或者文章根本就是错的。但我们不想给你带来这样负面的体验。跟本号的其它文章一样，这篇文章的结论是可复现的，并且使用的数据你一样可以获得。你可以加入尝试加入我的星球，通过Quantide Research平台运行和验证本文。如果证实了它的效果，再把代码拷贝到本地，加入你的择时策略中。如果效果不能验证，你也可以退出星球。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/hot/logo/zsxq.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 

@@ -4,7 +4,7 @@ date: 2024-08-26
 category: algo
 slug: fft-and-stock-prediction
 motto: May the force be with you
-img: https://images.jieyu.ai/images/2024/08/may-the-force-be-with-you.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, FFT]
@@ -39,7 +39,7 @@ plt.legend()
 
 我们得到的输出如下：
 
-![](https://images.jieyu.ai/images/2024/08/real-vs-synthetic.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg)
 
 在数字信号处理的领域，时间序列被称为时域信号，经过傅里叶变换后，我们得到的是频域信号。时域信号与频域信号可以相互转换。Numpy 中的 fft 库提供了 fft 和 ifft 这两个函数帮我们实现这两种转换。
 
@@ -59,7 +59,7 @@ np.ff.ifft 则是 fft 的逆变换，将频域信号变换为时域信号。
 
 当时做此类压缩算法的人都认识这位漂亮的小姐姐 -- Lena，这张照片是图像算法的标准测试样本。在漫长的进化中，出于生存的压力，人类在识别他人表情方面进化出超强的能力。所以相对于其它样本，一旦压缩造成图像质量下降，肉眼更容易检测到人脸和表情上发生的变化，于是人脸图像就成了最好的测试样本。
 
-![](https://images.jieyu.ai/images/2024/08/lena.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lena.jpg)
 
 
 Lena 小姐姐是花花公子杂志的模特，这张照片是她为花花公子 1972 年 11 月那一期拍摄的诱人照片的一小部分 -- 在原始的照片中，Lena 大胆展现了她诱人的臀部曲线，但那些不正经的科学家们只与我们分享了她的微笑 -- 从科研的角度来讲，这也是信息比率最高的部分。无独有偶，在 Lena 成为数字图像处理的标准测试样本之前，科学家们一直使用的是另一位小姐姐的照片，也出自花花公子。
@@ -68,7 +68,7 @@ Lena 小姐姐是花花公子杂志的模特，这张照片是她为花花公子
 
 但如果我们照搬其它领域这一方法，这几乎就不算研究，也很难获得好的结果。实际上，在证券信号中，与频率相比，我们更应该关注信号的能量，毕竟，我们要与最有力量的人站在一边。
 
-![](https://images.jieyu.ai/images/2024/08/may-the-force-be-with-you.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg)
 
 所以，我们换一个思路，把分解后的频域信号中，能量最强的部分保留下来，看看它们长什么样。
 
@@ -105,7 +105,7 @@ plt.show()
 
 FFT 给出的频率总是一正一负，我们可以简单地认为，负的频率对我们没有意义，那是一种我们看不到、也无须关心的暗能量。所以，在代码中，我们就忽略了这一部分。
 
-![](https://images.jieyu.ai/images/2024/08/individual-sine-wave.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg)
 
 我们看到，对沪指走势影响最强的波（橙色）的周期是 7 个月左右：从峰到底要走 3 个半月，从底到峰也要走 3 个半月。由于它的能量几乎是其它波的一倍，所以它是主导整个叠加波的走势的：如果其它波与它同相，叠加的结果就会使得趋势加强；反之，则是趋势抵消。其它几个波的能量相仿，但频率不同。
 
@@ -115,7 +115,7 @@ FFT 给出的频率总是一正一负，我们可以简单地认为，负的频�
 
 现在，我们把这几路资金的操作合成起来，并与真实的走势进行对比，看看情况如何：
 
-![](https://images.jieyu.ai/images/2024/08/real-vs-5-waves-synthetic.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-5-waves-synthetic.jpg)
 
 在大的周期上都基本吻合，也就是这些资金基本上左右了市场的走势。而且，我们还似乎可以断言，在 3 月 15 到 5 月 17 这段时间，出现了股价与主力资金的背离趋势：主力资金在撤退了，但散户还在操作，于是，尽管股价还在上涨，但最终的方向，由主力资金来决定。
 
@@ -136,11 +136,11 @@ FFT 给出的频率总是一正一负，我们可以简单地认为，负的频�
 
 下面我们来证明第二个猜想（过程略）。最终，我们将直流分量及趋势线绘制成下图：
 
-![](https://images.jieyu.ai/images/2024/08/dc-regression.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dc-regression.jpg)
 
 而 2005 年以来的 A 股年线及趋势线是这样的：
 
-![](https://images.jieyu.ai/images/2024/08/a-share-yearly.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/a-share-yearly.jpg)
 
 不能说十分相似，只能说几乎完全一致。
 

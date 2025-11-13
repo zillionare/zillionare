@@ -43,7 +43,7 @@ $$x^{\frac{-1}{2}}$$
 
 这个函数一般人不大用得到，但在游戏中做光影跟踪是必备。具体来说，大家还是看图吧：
 
-![](https://images.jieyu.ai/images/2023/12/quake-vector.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/quake-vector.png)
 
 我也不想多解释了。看着这图，不像是做游戏，这简直就是程序员的头发。再研究多了，头发就更少了。
 

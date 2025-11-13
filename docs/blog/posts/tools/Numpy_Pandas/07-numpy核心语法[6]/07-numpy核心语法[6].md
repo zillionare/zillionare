@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-07
 date: 2025-03-24
 category: tools
 motto: You have within you right now, everything you need to deal with whatever the world can throw at you.
-img: https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -132,7 +132,7 @@ plt.plot(xs)
 plt.plot([i, j], [xs[i], xs[j]], 'o', color='Red', markersize=10)
 ```
 
-![50%](https://images.jieyu.ai/images/2024/05/max-drawdown.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg)
 
 **简洁就是美**。在使用了`accumulate`之后，我们发现，计算最大回撤竟简单到只有两三行代码即可实现。
 
@@ -155,7 +155,7 @@ $$
 
 ---
 
-![](https://images.jieyu.ai/images/2024/05/candle-stick-parts.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg)
 
 如果 upper_shadow > threshold，则可认为出现了长上影线（当然，需要对 upper_shadow 进行归一化）。检测单日的上影线很简单，我们下面的代码将演示如何向量化地求解：
 

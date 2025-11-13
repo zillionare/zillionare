@@ -4,7 +4,7 @@ date: 2024-08-08
 category: factors
 slug: time-will-tell
 motto: Time will tell if our efforts were in vain<br>Or if they'll bear fruit and bring us gain.
-img: https://images.jieyu.ai/images/university/purdue-engfountain.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/purdue-engfountain.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy]

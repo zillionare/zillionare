@@ -5,7 +5,7 @@ date: 2024-05-21
 category:
     - "free resources"
 motto: 我的语言，就是我的世界的边界 -- 维特根斯坦
-img: https://images.jieyu.ai/images/2024/05/barra-risk-model-cover.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-risk-model-cover.jpg
 lineNumbers: true
 tags: 
     - "free resources"
@@ -32,16 +32,16 @@ Barr Rosenberg大学主攻的是文学（UC Berkeley），后来才转攻经济�
 
 在第二和第三部分，先是回顾了从马科维茨到CAPM以及APT，然后介绍了Barrar 权益多因子模型：
 
-![50%](https://images.jieyu.ai/images/2024/05/barra-equity-mfm.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-equity-mfm.jpg)
 
 ---
 
 
-![](https://images.jieyu.ai/images/2024/05/barra-handbook-toc-1.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-handbook-toc-1.jpg)
 
 ---
 
-![](https://images.jieyu.ai/images/2024/05/barra-handbook-toc-2.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-handbook-toc-2.jpg)
 
 
 [下载](/assets/ebooks/barra_risk_model_handbook.pdf)

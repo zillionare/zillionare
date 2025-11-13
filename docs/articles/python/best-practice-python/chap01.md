@@ -16,7 +16,7 @@ puppeteer:
 
 2020 年，欧洲太空署（European Space Agency）打算向火星派出一个探测器（如图），把一些岩石样品带回地球，以检测火星上是否存在生命。受燃料限制，探测器只能带回 500g 的火星岩石。因此，只有精心挑选的样本才能被带回地球。科学家们准备构建一个现场挑选器，这个挑选器必须具有视觉重建能力，为此他们构建了一个人工神经网络。在这项任务中，无论是构建神经网络和多 CPU 集群，还是通过 PyCUDA 来使用 NVIDIA 的 CUDA 库，都重度依赖 Python。
 
-![50%](http://images.jieyu.ai/images/202106/mars-67522_1920.jpg)
+![50%](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/mars-67522_1920.jpg)
 
 <cap>图片来源：[mars-rover-space-traveler]</cap>
 
@@ -24,11 +24,11 @@ puppeteer:
 
 做出这个选择并不奇怪。实际上，随着人工智能的兴起，Python 已成为当前最炙手可热的开发语言，其排名在最重要的编程语言排行榜 TIOBE  上逐年攀升：
 
-![50%](https://images.jieyu.ai/images/2023/12/toibe_2023_rank.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/toibe_2023_rank.png)
 
 不仅如此，自从 TIOBE 开始编制各种开发语言的排行榜以来，Python 还分别于 2021 年、2020 年、2018 年、2010 年和 2007 年五夺年度之星称号，这也是唯一一个五次获得该称号的开发语言：
 
-![50%](https://images.jieyu.ai/images/2023/12/toibe_lang_trending.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/toibe_lang_trending.png)
 
 此外，我们还可以从 VS Code 中 Python 语言扩展的下载次数（超过 1.1 亿次，C/C++是 0.6 亿次），Docker Hub 下 Python 镜像的下载次数超过 10 亿次上看出来 Python 的受欢迎程度。
 
@@ -207,11 +207,11 @@ PEP20 还藏着另一个彩蛋。我们说它应该有 20 条规则，但实际�
 
 其次，Python 的高效，还体现在它无需编译即可运行上。象 C，Java 这样的编译型语言，如果你写完一小段程序，想看看它是如何运行的，你必须等待它完成编译 -- 这个时间可能是几十秒或者以分钟、甚至小时计 — 这将导致程序员的工作被打断。下面的讽刺漫画反映了这种情况：
 
-![50%](http://images.jieyu.ai/images/202106/27ed4c0b74066c8bb0ab8b5bfb2afe88_1440w.png)
+![50%](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/27ed4c0b74066c8bb0ab8b5bfb2afe88_1440w.png)
 
 而在 Python 中，你随时可以打开它的交互式界面（即 IPython)，输入一小段代码，马上就看到它的运行结果。下图显示了如何在 ipython 界面下计算数学问题：
 
-![75%](http://images.jieyu.ai/images/202105/20210522232747.png)
+![75%](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202105/20210522232747.png)
 
 如果你不喜欢使用 IPython 这种命令行式的接口，也可以安装一个 Jupyter Notebook 来编写和运行一些 Python 代码片段。关于 Jupyter Notebook，我们还会在介绍 IDE 时进一步介绍。此外，随手写一个 Unittest，通过 Unittest 来测试你刚写的方法也会比其它语言来得更容易。因此，使用 Python，你会发现学习和成长是如此容易！
 
@@ -239,8 +239,8 @@ python -m http.server
 
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

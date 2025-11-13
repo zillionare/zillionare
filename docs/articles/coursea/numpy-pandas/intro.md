@@ -28,7 +28,7 @@ tags:
 
 === "Plan A"
     !!! tip "免费"
-        您可以通过在[匡醍量化](https://www.jieyu.ai/articles/python/numpy%26pandas/01-introduction/)这里免费阅读课程文本。
+        您可以通过在[匡醍量化](https://blog.quantide.cn/articles/python/numpy%26pandas/01-introduction/)这里免费阅读课程文本。
 === "Plan B"
     !!! tip "仅99元!"
         我们提供了可在线运行的 notebook。它与 Plan A的内容几乎一样，但是每一段代码都可以运行（如果你熟悉 notebook，就能理解）。你可以修改它，运行它，而不用对着我们的课程文本复制、粘贴以及担心依赖库和数据从哪儿来。

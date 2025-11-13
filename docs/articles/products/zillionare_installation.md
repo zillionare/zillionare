@@ -41,7 +41,7 @@ pre code {
 
 该系统是一个完整的研究环境，自带了两年的日线数据和30分钟数据（约1.3G）。启动后，通过8888端口访问研究环境。比如，如果安装该集群的机器IP为192.168.100.100，则可以通过 http://192.168.100.100:8888/zillionare 来访问研究环境：
 
-![](https://images.jieyu.ai/images/2023/12/lab.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/lab.png)
 
 !!! Info
     登录密码默认为1234。如果您需要修改，请修改docker-compose安装目录下的.omega_env文件中的LAB_PASSWORD选项。

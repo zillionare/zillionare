@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-09
 date: 2025-03-26
 category: tools
 motto: Cherish your visions and your dreams as they are the children of your soul, the blueprints of your ultimate achievements.
-img: https://images.jieyu.ai/images/hot/mybook/iphone-6.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iphone-6.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -26,7 +26,7 @@ tags:
 动量和反转是最重要的量化因子。有很多种刻画动量的算法，但拟合直线的斜率无疑是最直观的一种。
 
 
-![](https://images.jieyu.ai/images/2024/05/two-crossed-line.jpg?1)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
 
 
 在上面的图形中，如果两条直线对应着两支股票的均线走势，显然，你更愿意买入橘色的那一支，因为它的斜率更大，也就是涨起来更快一些。
@@ -156,7 +156,7 @@ print(S)
 
 这段代码计算了从第10个周期起，过去10个点的拟合直线的斜率，并且在曲线的转折点上，我们绘制了它的切线。这些切线，正是通过拟合直线的参数来生成的。
 
-![](https://images.jieyu.ai/images/2024/05/xplussinx.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
 
 ---
 
@@ -191,7 +191,7 @@ def moving_lsq(ts, win: int):
 
 考虑到一个有`m`个点的线性回归，对其中的每一个点，都会有：
 
-![](https://images.jieyu.ai/images/2024/05/linear-regression-group.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
 
 如果所有的点都落在同一条直线上，那么意味着以下矩阵方程成立：
 

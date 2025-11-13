@@ -11,7 +11,7 @@
 
 
 <div style='width:25%;float:left;padding: 0.5rem 3rem 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/hot/my-company.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/my-company.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

@@ -1,5 +1,5 @@
 ---
-img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 motto: Learning without thought is labor lost
 title: 因子投资与机器学习策略
 ---
@@ -16,7 +16,7 @@ title: 因子投资与机器学习策略
     position:relative;
     color: black;
     text-shadow: 1px 2px 2px rgba(0,0,0,0.5);
-    background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url(https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg);
+    background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url(https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg);
     display:flex;
     align-items: center;
 
@@ -26,7 +26,7 @@ title: 因子投资与机器学习策略
         height: 200px;
         margin-left: 50px;
         border-radius: 1em;
-        background: url(https://images.jieyu.ai/images/hot/logo/quantide-alpha-yellow.jpg);
+        background: url(https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg);
         background-size: cover;
     }
 
@@ -79,7 +79,7 @@ title: 因子投资与机器学习策略
     border: 1px solid black;
     background: black;
     z-index: -1;
-    background-image: url(https://images.jieyu.ai/images/2024/08/empty-blackboard.avif);
+    background-image: url(https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/empty-blackboard.avif);
     background-size: cover;
 }
 
@@ -126,7 +126,7 @@ title: 因子投资与机器学习策略
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg');
+    background: url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/blue-purple-gradient.jpg');
     font-weight: 700;
     color: black;
 }
@@ -162,12 +162,12 @@ title: 因子投资与机器学习策略
 </div><!--blackboard-->
 
 <div class="contact">
-<img src="https://images.jieyu.ai/images/hot/quantfans_100.jpg"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans_100.jpg"/>
 <span>扫码加课程助教</span>
 </div>
 
 <div class="instructor">
-<img src="https://images.jieyu.ai/images/hot/instructor/portrait-stand.png"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/portrait-stand.png"/>
 
 <div class="instructor-info">
 <div class="instructor-item">
@@ -342,7 +342,7 @@ Zillionare 开源量化框架作者
 <div class="module top-69% right-5%">
 
 <div style='width:20%;float:right;padding: 0 0 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/hot/logo/quantide-alpha-yellow.jpg' style="margin: 2em 0 0 0 !important;">
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg' style="margin: 2em 0 0 0 !important;">
 </div>
 
 <li>咨询课程助理，选择课程</li>

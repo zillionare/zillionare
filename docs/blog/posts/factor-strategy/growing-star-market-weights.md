@@ -26,7 +26,7 @@ tags: []
 
 先看指数编制数据。我们从万得拿到了历年各大股指，上证 50，沪深 300，中证 500 和 1000 的编制目录，导出为 4 个 excel 表，如下所示：
 
-![](https://images.jieyu.ai/images/2024/08/sz50-screenshot.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sz50-screenshot.jpg)
 
 这里展示的是上证 50 的编制数据。这是一个 3000 多行，50 列的数据。索引是交易日，单元格值则是每个交易日成分股的代码。
 
@@ -38,7 +38,7 @@ tags: []
 
 ## 科创板正跑步进入宽基指数
 
-![75%](https://images.jieyu.ai/images/2024/08/kcb-include-count.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-include-count.png)
 
 
 这张图显示了各个宽基指数纳入科创板个股的情况。
@@ -114,7 +114,7 @@ plt.show()
 
 最终，我们得到 2020 年 12 月 14 日，中证 1000 中新纳入的科创板个股表现如下：
 
-![](https://images.jieyu.ai/images/2024/08/kcb-2020-12-14-comparison.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2020-12-14-comparison.jpg)
 
 左图是收益对照图。从左图可以看出，在纳入指数前，这些个股的跌幅大于市场；在纳入指数之后，这些个股的表现都优于市场。
 
@@ -122,7 +122,7 @@ plt.show()
 
 但是，**不要被这个结论所欺骗**。下图是去年底纳入中证 1000 的科创板个股表现：
 
-![](https://images.jieyu.ai/images/2024/08/kcb-2023-12-11-comparison.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2023-12-11-comparison.jpg)
 
 **这是典型的相关性不等于因果性的另一个例证。**
 

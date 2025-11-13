@@ -11,7 +11,7 @@ tags:
     - zscore
 ---
 
-![R50](https://images.jieyu.ai/images/2024/01/normal-dist.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/normal-dist.jpg)
 
 最新（2024 年 1 月）出版的 SC 技术分析（Techical Analysis of Stock & Commodities）的第 4 条文章给到了 Z-score，原文标题为《Z-score: How to use it in Trading》。今天的笔记，就借此机会，同步推出我们对通过Z-score来构建量化因子的一些观点。
 
@@ -54,7 +54,7 @@ def rolling_zscore(s, win=20):
 
 这篇笔记不打算走完整的流程，我们将随机选择一个标的，计算它最近 250 期的 zscore，把 zscore 小于-2 的点作为买入点，大于 2 的点作为卖出点，进行绘图显示，然后就图的走势，来进行深入讨论：
 
-![](https://images.jieyu.ai/images/2024/01/z-score-signals.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/z-score-signals.jpg)
 
 ---
 
@@ -89,4 +89,4 @@ def rolling_zscore(s, win=20):
     2. Z-score是一个居于(-3,3)间的数值，其中超出±2的概率为2.3%。
     3. Z-score在数学上很完美，但股价的波动并不符合正态分布，也就是其理论基础并不坚实。许多现代金融理论只能在无法满足的条件上运行，这也是查理.芒格嘲笑经济学家的地方。
 
-本文所附[源代码](https://www.jieyu.ai/assets/notebooks/zscore.ipynb)
+本文所附[源代码](https://blog.quantide.cn/assets/notebooks/zscore.ipynb)

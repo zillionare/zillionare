@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-13
 date: 2025-03-30
 category: tools
 motto: In every walk of life, people can make a difference, and everyone has the ability to do it.
-img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -38,7 +38,7 @@ frame = pd.DataFrame(data)
 frame
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/016.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/016.png)
 
 生成的DataFrame会自动加上索引（和Series一样），且全部列会按照data键（键的顺序取决于在字典中插入的顺序）的顺序有序排列。
 （如果你使用的是Jupyter notebook，pandas的DataFrame对象会展示为对浏览器更为友好的HTML表格）
@@ -53,7 +53,7 @@ print(frame.head())
 print(frame.tail())
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/017.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/017.png)
 
 下面还有几种创建DataFrame的情况：
 
@@ -76,7 +76,7 @@ frame3 = pd.DataFrame(populations)
 frame3
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/018.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/018.png)
 
 
 使用类似于Numpy数组的方法，可以对 DataFrame 进行转置（交换行和列）：
@@ -86,7 +86,7 @@ frame3
 frame3.T
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/019.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/019.png)
 
 
 
@@ -99,7 +99,7 @@ frame3.T
 pd.DataFrame(populations,index=["2001","2002","2003"])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/020.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/020.png)
 
 
 由Series组成的字典差不多也是一样的用法：
@@ -110,27 +110,27 @@ pdata = {"Ohio":frame3["Ohio"][:-1],"Nevada":frame3["Nevada"][:2]}
 pd.DataFrame(pdata)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/021.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/021.png)
 
 
 可以向DataFrame构造器输入的数据：
 
 ---
 
-| 类型                  | 说明                                                                 |
-|-----------------------|----------------------------------------------------------------------|
-| ​**字典 (Dict)**       | 键为列名，值为列表、NumPy 数组或 Series。每列的长度必须一致。         |
-| ​**列表 (List)**       | 列表中的每个元素是一个字典，字典的键为列名，值为对应列的数据。         |
-| ​**NumPy 数组**        | 二维数组，每行对应 DataFrame 的一行，每列对应 DataFrame 的一列。      |
-| ​**Series**            | 单个 Series 可以构造单列的 DataFrame，多个 Series 可以构造多列。      |
-| ​**结构化数组**        | NumPy 的结构化数组，字段名对应 DataFrame 的列名。                     |
-| ​**其他 DataFrame**    | 可以通过复制另一个 DataFrame 来创建新的 DataFrame。                   |
-| ​**CSV 文件**          | 通过 `pd.read_csv()` 读取 CSV 文件并转换为 DataFrame。                |
-| ​**Excel 文件**        | 通过 `pd.read_excel()` 读取 Excel 文件并转换为 DataFrame。             |
-| ​**JSON 数据**         | 通过 `pd.read_json()` 读取 JSON 数据并转换为 DataFrame。               |
-| ​**SQL 查询结果**      | 通过 `pd.read_sql()` 读取 SQL 查询结果并转换为 DataFrame。             |
-| ​**HTML 表格**         | 通过 `pd.read_html()` 从 HTML 页面中提取表格并转换为 DataFrame。       |
-| ​**剪贴板数据**        | 通过 `pd.read_clipboard()` 从剪贴板中读取数据并转换为 DataFrame。     |
+| 类型                | 说明                                                              |
+| ------------------- | ----------------------------------------------------------------- |
+| ​**字典 (Dict)**    | 键为列名，值为列表、NumPy 数组或 Series。每列的长度必须一致。     |
+| ​**列表 (List)**    | 列表中的每个元素是一个字典，字典的键为列名，值为对应列的数据。    |
+| ​**NumPy 数组**     | 二维数组，每行对应 DataFrame 的一行，每列对应 DataFrame 的一列。  |
+| ​**Series**         | 单个 Series 可以构造单列的 DataFrame，多个 Series 可以构造多列。  |
+| ​**结构化数组**     | NumPy 的结构化数组，字段名对应 DataFrame 的列名。                 |
+| ​**其他 DataFrame** | 可以通过复制另一个 DataFrame 来创建新的 DataFrame。               |
+| ​**CSV 文件**       | 通过 `pd.read_csv()` 读取 CSV 文件并转换为 DataFrame。            |
+| ​**Excel 文件**     | 通过 `pd.read_excel()` 读取 Excel 文件并转换为 DataFrame。        |
+| ​**JSON 数据**      | 通过 `pd.read_json()` 读取 JSON 数据并转换为 DataFrame。          |
+| ​**SQL 查询结果**   | 通过 `pd.read_sql()` 读取 SQL 查询结果并转换为 DataFrame。        |
+| ​**HTML 表格**      | 通过 `pd.read_html()` 从 HTML 页面中提取表格并转换为 DataFrame。  |
+| ​**剪贴板数据**     | 通过 `pd.read_clipboard()` 从剪贴板中读取数据并转换为 DataFrame。 |
 
 
 如果设置了DataFrame的index和columns的name属性，则这些信息也会显示出来：
@@ -145,7 +145,7 @@ frame3
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/022.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/022.png)
 
 ```python
 # 二维的ndarray的DataFrame形式返回
@@ -155,7 +155,7 @@ frame3.to_numpy()
 frame2.to_numpy()
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/023.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/023.png)
 
 
 
@@ -259,11 +259,11 @@ print(result)
 - 基于索引进行简单的数据合并。
 - 适合处理索引对齐的数据。
 
-| 方法 | 主要用途 | 适用场景 | 灵活性 | 性能 |
-|-------|---------|-------|-------|------|
-| **concat** | 基于轴的数据拼接 | 简单堆叠数据，结构相似的数据集 | 按行或列拼接 | 适合大规模数据 |
-| **merge**  | 基于键值的合并，类似于 SQL 的 JOIN | 结构化数据，需要关联表 | 支持多种连接方式 | 适合小规模数据 |
-| **join** | 基于索引的合并 | 索引对齐的数据 | 简化版 merge | 适合简单操作 |
+| 方法       | 主要用途                           | 适用场景                       | 灵活性           | 性能           |
+| ---------- | ---------------------------------- | ------------------------------ | ---------------- | -------------- |
+| **concat** | 基于轴的数据拼接                   | 简单堆叠数据，结构相似的数据集 | 按行或列拼接     | 适合大规模数据 |
+| **merge**  | 基于键值的合并，类似于 SQL 的 JOIN | 结构化数据，需要关联表         | 支持多种连接方式 | 适合小规模数据 |
+| **join**   | 基于索引的合并                     | 索引对齐的数据                 | 简化版 merge     | 适合简单操作   |
 
 ---
 
@@ -278,7 +278,7 @@ del frame2["eastern"]
 print(frame2.columns)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/026.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/026.png)
 
 ### 1.1.4. 定位、读取和修改
 <!--_介绍Pandas中的索引(indexing)、数据选择_-->
@@ -292,7 +292,7 @@ print(frame2.year)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/024.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/024.png)
 
 
 如果列名包含空格或下划线以外的符号，是不能用点属性的方式访问的。
@@ -313,7 +313,7 @@ frame2["debt"] = val
 print(frame2)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/025.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/025.png)
 
 ---
 
@@ -327,7 +327,7 @@ print(frame2.iloc[2])
 ```
 
 
-![50%](https://images.jieyu.ai/images/2025/03/027.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/027.png)
 
 
 ### 1.1.5. 转置

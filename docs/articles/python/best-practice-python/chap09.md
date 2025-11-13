@@ -47,7 +47,7 @@ Github Actions 由工作流 (workflow)、事件 (Event)、作业 (job)、操作 
 
 下面的图展示了 Github Actions 的架构：
 
-![](https://images.jieyu.ai/images/2023/12/overview-actions.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/overview-actions.png)
 
 ### 2.2. 工作流语法概述
 在了解了 Github Actions 的架构之后，我们通过一个例子，来讲解如何定义工作流。
@@ -342,8 +342,8 @@ jobs:
 下面介绍一些使用较多的第三方 actions，其中有一些我们进行了简要说明并举例了使用方法。如果我们没有进行特别说明，或者您想进一步了解相关信息，可以访问 [marketplace](https://github.com/marketplace/actions) 查看相关文档。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
@@ -392,7 +392,7 @@ jobs:
 
 还有一些好玩的 action，比如一个生成贪吃蛇游戏的 action，id 是 Platane/snk。它会生成如下的贪吃蛇游戏：
 
-![](https://images.jieyu.ai/images/2023/12/github-contribution-grid-snake.svg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/github-contribution-grid-snake.svg)
 
 ### 3.5. 通知消息
 我们已经介绍了邮件通知。在应用市场里，还有各种各样的通知 action，比如 Slack 通知，可以通过 Ilshidur/action-slack 这个 id 来找到它。
@@ -502,8 +502,8 @@ jobs:
 这个工作流用到的语法特性前面已经讲过了。这里就不再解释。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

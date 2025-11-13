@@ -8,7 +8,7 @@ fonts:
 date: 2025-03-19
 category: tools
 motto: Fortune favors the bold.
-img: https://images.jieyu.ai/images/2025/02/fortune-favors-the-bold.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/fortune-favors-the-bold.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -457,7 +457,7 @@ plt.show ()
 这将生成下图：
 
 <div style='width:60%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/04/np-polyfit.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

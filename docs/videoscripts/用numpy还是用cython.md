@@ -61,7 +61,7 @@ clicks: 20
 .items p {
     width: 500px;
     background-clip: content;
-    background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
+    background-image: url("https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/blue-purple-gradient.jpg");
 
     padding: 40px 40px 40px 20px;
     border-radius: 0 80px 80px 0;

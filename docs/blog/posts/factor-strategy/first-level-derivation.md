@@ -4,13 +4,13 @@ date: 2024-11-05
 category: factor&strategy
 slug: rocket-science-of-traders-and-firt-level-derivation
 motto: 
-img: https://images.jieyu.ai/images/2024/10/John-Ehlers.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, factor, wave]
 ---
 
-![](https://images.jieyu.ai/images/2024/10/John-Ehlers.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png)
 
 这篇文章的部分思想来自于 John Ehlers。他曾是雷神的工程师，当年是为NASA造火箭的。他有深厚的数字信号处理（DSP）技术背景，为石油钻探发明了最大熵频谱分析（MESA）。这种分析方法能为短暂的地震回波提供高分辩率的显示。
 
@@ -48,14 +48,14 @@ plt.plot(np.arange(100), y)
 
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/advance-synthetic-wave.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/advance-synthetic-wave.jpg'>
 <span style='font-size:0.6rem'>图1. 震荡向上走势</span>
 </div>
 
 实际上，我们已经合成了一个艾略特驱动浪：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/elliot-wave.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/elliot-wave.jpg'>
 <span style='font-size:0.6rem'>艾略特上升5浪</span>
 </div>
 
@@ -71,7 +71,7 @@ plt.plot(x, y)
 ```
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/m-top.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/m-top.jpg'>
 <span style='font-size:0.6rem'>图2 双头</span>
 </div>
 
@@ -85,7 +85,7 @@ plt.plot(x, y)
 ```
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/header-shoulders.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/header-shoulders.jpg'>
 <span style='font-size:0.6rem'>图3 头肩顶</span>
 </div>
 
@@ -131,7 +131,7 @@ inference_and_plot(x[60:], y[60:])
 ```
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/double-top-and-inference.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/double-top-and-inference.jpg'>
 <span style='font-size:0.6rem'>图4 双头推断</span>
 </div>
 
@@ -174,7 +174,7 @@ plt.show()
 
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/derivative-sine.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/derivative-sine.jpg'>
 <span style='font-size:0.6rem'>图5 导函数与原函数关系</span>
 </div>
 
@@ -196,7 +196,7 @@ plt.show()
 课程助理小姐姐在这里等你！
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/hot/course/factor-ml/promotion.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/promotion.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -232,14 +232,14 @@ _ = alphatest(2000, start, end, calc_factor = lambda x: calc_first_derivative(x,
 6年间的累计年化收益图如下：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/first-derivative-cum-returns.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/first-derivative-cum-returns.jpg'>
 <span style='font-size:0.6rem'>图6 累计收益图</span>
 </div>
 
 这个收益还没有进行优化。实际上，从下面的分层收益均值图来看，是可以优化的。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/first-derivative-mean-quantile-returns.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/first-derivative-mean-quantile-returns.jpg'>
 <span style='font-size:0.6rem'>图7 分层收益均值图</span>
 </div>
 
@@ -250,7 +250,7 @@ _ = alphatest(2000, start, end, calc_factor = lambda x: calc_first_derivative(x,
 **因子构建及验证代码**加入星球后即可获得。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/hot/logo/zsxq.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -259,7 +259,7 @@ _ = alphatest(2000, start, end, calc_factor = lambda x: calc_first_derivative(x,
 John Ehler在[这篇文章](https://www.mesasoftware.com/papers/RECURRING%20PHASE%20OF%20CYCLE%20ANALYSIS.pdf)里，提出了寻找周期的方法。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/instantaneous-derived-cycle.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/instantaneous-derived-cycle.jpg'>
 <span style='font-size:0.6rem'>图8 John Ehlers's Recurring Phase Analysis</span>
 </div>
 
@@ -305,7 +305,7 @@ plt.legend(lines, labels, loc="upper left")
 对图1中的时间序列进行fft变换后，去掉直流分量，再逆变换回来，将两者进行对比，我们会得到这样的一个图:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/10/fft-remove-dc.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-remove-dc.jpg'>
 <span style='font-size:0.6rem'>图9 去掉直流分量的对比</span>
 </div>
 

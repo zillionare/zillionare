@@ -85,7 +85,7 @@ plt.legend()
 
 我们得到的输出如下：
 
-![](https://images.jieyu.ai/images/2024/08/real-vs-synthetic.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg)
 
 在数字信号处理的领域，时间序列被称为时域信号，经过傅里叶变换后，我们得到的是频域信号。时域信号与频域信号可以相互转换。Numpy 中的 fft 库提供了 fft 和 ifft 这两个函数帮我们实现这两种转换。
 
@@ -101,7 +101,7 @@ np.ff.ifft 则是 fft 的逆变换，将频域信号变换为时域信号。
 
 如果我们把高频信号的能量置为零，再将信号逆变换回去，我们就会得到一个与原始序列相似的新序列，但它更平滑 -- 这就是我们常常所说的低通滤波的含义 -- 你熟悉的各种移动平均也都是低通滤波器。
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml-promotion.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml-promotion.png)
 
 在上面的代码中，我们只保留了前 20 个低频信号的能量，就得到了与原始序列相似的一个新序列。如果把这种方法运用在图像领域，这就实现了有损压缩 -- 压缩比是 250/20。
 
@@ -112,7 +112,7 @@ np.ff.ifft 则是 fft 的逆变换，将频域信号变换为时域信号。
 当时做此类压缩算法的人都认识这位漂亮的小姐姐 -- Lena，这张照片是图像算法的标准测试样本。在漫长的进化中，出于生存的压力，人类在识别他人表情方面进化出超强的能力。所以相对于其它样本，一旦压缩造成图像质量下降，肉眼更容易检测到人脸和表情上发生的变化，于是人脸图像就成了最好的测试样本。
 
 <div style='width:50%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/2024/08/lena.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lena.jpg'>
 <span style='font-size:0.6rem'>Lena </span>
 </div>
 
@@ -127,7 +127,7 @@ Lena 小姐姐是花花公子杂志的模特，这张照片是她为花花公子
 ---
 
 <div style='text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/08/may-the-force-be-with-you.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg'>
 <span style='font-size:0.6rem'>愿原力与你同在 -- 星球大战</span>
 </div>
 
@@ -172,7 +172,7 @@ plt.show()
 
 FFT 给出的频率总是一正一负，我们可以简单地认为，负的频率对我们没有意义，那是一种我们看不到、也无须关心的暗能量。所以，在代码中，我们就忽略了这一部分。
 
-![](https://images.jieyu.ai/images/2024/08/individual-sine-wave.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg)
 
 我们看到，对沪指走势影响最强的波（橙色）的周期是 7 个月左右：从峰到底要走 3 个半月，从底到峰也要走 3 个半月。由于它的能量几乎是其它波的一倍，所以它是主导整个叠加波的走势的：如果其它波与它同相，叠加的结果就会使得趋势加强；反之，则是趋势抵消。其它几个波的能量相仿，但频率不同。
 
@@ -184,7 +184,7 @@ FFT 给出的频率总是一正一负，我们可以简单地认为，负的频�
 
 现在，我们把这几路资金的操作合成起来，并与真实的走势进行对比，看看情况如何：
 
-![](https://images.jieyu.ai/images/2024/08/real-vs-5-waves-synthetic.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-5-waves-synthetic.jpg)
 
 在大的周期上都基本吻合，也就是这些资金基本上左右了市场的走势。而且，我们还似乎可以断言，在 3 月 15 到 5 月 17 这段时间，出现了股价与主力资金的背离趋势：主力资金在撤退了，但散户还在操作，于是，尽管股价还在上涨，但最终的方向，由主力资金来决定。
 
@@ -211,11 +211,11 @@ FFT 给出的频率总是一正一负，我们可以简单地认为，负的频�
 
 下面我们来证明第二个猜想（过程略）。最终，我们将直流分量及趋势线绘制成下图：
 
-![75%](https://images.jieyu.ai/images/2024/08/dc-regression.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dc-regression.jpg)
 
 而 2005 年以来的 A 股年线及趋势线是这样的：
 
-![75%](https://images.jieyu.ai/images/2024/08/a-share-yearly.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/a-share-yearly.jpg)
 
 不能说十分相似，只能说几乎完全一致。
 
@@ -225,7 +225,7 @@ FFT 给出的频率总是一正一负，我们可以简单地认为，负的频�
 
 这篇文章是我们《因子投资与机器学习策略》中的内容，出现在如何探索新的因子方法论那一部分。对 FFT 变换得到的一些重要结果，将成为机器学习策略中用以训练的特征。更多内容，我们课堂上见！
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml-promotion.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml-promotion.png)
 
 <!-- 如果不是读过达. 利欧的《原则》，我也几乎就要相信股价的波动与经济周期无关了。但是，一直有种微弱的信念，既然经济活动存在周期，证券价格的波动也必然存在周期 -->
 
@@ -347,7 +347,7 @@ for i, alpha in enumerate((-0.01, 0, 0.01)):
 
 绘制的图形如下：
 
-![](https://images.jieyu.ai/images/2024/04/same-vol-different-trend.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg)
 
 <!--
 很多情况下我们需要生成正态分布数组。比如，我们想研究股价涨跌幅与波动率之间的关系，比如，股价持续上涨与持续下跌，会有同样的波动率吗？此时，我们可以从下跌-0.1，到上涨 0.1，中间以 0.05 为一档，造出若干个回报序列，再来求它们的波动率。此时就可以用：

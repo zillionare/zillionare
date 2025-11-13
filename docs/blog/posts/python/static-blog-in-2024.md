@@ -17,23 +17,23 @@ tags:
 
 <!--more-->
 
-这一方案的核心是 Mkdocs 和 Mkdocs-material。前者是 Python 技术文档构建系统，后者是与之适配的主题。我在 [《Python 能做大项目》](http://www.jieyu.ai/articles/python/best-practice-python/chap01/) 这本书中，深入介绍过这两种技术。
+这一方案的核心是 Mkdocs 和 Mkdocs-material。前者是 Python 技术文档构建系统，后者是与之适配的主题。我在 [《Python 能做大项目》](https://blog.quantide.cn/articles/python/best-practice-python/chap01/) 这本书中，深入介绍过这两种技术。
 
 现在，基于这两种技术，我们可以走得更远：不仅可以撰写技术文档，更可以打造博客和门户网站。
 
-下图就是截取的 [大富翁量化](https://www.jieyu.ai) 的网站界面：
+下图就是截取的 [大富翁量化](https://blog.quantide.cn) 的网站界面：
 
-![66%](https://images.jieyu.ai/images/2024/01/my-home-age.png)
+![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/my-home-age.png)
 
 ---
 
-你可以在 [大富翁量化](https://www.jieyu.ai) 网站上看到它最新的样式。更有创意的是，虽然它只是一个静态网站，但你每次刷新它，都能看到一些新的内容 -- 至少配图会变！
+你可以在 [大富翁量化](https://blog.quantide.cn) 网站上看到它最新的样式。更有创意的是，虽然它只是一个静态网站，但你每次刷新它，都能看到一些新的内容 -- 至少配图会变！
 
 这是首页。菜单栏、搜索这些是常规配置。标签云、首页的卡片式布局，是提升站点气质的地方。
 
 所有的文档都有版本管理，我使用了 github 来托管文档和图片，所以，也顺便把 github 的个人主页美化了一下：
 
-![75%](https://images.jieyu.ai/images/2024/01/github-profile.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/github-profile.jpg)
 
 实在说，之前我没有想过，github 主页也可以做得像个人网站。不得不说一张好图，能大大提升颜值。
 
@@ -43,7 +43,7 @@ tags:
 
 ## Mkdocs + Mkdocs - Material
 
-基础搭建我都写在 [《Python 能做大项目》](http://www.jieyu.ai/articles/python/best-practice-python/chap01/) 这本书的第 10 章中了，这里我们只介绍如何开通博客功能，以及定制首页。
+基础搭建我都写在 [《Python 能做大项目》](https://blog.quantide.cn/articles/python/best-practice-python/chap01/) 这本书的第 10 章中了，这里我们只介绍如何开通博客功能，以及定制首页。
 
 Material 自带了博客插件，我们只需要在配置中启用它（以及其它相关插件）:
 
@@ -120,7 +120,7 @@ with ProcessPoolExecutor() as executor:
 
 ---
 
-![R50](https://images.jieyu.ai/images/2024/01/xhs-sample.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/xhs-sample.jpg)
 
 因此，我们基于 mkdocs+material 创作的文档，只要加上少量的标记和定制，就可以很容易地转换成为图片。
 
@@ -136,7 +136,7 @@ npx slidev export --format png -t /path/to/slidev_themes/special_theme_dir --out
 
 ## 发布到微信公众号
 
-![L33](https://images.jieyu.ai/images/2024/01/md-nice.jpg)
+![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/md-nice.jpg)
 
 微信公众号排版一直是个问题。我甚至一度放弃了公众号创作。作为技术极客，我拒绝了几乎任何不是基于 Markdown 的排版方案 -- 都什么年代了，写个自媒体都是赔钱的，平台还好意思要求我们专门为你们排版？
 
@@ -157,7 +157,7 @@ npx slidev export --format png -t /path/to/slidev_themes/special_theme_dir --out
 不过，知乎的文档格式确实太素净了。
 
 ## 转换为 pdf
-<img src="https://images.jieyu.ai/images/2024/01/mpe-export-as-pdf.jpg" width="180px" align="right">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/mpe-export-as-pdf.jpg" width="180px" align="right">
 
 slidev 也可以转换成为 pdf。不过，我更喜欢使用 vscode 的 markdown preview enhanced 来转换 pdf。最终提供转换的是 chrome+puppetter。通过在文档的 frontmatter 中加上适当的标记，就能生成页眉和页脚。
 

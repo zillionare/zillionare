@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-12
 date: 2025-03-29
 category: tools
 motto: If you want to go fast, go alone. If you want to go far, go together.
-img: https://images.jieyu.ai/images/hot/mybook/book-with-hand.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -26,15 +26,15 @@ tags:
 ### 1.1. 重建索引
 重建索引是通过 `reindex()` 方法实现的，它允许用户根据新的索引标签对 Series 进行重排或填充。如果新索引标签在原 Series 中不存在，默认会用 `NaN` 填充。
 
-| **参数**         | **描述**                                                                 | **默认值**       |
-|------------------|-------------------------------------------------------------------------|------------------|
-| **index**      | 新的索引标签列表，可以是 Index 实例或其他序列型数据结构。               | None           |
-| **method**     | 填充缺失值的方法，可选值包括：'backfill'/'bfill'（后向填充）、'pad'/'ffill'（前向填充）、'nearest'（最近填充）。 | None           |
-| **fill_value** | 用于填充缺失值的默认值。                                                 | NaN            |
-| **limit**      | 使用填充方法时的最大填充距离。                                           | None           |
-| **tolerance**  | 最大容差，超出此范围则不填充。                                           | None           |
-| **level**      | 如果索引是 MultiIndex，则指定使用哪一级别进行重新索引。                 | None           |
-| **copy**       | 如果为 True，即使新旧索引相同也会返回一个新的副本。                     | True           |
+| **参数**       | **描述**                                                                                                         | **默认值** |
+| -------------- | ---------------------------------------------------------------------------------------------------------------- | ---------- |
+| **index**      | 新的索引标签列表，可以是 Index 实例或其他序列型数据结构。                                                        | None       |
+| **method**     | 填充缺失值的方法，可选值包括：'backfill'/'bfill'（后向填充）、'pad'/'ffill'（前向填充）、'nearest'（最近填充）。 | None       |
+| **fill_value** | 用于填充缺失值的默认值。                                                                                         | NaN        |
+| **limit**      | 使用填充方法时的最大填充距离。                                                                                   | None       |
+| **tolerance**  | 最大容差，超出此范围则不填充。                                                                                   | None       |
+| **level**      | 如果索引是 MultiIndex，则指定使用哪一级别进行重新索引。                                                          | None       |
+| **copy**       | 如果为 True，即使新旧索引相同也会返回一个新的副本。                                                              | True       |
 
 
 示例 1：基本重建索引
@@ -51,7 +51,7 @@ print(s_reindexed)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/009.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/009.png)
 
 示例 2：使用填充方法
 对于时间序列这样的有序数据，重建索引时可能需要做一些插值或填值处理。method选项可以达到此目的，例如使用ffill可以实现前向填充。
@@ -61,7 +61,7 @@ s_reindexed = s.reindex(new_index, method='ffill')
 print(s_reindexed)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/010.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/010.png)
 
 ---
 
@@ -72,7 +72,7 @@ s_reindexed = s.reindex(new_index, fill_value=-1)
 print(s_reindexed)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/011.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/011.png)
 
 ### 1.2. 删除指定轴上的项
 在 Pandas 中，Series 删除指定轴上的项可以通过 `drop()` 方法实现。Series 是一维数据结构，因此删除操作通常是针对索引（行）进行的。
@@ -100,7 +100,7 @@ print(new_obj)
 print(obj.drop(["d","c"]))
 ```
 
-<!--![50%](https://images.jieyu.ai/images/2025/03/012.png)-->
+<!--![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/012.png)-->
 
 ### 1.3. 索引、选取和过滤
 [索引选取]
@@ -169,7 +169,7 @@ print(result)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/013.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/013.png)
 
 如果你使用过数据库，可以认为这类似于join操作。
 
@@ -267,7 +267,7 @@ obj
 ```
 
 
-![50%](https://images.jieyu.ai/images/2025/03/014.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/014.png)
 
 索引的is_unique属性可以告诉我们索引值是否唯一：
 ```python
@@ -283,5 +283,5 @@ print(obj["a"])
 print(obj["c"])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/015.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/015.png)
 

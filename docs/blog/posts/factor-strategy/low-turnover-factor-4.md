@@ -30,11 +30,11 @@ ic = factor_information_coefficient(factor_data)
 ic.head()
 ```
 
-![75%](https://images.jieyu.ai/images/2024/01/alphalens-ic.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic.jpg)
 
 当然研究时间序列的最好方式还是可视化：
 
-![75%](https://images.jieyu.ai/images/2024/01/alphalens-ic-plot.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-plot.jpg)
 
 ---
 
@@ -42,7 +42,7 @@ ic.head()
 
 在下结论之前，我们先看看我们得到的IC的分布信息究竟如何：
 
-![75%](https://images.jieyu.ai/images/2024/01/alphalens-ic-describe.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-describe.jpg)
 
 它的均值只有0.058，最大值也只有0.52。距离理想值1确实有点大。不过，是否这真的意味着换手率因子不行呢？
 
@@ -53,7 +53,7 @@ ic.head()
 ---
 
 
-![](https://images.jieyu.ai/images/2024/01/alphalens-jq-factor-panel.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-jq-factor-panel.jpg)
 
 
 聚宽的三年期因子中，IC均值最大的是0.041，因此，我们这个因子的预测能力，已经超出了聚宽因子库中的所有因子。
@@ -66,7 +66,7 @@ ic.head()
 
 ---
 
-![](https://images.jieyu.ai/images/2024/01/alphalens-gpt4-ic.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-gpt4-ic.jpg)
 
 GPT4的回答是，IC均值在0.05以上，就表明因子的预测能力很强了。理论中的最佳值是1，因子预测中的最佳预期是0.05。理想很丰满，现实很骨感。
 
@@ -80,7 +80,7 @@ from alphalens.plotting import plot_ic_hist
 plot_ic_hist(ic)
 ```
 
-![](https://images.jieyu.ai/images/2024/01/alphalens-ic-hist.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-hist.jpg)
 
 看直方图关键是要看多数时间IC的表现如何，何处IC值很可能下降，以及是否存在肥尾。我们仍然要非常有经验，才能看出来IC的分布好坏。如果借助QQ图，观察要容易很多：
 
@@ -90,7 +90,7 @@ from alphalens.plotting import plot_ic_qq
 plot_ic_qq(ic)
 ```
 
-![75%](https://images.jieyu.ai/images/2024/01/alphalens-ic-qq.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-qq.jpg)
 
 ---
 

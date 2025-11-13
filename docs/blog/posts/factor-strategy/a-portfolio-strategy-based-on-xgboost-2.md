@@ -4,7 +4,7 @@ slug: A-Portofolio-Strategy-Based-On-Xgboost-2
 date: 2024-07-16
 category: strategy
 motto: 威尔金斯大楼,UCL - 协议：wikimedia commons
-img: https://images.jieyu.ai/images/university/ucl-wilkins-building.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/ucl-wilkins-building.jpg
 stamp: factors
 fonts:
     sans: "WenQuanYi Micro Hei"
@@ -41,7 +41,7 @@ tags:
 
 在机器学习中，有两类重要的函数，一类是**目标函数(objective function)，又称损失函数(loss function)**；一类是**度量函数(metrics)**。
 
-![75%](https://images.jieyu.ai/images/2024/07/gradient-descent.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gradient-descent.jpg)
 
 损失函数用于模型训练。在训练过程中，通过梯度下降等方法，使得损失函数的值不断减小，直到无法继续下降为止，模型就训练完成。
 
@@ -52,7 +52,7 @@ tags:
 
 在sklearn中，提供了大量的损失函数和度量函数。下图列举了部分Sklearn提供的损失函数和度量函数：
 
-![](https://images.jieyu.ai/images/2024/07/sklearn-loss-metrics.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/sklearn-loss-metrics.jpg)
 
 可以看出，度量函数的个数远多于损失函数，这是为什么呢？
 
@@ -154,7 +154,7 @@ grid_search = GridSearchCV(estimator=model,
 
 ## 结论
 
-![L33](https://images.jieyu.ai/images/hot/mybook/girl-wear-book.png)
+![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-wear-book.png)
 
 对多数量化人来说，我们不可能像陈天奇那样自己撸一个机器学习框架出来，因此，要用同样的模型，做出更优的结果，就只能在**数据标注、目标函数、评估函数和参数调优**等方面下功夫了。这往往既需要有较深的领域知识，也要对具体的模型原理有一定的了解。
 

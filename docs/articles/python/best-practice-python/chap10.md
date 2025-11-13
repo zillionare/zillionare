@@ -108,7 +108,7 @@ restructured text example
 ```
 上述文本将渲染为以下格式：
 
-![](https://images.jieyu.ai/images/2023/12/rst_headings.png){width="50%"}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/rst_headings.png){width="50%"}
 
 这种语法的烦琐和难用之处在于，标题字符数与下面的标点符号数必须匹配。如果使用了非等宽字符（比如使用了中文标题），匹配将十分困难，您可以自行寻找一个支持 rst 的编辑器（比如在 vscode 中，安装"RST Preview"扩展），手动键入上面的例子，验证这一点。
 
@@ -224,8 +224,8 @@ Markdown 起源于 2000 年代。在 2000 年前后，John Gruber 有一个博�
     John Gruber 反对 Markdown 的标准化工作，并且不允许工作组使用 Markdown 这个名字，不能不说令人遗憾。不知道这能不能算是屠龙少年终成龙的另一个实例。不过，在技术界这也并非孤例。一些人也认为，解决 Python 性能问题的最大阻碍，其实就来自于创建者 Guido，因为他认为 Python 的性能已经够好：如果有人认为 Python 性能不够好，那么他应该改用别的语言。提升 Python 语言的性能的过程中，决不允许出现版本 2 到版本 3 升级时的那种不兼容现象。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
@@ -639,7 +639,7 @@ $ cd PROJECT_NAME
 
 ```yaml
 site_name: sample
-site_url: http://www.jieyu.ai
+site_url: https://blog.quantide.cn
 repo_url: https://github.com/zillionare/sample
 repo_name: sample
 site_description: A great mkdocs sample site
@@ -716,7 +716,7 @@ Mkdocs 使用了 Python-Markdown 来执行 markdown 到 html 的转换，而 Pyt
 
 使用第三方的扩展跟使用第三方主题一样，我们必须先安装这些扩展。比如，第 22 行的 pymakdownx.critic 就来自于第三方扩展 pymdown-extensions，我们需要先安装这个扩展，然后才能在 mkdocs.yml 中启用它。critic 给文档提供了批注功能，比如下面的示例：
 
-![](https://images.jieyu.ai/images/2023/12/critics_markup.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/critics_markup.jpg)
 
 其显示效果如下：
 
@@ -972,8 +972,8 @@ Sphinx + rst 这条技术栈比较成熟稳定，但学习曲线比较陡峭，r
 | 生产效率   | 一般                | 高效               | -                                                      |
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

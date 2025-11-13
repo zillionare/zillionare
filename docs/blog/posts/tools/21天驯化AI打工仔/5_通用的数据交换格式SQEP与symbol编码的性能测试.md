@@ -4,7 +4,7 @@ slug: Taming-the-AI-Worker-in-21-Days-5
 date: 2025-05-18
 category: tools
 motto: You only live once, but if you do it right, once is enough
-img: https://images.jieyu.ai/images/2025/05/20250514202750.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
 tags: 
     - tools
     - programming
@@ -359,7 +359,7 @@ for _ in range(2500):
 print(f"已生成{len(trading_days)}个交易日")
 ```
 
-![](https://images.jieyu.ai/images/2025/05/generate_stock_data.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/generate_stock_data.png)
 
 ### 2.3. Redis 生产者：把数据推送到 Redis 队列
 
@@ -399,7 +399,7 @@ print("数据生成完成，已全部推送到Redis队列")
 
 大概运行 20 分钟左右，可以运行结束。数据生成过程中，我们可以看到进度条稳步前进，表明数据正在被成功生成并推送到 Redis 队列中。
 
-![](https://images.jieyu.ai/images/2025/05/redis_producer.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/redis_producer.png)
 
 "数据生成和推送过程顺利完成，"我观察着进度条，"现在我们需要设计消费者端来处理这些数据。"
 
@@ -618,7 +618,7 @@ finally:
         print(f"最终统计查询失败: {str(e)}")
 ```
 
-![](https://images.jieyu.ai/images/2025/05/stock_data.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data.png)
 
 "数据已经成功导入 ClickHouse，"我看着终端输出说道，"现在我们有了一个包含大量记录的 stock_data 表。"
 
@@ -830,7 +830,7 @@ def recreate_table_without_symbol():
 recreate_table_without_symbol()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/recreate_table_without_symbol.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/recreate_table_without_symbol.png)
 
 
 ```python
@@ -885,7 +885,7 @@ def add_index_to_stock_data_with_int():
 add_index_to_stock_data_with_int()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/stock_data_with_int.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data_with_int.png)
 
 "表创建成功，"我看着屏幕上的输出说道，"现在我们有了两个结构相似但股票代码编码方式不同的表。"
 
@@ -899,7 +899,7 @@ add_index_to_stock_data_with_int()
 
 我认真地检查着两个表的结构："是的，只有在确保其他条件完全相同的情况下，我们才能得出关于编码方式影响的可靠结论。"
 
-![](https://images.jieyu.ai/images/2025/05/007_01.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_01.png)
 
 "我设计了一系列检查函数，"007 说，"它们会全面比较两个表的结构、索引、分区方式和数据量，确保测试的严谨性。"
 
@@ -940,7 +940,7 @@ def compare_table_structures():
 stock_data_columns, stock_data_with_int_columns = compare_table_structures()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/表结构对比.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/表结构对比.png)
 
 #### 2.6.2. 数据量对比
 
@@ -979,7 +979,7 @@ def compare_data_volume():
 compare_data_volume()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/数据量对比.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/数据量对比.png)
 
 #### 2.6.3. 索引对比
 
@@ -1065,7 +1065,7 @@ def compare_indexes_fixed():
 compare_indexes_fixed()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/索引对比.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/索引对比.png)
 
 #### 2.6.4. 排序键对比
 
@@ -1109,7 +1109,7 @@ def compare_sort_keys():
 compare_sort_keys()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/排序键对比.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/排序键对比.png)
 
 #### 2.6.5. 分区对比
 
@@ -1206,7 +1206,7 @@ def compare_partitions_fixed():
 compare_partitions_fixed()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/分区对比.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/分区对比.png)
 
 #### 2.6.6. 表引擎对比
 
@@ -1242,7 +1242,7 @@ def compare_engines():
 compare_engines()
 ```
 
-![](https://images.jieyu.ai/images/2025/05/表引擎对比.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/表引擎对比.png)
 
 #### 2.6.7. 综合对比
 
@@ -1527,7 +1527,7 @@ SYSTEM DROP UNCOMPRESSED CACHE;
 results = test_query_performance_fixed(num_tests=50)
 ```
 
-![](https://images.jieyu.ai/images/2025/05/性能测试结果.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/性能测试结果.png)
 
 "测试结果出来了！"我兴奋地说道，看着屏幕上显示的性能数据。
 
@@ -1543,7 +1543,7 @@ results = test_query_performance_fixed(num_tests=50)
 
 我点点头："好主意，图表能帮助我们更清晰地看到性能差异的模式和趋势。"
 
-![](https://images.jieyu.ai/images/2025/05/007_02.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_02.png)
 
 "我已经设计了一个全面的可视化方案，"007 说，"包括条形图、箱线图和饼图等多种图表类型，从不同角度展示性能测试结果。"
 
@@ -1955,11 +1955,11 @@ if not results:
 visualize_performance_results(results)
 ```
 
-![](https://images.jieyu.ai/images/2025/05/性能测试详细报告.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/性能测试详细报告.png)
 
-![](https://images.jieyu.ai/images/2025/05/performance_test_report.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/performance_test_report.png)
 
-![](https://images.jieyu.ai/images/2025/05/query_performance_comparision.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/query_performance_comparision.png)
 
 ## 3. 结论与建议
 
@@ -1995,4 +1995,4 @@ visualize_performance_results(results)
 
 "完全同意，"007 回应，"数据结构和存储优化是构建高性能量化交易系统的基础，我们的实验只是迈出了第一步。"
 
-![](https://images.jieyu.ai/images/2025/05/quantide.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/quantide.png)

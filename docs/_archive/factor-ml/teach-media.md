@@ -23,7 +23,7 @@ lineNumbers: true
 
 所以，后来改用了一些屏幕涂鸦工具，把高亮改成手段框选。我使用的工具是 Mac 下的 Mark And Scribble。
 
-![](https://images.jieyu.ai/images/2024/08/mark-and-scribe.gif?1)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/mark-and-scribe.gif?1)
 
 
 
@@ -56,7 +56,7 @@ g_mask = np.ma.array(g,mask=mask)
 
 我们仅仅在 python之后加上了{4-5|7-9|all}，就引入了三个高亮动画，从而每点击一次鼠标，就会依次高亮不同的代码段。
 
-![](https://images.jieyu.ai/images/2024/08/code-highlight.gif)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/code-highlight.gif)
 
 很赞，毕竟我们只比平常多写了不到15个字符，就实现了三个高亮动画。
 

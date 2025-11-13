@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-17
 date: 2025-04-03
 category: tools
 motto: Perseverance is not a long race; it is many short races one after the other.
-img: https://images.jieyu.ai/images/hot/mybook/women-sweatshirt-indoor.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -32,7 +32,7 @@ Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象
 df.style.set_caption("标题").set_properties(**{'background-color': 'lightgray'})
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/070.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/070.png)
 
 ### 1.2. ​条件着色
 ### 1.2.1. 单列条件着色
@@ -46,7 +46,7 @@ def color_negative_red(val):
 df.style.applymap(color_negative_red)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/071.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/071.png)
 
 ### 1.2.2. 多列条件着色
 ```python
@@ -54,7 +54,7 @@ df.style.apply(lambda x: ['background: yellow' if v > 0.2 else '' for v in x],
                         subset=['A', 'C'])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/072.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/072.png)
 
 ### 1.2.3. ​极值高亮
 
@@ -64,7 +64,7 @@ df.style.apply(lambda x: ['background: yellow' if v > 0.2 else '' for v in x],
 df.style.highlight_max(color='lightgreen').highlight_min(color='pink')
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/073.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/073.png)
 
 
 ### 1.2.4. 渐变色背景
@@ -72,14 +72,14 @@ df.style.highlight_max(color='lightgreen').highlight_min(color='pink')
 df.style.background_gradient(cmap='Blues', subset=['B'])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/074.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/074.png)
 
 ### 1.2.5. 条形图样式
 ```python
 df.style.bar(subset=['C'], color='#5fba7d')
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/075.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/075.png)
 
 ---
 
@@ -90,7 +90,7 @@ headers = {'selector': 'th',
 df.style.set_table_styles([headers])
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/076.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/076.png)
 
 ### 1.2.7. 动态条件着色（复杂逻辑）​
 ```python
@@ -101,7 +101,7 @@ def highlight_risk(row):
 df.style.apply(highlight_risk, axis=1)  # axis=1表示按行处理
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/077.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/077.png)
 
 !!! Notes
     - 样式仅在 Jupyter Notebook 或导出为 HTML 时生效，不支持直接修改原始数据。
@@ -121,7 +121,7 @@ s = pd.Series(np.random.standard_normal(10).cumsum(), index=np.arange(0, 100, 10
 s.plot()
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/065.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/065.png)
 
 ---
 
@@ -166,7 +166,7 @@ plt.style.use('grayscale')
 df.plot()
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/066.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/066.png)
 
 !!! Notes
     这里使用了 plt.style.use('grayscale') 将配色模式设置为灰度模式。
@@ -201,7 +201,7 @@ data.plot.barh(ax=axes[1], color='k', alpha=0.7)
 
 ---
 
-![50%](https://images.jieyu.ai/images/2025/03/067.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/067.png)
 
 对于 DataFrame，柱状图会将每一行的值分为一组，并排显示。
 
@@ -212,7 +212,7 @@ df = pd.DataFrame(np.random.uniform(size=(6, 4)),
 df.plot.bar()
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/068.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/068.png)
 
 注意，DataFrame 各列的名称“Genus”被用作图例标题。
 
@@ -224,7 +224,7 @@ df.plot.bar()
 df.plot.bar(stacked=True,alpha=0.5)
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/069.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/069.png)
 
 
 

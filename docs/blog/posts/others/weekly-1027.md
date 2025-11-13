@@ -3,7 +3,7 @@ title: "[1027] QuanTide Weekly"
 date: 2024-10-27
 category: others
 slug: quantide-weekly-1027
-img: https://images.jieyu.ai/images/university/toronto.webp
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, factor]
@@ -50,7 +50,7 @@ fonts:
 
 这篇文章，我们量化实现的技术问题：如何快速检测出洗盘模式？
 
-![L50](https://images.jieyu.ai/images/2024/05/washout-1.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/washout-1.jpg)
 
 暴力洗盘是在证券市场上观察到的一种经验模式，因此没有严格的定义。一般把两阳夹一阴、且涨跌幅都巨大的情况认为是暴力洗盘。
 
@@ -111,7 +111,7 @@ def feature_washout(bars, threshold=0.05):
 
 下图就是高开大阴线洗盘一例：
 
-![75%](https://images.jieyu.ai/images/2024/05/washout-with-high-open.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/washout-with-high-open.jpg)
 
 在判断每个bar的涨跌幅、或者实体的振幅是否超过阈值时，我们使用了一个简单的技巧，即通过`np.maximimum`来从**多个**数组中，以 `element-wise` 的形式选取最大值。即，如果有数组$A$和$B$，那么$np.maximum(A, B)$将返回一个数组，其元素为$A$和$B$对应位置的元素中的较大值。
 

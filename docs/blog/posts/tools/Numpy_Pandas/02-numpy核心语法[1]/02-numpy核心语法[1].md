@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-02
 date: 2025-03-18
 category: tools
 motto: Make Every Single Day Count - Grow with Quantide
-img: https://images.jieyu.ai/images/2025/02/grow-with-quantide.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/grow-with-quantide.jpg
 tags: 
     - tools
     - programming
@@ -141,7 +141,7 @@ for i, alpha in enumerate((-0.01, 0, 0.01)):
 
 ---
 
-![](https://images.jieyu.ai/images/2024/04/same-vol-different-trend.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg)
 
 <!--
 很多情况下我们需要生成正态分布数组。比如，我们想研究股价涨跌幅与波动率之间的关系，比如，股价持续上涨与持续下跌，会有同样的波动率吗？此时，我们可以从下跌-0.1，到上涨 0.1，中间以 0.05 为一档，造出若干个回报序列，再来求它们的波动率。此时就可以用：

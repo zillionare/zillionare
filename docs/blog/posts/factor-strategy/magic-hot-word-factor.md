@@ -2,7 +2,7 @@
 title: 龙凤呈祥：这种无底限炒作，如何用量化方法发现它？
 slug: magic-hot-word-factor
 date: 2024-01-23
-img: https://images.jieyu.ai/images/2024/01/dragon-and-phoenix.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/dragon-and-phoenix.jpg
 category: strategy
 motto: 这世界是个草台班子 但你我不是
 lunar:
@@ -104,10 +104,10 @@ async def get_forward_returns(dt: datetime.date, n=10):
 
 最后，我们选择2019-2-10到2019-3-5这个区间运行了一下，结果是：
 
-![](https://images.jieyu.ai/images/2024/01/magic-word-factor-forward-returns.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/magic-word-factor-forward-returns.jpg)
 
 你的钱就是这样被赚走的。打不过就加入吧！
 
-源代码自本文发布一周内，支持免费预览。预览方法见[【这里】](http://www.jieyu.ai/articles/coursea/24lectures/preview/)
+源代码自本文发布一周内，支持免费预览。预览方法见[【这里】](https://blog.quantide.cn/articles/coursea/24lectures/preview/)
 
 

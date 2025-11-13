@@ -354,7 +354,7 @@ Talib的技术指标很多，我们会每类介绍几个，重点介绍在新的
 
 rolf banz如何错过了低波动因子 https://www.rolfbanz.ch/2012/09/low-beta-anomaly-some-early-evidence/
 
-毕业论文被大佬狂怼： http://www.jieyu.ai/blog/2024/09/12/rolf-banz/
+毕业论文被大佬狂怼： https://blog.quantide.cn/blog/2024/09/12/rolf-banz/
 -->
 
 #### 11.1.3. 价值因子

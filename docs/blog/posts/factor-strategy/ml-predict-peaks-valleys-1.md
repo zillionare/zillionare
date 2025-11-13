@@ -2,7 +2,7 @@
 title: 机器学习(XgBoost）预测顶和底
 slug: ml-predict-peaks-valley-1
 date: 2024-04-23
-img: https://images.jieyu.ai/images/2024/04/cmu.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/cmu.jpg
 category: strategy
 motto: Torture the data, and it will confess to anything
 lineNumbers: true
@@ -21,7 +21,7 @@ tags:
 ---
 
 !!! info
-    ![L33](https://images.jieyu.ai/images/2024/04/tqchen.jpg)
+    ![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/tqchen.jpg)
     在这次实验中，我们将使用XgBoost。
     
     它的开发者是陈天奇，上海交大ACM班06级毕业，华盛顿大学博士。现任卡内基.梅隆大学助理教授。
@@ -32,7 +32,7 @@ tags:
 
 在上一篇文章中，我们提到机器学习总是把要解决的问题归类为两类，一类是回归，一类是分类。如果要预测的target取值处在连续实数域上，这往往是个回归问题；如果target的值域为有限个离散状态，则是一个分类问题。
 
-![](https://images.jieyu.ai/images/2024/04/regression-vs-classification.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/regression-vs-classification.jpg)
 
 然而，具体问题总是复杂许多。初学者会觉得，既然股价的取值是在连续实数域上，因此可以把它看成回归问题，使用类似LSTM之类的神经网络来预测股价。但实际上由于金融数据的噪声问题，这么做并没有什么道理。
 
@@ -62,7 +62,7 @@ conda install -c conda-forge py-xgboost
 
 
 
-![](https://images.jieyu.ai/images/2024/04/label-data-example.jpg?1)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/label-data-example.jpg?1)
 
 
 这份数据包括了标签（即flag一列），但没有我们要的特征工程数据。因此，我们要先从OHLC数据中提取出特征。
@@ -71,7 +71,7 @@ conda install -c conda-forge py-xgboost
 
 他们的结论是，根据这两类指标的变种tr得到的综合因子，在2009到2020年4月，以全A为样本，进行5组分层多空测试，得到**年化收益为15.86%，最大回撤仅为3.68%**，可以说具有非常明显的信号意义。
 
-![66%](https://images.jieyu.ai/images/2024/04/东吴证券-ubl-因子表现.jpg)
+![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/东吴证券-ubl-因子表现.jpg)
 
 
 
@@ -222,7 +222,7 @@ sns.heatmap(mx/np.sum(mx), cmap="YlGnBu",
 
 我们会得到这样一张图：
 
-![50%](https://images.jieyu.ai/images/2024/04/confustion-matrix.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/confustion-matrix.jpg)
 
 这张图表明：大约有3.8%的0类数据，被错误分类为标签1；大约有3.2%的2类数据，被错误地分类为标签1；所有的1类数据，都正确地分类为1。
 

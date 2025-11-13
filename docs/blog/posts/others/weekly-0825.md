@@ -4,7 +4,7 @@ date: 2024-08-25
 seq: 第 6 期
 category: others
 slug: quantide-weekly-0825
-img: https://images.jieyu.ai/images/2024/08/kenneth-griffin.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, career]
@@ -41,7 +41,7 @@ tags: [others, weekly, career]
 
 2015 年，World Quant 发布了报告 [《101 Formulaic Alphas》](https://arxiv.org/pdf/1601.00991)，它包含了 101 种不同的股票选择因子，这些因子中，有 80%是当时正在 World Quant 交易中使用的因子。该报告发表之后，在产业界引起较大反响。
 
-目前，根据 Alpha101 生成的因子库，已几乎成为各量化平台、数据提供商和量化机构的必备。此外，一些机构受此启发，还在此基础上构建了更多因子，比如国泰君安推出的 [Alpha 191](https://www.jieyu.ai/assets/ebooks/国泰君安－基于短周期价量特征的多因子选股体系.pdf) 等。这两个因子库都有机构进行了实现。比如 [DolphinDB](https://github.com/dolphindb/DolphinDBModules/tree/master/gtja191Alpha) 和 [聚宽](https://www.joinquant.com/help/api/help#Alpha101:WorldQuant101Alphas%E5%9B%A0%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E) 都提供了这两个因子库。
+目前，根据 Alpha101 生成的因子库，已几乎成为各量化平台、数据提供商和量化机构的必备。此外，一些机构受此启发，还在此基础上构建了更多因子，比如国泰君安推出的 [Alpha 191](https://blog.quantide.cn/assets/ebooks/国泰君安－基于短周期价量特征的多因子选股体系.pdf) 等。这两个因子库都有机构进行了实现。比如 [DolphinDB](https://github.com/dolphindb/DolphinDBModules/tree/master/gtja191Alpha) 和 [聚宽](https://www.joinquant.com/help/api/help#Alpha101:WorldQuant101Alphas%E5%9B%A0%E5%AD%90%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E) 都提供了这两个因子库。
 
 这篇文章就来介绍如何读懂 《101 Formulaic Alphas》 并且实现它。文章内容摘自我们的课程《因子分析与机器学习策略》的第8课，篇幅所限，有删节。
 
@@ -508,13 +508,13 @@ def streaks(close):
 
 这个过程可以简单地用下图表示：
 
-![k-fold cross validation，by sklearn](https://images.jieyu.ai/images/2024/08/k-fold-cross-validation.png)
+![k-fold cross validation，by sklearn](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png)
 
 但在时间序列分析（证券分析是其中典型的一种）中，k-fold方法是不适合的，因为时间序列分析有严格的顺序性。因此，从k-fold cross-validation特化出来一个版本，称为 rolling forecasting。你可以把它看成顺序版本的k-fold cross-validation。
 
 它可以简单地用下图表示：
 
-![rolling forecasting, by tsfresh](https://images.jieyu.ai/images/2024/08/walk-forward-optimization.webp)
+![rolling forecasting, by tsfresh](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp)
 
 ---
 
@@ -528,7 +528,7 @@ def streaks(close):
 
 buildalpha的噪声测试，是将一定比率的随机噪声叠加到回测数据上，然后再进行回测，并将基于噪声的回测与基于真实数据的回测进行比较。
 
-![L50](https://images.jieyu.ai/images/2024/08/add-noise.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/add-noise.jpg)
 
 它的原理是，在我们进行回测时，历史数据只是*可能*发生的一种可能路径。如果时间重演，历史可能不会改变总的方向，但是偶然性会改变历史的步伐。而一个好的策略，应该是能对抗偶然性、把握历史总的方向的策略。因此，在一个时间序列加上一些巧妙的噪声，就可能会让过拟合的策略失效，而真正有效的策略仍然闪耀。
 
@@ -542,16 +542,16 @@ buildalpha是一个类似tradingview的平台。要进行噪声测试，可以�
 
 <div style="display:flex">
 <div style="width:45%">
-<img src="https://images.jieyu.ai/images/2024/08/noise-test-real-price.jpg"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-real-price.jpg"/>
 </div>
-<div style="width: 45%"><img src="https://images.jieyu.ai/images/2024/08/noise-test-modified-price.jpg"/></div>
+<div style="width: 45%"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-modified-price.jpg"/></div>
 </div>
 
 左图为真实数据，右图为叠加部分噪声的数据。叠加噪声后，在一些细节上，引入了随机性，但并没有改变股价走势（叠加是独立的）。如果股价走势被改变，那么这种方法就是无效的甚至有害的。
 
 最后，在同一个策略上，对照回测的结果是：
 
-![75%](https://images.jieyu.ai/images/2024/08/noise-test-result.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-result.jpg)
 
 从结果上看，在历史的多条可能路径中，没有任何一条的回测结果能比真实数据好。
 
@@ -565,7 +565,7 @@ buildalpha是一个类似tradingview的平台。要进行噪声测试，可以�
 
 Build Alpha以可视化的方式，提供了参数平原检测。
 
-![](https://images.jieyu.ai/images/2024/08/params-plaetu-original.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/params-plaetu-original.jpg)
 
 在这个3D图中，参数选择为 X= 9和Y=4,如黑色简单所示。显然，这一区域靠近敏感区域，在其周围，策略的性能下降非常厉害。按照传统的推荐，我们应该选择参数 X=8和Y=8，这一区域图形更为平坦。
 

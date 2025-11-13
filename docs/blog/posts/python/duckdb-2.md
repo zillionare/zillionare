@@ -158,7 +158,7 @@ r2
 
 ---
 
-![50%](https://images.jieyu.ai/images/2024/01/power-plant.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/power-plant.jpg)
 
 下面的语句将生成一个每日生产电力的7日移动平均：
 
@@ -212,7 +212,7 @@ df.groupby('id')["value"].nlargest(2)
 ```
 输出结果是：
 
-![75%](https://images.jieyu.ai/images/2024/02/pandas-group-by-topk.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/pandas-group-by-topk.jpg)
 
 ---
 
@@ -269,11 +269,11 @@ duckdb提供了与许多数据库、数据源的接口，在很多示例中，�
 
 ---
 
-![](https://images.jieyu.ai/images/2024/02/duckdb-performance.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/duckdb-performance.jpg)
 
 不过，数据库性能测试的基准是TPC-DS测试。根据Fivetran CEO的测试，duckdb在存储文件大小小于250GB时，性能优于最好的商业数据库，但在1TB数据集时（此时使用32核心CPU和128GB内存），它的性能会落后不少。
 
-![](https://images.jieyu.ai/images/2024/02/duckdb-vs-database-x.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/duckdb-vs-database-x.jpg)
 
 不过，这项测试的意义是让我们知道，至少duckdb可以容纳1TB左右的数据。但是它表现最好的区间是小于100GB，因此，duckdb可能仍然不适合来存储tick级别的行情数据。
 

@@ -4,7 +4,7 @@ slug: left-side-effect-integer-pressure
 date: 2024-01-24
 category: strategy
 motto:
-img: https://images.jieyu.ai/images/2024/01/pressure-of-price-integer-cat.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-of-price-integer-cat.jpg
 lunar:
 tags: 
     - strategy
@@ -63,7 +63,7 @@ tags:
 
 ---
 
-![75%](https://images.jieyu.ai/images/2024/01/ray-reflection.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-reflection.jpg)
 
 
 
@@ -76,7 +76,7 @@ tags:
 
 ---
 
-![](https://images.jieyu.ai/images/2024/01/ray-refraction-ubi.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-refraction-ubi.jpg)
 
 育碧在10月26日达到10元整数关口。相关参数定义如下：
 

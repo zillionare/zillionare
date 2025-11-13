@@ -8,7 +8,7 @@ slug: mpt-1-concepts
 
 所有的这些资产组合构成一条曲线（以资产组合的标准差为横轴，预期回报率为纵轴），称为前沿资产组合曲线，其中曲线的上半部分又被称为有效前沿。
 
-![](https://images.jieyu.ai/images/2023/10/portfolio-optimisation.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
 
 这个图是一个上下对称图，在图的下半部分上的每一个点，都可以在上半部分找到一个对应点，它们具有相同的风险，但有效前沿上的点具有更大的预期收益率。因此下半部分投资是**没有投资者愿意持有的**。
 

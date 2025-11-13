@@ -11,7 +11,7 @@ tags:
     - KS-Test
 ---
 
-![R50](https://images.jieyu.ai/images/2023/06/sh_histo_pdf.png) 上一篇笔记我们抛出一个问题，沪指大跌 4%时，能不能抄底？今天的笔记，我们就通过 KS 检验，找出沪指的概率分布，进而回答这个问题。在后面的笔记中，我们还将换一个方法继续回答这个问题。
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png) 上一篇笔记我们抛出一个问题，沪指大跌 4%时，能不能抄底？今天的笔记，我们就通过 KS 检验，找出沪指的概率分布，进而回答这个问题。在后面的笔记中，我们还将换一个方法继续回答这个问题。
 
 <!--more-->
 ## K-S 检验
@@ -69,7 +69,7 @@ df.sort_values("pvalue", ascending=False).transpose()
 
 我们将得到以下输出：
 
-![](https://images.jieyu.ai/images/2023/06/sh_kstest_result.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_kstest_result.png)
 
 图可能有点宽，导致手机上没法看清楚。不过我们只要知道，这里的第一行，genhyperbolic，即广义双曲分布的 pvalue 最高，达到了 0.97。
 
@@ -95,13 +95,13 @@ ax2 = ax.twinx()
 _ = ax2.hist(pct, bins=50)
 ```
 
-![75%](https://images.jieyu.ai/images/2023/06/sh_histo_pdf.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png)
 
 ---
 
 不能说十分相似，简直是一模一样。pdf 函数曲线刚好框住了实际分布直方图的外轮廓。
 
-![L50](https://images.jieyu.ai/images/2024/01/sp-pdf.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/sp-pdf.jpg)
 
 实际上，并非只有沪指符合广义双曲分布。根据 Souto 发表在《金融数学》（2023年2月）杂志上的文章，《Distribution Analysis of S&P 500 Financial Turbulence》, **标普 500 也是最接近这个分布**。
 
