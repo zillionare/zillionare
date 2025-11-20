@@ -364,7 +364,7 @@ class ParquetUnifiedStorage:
         """
         start = self.end or self._calendar.epoch
 
-        now = datetime.datetime.now(tz=pytz.timezone("Asia/Shanghai"))
+        now = datetime.datetime.now(tz=TZ)
         end = self._calendar.floor(now.date(), now.time())
 
         logger.info("开始更新日线数据: {} 到 {}", start, end)
