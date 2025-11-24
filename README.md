@@ -22,11 +22,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>Moonshot is all you need - 红利策略完结篇</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg" style="height: 200px" align="right"/>
-<p>本篇是本系列的最后一篇,运用之前的Moonshot回测框架，我们将最终完成红利策略的构建。5年回测结果表明，本策略年化达到11.6%，sharpe 高达4.55，远远超过同期沪深300.</p>
+<h3>前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_201839.jpg" style="height: 200px" align="right"/>
+<p>这是所有的量化课程都不会告诉你的，基于静态复权计算出来的因子，很可能不具有时间平稳性，这意味着我们无法基于它来发现统计规律。</p>
 
-<p><span style="margin-right:20px">发表于 2025-11-09 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/moonshot/moonshot-is-all-you-need-5/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-11-21 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/关于复权那些事儿/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -34,11 +34,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>Political Alpha，跟着国会山股神去炒股</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg" style="height: 200px" align="right"/>
-<p>通过分析公开的国会议员交易记录，我们发现了令人惊讶的投资模式，这些数据背后隐藏着怎样的市场洞察？</p>
+<h3>Moonshot is all you need - 红利策略完结篇</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg" style="height: 200px" align="right"/>
+<p>本篇是本系列的最后一篇,运用之前的Moonshot回测框架，我们将最终完成红利策略的构建。5年回测结果表明，本策略年化达到11.6%，sharpe 高达4.55，远远超过同期沪深300.</p>
 
-<p><span style="margin-right:20px">发表于 2025-11-03 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/factor-strategy/跟着国会山股神去炒股/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-11-09 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/moonshot/moonshot-is-all-you-need-5/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
