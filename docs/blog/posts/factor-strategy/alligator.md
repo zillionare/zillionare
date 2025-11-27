@@ -838,6 +838,7 @@ run_all(
 ```python
 from matplotlib.ticker import PercentFormatter
 import matplotlib.patches as mpatches
+import quantstats as qs
 
 def _to_dt_index(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
