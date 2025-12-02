@@ -1,9 +1,11 @@
 """给 youtube 视频加中文字幕
 
-自动化流程：切分 -> 翻译 -> 合并 -> 转SRT
+先通过 merlin 扩展，得到 youtube 视频的英文字幕，保存，然后运行脚本
 
 用法：
 python scripts/youtube.py /path/to/file.srt --splits 5
+
+这将会得到一个格式正确、字幕为中文的 srt 文件，然后就可以与通过4k downloader 得到的视频合并了。
 """
 
 import argparse
