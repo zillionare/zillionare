@@ -926,7 +926,7 @@ if __name__ == "__main__":
     fire.Fire(
         {
             "build": build,
-            "jieyu": publish_jieyu,
+            "web": publish_jieyu,
             "quantide": publish_quantide,
             "gzh": prepare_gzh,
             "meta": extract_meta_for_jieyu_index,
