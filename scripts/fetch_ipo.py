@@ -1,3 +1,5 @@
+"""博文『打新不中，买新当如何』配套代码
+"""
 import json
 import os
 import random
@@ -217,7 +219,8 @@ def analyze_ipo_performance(df):
 
 if __name__ == "__main__":
     print("Starting IPO data fetch ...")
-    df = get_ipo_data()
+    # 正式获取数据时，请移除 max_pages 参数
+    df = get_ipo_data(max_pages=3)
     
     if df is not None:
         print(f"Successfully fetched {len(df)} records.")

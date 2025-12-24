@@ -1,3 +1,5 @@
+"""博文『打新不中，买新当如何』配套代码
+"""
 import datetime
 import os
 import warnings
@@ -5,15 +7,17 @@ import warnings
 import lightgbm as lgb
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
 
+data_home = Path("/data/ro/")
 def train_model(start: datetime.date = None):
     # 1. Load Data
-    file_path = os.path.join(os.path.dirname(__file__), 'ipo_data.csv')
+    file_path = data_home / 'ipo_data.csv'
     if not os.path.exists(file_path):
         print(f"Error: {file_path} not found.")
         return

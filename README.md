@@ -10,11 +10,23 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
+<h3>UV & Pydantic 2.0：重塑 2026 Python 工程化基石</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png" style="height: 200px" align="right"/>
+<p>本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。</p>
+
+<p><span style="margin-right:20px">发表于 2025-12-23 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/2026十大量化技术/uv&pydantic/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
 <h3>打新不中，买新当如何？lightgbm 打新模型如何构建？</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/12/20251218114139.png" style="height: 200px" align="right"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251218114139.png" style="height: 200px" align="right"/>
 <p>摩尔线程和沐曦股份这两天彻底激发了打新市场。前者中一签至少赚27万，后者中一签至少赚40万。如果中签，应该在什么价位卖出？如果不中，是否还有上车机会？机器学习模型来告诉你答案。</p>
 
-<p><span style="margin-right:20px">发表于 2025-12-18 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/factor-strategy/打新不中，买新当如何/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-12-18 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/factor-strategy/打新不中，买新当如何/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -26,19 +38,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg" style="height: 200px" align="right"/>
 <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Point-in-Time方法进行正确归一化的重要性，以避免自我欺骗，获得真实收益。</p>
 
-<p><span style="margin-right:20px">发表于 2025-11-28 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/data-normalization/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/24.jpg" style="height: 200px" align="right"/>
-<p>最近在整一个适合个人使用的量化框架，数据源选择了 tushare，实时数据和交易 API 使用 QMT。在尝试一个策略时，发现该发出信号的时候，没有发出信号，于是就开始了排错之旅。这一查不要紧，发现就连最基本的每日涨跌幅数据也算不『对』了。</p>
-
-<p><span style="margin-right:20px">发表于 2025-11-24 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-11-28 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/data-normalization/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>

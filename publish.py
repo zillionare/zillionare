@@ -839,7 +839,7 @@ def prepare_gzh(src: str):
     """将文章复制到/tmp下，转换为ipynb并拷贝到research环境"""
     md = absolute_path(Path(src))
     preprocessed = Path("/tmp") / md.name
-    preprocess(md, preprocessed, strip_paid=True)
+    preprocess(md, preprocessed, strip_paid=True, admon_style="gmf")
     print(f"✅ 文章已适合作为公众号发表，请前往{preprocessed}查看")
 
 
