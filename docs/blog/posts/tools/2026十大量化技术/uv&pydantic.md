@@ -1,5 +1,5 @@
 ---
-title: "UV & Pydantic 2.0：重塑 2026 Python 工程化基石"
+title: "UV & Pydantic：重塑 2026 Python 工程化基石"
 date: 2025-12-23
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png
 excerpt: "本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。"
@@ -21,7 +21,6 @@ aspectRatio: 3/4
 layout: cover-random-img-portrait
 ---
 
----
 
 量化人度过了一个喜悦的2025年。站在 2025 年的尾巴展望未来，我们发现量化交易的技术图谱正在经历一场前所未有的重构。岁末年初，正是厉兵秣马的时机，于是我们为你梳理了明年需要掌握的量化技术栈。
 
@@ -32,8 +31,6 @@ layout: cover-random-img-portrait
 在2025年，Polars发布了里程碑式的1.0版本。在明年，它很可能成为量化人的标配。而 Pandas 也不会坐视自己被 Polars 取代，全新的3.0版本将很快发布，它以 Apache Arrow 为底层数据模型（而不再是 Numpy），CoW成为默认行为，在字符串处理上将提升10倍以上的速度，综合来看也将提升一倍左右的速度。
 
 Polars 与 Pandas 双雄逐🦌，带来的是更快、更好用的数据分析工具！
-
----
 
 过去量化（包括人工智能领域）人必须依赖前端工程师才能生成一个美观和功能丰富的界面。如果不这样，他们就要借助 Streamlit 来构建界面。然而，发布于2024年，在今年急速崛起的 **FastHTML** 很可能成为新一轮游戏规则的制定者。它如此易用、如此强大，我想你非得了解它不可。
 
@@ -244,33 +241,6 @@ xt_order = XtOrderType(**order_dict) # ⑥
 在注释⑥中，我们通过 `**order_dict` 把这个字典展开，构造一个 XtOrderType 实例。在这里会触发注释3中的字段校验，从而将 bid_type 中的 Fixed 转换为 20（假定这是 xtquant 中定价单的常数）。
 
 通过使用 Pydantic，你是不是再也不用害怕不同系统之间的数据转换了？这里介绍的方法干净、整洁。更重要的是，它们都集中在同一个地方。
-
-#### 3.2.1. 3.2 在交易/风控这条链路上，Pydantic 是“最后一道闸门”
-交易系统的事故，很多不是策略错了，而是指令错了。
-
-让 AI 生成下单指令也好，让研究员手写下单 JSON 也好，只要你的系统入口接受的是一坨自由发挥的 `dict`，你就等着踩雷。
-
-```python
-class OrderIntent(BaseModel):
-    model_config = ConfigDict(extra='forbid')
-
-    symbol: str
-    side: Literal['buy', 'sell']
-    price: StrictFloat = Field(gt=0)
-    quantity: StrictInt = Field(gt=0)
-
-    @model_validator(mode='after')
-    def check_cn_lot(self):
-        if self.quantity % 100 != 0:
-            raise ValueError('A股下单数量必须是100的倍数')
-        return self
-```
-
-把这类校验放在入口处，你得到的收益非常现实：
-
-- 错误更早暴露，定位成本更低
-- 规则集中在一个地方，而不是散落在十几个 `if` 里
-- “研究环境能跑”和“实盘环境不炸”之间的鸿沟明显缩小
 
 ### 3.3. 从Model 到数据库表
 
