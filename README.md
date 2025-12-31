@@ -10,11 +10,23 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
-<h3>UV & Pydantic 2.0：重塑 2026 Python 工程化基石</h3>
+<h3>【02】2026 年量化技术栈巡礼 - sqlite 与 sqlite-utils</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg" style="height: 200px" align="right"/>
+<p>sqlite 是一把精致的瑞士军刀，它小巧、灵活而强大。如果你要发布一个应用，比如交易委托代理类，很可能你的用户并不愿意为此安装一个类似于 Postgres 的大型数据库系统。本文介绍了在量化场景下，如何提升性能、补齐功能短板，以及如何 pythonic 地使用 sqlite。</p>
+
+<p><span style="margin-right:20px">发表于 2026-01-01 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/2026十大量化技术/sqlite/">点击阅读</a></span></p>
+
+</div><!--end-article-->
+<br/>
+<br/>
+
+
+<div>
+<h3>UV & Pydantic：重塑 2026 Python 工程化基石</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png" style="height: 200px" align="right"/>
 <p>本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。</p>
 
-<p><span style="margin-right:20px">发表于 2025-12-23 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/2026十大量化技术/uv&pydantic/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-12-23 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/2026十大量化技术/uv&pydantic/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -26,19 +38,7 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251218114139.png" style="height: 200px" align="right"/>
 <p>摩尔线程和沐曦股份这两天彻底激发了打新市场。前者中一签至少赚27万，后者中一签至少赚40万。如果中签，应该在什么价位卖出？如果不中，是否还有上车机会？机器学习模型来告诉你答案。</p>
 
-<p><span style="margin-right:20px">发表于 2025-12-18 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/factor-strategy/打新不中，买新当如何/">点击阅读</a></span></p>
-
-</div><!--end-article-->
-<br/>
-<br/>
-
-
-<div>
-<h3>夏普大于4的策略有多恐怖？但它为什么好得不真实？</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg" style="height: 200px" align="right"/>
-<p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Point-in-Time方法进行正确归一化的重要性，以避免自我欺骗，获得真实收益。</p>
-
-<p><span style="margin-right:20px">发表于 2025-11-28 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/data-normalization/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2025-12-18 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/factor-strategy/打新不中，买新当如何/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>

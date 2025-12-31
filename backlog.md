@@ -30,7 +30,7 @@ FastHTML 是 2024 年末兴起、2025 年爆发的 Python 全栈框架，它正�
 9. LaunceDB/DuckDB 针对向量检索（RAG）和本地 OLAP 分析的极速数据库
 10. sqlite3 > sqlite-utils > fastlite
 11. Nanobind 比pybind11更轻量
-12. uv 
+12. ~~uv~~
 13. redis timeseries 和 gears （自动将 tick 重采样为 1min 15min 30min 1h 4h 1d，超快，占内存很少（1G），日线可以完全放在其中
-14. pydantic: - 在 Agentic AI 时代，LLM 输出的是非结构化文本，通过 Function Calling 转化为结构化指令。 Pydantic 是 LLM 和 Python 代码之间的“翻译官”和“卫士”。
+14. ~~pydantic: - 在 Agentic AI 时代，LLM 输出的是非结构化文本，通过 Function Calling 转化为结构化指令。 Pydantic 是 LLM 和 Python 代码之间的“翻译官”和“卫士”。~~
 - 关联： FastHTML 严重依赖 Pydantic；Agent 框架（如 LangChain/Smolagents）的核心也是 Pydantic。它是 2026 年 Python 代码健壮性的基石。
