@@ -1,17 +1,31 @@
 ---
-title: 【02】2026 年量化技术栈巡礼 - sqlite 与 sqlite-utils
+title: 2026量化新基建(二) - sqlite 与 sqlite-utils
 date: 2026-01-01
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg
-excerpt: sqlite 是一把精致的瑞士军刀，它小巧、灵活而强大。如果你要发布一个应用，比如交易委托代理类，很可能你的用户并不愿意为此安装一个类似于 Postgres 的大型数据库系统。本文介绍了在量化场景下，如何提升性能、补齐功能短板，以及如何 pythonic 地使用 sqlite。
+excerpt: 对量化人来说，有一个场景，非常适合使用 sqlite： 无须安装和设置、以 pythonic 的方式进行开发，并且具有非常好的性能。但是，一直以来，我是直接使用 python 内置的 sqlite3 模块来操作 sqlite 数据库的。直到最近，我发现了 sqlite-utils 这个库，它让我以最简洁的方式，获得了全所未有的表达力。
 categories: tools
 tags: [tools, sqlite, sqlite-utils, fastlite]
+addons:
+  - slidev_themes/addons/slidev-addon-quantide-layout
+  - slidev_themes/addons/slidev-addon-mouse-trail-pen
+  - slidev_themes/addons/slidev-addon-array
+  - slidev_themes/addons/slidev-addon-interactive-table
+  - slidev_themes/addons/slidev-addon-card
+aspectRatio: 3/4
+layout: cover-random-img-portrait
+---
 ---
 
 很多人（包括我）对 sqlite 有一个错觉，第一，它是玩具；第二，它不能用于生产环境。
 
 但实际上， sqlite 是一个非常优秀的数据库。在过去的 2025 年中，它与 postgres 一起名列数据库前二；并且一直是最多人使用的数据库。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg)
+<div style='width:90%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
+</div>
+
+---
 
 量化人说量化事。sqlite 是一把精致的瑞士军刀，它小巧、灵活而强大，可以用在很多地方。但是，对量化人来说，有一个场景，非常适合使用 sqlite： 无须安装和设置、以 pythonic 的方式进行开发，并且具有非常好的性能。
 
@@ -25,6 +39,8 @@ tags: [tools, sqlite, sqlite-utils, fastlite]
 
 作为交易数据库，主要存储的数据是委托记录、成交记录、每日持仓和每日资资产表。这其中以委托记录的数据量为最大，因为我们需要把报单、撤单的记录也都保存下来。
 
+---
+
 根据量化新规的要求，每秒报单不超过 300 次，每日不超过 2 万次。这并不是一个很有压力的需求，sqlite 完全可以轻松应对。
 
 比性能压力更重要的是，必须要支持并发读写。因为当一个委托被报单后，往往不会立即成交，而我们也不能为此委托一直等待。所以，成交状态一般是通过回调的方式来通知的。这些回调往往安排在其它线程中。
@@ -34,13 +50,20 @@ tags: [tools, sqlite, sqlite-utils, fastlite]
 
 你可能得到的是这样的回答：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231110246.png)
+<div style='width:66%;text-align:center;margin: 0 auto 1rem'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231110246.png'>
+<span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
+</div>
+
+---
 
 实际上，sqlite 从 2010 年起就支持**多进程并发读写**，并且用户不需要自己管理锁。但是，在 sqlite 中有两种模式，分别是"delete"和"wal"。而 sqlite 的默认选项一直是"delete"模式，这一模式不支持并发，这就导致了很多人就误以为 sqlite 无法支持并发读写。
 
 根据测试和官方文档，启用 wal 模式实际上在几乎所有场景下，都能带来性能提升。但为何 sqlite 的默认选项一直是 delete 呢？ 这是因为 sqlite 官方一直坚持这样一种文化 -- 他们一直希望 sqlite 是一个极简的、只有一个文件的数据库。而一旦进入 wal 模式，sqlite 将使用三个数据文件，他们担心部分用户可能会对此感到困惑。
 
 在 wal 模式下，另外两个文件分别是。shm 和 .wal 文件。sqlite 把锁信息放在。shm 文件中 -- 这是一个共享内存文件；sqlite 在 wal 模式下，读数据时会从主库读稳定的数据版，无需加锁；而在写数据时，先会给。wal 文件加锁，只有在最终合并时，才需要短暂地给主数据库加上锁。
+
+---
 
 因此，在 wal 模式下，sqlite 的锁的粒度会比 delete 模式更细。所以，在 wal 模式下，即使是在单进程读写场景下，性能也会略好一点（5%左右）。
 
@@ -58,6 +81,8 @@ conn = sqlite3.connect(path/to/sqlite.db)
 conn.execute("PRAGMA journal_mode = WAL;")
 ```
 
+---
+
 显然，这非常不 pythonic。如果我们使用 sqlite-utils，就可以直接这样启用 wal 模式：
 
 ```python
@@ -70,7 +95,7 @@ db.journal_mode # 显示为 'wal'
 
 再回到之前的多线程读写问题。sqlite 在开启 wal 模式后，就可以支持并发读写了。但是，如果你跨线程共享 connection 对象，还是需要加锁互斥才行。在这种情况下，我们可以引入一个线程本地封装：
 
-```Python
+```python
 import threading
 
 @singleton
@@ -84,7 +109,14 @@ class TradeDB:
     def init(self, db_path: str):
         if self._initialized:
             return
-        
+```
+
+---
+
+```python
+    def init(self, db_path: str):
+        if self._initialized:
+            return
         # 初始化数据库连接
         self.db_path = db_path
 
@@ -110,7 +142,11 @@ class TradeDB:
             self._thread_local.db = su.Database(conn)
 
         return self._thread_local.db
+```
 
+---
+
+```python
     def __getitem__(self, table_name) -> su.db.Table:
         """代理获取表对象"""
         return self.db[table_name]  # type: ignore
@@ -128,6 +164,8 @@ db["users"].insert({"id": 1, "name": "Quantide"})
 
 在 python 中进行数据库操作，可以用原生方式和 ORM 方式。原生方式性能高，但需要熟悉 sql 语法，并且重构不方便；orm 方式允许我们以更接近 python 的语法去操作数据库。这方面的代表是 sqlalchemy。
 
+---
+
 不过 sqlalchemy 也有自己的问题，就是它太全面、太复杂了。如果只是一个简单的、探索式的应用，使用 sqlalchemy 就显得有些笨重。
 
 这就是许多人选择 sqlite-utils 的原因。sqlite-utils 解决了以下问题：
@@ -139,6 +177,8 @@ db["users"].insert({"id": 1, "name": "Quantide"})
     另一个管理 sqlite 数据库的工具是通过 notebook，加上 sqlite-utils 库，或者使用 jupysql 来进行管理。前提也是你要先开启数据库的 wal 模式，这样才能在多个进程间，共享一个数据库。
 
 在 sqlalchemy 中，要拿到数据，你必须先学会如何定义 schema：
+
+---
 
 ```python
 # 1. 定义引擎
@@ -169,7 +209,14 @@ session.commit()
 import sqlite_utils as su
 
 db = su.Database(":memory:") # ❶
+```
 
+---
+
+```python
+import sqlite_utils as su
+
+db = su.Database(":memory:") # ❶
 db["users"].insert_all([{"id": 1, "name": "Fred"}, 
                         {"id": 2, "name": "Wilma"}
                         ]) # ❷
@@ -188,6 +235,8 @@ list(db["users"].rows) # ❺
 
 第四行，我们打印出了表 users 中的列字段，这也是 sqlite-utils 自动为我们判断并创建的表结构。
 
+---
+
 第五行，我们打印出了表 users 中的所有数据。
 
 sqlite-utils 巧妙地借用了**文档数据库**（如 MongoDB）的语法，将数据库操作变得异常简单。这样一来，很有可能会涉及到新增字段，或者变更字段定义。但是，如果你的数据应该放在 sqlite 中，那么，新增或者修改字段定义的情况并不会很多，所以，为何不省去繁琐的表结构定义，而且直接让 sqlite-utils 来处理这一切呢？
@@ -195,6 +244,8 @@ sqlite-utils 巧妙地借用了**文档数据库**（如 MongoDB）的语法，�
 !!! tip
     你可能会好奇，如果在第 5 行之后，我们新插入一个对象，该对象包含了性别和年龄字段，那么，sqlite-utils 会如何处理？ 在内部，sqlite-utils 会判断表结构发生变化，自动调用 tranform 方法来完成新的表结构定义、数据迁移。请见下图所示。
     ![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231153523.png)
+
+---
 
 当然，我们更鼓励显示定义表结构的方法，这样可以提高性能，并且增加数据校验能力。除了在上一篇中介绍的 pydantic 的 models 方法之外，如果你已经很熟悉 dataclasses，那么我们还可以介绍一种基于 dataclasses, 学习起来更容易的手作 ORM 方法。
 
@@ -210,7 +261,11 @@ import types
 import sqlite_utils as su
 from enum import IntEnum
 import datetime
+```
 
+---
+
+```python
 def _dataclass_to_schema(model) -> dict:
     """类方法：解析当前 dataclass 为 sqlite-utils 兼容的 schema 字典"""
     schema = {}
@@ -236,7 +291,11 @@ def _dataclass_to_schema(model) -> dict:
         else:
             schema[f.name] = str
     return schema
+```
 
+---
+
+```python
 def create_tables(db: su.Database, model):
     """初始化表结构
     
@@ -268,6 +327,11 @@ class User:
     birth: datetime.date
     gender: Gender
 
+```
+
+---
+
+```python
     def __post_init__(self):
         # ❷ sqlite 没有时间类型，时间一般使用字符串存储。
         if isinstance(self.birth, str):
@@ -291,6 +355,8 @@ user_from_db
 
 第一，我们把类型声明转换为数据库字段（而不是像 sqlalchemy 那样需要显示声明），这非常 pythonic。在_dataclass_to_schema 方法中，我们提取了 User 类的所有字段（不含魔术字段）的类型，如果它是联合类型，就找到第一个非 None 类型作为字段类型；然后，将它们映射为数据库字段类型。当然，由于数据库字段类型有限，多数数据类型被映射为了 TEXT。
 
+---
+
 第二，我们通过__table__、__pk__、__indices__ 等魔术字段，为创建表提供元数据。这样就非常像 sqlalchemy 了，但是我们只使用了标准、内置语法，看起来简洁很多。
 
 第三，一些 Python 数据类型被映射成为了数据库中的整数和字符串类型。我们从数据库中读取到的，也会是字符串和整数类型，但它们实际上对应着 datetime 或者 Enum 类型。在支持复杂数据类型的数据库中，数据库连接驱动会自动为我们进行转换。
@@ -298,6 +364,10 @@ user_from_db
 内置的 sqlite 模块和 sqlite-utils 都不会这样做。但实际上这个转换非常容易，我们完全可以自己来做。如注释❷和❸所示，我们通过__post_init__方法来实现了这一点。
 
 在注释❹中，我们显式地创建了表格，声明了主键和索引。如果不这样，接下来的插入语句就会失败，因为 sqlite-utils 无法将 Gender 类型映射为数据库字段。
+
+<p style="text-align:right;color: red;font-size: 36px"> 未完待续</p>
+---
+
 
 第四，当我们要保存一个 python 对象时，只要它是一个 dataclasss 类，我们就可以通过类似`db["users].insert(asdict(user))`一样的方法来保存它。`asdict`是 dataclasses 中的一个方法，用来将 dataclass 转换为字典类，而 sqlite-utils 会将字典转换为表格中的一行，再插入到数据库中。
 

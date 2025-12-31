@@ -10,9 +10,9 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
-<h3>【02】2026 年量化技术栈巡礼 - sqlite 与 sqlite-utils</h3>
+<h3>2026量化新基建(二) - sqlite 与 sqlite-utils</h3>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg" style="height: 200px" align="right"/>
-<p>sqlite 是一把精致的瑞士军刀，它小巧、灵活而强大。如果你要发布一个应用，比如交易委托代理类，很可能你的用户并不愿意为此安装一个类似于 Postgres 的大型数据库系统。本文介绍了在量化场景下，如何提升性能、补齐功能短板，以及如何 pythonic 地使用 sqlite。</p>
+<p>对量化人来说，有一个场景，非常适合使用 sqlite： 无须安装和设置、以 pythonic 的方式进行开发，并且具有非常好的性能。但是，一直以来，我是直接使用 python 内置的 sqlite3 模块来操作 sqlite 数据库的。直到最近，我发现了 sqlite-utils 这个库，它让我以最简洁的方式，获得了全所未有的表达力。</p>
 
 <p><span style="margin-right:20px">发表于 2026-01-01 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/2026十大量化技术/sqlite/">点击阅读</a></span></p>
 
