@@ -392,6 +392,9 @@ def get_and_remove_img_url(text: str):
 
 def get_excerpt(text: str):
     """第一个<!--more-->之前的正式文本作为文章摘要，或者前140字符"""
+    # 移除 <figure> 块
+    text = re.sub(r"<figure.*?>.*?</figure>", "", text, flags=re.DOTALL)
+
     pat = r"(.*?)(?:<!--\s*more\s*-->)"
     result = re.search(pat, text, re.MULTILINE | re.DOTALL)
     excerpt = None
