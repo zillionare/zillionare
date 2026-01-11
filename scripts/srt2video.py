@@ -262,6 +262,7 @@ def _html(
     animation_types: list[str] | None,
     y_min: float = 0.0,
     y_max: float = 1.0,
+    layout_mode: str = "random",
 ) -> str:
     background_css = f"background: {background_color};"
     if background_image_url:
@@ -290,6 +291,7 @@ def _html(
         "animationTypes": animation_types,
         "yMin": y_min,
         "yMax": y_max,
+        "layoutMode": layout_mode,
         "animateCssCdn": ANIMATE_CSS_CDN,
     }
 
@@ -379,16 +381,13 @@ def _html(
 
     .subtitle {{
       position: absolute;
-      padding: 18px 22px;
+      padding: 10px 15px;
       box-sizing: border-box;
-      line-height: 1.3;
-      font-size: {max(24, int(canvas_h * 0.05))}px;
+      line-height: 1.2;
       color: #ffffff;
-      background: rgba(0, 0, 0, 0.55);
-      border-radius: 18px;
-      backdrop-filter: blur(8px);
-      white-space: pre-wrap;
-      overflow-wrap: break-word;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 0 rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+      overflow: visible;
       z-index: 2;
       --dur: {animation_duration_ms}ms;
     }}
@@ -428,6 +427,7 @@ def _html(
         : [];
       const yMin = typeof payload.yMin === 'number' ? payload.yMin : 0.0;
       const yMax = typeof payload.yMax === 'number' ? payload.yMax : 1.0;
+      const layoutMode = payload.layoutMode || 'random';
       let nextIndex = 0;
       let active = [];
       let running = false;
@@ -574,12 +574,11 @@ def _html(
         node.classList.remove('animate__animated');
       }}
 
-      function startExit(item) {{
+      function startExit(item, preferredKind) {{
         if (item.exiting) return;
         item.exiting = true;
-        // 如果用户指定了动画类型，且包含 exit 类，可以优先从用户指定中选；
-        // 否则从全局 exitPool 中选。这里简化为从全局选。
-        const kind = randChoice(exitPool) || 'animate__fadeOut';
+        // 如果提供了 preferredKind（如批量清除时的旋转消失），则优先使用
+        const kind = preferredKind || randChoice(exitPool) || 'animate__fadeOut';
         setAnimation(item.node, kind, () => {{
           if (item.node && item.node.parentNode) item.node.parentNode.removeChild(item.node);
           active = active.filter((x) => x !== item);
@@ -610,38 +609,45 @@ def _html(
         }}
         stage.appendChild(node);
 
-        // 核心布局逻辑：先根据文本量预设一个“理想宽度”
-        const limitW = Math.floor(W * 0.95);
-        const isLong = s.text.length > 12 || s.text.includes('\\n');
-        
-        // 如果是长句，直接占满 92% 宽度；短句占 65% 宽度
-        const targetW = isLong ? Math.floor(W * 0.92) : Math.floor(W * 0.65);
-        node.style.width = targetW + 'px';
-        node.style.maxWidth = limitW + 'px';
-
-        const baseFont = parseFloat(getComputedStyle(node).fontSize || '32');
-        const minFont = Math.max(18, Math.floor(baseFont * 0.6));
-        const maxH = Math.floor(H * 0.35); // 允许单条字幕占 35% 高度
-        let fs = Math.floor(baseFont);
-        node.style.fontSize = fs + 'px';
-        
-        let guard = 0;
-        while (node.offsetHeight > maxH && fs > minFont && guard < 25) {{
-          fs -= 2;
-          node.style.fontSize = fs + 'px';
-          guard += 1;
+        // 字幕长度处理：20字以内不换行
+        const charCount = s.text.length;
+        if (charCount <= 20) {{
+          node.style.whiteSpace = 'nowrap';
+        }} else {{
+          node.style.whiteSpace = 'pre-wrap';
+          node.style.overflowWrap = 'break-word';
+          node.style.width = Math.floor(W * 0.8) + 'px';
         }}
 
-        // 重新收缩宽度：如果文本其实没那么长，就收缩到内容宽度
-        // 增加一个“视觉舒适”的最小宽度
-        const minComfortW = Math.floor(isLong ? W * 0.7 : W * 0.4);
-        const contentW = node.scrollWidth + 48; // padding + margin 缓冲区
-        const finalW = Math.min(limitW, Math.max(minComfortW, contentW));
-        node.style.width = finalW + 'px';
+        // 字体大小计算：由屏宽的 80% 与字数决定
+        // 增加一个系数 (1.5) 补偿字符间隙，并设置合理的最小字号
+        const idealFontSize = Math.floor((W * 0.8 / charCount) * 1.5);
+        // 限制最大字号为屏宽的 10%，最小为 32px (原 24px 过小)
+        const finalFontSize = Math.max(32, Math.min(idealFontSize, Math.floor(W * 0.1)));
+        node.style.fontSize = finalFontSize + 'px';
 
         const boxW = node.offsetWidth;
         const boxH = node.offsetHeight;
-        const rect = pickPosition(boxW, boxH);
+        
+        let rect;
+        if (layoutMode === 'scroll_up') {{
+          // 向上顶模式：新字幕出现在 yMax 处
+          const x = (W - boxW) / 2;
+          const y = Math.floor(H * yMax) - boxH - margin;
+          rect = {{ x, y, w: boxW, h: boxH, align: 'center' }};
+          
+          // 将现有的所有 active 字幕向上移动
+          const gap = 12; // 字幕间距
+          const shift = boxH + gap;
+          for (const item of active) {{
+            if (!item.exiting) {{
+              item.rect.y -= shift;
+              item.node.style.top = item.rect.y + 'px';
+            }}
+          }}
+        }} else {{
+          rect = pickPosition(boxW, boxH);
+        }}
         
         node.style.left = rect.x + 'px';
         node.style.top = rect.y + 'px';
@@ -649,14 +655,25 @@ def _html(
 
         const item = {{ node, rect, start: s.start, end: s.end, exiting: false, animating: true }};
         active.push(item);
-        // 初次放置即修正
+        
+        // 如果是 scroll_up 模式，检查是否达到 5 条，如果是则批量清除前 4 条
+        if (layoutMode === 'scroll_up' && active.filter(x => !x.exiting).length >= 5) {{
+          const nonExiting = active.filter(x => !x.exiting);
+          // 所有的字幕都向同一方向旋转（随机选一个方向，但本批次统一）
+          const exitKind = rng() > 0.5 ? 'animate__rotateOutUpLeft' : 'animate__rotateOutUpRight';
+          // 倒数第1个是刚加的，所以清除索引 0 到 length-2 的字幕
+          for (let i = 0; i < nonExiting.length - 1; i++) {{
+            startExit(nonExiting[i], exitKind);
+          }}
+        }}
+
+        // 初次放置即修正（scroll_up 模式下可能暂时超出 top，但 tick 会持续修正）
         clampToViewport(node, item);
 
         const finalize = () => {{
           if (!item.animating) return;
           item.animating = false;
           stripAnimationClasses(node);
-          // 彻底清除 transform，防止干扰最终定位
           node.style.transform = 'none';
           requestAnimationFrame(() => clampToViewport(node, item));
         }};
@@ -834,6 +851,7 @@ def main(
         animation_types=list(cfg.get("subtitle_animation_types") or []),
         y_min=float(cfg.get("y_min", 0.0)),
         y_max=float(cfg.get("y_max", 1.0)),
+        layout_mode=str(cfg.get("subtitle_layout_mode", "random")),
     )
 
     work_dir: Path
@@ -892,9 +910,10 @@ def main(
             record_video_size={"width": width, "height": height},
         )
         page = context.new_page()
-        page.goto(html_path.as_uri(), wait_until="load")
+        page.goto(html_path.as_uri(), wait_until="networkidle") # 改为 networkidle 确保资源加载
         page.evaluate("window.__start()")
-        page.wait_for_timeout(int(video_duration * 1000) + 400)
+        # 录制结束后多等 1000ms 确保尾部完整
+        page.wait_for_timeout(int(video_duration * 1000) + 1000)
         video = page.video
         page.close()
         context.close()
