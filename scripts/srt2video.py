@@ -390,6 +390,7 @@ def _html(
       overflow: visible;
       z-index: 2;
       --dur: {animation_duration_ms}ms;
+      transition: top 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
     }}
     #measure {{
       position: absolute;
@@ -478,6 +479,8 @@ def _html(
 
       const rng = mulberry32(payload.seed || 1);
       const rngColor = mulberry32(((payload.seed || 1) ^ 0x9e3779b9) >>> 0);
+
+      window.__activeSubtitles = () => active;
 
       function updateScale() {{
         const vw = window.innerWidth;
@@ -577,12 +580,20 @@ def _html(
       function startExit(item, preferredKind) {{
         if (item.exiting) return;
         item.exiting = true;
-        // 如果提供了 preferredKind（如批量清除时的旋转消失），则优先使用
         const kind = preferredKind || randChoice(exitPool) || 'animate__fadeOut';
+        
         setAnimation(item.node, kind, () => {{
           if (item.node && item.node.parentNode) item.node.parentNode.removeChild(item.node);
           active = active.filter((x) => x !== item);
         }});
+
+        // 安全兜底：如果动画回调没触发，1.5秒后强制清理
+        setTimeout(() => {{
+          if (item.node && item.node.parentNode) {{
+            item.node.parentNode.removeChild(item.node);
+            active = active.filter((x) => x !== item);
+          }}
+        }}, 1500);
       }}
 
       function clampToViewport(node, item) {{
@@ -619,12 +630,22 @@ def _html(
           node.style.width = Math.floor(W * 0.8) + 'px';
         }}
 
-        // 字体大小计算：由屏宽的 80% 与字数决定
-        // 增加一个系数 (1.5) 补偿字符间隙，并设置合理的最小字号
-        const idealFontSize = Math.floor((W * 0.8 / charCount) * 1.5);
-        // 限制最大字号为屏宽的 10%，最小为 32px (原 24px 过小)
-        const finalFontSize = Math.max(32, Math.min(idealFontSize, Math.floor(W * 0.1)));
-        node.style.fontSize = finalFontSize + 'px';
+        // 1. 初始字体大小计算：基于屏宽 80% 的保守估算
+        // 对于中文，字宽约等于字号，所以 idealFontSize = (W * 0.8) / charCount
+        let fs = Math.floor((W * 0.8) / Math.max(1, charCount));
+        
+        // 限制最大字号为屏宽性 9%，最小为 28px
+        fs = Math.max(28, Math.min(fs, Math.floor(W * 0.09)));
+        node.style.fontSize = fs + 'px';
+
+        // 2. 动态收缩机制：如果实际宽度溢出，则循环缩小字号
+        const maxSafeW = Math.floor(W * 0.88); // 允许的最大安全宽度
+        let guard = 0;
+        while (node.scrollWidth > maxSafeW && fs > 20 && guard < 20) {{
+          fs -= 2;
+          node.style.fontSize = fs + 'px';
+          guard++;
+        }}
 
         const boxW = node.offsetWidth;
         const boxH = node.offsetHeight;
