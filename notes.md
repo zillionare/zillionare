@@ -51,8 +51,8 @@ https://www.reddit.com/r/algotrading/comments/1ob5xao/built_a_regimebased_overni
 1.  **Australia**
     ~~Australian National University (32)~~
     ~~The University of Melbourne (19)~~
-    The University of New South Wales (20)
-    The University of Sydney (25)
+    ~~The University of New South Wales (20)~~
+    ~~~The University of Sydney (25)~~~
     The University of Queensland (42)
     Monash University (44)
     The University of Adelaide (82)
