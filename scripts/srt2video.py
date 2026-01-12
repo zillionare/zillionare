@@ -231,18 +231,18 @@ def _profile_rect(
         col = "center"
 
     if col == "left":
-        x = margin
+        x = 0
     elif col == "center":
         x = (canvas_w - profile_w) // 2
     else:
-        x = canvas_w - profile_w - margin
-
+        x = (canvas_w - profile_w)
+    
     if row == "top":
-        y = margin
+        y = 0
     elif row == "center":
         y = (canvas_h - profile_h) // 2
     else:
-        y = canvas_h - profile_h - margin
+        y = (canvas_h - profile_h)
 
     return {"x": int(x), "y": int(y), "w": int(profile_w), "h": int(profile_h)}
 
@@ -260,6 +260,10 @@ def _html(
     animation_duration_ms: int,
     random_color: bool,
     animation_types: list[str] | None,
+    colors: list[str] | None = None,
+    font_data_url: str | None = None,
+    profile_animation_enabled: bool = True,
+    profile_animation_duration_ms: int = 1400,
     y_min: float = 0.0,
     y_max: float = 1.0,
     layout_mode: str = "random",
@@ -273,6 +277,16 @@ def _html(
             "background-position: center;"
             "background-repeat: no-repeat;"
         )
+    
+    font_face_css = ""
+    if font_data_url:
+        font_face_css = f"""
+    @font-face {{
+      font-family: 'CustomFont';
+      src: url('{font_data_url}');
+    }}
+    """
+
     payload = {
         "canvas": {
             "w": canvas_w,
@@ -288,6 +302,8 @@ def _html(
         "seed": seed,
         "animationDurationMs": animation_duration_ms,
         "randomColor": random_color,
+        "colors": colors,
+        "fontFamily": "CustomFont" if font_data_url else None,
         "animationTypes": animation_types,
         "yMin": y_min,
         "yMax": y_max,
@@ -302,6 +318,7 @@ def _html(
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link id="animatecss" rel="stylesheet" href="{ANIMATE_CSS_CDN}">
   <style>
+    {font_face_css}
     html, body {{
       margin: 0;
       padding: 0;
@@ -309,7 +326,7 @@ def _html(
       height: 100%;
       overflow: hidden;
       {background_css}
-      font-family: -apple-system, BlinkMacSystemFont, \"PingFang SC\", \"Hiragino Sans GB\", \"Noto Sans CJK SC\", \"Microsoft YaHei\", Arial, sans-serif;
+      font-family: {"'CustomFont'," if font_data_url else ""} -apple-system, BlinkMacSystemFont, \"PingFang SC\", \"Hiragino Sans GB\", \"Noto Sans CJK SC\", \"Microsoft YaHei\", Arial, sans-serif;
     }}
     #viewport {{
       position: fixed;
@@ -317,23 +334,25 @@ def _html(
       top: 0;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      {background_css}
     }}
     #stage {{
       position: relative;
       width: {canvas_w}px;
       height: {canvas_h}px;
       overflow: hidden;
-      transform-origin: top left;
+      flex-shrink: 0;
     }}
     @keyframes profileBlink {{
       0%, 100% {{
-        filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
         opacity: 1;
       }}
       50% {{
-        filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.75));
-        opacity: 0.95;
+        opacity: 0.5;
       }}
     }}
     #profile {{
@@ -344,7 +363,7 @@ def _html(
       height: auto;
       z-index: 1;
       border-radius: 18px;
-      animation: profileBlink 1.4s ease-in-out infinite;
+      {"animation: profileBlink " + str(profile_animation_duration_ms) + "ms ease-in-out infinite;" if profile_animation_enabled else ""}
     }}
 
     @keyframes subZoomIn {{
@@ -423,6 +442,7 @@ def _html(
       const subtitles = payload.subtitles || [];
       const animationDurationMs = payload.animationDurationMs || 600;
       const randomColorEnabled = !!payload.randomColor;
+      const colorPool = Array.isArray(payload.colors) && payload.colors.length ? payload.colors : [];
       const animationTypes = Array.isArray(payload.animationTypes) && payload.animationTypes.length
         ? payload.animationTypes
         : [];
@@ -482,26 +502,16 @@ def _html(
 
       window.__activeSubtitles = () => active;
 
-      function updateScale() {{
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        const scale = Math.min(vw / W, vh / H);
-        stage.style.transform = `scale(${{scale}})`;
-        // 居中显示
-        viewport.style.display = 'flex';
-        viewport.style.justifyContent = 'center';
-        viewport.style.alignItems = 'center';
-        stage.style.position = 'relative'; 
-      }}
-      window.addEventListener('resize', updateScale);
-      updateScale();
-
       function randChoice(arr) {{
         if (!arr || arr.length === 0) return null;
         return arr[Math.floor(rng() * arr.length)];
       }}
 
       function randomReadableColor() {{
+        if (colorPool.length > 0) {{
+          const c = randChoice(colorPool);
+          return c.startsWith('#') ? c : '#' + c;
+        }}
         const h = Math.floor(rngColor() * 360);
         const s = 85;
         const l = 60;
@@ -627,19 +637,19 @@ def _html(
         }} else {{
           node.style.whiteSpace = 'pre-wrap';
           node.style.overflowWrap = 'break-word';
-          node.style.width = Math.floor(W * 0.8) + 'px';
+          node.style.width = Math.floor(W * 0.96) + 'px';
         }}
 
-        // 1. 初始字体大小计算：基于屏宽 80% 的保守估算
-        // 对于中文，字宽约等于字号，所以 idealFontSize = (W * 0.8) / charCount
-        let fs = Math.floor((W * 0.8) / Math.max(1, charCount));
+        // 1. 初始字体大小计算：基于屏宽 96% 的保守估算
+        // 对于中文，字宽约等于字号，所以 idealFontSize = (W * 0.96) / charCount
+        let fs = Math.floor((W * 0.96) / Math.max(1, charCount));
         
-        // 限制最大字号为屏宽性 9%，最小为 28px
-        fs = Math.max(28, Math.min(fs, Math.floor(W * 0.09)));
+        // 限制最大字号为屏宽的 20%，最小为 28px
+        fs = Math.max(28, Math.min(fs, Math.floor(W * 0.2)));
         node.style.fontSize = fs + 'px';
 
         // 2. 动态收缩机制：如果实际宽度溢出，则循环缩小字号
-        const maxSafeW = Math.floor(W * 0.88); // 允许的最大安全宽度
+        const maxSafeW = Math.floor(W * 0.98); // 允许的最大安全宽度
         let guard = 0;
         while (node.scrollWidth > maxSafeW && fs > 20 && guard < 20) {{
           fs -= 2;
@@ -837,8 +847,13 @@ def main(
             raise FileNotFoundError(p)
 
     width = int(cfg.get("width", 1920))
-    ratio = _parse_ratio(cfg.get("ratio", "16/9"))
-    height = int(round(width / float(ratio)))
+    if "height" in cfg:
+        height = int(cfg["height"])
+    else:
+        ratio = _parse_ratio(cfg.get("ratio", "16/9"))
+        height = int(round(width / float(ratio)))
+    
+    dpr = float(cfg.get("dpr", 1.0))
     background_color, background_image_url = _parse_background(cfg.get("background"), cfg_path.parent)
 
     profile_path = Path(str(cfg.get("profile", ""))).expanduser()
@@ -874,6 +889,19 @@ def main(
     video_duration = max(1.0, float(video_duration))
 
     subtitles_payload = [{"start": s.start, "end": s.end, "text": s.text} for s in subtitles]
+    
+    # 处理自定义字体
+    font_path_raw = cfg.get("font")
+    font_data_url = None
+    if font_path_raw:
+        font_path = Path(str(font_path_raw)).expanduser()
+        if not font_path.is_absolute():
+            font_path = (cfg_path.parent / font_path).resolve()
+        if font_path.exists():
+            font_data_url = _image_to_data_url(font_path) # 复用 base64 转换逻辑
+        else:
+            logger.warning(f"未找到字体文件：{font_path}")
+
     html = _html(
         canvas_w=width,
         canvas_h=height,
@@ -885,6 +913,10 @@ def main(
         seed=base_seed,
         animation_duration_ms=int(cfg.get("subtitle_animation_duration_ms", 600)),
         random_color=bool(cfg.get("subtitle_random_color", True)),
+        colors=list(cfg.get("colors") or []),
+        font_data_url=font_data_url,
+        profile_animation_enabled=bool(cfg.get("profile_animation_enabled", True)),
+        profile_animation_duration_ms=int(cfg.get("profile_animation_duration_ms", 1400)),
         animation_types=list(cfg.get("subtitle_animation_types") or []),
         y_min=float(cfg.get("y_min", 0.0)),
         y_max=float(cfg.get("y_max", 1.0)),
@@ -943,8 +975,9 @@ def main(
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
             viewport={"width": width, "height": height},
+            device_scale_factor=dpr,
             record_video_dir=str(work_dir),
-            record_video_size={"width": width, "height": height},
+            record_video_size={"width": int(width * dpr), "height": int(height * dpr)},
         )
         page = context.new_page()
         page.goto(html_path.as_uri(), wait_until="networkidle") # 改为 networkidle 确保资源加载
