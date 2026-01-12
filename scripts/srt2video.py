@@ -902,6 +902,23 @@ def main(
         else:
             logger.warning(f"未找到字体文件：{font_path}")
 
+    # 处理 BGM
+    bgm_cfg = cfg.get("bgm")
+    bgm_path: Path | None = None
+    bgm_volume = 0.2
+    bgm_start = 0.0
+    if bgm_cfg and isinstance(bgm_cfg, dict):
+        bgm_p = bgm_cfg.get("path")
+        if bgm_p:
+            bgm_path = Path(str(bgm_p)).expanduser()
+            if not bgm_path.is_absolute():
+                bgm_path = (cfg_path.parent / bgm_path).resolve()
+            if not bgm_path.exists():
+                logger.warning(f"未找到 BGM 文件：{bgm_path}")
+                bgm_path = None
+        bgm_volume = float(bgm_cfg.get("volume", 0.2))
+        bgm_start = float(bgm_cfg.get("start", 0.0))
+
     html = _html(
         canvas_w=width,
         canvas_h=height,
@@ -994,22 +1011,42 @@ def main(
         webm_path = Path(video.path()).resolve()
 
     ffmpeg = _check_executable("ffmpeg")
-    cmd = [
-        ffmpeg,
-        "-y",
-        "-i",
-        str(webm_path),
-        "-i",
-        str(audio_path),
-        "-c:v",
-        "libx264",
-        "-pix_fmt",
-        "yuv420p",
-        "-c:a",
-        "aac",
-        "-shortest",
-        str(out_path),
-    ]
+    if bgm_path:
+        # 使用 complex filter 混合 BGM
+        # adelay 的单位是毫秒，需要对左右声道都设置
+        delay_ms = int(bgm_start * 1000)
+        filter_complex = (
+            f"[1:a]volume=1.0[main_a];"
+            f"[2:a]adelay={delay_ms}|{delay_ms},volume={bgm_volume}[bgm_a];"
+            f"[main_a][bgm_a]amix=inputs=2:duration=first:dropout_transition=2[a]"
+        )
+        cmd = [
+               ffmpeg,
+               "-y",
+               "-i", str(webm_path),
+               "-i", str(audio_path),
+               "-stream_loop", "-1", "-i", str(bgm_path),
+               "-filter_complex", filter_complex,
+               "-map", "0:v",
+               "-map", "[a]",
+               "-c:v", "libx264",
+               "-pix_fmt", "yuv420p",
+               "-c:a", "aac",
+               "-shortest",
+               str(out_path),
+           ]
+    else:
+        cmd = [
+            ffmpeg,
+            "-y",
+            "-i", str(webm_path),
+            "-i", str(audio_path),
+            "-c:v", "libx264",
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac",
+            "-shortest",
+            str(out_path),
+        ]
     logger.info(" ".join(cmd))
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:
