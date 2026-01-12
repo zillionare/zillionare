@@ -639,7 +639,7 @@ $ cd PROJECT_NAME
 
 ```yaml
 site_name: sample
-site_url: https://blog.quantide.cn
+site_url: https://blog.quantide.cn/
 repo_url: https://github.com/zillionare/sample
 repo_name: sample
 site_description: A great mkdocs sample site

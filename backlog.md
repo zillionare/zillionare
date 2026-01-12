@@ -11,6 +11,9 @@ We do now have a much wider variety of engineering jobs, which, generally speaki
 
 https://www.hudsonrivertrading.com/hrtbeat/engineering-and-interviewing-at-hrt/
 
+## skfolio
+
+https://github.com/skfolio/skfolio
 
 ## 2026十大量化技术
 
