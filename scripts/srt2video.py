@@ -786,7 +786,7 @@ def _html(
 
 def main(
     *paths: str,
-    config: str = "srt2video.yaml",
+    config: str | None = None,
     out: str | None = None,
     seed: int | None = None,
     debug_dir: str | None = None,
@@ -795,9 +795,30 @@ def main(
     if not paths:
         raise ValueError("请提供音频与 srt，或仅提供 srt 并加 --html_only=true")
 
+    # 查找配置文件逻辑
+    cfg_name = "srt2video.yaml"
+    script_dir = Path(__file__).parent.resolve()
+    
+    if config:
+        cfg_path = Path(config).expanduser().resolve()
+    else:
+        # 优先级 1: 当前工作目录
+        cfg_path = Path.cwd() / cfg_name
+        if not cfg_path.exists():
+            # 优先级 2: 脚本所在目录
+            cfg_path = script_dir / cfg_name
+
+    if not cfg_path.exists():
+        raise FileNotFoundError(f"未找到配置文件：{cfg_path} (请在当前目录或脚本目录放置 {cfg_name}，或使用 --config 指定)")
+    
+    cfg = _read_yaml(cfg_path)
+
+    # 解析输入路径逻辑
     first = Path(paths[0]).expanduser().resolve()
     is_first_srt = first.suffix.lower() == ".srt"
-    audio_path: Path | None
+    audio_path: Path | None = None
+    srt_paths: list[Path] = []
+    
     if is_first_srt:
         audio_path = None
         srt_paths = [Path(p).expanduser().resolve() for p in paths]
@@ -814,11 +835,6 @@ def main(
     for p in srt_paths:
         if not p.exists():
             raise FileNotFoundError(p)
-
-    cfg_path = Path(config).expanduser().resolve()
-    if not cfg_path.exists():
-        raise FileNotFoundError(cfg_path)
-    cfg = _read_yaml(cfg_path)
 
     width = int(cfg.get("width", 1920))
     ratio = _parse_ratio(cfg.get("ratio", "16/9"))
