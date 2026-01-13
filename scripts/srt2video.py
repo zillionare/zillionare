@@ -754,9 +754,11 @@ def _html(
 
       function tick() {{
         if (!running) return;
-        const t = (performance.now() - t0) / 1000.0;
+        const now = performance.now();
+        const t = (now - t0) / 1000.0;
 
         while (nextIndex < subtitles.length && subtitles[nextIndex].start <= t) {{
+          console.log(`[DEBUG] triggering index: ${{nextIndex}}, time: ${{t.toFixed(3)}}, srt_start: ${{subtitles[nextIndex].start}}`);
           addSubtitle(subtitles[nextIndex]);
           nextIndex += 1;
         }}
@@ -847,6 +849,29 @@ def main(
     for p in srt_paths:
         if not p.exists():
             raise FileNotFoundError(p)
+
+    # 音频预处理：统一转为标准 CBR 格式以解决 VBR 导致的音画同步漂移
+    if audio_path and not html_only:
+        ffmpeg = _check_executable("ffmpeg")
+        # 创建一个临时文件用于存放处理后的音频
+        temp_audio = Path(tempfile.gettempdir()) / f"processed_{audio_path.name}.wav"
+        logger.info(f"正在预处理音频以确保同步精度: {audio_path} -> {temp_audio}")
+        
+        # 转换为 44100Hz, 单声道/双声道可选, 但关键是使用 WAV (无损/CBR) 或固定比特率
+        # 这里使用 PCM WAV 是最稳妥的中间格式
+        cmd_preprocess = [
+            ffmpeg, "-y",
+            "-i", str(audio_path),
+            "-ar", "44100",
+            "-ac", "2",
+            str(temp_audio)
+        ]
+        proc_pre = subprocess.run(cmd_preprocess, capture_output=True, text=True)
+        if proc_pre.returncode == 0:
+            audio_path = temp_audio
+            logger.info("音频预处理完成")
+        else:
+            logger.warning(f"音频预处理失败，将尝试直接使用原音频: {proc_pre.stderr}")
 
     width = int(cfg.get("width", 1920))
     if "height" in cfg:
@@ -999,6 +1024,7 @@ def main(
             record_video_size={"width": int(width * dpr), "height": int(height * dpr)},
         )
         page = context.new_page()
+        page.on("console", lambda msg: logger.info(f"Browser console: {msg.text}"))
         page.goto(html_path.as_uri(), wait_until="networkidle") # 改为 networkidle 确保资源加载
         # 捕获字幕开始的偏移量（毫秒）
         start_offset_ms = page.evaluate("window.__start()")
@@ -1036,6 +1062,8 @@ def main(
                "-filter_complex", filter_complex,
                "-map", "0:v",
                "-map", "[a]",
+               "-async", "1",
+               "-vsync", "cfr",
                "-c:v", "libx264",
                "-pix_fmt", "yuv420p",
                "-c:a", "aac",
@@ -1049,6 +1077,8 @@ def main(
             "-ss", str(start_offset_sec),
             "-i", str(webm_path),
             "-i", str(audio_path),
+            "-async", "1",
+            "-vsync", "cfr",
             "-c:v", "libx264",
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
