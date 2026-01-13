@@ -758,7 +758,6 @@ def _html(
         const t = (now - t0) / 1000.0;
 
         while (nextIndex < subtitles.length && subtitles[nextIndex].start <= t) {{
-          console.log(`[DEBUG] triggering index: ${{nextIndex}}, time: ${{t.toFixed(3)}}, srt_start: ${{subtitles[nextIndex].start}}`);
           addSubtitle(subtitles[nextIndex]);
           nextIndex += 1;
         }}
@@ -849,6 +848,17 @@ def main(
     for p in srt_paths:
         if not p.exists():
             raise FileNotFoundError(p)
+
+    out_path: Path | None = None
+    if not html_only:
+        if out:
+            out_path = Path(out).expanduser().resolve()
+        elif audio_path:
+            # 使用音频文件的 stem (文件名去掉后缀) + .mp4
+            out_path = audio_path.with_name(f"{audio_path.stem}.mp4")
+        else:
+            # 只有 SRT 时，使用第一个 SRT 的 stem
+            out_path = srt_paths[0].with_name(f"{srt_paths[0].stem}.mp4")
 
     # 音频预处理：统一转为标准 CBR 格式以解决 VBR 导致的音画同步漂移
     if audio_path and not html_only:
@@ -1008,10 +1018,9 @@ def main(
     except Exception as e:
         raise RuntimeError("缺少 playwright。请先安装 playwright 并安装 chromium。") from e
 
-    if audio_path is None:
-        raise ValueError("未提供音频，无法合成视频。若仅生成 HTML，请加 --html_only=true")
 
-    out_path = Path(out).expanduser().resolve() if out else audio_path.with_suffix(".mp4")
+    if not html_only and audio_path is None:
+        raise ValueError("未提供音频，无法合成视频。若仅生成 HTML，请加 --html_only=true")
 
     _check_executable("ffmpeg")
 
@@ -1024,7 +1033,8 @@ def main(
             record_video_size={"width": int(width * dpr), "height": int(height * dpr)},
         )
         page = context.new_page()
-        page.on("console", lambda msg: logger.info(f"Browser console: {msg.text}"))
+        # 调试模式下可以开启 console 日志
+        # page.on("console", lambda msg: logger.info(f"Browser console: {msg.text}"))
         page.goto(html_path.as_uri(), wait_until="networkidle") # 改为 networkidle 确保资源加载
         # 捕获字幕开始的偏移量（毫秒）
         start_offset_ms = page.evaluate("window.__start()")
