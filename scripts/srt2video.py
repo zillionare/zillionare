@@ -777,9 +777,11 @@ def _html(
       }}
 
       window.__start = () => {{
+        if (running) return t0;
         running = true;
         t0 = performance.now();
         requestAnimationFrame(tick);
+        return t0;
       }};
 
       function autoStart() {{
@@ -998,7 +1000,10 @@ def main(
         )
         page = context.new_page()
         page.goto(html_path.as_uri(), wait_until="networkidle") # 改为 networkidle 确保资源加载
-        page.evaluate("window.__start()")
+        # 捕获字幕开始的偏移量（毫秒）
+        start_offset_ms = page.evaluate("window.__start()")
+        logger.info(f"Subtitle start offset: {start_offset_ms}ms")
+
         # 录制结束后多等 1000ms 确保尾部完整
         page.wait_for_timeout(int(video_duration * 1000) + 1000)
         video = page.video
@@ -1011,6 +1016,7 @@ def main(
         webm_path = Path(video.path()).resolve()
 
     ffmpeg = _check_executable("ffmpeg")
+    start_offset_sec = start_offset_ms / 1000.0
     if bgm_path:
         # 使用 complex filter 混合 BGM
         # adelay 的单位是毫秒，需要对左右声道都设置
@@ -1023,6 +1029,7 @@ def main(
         cmd = [
                ffmpeg,
                "-y",
+               "-ss", str(start_offset_sec),
                "-i", str(webm_path),
                "-i", str(audio_path),
                "-stream_loop", "-1", "-i", str(bgm_path),
@@ -1039,6 +1046,7 @@ def main(
         cmd = [
             ffmpeg,
             "-y",
+            "-ss", str(start_offset_sec),
             "-i", str(webm_path),
             "-i", str(audio_path),
             "-c:v", "libx264",
