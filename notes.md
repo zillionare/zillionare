@@ -53,7 +53,7 @@ https://www.reddit.com/r/algotrading/comments/1ob5xao/built_a_regimebased_overni
     ~~The University of Melbourne (19)~~
     ~~The University of New South Wales (20)~~
     ~~~The University of Sydney (25)~~~
-    The University of Queensland (42)
+    ~~~The University of Queensland (42)~~~
     Monash University (44)
     The University of Adelaide (82)
 
@@ -64,7 +64,7 @@ https://www.reddit.com/r/algotrading/comments/1ob5xao/built_a_regimebased_overni
     KU Leuven
 
 4.  **Brazil**
-    University of São Paulo
+    ~~University of São Paulo~~
 
 5.  **Canada**
     McGill University (27)
@@ -74,7 +74,7 @@ https://www.reddit.com/r/algotrading/comments/1ob5xao/built_a_regimebased_overni
 
 6.  **China (Mainland)**
     Peking University (14)
-    Tsinghua University (17)
+    ~~Tsinghua University (17)~~
     Fudan University (30)
     Shanghai Jiao Tong University (47)
     Zhejiang University (49)
