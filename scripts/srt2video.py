@@ -797,6 +797,55 @@ def _html(
 </html>"""
 
 
+def _split_long_subtitles(subtitles: list[Subtitle], max_words: int) -> list[Subtitle]:
+    if max_words <= 0:
+        return subtitles
+
+    import logging
+
+    import jieba
+
+    # 禁用 jieba 的调试日志
+    jieba.setLogLevel(logging.WARNING)
+
+    new_subtitles = []
+    for s in subtitles:
+        # 使用 jieba 分词，它能很好地处理中英文混合
+        words = list(jieba.cut(s.text))
+        count = len(words)
+
+        if count <= max_words:
+            new_subtitles.append(s)
+            continue
+
+        logger.debug(f"正在拆分长字幕 (词数: {count}): {s.text[:30]}...")
+
+        # 将词分成多个组，每组最多 max_words 个词
+        chunks = [words[i : i + max_words] for i in range(0, count, max_words)]
+        total_words = count
+
+        current_start = s.start
+        duration = s.end - s.start
+
+        for i, chunk in enumerate(chunks):
+            chunk_text = "".join(chunk).strip()
+            if not chunk_text:
+                continue
+            chunk_word_count = len(chunk)
+            # 按词数比例分配时长
+            chunk_duration = (chunk_word_count / total_words) * duration
+            chunk_end = current_start + chunk_duration
+
+            # 最后一段确保结束时间准确
+            if i == len(chunks) - 1:
+                chunk_end = s.end
+
+            new_subtitles.append(Subtitle(start=current_start, end=chunk_end, text=chunk_text))
+            current_start = chunk_end
+
+    return new_subtitles
+
+
 def main(
     *paths: str,
     config: str | None = None,
@@ -804,6 +853,7 @@ def main(
     seed: int | None = None,
     debug_dir: str | None = None,
     html_only: bool = False,
+    max_words_per_line: int | None = None,
 ):
     if not paths:
         raise ValueError("请提供音频与 srt，或仅提供 srt 并加 --html_only=true")
@@ -919,6 +969,15 @@ def main(
     subtitles: list[Subtitle] = []
     for start, end, text in merged:
         subtitles.append(Subtitle(start=start, end=end, text=text))
+
+    # 处理长字幕拆分
+    max_words = max_words_per_line
+    if max_words is None:
+        # 尝试从配置文件读取
+        max_words = cfg.get("max_words_per_line")
+    
+    if max_words is not None:
+        subtitles = _split_long_subtitles(subtitles, int(max_words))
 
     video_duration = None if audio_path is None else _ffprobe_duration_seconds(audio_path)
     if video_duration is None:
