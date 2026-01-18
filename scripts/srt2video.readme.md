@@ -14,7 +14,7 @@ pip install fire pyyaml loguru
 
 ```bash
 cd path/to/srt2video
-python scripts/srt2video.py 50.srt --html-only --debug-dir /tmp/test
+python srt2video.py 50.srt --html-only --debug-dir /tmp/test
 ```
 
 对效果满意后，可以运行以下命令生成视频：

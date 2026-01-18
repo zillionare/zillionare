@@ -267,6 +267,8 @@ def _html(
     y_min: float = 0.0,
     y_max: float = 1.0,
     layout_mode: str = "random",
+    logo_url: str | None = None,
+    total_duration: float = 0.0,
 ) -> str:
     background_css = f"background: {background_color};"
     if background_image_url:
@@ -308,6 +310,8 @@ def _html(
         "yMin": y_min,
         "yMax": y_max,
         "layoutMode": layout_mode,
+        "logoUrl": logo_url,
+        "totalDuration": total_duration,
         "animateCssCdn": ANIMATE_CSS_CDN,
     }
 
@@ -418,6 +422,53 @@ def _html(
       visibility: hidden;
       width: {int(canvas_w * 0.96)}px;
     }}
+
+    #closing-screen {{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: none; /* 初始隐藏 */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      {background_css}
+    }}
+    #closing-logo {{
+      width: 20%;
+      height: auto;
+      margin-bottom: 30px;
+      border-radius: 50%; /* 圆角处理 */
+    }}
+    .search-box {{
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 50px;
+      padding: 10px 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border: 1px solid #eee;
+    }}
+    .wechat-icon {{
+      width: 6vw;
+      height: 6vw;
+      margin-right: 15px;
+      color: #07c160; /* 微信绿 */
+    }}
+    .search-text {{
+      font-size: 5vw;
+      font-weight: bold;
+      color: #333;
+      margin-right: 20px;
+      letter-spacing: 1px;
+    }}
+    .search-icon {{
+      width: 5vw;
+      height: 5vw;
+      color: #ffcc00;
+    }}
   </style>
 </head>
 <body>
@@ -425,6 +476,19 @@ def _html(
     <div id="stage">
       <img id="profile" src="{profile_data_url}" />
       <div id="measure"></div>
+      <div id="closing-screen">
+        <img id="closing-logo" src="{logo_url or ''}" />
+        <div class="search-box">
+          <svg class="wechat-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.22 3C4.24 3 1 5.73 1 9.1c0 1.9 1.03 3.58 2.63 4.74l-.66 2.4 2.33-1.16c.9.26 1.86.42 2.92.42.34 0 .68-.03 1-.07-.34-1.28.14-2.73 1.34-3.76.96-.83 2.22-1.27 3.44-1.27.34 0 .67.03 1 .1C14.54 7.27 11.66 3 8.22 3zm-2.4 3.75c.58 0 1.05.47 1.05 1.05s-.47 1.05-1.05 1.05-1.05-.47-1.05-1.05.47-1.05 1.05-1.05zm5.1 0c.58 0 1.05.47 1.05 1.05s-.47 1.05-1.05 1.05-1.05-.47-1.05-1.05.47-1.05 1.05-1.05zM17 11c-3.31 0-6 2.24-6 5s2.69 5 6 5c.83 0 1.62-.14 2.34-.4l1.91.95-.55-1.96C22.14 18.57 23 17.38 23 16c0-2.76-2.69-5-6-5zm-1.8 3c.44 0 .8.36.8.8s-.36.8-.8.8-.8-.36-.8-.8.36-.8.8-.8zm3.6 0c.44 0 .8.36.8.8s-.36.8-.8.8-.8-.36-.8-.8.36-.8.8-.8z"/>
+          </svg>
+          <div class="search-text">Quantide</div>
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
   <script type="application/json" id="payload">{json.dumps(payload, ensure_ascii=False)}</script>
@@ -449,6 +513,7 @@ def _html(
       const yMin = typeof payload.yMin === 'number' ? payload.yMin : 0.0;
       const yMax = typeof payload.yMax === 'number' ? payload.yMax : 1.0;
       const layoutMode = payload.layoutMode || 'random';
+      const totalDuration = payload.totalDuration || 0;
       let nextIndex = 0;
       let active = [];
       let running = false;
@@ -757,6 +822,21 @@ def _html(
         const now = performance.now();
         const t = (now - t0) / 1000.0;
 
+        // 检查是否显示结尾联系方式 (最后 1 秒)
+        if (totalDuration > 0 && t >= totalDuration - 1.0) {{
+          const closing = document.getElementById('closing-screen');
+          if (closing && closing.style.display !== 'flex') {{
+            closing.style.display = 'flex';
+            // 隐藏所有正在显示的字幕
+            for (const item of active) {{
+              if (item.node) item.node.style.display = 'none';
+            }}
+            // 隐藏 profile
+            const profile = document.getElementById('profile');
+            if (profile) profile.style.display = 'none';
+          }}
+        }}
+
         while (nextIndex < subtitles.length && subtitles[nextIndex].start <= t) {{
           addSubtitle(subtitles[nextIndex]);
           nextIndex += 1;
@@ -780,10 +860,37 @@ def _html(
       window.__start = () => {{
         if (running) return t0;
         running = true;
-        t0 = performance.now();
+        
+        // 快速验证功能：支持通过 URL 参数 ?skipToEnd=1 或按 'E' 键跳转到结尾前 2 秒
+        const urlParams = new URLSearchParams(window.location.search);
+        let offsetMs = 0;
+        if (urlParams.has('skipToEnd') && totalDuration > 2) {{
+          offsetMs = (totalDuration - 2) * 1000;
+          // 快速定位 nextIndex
+          const skipTime = totalDuration - 2;
+          while (nextIndex < subtitles.length && subtitles[nextIndex].start < skipTime) {{
+            nextIndex++;
+          }}
+        }}
+
+        t0 = performance.now() - offsetMs;
         requestAnimationFrame(tick);
         return t0;
       }};
+
+      // 监听键盘 'E' 键实现手动跳转
+      window.addEventListener('keydown', (e) => {{
+        if (e.key.toLowerCase() === 'e' && totalDuration > 2) {{
+          const skipTime = totalDuration - 2;
+          t0 = performance.now() - (skipTime * 1000);
+          // 修正 nextIndex
+          nextIndex = 0;
+          while (nextIndex < subtitles.length && subtitles[nextIndex].start < skipTime) {{
+            nextIndex++;
+          }}
+          console.log('Skipped to end (2s remaining)');
+        }}
+      }});
 
       function autoStart() {{
         if (running) return;
@@ -982,7 +1089,10 @@ def main(
     video_duration = None if audio_path is None else _ffprobe_duration_seconds(audio_path)
     if video_duration is None:
         video_duration = max(s.end for s in subtitles) + 1.0
-    video_duration = max(1.0, float(video_duration))
+    
+    # 增加 1 秒用于显示结尾联系方式
+    video_duration = float(video_duration) + 1.0
+    video_duration = max(1.0, video_duration)
 
     subtitles_payload = [{"start": s.start, "end": s.end, "text": s.text} for s in subtitles]
     
@@ -1000,6 +1110,20 @@ def main(
 
     # 处理 BGM
     bgm_cfg = cfg.get("bgm")
+    logo_path_raw = cfg.get("logo")
+    logo_url = None
+    if logo_path_raw:
+        if str(logo_path_raw).startswith(("http://", "https://")):
+            logo_url = str(logo_path_raw)
+        else:
+            logo_path = Path(str(logo_path_raw)).expanduser()
+            if not logo_path.is_absolute():
+                logo_path = (cfg_path.parent / logo_path).resolve()
+            if logo_path.exists():
+                logo_url = _image_to_data_url(logo_path)
+            else:
+                logger.warning(f"未找到 Logo 文件：{logo_path}")
+
     bgm_path: Path | None = None
     bgm_volume = 0.2
     bgm_start = 0.0
@@ -1034,6 +1158,8 @@ def main(
         y_min=float(cfg.get("y_min", 0.0)),
         y_max=float(cfg.get("y_max", 1.0)),
         layout_mode=str(cfg.get("subtitle_layout_mode", "random")),
+        logo_url=logo_url,
+        total_duration=video_duration,
     )
 
     work_dir: Path
