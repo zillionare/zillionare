@@ -14,6 +14,8 @@ subtitle_animation_duration_ms: 600
 subtitle_random_color: true
 y_min: 0.5 # 字幕出现的最小 Y 坐标百分比 (0.0 - 1.0)
 y_max: 0.9 # 字幕出现的最大 Y 坐标百分比 (0.0 - 1.0)
+
+配置文件 srt2video.yaml
 """
 
 from __future__ import annotations
@@ -27,6 +29,8 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
+import urllib.request
 from dataclasses import dataclass
 from fractions import Fraction
 from pathlib import Path
@@ -180,6 +184,37 @@ def _ffprobe_image_size(image: Path) -> tuple[int, int]:
     return w, h
 
 
+def _download_to_data_url(url: str, retries: int = 2) -> str:
+    # 如果是 jsdelivr 的域名，尝试切换到 fastly 镜像，通常国内访问更稳定
+    fast_url = url
+    if "cdn.jsdelivr.net" in url:
+        fast_url = url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+
+    for attempt in range(retries + 1):
+        try:
+            current_url = fast_url if attempt > 0 else url
+            logger.info(f"正在下载外部资源 (尝试 {attempt+1}/{retries+1}): {current_url}")
+            
+            req = urllib.request.Request(
+                current_url, 
+                headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+            )
+            # 缩短单次下载超时，快速进入重试或镜像切换
+            with urllib.request.urlopen(req, timeout=8) as response:
+                content = response.read()
+                mime_type = response.info().get_content_type()
+                b64 = base64.b64encode(content).decode("utf-8")
+                return f"data:{mime_type};base64,{b64}"
+        except Exception as e:
+            if attempt < retries:
+                logger.warning(f"下载尝试 {attempt+1} 失败: {e}，正在重试...")
+                time.sleep(1) # 稍微等待后重试
+            else:
+                logger.warning(f"下载外部资源最终失败: {url}, 错误: {e}")
+    
+    return url
+
+
 def _image_to_data_url(image: Path) -> str:
     mime, _ = mimetypes.guess_type(str(image))
     if not mime:
@@ -190,10 +225,11 @@ def _image_to_data_url(image: Path) -> str:
 
 def _parse_background(value: Any, base_dir: Path) -> tuple[str, str | None]:
     if value is None:
-        return "#000000", None
+        return "#ffffff", None
+
     raw = str(value).strip()
     if not raw:
-        return "#000000", None
+        return "#ffffff", None
 
     if re.match(r"^#([0-9a-fA-F]{3}){1,2}$", raw) or re.match(
         r"^(rgb|rgba|hsl|hsla)\(", raw, flags=re.IGNORECASE
@@ -201,7 +237,7 @@ def _parse_background(value: Any, base_dir: Path) -> tuple[str, str | None]:
         return raw, None
 
     if raw.startswith("http://") or raw.startswith("https://"):
-        return "#000000", raw
+        return "#000000", _download_to_data_url(raw)
 
     path = Path(raw).expanduser()
     if not path.is_absolute():
@@ -269,9 +305,14 @@ def _html(
     layout_mode: str = "random",
     logo_url: str | None = None,
     total_duration: float = 0.0,
+    animate_css_path: Path | None = None,
 ) -> str:
     background_css = f"background: {background_color};"
     if background_image_url:
+        # 如果是 jsdelivr 链接且没能 Base64 化，同样切换到镜像
+        if background_image_url.startswith("http") and "cdn.jsdelivr.net" in background_image_url:
+            background_image_url = background_image_url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+        
         background_css = (
             f"background-color: {background_color};"
             f"background-image: url('{background_image_url}');"
@@ -288,6 +329,17 @@ def _html(
       src: url('{font_data_url}');
     }}
     """
+
+    # 处理 Animate.css 资源
+    animate_url = ANIMATE_CSS_CDN
+    if animate_css_path and animate_css_path.exists():
+        try:
+            content = animate_css_path.read_bytes()
+            b64 = base64.b64encode(content).decode("utf-8")
+            animate_url = f"data:text/css;base64,{b64}"
+            logger.info(f"使用本地 Animate.css: {animate_css_path}")
+        except Exception as e:
+            logger.warning(f"加载本地 Animate.css 失败: {e}，将回退到 CDN")
 
     payload = {
         "canvas": {
@@ -312,7 +364,7 @@ def _html(
         "layoutMode": layout_mode,
         "logoUrl": logo_url,
         "totalDuration": total_duration,
-        "animateCssCdn": ANIMATE_CSS_CDN,
+        "animateCssCdn": animate_url,
     }
 
     return f"""<!doctype html>
@@ -320,7 +372,7 @@ def _html(
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link id="animatecss" rel="stylesheet" href="{ANIMATE_CSS_CDN}">
+  <link id="animatecss" rel="stylesheet" href="{animate_url}">
   <style>
     {font_face_css}
     html, body {{
@@ -367,6 +419,8 @@ def _html(
       height: auto;
       z-index: 1;
       border-radius: 18px;
+      transform: translateZ(0);
+      backface-visibility: hidden;
       {"animation: profileBlink " + str(profile_animation_duration_ms) + "ms ease-in-out infinite;" if profile_animation_enabled else ""}
     }}
 
@@ -479,9 +533,6 @@ def _html(
       <div id="closing-screen">
         <img id="closing-logo" src="{logo_url or ''}" />
         <div class="search-box">
-          <svg class="wechat-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8.22 3C4.24 3 1 5.73 1 9.1c0 1.9 1.03 3.58 2.63 4.74l-.66 2.4 2.33-1.16c.9.26 1.86.42 2.92.42.34 0 .68-.03 1-.07-.34-1.28.14-2.73 1.34-3.76.96-.83 2.22-1.27 3.44-1.27.34 0 .67.03 1 .1C14.54 7.27 11.66 3 8.22 3zm-2.4 3.75c.58 0 1.05.47 1.05 1.05s-.47 1.05-1.05 1.05-1.05-.47-1.05-1.05.47-1.05 1.05-1.05zm5.1 0c.58 0 1.05.47 1.05 1.05s-.47 1.05-1.05 1.05-1.05-.47-1.05-1.05.47-1.05 1.05-1.05zM17 11c-3.31 0-6 2.24-6 5s2.69 5 6 5c.83 0 1.62-.14 2.34-.4l1.91.95-.55-1.96C22.14 18.57 23 17.38 23 16c0-2.76-2.69-5-6-5zm-1.8 3c.44 0 .8.36.8.8s-.36.8-.8.8-.8-.36-.8-.8.36-.8.8-.8zm3.6 0c.44 0 .8.36.8.8s-.36.8-.8.8-.8-.36-.8-.8.36-.8.8-.8z"/>
-          </svg>
           <div class="search-text">Quantide</div>
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
@@ -494,6 +545,7 @@ def _html(
   <script type="application/json" id="payload">{json.dumps(payload, ensure_ascii=False)}</script>
   <script>
     (() => {{
+      const pageLoadStartTime = performance.now();
       const payload = JSON.parse(document.getElementById('payload').textContent);
       const viewport = document.getElementById('viewport');
       const stage = document.getElementById('stage');
@@ -527,8 +579,21 @@ def _html(
       async function loadAnimateCss() {{
         const link = document.getElementById('animatecss');
         try {{
-          const resp = await fetch(link.href);
-          const text = await resp.text();
+          // 如果是 data URL，直接处理内容，不再 fetch
+          let text;
+          if (link.href.startsWith('data:')) {{
+            const base64 = link.href.split(',')[1];
+            text = atob(base64);
+          }} else {{
+            // 增加 10 秒超时限制，避免因网络问题无限期等待
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+            
+            const resp = await fetch(link.href, {{ signal: controller.signal }});
+            clearTimeout(timeoutId);
+            text = await resp.text();
+          }}
+          
           const found = new Set();
           const re = /\.animate__(?:animated|([a-zA-Z0-9]+))/g;
           let m;
@@ -822,7 +887,7 @@ def _html(
         const now = performance.now();
         const t = (now - t0) / 1000.0;
 
-        // 检查是否显示结尾联系方式 (最后 1 秒)
+        // 检查是否显示结尾联系方式 (最后 1.0 秒)
         if (totalDuration > 0 && t >= totalDuration - 1.0) {{
           const closing = document.getElementById('closing-screen');
           if (closing && closing.style.display !== 'flex') {{
@@ -858,14 +923,17 @@ def _html(
       }}
 
       window.__start = () => {{
-        if (running) return t0;
+        if (running) return performance.now() - pageLoadStartTime;
+        
+        // 记录启动时刻
+        t0 = performance.now();
         running = true;
         
         // 快速验证功能：支持通过 URL 参数 ?skipToEnd=1 或按 'E' 键跳转到结尾前 2 秒
         const urlParams = new URLSearchParams(window.location.search);
-        let offsetMs = 0;
         if (urlParams.has('skipToEnd') && totalDuration > 2) {{
-          offsetMs = (totalDuration - 2) * 1000;
+          const offsetMs = (totalDuration - 2) * 1000;
+          t0 -= offsetMs;
           // 快速定位 nextIndex
           const skipTime = totalDuration - 2;
           while (nextIndex < subtitles.length && subtitles[nextIndex].start < skipTime) {{
@@ -873,9 +941,9 @@ def _html(
           }}
         }}
 
-        t0 = performance.now() - offsetMs;
         requestAnimationFrame(tick);
-        return t0;
+        // 返回相对于页面加载开始的偏移量，用于 FFmpeg 剪切
+        return t0 - pageLoadStartTime;
       }};
 
       // 监听键盘 'E' 键实现手动跳转
@@ -1086,13 +1154,19 @@ def main(
     if max_words is not None:
         subtitles = _split_long_subtitles(subtitles, int(max_words))
 
-    video_duration = None if audio_path is None else _ffprobe_duration_seconds(audio_path)
-    if video_duration is None:
-        video_duration = max(s.end for s in subtitles) + 1.0
-    
-    # 增加 1 秒用于显示结尾联系方式
-    video_duration = float(video_duration) + 1.0
-    video_duration = max(1.0, video_duration)
+    # 计算视频总时长：最后一个字幕结束时间 + 1.0秒用于显示结尾 logo
+    last_sub_end = max(s.end for s in subtitles) if subtitles else 0.0
+    video_duration = last_sub_end + 1.0
+
+    # 如果有音频，确保视频时长至少能覆盖音频，同时保证 Logo 能够显示
+    if audio_path and not html_only:
+        audio_duration = _ffprobe_duration_seconds(audio_path)
+        if audio_duration:
+            # 视频时长应取【音频时长】和【字幕结束+Logo时间】的最大值
+            # 这样即便音频比字幕长，或者字幕比音频长，Logo 都能正常显示
+            video_duration = max(video_duration, audio_duration + 1.0)
+
+    video_duration = max(1.0, float(video_duration))
 
     subtitles_payload = [{"start": s.start, "end": s.end, "text": s.text} for s in subtitles]
     
@@ -1110,11 +1184,36 @@ def main(
 
     # 处理 BGM
     bgm_cfg = cfg.get("bgm")
+
+    # 处理 Animate.css 本地化
+    animate_css_path = None
+    animate_cfg = cfg.get("animate_css")
+    if animate_cfg:
+        animate_css_path = Path(str(animate_cfg)).expanduser()
+        if not animate_css_path.is_absolute():
+            animate_css_path = (cfg_path.parent / animate_css_path).resolve()
+
+    # 如果配置中没指定或没找到，默认尝试脚本同目录下的 animate.min.css
+    if not animate_css_path or not animate_css_path.exists():
+        default_local = Path(__file__).parent / "animate.min.css"
+        if default_local.exists():
+            animate_css_path = default_local
+            logger.info(f"自动检测并使用本地 Animate.css: {animate_css_path}")
+        elif animate_cfg:
+            logger.warning(f"配置文件指定的 Animate.css 未找到：{animate_css_path}，将尝试 CDN")
+            animate_css_path = None
+    else:
+        logger.info(f"使用配置文件指定的 Animate.css: {animate_css_path}")
+
+    # 处理 Logo (Logo 必须尽可能显示)
     logo_path_raw = cfg.get("logo")
     logo_url = None
     if logo_path_raw:
         if str(logo_path_raw).startswith(("http://", "https://")):
-            logo_url = str(logo_path_raw)
+            # 特殊处理 jsdelivr: 即使下载失败，也尝试在 HTML 中直接用 fastly 链接
+            logo_url = _download_to_data_url(str(logo_path_raw))
+            if logo_url.startswith("http") and "cdn.jsdelivr.net" in logo_url:
+                logo_url = logo_url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
         else:
             logo_path = Path(str(logo_path_raw)).expanduser()
             if not logo_path.is_absolute():
@@ -1123,6 +1222,10 @@ def main(
                 logo_url = _image_to_data_url(logo_path)
             else:
                 logger.warning(f"未找到 Logo 文件：{logo_path}")
+
+    # 如果 Logo 是远程 URL 且没能成功 Base64 化，强制在录制前等待一下，
+    # 或者如果对 Logo 要求极高，可以考虑在这里报错或使用本地默认图。
+    # 暂且保持现状，但在录制脚本中增加更强的重试。
 
     bgm_path: Path | None = None
     bgm_volume = 0.2
@@ -1160,6 +1263,7 @@ def main(
         layout_mode=str(cfg.get("subtitle_layout_mode", "random")),
         logo_url=logo_url,
         total_duration=video_duration,
+        animate_css_path=animate_css_path,
     )
 
     work_dir: Path
@@ -1218,9 +1322,17 @@ def main(
             record_video_size={"width": int(width * dpr), "height": int(height * dpr)},
         )
         page = context.new_page()
-        # 调试模式下可以开启 console 日志
-        # page.on("console", lambda msg: logger.info(f"Browser console: {msg.text}"))
-        page.goto(html_path.as_uri(), wait_until="networkidle") # 改为 networkidle 确保资源加载
+        # 增加超时时间到 90 秒，并捕获 console 日志以方便调试
+        page.set_default_timeout(90000)
+        page.on("console", lambda msg: logger.debug(f"Browser console: {msg.text}"))
+        
+        try:
+            logger.info(f"正在加载页面: {html_path.as_uri()}")
+            # 改为 wait_until="load" 并减小超时时间。因为我们已经尽可能本地化了资源。
+            page.goto(html_path.as_uri(), wait_until="load", timeout=60000)
+        except Exception as e:
+            logger.warning(f"页面加载超时或失败: {e}。尝试继续执行...")
+
         # 捕获字幕开始的偏移量（毫秒）
         start_offset_ms = page.evaluate("window.__start()")
         logger.info(f"Subtitle start offset: {start_offset_ms}ms")
@@ -1251,6 +1363,7 @@ def main(
                ffmpeg,
                "-y",
                "-ss", str(start_offset_sec),
+               "-t", str(video_duration),
                "-i", str(webm_path),
                "-i", str(audio_path),
                "-stream_loop", "-1", "-i", str(bgm_path),
@@ -1262,7 +1375,6 @@ def main(
                "-c:v", "libx264",
                "-pix_fmt", "yuv420p",
                "-c:a", "aac",
-               "-shortest",
                str(out_path),
            ]
     else:
@@ -1270,6 +1382,7 @@ def main(
             ffmpeg,
             "-y",
             "-ss", str(start_offset_sec),
+            "-t", str(video_duration),
             "-i", str(webm_path),
             "-i", str(audio_path),
             "-async", "1",
@@ -1277,7 +1390,6 @@ def main(
             "-c:v", "libx264",
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
-            "-shortest",
             str(out_path),
         ]
     logger.info(" ".join(cmd))
