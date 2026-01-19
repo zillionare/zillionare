@@ -21,6 +21,7 @@ y_max: 0.9 # 字幕出现的最大 Y 坐标百分比 (0.0 - 1.0)
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import mimetypes
 import os
@@ -30,6 +31,7 @@ import shutil
 import subprocess
 import tempfile
 import time
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from fractions import Fraction
@@ -184,6 +186,65 @@ def _ffprobe_image_size(image: Path) -> tuple[int, int]:
     return w, h
 
 
+def _download_resource(url: str, cache_dir: Path, retries: int = 2) -> Path:
+    """下载远程资源到本地缓存目录，如果已存在则跳过。"""
+    if not url.startswith(("http://", "https://")):
+        return Path(url)
+
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 尝试从 URL 提取文件名
+    parsed = urllib.parse.urlparse(url)
+    filename = os.path.basename(parsed.path)
+    
+    # 如果没有文件名或文件名太乱，使用 URL 的 MD5
+    if not filename or "." not in filename or len(filename) > 100:
+        ext = ""
+        # 尝试通过内容类型判断后缀，但不发完整请求
+        filename = hashlib.md5(url.encode()).hexdigest() + ext
+    
+    local_path = cache_dir / filename
+    
+    if local_path.exists():
+        # logger.debug(f"资源已存在，跳过下载: {local_path}")
+        return local_path
+
+    # 下载逻辑，包含镜像切换和重试
+    fast_url = url
+    if "cdn.jsdelivr.net" in url:
+        fast_url = url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+    elif "raw.githubusercontent.com" in url:
+        fast_url = url.replace("raw.githubusercontent.com", "raw.fastgit.org") # 尝试镜像
+    
+    # 增加对 jsdelivr 的直接首选镜像
+    if "cdn.jsdelivr.net" in url:
+        url = fast_url # 直接用 fastly 镜像作为首选
+    
+    for attempt in range(retries + 1):
+        try:
+            current_url = fast_url if attempt > 0 else url
+            logger.info(f"正在下载资源 (尝试 {attempt+1}/{retries+1}): {current_url} -> {local_path}")
+            
+            req = urllib.request.Request(
+                current_url, 
+                headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}
+            )
+            with urllib.request.urlopen(req, timeout=10) as response:
+                content = response.read()
+                local_path.write_bytes(content)
+                return local_path
+        except Exception as e:
+            if attempt < retries:
+                logger.warning(f"下载失败: {e}，正在重试...")
+                time.sleep(1)
+            else:
+                logger.error(f"资源下载最终失败: {url}, 错误: {e}")
+                # 如果下载失败且本地不存在，返回原始 URL 供后续逻辑（如 Base64 转换）尝试
+                return Path(url)
+    
+    return local_path
+
+
 def _download_to_data_url(url: str, retries: int = 2) -> str:
     # 如果是 jsdelivr 的域名，尝试切换到 fastly 镜像，通常国内访问更稳定
     fast_url = url
@@ -228,8 +289,8 @@ def _parse_background(value: Any, base_dir: Path) -> tuple[str, str | None]:
         return "#ffffff", None
 
     raw = str(value).strip()
-    if not raw:
-        return "#ffffff", None
+    if not raw or raw.lower() == "transparent":
+        return "transparent", None
 
     if re.match(r"^#([0-9a-fA-F]{3}){1,2}$", raw) or re.match(
         r"^(rgb|rgba|hsl|hsla)\(", raw, flags=re.IGNORECASE
@@ -289,8 +350,8 @@ def _html(
     canvas_h: int,
     background_color: str,
     background_image_url: str | None,
-    profile_data_url: str,
-    profile_rect: dict[str, int],
+    profile_data_url: str | None = None,
+    profile_rect: dict[str, int] | None = None,
     subtitles: list[dict[str, Any]],
     seed: int,
     animation_duration_ms: int,
@@ -306,6 +367,7 @@ def _html(
     logo_url: str | None = None,
     total_duration: float = 0.0,
     animate_css_path: Path | None = None,
+    instructor_profiles: list[str] | None = None,
 ) -> str:
     background_css = f"background: {background_color};"
     if background_image_url:
@@ -352,6 +414,7 @@ def _html(
             "src": profile_data_url,
             "rect": profile_rect,
         },
+        "instructorProfiles": instructor_profiles,
         "subtitles": subtitles,
         "seed": seed,
         "animationDurationMs": animation_duration_ms,
@@ -366,6 +429,11 @@ def _html(
         "totalDuration": total_duration,
         "animateCssCdn": animate_url,
     }
+
+    # Profile Animation Class
+    profile_animation_css = ""
+    if profile_animation_enabled:
+        profile_animation_css = f"animation: profileBlink {profile_animation_duration_ms}ms ease-in-out infinite;"
 
     return f"""<!doctype html>
 <html lang="zh-CN">
@@ -413,15 +481,64 @@ def _html(
     }}
     #profile {{
       position: absolute;
-      left: {profile_rect["x"]}px;
-      top: {profile_rect["y"]}px;
-      width: {profile_rect["w"]}px;
+      left: {profile_rect["x"] if profile_rect else 0}px;
+      top: {profile_rect["y"] if profile_rect else 0}px;
+      width: {profile_rect["w"] if profile_rect else 0}px;
       height: auto;
       z-index: 1;
       border-radius: 18px;
       transform: translateZ(0);
       backface-visibility: hidden;
-      {"animation: profileBlink " + str(profile_animation_duration_ms) + "ms ease-in-out infinite;" if profile_animation_enabled else ""}
+      {profile_animation_css if profile_rect else ""}
+    }}
+
+    /* Instructor Header Styles */
+    .instructor-header {{
+      position: absolute;
+      top: 8%;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+      color: white;
+      text-align: center;
+      transform: scale(0.8);
+      transform-origin: top center;
+      {profile_animation_css if instructor_profiles else ""}
+    }}
+    .instructor-title {{
+      font-size: 8vw;
+      font-weight: 900;
+      margin-bottom: 5px;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }}
+    .instructor-subtitle {{
+      font-size: 4.2vw;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }}
+    .instructor-profiles {{
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }}
+    .instructor-avatar-wrapper {{
+      position: relative;
+      width: 28vw;
+      height: 28vw;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      background: #eee;
+    }}
+    .instructor-avatar {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }}
 
     @keyframes subZoomIn {{
@@ -523,12 +640,30 @@ def _html(
       height: 5vw;
       color: #ffcc00;
     }}
+    .search-footer {{
+      margin-top: 15px;
+      font-size: 3.5vw;
+      color: #a0a0a0;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }}
   </style>
 </head>
 <body>
   <div id="viewport">
     <div id="stage">
-      <img id="profile" src="{profile_data_url}" />
+      {f'<img id="profile" src="{profile_data_url}" />' if profile_data_url and not instructor_profiles else ""}
+      
+      {f"""
+      <div class="instructor-header">
+        <div class="instructor-title">匡醍·量化好声音</div>
+        <div class="instructor-subtitle">洞悉投资新声，探索量化前沿</div>
+        <div class="instructor-profiles">
+          {''.join([f'<div class="instructor-avatar-wrapper"><img class="instructor-avatar" src="{url}" /></div>' for url in (instructor_profiles or [])])}
+        </div>
+      </div>
+      """ if instructor_profiles else ""}
+
       <div id="measure"></div>
       <div id="closing-screen">
         <img id="closing-logo" src="{logo_url or ''}" />
@@ -539,6 +674,7 @@ def _html(
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </div>
+        <div class="search-footer">点个关注不迷路</div>
       </div>
     </div>
   </div>
@@ -1116,24 +1252,78 @@ def main(
         height = int(round(width / float(ratio)))
     
     dpr = float(cfg.get("dpr", 1.0))
+
+    # 缓存目录处理
+    cache_dir_cfg = cfg.get("cache_dir", "resources")
+    cache_dir = Path(cache_dir_cfg).expanduser()
+    if not cache_dir.is_absolute():
+        # 默认相对于脚本所在目录
+        cache_dir = (script_dir / cache_dir).resolve()
+    
+    # 预下载/定位背景资源
+    bg_raw = cfg.get("background")
+    if bg_raw and str(bg_raw).startswith(("http://", "https://")):
+        local_bg = _download_resource(str(bg_raw), cache_dir)
+        if local_bg.exists():
+            cfg["background"] = str(local_bg)
+
     background_color, background_image_url = _parse_background(cfg.get("background"), cfg_path.parent)
 
-    profile_path = Path(str(cfg.get("profile", ""))).expanduser()
-    if not profile_path.is_absolute():
-        profile_path = (cfg_path.parent / profile_path).resolve()
-    if not profile_path.exists():
-        raise FileNotFoundError(profile_path)
+    # 处理 Profile
+    profile_raw = cfg.get("profile", "")
+    instructor_profiles = []
+    
+    # 特殊处理：如果 profile 是列表，或者我们有特定的 instructor 要求
+    # 这里我们根据用户要求，直接支持双头像模式
+    instructor_urls = [
+        "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/portrait-half.jpg",
+        "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/flora-2.jpg"
+    ]
+    
+    # 如果用户没有指定 profile，或者显式想用这两个头像
+    # 为了保险，我们先下载这两个头像
+    for url in instructor_urls:
+        local_p = _download_resource(url, cache_dir)
+        if local_p.exists():
+            instructor_profiles.append(_image_to_data_url(local_p))
+        else:
+            instructor_profiles.append(_download_to_data_url(url))
 
-    position = str(cfg.get("position", "top-left")).strip()
-    size = _parse_percent(cfg.get("size", "50%"))
-    size = min(max(size, 0.05), 1.0)
+    profile_data_url = None
+    profile_rect = None
+    
+    if not instructor_profiles:
+        if str(profile_raw).startswith(("http://", "https://")):
+            local_profile = _download_resource(str(profile_raw), cache_dir)
+            if local_profile.exists():
+                profile_path = local_profile
+            else:
+                profile_path = Path(str(profile_raw)) # 可能会失败
+        else:
+            profile_path = Path(str(profile_raw)).expanduser()
+            if not profile_path.is_absolute():
+                profile_path = (cfg_path.parent / profile_path).resolve()
+        
+        if not profile_path.exists() and not str(profile_path).startswith("http"):
+            raise FileNotFoundError(profile_path)
 
-    profile_img_w, profile_img_h = _ffprobe_image_size(profile_path)
-    profile_w = int(round(width * size))
-    profile_h = int(round(profile_w * (profile_img_h / profile_img_w)))
-    margin = max(16, int(round(min(width, height) * 0.02)))
-    profile_rect = _profile_rect(width, height, profile_w, profile_h, position, margin)
-    profile_data_url = _image_to_data_url(profile_path)
+        position = str(cfg.get("position", "top-left")).strip()
+        size = _parse_percent(cfg.get("size", "50%"))
+        size = min(max(size, 0.05), 1.0)
+
+        if profile_path.exists():
+            profile_img_w, profile_img_h = _ffprobe_image_size(profile_path)
+            profile_data_url = _image_to_data_url(profile_path)
+        else:
+            # 如果是 URL 且没下载成功，尝试直接下载并转为 data URL
+            logger.warning(f"Profile 本地文件不存在，尝试从 URL 直接加载: {profile_path}")
+            profile_data_url = _download_to_data_url(str(profile_path))
+            profile_img_w, profile_img_h = 500, 500 
+
+        profile_w = int(round(width * size))
+        profile_h = int(round(profile_w * (profile_img_h / profile_img_w)))
+        margin = max(16, int(round(min(width, height) * 0.02)))
+        profile_rect = _profile_rect(width, height, profile_w, profile_h, position, margin)
 
     base_seed = seed if seed is not None else random.randint(1, 2**31 - 1)
 
@@ -1174,9 +1364,13 @@ def main(
     font_path_raw = cfg.get("font")
     font_data_url = None
     if font_path_raw:
-        font_path = Path(str(font_path_raw)).expanduser()
-        if not font_path.is_absolute():
-            font_path = (cfg_path.parent / font_path).resolve()
+        if str(font_path_raw).startswith(("http://", "https://")):
+            font_path = _download_resource(str(font_path_raw), cache_dir)
+        else:
+            font_path = Path(str(font_path_raw)).expanduser()
+            if not font_path.is_absolute():
+                font_path = (cfg_path.parent / font_path).resolve()
+        
         if font_path.exists():
             font_data_url = _image_to_data_url(font_path) # 复用 base64 转换逻辑
         else:
@@ -1189,9 +1383,12 @@ def main(
     animate_css_path = None
     animate_cfg = cfg.get("animate_css")
     if animate_cfg:
-        animate_css_path = Path(str(animate_cfg)).expanduser()
-        if not animate_css_path.is_absolute():
-            animate_css_path = (cfg_path.parent / animate_css_path).resolve()
+        if str(animate_cfg).startswith(("http://", "https://")):
+            animate_css_path = _download_resource(str(animate_cfg), cache_dir)
+        else:
+            animate_css_path = Path(str(animate_cfg)).expanduser()
+            if not animate_css_path.is_absolute():
+                animate_css_path = (cfg_path.parent / animate_css_path).resolve()
 
     # 如果配置中没指定或没找到，默认尝试脚本同目录下的 animate.min.css
     if not animate_css_path or not animate_css_path.exists():
@@ -1200,20 +1397,22 @@ def main(
             animate_css_path = default_local
             logger.info(f"自动检测并使用本地 Animate.css: {animate_css_path}")
         elif animate_cfg:
-            logger.warning(f"配置文件指定的 Animate.css 未找到：{animate_css_path}，将尝试 CDN")
+            logger.warning(f"指定的 Animate.css 未找到：{animate_cfg}，将尝试 CDN")
             animate_css_path = None
     else:
-        logger.info(f"使用配置文件指定的 Animate.css: {animate_css_path}")
+        logger.info(f"使用 Animate.css: {animate_css_path}")
 
-    # 处理 Logo (Logo 必须尽可能显示)
+    # 处理 Logo
     logo_path_raw = cfg.get("logo")
     logo_url = None
     if logo_path_raw:
         if str(logo_path_raw).startswith(("http://", "https://")):
-            # 特殊处理 jsdelivr: 即使下载失败，也尝试在 HTML 中直接用 fastly 链接
-            logo_url = _download_to_data_url(str(logo_path_raw))
-            if logo_url.startswith("http") and "cdn.jsdelivr.net" in logo_url:
-                logo_url = logo_url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+            logo_path = _download_resource(str(logo_path_raw), cache_dir)
+            if logo_path.exists():
+                logo_url = _image_to_data_url(logo_path)
+            else:
+                # 降级：如果下载失败，尝试直接用 URL
+                logo_url = _download_to_data_url(str(logo_path_raw))
         else:
             logo_path = Path(str(logo_path_raw)).expanduser()
             if not logo_path.is_absolute():
@@ -1264,6 +1463,7 @@ def main(
         logo_url=logo_url,
         total_duration=video_duration,
         animate_css_path=animate_css_path,
+        instructor_profiles=instructor_profiles,
     )
 
     work_dir: Path

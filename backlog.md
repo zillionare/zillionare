@@ -28,12 +28,12 @@ https://github.com/nkaz001/hftbacktest
 4. 增强型强化学习 (Reinforcement Learning Agents)
 强化学习代理能在模拟市场环境中持续学习。2026年的量化系统要求开发者能够构建并在实时数据流中持续训练强化学习代理，使其能动态响应市场制度的变化
 5. Polars: 高性能数据处理的“绝对主力: 多线程并行、查询优化器（Lazy API）和零拷贝（Zero-copy）
-6. Pandas 3.0：生态系统的“守门员”Pandas 3.0 彻底解决了长期困扰量化人的内存占用大、字符串处理慢的问题。在 2026 年，如果你不了解如何利用 Arrow 后端进行内存高效操作，你的代码将无法兼容主流的金融数据 API（如 Bloomberg、Refinitiv 的新版 SDK）。
+6. ~~Pandas 3.0~~：生态系统的“守门员”Pandas 3.0 彻底解决了长期困扰量化人的内存占用大、字符串处理慢的问题。在 2026 年，如果你不了解如何利用 Arrow 后端进行内存高效操作，你的代码将无法兼容主流的金融数据 API（如 Bloomberg、Refinitiv 的新版 SDK）。
 7. Apache Arrow 
-8. FastHTML：量化看板与工具的“极速交付”
+8. ~~FastHTML：量化看板与工具的“极速交付”~~
 FastHTML 是 2024 年末兴起、2025 年爆发的 Python 全栈框架，它正在取代 Streamlit 在专业量化团队中的地位。实时损益（P&L）监控看板、因子分析交互界面、策略参数动态调节终端。
 9. LaunceDB/DuckDB 针对向量检索（RAG）和本地 OLAP 分析的极速数据库
-10. sqlite3 > sqlite-utils > fastlite
+10. ~~sqlite3 > sqlite-utils > fastlite~~
 11. Nanobind 比pybind11更轻量
 12. ~~uv~~
 13. redis timeseries 和 gears （自动将 tick 重采样为 1min 15min 30min 1h 4h 1d，超快，占内存很少（1G），日线可以完全放在其中
