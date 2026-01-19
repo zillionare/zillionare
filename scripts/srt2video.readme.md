@@ -20,18 +20,12 @@ python srt2video.py 50.srt --html-only --debug-dir /tmp/test
 对效果满意后，可以运行以下命令生成视频：
 
 ```bash
-python scripts/srt2video.py  /tmp/srt2video_test.mp3 /tmp/srt2video_demo.srt
+cd path/to/srt2video
+
+# 在目录中已经有 short.mp3和short.srt 文件供演示
+# 正式使用时填写真实的文件名
+python srt2video.py short.mp3 short.srt
 ```
-
-与调试命令相比，这个命令要求指定 mp3文件，并且去掉--html-only 等选项。
-
-脚本自带演示，命令是：
-
-```bash
-python srt2video.py main.mp3 luo.srt
-```
-
-main.mp3, luo.srt 已在脚本同目录。
 
 ## 配置
 
@@ -42,10 +36,7 @@ main.mp3, luo.srt 已在脚本同目录。
 
 视频号倾向的视频是6/7，为保证图像清晰，我们可以将 width 和 height 设置为1200/1400。
 
-## 图片
-允许使用一张人物图片(profile)和一张背景图片。背景图片可以是纯色，也可以是图片。图片可以是本地文件，也可以是链接。
-
-人物图像可以配置闪烁效果：
+### 头像闪烁效果
 
 ```yaml
 profile_animation_enabled: true      # 是否开启透明度闪烁动画
@@ -53,12 +44,6 @@ profile_animation_duration_ms: 3000   # 动画时长（3秒一个周期，会比
 ```
 
 动画时间可能长一些更好，太短了可能让人心烦。
-
-图片位置按九宫格指定。
-```yaml
-position: top-left # 图像位置
-size: 100% # profile 的显示大小
-```
 
 背景图版在 background 中指定。
 
