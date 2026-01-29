@@ -52,6 +52,7 @@
       border-radius: 18px;
       transform: translateZ(0);
       backface-visibility: hidden;
+      image-rendering: -webkit-optimize-contrast;
       {profile_animation_css_applied}
     }}
 
@@ -102,6 +103,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      image-rendering: -webkit-optimize-contrast;
     }}
 
     @keyframes subZoomIn {{

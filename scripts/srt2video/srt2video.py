@@ -24,12 +24,12 @@ import base64
 import hashlib
 import json
 import mimetypes
-import sys
 import os
 import random
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 import urllib.parse
@@ -628,7 +628,7 @@ def main(
         ratio = _parse_ratio(cfg.get("ratio", "16/9"))
         height = int(round(width / float(ratio)))
     
-    dpr = float(cfg.get("dpr", 1.0))
+    dpr = float(cfg.get("dpr", 2.0))
 
     # 缓存目录处理
     cache_dir_cfg = cfg.get("cache_dir", "resources")
@@ -891,7 +891,15 @@ def main(
     _check_executable("ffmpeg")
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--enable-gpu",
+                "--use-gl=angle",
+                "--disable-software-rasterizer",
+                "--force-device-scale-factor={}".format(dpr),
+            ]
+        )
         context = browser.new_context(
             viewport={"width": width, "height": height},
             device_scale_factor=dpr,
@@ -950,6 +958,8 @@ def main(
                "-async", "1",
                "-vsync", "cfr",
                "-c:v", "libx264",
+               "-preset", "slower",
+               "-crf", "18",
                "-pix_fmt", "yuv420p",
                "-c:a", "aac",
                str(out_path),
@@ -965,6 +975,8 @@ def main(
             "-async", "1",
             "-vsync", "cfr",
             "-c:v", "libx264",
+            "-preset", "slower",
+            "-crf", "18",
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
             str(out_path),
