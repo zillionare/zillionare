@@ -87,6 +87,7 @@ LOF 套利看起来很安全，但天下没有免费的午餐，LOF 套利尽管
 
 我们把核心代码展示如下：
 
+````md
 ```python 
 # 这里是获取所有 LOF 的实时行情，如最新价、折价率等
 df_spot = ak.fund_lof_spot_em()
@@ -106,6 +107,7 @@ if nav_cols:
     redemption_map = dict(zip(df_nav["基金代码"], df_nav["赎回状态"]))
     logger.info(f"Using NAV column: {latest_nav_col}")
 ```
+````
 
 
 
@@ -125,6 +127,12 @@ if nav_cols:
 <!-- END IPYNB STRIPOUT -->
 
 <!--PAID CONTENT START-->
+以下代码请复制到本地运行。运行前请安装 schedule 库：
+
+```bash
+pip install schedule
+```
+
 ```python
 #!/usr/bin/env python3
 """
