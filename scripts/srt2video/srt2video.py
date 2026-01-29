@@ -43,7 +43,7 @@ import fire
 import yaml
 from loguru import logger
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 ANIMATE_CSS_CDN = "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 
