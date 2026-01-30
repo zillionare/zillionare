@@ -162,7 +162,7 @@ title: 因子投资与机器学习策略
 </div><!--blackboard-->
 
 <div class="contact">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans_100.jpg"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png"/>
 <span>扫码加课程助教</span>
 </div>
 

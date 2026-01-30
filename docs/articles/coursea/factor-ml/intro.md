@@ -168,7 +168,7 @@ tags:
 !!! tip "立即报名！"
     扫码报名，锁定最低价格！
 
-    <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans_100.jpg" style="width: 150px;position:relative;float:right"/>
+    <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 150px;position:relative;float:right"/>
 
     * 全网独家精讲 Alphalens 分析报告，助你精通因子检验和调优。
     * 超 400 个独立因子，分类精讲底层逻辑，学完带走 350+ 因子实现。
