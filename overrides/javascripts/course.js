@@ -16,7 +16,7 @@ var ad = [
     '<p>面向策略研究员的专业课程，涵盖<b>因子挖掘</b>、<b>因子检验</b>和基于<b>机器学习</b>的策略开发三大模块，构建你的个人竞争优势！</p>',
     '<ol>',
     '<div style="text-align:center;width:120px;float:right;margin-top:-20px">',
-    '<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans_100.jpg"/>',
+    '<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png"/>',
     '<span>课程助教: 宽粉</span>',
     '</div>',
     '<li>全网独家精讲 Alphalens 分析报告，助你精通因子检验和调优。</li>',
