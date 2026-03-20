@@ -2,7 +2,7 @@
 title: 反抗者的崛起！Fawce 和 Quantopian 的量化之路
 slug: john-fawcett-with-quantopian
 date: 2024-06-01
-img: https://images.jieyu.ai/images/2024/06/john-fawcett.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg
 category:
   - 人物
 tags:
@@ -20,13 +20,13 @@ Quantopian 正是这一群人的领袖。John Fawcett（昵称 Fawce）则是这
 
 Fawcett 出生于一个普通的家庭。他的父母在退休之前，基本上都要同时打 3~4 份工来维持生计。尽管如此，他的父母坚持把子女的教育放在第一位，供他上了哈佛。他还有一个哥哥，后来选择了教育事业，成为了一名中学校长。这样的出身和家庭背景，对他的理念形成产生了重要的影响。
 
-![](https://images.jieyu.ai/images/2024/06/john-fawcett.avif)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.avif)
 
 Fawcett 本科毕业于哈佛，专业是四大天坑之一的材料学。在千禧年前后的.com 泡沫白热化期间，他爱上了编程，于是搬到旧金山，为 Scient（一家软件咨询公司）工作。在这里，他管理美国职业棒球联盟的视频编码项目。
 
 
 
-![L50](https://images.jieyu.ai/images/2024/06/john-fawcett-2.png)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett-2.png)
 
 John Fawcett 的量化之路起源于爱情的指引。他在 Scient 的事业很顺利，但他的女朋友在波士顿上医学院，于是，他又回到了东部，并在一家对冲基金找到了一份分析师的工作。Fawcett 发现这时的自己还并不擅长资产管理，他的工作是为投资经理编写软件，使得信息的收集和分析得以自动化。
 
@@ -43,7 +43,7 @@ John Fawcett 的量化之路起源于爱情的指引。他在 Scient 的事业�
 
 Fawcett 决心改变这种状态，给金融袪魅，实现量化投资过程的平民化，要为业余交易者--包括从来自康奈尔大学的计算机学生，到为互联网公司工作的高级数据科学家，再到机械工程师--为他们提供进入量化领域的机会，这是 Fawcett 曾经幸运地拥有、但不是所有人都能得到的机会。
 
-![](https://images.jieyu.ai/images/2024/06/quantopian.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/quantopian.png)
 
 要有光。
 
@@ -64,7 +64,7 @@ Quantopian 的想法迅速吸引了大量的宽客：航空航天工程师、消
 
 在 Quantopian 终止运营之后，许多用户猛然发现，自己在社区中留下了大量的 Notebook、想法、互动和回忆。
 
-![](https://images.jieyu.ai/images/2024/06/quantopian-shutdown.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/quantopian-shutdown.png)
 
 一位用户写道，“我一生中从未见过有这么多聪明人愿意与我分享如此多的信息而不求任何回报。我现在并将永远感激你们为我所做的一切”。
 
@@ -79,7 +79,7 @@ Quantopian 的失败，只是商业上的失败。在实现金融平民化的愿
 
 Quantopian提供的教育资源和平台更是帮助了许多人成功转型。
 
-![L50](https://images.jieyu.ai/images/2024/06/saeed.png)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/saeed.png)
 
 在Quantopian的网站上，Fawcett分享了赛义德·拉赫曼的转型故事。赛义德出生在一个股市受到污名化，股市经常与赌博联系在一起的国家。他在本科期间接受了时间序列分析和数据科学的训练，并通过互联网攻读了 CFA 1 级。进一步深造在他的国家是不可能的，但去美国学习是一个对他难以抉择的重大决定，更不用说由于缺乏奖学金带来的财务障碍（在美国读金融真是太贵了！）。幸运地是，在他读研究生期间，发现了 Quantopian。对于赛义德来说，这个平台不仅仅是一个工具，更是知识和机会的灯塔。正是在这里，赛义德不仅磨练了自己的技能，还找到了灵感和社区。
 

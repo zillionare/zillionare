@@ -1,36 +1,10 @@
 site_name: 匡醍量化|大富翁量化
-site_url: http://www.quantide.cn/
+site_url: https://blog.quantide.cn/
 repo_url: https://github.com/zillionare/zillionare
 repo_name: zillionare
-site_description: 匡醍 量化软件 量化策略 量化课程 邢不行 CQF 大富翁 backtrader AI Python量化 聚宽 数字货币 金融大数据及量化分析 Quantide quantide
+site_description: 匡醍 量化软件 量化资源 免费资料 量化课程 CQF 大富翁 backtrader AI Python量化 金融大数据及量化分析 Quantide quantide
 #strict: true
 
-nav:
-  - 最新文章: '/'
-  - 量化课程:
-    - 因子投资与机器学习策略:
-      - 简介: articles/coursea/factor-ml/intro.md
-      - 课程大纲: articles/coursea/factor-ml/syllabus.html
-    - 量化二十四课:
-      - 简介: articles/coursea/24lectures/intro.md
-      - 课程大纲: articles/coursea/24lectures/syllabus.html
-      - FAQ: articles/coursea/24lectures/faq.md
-      - 内容详情: articles/coursea/24lectures/detail.md
-      - 课程预览: articles/coursea/24lectures/preview.md
-    - 量化中的Numpy和Pandas:
-      - 简介: articles/coursea/numpy-pandas/intro.md
-      - 课程大纲: articles/coursea/numpy-pandas/syllabus.html
-  - 量化产品:
-    - ... | articles/products/**
-  - 播客:
-    - ... | podcast/**
-  - 策略研究:
-    - ... | articles/investment/**
-  - 学Python:
-    - ... | articles/python/**
-  - 文章分类: tags
-  - Follow Us:
-    - contact.md
 theme:
   name: material
   language: zh
@@ -47,6 +21,8 @@ exclude_docs: |
   _drafts/**
   _archive/**
   videoscripts/**
+not_in_nav: |
+  /articles/express/_references.md
 markdown_extensions:
   - footnotes
   - pymdownx.emoji:
@@ -73,19 +49,17 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 plugins:
+  - git-revision-date-localized:
+      enable_fallback: true
+      type: iso_date
   - include-markdown
-  - awesome-pages:
-      collapse_single_pages: true
+  - awesome-nav:
+      flatten_single_child_sections: true
   - blog:
       blog_dir: blog/posts
       # date_format: "%Y-%m-%d"
   - tags:
       tags_file: tags.md
-  - redirects:
-      redirect_maps:
-        'articles/coursea/cheese/intro.md': 'articles/coursea/24lectures/intro.md'
-        'articles/coursea/cheese/outline.md': articles/coursea/24lectures/intro.md
-        'blog/2024/01/24/finding-alphas-a-quantitative-approach.md': 'http://www.jieyu.ai/blog/2024/01/25/finding-alphas-a-quantitative-approach/'
   - rss:
       match_path: "(blog|articles)/.*"
       categories:
@@ -101,9 +75,9 @@ plugins:
       lang: zh
 extra:
   social:
-    - icon: fontawesome/brands/qq
-      link: http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=zxYR3Hve6OMGLvEdgV4z_ONxcOF3hjMh&authKey=eoPjHqcwDIyiTQRNE6jGw1ReDajzXnGHtkAgwapdicr9n%2FPStD3FKit2miTi0zhC&noverify=0&group_code=578029127
-      name: QQ群
+    - icon: fontawesome/brands/weixin
+      link: https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg
+      name: 公众号
     - icon: fontawesome/brands/zhihu
       link: https://www.zhihu.com/people/hbaaron
       name: 知乎
@@ -111,10 +85,10 @@ extra:
       link: https://github.com/zillionare
       name: Github
     - icon: material/email
-      link: "mailto: aaron_yang@jieyu.ai"
+      link: "mailto: aaron_yang@quantide.cn"
   analytics:
     provider: google
-    property: G-EHVH3XCS1V
+    property: G-L3VJKHX7K1
 
 extra_javascript:
   - overrides/javascripts/course.js

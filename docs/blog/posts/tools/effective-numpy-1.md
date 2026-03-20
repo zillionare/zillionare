@@ -4,7 +4,7 @@ date: 2024-08-25
 category: tools
 slug: effective-numpy-1
 motto: 
-img: https://images.jieyu.ai/images/2024/08/noise-test-title-image.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-title-image.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [numpy, code]

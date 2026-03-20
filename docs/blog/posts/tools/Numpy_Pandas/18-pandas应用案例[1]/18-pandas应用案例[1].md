@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-18
 date: 2025-04-04
 category: tools
 motto: Perseverance is not a long race; it is many short races one after the other.
-img: https://images.jieyu.ai/images/hot/mybook/christmas.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -30,12 +30,12 @@ tags:
 - 典型应用：移动平均、波动率计算（标准差）、技术指标（如MACD）等。
 
 核心参数：
-| 参数  | 说明   |
-|-------|-------------|
-|  window	 |   窗口大小（整数或时间偏移，如 '5D'）                        |
-|  min_periods |	窗口内最少有效数据量，否则结果为 NaN（默认等于 window）              |
-|  center	  |   窗口对齐方式（False为右对齐，True为居中）                |
-|  win_type	  |    窗口权重类型（如 'gaussian'）                      |
+| 参数        | 说明                                                    |
+| ----------- | ------------------------------------------------------- |
+| window      | 窗口大小（整数或时间偏移，如 '5D'）                     |
+| min_periods | 窗口内最少有效数据量，否则结果为 NaN（默认等于 window） |
+| center      | 窗口对齐方式（False为右对齐，True为居中）               |
+| win_type    | 窗口权重类型（如 'gaussian'）                           |
 
 
 ### 1.1. HHV（N周期内最高值）
@@ -96,7 +96,7 @@ print(df)
 
 ---
 
-![](https://images.jieyu.ai/images/2025/03/078.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/078.png)
 
 ## 2. 补齐分钟线缺失的复权因子
 量化分析中，可能在处理股票分钟线数据时，复权因子数据存在缺失，需要根据时间进行临近匹配，确保每个分钟数据点都有正确的复权因子。复权因子通常是在股票发生拆分或分红时调整的，这些事件的时间点可能不会正好匹配分钟线的每个时间戳，例如：
@@ -180,7 +180,7 @@ merged = pd.merge_asof(
 merged
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/079.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/079.png)
 
 ---
 
@@ -204,7 +204,7 @@ df_adjust['time'] = df_adjust['time'] + pd.Timedelta(seconds=30)  # 延后30秒�
 df_adjust
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/080.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/080.png)
 
 ---
 
@@ -214,11 +214,11 @@ merged['adjust_factor'] = merged['adjust_factor'].ffill()  # 前向填充缺失�
 ```
 
 ### 2.3. 与其他方法对比
-| 方法	| 适用场景 |	优点	| 缺点 |
-| --- | --- | --- | --- |
-| merge_asof	| 时间邻近匹配	| 处理非对齐时间戳效率高	| 需预先排序数据 |
-| merge	| 精确时间匹配	| 结果精确	| 无法处理时间偏差 |
-| concat	| 简单堆叠	| 快速合并	| 不处理时间关联 |
+| 方法       | 适用场景     | 优点                   | 缺点             |
+| ---------- | ------------ | ---------------------- | ---------------- |
+| merge_asof | 时间邻近匹配 | 处理非对齐时间戳效率高 | 需预先排序数据   |
+| merge      | 精确时间匹配 | 结果精确               | 无法处理时间偏差 |
+| concat     | 简单堆叠     | 快速合并               | 不处理时间关联   |
 
 
 ## 3. 为Alphalens准备数据
@@ -251,7 +251,7 @@ factor.index = pd.MultiIndex.from_arrays(
 factor
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/081.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
 
 #### 3.1.2. ​价格数据格式
 
@@ -272,7 +272,7 @@ prices.index = pd.to_datetime(prices.index)  # 日期转换为datetime类型
 ```
 
 
-![50%](https://images.jieyu.ai/images/2025/03/081.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
 
 
 ### 3.2. 关键预处理操作
@@ -382,11 +382,11 @@ alphalens.tears.create_full_tear_sheet(factor_data)
 ---
 
 ### 3.5. 常见问题解决方案
-| 问题现象	| 解决方法 |
-| --- | --- |
-| ValueError: 价格数据包含未来信息	| 检查价格数据时间戳是否晚于因子时间戳，用prices = prices.shift(1) 滞后一期 |
-| KeyError: 资产代码不匹配	| 使用prices.columns.intersection(factor.index.get_level_values('symbol')) 取交集 |
-| 图表显示空白	| 在Jupyter Notebook中运行，并添加%matplotlib inline 魔术命令 |
+| 问题现象                         | 解决方法                                                                        |
+| -------------------------------- | ------------------------------------------------------------------------------- |
+| ValueError: 价格数据包含未来信息 | 检查价格数据时间戳是否晚于因子时间戳，用prices = prices.shift(1) 滞后一期       |
+| KeyError: 资产代码不匹配         | 使用prices.columns.intersection(factor.index.get_level_values('symbol')) 取交集 |
+| 图表显示空白                     | 在Jupyter Notebook中运行，并添加%matplotlib inline 魔术命令                     |
 
 
 

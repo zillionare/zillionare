@@ -1,0 +1,333 @@
+0:00 - Hi guys, let's get acquainted with the
+0:02 - polars library and we will compare it
+0:05 - with the ever popular pandas. Polars is
+0:08 - a fast and efficient dataf frame library
+0:10 - designed for working with large data
+0:12 - sets. It is built with performance in
+0:14 - mind utilizing multi-threading and
+0:16 - parallel processing to handle data
+0:18 - manipulation tasks quickly. Polar is
+0:21 - implemented in Rust which allows it to
+0:23 - offer superior speed compared to other
+0:26 - dataf frame libraries like pandas. The
+0:28 - library supports operations such as
+0:31 - filtering, aggregation, and
+0:32 - transformation of data. And it's
+0:34 - particularly useful for data analysts
+0:36 - and data scientists who need to work
+0:39 - with large volumes of data efficiently.
+0:42 - With both a Python and RS API, polars is
+0:45 - accessible and powerful for modern data
+0:47 - processing workflows. As I said before,
+0:50 - this library provides a wide range of
+0:52 - functions for data manipulation,
+0:54 - aggregation, and transformation. But in
+0:56 - my opinion, its main feature is lazy
+0:59 - evaluation. What is lazy evaluation?
+1:02 - Lazy evaluation is a computational
+1:04 - strategy that delays the execution of an
+1:07 - operation until its result is actually
+1:10 - needed. In the context of polars, this
+1:12 - means that data manipulation operations
+1:15 - aren't executed immediately when they
+1:17 - are defined. Instead, they are recorded
+1:20 - as a series of steps to be executed
+1:23 - later. This approach allows polers to
+1:25 - optimize the entire sequence of
+1:27 - operations reducing the overall
+1:29 - computational workload and improving
+1:31 - performance by only executing necessary
+1:34 - calculations at the end. Another
+1:36 - important feature is multi-threaded
+1:39 - processing. One of the key advantages of
+1:41 - polars its ability to process data using
+1:44 - multiple threads at the same time. This
+1:47 - means that instead of performing tasks
+1:49 - one after another sequentially, polars
+1:52 - can split the workload into smaller
+1:54 - parts and run them simultaneously across
+1:57 - multiple CPU cores. They significantly
+2:00 - speed up data operations, especially
+2:03 - when working with large data sets. Polar
+2:06 - suggests this efficiency because it's
+2:08 - built with Rust, a programming language
+2:10 - designed for high performance and safe
+2:12 - memory management. Rust makes it easier
+2:15 - to work with parallel computing, meaning
+2:17 - that polars can fully utilize the power
+2:20 - of modern computers with multi-core
+2:22 - processors.
+2:24 - Another powerful feature in polars, its
+2:27 - ability to memory map data. It means
+2:29 - that instead of loading an entire large
+2:32 - data set into RAM, which could slow down
+2:34 - your computer or even cause it to crash,
+2:37 - polers can read and process only the
+2:39 - parts that are needed at the moment. For
+2:41 - example, if you are working with massive
+2:43 - CSV or park key file, Polers doesn't
+2:47 - need to load the whole file into memory.
+2:49 - Instead, it accesses the data directly
+2:52 - from the file as needed, making the
+2:54 - process much faster and more memory
+2:56 - efficient. These features make Polers an
+2:59 - excellent choice for working with big
+3:00 - data as it helps analysts and
+3:02 - researchers handle large data sets
+3:04 - quickly and effectively without
+3:06 - requiring high-end hardware.
+3:09 - Polar is built on top of Apache Arrow, a
+3:13 - data format designed to make data
+3:15 - storage and transfer faster and more
+3:17 - efficient. Think of Arrow as a high
+3:20 - optimized way to organize and structure
+3:22 - data so that it can be processed quickly
+3:24 - by different systems. Because arrow is
+3:27 - used by polars, it allows polars to
+3:29 - share data seamlessly with other tools
+3:32 - and systems that also use arrow. For
+3:34 - example, if you're working in polars and
+3:37 - want to pass your data to different
+3:39 - system like a machine learning tool or
+3:42 - another data analysis library, arrow
+3:44 - makes that data transfer happen smoothly
+3:46 - and efficiently without needing to
+3:48 - convert data into a different format
+3:50 - which can be slow and costly. Another
+3:53 - feature that makes polars userfriendly,
+3:56 - it's pandas like API. Pandas is one of
+4:00 - the most popular tools for data analysis
+4:02 - in Python and many data analysts and
+4:05 - scientists are already familiar with how
+4:07 - it works. Polers was designed to feel
+4:09 - familiar to pandas users. So if you
+4:12 - already know pandas, you can start using
+4:14 - polars without needing to learn
+4:16 - everything from scratch. However, while
+4:19 - the API look familiar, polars had the
+4:21 - added performance advantage of being
+4:23 - faster and more efficient, especially
+4:25 - when dealing with large data sets. So if
+4:28 - you are coming from pandas you can
+4:30 - benefit from the same easy to use syntax
+4:33 - but enjoy the speed and memory
+4:35 - efficiency of polars.
+4:38 - Even though polars has many great
+4:40 - features there are some limitation to
+4:42 - consider. It's important to keep in mind
+4:45 - that like any tool it may not be the
+4:47 - best fit for every situation. We will go
+4:50 - into more detail about these drawbacks
+4:52 - later on but for now let's take a look
+4:55 - at some of the challenges. One potential
+4:57 - disadvantage is that Polars is
+5:00 - relatively new compared to more
+5:02 - established libraries like pandas. Since
+5:05 - it's still growing, there may be fewer
+5:07 - resources available such as tutorials,
+5:10 - community support, or documentation,
+5:12 - which could make it harder for beginners
+5:14 - to get started. Also, since it's new,
+5:18 - there may be fewer examples of how
+5:20 - companies are using it in real world
+5:22 - large scale projects. Because polars is
+5:25 - not as widely adopted yet, there is
+5:27 - limited information about how many
+5:29 - companies are using it in production
+5:31 - environment. The real world systems
+5:33 - where companies run their operations.
+5:36 - Most companies that use polars might not
+5:39 - publicly share details about how it fits
+5:42 - into their workflows. So, it's harder to
+5:44 - know how well it performs under very
+5:46 - large or complex workloads. However,
+5:49 - some companies are starting to use
+5:51 - polars for their data processing tasks
+5:53 - and you might see examples of this in
+5:56 - the industry. As the library matures,
+5:59 - its adoption will likely grow and more
+6:02 - companies will start sharing their
+6:03 - experiences.
+6:05 - So, let's get started.
+6:07 - Now, we need to install the library.
+6:09 - I'll go to the site. Here's the command
+6:12 - to install the library. Let's get
+6:14 - started. I will open my terminal since
+6:17 - I'm used to working with it. First, I
+6:20 - will activate my virtual environment. If
+6:22 - you're not familiar with virtual
+6:24 - environments, I strongly recommend
+6:26 - checking out my video on how to manage
+6:28 - virtual environments and how they can
+6:30 - make your life easier. But if you don't
+6:33 - know what a virtual environment is, you
+6:35 - can run the command directly in the
+6:37 - terminal. Right now, knowing how to work
+6:40 - with virtual environment is not
+6:42 - priority. After activating my
+6:44 - environment, I can run my Jupyter
+6:46 - notebook right from the terminal by
+6:49 - executing the command Jupyter notebook.
+6:52 - If you use Anaconda, after starting
+6:54 - Jupyter Notebook, you can install this
+6:56 - library directly inside Jupiter by
+6:58 - running the following command. As you
+7:01 - can see, I already have the library
+7:03 - installed. So, we can start working.
+7:06 - First, I will import all the necessary
+7:09 - libraries that we will be working with.
+7:12 - I'm importing the NumPy library because
+7:14 - we'll need it. For those who aren't
+7:16 - familiar with it, Numpai is a powerful
+7:18 - Python library used for numerical
+7:20 - computing. In my profile, you can find a
+7:23 - tutorial on this library.
+7:26 - Then I will check the version of polars.
+7:31 - I've downloaded a huge data set over 1
+7:34 - GB in size. And now I'm going to import
+7:38 - it using the read CSV function in Polus.
+7:41 - It takes a little time to load.
+7:46 - Then using the shape function which you
+7:49 - may have heard from pandas, we can check
+7:52 - the dimensions of our data set. If
+7:54 - you're not familiar with it, the shape
+7:56 - function in polars returns the tpple
+7:59 - representing the number of rows and
+8:00 - columns in the data frame. This function
+8:03 - is useful for quickly understanding the
+8:05 - size of your data set. And here we can
+8:08 - see that the data set contains more than
+8:11 - 130 million rows. Another useful
+8:14 - function for quickly understanding a
+8:16 - data frame without loading all the data
+8:19 - is the head function. By default, it
+8:22 - displays the first five rows. As we can
+8:25 - see, the appearance of the data frame in
+8:28 - polars is slightly different from what
+8:30 - we observed when loading data with
+8:33 - pandas. The first noticeable difference
+8:35 - is the data type information displayed
+8:38 - for each column.
+8:40 - Using the two pandas function in polars,
+8:43 - we can convert polar data frame into a
+8:46 - pandas data frame. This is particularly
+8:48 - useful when you need to leverage pandas
+8:51 - specific functionality or integrate with
+8:54 - libraries that only support pandas data
+8:56 - frames. The two pandas method ensures a
+9:00 - smooth transition between polars and
+9:01 - pandas allowing you to take advantage of
+9:04 - both libraries within the same workflow.
+9:08 - If you don't want to download large data
+9:10 - sets onto your computer, you can use
+9:12 - publicly available data sets on GitHub.
+9:15 - To do this, find a large data set on
+9:18 - GitHub.
+9:20 - Go to the row tab and copy the direct
+9:24 - link.
+9:27 - Use the read CSV function in Polers to
+9:30 - load it.
+9:33 - Like before, it takes a little time to
+9:35 - process,
+9:37 - but eventually we can see the data.
+9:41 - For today's example, we are working with
+9:44 - the Chicago crime data set of for 2022.
+9:50 - We can also check the column types and
+9:53 - we can see that it contains 2,525,551
+10:00 - rows. Quite large, but not too
+10:03 - overwhelming.
+10:04 - To avoid confusion with the first data
+10:06 - frame we loaded earlier, I'll rename
+10:09 - this new data frame.
+10:11 - I will still use the first data frame
+10:14 - later, but for now we will work with
+10:16 - this second one which was loaded from
+10:18 - GitHub. I will reload it all cells just
+10:22 - like in pandas.
+10:25 - In polars, a series is one-dimensional
+10:28 - array like structure that represents a
+10:30 - single column of a data frame. It can
+10:33 - contain homogeneous data types such as
+10:36 - integers, floats, strings, booleans.
+10:39 - Series are the building blocks of data
+10:41 - frames and polars. They allow us to
+10:43 - perform various data manipulation and
+10:46 - analysis operation such as filtering,
+10:48 - transformation, and aggregation. Each
+10:51 - series has an associated name and data
+10:53 - type, making it easy to reference within
+10:56 - the data frame.
+10:58 - We can extract a series from a data
+11:00 - frame in several ways. The first one
+11:03 - using the column name.
+11:06 - The most straightforward way is
+11:07 - accessing the column by name.
+11:10 - To avoid loading the entire series in
+11:13 - large data sets, I will use the head
+11:15 - function to display only the first four
+11:18 - rows.
+11:20 - The second one using get column
+11:23 - function. This approach has performance
+11:26 - and flexibility advantages over direct
+11:28 - column access. For me, the main reason
+11:30 - to use get column function is its error
+11:33 - handling. If you try to retrieve a
+11:36 - non-existent column, Polers immediately
+11:38 - raises an error. This provides instant
+11:41 - feedback if there is a typo in the
+11:43 - column name. In contrast, accessing a
+11:46 - column by name may either silently
+11:48 - return none or raise a key error, which
+11:51 - can make debugging harder.
+11:54 - The third way is the select method. It
+11:58 - creates a new data frame containing only
+12:01 - the specified column. However, even if
+12:03 - it contains just one column, the result
+12:06 - is still a data frame. To work directly
+12:08 - with a series, we need to convert it
+12:11 - using two series function. The select
+12:14 - method in polars returns a new data
+12:16 - frame even if we are selecting only a
+12:18 - single column. This means that if I
+12:21 - create S1 variable and assign this
+12:25 - result to it, it's not just a single
+12:27 - column but the polar data frame
+12:29 - containing one column. So if I check the
+12:33 - D type of S1 also I remove to series
+12:37 - method, it might result in an error as D
+12:40 - type is typically an attribute of series
+12:42 - not a data frame. And here we are we
+12:45 - have an error. If I again use two series
+12:48 - method,
+12:50 - S1 is no longer a data frame but a polar
+12:53 - series and the type attribute will
+12:55 - return the data type of district column.
+12:58 - Let's print it out.
+13:00 - In the first case, we can see that print
+13:03 - as one displays the value of the
+13:05 - district column as a series. Here we can
+13:08 - see the shape, the data type and the
+13:11 - values.
+13:14 - The second case displays the district
+13:17 - column inside a data frame format
+13:19 - showing the column name and its data.
+13:22 - Now it's time to take a pause and do
+13:24 - some practice.
+13:28 - In polars, we can perform arithmetic
+13:30 - operations on series or columns using
+13:33 - standard Python operations.
+13:36 - For example, we can use addition. If we
+13:40 - want to add 10 to a series, we can see
+13:42 - that each number in the resulting series
+13:45 - has increased by exactly 10 compared to
+13:47 - the number in the original series. Here
+13:50 - I print the original series and we can
+13:53 - see the result. Each value increases by
+13:55 - 10.
+13:57 - Multiplication. Multiplying a series by
+14:00 - two doubles each value. Here I compare
+14:04 - to the original series and we can see
+14:06 - that each value is doubled.
+14:09 - Subtraction. Subtracting 20 decreases
+14:12 - each value by 20.
+14:15 - Let's go on with aggregation methods.

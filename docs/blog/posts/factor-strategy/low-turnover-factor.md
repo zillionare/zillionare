@@ -14,7 +14,7 @@ tags:
     - 因子分析
 ---
 
-![R50](https://images.jieyu.ai/images/2024/01/alphalens.jpg?2)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg?2)
 因子分析是量化研究的基本技能之一。通过因子分析，找出有效的因子，通过相关性去重后，就可以通过机器学习、线性回归等方法把因子组合起来，构成交易策略。
 
 这一篇笔记我们就介绍如何使用 Alphalens 来进行单因子分析。我们使用的因子是低换手率因子。
@@ -50,7 +50,7 @@ tags:
 
 Alphalens 能生成的报告非常多（下图为其中之一），所以，第 4 步我们将分几篇笔记详细进行介绍。
 
-![](https://images.jieyu.ai/images/2024/01/alphalens-violion.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-violion.jpg)
 
 一个完整的因子分析流程包括原始数据获取、生成因子、数据（及因子）预处理、因子检验。
 
@@ -88,7 +88,7 @@ bars = ak.stock_zh_a_hist("000001", adjust="hfq", start_date="20150104")
 bars.tail()
 ```
 
-![](https://images.jieyu.ai/images/2024/01/bars-returned-by-akshare.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/bars-returned-by-akshare.jpg)
 
 返回值有很多列，我们只关心日期、收盘和换手率这三项。这个 API 有一个 adjust 参数，即要求我们选择复权方式。在本例中我们使用 qfq 和 hfq 都没有任何区别，但是不能使用不复权数据。
 
@@ -119,7 +119,7 @@ def prepare_data(secs: List[str], start: str, end: str):
 
 alphalens 进行分析时，需要的 factor 数据表的格式如下：
 
-![75%](https://images.jieyu.ai/images/2023/07/factor_df_format.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/factor_df_format.png)
 
 关键之处是，它是必须是一个由 date + asset 的双重索引的 DataFrame。而这个 dataframe 应该只有一列，列名字没有规定，但建议使用 factor 这样的列名字，这样更容易理解（bad example here!）。
 
@@ -148,7 +148,7 @@ def prepare_data(secs: List[str], start: str, end: str):
 
 prices 表格必须转换成以下格式：
 
-![](https://images.jieyu.ai/images/2023/07/prices_df_format.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/prices_df_format.png)
 
 格式的要点是，它是以日期为索引，每个 asset 的代码为列的一个 dataframe，每一个 cell 的值则是当天某个 asset 对应的收盘价。
 
@@ -156,7 +156,7 @@ prices 表格必须转换成以下格式：
 
 ---
 
-![](https://images.jieyu.ai/images/2023/07/pivot_table.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/pivot_table.png)
 
 现在，我们就得到了符合 alphalens 要求的数据。数据准备工作已经完成。
 
@@ -178,7 +178,7 @@ factor_data.tail()
 
 经过预处理后的结果如下：
 
-![75%](https://images.jieyu.ai/images/2024/01/alphalens-clean-factor-data.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-clean-factor-data.jpg)
 
 ---
 
@@ -194,13 +194,13 @@ bins/quantiles 的用法类似于 dataframe 的 cut 或者 hist() 函数中的�
 factor_data.groupby("factor_quantile").count()
 ```
 
-![50%](https://images.jieyu.ai/images/2024/01/alphalens-bins-by-quantile.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-bins-by-quantile.jpg)
 
 如果我们不使用 quantiles 参数，而是指定 bin 为 10，则它会把区间 [min(factor), max(factor)] 进行均匀划分，即每个 bins 的宽度一样，但落在 bin 中的个数不一样， groupby 之后的结果如下：
 
 ---
 
-![50%](https://images.jieyu.ai/images/2024/01/alphalens-bins-by-bins.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-bins-by-bins.jpg)
 
 两相对照，两个参数的异同不言自明。
 

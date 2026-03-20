@@ -16,7 +16,7 @@ slug: setup-develop-environments
 
 如果这些理由还不能说服您，我们还可以看看资深程序员是如何选择操作系统的。下图是 StackOverflow[^stackoverflow] 网站在 2022 年的一个调查：
 
-![](https://images.jieyu.ai/images/2023/03/20230304160004.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304160004.png)
 
 每一项右边的数字，表明在受调查者中，有多少人（百分比）在使用该操作系统。从图中可以看出，如果把 Linux 自身的使用量与 WSL 的使用量（WSL 是一种 Linux）加在一起，专业使用者的占比已经达到了 54.23%，超过使用 Windows 作为开发平台的专业使用者（48.82%），Linux 已经是排名第一的操作系统。
 
@@ -46,12 +46,12 @@ wsl --install --set-defalut-version=1
 
 1. 首先，启用“适用于 Linux 的 Windows 子系统”功能：
 
-![](http://images.jieyu.ai/images/2020-05/20200503185200[1].png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2020-05/20200503185200[1].png)
 
 2. 设置后，需要重启一次电脑。
 3. 从 Windows 应用商店搜索安装一个 Linux 发行版，在这里的示例中，我们使用 Ubuntu:
 
-![](http://images.jieyu.ai/images/2020-05/20200503191417[1].png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2020-05/20200503191417[1].png)
 
 现在，在搜索栏输入 Ubuntu，就会打开 Ubuntu shell。由于是第一次运行，此时会提示我们输入用户名和口令。这样 WSL 就安装成功了。此后，也可以从搜索框输入`wsl`命令来启动这个系统。
 
@@ -62,7 +62,7 @@ wsl --install --set-defalut-version=1
 
 我们需要写三个脚本，一个 start.vbs，一个 control.bat 和一个 commands.txt，并且增加一个开机自动执行的计划任务。当 Windows 开机后，这个计划任务自动执行，调用 start.vbs 来执行 control.bat, 而 control.bat 则会启动 WSL（及其依赖的 Windows 服务），并在 WSL 环境下执行定义在 commands.txt 中的那些命令--即将要在 WSL 中运行的服务，比如 ssh server。整个过程如下图所示：
 
-![](https://images.jieyu.ai/images/2023/03/20230304153221.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304153221.png)
 
 首先，我们在 commands.txt 文件中定义要在 WSL 中运行的后台服务：
 
@@ -129,9 +129,9 @@ Set UAC = Nothing
 
 最后，我们向计划任务程序中添加一个新的开机启动任务：
 
-![](http://images.jieyu.ai/images/202106/20210616215338.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215338.png)
 
-![](http://images.jieyu.ai/images/202106/20210616215237.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215237.png)
 
 需要说明的是，通过 Windows 应用商店安装的 Ubuntu 子系统，它应该已经安装好了 ssh-server，我们在上述操作中所做的事，只不过是让它随 WSL 一起启动而已。但是，如果您发现您的 WSL 中并没有安装 ssh-server，您也可以自行安装。毕竟，这就是一台 Linux 服务器，您可以在上面安装 Linux 上的绝大多数软件。
 
@@ -139,7 +139,7 @@ Set UAC = Nothing
 
 在本书写作时，WSL 2.0 已经有了支持图形化界面的预览版，称之为 [wslg](https://github.com/microsoft/wslg)。未来这个版本将合并到 WSL 中，随 Windows 一起发行的正式版发行。下图是 wslg 图形化界面的一个效果图：
 
-![](http://images.jieyu.ai/images/202108WSLg_IntegratedDesktop.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png)
 
 虽然这与本书的主旨无关，但至少也给了我们一个使用 Linux 的理由，就连微软都这么认真地做 Linux[^Linux] 了，您还要继续使用 Windows 来做开发吗？
 
@@ -148,11 +148,11 @@ WSL 的出现要比 Docker 晚。如果您购机时间较早，那么您的 Wind
 
 安装 Docker 可以从其官方网站 [^docker] 下载，安装完成后，首次运行需要手动启动。可以从搜索框中搜索"Docker"，然后选择"Docker Desktop"来启动，见下图：
 
-![](http://images.jieyu.ai/images/202108docker-app-search.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108docker-app-search.png)
 
 当 Docker 启动后，就会在系统托盘区显示一个通知图标：
 
-![](http://images.jieyu.ai/images/202108whale-icon-systray.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108whale-icon-systray.png)
 
 上图中第三个，鲸鱼图标，即是 Docker 正在运行的标志。点击它可以进入管理界面。首次运行时需要做一些设置，可以参考官方文档。
 
@@ -201,11 +201,11 @@ VS Code 是一个支持多语言编辑开发的平台，它本身只提供了文
 
 安装好 VS Code 之后，在侧边栏上就会出现如下图所示工具栏：
 
-![](http://images.jieyu.ai/images/20210820210809145433.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145433.png)
 
 被圆形框框住的图标对应着扩展管理。上部的矩形框可以用来搜索某个扩展，找到对应的扩展并点击，就可以在右边的窗口中看到该扩展的详细信息，如下图所示：
 
-![](http://images.jieyu.ai/images/20210820210809145930.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145930.png)
 
 在这个详细信息页，提供了安装按钮。
 
@@ -230,13 +230,13 @@ Jupyter 是一个允许你在 VS Code 中阅读、开发 notebook 的扩展。�
 
 在 Python 扩展安装完成之后，就可以进行 Python 开发了。在开发之前，需要为工程选择 Python 解释器。可以从命令面板中输入 Python: Select Interpreter 来完成，也可以点击状态栏中的选择图标，如下图所示：
 
-![](http://images.jieyu.ai/images/20210820210806163607.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210806163607.png)
 
 #### 3.2.2. Remote - SSH
 
 这是一个非常有用的扩展，是微软官方开发的扩展之一。它可以让你在 VS Code 中直接打开远程机上的文件夹，编辑并调试运行。如果您使用过 Pycharm 等 IDE，就会知道，尽管这些 IDE 也支持远程开发，但它们是在本地创建文件，调试运行前先要上传同步到远程机器上。频繁同步不仅降低了效率，而且也常常出现未能同步，导致行为与预期不一致，浪费时间查找问题的情况。这也是也是 VS Code 优于 Pycharm 的一个重要特性。
 
-![](http://images.jieyu.ai/images/20210820210809145039.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145039.png)
 
 安装好这个扩展之后，在侧边栏会出现一个远程连接图标。同时，如果当前已经连接到远程机器，则在状态栏最左侧，还会显示该连接的概要信息。
 
@@ -251,18 +251,18 @@ VS Code 虽然提供了 git 的集成，但是许多功能并未通过 GUI 提�
 为实现上述功能，我们需要继续安装扩展。首先是 GitLens。
 #### 3.2.3. GitLens
 
-![](https://images.jieyu.ai/images/2023/03/20230306194047.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306194047.png)
 
 Gitlens 的功能十分强大，是团队开发中常用的一个扩展。它的功能包括：
 
    1. 在文件修改历史中快速导航
    2. 在代码行中提示 blame 信息，如下图所示：
     
-![](http://images.jieyu.ai/images/202108hovers-current-line.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108hovers-current-line.png)
 
    3. gutter change，如下图所示：
       
-![](http://images.jieyu.ai/images/20210820210809160826.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809160826.png)
 
     gutter change 是指在上图中，在编辑区行号指示的右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你回滚变更、或者提交变更。这个功能实际上是 git 的 interactive staging 功能，只不过在命令行下使用这个功能时，它的易用性不太好。
     
@@ -270,7 +270,7 @@ Gitlens 的功能十分强大，是团队开发中常用的一个扩展。它的
 
    4. GitLens 在侧边栏提供了丰富的工具条，如下图所示：
 
-     ![](http://images.jieyu.ai/images/202108views-layout-gitlens.png)
+     ![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
 
 通过这些工具条，你不再需要记忆太多的 git 命令，并且这些命令的结果也以可视化的方式展示，这也会比控制台界面效率高不少。在这些工具栏里，提供了提交视图、仓库视图、分支视图、文件历史视图、标签视图等。
 
@@ -282,11 +282,11 @@ Gitlens 的功能十分强大，是团队开发中常用的一个扩展。它的
 
 这里我们推荐一个名为 git-commit-plugin 的扩展：
 
-![](https://images.jieyu.ai/images/2023/03/20230306195918.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195918.png)
 
 这个扩展会将 commit message 进行分类，并且给每个类别加上 emoji 图标，以便我们更快捷地识别类别：
 
-![](https://images.jieyu.ai/images/202109/20210926101451.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926101451.png)
 
 给代码正确地分类是非常重要的一个任务。如果我们在每一次代码提交时都进行了正确地分类，那么在发行新的版本时，我们就可以根据这些历史提交信息，自动生成 release notes。这样生成的 release notes 也许还需要稍微进行一些修改，但绝对可以避免遗漏重要的修改。
 
@@ -313,13 +313,13 @@ Pycharm 提供了一个非常好用的本地文件历史的功能。在 VS Code 
 
 读者可以安装这个扩展：
 
-![](https://images.jieyu.ai/images/2023/03/20230306195816.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195816.png)
 
 需要注意的是，这个扩展会在工作区生成一个名为.history 的文件夹，以存放本地文件历史。这个文件夹必须被加入到.gitignore 文件中，否则，您很可能会把这个文件夹提交到代码仓库中。这可是一大堆垃圾文件！
 
 下图展示了这个扩展对代码变动的跟踪情况：
 
-![](https://images.jieyu.ai/images/202109/20210926114236.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926114236.png)
 
 #### 3.2.7. 代码辅助与自动完成
 
@@ -340,7 +340,7 @@ Pycharm 提供了一个非常好用的本地文件历史的功能。在 VS Code 
 
 现在，有了人工智能的加持，代码辅助已进化到了令人惊叹的程度。实际上，这本书就是在 Github Copilot[^Github Copilot] 的帮助下完成的，我们可以看一下这个例子：
 
-![](https://images.jieyu.ai/images/202109/20210926150605.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926150605.png)
 
 Copilot 根据前面的输入，自动生成了一个语法通顺的句子（这个句子在上图中显示为灰色），并且与上下文相当协调。这里我并不想使用它提示的用词（主要是担心读者并不愿意看一本机器写的书），但是，必须承认，除非是写诗，我们不必像象古人一样，吟安一个字，拈断数根须，文章并不是每一句都需要精雕细琢，有时候，完全可以使用 Copilot 提示的字句来进行过渡。更多的时候，在写文章时，Copilot 可以起到开拓思路的作用，这无疑是大有裨益的。
 
@@ -351,8 +351,8 @@ Copilot 根据前面的输入，自动生成了一个语法通顺的句子（这
 除了扩展外，VS Code 还有其他一些定制项，比如主题。如果您长期对着电脑工作，推荐您安装一些所谓夜间模式的主题。这些主题当中，Dracula Pycharm Theme 是比较有意思的一个主题。这个主题的名字来源于德古拉伯爵。德古拉伯爵是爱尔兰作家布莱姆·斯托克同名小说中的人物 —— 一个嗜血、专挑年轻美女下手的吸血鬼。这部小说后来被多次改编成电影。考虑到吸血鬼只在夜间出来活动，一款暗夜模式的主题使用这个名字倒也恰如其份。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
@@ -371,7 +371,7 @@ Pycharm 和 VS Code 都是大型开发工具，适合开发大型复杂应用程
 
 Jupyter Notebook 是探索式编程的利器。它提供了一个基于网页的编辑器和运行环境，用户输入被组织成一个个单元格，每个单元格可以是代码单元，也可以是文本单元；代码单元还允许有输出结果，输出结果可以是文本，也可以是图表或图像，如下图所示：
 
-![](https://images.jieyu.ai/images/202109/20210926164037.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926164037.png)
 
 一个正在运行的 Notebook 可以看成是一个进程，在此 Notebook 中的代码单元格里定义的变量和函数都具有全局作用域，每个代码单元格都可以单独执行。这种模式有它极其方便的一面，你可以随时随地在 Notebook 中运行代码，并且可以在不同的代码单元格中进行切换--无论是探索数据的特性，还是探索一个新的程序库的功能，都变得非常容易。
 
@@ -380,7 +380,7 @@ Jupyter Notebook 是探索式编程的利器。它提供了一个基于网页的
 
 Spyder[^spyder] 是专门为科学家、数据分析师、工程师打造的一款开源的编程环境。它具有集成开发环境的高级编辑、分析、调试和 profiling 功能与科学库的数据探索、交互式执行、深度检查和精美可视化功能的独特组合。 我们很容易从它的界面上看出这一点：
 
-![](https://images.jieyu.ai/images/202109/20210927163158.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210927163158.png)
 
 Spyder 包含在 Anaconda 发行版之内，所以一旦安装了 Anaconda，就可以直接使用 Spyder 来编写 Python 代码。在它的官网上也提供了单独的安装包供下载。
 

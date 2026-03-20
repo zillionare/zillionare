@@ -1,7 +1,7 @@
 ---
 title: "Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?"
 date: 2025-06-10
-img: https://images.jieyu.ai/images/2025/05/remote-poster.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png
 categories:
   - tools
 tags:
@@ -13,7 +13,7 @@ tags:
 6 月 7 日，当我启动 Augment 准备继续编写策略时，弹出一条消息提示，大致是，我们刚刚发布了 Remote Agent，你要不要试一试？这个试用需要登录 github 账号，所以我的第一直觉就是，关掉它，我不需要它。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/05/get-remote-agent.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/get-remote-agent.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -26,7 +26,7 @@ tags:
 !!! tip
     1. 适合多个功能同时开发。这与传统团队中，多人同时开发多个功能是一样的。但是，现在是由 augment 为你组建了一个新的开发团队，并且配置了机器。
     2. 功能完成了，根据实现的功能来编写文档。
-    3. 执行 CI/CD 等任务，并修复 bug，提高测试覆盖率。![](https://images.jieyu.ai/images/2025/05/remote-poster.png)
+    3. 执行 CI/CD 等任务，并修复 bug，提高测试覆盖率。![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png)
     4. 在开发功能的同时，有一些紧急的 bug 需要立即修复。
     5. 自信地重构代码（请先确保你一开始就有定整的单元测试以及 CI/CD！）
 
@@ -54,7 +54,7 @@ tags:
 当它完成任务后，它会通过对话面板告诉你，它进行了哪些修改，并可能会列出修改的代码：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/05/remote-agent-apply.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-agent-apply.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -63,7 +63,7 @@ tags:
 那么，正确的『应用』方式应该是什么呢？是通过创建 PR：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/05/work-with-remote-agent.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/work-with-remote-agent.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

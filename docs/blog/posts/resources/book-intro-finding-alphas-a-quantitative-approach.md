@@ -6,7 +6,7 @@ category:
     - "free resources"
 motto: 谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊
 lunar:
-img: https://images.jieyu.ai/images/2024/01/kitty-in-basket.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kitty-in-basket.jpg
 tags: 
     - "free resources"
     - "world quant"
@@ -77,16 +77,16 @@ Alpha起源于60年代的资本资产定价模型（CAPM）理论。该理论认
 
 <div style="display:flex;">
 <div style="flex:50%; ">
-<img src="https://images.jieyu.ai/images/2024/01/finding-alphas.jpg" style="height:200px"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas.jpg" style="height:200px"/>
 </div>
 <div style="flex:50%;">
-<img src="https://images.jieyu.ai/images/2024/01/finding-alphas-toc-1.jpg" style="height:200px"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-1.jpg" style="height:200px"/>
 </div>
 <div style="flex:50%;">
-<img src="https://images.jieyu.ai/images/2024/01/finding-alphas-toc-2.jpg" style="height:200px"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-2.jpg" style="height:200px"/>
 </div>
 <div style="flex:50%;">
-<img src="https://images.jieyu.ai/images/2024/01/finding-alphas-toc-3.jpg" style="height:200px"/>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-3.jpg" style="height:200px"/>
 </div>
 </div>
 

@@ -31,7 +31,7 @@ slug: installation-guide-for-gm-adaptor
 # 1. 安装与配置
 ## 1.1. 安装
 1. 在windows机器上安装[https://emt.eastmoneysec.com/down](https://emt.eastmoneysec.com/down)，下载并安装第二个软件：
-![](https://images.jieyu.ai/images/2023/03/20230403154605.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230403154605.png)
 
 2. 在同一台机器上安装conda，推荐安装miniconda，并创建虚拟运行环境（python版本3.8）：
    ```
@@ -50,15 +50,15 @@ slug: installation-guide-for-gm-adaptor
 
 申请后，记录普通资金账号和密码，如下图：
 
-![](https://images.jieyu.ai/images/2023/04/仿真.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/仿真.jpg)
 
 在登录界面中，选择仿真交易：
 
-![](https://images.jieyu.ai/images/2023/04/login.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/login.jpg)
 
 登录后，界面显示如下：
 
-![](https://images.jieyu.ai/images/2023/04/20230403200024.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403200024.png)
 
 ### 1.3.1. 配置账号
 以下步骤对实盘和模拟盘均有效。
@@ -96,21 +96,21 @@ gm_output/acct_input 文件设置后，如果未创建，gmadaptor 将在启动�
 
 accounts > name 中的值来自于在 EMC 终端中，您创建文件单输入时，指定的名称，见下图中的序号2：
 
-![](https://images.jieyu.ai/images/2023/04/20230403194653.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403194653.png)
 
 accounts > acct_id 来自于下面序号3的位置，点击`ID`即可复制：
 
-![](https://images.jieyu.ai/images/2023/04/20230403195425.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403195425.png)
 
 #### 1.3.1.2. 配置EMC
 
 在 量化 > 文件单 > 文件单输出 中，对下图中的 4，5，6，7 进行配置。其中4选择我们在上面配置文件中gm_output中设置的路径；5选择`csv`作为输出格式；6选择自动启动；7将所有项目全选中。
 
-![](https://images.jieyu.ai/images/2023/04/output.jpg?1)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/output.jpg?1)
 
 在 量化 > 文件单 > 文件单输入 中，对下图中的 3和4进行配置。其中3选择我们在上面配置文件中设置的 acct_input 路径，4选择自动启动。
 
-![](https://images.jieyu.ai/images/2023/04/input.jpg?1)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/input.jpg?1)
 
 
 ### 1.3.2. 模拟运行
@@ -121,7 +121,7 @@ python -m gmadaptor.server
 ```
 如果出现如下界面，表明服务器启动成功：
 
-![](https://images.jieyu.ai/images/2023/04/started.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/started.jpg)
 
 此时我们另开一个`conda`窗口，同样使用`gmclient`的虚拟环境，通过以下命令进行测试:
 ```
@@ -405,5 +405,5 @@ def today_entrusts():
 
 如果您在使用本模块中需要帮助，或者需要参加[《大富翁量化编程实战课》](https://github.com/zillionare)学习，请添加 宽粉 的微信：
 
-![](https://images.jieyu.ai/images/hot/quantfans.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.jpg)
 

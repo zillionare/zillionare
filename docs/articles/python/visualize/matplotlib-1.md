@@ -62,7 +62,7 @@ plt.show()
 
 在创建子图，我们通过给子图绑定到不同的网格，实现了类似excel中的单元格合并的效果，从而实现了异形网格。
 
-![50%](https://images.jieyu.ai/images/2023/07/using_grid_spec.png?2))
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/using_grid_spec.png?2))
 
 这段代码展示了非常多的绘图技巧，值得好好研究。
 
@@ -96,7 +96,7 @@ ax = plt.axes([0,0,1,1], facecolor=(1,1,1,0))
 
 ## matplotlib 
 
-![](https://images.jieyu.ai/images/2023/07/matplotlib.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/matplotlib.png)
 
 主要介绍绘图领域的基础知识，包括图的构成、布局、颜色、坐标等基础概念。
 
@@ -105,17 +105,17 @@ ax = plt.axes([0,0,1,1], facecolor=(1,1,1,0))
 
 plotly是一个高级绘图工具，它可以创建交互式绘图甚至动画！这一部分我们还将介绍Dash，学会后，你也可以仅仅通过Dash，就完成一个能绘制精美图形，并与用户交互的网站应用。
 
-![](https://images.jieyu.ai/images/2023/07/plotly.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/plotly.png)
 
 <!--page-->
 ### seaborn 
 seaborn是基于matplotlib的高级绘图库，它屏蔽了matplotlib中的大部分绘图细节，让你聚焦于探索数据之间的联系与语义！
 
-![75%](https://images.jieyu.ai/images/2023/07/seaborn.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/seaborn.png)
 
 ## PyEcharts 
 
-![75%](https://images.jieyu.ai/images/2023/07/echarts.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/echarts.png)
 
 <!--page-->
 这是国人贡献出来的一个Apache顶级库，类似于plotly，也可以生成交互式绘图。

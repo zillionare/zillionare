@@ -4,7 +4,7 @@ slug: get-clean-factor-and-forward-returns
 date: 2024-07-26
 category: tools
 motto: Learning how to fall teaches you how to land.
-img: https://images.jieyu.ai/images/hot/mybook/girl-on-sofa.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -20,7 +20,7 @@ tags:
 这十二个参数可以归类为5组。factor与price参数作为数据输入，前面已经介绍过了。这里就不再显示了。
 
 
-![](https://images.jieyu.ai/images/2024/07/get-clean-factor-and-forward-returns-group-params.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/get-clean-factor-and-forward-returns-group-params.jpg)
 
 
 通过这些参数的控制，就可以让Alphalens帮我们完成收益计算、分层、缺失值处理和标准化。
@@ -28,7 +28,7 @@ tags:
 这些功能在整个因子分析体系中的位置如下：
 
 
-![](https://images.jieyu.ai/images/2024/07/gcfafr-in-factor-analysis.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gcfafr-in-factor-analysis.png)
 <cap>函数在体系中的位置与作用。计算前向收益等功能未绘出</cap>
 
 

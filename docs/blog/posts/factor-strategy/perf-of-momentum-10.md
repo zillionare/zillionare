@@ -80,13 +80,13 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 因子分层如下：
 
-![](https://images.jieyu.ai/images/2024/08/slope-factor-quantile.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-factor-quantile.jpg)
 
 
 
 分层收益均值图如下：
 
-![](https://images.jieyu.ai/images/2024/08/slope-mpwr.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr.jpg)
 
 
 显然，10期的斜率因子成了反向指标，也就是短期上涨越快，买入后亏损越多。
@@ -96,11 +96,11 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 既然如此，我们就取斜率因子的负数作为新的因子，再运行一次：
 
 
-![](https://images.jieyu.ai/images/2024/08/slope-mpwr-2.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr-2.jpg)
 
 理所当然，这个图只是前面的图的镜像。我们来看看收益：
 
-![](https://images.jieyu.ai/images/2024/08/slope-cum-returns-1.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-1.jpg)
 
 
 7个月的累积收益接近15%了，最大回撤5%左右，在今年来看，表现还可以。
@@ -112,7 +112,7 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 再深入到分层累积收益：
 
-![](https://images.jieyu.ai/images/2024/08/slope-cum-return-by-quantile.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-return-by-quantile.jpg)
 
 可以看出，因子的稳定性比较好，期间没有发生明显的风格转换的情况。
 
@@ -121,7 +121,7 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 如果我们没有机会做空，因子的表现又将如何？下图是纯多情况下的收益：
 
-![](https://images.jieyu.ai/images/2024/08/slope-cum-returns-long-only.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-long-only.jpg)
 
 这个表现并不出人意料。在2月有一个强反弹，在此期间，因子的表现不错。但随后市场越走越弱，动量因子的半衰期越来越短，单多收益就一路走低。
 

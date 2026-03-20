@@ -27,18 +27,23 @@ from dateutil import parser as date_parser
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('news_crawler.log'),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("news_crawler.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger(__name__)
 
+
 class NewsArticle:
     """新闻文章数据类"""
-    def __init__(self, title: str, url: str, content: str = "", 
-                 published: Optional[datetime] = None, source: str = ""):
+
+    def __init__(
+        self,
+        title: str,
+        url: str,
+        content: str = "",
+        published: Optional[datetime] = None,
+        source: str = "",
+    ):
         self.title = title
         self.url = url
         self.content = content
@@ -46,20 +51,23 @@ class NewsArticle:
         self.source = source
         self.markdown_content = ""
         self.is_quant_related = False
-        
+
     def get_filename(self) -> str:
         """生成文件名"""
         # 使用URL的hash作为唯一标识
         url_hash = hashlib.md5(self.url.encode()).hexdigest()[:8]
         # 清理标题中的特殊字符
-        clean_title = "".join(c for c in self.title if c.isalnum() or c in (' ', '-', '_')).strip()
-        clean_title = clean_title.replace(' ', '_')[:50]  # 限制长度
+        clean_title = "".join(
+            c for c in self.title if c.isalnum() or c in (" ", "-", "_")
+        ).strip()
+        clean_title = clean_title.replace(" ", "_")[:50]  # 限制长度
         date_str = self.published.strftime("%Y%m%d")
         return f"{date_str}_{clean_title}_{url_hash}.md"
 
+
 class NewsCrawler:
     """新闻爬虫主类"""
-    
+
     def __init__(self, config_path: str = "rss.yaml"):
         self.config_path = config_path
         self.config = self._load_config()
@@ -67,119 +75,119 @@ class NewsCrawler:
         self._setup_session()
         self.cache_dir = Path(".cache/news")
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # 设置OpenAI
         openai.api_key = os.getenv("OPENAI_API_KEY")
         if not openai.api_key:
             logger.warning("OPENAI_API_KEY not found in environment variables")
-    
+
     def _load_config(self) -> Dict:
         """加载配置文件"""
         try:
-            with open(self.config_path, 'r', encoding='utf-8') as f:
+            with open(self.config_path, "r", encoding="utf-8") as f:
                 return yaml.safe_load(f)
         except Exception as e:
             logger.error(f"Failed to load config: {e}")
             return {}
-    
+
     def _setup_session(self):
         """设置请求会话"""
-        headers = self.config.get('crawler_config', {}).get('headers', {})
+        headers = self.config.get("crawler_config", {}).get("headers", {})
         self.session.headers.update(headers)
-        
+
         # 设置超时
-        timeout = self.config.get('crawler_config', {}).get('timeout', 30)
+        timeout = self.config.get("crawler_config", {}).get("timeout", 30)
         self.session.timeout = timeout
-    
+
     def fetch_rss_feeds(self) -> List[NewsArticle]:
         """获取RSS源中的文章列表"""
         articles = []
-        sources = self.config.get('sources', [])
-        
+        sources = self.config.get("sources", [])
+
         for source in sources:
             try:
                 logger.info(f"Fetching from {source['name']}")
                 articles.extend(self._fetch_single_source(source))
-                
+
                 # 延迟请求
-                delay = self.config.get('crawler_config', {}).get('delay_between_requests', 1)
+                delay = self.config.get("crawler_config", {}).get(
+                    "delay_between_requests", 1
+                )
                 time.sleep(delay)
-                
+
             except Exception as e:
                 logger.error(f"Error fetching from {source['name']}: {e}")
                 continue
-        
+
         return articles
-    
+
     def _fetch_single_source(self, source: Dict) -> List[NewsArticle]:
         """从单个RSS源获取文章"""
         articles = []
-        max_articles = self.config.get('crawler_config', {}).get('max_articles_per_source', 20)
-        
+        max_articles = self.config.get("crawler_config", {}).get(
+            "max_articles_per_source", 20
+        )
+
         try:
             # 尝试作为RSS源解析
-            feed = feedparser.parse(source['url'])
-            
+            feed = feedparser.parse(source["url"])
+
             if feed.entries:
                 # 标准RSS源
                 for entry in feed.entries[:max_articles]:
                     article = NewsArticle(
-                        title=entry.get('title', ''),
-                        url=entry.get('link', ''),
-                        source=source['name']
+                        title=entry.get("title", ""),
+                        url=entry.get("link", ""),
+                        source=source["name"],
                     )
-                    
+
                     # 解析发布时间
-                    if hasattr(entry, 'published'):
+                    if hasattr(entry, "published"):
                         try:
                             article.published = date_parser.parse(entry.published)
                         except:
                             pass
-                    
+
                     articles.append(article)
             else:
                 # 非标准RSS，尝试网页解析
                 articles.extend(self._parse_web_page(source))
-                
+
         except Exception as e:
             logger.error(f"Error parsing source {source['name']}: {e}")
-        
+
         return articles
-    
+
     def _parse_web_page(self, source: Dict) -> List[NewsArticle]:
         """解析网页获取文章链接"""
         articles = []
         try:
-            response = self.session.get(source['url'])
+            response = self.session.get(source["url"])
             response.raise_for_status()
-            
-            soup = BeautifulSoup(response.content, 'html.parser')
-            
+
+            soup = BeautifulSoup(response.content, "html.parser")
+
             # 根据不同网站的结构解析链接
             # 这里需要根据具体网站调整选择器
-            links = soup.find_all('a', href=True)
-            
+            links = soup.find_all("a", href=True)
+
             for link in links[:20]:  # 限制数量
-                href = link.get('href')
+                href = link.get("href")
                 title = link.get_text().strip()
-                
+
                 if href and title and len(title) > 10:
                     # 处理相对链接
-                    if href.startswith('/'):
+                    if href.startswith("/"):
                         href = f"{source['url'].split('/')[0]}//{source['url'].split('/')[2]}{href}"
-                    elif not href.startswith('http'):
+                    elif not href.startswith("http"):
                         continue
-                    
-                    article = NewsArticle(
-                        title=title,
-                        url=href,
-                        source=source['name']
-                    )
+
+                    article = NewsArticle(title=title, url=href, source=source["name"])
                     articles.append(article)
-                    
+
         except Exception as e:
             logger.error(f"Error parsing web page {source['url']}: {e}")
-        
+
         return articles
 
     def fetch_article_content(self, article: NewsArticle) -> bool:
@@ -189,7 +197,7 @@ class NewsCrawler:
             response = self.session.get(article.url)
             response.raise_for_status()
 
-            soup = BeautifulSoup(response.content, 'html.parser')
+            soup = BeautifulSoup(response.content, "html.parser")
 
             # 移除脚本和样式标签
             for script in soup(["script", "style", "nav", "footer", "header"]):
@@ -197,8 +205,14 @@ class NewsCrawler:
 
             # 尝试找到主要内容区域
             content_selectors = [
-                'article', '.article-content', '.content', '.post-content',
-                '.entry-content', '.article-body', '#content', '.main-content'
+                "article",
+                ".article-content",
+                ".content",
+                ".post-content",
+                ".entry-content",
+                ".article-body",
+                "#content",
+                ".main-content",
             ]
 
             content_element = None
@@ -209,7 +223,7 @@ class NewsCrawler:
 
             if not content_element:
                 # 如果没找到特定容器，使用body
-                content_element = soup.find('body')
+                content_element = soup.find("body")
 
             if content_element:
                 # 转换为Markdown
@@ -251,13 +265,20 @@ class NewsCrawler:
 """
 
             response = openai.ChatCompletion.create(
-                model=self.config.get('ai_config', {}).get('openai', {}).get('model', 'gpt-3.5-turbo'),
+                model=self.config.get("ai_config", {})
+                .get("openai", {})
+                .get("model", "gpt-3.5-turbo"),
                 messages=[
-                    {"role": "system", "content": "你是一个专业的量化交易分析师，能够准确识别与量化交易相关的内容。"},
-                    {"role": "user", "content": prompt}
+                    {
+                        "role": "system",
+                        "content": "你是一个专业的量化交易分析师，能够准确识别与量化交易相关的内容。",
+                    },
+                    {"role": "user", "content": prompt},
                 ],
-                max_tokens=self.config.get('ai_config', {}).get('openai', {}).get('max_tokens', 500),
-                temperature=0.1
+                max_tokens=self.config.get("ai_config", {})
+                .get("openai", {})
+                .get("max_tokens", 500),
+                temperature=0.1,
             )
 
             result = response.choices[0].message.content.strip()
@@ -274,7 +295,7 @@ class NewsCrawler:
 
     def _analyze_with_keywords(self, article: NewsArticle) -> bool:
         """使用关键词匹配分析文章"""
-        keywords = self.config.get('ai_config', {}).get('quant_keywords', [])
+        keywords = self.config.get("ai_config", {}).get("quant_keywords", [])
 
         # 合并标题和内容进行匹配
         full_text = f"{article.title} {article.content}".lower()
@@ -311,7 +332,7 @@ class NewsCrawler:
 """
 
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with open(filepath, "w", encoding="utf-8") as f:
                 f.write(markdown_content)
             logger.info(f"Saved article: {filename}")
             return str(filepath)
@@ -327,7 +348,7 @@ class NewsCrawler:
 
             try:
                 # 读取文件检查是否量化相关
-                with open(filepath, 'r', encoding='utf-8') as f:
+                with open(filepath, "r", encoding="utf-8") as f:
                     content = f.read()
 
                 if "**是否量化相关**: 否" in content:
@@ -335,7 +356,9 @@ class NewsCrawler:
                     new_name = f"del_{filepath.name}"
                     new_path = filepath.parent / new_name
                     filepath.rename(new_path)
-                    logger.info(f"Renamed non-quant article: {filepath.name} -> {new_name}")
+                    logger.info(
+                        f"Renamed non-quant article: {filepath.name} -> {new_name}"
+                    )
 
             except Exception as e:
                 logger.error(f"Error managing file {filepath}: {e}")
@@ -368,7 +391,9 @@ class NewsCrawler:
                 processed_count += 1
 
                 # 延迟请求
-                delay = self.config.get('crawler_config', {}).get('delay_between_requests', 1)
+                delay = self.config.get("crawler_config", {}).get(
+                    "delay_between_requests", 1
+                )
                 time.sleep(delay)
 
             except Exception as e:
@@ -387,7 +412,9 @@ def main():
     """主函数"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="News Crawler for Quantitative Trading")
+    parser = argparse.ArgumentParser(
+        description="News Crawler for Quantitative Trading"
+    )
     parser.add_argument("--config", default="rss.yaml", help="Config file path")
     parser.add_argument("--dry-run", action="store_true", help="Dry run mode")
 

@@ -2,7 +2,7 @@
 title: ORB! Alpha 达到年化 36%
 slug: 5-min-orb-strategy
 date: 2024-06-15
-img: https://images.jieyu.ai/images/2024/06/orb.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg
 motto: 高端的食材，往往只需要最简单的烹饪
 category:
   - 策略
@@ -44,7 +44,7 @@ Zarattini 等人提出的策略有以下过滤器：
 
 ---
 
-![](https://images.jieyu.ai/images/2024/06/bldr-5-mins.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/bldr-5-mins.jpg)
 
 在上图中（注意红色为阴线、空心为阳线），个股以阴线开盘，因此当天的交易方向确定为做空。10 点，股价向下突破（超过头 5 分钟最低价），开空仓，并在 10% ATR 处下止损单。当日尾盘卖出。
 
@@ -52,7 +52,7 @@ Zarattini 等人提出的策略有以下过滤器：
 
 ---
 
-![75%](https://images.jieyu.ai/images/2024/06/orb.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg)
 
 关于这个策略，如果你还在期待我讲更多，很遗憾。我讲完了。
 
@@ -92,7 +92,7 @@ Zarattin 策略成功的关键不是 ORB 策略本身，而是通过条件过滤
 
 Zarattin 等基于大量的数据统计，发现了量比与盈利能力（含多空双边）之间的统计相关性，证明了选股老司机的理论有合理性。见下图：
 
-![](https://images.jieyu.ai/images/2024/06/rv-profitability.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/rv-profitability.jpg)
 
 这里的量比就是大家理解的量比，为严谨起见，我们也把他们的计算公式也发布出来：
 

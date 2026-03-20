@@ -95,7 +95,7 @@ get_market_data的返回结果是一个dict。它的key是行情字段，比如`
 
 最终输出如下：
 
-![](https://images.jieyu.ai/images/2023/12/qmt_get_price.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/qmt_get_price.png)
 
 注意 xtquant 使用的日期格式，如果周期为 1d，则是"YYYYMMDD"。如果周期为分钟级，则为"YYYYMMDDHHmmss"。如果我们使用的时间是 datatime.datetime 的话，可以用以下方式来格式化：
 

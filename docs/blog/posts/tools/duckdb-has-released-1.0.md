@@ -4,7 +4,7 @@ date: 2024-08-16
 category: tools
 slug: duckdb-has-reached-1.0
 motto: 
-img: https://images.jieyu.ai/images/2024/08/unsplash-duck.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-duck.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, duckdb]
@@ -18,21 +18,21 @@ Duckdb 这次发布 1.0 的主要准则是，它的数据存储格式已经稳�
 
 从 1.0 发布以来，duckdb 的似乎受到了更大的欢迎：
 
-![](https://images.jieyu.ai/images/2024/08/duckdb-star-history-2024816.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-star-history-2024816.png)
 
 在这次发布之后， duckdb 还发布了历年来 duckdb 性能上的提升：
 
-![](https://images.jieyu.ai/images/2024/08/duckdb-perf-benchmark-over-self.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-perf-benchmark-over-self.jpg)
 
 当然在性能的横向比较上，duckdb 仍然是位居榜首的。这是 groupby 查询的比较：
 
-![](https://images.jieyu.ai/images/2024/08/duckdb-over-others-groupby.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-over-others-groupby.jpg)
 
 Duckdb，Clickhouse 和 Polars 位居前三。Dask 会出 out-of-memory 错误，也是出人意料。这还做什么大数据、分布式啊。Pandas 虽然用了接近 20 分钟，但最终还是给出了结果，而 Modin 还不知道在几条街之后，你这要如何无缝替换 pandas?
 
 这个是 50GB， 1B 行数据的 join 操作，直接让一众兄弟们都翻了车：
 
-![](https://images.jieyu.ai/images/2024/08/duckdb-benchmark-join-50gb.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-benchmark-join-50gb.jpg)
 
 所以，Polars 还是很优秀啊。Clickhouse 有点出丑，直接出了异常。
 

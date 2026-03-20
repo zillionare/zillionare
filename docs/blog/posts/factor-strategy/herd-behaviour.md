@@ -9,7 +9,7 @@ tags:
     - strategy
 ---
 
-![R50](https://images.jieyu.ai/images/2023/12/structual-modeling-herd-behaviour.png)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/structual-modeling-herd-behaviour.png)
 
 在之前的笔记中，我们多次将现代金融理论与A股中流行的股谚、规律和大V的经验之谈结合起来，我们戏称为现代金融理论的中国化。本篇笔记将继续沿着这一思路展开，介绍羊群效应，以及在A股中，它有哪些表现，如何实现因子化，等等。
 
@@ -27,7 +27,7 @@ tags:
 
 Christie and Huang 在 1995 年，率先对全市场范围下的羊群效应进行了实证研究，该研究没有发现美国、日本和香港市场存在羊群效应的证据，但在台湾、韩国市场则比较肯定地发现了羊群效应。
 
-![](https://images.jieyu.ai/images/2023/12/herd-behaviour.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/herd-behaviour.png)
 
 作为量化博主，我更关心如何将这种效应因子化。下面，就介绍几个相关的因子。
 
@@ -47,7 +47,7 @@ accounts_df
 
 这样我们得到了 2015 年 4 月以来的投资者账户数据。
 
-![](https://images.jieyu.ai/images/2023/12/investor-account.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/investor-account.jpg)
 
 它的返回值中，有一列为数据日期，其格式形如"2015-04"，我们需要将其转换成为正规的日期格式。
 
@@ -94,7 +94,7 @@ fig.show()
 
 对应关系如下图所示：
 
-![75%](https://images.jieyu.ai/images/2023/12/20231227214221.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/20231227214221.png)
 
 ---
 
@@ -120,7 +120,7 @@ akshare.stock_hot_rank_detail_realtime_em("SZ000665")
 
 ---
 
-![75%](https://images.jieyu.ai/images/2023/12/hot_rank_detail_realtime.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hot_rank_detail_realtime.jpg)
 
 这里的数据足够丰富，能否成为一个因子，大家可以拿alphalens来做做看。
 

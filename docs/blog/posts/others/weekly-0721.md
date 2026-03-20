@@ -118,7 +118,7 @@ hinton
 
 在大纲没有出来之前，大家可以暂时参照这份路线图：
 
-![75%](https://images.jieyu.ai/images/hot/cheese-course-roadmap.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/cheese-course-roadmap.png)
 
 ---
 
@@ -128,15 +128,15 @@ hinton
 
 这是论文抽象出来的一个基本框架图。
 
-![50%](https://images.jieyu.ai/images/2024/07/xgboost-model-framework.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-model-framework.jpg)
 
 这个框架能解决的什么问题呢？我们知道，在一个投资组合策略中，要重点考虑的第一个问题是，如何从给定的 universe 中，选择一部分股票纳入策略股票池；其次要考虑，这部分股票的持仓如何分配，使之在这个组合上，达到风险收益比最高。
 
 ---
 
-![](https://images.jieyu.ai/images/2023/10/portfolio-optimisation.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
 
-后一部分，最经典的方法就是运用 MPT 理论，寻找有效投资前沿。这里既可以用凸优化求解，也可以使用蒙特卡洛方案。这一部分，我们之前有一个系列文章：[投资组合理论与实战](http://www.jieyu.ai/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/)，从基本概念到实战细节，都讲得非常清楚，这里就不详述了。
+后一部分，最经典的方法就是运用 MPT 理论，寻找有效投资前沿。这里既可以用凸优化求解，也可以使用蒙特卡洛方案。这一部分，我们之前有一个系列文章：[投资组合理论与实战](https://blog.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/)，从基本概念到实战细节，都讲得非常清楚，这里就不详述了。
 
 
 **如何从 universe 中选择股票进入股票池？** 这在单因子模型中比较容易解决，就是选择因子分层中，表现最佳的那个分层 (tier) 的股票进入股票池。各标的的权重可以按因子载荷来分配，也可以使用 MPT 方法。
@@ -157,7 +157,7 @@ hinton
 
 论文作者这里使用的方法是训练一个回归模型，从而使得它能较好地预测次日（或者后面一段时间的走势）。
 
-![R50](https://images.jieyu.ai/images/2024/07/xgboost-prediction-result.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-prediction-result.jpg)
 
 右图是论文作者得到的结果之一。看起来模型能比较完美地预测次日走势。
 
@@ -168,7 +168,7 @@ hinton
 
 但是，作者仍然给出了一个如何通过 XGBoost 来寻找多因子模型中表现最佳个股的线索。我们只需要**把它改造成一个分类模型，然后通过分类模型，筛选出表现最好的股票就可以了**。
 
-![L50](https://images.jieyu.ai/images/2024/07/classification_xgboost.png)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/classification_xgboost.png)
 
 训练集中的 X 部分不用改变，但我们需要重新设定标签，即 y 部分。对给定的因子$X_i$，对应的$y_i$需要能反映是上涨或者下跌。如果有可能，我们可以将标签设置为 5 类，-2 表示大跌，2 表示大涨，中间部分以此类推。
 
@@ -207,7 +207,7 @@ hinton
 
 在机器学习中，有两类重要的函数，一类是**目标函数(objective function)，又称损失函数(loss function)**；一类是**度量函数(metrics)**。
 
-![75%](https://images.jieyu.ai/images/2024/07/gradient-descent.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gradient-descent.jpg)
 
 损失函数用于模型训练。在训练过程中，通过梯度下降等方法，使得损失函数的值不断减小，直到无法继续下降为止，模型就训练完成。
 
@@ -220,7 +220,7 @@ hinton
 
 ---
 
-![](https://images.jieyu.ai/images/2024/07/sklearn-loss-metrics.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/sklearn-loss-metrics.jpg)
 
 可以看出，度量函数的个数远多于损失函数，这是为什么呢？
 

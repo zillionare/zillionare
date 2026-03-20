@@ -35,25 +35,25 @@ tags:
 
 基于上述推测，他构建了以下4个因子：
 
-![](https://images.jieyu.ai/images/2023/03/20230322102309.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322102309.png)
 
 ---
 
 在确定买卖方向上，他使用了一个比较好的小技巧，就是<red>按买卖订单号的顺序</red>来区分是主买还是主卖。
 
 
-![75%](https://images.jieyu.ai/images/2023/03/20230322112354.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112354.png)
 
 
 上图中，以第一单为例，买单号在前，卖单号在后，因此该交易是买方先挂单，卖方主动匹配成交，定为主卖单。以下类推。
 
 从2016年到2022年以来，对中证1000股票池进行回测，以下是回测指标：
 
-![75%](https://images.jieyu.ai/images/2023/03/20230322112516.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112516.png)
 
 ---
 
-![R50](https://images.jieyu.ai/images/2023/03/20230322112800.png)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112800.png)
 
 对比一下中证1000从2016年1月以来的月k线（图中竖虚线处位置为2016年1月）：
 

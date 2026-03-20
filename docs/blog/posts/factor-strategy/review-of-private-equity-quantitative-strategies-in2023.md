@@ -16,7 +16,7 @@ tags:
 <!--more-->
 ---
 
-![](https://images.jieyu.ai/images/2024/01/private-equity-strategy-cta.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/private-equity-strategy-cta.png)
 
 在CTA策略中，如果仅按基本面、技术和另类因子进行划分，各家主要使用的因子还是来自于技术面，**趋势跟踪策略往往是收益的主要贡献者，而基本面因子则对策略收益有所拖累**。
 
@@ -26,7 +26,7 @@ tags:
 
 ---
 
-![](https://images.jieyu.ai/images/2024/01/private-equity-strategy-long.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/private-equity-strategy-long.png)
 
 在量化多头策略归类中，因子来源主要是人工挖掘，主打一个可解释性。量价类因子仍然占据主流，也是策略收益的主要贡献者。因子数量一般在几百，但也有个别主打机器挖掘的，因子库就比较大，比如上海卓胜，就搞了一个10W+的特征库。
 

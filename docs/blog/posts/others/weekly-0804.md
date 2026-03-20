@@ -106,7 +106,7 @@ def d2_factor(close: NDArray, win: int = 10) -> NDArray:
 
 然后我们通过 Alphalens 来进行因子检验。第一次调用 Alphalens，我们按 quantiles 分层，分层数为 10。
 
-![](https://images.jieyu.ai/images/2024/08/second-derivative-quantile-10.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg)
 
 从分层图来看，继续进行收益分析是没有意义的，我们必须先进行优化。
 
@@ -131,7 +131,7 @@ Alphalens 是在第二步实现的分层。然后它将第二步的输出，用�
 
 第 2 步输出的是一个 DataFrame，它的格式如下：
 
-![](https://images.jieyu.ai/images/2024/08/second-derivative-factor-quantile.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
 
 所以，要 drop 掉第 9 层和第 10 层，可以这样做：
 
@@ -148,7 +148,7 @@ factor_data = factor_data[factor_data.factor_quantile <= 8]
 这一次我们得到了令人满意的分层收益均值图，单调且递增，完全适合进一步进行因子分析。
 
 
-![](https://images.jieyu.ai/images/2024/08/second-derivative-quantiles-8.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
 
 这个图其实基本上就是完全还原了上一个图，只不过缺少第 9 层和第 10 层而已。但是，现在第 8 层就成了 top 分层，这是 Alphalens 在计算多空收益时，将要做多的一层。
 
@@ -172,10 +172,10 @@ factor_data = factor_data[factor_data.factor_quantile <= 8]
 
 我们对比一下前后两次的累积收益图，可以发现，多空组合绝对收益低了一些，但平抑风险的能力更强了：
 
-![](https://images.jieyu.ai/images/2024/08/second-derivative-long-short-cum.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
 <cap>多空组合</cap>
 
-![](https://images.jieyu.ai/images/2024/08/second-derivative-cum-long-only.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
 <cap>单边做多</cap>
 
 
@@ -235,7 +235,7 @@ plt.legend()
 
 -->
 
-![50%](https://images.jieyu.ai/images/2024/08/second-derivative-1.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
 
 这个图说明，二阶导对证券价格运行的趋势具有修正效应。本来处于上涨趋势的品种，如果二阶导持续为负，它迟早会到达峰顶、然后转为下跌；反之，本来处于下跌趋势的品种，如果二阶导持续为正，它迟早会触及谷底，然后转为上涨。
 
@@ -260,7 +260,7 @@ plt.legend()
 
 绘图中，我们共使用了** 199 个样本**，代表性和稳健性都足够了。
 
-![](https://images.jieyu.ai/images/2024/08/double-check-trendline.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
 
 
 图中的红色线是趋势线，其斜率是 0.001，表明总体上是上涨的；颜色的深浅，代表了样本的分布密度，可以看出，零线上方分布更多一些。
@@ -369,13 +369,13 @@ chatGPT 生成的交易策略大意是，通过捕捉原油与其精炼产品（
 
 这是原油的：
 
-![](https://images.jieyu.ai/images/2024/08/mean-prices-with-sentiment-signals.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/mean-prices-with-sentiment-signals.jpg)
 
 ---
 
 这是黄金的：
 
-![](https://images.jieyu.ai/images/2024/08/mean-prices-with-sentiment-gold.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/mean-prices-with-sentiment-gold.jpg)
 
 
 该Python库提供了两种复杂的工具，可通过 Google 搜索结果和在线新闻文章对金融资产和证券进行情感分析。您只需要一个 OpenAI API 密钥即可开始使用并利用此软件包提供的所有功能，即获取新闻文章、分析其内容并为投资和交易决策生成有见地的报告。
@@ -416,10 +416,10 @@ print(report)
 
 其实答案只有一个，就是美金。它们的订阅地址在官网都有。
 
-![L50](https://images.jieyu.ai/images/2024/08/sci-hub.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sci-hub.jpg)
 我知道我们都应该尊重知识产权。在我们的周刊里，到处是关于第三方知识产权的声明。不过，作为个人研究者，订阅所有的杂志、软件和书籍也是不太现实的。我通常的做法是，先看先用，如果确实有用且需要，我会去书店、电影院、官网加倍返还。
 
-![R50](https://images.jieyu.ai/images/2024/08/freefullpdf.jpg)这里就介绍两个免费看论文的网站。第一个是 [sci-hub](https://www.sci-hub.se/)。它已经保存了 25million 篇论文，索引压缩包就达 478M。搜索方式是按标题和按引用。
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/freefullpdf.jpg)这里就介绍两个免费看论文的网站。第一个是 [sci-hub](https://www.sci-hub.se/)。它已经保存了 25million 篇论文，索引压缩包就达 478M。搜索方式是按标题和按引用。
 
 第二个网站是 [freefullpdf](https://www.freefullpdf.com/),它的搜索使用了 google，搜索体验会更好一些。
 

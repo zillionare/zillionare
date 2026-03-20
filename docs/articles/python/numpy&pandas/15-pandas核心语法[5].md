@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-15
 date: 2025-04-01
 category: tools
 motto: Keep your face to the sunshine and you cannot see a shadow.
-img: https://images.jieyu.ai/images/hot/mybook/gift.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 

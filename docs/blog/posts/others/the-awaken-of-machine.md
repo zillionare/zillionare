@@ -2,7 +2,7 @@
 title: 机器的觉醒！人工智能风云激荡70年
 slug: ipv6-how-to
 date: 2024-11-23
-img: https://images.jieyu.ai/images/hot/mybook/by-swimming-pool.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg
 category: others
 tags:
   - network
@@ -15,7 +15,7 @@ lineNumbers: true
 人工智能的概念正式提出是在1956年达特矛斯的夏季人工智能研究会上。达特矛斯学院(Dartmouth College)虽小，但却是常春藤大学之一。这次会议由约翰·麦卡锡发起，克劳德.香农等人参与了研讨会。约翰·麦卡锡是计算机科学家和认知科学家，也是人工智能学科的创始人之一。他还是著名的编程语言Lisp的发明者，早期许多人工智能系统和算法都是用Lisp语言编写的。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/dartmouth-ai-summer-research.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/dartmouth-ai-summer-research.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>达特茅斯AI研讨会</span>
 </div>
 
@@ -28,7 +28,7 @@ lineNumbers: true
 
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/高尔基染色法和海马体.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/高尔基染色法和海马体.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>高尔基染色和海马体</span>
 </div>
 
@@ -36,7 +36,7 @@ lineNumbers: true
 1958年，Frank Rosenblatt（弗兰克·罗森布拉特）根据仿生学原理，提出了感知机（Perceptron），这是最早的神经网格模型之一，感知机能够通过学习线性分类器来解决二分类问题。Rosenblatt的感知机是个天才的发明，因为当时的计算技术还没有数字化，Rosenblatt训练感知机的过程，都是靠手动切换开关完成的。尽管很原始，但通过训练，感知机最终获得了形状识别的可靠能力。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/perceptron.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/perceptron.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>感知机示意图</span>
 </div>
 
@@ -49,7 +49,7 @@ lineNumbers: true
 专家系统是当年人类实现人工智能最后的希望。因此，专家系统的落败，也导致人工智能的发展陷入低谷，进入了冰冻的寒武纪。然而，正如地球经历寒武纪一样，在封冻的冰层之下，进化正在加速，一些革命性的突破，即将到来。
 
 <div style='width:20%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/2024/11/geoffrey-hinton.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/geoffrey-hinton.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Geoffrey Hinton 2024年诺贝尔物理学奖</span>
 </div>
 
@@ -58,7 +58,7 @@ lineNumbers: true
 又过去了10多年。1998年，Yann LeCun(杨立昆)提出了LeNet，这是最早的卷积神经网络，也是人类历史上第一个有实际用途的神经网络。它被广泛应用于全美的自动提款机上，用来读取支票上的数字。Yann LeCun的成功再次掀起了人工智能浪潮，也最终把机器学习路线重新带回到人们的视野中来。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/lenet.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/lenet.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>LeNet, by Yann LeCun</span>
 </div>
 
@@ -70,14 +70,14 @@ lineNumbers: true
 
 !!! info
     <div style='width:10%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-    <img src='https://images.jieyu.ai/images/2024/11/the-worlds-i-see.png'>
+    <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/the-worlds-i-see.png'>
     <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>李飞飞</span>
     </div>尽管李飞飞荣获了美国工程院院士、医学科学院院士和艺术与科学学院院士，但世界可能仍然大大低估了她的主要贡献 -- ImageNet的重要性。如果没有第谷长达20余年的天文观测，就不会有开普勒三大定律，也就不会有牛顿第三定律。牛顿曾说自己是站在了巨人的肩膀上，他所说的巨人当然不是莱布尼茨，而是第谷和开普勒。<br>李飞飞正是当代的第谷。
 
 AlexNet也是一个卷积神经网络，它由Alex Krizhevsky, Ilya Sutskever和Geoffrey Hinton提出，在2012年的ImageNet竞赛中，取得了85%的识别准确率，比上一届的冠军整整提升了10%！LeNet只能运用在一个很小的场景下，处理很小规模的数据集，而AlexNet则是在超过1000个分类的图片上进行的识别，它的成功显然更具现实意义和突破性。AlexNet让基于数据驱动的机器学习路线加冕成为王者。直到今天，尽管机器学习还存在种种不足，我们离通用人工智能还不知道有多长的距离，但是，似乎再也没有声音质疑机器学习，而要改用基于规则的专家系统了。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/alexnet.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/alexnet.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>AlexNet</span>
 </div>
 
@@ -86,7 +86,7 @@ AlexNet也是一个卷积神经网络，它由Alex Krizhevsky, Ilya Sutskever和
 这个决定性的胜利是由华人科学家何明恺在2016年取得的。他通过深度残差网络，将神经网络的层数增加到了惊人的（与当时的水平相比）152层，但通过巧妙的设计，允许输入数据在训练阶段绕过其中的某些层，从而部分解决了深层网络中的梯度消失问题。
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/11/resnet-18.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/resnet-18.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>ResNet-18</span>
 </div>
 

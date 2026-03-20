@@ -2,7 +2,7 @@
 title: 试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目
 series: AI tools for Coding
 strong: [augment, Cusor, Trae]
-img: https://images.jieyu.ai/images/2025/04/20250423201107.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png
 fonts:
     sans: 'AlibabaPuHuiTi-Thin, sans-serif'
 date: 2025-04-21
@@ -29,7 +29,7 @@ tags:
 
 在我最近招聘员工的时候，我会抛出这样一张图，让候选人回答，你能从这张图中，得到哪些信息？
 
-![](https://images.jieyu.ai/images/2025/04/20250423192504.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423192504.png)
 
 如果你应聘职位是 HR，那么很显然你会优先联系当前在线、新牛人这位，同时也要考虑职位匹配程度。但这是一道考察观察和归纳能力的试题：这些小卡片提供了哪些类别的信息？
 
@@ -37,13 +37,13 @@ tags:
 
 其实这样的能力程序员也非常需要。今天我自己就被将了一军。最终问题定位出来，表现为下图的差异：
 
-![](https://images.jieyu.ai/images/2025/04/20250423193224.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423193224.png)
 
 这是我们两门课程的课程目录。它是用 JupyterLab 构建的一个课程环境，当用户点击其中一堂课程时，根据他的权限和购买时长，链接可能打得开也可能打不开。现在的问题是，左边的该打得开的，全都能打开；右边的则全部打不开。
 
 当我们找到最终问题后，把两个目录并排放在一起的时候，可能差异会一目了然。但在编程环境下，不能访问的链接，是以这样的方式出现的：
 
-![不能访问](https://images.jieyu.ai/images/2025/04/20250423193715.png)
+![不能访问](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423193715.png)
 
 明明文件就在那儿，没有任何错误，却不能访问。而能访问的链接，还会出一些奇怪的错误来干扰你。
 
@@ -51,7 +51,7 @@ tags:
 
 ## 系统架构
 
-![](https://images.jieyu.ai/images/2025/04/20250423194056.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423194056.png)
 
 这是一个简化了的系统架构图。限于 AI 生成 mermaid 图的能力，它跟我们实际的架构有一些区别：
 
@@ -77,7 +77,7 @@ tags:
 
 反正，我花 299 报名学的 AI 编程是这样的：
 
-![](https://images.jieyu.ai/images/2025/04/20250423203338.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423203338.png)
 
 完成这样的项目，只要一个前端就可以了。而且它只有两种固定的界面版式，也没有考虑到PC端。
 
@@ -85,19 +85,19 @@ tags:
 
 今天下午，我正在为新的课程系统上线，做最后的测试。这个系统本来应该像这样工作，这是添加客户：
 
-![朴素的后台](https://images.jieyu.ai/images/2025/04/20250423200907.png)
+![朴素的后台](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423200907.png)
 
 在增加用户之后，就可以为他注册课程，生成专属环境：
 
-![创建容器](https://images.jieyu.ai/images/2025/04/20250423200800.png)
+![创建容器](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423200800.png)
 
 然后，学员就可以在浏览器中登录：
 
-![登录](https://images.jieyu.ai/images/2025/04/20250423201107.png)
+![登录](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png)
 
 登录之后，就可以看到他所报名的课程：
 
-![](https://images.jieyu.ai/images/2025/04/20250423201222.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201222.png)
 
 用户点击粉红色的课程链接，就应该看到该课的内容。这个课程的链接是：
 
@@ -107,7 +107,7 @@ http://*/course/l24/quantide/lab/tree/courseware/01.ipynb
 
 点击之后，本来应该能打开 01.ipynb 这个 notebook，但实际上返回了不能访问的错误。此时会进入到 jupyter lab 的 home 界面：
 
-![home](https://images.jieyu.ai/images/2025/04/20250423211330.png)
+![home](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423211330.png)
 
 此时清楚地看到所有的 notebook 都已经列出来了，但是当你点击它们时，仍然是不能访问。
 
@@ -117,7 +117,7 @@ http://*/course/l24/quantide/lab/tree/courseware/01.ipynb
 
 在无数次修改、重启和回滚之后，我想明白一件事，作为出题人，如果我自己来看这张图：
 
-![](https://images.jieyu.ai/images/2025/04/20250423192504.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423192504.png)
 
 我就能一眼看出上下两个卡片的所有区别吗？我会不会进入到某种常识性的盲区？比如，124 和 l24 用肉眼是很难看出来的，天知道有多少这种细微的差别！
 

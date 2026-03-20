@@ -173,7 +173,7 @@ else:
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/20250309123941.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250309123941.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

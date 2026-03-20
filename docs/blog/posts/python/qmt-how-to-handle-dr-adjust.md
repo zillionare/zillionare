@@ -167,7 +167,7 @@ def get_factor_ratio(symbol: str, start: datetime.date, end: datetime.date)->pd.
 
 这段代码的核心逻辑是，dd['dr']是一个带时间戳的稀疏数据。我们首先要把它展开成：
 
-![](https://images.jieyu.ai/images/2024/03/convert-dr-factor.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/convert-dr-factor.jpg)
 
 ---
 

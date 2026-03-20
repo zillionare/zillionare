@@ -10,7 +10,7 @@ tags:
     - factor
 ---
 
-![R50](https://images.jieyu.ai/images/2023/12/tobias-moskowitz.png)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/tobias-moskowitz.png)
 
 球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以上的引用。这篇论文名为《Asset Pricing and Sports Betting》。
 
@@ -44,7 +44,7 @@ print(stock_yjyg_em_df[["股票简称","预测指标","业绩变动幅度"]])
 
 最后我们得到如下示例结果：
 
-![](https://images.jieyu.ai/images/2023/12/akshare_yjyg.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/akshare_yjyg.png)
 
 可以看出，公告自带有日期，因此可以认为这是 PIT 合格的数据。
 

@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-18
 date: 2025-04-04
 category: tools
 motto: Perseverance is not a long race; it is many short races one after the other.
-img: https://images.jieyu.ai/images/hot/mybook/christmas.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -96,7 +96,7 @@ print(df)
 
 ---
 
-![](https://images.jieyu.ai/images/2025/03/078.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/078.png)
 
 ## 2. 补齐分钟线缺失的复权因子
 量化分析中，可能在处理股票分钟线数据时，复权因子数据存在缺失，需要根据时间进行临近匹配，确保每个分钟数据点都有正确的复权因子。复权因子通常是在股票发生拆分或分红时调整的，这些事件的时间点可能不会正好匹配分钟线的每个时间戳，例如：
@@ -180,7 +180,7 @@ merged = pd.merge_asof(
 merged
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/079.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/079.png)
 
 ---
 
@@ -204,7 +204,7 @@ df_adjust['time'] = df_adjust['time'] + pd.Timedelta(seconds=30)  # 延后30秒�
 df_adjust
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/080.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/080.png)
 
 ---
 
@@ -251,7 +251,7 @@ factor.index = pd.MultiIndex.from_arrays(
 factor
 ```
 
-![50%](https://images.jieyu.ai/images/2025/03/081.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
 
 #### 3.1.2. ​价格数据格式
 
@@ -272,7 +272,7 @@ prices.index = pd.to_datetime(prices.index)  # 日期转换为datetime类型
 ```
 
 
-![50%](https://images.jieyu.ai/images/2025/03/081.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
 
 
 ### 3.2. 关键预处理操作

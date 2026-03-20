@@ -4,7 +4,7 @@ date: 2024-08-04
 category: resources
 slug: free-paper-download-resources
 motto: 养活这个世界的，是阳光、雨水和知识
-img: https://images.jieyu.ai/images/2024/08/sci-hub.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sci-hub.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: []
@@ -24,7 +24,7 @@ tags: []
 
 <!--第一个是 [sci-hub](https://www.sci-hub.se/):-->
 
-![75%](https://images.jieyu.ai/images/2024/08/sci-hub.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sci-hub.jpg)
 
 **sci-hub**，它已经保存了 25million 篇论文，光是索引，压缩包就达 478M。
 
@@ -39,4 +39,4 @@ tags: []
 
 **freefullpdf**，如果你没有完整的论文信息，只有只言片语在手，那么试试 freefullpdf 吧。它的搜索使用了 google，提供了不错的搜索体验。
 
-![75%](https://images.jieyu.ai/images/2024/08/freefullpdf.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/freefullpdf.jpg)

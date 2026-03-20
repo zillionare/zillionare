@@ -4,7 +4,7 @@ date: 2024-12-04
 category: factor&strategy
 slug: word-count-factor
 motto: 
-img: https://images.jieyu.ai/images/hot/my-company.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/my-company.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor,strategy]
@@ -398,7 +398,7 @@ factor.tail(20)
 我们已经抓取的新闻数据截止到今年的 8 月 20 日，每天都会往前追赶大约 10 天左右。这些数据和上述代码，可以在我们的 quantide research 平台上获取和运行。加入星球，即可获得平台账号。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/hot/logo/zsxq.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

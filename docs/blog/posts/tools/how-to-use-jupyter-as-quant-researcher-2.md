@@ -3,7 +3,7 @@ title: 量化人如何用好 Jupyter？（二）
 slug: how-to-use-jupyter-as-quant-researcher
 date: 2024-03-05
 motto: 瞄准月球，即使错过，你也将收获星辰
-img: https://images.jieyu.ai/images/2024/03/galaxy.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/galaxy.jpg
 category: arsenal
 tags: 
     - tools
@@ -18,7 +18,7 @@ tags:
 
 ## JupySQL - 替换你的数据库查询工具
 
-![](https://images.jieyu.ai/images/2024/03/jupysql.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/jupysql.jpg)
 
 JupySQL 是一个运行在 Jupyter 中的 sql 查询工具。它支持传统关系型数据库（PostgreSQL, MySQL, SQL server）、列数据库（ClickHouse），数据仓库 (Snowflake, BigQuery, Redshift, etc) 和嵌入式数据库 (SQLite, DuckDB) 的查询。
 
@@ -196,7 +196,7 @@ mitosheet.sheet(analysis_to_replay="id-sjmynxdlon")
 
 并且自动运行这个单元格，调出 mito 的界面。下面是 mitto 中可视化一例：
 
-![](https://images.jieyu.ai/images/2024/03/mito-sheet.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/mito-sheet.jpg)
 
 mitto 有免费版和专业版的区分，而且似乎它会把数据上传到服务器上进行分析，所以在国内使用起来，感觉不是特别流畅。
 
@@ -214,17 +214,17 @@ dtale.show(df)
 
 这会显加载以下界面：
 
-![75%](https://images.jieyu.ai/images/2024/03/dtale-init.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-init.jpg)
 
 在左上角有一个小三角箭头，点击它会显示菜单：
 
-![75%](https://images.jieyu.ai/images/2024/03/dtale-menu.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-menu.jpg)
 
 ---
 
 我们点击describe菜单项看看，它的功能要比`df.describe` 强大不少。df.describe 只能给出均值、4 分位数值，方差，最大最小值，dtale 还能给出 diff, outlier, kurtosis, skew，绘制直方图，Q-Q 图（检查是否正态分布）。
 
-![](https://images.jieyu.ai/images/2024/03/dtale-describe.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-describe.jpg)
 
 注意我们可以导出进行这些计算所用的代码！这对数据分析的初学者确实很友好。
 

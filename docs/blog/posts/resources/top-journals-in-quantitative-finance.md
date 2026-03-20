@@ -3,7 +3,7 @@ title: 量化金融人都在看哪些顶刊
 slug: top-journals-in-quantitative-finance
 date: 2024-07-28
 category: resources
-img: https://images.jieyu.ai/images/2024/07/books-cover.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/books-cover.jpg
 imgCopyRight: wiki/public domain
 motto: 我不是才华横溢的少年 我只是一往无前
 tags:
@@ -19,7 +19,7 @@ lineNumbers: true
 
 ### Journal of Finance
 
-![L50](https://images.jieyu.ai/images/2024/07/the-journal-of-finance.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/the-journal-of-finance.jpg)
 应该是毫无争议的 No.1。
 
 创刊于1946年，是由美国金融协会（American Finance Association）主办的一份顶级学术期刊。

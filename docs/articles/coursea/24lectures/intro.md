@@ -34,17 +34,17 @@ tags:
 
 ## 2. 课程大纲及编排说明
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-1.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-1.png)
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-2.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-2.png)
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-3.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-3.png)
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-4.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-4.png)
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-5.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-5.png)
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-brochure-6.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-6.png)
 
 !!! tip
     更详细的课程大纲见 [这里](articles/coursea/24lectures/intro.md)
@@ -55,7 +55,7 @@ tags:
 
 我们根据自己的经验，结合国内外同类课程、同行交流的结果，通过对主流量化框架、量化常用库的梳理和对重要论文的阅读梳理，总结出如下学习<span id="roadmap">路线图</span>：
 
-![](https://images.jieyu.ai/images/2023/10/cheese-course-roadmap.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-roadmap.png)
 
 在这个路线图中，最下面一层可以看作是学习量化的前置条件。关于 Python 基础，我们有较好的英文教材可以提供。该教材比较简练，不需要花很多时间就能学完，并且与我们的课程能很好衔接。工具部分可以在学习过程中，边练边学。数学部分只要达到过这个基础即可，在我们的课程中，会带领大家复习相关的内容。
 
@@ -72,4 +72,4 @@ tags:
 
 课程实验环境如下：
 
- ![66%](https://images.jieyu.ai/images/hot/course/academy.jpg) 
+ ![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/academy.jpg) 

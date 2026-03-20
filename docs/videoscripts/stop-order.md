@@ -16,13 +16,13 @@ layout: prelude-brand-only
 
 ---
 clicks: 20
-img: https://images.jieyu.ai/images/hot/shanghai-extra-length.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/shanghai-extra-length.jpg
 preload: false
 ---
 
 <style scoped>
 .capsule {
-    background-image: url("https://images.jieyu.ai/images/hot/blue-purple-gradient.jpg");
+    background-image: url("https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/blue-purple-gradient.jpg");
     background-size: cover;
     padding: 40px 40px 40px 20px;
     border-radius: 200px;

@@ -37,7 +37,7 @@ goto loop
 
 这个脚本需要放到\bin.x64目录下运行。copy成功后，脚本就会自动退出。此时，我们也退出QMT，进入到bin.x64目录，复制一份linkMini_copy为linkMini，然后修改其安全属性：
 
-![50%](https://images.jieyu.ai/images/2023/12/linkmini.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/linkmini.png)
 
 我们需要将system及users用户组下的权限中的允许完全取消，在拒绝部分，选中写入。这样设置之后，该文件变成只读，不会被qmt删除掉。
 

@@ -146,7 +146,7 @@ HEAD 是当前分支引用的指针，它总是指向该分支上的最后一次
 
 下图则展示了这三个概念的关系：
 
-![](https://images.jieyu.ai/images/2024/02/git-concepts-index-head.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/git-concepts-index-head.png)
 
 我们结合命令和图示来解释变更的流动。
 
@@ -167,7 +167,7 @@ status 命令显示文件处在工作区（working directory），还没进入�
 
 此时在 vscode 侧面板上，我们可以看到 README.md 文件出现在 changes 类别下（注意 vscode 使用的术语与 git 不同，这是可以理解的）， 
 
-![](https://images.jieyu.ai/images/2023/01/20230125160932.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125160932.png)
 
 我们可以通过 git add 命令将 README.md 文件添加到暂存区，然后再次查看状态：
 ```shell 
@@ -184,7 +184,7 @@ Changes to be committed:
 
 Status 命令提示 README.md 还没有提交（此时文件处在暂存区 staging area 中）。此时在 vscode 侧面板上，我们可以看到 README.md 文件出现在 Staged Changes 类别下，如下图所示：
 
-![](https://images.jieyu.ai/images/2023/01/20230125161054.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125161054.png)
 
 接下来，我们提交到本地仓库，并再次查看当前状态：
 
@@ -203,7 +203,7 @@ nothing to commit, working tree clean
 
 如下图所示，此时在 vscode 侧面板上，SOURCE CONTROL 类别下已清空，只出现了一个 sync changes 的按键，一旦我们点击此按钮，我们刚刚提交的变更就会发布到远程服务器上。
 
-![](https://images.jieyu.ai/images/2023/01/20230125161350.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125161350.png)
 
  
 
@@ -244,15 +244,15 @@ git stash drop
 
 在 vscode 的 git lens 扩展中，我们可以在"Changes"面板中，将当前的变更贮藏（如图 8- 5 所示）：
 
-![](https://images.jieyu.ai/images/2023/01/20230125144030.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125144030.png)
 
 上图中红色框内的按钮即是 stash all 按钮。我们点击它，就可以将当前的变更贮藏起来了。我们可以在"Stashes"面板中，查看所有的贮藏：
 
-![](https://images.jieyu.ai/images/2023/01/20230125144431.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125144431.png)
 
 点击"Apply"按钮，在弹出来的对话框中，给我们两个提示，一个是只应用，不删除该贮藏；另一个是应用并删除该贮藏：
 
-![](https://images.jieyu.ai/images/2023/01/20230125144650.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125144650.png)
 
 最后，我们介绍一下.gitignore 文件。有一些文件我们并不想被 git 跟踪，比如 IDE 产生的临时文件、日志文件，涉及到密码的某些文件（比如.env) 等等。这些文件我们可以在.gitignore 文件中进行配置，git 就会忽略这些文件。
 
@@ -278,8 +278,8 @@ $ git pull
 注意，本地仓库与服务器关联的命令（即`git remote add`）只需要执行一次；而每次创建了新的分支后，都要在第一次往该分支推送变更时，执行`git push -u ...`这个命令，以便在推送的同时，也完成本地分支与远程分支的绑定。一旦绑定完成，在随后的推送（或者拉取）动作中，就可以省略-u 参数。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
@@ -390,7 +390,7 @@ Git 的分支管理能做到如此优秀，根源还在于它的底层设计。�
 
 上述开发场景是比较典型的一个场景。2010 年，Vincent Driessen 将其抽象成了一个工作流模型，在此后的 10 多年中，该模型得到了广泛的认可。bitbucket，由著名的 Atlassian 公司出品的支持 git 版本库托管服务，也在其官方文档中推荐了这个模型。Vincent 还基于这个模型，开发了 git 的扩展 [gitflow](https://github.com/nvie/gitflow)，以帮助人们更好地运用这个模型。到目前为止，这个项目在 Github 上获得了 26.1k 的 star。
 
-![](https://images.jieyu.ai/images/2023/01/20230123171234.png){width="50%"}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230123171234.png){width="50%"}
 
 在这个模型中，服务器上始终存在两个分支，即 main 分支（原图中的 master）和 develop 分支。main 分支的 head 指针应该指向已发布的产品构建时的状态，也就是我们应该随时可以使用 main 分支构建出一份可用的产品出来。develop 分支可以认为是一种集成分支，它的 head 指针应该反映出下一个发布的最新开发状态。这也是我们用来制作夜间构建（nightly build）的分支。
 
@@ -430,7 +430,7 @@ Deleted branch myfeature (was 05e9557).
 $ git push origin develop
 ```
 这里的命令用来描述工作流程，实际上在操作时，我们更倾向于使用 git lens 的图形化界面来操作。注意第 4 行的--no-ff 选项。这个选项的作用是，让我们在 develop 分支上仍然看到一个完整的历史记录，包括曾经存在一个 feature 分支，以及哪些提交构成了一个 feature。下图对比了是否使用该选项的差异：
-![](https://images.jieyu.ai/images/2023/01/20230123174246.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230123174246.png)
 
 上图中右边的部分显示了一个普通的合并（即没有指定--no-ff 选项），在这里，看不出来哪些提交构成了一个功能（除非检查日志），更不用说 feature 分支的存在了。另外，在右边这种情况下，回滚整个功能也会是令人头疼的事。
 
@@ -486,7 +486,7 @@ Deleted branch release-1.2 (was ff452fe).
 
 下图演示了 hotfix 中的变更在各分支之间的流动：
 
-![](https://images.jieyu.ai/images/2023/01/20230123181318.png){width="50%"}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230123181318.png){width="50%"}
 
 在介绍本节内容时，我们较多地参考了 Vincent Driessen 的博客文章 [《A successful Git branching model》](https://nvie.com/posts/a-successful-git-branching-model/)。这篇文章是 Git 分支模型的经典之作，建议读者做延伸阅读。Vincent Driessen 开发的 gitflow 工具是 git 的一个扩展，用来实现上述工作流，这里也推荐安装使用。
 ## 4. Git 中的高级操作
@@ -497,11 +497,11 @@ Deleted branch release-1.2 (was ff452fe).
 
 下图展示了 hotfix_533 分支创建时，相关分支的状态图：
 
-![](https://images.jieyu.ai/images/2023/01/20230124185335.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230124185335.png)
 
 当我们修复完这个 bug 后，产生了一个新的提交，记为 c3, 它的父结点是 c2。这个提交发生在 hotfix_533 分支上，所以我们还必须将其 merge 回 main 分支。假设我们在修复 issue 533 时，线上还发现一个新的 bug，记为 issue 534。而这个 hotfix 完成得更早，产生了记为 c4 的提交，已经合并到了 main 分支。此时，相关分支的状态图如图 8- 12 所示：
 
-![](https://images.jieyu.ai/images/2023/01/20230124190629.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230124190629.png)
 
 如果提交 c4 和 c3 修改互不冲突（比如修改的文件不同，或者即使是同一文件，但修改的行不同），这样 git 一般可以直接合并，如果相互冲突，则我们还要手动解决冲突。
 
@@ -509,11 +509,11 @@ Deleted branch release-1.2 (was ff452fe).
 
 首先，我们将 c4 从 hotfix_534 分支上 merge 回 main 分支。我们要先切换到 main 分支，再在下面的界面中，将鼠标移动到 hotfix_534 那个条目上，再右键唤出上下文菜单，如下图所示：
 
-![](https://images.jieyu.ai/images/2023/01/20230124224237.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230124224237.png)
 
 点击“Merge into current branch”，在接下来的对话框中，选择"Merge"（对应的命令是 git merge), 如下图所示：
 
-![](https://images.jieyu.ai/images/2023/01/20230124224505.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230124224505.png)
 
 前面的例子中，我们一般使用 git merge --no-ff，在这个例子中，我们却使用了 git merge。这是因为，hotfix 属于短生命期的分支。如果我们工作在 develop 分支上，我们应该使用 git merge --no-ff，这样可以保留 develop 分支的历史记录。如果你希望针对不同的分支，对 merge 动作定制不同的默认行为，可以通过修改 gitconfig 文件来实现，请感兴趣的读者自行研究。
 
@@ -521,15 +521,15 @@ Deleted branch release-1.2 (was ff452fe).
 
 我们需要在 vscode 的设置中，打开相应的开关：
 
-![](https://images.jieyu.ai/images/2023/01/20230125104712.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125104712.png)
 
 此时再执行合并，我们会看到以下界面：
 
-![](https://images.jieyu.ai/images/2023/01/20230125104901.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125104901.png)
 
 我们点击"Resolve in Merge Editor"按钮：
 
-![](https://images.jieyu.ai/images/2023/01/20230125105008.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125105008.png)
 
 左边的是 hotfix_533 分支，右边的则是 main 分支，两个改动相互冲突。如果我们接受 hotfix_533，则可以点击顶部的"Accept Incoming"按钮，如果我们接受 main 分支，则可以点击底部的"Accept Current"按钮。如果我们希望保留两个分支的改动，则可以点击中间的"Accept Combination"按钮，将两个修改同时保留。我们也可以全部拒绝两个修改，这样只需要编辑下面的 result 窗口中对应行（图中的第 3 行）就行了。
 
@@ -538,11 +538,11 @@ Deleted branch release-1.2 (was ff452fe).
 ### 4.2. rebase
 变基是另一种合并分支的方式。变基的目的是将一个分支的改动，移动到另一个分支上。假设我们有以下状态：
 
-![](https://images.jieyu.ai/images/2023/01/20230124190629.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230124190629.png)
 
 如果我们使用 git merge 的方法来进行合并，我们将得到下图：
 
-![](https://images.jieyu.ai/images/2023/01/20230125111449.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125111449.png)
 
 我们也可以对 hotfix_533 进行 rebase 操作，使得 c3 的父结点从 c2 变为 c4：
 ```
@@ -553,7 +553,7 @@ Applying: added staged command
 ```
 rebase 更像是一种操作重放，它把 main 分支上在 c2（共同祖先）之后的所有提交，都在 hotfix_533 分支上重新执行了一次，然后在此基础上，应用 c3。最后，我们将 hotfix_533 分支再合并回 main。图 8- 20 反应了两个分支上的变化和最终状态：
 
-![](https://images.jieyu.ai/images/2023/01/20230125114238.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125114238.png)
 
 与不使用 rebase 相比，进行 rebase 之后，分支历史将不会出现分叉，这样可以使得分支历史更加清晰。
 
@@ -590,11 +590,11 @@ $ git diff branch1...branch2
 
 现在，我们来看看在 git lens 扩展中，如何比较两个分支。首先，我们在下面的菜单（图 8- 21）中，选择要比较的两个分支：
 
-![](https://images.jieyu.ai/images/2023/01/20230125121824.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125121824.png)
 
 然后我们在"Search & Compare"面板下，找到对比结果：
 
-![](https://images.jieyu.ai/images/2023/01/20230125121902.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125121902.png)
 
 注意到在"Comparing hotfix/..."字符串后面，有一个交换图标。它用来交换 git diff 两点语法中的两个分支的顺序。要查看文件内容的变更，可以在"1 file changed"的下拉菜单中，找到变化的文件名，然后点击它就可以浏览变更的具体情况了。
 ### 4.4. reset 与 checkout
@@ -646,13 +646,13 @@ $ git reset --hard HEAD~
 
 如果我们从图形界面上执行 reset 操作，大概分这么几步。首先，我们找到 COMMITS 面板，然后找到要重置的提交，点击它，选择"undo commit"操作，这相当于执行了一个”reset --soft HEAD~"操作。
 
-![](https://images.jieyu.ai/images/2023/01/20230125175133.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125175133.png)
 
 如果我们还要取消"stage"操作（即 undo add)，则可以在“SOURCE CONTROLE”面板中，找到 staged changes，再点击“unstage all changes"按钮。同样的操作还可以运用在"Changes"类别下面的文件上，这里就不再赘述。
 ### 4.5. gutter change
 在我们前面介绍暂存操作时，都是以整个文件为单位进行暂存。但是，有时候，我们可能应该把某一个文件分为几个不同的批次来添加。这个命令在 git 中称为交互式暂存 (interactive staging)。通过命令行执行比较繁琐，这里我们介绍 git lens 中的 gutter change 功能，如下图所示：
 
-![](http://images.jieyu.ai/images/20210820210809160826.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809160826.png)
 
 gutter change 是指如上图所示，在编辑区行号指示右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你仅对这几行变更进行回滚或者提交。
 ## 5. 谁引入了错误：如何追踪代码变化（案例）
@@ -660,7 +660,7 @@ gutter change 是指如上图所示，在编辑区行号指示右侧，通过一
 
 通常，如果错误代码还留在当前的代码中，显然我们只要通过 git blame 就可以知道是谁提交的。如果安装了 git lens，只需要将鼠标移动到该行代码末尾，git lens 就会显示该行代码的提交历史，如下图所示：
 
-![](https://images.jieyu.ai/images/2023/01/20230125171342.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125171342.png)
 
 但是，由于我们已经修复了该错误代码，并且也过去了一段时间，所以该段代码已经从代码中删除了。现在，惟一的线索，就是只知道可能是一个错误的字符串引起了这个 bug。那么，如何通过这个字符串来搜索呢？
 
@@ -858,8 +858,8 @@ gh secret set BUILD_NOTIFY_MAIL_RCPT --body $BUILD_NOTIFY_MAIL_RCPT
 
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

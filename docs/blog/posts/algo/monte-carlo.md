@@ -2,7 +2,7 @@
 title: 蒙特卡洛：看似很高端的技术，其实很暴力很初级
 date: 2025-06-05
 category: algo
-img: https://images.jieyu.ai/images/hot/course/factor-ml/fa-platinum.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/fa-platinum.png
 price: 0
 tags:
 - monte-carlo
@@ -75,7 +75,7 @@ estimate_pi(n, visualization = True)
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/05/20250605113602.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605113602.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -170,7 +170,7 @@ losses
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/05/20250605145739.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605145739.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>损益的一万种可能</span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -213,7 +213,7 @@ print(f"95% ES （预期短缺）: ${es_95:.2f}")
 我们在『匡醍。量化二十四课』中探讨过这个问题，用的正是蒙特卡洛方法。我们通过不同夏普指标下，5000 万次的模拟，得出了这样的答案，供大家在实盘中参考：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2023/08/lesson21-draws-as-function-of-sharpe.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson21-draws-as-function-of-sharpe.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

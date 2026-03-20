@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-19
 date: 2025-04-05
 category: tools
 motto: The gem cannot be polished without friction, nor man perfected without trials.
-img: https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 

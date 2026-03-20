@@ -46,7 +46,7 @@ $$
 
 特殊情况下，如果我们的采样数据存在周期性特点，而且我们希望在变换后，保留它们在周期上的关联性，也可以用$sin$和$cos$函数。这种归一化方法，在著名的《attention is all you need》一文中就使用过（对token的位置进行编码）：
 
-![10%](https://images.jieyu.ai/images/2023/07/attention_is_all_u_need_sin.png)
+![10%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/attention_is_all_u_need_sin.png)
 
 考虑到股价波动的周期性，也许类似的方法也应该在量化中找到运用。
 
@@ -70,7 +70,7 @@ $$
 
 此时图形主要由参数b决定。当b为15时，图形如下：
 
-![50%](https://images.jieyu.ai/images/2023/07/scaled_sigmoid_b_15.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/scaled_sigmoid_b_15.png)
 
 该分布区间为[-1, 1]，x取值在[0,b]之间时分布密度较高。
 
@@ -107,6 +107,6 @@ ax4.plot(x, [sigmoid(i) for i in x])
 ax4.set_title("fit (0,100) with original")
 ```
 
-![](https://images.jieyu.ai/images/2023/06/scaled_sigmoid.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png)
 
 从上图可以看出，与原来的sigmoid相比，新的scaled_sigmoid函数在[start, end]区间有很好的响应灵敏度，此区域内的分布密度最高。

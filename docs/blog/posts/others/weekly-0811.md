@@ -4,7 +4,7 @@ date: 2024-08-11
 seq: 第 4 期
 category: others
 slug: quantide-weekly-0811
-img: https://images.jieyu.ai/images/2024/08/kenneth-griffin.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, career]
@@ -93,7 +93,7 @@ Wonderlic Select 并不是唯一的 Citadel 评估。如果您正在尝试 Citad
 
 所以，关于这个岗位，我很难给出建议，但是 Citadel 在面试筛选上，是和 Wonderlic 合作的，如果你确实很想申这个岗位，建议先报一个 Wonderlic 的培训，大约$50 左右。Wonderlic Select 会有认知、心理、文化和逻辑方面的测试，参加此类培训，将帮你刷掉一批没有准备的人。
 
-![](https://images.jieyu.ai/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
 <cap>11 weeks of extraordinary growth program</cap>
 
 ---
@@ -118,7 +118,7 @@ HackerRank 有可能遇到 LeetCode 上困难级的题目，但也有人反映�
 
 ---
 
-![75%](https://images.jieyu.ai/images/2024/08/correlation-one.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
 <cap>Correlation One</cap>
 
 Datathon 只针对在校生举办，你得使用学校邮箱来申请。通过官网在线报名后，你需要先进行一个**90 分钟**的在线评估。这个评估有心理和价值观的、也有部分技术的。
@@ -158,7 +158,7 @@ Datathon 看起来比赛的是数据分析能力，是硬技巧，但实际上�
 
 ## 2024 年 Summer Datathon
 
-![](https://images.jieyu.ai/images/2024/08/datathon-2024-summer-ps.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
 <cap>Problem Statement of 2024 Summer Datathon</cap>
 
 2024 年的 Datathon 于 8 月 5 日刚刚结束。这次的题目是关于垃圾食品的，要求从提供的数据集中，得出关于美国食品加工的一些结论。除了指定数据集之外，也允许根据需要自行添加新的数据集。不过，这些数据集也提交给评委，并且不得超过 2G。
@@ -187,7 +187,7 @@ Datathon 看起来比赛的是数据分析能力，是硬技巧，但实际上�
 
 这些竞赛的资料也都上传到了我们的 Jupyter Lab 服务器，只需要付很小的费用就可以使用。无须下载和安装，你就可以运行和调试其他人提交的答案。
 
-![75%](https://images.jieyu.ai/images/2024/08/datathon-screenshot.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
 <cap>Datathon 历年资料</cap>
 
 ---
@@ -198,7 +198,7 @@ Datathon 看起来比赛的是数据分析能力，是硬技巧，但实际上�
 
 # 视频通话也不能相信了！ DEEP-LIVE-CAM 一夜爆火，伪造直播只要一张照片！
 
-![L50](https://images.jieyu.ai/images/2024/08/deep-live-cam.png)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/deep-live-cam.png)
 
 让马斯克为你带货！
 
@@ -224,7 +224,7 @@ AI 换脸已不是什么大新闻，视频换脸也早就被实现，最早出�
 
 TsFresh 是一个 Python 库，用于识别时间序列数据中的模式。tsfresh 这个词来自于 Time Series Feature extraction based on scalable hypothesis tests"。
 
-![50%](https://images.jieyu.ai/images/2024/08/tsfresh.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/tsfresh.png)
 
 为什么要使用 tsfresh 呢？
 
@@ -245,6 +245,6 @@ TsFresh 是一个 Python 库，用于识别时间序列数据中的模式。tsfr
 
 如果你愿意看视频的话，Nils Braun在 PyCon 2017 上以tsfresh进行股票预测为例做了一次 [presentation](https://www.youtube.com/watch?v=Fm8zcOMJ-9E)，也很有趣，注意看到最后的Q&A session。
 
-![50%](https://images.jieyu.ai/images/2024/08/tsfresh-on-pycon-2017.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/tsfresh-on-pycon-2017.jpg)
 
 <about/>

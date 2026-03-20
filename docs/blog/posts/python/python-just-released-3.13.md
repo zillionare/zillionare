@@ -4,13 +4,13 @@ date: 2024-10-24
 category: python
 slug: python-release-3.13
 motto: 
-img: https://images.jieyu.ai/images/2024/10/python-3.13.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png
 stamp_width: 60%
 stamp_height: 60%
 tags: []
 ---
 
-![](https://images.jieyu.ai/images/2024/10/python-3.13.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png)
 
 今天（10 月 24 日）是码农节。这一天也是裘伯君、Chris Lattner, Robert Khan 等人的生日。Lattner 是 LLVM 开源编译器的创始人、Swift 和 Mojo 语言的主要设计者。Khan 是互联网奠基人之一，他与温顿。瑟夫共同发明了 TCP/IP 协议。
 
@@ -22,7 +22,7 @@ tags: []
 
 新的交互式解释器这一功能可能会引起误解。它实际上指的是一个新的交互式 shell，而不是语言解释器本身。这个新的 shell 来自于 PyPy 项目。这个解释器支持彩色输出、多行编辑、历史回顾和多行粘贴模式。
 
-![Lattner 和 Mojo 语言。Mojo 号称比 Python 快 6.8 万倍](https://images.jieyu.ai/images/2024/10/chris-lattner.png)
+![Lattner 和 Mojo 语言。Mojo 号称比 Python 快 6.8 万倍](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/chris-lattner.png)
 
 Python 的交互式 shell 一直是它的特色和优势，想了解一个函数的功能和用法，直接在终端中输入 ipython 之后，就可以立即尝试这个函数。我是常常拿 ipython 当计算器使用，特别方便。
 
@@ -34,7 +34,7 @@ Python 的交互式 shell 一直是它的特色和优势，想了解一个函数
 
 ## Free Threaded CPython
 
-![Robert Kahn，互联网之父](https://images.jieyu.ai/images/2024/10/robert-kahn.png)
+![Robert Kahn，互联网之父](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/robert-kahn.png)
 
 之前大家讨论很久的无 GIL 版本，现在官方名称确定为 Free Threaded CPython。在这个版本下，CPython 允许线程完全并行运行。这将立刻**数倍**提升 Python 的性能。不过，目前该功能也是实验性的。
 
@@ -85,7 +85,7 @@ def foo(*args):
 
 这是网上的一个梗，说的是有些人看图特别仔细，拿着显微镜找 bug。列文。虎克就是发明显微镜的人。10月24日也是他的生日。
 
-![](https://images.jieyu.ai/images/2024/10/abstract-raindrop.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/abstract-raindrop.jpg)
 
 列文。虎克裁缝学徒出身，没受过正规教育。后来成为一名布匹商，为了检验布匹的质量，他购买了放大镜来观察布匹的纤维，也由此开启了他的大国工匠之路（17 世纪的荷兰的确是大国。世界上的第一个证券交易所 -- 资本主义的标志，就诞生在 17 世纪的荷兰）。
 

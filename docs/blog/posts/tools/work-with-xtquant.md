@@ -23,7 +23,7 @@ tags:
 
 XtQuant 是可以脱离 QMT 运行的行情和交易接口库，即右图中对应的“原生 Python”概念。它没有 wheels 格式的安装包，要安装它，我们要到迅投的官网上 [下载](http://dict.thinktrader.net/nativeApi/download_xtquant.html) 源代码包。XtQuant 使用了打包日期来标识版本。
 
-![R50](https://images.jieyu.ai/images/2023/12/think-trader-wiki.png)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/think-trader-wiki.png)
 
 下载下来的是一个 zip 包，里面有一些 python 文章和 windows dll 文件。它能支持从 3.8 到 3.11 的各种版本，这一点相对于其它产品，是有一定优势的地方。XtQuant 文档中暗示它可以安装在 Linux 上，但没有足够的文档和用例，所以建议暂时不要尝试这种方式。
 
@@ -43,7 +43,7 @@ conda create -n myquant python=3.10
 conda run -n myquant python -m site
 ```
 
-如果你要进一步学习 Conda 命令，可以阅读 [《Python 能做大项目》](http://www.jieyu.ai/articles/python/best-practice-python/chap01/) 这本书。上面的命令将输出：
+如果你要进一步学习 Conda 命令，可以阅读 [《Python 能做大项目》](https://blog.quantide.cn/articles/python/best-practice-python/chap01/) 这本书。上面的命令将输出：
 
 ```bash
 D:\\conda\\envs\\myquant\\lib\\site-packages
@@ -72,7 +72,7 @@ XtQuant 实际上是一个代理，它需要与 QMT 客户端合作，才能完�
 
 如果你使用的是 Windows 做开发机，可以不看这一部分。如果你使用的
 
-![R33](https://images.jieyu.ai/images/2023/12/remote-explorer-on-sidebar.png)
+![R33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/remote-explorer-on-sidebar.png)
 
 是 Linux 或者 Mac 作为开发机，是可以不远程登录到安装 QMT 的 windows
 机器，而直接在本地机器上进行开发的。

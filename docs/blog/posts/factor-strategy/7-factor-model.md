@@ -6,7 +6,7 @@ category: strategy
 motto: Hope is wishing something would happen. Faith is believing something will happen. Courage is making something happen.
 lunar:
 lineNumbers: true
-img: https://images.jieyu.ai/images/2024/03/duke.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/duke.jpg
 tags: 
     - 因子
 ---
@@ -15,7 +15,7 @@ tags:
 
 七因子模型一般是指David Hsieh和William Fung于2004年在一篇题为《Hedge Fund Benchmarks: A Risk Based Approach》中提出的7 factor model。
 
-![L50](https://images.jieyu.ai/images/2024/03/david-hsieh.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/david-hsieh.jpg)
 作者David Hsieh 出生于香港，是Duke大学教授，在对冲基金和另类beta上有着深入而广泛的研究。William Fung则是伦敦商学院对冲基金教育研究中心的客座教授。
 
 这篇论文发表以来，共获得了1300多次引用。作者也以此论文获得了由CFA颁发的格雷厄姆和多德杰出贡献奖及费雪.布莱克纪念基金会奖等几个奖励。因此，这篇论文在量化史上还是有一定地位的，值得我们学习。
@@ -52,7 +52,7 @@ tags:
 
 回到正题。读者的提问是，在七因子模型中，除了市场、规模、价值和动量，其它几个因子是什么。这个问题可能来源于国内私募在用的一个8因子模型。
 
-![](https://images.jieyu.ai/images/2024/03/20240326193718.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/20240326193718.png)
 
 
 这个模型由清华大学国家金融研究院在2017年3月的一个简报（[中国私募基金8因子模型](/assets/ebooks/中国私募基金风险因子分析.pdf)）中作出批露。它参考了Fung和Hsieh的7因子模型，提出了8个因子，分别是：
@@ -70,7 +70,7 @@ tags:
 
 在这个模型中，股票市场风险因子定义为：
 
-![](https://images.jieyu.ai/images/2024/03/mkt-factor.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/mkt-factor.png)
 
 $RET_HS300_t$为第$t$月的沪深300指数的月收益率， $RF_t$为第$t$月1年期定期存款利率的月利率。这点比较意外，一般来说，国债的风险比存款还要低（大额存款有50万的止付额），但收益要高一些，一般多会使用国债利率作为无风险收益率。
 
@@ -81,15 +81,15 @@ $RET_HS300_t$为第$t$月的沪深300指数的月收益率， $RF_t$为第$t$月
 
 债券因子公式为：
 
-![75%](https://images.jieyu.ai/images/2024/03/bond10.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/bond10.jpg)
 
 信用风险因子为：
 
-![75%](https://images.jieyu.ai/images/2024/03/cbmb10.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbmb10.jpg)
 
 债券市场综合因子公式为：
 
-![75%](https://images.jieyu.ai/images/2024/03/bond_ret.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/bond_ret.jpg)
 
 数据使用的是中债综合全价指数。文章虽然只有10页的篇幅，但在因子构建方面讲解得比较详细，感兴趣的同学可以找来一读。
 
@@ -97,4 +97,4 @@ $RET_HS300_t$为第$t$月的沪深300指数的月收益率， $RF_t$为第$t$月
 
 从CAPM、APT以来，各种因子被源源不断地提出，形成了所谓的因子动物园一说。这么多因子，如何进行学习？如何梳理它们的脉络？对初学者而言，可能会一时没有头绪。我们准备了一个系统的量化课程（《量化二十四课》），并且即将开设新的因子分析及机器学习策略课程，欢迎咨询。现在报名《量化二十四课》，还可以免费升级到《因子分析及机器学习策略》课程。
 
-文中提及的两篇论文，可以在[这里](http://www.jieyu.ai/blog/2024/03/26/what-is-7-factor-model/)找到链接下载。
+文中提及的两篇论文，可以在[这里](https://blog.quantide.cn/blog/2024/03/26/what-is-7-factor-model/)找到链接下载。

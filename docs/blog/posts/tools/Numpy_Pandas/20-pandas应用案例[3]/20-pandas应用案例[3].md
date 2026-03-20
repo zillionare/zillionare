@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-20
 date: 2025-04-05
 category: tools
 motto: PDon't watch the clock; do what it does. Keep going.
-img: https://images.jieyu.ai/images/hot/mybook/men-wearing-tank.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -141,11 +141,11 @@ df['symbol'] = df['symbol'].astype('category')[8](@ref)
 ```
 
 #### 1.4.5. 方法对比与适用场景
-|方法	|适用场景	|性能优势	|
-|:------:|----------|----------|
-|query()|	复杂多条件组合，需动态变量引用	|表达式优化加速	|
-|eval()	|生成中间布尔索引，用于后续处理	|与query性能接近	|
-|isin()	|快速匹配离散值列表（如股票代码）|	集合加速+类型优化|
+|  方法   | 适用场景                         | 性能优势          |
+| :-----: | -------------------------------- | ----------------- |
+| query() | 复杂多条件组合，需动态变量引用   | 表达式优化加速    |
+| eval()  | 生成中间布尔索引，用于后续处理   | 与query性能接近   |
+| isin()  | 快速匹配离散值列表（如股票代码） | 集合加速+类型优化 |
 
 实践建议：
 - ​高频筛选：优先用 query() 保持代码简洁
@@ -259,10 +259,10 @@ _分布式tableu，可运行在数千结点上_
 
 #### 1.5.4. 选型决策树
 
-|场景|	​推荐工具|	​理由|
-|---|----------|----------|
-|单机中数据（<50GB）|	Modin	|零代码修改，快速提升现有 Pandas 脚本性能|
-|高频计算/内存受限	|Polars	|极致速度与低内存消耗，适合量化交易场景|
-|分布式/超大数据（>1TB）|	Dask	|支持集群扩展，生态完善|
+| 场景                    | ​推荐工具 | ​理由                                    |
+| ----------------------- | --------- | ---------------------------------------- |
+| 单机中数据（<50GB）     | Modin     | 零代码修改，快速提升现有 Pandas 脚本性能 |
+| 高频计算/内存受限       | Polars    | 极致速度与低内存消耗，适合量化交易场景   |
+| 分布式/超大数据（>1TB） | Dask      | 支持集群扩展，生态完善                   |
 
 ​注：实际测试显示，Polars 在单机性能上全面领先，而 Dask 在分布式场景下更具优势。建议结合数据规模与硬件资源综合选择。

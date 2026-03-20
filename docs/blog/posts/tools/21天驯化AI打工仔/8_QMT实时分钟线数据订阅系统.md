@@ -44,7 +44,7 @@ tags:
     - **网络环境**：需要跨网络传输数据
     - **存储需求**：海量时序数据的高效存储和查询
 
-![](https://images.jieyu.ai/images/2025/06/8_01.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_01.png)
 
 "这些需求看起来很有挑战性，特别是跨平台的实时数据传输。"我对 007 说道。
 
@@ -73,7 +73,7 @@ tags:
     5. 实时 tick 数据获取接口
     `xtdata.get_full_tick(stock_list)`
 
-![](https://images.jieyu.ai/images/2025/06/8_02.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_02.png)
 
 ### 连接和控制接口
 !!! tip
@@ -86,7 +86,7 @@ tags:
     3. 取消订阅
     `xtdata.unsubscribe_quote()`
 
-![](https://images.jieyu.ai/images/2025/06/8_03.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_03.png)
 
 ### 技术架构设计
 
@@ -544,7 +544,7 @@ class EnhancedDataConsumer:
 !!! question
     为什么日志中的成功率不是100%呢？
 
-![](https://images.jieyu.ai/images/2025/06/8_12.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_12.png)
 
 007给出了以下回答。
 
@@ -709,7 +709,7 @@ FROM minute_bars
 WHERE frame >= now() - INTERVAL 3 MINUTE;
 ```
 
-![](https://images.jieyu.ai/images/2025/06/8_05.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_05.png)
 
 "太棒了！"我兴奋地指着查询结果，"你看：
 - **实时性验证**：最近 3 分钟内有 5434 条记录
@@ -722,7 +722,7 @@ WHERE frame >= now() - INTERVAL 3 MINUTE;
 !!! question
     如果我希望支持多个客户端（例如 5 个）同时消费相同的 Redis 数据，应该怎么设计方案呢？
 
-![](https://images.jieyu.ai/images/2025/06/8_11.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_11.png)
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -744,7 +744,7 @@ WHERE frame >= now() - INTERVAL 3 MINUTE;
               └─────────────────┘              └─────────────────┘              └─────────────────┘
 ```
 
-![](https://images.jieyu.ai/images/2025/06/8_06.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_06.png)
 
 007 非常贴心地给出了以下的方案：
 
@@ -878,17 +878,17 @@ class MultiClientDataConsumer:
 ### 实现效果
 
 我们设计了一个多客户端消费器管理页面，在没有任何输入的时候会返回平安银行的实时价格：
-![](https://images.jieyu.ai/images/2025/06/8_10.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_10.png)
 
 #### 1. 查看消费者状态
-![](https://images.jieyu.ai/images/2025/06/8_07.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_07.png)
 
 #### 2. 查看统计信息
-![](https://images.jieyu.ai/images/2025/06/8_08.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_08.png)
 
 #### 3. 停止消费者
 
-![](https://images.jieyu.ai/images/2025/06/8_09.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_09.png)
 
 ### 总结
 

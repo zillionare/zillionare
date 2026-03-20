@@ -12,7 +12,7 @@ tags:
     - 量化数据存储
 ---
 
-![R50](https://images.jieyu.ai/images/2024/01/apache-arrow.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/apache-arrow.jpg)
 在上一篇笔记中，我们指出，如果我们只在日线级别上存储行情数据和因子，HDF5 无论如何都是够用了。即使是在存储了 40 年分钟线的单个股数据集上，查询时间也只花了 0.2 秒 -- 这个速度已经足够快了，如果我们不需要在分钟级别上进行横截面数据查询的话。
 <!--more-->
 但是，如果个人交易者确实有条件（网速和硬件）做高频交易，处理 tick 级和 level 2 的数据将是必要的。如此一来，我们处理数据的规模就达到了TB级别，但我们还想保持查询时间在毫秒级。或者，您确实需要在分钟级别上进行横截面数据查询，这些场景下，HDF5 就难堪大任了。
@@ -21,7 +21,7 @@ tags:
 
 现在我们得拜托 pyarrow + parquet 了。它们本来就是大数据解决方案之一。本文的标题是存了 50TB。博主并没有这个存储设施进行实验。但这一数字并非杜撰：
 
-![](https://images.jieyu.ai/images/2024/01/parquet-with-50-tb-tick.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/parquet-with-50-tb-tick.jpg)
 
 !!! tip level 2 数据有多大？
     据 dolphin（一种高效的时序数据库）的报告，A 股的 level 2 数据达到了一天 10GB 的数据量。
@@ -199,7 +199,7 @@ dataset.filter(filter).to_table().to_pandas()
 
 溺水三千，只取一瓢。这次我们只把其中的 480 条记录加载的了内存中。
 
-![](https://images.jieyu.ai/images/2024/01/pyarrow-filter.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pyarrow-filter.jpg)
 
 !!! tip TAKEAWAY
     1. Apache Arrow是一种基于列向量的内存存储格式

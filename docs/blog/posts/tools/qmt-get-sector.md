@@ -10,7 +10,7 @@ tags:
     - quantlib
 ---
 
-![R50](https://images.jieyu.ai/images/2023/12/sector-cloud.jpg?4)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sector-cloud.jpg?4)
 
 !!! tip 笔记要点
 
@@ -57,7 +57,7 @@ TGNMicroLED 概念，TGNMiniLED,TGNMLOps 概念，TGNMR
 
 ---
 
-![](https://images.jieyu.ai/images/2023/12/xtquant-sector.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-sector.jpg)
 
 我们看看沪深指数这个板块都由哪些指数组成：
 
@@ -125,7 +125,7 @@ barss
 
 此时我们得到输出如下：
 
-![](https://images.jieyu.ai/images/2023/12/xtquant-gn-bars.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-gn-bars.png)
 
 我们通过下面的方法求等权指数，注意这里的转置，以及求均值时，我们传入的 axis=1 的参数。
 

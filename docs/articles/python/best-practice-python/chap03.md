@@ -236,11 +236,11 @@ Pip 安装第三方库有多种方式。这里简单介绍一些：
 
 在 VS Code 中，打开命令面板（在 mac 下是 cmd+shift+p, 其它操作系统中是 ctrl + shift + p)，输入 Python: select Interpreter，如下图所示：
 
-![](https://images.jieyu.ai/images/20220820220821195956.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20220820220821195956.png)
 
 就会出现如下图所示的列表（您的电脑上显示会有所不同）：
 
-![](https://images.jieyu.ai/images/20220820220821200119.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20220820220821200119.png)
 
 如果要选择前面创建的 test 环境，也可以直接在这里输入：
 ```
@@ -249,7 +249,7 @@ Pip 安装第三方库有多种方式。这里简单介绍一些：
 
 此外，您也可以在 VS Code 的状态栏中，寻找类似下面的提示文字：
 
-![](https://images.jieyu.ai/images/202211/20221224143053.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224143053.png)
 
 然后点击它，也可进入"python: Select Interpreter"菜单。
 
@@ -262,8 +262,8 @@ print("Hello World")
 把这个程序存为 helloworld.py，然后可以在命令行下，通过`python helloworld.py`来运行它！
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

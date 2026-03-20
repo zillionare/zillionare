@@ -4,7 +4,7 @@ date: 2024-09-16
 category: factor&strategy
 slug: Is the A-share market undervalued?
 motto: 
-img: https://images.jieyu.ai/images/2024/09/eastmoney-pe-stats.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy, pe]
@@ -27,7 +27,7 @@ pe.tail(15)
 
 我们将得到从1999年以来的所有数据。它的格式如下：
 
-![表1 市盈率与指数](https://images.jieyu.ai/images/2024/09/pe-vs-index.jpg)
+![表1 市盈率与指数](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pe-vs-index.jpg)
 
 ## 低估的八月？
 
@@ -63,7 +63,7 @@ percentile
 
 如果你打开东财的客户端，找到沪指的资料页，就可以看到PE的历史走势。近十年的走势图如下：
 
-![](https://images.jieyu.ai/images/2024/09/eastmoney-pe-stats.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png)
 
 不过这似乎也给出不了更多信息。从这个图来看，沪指目前也是在低估中。
 
@@ -104,21 +104,21 @@ plt.show()
 
 我们会得到如下所示的绘图：
 
-![1999年-2024年](https://images.jieyu.ai/images/2024/09/index-vs-pe-1999-2024.png)
+![1999年-2024年](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-1999-2024.png)
 
 从图中可以看出，从1999年到2024年间，总体上存在沪指上涨，PE下降的趋势。沪指上涨应该是反应了GDP增长的长期趋势；而PE下降，则主要是由于资产供应数量的增加，导致资产泡沫不断被挤出的趋势。
 
 为了能研究细节部分，我们将上图切割成为5个子图：
 
-![1999年1月-2004年5月](https://images.jieyu.ai/images/2024/09/index-vs-pe-199901-200405.jpg)
+![1999年1月-2004年5月](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-199901-200405.jpg)
 
-![2004年6月-2009年5月](https://images.jieyu.ai/images/2024/09/index-vs-pe-200402-2009-05.png)
+![2004年6月-2009年5月](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-200402-2009-05.png)
 
-![2009年6月-2014年7月](https://images.jieyu.ai/images/2024/09/index-vs-pe-2009-06-2014-08.png)
+![2009年6月-2014年7月](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2009-06-2014-08.png)
 
-![2014年6月-2019年10月](https://images.jieyu.ai/images/2024/09/index-vs-pe-2014-05-2019-11.png)
+![2014年6月-2019年10月](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2014-05-2019-11.png)
 
-![2019年8月-2024年8月](https://images.jieyu.ai/images/2024/09/index-vs-pe-2019-08-2024-08.png)
+![2019年8月-2024年8月](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2019-08-2024-08.png)
 
 ## 思考与结论
 

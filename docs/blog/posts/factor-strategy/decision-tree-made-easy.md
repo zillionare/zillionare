@@ -95,7 +95,7 @@ features.tail()
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/12/decision-made-easy-5.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-made-easy-5.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 输出得到的是特征数据集。
@@ -148,7 +148,7 @@ print("Classification Report:\n", classification_report(y_test, y_pred))
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/12/decision-tree-made-easy-1.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-1.jpg)
 
 <!-- END IPYNB STRIPOUT -->
 
@@ -184,7 +184,7 @@ print("Resampled Classification Report:\n", classification_report(y_test_resampl
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/12/decision-tree-made-easy-2.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-2.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 经过类别平衡后，准确率基本不变，但在我们关注的类别1和类别2上，它的准召率还**分别提升了8%和3%**。
@@ -213,7 +213,7 @@ plt.show()
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/12/decisiontree-made-easy-3.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-3.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -282,5 +282,5 @@ print("Classification Report:\n", classification_report(y_validation, y_pred))
 <!--027 6788 0230-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://images.jieyu.ai/images/2024/12/decisiontree-made-easy-4.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-4.jpg)
 <!-- END IPYNB STRIPOUT -->

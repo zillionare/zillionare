@@ -5,7 +5,7 @@ date: 2024-04-10
 category: career
 motto: 不要因寻找地上的六便士，而错过了头顶的月亮
 lineNumbers: true
-img: https://images.jieyu.ai/images/2024/04/wes-mckinney-cover.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney-cover.jpg
 tags: 
     - 人物
 ---
@@ -22,7 +22,7 @@ tags:
 
 我们今天要介绍的Wes Mckinney，其经历也与思特里克兰德有异曲同工之处。不过，Wes Mckinney在经济上只有很小一段时间没有收入，随后很快就取得了事业上的成功。
 
-![](https://images.jieyu.ai/images/2024/04/wes4.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes4.jpg)
 
 ---
 
@@ -33,7 +33,7 @@ Wes Mckinney, 大学毕业于MIT，后来拿到了杜克大学的数学和统计
 在AQR任职期间，大量的基础数据分析和统计工作是基于Microsoft Excel 手工完成的，这种工作极其繁琐和低效率。于是，Wes Mckinney从2008年开始，尝试开发Pandas，并选中了Python作为开发语言。
 
 <div>
-<img src="https://images.jieyu.ai/images/2024/04/pandas-logo.png">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/pandas-logo.png">
 <p style="font-size:12px;text-align:center">来源：pandas logo</p>
 </div>
 

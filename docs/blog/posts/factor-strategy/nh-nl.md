@@ -126,7 +126,7 @@ xt.get_stock_list_in_sector("SW1煤炭")
 
 更多的代码不便一一演示。我们有示例notebook可以提供。最终我们能得到这样一个效果：
 
-![](https://images.jieyu.ai/images/2023/12/nhnl.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/nhnl.png)
 
 
 ## Quiz

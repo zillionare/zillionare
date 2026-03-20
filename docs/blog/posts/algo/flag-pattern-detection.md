@@ -4,7 +4,7 @@ date: 2025-02-25
 category: algo
 slug: flag-pattern-detection
 motto: 
-img: https://images.jieyu.ai/images/2025/02/daniel-thomas.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/daniel-thomas.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [算法,模式识别]
@@ -21,7 +21,7 @@ tags: [算法,模式识别]
 <!-- BEGIN IPYNB STRIPOUT -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/hot/logo/zsxq.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -30,7 +30,7 @@ tags: [算法,模式识别]
 
 !!! note
     <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-    <img src='https://images.jieyu.ai/images/2025/02/matryoshka-doll.jpg'>
+    <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/matryoshka-doll.jpg'>
     <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
     </div>
     先通过算法对k线图进行标注，再通过CNN网络进行识别，感觉这个有点Matryoshka doll了。于是我在课程中换了另一个例子，通过4 channel的一维卷积，实现了预测误差1%的准确率。这篇文章算是课程的边脚料重新加工了。
@@ -38,7 +38,7 @@ tags: [算法,模式识别]
 算法的示意图如下：
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/resist-support.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/resist-support.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>三角形检测示意图</span>
 </div>
 
@@ -62,7 +62,7 @@ tags: [算法,模式识别]
 部分形态如下图所示：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/all-triangles.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/all-triangles.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -174,7 +174,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/300814.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -199,7 +199,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/300814-break-out.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-break-out.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -223,7 +223,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/300814-sep-6.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-sep-6.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -246,7 +246,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/300814-nov-20.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-nov-20.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -269,7 +269,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2025/02/300814-dec-29.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-dec-29.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

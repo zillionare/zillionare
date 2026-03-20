@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-19
 date: 2025-04-05
 category: tools
 motto: The gem cannot be polished without friction, nor man perfected without trials.
-img: https://images.jieyu.ai/images/hot/mybook/poster-on-wall.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
@@ -230,11 +230,11 @@ df['is_after_hours'] = df['trade_time'].apply(
 
 ---
 
-| 方法 |	数据结构	| 百万行耗时 |	适用场景	| 核心优势 |
-|:-----:|:------:|:-----:|:-----:|:-----:|
-| ​iterrows	| 生成 (index, Series) 对	| 85.938s	| 需要行索引的简单遍历	| 直观易用	|
-|​ itertuples|	生成命名元组	| 7.656s |	大规模数据遍历	| 内存占用减少50%，速度提升6倍	|
-|​ apply	| 向量化函数应用	| 0.03s	| 条件逻辑较复杂的行级计算 |	语法简洁，自动类型优化 |
+|     方法     |        数据结构         | 百万行耗时 |         适用场景         |           核心优势           |
+| :----------: | :---------------------: | :--------: | :----------------------: | :--------------------------: |
+|  ​iterrows   | 生成 (index, Series) 对 |  85.938s   |   需要行索引的简单遍历   |           直观易用           |
+| ​ itertuples |      生成命名元组       |   7.656s   |      大规模数据遍历      | 内存占用减少50%，速度提升6倍 |
+|   ​ apply    |     向量化函数应用      |   0.03s    | 条件逻辑较复杂的行级计算 |    语法简洁，自动类型优化    |
 
 
 !!! Notes

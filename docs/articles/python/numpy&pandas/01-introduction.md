@@ -6,7 +6,7 @@ slug: numpy-pandas-for-quant-trader-01
 date: 2025-03-08
 category: tools
 motto: 不要因为地上的六便士，错过了头顶的月亮。
-img: https://images.jieyu.ai/images/2025/03/moon-and-sixpence.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/moon-and-sixpence.jpg
 stamp_width: 60%
 stamp_height: 60%
 fonts:
@@ -70,7 +70,7 @@ Numpy 是 Python 科学计算中的基础包，它是一款开源软件，允许
 Numpy 提供了多维数组对象、各种派生对象（比如掩码数组 -- masked array）以及各种用于数组操作的高性能例程，包括数学、逻辑、形状操作、排序、选择、I/O 、离散傅里叶变换、基本线性代数、基本统计运算、随机模拟等等。下图提供了一个更详细的说明：
 
 <div style='width:80%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/04/numpy-features.jpg?1'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/numpy-features.jpg?1'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -127,7 +127,7 @@ Pandas 的名字来源于术语 Panel Data（面板数据）和 Python Data Anal
 -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://images.jieyu.ai/images/2024/04/pandas-features.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/pandas-features.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -138,7 +138,7 @@ Pandas 提供了 Series, DataFrame 两种数据结构。它曾经还提供了 Pa
 ## 延伸阅读
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://images.jieyu.ai/images/2024/04/wes-mckinney.jpg'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>来源：Github readme 项目</span>
 </div>
 

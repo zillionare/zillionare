@@ -4,7 +4,7 @@ date: 2024-08-18
 seq: 第 5 期
 category: others
 slug: quantide-weekly-0818
-img: https://images.jieyu.ai/images/2024/08/kenneth-griffin.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, career]
@@ -72,9 +72,9 @@ pip install openbb[all]
 
 安装后，我们可以在命令行下启动 openbb。
 
-![](https://images.jieyu.ai/images/2024/08/openbb-cli.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-cli.jpg)
 
-![R50](https://images.jieyu.ai/images/2024/08/open-bb-quotes-view.jpg)
+![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/open-bb-quotes-view.jpg)
 
 然后就可以按照提示，输入命令。比如，如果我们要获得行情数据，就可以一路输入命令 equity > price, 再输入 historical --symbol LUV --start_date '2024-01-01' --end_date '2024-08-01'，就可以得到这支股票的行情数据。
 
@@ -103,7 +103,7 @@ obb
 
 这个 obb 对象，就是我们使用 openbb 的入口。当我们直接在单元格中输入 obb 时，就会提示我们它的属性和方法：
 
-![](https://images.jieyu.ai/images/2024/08/help-openbb-jupyter.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/help-openbb-jupyter.jpg)
 
 在这里，openbb 保持了接口的一致性。我们看到的内容和在 cli 中看到的差不多。
 
@@ -119,7 +119,7 @@ obb.equity.search("JPMorgan", provider="nasdaq").to_df().head(3)
 
 输出结果为：
 
-![](https://images.jieyu.ai/images/2024/08/openbb-equity-search.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-equity-search.jpg)
 
 作为一个外国人，表示要搞清楚股票代码与数据提供商的关系，有点困难。不过，如果是每天都研究它，花点时间也是应该的。
 
@@ -146,11 +146,11 @@ obb.equity.price.historical("AMJB")
 
 注册 FMP 只需要有一个邮箱即可，所以，如果 250 次不够用，看起来也很容易加量。注册完成后，就可以在 dashboard 中看到你的 API key:
 
-![75%](https://images.jieyu.ai/images/2024/08/fmp-keys.jpg)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fmp-keys.jpg)
 
 然后注册 Openbb Hub 账号，将这个 API key 添加到 OpenBB hub 中。
 
-![50%](https://images.jieyu.ai/images/2024/08/openbb-hub.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-hub.jpg)
 
 现在，我们将数据源改为 FMP，再运行刚才的代码，就可以得到我们想要的结果了。
 
@@ -162,7 +162,7 @@ obb.equity.price.historical("AMJB", provider="fmp").to_df().tail()
 
 我们将得到如下结果：
 
-![](https://images.jieyu.ai/images/2024/08/openbb-amjb-quotes.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-amjb-quotes.jpg)
 
 换一支股票，apple 的，我们也是先通过 search 命令，拿到它的代码'AAPL'（我常常记作 APPL），再代入上面的代码，也能拿到数据了。
 
@@ -215,7 +215,7 @@ HybridRAG 的有效性通过使用 Nifty 50 指数上市公司的财报电话会
 
 ---
 
-![](https://images.jieyu.ai/images/2024/08/benchmark-hybrid-rag.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/benchmark-hybrid-rag.jpg)
 
 分析结果表明，HybridRAG 在多个指标上均优于 VectorRAG 和 GraphRAG。 HybridRAG 的忠实度得分为 0.96，表明生成的答案与提供的上下文相符。关于答案相关性，HybridRAG 得分为 0.96，优于 VectorRAG (0.91) 和 GraphRAG (0.89)。
 

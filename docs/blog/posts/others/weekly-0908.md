@@ -333,7 +333,7 @@ print("x - y:", diff)
 Numpy中数学相关的运算有线性代数运算（当然还有基本代数运算）、统计运算、金融指标运算等等。
 
 #### 2.3.1. 线性代数
-线性代数在量化中有重要用途。比如，在现代资产组合理论（MPT）中，我们要计算资产组合收益率及协方差，都要使用矩阵乘法。大家可以参考[投资组合理论与实战](http://www.jieyu.ai/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/)系列文章，下面是其中的一段代码：
+线性代数在量化中有重要用途。比如，在现代资产组合理论（MPT）中，我们要计算资产组合收益率及协方差，都要使用矩阵乘法。大家可以参考[投资组合理论与实战](https://blog.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/)系列文章，下面是其中的一段代码：
 
 ```python
 ...
@@ -491,7 +491,7 @@ plt.show()
 ---
 
 这将生成下图：
-![](https://images.jieyu.ai/images/2024/04/np-polyfit.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg)
 
 ## 3. 类型转换和Typing
 
@@ -618,18 +618,18 @@ def convert_to_int(arr: NDArray, dtype: DTypeLike) -> NDArray:
 
 ## 《因子投资与机器学习策略》开课啦！
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/1.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## 9月8日晚，在线直播，不见不散
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/2.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## ![点击入会](https://meeting.tencent.com/dm/j6WuV9fNCB9w)
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/3.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 
 <about/>

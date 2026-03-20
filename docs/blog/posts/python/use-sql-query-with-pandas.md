@@ -2,7 +2,7 @@
 title: 给Pandas找个搭子，用SQL玩转Dataframe!
 slug: use-sql-query-with-pandas
 date: 2024-01-29
-img: https://images.jieyu.ai/images/2024/01/panda.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/panda.jpg
 category: arsenal
 motto: Do What you Love, the Money will Follow
 lunar:
@@ -101,7 +101,7 @@ df.head()
 
 ---
 
-![](https://images.jieyu.ai/images/2024/01/pandas-sql-mixed-data.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-mixed-data.jpg)
 
 现在，我们来执行一个查询:
 
@@ -138,7 +138,7 @@ pysqldf("select A, C, count(*) as count
         from df group by B limit 2;")
 ```
 
-![](https://images.jieyu.ai/images/2024/01/pandas-sql-pandasql-example.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-pandasql-example.jpg)
 
 分组统计、限制返回记录和更改字段名一气喝成，这个例子中，充分体现了使用sql的优越性。
 
@@ -146,7 +146,7 @@ pysqldf("select A, C, count(*) as count
 
 ---
 
-![](https://images.jieyu.ai/images/2024/01/pandas-sql-not-executable.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-not-executable.jpg)
 
 要解决这个问题，就需要退回到 SQLAlchemy 的1.4.46版本上来。但是，由于非常多的其它库（包括Pandas）会依赖SQLAlchemy的比较新的版本，所以这个方案实际上只会制造新的混乱。
 
@@ -241,14 +241,14 @@ duckdb.sql(sql)
 
 输出结果是DataFrame格式，结果如下：
 
-![66%](https://images.jieyu.ai/images/2024/01/pandas-sql-duckdb-left-join.jpg)
+![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-duckdb-left-join.jpg)
 
 ---
 
 我们注意到2023年6月14日，发生了一次复权。接下来与zillionare-omicron获取的数据进行对比，我们要看复权发生的时间、复权因子以及收盘价是否一致：
 
 
-![](https://images.jieyu.ai/images/2024/01/pandas-sql-omicron-result.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-omicron-result.jpg)
 
 可以看到，两者结果是一致的。但是duckDB的实现，速度上要比zillionare快不少。
 

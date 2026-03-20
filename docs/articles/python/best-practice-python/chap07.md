@@ -493,8 +493,8 @@ with mock.patch.object(logger, 'info') as m:
 这里要提及 pytest 中 mocker.patch 与 unitest.mock.patch 的一个细微差别。后者进行 patch 时，可以返回 mock 对象，我们可以通过它进行更多的检查（见上面示例代码中的第 15 行）；但 mocker.patch 的返回值是 None。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
@@ -719,7 +719,7 @@ my_other_module.py           56      6    89%   17-23
 TOTAL                        76     10    87%
 ```
 如果希望得到更好的视觉效果，也可以使用 coverage html 命令来生成带注释的 HTML 报告，然后在浏览器中打开 htmlcov/index.html。
-![75%](https://images.jieyu.ai/images/2023/01/20230120204634.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230120204634.png)
 
 不过，更多人选择使用 pytest-cov 插件来进行测试覆盖率的收集。这也是 ppw 的选择。通过 ppw 生成的工程，pytest-cov 已被加入到测试依赖中，因此也就自然安装到环境中去了。
 
@@ -804,10 +804,10 @@ $ chmod +x codecov
 $ ./codecov
 ```
 我们强烈建议仅通过 CI 来上传覆盖率报告，而不是在本地执行。因为本地执行的覆盖率报告，可能会因为开发者本地环境的不同而产生差异。另一方面，在 CI 中执行后，我们还能在 pull request 之后，得到这样的状态报告：
-![](https://images.jieyu.ai/images/2023/01/20230120213255.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230120213255.png)
 
 并且还能在 pull request 的注释中看到覆盖率的变化：
-![](https://images.jieyu.ai/images/2023/01/20230120213318.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230120213318.png)
 
 这会让你的开源项目看上去非常专业，不是吗？更重要的是，让你的潜在用户更加信任这是一个高质量的项目。
 
@@ -830,7 +830,7 @@ Tox 是一个通用的 Python 虚拟环境管理和测试命令行工具，旨�
 ### 6.2. Tox 的工作原理
 下图是 tox 文档显示的工作原理图：
 
-![](https://images.jieyu.ai/images/2024/02/tox.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/tox.jpg)
 
 根据这张图，tox 读取配置文件，打包待测试软件，按照配置文件创建虚拟环境，并安装待测试软件和依赖，然后依次执行测试命令。最终，当所有虚拟环境下的测试都通过后，tox 会生成测试报告。
 
@@ -955,8 +955,8 @@ commands =
 [^pytest-session]: 根据 pytest 文档，pytest session 是指通过 pytest 命令启动的一次测试过程。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

@@ -103,11 +103,11 @@ tabnine 与 copilot 的值得一提的区别是它的付费模式。tabnine 提�
 尽管 AI 辅助编程的功能很好用，但仍然有一些场景，我们需要借助传统的工具，比如 pylance。pylance 是微软官方出品的扩展。vscode 本身只是一个通用的 IDE 框架，对具体某种语言的开发支持（编辑、语法高亮、语法检查、调试等），都是由该语言的扩展及语言服务器（对 python 而言，有 jedi 和 pylance 两个实现）来实现的，因此，pylance 是我们在 vscode 中开发 python 项目时，必须安装的一个扩展。
 
 它可以随用户输入时，提示函数的签名、文档和进行参数的类型提示，如下图所示：
-![](https://images.jieyu.ai/images/2023/01/20230112144603.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230112144603.png)
 
 Pylance 在上面提到的代码自动完成之外，还能实现依赖自动导入。此外，由于它脱胎于语法静态检查器，所以它还能提示代码中的错误并显示，这正是到目前为止，像 copilot 这样的人工智能还做不太好的地方。源码级的查错，使得我们可以尽早修正这些错误，这也正是很多使用静态语言的程序员认为诟病 Python 的地方 – 现在我们知道，这只是一种无知的偏见。
 
-![](http://images.jieyu.ai/images/202104/20210413172416.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202104/20210413172416.png)
 
 !!! Tips
     Pylance 安装后，需要进行配置。配置文件是 pyrightconfig.json，放置在项目根目录下。
@@ -201,7 +201,7 @@ foo(10)
 ```
 foo 函数要求传入字符串，但我们在调用时，错误地传入了一个整数。这在运行时并不会出错，但 pylance 将会发现这个错误，并且给出警告，当我们把鼠标移动到出错位置，就会出现如下提示：
 
-![](https://images.jieyu.ai/images/2023/01/20230114102202.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230114102202.png)
 
 下面，我们简要地介绍一下 type hint 的一些常见用法：
 
@@ -355,7 +355,7 @@ else
     f4();
 ```
 对应的控制流图可以绘制成为：
-![](https://images.jieyu.ai/images/2023/01/20230115111237.png){height="30%"}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230115111237.png){height="30%"}
 
 上述控制流图中，有 9 条边，7 个结点，1 个连接，因此它的复杂度为 3。
 
@@ -460,8 +460,8 @@ d = 'x'         # OK
 4. 如果找到名为的 Python 模块 foo.py，则匹配。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
@@ -613,7 +613,7 @@ error: Returning Any from function declared to return "str"  [no-any-return]
 ## 5. Formatter 工具
 Formatter 工具也有很多种，但是我们几乎没有去考查其他的 formatter，就选择了 black，只因为它的 logo:
 <figure>
-    <img src="https://images.jieyu.ai/images/2023/01/20230116214626.png" width="250"/>
+    <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230116214626.png" width="250"/>
     <figcaption> The Uncompromising Code Formatter</figcaption>
 </figure>
 
@@ -654,7 +654,7 @@ pre-commit 安装后，会在你的项目目录下创建一个.git/hooks 目录�
 
 如果使用向导生成项目的话，向导已经为您安装了 pre-commit hooks, 当您运行``git commit``命令时，就会看到这样的输出：
 
-![](http://images.jieyu.ai/images/202104/20210413181638.png)
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202104/20210413181638.png)
 
 可以看出，pre-commit hooks 对换行符进行了检查和修复，调用 black 进行了格式化，以及调用 Flake8 进行了查错，并报告对 f-string 的错误使用。
 
@@ -731,8 +731,8 @@ mypy 的配置有点与众不同。它没有使用远程的 repo，而是使用�
 这一章的主题是高效编码。我们先是介绍了代码自动完成工具，然后讲述了如何利用语法检查工具尽早发现并修复错误，避免把这些错误带入到测试甚至生产环境中。在我们介绍的方案中，语法检查是随着您的 coding 实时展开的，并在向代码库提交时，强制执行一次检查。后面您还会看到，在运行测试时，还会再做一次检查，通过这样分层式的设防与检查，帮助您的项目避免出现重大错误。
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://images.jieyu.ai/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://images.jieyu.ai/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>

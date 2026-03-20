@@ -64,12 +64,12 @@ tags:
 !!! quote
     我们使用np.float32来存储OHLC这些数据，只对成交额、成交量使用np.float64。使用更小的字节数来存储数据，是当前AI性能优化的重要方向。大约2020年学界开始使用int16来压缩深度学习模型，而最近对大模型的压缩中，甚至开始使用int8。
 
-又比如，很多朋友读过我们[基于深度学习的量化策略如何实现归一化](http://www.jieyu.ai/blog/2023/12/16/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BD%92%E4%B8%80%E5%8C%96/)的文章。多数人认为这篇文章颇有深度。这篇文章实际上来自于我们课程的第十三课。
+又比如，很多朋友读过我们[基于深度学习的量化策略如何实现归一化](https://blog.quantide.cn/blog/2023/12/16/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BD%92%E4%B8%80%E5%8C%96/)的文章。多数人认为这篇文章颇有深度。这篇文章实际上来自于我们课程的第十三课。
 
 ### 编排特点
 课程一般以思维导图开始，勾连出全课知识点，比如：
 
-![](https://images.jieyu.ai/images/2023/07/lesson13-outline.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
 
 ### 实验环境
 

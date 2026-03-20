@@ -4,7 +4,7 @@ date: 2024-09-24
 category: career&figure
 slug: 
 motto: 
-img: https://images.jieyu.ai/images/university/yale-new-haven-autumn.jpeg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/yale-new-haven-autumn.jpeg
 stamp_width: 60%
 stamp_height: 60%
 tags: []
@@ -12,13 +12,13 @@ tags: []
 
 多年以后，当量化分析师 Jack 坐在陆家嘴世纪金融广场的豪华办公室里，向 VIP 客户介绍自己最新的量化策略的时候，他还会想起那个决定性的夜晚。那时候，Jack 还是一名研二的学生，即将面临择业，意识到自己在校期间学习到的知识，清浅到清澈见底，又古老得像史前的巨蛋。
 
-![](https://images.jieyu.ai/images/hot/shanghai-1.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/shanghai-1.jpg)
 
 那时，他意识到自己把一切都拖到了最后一刻。钟表的滴答声在寂静的房间里回荡，每一秒都在嘲笑他的拖延。他依然能感受到桌上堆积如山的课本的重量，空气中弥漫的咖啡香气，以及笔记本电脑屏幕上微弱的光芒在墙上投下的影子。
 
 正是在这时候，他刷到了《因子分析与机器学习策略》这门课程，一下子就被迷住了。
 
-![](https://images.jieyu.ai/images/hot/course/factor-ml/lizhi-cover.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/lizhi-cover.png)
 
 这门课不一样。
 
@@ -38,7 +38,7 @@ Learning without thinking leads to confusion。他说。
 
 当然，机器学习策略部分也是一样。编写者从自然是连续的，还是不连续的哲学问题思考起，讲起了机器学习的两大根本问题：回归还是分类？在指出不可能通过机器学习构造一个决定性的价格预测模型之后，又给出了自己的回答：只要找到虫洞，仍然可能穿越到未来，从而"预测"过去！
 
-![](https://images.jieyu.ai/images/2024/09/interstella-wormhole.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/interstella-wormhole.png)
 
 只有编写者自己思考还不够，他决定把听课者也卷入进来。
 
@@ -46,5 +46,5 @@ Learning without thinking leads to confusion。他说。
 
 直播课更是引入了各种小quiz，通过倒计时来催着大家思考。
 
-![](https://images.jieyu.ai/images/2024/09/countdown-timer.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/countdown-timer.png)
 

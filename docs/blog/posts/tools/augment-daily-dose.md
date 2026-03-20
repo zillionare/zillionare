@@ -3,7 +3,7 @@ title: Augment随手记
 date: 2025-05-17
 category: tools
 slug: augment-daily-dose-1
-img: https://images.jieyu.ai/images/hot/gallery/banner/IMG_20250510_112543.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/banner/IMG_20250510_112543.jpg
 tags:
   - AI
   - Augment

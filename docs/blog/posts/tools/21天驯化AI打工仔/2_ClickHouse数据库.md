@@ -4,7 +4,7 @@ slug: Taming-the-AI-Worker-in-21-Days-2
 date: 2025-05-11
 category: tools
 motto: You only live once, but if you do it right, once is enough
-img: https://images.jieyu.ai/images/2025/05/20250514202750.png
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
 tags: 
     - tools
     - programming
@@ -40,7 +40,7 @@ ClickHouse 是一个用于联机分析（OLAP）的列式数据库管理系统�
     - **分区与分片功能**：允许对数据进行水平分区和分片，将数据划分到不同节点或磁盘存储，提升查询效率和并行处理能力。
 -->
 
-![](https://images.jieyu.ai/images/2025/04/2_01.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_01.png)
 
 于是，我使唤 007 给我一个 Mac 系统安装 ClickHouse 的教程，它对此表示非常容易，于是，我按照下面的步骤进行安装。
 
@@ -87,7 +87,7 @@ ORDER BY (ts_code, trade_date);
 
 按照 007 的指示，我创建了一个名为 `ohlc_data` 的表，用于存储 OHLC 数据。
 
-![](https://images.jieyu.ai/images/2025/04/2_03.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_03.png)
 
 ## 3. 修改 Redis 消息队列代码以支持 ClickHouse 存储
 
@@ -160,7 +160,7 @@ if __name__ == "__main__":
 数据处理异常: 'str' object has no attribute 'year'
 ```
 
-![](https://images.jieyu.ai/images/2025/04/2_04.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_04.png)
 
 007（委屈但诚恳）：根据错误信息 数据处理异常: `'str' object has no attribute 'year'`，问题可能出在 `trade_date` 字段的处理上。`trade_date` 是一个字符串（例如 `"20230101"`），而 ClickHouse 需要 `Date` 类型的数据。在插入数据时，ClickHouse 的 `Date` 类型需要一个有效的日期格式（如 `YYYY-MM-DD`）。
 
@@ -226,8 +226,8 @@ def consume_data():
 
 经过上述修改，`data_consumer.py` 现在可以成功将数据从 Redis 队列传送到 ClickHouse 数据库。
 
-![](https://images.jieyu.ai/images/2025/04/2_05.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_05.png)
 
-![](https://images.jieyu.ai/images/2025/04/2_06.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_06.png)
 
 

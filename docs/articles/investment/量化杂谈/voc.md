@@ -5,7 +5,7 @@ slug: east-india-company
 
 黄浦江畔，外白渡桥边，有一幢拥有百余年历史的英国新古典主义风格建筑。这里曾是著名的浦江饭店，更因是新中国首家证券交易所的旧址而闻名，如今以中国证券博物馆身份成为网红打卡地。
 
-![](https://images.jieyu.ai/images/2023/02/voc/xshg_museum.jpeg){: .img-center-75 }
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/xshg_museum.jpeg){: .img-center-75 }
 <center><i style="font-size: small">中国证券博物馆</i></center>
 
 1990年底，上海证券交易所正式成立，这是建国以来内地的第一家证券交易所，当时只有8支股票上市，12.34亿元市值，是“全球最小”的证券市场。今天，中国A股上市公司已经突破5000家[^milestone1]，成为仅次于美国的第二大股票现货市场，为中国经济做出了重要贡献。
@@ -18,7 +18,7 @@ slug: east-india-company
 
 一切还得从香料说起。在中世纪的欧洲，香料的价格十分昂贵。这里说的香料，并不是我们今天所说的香水、香精一类的东西，而是指可用以烹制食物的香辛料，比如胡椒、丁香、肉桂、肉蔻、生姜等。
 
-![](https://images.jieyu.ai/images/2023/02/voc/spices.jpg){: .img-center-75 }
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/spices.jpg){: .img-center-75 }
 
 欧洲贵族们对香料烹制的食物极为推崇，用今天的话来说，没有用香料烹制过的肉类，是没有灵魂的。这种狂热的追捧，使香料成为社会中的奢侈品，甚至一度和黄金等价，其中，胡椒就被称为“黑色黄金”。
 
@@ -28,7 +28,7 @@ slug: east-india-company
 
 这家公司就叫荷兰东印度公司。历史上至少有两个有名的东印度公司。另一家是不列颠东印度公司，成立于1600年，垄断了印度贸易的特权达两个世纪，一般我们说的东印度公司，都是指不列颠东印度公司。不过，在本文后面，我们提到东印度公司，则是指荷兰东印度公司。
 
-![](https://images.jieyu.ai/images/2023/02/voc/ship_Amsterdam.jpg){: .img-center-75}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/ship_Amsterdam.jpg){: .img-center-75}
 <center><i style="font-size: small">东印度公司的船</i></center>
 
 东印度公司成立之后，立即公开发行了股票，仅首都就有1000人购买该公司的股票，共融得650万荷兰盾的初始资金。同期的不列颠东印度公司，其初始资金则只有7.2万镑，仅相当于前者的十分之一。
@@ -45,7 +45,7 @@ slug: east-india-company
 
 1609年，董事会决定不再返回本金。如果股东遇到急用钱的时候，或者股东对公司的业绩不太满意的时候，他们要如何退出变现呢？于是从那时起，交易所新增了二级市场交易的功能。至此，阿姆斯特丹交易所就成为了第一个现代意义上的完全的证券交易所。
 
-![](https://images.jieyu.ai/images/2023/02/voc/amsterdam_exchange.jpeg){: .img-center-75 }
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/amsterdam_exchange.jpeg){: .img-center-75 }
 <center><i style="font-size: small">阿姆斯特丹证交所</i></center>
 
 
@@ -61,7 +61,7 @@ slug: east-india-company
 
 在东印度公司的例子中，股票起到了募集初始资金的作用；而证券交易市场则通过提供流动性，使得公司可以持续、稳定和高效率（公司不再需要为应付股票回兑而保留现金）地使用他们募集来的资金。在资本的推动下，荷兰的海上贸易和国力日益发展，获得了海上马车夫之称，成为几个世纪以来欧洲最强盛和富裕的国家。
 
-![](https://images.jieyu.ai/images/2023/02/20230220202525.png){: .img-center-75}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/20230220202525.png){: .img-center-75}
 
 
 
@@ -79,7 +79,7 @@ slug: east-india-company
 
 如果您喜欢这本书，可以在点击[这里](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BANcJK1olXgAAV1dfAE8XBV8IGloQWQcCVF5UDkIeBl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmoMGlsVXQ8EXVdYFxJSXzI4YCBQJnpgKVo4axdoW2hoTVsLPXxeNFJROEonA24JGV4SWgAGV25tCEwnQgEIGlkTXgAKUW5cOEsQBWkPHVkVVQYBUFttD0seMzZbSwtWA1kyZG5eOEwXCnsOaRpHSQBwZG5dOEgnA2YOGV4XVAcESF5cCUsSH28PHV0SWwQCU11dD0MnAW4JH1IlbQ)购买。
 
-![](https://images.jieyu.ai//images/2023/03/s27351873.jpg){: .img-center-50}
+![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}
 
 
 [^milestone1]: 2022年11月22日，随着鼎泰高科、矩阵股份在深交所上市，中国A股突破了5000家。据《上海证券报》报道，A股从诞生到突破1000家用了10年时间，从1000家到2000家用了10年时间，从2000家到3000家用了6年时间，从3000家到4000家用了不到4年时间，而从4000家到5000家用了2年零2个月时间。

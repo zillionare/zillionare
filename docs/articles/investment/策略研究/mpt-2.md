@@ -77,7 +77,7 @@ plt.scatter(vol_arr[pos], annual_return[pos], c='red',s=80)
 
 我们把夏普率最高的那组方案，用红色的点标注出来。
 
-![](https://images.jieyu.ai/images/2023/10/mpt-sharpe-vol.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/mpt-sharpe-vol.png)
 
 从走势图来看，我们这样求出来的资产组合确实是最优的。但是，如果我们将它与文章开头的那个图相比，我们会得出什么结论？
 
@@ -105,7 +105,7 @@ plt.scatter(vol_arr[pos], annual_return[pos], c='red',s=80)
 
 在讨论可行性问题前，我们可以尝试进行一些速度优化。
 
-![](https://images.jieyu.ai/images/2023/12/vectorize_vs_for.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/vectorize_vs_for.png)
 
 我们可以使用下面的算法，把部分计算移出了循环：
 

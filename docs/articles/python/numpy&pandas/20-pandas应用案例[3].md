@@ -8,7 +8,7 @@ slug: numpy-pandas-for-quant-trader-20
 date: 2025-04-05
 category: tools
 motto: PDon't watch the clock; do what it does. Keep going.
-img: https://images.jieyu.ai/images/hot/mybook/men-wearing-tank.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: 
