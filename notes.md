@@ -206,3 +206,11 @@ https://www.reddit.com/r/algotrading/comments/1ob5xao/built_a_regimebased_overni
     Pennsylvania State University (82)
 
 需要我帮你把这份清单里**QS前100的大学单独提取出来**，做成一个精简版排名表吗？
+
+## cmd
+
+win + j to open terminal
+conda actiivate zillionare
+
+发布到blog.quantide.cn
+python publish.py web
