@@ -1,30 +1,37 @@
-cmd=$1
-file=$2
-home="$HOME"
+#!/bin/bash
 
-if [ "$#" == 3 ]; then
-    theme="$home/workspace/slidev_themes/themes/$3"
-else
-    theme="$home/workspace/slidev_themes/themes/portrait-flora"
-    echo $theme
+# 1. 接收一个文件名（可能是相对路径）
+if [ -z "$1" ]; then
+    echo "用法: $0 <文件名>"
+    exit 1
 fi
 
-project_dir=`pwd`
-cd ~/workspace/slidev_themes
-echo "进入目录：`pwd`"
-if [ $cmd = "serve" ]; then
-  npx --verbose slidev $project_dir/$file -t $theme --remote 
-elif [ $cmd = "tunnel" ]; then
-  npx slidev $project_dir/$file -t $theme --remote --tunnel --log info
-elif [ $cmd = "pdf" ]; then
-  mkdir -p /tmp/xhs
-  mkdir -p $project_dir/xhs_output/
-  rm -rf /tmp/xhs/*
-  npx slidev export --format pdf -t $theme --output /tmp/quantide.pdf $project_dir/$file --with-toc
-  rm -f ~/workspace/zillionare/xhs_output/*
-  cp -r /tmp/quantide.pdf $project_dir/xhs_output/
-else
-    mkdir -p /tmp/xhs
-    rm -rf /tmp/xsh/*
-    npx slidev export --format png -t $theme --output /tmp/xhs $project_dir/$file --wait 10000 --timeout 60000 --per-slide
+# 获取绝对路径，确保在 cd 后软链接依然有效
+FILE_PATH=$(realpath "$1")
+TARGET_DIR="$HOME/workspace/slidev"
+TARGET_FILE="$TARGET_DIR/slides.md"
+
+if [ ! -f "$FILE_PATH" ]; then
+    echo "错误: 文件 '$1' 不存在。"
+    exit 1
 fi
+
+# 确保目录存在
+mkdir -p "$TARGET_DIR"
+
+# 2. 将该文件软链接到 ~/workspace/slidev/slides.md （如果已存在，overwrite）
+ln -sf "$FILE_PATH" "$TARGET_FILE"
+echo "已创建软链接: $TARGET_FILE -> $FILE_PATH"
+
+# 3. 退出时，删除这个软链接（但原文件一定要保留！）
+cleanup() {
+    echo "正在清理软链接..."
+    rm -f "$TARGET_FILE"
+}
+# 捕获正常退出和中断信号
+trap cleanup EXIT INT TERM
+
+# 2. 进入到 ~/workspace/slidev 目录，运行 pnpm slidev
+cd "$TARGET_DIR" || exit 1
+echo "正在 $TARGET_DIR 中运行 pnpm slidev..."
+pnpm slidev
