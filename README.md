@@ -11,10 +11,10 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
     
 <div>
 <h3>为什么我们需要因果卷积？</h3>
-<img src="cats" style="height: 200px" align="right"/>
-<p>经济活动是有周期的，但市场的情绪却是混沌的。当我们试图用一根参数固定的均线去框住这多变的市场时，往往会处处碰壁。这篇文章里，我们聊聊如何放弃对参数的执念，用因果卷积（Causal Convolution）让模型自己去 K 线里寻找权重，把不可言传的“盘感”变成严谨的数学表达。</p>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/b89d81ad18e4642f00d6ab7ec70f03e7.jpg" style="height: 200px" align="right"/>
+<p>均线的参数到底设多少合适？20日还是30日？网格搜索出来的"最优参数"一上实盘就失效。这篇文章介绍一种思路：让模型自己从K线里学出权重，不用人工拍板——这就是因果卷积（Causal Convolution）</p>
 
-<p><span style="margin-right:20px">发表于 2026-03-25 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/tcn/因果卷积/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2026-03-27 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/tcn/因果卷积/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
