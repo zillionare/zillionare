@@ -45,13 +45,35 @@ Default behavior is outline-first, not full-draft-first.
 The article should satisfy all of these:
 
 - Starts from a concrete tension, puzzle, anomaly, tradeoff, or misconception
+- The first screen should point at the article's real bottleneck, not a generic industry lament
+- If the article revolves around specific tools, data sources, or workflows, name the key examples early instead of saving them for later
 - Makes at least one falsifiable claim, not only attitude or vibes
-- Uses data, code, market mechanics, or workflow detail as evidence when the topic is technical
+- Uses hard logic, structural constraints, data, quantifiable metrics, or market mechanics as evidence rather than loose descriptive prose
+- Prefer information density over explanatory padding; cut any paragraph whose main job is to tell the reader why the author chose this angle, structure, or tone
+- When a claim can be grounded with numbers, dates, counts, stars, version info, or market scale, do so
+- When a workflow claim depends on an external site, product, or standard, state the source in prose and make it easy to verify
+- When the topic is practical, include the minimum concrete operating path: what to click, what to search, what to download, where to place it, how to verify it worked
+- If screenshots, command output, tables, or concrete UI states would materially reduce ambiguity, plan for them instead of compensating with extra prose
+- When recommending tools, skills, vendors, or workflows, prefer the best default choice for the reader rather than an exhaustive catalog
+- Benchmark your recommendations using factual leverage (e.g., install scale, backing institutions, core metrics) so that conclusions are structurally unassailable, not just "this tool is neat"
+- Add a second option only when the first choice has a clear, material gap and the alternative genuinely fills it
+- When explaining setup or installation, distinguish clearly between discovery source, download format, and host-specific install location
+- Verify workflow claims against current product docs when the article depends on operational details such as settings, folder paths, or activation behavior
 - Uses human texture when helpful:人物经历、行业轶事、研究者分歧、名言、争论、失败教训
+- Has visible 起承转合: open on the concrete problem, expand into concept or background, turn into mechanism or example, then close on the practical takeaway
 - Distinguishes observation, inference, and speculation
 - Keeps the conclusion proportional to the evidence
 - Avoids title-clickbait, sermon tone, and empty abstractions like “empower”, “subvert”, “redefine”
 - Reads like a practitioner talking to serious readers, not a growth marketer farming attention
+
+## Frontmatter-Aware Metadata Rules
+
+When generating frontmatter-facing values such as title, excerpt, subtitle-like labels, or tag values:
+
+- do not use `:` or `：`
+- if a phrase naturally wants a colon, rewrite the phrase instead
+- keep `excerpt` within 120 characters total, counting Chinese and English characters together and including punctuation
+- prefer short, stable wording over decorative phrasing that risks YAML conflicts
 
 ## Narrative Enrichment
 
@@ -118,10 +140,10 @@ If the topic is broad, narrow it by choosing one:
 
 Pick one primary reader and write for that person only:
 
-- curious beginner with Python basics
-- practicing retail quant
-- junior researcher
-- experienced practitioner looking for sharper framing
+- curious beginner with Python basics: ok to explain concepts in accessible terms
+- practicing retail quant: focus on local setup, cost, and friction
+- junior researcher: focus on robustness, data traps, and edge cases
+- experienced practitioner / graduate-level reader: drastically tighten the vocabulary. Rely on structural constraints, hard logic, factual benchmarks (numbers/industry scale), and precise academic/engineering terminology (e.g., Curation, Entropy, Zero-shot, Extrapolation, Engineering fragility). Drop all loose, folksy, or overly colloquial "chatty" analogies (大白话). 
 
 Adjust depth accordingly. Do not mix beginner hand-holding with expert shorthand in the same section.
 
@@ -134,8 +156,19 @@ Draft these internal notes first:
 - What evidence would change that reader’s mind?
 - What part remains uncertain even after the analysis?
 - Which human story or external viewpoint would make this argument more vivid without turning it sentimental?
+- Which concrete tools, datasets, APIs, or workflow objects are doing the real work in this article, and can the opening name them immediately?
+- Which recommendation is the strongest default for this reader, and is there any real need to mention a second-best or complementary option?
 
 If you cannot answer these, do not write the full article yet. Strengthen the angle first.
+
+### 3.5. Design the first screen
+
+Before writing the opening paragraphs, decide what the reader should encounter on the first screen.
+
+- Start from the actual pain point or operational constraint, not from a broad thesis about the whole industry
+- If the article mainly discusses a few representative tools or data sources, bring them into the opening instead of holding them back for the middle
+- Make the first paragraph do at least two jobs: identify the concrete problem and hint at why the rest of the article is worth reading
+- Avoid throat-clearing that could fit any topic; the opening should feel impossible to detach from this specific article
 
 ### 4. Choose the article shape
 
@@ -197,6 +230,28 @@ Match the topic to the minimum evidence required.
 - Strategy article: trigger condition, execution assumption, slippage/latency constraint, risk control
 - Career/opinion article: one concrete anecdote, one technical example, one non-obvious insight
 - Motivational or人物 article: one concrete setback, one turning-point decision, one durable habit or method, one takeaway that respects reality rather than selling optimism
+- Tooling / workflow article: concrete platform facts, at least one sourceable metric or count, one verification path, one install or usage example, and screenshots or visual placeholders when UI steps matter
+
+If the article compares tools, skills, or data sources:
+
+- do not enumerate everything you found just because it exists
+- choose the best default recommendation first and justify why it wins for this reader
+- mention a second or complementary option only if it clearly covers a concrete shortcoming in the first choice
+- avoid repeating documentation-level feature lists unless the article's point depends on that detail
+- keep the focus on what the reader would not get from reading the official docs alone
+
+If the article is revising or tightening an existing draft:
+
+- remove throat-clearing and self-justifying transitions first
+- compress any paragraph that restates the same claim without adding new evidence
+- prefer one sentence with a number or source over three sentences of abstract framing
+- keep only the conceptual background needed for the reader to execute the next step or understand the recommendation
+
+If the article includes installation or usage instructions for portable skills across multiple hosts:
+
+- separate marketplace discovery from actual installation
+- state which steps belong to Skills Marketplace and which belong to VS Code, Claude Code, Codex CLI, or another host
+- do not infer install paths from a repository convention unless the host documentation confirms it
 
 If a claim depends on code, include only the code needed to make the point. Prefer short, inspectable snippets over long notebooks.
 
@@ -210,6 +265,8 @@ For each section:
 - give evidence or mechanism
 - optionally add a person, quote, or field contribution if it deepens the section’s meaning
 - close with what the reader should update their belief to
+- do not give a familiar tool, API, or library its own section unless that section advances the article's core argument rather than restating its documentation
+- do not spend sentences narrating the author's writing process, justification, or rhetorical intent unless that meta-level itself is the subject
 
 Prefer dense, clean paragraphs. Use lists only when comparison or procedure matters.
 
@@ -217,19 +274,20 @@ Prefer dense, clean paragraphs. Use lists only when comparison or procedure matt
 
 Target tone:
 
-- calm
-- exact
+- calm and structurally rigorous
+- exact in terms of metrics, system constraints, and logic
+- intellectually dense when targeting advanced readers (prefer cold, professional academic/engineering vernacular)
 - mildly witty when earned
-- skeptical of easy conclusions
-- generous to the reader’s intelligence
+- skeptical of easy conclusions and "silver bullets"
+- generous to the reader’s intelligence (explain the mechanism, skip the hand-holding)
 - quietly encouraging about the long game of learning
 
 Avoid:
 
-- exaggerated certainty
-- fake intimacy
+- overly conversational/colloquial "chatty" transitions (泛泛之谈 / 大白话)
+- exaggerated certainty or generic AI praising (e.g., "AI empowers everything")
+- fake intimacy ("你是不是也遇到过...")
 - inflated moral language
-- generic AI phrasing
 - pretending a toy backtest proves a durable edge
 - cheap inspiration that ignores how hard the work actually is
 
@@ -250,6 +308,12 @@ Use these branches while drafting.
 
 - If the topic is highly technical, privilege correctness over lyricism
 - If the topic is conceptual, add one concrete market or implementation example to avoid floating abstractions
+- If the opening sounds like it could introduce ten different articles, rewrite it until it names this article’s actual constraint, dataset, toolchain, or conflict
+- If later sections are carried by a few concrete examples, pull those examples earlier so the reader sees the article’s true subject on the first screen
+- If a recommendation section starts turning into a directory listing, cut it down to the best default choice and one justified backup at most
+- If a section mostly repeats what the official docs already say, compress it and move the emphasis back to selection, workflow, installation, or practical use
+- If a paragraph explains why the article is written a certain way rather than delivering facts, judgment, or procedure, cut it
+- If the piece would be stronger with one screenshot, count, link, or command than with another paragraph of framing, choose the artifact
 - If the article feels dry, add one human anchor: a quote, an anecdote, a disagreement, or a biographical detail tied to the exact point being made
 - If the article turns preachy, replace motivation with specificity: habit, process, mistake, or constraint
 - If using a famous name, explain the exact relevance instead of name-dropping
@@ -291,13 +355,20 @@ Run this check explicitly:
 
 1. Is the title precise and intriguing without overpromising?
 2. Does the first screen contain a real problem, not background throat-clearing?
-3. Can each major claim be tied to evidence or mechanism?
-4. Is any paragraph saying the same thing twice?
-5. Where is the draft most likely wrong or incomplete?
-6. Would a serious quant reader learn at least one non-obvious thing?
-7. If the article uses人物或quotes, do they genuinely sharpen the point rather than decorate it?
+3. Does the opening name the concrete tools, datasets, APIs, or workflow objects that the article is actually built around when they are central to the piece?
+4. Can each major claim be tied to evidence or mechanism?
+5. Is the article’s 起承转合 visible, with each section clearly handing off to the next rather than piling up observations?
+6. Is any paragraph saying the same thing twice?
+7. Does the article recommend the best default option instead of burying the reader in an undifferentiated list?
+8. Are any sections just paraphrasing docs when they should instead emphasize judgment, workflow, installation, or use?
+9. Where is the draft most likely wrong or incomplete?
+10. Would a serious quant reader learn at least one non-obvious thing?
+11. If the article uses人物或quotes, do they genuinely sharpen the point rather than decorate it?
+12. Do generated frontmatter values avoid `:` and `：`, and does the `excerpt` stay within 120 characters including punctuation?
+13. Does the draft contain enough hard information to be useful on its own: numbers, source cues, concrete steps, commands, or visual evidence?
+14. Is any paragraph mostly explaining the author's framing rather than advancing the reader's understanding or execution path?
 
-If the answer to 5, 6, or 7 is weak, revise before presenting the article as finished.
+If the answer to 9, 10, 11, 12, 13, or 14 is weak, revise before presenting the article as finished.
 
 ## Local Publishing Convention
 

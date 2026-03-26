@@ -18,6 +18,8 @@ Requirements:
 3. Prefer `category` over `categories`
 4. Preserve the fixed presentation fields required by the standard template: `font`, `addons`, `aspectRatio`, `canvasWidth`, and `layout`
 5. For publish-ready files, replace brace placeholders with concrete values; for scaffolds, placeholders may remain when appropriate
+6. Rewrite generated plain-text metadata values when needed so they do not contain `:` or `：`
+7. Keep `excerpt` within 120 characters total, counting Chinese and English characters together and including punctuation
 
 Final response requirements:
 

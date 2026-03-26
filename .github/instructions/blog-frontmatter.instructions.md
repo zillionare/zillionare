@@ -33,12 +33,19 @@ layout: cover-photo-down
 
 ## Required Fields
 
-- `title`: concise, specific, not clickbait
+- `title`: concise, specific, not clickbait, and must not contain `:` or `：`
 - `date`: fill with the current date when the article is prepared for publication, using `YYYY-MM-DD`
-- `excerpt`: one compact summary derived from the article content
+- `excerpt`: one compact summary derived from the article content, counting Chinese and English characters together, no more than 120 characters including punctuation, and must not contain `:` or `：`
 - `category`: use singular `category`, not `categories`
-- `tags`: a short list derived from the article content
+- `tags`: a short list derived from the article content; individual tag values must not contain `:` or `：`
 - `img`: this template uses the variable placeholder `{cats}` and should be resolved when the article is prepared for publication
+
+## Metadata Safety Rules
+
+- Generated frontmatter values such as `title`, `excerpt`, tag values, and other plain-text metadata should not contain `:` or `：`
+- This is a hard constraint to avoid frontmatter parsing conflicts and accidental YAML breakage
+- If a natural phrasing contains a colon, rewrite it rather than escaping it
+- When counting the `excerpt` length, count Chinese and English characters together and keep the total at 120 characters or fewer, including punctuation
 
 ## Fixed Presentation Fields
 
@@ -94,5 +101,7 @@ When normalizing frontmatter:
 
 - Frontmatter should be followed by a blank line, then article body
 - Do not fabricate unsupported claims in `excerpt`
+- Do not generate frontmatter text values with `:` or `：`
+- Keep `excerpt` within 120 characters total, counting Chinese and English characters together and including punctuation
 - Do not insert placeholder text like `TODO` into published posts unless the user asks for a scaffold
 - For drafts, brace placeholders are acceptable when the command explicitly creates a scaffold or the final metadata is not yet stable

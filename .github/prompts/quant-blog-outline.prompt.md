@@ -27,4 +27,9 @@ Rules:
 - Do not write the full article unless the user explicitly asks for it
 - Keep the angle concrete, defensible, and non-generic
 - If the topic is broad, narrow it before outlining
+- Design the opening around the article's real bottleneck or practical constraint rather than a generic industry statement
+- If the article depends on a few representative tools, datasets, APIs, or workflows, surface them early in the outline and title logic instead of burying them mid-article
+- Prefer an outline with visible 起承转合: concrete problem, concept framing, mechanism/examples, practical takeaway
 - If a likely filename already exists, suggest a versioned alternative
+- In any proposed frontmatter preview, generated text values such as `title`, `excerpt`, and tag values must not contain `:` or `：`
+- Keep any generated `excerpt` within 120 characters total, counting Chinese and English characters together and including punctuation
