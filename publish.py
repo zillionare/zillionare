@@ -6,6 +6,7 @@ import re
 import shlex
 import shutil
 import subprocess
+import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import List, Optional
@@ -925,14 +926,27 @@ def remove_incomplete_html_tags(text):
     return "".join(result)
 
 
+COMMANDS = {
+    "build": build,
+    "web": publish_jieyu,
+    "quantide": publish_quantide,
+    "gzh": prepare_gzh,
+    "meta": extract_meta_for_jieyu_index,
+    "preview": preview_notebook,
+}
+
+
+def print_usage():
+    print("用法: python publish.py <command> [args]")
+    print("")
+    print("可用命令:")
+    for name in COMMANDS:
+        print(f"  - {name}")
+
+
 if __name__ == "__main__":
-    fire.Fire(
-        {
-            "build": build,
-            "web": publish_jieyu,
-            "quantide": publish_quantide,
-            "gzh": prepare_gzh,
-            "meta": extract_meta_for_jieyu_index,
-            "preview": preview_notebook,
-        }
-    )
+    if len(sys.argv) == 1 or sys.argv[1] in {"-h", "--help"}:
+        print_usage()
+        sys.exit(0)
+
+    fire.Fire(COMMANDS)
