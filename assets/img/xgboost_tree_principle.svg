@@ -1,0 +1,99 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrowDark" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+</marker>
+<style>
+text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;fill:#0f172a}
+.title{font-size:30px;font-weight:700}
+.subtitle{font-size:16px;fill:#475569}
+.section{font-size:22px;font-weight:700}
+.label{font-size:17px;font-weight:600;fill:#334155}
+.body{font-size:16px;fill:#475569}
+.small{font-size:14px;fill:#64748b}
+.chip{font-size:13px;font-weight:700;fill:#1d4ed8}
+.formula{font-size:26px;font-weight:700;fill:#1d4ed8}
+</style>
+</defs>
+
+<rect width="1200" height="760" fill="#ffffff"/>
+<text x="600" y="58" text-anchor="middle" class="title">XGBoost 决策树原理图</text>
+<text x="600" y="88" text-anchor="middle" class="subtitle">按条件逐层切分样本，让每个叶子给出一笔局部修正，再与后续树继续累加</text>
+
+<rect x="48" y="124" width="704" height="580" rx="28" fill="#f8fafc" stroke="#e2e8f0"/>
+<rect x="776" y="124" width="376" height="580" rx="28" fill="#f8fafc" stroke="#e2e8f0"/>
+
+<text x="400" y="164" text-anchor="middle" class="section">一棵树是怎么工作的</text>
+<text x="964" y="164" text-anchor="middle" class="section">XGBoost 真正关心什么</text>
+
+<rect x="82" y="184" width="118" height="32" rx="16" fill="#dbeafe"/>
+<text x="141" y="205" text-anchor="middle" class="chip">样本从根节点进入</text>
+
+<rect x="262" y="196" width="276" height="88" rx="20" fill="#dbeafe" stroke="#93c5fd"/>
+<text x="400" y="230" text-anchor="middle" class="label">根节点</text>
+<text x="400" y="258" text-anchor="middle" class="body">市值 &lt; 120 亿？</text>
+
+<line x1="400" y1="284" x2="400" y2="330" stroke="#334155" stroke-width="3"/>
+<line x1="400" y1="330" x2="216" y2="388" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<line x1="400" y1="330" x2="584" y2="388" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<text x="284" y="354" class="small">是</text>
+<text x="516" y="354" class="small">否</text>
+
+<rect x="78" y="402" width="276" height="88" rx="20" fill="#dcfce7" stroke="#86efac"/>
+<text x="216" y="436" text-anchor="middle" class="label">继续分裂</text>
+<text x="216" y="464" text-anchor="middle" class="body">换手率 &gt; 3%？</text>
+
+<rect x="446" y="402" width="276" height="88" rx="20" fill="#ede9fe" stroke="#c4b5fd"/>
+<text x="584" y="436" text-anchor="middle" class="label">继续分裂</text>
+<text x="584" y="464" text-anchor="middle" class="body">波动率 &lt; 2.5%？</text>
+
+<line x1="216" y1="490" x2="216" y2="528" stroke="#334155" stroke-width="3"/>
+<line x1="216" y1="528" x2="120" y2="572" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<line x1="216" y1="528" x2="312" y2="572" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<text x="156" y="516" class="small">是</text>
+<text x="272" y="516" class="small">否</text>
+
+<line x1="584" y1="490" x2="584" y2="528" stroke="#334155" stroke-width="3"/>
+<line x1="584" y1="528" x2="488" y2="572" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<line x1="584" y1="528" x2="680" y2="572" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<text x="524" y="516" class="small">是</text>
+<text x="640" y="516" class="small">否</text>
+
+<rect x="52" y="588" width="136" height="78" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="120" y="620" text-anchor="middle" class="label">叶子 1</text>
+<text x="120" y="648" text-anchor="middle" class="body">w₁ = +0.18</text>
+
+<rect x="244" y="588" width="136" height="78" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="312" y="620" text-anchor="middle" class="label">叶子 2</text>
+<text x="312" y="648" text-anchor="middle" class="body">w₂ = +0.05</text>
+
+<rect x="420" y="588" width="136" height="78" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="488" y="620" text-anchor="middle" class="label">叶子 3</text>
+<text x="488" y="648" text-anchor="middle" class="body">w₃ = -0.04</text>
+
+<rect x="612" y="588" width="136" height="78" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="680" y="620" text-anchor="middle" class="label">叶子 4</text>
+<text x="680" y="648" text-anchor="middle" class="body">w₄ = -0.12</text>
+
+<rect x="82" y="680" width="636" height="24" rx="12" fill="#dbeafe"/>
+<text x="400" y="697" text-anchor="middle" class="small">样本一路按条件往下走，最后只会落到一个叶子；这个叶子给出的不是类别，而是一笔修正值</text>
+
+<rect x="808" y="188" width="312" height="108" rx="22" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="964" y="224" text-anchor="middle" class="label">1. 树负责切分样本</text>
+<text x="964" y="252" text-anchor="middle" class="body">每个内部节点都在问一个条件</text>
+<text x="964" y="276" text-anchor="middle" class="body">把原来混在一起的样本继续拆开</text>
+
+<rect x="808" y="314" width="312" height="108" rx="22" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="964" y="350" text-anchor="middle" class="label">2. 叶子存的是输出值</text>
+<text x="964" y="378" text-anchor="middle" class="body">落到叶子以后，样本拿到一个分数 wⱼ</text>
+<text x="964" y="402" text-anchor="middle" class="body">它表示这一轮该往上修还是往下修</text>
+
+<rect x="808" y="440" width="312" height="118" rx="22" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="964" y="476" text-anchor="middle" class="label">3. 单棵树只做一轮局部修正</text>
+<text x="964" y="504" text-anchor="middle" class="body">XGBoost 不是靠一棵树包打天下</text>
+<text x="964" y="528" text-anchor="middle" class="body">而是一轮一轮补树，把误差慢慢压下去</text>
+
+<rect x="808" y="578" width="312" height="92" rx="22" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="964" y="616" text-anchor="middle" class="formula">ŷ = Σ fₖ(x)</text>
+<text x="964" y="644" text-anchor="middle" class="small">最终预测来自多棵小树的输出累加，不是某一棵树单独决定</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg width="1200" height="680" viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#2563eb"/>
+</marker>
+<marker id="arrowGray" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+</marker>
+<style>
+text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;fill:#0f172a}
+.title{font-size:30px;font-weight:700}
+.subtitle{font-size:16px;fill:#475569}
+.panelTitle{font-size:24px;font-weight:700}
+.label{font-size:16px;fill:#334155}
+.small{font-size:14px;fill:#64748b}
+.formula{font-size:28px;font-weight:700;fill:#1d4ed8}
+</style>
+</defs>
+
+<rect width="1200" height="680" fill="#ffffff"/>
+<text x="600" y="56" text-anchor="middle" class="title">XGBoost 局部二次近似</text>
+<text x="600" y="86" text-anchor="middle" class="subtitle">梯度决定往哪边修，曲率决定这一步能走多大</text>
+
+<rect x="48" y="116" width="520" height="454" rx="24" fill="#f8fafc" stroke="#e2e8f0"/>
+<rect x="632" y="116" width="520" height="454" rx="24" fill="#f8fafc" stroke="#e2e8f0"/>
+
+<text x="308" y="160" text-anchor="middle" class="panelTitle">曲率大（h 大）</text>
+<text x="308" y="186" text-anchor="middle" class="subtitle">局部地形更陡，最优步长更小</text>
+<text x="892" y="160" text-anchor="middle" class="panelTitle">曲率小（h 小）</text>
+<text x="892" y="186" text-anchor="middle" class="subtitle">局部地形更平，最优步长更大</text>
+
+<line x1="108" y1="478" x2="512" y2="478" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+<line x1="108" y1="478" x2="108" y2="228" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+<text x="498" y="502" class="label">更新量 Δ</text>
+<text x="80" y="236" class="label">局部损失</text>
+
+<line x1="692" y1="478" x2="1096" y2="478" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+<line x1="692" y1="478" x2="692" y2="228" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+<text x="1082" y="502" class="label">更新量 Δ</text>
+<text x="664" y="236" class="label">局部损失</text>
+
+<path d="M170 309 L190 359 L210 401 L230 432 L250 454 L270 467 L286 470 L302 467 L322 454 L342 432 L364 397 L390 340 L410 285 L430 221" fill="none" stroke="#0f172a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M760 384 L790 423 L820 450 L850 464 L868 466 L886 464 L910 454 L930 439 L948 421 L980 378 L1010 325 L1040 259" fill="none" stroke="#0f172a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+<circle cx="364" cy="397" r="8" fill="#ef4444"/>
+<line x1="328" y1="464" x2="412" y2="307" stroke="#f97316" stroke-width="4" stroke-dasharray="10 8"/>
+<text x="420" y="305" class="label">这里的切线斜率对应 g</text>
+<text x="274" y="294" class="small">g &gt; 0，所以局部最优更新往左</text>
+
+<circle cx="948" cy="421" r="8" fill="#ef4444"/>
+<line x1="888" y1="488" x2="1018" y2="343" stroke="#f97316" stroke-width="4" stroke-dasharray="10 8"/>
+<text x="1026" y="341" class="label">这里的切线斜率对应 g</text>
+<text x="868" y="326" class="small">同样往左，但 h 更小，所以能走更远</text>
+
+<line x1="364" y1="478" x2="364" y2="397" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 8"/>
+<line x1="286" y1="478" x2="286" y2="470" stroke="#1d4ed8" stroke-width="3"/>
+<line x1="364" y1="478" x2="286" y2="478" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
+<text x="325" y="462" text-anchor="middle" class="label">往左修正</text>
+<text x="364" y="526" text-anchor="middle" class="small">当前点 Δ = 0</text>
+<text x="286" y="526" text-anchor="middle" class="small">Δ* = - g / h</text>
+<text x="286" y="548" text-anchor="middle" class="small">|Δ*| 小</text>
+
+<line x1="948" y1="478" x2="948" y2="421" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 8"/>
+<line x1="868" y1="478" x2="868" y2="466" stroke="#1d4ed8" stroke-width="3"/>
+<line x1="948" y1="478" x2="868" y2="478" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
+<text x="908" y="462" text-anchor="middle" class="label">往左修正</text>
+<text x="948" y="526" text-anchor="middle" class="small">当前点 Δ = 0</text>
+<text x="868" y="526" text-anchor="middle" class="small">Δ* = - g / h</text>
+<text x="868" y="548" text-anchor="middle" class="small">|Δ*| 大</text>
+
+<circle cx="286" cy="470" r="7" fill="#1d4ed8"/>
+<circle cx="868" cy="466" r="7" fill="#1d4ed8"/>
+<text x="246" y="444" class="label">局部最低点</text>
+<text x="828" y="440" class="label">局部最低点</text>
+
+<rect x="130" y="590" width="940" height="60" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="600" y="629" text-anchor="middle" class="formula">Δ* = - g / h</text>
+<text x="600" y="655" text-anchor="middle" class="small">g 决定方向；h 越大，局部越“弯”，更新越保守</text>
+</svg>
