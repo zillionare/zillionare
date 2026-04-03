@@ -1,0 +1,75 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrowDark" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+<path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+</marker>
+<style>
+text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;fill:#0f172a}
+.title{font-size:30px;font-weight:700}
+.subtitle{font-size:16px;fill:#475569}
+.section{font-size:22px;font-weight:700}
+.label{font-size:17px;font-weight:600;fill:#334155}
+.body{font-size:16px;fill:#475569}
+.small{font-size:14px;fill:#64748b}
+.formula{font-size:28px;font-weight:700;fill:#1d4ed8}
+.formulaSmall{font-size:22px;font-weight:700;fill:#1e293b}
+.formulaMid{font-size:20px;font-weight:700;fill:#1e293b}
+.chip{font-size:13px;font-weight:700;fill:#1d4ed8}
+</style>
+</defs>
+
+<rect width="1200" height="720" fill="#ffffff"/>
+<text x="600" y="58" text-anchor="middle" class="title">XGBoost 一次分裂为什么会有 Gain</text>
+<text x="600" y="88" text-anchor="middle" class="subtitle">重点不是“树会不会切”，而是“切完以后，目标函数究竟多下降了一截”</text>
+
+<rect x="52" y="124" width="682" height="548" rx="28" fill="#f8fafc" stroke="#e2e8f0"/>
+<rect x="758" y="124" width="390" height="548" rx="28" fill="#f8fafc" stroke="#e2e8f0"/>
+
+<text x="393" y="164" text-anchor="middle" class="section">节点分裂示意</text>
+<text x="953" y="164" text-anchor="middle" class="section">分裂前后“可压低的损失”对比</text>
+
+<rect x="104" y="182" width="92" height="32" rx="16" fill="#dbeafe"/>
+<text x="150" y="203" text-anchor="middle" class="chip">样本先聚在一起</text>
+<rect x="258" y="196" width="270" height="102" rx="20" fill="#dbeafe" stroke="#93c5fd"/>
+<text x="393" y="232" text-anchor="middle" class="label">父节点</text>
+<text x="393" y="266" text-anchor="middle" class="formulaSmall">G, H</text>
+<text x="393" y="288" text-anchor="middle" class="small">这一整批样本先共用一个叶子值</text>
+
+<line x1="393" y1="298" x2="393" y2="350" stroke="#334155" stroke-width="3"/>
+<line x1="393" y1="350" x2="226" y2="408" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+<line x1="393" y1="350" x2="560" y2="408" stroke="#334155" stroke-width="3" marker-end="url(#arrowDark)"/>
+
+<rect x="88" y="418" width="276" height="118" rx="20" fill="#dcfce7" stroke="#86efac"/>
+<text x="226" y="456" text-anchor="middle" class="label">左叶子</text>
+<text x="226" y="492" text-anchor="middle" class="formulaSmall">G<tspan baseline-shift="sub" font-size="15">L</tspan>, H<tspan baseline-shift="sub" font-size="15">L</tspan></text>
+<text x="226" y="516" text-anchor="middle" class="small">左边样本累计出自己的梯度和 Hessian</text>
+
+<rect x="422" y="418" width="276" height="118" rx="20" fill="#ede9fe" stroke="#c4b5fd"/>
+<text x="560" y="456" text-anchor="middle" class="label">右叶子</text>
+<text x="560" y="492" text-anchor="middle" class="formulaSmall">G<tspan baseline-shift="sub" font-size="15">R</tspan>, H<tspan baseline-shift="sub" font-size="15">R</tspan></text>
+<text x="560" y="516" text-anchor="middle" class="small">右边样本也单独累计自己的信息</text>
+
+<rect x="114" y="568" width="558" height="74" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="393" y="598" text-anchor="middle" class="body">如果左右两边适合的修正幅度已经明显不同</text>
+<text x="393" y="624" text-anchor="middle" class="body">把它们分开拟合，通常就比“硬塞在同一个叶子里”更划算</text>
+
+<rect x="792" y="186" width="322" height="150" rx="22" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="953" y="224" text-anchor="middle" class="label">不分裂时</text>
+<text x="953" y="252" text-anchor="middle" class="small">父节点单独承担全部修正</text>
+<text x="953" y="292" text-anchor="middle" class="formulaSmall">下降量 = 1/2 ×</text>
+<text x="953" y="322" text-anchor="middle" class="formulaMid">G² / (H + λ)</text>
+
+<line x1="953" y1="348" x2="953" y2="382" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 8" marker-end="url(#arrowDark)"/>
+
+<rect x="792" y="394" width="322" height="176" rx="22" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="953" y="432" text-anchor="middle" class="label">分裂后</text>
+<text x="953" y="460" text-anchor="middle" class="small">左右叶子分别承担自己的修正</text>
+<text x="953" y="498" text-anchor="middle" class="formulaSmall">下降量 = 1/2 ×</text>
+<text x="953" y="528" text-anchor="middle" class="formulaMid">(G<tspan baseline-shift="sub" font-size="14">L</tspan>² / (H<tspan baseline-shift="sub" font-size="14">L</tspan> + λ)) +</text>
+<text x="953" y="554" text-anchor="middle" class="formulaMid">(G<tspan baseline-shift="sub" font-size="14">R</tspan>² / (H<tspan baseline-shift="sub" font-size="14">R</tspan> + λ))</text>
+
+<rect x="792" y="590" width="322" height="60" rx="18" fill="#dbeafe" stroke="#93c5fd"/>
+<text x="953" y="628" text-anchor="middle" class="formulaSmall">Gain = 分裂后下降量 − 分裂前下降量 − γ</text>
+
+<text x="953" y="690" text-anchor="middle" class="small">只有多带来的下降量足够大，扣掉复杂度代价 γ 以后仍然为正，这一刀才值得切</text>
+</svg>
