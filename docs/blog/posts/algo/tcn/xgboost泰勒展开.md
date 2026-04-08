@@ -1,6 +1,6 @@
 ---
 title: "Kaggle 表格赛里，XGBoost 为什么总有竞争力？"
-date: 2026-03-29
+date: 2026-04-08
 excerpt: 很多 Kaggle 表格赛长期是 GBDT 家族在占上风，XGBoost 是其中最经典的一支。它强的不只是树模型本身，而在于每补一步都会先算清楚：梯度决定往哪边修，二阶信息决定修多少，叶子值决定这一轮怎么修，gain 决定这次分裂值不值。
 category: algo
 tags: [xgboost, kaggle, boosting, 决策树, 泰勒展开]
