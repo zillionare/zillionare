@@ -22,11 +22,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>如何获取免费的华尔街日报的文章</h3>
-<img src="{'cats': None}" style="height: 200px" align="right"/>
-<p>彭博一年订阅费 ¥4300+？这么贵，其实有免费的办法。本文分享一个绕过付费墙的浏览器扩展，帮你零成本获取彭博等主流财经媒体的付费内容，同时附上金融人的阅读顺序框架。</p>
+<h3>龙虾流量太贵？ 我一招搞定每天7500万词元</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg" style="height: 200px" align="right"/>
+<p>OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的token.</p>
 
-<p><span style="margin-right:20px">发表于 2026-04-03 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/papers/分享免费金融扩展工具/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2026-04-11 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/白嫖顶级AI算力指南/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -34,11 +34,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>聊聊 TCN：一种更清晰的时间序列解构方式</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg" style="height: 200px" align="right"/>
-<p>2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接确保深度。这篇文章带你拆解 TCN，看看它如何用卷积的逻辑，把时间序列的权重分配讲得通透且明白。</p>
+<h3>如何获取免费的华尔街日报的文章</h3>
+<img src="{'cats': None}" style="height: 200px" align="right"/>
+<p>彭博一年订阅费 ¥4300+？这么贵，其实有免费的办法。本文分享一个绕过付费墙的浏览器扩展，帮你零成本获取彭博等主流财经媒体的付费内容，同时附上金融人的阅读顺序框架。</p>
 
-<p><span style="margin-right:20px">发表于 2026-03-30 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/tcn/tcn原理/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2026-04-03 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/papers/分享免费金融扩展工具/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
