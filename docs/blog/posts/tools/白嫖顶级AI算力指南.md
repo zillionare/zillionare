@@ -5,13 +5,25 @@ img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/copperti
 excerpt: OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的token.
 category: tools
 tags: [tools, openclaw, resources]
+font: "阿里巴巴普惠体-Regular"
+addons:
+  - quantide-admonition
+  - quantide-layout-xhs
+  - quantide-palette
+aspectRatio: 3/4
+canvasWidth: 600
+layout: cover-photo-down
+installment: na
+htmlAttrs:
+  class: bumblebee
 ---
+
 
 既然要运营和操作小龙虾（oplenclaw），Token 就是实打实的消耗品。我们最近深度测试了两个非常稳的大厂免费渠道，能直接调用顶级模型（比如 GLM-5），而且几乎没有额度限制，非常适合拿来跑小龙虾。
 
 ## 01 来自 OpenRouter的每日7000万
 
-OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且提供大量免费配额。我养龙虾的第二天，就完全领会了 OpenRouter 的玩法。当时 QWen 3.6正在免费使用期，我一天最高用到7500万的 Token，用完了整整一千次请求。
+OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且提供大量免费配额。我养龙虾的第二天，就完全领会了 OpenRouter 的玩法。当时 QWen 3.6正在免费使用期，我**一天最高用到7500万的 Token**，用完了整整**一千次**请求。
 
 ![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
 
@@ -27,11 +39,14 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 
 输入网址 `https://openrouter.ai`。
 
+
 ![step1：进入OpenRouter界面](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/390bb2f6807b7acd82e9fb4d36af7314.jpg)
 
 #### 登录账户
 
 使用邮箱注册并确认（verify）登录。
+
+
 
 ![step2:成功注册登陆](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/e3e1cd2d2d821b2943a2f13b37739983.jpg)
 
