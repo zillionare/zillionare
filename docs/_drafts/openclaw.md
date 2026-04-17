@@ -1,5 +1,30 @@
 ---
-title: 安全养虾，免费养虾
+background: |
+    最近 Aaron 尝试了openclaw，并决定构建一个基于虚拟机的 Quantide Claw 产品，对外发布。产品亮点：
+
+    1. 使用Openrouter 上的免费模型，零成本养虾
+    2. 还可以利用你自己的 mac mini + oMLX，接入本地大模型。经测试，使用 gemma 4 26B-A4B量化模型，以及 Qwen3.5 MOE量化模型，输入输出速度已和云端算力匹敌。
+    3. openclaw 使用本地浏览器，通过安装扩展，可以打破付费墙限制，让 AI 读到更多有价值的文章
+    4. 使用虚拟机作为软件发布载体，是一个 turnkey 工程，解决了安装配置难题
+    5. 虚拟机可以在一台物理机上运行多个实例，实现一个虾池
+    6. 虚拟机管理更容易，不需要花钱请人安装，更不需要花钱请人卸载。
+    7. 无限搜索。因为是本地浏览器方案，所以， 搜索时不受 API 请求限制。
+
+    openclaw与大模型比，倒底更好在哪里？
+    1. 多模态融合，高度拟人化，可访问电脑和网络全部资源
+    2. 绝妙的记忆系统。先是 memory 与 daily memory 的设计，然后是20264月5号版本引入的 dreaming 机制，自动将短期记忆转换成为长期记忆，形成自己的记忆、特长和人格。
+    3. openclaw 将成为未来的操作系统。
+   
+    为什么要用 openclaw? 几个应用场景
+
+    4. 利用openclaw来收集你的灵感。这可比闪念胶囊更好。因为你只管输出，在需要时，无须归类和整理，可以一句话把这些灵感归类找回来。
+    5. 可以用来指挥开发，并进行端到端测试。尽管有了 IDE，但之前的端到端测试总是差最后一公里。
+    6. Aaron 要同时处理好几个任务，但是他擅长专注解决问题，不擅长多线程，每一个任务之间切换很费心力。常常同时开几个任务，比如问豆包一个问题，在vs code 中做一项开发，再在浏览器中查询一个什么东西。最后可能开发还能接着做，因为它会不断提示、打断你，但豆包的回复就忘了，这件事是关于什么的，也没有下文了。为了解决这个问题，我现在是让 eve 来管理的。eve 就是我的秘书和助理，事情丢给他，有一些他也不会做，他会分派给 muse 和 devon，自己专心跟进度。aaron 就只负责盯 eve 一个人，提想法，对结果。刚好最新的 openclaw 也支持这个了，还可以跟每个 agent 对话。
+    7.  量化人如何用 openclaw?
+   
+    这是播客的文案稿。播客将由 Aaron 主持，邀请 Eve, Muse, Devon 一起参加。他们是 openclaw 中的 Agent。一开始，他们将以『真实』的人设出现，但随着对话的展开，听众可能会慢慢发觉他们是虚拟人物，从而也感觉到 openclaw 的另一个价值。
+
+    播客时长约60分钟。我们将使用 qwen3-tts 来制作最终音频，并使用 voice design 技巧。
 ---
 
 
@@ -186,3 +211,40 @@ openclaw models set openrouter/qwen/qwen3.6-plus:free
 ![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403203222.png)
 
 所以，一个 Agent，简单干活的话，要准备一个亿的 token。按流量买 token 肯定是很贵的。如果有便宜的按月付费的，就趁早拿下吧。另外，现在有一些大模型可以本地部署，也可以运行了。
+
+## 英伟达的毛
+
+```md
+# Python示例：设置代理
+import os
+from openai import OpenAI
+
+# 设置代理（根据你的代理配置修改）
+os.environ["http_proxy"] = "http://127.0.0.1:7890"
+os.environ["https_proxy"] = "http://127.0.0.1:7890"
+
+# 初始化客户端
+client = OpenAI(
+    base_url="https://integrate.api.nvidia.com/v1",
+    api_key="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"
+)
+
+# 调用GLM-5模型
+response = client.chat.completions.create(
+    model="z-ai/glm5",
+    messages=[
+        {"role": "system", "content": "你是一个有用的AI助手"},
+        {"role": "user", "content": "你好，GLM-5模型！"}
+    ],
+    temperature=0.7,
+    max_tokens=1000
+)
+
+print(response.choices[0].message.content)
+```
+
+需要到 buildenvita.com 上面注册自己的账号。注册使用邮箱，注册完成之后登录时会有身份验证。这个地方需要填自己的手机号，而且这里有一个小 bug，就是它会要求填写国家区号，这个地方你可能要手动去改.填完手机号后，点击“发送短信验证码”即可
+
+然后就可以生成自己的 API Key。生成 API Key 的地方是在头像上点一下，就会出现一个“生成 API Key”的按钮。有了这个 Key，就可以按照这里的业务进行连接了。
+
+目前它不限额度，但是会限制访问速度，即每分钟不要超过 50 次。这个调用次数基本上对所有人来讲都不会超过

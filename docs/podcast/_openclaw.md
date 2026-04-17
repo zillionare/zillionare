@@ -49,7 +49,13 @@ openclaw 与大模型、豆包、cursor 的区别。它究竟好在哪里
 
 ## 还是太难了
 
-刚刚给我们介绍了正确的养虾技术。但是，要把这一切搞定，还是太难了，有没有现成的方案？介绍quantide claw
+刚刚给我们介绍了正确的养虾技术。但是，要把这一切搞定，还是太难了，有没有现成的方案？介绍quantide claw的功能，怎么使用。
+
+比如，选择免费模型，这里怎么选？看发布日期。一般来说越新越好。
+
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260408201710.png)
+
+为何要配置为 profile: user?
 
 ## 反转
 

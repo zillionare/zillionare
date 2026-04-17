@@ -28,6 +28,8 @@ aspectRatio: 3/4
 canvasWidth: 600
 img: {cats}
 layout: cover-photo-down
+htmlAttrs:
+  class: dracula
 ---
 ```
 
