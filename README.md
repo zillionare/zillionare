@@ -74,6 +74,18 @@ nav a {
 
 
 <div class="card">
+    <a href="https://blog.quantide.cn/blog/posts/algo/财报电话会里的风险之声/">
+    <img class="card-img-top img-responsive" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/europeana-eAFIfGHERTY-unsplash.jpg"/>
+    <div class="card-body">
+        <h4 class="card-title">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</h4>
+        <p class="card-text">财报文本可以粉饰，但声音生理信号难以伪装。本文深度解读 Arxiv 热门论文：利用 PIAM 声学模型和 Westervelt 物理方程，通过捕捉高管在Q&amp;A 阶段微小的声学“破缺”，显著提升了 30 天未来波动率的预测力。</p>
+        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-17</small></p>
+    </div>
+    </a>
+</div><!--end-card-->
+
+
+<div class="card">
     <a href="https://blog.quantide.cn/blog/posts/tools/hermes/">
     <img class="card-img-top img-responsive" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"/>
     <div class="card-body">
@@ -96,9 +108,9 @@ nav a {
     </a>
 </div><!--end-card-->
 
-
-<div class="card">
+=======
     <a href="https://blog.quantide.cn/blog/posts/papers/分享免费金融扩展工具/">
+    <img class="card-img-top img-responsive" src="{'cats': None}"/>
     <img class="card-img-top img-responsive" src="{'cats': None}"/>
     <div class="card-body">
         <h4 class="card-title">如何获取免费的华尔街日报的文章</h4>
@@ -206,5 +218,4 @@ nav a {
 
 </div>
 </div>
-
 
