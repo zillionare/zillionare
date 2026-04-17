@@ -1,402 +1,139 @@
 ---
 name: quant-blog-writing
-description: 'Write polished quant trading blog posts with strong taste, clear argument, verifiable evidence, and richer narrative texture. Use for 量化交易博文、因子研究、回测复盘、数据源排错、市场微观结构、策略原理、风险控制、职业观察、量化人物故事等选题。 Produces a concrete angle, article outline, evidence plan, and finished draft that is intellectually honest instead of slogan-driven, while using人物经历、quotes、贡献和行业背景让文章更有读头。'
-argument-hint: 'Topic, target reader, and preferred format, for example: 写一篇面向有 Python 基础读者的文章，解释为什么小市值因子在 A 股容易失效'
+description: '撰写文笔精炼、富有深度的量化交易博文，论点清晰、证据确凿、叙事层次更加丰富。适用于量化交易博文、因子研究、回测复盘、数据源排查、市场微观结构、策略原理、风险控制、职业观察、量化人物故事等选题。文章将聚焦具体角度，提供详实的大纲、证据规划及成稿，力求内容兼具思想深度与诚实性，而非单纯口号式宣传；同时，通过人物经历、引言、贡献及行业背景的融入，让文章更具可读性和吸引力。'
+argument-hint: '主题、目标读者、字数, for example: 写一篇面向有 Python 基础读者的文章，解释为什么小市值因子在 A 股容易失效，3000字左右'
 user-invocable: true
 ---
 
-# Quant Blog Writing
+# 量化博客写作
 
 ## Purpose
 
-Create quant-trading-related blog posts that feel informed, restrained, and worth reading.
+撰写内容翔实、观点鲜明、结构精巧且阅读体验好的量化交易相关博客文章。
 
-The skill is for articles that should have judgment and texture, not generic content marketing. It should help produce writing that starts from a real question, respects data and implementation detail, and ends with a conclusion that is narrower and truer than the original ambition.
+这项技能适用于那些应具备判断力和质感的文章，而非泛泛而谈的文章。它应有助于创作出从真实问题出发、尊重数据与实施细节、能最终带给读者价值。如果文章不能带给用户价值，就拒绝创作。
 
-It should also know how to use human material well: a well-chosen quote, a quant researcher’s hard-won lesson, a fund manager’s mistake, or an ordinary practitioner’s learning arc can make a technical point more memorable without diluting rigor.
+这项技能定义了什么是『有质感』的文章以及你在创作时应该遵循的标准，以及可以参考的示例。
 
-Load [repo-style notes](./references/repo-style.md) when you need local conventions.
+<!--它还应善于运用人类素材：一段精心挑选的引言、从错误中学习到的经验、或一位普通从业者的成长轨迹，都能让技术性观点更令人难忘，同时又不失严谨性。-->
+
+从 [repo-style notes](./references/repo-style.md) 加载更多示例。在这些示例中，我们通过 markdown critic 语法标记了修改，并在随后的段落，通过注释说明了修改的原因。
 
 ## When to Use
 
-- The user wants to write a 量化交易、因子、回测、数据接口、策略实现、市场结构、风控、研究职业相关的博文
-- The topic is technical but the article should still read like a story, not a notebook dump
-- The draft needs a better angle, structure, or voice
-- The user wants to weave in quant人物故事, career arcs, or hard-earned lessons to keep readers motivated
-- The article would benefit from quotes, historical context, or a notable practitioner’s point of view
-- The article must avoid empty判断, exaggerated收益承诺, and shallow “AI generated” phrasing
+- 用户希望撰写一篇与量化交易、因子、回测、数据接口、策略实现、市场结构、风险控制相关的技术博文。
 
 ## Output Contract
 
-Unless the user asks otherwise, produce these artifacts in order:
+除非用户另有要求，否则按以下顺序工作：
 
-1. A one-sentence core thesis
-2. A reader definition and why the topic matters now
-3. A 4-8 section outline
-4. An evidence plan: which facts, charts, code, or examples are needed
-5. A recommendation for the most suitable local column or category
-6. Only after user confirmation, the full draft itself
-7. A final quality check with weak spots called out explicitly
-
-Default behavior is outline-first, not full-draft-first.
+1. 采访问题的提出者，以明确文章的核心论点、核心价值、文章长度及结构（总分总、欧享利式结尾、递进等）
+2. 确定文章的大纲
+3. 在用户已提供的 source 的基础上，挑选、补充事实、图表、数据、代码和示例
+4. 文字润色思路。针对已有的中间成果，展开丰富的联想，补充文字材料作为润色的基础。
 
 ## Writing Standard
 
 The article should satisfy all of these:
 
-- Starts from a concrete tension, puzzle, anomaly, tradeoff, or misconception
-- The first screen should point at the article's real bottleneck, not a generic industry lament
-- If the article revolves around specific tools, data sources, or workflows, name the key examples early instead of saving them for later
-- Makes at least one falsifiable claim, not only attitude or vibes
-- Uses hard logic, structural constraints, data, quantifiable metrics, or market mechanics as evidence rather than loose descriptive prose
-- Prefer information density over explanatory padding; cut any paragraph whose main job is to tell the reader why the author chose this angle, structure, or tone
-- When a claim can be grounded with numbers, dates, counts, stars, version info, or market scale, do so
-- When a workflow claim depends on an external site, product, or standard, state the source in prose and make it easy to verify
-- When the topic is practical, include the minimum concrete operating path: what to click, what to search, what to download, where to place it, how to verify it worked
-- If screenshots, command output, tables, or concrete UI states would materially reduce ambiguity, plan for them instead of compensating with extra prose
-- When recommending tools, skills, vendors, or workflows, prefer the best default choice for the reader rather than an exhaustive catalog
-- Benchmark your recommendations using factual leverage (e.g., install scale, backing institutions, core metrics) so that conclusions are structurally unassailable, not just "this tool is neat"
-- Add a second option only when the first choice has a clear, material gap and the alternative genuinely fills it
-- When explaining setup or installation, distinguish clearly between discovery source, download format, and host-specific install location
-- Verify workflow claims against current product docs when the article depends on operational details such as settings, folder paths, or activation behavior
-- Uses human texture when helpful:人物经历、行业轶事、研究者分歧、名言、争论、失败教训
-- Has visible 起承转合: open on the concrete problem, expand into concept or background, turn into mechanism or example, then close on the practical takeaway
-- Distinguishes observation, inference, and speculation
-- Keeps the conclusion proportional to the evidence
-- Avoids title-clickbait, sermon tone, and empty abstractions like “empower”, “subvert”, “redefine”
-- Reads like a practitioner talking to serious readers, not a growth marketer farming attention
+- 开篇就揭示文章价值，要有吸引人的小高潮。比如，提出问题、提示危机、报告重大发现等。
+- 文章要有中心思想，不能只是事实的罗列。
+- 事实必须围绕中心思想来组织。无关的事实、数据、示例等材料必须放弃。
+- 不光要有中心思想和观点，文章还要注重引导读者认识文章的价值，比如，通过名人的观点来强调文章所述观点的重要性
+- 每篇文章至少包含两处文字甜点。可以是名人名言、网络梗、谐音梗、诗词引用、名人故事等。
+- 满足『形、事、情、理、典』五诀的要求。『形』字诀即诉诸形象，如临其境。在讲述故事时，要满足 why, who, when, where, what 的要求；在讲述方法是，要有清晰的步聚，辅于图表；『事』字诀是指写作时，动中有序、追求情节、节奏和悬念。『情』字诀是指要带着感情去写；『理』字诀是指中心思想要明确，思想要有深度，观点要新颖，与已经出现的文章相比，具有独特性；『典』字诀是指通过引用典故、典型、经典，增加大信息密度，作为辅助写作技巧。
 
 ## Frontmatter-Aware Metadata Rules
 
-When generating frontmatter-facing values such as title, excerpt, subtitle-like labels, or tag values:
+在生成文章时，需要包含以下 frontmatter 字段：
 
-- do not use `:` or `：`
-- if a phrase naturally wants a colon, rewrite the phrase instead
-- keep `excerpt` within 120 characters total, counting Chinese and English characters together and including punctuation
-- prefer short, stable wording over decorative phrasing that risks YAML conflicts
+1. title: 文字标题，不要包含":"
+2. excerpt: 摘要，长度控制在120字符以内（utf-8字符）
+3. date: 当前日期
+4. img: 字段留空
+5. categories: 留空
+6. tags: 根据文章内容填写，格式为数组
+7. font: "阿里巴巴普惠体-Regular"
+8. addons: [quantide-admonition, quantide-layout-xhs]
+9. aspectRatio: 3/4
+10. canvasWidth: 600
+11. layout: cover-photo-down
+12. installment: na
+
+上述第 7-12 保持原样。4-5留空。其它根据指令和文章内容进行替换。
 
 ## Narrative Enrichment
 
-Use narrative enrichment deliberately, not decoratively.
+### Article Structure
 
-Two preferred devices:
+有以下风格中选择一种或者多种组合：
 
-### 1. Character arc
+1. 悬念和伏笔（契科夫法则：第一幕墙上的枪，在第四幕就一定要打想）
+2. 欧享利式结尾。在文章结束时来个大反转，但是要意料之外，情理之中，前面要有合理的铺垫和伏笔。
+3. 一山放过一山拦。情节或者解决方案由浅入深，由低级到高级，递进发展
+4. 总-分-总，先立论，再分别论述，最后总结。
 
-Bring in a person when the article needs emotional traction, persistence, or a lived example of how serious work is done.
+### rhetorical devices
 
-Good uses:
+要灵活运用修辞手法（rhetorical devices）。
 
-- a famous quant whose work shaped the field
-- an underappreciated practitioner whose discipline or failure reveals something important
-- an ordinary researcher, trader, or developer whose learning path mirrors the reader’s own situation
+1. 联想。比如，某篇论文标题以 Sound of Risk 开头，我们先是联想起 Sound of Silence，然后再联想起弦外之音，再联想起闻弦歌而知雅意，把这些用在文章里，增强了文章的文采。
+2. 谐音。比如，把问心无愧改成问『薪』无愧，利用谐音字，把读者关心的话题引导到本文中来
+3. 用典。在讲到某个统计学概念时，找出它的最初提出者，介绍他的故事以及名言。比如，我们在介绍某个量化框架时，提到为何又要自己造一次轮子？我们引用了费曼的名言，What I cannot create, I do not understand。我们用这句话来说明，造轮子的意义不在于轮子本身，而在于了解事物的内在原理。
+4. 比喻。比如我们在讲某个算法太慢，让用户等待时间太长，超过21小时时，我们就用了比喻： 来不及等你算完，长在你卫生间水管里的小虫子 -- 白斑蛾蚋已经走过了它的一生。
 
-What to extract from the person:
+## Source
 
-- what problem they were trying to solve
-- what constraint or setback they faced
-- what habit, method, or intellectual posture made the difference
-- what the reader should learn from that example
+当你需要补充事实时，请首先使用这些来源：
 
-The point is not hero worship. The point is to turn abstraction into a lived problem.
+1. wikipedia
+2. github 上的 repo
+3. https://towardsdatascience.com/category/society/finance/
+4. https://quantpedia.com/blog/
+5. https://www.quantstart.com/articles/
+6. medium.com
 
-### 2. Idea anchor
+引用文章时，请以参考方式，标注来源。
 
-When introducing a concept, viewpoint, or term, anchor it to a memorable external reference when doing so sharpens understanding.
 
-Possible anchors:
+当你需要使用名人名言时，请使用这些来源：
 
-- a quote
-- a disagreement between respected practitioners
-- a short note on who popularized the idea
-- a concise mention of a person’s actual contribution to the field
-- a historical episode that changed how the concept is used
+1. 诺贝尔奖得主
+2. 投资名人，如巴菲特、查理.芒格, 段永平，利弗莫尔，彼得·林奇，乔治·索罗斯，本杰明·格雷厄姆，菲利普·费雪，约翰·邓普顿，威廉·江恩，理查德·丹尼斯，伯纳德·巴鲁克，霍华德·马克斯，詹姆斯·西蒙斯，爱德华·索普，纳西姆·塔勒布，雷·达里奥，
 
-An anchor should clarify or deepen the point. If it only decorates the paragraph, remove it.
-
-## Procedure
-
-### 1. Define the angle
-
-Convert the raw topic into a sharp question.
-
-Good starting forms:
-
-- “Why does this result look wrong?”
-- “What assumption breaks first in live trading?”
-- “What does this factor actually buy you, and what does it cost?”
-- “Why do two authoritative data sources disagree?”
-- “What do most tutorials omit because it is inconvenient?”
-
-If the topic is broad, narrow it by choosing one:
-
-- one market
-- one data source
-- one failure mode
-- one strategy family
-- one reader level
-
-### 2. Identify the reader
-
-Pick one primary reader and write for that person only:
-
-- curious beginner with Python basics: ok to explain concepts in accessible terms
-- practicing retail quant: focus on local setup, cost, and friction
-- junior researcher: focus on robustness, data traps, and edge cases
-- experienced practitioner / graduate-level reader: drastically tighten the vocabulary. Rely on structural constraints, hard logic, factual benchmarks (numbers/industry scale), and precise academic/engineering terminology (e.g., Curation, Entropy, Zero-shot, Extrapolation, Engineering fragility). Drop all loose, folksy, or overly colloquial "chatty" analogies (大白话). 
-
-Adjust depth accordingly. Do not mix beginner hand-holding with expert shorthand in the same section.
-
-### 3. Build the argument before writing prose
-
-Draft these internal notes first:
-
-- What is the claim?
-- Why might an informed reader disagree?
-- What evidence would change that reader’s mind?
-- What part remains uncertain even after the analysis?
-- Which human story or external viewpoint would make this argument more vivid without turning it sentimental?
-- Which concrete tools, datasets, APIs, or workflow objects are doing the real work in this article, and can the opening name them immediately?
-- Which recommendation is the strongest default for this reader, and is there any real need to mention a second-best or complementary option?
-
-If you cannot answer these, do not write the full article yet. Strengthen the angle first.
-
-### 3.5. Design the first screen
-
-Before writing the opening paragraphs, decide what the reader should encounter on the first screen.
-
-- Start from the actual pain point or operational constraint, not from a broad thesis about the whole industry
-- If the article mainly discusses a few representative tools or data sources, bring them into the opening instead of holding them back for the middle
-- Make the first paragraph do at least two jobs: identify the concrete problem and hint at why the rest of the article is worth reading
-- Avoid throat-clearing that could fit any topic; the opening should feel impossible to detach from this specific article
-
-### 4. Choose the article shape
-
-Use one of these structures.
-
-#### A. Mystery to explanation
-
-Best for data anomalies, backtest surprises, pricing inconsistencies, and implementation bugs.
-
-Flow:
-
-1. Present the odd result
-2. Show why the obvious explanation is insufficient
-3. Test competing explanations
-4. Reveal the actual mechanism
-5. End with the practical implication
-
-#### B. Claim to decomposition
-
-Best for factor research, strategy myths, capacity, and risk discussions.
-
-Flow:
-
-1. State the popular claim
-2. Break it into components
-3. Evaluate each component separately
-4. Reassemble with a narrower conclusion
-
-#### C. Narrative essay with technical spine
-
-Best for人物、职业路径、研究方法、行业观察.
-
-Flow:
-
-1. Open with a scene, quote, or specific episode
-2. Introduce the core tension
-3. Use one or two concrete technical details to anchor credibility
-4. Expand into the broader lesson
-5. Finish with a restrained, memorable close
-
-#### D. Technical article with human anchor
-
-Best for concepts that are correct but dry, such as execution assumptions, factor construction, model risk, or research workflow.
-
-Flow:
-
-1. Open with the technical tension
-2. Introduce the concept cleanly
-3. Bring in a practitioner, quote, or episode that sharpens the stakes
-4. Return to the mechanism, evidence, or code
-5. End with both the practical takeaway and the human lesson about craft
-
-### 5. Gather evidence
-
-Match the topic to the minimum evidence required.
-
-- Data-source article: table, field definition, comparison example, edge case
-- Factor article: universe definition, rebalance rule, costs or crowding caveat, failure regime
-- Strategy article: trigger condition, execution assumption, slippage/latency constraint, risk control
-- Career/opinion article: one concrete anecdote, one technical example, one non-obvious insight
-- Motivational or人物 article: one concrete setback, one turning-point decision, one durable habit or method, one takeaway that respects reality rather than selling optimism
-- Tooling / workflow article: concrete platform facts, at least one sourceable metric or count, one verification path, one install or usage example, and screenshots or visual placeholders when UI steps matter
-
-If the article compares tools, skills, or data sources:
-
-- do not enumerate everything you found just because it exists
-- choose the best default recommendation first and justify why it wins for this reader
-- mention a second or complementary option only if it clearly covers a concrete shortcoming in the first choice
-- avoid repeating documentation-level feature lists unless the article's point depends on that detail
-- keep the focus on what the reader would not get from reading the official docs alone
-
-If the article is revising or tightening an existing draft:
-
-- remove throat-clearing and self-justifying transitions first
-- compress any paragraph that restates the same claim without adding new evidence
-- prefer one sentence with a number or source over three sentences of abstract framing
-- keep only the conceptual background needed for the reader to execute the next step or understand the recommendation
-
-If the article includes installation or usage instructions for portable skills across multiple hosts:
-
-- separate marketplace discovery from actual installation
-- state which steps belong to Skills Marketplace and which belong to VS Code, Claude Code, Codex CLI, or another host
-- do not infer install paths from a repository convention unless the host documentation confirms it
-
-If a claim depends on code, include only the code needed to make the point. Prefer short, inspectable snippets over long notebooks.
-
-If you cite a quote, contribution, or historical anecdote, verify the wording and attribution before presenting it as fact.
-
-### 6. Write section by section
-
-For each section:
-
-- lead with the point of the section
-- give evidence or mechanism
-- optionally add a person, quote, or field contribution if it deepens the section’s meaning
-- close with what the reader should update their belief to
-- do not give a familiar tool, API, or library its own section unless that section advances the article's core argument rather than restating its documentation
-- do not spend sentences narrating the author's writing process, justification, or rhetorical intent unless that meta-level itself is the subject
-
-Prefer dense, clean paragraphs. Use lists only when comparison or procedure matters.
-
-### 7. Control the tone
-
-Target tone:
-
-- calm and structurally rigorous
-- exact in terms of metrics, system constraints, and logic
-- intellectually dense when targeting advanced readers (prefer cold, professional academic/engineering vernacular)
-- mildly witty when earned
-- skeptical of easy conclusions and "silver bullets"
-- generous to the reader’s intelligence (explain the mechanism, skip the hand-holding)
-- quietly encouraging about the long game of learning
-
-Avoid:
-
-- overly conversational/colloquial "chatty" transitions (泛泛之谈 / 大白话)
-- exaggerated certainty or generic AI praising (e.g., "AI empowers everything")
-- fake intimacy ("你是不是也遇到过...")
-- inflated moral language
-- pretending a toy backtest proves a durable edge
-- cheap inspiration that ignores how hard the work actually is
-
-### 8. Finish with an honest ending
-
-End on one of these notes:
-
-- what changes in practice because of this finding
-- which assumption the reader should re-check in their own work
-- what remains unresolved
-- why the problem is more subtle than it first looked
-
-Do not end with “希望对你有帮助” style filler unless the user explicitly wants that tone.
-
-## Decision Rules
-
-Use these branches while drafting.
-
-- If the topic is highly technical, privilege correctness over lyricism
-- If the topic is conceptual, add one concrete market or implementation example to avoid floating abstractions
-- If the opening sounds like it could introduce ten different articles, rewrite it until it names this article’s actual constraint, dataset, toolchain, or conflict
-- If later sections are carried by a few concrete examples, pull those examples earlier so the reader sees the article’s true subject on the first screen
-- If a recommendation section starts turning into a directory listing, cut it down to the best default choice and one justified backup at most
-- If a section mostly repeats what the official docs already say, compress it and move the emphasis back to selection, workflow, installation, or practical use
-- If a paragraph explains why the article is written a certain way rather than delivering facts, judgment, or procedure, cut it
-- If the piece would be stronger with one screenshot, count, link, or command than with another paragraph of framing, choose the artifact
-- If the article feels dry, add one human anchor: a quote, an anecdote, a disagreement, or a biographical detail tied to the exact point being made
-- If the article turns preachy, replace motivation with specificity: habit, process, mistake, or constraint
-- If using a famous name, explain the exact relevance instead of name-dropping
-- If the article risks sounding absolute, add scope conditions and failure cases
-- If the draft becomes tutorial-like, reinsert tension by asking what is surprising, costly, or controversial here
-- If the article has strong opinions, make the strongest opposing case before concluding
 
 ## Character And Quote Guidelines
 
 When bringing in人物、quotes, or contributions:
 
-- prefer relevance over fame
-- prefer one sharp reference over a parade of names
-- explain why this person belongs in this paragraph
-- connect the quote or story back to market structure, research practice, execution, or intellectual discipline
-- use ordinary practitioners too when their arc is closer to the reader’s real constraints
+- 更看重相关性，而非名气
+- 更倾向于一个明确的参考，而非一长串的名字
+- 解释为什么此人应属于此段落
+
 
 Do not:
 
-- use fabricated quotes
-- use vague admiration in place of analysis
-- reduce a person’s work to a motivational poster
-- turn the article into biography when the article’s real subject is technical
+- 使用伪造的引言
+- 用模糊的钦佩取代分析
 
-## Quant-Specific Checks
 
-Before finishing, verify that the draft does not:
+## 如何突出价值
 
-- confuse signal quality with executable PnL
-- ignore transaction cost, delay, borrow, liquidity, or regime dependence when they matter
-- treat vendor fields as self-evident without checking definitions
-- smuggle in survivorship, look-ahead, or selection bias
-- generalize from one market structure to all markets
-- use a quote, anecdote, or historical reference whose attribution is shaky
+文章中要注意提示价值，告诉读者这篇文章为什么有用，他们可以如何使用。以下是部分技巧：
+
+1. 如果给定任务时，指定了参考源：
+  a. 且参考文章是论文形式，就要深挖作者的背景。如果作者背景显赫，则说明文章也很重要；其次，要查引用次数。如果引用次数很高，则要在文章中说明。
+  b. 如果参考源是 github 上的某个项目，则需要查它的 star 数，issue 数。如果 star数超过1000，需要强调。
+  c. 如果来源是微博、x 等社媒，当转发、点赞、收藏很高时（比如超1000时），需要强调。
 
 ## Final Review Checklist
 
 Run this check explicitly:
 
-1. Is the title precise and intriguing without overpromising?
-2. Does the first screen contain a real problem, not background throat-clearing?
-3. Does the opening name the concrete tools, datasets, APIs, or workflow objects that the article is actually built around when they are central to the piece?
-4. Can each major claim be tied to evidence or mechanism?
-5. Is the article’s 起承转合 visible, with each section clearly handing off to the next rather than piling up observations?
-6. Is any paragraph saying the same thing twice?
-7. Does the article recommend the best default option instead of burying the reader in an undifferentiated list?
-8. Are any sections just paraphrasing docs when they should instead emphasize judgment, workflow, installation, or use?
-9. Where is the draft most likely wrong or incomplete?
-10. Would a serious quant reader learn at least one non-obvious thing?
-11. If the article uses人物或quotes, do they genuinely sharpen the point rather than decorate it?
-12. Do generated frontmatter values avoid `:` and `：`, and does the `excerpt` stay within 120 characters including punctuation?
-13. Does the draft contain enough hard information to be useful on its own: numbers, source cues, concrete steps, commands, or visual evidence?
-14. Is any paragraph mostly explaining the author's framing rather than advancing the reader's understanding or execution path?
+1. 标题能否吸引人点击？
+2. 开头200字以内，是否足够揭示了文章的价值？
+3. 文章的段落与段落之间，是否有自然的衔接机制？
+4. 是否有两个以上文字『甜点』？
+5. 文章是否过多使用列表超过一处？
+6. 标题是对本 section 内容的总结和提炼，还是把过渡句当成了标题？
 
-If the answer to 9, 10, 11, 12, 13, or 14 is weak, revise before presenting the article as finished.
-
-## Local Publishing Convention
-
-If the user wants the article written into the repository, draft it under `docs/_drafts/` first unless they explicitly request direct publication elsewhere.
-
-Choose the eventual destination by topic:
-
-- technical investigations usually map to `docs/blog/posts/algo/`
-- research commentary may map to `docs/blog/posts/papers/`
-- broader essays may map to `docs/blog/posts/others/` or another user-specified section
-
-## Default Deliverable Format
-
-When the user asks to “write” but gives little structure, respond in this order:
-
-1. Proposed angle
-2. Thesis
-3. Outline
-4. Evidence and material checklist
-5. Suggested draft filename and destination under `docs/_drafts/`
-
-Only write the full article immediately if the user explicitly asks for the full draft in the same turn.
-
-## Examples of Good Prompts
-
-- 写一篇有判断力的量化博文，解释为什么很多日频因子一实盘就失灵
-- 写一篇从数据接口差异切入的文章，读者是会 Python 的个人投资者
-- 围绕“回测时间越长越好吗”写一篇不是鸡汤的文章
-- 把一个策略踩坑经历改写成适合博客发布的文章，保留代码细节
-- 写一篇技术文章，解释一个量化概念时顺带穿插两位研究者的观点和贡献
-- 写一篇关于普通量化从业者如何持续学习的文章，不煽情，但要让读者更愿意长期投入

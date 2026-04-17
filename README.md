@@ -22,11 +22,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>既生瑜 何生亮！ Hermes Agent究竟怎么样？</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg" style="height: 200px" align="right"/>
-<p>从安装失败到‘Eureka’时刻，Hermes Agent 和 OpenClaw 就像‘既生瑜，何生亮’，一个自带武装，一个手动挡，究竟谁更胜一筹？</p>
+<h3>The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/europeana-eAFIfGHERTY-unsplash.jpg" style="height: 200px" align="right"/>
+<p>财报文本可以粉饰，但声音生理信号难以伪装。本文深度解读 Arxiv 热门论文：利用 PIAM 声学模型和 Westervelt 物理方程，通过捕捉高管在Q&A 阶段微小的声学“破缺”，显著提升了 30 天未来波动率的预测力。当言行一致的 CFO 出现“生理剪刀差”，这就是市场最稀缺的风险雷达。</p>
 
-<p><span style="margin-right:20px">发表于 2026-04-13 人气 198 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/hermes/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2026-04-17 人气 292 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/财报电话会里的风险之声/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
@@ -34,11 +34,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 
 
 <div>
-<h3>龙虾流量太贵？ 我一招搞定每天7500万词元</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg" style="height: 200px" align="right"/>
-<p>OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的token.</p>
+<h3>既生瑜 何生亮！ Hermes Agent究竟怎么样？</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-course.png" style="height: 200px" align="right"/>
+<p>从安装失败到‘Eureka’时刻，Hermes Agent 和 OpenClaw 就像‘既生瑜，何生亮’，一个自带武装，一个手动挡，究竟谁更胜一筹？</p>
 
-<p><span style="margin-right:20px">发表于 2026-04-11 人气 407 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/白嫖顶级AI算力指南/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2026-04-13 人气 407 </span><span><a href="https://blog.quantide.cn/blog/posts/tools/hermes/">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
