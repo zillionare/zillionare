@@ -10,11 +10,11 @@ I'm a software developer, quantitative trader and entrepreneur。 Teaching machi
 <div class="card-columns">
     
 <div>
-<h3>为什么我们需要因果卷积？</h3>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/b89d81ad18e4642f00d6ab7ec70f03e7.jpg" style="height: 200px" align="right"/>
-<p>均线的参数到底设多少合适？20日还是30日？网格搜索出来的"最优参数"一上实盘就失效。这篇文章介绍一种思路：让模型自己从K线里学出权重，不用人工拍板——这就是因果卷积（Causal Convolution）</p>
+<h3>一个散户自学量化的 20 个月</h3>
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260417125830022.png" style="height: 200px" align="right"/>
+<p>从A股散户到自学量化，这20个月让我明白：量化的核心不是预测未来，不是写代码，而是用概率、统计、组合与风控重新理解市场，也重新理解自己。这篇文章写的是真正走过的坑和学到的东西。</p>
 
-<p><span style="margin-right:20px">发表于 2026-04-20 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/tcn/因果卷积/">点击阅读</a></span></p>
+<p><span style="margin-right:20px">发表于 2026-04-17 人气 934 </span><span><a href="https://blog.quantide.cn/blog/posts/algo/如何成为一名量化研究员 /">点击阅读</a></span></p>
 
 </div><!--end-article-->
 <br/>
