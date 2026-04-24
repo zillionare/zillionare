@@ -1,6 +1,25 @@
-# 我看了这个 AI 股票分析项目，真正有价值的不是“会选股”，而是把分析这件事系统化
+---
+title: "一个很强的股票智能分析系统"
+date: 2026-04-23
+excerpt: 最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判断。项目通过自动化流程，将零散、重复、易受情绪干扰的分析动作，变成可运行、推送、回看、优化的决策支持系统。
+categories: strategy
+tags: [quant, finance, model, github, analysis]
+font: "阿里巴巴普惠体-Regular"
+addons:
+  - quantide-admonition
+  - quantide-layout-xhs
+aspectRatio: 3/4
+canvasWidth: 600
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260423182355505.png
+layout: cover-photo-down
+installment: na
+---
 
-最近我看了一个开源项目，叫 `daily_stock_analysis`。  
+
+
+# 一个很强的股票智能分析系统
+
+最近我看了一个开源项目，叫 `daily_stock_analysis`，在 GitHub 上已经有 `31k stars`。  
 如果只看名字，你会以为它只是又一个“AI 帮你分析股票”的工具。但把 README 从头到尾看完，我反而觉得，它真正有意思的地方，不在“AI”这两个字，而在它试图解决一个更底层的问题：
 
 **投资里最稀缺的，从来不是信息本身，而是把信息稳定地处理成判断的能力。**
