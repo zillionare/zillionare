@@ -106,6 +106,7 @@ def calc_rsrs_factor(df: pd.DataFrame, win: int = 18):
 现在，我们通过 tushare 的数据，来看一下因子计算的结果。下面的代码展示了如何获取 hs300 指数数据：
 
 ```python
+pro = ts.pro_api()
 hs300 = pro.index_daily(ts_code = "000300.SH", start_date = "20250101", end_date = "20250601")
 hs300.index = pd.to_datetime(hs300["trade_date"])
 hs300 = hs300.sort_index(ascending=True)
