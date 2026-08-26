@@ -214,3 +214,9 @@ conda actiivate zillionare
 
 发布到blog.quantide.cn
 python publish.py web
+
+curl https://integrate.api.nvidia.com/v1/chat/completions   -H "Authorization: Bearer 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"   -H "Content-Type: application/json"   -d '{
+    "model": "deepseek-ai/deepseek-v4-flash",
+    "messages": [{"role": "user", "content": "Hello, test message"}],
+    "max_tokens": 1024
+  }'
