@@ -16,7 +16,28 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+try:
+    from dotenv import load_dotenv
+except ImportError:  # pragma: no cover
+    load_dotenv = None
+
 TRADING_DAYS = 252
+
+
+def load_env():
+    """Load .env from the repo root (walk up from this file)."""
+    if load_dotenv is None:
+        return
+    here = Path(__file__).resolve()
+    for parent in (here.parent, *here.parents):
+        candidate = parent / ".env"
+        if candidate.exists():
+            load_dotenv(candidate)
+            break
+
+
+def env(name, default=""):
+    return os.getenv(name, default)
 
 
 @dataclass
@@ -28,7 +49,7 @@ class Config:
     drawdown_limit: float = 0.15
     cooldown_days: int = 5
     max_flat_days: int = 10
-    model: str = "deepseek-v4-flash"
+    model: str = ""
 
 
 def first_column(columns, alternatives):
@@ -62,9 +83,9 @@ def read_tushare_index(symbol, start, end):
         import tushare as ts
     except ImportError as error:
         raise RuntimeError("请执行 pip install tushare，或改用 --csv。") from error
-    token = os.getenv("TUSHARE_TOKEN")
+    token = env("tushare_token")
     if not token:
-        raise RuntimeError("请设置 TUSHARE_TOKEN，或改用 --csv。")
+        raise RuntimeError("请在 .env 中设置 tushare_token，或改用 --csv。")
     raw = ts.pro_api(token).index_daily(
         ts_code=symbol,
         start_date=start,
@@ -124,25 +145,38 @@ def rule_policy(rows):
 
 
 def deepseek_policy(rows, config):
-    api_key = os.getenv("DEEPSEEK_API_KEY")
+    api_key = env("LLM_API_KEY")
+    base_url = env("LLM_BASE_URL")
+    model = config.model or env("LLM_MODEL") or "deepseek-chat"
     if not api_key:
-        raise RuntimeError("未设置 DEEPSEEK_API_KEY")
+        raise RuntimeError("未设置 LLM_API_KEY")
+    if not base_url:
+        base_url = "https://api.deepseek.com/v1"
     instruction = {
         "任务": "你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。",
         "要求": "按样本数、下一日平均收益、风险调整指标为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。",
         "格式": {"policy": {"状态名": "满仓|半仓|低仓"}},
         "状态统计": rows,
     }
-    body = json.dumps({"model": config.model, "stream": False, "messages": [{"role": "system", "content": "只输出 JSON。"}, {"role": "user", "content": json.dumps(instruction, ensure_ascii=False)}]}, ensure_ascii=False).encode("utf-8")
-    request = urllib.request.Request("https://api.deepseek.com/chat/completions", data=body, headers={"Content-Type": "application/json", "Authorization": "Bearer " + api_key}, method="POST")
-    try:
-        with urllib.request.urlopen(request, timeout=45) as response:
-            text = json.loads(response.read().decode("utf-8"))["choices"][0]["message"]["content"]
-    except urllib.error.URLError as error:
-        raise RuntimeError("DeepSeek 请求失败：%s" % error) from error
+    body = json.dumps({"model": model, "stream": False, "messages": [{"role": "system", "content": "只输出 JSON。"}, {"role": "user", "content": json.dumps(instruction, ensure_ascii=False)}]}, ensure_ascii=False).encode("utf-8")
+    endpoint = base_url.rstrip("/") + "/chat/completions"
+    headers = {"Content-Type": "application/json", "Authorization": "Bearer " + api_key, "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
+    request = urllib.request.Request(endpoint, data=body, headers=headers, method="POST")
+    last_error = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=120) as response:
+                text = json.loads(response.read().decode("utf-8"))["choices"][0]["message"]["content"]
+            last_error = None
+            break
+        except urllib.error.URLError as error:
+            last_error = error
+            continue
+    if last_error is not None:
+        raise RuntimeError("LLM 请求失败：%s" % last_error) from last_error
     start, end = text.find("{"), text.rfind("}")
     if start < 0 or end < start:
-        raise ValueError("DeepSeek 没有返回 JSON。")
+        raise ValueError("LLM 没有返回 JSON。")
     supplied = json.loads(text[start:end + 1]).get("policy", {})
     mapping = {"满仓": 1.0, "半仓": 0.75, "低仓": 0.50}
     return {row["state"]: mapping.get(str(supplied.get(row["state"], "半仓")), 0.75) for row in rows}
@@ -160,9 +194,9 @@ def policy_for_month(day, train, mode, config, out):
     policy, source = fallback, "规则基准"
     if mode == "deepseek":
         try:
-            policy, source = deepseek_policy(rows, config), "DeepSeek " + config.model
+            policy, source = deepseek_policy(rows, config), config.model or env("LLM_MODEL") or "LLM"
         except (RuntimeError, ValueError, KeyError, json.JSONDecodeError) as error:
-            source = "DeepSeek 失败，退回规则基准：" + str(error)
+            source = "LLM 失败，退回规则基准：" + str(error)
     cache.write_text(json.dumps({"as_of": str(day.date()), "source": source, "statistics": rows, "policy": policy}, ensure_ascii=False, indent=2), encoding="utf-8")
     return policy, source
 
@@ -226,7 +260,7 @@ def main():
     parser = argparse.ArgumentParser(description="大陆数据环境下的 LLM 仓位风控研究回测")
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--csv", type=Path, help="含日期和收盘价的本地 CSV")
-    source.add_argument("--tushare-index", help="指数代码，例如 000300.SH")
+    source.add_argument("--tushare-index", help="指数代码，例如中证1000 000852.SH")
     parser.add_argument("--start", default="20160101")
     parser.add_argument("--end")
     parser.add_argument("--policy", choices=["rule", "deepseek"], default="rule")
@@ -234,9 +268,10 @@ def main():
     parser.add_argument("--train-years", type=int, default=3)
     parser.add_argument("--cost-bps", type=float, default=5.0)
     args = parser.parse_args()
+    load_env()
     try:
         prices = read_csv(args.csv) if args.csv else read_tushare_index(args.tushare_index, args.start, args.end)
-        config = Config(train_years=args.train_years, cost_bps=args.cost_bps)
+        config = Config(train_years=args.train_years, cost_bps=args.cost_bps, model=env("LLM_MODEL"))
         args.out.mkdir(parents=True, exist_ok=True)
         result, metrics, notes = backtest(make_features(prices), config, args.policy, args.out)
         result.to_csv(args.out / "daily_results.csv", encoding="utf-8-sig")
