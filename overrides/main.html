@@ -89,6 +89,47 @@
     }
     </script>
     {% endif %}
+
+    {# 文章页：Article 结构化数据（面向 GSC 富媒体摘要与 CTR） #}
+    {% if page and not page.is_homepage and (page.url.startswith('blog/posts/') or page.url.startswith('articles/')) %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": {{ (page_title ~ ' - ' ~ config.site_name) | tojson }},
+        "description": {{ page_description | tojson }},
+        "image": {{ page_image | tojson }},
+        "author": {
+            "@type": "Person",
+            "name": "Aaron Yang",
+            "url": "https://github.com/zillionare"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "匡醍量化 Quantide",
+            "logo": { "@type": "ImageObject", "url": "{{ config.site_url }}assets/img/logo.png" }
+        },
+        "mainEntityOfPage": {{ page_url | tojson }},
+        "datePublished": {{ page.meta.date | string | tojson if page.meta and page.meta.date else '""' }},
+        "dateModified": {{ (page.meta.git_revision_date_localized_raw_iso_date | string) | tojson if page.meta and page.meta.git_revision_date_localized_raw_iso_date else '""' }},
+        "inLanguage": "zh-CN"
+    }
+    </script>
+    {% endif %}
+
+    {# 全站（非首页）面包屑：改善搜索展示的层级与 CTR #}
+    {% if page and not page.is_homepage %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "首页", "item": "{{ config.site_url }}" },
+            { "@type": "ListItem", "position": 2, "name": {{ page_title | tojson }}, "item": {{ page_url | tojson }} }
+        ]
+    }
+    </script>
+    {% endif %}
 {% endblock %}
 
 {# navigation #}
