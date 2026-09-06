@@ -37,7 +37,11 @@
 
 {# title #}
 {% block htmltitle %}
-    <title>{{ page_title }} - {{ config.site_name }}</title>
+    {% if page.is_homepage %}
+        <title>{{ config.site_name }} - 量化投资研究与交易系统</title>
+    {% else %}
+        <title>{{ page_title }} - {{ config.site_name }}</title>
+    {% endif %}
 {% endblock %}
 
 {# sharing #}
@@ -45,8 +49,8 @@
     {% include "partials/ads.html" %}
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{ page_title }} - {{ config.site_name }}" />
-    <meta property="og:description" content="{{ page_description }} - {{ config.site_description }}" />
+    <meta property="og:title" content="{% if page.is_homepage %}{{ config.site_name }}{% else %}{{ page_title }} - {{ config.site_name }}{% endif %}" />
+    <meta property="og:description" content="{% if page.is_homepage %}{{ config.site_description }}{% else %}{{ page_description }}{% endif %}" />
     <meta property="og:url" content="{{ page_url }}" />
     <meta property="og:image" content="{{ page_image }}" />
     <meta property="og:image:type" content="image/png" />
@@ -55,9 +59,36 @@
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ page_title }} - {{ config.site_name }}" />
-    <meta name="twitter:description" content="{{ page_description }} - {{ config.site_description }}" />
+    <meta name="twitter:title" content="{% if page.is_homepage %}{{ config.site_name }}{% else %}{{ page_title }} - {{ config.site_name }}{% endif %}" />
+    <meta name="twitter:description" content="{% if page.is_homepage %}{{ config.site_description }}{% else %}{{ page_description }}{% endif %}" />
     <meta name="twitter:image" content="{{ page_image }}" />
+
+    <!-- JSON-LD 结构化数据：全站 WebSite，首页追加 Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ config.site_name }}",
+        "url": "{{ config.site_url }}",
+        "description": "{{ config.site_description }}",
+        "inLanguage": "zh-CN"
+    }
+    </script>
+    {% if page.is_homepage %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "匡醍量化 Quantide",
+        "url": "{{ config.site_url }}",
+        "logo": "{{ config.site_url }}assets/img/logo.png",
+        "sameAs": [
+            "https://github.com/zillionare",
+            "https://www.zhihu.com/people/hbaaron"
+        ]
+    }
+    </script>
+    {% endif %}
 {% endblock %}
 
 {# navigation #}
