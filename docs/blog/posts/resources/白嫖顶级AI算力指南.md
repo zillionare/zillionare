@@ -25,7 +25,7 @@ htmlAttrs:
 
 OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且提供大量免费配额。我养龙虾的第二天，就完全领会了 OpenRouter 的玩法。当时 QWen 3.6正在免费使用期，我**一天最高用到7500万的 Token**，用完了整整**一千次**请求。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
+![OpenRouter免费模型配额与每日7500万Token用量截图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
 
 
 现在，QWen 3.6虽然不再免费提供了，但是仍然有一些非常不错的大模型仍在免费，非常值得一冲。
@@ -99,7 +99,7 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 输入网址：`https://build.nvidia.com`。注意登录时，可能根据你的地域和语言设置发生重定向到别的 URL。我们没有详细测试，但这个免费服务应该只能在这个网址上申请。
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411194605.png)
+![NVIDIA build.nvidia.com 免费模型页面截图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411194605.png)
 
 使用这里的大模型很简单，主要就是申请 Api Key，然后找到模型卡。我们先看注册。
 

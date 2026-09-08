@@ -104,7 +104,7 @@ async def get_forward_returns(dt: datetime.date, n=10):
 
 最后，我们选择2019-2-10到2019-3-5这个区间运行了一下，结果是：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/magic-word-factor-forward-returns.jpg)
+![板块炒作热词因子未来收益曲线示例（2019年2月10日至3月5日）](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/magic-word-factor-forward-returns.jpg)
 
 你的钱就是这样被赚走的。打不过就加入吧！
 
