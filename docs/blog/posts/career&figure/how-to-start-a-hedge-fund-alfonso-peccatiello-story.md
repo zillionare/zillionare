@@ -22,7 +22,7 @@ tags:
 
 根据Revelio Labs 的数据，在金融服务业最受欢迎的编程语言前十排名如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/coding-language-in-finance.png)
+![Revelio Labs 统计的金融服务业最受欢迎编程语言前十排名柱状图，SQL 居首](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/coding-language-in-finance.png)
 
 你可能想不到，SQL在金融领域有着王者般的地位。在整个科技领域，SQL与岗位的相关性只占18%，但在金融招聘领域中，却有25%左右的岗位要求掌握SQL。
 
@@ -32,7 +32,7 @@ tags:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/tiobe-ranking-2024-6.png)
+![TIOBE 2024 年 6 月编程语言 popularity 排行榜，Python 位居榜首](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/tiobe-ranking-2024-6.png)
 
 
 但是，金融行业对C++和Rust这样的互联网热门编程语言的需求并不大，尽管这两种语言在高频交易中不可或缺，但毕竟高频交易比较小众、无法吸纳大资金，因此行业的重心不会在这里。
@@ -46,7 +46,7 @@ Java位列三甲也是意料之中。大量的事务系统，包括公司网站�
 Javascript能上榜，很可能也是因为这样的用途。投资公司为了保持神秘和高科技形象，他们的网页也常常做的比较酷炫。比如Millennium（千禧年）的官网上，就常常使用Javascript炫技。在他们最新的主页上，展示了js制作的磁力线效果和各种reveal特效。
 
 <div style='width:"75%";text-align:center;margin-bottom:1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/millennium.png'>
+<img alt='Millennium 千禧年官网首页，使用 Javascript 制作的磁力线动效' src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/millennium.png'>
 <span style='font-style:italic;font-size:0.8rem'>千禧官网</span>
 </div>
 

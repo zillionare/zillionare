@@ -3,7 +3,7 @@ title: 为什么Q-Q图可用来进行统计推断
 slug: what-is-qq-plot
 ---
 
-# 原理
+## 原理
 
 假设有一个随机变量，我们想知道它是否服从某种分布，我们是否能够通过可视化的方式对它进行判定？
 
@@ -24,7 +24,7 @@ plt.scatter(sorted(X), sorted(Y), s=1)
 plt.plot(X, X, color='orange')
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-2.png?1)
+![两组标准正态分布随机样本排序后的 Q-Q 图，散点分布在 45 度对角直线附近](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-2.png?1)
 
 上面的例子中，我们从标准正态分布中抽样分别抽样两次，得到$X$和$Y$，对它们进行排序后进行绘图，就得到了一个分布在 45 度直线两侧的散点图。
 
@@ -53,11 +53,11 @@ for i, n in enumerate((10, 20, 40, 80, 160, 320, 640, 1280)):
     ax.plot(X, X, '--', color='grey')
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-4.png)
+![样本量 n 从 10 倍增到 1280 时的 Q-Q 图矩阵：n 越大散点越贴近对角线](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-4.png)
 
 从图中可以看出，当 n 大于等于 320 时，大多数点都落在直线两侧附近。
 
-# 任意正态分布检验
+## 任意正态分布检验
 
 如果$X$是一个 norm(loc, scale) 的正态分布，那么，如果我们仍以 [$X, $Y] 绘图，我们会得到一个分布在直线$Y = (X - loc)/scale $两侧的散点图。
 
@@ -80,11 +80,11 @@ plt.text(10, 2, "[X,Y]", color='blue')
 plt.text(10, 3.5, "[X, (X-loc)/scale]", color='red')
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-3.png)
+![norm(5,3) 正态样本与标准正态样本的 Q-Q 图，含三条参考直线对比](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-3.png)
 
 我们也可以考虑先将$X$进行 zscore 化，这样再与标准正态分布的采样进行绘图。如果$X$服从正态分布，此时得到的图形，仍然是多数点分布在$y=x$直线两侧的散点图。
 
-# 能绘制 Q-Q 图的库
+## 能绘制 Q-Q 图的库
 
 上面的代码已经给出了绘制方法，但主要是帮助我们了解其原理。实际运用中，我们可以借助 scipy.stats 中的 probplot 方法：
 
@@ -111,6 +111,6 @@ plt.show()
 
 上述代码将绘制出这个图形：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-5.png)
+![scipy.stats.probplot 绘制的正态分布 Q-Q 检验图，含拟合回归直线](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-5.png)
 
 另外， 在 statsmodels 库中，也通过 graphics.gofplots 提供了 qqplot 方法。
