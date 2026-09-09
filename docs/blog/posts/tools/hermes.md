@@ -41,11 +41,11 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 我把这种安装称作 Hermes 的自我武装。而且我并不懂 Hermes 应该怎么配置，所以，我先问它（实际上是在问大模型）：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174049.png)
+![向 AI 请教 Hermes 配置方法得到的详细建议列表](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174049.png)
 
 这里列出了很多很详细的内容，但其实这并不是我需要的。所以我接下来直接告诉他：“你帮我，我启用 Web 和 Browser 这两个工具。”
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174220.png)
+![指示 Hermes 启用 Web 与 Browser 工具的对话界面](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174220.png)
 
 然后我决定给他分配一个单独的邮箱，因为很多网站注册时，特别是国外网站，往往都是可以通过邮箱来注册，只要收到验证邮件就可以完成注册了。
 
@@ -59,7 +59,7 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 无赖的人工智障。我当时是这么想的。跟人一样，一出错误就往网络波动上面推。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413175016.png)
+![Hermes 将执行错误归因于网络波动的回复截图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413175016.png)
 
 但是很快我发现，它第一次调用了工具，写了个脚本。不过现在还分不清，这是 Hermes Agent 的能力，还是 Kimi K2.5 的能力。
 
@@ -67,7 +67,7 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 颤抖吧碳基生物！ 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413180418.png)
+![Hermes 成功自主执行任务的运行界面](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413180418.png)
 
 
 这里比较奇怪，它的回答断断续续的。从技术上讲，这是在回复时启用了 streaming 机制，产生一点结果，一点消息就回复用户，可以避免用户长时间等待。
@@ -79,35 +79,35 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 接下来，因为已经出现了访问限速问题，我让它给自己加一个 key。这里出现了第一次安全确认：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181203.png)
+![为 Hermes 添加 API key 时弹出的安全确认对话框](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181203.png)
 
 不过，Hermes 的安全意识是有了，但是这次遵循得并不好。这也有背后模型切换等部分原因。
 
 接下来我打算启用多 Agent。目标是，每个 Agent 都有自己的会话和记忆，这样他们的上下文就会更纯粹一些，这样对大模型更加友好。另外我也希望，只有特别复杂的任务，比如复杂的编程，才使用更高端的模型，这样对 token 更加友好。而普通的任务分派跟踪，使用免费的模型就可以了。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181820.png)
+![Hermes 规划多 Agent 架构的对话过程](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181820.png)
 
 这是它给出的架构图：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181858.png)
+![Hermes 给出的多 Agent 架构图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181858.png)
 
 从概念上说，它确实搞清楚了。究竟执行得怎么样？
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182149.png)
+![多 Agent 架构首次执行的运行结果](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182149.png)
 
 从落地情况来看，每个 Agent 已经生成了自己的文件夹和自己的记忆。
 
 不过，接下来的一次会话，暴露了这个架构并没有落到实处，它只是个面子工程。这是为了给 Devon 增加新的 api KEY引起的。这个时候 Agent 说他没有办法修改 .env，让我去修改，但同时又让我把 Key 给他。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182807.png)
+![Agent 声称无法修改 .env 却索要 API Key 的矛盾对话](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182807.png)
 
 从这时起，实际上三个 Agent 才真正落地.这是主会话的反馈：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182901.png)
+![三个 Agent 落地后主会话的反馈信息](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182901.png)
 
 眼见为实，我还是去查看了 hermes 的目录：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183230.png)
+![查看 Hermes 工作目录中生成的文件列表](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183230.png)
 
 现在，每个 Agent 都有了自己的 cron, state.db 文件和 skills 文件夹。现在我们可以确信，这些 Agent 都已经是『物理』意义上的 Agent 了，不再是逻辑概念。
 
@@ -119,7 +119,7 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 我的第一个反馈是，让它定时报告进度。因为刚开始设置，很担心它是否还在呼吸。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183633.png)
+![要求 Hermes 定时报告任务进度](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183633.png)
 
 
 然后出现的问题就是报告太长，所以给它一个指令：
@@ -136,7 +136,7 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 立刻改进了：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183934.png)
+![Hermes 改进后按时汇报进度的输出](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183934.png)
 
 在这个期间，还触发了一次自动创建 skill。是因为第一次安装 claude-code 时其实失败了，但 Agent 给我报告安装成功。待我纠正事实后，Agent 自我反省，并且在成功安装之后，创建了一个新的 skill:
 
@@ -154,15 +154,15 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 首先，在搜索栏中搜索妙想，就会出现下图：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/d834699600b7211d803ca3bb926b62bb.jpg)
+![在技能市场搜索妙想技能的结果界面](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/d834699600b7211d803ca3bb926b62bb.jpg)
 
 点击妙想 skills，就会出现这个界面：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/e6711f9a615f237d576af370ba60a24e.jpg)
+![妙想技能详情页，含提示词与使用说明](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/e6711f9a615f237d576af370ba60a24e.jpg)
 
 按提示复制提示词，发给 Agent。很快，它就配置好了：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413194217.png)
+![将妙想技能提示词发给 Agent 完成配置的对话](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413194217.png)
 
 随后问了它一个问题：
 
@@ -174,7 +174,7 @@ Hermes Agent 对依赖几乎是自包含的。实际上它的依赖还要更多-
 
 还是来点可以展示的：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413200322.png)
+![Hermes 应用妙想技能生成内容的展示效果](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413200322.png)
 
 尝一口鲜是好的，天天吃可能暂时还受不了。从性能上来看，它采用了每支股票查询一次的方法，全部查下来花了近30秒。
 

@@ -1,7 +1,8 @@
 ---
-title: SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究
+title: 内幕交易因子研究
 date: 2026-09-01
-description: 原文用 SEC 免费 EDGAR 数据做 Form 4 内幕买入事件研究，发现公告日后 1/5 日存在微小但统计显著的 SPY 调整超额收益。本文解释 Form 4 是什么，A 股对应物是什么，以及如何用 Tushare 的 stk_holdertrade 复现。
+excerpt: 掌握了内部信息，交易是否就能无往不胜？ 从 Form 4到大 A，让我们科学地研究一下。
+img: college compus cambridge
 categories: basic
 tags: [因子，事件研究，内幕交易，Form4, 董监高增减持，tushare]
 ---
@@ -167,23 +168,35 @@ print(f"数据范围：{START_DATE} ~ {END_DATE}（{'近 7 年' if SAMPLE_YEARS 
 
 
 ```python
-def fetch_holdertrade_all(start=START_DATE, end=END_DATE, chunk="3M"):
-    if CACHE.exists():
-        return pd.read_parquet(CACHE)
-    # 按季度分片，绕过单次 3000 行上限
+# cell 2b：数据获取（含 begin_date/close_date 字段，用于披露滞后判断）
+# 调试开关：DEBUG_YEARS=1 只拉 1 年（快）；=0 用 cell 2 的 SAMPLE_YEARS 决定（正式 7 年）
+DEBUG_YEARS = 0  # ← 正式：0（7 年全量）；调试：1（1 年）
+_EFFECTIVE_YEARS = DEBUG_YEARS if DEBUG_YEARS else YEARS
+_CACHE = RUNTIME_DIR / f"holder_data_{_EFFECTIVE_YEARS}y_v2.parquet"  # v2: 含 begin/close 字段
+
+def fetch_holdertrade_all(start=None, end=None, chunk="3M"):
+    start = start or (pd.Timestamp.today() - pd.DateOffset(years=_EFFECTIVE_YEARS)).strftime("%Y%m%d")
+    end = end or pd.Timestamp.today().strftime("%Y%m%d")
+    if _CACHE.exists():
+        df = pd.read_parquet(_CACHE)
+        if "close_date" in df.columns:  # 字段齐全才复用，否则重拉
+            return df
+    # 按季度分片，绕过单次 3000 行上限；显式请求 begin_date/close_date（默认不返回）
+    fields = "ts_code,ann_date,holder_name,holder_type,in_de,change_vol,change_ratio,after_share,after_ratio,avg_price,total_share,begin_date,close_date"
     idx = pd.date_range(start, end, freq=chunk).strftime("%Y%m%d").tolist()
     idx.append(end)
     frames = []
     for a, b in zip(idx, idx[1:]):
-        df = pro.stk_holdertrade(start_date=a, end_date=b)
+        df = pro.stk_holdertrade(start_date=a, end_date=b, fields=fields)
         if df is not None and not df.empty:
             frames.append(df)
     out = pd.concat(frames).drop_duplicates()
-    out.to_parquet(CACHE)
+    out.to_parquet(_CACHE)
     return out
 
 raw = fetch_holdertrade_all()
-print(f"原始记录：{len(raw)} 行")
+print(f"原始记录：{len(raw)} 行（调试 {_EFFECTIVE_YEARS} 年，v2 含 begin/close 字段）")
+print("字段含 begin_date/close_date:", "begin_date" in raw.columns and "close_date" in raw.columns)
 ```
 
 通过上述代码，我们把 [STAR_DATE, END_DATE] 区间的所有增减持记录获取下来，保存为 parquet 文件，存放在`CACHE`指定的文件中。
@@ -213,13 +226,27 @@ print(f"原始记录：{len(raw)} 行")
 1. 只取 ann_date - close_date <= 2天的记录
 2. 从 ann_date($T_0$)次日买入算起，$T_1的收益为$T_{1_{close}}/T_{1_{open}} - 1；此后的收益按$C_n/C_{n-1}-1$计算。
 
-以下代码构造买入信号（全量，不抽样）：
+
+以下代码构造买入信号：
 
 ```python
 # cell 3：构造"买入信号"（映射 Form 4 漏斗的简化版，保留全部信号）
+# 按前文结论：只取 ann_date - close_date <= 2 天的记录 —— 只有这类"增持结束即公告"
+# 的信号，其公告日才是"公众首次可见"的时点，才适合做公告日事件研究。
+MAX_DISCLOSURE_LAG = 2  # 增持结束(close_date)到公告(ann_date)的最长滞后（自然日）
+
 def build_signals(raw):
-    """增持 + 高管/个人/公司股东 → 同一股票×公告日合并为一个信号（全量，不抽样）。"""
+    """增持 + 高管/个人/公司股东 → 同一股票×公告日合并为一个信号。
+    过滤：ann_date - close_date <= MAX_DISCLOSURE_LAG（排除滞后公告/补录数据）。"""
+    if "close_date" not in raw.columns:
+        raise ValueError("缺少 close_date 字段，请先运行 cell 2b（需显式请求该字段）")
     s = raw[raw["in_de"] == "IN"].copy()
+    # 披露滞后 = 公告日 - 增持结束日
+    s["ann_dt"] = pd.to_datetime(s["ann_date"], format="%Y%m%d")
+    s["close_dt"] = pd.to_datetime(s["close_date"], format="%Y%m%d", errors="coerce")
+    s = s.dropna(subset=["close_dt"])                    # 无 close_date 的记录无法判断时效，排除
+    s["disclosure_lag"] = (s["ann_dt"] - s["close_dt"]).dt.days
+    s = s[s["disclosure_lag"].between(0, MAX_DISCLOSURE_LAG)]  # 0~2 天：完成后立即公告
     s["value"] = s["change_vol"] * s["avg_price"].fillna(0)
     signals = (s.groupby(["ts_code", "ann_date"], as_index=False)
                 .agg(signals_n=("holder_name", "size"),
@@ -231,16 +258,16 @@ def build_signals(raw):
     return signals
 
 signals = build_signals(raw)
-print(f"买入信号数（股票×公告日，全量）: {len(signals)}")
+print(f"买入信号数（股票×公告日，滞后≤{MAX_DISCLOSURE_LAG}天，全量）: {len(signals)}")
 print(f"涉及股票数: {signals['ticker'].nunique()}")
 print(f"信号时间跨度: {signals['filing_date'].min()} ~ {signals['filing_date'].max()}")
 ```
 
-### 实验设计（先读这里，再看代码与结果）
+### 实验设计
 
-下面的统计表里会出现几个词——**CAR、均值 CAR、pooled t、双向聚类 t、placebo**。逐个说清楚，你才能判断方法对不对：
+下面的统计表里会出现几个词——**CAR、pooled t、双向聚类 t、placebo**。对这些概念我们需要解释一下。
 
-**① CAR 是什么缩写？**
+**CAR**
 
 CAR = **C**umulative **A**bnormal **R**eturn，累计异常收益。
 
@@ -249,17 +276,9 @@ CAR = **C**umulative **A**bnormal **R**eturn，累计异常收益。
 - **"累计"**：把公告后第 1 天到第 h 天的逐日 AR 累加（复利累乘）：
   `CAR_h = ∏(1 + AR_t) − 1`，t = 1..h
 
-所以 **CAR_1 = 公告后 1 天的累计异常收益**，CAR_21 = 公告后 21 个交易日的累计异常收益，依此类推。
+所以 **CAR_1 = 公告后 1 天的累计异常收益**，CAR_21 = 公告后 21 个交易日的累计异常收益，依此类推。引入这个概念，是因为如果我们直接统计公告后 n 日的累计收益，其中就会包含市场波动。
 
-**② "均值 CAR" 是什么？**
-
-一共有 N 个信号（比如 7,092 个增持公告）。每个信号算出一个 `CAR_h`（公告后 h 天的超额表现）。**均值 CAR = 把这 N 个信号的 CAR_h 简单平均**：
-
-`均值 CAR_h = (1/N) × Σ CAR_h,i`
-
-它回答："平均而言，一个增持公告之后 h 天，这批股票相对沪深 300 多跑赢了多少"。注意它是**全信号等权重平均**，不是"你恰好选到某只股票"的条件收益。
-
-**③ pooled t 是什么？**
+**pooled t 是什么？**
 
 pooled t 是**把 N 个 CAR 当作互相独立的样本**算的常规 t 检验：
 
@@ -269,7 +288,7 @@ pooled t 是**把 N 个 CAR 当作互相独立的样本**算的常规 t 检验�
 
 **⚠️ 但它有个缺陷**：这假设 N 个信号彼此独立。实际上**同一只股票在 7 年里可能多次增持、同月可能多只股票增持**，这些事件并不独立。pooled t 会把样本量"虚增"，让显著性**被高估**。
 
-**④ 双向聚类 t（two-way clustered t）是什么？**
+**双向聚类 t（two-way clustered t）是什么？**
 
 为了解决 pooled t 的独立性缺陷，用 **Cameron–Gelbach–Miller (CGM) 双向聚类**校正标准误：
 
@@ -279,7 +298,7 @@ pooled t 是**把 N 个 CAR 当作互相独立的样本**算的常规 t 检验�
 
 **表里同时给 pooled t 和双向聚类 t 就是这个原因**：pooled t 是"天真的上界"，双向聚类 t 是"诚实的下界"。两者差距越大，越说明样本内部依赖强。
 
-**⑤ placebo（安慰剂对照组）是什么？**
+**placebo（安慰剂对照组）是什么？**
 
 字面意思就是医学实验里的"安慰剂"——**给真事件配一组"看起来一样但不是这个事件"的对照**。
 
@@ -295,7 +314,6 @@ pooled t 是**把 N 个 CAR 当作互相独立的样本**算的常规 t 检验�
 
 判读：真实平均 CAR 若**高于 95% 的假日期**，才说明"这个时点"真的特别；若落在分布中间，说明这个收益**换任何普通日子都有**，与公告本身无关。
 
----
 
 下面 cell 4~7 就是这个设计的实现。cell 4/5 算 CAR，cell 6 算双向聚类 t，cell 7 构建 placebo；cell 8 汇总成最终的统计表和图。
 
@@ -482,15 +500,19 @@ print("build_placebo() 就绪：placebo 面板的均值分布 vs 真实 CAR—�
 ```python
 # cell 8：真正执行事件研究 + 出图
 # 设计要点：
-#   - 样本：近 START_DATE~END_DATE 的全部买入信号（由 cell 2 的 SAMPLE_YEARS 控制，正式为 7 年全量）；
+#   - 样本：近 _EFFECTIVE_YEARS 年的全部买入信号（cell 2b 控制；调试 1 年、正式 7 年）；
 #   - 入场：公告日(盘后)→次日开盘买入（CAR_1/2/3 用 open→close，之后 close→close）；
 #   - 视距：1/2/3/5/21/63 个交易日（事件初期几天更重要，故加 CAR_2/CAR_3）；
 #   - 日线：每个 ticker 只拉一次并落盘缓存（按年份命名，调试/正式不互相污染）。
 import matplotlib.pyplot as plt
 import os
 
+# 与 cell 2b 的有效年份一致
+_ES = (pd.Timestamp.today() - pd.DateOffset(years=_EFFECTIVE_YEARS)).strftime("%Y%m%d")
+_EE = pd.Timestamp.today().strftime("%Y%m%d")
+
 # 日线缓存也放系统临时目录（cell 2 已定位 RUNTIME_DIR）
-DAILY_CACHE = RUNTIME_DIR / f"daily_cache_{YEARS}y"
+DAILY_CACHE = RUNTIME_DIR / f"daily_cache_{_EFFECTIVE_YEARS}y_v2"
 DAILY_CACHE.mkdir(parents=True, exist_ok=True)
 
 def daily_cached(ticker, start=None, end=None):
@@ -499,15 +521,15 @@ def daily_cached(ticker, start=None, end=None):
     fp = DAILY_CACHE / f"{ticker}.parquet"
     if fp.exists():
         return pd.read_parquet(fp)
-    df = fetch_daily(ticker, start=start or START_DATE, end=end or END_DATE)
+    df = fetch_daily(ticker, start=start or _ES, end=end or _EE)
     if df is not None and not df.empty:
         df.to_parquet(fp)
     return df
 
-# 1) 逐信号算 CAR（对 signals 全量；调试时 signals 来自 1 年数据）
-print(f"对 {len(signals)} 个信号做事件研究（{START_DATE}~{END_DATE}，每个 ticker 日线只拉一次）...")
-bmk_full = fetch_benchmark(start=START_DATE, end=END_DATE)
-car_df = event_study(signals, daily_cached, lambda s, e: bmk_full, start=START_DATE, end=END_DATE)
+# 1) 逐信号算 CAR（对 signals 全量）
+print(f"对 {len(signals)} 个信号做事件研究（{_ES}~{_EE}，每个 ticker 日线只拉一次）...")
+bmk_full = fetch_benchmark(start=_ES, end=_EE)
+car_df = event_study(signals, daily_cached, lambda s, e: bmk_full, start=_ES, end=_EE)
 print(f"事件研究完成：{len(car_df)} 个信号有 CAR")
 
 # 2) 各视距：均值 CAR + pooled t + 双向聚类 t（股票×公告月）
@@ -569,31 +591,31 @@ for h in (1, 21):
         print(f"placebo 面板为空（CAR_{h}）：请确认 ticker 日线可拉取。")
 ```
 
-## 三、正式结果（近 7 年全量，2019-09 ~ 2026-09）
+## 三、正式结果（近 7 年全量 + 披露滞后过滤，2019-09 ~ 2026-09）
 
-把 `SAMPLE_YEARS` 设为 0 后，跑全量（6,386 个可在 next-day-open 规则下计分的买入信号；全量信号约 6,700+，其中匹配到完整日线窗口的为 6,386）：
+按前文数据设计，正式分析**只取 `ann_date − close_date ≤ 2 天` 的"增持结束即公告"信号**（排除滞后公告/历史补录的污染数据）。近 7 年全量 6 万余条增减持记录中，满足该条件并合并为（股票×公告日）的**买入信号 4,747 个**（涉及 1,905 只股票），其中匹配到完整日线窗口、可计分的事件研究样本为 **4,476 个**。
 
 | 视距  | 均值 CAR | pooled t | 双向聚类 t（股票×公告月） | n     |
 | ----- | -------- | -------- | ------------------------- | ----- |
-| 1 日  | +0.211%  | 5.59     | 2.93                      | 6,386 |
-| 2 日  | +0.320%  | 5.87     | 2.23                      | 6,386 |
-| 3 日  | +0.407%  | 6.02     | 1.84                      | 6,386 |
-| 5 日  | +0.698%  | 8.01     | 1.76                      | 6,386 |
-| 21 日 | +1.215%  | 6.93     | 1.40                      | 6,386 |
-| 63 日 | +3.016%  | 9.85     | 2.56                      | 6,386 |
+| 1 日  | +0.217%  | 4.80     | **2.41**                  | 4,476 |
+| 2 日  | +0.336%  | 5.25     | 1.81                      | 4,476 |
+| 3 日  | +0.438%  | 5.55     | 1.60                      | 4,476 |
+| 5 日  | +0.763%  | 7.57     | 1.62                      | 4,476 |
+| 21 日 | +1.305%  | 6.33     | 1.34                      | 4,476 |
+| 63 日 | +2.829%  | 7.87     | 2.19                      | 4,476 |
 
-placebo 对照：真实 CAR_1 高于假日期面板的比例 **77.2%**；CAR_21 为 **62.3%**——均 **≤95%**。
+placebo 对照：真实 CAR_1 高于假日期面板的比例 **78.5%**；CAR_21 为 **61.1%**——均 **≤95%**。
 
 **怎么读这张表（三层）：**
 
-1. **CAR 显著非零（但幅度不大）**：双向聚类 t 在 1 日达 2.93，是统计显著的。但**均值 CAR_1 只有 +0.21%**，是**毛**超额收益——未扣交易成本、滑移、税费，且是 6,386 个信号等权重平均。
-2. **pooled t vs 双向聚类 t 的差距是重要警告**：pooled t（5.6~9.9）远大于双向聚类 t（1.4~2.9），说明同一股票多次增持、同月多只增持造成的**样本间依赖很强**——天真地当独立样本会高估显著性近 2~4 倍。
-3. **placebo 未过线**：即使 1 日 CAR 的 pooled t 高达 5.59 且双向 t 为 2.93，**真实 CAR 高于假日期面板的比例只有 77%**（未达 95%）。这说明**增持公告这个"时点"本身携带的信息，弱于"这批股票本来就处在一个偏强的动量期"**。
+1. **CAR 显著非零（但幅度不大）**：双向聚类 t 在 1 日达 2.41，是统计显著的。但**均值 CAR_1 只有 +0.22%**，是**毛**超额收益——未扣交易成本、滑移、税费，且是 4,476 个信号等权重平均。
+2. **pooled t vs 双向聚类 t 的差距是重要警告**：pooled t（4.8~7.9）远大于双向聚类 t（1.3~2.4），说明同一股票多次增持、同月多只增持造成的**样本间依赖很强**——天真地当独立样本会高估显著性近 2~4 倍。
+3. **placebo 未过线**：即使 1 日 CAR 的 pooled t 高达 4.80 且双向 t 为 2.41，**真实 CAR 高于假日期面板的比例只有 78.5%**（未达 95%）。这说明**增持公告这个"时点"本身携带的信息，弱于"这批股票本来就处在一个偏强的动量期"**。
 
 **结论（对齐原文的克制语气）**：
 
-- **这不是一个可落地的高收益策略**：+0.2%~+3.0% 的样本均值，在 T+1 次日开盘入场、交易成本、且全信号等权重的前提下，难以构成净收益优势。
-- **它是有意义的科学结论**：用 6,386 个信号验证了——只看 pooled t 会被误导（5.6 貌似很强），加了双向聚类（2.93）和 placebo（77%）后，"公告时点信息"的强度立刻缩水。**方法纪律（入场规则、聚类、placebo）比表面 t 值重要得多**，这与原文（美股 Form 4）完全一致。
+- **这不是一个可落地的高收益策略**：+0.2%~+2.8% 的样本均值，在 T+1 次日开盘入场、交易成本、且全信号等权重的前提下，难以构成净收益优势。
+- **它是有意义的科学结论**：用 4,476 个"干净的"信号（滞后≤2 天）验证了——只看 pooled t 会被误导（4.8 貌似很强），加了双向聚类（2.41）和 placebo（78.5%）后，"公告时点信息"的强度立刻缩水。**方法纪律（入场规则、披露滞后过滤、聚类、placebo）比表面 t 值重要得多**，这与原文（美股 Form 4）完全一致。
 
 ## 四、完整复现需要补什么
 
