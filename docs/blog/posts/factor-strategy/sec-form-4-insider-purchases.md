@@ -1,6 +1,6 @@
 ---
 title: 内幕交易因子研究
-date: 2026-09-01
+date: 2026-09-09
 excerpt: 掌握了内部信息，交易是否就能无往不胜？ 从 Form 4到大 A，让我们科学地研究一下。
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg
 categories: basic
