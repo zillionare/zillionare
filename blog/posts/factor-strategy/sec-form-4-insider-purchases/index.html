@@ -8,8 +8,6 @@
 
 
 
-    
-
 
 
 
@@ -29,7 +27,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="原文用 SEC 免费 EDGAR 数据做 Form 4 内幕买入事件研究，发现公告日后 1/5 日存在微小但统计显著的 SPY 调整超额收益。本文解释 Form 4 是什么，A 股对应物是什么，以及如何用 Tushare 的 stk_holdertrade 复现。">
+        <meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料，及金融大数据与 CQF 相关内容分享。">
       
       
       
@@ -50,7 +48,7 @@
     
     
     
-        <title>SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究 - 匡醍量化|大富翁量化</title>
+        <title>内幕交易因子研究 - 匡醍量化|大富翁量化</title>
     
 
     
@@ -100,8 +98,8 @@
     
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究 - 匡醍量化|大富翁量化" />
-    <meta property="og:description" content="原文用 SEC 免费 EDGAR 数据做 Form 4 内幕买入事件研究，发现公告日后 1/5 日存在微小但统计显著的 SPY 调整超额收益。本文解释 Form 4 是什么，A 股对应物是什么，以及如何用 Tushare 的 stk_holdertrade 复现。" />
+    <meta property="og:title" content="内幕交易因子研究 - 匡醍量化|大富翁量化" />
+    <meta property="og:description" content="" />
     <meta property="og:url" content="https://blog.quantide.cn/blog/posts/factor-strategy/sec-form-4-insider-purchases/" />
     <meta property="og:image" content="https://blog.quantide.cn/assets/banner.jpg" />
     <meta property="og:image:type" content="image/png" />
@@ -110,8 +108,8 @@
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究 - 匡醍量化|大富翁量化" />
-    <meta name="twitter:description" content="原文用 SEC 免费 EDGAR 数据做 Form 4 内幕买入事件研究，发现公告日后 1/5 日存在微小但统计显著的 SPY 调整超额收益。本文解释 Form 4 是什么，A 股对应物是什么，以及如何用 Tushare 的 stk_holdertrade 复现。" />
+    <meta name="twitter:title" content="内幕交易因子研究 - 匡醍量化|大富翁量化" />
+    <meta name="twitter:description" content="" />
     <meta name="twitter:image" content="https://blog.quantide.cn/assets/banner.jpg" />
 
     <!-- JSON-LD 结构化数据：全站 WebSite，首页追加 Organization -->
@@ -133,8 +131,8 @@
     {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "SEC Form 4 \u5185\u5e55\u4e70\u5165\u7684 A \u80a1\u5bf9\u5e94\u7269\uff1a\u7528 Tushare \u590d\u73b0 Filing-Date \u4e8b\u4ef6\u7814\u7a76 - \u5321\u918d\u91cf\u5316|\u5927\u5bcc\u7fc1\u91cf\u5316",
-        "description": "\u539f\u6587\u7528 SEC \u514d\u8d39 EDGAR \u6570\u636e\u505a Form 4 \u5185\u5e55\u4e70\u5165\u4e8b\u4ef6\u7814\u7a76\uff0c\u53d1\u73b0\u516c\u544a\u65e5\u540e 1/5 \u65e5\u5b58\u5728\u5fae\u5c0f\u4f46\u7edf\u8ba1\u663e\u8457\u7684 SPY \u8c03\u6574\u8d85\u989d\u6536\u76ca\u3002\u672c\u6587\u89e3\u91ca Form 4 \u662f\u4ec0\u4e48\uff0cA \u80a1\u5bf9\u5e94\u7269\u662f\u4ec0\u4e48\uff0c\u4ee5\u53ca\u5982\u4f55\u7528 Tushare \u7684 stk_holdertrade \u590d\u73b0\u3002",
+        "headline": "\u5185\u5e55\u4ea4\u6613\u56e0\u5b50\u7814\u7a76 - \u5321\u918d\u91cf\u5316|\u5927\u5bcc\u7fc1\u91cf\u5316",
+        "description": "",
         "image": "https://blog.quantide.cn/assets/banner.jpg",
         "author": {
             "@type": "Person",
@@ -148,7 +146,7 @@
         },
         "mainEntityOfPage": "https://blog.quantide.cn/blog/posts/factor-strategy/sec-form-4-insider-purchases/",
         "datePublished": "2026-09-01",
-        "dateModified": "2026-09-08",
+        "dateModified": "2026-09-09",
         "inLanguage": "zh-CN"
     }
     </script>
@@ -162,7 +160,7 @@
         "@type": "BreadcrumbList",
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://blog.quantide.cn/" },
-            { "@type": "ListItem", "position": 2, "name": "SEC Form 4 \u5185\u5e55\u4e70\u5165\u7684 A \u80a1\u5bf9\u5e94\u7269\uff1a\u7528 Tushare \u590d\u73b0 Filing-Date \u4e8b\u4ef6\u7814\u7a76", "item": "https://blog.quantide.cn/blog/posts/factor-strategy/sec-form-4-insider-purchases/" }
+            { "@type": "ListItem", "position": 2, "name": "\u5185\u5e55\u4ea4\u6613\u56e0\u5b50\u7814\u7a76", "item": "https://blog.quantide.cn/blog/posts/factor-strategy/sec-form-4-insider-purchases/" }
         ]
     }
     </script>
@@ -220,7 +218,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究
+              内幕交易因子研究
             
           </span>
         </div>
@@ -3613,7 +3611,7 @@
   
   
   <span class="md-ellipsis">
-    SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究
+    内幕交易因子研究
     
   </span>
   
@@ -3626,7 +3624,7 @@
   
   
   <span class="md-ellipsis">
-    SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究
+    内幕交易因子研究
     
   </span>
   
@@ -3710,7 +3708,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      实验设计（先读这里，再看代码与结果）
+      实验设计
     </span>
   </a>
   
@@ -3722,18 +3720,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-2019-09-2026-09" class="md-nav__link">
-    <span class="md-ellipsis">
-      三、正式结果（近 7 年全量，2019-09 ~ 2026-09）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      四、完整复现需要补什么
+      三、结论
     </span>
   </a>
   
@@ -3742,11 +3731,11 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      附：卖出（减持）信号的市场冲击测试
+      减持是卖出信号吗？
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="附：卖出（减持）信号的市场冲击测试">
+    <nav class="md-nav" aria-label="减持是卖出信号吗？">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3779,7 +3768,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      诚实的解读（别急着下"减持看涨"的结论）
+      为何利空成了利好？
     </span>
   </a>
   
@@ -3793,16 +3782,7 @@
         <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      五、诚实的结论（对齐原文语气）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      参考
+      本文参考
     </span>
   </a>
   
@@ -9225,7 +9205,7 @@
                     
                         font-size:0.9rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkMagenta;
                 ">课程&nbsp;
                 </span>
                 <!--<sup class="tag-count">8</sup>-->
@@ -9241,7 +9221,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkCyan;
                 ">因子投资&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9259,7 +9239,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGreen;
+                    color:DarkTurquoise;
                 ">机器学习&nbsp;
                 </span>
                 <!--<sup class="tag-count">11</sup>-->
@@ -9275,7 +9255,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkBlue;
+                    color:DarkRed;
                 ">Python&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -9325,7 +9305,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">tools&nbsp;
                 </span>
                 <!--<sup class="tag-count">69</sup>-->
@@ -9343,7 +9323,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkRed;
+                    color:DarkCyan;
                 ">programming&nbsp;
                 </span>
                 <!--<sup class="tag-count">52</sup>-->
@@ -9361,7 +9341,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkViolet;
+                    color:DarkRed;
                 ">Numpy&nbsp;
                 </span>
                 <!--<sup class="tag-count">40</sup>-->
@@ -9397,7 +9377,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkMagenta;
+                    color:DarkGoldenrod;
                 ">pandas&nbsp;
                 </span>
                 <!--<sup class="tag-count">15</sup>-->
@@ -9429,7 +9409,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGreen;
+                    color:DarkViolet;
                 ">hdbscan&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9445,7 +9425,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkOliveGreen;
                 ">聚类&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9461,7 +9441,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkTurquoise;
                 ">选股&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9477,7 +9457,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkBlue;
                 ">Algo&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9493,7 +9473,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkBlue;
                 ">minimum&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9511,7 +9491,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkGreen;
+                    color:DarkViolet;
                 ">numpy&nbsp;
                 </span>
                 <!--<sup class="tag-count">11</sup>-->
@@ -9527,7 +9507,7 @@
                     
                         font-size:0.8rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkOliveGreen;
                 ">回测&nbsp;
                 </span>
                 <!--<sup class="tag-count">6</sup>-->
@@ -9543,7 +9523,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkCyan;
                 ">数据标准化&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9559,7 +9539,7 @@
                     
                         font-size:0.95rem;
                     
-                    color:DarkGreen;
+                    color:DarkBlue;
                 ">algo&nbsp;
                 </span>
                 <!--<sup class="tag-count">9</sup>-->
@@ -9575,7 +9555,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkOliveGreen;
                 ">FFT&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9591,7 +9571,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkSlateBlue;
                 ">模式识别&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9607,7 +9587,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkBlue;
                 ">配对交易&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9623,7 +9603,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkViolet;
                 ">GBDT&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9639,7 +9619,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkSlateBlue;
                 ">LightGBM&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9655,7 +9635,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGoldenrod;
                 ">XGBoost&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9671,7 +9651,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkBlue;
+                    color:DarkTurquoise;
                 ">statistics&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9687,7 +9667,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkBlue;
                 ">CDF&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9703,7 +9683,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkTurquoise;
                 ">KS-Test&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9719,7 +9699,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkViolet;
                 ">monte-carlo&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9735,7 +9715,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkBlue;
                 ">VaR&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9751,7 +9731,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkSlateBlue;
                 ">过拟合&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9767,7 +9747,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">algorithms&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9783,7 +9763,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkGoldenrod;
                 ">machine learning&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9801,7 +9781,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkRed;
                 ">strategy&nbsp;
                 </span>
                 <!--<sup class="tag-count">34</sup>-->
@@ -9819,7 +9799,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkMagenta;
                 ">python&nbsp;
                 </span>
                 <!--<sup class="tag-count">11</sup>-->
@@ -9835,7 +9815,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkTurquoise;
                 ">sklearn&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9851,7 +9831,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkViolet;
+                    color:DarkRed;
                 ">pdf&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -9867,7 +9847,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">概率&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -9883,7 +9863,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGoldenrod;
                 ">数学&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9899,7 +9879,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">面试题&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9915,7 +9895,7 @@
                     
                         font-size:0.8500000000000001rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkMagenta;
                 ">量化交易&nbsp;
                 </span>
                 <!--<sup class="tag-count">7</sup>-->
@@ -9931,7 +9911,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkBlue;
                 ">策略分类&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9947,7 +9927,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkOliveGreen;
                 ">风险管理&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -9963,7 +9943,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGoldenrod;
                 ">Info&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9979,7 +9959,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkGreen;
                 ">interview&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -9997,7 +9977,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkCyan;
+                    color:DarkViolet;
                 ">career&nbsp;
                 </span>
                 <!--<sup class="tag-count">12</sup>-->
@@ -10015,7 +9995,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkOliveGreen;
                 ">quant&nbsp;
                 </span>
                 <!--<sup class="tag-count">11</sup>-->
@@ -10047,7 +10027,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateGray;
                 ">probability&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10063,7 +10043,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkViolet;
                 ">portfolio&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10095,7 +10075,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateGray;
                 ">强化学习&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10127,7 +10107,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkGoldenrod;
                 ">AI量化&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10143,7 +10123,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkGreen;
                 ">复权&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10159,7 +10139,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkGoldenrod;
                 ">数据&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10175,7 +10155,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkViolet;
                 ">tushare&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -10191,7 +10171,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkCyan;
                 ">akshare&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10207,7 +10187,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkRed;
                 ">xgboost&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -10223,7 +10203,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkTurquoise;
                 ">PCA&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10239,7 +10219,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkSlateGray;
                 ">wavelet&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10255,7 +10235,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkOrchid;
                 ">时序事件归因&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10271,7 +10251,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkBlue;
                 ">SHAP&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10287,7 +10267,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">alog&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10303,7 +10283,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkOliveGreen;
                 ">paper&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10319,7 +10299,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkTurquoise;
                 ">multimodal&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10335,7 +10315,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkGoldenrod;
                 ">speech&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10351,7 +10331,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkGreen;
                 ">volatility&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10367,7 +10347,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkOliveGreen;
                 ">深度学习&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10383,7 +10363,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkMagenta;
                 ">归一化&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10399,7 +10379,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">BN&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10415,7 +10395,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateBlue;
                 ">LN&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10431,7 +10411,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkTurquoise;
                 ">WN&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10447,7 +10427,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkOliveGreen;
                 ">machine-learning&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10463,7 +10443,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGreen;
                 ">quant-trading&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10479,7 +10459,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkCyan;
                 ">dropout&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10495,7 +10475,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkGreen;
                 ">kaggle&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10527,7 +10507,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateBlue;
                 ">决策树&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10543,7 +10523,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkTurquoise;
                 ">泰勒展开&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10559,7 +10539,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOrchid;
                 ">finance&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10575,7 +10555,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkBlue;
                 ">model&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10591,7 +10571,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">github&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10607,7 +10587,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkGoldenrod;
                 ">analysis&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10623,7 +10603,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkGreen;
                 ">deep-learning&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10639,7 +10619,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkOliveGreen;
                 ">tcn&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10655,7 +10635,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkOrchid;
+                    color:DarkBlue;
                 ">time-series&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10671,7 +10651,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkBlue;
                 ">causal-convolution&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10703,7 +10683,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkBlue;
                 ">避坑指南&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10719,7 +10699,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGreen;
                 ">Figures&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10735,7 +10715,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkCyan;
                 ">Behavioral Economics&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10751,7 +10731,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkBlue;
                 ">graduate&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10767,7 +10747,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkRed;
                 ">arma&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10783,7 +10763,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkMagenta;
                 ">garch&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10799,7 +10779,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkCyan;
+                    color:DarkBlue;
                 ">人物&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -10815,7 +10795,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkViolet;
                 ">职场&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10831,7 +10811,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkRed;
                 ">Quantopian&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10847,7 +10827,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkCyan;
+                    color:DarkOliveGreen;
                 ">figure&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -10863,7 +10843,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">Banz&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10879,7 +10859,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateBlue;
                 ">金融行业&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10895,7 +10875,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">买方&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10911,7 +10891,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkCyan;
                 ">卖方&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10927,7 +10907,7 @@
                     
                         font-size:0.8rem;
                     
-                    color:DarkMagenta;
+                    color:DarkCyan;
                 ">story&nbsp;
                 </span>
                 <!--<sup class="tag-count">6</sup>-->
@@ -10943,7 +10923,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkGreen;
                 ">量化传奇&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10959,7 +10939,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkMagenta;
                 ">rsi&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10975,7 +10955,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">zigzag&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -10991,7 +10971,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkOliveGreen;
                 ">穹顶压力&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11007,7 +10987,7 @@
                     
                         font-size:0.8500000000000001rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">因子&nbsp;
                 </span>
                 <!--<sup class="tag-count">7</sup>-->
@@ -11023,7 +11003,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">ESG&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11039,7 +11019,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkRed;
                 ">因子策略&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -11055,7 +11035,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkGreen;
                 ">投资&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11071,7 +11051,7 @@
                     
                         font-size:0.75rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">策略&nbsp;
                 </span>
                 <!--<sup class="tag-count">5</sup>-->
@@ -11087,7 +11067,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkMagenta;
                 ">pe&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11103,7 +11083,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkOliveGreen;
                 ">ORB&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11119,7 +11099,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">Xgboost&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11135,7 +11115,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">Alligator&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11151,7 +11131,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkOliveGreen;
                 ">Indicator&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11169,7 +11149,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkTurquoise;
                 ">factor&nbsp;
                 </span>
                 <!--<sup class="tag-count">16</sup>-->
@@ -11185,7 +11165,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkViolet;
                 ">alpha101&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11201,7 +11181,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkOrchid;
                 ">alpha&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11217,7 +11197,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">技术指标&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -11233,7 +11213,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkOrchid;
                 ">wave&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11249,7 +11229,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGreen;
+                    color:DarkRed;
                 ">algorithm&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11265,7 +11245,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">pearson&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11281,7 +11261,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkGreen;
                 ">spearman&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11297,7 +11277,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkTurquoise;
                 ">套利&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11313,7 +11293,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkOrchid;
                 ">LOF&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11329,7 +11309,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkSlateBlue;
                 ">白银&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11345,7 +11325,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkRed;
+                    color:DarkBlue;
                 ">因子分析&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -11361,7 +11341,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkViolet;
+                    color:DarkTurquoise;
                 ">Alphalens&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -11377,7 +11357,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGoldenrod;
                 ">涨停板&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11393,7 +11373,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkBlue;
                 ">herd-behaviour&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11409,7 +11389,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">momentum&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11425,7 +11405,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateGray;
                 ">因子评估&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11441,7 +11421,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkCyan;
                 ">review&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11457,7 +11437,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkOrchid;
                 ">因子，事件研究，内幕交易，Form4&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11473,7 +11453,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkGreen;
                 ">董监高增减持，tushare&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11489,7 +11469,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGreen;
                 ">SMC&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11505,7 +11485,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkSlateGray;
                 ">聪明钱&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11521,7 +11501,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkMagenta;
                 ">trade&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11537,7 +11517,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOliveGreen;
                 ">history&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11553,7 +11533,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkBlue;
                 ">indicators&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11569,7 +11549,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkBlue;
                 ">zscore&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11585,7 +11565,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGreen;
                 ">波动率&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11601,7 +11581,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">lightgbm&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11617,7 +11597,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkRed;
                 ">顶背离&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11633,7 +11613,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkMagenta;
                 ">另类数据&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11649,7 +11629,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkTurquoise;
                 ">notebook&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11665,7 +11645,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateBlue;
                 ">大模型&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -11681,7 +11661,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateBlue;
                 ">Tushare&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -11713,7 +11693,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkOrchid;
+                    color:DarkGreen;
                 ">周频&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11729,7 +11709,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkOliveGreen;
                 ">预测&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11745,7 +11725,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkOliveGreen;
                 ">ATR&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11761,7 +11741,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkSlateBlue;
                 ">RSI&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11777,7 +11757,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkCyan;
                 ">KNN&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11809,7 +11789,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkMagenta;
                 ">freshman&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11825,7 +11805,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkViolet;
                 ">resources&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -11841,7 +11821,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">LLT&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11857,7 +11837,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkRed;
                 ">backtest&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11873,7 +11853,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkViolet;
                 ">backtrader&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11889,7 +11869,7 @@
                     
                         font-size:0.9rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">研报&nbsp;
                 </span>
                 <!--<sup class="tag-count">8</sup>-->
@@ -11905,7 +11885,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">papers&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -11921,7 +11901,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkRed;
                 ">UBL&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -11937,7 +11917,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkMagenta;
                 ">金融阅读&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11953,7 +11933,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkCyan;
                 ">免费资源&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11969,7 +11949,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">华尔街日报&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -11985,7 +11965,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">WSJ&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12001,7 +11981,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkCyan;
                 ">量化学习&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12019,7 +11999,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGoldenrod;
                 ">quantlib&nbsp;
                 </span>
                 <!--<sup class="tag-count">14</sup>-->
@@ -12051,7 +12031,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkRed;
                 ">scikit-learn&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12067,7 +12047,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkRed;
                 ">pypinyin&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12083,7 +12063,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkCyan;
+                    color:DarkMagenta;
                 ">qmt&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -12099,7 +12079,7 @@
                     
                         font-size:0.75rem;
                     
-                    color:DarkRed;
+                    color:DarkViolet;
                 ">xtquant&nbsp;
                 </span>
                 <!--<sup class="tag-count">5</sup>-->
@@ -12115,7 +12095,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkSlateGray;
                 ">blog&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12131,7 +12111,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkViolet;
                 ">static-site&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12147,7 +12127,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkViolet;
+                    color:DarkMagenta;
                 ">duckdb&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -12163,7 +12143,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkCyan;
                 ">工具&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -12179,7 +12159,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkBlue;
                 ">colors&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12195,7 +12175,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkGreen;
                 ">free resources&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12211,7 +12191,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateGray;
                 ">barra&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12227,7 +12207,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">world quant&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12243,7 +12223,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkSlateBlue;
                 ">Alpha&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12259,7 +12239,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkViolet;
                 ">openclaw&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12275,7 +12255,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">Agent&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12291,7 +12271,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkTurquoise;
                 ">vibe coding&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12307,7 +12287,7 @@
                     
                         font-size:0.8500000000000001rem;
                     
-                    color:DarkMagenta;
+                    color:DarkSlateBlue;
                 ">AI&nbsp;
                 </span>
                 <!--<sup class="tag-count">7</sup>-->
@@ -12323,7 +12303,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGreen;
+                    color:DarkGoldenrod;
                 ">coding&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12339,7 +12319,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkMagenta;
                 ">openbb&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12355,7 +12335,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkBlue;
+                    color:DarkRed;
                 ">llm&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12371,7 +12351,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkRed;
                 ">prompt&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12387,7 +12367,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">CANSLIM&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12403,7 +12383,7 @@
                     
                         font-size:0.8500000000000001rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">Augment&nbsp;
                 </span>
                 <!--<sup class="tag-count">7</sup>-->
@@ -12419,7 +12399,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkMagenta;
+                    color:DarkGreen;
                 ">arsenal&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12435,7 +12415,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkGreen;
                 ">copilot&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12451,7 +12431,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkMagenta;
                 ">vscode&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12467,7 +12447,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkViolet;
+                    color:DarkRed;
                 ">code&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12483,7 +12463,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkViolet;
                 ">量化数据存储&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -12499,7 +12479,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkTurquoise;
                 ">hdf5&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12515,7 +12495,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkViolet;
                 ">h5py&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12531,7 +12511,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGoldenrod;
                 ">OpenClaw&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12547,7 +12527,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGreen;
                 ">Hermes Agent&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12563,7 +12543,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkGreen;
                 ">cursor&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12579,7 +12559,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGreen;
                 ">augment&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -12595,7 +12575,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkGreen;
                 ">trae&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12611,7 +12591,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkRed;
+                    color:DarkViolet;
                 ">Jupyter&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12627,7 +12607,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkRed;
                 ">jupysql&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12643,7 +12623,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkTurquoise;
                 ">pyarrow&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12659,7 +12639,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateGray;
                 ">parquet&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12675,7 +12655,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkCyan;
                 ">数据源&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12691,7 +12671,7 @@
                     
                         font-size:0.65rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateBlue;
                 ">quantstats&nbsp;
                 </span>
                 <!--<sup class="tag-count">3</sup>-->
@@ -12707,7 +12687,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkGoldenrod;
                 ">几何收益&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12723,7 +12703,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkViolet;
                 ">RDAgent&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12739,7 +12719,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkGoldenrod;
                 ">qlib&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12755,7 +12735,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkRed;
                 ">agent&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12771,7 +12751,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkTurquoise;
                 ">实盘&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12787,7 +12767,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkSlateGray;
                 ">clickhouse&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12803,7 +12783,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkViolet;
+                    color:DarkGoldenrod;
                 ">polars&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12819,7 +12799,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">滑动窗口&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12835,7 +12815,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkRed;
+                    color:DarkSlateGray;
                 ">sqlite&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12851,7 +12831,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkBlue;
                 ">sqlite-utils&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12867,7 +12847,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkRed;
                 ">fastlite&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12883,7 +12863,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkViolet;
                 ">大数据&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12915,7 +12895,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateGray;
+                    color:DarkBlue;
                 ">UV&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12931,7 +12911,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGoldenrod;
                 ">Pydantic&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12947,7 +12927,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkTurquoise;
                 ">Engineering&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12963,7 +12943,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkBlue;
+                    color:DarkSlateGray;
                 ">redis&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -12979,7 +12959,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkRed;
                 ">remote-agent&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -12995,7 +12975,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkSlateBlue;
+                    color:DarkOliveGreen;
                 ">AI-tools&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13011,7 +12991,7 @@
                     
                         font-size:0.7rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkCyan;
                 ">Moonshot&nbsp;
                 </span>
                 <!--<sup class="tag-count">4</sup>-->
@@ -13027,7 +13007,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkGreen;
                 ">回测，研报，tushare&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13077,7 +13057,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkBlue;
                 ">DeepSeek&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13093,7 +13073,7 @@
                     
                         font-size:0.6rem;
                     
-                    color:DarkGreen;
+                    color:DarkSlateBlue;
                 ">network&nbsp;
                 </span>
                 <!--<sup class="tag-count">2</sup>-->
@@ -13109,7 +13089,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkBlue;
                 ">quantinsti&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13141,7 +13121,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkSlateGray;
                 ">量子计算&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13157,7 +13137,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkViolet;
                 ">金融交易&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13173,7 +13153,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkCyan;
+                    color:DarkSlateGray;
                 ">IBM&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13191,7 +13171,7 @@
                     
                         font-size:1.0rem;
                     
-                    color:DarkViolet;
+                    color:DarkGreen;
                 ">weekly&nbsp;
                 </span>
                 <!--<sup class="tag-count">14</sup>-->
@@ -13207,7 +13187,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkGreen;
                 ">进化论&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13223,7 +13203,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkGoldenrod;
+                    color:DarkOrchid;
                 ">logic-factor&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13239,7 +13219,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkGoldenrod;
                 ">Agent Skills&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13255,7 +13235,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkMagenta;
+                    color:DarkSlateGray;
                 ">Skills Marketplace&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13271,7 +13251,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOrchid;
+                    color:DarkOliveGreen;
                 ">VS Code&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13287,7 +13267,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkBlue;
+                    color:DarkRed;
                 ">XtQuant&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13303,7 +13283,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkOliveGreen;
+                    color:DarkRed;
                 ">BaoStock&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13319,7 +13299,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkCyan;
                 ">A股&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13351,7 +13331,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkTurquoise;
+                    color:DarkSlateGray;
                 ">neutralization&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13367,7 +13347,7 @@
                     
                         font-size:0.55rem;
                     
-                    color:DarkRed;
+                    color:DarkTurquoise;
                 ">basics&nbsp;
                 </span>
                 <!--<sup class="tag-count">1</sup>-->
@@ -13468,7 +13448,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      实验设计（先读这里，再看代码与结果）
+      实验设计
     </span>
   </a>
   
@@ -13480,18 +13460,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-2019-09-2026-09" class="md-nav__link">
-    <span class="md-ellipsis">
-      三、正式结果（近 7 年全量，2019-09 ~ 2026-09）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      四、完整复现需要补什么
+      三、结论
     </span>
   </a>
   
@@ -13500,11 +13471,11 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      附：卖出（减持）信号的市场冲击测试
+      减持是卖出信号吗？
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="附：卖出（减持）信号的市场冲击测试">
+    <nav class="md-nav" aria-label="减持是卖出信号吗？">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13537,7 +13508,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      诚实的解读（别急着下"减持看涨"的结论）
+      为何利空成了利好？
     </span>
   </a>
   
@@ -13551,16 +13522,7 @@
         <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      五、诚实的结论（对齐原文语气）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      参考
+      本文参考
     </span>
   </a>
   
@@ -13632,13 +13594,9 @@
     
 
     
-    <h1 class="page-title"> SEC Form 4 内幕买入的 A 股对应物：用 Tushare 复现 Filing-Date 事件研究 </h1>
+    <h1 class="page-title"> 内幕交易因子研究 </h1>
 
     
-    
-        <p class="page-description">
-            原文用 SEC 免费 EDGAR 数据做 Form 4 内幕买入事件研究，发现公告日后 1/5 日存在微小但统计显著的 SPY 调整超额收益。本文解释 Form 4 是什么，A 股对应物是什么，以及如何用 Tushare 的 stk_holdertrade 复现。
-        </p>
     
 
     
@@ -13668,7 +13626,7 @@
                     <span>
                     
                         最后更新:
-                        2026-09-08
+                        2026-09-09
                     
                     </span>
                 </p>
@@ -13796,7 +13754,7 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      实验设计（先读这里，再看代码与结果）
+      实验设计
     </span>
   </a>
   
@@ -13808,18 +13766,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-2019-09-2026-09" class="md-nav__link">
-    <span class="md-ellipsis">
-      三、正式结果（近 7 年全量，2019-09 ~ 2026-09）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      四、完整复现需要补什么
+      三、结论
     </span>
   </a>
   
@@ -13828,11 +13777,11 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      附：卖出（减持）信号的市场冲击测试
+      减持是卖出信号吗？
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="附：卖出（减持）信号的市场冲击测试">
+    <nav class="md-nav" aria-label="减持是卖出信号吗？">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13865,7 +13814,7 @@
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      诚实的解读（别急着下"减持看涨"的结论）
+      为何利空成了利好？
     </span>
   </a>
   
@@ -13879,16 +13828,7 @@
         <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      五、诚实的结论（对齐原文语气）
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      参考
+      本文参考
     </span>
   </a>
   
@@ -13902,28 +13842,25 @@
 
 
     
-    <p><strong>设想一下。</strong> 你打开邮箱，里面是一封自动推送的邮件：</p>
+    <p><strong>设想一下。</strong> 你打开东方财富，自选股资讯里弹出一条：</p>
 <blockquote>
-<p>[!info] 你持仓的 XX 公司今天宣布：CFO 张某某以均价 38.50 元购入 52 万股，金额超 2000 万人民币。来源：港交所权益披露。*</p>
+<p>[!tip]
+截至x年x月x日收市，公司控股股东、董事长xxx先生通过上海证券交易所股票交易系统以集中竞价交易方式累计增持公司股份xx股，约占公司总股本的y%，增持金额为人民币z万元，本次增持计划已实施完毕。*</p>
 </blockquote>
-<p>你的第一反应会是什么？——多数人会立刻打开行情软件看一眼，然后问："<strong>我该不该跟？</strong>"</p>
+<p>你的第一反应会是什么？ —— 多数人会立刻打开行情软件看一眼，然后问："<strong>我该不该跟？</strong>"</p>
 <p>这就是我们今天要研究的因子。</p>
-<blockquote>
-<p>[!tip] 内部人公开披露的交易，能让外部跟随者赚到钱吗？
-学术语言：拥有信息优势的控制权人依法申报买入之后，外部投资者按<strong>公开信息</strong>、扣除交易成本后，能否获得显著为正的风险调整收益？</p>
-</blockquote>
+<p><strong>内部人的交易披露，能否让外部跟随者能赚钱？</strong> 转换为学术语言：拥有信息优势的控制权人依法申报买入之后，外部投资者按<strong>公开信息</strong>、扣除交易成本后，能否获得显著为正的风险调整收益？</p>
 <h2 id="_1">内幕交易，局外人能否利用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>内幕交易是指公司内部人利用公众无法获取的信息在股市中牟利。James D. Logan 案是一个典型的内幕交易案例。Logan 是 MicroTouch Systems 的董事长，在公司与 Tyco 和 3M 进行秘密收购谈判期间，他于 2000 年 5 月、6 月和 9 月通过一个为未成年子女设立的信托，分十次买入了 14,000 股 MicroTouch 股票。2000 年 11 月 13 日，MicroTouch 宣布被 3M 以每股 21 美元收购，信托卖出股票获利 177,375 美元，不到 6 个月，回报达 152%。</p>
-<hr />
 <p>正是为了打击内幕交易，SEC 在 1934 年立法，要求强制披露和短线利润归入。所谓短线利润归入，就是指内部人在6个月内买入又卖出（或者卖出又买入）的利润，必须归还公司。</p>
 <p>这条规则，加上强制披露，就基本堵死了内幕交易的操作空间。强制披露是什么意思呢，它就是董事、高管、持股超过10%的受益所有人，必须在持股变动后的两个工作日内，通过 Form 4表格进行申报。</p>
-<p>所以，高管可以根据自己掌握的内幕消息进行交易 -- 这似乎是无法避免的 -- 但是，公众将在两个工作日之后即可获得同样的信息，但他们有足够的自由先于高管进行交易。高管拥有信息优先权，而公众则拥有先手权。这样就对所有人都公平了。</p>
+<p>所以，高管可以根据自己掌握的信息进行交易——这似乎无法避免——但公众最迟在两个工作日内就能获得同样的信息，尽管买入时机要滞后一点，但他们可以优先于高管卖出。所以，高管拥有信息优先权，公众则拥有交易先手权。这样，规则对所有人都公平了。</p>
 <p>所以，前面所说的『内幕交易』，只要按规定执行，就变成了合法的内部人交易。</p>
 <p>基于『内部人』交易信息，一般公众是否可以从中获得某种 Alpha? 最近 quantinsti 上发表了一篇博文对此进行了研究。在国内也有类似的披露制度，相关信息也能通过 tushare 获得，所以，本文就来研究下这个 Alpha。</p>
 <p>文章分两部分。第一部分是 SEC Form 4内幕买入，适用于美股；第二部分则是对 A 股内部人交易信息披露的 Alpha 的研究。</p>
 <blockquote>
 <p>[!info]
-2026 年 8 月，AlphaAI 创始人 <strong>Mikhail Makeev</strong> 用 SEC 免费公开的 EDGAR 数据，对 <strong>2022Q1~2026Q2</strong> 期间全部 C-suite 内幕买入做了一次严格的事件研究——<em><a href="https://blog.quantinsti.com/sec-form-4-insider-trading-python-event-study/">SEC Form 4 Insider Purchases in Python: A Filing-Date Event Study with Free EDGAR Data</a></em>（QuantInsti, 2026-08）。本文受该文启发进行了本土化研究。</p>
+2026 年 8 月，AlphaAI 创始人 <strong>Mikhail Makeev</strong> 用 SEC 免费公开的 EDGAR 数据，对 <strong>2022Q1~2026Q2</strong> 期间全部 C-suite 内幕买入做了一次严格的事件研究——<em><a href="https://blog.quantinsti.com/sec-form-4-insider-trading-python-event-study/">SEC Form 4 Insider Purchases in Python: A Filing-Date Event Study with Free EDGAR Data</a></em>（QuantInsti, 2026-08）。本文受该文启发进行了本土化研究。受数据所限，本文的价值在于展现一种严谨的研究方法，而不在于直接提供可复用的因子/策略。</p>
 </blockquote>
 <h2 id="sec-form-4">一、什么是 SEC Form 4 内部人买入<a class="headerlink" href="#sec-form-4" title="Permanent link">&para;</a></h2>
 <p>为了防止内幕交易，美国《1934 年证券交易法》Section 16 要求三类"内部人"披露持股变动：</p>
@@ -13932,7 +13869,7 @@
 <li><strong>高管（officer）</strong>，主要指 C-suite</li>
 <li>持有注册权益证券类别 <strong>10% 以上</strong>的受益所有人</li>
 </ul>
-<p>他们每次发生"受益所有权的变化"，都必须通过 EDGAR 提交 <strong>Form 4</strong>：内部人持股变动报表。</p>
+<p>每次发生"受益所有权的变化"，这些人都必须通过 EDGAR 提交 <strong>Form 4</strong>：内部人持股变动报表。</p>
 <p><strong>申报人必须在可报告交易发生后的第二个工作日内完成申报</strong>。这个 deadline 使 Form 4 成为<strong>对做市和量化研究极其便利</strong>的数据：公开、结构化、且披露延迟很短。</p>
 <h3 id="form-4">Form 4 的交易代码<a class="headerlink" href="#form-4" title="Permanent link">&para;</a></h3>
 <p>Form 4 的非衍生品交易表中，有一个关键字段"交易代码"（transaction code），在原文中，只使用了代码为<strong>P</strong>的记录，对其它进行了排除，原因如下：</p>
@@ -13982,12 +13919,13 @@
 </tr>
 </tbody>
 </table>
-<p>为什么对卖出记录进行了排除？如果高管和大股东在抛售股票了，难道股票不应该下跌吗？如果结合使用，按理说这个因子的效果不应该更好吗？</p>
-<p>这里我们先做一个理论上的解释，在后面我们还会以大 A 为样本，完成实证研究。实证研究的结果不但将回答这个问题，并且还将有力地说明，凭感觉的主观交易，为什么必然败给量化交易。</p>
-<p>为什么排除了卖出记录？ 因为卖出经常混杂多样化、流动性需求、税务规划等与公司前景无关的动机；买入（尤其高管真金白银增持）更可能押注"股价低于价值"。Cohen/Malloy/Pomorski (2012) 更精细地把交易分为机会型/例行型，进一步确认买入更能区分信息驱动。</p>
-<p>对普通投资者而言，我们卖出常常是因为不看好个股前景。但并不了解高管为什么要这样做。当我们把自身的经验投射到其它人身上，从而以自己的经验来解释他人的行为时，就必然得出只要高管卖出，那么公司前景看淡，股份必然下跌的片面结论。</p>
+<p>为什么对卖出记录进行了排除？如果高管和大股东在抛售股票了，难道股票不应该下跌吗？如果把买入和卖出结合使用，按理说这个因子的效果不应该更好吗？</p>
+<p>这里我们先做一个理论上的解释，在后面我们还会以大 A 为样本，完成实证研究。实证研究的结果不但能回答这个问题，并且还将有力地说明，凭感觉的主观交易，为什么必然败给量化交易。</p>
+<p>对普通投资者而言，我们卖出常常是因为不看好个股前景。但高管卖出股票的原因中，经常混杂多样化、流动性需求、税务规划等与公司前景无关的动机；买入（尤其高管真金白银增持）更可能押注"股价低于价值"。Cohen/Malloy/Pomorski (2012) 曾精细地把交易分为机会型/例行型，进一步确认买入更能区分信息驱动。</p>
+<p>当我们把自身的经验投射到其它人身上，从而以自己的经验来解释他人的行为时，就必然得出只要高管卖出，那么公司前景看淡，股份必然下跌的片面结论。</p>
+<p>排除片面的主观经验，还原客观真相，这正是量化分析的优势所在。</p>
 <h3 id="_2">原文的核心结果<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>原文样本：2022Q1~2026Q2 期间，C-suite、Code P、非 10b5-1 申报的买入，经过漏斗后得到 <strong>7,405 个可计分信号</strong>（issuer × 申报日）。用 SPY 做基准的<strong>申报日事件研究</strong>：</p>
+<p>原文样本：2022Q1~2026Q2 期间，C-suite、Code P、非 10b5-1 申报的买入，经过过滤后得到 <strong>7,405 个可计分信号</strong>（issuer × 申报日）。用 SPY 做基准的<strong>申报日事件研究</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -14024,14 +13962,14 @@
 </tr>
 </tbody>
 </table>
-<p>结论措辞非常小心，但实际上因子的 Alpha 效应很显著：</p>
+<p>原文的结论措辞非常克制，但数据本身相当有力：</p>
 <ol>
 <li><strong>短期（1 日 +0.53%、5 日 +1.01%）有统计显著的 SPY 调整超额收益</strong>，双向聚类 t 在 6.46 / 5.05，置信区间不含 0。</li>
 <li><strong>更长期限（21/63 日）的 CAR/BHAR 置信区间包含 0</strong>——没有稳定证据表明内幕买入后存在持久的漂移。</li>
 </ol>
 <h2 id="a-f4">二、A 股 F4<a class="headerlink" href="#a-f4" title="Permanent link">&para;</a></h2>
 <p>A 股虽然没有 Form 4，但也有同一性质的制度：<strong>董监高及持股 5% 以上股东（大股东）的股份变动必须披露</strong>。</p>
-<p>这里我们汇总一下各本文提及的三处证券市场中，如何获取内部人交易披露信息：</p>
+<p>这里我们汇总一下本文提及的三个证券市场中，如何获取内部人交易披露信息：</p>
 <table>
 <thead>
 <tr>
@@ -14045,7 +13983,7 @@
 <tr>
 <td>美国</td>
 <td><strong>EDGAR</strong>（SEC 运营）</td>
-<td>1934 年《证券法》Section 16</td>
+<td>1934 年《证券交易法》Section 16</td>
 <td>董事/高管/&gt;10% 受益所有人，Form 4</td>
 </tr>
 <tr>
@@ -14062,19 +14000,22 @@
 </tr>
 </tbody>
 </table>
-<p>三者都是<strong>法定公开的免费电子化披露</strong>。但在 A 股，一般我们需要通过 Tushare 或者其它第三方数据源来获取内部人交易信息。因为巨潮资讯网并不直接提供结构化数据，需要自己爬取和解析。</p>
+<p>三者都是<strong>法定公开的免费电子化披露</strong>。</p>
+<p>但在 A 股，法定渠道公开的数据是以文本方式披露的，直接使用的话，我们需要进行数据抓取和解析。因此，我们一般是通过第三方软件，比如通过 Tushare 来获取内部人交易信息。</p>
 <h2 id="tushare">Tushare 的对应数据接口<a class="headerlink" href="#tushare" title="Permanent link">&para;</a></h2>
 <p>Tushare（需要一定积分）提供了<strong>已结构化的董监高/股东增减持数据</strong>：</p>
 <ol>
-<li><strong><code>stk_holdertrade</code>（股东增减持）</strong> —— 最接近 Form 4 的接口，字段包括：</li>
-<li><code>ann_date</code>：公告日期（= 申报日/披露日，A 股的 <strong>filing date</strong>）</li>
+<li><strong><code>stk_holdertrade</code>（股东增减持）</strong> —— 最接近 Form 4 的接口，它返回的数据包含以下字段：</li>
+<li><code>ann_date</code>：公告日期</li>
 <li><code>holder_name</code>：股东/高管姓名</li>
 <li><code>holder_type</code>：<strong>G=高管（董监高）、P=个人股东（5% 以上）、C=公司股东</strong></li>
 <li><code>in_de</code>：<strong>IN=增持，DE=减持</strong>（对应 Form 4 的 P（买）/S（卖））</li>
 <li><code>change_vol</code>、<code>change_ratio</code>：变动数量、比例</li>
 <li><code>avg_price</code>、<code>after_share</code>、<code>after_ratio</code>：平均成交价、变动后持股</li>
+<li><code>total_share</code></li>
+<li><code>begin_date</code>: 增减持开始日期</li>
 <li>
-<p><code>total_share</code></p>
+<p><code>close_date</code>: 增减持结束日期</p>
 </li>
 <li>
 <p><code>stk_managers</code>（董监高名单）、<code>top10_holders</code>（前十大股东）可作为补充对齐工具。</p>
@@ -14145,41 +14086,8 @@
 <!--PAID CONTENT END-->
 
 <p>通过以下方法，获取 tushare 数据并利用缓存。</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fetch_holdertrade_all</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">START_DATE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">END_DATE</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="s2">&quot;3M&quot;</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">CACHE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">CACHE</span><span class="p">)</span>
-    <span class="c1"># 按季度分片，绕过单次 3000 行上限</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">chunk</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
-    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">stk_holdertrade</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
-    <span class="n">out</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">CACHE</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">out</span>
+<!--PAID CONTENT START-->
 
-<span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_holdertrade_all</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;原始记录：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="si">}</span><span class="s2"> 行&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<p>以下代码构造买入信号（全量，不抽样）：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -14197,10 +14105,122 @@
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># cell 3：构造&quot;买入信号&quot;（映射 Form 4 漏斗的简化版，保留全部信号）</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># cell 2b：数据获取（含 begin_date/close_date 字段，用于披露滞后判断）</span>
+<span class="c1"># 调试开关：DEBUG_YEARS=1 只拉 1 年（快）；=0 用 cell 2 的 SAMPLE_YEARS 决定（正式 7 年）</span>
+<span class="n">DEBUG_YEARS</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># ← 正式：0（7 年全量）；调试：1（1 年）</span>
+<span class="n">_EFFECTIVE_YEARS</span> <span class="o">=</span> <span class="n">DEBUG_YEARS</span> <span class="k">if</span> <span class="n">DEBUG_YEARS</span> <span class="k">else</span> <span class="n">YEARS</span>
+<span class="n">_CACHE</span> <span class="o">=</span> <span class="n">RUNTIME_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;holder_data_</span><span class="si">{</span><span class="n">_EFFECTIVE_YEARS</span><span class="si">}</span><span class="s2">y_v2.parquet&quot;</span>  <span class="c1"># v2: 含 begin/close 字段</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_holdertrade_all</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="s2">&quot;3M&quot;</span><span class="p">):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="ow">or</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="n">_EFFECTIVE_YEARS</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">end</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_CACHE</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">_CACHE</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;close_date&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>  <span class="c1"># 字段齐全才复用，否则重拉</span>
+            <span class="k">return</span> <span class="n">df</span>
+    <span class="c1"># 按季度分片，绕过单次 3000 行上限；显式请求 begin_date/close_date（默认不返回）</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;ts_code,ann_date,holder_name,holder_type,in_de,change_vol,change_ratio,after_share,after_ratio,avg_price,total_share,begin_date,close_date&quot;</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">chunk</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">stk_holdertrade</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">_CACHE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">fetch_holdertrade_all</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;原始记录：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span><span class="si">}</span><span class="s2"> 行（调试 </span><span class="si">{</span><span class="n">_EFFECTIVE_YEARS</span><span class="si">}</span><span class="s2"> 年，v2 含 begin/close 字段）&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;字段含 begin_date/close_date:&quot;</span><span class="p">,</span> <span class="s2">&quot;begin_date&quot;</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s2">&quot;close_date&quot;</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<!--PAID CONTENT END-->
+
+<p>通过上述代码，我们把 [START_DATE, END_DATE] 区间的所有增减持记录获取下来，保存为 parquet 缓存文件，后续调试无需再调用 Tushare。</p>
+<p>在构造信号之前，我们要对现有的数据进行分布研究，以完全了解 tushare 每个字段的含义，特别是与时间相关的几个字段。实际上，我们需要考察4个时间：</p>
+<ol>
+<li>增持开始时间，在 tushare中是 begin_date</li>
+<li>增持结束时间, 在 tushare 中是 close_date</li>
+<li>增持结束后的公告时间，在 tushare 中是 ann_date</li>
+<li>上述公告在 tushare 中可查阅时间。tushare 未提供它的编制时间。</li>
+</ol>
+<p>通过数据分析，我们得到：</p>
+<ol>
+<li>ann_date &lt; begin_date：0.0%， 所以，tushare数据中，没有在公司发布增持计划时收集信息。</li>
+<li>ann_date 在 [begin, close] 区间内：6.5% -- 这是不合理的情况，可能反映了数据质量不是特别好。</li>
+<li>ann_date &gt; close_date：93.5%，这是完成后的公告。</li>
+</ol>
+<p>如果我们继续拆解 ann_date &gt; close_date 的分布，我们会发现：</p>
+<ol>
+<li>ann_date - close_date 的中位数是2天 -- 即公司通常在增持结束后的 1~2 个工作日内公告；但均值是40天，90%分位是107天，最长的记录超过10年 -- 这或许不是 tushare 的错误。</li>
+<li>tushare 编制入库的时间，又会晚于 ann_date 1到3天；但这个数据采样不足，有推测的成份（仅使用了9月8日一天的数据 -- 当时tushare 只编制到上周五，而不是前一个交易日的本周一）</li>
+</ol>
+<p>理解这些时间，对我们如何构造买入信号非常重要，甚至对是否有必要购买、采用这些数据都很重要。</p>
+<p>鉴于上述数据分布，我们在构造信号时，应该这样处理：</p>
+<ol>
+<li>只取 ann_date - close_date &lt;= 2天的记录</li>
+<li>从 ann_date（<span class="arithmatex">\(T_0\)</span>）次日开始计算：第 1 日的收益为 <span class="arithmatex">\(T_{1,close}/T_{1,open} - 1\)</span>；此后按 <span class="arithmatex">\(C_n/C_{n-1} - 1\)</span> 逐日计算。</li>
+</ol>
+<p>以下代码构造买入信号：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># cell 3：构造&quot;买入信号&quot;（映射 Form 4 漏斗的简化版，保留全部信号）</span>
+<span class="c1"># 按前文结论：只取 ann_date - close_date &lt;= 2 天的记录 —— 只有这类&quot;增持结束即公告&quot;</span>
+<span class="c1"># 的信号，其公告日才是&quot;公众首次可见&quot;的时点，才适合做公告日事件研究。</span>
+<span class="n">MAX_DISCLOSURE_LAG</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 增持结束(close_date)到公告(ann_date)的最长滞后（自然日）</span>
+
 <span class="k">def</span><span class="w"> </span><span class="nf">build_signals</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;增持 + 高管/个人/公司股东 → 同一股票×公告日合并为一个信号（全量，不抽样）。&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;增持 + 高管/个人/公司股东 → 同一股票×公告日合并为一个信号。</span>
+<span class="sd">    过滤：ann_date - close_date &lt;= MAX_DISCLOSURE_LAG（排除滞后公告/补录数据）。&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;close_date&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;缺少 close_date 字段，请先运行 cell 2b（需显式请求该字段）&quot;</span><span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">raw</span><span class="p">[</span><span class="s2">&quot;in_de&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;IN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># 披露滞后 = 公告日 - 增持结束日</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;ann_dt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;ann_date&quot;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;close_dt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;close_date&quot;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;close_dt&quot;</span><span class="p">])</span>                    <span class="c1"># 无 close_date 的记录无法判断时效，排除</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;disclosure_lag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;ann_dt&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;close_dt&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">days</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;disclosure_lag&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">MAX_DISCLOSURE_LAG</span><span class="p">)]</span>  <span class="c1"># 0~2 天：完成后立即公告</span>
     <span class="n">s</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;change_vol&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;avg_price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">signals</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;ts_code&quot;</span><span class="p">,</span> <span class="s2">&quot;ann_date&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                 <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">signals_n</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;holder_name&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">),</span>
@@ -14212,13 +14232,13 @@
     <span class="k">return</span> <span class="n">signals</span>
 
 <span class="n">signals</span> <span class="o">=</span> <span class="n">build_signals</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;买入信号数（股票×公告日，全量）: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">signals</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;买入信号数（股票×公告日，滞后≤</span><span class="si">{</span><span class="n">MAX_DISCLOSURE_LAG</span><span class="si">}</span><span class="s2">天，全量）: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">signals</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;涉及股票数: </span><span class="si">{</span><span class="n">signals</span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;信号时间跨度: </span><span class="si">{</span><span class="n">signals</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> ~ </span><span class="si">{</span><span class="n">signals</span><span class="p">[</span><span class="s1">&#39;filing_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="_3">实验设计（先读这里，再看代码与结果）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>下面的统计表里会出现几个词——<strong>CAR、均值 CAR、pooled t、双向聚类 t、placebo</strong>。逐个说清楚，你才能判断方法对不对：</p>
-<p><strong>① CAR 是什么缩写？</strong></p>
+<h3 id="_3">实验设计<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>下面的统计表里会出现几个词——<strong>CAR、pooled t、双向聚类 t、placebo</strong>。对这些概念我们需要解释一下。</p>
+<p><strong>CAR</strong></p>
 <p>CAR = <strong>C</strong>umulative <strong>A</strong>bnormal <strong>R</strong>eturn，累计异常收益。</p>
 <ul>
 <li><strong>"异常收益"（abnormal return）</strong>：单日里，个股收益<strong>超出基准</strong>（这里基准 = 沪深 300）的部分：
@@ -14226,17 +14246,14 @@
 <li><strong>"累计"</strong>：把公告后第 1 天到第 h 天的逐日 AR 累加（复利累乘）：
   <code>CAR_h = ∏(1 + AR_t) − 1</code>，t = 1..h</li>
 </ul>
-<p>所以 <strong>CAR_1 = 公告后 1 天的累计异常收益</strong>，CAR_21 = 公告后 21 个交易日的累计异常收益，依此类推。</p>
-<p><strong>② "均值 CAR" 是什么？</strong></p>
-<p>一共有 N 个信号（比如 7,092 个增持公告）。每个信号算出一个 <code>CAR_h</code>（公告后 h 天的超额表现）。<strong>均值 CAR = 把这 N 个信号的 CAR_h 简单平均</strong>：</p>
-<p><code>均值 CAR_h = (1/N) × Σ CAR_h,i</code></p>
-<p>它回答："平均而言，一个增持公告之后 h 天，这批股票相对沪深 300 多跑赢了多少"。注意它是<strong>全信号等权重平均</strong>，不是"你恰好选到某只股票"的条件收益。</p>
-<p><strong>③ pooled t 是什么？</strong></p>
+<p>所以 <strong>CAR_1 = 公告后 1 天的累计异常收益</strong>，CAR_21 = 公告后 21 个交易日的累计异常收益，依此类推。引入这个概念，是因为如果我们直接统计公告后 n 日的累计收益，其中就会包含市场波动。</p>
+<p><strong>pooled t 是什么？</strong></p>
 <p>pooled t 是<strong>把 N 个 CAR 当作互相独立的样本</strong>算的常规 t 检验：</p>
 <p><code>pooled t = 均值 CAR / (样本标准差 / √N)</code></p>
 <p>它回答："均值 CAR 距离 0 有几个标准误"——&gt; 4~5 一般就"非常显著"。</p>
-<p><strong>⚠️ 但它有个缺陷</strong>：这假设 N 个信号彼此独立。实际上<strong>同一只股票在 7 年里可能多次增持、同月可能多只股票增持</strong>，这些事件并不独立。pooled t 会把样本量"虚增"，让显著性<strong>被高估</strong>。</p>
-<p><strong>④ 双向聚类 t（two-way clustered t）是什么？</strong></p>
+<p>但pooled t统计有个缺陷：这假设 N 个信号彼此独立。实际上<strong>同一只股票在 7 年里可能多次增持、同月可能多只股票增持</strong>，这些事件并不独立。pooled t 会把样本量"虚增"，让显著性<strong>被高估</strong>。</p>
+<p>于是我们又引入了双向聚类。</p>
+<p><strong>双向聚类 t（two-way clustered t）是什么？</strong></p>
 <p>为了解决 pooled t 的独立性缺陷，用 <strong>Cameron–Gelbach–Miller (CGM) 双向聚类</strong>校正标准误：</p>
 <ul>
 <li>同时按两个维度聚类：<strong>股票（issuer）</strong> 和 <strong>公告月（entry-month）</strong></li>
@@ -14244,20 +14261,21 @@
 <li>由此算出的标准误更大、显著更保守，t 值通常比 pooled t <strong>更小、更可信</strong></li>
 </ul>
 <p><strong>表里同时给 pooled t 和双向聚类 t 就是这个原因</strong>：pooled t 是"天真的上界"，双向聚类 t 是"诚实的下界"。两者差距越大，越说明样本内部依赖强。</p>
-<p><strong>⑤ placebo（安慰剂对照组）是什么？</strong></p>
-<p>字面意思就是医学实验里的"安慰剂"——<strong>给真事件配一组"看起来一样但不是这个事件"的对照</strong>。</p>
-<p>直接看 CAR 有个陷阱：<strong>CAR 为正，不一定是"公告"造成的，可能是"股票本来就在涨"</strong>（比如高管常在强势期增持，公告时点本身就选了大概率继续涨的日子）。placebo 回答：</p>
+<p>但是，CAR 只是消除了市场因子（通过减去沪深300）；CAR 为正，不一定是"公告"造成的，可能是"股票本来就在涨"（比如高管常在强势期增持，公告时点本身就选了大概率继续涨的日子)。为了解决这个问题，我们还必须采用一个医学上常用的方法，即通过 <strong>placebo(安慰剂)</strong> 来消除。</p>
+<p><strong>placebo</strong>的字面意思就是医学实验里的"安慰剂"——<strong>给真事件配一组"看起来一样但不是这个事件"的对照</strong>。</p>
+<p>它能回答：</p>
 <blockquote>
 <p>"如果把公告日换成这只股票上另一个【普通日子】，收益还这么大吗？"</p>
 </blockquote>
-<p>做法（代码 cell 7）：
+<p>具体做法是（代码 cell 7）：
 1. 对每个真实信号，在同一只股票的交易日里，<strong>剔除真实公告日 ±63 日窗口</strong>；
 2. 在剩下的日子里，<strong>按公告日前 20 日的动量与波动率匹配</strong>，挑出与真实公告日特征最像的一批"假日期"；
 3. 用<strong>完全相同的次日开盘入场规则</strong>，把每个假日期当成"事件日"算 CAR；
 4. 汇成一张假日期的 CAR <strong>分布</strong>（placebo 面板）。</p>
 <p>判读：真实平均 CAR 若<strong>高于 95% 的假日期</strong>，才说明"这个时点"真的特别；若落在分布中间，说明这个收益<strong>换任何普通日子都有</strong>，与公告本身无关。</p>
-<hr />
-<p>下面 cell 4~7 就是这个设计的实现。cell 4/5 算 CAR，cell 6 算双向聚类 t，cell 7 构建 placebo；cell 8 汇总成最终的统计表和图。</p>
+<p>下面 cell 4~7 就是这个设计的实现。cell 4/5 算 CAR，cell 6 算双向聚类 t，cell 7 构建 placebo；cell 8 汇总成最终的统计表和图。<strong>（完整可运行代码见网盘 ipynb；下文仅展示方法要点。）</strong></p>
+<!--PAID CONTENT START-->
+
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -14680,17 +14698,25 @@
 <span class="normal">84</span>
 <span class="normal">85</span>
 <span class="normal">86</span>
-<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># cell 8：真正执行事件研究 + 出图</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># cell 8：真正执行事件研究 + 出图</span>
 <span class="c1"># 设计要点：</span>
-<span class="c1">#   - 样本：近 START_DATE~END_DATE 的全部买入信号（由 cell 2 的 SAMPLE_YEARS 控制，正式为 7 年全量）；</span>
+<span class="c1">#   - 样本：近 _EFFECTIVE_YEARS 年的全部买入信号（cell 2b 控制；调试 1 年、正式 7 年）；</span>
 <span class="c1">#   - 入场：公告日(盘后)→次日开盘买入（CAR_1/2/3 用 open→close，之后 close→close）；</span>
 <span class="c1">#   - 视距：1/2/3/5/21/63 个交易日（事件初期几天更重要，故加 CAR_2/CAR_3）；</span>
 <span class="c1">#   - 日线：每个 ticker 只拉一次并落盘缓存（按年份命名，调试/正式不互相污染）。</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
+<span class="c1"># 与 cell 2b 的有效年份一致</span>
+<span class="n">_ES</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="n">_EFFECTIVE_YEARS</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">_EE</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
 <span class="c1"># 日线缓存也放系统临时目录（cell 2 已定位 RUNTIME_DIR）</span>
-<span class="n">DAILY_CACHE</span> <span class="o">=</span> <span class="n">RUNTIME_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;daily_cache_</span><span class="si">{</span><span class="n">YEARS</span><span class="si">}</span><span class="s2">y&quot;</span>
+<span class="n">DAILY_CACHE</span> <span class="o">=</span> <span class="n">RUNTIME_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;daily_cache_</span><span class="si">{</span><span class="n">_EFFECTIVE_YEARS</span><span class="si">}</span><span class="s2">y_v2&quot;</span>
 <span class="n">DAILY_CACHE</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">daily_cached</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -14699,15 +14725,15 @@
     <span class="n">fp</span> <span class="o">=</span> <span class="n">DAILY_CACHE</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s2">.parquet&quot;</span>
     <span class="k">if</span> <span class="n">fp</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">fetch_daily</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span> <span class="ow">or</span> <span class="n">START_DATE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span> <span class="ow">or</span> <span class="n">END_DATE</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">fetch_daily</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span> <span class="ow">or</span> <span class="n">_ES</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span> <span class="ow">or</span> <span class="n">_EE</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
         <span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 
-<span class="c1"># 1) 逐信号算 CAR（对 signals 全量；调试时 signals 来自 1 年数据）</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;对 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">signals</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个信号做事件研究（</span><span class="si">{</span><span class="n">START_DATE</span><span class="si">}</span><span class="s2">~</span><span class="si">{</span><span class="n">END_DATE</span><span class="si">}</span><span class="s2">，每个 ticker 日线只拉一次）...&quot;</span><span class="p">)</span>
-<span class="n">bmk_full</span> <span class="o">=</span> <span class="n">fetch_benchmark</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">START_DATE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">END_DATE</span><span class="p">)</span>
-<span class="n">car_df</span> <span class="o">=</span> <span class="n">event_study</span><span class="p">(</span><span class="n">signals</span><span class="p">,</span> <span class="n">daily_cached</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">bmk_full</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">START_DATE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">END_DATE</span><span class="p">)</span>
+<span class="c1"># 1) 逐信号算 CAR（对 signals 全量）</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;对 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">signals</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个信号做事件研究（</span><span class="si">{</span><span class="n">_ES</span><span class="si">}</span><span class="s2">~</span><span class="si">{</span><span class="n">_EE</span><span class="si">}</span><span class="s2">，每个 ticker 日线只拉一次）...&quot;</span><span class="p">)</span>
+<span class="n">bmk_full</span> <span class="o">=</span> <span class="n">fetch_benchmark</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">_ES</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">_EE</span><span class="p">)</span>
+<span class="n">car_df</span> <span class="o">=</span> <span class="n">event_study</span><span class="p">(</span><span class="n">signals</span><span class="p">,</span> <span class="n">daily_cached</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">bmk_full</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">_ES</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">_EE</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;事件研究完成：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">car_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个信号有 CAR&quot;</span><span class="p">)</span>
 
 <span class="c1"># 2) 各视距：均值 CAR + pooled t + 双向聚类 t（股票×公告月）</span>
@@ -14768,8 +14794,11 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;placebo 面板为空（CAR_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">）：请确认 ticker 日线可拉取。&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="7-2019-09-2026-09">三、正式结果（近 7 年全量，2019-09 ~ 2026-09）<a class="headerlink" href="#7-2019-09-2026-09" title="Permanent link">&para;</a></h2>
-<p>把 <code>SAMPLE_YEARS</code> 设为 0 后，跑全量（6,386 个可在 next-day-open 规则下计分的买入信号；全量信号约 6,700+，其中匹配到完整日线窗口的为 6,386）：</p>
+<!--PAID CONTENT END-->
+
+<h2 id="_4">三、结论<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>我们使用了 tushare 近 7 年全量（2019-09 ~ 2026-09）+ 披露滞后过滤来进行事件研究。</p>
+<p>按前文数据设计，正式分析<strong>只取 <code>ann_date − close_date ≤ 2 天</code> 的"增持结束即公告"信号</strong>（排除滞后公告/历史补录的污染数据）。近 7 年全量 6 万余条增减持记录中，满足该条件并合并为（股票×公告日）的<strong>买入信号 4,747 个</strong>（涉及 1,905 只股票），其中匹配到完整日线窗口、可计分的事件研究样本为 <strong>4,476 个</strong>。</p>
 <table>
 <thead>
 <tr>
@@ -14783,79 +14812,63 @@
 <tbody>
 <tr>
 <td>1 日</td>
-<td>+0.211%</td>
-<td>5.59</td>
-<td>2.93</td>
-<td>6,386</td>
+<td>+0.217%</td>
+<td>4.80</td>
+<td><strong>2.41</strong></td>
+<td>4,476</td>
 </tr>
 <tr>
 <td>2 日</td>
-<td>+0.320%</td>
-<td>5.87</td>
-<td>2.23</td>
-<td>6,386</td>
+<td>+0.336%</td>
+<td>5.25</td>
+<td>1.81</td>
+<td>4,476</td>
 </tr>
 <tr>
 <td>3 日</td>
-<td>+0.407%</td>
-<td>6.02</td>
-<td>1.84</td>
-<td>6,386</td>
+<td>+0.438%</td>
+<td>5.55</td>
+<td>1.60</td>
+<td>4,476</td>
 </tr>
 <tr>
 <td>5 日</td>
-<td>+0.698%</td>
-<td>8.01</td>
-<td>1.76</td>
-<td>6,386</td>
+<td>+0.763%</td>
+<td>7.57</td>
+<td>1.62</td>
+<td>4,476</td>
 </tr>
 <tr>
 <td>21 日</td>
-<td>+1.215%</td>
-<td>6.93</td>
-<td>1.40</td>
-<td>6,386</td>
+<td>+1.305%</td>
+<td>6.33</td>
+<td>1.34</td>
+<td>4,476</td>
 </tr>
 <tr>
 <td>63 日</td>
-<td>+3.016%</td>
-<td>9.85</td>
-<td>2.56</td>
-<td>6,386</td>
+<td>+2.829%</td>
+<td>7.87</td>
+<td>2.19</td>
+<td>4,476</td>
 </tr>
 </tbody>
 </table>
-<p>placebo 对照：真实 CAR_1 高于假日期面板的比例 <strong>77.2%</strong>；CAR_21 为 <strong>62.3%</strong>——均 <strong>≤95%</strong>。</p>
-<p><strong>怎么读这张表（三层）：</strong></p>
+<p>placebo 对照：真实 CAR_1 高于假日期面板的比例 <strong>78.5%</strong>；CAR_21 为 <strong>61.1%</strong>——均 <strong>≤95%</strong>。</p>
+<p><img alt="买入信号 CAR 路径（相对沪深300，次日开盘入场）" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-car-path.png" /></p>
+<p><img alt="真实 CAR_1 vs placebo 分布" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car1.png" />
+<img alt="真实 CAR_21 vs placebo 分布" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car21.png" /></p>
+<p>怎么理解这张表呢？</p>
 <ol>
-<li><strong>CAR 显著非零（但幅度不大）</strong>：双向聚类 t 在 1 日达 2.93，是统计显著的。但<strong>均值 CAR_1 只有 +0.21%</strong>，是<strong>毛</strong>超额收益——未扣交易成本、滑移、税费，且是 6,386 个信号等权重平均。</li>
-<li><strong>pooled t vs 双向聚类 t 的差距是重要警告</strong>：pooled t（5.6~9.9）远大于双向聚类 t（1.4~2.9），说明同一股票多次增持、同月多只增持造成的<strong>样本间依赖很强</strong>——天真地当独立样本会高估显著性近 2~4 倍。</li>
-<li><strong>placebo 未过线</strong>：即使 1 日 CAR 的 pooled t 高达 5.59 且双向 t 为 2.93，<strong>真实 CAR 高于假日期面板的比例只有 77%</strong>（未达 95%）。这说明<strong>增持公告这个"时点"本身携带的信息，弱于"这批股票本来就处在一个偏强的动量期"</strong>。</li>
+<li><strong>CAR 显著非零</strong>：双向聚类 t 在 1 日达 2.41，统计上显著。但<strong>均值 CAR_1 只有 +0.22%</strong>，且这是<strong>毛</strong>超额收益——一天的 +0.22% 换算成年化固然可观，但它未扣交易成本、滑移、税费，且是 4,476 个信号等权重平均。</li>
+<li><strong>pooled t vs 双向聚类 t 的差距是重要警告</strong>：pooled t（4.8~7.9）远大于双向聚类 t（1.3~2.4），说明同一股票多次增持、同月多只增持造成的<strong>样本间依赖很强</strong>——天真地当独立样本会高估显著性近 2~4 倍。不过这也是进一步寻找因子的一个方向。</li>
+<li><strong>placebo 未过线</strong>：即使 1 日 CAR 的 pooled t 高达 4.80 且双向 t 为 2.41，<strong>真实 CAR 高于假日期面板的比例只有 78.5%</strong>（未达 95%）。这说明<strong>增持公告这个"时点"本身携带的信息，弱于"这批股票本来就处在一个偏强的动量期"</strong>。</li>
 </ol>
-<p><strong>结论（对齐原文的克制语气）</strong>：</p>
-<ul>
-<li><strong>这不是一个可落地的高收益策略</strong>：+0.2%~+3.0% 的样本均值，在 T+1 次日开盘入场、交易成本、且全信号等权重的前提下，难以构成净收益优势。</li>
-<li><strong>它是有意义的科学结论</strong>：用 6,386 个信号验证了——只看 pooled t 会被误导（5.6 貌似很强），加了双向聚类（2.93）和 placebo（77%）后，"公告时点信息"的强度立刻缩水。<strong>方法纪律（入场规则、聚类、placebo）比表面 t 值重要得多</strong>，这与原文（美股 Form 4）完全一致。</li>
-</ul>
-<h2 id="_4">四、完整复现需要补什么<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>上面的 cell 把"取数 + 合信号 + 事件研究"的骨架搭好。对照原文，各环节的落地状态如下：</p>
-<ol>
-<li><strong>分片拉取</strong>：<code>stk_holdertrade</code> <strong>单次调用有 3000 行上限</strong>——不按日期分片的话会把数据截断。✅ <strong>cell 2 已内置分片与落盘缓存</strong>（近 7 年全量）。</li>
-<li><strong>次日开盘入场</strong>：✅ <strong>cell 4/5 已实现</strong>。公告盘后发布，故用<strong>次日开盘</strong>买、第 1 日 open→close 收益率，之后 close→close。这直接规避了"用当日收盘价"的 lookahead。</li>
-<li><strong>视距</strong>：✅ 计算 <strong>CAR_1/2/3/5/21/63</strong> 共 6 个视距（事件初期几天更重要，故加 CAR_2/CAR_3）。</li>
-<li><strong>双向聚类 t</strong>：原文用"发行人 × 进场月"双向聚类；A 股应按 <strong>股票 × 公告月</strong> 双向聚类，直接 pooled t 会高估显著性。✅ <strong>cell 6 已实现 CGM 双向聚类 t</strong>。</li>
-<li><strong>placebo 对照</strong>：原文在 <strong>±63 日窗口外</strong>为每个真实信号找相同 ticker、匹配历史动量/波动率/β 的对照日期，做面板 placebo。✅ <strong>cell 7 已实现</strong>，设计说明见前文"placebo 到底在测什么"。<strong>结论要看真实 CAR 相对 placebo 分布上尾的位置</strong>，而不是只看自身 t 值。</li>
-<li><strong>lookahead 诊断</strong>：A 股 <code>stk_holdertrade</code> 只有公告日（无交易发生日），✅ 天然规避；cell 5 用公告日后<strong>次日开盘</strong>入场，信息到达时间完全尊重。</li>
-<li><strong>覆盖范围限制</strong>：⚠️ <code>stk_holdertrade</code> 覆盖上市公司披露的董监高/相关股东增减持，<strong>不是完整的大股东全量交易</strong>（协议转让走权益变动书、不一定进本接口）；且退市、停牌股票缺失——这属于数据源固有边界，不是代码能修的。</li>
-</ol>
-<p><strong>调试与正式切换</strong>：cell 2 顶部 <code>SAMPLE_YEARS</code> 开关——调试设为 <code>1</code>（1 年数据，速跑通），正式结论设为 <code>0</code>（近 7 年全量，<code>FULL_YEARS=7</code>）。缓存按年份命名（<code>holder_data_{n}y.parquet</code>、<code>daily_cache_{n}y</code>），切换时不会互相污染。</p>
-<p><strong>所以：除数据源固有覆盖限制（第 6 点）外，其余 1~5 点本文均已提供可运行实现</strong>；你要做的只是把数据喂进去跑，重点看第 3（聚类 t）和第 4（placebo）两个数字是否经受得住。</p>
-<h2 id="_5">附：卖出（减持）信号的市场冲击测试<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>⚠️ 本节为<strong>早期探索</strong>（2022 单年、pooled t、未用次日开盘入场），是流程验证的一部分，<strong>不做正式结论</strong>。
-正式分析请用上文同一套正经方法（近 7 年全量 + 次日开盘入场 + 双向聚类 + placebo）重跑 DE 信号——见"完整复现"说明。保留本节是为了记录探索过程与早期数字，避免和买入侧的最新方法混淆。</p>
-</blockquote>
-<p>因为"<strong>卖出的心理冲击可能很大</strong>"，我们顺手用 A 股数据做了初步事件研究，检验<strong>减持公告后股价是否真的如直觉所料那样下跌</strong>——这是与买入研究完全独立的另一类问题：当你看到"CFO 大笔减持"时，市场是当作"坏消息"砸盘，还是反而当作"高管去杠杆"忽略？</p>
+<p>因此，<strong>这不是一个可落地的高收益策略</strong>。但本文介绍的 CAR、pooled t、双向聚类 t 以及 placebo 方法，在量化研究中非常有价值——它们能帮我们把真正的信号和噪声区分开来。</p>
+<h2 id="_5">减持是卖出信号吗？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>前面我们留了一个问题，既然增持是利好，应该看成做多信号；那为何不把减持看成做空信号？</p>
+<p>于是我们顺手用 A 股数据做了初步事件研究，检验<strong>减持公告后股价是否真的如直觉所料那样下跌</strong>——这是与买入研究完全独立的另一类问题：当你看到"CFO 大笔减持"时，市场是当作"坏消息"砸盘，还是反而当作"高管去杠杆"忽略？</p>
+<p>结论既出人意料，可能又在情理之中。</p>
 <h3 id="_6">假说<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p><strong>假说 H1（心理冲击）：</strong> 减持公告触发散户恐慌，公告日后 1~5 日个股 CAR 应<strong>显著为负</strong>。
@@ -14914,29 +14927,10 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_9">诚实的解读（别急着下"减持看涨"的结论）<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>表面看，<strong>减持公告后没有出现"心理冲击式"的下跌，反而是显著的正 CAR</strong>。但这<strong>绝不意味着"减持是看涨信号"</strong>，几个偏差必须先排除：</p>
-<ol>
-<li><strong>基准风格偏差（最主要）</strong>：基准是沪深 300，而 2022 年是沪深 300 大跌的熊市（全年约 -21%）；被高管/大股东减持的股票多为中盘题材股，2022~2023 表现普遍强于大盘蓝筹。用沪深 300 做基准会<strong>系统性夸大</strong>小盘股的相对收益。<strong>必须换成市值中性或等权基准（如中证全指/等权指数）才能区分"减持后上涨"和"小盘风格上涨"</strong>。</li>
-<li><strong>无 placebo 对照</strong>：没有像原文那样在同一股票、事件窗口外找匹配日期做 placebo，无法判断"这个时点"是否特殊，还是"这期间小盘本来就涨"。</li>
-<li><strong>无双向聚类</strong>：pooled t 把同一股票多次减持当成独立样本，会高估显著性。</li>
-<li><strong>样本非随机缺失</strong>：抽到的 300 个里只有 183 个成功匹配（退市、停牌、新上市缺失），缺失可能非随机。</li>
-</ol>
-<p><strong>结论</strong>：这次初步测试<strong>没有支持"卖出的心理冲击导致股价下跌"的直觉</strong>（至少在公告后 1~63 日、相对沪深 300 的维度）。但正 CAR 的可信度很低，主因是基准风格偏差——要给出可信结论，下一步必须：(a) 换市值/等权基准；(b) 加 placebo 对照；(c) 做股票×月双向聚类。这也印证了原文那句：<strong>先做对方法，再谈信号</strong>。</p>
-<blockquote>
-<p><strong>顺带的解读角度</strong>：A 股减持后<strong>没出现恐慌</strong>这一现象本身有现实意义——减持新规要求董监高/5% 股东提前 15 个交易日<strong>预披露</strong>减持计划，公告时往往减持已经"被市场消化"，加上 A 股的"减持 = 解禁/退出"叙事已被训练多年，散户在心理上已经脱敏。这与原文"买入更有信息性"形成有趣对照：买入是新钱、卖出是预演过的剧本——<strong>心理冲击的钩子效应在 A 股上显然被监管时序磨掉了</strong>。</p>
-</blockquote>
-<h2 id="_10">五、诚实的结论（对齐原文语气）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>原文最值得抄的不是"内幕买入有 alpha"，而是<strong>方法纪律</strong>：</p>
-<ul>
-<li><strong>用申报日、不用交易日</strong>（否则 lookahead 让 63 日 CAR 虚高 2 倍多）；</li>
-<li><strong>合并到经济/统计单位</strong>（同一个发行人一天多个申报 = 一个信号），避免重复加权；</li>
-<li><strong>按依赖结构聚类推断</strong>（issuer × month），pooled t 会骗人；</li>
-<li><strong>placebo 对照</strong>回答"这个时点本身是否特殊"；</li>
-<li><strong>承认边界</strong>：无因果识别、无成本模型、覆盖非随机缺失（MNAR）。</li>
-</ul>
-<p>用 Tushare 复现 A 股版时，同样的纪律照搬即可：先看 <strong>公告日后 1/5 日的超额收益是否在"股票×月"双向聚类下仍显著</strong>；若显著，再上 placebo；<strong>切勿</strong>用交易发生日或 pooled t 直接宣布结论。</p>
-<h2 id="_11">参考<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="_9">为何利空成了利好？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>这里我们没有做更严格的检验——上表的 t 值仍是最朴素的 pooled t，未做双向聚类，也没有 placebo 对照，更没有披露滞后过滤。但从表面看，<strong>减持公告后没有出现"心理冲击式"的下跌，反而得到了显著的正 CAR</strong>。</p>
+<p>这里可能存在真正意义上的『内幕交易』——至少从动机上看，准备减持的人存在拉高出货的动机。话题可能比较敏感，所以，大家可以自己研究下。</p>
+<h2 id="_10">本文参考<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Mikhail Makeev, <em>SEC Form 4 Insider Purchases in Python: A Filing-Date Event Study with Free EDGAR Data</em>, QuantInsti, 2026-08.</li>
 <li>SEC, <a href="https://www.sec.gov/files/form4data%2C0.pdf">Form 4 and general instructions</a>.</li>
