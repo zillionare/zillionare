@@ -1,37 +1,165 @@
 #!/bin/bash
 
-# 1. 接收一个文件名（可能是相对路径）
-if [ -z "$1" ]; then
-    echo "用法: $0 <文件名>"
-    exit 1
-fi
+# xhs —— 用 Slidev 把任意 markdown 变成小红书风格演示文稿
+#
+# 用法:
+#   xhs <文件>           启动 slidev（默认注入，不修改原文件）
+#   xhs -p <文件>        只打印注入默认值后的内容，不启动 slidev
+#   xhs -h | --help      显示帮助
+#
+# 行为:
+#   1. 读取源文件（原文件永远不被修改）
+#   2. 把 headmatter 中缺失的默认配置项注入进去
+#   3. 将增强后的副本写入 ~/workspace/slidev/slides.md
+#   4. 运行 pnpm slidev；退出/中断时自动删除该临时副本
 
-# 获取绝对路径，确保在 cd 后软链接依然有效
-FILE_PATH=$(realpath "$1")
+set -euo pipefail
+
+# ===================== 默认配置（可自由修改） =====================
+# 优先级：(1) 环境变量 override  (2) 下面这些默认值
+# headmatter 里已存在的键永远优先，不会被注入覆盖。
+DEFAULT_FONT="${XHS_FONT:-阿里巴巴普惠体-Regular}"
+DEFAULT_FONT_TITLE="${XHS_FONT_TITLE:-庞门正道粗书体}"
+DEFAULT_LAYOUT="${XHS_LAYOUT:-cover-photo-down}"
+DEFAULT_ASPECT="${XHS_ASPECT_RATIO:-3/4}"
+DEFAULT_CANVAS="${XHS_CANVAS_WIDTH:-600}"
+DEFAULT_HTML_CLASS="${XHS_HTML_CLASS:-nord}"
+DEFAULT_INSTALLMENT="${XHS_INSTALLMENT:-na}"
+DEFAULT_SHOW_FOOTER="${XHS_SHOW_FOOTER:-true}"
+# 空格分隔的 addon 列表；原有 addon 会保留并排在后面（优先级更高）
+DEFAULT_ADDONS="${XHS_ADDONS:-quantide-admonition quantide-layout-xhs quantide-palette}"
+# =================================================================
+
 TARGET_DIR="$HOME/workspace/slidev"
 TARGET_FILE="$TARGET_DIR/slides.md"
 
-if [ ! -f "$FILE_PATH" ]; then
-    echo "错误: 文件 '$1' 不存在。"
+# 参数解析
+PRINT_ONLY=0
+case "${1:-}" in
+    -h|--help|help)
+        sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'
+        exit 0
+        ;;
+    -p|--print)
+        PRINT_ONLY=1
+        shift
+        ;;
+esac
+
+if [ $# -lt 1 ]; then
+    echo "用法: $0 <文件名>  (或 $0 -p <文件名> 仅打印)；$0 -h 查看帮助" >&2
     exit 1
 fi
 
-# 确保目录存在
+FILE_PATH=$(realpath "$1")
+[ -f "$FILE_PATH" ] || { echo "错误: 文件 '$1' 不存在。" >&2; exit 1; }
 mkdir -p "$TARGET_DIR"
 
-# 2. 将该文件软链接到 ~/workspace/slidev/slides.md （如果已存在，overwrite）
-ln -sf "$FILE_PATH" "$TARGET_FILE"
-echo "已创建软链接: $TARGET_FILE -> $FILE_PATH"
+# 解析 headmatter 并注入缺失默认值（不修改源文件）
+python3 - "$FILE_PATH" "$TARGET_FILE" "$PRINT_ONLY" \
+    "$DEFAULT_FONT" "$DEFAULT_FONT_TITLE" "$DEFAULT_LAYOUT" "$DEFAULT_ASPECT" \
+    "$DEFAULT_CANVAS" "$DEFAULT_HTML_CLASS" "$DEFAULT_INSTALLMENT" \
+    "$DEFAULT_SHOW_FOOTER" "$DEFAULT_ADDONS" <<'PY'
+import re
+import sys
+import yaml
 
-# 3. 退出时，删除这个软链接（但原文件一定要保留！）
+src, dst, print_only = sys.argv[1], sys.argv[2], sys.argv[3] == '1'
+font, font_title, layout, aspect = sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7]
+canvas, html_class, installment = sys.argv[8], sys.argv[9], sys.argv[10]
+show_footer = sys.argv[11].lower() == 'true'
+addons = [a.strip() for a in sys.argv[12].split() if a.strip()]
+
+text = open(src, encoding='utf-8').read()
+
+FM_RE = re.compile(r'\A---[ \t]*\n(.*?)\n---[ \t]*\n?', re.DOTALL)
+m = FM_RE.match(text)
+
+
+def inject(existing=None):
+    """返回 (缺失键的 dict, 是否发生了注入). existing 为 None 表示无 headmatter."""
+    if existing:
+        missing = {}
+        for key, val in (('font', font), ('fontCoverTitle', font_title),
+                         ('layout', layout), ('aspectRatio', aspect),
+                         ('canvasWidth', int(canvas)), ('installment', installment),
+                         ('showFooter', show_footer)):
+            if key not in existing:
+                missing[key] = val
+
+        # htmlAttrs: 已存在则保留 class，只补充缺失的
+        ha = existing.get('htmlAttrs')
+        if ha is None:
+            missing['htmlAttrs'] = {'class': html_class}
+        elif isinstance(ha, dict) and 'class' not in ha:
+            missing['htmlAttrs'] = {**ha, 'class': html_class}
+
+        # addons: 只补充缺失的默认 addon，原有顺序保留（可覆盖）
+        cur = existing.get('addons')
+        if isinstance(cur, str):
+            cur = [cur]
+        if isinstance(cur, list):
+            need = [a for a in addons if a not in cur]
+            if need:
+                missing['addons'] = need + cur
+        elif cur is None:
+            missing['addons'] = addons
+        return missing, bool(missing)
+
+    return {
+        'layout': layout, 'font': font, 'fontCoverTitle': font_title,
+        'aspectRatio': aspect, 'canvasWidth': int(canvas), 'installment': installment,
+        'showFooter': show_footer,
+        'htmlAttrs': {'class': html_class}, 'addons': addons,
+    }, True
+
+
+if m:
+    front = m.group(1)
+    rest = text[m.end():]
+    try:
+        doc = yaml.safe_load(front) or {}
+    except Exception as e:
+        print(f"[xhs] 警告: headmatter 解析失败({e})，将以纯文本方式追加默认值。", file=sys.stderr)
+        doc = {}
+    missing, changed = inject(doc)
+    if changed and doc:
+        # 合并后整体重排，避免重复键
+        merged = {**doc, **missing}
+        new_front = yaml.dump(merged, allow_unicode=True, sort_keys=False).rstrip()
+        print(f"[xhs] 已注入默认配置: {', '.join(missing)}", file=sys.stderr)
+    elif not doc:
+        new_front = front  # 解析失败时保持原样
+        print("[xhs] 警告: 无法解析 headmatter，跳过注入。", file=sys.stderr)
+    else:
+        new_front = front
+        print("[xhs] headmatter 已包含全部配置，无需注入。", file=sys.stderr)
+    out = '---\n' + new_front.strip() + '\n---\n\n' + rest
+else:
+    missing, _ = inject(None)
+    extra = yaml.dump(missing, allow_unicode=True, sort_keys=False).rstrip()
+    print(f"[xhs] 源文件无 headmatter，已创建默认配置: {', '.join(missing)}", file=sys.stderr)
+    out = '---\n' + extra + '\n---\n\n' + text.rstrip() + '\n'
+
+if print_only:
+    sys.stdout.write(out)
+else:
+    with open(dst, 'w', encoding='utf-8') as f:
+        f.write(out)
+    print(f"[xhs] 临时副本已写入: {dst}", file=sys.stderr)
+PY
+PY_RC=$?
+[ $PY_RC -ne 0 ] && exit $PY_RC
+
+[ "$PRINT_ONLY" = "1" ] && exit 0
+
+# 退出/中断时删除临时副本（原文件必定保留）
 cleanup() {
-    echo "正在清理软链接..."
+    echo "正在清理临时副本: $TARGET_FILE"
     rm -f "$TARGET_FILE"
 }
-# 捕获正常退出和中断信号
 trap cleanup EXIT INT TERM
 
-# 2. 进入到 ~/workspace/slidev 目录，运行 pnpm slidev
 cd "$TARGET_DIR" || exit 1
 echo "正在 $TARGET_DIR 中运行 pnpm slidev..."
 pnpm slidev
