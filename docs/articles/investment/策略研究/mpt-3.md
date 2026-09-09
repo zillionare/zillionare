@@ -5,7 +5,7 @@ slug: mpt-optimize
 
 寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-optimize-formula.png)
+![最优组合求解的数学公式：在约束条件下最小化波动率](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-optimize-formula.png)
 
 我们可以使用 Scipy.optimize工具库来求解类似问题。
 

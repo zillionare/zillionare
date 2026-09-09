@@ -11,7 +11,7 @@
 
 <ol>
 <div style="text-align:center;width:120px;float:right;margin-top:-40px">
-<img src="https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png"/>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" alt="QuantFans 公众号二维码"/>
 </div>
 
 <li>独家精讲 Alphalens 分析报告，助你精通因子挖掘和调优。</li>
@@ -38,7 +38,7 @@
 
 <ol>
 <div style="text-align:center;width:120px;float:right;margin-top:-40px">
-<img src="https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png"/>
+<img src="https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" alt="QuantFans 公众号二维码"/>
 </div>
 
 <li>在线代码运行环境，有浏览器就可以学习！老师答疑！</li>
