@@ -5,6 +5,7 @@ import random
 import re
 import shlex
 import shutil
+import signal
 import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
@@ -17,6 +18,7 @@ import fire
 import frontmatter
 import nbformat
 import requests
+import yaml
 from loguru import logger
 
 quantide_api_url = os.environ.get("QUANTIDE_API_URL")
@@ -847,6 +849,122 @@ def prepare_gzh(src: str):
     print(f"✅ 文章已适合作为公众号发表，请前往{preprocessed}查看")
 
 
+# ===================== 小红书幻灯片（xhs）默认配置 =====================
+# 优先级：(1) 环境变量 override  (2) 下面的默认值
+# headmatter 里已存在的键永远优先，不会被注入覆盖。
+def _slidev_defaults() -> dict:
+    return {
+        "font": os.environ.get("XHS_FONT", "阿里巴巴普惠体-Regular"),
+        "fontCoverTitle": os.environ.get("XHS_FONT_TITLE", "庞门正道粗书体"),
+        "layout": os.environ.get("XHS_LAYOUT", "cover-photo-down"),
+        "aspectRatio": os.environ.get("XHS_ASPECT_RATIO", "3/4"),
+        "canvasWidth": int(os.environ.get("XHS_CANVAS_WIDTH", "600")),
+        "installment": os.environ.get("XHS_INSTALLMENT", "na"),
+        "showFooter": os.environ.get("XHS_SHOW_FOOTER", "true").lower() == "true",
+        "htmlAttrs": {"class": os.environ.get("XHS_HTML_CLASS", "nord")},
+        "addons": os.environ.get(
+            "XHS_ADDONS", "quantide-admonition quantide-layout-xhs quantide-palette"
+        ).split(),
+    }
+
+
+def inject_slidev_frontmatter(text: str) -> str:
+    """向 markdown 的 headmatter 注入 slidev 幻灯片缺失的默认配置（不覆盖已有键）"""
+    defaults = _slidev_defaults()
+    addons = defaults.pop("addons")
+    html_class = defaults.pop("htmlAttrs")["class"]
+
+    fm_re = re.compile(r"\A---[ \t]*\n(.*?)\n---[ \t]*\n?", re.DOTALL)
+    m = fm_re.match(text)
+
+    if m is None:
+        extra = yaml.dump(
+            {**defaults, "htmlAttrs": {"class": html_class}, "addons": addons},
+            allow_unicode=True,
+            sort_keys=False,
+        ).rstrip()
+        print("[xhs] 源文件无 headmatter，已创建默认配置。")
+        return "---\n" + extra + "\n---\n\n" + text.rstrip() + "\n"
+
+    front = m.group(1)
+    rest = text[m.end() :]
+
+    try:
+        doc = yaml.safe_load(front) or {}
+    except Exception as e:
+        print(f"[xhs] 警告: headmatter 解析失败({e})，保持原样。")
+        return text
+
+    if not doc:
+        print("[xhs] 警告: 无法解析 headmatter，跳过注入。")
+        return text
+
+    missing = {key: val for key, val in defaults.items() if key not in doc}
+
+    if "htmlAttrs" not in doc:
+        missing["htmlAttrs"] = {"class": html_class}
+    elif isinstance(doc["htmlAttrs"], dict) and "class" not in doc["htmlAttrs"]:
+        missing["htmlAttrs"] = {**doc["htmlAttrs"], "class": html_class}
+
+    cur = doc.get("addons")
+    if isinstance(cur, str):
+        cur = [cur]
+    if isinstance(cur, list):
+        need = [a for a in addons if a not in cur]
+        if need:
+            missing["addons"] = need + cur
+    elif cur is None:
+        missing["addons"] = addons
+
+    if not missing:
+        print("[xhs] headmatter 已包含全部配置，无需注入。")
+        return "---\n" + front.strip() + "\n---\n\n" + rest
+
+    merged = {**doc, **missing}
+    new_front = yaml.dump(merged, allow_unicode=True, sort_keys=False).rstrip()
+    print(f"[xhs] 已注入默认配置: {', '.join(missing)}")
+    return "---\n" + new_front.strip() + "\n---\n\n" + rest
+
+
+def xhs(src: str):
+    """将文章转换为小红书幻灯片并启动 slidev
+
+    1. 调用 preprocess(strip_paid=True) 去掉付费内容（不转换 admonition 风格）
+    2. 注入 slidev 默认 frontmatter，复制到 ~/workspace/slidev/slides.md
+    3. 运行 pnpm slidev（默认端口 3030）；退出（含 Ctrl+C）时删除临时副本
+    """
+    md = absolute_path(Path(src))
+    preprocessed = Path("/tmp") / md.name
+    preprocess(md, preprocessed, strip_paid=True)
+
+    text = preprocessed.read_text(encoding="utf-8")
+    content = inject_slidev_frontmatter(text)
+
+    target_dir = Path("~/workspace/slidev").expanduser()
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target_file = target_dir / "slides.md"
+    target_file.write_text(content, encoding="utf-8")
+    print(f"[xhs] 临时副本已写入: {target_file}")
+
+    def cleanup():
+        if target_file.exists():
+            target_file.unlink()
+            print(f"[xhs] 已清理临时副本: {target_file}")
+
+    def _on_term(signum, frame):
+        raise KeyboardInterrupt
+
+    old_term = signal.signal(signal.SIGTERM, _on_term)
+    try:
+        print(f"[xhs] 正在 {target_dir} 中运行 pnpm slidev...（Ctrl+C 退出）")
+        subprocess.run(["pnpm", "slidev"], cwd=target_dir)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        signal.signal(signal.SIGTERM, old_term)
+        cleanup()
+
+
 def remove_incomplete_html_tags(text):
     """
     移除未闭合的HTML标签及其后面的内容
@@ -931,6 +1049,7 @@ COMMANDS = {
     "web": publish_jieyu,
     "quantide": publish_quantide,
     "gzh": prepare_gzh,
+    "xhs": xhs,
     "meta": extract_meta_for_jieyu_index,
     "preview": preview_notebook,
 }
