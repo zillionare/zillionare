@@ -9,6 +9,7 @@ tags:
     - quantlib
     - xtquant
     - qmt
+description: "XtQuant 是可脱离 QMT 运行的行情与交易接口库。本文讲解 XtQuant 的获取与安装、工作原理、版本与文档一致性问题的应对，以及用 VSCode 进行远程开发的完整环境配置。"
 ---
 
 !!! tip 笔记要点

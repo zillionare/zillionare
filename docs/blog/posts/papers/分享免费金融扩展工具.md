@@ -10,7 +10,7 @@ addons:
   - quantide-layout-xhs
 aspectRatio: 3/4
 canvasWidth: 600
-img: {cats}
+img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/reading-content.jpg
 layout: cover-photo-down
 installment: na
 ---
