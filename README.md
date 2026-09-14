@@ -1,212 +1,26 @@
-<link href="assets/css/bootstrap.min.4.0.css" rel="stylesheet" />
-<link href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+# 匡醍量化 | 大富翁量化
 
+> 专注量化投资研究与 Python 量化交易实战。
+>
+> 📖 博客正站：https://blog.quantide.cn ｜ 本 README 由构建自动生成（与首页同源），请勿手改。
 
-<style>
-  .md-typeset h1,
-  .md-content__button {
-    display: none;
-  }
+## 最新文章
 
-.md-typeset hr {
-    display: none;
-}
+| 封面 | 标题 / 日期 / 摘要 |
+| ---- | ------------------ |
+| <a href="https://blog.quantide.cn/posts/factor-strategy/sec-form-4-insider-purchases/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg" width="200" alt="内幕交易因子研究"/></a> | [内幕交易因子研究](https://blog.quantide.cn/posts/factor-strategy/sec-form-4-insider-purchases/)<br/>2026-09-09<br/>掌握了内部信息，交易是否就能无往不胜？ 从 Form 4到大 A，让我们科学地研究一下。 |
+| <a href="https://blog.quantide.cn/posts/tools/agent-on-tracks/"><img src="https://blog.quantide.cn/img/logo.jpg" width="200" alt="Vibe Coding 能做大项目吗？量化人替你试过了"/></a> | [Vibe Coding 能做大项目吗？量化人替你试过了](https://blog.quantide.cn/posts/tools/agent-on-tracks/)<br/>2026-09-07<br/>Vibe Coding 确实圆了很多人做软件的梦，包括我们这种古法编程好多年的人，之前也有好多想法，因为人力不足、或者知识储备不足，不敢轻易尝试，现在也不免跃跃欲试了。 |
+| <a href="https://blog.quantide.cn/posts/uncategory/quantide%E7%9A%84%E8%AF%BE%E7%A8%8B%E6%80%8E%E4%B9%88%E6%A0%B7/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg" width="200" alt="花 930 美元买一门量化课? GPT 如何评估量化课程值不值"/></a> | [花 930 美元买一门量化课? GPT 如何评估量化课程值不值](https://blog.quantide.cn/posts/uncategory/quantide%E7%9A%84%E8%AF%BE%E7%A8%8B%E6%80%8E%E4%B9%88%E6%A0%B7/)<br/>2026-08-31<br/>花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金 |
+| <a href="https://blog.quantide.cn/posts/tools/rd-agent-for-quant-intro/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg" width="200" alt="微软 RD-Agent：量化人的 AI 研发搭档"/></a> | [微软 RD-Agent：量化人的 AI 研发搭档](https://blog.quantide.cn/posts/tools/rd-agent-for-quant-intro/)<br/>2026-04-30<br/>做过量化的人都知道，因子挖掘和策略研发是一条漫长而孤独的路。 当大模型遇上量化投研，「让 AI 驱动 AI」不再是一句口号。 |
+| <a href="https://blog.quantide.cn/posts/algo/tcn/ai%E8%82%A1%E7%A5%A8%E5%88%86%E6%9E%90/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260423182355505.png" width="200" alt="一个很强的股票智能分析系统"/></a> | [一个很强的股票智能分析系统](https://blog.quantide.cn/posts/algo/tcn/ai%E8%82%A1%E7%A5%A8%E5%88%86%E6%9E%90/)<br/>2026-04-23<br/>最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判 |
+| <a href="https://blog.quantide.cn/posts/algo/%E8%B4%A2%E6%8A%A5%E7%94%B5%E8%AF%9D%E4%BC%9A%E9%87%8C%E7%9A%84%E9%A3%8E%E9%99%A9%E4%B9%8B%E5%A3%B0/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/europeana-eAFIfGHERTY-unsplash.jpg" width="200" alt="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子"/></a> | [The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子](https://blog.quantide.cn/posts/algo/%E8%B4%A2%E6%8A%A5%E7%94%B5%E8%AF%9D%E4%BC%9A%E9%87%8C%E7%9A%84%E9%A3%8E%E9%99%A9%E4%B9%8B%E5%A3%B0/)<br/>2026-04-17<br/>财报文本可以粉饰，但声音生理信号难以伪装。本文深度解读 Arxiv 热门论文：利用 PIAM 声学模型和 Westervelt 物理方程，通过捕捉高管在Q&A 阶段微小的声学“破缺 |
+| <a href="https://blog.quantide.cn/posts/algo/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%87%8F%E5%8C%96%E7%A0%94%E7%A9%B6%E5%91%98%20/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260417125830022.png" width="200" alt="一个散户自学量化的 20 个月"/></a> | [一个散户自学量化的 20 个月](https://blog.quantide.cn/posts/algo/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%87%8F%E5%8C%96%E7%A0%94%E7%A9%B6%E5%91%98%20/)<br/>2026-04-17<br/>从A股散户到自学量化，这20个月让我明白：量化的核心不是预测未来，不是写代码，而是用概率、统计、组合与风控重新理解市场，也重新理解自己。这篇文章写的是真正走过的坑和学到的东西。 |
+| <a href="https://blog.quantide.cn/posts/tools/hermes/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174049.png" width="200" alt="既生瑜 何生亮！ Hermes Agent究竟怎么样？"/></a> | [既生瑜 何生亮！ Hermes Agent究竟怎么样？](https://blog.quantide.cn/posts/tools/hermes/)<br/>2026-04-13<br/>从安装失败到‘Eureka’时刻，Hermes Agent 和 OpenClaw 就像‘既生瑜，何生亮’，一个自带武装，一个手动挡，究竟谁更胜一筹？ |
+| <a href="https://blog.quantide.cn/posts/resources/%E7%99%BD%E5%AB%96%E9%A1%B6%E7%BA%A7AI%E7%AE%97%E5%8A%9B%E6%8C%87%E5%8D%97/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg" width="200" alt="龙虾流量太贵？ 我一招搞定每天7500万词元"/></a> | [龙虾流量太贵？ 我一招搞定每天7500万词元](https://blog.quantide.cn/posts/resources/%E7%99%BD%E5%AB%96%E9%A1%B6%E7%BA%A7AI%E7%AE%97%E5%8A%9B%E6%8C%87%E5%8D%97/)<br/>2026-04-11<br/>OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的tok |
+| <a href="https://blog.quantide.cn/posts/papers/%E5%88%86%E4%BA%AB%E5%85%8D%E8%B4%B9%E9%87%91%E8%9E%8D%E6%89%A9%E5%B1%95%E5%B7%A5%E5%85%B7/"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/reading-content.jpg" width="200" alt="如何获取免费的华尔街日报的文章"/></a> | [如何获取免费的华尔街日报的文章](https://blog.quantide.cn/posts/papers/%E5%88%86%E4%BA%AB%E5%85%8D%E8%B4%B9%E9%87%91%E8%9E%8D%E6%89%A9%E5%B1%95%E5%B7%A5%E5%85%B7/)<br/>2026-04-03<br/>彭博一年订阅费 ¥4300+？这么贵，其实有免费的办法。本文分享一个绕过付费墙的浏览器扩展，帮你零成本获取彭博等主流财经媒体的付费内容，同时附上金融人的阅读顺序框架。 |
+| <a href="https://blog.quantide.cn/posts/algo/tcn/tcn%E5%8E%9F%E7%90%86/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg" width="200" alt="聊聊 TCN：一种更清晰的时间序列解构方式"/></a> | [聊聊 TCN：一种更清晰的时间序列解构方式](https://blog.quantide.cn/posts/algo/tcn/tcn%E5%8E%9F%E7%90%86/)<br/>2026-03-30<br/>2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接 |
+| <a href="https://blog.quantide.cn/posts/algo/tcn/%E5%9B%A0%E6%9E%9C%E5%8D%B7%E7%A7%AF/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/b89d81ad18e4642f00d6ab7ec70f03e7.jpg" width="200" alt="为什么我们需要因果卷积？"/></a> | [为什么我们需要因果卷积？](https://blog.quantide.cn/posts/algo/tcn/%E5%9B%A0%E6%9E%9C%E5%8D%B7%E7%A7%AF/)<br/>2026-03-27<br/>均线的参数到底设多少合适？20日还是30日？网格搜索出来的"最优参数"一上实盘就失效。这篇文章介绍一种思路：让模型自己从K线里学出权重，不用人工拍板——这就是因果卷积（Causal |
 
-.as-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-}
+---
 
-
-
-@media (min-width: 768px) { 
-    .card-columns {
-        column-count: 2;
-    }
- }
-
-@media (min-width: 1200px) { 
-    .card-columns {
-        column-count: 3;
-    }
-
-    .md-sidebar--primary {
-    display: none;
-    }
- }
-
-a .card-title {
-    color: rgb(55, 58, 60);
-    font-size: 17px;
-}
-
-a .card-text {
-    color: rgb(55, 58, 60);
-    font-size: 14px;
-}
-
-a:hover {
-    color: inherit;
-    text-decoration: inherit;
-}
-
-nav a {
-    font-size: 0.8rem !important;
-    color: white;
-    mix-blend-mode: difference;
-}
-</style>
-
-<div class="as-grid m-t-md">
-<div class="card-columns">
-    
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/tools/agent-on-tracks/">
-    <img class="card-img-top img-responsive" alt="Vibe Coding 能做大项目吗？量化人替你试过了" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">Vibe Coding 能做大项目吗？量化人替你试过了</h4>
-        <p class="card-text">Vibe Coding 确实圆了很多人做软件的梦，包括我们这种古法编程好多年的人，之前也有好多想法，因为人力不足、或者知识储备不足，不敢轻易尝试，现在也不免跃跃欲试了。<br><br>我们团队之前开发有zillionaire 2.0 --  它的定位是私募团队，使用容器 +...</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-09-07</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/factor-strategy/sec-form-4-insider-purchases/">
-    <img class="card-img-top img-responsive" alt="内幕交易因子研究" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">内幕交易因子研究</h4>
-        <p class="card-text">掌握了内部信息，交易是否就能无往不胜？ 从 Form 4到大 A，让我们科学地研究一下。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-09-01</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/uncategory/quantide的课程怎么样/">
-    <img class="card-img-top img-responsive" alt="花 930 美元买一门量化课? GPT 如何评估量化课程值不值" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</h4>
-        <p class="card-text">花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金融情绪分析，最多算 Financial NLP，称不上 2026 年的 LLM Trading。年已淘汰，不建议购买。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-08-31</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/tools/rd-agent-for-quant-intro/">
-    <img class="card-img-top img-responsive" alt="微软 RD-Agent：量化人的 AI 研发搭档" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">微软 RD-Agent：量化人的 AI 研发搭档</h4>
-        <p class="card-text">做过量化的人都知道，因子挖掘和策略研发是一条漫长而孤独的路。
-当大模型遇上量化投研，「让 AI 驱动 AI」不再是一句口号。
-</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-30</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/algo/tcn/ai股票分析/">
-    <img class="card-img-top img-responsive" alt="一个很强的股票智能分析系统" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260423182355505.png"/>
-    <div class="card-body">
-        <h4 class="card-title">一个很强的股票智能分析系统</h4>
-        <p class="card-text">最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判断。项目通过自动化流程，将零散、重复、易受情绪干扰的分析动作，变成可运行、推送、回看、优化的决策支持系统。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-23</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/algo/如何成为一名量化研究员 /">
-    <img class="card-img-top img-responsive" alt="一个散户自学量化的 20 个月" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260417125830022.png"/>
-    <div class="card-body">
-        <h4 class="card-title">一个散户自学量化的 20 个月</h4>
-        <p class="card-text">从A股散户到自学量化，这20个月让我明白：量化的核心不是预测未来，不是写代码，而是用概率、统计、组合与风控重新理解市场，也重新理解自己。这篇文章写的是真正走过的坑和学到的东西。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-17</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/algo/财报电话会里的风险之声/">
-    <img class="card-img-top img-responsive" alt="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/europeana-eAFIfGHERTY-unsplash.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</h4>
-        <p class="card-text">财报文本可以粉饰，但声音生理信号难以伪装。本文深度解读 Arxiv 热门论文：利用 PIAM 声学模型和 Westervelt 物理方程，通过捕捉高管在Q&A 阶段微小的声学“破缺”，显著提升了 30 天未来波动率的预测力。当言行一致的 CFO 出现“生理剪刀差”，这就是市场最稀缺的风险雷达。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-17</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/tools/hermes/">
-    <img class="card-img-top img-responsive" alt="既生瑜 何生亮！ Hermes Agent究竟怎么样？" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/swimsuit.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">既生瑜 何生亮！ Hermes Agent究竟怎么样？</h4>
-        <p class="card-text">从安装失败到‘Eureka’时刻，Hermes Agent 和 OpenClaw 就像‘既生瑜，何生亮’，一个自带武装，一个手动挡，究竟谁更胜一筹？</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-13</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/resources/白嫖顶级AI算力指南/">
-    <img class="card-img-top img-responsive" alt="龙虾流量太贵？ 我一招搞定每天7500万词元" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">龙虾流量太贵？ 我一招搞定每天7500万词元</h4>
-        <p class="card-text">OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的token.</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-11</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/papers/分享免费金融扩展工具/">
-    <img class="card-img-top img-responsive" alt="如何获取免费的华尔街日报的文章" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/reading-content.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">如何获取免费的华尔街日报的文章</h4>
-        <p class="card-text">彭博一年订阅费 ¥4300+？这么贵，其实有免费的办法。本文分享一个绕过付费墙的浏览器扩展，帮你零成本获取彭博等主流财经媒体的付费内容，同时附上金融人的阅读顺序框架。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-04-03</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/algo/tcn/tcn原理/">
-    <img class="card-img-top img-responsive" alt="聊聊 TCN：一种更清晰的时间序列解构方式" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">聊聊 TCN：一种更清晰的时间序列解构方式</h4>
-        <p class="card-text">2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接确保深度。这篇文章带你拆解 TCN，看看它如何用卷积的逻辑，把时间序列的权重分配讲得通透且明白。</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-03-30</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-
-<div class="card">
-    <a href="https://blog.quantide.cn/blog/posts/algo/tcn/因果卷积/">
-    <img class="card-img-top img-responsive" alt="为什么我们需要因果卷积？" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/b89d81ad18e4642f00d6ab7ec70f03e7.jpg"/>
-    <div class="card-body">
-        <h4 class="card-title">为什么我们需要因果卷积？</h4>
-        <p class="card-text">均线的参数到底设多少合适？20日还是30日？网格搜索出来的"最优参数"一上实盘就失效。这篇文章介绍一种思路：让模型自己从K线里学出权重，不用人工拍板——这就是因果卷积（Causal Convolution）</p>
-        <p class="card-text"><small class="text-muted"><i class="fa fa-calendar"></i>2026-03-27</small></p>
-    </div>
-    </a>
-</div><!--end-card-->
-
-</div>
-</div>
-
-
+*更多文章请访问 [https://blog.quantide.cn](https://blog.quantide.cn) · [文章分类](https://blog.quantide.cn/tags/)*
