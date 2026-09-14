@@ -1,0 +1,848 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题 | 匡醍量化</title><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><script defer src="https://events.vercount.one/js"></script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class="active" aria-current="page">博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">博客目录</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">algo</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">tcn</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/algo/tcn/ai股票分析/" class title="一个很强的股票智能分析系统">一个很强的股票智能分析系统</a></li><li><a href="/posts/algo/tcn/tcn原理/" class title="聊聊 TCN：一种更清晰的时间序列解构方式">聊聊 TCN：一种更清晰的时间序列解构方式</a></li><li><a href="/posts/algo/tcn/tcn番外/" class title="TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境">TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境</a></li><li><a href="/posts/algo/tcn/因果卷积/" class title="为什么我们需要因果卷积？">为什么我们需要因果卷积？</a></li> </ul> </details> </li><li><a href="/posts/algo/HDBSCAN_1/" class title="用HDBSCAN聚类算法选股是否有效">用HDBSCAN聚类算法选股是否有效</a></li><li><a href="/posts/algo/an-enigma-min-range/" class title="地量见地价？我拿一年的上证数据算了算">地量见地价？我拿一年的上证数据算了算</a></li><li><a href="/posts/algo/data-normalization/" class title="夏普大于4的策略有多恐怖？但它为什么好得不真实？">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a></li><li><a href="/posts/algo/fft/" class title="快速傅里叶变换与股价预测研究">快速傅里叶变换与股价预测研究</a></li><li><a href="/posts/algo/flag-pattern-detection/" class title="烛台密码 三角形整理如何提示玄机">烛台密码 三角形整理如何提示玄机</a></li><li><a href="/posts/algo/hdbscan/" class title="hdbscan 聚类算法扫描配对交易 速度提升99倍">hdbscan 聚类算法扫描配对交易 速度提升99倍</a></li><li><a href="/posts/algo/how-gradient-boost-learned-from-regression/" class title="比Deepseek还要Deep！起底GBDT做回归预测的秘密">比Deepseek还要Deep！起底GBDT做回归预测的秘密</a></li><li><a href="/posts/algo/ks-test-and-cdf/" class title="KS Test, 广义双曲分布和抄底沪指">KS Test, 广义双曲分布和抄底沪指</a></li><li><a href="/posts/algo/monte-carlo/" class title="蒙特卡洛：看似很高端的技术，其实很暴力很初级">蒙特卡洛：看似很高端的技术，其实很暴力很初级</a></li><li><a href="/posts/algo/noise-test/" class title="样本外测试之外，我们还有哪些过拟合检测方法？">样本外测试之外，我们还有哪些过拟合检测方法？</a></li><li><a href="/posts/algo/normalization/" class title="基于深度学习的量化策略如何实现归一化？">基于深度学习的量化策略如何实现归一化？</a></li><li><a href="/posts/algo/pdf-is-all-you-need/" class title="量化面试神题：圆上随机点的概率陷阱">量化面试神题：圆上随机点的概率陷阱</a></li><li><a href="/posts/algo/pdf-is-all-you-need-2/" class title="PDF is all you need(2)">PDF is all you need(2)</a></li><li><a href="/posts/algo/pdf-is-all-you-need-3/" class title="PDF is all you need(3)">PDF is all you need(3)</a></li><li><a href="/posts/algo/picking-nickles-in-front-of-steamroller/" class title="虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a></li><li><a href="/posts/algo/前视偏差-看似明白，实则糊涂/" class title="前视偏差 - 看似明白，实则糊涂">前视偏差 - 看似明白，实则糊涂</a></li><li><a href="/posts/algo/千禧年的脑筋急转弯/" class title="2024已过一半，千禧年发布了这道脑筯急转弯">2024已过一半，千禧年发布了这道脑筯急转弯</a></li><li><a href="/posts/algo/如何成为一名量化研究员 /" class title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a></li><li><a href="/posts/algo/强化学习与监督学习/" class title="强化学习 vs 监督学习：AI炒股的两种思路">强化学习 vs 监督学习：AI炒股的两种思路</a></li><li><a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/" class title="关于昨天应该涨多少这件事，Tushare 和 东财还没商量好">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a></li><li><a href="/posts/algo/结合主成分分析、离散小波和XGBoost的交易策略/" class title="带你读论文：PCA、离散小波和 XGBoost构建交易策略">带你读论文：PCA、离散小波和 XGBoost构建交易策略</a></li><li><a href="/posts/algo/谁压垮了这个基站/" class title="谁压垮了这个基站？用XGBoost如何进行时序事件归因">谁压垮了这个基站？用XGBoost如何进行时序事件归因</a></li><li><a href="/posts/algo/财报电话会里的风险之声/" class title="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">career&amp;figure</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/career&#38;figure/Daniel-Kahneman/" class title="没能上热搜，但卡尼曼值得我们纪念">没能上热搜，但卡尼曼值得我们纪念</a></li><li><a href="/posts/career&#38;figure/does-arma-garch-matter-in-quant/" class title="在量化交易中，掌握ARMA/GARCH 的重要性？">在量化交易中，掌握ARMA/GARCH 的重要性？</a></li><li><a href="/posts/career&#38;figure/how-to-apply-citadel/" class title="Datathon-我的Citadel量化岗之路！附历年比赛资料">Datathon-我的Citadel量化岗之路！附历年比赛资料</a></li><li><a href="/posts/career&#38;figure/how-to-determine-research-topic/" class title="金融/计量专业，硕士论文怎么确定研究课题？">金融/计量专业，硕士论文怎么确定研究课题？</a></li><li><a href="/posts/career&#38;figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story/" class title="高薪金领都用啥编程语言？SQL、Python领航，附排名！">高薪金领都用啥编程语言？SQL、Python领航，附排名！</a></li><li><a href="/posts/career&#38;figure/john-fawcett/" class title="反抗者的崛起！Fawce 和 Quantopian 的量化之路">反抗者的崛起！Fawce 和 Quantopian 的量化之路</a></li><li><a href="/posts/career&#38;figure/max-dama-on-automated-trading/" class title="我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路">我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路</a></li><li><a href="/posts/career&#38;figure/rolf-banz/" class title="牛人太多：小市值因子之父，毕业论文被大佬狂怼">牛人太多：小市值因子之父，毕业论文被大佬狂怼</a></li><li><a href="/posts/career&#38;figure/successfully-starting-a-career-in-quant-research/" class title="successfully-starting-a-career-in-quant-research">successfully-starting-a-career-in-quant-research</a></li><li><a href="/posts/career&#38;figure/买卖双方/" class title="金融行业买方与卖方：利润与稳定性的背后逻辑">金融行业买方与卖方：利润与稳定性的背后逻辑</a></li><li><a href="/posts/career&#38;figure/如何才能入行量化交易/" class title="硕士在读，如何才能入行量化交易">硕士在读，如何才能入行量化交易</a></li><li><a href="/posts/career&#38;figure/月亮和pandas/" class title="月亮和Pandas - Wes Mckinney的传奇故事">月亮和Pandas - Wes Mckinney的传奇故事</a></li><li><a href="/posts/career&#38;figure/起底百亿私募创始人/" class title="找校友！起底百亿私募创始人">找校友！起底百亿私募创始人</a></li><li><a href="/posts/career&#38;figure/追随美的指引/" class title="追随美的指引-纪念西蒙斯">追随美的指引-纪念西蒙斯</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/九月</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/九月/0920/" class title="9月20日资讯速递">9月20日资讯速递</a></li><li><a href="/articles/express/九月/0921/" class title="9月21日资讯速递">9月21日资讯速递</a></li><li><a href="/articles/express/九月/0922/" class title="9月22日资讯速递">9月22日资讯速递</a></li><li><a href="/articles/express/九月/0923/" class title="9月23日资讯速递">9月23日资讯速递</a></li><li><a href="/articles/express/九月/0924/" class title="9月24日资讯速递">9月24日资讯速递</a></li><li><a href="/articles/express/九月/0925/" class title="9月25日资读速递">9月25日资读速递</a></li><li><a href="/articles/express/九月/0927/" class title="9月27日资读速递">9月27日资读速递</a></li><li><a href="/articles/express/九月/0928/" class title="9 月 28 日资读速递">9 月 28 日资读速递</a></li><li><a href="/articles/express/九月/0929/" class title="9 月 29 日资读速递">9 月 29 日资读速递</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/十月</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/十月/1004/" class title="每日7点【10月4日】">每日7点【10月4日】</a></li><li><a href="/articles/express/十月/1011/" class title="每日7点【10月11日】">每日7点【10月11日】</a></li><li><a href="/articles/express/十月/1012/" class title="每日7点【10月12日】">每日7点【10月12日】</a></li><li><a href="/articles/express/十月/1014/" class title="【10月14日】 量化新因子怎么挖？verition的一则招聘泄露天机">【10月14日】 量化新因子怎么挖？verition的一则招聘泄露天机</a></li><li><a href="/articles/express/十月/1016/" class title="【10月16日】 一道概率题">【10月16日】 一道概率题</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">factor-strategy</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/factor-strategy/1赔10，3月27日我抄底了/" class title="1赔10！中证1000应该这样抄底">1赔10！中证1000应该这样抄底</a></li><li><a href="/posts/factor-strategy/3月27日为什么大跌/" class title="交割日魔咒？">交割日魔咒？</a></li><li><a href="/posts/factor-strategy/7-factor-model/" class title="7因子模型，除了规模、市场、动量和价值，还有哪些？">7因子模型，除了规模、市场、动量和价值，还有哪些？</a></li><li><a href="/posts/factor-strategy/ESG策略初探-01/" class title="ESG策略初探-01">ESG策略初探-01</a></li><li><a href="/posts/factor-strategy/ESG策略初探-02/" class title="ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a></li><li><a href="/posts/factor-strategy/Is-the-A-share-market-undervalued/" class title="节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？">节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？</a></li><li><a href="/posts/factor-strategy/ORB-strategy/" class title="ORB! Alpha 达到年化 36%">ORB! Alpha 达到年化 36%</a></li><li><a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/" class title="不能求二阶导的metrics<br>不是好的objective">不能求二阶导的metrics&lt;br&gt;不是好的objective</a></li><li><a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/" class title="基于 XGBoost 的组合策略基本框架">基于 XGBoost 的组合策略基本框架</a></li><li><a href="/posts/factor-strategy/alligator/" class title="鳄鱼线，让趋势成为你的朋友">鳄鱼线，让趋势成为你的朋友</a></li><li><a href="/posts/factor-strategy/alpha042/" class title="第42个因子:年化17.6%，15年累计10倍">第42个因子:年化17.6%，15年累计10倍</a></li><li><a href="/posts/factor-strategy/connors-rsi/" class title="年终特稿：这个指标我愿称之为年度最强发现">年终特稿：这个指标我愿称之为年度最强发现</a></li><li><a href="/posts/factor-strategy/decision-tree-made-easy/" class title="如果模型预测准确率超过85%，这台印钞机应该值多少马内？">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a></li><li><a href="/posts/factor-strategy/first-level-derivation/" class title="当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建">当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a></li><li><a href="/posts/factor-strategy/genetic-algorithms/" class title="量化交易中的遗传算法">量化交易中的遗传算法</a></li><li><a href="/posts/factor-strategy/growing-star-market-weights/" class title="量化股票投资起手式<br>指数增强之<br>指数成份股信息挖掘">量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘</a></li><li><a href="/posts/factor-strategy/herd-behaviour/" class title="羊群效应及其因子化">羊群效应及其因子化</a></li><li><a href="/posts/factor-strategy/hindsight-how-do-i-missed-dlsy/" class title="后见之明！错过6个涨停之后的复盘">后见之明！错过6个涨停之后的复盘</a></li><li><a href="/posts/factor-strategy/hockey-and-coin/" class title="球队和硬币因子">球队和硬币因子</a></li><li><a href="/posts/factor-strategy/holy-grail-still-works/" class title="圣杯依然闪耀">圣杯依然闪耀</a></li><li><a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/" class title="涨到溢出！PEPE告诉我，大盘还能涨几多？">涨到溢出！PEPE告诉我，大盘还能涨几多？</a></li><li><a href="/posts/factor-strategy/lof套利怎么做/" class title="白银大涨引发的量化套利策略">白银大涨引发的量化套利策略</a></li><li><a href="/posts/factor-strategy/low-turnover-factor/" class title="Alphalens 因子分析 - 以低换手率因子为例(1)">Alphalens 因子分析 - 以低换手率因子为例(1)</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-2/" class title="Alphalens因子分析(2) - low turnover秒杀98%的基金经理!">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-3/" class title="因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-4/" class title="Alphalens因子分析(4) - Information Coefficient方法">Alphalens因子分析(4) - Information Coefficient方法</a></li><li><a href="/posts/factor-strategy/magic-hot-word-factor/" class title="龙凤呈祥：这种无底限炒作，如何用量化方法发现它？">龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</a></li><li><a href="/posts/factor-strategy/max-volume-direction/" class title="捕捉主力-最大成交量因子">捕捉主力-最大成交量因子</a></li><li><a href="/posts/factor-strategy/mispriced-option/" class title="mispriced-option">mispriced-option</a></li><li><a href="/posts/factor-strategy/ml-predict-peaks-valleys-1/" class title="机器学习(XgBoost）预测顶和底">机器学习(XgBoost）预测顶和底</a></li><li><a href="/posts/factor-strategy/nh-nl/" class title="净新高占比因子">净新高占比因子</a></li><li><a href="/posts/factor-strategy/perf-of-momentum-10/" class title="7月：斜率动量因子表现回顾">7月：斜率动量因子表现回顾</a></li><li><a href="/posts/factor-strategy/pressure-of-prices-intger/" class title="左数效应 整数关口与光折射">左数效应 整数关口与光折射</a></li><li><a href="/posts/factor-strategy/regret/" class title="Sharpe 5.5!遗憾规避因子">Sharpe 5.5!遗憾规避因子</a></li><li><a href="/posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023/" class title="私募量化策略大盘点-2024年初">私募量化策略大盘点-2024年初</a></li><li><a href="/posts/factor-strategy/santa-clause/" class title="Santa Claus Rally">Santa Claus Rally</a></li><li><a href="/posts/factor-strategy/sec-form-4-insider-purchases/" class title="内幕交易因子研究">内幕交易因子研究</a></li><li><a href="/posts/factor-strategy/second-derivative/" class title="动能反转：二阶导动量因子年化Alpha达到61%！">动能反转：二阶导动量因子年化Alpha达到61%！</a></li><li><a href="/posts/factor-strategy/smart-money-concept/" class title="聪明钱概念策略，另一个价格行为交易策略？">聪明钱概念策略，另一个价格行为交易策略？</a></li><li><a href="/posts/factor-strategy/switch-to-decimal/" class title="改用十进制！点差如何影响策略">改用十进制！点差如何影响策略</a></li><li><a href="/posts/factor-strategy/time-will-tell/" class title="时间会证明一切！抢头财（报）就是抢头彩？！">时间会证明一切！抢头财（报）就是抢头彩？！</a></li><li><a href="/posts/factor-strategy/ultimate-oscillator/" class title="一门三杰 一年翻十倍的男人发明了 UO 指标">一门三杰 一年翻十倍的男人发明了 UO 指标</a></li><li><a href="/posts/factor-strategy/week-day-factor/" class title="周一到周五，哪天能买股？做对了夏普22.5！">周一到周五，哪天能买股？做对了夏普22.5！</a></li><li><a href="/posts/factor-strategy/word-count/" class title="WorldQuant? Word Count!">WorldQuant? Word Count!</a></li><li><a href="/posts/factor-strategy/z-score-factor/" class title="Z-score 因子的深入思考">Z-score 因子的深入思考</a></li><li><a href="/posts/factor-strategy/低波动因子/" class title="新国九条下，低波动因子重要性提升！">新国九条下，低波动因子重要性提升！</a></li><li><a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/" class title="在这一刻抄底，胜率高达95%">在这一刻抄底，胜率高达95%</a></li><li><a href="/posts/factor-strategy/市盈率因子该怎么用/" class title="不看懂这篇文章，不要在量化中使用市盈率！">不看懂这篇文章，不要在量化中使用市盈率！</a></li><li><a href="/posts/factor-strategy/打新不中，买新当如何/" class title="打新不中，买新当如何？lightgbm 打新模型如何构建？">打新不中，买新当如何？lightgbm 打新模型如何构建？</a></li><li><a href="/posts/factor-strategy/拯救cci/" class title="拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！">拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！</a></li><li><a href="/posts/factor-strategy/暴力美学！洗盘模式如何检测/" class title="暴力美学！洗盘模式如何检测？">暴力美学！洗盘模式如何检测？</a></li><li><a href="/posts/factor-strategy/构建强化学习交易模型/" class title="强化学习模型能否自我演化出交易智慧？">强化学习模型能否自我演化出交易智慧？</a></li><li><a href="/posts/factor-strategy/洛书投资解读/" class title="洛书投资：先验性因子与波动率等权">洛书投资：先验性因子与波动率等权</a></li><li><a href="/posts/factor-strategy/终极猜想!底蓓离的成因分析/" class title="终极猜想！底蓓离的成因分析">终极猜想！底蓓离的成因分析</a></li><li><a href="/posts/factor-strategy/跟着国会山股神去炒股/" class title="Political Alpha，跟着国会山股神去炒股">Political Alpha，跟着国会山股神去炒股</a></li><li><a href="/posts/factor-strategy/顶底标注/" class title="为了机器能学习，我标注了 2 万条行情数据">为了机器能学习，我标注了 2 万条行情数据</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">freshman</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/freshman/roadmap-to-become-a-quant/" class title="问薪无愧！<br>自学量化大纲有这75页就够了">问薪无愧！&lt;br&gt;自学量化大纲有这75页就够了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/策略研究</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/策略研究/capm/" class title="资本资产定价模型">资本资产定价模型</a></li><li><a href="/articles/investment/策略研究/mpt-1/" class title="投资组合理论与实战(1) - 基本概念">投资组合理论与实战(1) - 基本概念</a></li><li><a href="/articles/investment/策略研究/mpt-2/" class title="投资组合理论与实战(2) - 蒙特卡洛方法">投资组合理论与实战(2) - 蒙特卡洛方法</a></li><li><a href="/articles/investment/策略研究/mpt-3/" class title="投资组合理论与实战(3) - 优化算法">投资组合理论与实战(3) - 优化算法</a></li><li><a href="/articles/investment/策略研究/mpt-4/" class title="投资组合理论与实战(4) - PyportfolioOpt工具库">投资组合理论与实战(4) - PyportfolioOpt工具库</a></li><li><a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/" class title="关于寻找顶和底的一些研究">关于寻找顶和底的一些研究</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/实盘接入/" class title="量化实盘接入方式">量化实盘接入方式</a></li><li><a href="/articles/investment/量化库/数据持久化/数据持久化/" class title="量化数据的持久化方案">量化数据的持久化方案</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化杂谈</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化杂谈/tulipmania/" class title="花开曾倾国">花开曾倾国</a></li><li><a href="/articles/investment/量化杂谈/voc/" class title="东印度公司">东印度公司</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">papers</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/papers/03-低延迟趋势线与交易择时/" class title="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？">『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</a></li><li><a href="/posts/papers/04-年化25%的策略为何翻车/" class title="『译研报04』 年化25%的策略到底有没有翻车？">『译研报04』 年化25%的策略到底有没有翻车？</a></li><li><a href="/posts/papers/kronos/" class title="kronos">kronos</a></li><li><a href="/posts/papers/rsrs择时指标/" class title="RSRS 择时指标">RSRS 择时指标</a></li><li><a href="/posts/papers/ubl/" class title="『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/ubl-2/" class title="『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/分享免费金融扩展工具/" class title="如何获取免费的华尔街日报的文章">如何获取免费的华尔街日报的文章</a></li><li><a href="/posts/papers/研报该如何复现/" class title="把研报『翻译』成代码，80%的工作都在这篇文章里讲了">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/python/awesome-code/" class title="只廖廖数行，但很惊艳的代码">只廖廖数行，但很惊艳的代码</a></li><li><a href="/posts/python/duckdb-2/" class title="为什么量化人应该使用duckdb？">为什么量化人应该使用duckdb？</a></li><li><a href="/posts/python/how-to-set-env-in-jupyter-notebook/" class title="Jupyter Notebook中如何设置环境变量？">Jupyter Notebook中如何设置环境变量？</a></li><li><a href="/posts/python/it-is-π-thon/" class title="π-thon以及他的朋友们">π-thon以及他的朋友们</a></li><li><a href="/posts/python/pypinyin/" class title="4k stars! 如何实现按拼音首字母查询证券代码？">4k stars! 如何实现按拼音首字母查询证券代码？</a></li><li><a href="/posts/python/python-just-released-3.13/" class title="10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本">10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本</a></li><li><a href="/posts/python/qmt-how-to-handle-dr-adjust/" class title="提速100倍！QMT复权因子高效算法">提速100倍！QMT复权因子高效算法</a></li><li><a href="/posts/python/static-blog-in-2024/" class title="2024年，免费博客赚钱方案">2024年，免费博客赚钱方案</a></li><li><a href="/posts/python/use-sql-query-with-pandas/" class title="给Pandas找个搭子，用SQL玩转Dataframe!">给Pandas找个搭子，用SQL玩转Dataframe!</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">resources</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/resources/a-palette-of-colorful-websites/" class title="一些和颜色相关的网站">一些和颜色相关的网站</a></li><li><a href="/posts/resources/barra-risk-model-handbook/" class title="Barra风险模型构建完全指南">Barra风险模型构建完全指南</a></li><li><a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/" class title="来自世坤！寻找Alpha 构建交易策略的量化方法">来自世坤！寻找Alpha 构建交易策略的量化方法</a></li><li><a href="/posts/resources/free-paper-download/" class title="论如何白嫖论文">论如何白嫖论文</a></li><li><a href="/posts/resources/top-journals-in-quantitative-finance/" class title="量化金融人都在看哪些顶刊">量化金融人都在看哪些顶刊</a></li><li><a href="/posts/resources/白嫖顶级AI算力指南/" class title="龙虾流量太贵？ 我一招搞定每天7500万词元">龙虾流量太贵？ 我一招搞定每天7500万词元</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">2026十大量化技术</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/2026十大量化技术/fasthtml/" class title="量化新基建(三) - FastHTML：Python 全栈开发的终极答案">量化新基建(三) - FastHTML：Python 全栈开发的终极答案</a></li><li><a href="/posts/tools/2026十大量化技术/pandas/" class title="The Battle for a New Dawn<br>量化新基建（四）：Pandas 3.0">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a></li><li><a href="/posts/tools/2026十大量化技术/sqlite/" class title="2026量化新基建(二) - sqlite 与 sqlite-utils">2026量化新基建(二) - sqlite 与 sqlite-utils</a></li><li><a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/" class title="UV &#38; Pydantic：重塑 2026 Python 工程化基石">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub" open> <summary class="nav-dir"><span class="nav-label">21天驯化AI打工仔</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/21天驯化AI打工仔/1_数据获取/" class title="21天驯化AI打工仔 - 我如何获取量化数据">21天驯化AI打工仔 - 我如何获取量化数据</a></li><li><a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/" class title="21天驯化AI打工仔 - 开发量化交易系统">21天驯化AI打工仔 - 开发量化交易系统</a></li><li><a href="/posts/tools/21天驯化AI打工仔/3_数据库的优化设计/" class title="21天驯化AI打工仔 - 数据库的优化">21天驯化AI打工仔 - 数据库的优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/" class title="21天驯化AI打工仔 - 如何存储10亿个Symbol?">21天驯化AI打工仔 - 如何存储10亿个Symbol?</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/" class title="21天驯化AI打工仔 - SQEP 的性能再优化">21天驯化AI打工仔 - SQEP 的性能再优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/" class title="21天驯化AI打工仔 - SQEP与symbol编码性能测试">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a></li><li><a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/" class title="21天驯化AI打工仔 - 日线数据的定时获取">21天驯化AI打工仔 - 日线数据的定时获取</a></li><li><a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/" class title="21天驯化AI打工仔 - 日线数据的定时获取（2）">21天驯化AI打工仔 - 日线数据的定时获取（2）</a></li><li><a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/" class="current" title="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a></li><li><a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/" class title="21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">AI-tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming/" class title="除了编程，量化人还能怎么用AI？">除了编程，量化人还能怎么用AI？</a></li><li><a href="/posts/tools/AI-tools/remote-agent/" class title="Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">Numpy_Pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/Numpy_Pandas/01-introduction/01-introduction/" class title="这是你的量化母语">这是你的量化母语</a></li><li><a href="/posts/tools/Numpy_Pandas/02-numpy核心语法[1]/02-numpy核心语法[1]/" class title="Numpy核心语法[1]">Numpy核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/03-numpy核心语法[2]/03-numpy核心语法[2]/" class title="Numpy处理表格数据">Numpy处理表格数据</a></li><li><a href="/posts/tools/Numpy_Pandas/04-numpy核心语法[3]/04-numpy核心语法[3]/" class title="Numpy核心语法[3]">Numpy核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/05-numpy核心语法[4]/05-numpy核心语法[4]/" class title="Numpy核心语法[4]">Numpy核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/06-numpy核心语法[5]/06-numpy核心语法[5]/" class title="Numpy核心语法[5]">Numpy核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/07-numpy核心语法[6]/07-numpy核心语法[6]/" class title="Numpy核心语法[6]">Numpy核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/08-numpy应用案例[1]/08-numpy应用案例[1]/" class title="Numpy应用案例[1]">Numpy应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/09-numpy应用案例[2]/09-numpy应用案例[2]/" class title="Numpy应用案例[2]">Numpy应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/10-numpy应用案例[3]/10-numpy应用案例[3]/" class title="Numpy应用案例[3]">Numpy应用案例[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/11-pandas核心语法[1]/11-pandas核心语法[1]/" class title="Pandas核心语法[1]">Pandas核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/12-pandas核心语法[2]/12-pandas核心语法[2]/" class title="Pandas核心语法[2]">Pandas核心语法[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/13-pandas核心语法[3]/13-pandas核心语法[3]/" class title="Pandas核心语法[3]">Pandas核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/14-pandas核心语法[4]/14-pandas核心语法[4]/" class title="Pandas核心语法[4]">Pandas核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/15-pandas核心语法[5]/15-pandas核心语法[5]/" class title="Pandas核心语法[5]">Pandas核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/16-pandas核心语法[6]/16-pandas核心语法[6]/" class title="Pandas核心语法[6]">Pandas核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/17-pandas核心语法[7]/17-pandas核心语法[7]/" class title="Pandas核心语法[7]">Pandas核心语法[7]</a></li><li><a href="/posts/tools/Numpy_Pandas/18-pandas应用案例[1]/18-pandas应用案例[1]/" class title="Pandas应用案例[1]">Pandas应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/19-pandas应用案例[2]/19-pandas应用案例[2]/" class title="Pandas应用案例[2]">Pandas应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/20-pandas应用案例[3]/20-pandas应用案例[3]/" class title="Pandas应用案例[3]">Pandas应用案例[3]</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">moonshot</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-1/" class title="『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架">『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/" class title="『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/" class title="涨时重势，跌时重质，Moonshot首测股息率因子给出结论">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/" class title="研报复现之如何正确筛选『连续两年分红』股票（附代码）">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/" class title="Moonshot is all you need - 红利策略完结篇">Moonshot is all you need - 红利策略完结篇</a></li> </ul> </details> </li><li><a href="/posts/tools/8个ipython技巧/" class title="你可能不知道的8个IPython技巧">你可能不知道的8个IPython技巧</a></li><li><a href="/posts/tools/agent-on-tracks/" class title="Vibe Coding 能做大项目吗？量化人替你试过了">Vibe Coding 能做大项目吗？量化人替你试过了</a></li><li><a href="/posts/tools/all-about-openbb-as-a-newhand/" class title="OpenBB 实战！轻松获取海外市场数据">OpenBB 实战！轻松获取海外市场数据</a></li><li><a href="/posts/tools/alphasuite/" class title="不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词">不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</a></li><li><a href="/posts/tools/augment-daily-dose/" class title="Augment随手记">Augment随手记</a></li><li><a href="/posts/tools/auto-restart-miniqmt/" class title="如何免登录重启miniqmt?">如何免登录重启miniqmt?</a></li><li><a href="/posts/tools/do-not-fly-solo-copilot/" class title="Don't fly solo! 量化人如何使用AI工具">Don&#39;t fly solo! 量化人如何使用AI工具</a></li><li><a href="/posts/tools/duckdb-has-released-1.0/" class title="里程碑！DuckDB 发布 1.0">里程碑！DuckDB 发布 1.0</a></li><li><a href="/posts/tools/effective-numpy-1/" class title="高效量化编程: Mask Array应用和find_runs">高效量化编程: Mask Array应用和find_runs</a></li><li><a href="/posts/tools/effective-pandas-1/" class title="Pandas高级技巧-1">Pandas高级技巧-1</a></li><li><a href="/posts/tools/effective-pandas-2/" class title="高效量化编程: Pandas 的多级索引">高效量化编程: Pandas 的多级索引</a></li><li><a href="/posts/tools/get-clean-factor-and-forward-returns/" class title="12个参数，48个组合，这么复杂的函数怎么学？">12个参数，48个组合，这么复杂的函数怎么学？</a></li><li><a href="/posts/tools/hdf5/" class title="200倍速！基于 HDF5 的证券数据存储">200倍速！基于 HDF5 的证券数据存储</a></li><li><a href="/posts/tools/hermes/" class title="既生瑜 何生亮！ Hermes Agent究竟怎么样？">既生瑜 何生亮！ Hermes Agent究竟怎么样？</a></li><li><a href="/posts/tools/how-to-develop-complex-project-using-augment/" class title="试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目">试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher/" class title="量化人如何用好Jupyter环境？（一）">量化人如何用好Jupyter环境？（一）</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher-2/" class title="量化人如何用好 Jupyter？（二）">量化人如何用好 Jupyter？（二）</a></li><li><a href="/posts/tools/pandas-连续涨停统计/" class title="Pandas连续涨停统计">Pandas连续涨停统计</a></li><li><a href="/posts/tools/pyarrow-plus-parquet/" class title="存了50TB！pyarrow + parquet">存了50TB！pyarrow + parquet</a></li><li><a href="/posts/tools/qmt-get-sector/" class title="xtquant 中的板块数据">xtquant 中的板块数据</a></li><li><a href="/posts/tools/qmt-get-stock-price/" class title="量化数据免费方案之 QMT">量化数据免费方案之 QMT</a></li><li><a href="/posts/tools/quantstats-2/" class title="算收益，用算术平均好还是几何平均好?">算收益，用算术平均好还是几何平均好?</a></li><li><a href="/posts/tools/quantstats-reload-news/" class title="原作者失联8个月，我们接手维护后他突然回来了">原作者失联8个月，我们接手维护后他突然回来了</a></li><li><a href="/posts/tools/quantstats-reloaded/" class title="Quantstats Reloaded">Quantstats Reloaded</a></li><li><a href="/posts/tools/rd-agent-for-quant-intro/" class title="微软 RD-Agent：量化人的 AI 研发搭档">微软 RD-Agent：量化人的 AI 研发搭档</a></li><li><a href="/posts/tools/trade-api/" class title="量化实盘接口">量化实盘接口</a></li><li><a href="/posts/tools/why-click-house-so-fast/" class title="ClickHouse: One table to rule them all!">ClickHouse: One table to rule them all!</a></li><li><a href="/posts/tools/work-with-xtquant/" class title="QMT/XtQuant 之开发环境篇">QMT/XtQuant 之开发环境篇</a></li><li><a href="/posts/tools/关于复权那些事儿/" class title="前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a></li><li><a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/" class title="致命的 ID -- DuckDB 中的 Returning 子句之谜">致命的 ID -- DuckDB 中的 Returning 子句之谜</a></li><li><a href="/posts/tools/量化人的2025新年礼/" class title="睽违17年，ta-lib重装出发！">睽违17年，ta-lib重装出发！</a></li><li><a href="/posts/tools/量化研究员如何写一手好代码/" class title="量化研究员如何写一手好代码">量化研究员如何写一手好代码</a></li><li><a href="/posts/tools/量子计算/" class title="量子计算能否重构量化金融未来？">量子计算能否重构量化金融未来？</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">uncategory</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/uncategory/crowed-strike-postmoterm/" class title="全球Windows机器蓝屏，作为量化人，我的检讨来了">全球Windows机器蓝屏，作为量化人，我的检讨来了</a></li><li><a href="/posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/" class title="DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a></li><li><a href="/posts/uncategory/ipv6-how-to/" class title="当我在星巴克连上家里的服务器，IPV6，你是值得的">当我在星巴克连上家里的服务器，IPV6，你是值得的</a></li><li><a href="/posts/uncategory/need-for-speed/" class title="need-for-speed">need-for-speed</a></li><li><a href="/posts/uncategory/quantide的课程怎么样/" class title="花 930 美元买一门量化课? GPT 如何评估量化课程值不值">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a></li><li><a href="/posts/uncategory/quantumn-computing-break-through/" class title="量子飞跃：汇丰银行债券交易可能成为华尔街未来">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a></li><li><a href="/posts/uncategory/the-awaken-of-machine/" class title="机器的觉醒！人工智能风云激荡70年">机器的觉醒！人工智能风云激荡70年</a></li><li><a href="/posts/uncategory/weekly-0721/" class title="[0721] QuanTide Weekly">[0721] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0728/" class title="[0728] QuanTide Weekly">[0728] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0804/" class title="[0804] QuanTide Weekly">[0804] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0811/" class title="[0811] QuanTide Weekly">[0811] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0818/" class title="[0818] QuanTide Weekly">[0818] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0825/" class title="[0825] QuanTide Weekly">[0825] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0901/" class title="[0901] QuanTide Weekly">[0901] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0908/" class title="[0908] QuanTide Weekly">[0908] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0915/" class title="[0915] QuanTide Weekly">[0915] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0922/" class title="[0922] QuanTide Weekly">[0922] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0929/" class title="[0929] QuanTide Weekly">[0929] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1013/" class title="[1013] QuanTide Weekly">[1013] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1020/" class title="[1020] QuanTide Weekly">[1020] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1027/" class title="[1027] QuanTide Weekly">[1027] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1103/" class title="[1103] QuanTide Weekly">[1103] QuanTide Weekly</a></li><li><a href="/posts/uncategory/进化论/" class title="普校逆袭天花板 进化论王一平：有逻辑的量化">普校逆袭天花板 进化论王一平：有逻辑的量化</a></li><li><a href="/posts/uncategory/量化人也该开始装skills了/" class title="做能调教AI的赛博老技师，量化人也该开始装Skills了">做能调教AI的赛博老技师，量化人也该开始装Skills了</a></li><li><a href="/posts/uncategory/量化黑话/" class title="量化投资黑话：深度解析“因子”及其核心逻辑">量化投资黑话：深度解析“因子”及其核心逻辑</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a><a class="tag" href="/tags/#tag-%E6%95%B0%E6%8D%AE" title="数据（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="数据">数据</span> </a> </div> </div> </aside> <article class="doc-main"> <h1>21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</h1> <p class="meta"> <span>📅 2025-06-15</span> <span>🏷 augment,tools,qmt,redis</span> <span>👁 阅读 <span id="busuanzi_value_page_pv">-</span></span> </p> <img class="cover-img" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_01.png" alt="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题"> <div class="md-body"><blockquote>
+<p>当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！</p>
+</blockquote>
+<p>&quot;007，我们的日线数据定时获取系统已经很稳定了，但现在我需要更细粒度的数据——分钟线数据。&quot;我一边查看着 ClickHouse 中的日线数据，一边对我的 AI 助手说道。</p>
+<p>&quot;收到🫡！分钟线数据的实时性要求更高，我们需要设计一个全新的架构。&quot;007 立刻回应道。</p>
+<p>这是我们量化交易系统开发的第 8 天。前面几天，我们已经成功搭建了日线数据的定时获取系统，但在实际量化策略开发中，我发现仅有日线数据是远远不够的。高频交易、日内策略、技术分析等都需要更细粒度的分钟线数据。</p>
+<p>作为一个量化交易爱好者，我一直在寻找一个稳定、高效的实时数据获取方案。市面上的数据服务要么太贵（动辄几万元一年），要么延迟太高（几秒甚至几分钟），要么覆盖面不够（只有主流股票）。QMT（迅投 QMT 量化交易平台）提供了丰富的数据接口，可以获取实时的股票行情数据。于是，我决定基于 QMT 搭建一套属于自己的实时分钟线数据订阅系统。这个过程充满了挑战，也收获了很多经验。从最初的基础版到后来的增强版，性能大幅提升，稳定性也大幅改善。今天就来分享一下这个完整的开发历程。</p>
+<h2 id="需求分析我们要做什么">📋 需求分析：我们要做什么</h2>
+<p>&quot;在开始编码之前，我们需要明确系统的核心需求。&quot;我对 007 说道。</p>
+<p>经过深入思考，我们梳理出了以下关键需求：</p>
+<div class="admonition admonition-note"><p class="admonition-title">note</p>
+**核心功能需求**
+1. **实时获取股票分钟线数据**：包括开高低收、成交量、成交额等基础数据
+2. **支持全市场股票**：A 股主板、中小板、创业板、科创板，覆盖 4000+ 只股票
+3. **跨平台数据传输**：Windows 端获取数据，Mac 端存储和查询
+4. **多时间周期支持**：1 分钟、5 分钟、30 分钟、日线等多种周期
+5. **高可用性**：7×24 小时稳定运行，自动重连和错误恢复
+</div>
+
+<pre><code>**性能要求**
+- **低延迟**：数据延迟控制在 1 秒以内
+- **高吞吐**：支持每秒处理 1000+ 条数据
+- **高可靠性**：数据丢失率控制在 0.1% 以下
+- **可扩展性**：后续可以接入更多数据源和处理逻辑
+
+**技术约束**
+- **QMT 限制**：只能在 Windows 环境运行
+- **网络环境**：需要跨网络传输数据
+- **存储需求**：海量时序数据的高效存储和查询
+</code></pre>
+<p>&quot;这些需求看起来很有挑战性，特别是跨平台的实时数据传输。&quot;我对 007 说道。</p>
+<p>&quot;没问题！我们可以用 Redis 作为消息队列，实现 Windows 到 Mac 的数据传输。&quot;007 信心满满地回答。</p>
+<h2 id="qmt-接口深度调研">🔧 QMT 接口深度调研</h2>
+<p>&quot;首先我们需要深入了解 QMT 提供的 API 接口。&quot;我对 007 说道。</p>
+<p>007 立刻开始了技术调研，QMT 提供了丰富的 Python 接口，我们重点研究了以下几个关键 API：</p>
+<h3 id="数据订阅相关接口">数据订阅相关接口</h3>
+<div class="admonition admonition-tip"><p class="admonition-title">tip</p>
+1. 单股订阅接口（基础版使用）
+`xtdata.subscribe_quote(stock_code, period='1m', callback=callback_func)`
+</div>
+
+<pre><code>2. 全推行情订阅接口（增强版的关键发现）
+`xtdata.subscribe_whole_quote(code_list, callback=callback_func)`
+
+3. 历史数据获取接口
+`xtdata.get_market_data_ex(stock_list, period, start_time, end_time)`
+
+4. 股票列表获取接口
+`xtdata.get_stock_list_in_sector(&#39;沪深A股&#39;)`
+
+5. 实时 tick 数据获取接口
+`xtdata.get_full_tick(stock_list)`
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_02.png" alt=""></p>
+<h3 id="连接和控制接口">连接和控制接口</h3>
+<div class="admonition admonition-tip"><p class="admonition-title">tip</p>
+1. 连接 QMT
+`xtdata.connect()`
+</div>
+
+<pre><code>2. 启动数据接收循环
+`xtdata.run()`
+
+3. 取消订阅
+`xtdata.unsubscribe_quote()`
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_03.png" alt=""></p>
+<h3 id="技术架构设计">技术架构设计</h3>
+<p>经过深入调研和讨论，我们确定了以下技术架构：</p>
+<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Windows端     |    |    远程Redis     │    │    Mac端        │
+│   QMT数据源      │───▶│    消息队列      │───▶│   ClickHouse    │
+│                 │    │                 │    │   数据存储       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+</code></pre>
+<p><strong>核心组件选择：</strong></p>
+<ul>
+<li><strong>Windows 端</strong>：使用 QMT 接口获取实时数据，Python + xtquant 库</li>
+<li><strong>Redis</strong>：作为消息队列，实现跨平台数据传输，部署在远程服务器</li>
+<li><strong>Mac 端</strong>：使用 ClickHouse 存储数据，提供查询接口</li>
+</ul>
+<p>&quot;这个架构看起来不错，但我担心性能问题。1000 只股票的实时数据，每分钟就是 1000 条记录，一天就是几十万条数据。&quot;我有些担心地说道。</p>
+<p>&quot;没关系，我们可以分阶段实现。先做一个基础版验证可行性，然后再优化性能。&quot;007 建议道。</p>
+<h2 id="从零开始基础版系统搭建">🏗️ <strong>从零开始：基础版系统搭建</strong></h2>
+<p>&quot;好，我们先实现一个基础版本，验证整体架构的可行性。&quot;我对 007 说道。</p>
+<h3 id="第一步windows-端数据订阅器">第一步：Windows 端数据订阅器</h3>
+<p>007 首先在 Windows 端搭建了数据订阅器。最初的想法很简单：逐个订阅股票，接收数据后发送到 Redis。</p>
+<p>&quot;我们先用最直接的方式实现，单股订阅模式。&quot;007 解释道。</p>
+<pre><code class="language-python">class QMTSubscriber:
+    def __init__(self, config):
+        self.config = config
+        self.redis_client = redis.StrictRedis(
+            host=config[&#39;redis&#39;][&#39;host&#39;],
+            port=config[&#39;redis&#39;][&#39;port&#39;],
+            password=config[&#39;redis&#39;][&#39;password&#39;]
+        )
+
+    def start_subscription(self):
+        # 获取股票列表
+        stock_list = self.get_stock_list()
+
+        # 逐个订阅
+        for stock_code in stock_list:
+            seq = xtdata.subscribe_quote(
+                stock_code=stock_code,
+                period=&#39;1m&#39;,
+                callback=self.on_data
+            )
+
+    def on_data(self, data):
+        # 处理接收到的数据
+        for symbol, quote_data in data.items():
+            minute_bar = self.process_data(symbol, quote_data)
+            # 发送到Redis
+            self.redis_client.lpush(&quot;minute_bar_queue&quot;,
+                                  json.dumps(minute_bar))
+</code></pre>
+<h3 id="第二步mac-端数据消费器">第二步：Mac 端数据消费器</h3>
+<p>&quot;Windows 端负责数据获取，Mac 端负责数据存储和查询。&quot;我对 007 说明了分工。</p>
+<p>在 Mac 端，007 搭建了数据消费器，从 Redis 获取数据并存储到 ClickHouse：</p>
+<pre><code class="language-python">class DataConsumer:
+    def __init__(self, config):
+        self.redis_client = redis.StrictRedis(
+            host=&quot;8.217.201.221&quot;,
+            port=16379,
+            password=&quot;quantide666&quot;
+        )
+        self.clickhouse_client = Client(host=&#39;localhost&#39;)
+
+    def consume_data(self):
+        while True:
+            # 从 Redis 获取数据
+            data = self.redis_client.brpop(&quot;minute_bar_queue&quot;, timeout=1)
+            if data:
+                minute_bar = json.loads(data[1])
+                # 插入 ClickHouse
+                self.insert_to_clickhouse(minute_bar)
+</code></pre>
+<h3 id="第三步初步测试与现实的冲击">第三步：初步测试与现实的冲击</h3>
+<p>&quot;系统搭建完成，我们来测试一下效果。&quot;我满怀期待地说道。</p>
+<p>基础版系统搭建完成后，我们进行了初步测试。结果让人喜忧参半：</p>
+<p><strong>🎉 好消息</strong>：</p>
+<ul>
+<li>系统能够正常运行，架构验证成功</li>
+<li>数据能够从 Windows 传输到 Mac，跨平台方案可行</li>
+<li>ClickHouse 中能够看到实时数据，存储方案有效</li>
+<li>基本的分钟线数据格式正确</li>
+</ul>
+<p><strong>😰 坏消息</strong>：</p>
+<ul>
+<li>订阅 1000 只股票需要 5 分钟，效率太低</li>
+<li>数据处理速度只有 1-2 条/秒，远低于预期</li>
+<li>偶尔出现数据异常和连接中断</li>
+<li>内存使用量持续增长，存在内存泄漏</li>
+</ul>
+<p>&quot;看来基础版只能算是一个原型，距离生产环境还有很大差距。&quot;我有些失望地说道。</p>
+<p>&quot;没关系，这是正常的。我们已经验证了架构的可行性，接下来就是优化的问题了。&quot;007 安慰道。</p>
+<h2 id="遇到的问题基础版的瓶颈分析">😤 遇到的问题：基础版的瓶颈分析</h2>
+<p>&quot;我们需要仔细分析基础版的问题，才能有针对性地优化。&quot;我对 007 说道。</p>
+<p>在基础版系统运行了一段时间后，我们发现了几个明显的问题：</p>
+<h3 id="问题-1订阅效率低下">问题 1：订阅效率低下</h3>
+<pre><code>2025-05-29 15:00:46,949 - qmt_subscriber - INFO - 订阅完成: 成功 100 只, 失败 0 只
+2025-05-29 15:00:46,949 - qmt_subscriber - WARNING - 订阅成功率较低(100/1000)，切换到轮询模式...
+</code></pre>
+<p>&quot;这个日志很有意思，明明成功率是 100%，为什么系统判断为&#39;较低&#39;？&quot;我疑惑地问道。</p>
+<p>007 分析后发现：系统误判 100% 的成功率为&quot;较低&quot;，频繁切换到低效的轮询模式。更要命的是，单股订阅模式下，1000 只股票需要逐个订阅，每只股票耗时约 0.3 秒，总计需要 5 分钟才能完成订阅。</p>
+<h3 id="问题-2性能瓶颈明显">问题 2：性能瓶颈明显</h3>
+<p>&quot;单线程处理明显跟不上数据流的速度。&quot;007 指出了核心问题。</p>
+<p>数据处理采用单线程模式，每条数据都要经历&quot;接收→处理→发布&quot;的串行流程：</p>
+<ul>
+<li><strong>接收瓶颈</strong>：QMT 回调函数中处理时间过长，影响后续数据接收</li>
+<li><strong>处理瓶颈</strong>：数据格式转换和验证耗时较长</li>
+<li><strong>发布瓶颈</strong>：每条数据单独发送到 Redis，网络开销大</li>
+</ul>
+<p>在市场活跃时段（如开盘前 30 分钟），数据积压严重，延迟从 1 秒增加到 10 秒以上。</p>
+<h2 id="技术突破全推行情订阅的威力">🚀 技术突破：全推行情订阅的威力</h2>
+<p>&quot;我们需要从根本上改变订阅模式。&quot;007 开始了深度技术调研。</p>
+<p>经过深入研究 QMT API 文档，007 发现了一个关键的 API：<code>subscribe_whole_quote</code>。</p>
+<p>&quot;我找到了解决方案！这个 API 支持全推行情订阅，比单股订阅效率高得多！&quot;007 兴奋地说。</p>
+<p>&quot;全推行情？这听起来很厉害，具体是什么原理？&quot;我好奇地问道。</p>
+<p>&quot;简单来说，就是一次性订阅全市场的数据，而不是逐个订阅每只股票。这样可以大大减少 API 调用次数和网络开销。&quot;007 解释道。</p>
+<h3 id="基础版-vs-增强版订阅对比">基础版 vs 增强版订阅对比</h3>
+<p>让我们来看看两种订阅模式的具体差异：</p>
+<p><strong>基础版（单股订阅）：</strong></p>
+<pre><code class="language-python"># 逐个订阅，效率低下
+def start_individual_subscription(self):
+    success_count = 0
+    for stock_code in stock_list:
+        try:
+            seq = xtdata.subscribe_quote(
+                stock_code=stock_code,
+                period=&#39;1m&#39;,
+                callback=self.on_data
+            )
+            success_count += 1
+            time.sleep(0.1)  # 避免 API 调用过快
+        except Exception as e:
+            self.logger.error(f&quot;订阅失败: {stock_code}, {e}&quot;)
+
+    self.logger.info(f&quot;订阅完成: 成功 {success_count} 只&quot;)
+</code></pre>
+<p><strong>增强版（全推行情订阅）：</strong></p>
+<pre><code class="language-python"># 一次性订阅全市场，效率极高
+def start_whole_quote_subscription(self):
+    try:
+        result = xtdata.subscribe_whole_quote(
+            code_list=self.stock_list,
+            callback=self.on_whole_quote_data
+        )
+        if result == 0:  # 0 表示成功
+            self.logger.info(f&quot;全推行情订阅成功: {len(self.stock_list)} 只股票&quot;)
+            return True
+    except Exception as e:
+        self.logger.error(f&quot;全推行情订阅失败: {e}&quot;)
+        # 自动降级到单股订阅
+        return self.start_individual_subscription()
+</code></pre>
+<p>&quot;选择合适的 API 对性能的影响是决定性的。&quot;007 总结道。</p>
+<h2 id="批量处理性能提升">⚡ 批量处理性能提升</h2>
+<p>&quot;基础版性能还是不够。单条处理太慢了，我们需要批量处理！&quot;007 提出了关键的性能优化思路。</p>
+<p>&quot;批量处理确实是提升性能的关键。&quot;我赞同道，&quot;但要注意平衡批量大小和实时性。&quot;</p>
+<h3 id="windows-端生产者批量处理架构">Windows 端：生产者批量处理架构</h3>
+<p>007 设计了一个精巧的生产者-消费者模式的多线程架构：</p>
+<pre><code class="language-python">class EnhancedQMTSubscriber:
+    def __init__(self, config):
+        self.batch_size = config[&#39;system&#39;][&#39;batch_size&#39;]  # 100
+        self.batch_timeout = config[&#39;system&#39;][&#39;batch_timeout&#39;]  # 1.0 秒
+        self.data_queue = queue.Queue(maxsize=5000)
+        self.batch_data = []
+        self.last_batch_time = time.time()
+
+    def start_data_processing_threads(self):
+        &quot;&quot;&quot;启动数据处理线程&quot;&quot;&quot;
+        # 批量发布线程
+        publish_thread = threading.Thread(target=self.batch_publish_worker, daemon=True)
+        publish_thread.start()
+
+        # 数据清理线程
+        cleanup_thread = threading.Thread(target=self.data_cleanup_worker, daemon=True)
+        cleanup_thread.start()
+
+        # 性能监控线程
+        monitor_thread = threading.Thread(target=self.performance_monitor, daemon=True)
+        monitor_thread.start()
+
+    def batch_publish_worker(self):
+        &quot;&quot;&quot;批量发布工作线程&quot;&quot;&quot;
+        while True:
+            try:
+                # 从队列获取数据
+                minute_bar = self.data_queue.get(timeout=0.1)
+                self.batch_data.append(minute_bar)
+
+                # 检查是否需要发布批量数据
+                current_time = time.time()
+                should_publish = (
+                    len(self.batch_data) &gt;= self.batch_size or
+                    current_time - self.last_batch_time &gt;= self.batch_timeout
+                )
+
+                if should_publish and self.batch_data:
+                    self.batch_publish_to_redis(self.batch_data.copy())
+                    self.batch_data.clear()
+                    self.last_batch_time = current_time
+
+            except queue.Empty:
+                # 超时检查
+                current_time = time.time()
+                if (self.batch_data and
+                    current_time - self.last_batch_time &gt;= self.batch_timeout):
+                    self.batch_publish_to_redis(self.batch_data.copy())
+                    self.batch_data.clear()
+                    self.last_batch_time = current_time
+
+    def batch_publish_to_redis(self, batch_data):
+        &quot;&quot;&quot;批量发布到Redis&quot;&quot;&quot;
+        try:
+            pipe = self.redis_client.pipeline()
+            for data in batch_data:
+                pipe.lpush(&quot;minute_bar_queue&quot;, json.dumps(data))
+            pipe.execute()
+
+            self.stats[&#39;published_count&#39;] += len(batch_data)
+            self.logger.debug(f&quot;批量发布成功: {len(batch_data)} 条数据&quot;)
+
+        except Exception as e:
+            self.logger.error(f&quot;批量发布失败: {e}&quot;)
+            # 降级到单条发布
+            self.fallback_single_publish(batch_data)
+</code></pre>
+<h3 id="mac-端多工作线程批量插入">Mac 端：多工作线程批量插入</h3>
+<p>在 Mac 端，007 设计了更强大的多工作线程批量插入机制：</p>
+<pre><code class="language-python">class EnhancedDataConsumer:
+    def __init__(self, config):
+        self.worker_count = config[&#39;system&#39;][&#39;worker_count&#39;]  # 4
+        self.batch_size = config[&#39;system&#39;][&#39;batch_size&#39;]  # 1000
+        self.batch_timeout = config[&#39;system&#39;][&#39;batch_timeout&#39;]  # 5.0 秒
+        self.worker_queues = [queue.Queue(maxsize=1000) for _ in range(self.worker_count)]
+
+    def start_worker_threads(self):
+        &quot;&quot;&quot;启动工作线程&quot;&quot;&quot;
+        for i in range(self.worker_count):
+            worker_thread = threading.Thread(
+                target=self.batch_insert_worker,
+                args=(f&quot;worker-{i}&quot;, self.worker_queues[i]),
+                daemon=True
+            )
+            worker_thread.start()
+            self.logger.info(f&quot;启动工作线程: worker-{i}&quot;)
+
+    def batch_insert_worker(self, worker_name, worker_queue):
+        &quot;&quot;&quot;批量插入工作线程&quot;&quot;&quot;
+        batch_data = []
+        last_batch_time = time.time()
+
+        while True:
+            try:
+                # 从工作队列获取数据
+                data = worker_queue.get(timeout=0.5)
+                batch_data.append(data)
+
+                # 检查是否需要批量插入
+                current_time = time.time()
+                should_insert = (
+                    len(batch_data) &gt;= self.batch_size or
+                    current_time - last_batch_time &gt;= self.batch_timeout
+                )
+
+                if should_insert and batch_data:
+                    self.batch_insert_clickhouse(worker_name, batch_data.copy())
+                    batch_data.clear()
+                    last_batch_time = current_time
+
+            except queue.Empty:
+                # 超时检查
+                current_time = time.time()
+                if (batch_data and
+                    current_time - last_batch_time &gt;= self.batch_timeout):
+                    self.batch_insert_clickhouse(worker_name, batch_data.copy())
+                    batch_data.clear()
+                    last_batch_time = current_time
+
+    def batch_insert_clickhouse(self, worker_name, batch_data):
+        &quot;&quot;&quot;批量插入ClickHouse&quot;&quot;&quot;
+        try:
+            # 数据格式转换
+            formatted_data = []
+            for item in batch_data:
+                formatted_data.append([
+                    item[&#39;symbol&#39;], item[&#39;frame&#39;], item[&#39;open&#39;],
+                    item[&#39;high&#39;], item[&#39;low&#39;], item[&#39;close&#39;],
+                    item[&#39;vol&#39;], item[&#39;amount&#39;]
+                ])
+
+            # 批量插入
+            self.clickhouse_client.execute(
+                &quot;INSERT INTO minute_bars VALUES&quot;,
+                formatted_data
+            )
+
+            self.stats[&#39;inserted_count&#39;] += len(batch_data)
+            self.logger.debug(f&quot;{worker_name} 批量插入成功: {len(batch_data)} 条&quot;)
+
+        except Exception as e:
+            self.logger.error(f&quot;{worker_name} 批量插入失败: {e}&quot;)
+            self.stats[&#39;insert_errors&#39;] += 1
+</code></pre>
+<p>&quot;批量处理确实是性能优化的银弹，特别是在 I/O 密集型场景中。&quot;007 总结道。</p>
+<h2 id="实时监控系统状态一目了然">📊 <strong>实时监控：系统状态一目了然</strong></h2>
+<p>&quot;没有监控的系统是盲飞。&quot;我对 007 说。</p>
+<p>007 设计了详细的性能监控系统，每分钟输出一次报告：</p>
+<h3 id="windows-端实时监控">Windows 端实时监控</h3>
+<pre><code>2025-06-07 09:32:35,229 - INFO - 🚀 启动 QMT 分钟线全推订阅器...
+2025-06-07 09:32:35,808 - INFO - ✅ Redis 连接池创建成功: 8.217.201.221:16379
+2025-06-07 09:32:35,809 - INFO - 📊 连接池配置: 最大连接数=20, 启用 keepalive
+***** xtdata 连接成功 *****
+服务信息: {&#39;tag&#39;: &#39;sp3&#39;, &#39;version&#39;: &#39;1.0&#39;}
+服务地址: 127.0.0.1:58610
+数据路径: C:\Program Files\国金证券 QMT 交易端\bin.x64/../userdata_mini/datadir
+设置 xtdata.enable_hello = False 可隐藏此消息
+
+2025-06-07 09:32:35,822 - INFO - QMT 连接对象: &lt;class &#39;xtquant.datacenter.IPythonApiClient&#39;&gt;
+2025-06-07 09:32:35,826 - INFO - ✅ QMT 连接成功 - 测试股票: 平安银行
+2025-06-07 09:32:35,826 - INFO - 🔍 获取沪深 A 股完整列表...
+2025-06-07 09:32:35,867 - INFO - 🎉 成功获取沪深 A 股: 5147 只股票!
+2025-06-07 09:32:35,868 - INFO - 📋 股票范围: 600051.SH 到 300271.SZ
+2025-06-07 09:32:35,872 - INFO - 📊 股票分布: 深圳 2867 只, 上海 2280 只
+2025-06-07 09:32:35,873 - INFO - 🚀 启动 QMT 全推分钟线订阅...
+2025-06-07 09:32:35,909 - INFO - 📊 subscribe_whole_quote 返回: 1 (类型: &lt;class &#39;int&#39;&gt;)
+2025-06-07 09:32:35,909 - INFO - ✅ 全推订阅成功! 订阅股票数: 5147
+2025-06-07 09:32:35,912 - INFO - ✅ 监控线程已启动
+2025-06-07 09:32:35,913 - INFO - ✅ 订阅器启动成功，开始接收数据...
+2025-06-07 09:32:35,914 - INFO - 按 Ctrl+C 停止订阅
+2025-06-07 09:32:35,917 - INFO - 🔔 全推数据回调 #1
+2025-06-07 09:32:35,917 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:35,918 - INFO -    数据量: 1
+2025-06-07 09:32:35,927 - INFO -    样例股票: [&#39;601878.SH&#39;]
+2025-06-07 09:32:35,928 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:35,929 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:36,142 - INFO - 🔔 全推数据回调 #2
+2025-06-07 09:32:36,143 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:36,145 - INFO -    数据量: 2278
+2025-06-07 09:32:36,146 - INFO -    样例股票: [&#39;600000.SH&#39;, &#39;600004.SH&#39;, &#39;600006.SH&#39;]
+2025-06-07 09:32:36,147 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:36,148 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:37,596 - INFO - 📊 批量发布: 100条, 总计: 500条, 平均批量: 100.0
+2025-06-07 09:32:38,696 - INFO - 📊 批量发布: 100条, 总计: 1000条, 平均批量: 100.0
+2025-06-07 09:32:39,756 - INFO - 📊 批量发布: 100条, 总计: 1500条, 平均批量: 100.0
+2025-06-07 09:32:40,781 - INFO - 📊 批量发布: 100条, 总计: 2000条, 平均批量: 100.0
+2025-06-07 09:32:41,196 - INFO - 🔔 全推数据回调 #3
+2025-06-07 09:32:41,196 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:41,198 - INFO -    数据量: 2865
+2025-06-07 09:32:41,200 - INFO -    样例股票: [&#39;000001.SZ&#39;, &#39;000002.SZ&#39;, &#39;000004.SZ&#39;]
+2025-06-07 09:32:41,200 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:41,201 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:41,688 - INFO - 📊 批量发布: 100条, 总计: 2500条, 平均批量: 100.0
+2025-06-07 09:32:42,564 - INFO - 📊 批量发布: 100条, 总计: 3000条, 平均批量: 100.0
+2025-06-07 09:32:43,415 - INFO - 📊 批量发布: 100条, 总计: 3500条, 平均批量: 100.0
+2025-06-07 09:32:44,233 - INFO - 📊 批量发布: 100条, 总计: 4000条, 平均批量: 100.0
+2025-06-07 09:32:45,120 - INFO - 📊 批量发布: 100条, 总计: 4500条, 平均批量: 100.0
+2025-06-07 09:32:45,955 - INFO - 📊 批量发布: 100条, 总计: 5000条, 平均批量: 100.0
+2025-06-07 09:32:46,128 - INFO - 🔔 全推数据回调 #4
+2025-06-07 09:32:46,129 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:46,131 - INFO -    数据量: 1
+2025-06-07 09:32:46,132 - INFO -    样例股票: [&#39;688757.SH&#39;]
+2025-06-07 09:32:46,133 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:46,134 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:46,135 - INFO - 🔔 全推数据回调 #5
+2025-06-07 09:32:46,136 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:46,136 - INFO -    数据量: 4
+2025-06-07 09:32:46,137 - INFO -    样例股票: [&#39;601225.SH&#39;, &#39;601658.SH&#39;, &#39;688458.SH&#39;]
+2025-06-07 09:32:46,138 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:46,139 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:46,844 - INFO - 📊 批量发布: 100条, 总计: 5500条, 平均批量: 100.0
+2025-06-07 09:33:05,913 - INFO - 📊 Windows 端性能统计 - 运行时间: 0:00:30.001766
+2025-06-07 09:33:05,913 - INFO -    回调: 464 次 (15.5 次/秒)
+2025-06-07 09:33:05,916 - INFO -    接收: 7689 条 (256.3 条/秒)
+2025-06-07 09:33:05,917 - INFO -    发布: 7678 条 (255.9 条/秒)
+2025-06-07 09:33:05,917 - INFO -    成功率: 99.9%
+2025-06-07 09:33:05,918 - INFO -    错误统计: 处理错误 0 次
+2025-06-07 09:33:05,919 - INFO -    批量统计: 82 次, 平均: 93.6 条/批
+2025-06-07 09:33:05,920 - INFO -    缓冲区: 11 条 | Redis 操作: 82 次
+2025-06-07 09:33:05,920 - INFO -    处理股票: 5143 只 | 数据完整性: ✅
+2025-06-07 09:33:35,922 - INFO - 📊 Windows端性能统计 - 运行时间: 0:01:00.011022
+2025-06-07 09:33:35,923 - INFO -    回调: 848次 (14.1次/秒)
+2025-06-07 09:33:35,925 - INFO -    接收: 8909条 (148.5条/秒)
+2025-06-07 09:33:35,926 - INFO -    发布: 8885条 (148.1条/秒)
+2025-06-07 09:33:35,927 - INFO -    成功率: 99.7%
+2025-06-07 09:33:35,927 - INFO -    错误统计: 处理错误0次
+2025-06-07 09:33:35,928 - INFO -    批量统计: 108次, 平均: 82.3条/批
+2025-06-07 09:33:35,929 - INFO -    缓冲区: 24条 | Redis操作: 108次
+2025-06-07 09:33:35,930 - INFO -    处理股票: 5143只 | 数据完整性: ✅
+2025-06-07 09:34:05,931 - INFO - 📊 Windows端性能统计 - 运行时间: 0:01:30.020076
+2025-06-07 09:34:05,931 - INFO -    回调: 1268次 (14.1次/秒)
+2025-06-07 09:34:05,934 - INFO -    接收: 10972条 (121.9条/秒)
+2025-06-07 09:34:05,934 - INFO -    发布: 10960条 (121.8条/秒)
+2025-06-07 09:34:05,935 - INFO -    成功率: 99.9%
+2025-06-07 09:34:05,936 - INFO -    错误统计: 处理错误0次
+2025-06-07 09:34:05,937 - INFO -    批量统计: 141次, 平均: 77.7条/批
+2025-06-07 09:34:05,937 - INFO -    缓冲区: 12条 | Redis操作: 141次
+2025-06-07 09:34:05,938 - INFO -    处理股票: 5143只 | 数据完整性: ✅
+</code></pre>
+<div class="admonition admonition-question"><p class="admonition-title">question</p>
+为什么日志中的成功率不是100%呢？
+</div>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_12.png" alt=""></p>
+<p>007给出了以下回答。</p>
+<p>在我们的程序中，有检测数据完整性的验证逻辑：</p>
+<pre><code class="language-python">def validate_minute_bar_data(self, minute_bar: Dict) -&gt; bool:
+    # 检查必要字段存在性
+    required_fields = [&#39;symbol&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;close&#39;, &#39;vol&#39;]
+    for field in required_fields:
+        if field not in minute_bar or minute_bar[field] is None:
+            return False
+</code></pre>
+<p>如果QMT返回的某些股票数据缺少必要字段或字段值为None，这些数据会被过滤掉，不会发布到Redis。在 <code>build_minute_bar</code> 函数中，如果QMT返回的数据格式异常、数据类型转换失败或其他构建过程中的异常都会导致数据不被发布。此外，从日志中可以看到“缓冲区: 12条”，说明还有12条数据在等待发布，这些数据已经被“接收”计数，但还没有被“发布”到Redis，会在下次批量发布或程序停止时才发布。</p>
+<p>由于统计是实时计算的，在某个时间点（例如 09:34:05）：</p>
+<ul>
+<li>接收计数：10972 条（已处理的股票数据）</li>
+<li>发布计数：10960 条（已成功发布到 Redis）</li>
+<li>差异：12 条（主要是缓冲区中的数据）</li>
+</ul>
+<p>总结：99.9% 的成功率是正常的，主要原因是缓冲区中有少量数据还未发布，以及极少数数据因完整性验证失败被过滤。这个成功率表明系统运行良好，数据质量控制有效。</p>
+<h3 id="mac-端实时监控">Mac 端实时监控</h3>
+<pre><code>    ╔══════════════════════════════════════════════════════════════╗
+    ║                增强版数据消费系统 v2.0 - Mac端                 ║
+    ║                                                              ║
+    ║  基于最佳实践的高性能股票数据消费与存储系统                     ║
+    ║                                                              ║
+    ║  主要特性:                                                    ║
+    ║  • 多线程批量数据处理                                         ║
+    ║  • 数据质量检查和评分                                         ║
+    ║  • ClickHouse高性能存储                                      ║
+    ║  • 实时监控和资源管理                                         ║
+    ║  • 自动数据清理和维护                                         ║
+    ║                                                              ║
+    ╚══════════════════════════════════════════════════════════════╝
+
+正在加载配置...
+============================================================
+Mac端系统配置信息
+============================================================
+批量大小: 1000
+批量超时: 5.0秒
+工作线程数: 4
+数据质量检查: 启用
+数据保留天数: 30
+日志级别: INFO
+============================================================
+2025-06-06 18:44:36,876 - __main__ - INFO - 正在初始化增强版数据消费器...
+2025-06-06 18:44:36,876 - __main__ - INFO - 正在启动增强版数据消费...
+2025-06-06 18:44:37,404 - enhanced_data_consumer - INFO - Redis 连接正常
+2025-06-06 18:44:37,442 - enhanced_data_consumer - INFO - ClickHouse 连接正常
+2025-06-06 18:44:37,446 - enhanced_data_consumer - INFO - 数据库表初始化完成
+2025-06-06 18:44:37,449 - enhanced_data_consumer - INFO - 聚合表创建完成
+2025-06-06 18:44:37,449 - enhanced_data_consumer - INFO - 物化视图创建跳过，使用手动聚合方式
+2025-06-06 18:44:37,449 - enhanced_data_consumer - INFO - 启动批量插入工作线程: worker-0
+2025-06-06 18:44:37,450 - enhanced_data_consumer - INFO - 启动批量插入工作线程: worker-1
+2025-06-06 18:44:37,450 - enhanced_data_consumer - INFO - 启动批量插入工作线程: worker-2
+2025-06-06 18:44:37,450 - enhanced_data_consumer - INFO - 启动批量插入工作线程: worker-3
+2025-06-06 18:44:37,451 - enhanced_data_consumer - INFO - 增强版数据消费器启动成功
+2025-06-06 18:44:37,451 - enhanced_data_consumer - INFO - 开始消费 Redis 数据...
+2025-06-06 18:45:39,047 - enhanced_data_consumer - INFO - ============================================================
+2025-06-06 18:45:39,047 - enhanced_data_consumer - INFO - Mac 端性能监控报告
+2025-06-06 18:45:39,048 - enhanced_data_consumer - INFO - ============================================================
+2025-06-06 18:45:39,048 - enhanced_data_consumer - INFO - 运行时间: 0:01:02.170886
+2025-06-06 18:45:39,048 - enhanced_data_consumer - INFO - 消费数据: 363 条 (5.8/秒)
+2025-06-06 18:45:39,048 - enhanced_data_consumer - INFO - 插入数据: 341 条 (5.5/秒)
+2025-06-06 18:45:39,049 - enhanced_data_consumer - INFO - 成功率: 93.9%
+2025-06-06 18:45:39,049 - enhanced_data_consumer - INFO - 插入错误: 0 次
+2025-06-06 18:45:39,050 - enhanced_data_consumer - INFO - 质量错误: 0 次
+2025-06-06 18:45:39,050 - enhanced_data_consumer - INFO - 队列大小: 0
+2025-06-06 18:45:39,050 - enhanced_data_consumer - INFO - 处理股票: 363 只
+2025-06-06 18:45:39,050 - enhanced_data_consumer - INFO - 最后插入: 2025-06-06 18:45:36.063544
+2025-06-06 18:45:39,050 - enhanced_data_consumer - INFO - ============================================================
+2025-06-06 18:46:44,277 - enhanced_data_consumer - INFO - ============================================================
+2025-06-06 18:46:44,277 - enhanced_data_consumer - INFO - Mac端性能监控报告
+2025-06-06 18:46:44,277 - enhanced_data_consumer - INFO - ============================================================
+2025-06-06 18:46:44,277 - enhanced_data_consumer - INFO - 运行时间: 0:02:07.400751
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 消费数据: 716条 (5.6/秒)
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 插入数据: 700条 (5.5/秒)
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 成功率: 97.8%
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 插入错误: 0次
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 质量错误: 0次
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 队列大小: 0
+2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 处理股票: 716只
+2025-06-06 18:46:44,279 - enhanced_data_consumer - INFO - 最后插入: 2025-06-06 18:46:41.544365
+2025-06-06 18:46:44,279 - enhanced_data_consumer - INFO - ============================================================
+</code></pre>
+<h2 id="开发过程中的技术挑战">🛠️ <strong>开发过程中的技术挑战</strong></h2>
+<h3 id="挑战-1qmt-api-的兼容性问题">挑战 1：QMT API 的兼容性问题</h3>
+<p>在测试全推行情订阅时，我们遇到了 API 兼容性问题：</p>
+<pre><code class="language-python"># 第一次尝试失败
+try:
+    result = xtdata.subscribe_whole_quote(
+        code_list=self.stock_list,
+        callback=self.on_whole_quote_data
+    )
+except Exception as e:
+    self.logger.error(f&quot;全推行情订阅失败: {e}&quot;)
+    # 自动降级到单股订阅
+    return self.start_individual_subscription()
+</code></pre>
+<p>007 机智地设计了降级机制：如果全推行情订阅失败，自动切换到单股订阅模式，确保系统的鲁棒性。</p>
+<h3 id="挑战-2数据格式的多样性">挑战 2：数据格式的多样性</h3>
+<p>QMT 返回的数据格式并不统一，有时是字典，有时是列表：</p>
+<pre><code class="language-python">def process_quote_data(self, symbol, quote_data):
+    &quot;&quot;&quot;处理行情数据&quot;&quot;&quot;
+    if isinstance(quote_data, dict):
+        # 字典格式处理
+        minute_bar = {
+            &quot;symbol&quot;: symbol,
+            &quot;open&quot;: float(quote_data.get(&#39;open&#39;, 0)),
+            # ...
+        }
+    elif isinstance(quote_data, list) and len(quote_data) &gt;= 6:
+        # 列表格式处理
+        minute_bar = {
+            &quot;symbol&quot;: symbol,
+            &quot;open&quot;: float(quote_data[1]) if len(quote_data) &gt; 1 else 0,
+            # ...
+        }
+</code></pre>
+<p>007 设计了智能的数据格式适配器，能够自动识别和处理不同的数据格式。</p>
+<h3 id="系统功能验证">系统功能验证</h3>
+<p>增强版系统自动完成了以下功能：</p>
+<ul>
+<li>✅ <strong>全市场覆盖</strong>：1000 只股票实时订阅，覆盖主板、中小板、创业板、科创板</li>
+<li>✅ <strong>智能数据质量</strong>：90% 以上的数据质量，自动过滤异常数据</li>
+<li>✅ <strong>批量高效处理</strong>：6 条/秒的处理速度</li>
+<li>✅ <strong>实时性能监控</strong>：每分钟输出详细监控报告</li>
+<li>✅ <strong>自动错误恢复</strong>：网络中断自动重连，API 失败自动降级</li>
+<li>✅ <strong>资源优化管理</strong>：内存使用稳定，CPU 使用率低</li>
+<li>✅ <strong>7×24 小时运行</strong>：连续运行 48 小时无故障</li>
+</ul>
+<h3 id="数据存储效果验证">数据存储效果验证</h3>
+<p>&quot;让我们快速查询一下最近 3 分钟的数据，验证系统的实时性。&quot;我打开 ClickHouse 客户端。</p>
+<pre><code class="language-sql">-- 查询最近 3 分钟的数据
+SELECT
+    count() as total_records,
+    count(DISTINCT symbol) as unique_symbols,
+    min(frame) as earliest_time,
+    max(frame) as latest_time,
+    round(avg(vol), 0) as avg_volume
+FROM minute_bars
+WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_05.png" alt=""></p>
+<p>&quot;太棒了！&quot;我兴奋地指着查询结果，&quot;你看：</p>
+<ul>
+<li><strong>实时性验证</strong>：最近 3 分钟内有 5434 条记录</li>
+<li><strong>系统状态</strong>：数据持续更新到最新时间，系统运行正常&quot;</li>
+</ul>
+<p>007 也很满意：&quot;收到🫡！简单的查询就能验证系统的实时性和稳定性，增强版表现优异！&quot;</p>
+<h2 id="多-client-消费-redis-的数据">❓多 client 消费 Redis 的数据</h2>
+<div class="admonition admonition-question"><p class="admonition-title">question</p>
+如果我希望支持多个客户端（例如 5 个）同时消费相同的 Redis 数据，应该怎么设计方案呢？
+</div>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_11.png" alt=""></p>
+<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   数据生产者     │───▶│  Redis Streams  │───▶│   消费者组      │
+│  (QMT Windows)  │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                       │
+                       ┌────────────────────────────────┼────────────────────────────────┐
+                       │                                │                                │
+                       ▼                                ▼                                ▼
+              ┌─────────────────┐              ┌─────────────────┐              ┌─────────────────┐
+              │   消费者客户端 1  │              │   消费者客户端 2  │               │   消费者客户端 N  │
+              │   (Mac 端)      │              │   (Linux 端)    │              │   (其他端)      │
+              └─────────────────┘              └─────────────────┘              └─────────────────┘
+                       │                                │                                │
+                       ▼                                ▼                                ▼
+              ┌─────────────────┐              ┌─────────────────┐              ┌─────────────────┐
+              │  ClickHouse DB  │              │  ClickHouse DB  │              │  其他存储系统     │
+              └─────────────────┘              └─────────────────┘              └─────────────────┘
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_06.png" alt=""></p>
+<p>007 非常贴心地给出了以下的方案：</p>
+<h3 id="方案设计">方案设计</h3>
+<h4>方案一：发布/订阅模式（Pub/Sub）- 推荐</h4>
+<pre><code>数据生产者 → Redis Pub/Sub Channel → 多个消费者客户端
+</code></pre>
+<p>优点：</p>
+<ul>
+<li>天然支持多个订阅者</li>
+<li>实时性好</li>
+<li>实现简单</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>消息不持久化，客户端离线时会丢失数据</li>
+<li>无法保证消息送达</li>
+</ul>
+<h4>方案二：Redis Streams + 消费者组 - 最佳方案</h4>
+<pre><code>数据生产者 → Redis Stream → 消费者组 → 多个消费者客户端
+</code></pre>
+<p>优点：</p>
+<ul>
+<li>消息持久化</li>
+<li>支持消费者组，自动负载均衡</li>
+<li>支持消息确认机制</li>
+<li>支持故障恢复</li>
+</ul>
+<h4>方案三：多队列分片模式</h4>
+<pre><code>数据生产者 → 多个 Redis 队列 → 多个消费者客户端（每个客户端消费所有队列）
+</code></pre>
+<h3 id="具体实现">具体实现</h3>
+<p>🏗️ 架构设计</p>
+<ul>
+<li>基于 Redis Streams + 消费者组：这是最佳方案，支持消息持久化、自动负载均衡和故障恢复</li>
+<li>支持 3 种消费模式：<ul>
+<li>广播模式：每个客户端接收所有数据副本</li>
+<li>分片模式：数据按规则分片，客户端处理不同数据子集</li>
+<li>混合模式：结合广播和分片的优势</li>
+</ul>
+</li>
+</ul>
+<p>📁 实现文件</p>
+<ul>
+<li><code>multi_client_design.md</code> - 完整的架构设计文档</li>
+<li><code>multi_client_consumer.py</code> - 多客户端消费器核心实现</li>
+<li><code>multi_client_config.yaml</code> - 详细的配置文件模板</li>
+<li><code>multi_client_main.py</code> - 主程序和管理界面</li>
+<li><code>stream_producer_example.py</code> - 生产者端示例代码</li>
+</ul>
+<p>Redis Streams 数据结构：</p>
+<pre><code>Stream Key: minute_bar_stream
+消息格式: {
+    &quot;symbol&quot;: &quot;000001.SZ&quot;,
+    &quot;frame&quot;: &quot;2025-06-05 10:30:00&quot;,
+    &quot;open&quot;: 10.50,
+    &quot;high&quot;: 10.80,
+    &quot;low&quot;: 10.45,
+    &quot;close&quot;: 10.75,
+    &quot;vol&quot;: 1000000,
+    &quot;amount&quot;: 10750000,
+    &quot;timestamp&quot;: 1733356200.123,
+    &quot;quality_score&quot;: 0.95
+}
+</code></pre>
+<p>消费者组配置：</p>
+<pre><code>消费者组名: minute_bar_consumers
+消费者ID: client_mac_001, client_linux_002, etc.
+</code></pre>
+<p>消费者端的架构：</p>
+<pre><code class="language-python">class MultiClientDataConsumer:
+    def __init__(self, client_id, consumer_group=&quot;minute_bar_consumers&quot;):
+        self.client_id = client_id
+        self.consumer_group = consumer_group
+        self.stream_key = &quot;minute_bar_stream&quot;
+
+    def start_consumption(self):
+        # 创建消费者组
+        self.create_consumer_group()
+
+        # 开始消费数据
+        self.consume_stream_data()
+
+    def create_consumer_group(self):
+        try:
+            self.redis_client.xgroup_create(
+                self.stream_key,
+                self.consumer_group,
+                id=&#39;0&#39;,
+                mkstream=True
+            )
+        except redis.ResponseError:
+            # 消费者组已存在
+            pass
+
+    def consume_stream_data(self):
+        while self.is_running:
+            # 从Stream读取数据
+            messages = self.redis_client.xreadgroup(
+                self.consumer_group,
+                self.client_id,
+                {self.stream_key: &#39;&gt;&#39;},
+                count=100,
+                block=1000
+            )
+
+            for stream, msgs in messages:
+                for msg_id, fields in msgs:
+                    self.process_message(msg_id, fields)
+
+    def process_message(self, msg_id, fields):
+        try:
+            # 处理数据
+            self.handle_minute_bar_data(fields)
+
+            # 确认消息处理完成
+            self.redis_client.xack(
+                self.stream_key,
+                self.consumer_group,
+                msg_id
+            )
+        except Exception as e:
+            self.logger.error(f&quot;处理消息失败: {e}&quot;)
+            # 可以选择重试或放入死信队列
+</code></pre>
+<h3 id="实现效果">实现效果</h3>
+<p>我们设计了一个多客户端消费器管理页面，在没有任何输入的时候会返回平安银行的实时价格：
+<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_10.png" alt=""></p>
+<h4>1. 查看消费者状态</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_07.png" alt=""></p>
+<h4>2. 查看统计信息</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_08.png" alt=""></p>
+<h4>3. 停止消费者</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_09.png" alt=""></p>
+<h3 id="总结">总结</h3>
+<p>&quot;007，这次的增强版开发真的很棒！从基础版的原型验证到增强版的性能飞跃，并且给我提供了多 Client 问题的方案，你的表现超出了我的预期。&quot;我由衷地赞叹。</p>
+<p>&quot;谢谢你的认可！这得益于我们团队的合作和不断的学习。&quot;007 谦虚地说。</p>
+<p>下一节，我和 007 将继续解决分钟线合成的问题，并且对我们的系统逻辑进一步修改和完善。</p>
+</div> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#需求分析我们要做什么" title="📋 需求分析：我们要做什么">📋 需求分析：我们要做什么</a> </li><li class> <a href="#qmt-接口深度调研" title="🔧 QMT 接口深度调研">🔧 QMT 接口深度调研</a> </li><li class="lv3"> <a href="#数据订阅相关接口" title="数据订阅相关接口">数据订阅相关接口</a> </li><li class="lv3"> <a href="#连接和控制接口" title="连接和控制接口">连接和控制接口</a> </li><li class="lv3"> <a href="#技术架构设计" title="技术架构设计">技术架构设计</a> </li><li class> <a href="#从零开始基础版系统搭建" title="🏗️ 从零开始：基础版系统搭建">🏗️ 从零开始：基础版系统搭建</a> </li><li class="lv3"> <a href="#第一步windows-端数据订阅器" title="第一步：Windows 端数据订阅器">第一步：Windows 端数据订阅器</a> </li><li class="lv3"> <a href="#第二步mac-端数据消费器" title="第二步：Mac 端数据消费器">第二步：Mac 端数据消费器</a> </li><li class="lv3"> <a href="#第三步初步测试与现实的冲击" title="第三步：初步测试与现实的冲击">第三步：初步测试与现实的冲击</a> </li><li class> <a href="#遇到的问题基础版的瓶颈分析" title="😤 遇到的问题：基础版的瓶颈分析">😤 遇到的问题：基础版的瓶颈分析</a> </li><li class="lv3"> <a href="#问题-1订阅效率低下" title="问题 1：订阅效率低下">问题 1：订阅效率低下</a> </li><li class="lv3"> <a href="#问题-2性能瓶颈明显" title="问题 2：性能瓶颈明显">问题 2：性能瓶颈明显</a> </li><li class> <a href="#技术突破全推行情订阅的威力" title="🚀 技术突破：全推行情订阅的威力">🚀 技术突破：全推行情订阅的威力</a> </li><li class="lv3"> <a href="#基础版-vs-增强版订阅对比" title="基础版 vs 增强版订阅对比">基础版 vs 增强版订阅对比</a> </li><li class> <a href="#批量处理性能提升" title="⚡ 批量处理性能提升">⚡ 批量处理性能提升</a> </li><li class="lv3"> <a href="#windows-端生产者批量处理架构" title="Windows 端：生产者批量处理架构">Windows 端：生产者批量处理架构</a> </li><li class="lv3"> <a href="#mac-端多工作线程批量插入" title="Mac 端：多工作线程批量插入">Mac 端：多工作线程批量插入</a> </li><li class> <a href="#实时监控系统状态一目了然" title="📊 实时监控：系统状态一目了然">📊 实时监控：系统状态一目了然</a> </li><li class="lv3"> <a href="#windows-端实时监控" title="Windows 端实时监控">Windows 端实时监控</a> </li><li class="lv3"> <a href="#mac-端实时监控" title="Mac 端实时监控">Mac 端实时监控</a> </li><li class> <a href="#开发过程中的技术挑战" title="🛠️ 开发过程中的技术挑战">🛠️ 开发过程中的技术挑战</a> </li><li class="lv3"> <a href="#挑战-1qmt-api-的兼容性问题" title="挑战 1：QMT API 的兼容性问题">挑战 1：QMT API 的兼容性问题</a> </li><li class="lv3"> <a href="#挑战-2数据格式的多样性" title="挑战 2：数据格式的多样性">挑战 2：数据格式的多样性</a> </li><li class="lv3"> <a href="#系统功能验证" title="系统功能验证">系统功能验证</a> </li><li class="lv3"> <a href="#数据存储效果验证" title="数据存储效果验证">数据存储效果验证</a> </li><li class> <a href="#多-client-消费-redis-的数据" title="❓多 client 消费 Redis 的数据">❓多 client 消费 Redis 的数据</a> </li><li class="lv3"> <a href="#方案设计" title="方案设计">方案设计</a> </li><li class="lv3"> <a href="#具体实现" title="具体实现">具体实现</a> </li><li class="lv3"> <a href="#实现效果" title="实现效果">实现效果</a> </li><li class="lv3"> <a href="#总结" title="总结">总结</a> </li> </ul> </aside> </div>  <footer class="foot"> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="pv">本站总访问量 <span id="busuanzi_value_site_pv">-</span> · 访客数 <span id="busuanzi_value_site_uv">-</span></span> </footer> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idx = null;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idx) {
+            var m = await import('/pagefind/pagefind.js');
+            idx = await m.options({ baseUrl: '/' });
+          }
+          var r = await idx.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + (d.meta?.title || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>

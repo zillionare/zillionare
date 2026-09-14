@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>Pandas核心语法[5] | 匡醍量化</title><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><script defer src="https://events.vercount.one/js"></script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class="active" aria-current="page">博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">博客目录</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">algo</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">tcn</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/algo/tcn/ai股票分析/" class title="一个很强的股票智能分析系统">一个很强的股票智能分析系统</a></li><li><a href="/posts/algo/tcn/tcn原理/" class title="聊聊 TCN：一种更清晰的时间序列解构方式">聊聊 TCN：一种更清晰的时间序列解构方式</a></li><li><a href="/posts/algo/tcn/tcn番外/" class title="TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境">TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境</a></li><li><a href="/posts/algo/tcn/因果卷积/" class title="为什么我们需要因果卷积？">为什么我们需要因果卷积？</a></li> </ul> </details> </li><li><a href="/posts/algo/HDBSCAN_1/" class title="用HDBSCAN聚类算法选股是否有效">用HDBSCAN聚类算法选股是否有效</a></li><li><a href="/posts/algo/an-enigma-min-range/" class title="地量见地价？我拿一年的上证数据算了算">地量见地价？我拿一年的上证数据算了算</a></li><li><a href="/posts/algo/data-normalization/" class title="夏普大于4的策略有多恐怖？但它为什么好得不真实？">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a></li><li><a href="/posts/algo/fft/" class title="快速傅里叶变换与股价预测研究">快速傅里叶变换与股价预测研究</a></li><li><a href="/posts/algo/flag-pattern-detection/" class title="烛台密码 三角形整理如何提示玄机">烛台密码 三角形整理如何提示玄机</a></li><li><a href="/posts/algo/hdbscan/" class title="hdbscan 聚类算法扫描配对交易 速度提升99倍">hdbscan 聚类算法扫描配对交易 速度提升99倍</a></li><li><a href="/posts/algo/how-gradient-boost-learned-from-regression/" class title="比Deepseek还要Deep！起底GBDT做回归预测的秘密">比Deepseek还要Deep！起底GBDT做回归预测的秘密</a></li><li><a href="/posts/algo/ks-test-and-cdf/" class title="KS Test, 广义双曲分布和抄底沪指">KS Test, 广义双曲分布和抄底沪指</a></li><li><a href="/posts/algo/monte-carlo/" class title="蒙特卡洛：看似很高端的技术，其实很暴力很初级">蒙特卡洛：看似很高端的技术，其实很暴力很初级</a></li><li><a href="/posts/algo/noise-test/" class title="样本外测试之外，我们还有哪些过拟合检测方法？">样本外测试之外，我们还有哪些过拟合检测方法？</a></li><li><a href="/posts/algo/normalization/" class title="基于深度学习的量化策略如何实现归一化？">基于深度学习的量化策略如何实现归一化？</a></li><li><a href="/posts/algo/pdf-is-all-you-need/" class title="量化面试神题：圆上随机点的概率陷阱">量化面试神题：圆上随机点的概率陷阱</a></li><li><a href="/posts/algo/pdf-is-all-you-need-2/" class title="PDF is all you need(2)">PDF is all you need(2)</a></li><li><a href="/posts/algo/pdf-is-all-you-need-3/" class title="PDF is all you need(3)">PDF is all you need(3)</a></li><li><a href="/posts/algo/picking-nickles-in-front-of-steamroller/" class title="虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a></li><li><a href="/posts/algo/前视偏差-看似明白，实则糊涂/" class title="前视偏差 - 看似明白，实则糊涂">前视偏差 - 看似明白，实则糊涂</a></li><li><a href="/posts/algo/千禧年的脑筋急转弯/" class title="2024已过一半，千禧年发布了这道脑筯急转弯">2024已过一半，千禧年发布了这道脑筯急转弯</a></li><li><a href="/posts/algo/如何成为一名量化研究员 /" class title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a></li><li><a href="/posts/algo/强化学习与监督学习/" class title="强化学习 vs 监督学习：AI炒股的两种思路">强化学习 vs 监督学习：AI炒股的两种思路</a></li><li><a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/" class title="关于昨天应该涨多少这件事，Tushare 和 东财还没商量好">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a></li><li><a href="/posts/algo/结合主成分分析、离散小波和XGBoost的交易策略/" class title="带你读论文：PCA、离散小波和 XGBoost构建交易策略">带你读论文：PCA、离散小波和 XGBoost构建交易策略</a></li><li><a href="/posts/algo/谁压垮了这个基站/" class title="谁压垮了这个基站？用XGBoost如何进行时序事件归因">谁压垮了这个基站？用XGBoost如何进行时序事件归因</a></li><li><a href="/posts/algo/财报电话会里的风险之声/" class title="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">career&amp;figure</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/career&#38;figure/Daniel-Kahneman/" class title="没能上热搜，但卡尼曼值得我们纪念">没能上热搜，但卡尼曼值得我们纪念</a></li><li><a href="/posts/career&#38;figure/does-arma-garch-matter-in-quant/" class title="在量化交易中，掌握ARMA/GARCH 的重要性？">在量化交易中，掌握ARMA/GARCH 的重要性？</a></li><li><a href="/posts/career&#38;figure/how-to-apply-citadel/" class title="Datathon-我的Citadel量化岗之路！附历年比赛资料">Datathon-我的Citadel量化岗之路！附历年比赛资料</a></li><li><a href="/posts/career&#38;figure/how-to-determine-research-topic/" class title="金融/计量专业，硕士论文怎么确定研究课题？">金融/计量专业，硕士论文怎么确定研究课题？</a></li><li><a href="/posts/career&#38;figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story/" class title="高薪金领都用啥编程语言？SQL、Python领航，附排名！">高薪金领都用啥编程语言？SQL、Python领航，附排名！</a></li><li><a href="/posts/career&#38;figure/john-fawcett/" class title="反抗者的崛起！Fawce 和 Quantopian 的量化之路">反抗者的崛起！Fawce 和 Quantopian 的量化之路</a></li><li><a href="/posts/career&#38;figure/max-dama-on-automated-trading/" class title="我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路">我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路</a></li><li><a href="/posts/career&#38;figure/rolf-banz/" class title="牛人太多：小市值因子之父，毕业论文被大佬狂怼">牛人太多：小市值因子之父，毕业论文被大佬狂怼</a></li><li><a href="/posts/career&#38;figure/successfully-starting-a-career-in-quant-research/" class title="successfully-starting-a-career-in-quant-research">successfully-starting-a-career-in-quant-research</a></li><li><a href="/posts/career&#38;figure/买卖双方/" class title="金融行业买方与卖方：利润与稳定性的背后逻辑">金融行业买方与卖方：利润与稳定性的背后逻辑</a></li><li><a href="/posts/career&#38;figure/如何才能入行量化交易/" class title="硕士在读，如何才能入行量化交易">硕士在读，如何才能入行量化交易</a></li><li><a href="/posts/career&#38;figure/月亮和pandas/" class title="月亮和Pandas - Wes Mckinney的传奇故事">月亮和Pandas - Wes Mckinney的传奇故事</a></li><li><a href="/posts/career&#38;figure/起底百亿私募创始人/" class title="找校友！起底百亿私募创始人">找校友！起底百亿私募创始人</a></li><li><a href="/posts/career&#38;figure/追随美的指引/" class title="追随美的指引-纪念西蒙斯">追随美的指引-纪念西蒙斯</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/九月</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/九月/0920/" class title="9月20日资讯速递">9月20日资讯速递</a></li><li><a href="/articles/express/九月/0921/" class title="9月21日资讯速递">9月21日资讯速递</a></li><li><a href="/articles/express/九月/0922/" class title="9月22日资讯速递">9月22日资讯速递</a></li><li><a href="/articles/express/九月/0923/" class title="9月23日资讯速递">9月23日资讯速递</a></li><li><a href="/articles/express/九月/0924/" class title="9月24日资讯速递">9月24日资讯速递</a></li><li><a href="/articles/express/九月/0925/" class title="9月25日资读速递">9月25日资读速递</a></li><li><a href="/articles/express/九月/0927/" class title="9月27日资读速递">9月27日资读速递</a></li><li><a href="/articles/express/九月/0928/" class title="9 月 28 日资读速递">9 月 28 日资读速递</a></li><li><a href="/articles/express/九月/0929/" class title="9 月 29 日资读速递">9 月 29 日资读速递</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/十月</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/十月/1004/" class title="每日7点【10月4日】">每日7点【10月4日】</a></li><li><a href="/articles/express/十月/1011/" class title="每日7点【10月11日】">每日7点【10月11日】</a></li><li><a href="/articles/express/十月/1012/" class title="每日7点【10月12日】">每日7点【10月12日】</a></li><li><a href="/articles/express/十月/1014/" class title="【10月14日】 量化新因子怎么挖？verition的一则招聘泄露天机">【10月14日】 量化新因子怎么挖？verition的一则招聘泄露天机</a></li><li><a href="/articles/express/十月/1016/" class title="【10月16日】 一道概率题">【10月16日】 一道概率题</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">factor-strategy</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/factor-strategy/1赔10，3月27日我抄底了/" class title="1赔10！中证1000应该这样抄底">1赔10！中证1000应该这样抄底</a></li><li><a href="/posts/factor-strategy/3月27日为什么大跌/" class title="交割日魔咒？">交割日魔咒？</a></li><li><a href="/posts/factor-strategy/7-factor-model/" class title="7因子模型，除了规模、市场、动量和价值，还有哪些？">7因子模型，除了规模、市场、动量和价值，还有哪些？</a></li><li><a href="/posts/factor-strategy/ESG策略初探-01/" class title="ESG策略初探-01">ESG策略初探-01</a></li><li><a href="/posts/factor-strategy/ESG策略初探-02/" class title="ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a></li><li><a href="/posts/factor-strategy/Is-the-A-share-market-undervalued/" class title="节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？">节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？</a></li><li><a href="/posts/factor-strategy/ORB-strategy/" class title="ORB! Alpha 达到年化 36%">ORB! Alpha 达到年化 36%</a></li><li><a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/" class title="不能求二阶导的metrics<br>不是好的objective">不能求二阶导的metrics&lt;br&gt;不是好的objective</a></li><li><a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/" class title="基于 XGBoost 的组合策略基本框架">基于 XGBoost 的组合策略基本框架</a></li><li><a href="/posts/factor-strategy/alligator/" class title="鳄鱼线，让趋势成为你的朋友">鳄鱼线，让趋势成为你的朋友</a></li><li><a href="/posts/factor-strategy/alpha042/" class title="第42个因子:年化17.6%，15年累计10倍">第42个因子:年化17.6%，15年累计10倍</a></li><li><a href="/posts/factor-strategy/connors-rsi/" class title="年终特稿：这个指标我愿称之为年度最强发现">年终特稿：这个指标我愿称之为年度最强发现</a></li><li><a href="/posts/factor-strategy/decision-tree-made-easy/" class title="如果模型预测准确率超过85%，这台印钞机应该值多少马内？">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a></li><li><a href="/posts/factor-strategy/first-level-derivation/" class title="当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建">当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a></li><li><a href="/posts/factor-strategy/genetic-algorithms/" class title="量化交易中的遗传算法">量化交易中的遗传算法</a></li><li><a href="/posts/factor-strategy/growing-star-market-weights/" class title="量化股票投资起手式<br>指数增强之<br>指数成份股信息挖掘">量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘</a></li><li><a href="/posts/factor-strategy/herd-behaviour/" class title="羊群效应及其因子化">羊群效应及其因子化</a></li><li><a href="/posts/factor-strategy/hindsight-how-do-i-missed-dlsy/" class title="后见之明！错过6个涨停之后的复盘">后见之明！错过6个涨停之后的复盘</a></li><li><a href="/posts/factor-strategy/hockey-and-coin/" class title="球队和硬币因子">球队和硬币因子</a></li><li><a href="/posts/factor-strategy/holy-grail-still-works/" class title="圣杯依然闪耀">圣杯依然闪耀</a></li><li><a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/" class title="涨到溢出！PEPE告诉我，大盘还能涨几多？">涨到溢出！PEPE告诉我，大盘还能涨几多？</a></li><li><a href="/posts/factor-strategy/lof套利怎么做/" class title="白银大涨引发的量化套利策略">白银大涨引发的量化套利策略</a></li><li><a href="/posts/factor-strategy/low-turnover-factor/" class title="Alphalens 因子分析 - 以低换手率因子为例(1)">Alphalens 因子分析 - 以低换手率因子为例(1)</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-2/" class title="Alphalens因子分析(2) - low turnover秒杀98%的基金经理!">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-3/" class title="因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-4/" class title="Alphalens因子分析(4) - Information Coefficient方法">Alphalens因子分析(4) - Information Coefficient方法</a></li><li><a href="/posts/factor-strategy/magic-hot-word-factor/" class title="龙凤呈祥：这种无底限炒作，如何用量化方法发现它？">龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</a></li><li><a href="/posts/factor-strategy/max-volume-direction/" class title="捕捉主力-最大成交量因子">捕捉主力-最大成交量因子</a></li><li><a href="/posts/factor-strategy/mispriced-option/" class title="mispriced-option">mispriced-option</a></li><li><a href="/posts/factor-strategy/ml-predict-peaks-valleys-1/" class title="机器学习(XgBoost）预测顶和底">机器学习(XgBoost）预测顶和底</a></li><li><a href="/posts/factor-strategy/nh-nl/" class title="净新高占比因子">净新高占比因子</a></li><li><a href="/posts/factor-strategy/perf-of-momentum-10/" class title="7月：斜率动量因子表现回顾">7月：斜率动量因子表现回顾</a></li><li><a href="/posts/factor-strategy/pressure-of-prices-intger/" class title="左数效应 整数关口与光折射">左数效应 整数关口与光折射</a></li><li><a href="/posts/factor-strategy/regret/" class title="Sharpe 5.5!遗憾规避因子">Sharpe 5.5!遗憾规避因子</a></li><li><a href="/posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023/" class title="私募量化策略大盘点-2024年初">私募量化策略大盘点-2024年初</a></li><li><a href="/posts/factor-strategy/santa-clause/" class title="Santa Claus Rally">Santa Claus Rally</a></li><li><a href="/posts/factor-strategy/sec-form-4-insider-purchases/" class title="内幕交易因子研究">内幕交易因子研究</a></li><li><a href="/posts/factor-strategy/second-derivative/" class title="动能反转：二阶导动量因子年化Alpha达到61%！">动能反转：二阶导动量因子年化Alpha达到61%！</a></li><li><a href="/posts/factor-strategy/smart-money-concept/" class title="聪明钱概念策略，另一个价格行为交易策略？">聪明钱概念策略，另一个价格行为交易策略？</a></li><li><a href="/posts/factor-strategy/switch-to-decimal/" class title="改用十进制！点差如何影响策略">改用十进制！点差如何影响策略</a></li><li><a href="/posts/factor-strategy/time-will-tell/" class title="时间会证明一切！抢头财（报）就是抢头彩？！">时间会证明一切！抢头财（报）就是抢头彩？！</a></li><li><a href="/posts/factor-strategy/ultimate-oscillator/" class title="一门三杰 一年翻十倍的男人发明了 UO 指标">一门三杰 一年翻十倍的男人发明了 UO 指标</a></li><li><a href="/posts/factor-strategy/week-day-factor/" class title="周一到周五，哪天能买股？做对了夏普22.5！">周一到周五，哪天能买股？做对了夏普22.5！</a></li><li><a href="/posts/factor-strategy/word-count/" class title="WorldQuant? Word Count!">WorldQuant? Word Count!</a></li><li><a href="/posts/factor-strategy/z-score-factor/" class title="Z-score 因子的深入思考">Z-score 因子的深入思考</a></li><li><a href="/posts/factor-strategy/低波动因子/" class title="新国九条下，低波动因子重要性提升！">新国九条下，低波动因子重要性提升！</a></li><li><a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/" class title="在这一刻抄底，胜率高达95%">在这一刻抄底，胜率高达95%</a></li><li><a href="/posts/factor-strategy/市盈率因子该怎么用/" class title="不看懂这篇文章，不要在量化中使用市盈率！">不看懂这篇文章，不要在量化中使用市盈率！</a></li><li><a href="/posts/factor-strategy/打新不中，买新当如何/" class title="打新不中，买新当如何？lightgbm 打新模型如何构建？">打新不中，买新当如何？lightgbm 打新模型如何构建？</a></li><li><a href="/posts/factor-strategy/拯救cci/" class title="拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！">拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！</a></li><li><a href="/posts/factor-strategy/暴力美学！洗盘模式如何检测/" class title="暴力美学！洗盘模式如何检测？">暴力美学！洗盘模式如何检测？</a></li><li><a href="/posts/factor-strategy/构建强化学习交易模型/" class title="强化学习模型能否自我演化出交易智慧？">强化学习模型能否自我演化出交易智慧？</a></li><li><a href="/posts/factor-strategy/洛书投资解读/" class title="洛书投资：先验性因子与波动率等权">洛书投资：先验性因子与波动率等权</a></li><li><a href="/posts/factor-strategy/终极猜想!底蓓离的成因分析/" class title="终极猜想！底蓓离的成因分析">终极猜想！底蓓离的成因分析</a></li><li><a href="/posts/factor-strategy/跟着国会山股神去炒股/" class title="Political Alpha，跟着国会山股神去炒股">Political Alpha，跟着国会山股神去炒股</a></li><li><a href="/posts/factor-strategy/顶底标注/" class title="为了机器能学习，我标注了 2 万条行情数据">为了机器能学习，我标注了 2 万条行情数据</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">freshman</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/freshman/roadmap-to-become-a-quant/" class title="问薪无愧！<br>自学量化大纲有这75页就够了">问薪无愧！&lt;br&gt;自学量化大纲有这75页就够了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/策略研究</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/策略研究/capm/" class title="资本资产定价模型">资本资产定价模型</a></li><li><a href="/articles/investment/策略研究/mpt-1/" class title="投资组合理论与实战(1) - 基本概念">投资组合理论与实战(1) - 基本概念</a></li><li><a href="/articles/investment/策略研究/mpt-2/" class title="投资组合理论与实战(2) - 蒙特卡洛方法">投资组合理论与实战(2) - 蒙特卡洛方法</a></li><li><a href="/articles/investment/策略研究/mpt-3/" class title="投资组合理论与实战(3) - 优化算法">投资组合理论与实战(3) - 优化算法</a></li><li><a href="/articles/investment/策略研究/mpt-4/" class title="投资组合理论与实战(4) - PyportfolioOpt工具库">投资组合理论与实战(4) - PyportfolioOpt工具库</a></li><li><a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/" class title="关于寻找顶和底的一些研究">关于寻找顶和底的一些研究</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/实盘接入/" class title="量化实盘接入方式">量化实盘接入方式</a></li><li><a href="/articles/investment/量化库/数据持久化/数据持久化/" class title="量化数据的持久化方案">量化数据的持久化方案</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化杂谈</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化杂谈/tulipmania/" class title="花开曾倾国">花开曾倾国</a></li><li><a href="/articles/investment/量化杂谈/voc/" class title="东印度公司">东印度公司</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">papers</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/papers/03-低延迟趋势线与交易择时/" class title="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？">『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</a></li><li><a href="/posts/papers/04-年化25%的策略为何翻车/" class title="『译研报04』 年化25%的策略到底有没有翻车？">『译研报04』 年化25%的策略到底有没有翻车？</a></li><li><a href="/posts/papers/kronos/" class title="kronos">kronos</a></li><li><a href="/posts/papers/rsrs择时指标/" class title="RSRS 择时指标">RSRS 择时指标</a></li><li><a href="/posts/papers/ubl/" class title="『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/ubl-2/" class title="『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/分享免费金融扩展工具/" class title="如何获取免费的华尔街日报的文章">如何获取免费的华尔街日报的文章</a></li><li><a href="/posts/papers/研报该如何复现/" class title="把研报『翻译』成代码，80%的工作都在这篇文章里讲了">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/python/awesome-code/" class title="只廖廖数行，但很惊艳的代码">只廖廖数行，但很惊艳的代码</a></li><li><a href="/posts/python/duckdb-2/" class title="为什么量化人应该使用duckdb？">为什么量化人应该使用duckdb？</a></li><li><a href="/posts/python/how-to-set-env-in-jupyter-notebook/" class title="Jupyter Notebook中如何设置环境变量？">Jupyter Notebook中如何设置环境变量？</a></li><li><a href="/posts/python/it-is-π-thon/" class title="π-thon以及他的朋友们">π-thon以及他的朋友们</a></li><li><a href="/posts/python/pypinyin/" class title="4k stars! 如何实现按拼音首字母查询证券代码？">4k stars! 如何实现按拼音首字母查询证券代码？</a></li><li><a href="/posts/python/python-just-released-3.13/" class title="10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本">10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本</a></li><li><a href="/posts/python/qmt-how-to-handle-dr-adjust/" class title="提速100倍！QMT复权因子高效算法">提速100倍！QMT复权因子高效算法</a></li><li><a href="/posts/python/static-blog-in-2024/" class title="2024年，免费博客赚钱方案">2024年，免费博客赚钱方案</a></li><li><a href="/posts/python/use-sql-query-with-pandas/" class title="给Pandas找个搭子，用SQL玩转Dataframe!">给Pandas找个搭子，用SQL玩转Dataframe!</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">resources</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/resources/a-palette-of-colorful-websites/" class title="一些和颜色相关的网站">一些和颜色相关的网站</a></li><li><a href="/posts/resources/barra-risk-model-handbook/" class title="Barra风险模型构建完全指南">Barra风险模型构建完全指南</a></li><li><a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/" class title="来自世坤！寻找Alpha 构建交易策略的量化方法">来自世坤！寻找Alpha 构建交易策略的量化方法</a></li><li><a href="/posts/resources/free-paper-download/" class title="论如何白嫖论文">论如何白嫖论文</a></li><li><a href="/posts/resources/top-journals-in-quantitative-finance/" class title="量化金融人都在看哪些顶刊">量化金融人都在看哪些顶刊</a></li><li><a href="/posts/resources/白嫖顶级AI算力指南/" class title="龙虾流量太贵？ 我一招搞定每天7500万词元">龙虾流量太贵？ 我一招搞定每天7500万词元</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">2026十大量化技术</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/2026十大量化技术/fasthtml/" class title="量化新基建(三) - FastHTML：Python 全栈开发的终极答案">量化新基建(三) - FastHTML：Python 全栈开发的终极答案</a></li><li><a href="/posts/tools/2026十大量化技术/pandas/" class title="The Battle for a New Dawn<br>量化新基建（四）：Pandas 3.0">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a></li><li><a href="/posts/tools/2026十大量化技术/sqlite/" class title="2026量化新基建(二) - sqlite 与 sqlite-utils">2026量化新基建(二) - sqlite 与 sqlite-utils</a></li><li><a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/" class title="UV &#38; Pydantic：重塑 2026 Python 工程化基石">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">21天驯化AI打工仔</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/21天驯化AI打工仔/1_数据获取/" class title="21天驯化AI打工仔 - 我如何获取量化数据">21天驯化AI打工仔 - 我如何获取量化数据</a></li><li><a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/" class title="21天驯化AI打工仔 - 开发量化交易系统">21天驯化AI打工仔 - 开发量化交易系统</a></li><li><a href="/posts/tools/21天驯化AI打工仔/3_数据库的优化设计/" class title="21天驯化AI打工仔 - 数据库的优化">21天驯化AI打工仔 - 数据库的优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/" class title="21天驯化AI打工仔 - 如何存储10亿个Symbol?">21天驯化AI打工仔 - 如何存储10亿个Symbol?</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/" class title="21天驯化AI打工仔 - SQEP 的性能再优化">21天驯化AI打工仔 - SQEP 的性能再优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/" class title="21天驯化AI打工仔 - SQEP与symbol编码性能测试">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a></li><li><a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/" class title="21天驯化AI打工仔 - 日线数据的定时获取">21天驯化AI打工仔 - 日线数据的定时获取</a></li><li><a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/" class title="21天驯化AI打工仔 - 日线数据的定时获取（2）">21天驯化AI打工仔 - 日线数据的定时获取（2）</a></li><li><a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/" class title="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a></li><li><a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/" class title="21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">AI-tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming/" class title="除了编程，量化人还能怎么用AI？">除了编程，量化人还能怎么用AI？</a></li><li><a href="/posts/tools/AI-tools/remote-agent/" class title="Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub" open> <summary class="nav-dir"><span class="nav-label">Numpy_Pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/Numpy_Pandas/01-introduction/01-introduction/" class title="这是你的量化母语">这是你的量化母语</a></li><li><a href="/posts/tools/Numpy_Pandas/02-numpy核心语法[1]/02-numpy核心语法[1]/" class title="Numpy核心语法[1]">Numpy核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/03-numpy核心语法[2]/03-numpy核心语法[2]/" class title="Numpy处理表格数据">Numpy处理表格数据</a></li><li><a href="/posts/tools/Numpy_Pandas/04-numpy核心语法[3]/04-numpy核心语法[3]/" class title="Numpy核心语法[3]">Numpy核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/05-numpy核心语法[4]/05-numpy核心语法[4]/" class title="Numpy核心语法[4]">Numpy核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/06-numpy核心语法[5]/06-numpy核心语法[5]/" class title="Numpy核心语法[5]">Numpy核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/07-numpy核心语法[6]/07-numpy核心语法[6]/" class title="Numpy核心语法[6]">Numpy核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/08-numpy应用案例[1]/08-numpy应用案例[1]/" class title="Numpy应用案例[1]">Numpy应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/09-numpy应用案例[2]/09-numpy应用案例[2]/" class title="Numpy应用案例[2]">Numpy应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/10-numpy应用案例[3]/10-numpy应用案例[3]/" class title="Numpy应用案例[3]">Numpy应用案例[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/11-pandas核心语法[1]/11-pandas核心语法[1]/" class title="Pandas核心语法[1]">Pandas核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/12-pandas核心语法[2]/12-pandas核心语法[2]/" class title="Pandas核心语法[2]">Pandas核心语法[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/13-pandas核心语法[3]/13-pandas核心语法[3]/" class title="Pandas核心语法[3]">Pandas核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/14-pandas核心语法[4]/14-pandas核心语法[4]/" class title="Pandas核心语法[4]">Pandas核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/15-pandas核心语法[5]/15-pandas核心语法[5]/" class="current" title="Pandas核心语法[5]">Pandas核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/16-pandas核心语法[6]/16-pandas核心语法[6]/" class title="Pandas核心语法[6]">Pandas核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/17-pandas核心语法[7]/17-pandas核心语法[7]/" class title="Pandas核心语法[7]">Pandas核心语法[7]</a></li><li><a href="/posts/tools/Numpy_Pandas/18-pandas应用案例[1]/18-pandas应用案例[1]/" class title="Pandas应用案例[1]">Pandas应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/19-pandas应用案例[2]/19-pandas应用案例[2]/" class title="Pandas应用案例[2]">Pandas应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/20-pandas应用案例[3]/20-pandas应用案例[3]/" class title="Pandas应用案例[3]">Pandas应用案例[3]</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">moonshot</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-1/" class title="『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架">『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/" class title="『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/" class title="涨时重势，跌时重质，Moonshot首测股息率因子给出结论">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/" class title="研报复现之如何正确筛选『连续两年分红』股票（附代码）">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/" class title="Moonshot is all you need - 红利策略完结篇">Moonshot is all you need - 红利策略完结篇</a></li> </ul> </details> </li><li><a href="/posts/tools/8个ipython技巧/" class title="你可能不知道的8个IPython技巧">你可能不知道的8个IPython技巧</a></li><li><a href="/posts/tools/agent-on-tracks/" class title="Vibe Coding 能做大项目吗？量化人替你试过了">Vibe Coding 能做大项目吗？量化人替你试过了</a></li><li><a href="/posts/tools/all-about-openbb-as-a-newhand/" class title="OpenBB 实战！轻松获取海外市场数据">OpenBB 实战！轻松获取海外市场数据</a></li><li><a href="/posts/tools/alphasuite/" class title="不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词">不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</a></li><li><a href="/posts/tools/augment-daily-dose/" class title="Augment随手记">Augment随手记</a></li><li><a href="/posts/tools/auto-restart-miniqmt/" class title="如何免登录重启miniqmt?">如何免登录重启miniqmt?</a></li><li><a href="/posts/tools/do-not-fly-solo-copilot/" class title="Don't fly solo! 量化人如何使用AI工具">Don&#39;t fly solo! 量化人如何使用AI工具</a></li><li><a href="/posts/tools/duckdb-has-released-1.0/" class title="里程碑！DuckDB 发布 1.0">里程碑！DuckDB 发布 1.0</a></li><li><a href="/posts/tools/effective-numpy-1/" class title="高效量化编程: Mask Array应用和find_runs">高效量化编程: Mask Array应用和find_runs</a></li><li><a href="/posts/tools/effective-pandas-1/" class title="Pandas高级技巧-1">Pandas高级技巧-1</a></li><li><a href="/posts/tools/effective-pandas-2/" class title="高效量化编程: Pandas 的多级索引">高效量化编程: Pandas 的多级索引</a></li><li><a href="/posts/tools/get-clean-factor-and-forward-returns/" class title="12个参数，48个组合，这么复杂的函数怎么学？">12个参数，48个组合，这么复杂的函数怎么学？</a></li><li><a href="/posts/tools/hdf5/" class title="200倍速！基于 HDF5 的证券数据存储">200倍速！基于 HDF5 的证券数据存储</a></li><li><a href="/posts/tools/hermes/" class title="既生瑜 何生亮！ Hermes Agent究竟怎么样？">既生瑜 何生亮！ Hermes Agent究竟怎么样？</a></li><li><a href="/posts/tools/how-to-develop-complex-project-using-augment/" class title="试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目">试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher/" class title="量化人如何用好Jupyter环境？（一）">量化人如何用好Jupyter环境？（一）</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher-2/" class title="量化人如何用好 Jupyter？（二）">量化人如何用好 Jupyter？（二）</a></li><li><a href="/posts/tools/pandas-连续涨停统计/" class title="Pandas连续涨停统计">Pandas连续涨停统计</a></li><li><a href="/posts/tools/pyarrow-plus-parquet/" class title="存了50TB！pyarrow + parquet">存了50TB！pyarrow + parquet</a></li><li><a href="/posts/tools/qmt-get-sector/" class title="xtquant 中的板块数据">xtquant 中的板块数据</a></li><li><a href="/posts/tools/qmt-get-stock-price/" class title="量化数据免费方案之 QMT">量化数据免费方案之 QMT</a></li><li><a href="/posts/tools/quantstats-2/" class title="算收益，用算术平均好还是几何平均好?">算收益，用算术平均好还是几何平均好?</a></li><li><a href="/posts/tools/quantstats-reload-news/" class title="原作者失联8个月，我们接手维护后他突然回来了">原作者失联8个月，我们接手维护后他突然回来了</a></li><li><a href="/posts/tools/quantstats-reloaded/" class title="Quantstats Reloaded">Quantstats Reloaded</a></li><li><a href="/posts/tools/rd-agent-for-quant-intro/" class title="微软 RD-Agent：量化人的 AI 研发搭档">微软 RD-Agent：量化人的 AI 研发搭档</a></li><li><a href="/posts/tools/trade-api/" class title="量化实盘接口">量化实盘接口</a></li><li><a href="/posts/tools/why-click-house-so-fast/" class title="ClickHouse: One table to rule them all!">ClickHouse: One table to rule them all!</a></li><li><a href="/posts/tools/work-with-xtquant/" class title="QMT/XtQuant 之开发环境篇">QMT/XtQuant 之开发环境篇</a></li><li><a href="/posts/tools/关于复权那些事儿/" class title="前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a></li><li><a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/" class title="致命的 ID -- DuckDB 中的 Returning 子句之谜">致命的 ID -- DuckDB 中的 Returning 子句之谜</a></li><li><a href="/posts/tools/量化人的2025新年礼/" class title="睽违17年，ta-lib重装出发！">睽违17年，ta-lib重装出发！</a></li><li><a href="/posts/tools/量化研究员如何写一手好代码/" class title="量化研究员如何写一手好代码">量化研究员如何写一手好代码</a></li><li><a href="/posts/tools/量子计算/" class title="量子计算能否重构量化金融未来？">量子计算能否重构量化金融未来？</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">uncategory</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/uncategory/crowed-strike-postmoterm/" class title="全球Windows机器蓝屏，作为量化人，我的检讨来了">全球Windows机器蓝屏，作为量化人，我的检讨来了</a></li><li><a href="/posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/" class title="DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a></li><li><a href="/posts/uncategory/ipv6-how-to/" class title="当我在星巴克连上家里的服务器，IPV6，你是值得的">当我在星巴克连上家里的服务器，IPV6，你是值得的</a></li><li><a href="/posts/uncategory/need-for-speed/" class title="need-for-speed">need-for-speed</a></li><li><a href="/posts/uncategory/quantide的课程怎么样/" class title="花 930 美元买一门量化课? GPT 如何评估量化课程值不值">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a></li><li><a href="/posts/uncategory/quantumn-computing-break-through/" class title="量子飞跃：汇丰银行债券交易可能成为华尔街未来">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a></li><li><a href="/posts/uncategory/the-awaken-of-machine/" class title="机器的觉醒！人工智能风云激荡70年">机器的觉醒！人工智能风云激荡70年</a></li><li><a href="/posts/uncategory/weekly-0721/" class title="[0721] QuanTide Weekly">[0721] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0728/" class title="[0728] QuanTide Weekly">[0728] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0804/" class title="[0804] QuanTide Weekly">[0804] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0811/" class title="[0811] QuanTide Weekly">[0811] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0818/" class title="[0818] QuanTide Weekly">[0818] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0825/" class title="[0825] QuanTide Weekly">[0825] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0901/" class title="[0901] QuanTide Weekly">[0901] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0908/" class title="[0908] QuanTide Weekly">[0908] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0915/" class title="[0915] QuanTide Weekly">[0915] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0922/" class title="[0922] QuanTide Weekly">[0922] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0929/" class title="[0929] QuanTide Weekly">[0929] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1013/" class title="[1013] QuanTide Weekly">[1013] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1020/" class title="[1020] QuanTide Weekly">[1020] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1027/" class title="[1027] QuanTide Weekly">[1027] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1103/" class title="[1103] QuanTide Weekly">[1103] QuanTide Weekly</a></li><li><a href="/posts/uncategory/进化论/" class title="普校逆袭天花板 进化论王一平：有逻辑的量化">普校逆袭天花板 进化论王一平：有逻辑的量化</a></li><li><a href="/posts/uncategory/量化人也该开始装skills了/" class title="做能调教AI的赛博老技师，量化人也该开始装Skills了">做能调教AI的赛博老技师，量化人也该开始装Skills了</a></li><li><a href="/posts/uncategory/量化黑话/" class title="量化投资黑话：深度解析“因子”及其核心逻辑">量化投资黑话：深度解析“因子”及其核心逻辑</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a><a class="tag" href="/tags/#tag-%E6%95%B0%E6%8D%AE" title="数据（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="数据">数据</span> </a> </div> </div> </aside> <article class="doc-main"> <h1>Pandas核心语法[5]</h1> <p class="meta"> <span>📅 2025-04-01</span> <span>🏷 tools,programming,Numpy,Pandas</span> <span>👁 阅读 <span id="busuanzi_value_page_pv">-</span></span> </p> <img class="cover-img" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg" alt="Pandas核心语法[5]"> <div class="md-body"><p>“Pandas 提供了丰富的 IO 操作功能，支持从 CSV、SQL、Parquet 等多种文件格式中读取数据。通过优化参数如 chunksize、usecols 和 dtype，可以显著提升读取速度并减少内存占用。”</p>
+<hr>
+<h2 id="1-数据预处理类">1. 数据预处理类</h2>
+<!--_因子分析的预处理过程中，要进行缺失值、缩尾、去重等操作，怎么做？_
+fillna, clip, winsorize,dropna-->
+<p>在 Pandas 中，DataFrame 的数据预处理是数据分析的关键步骤，包括数据清洗、缺失值处理、缩尾处理、去重等操作。<strong>fillna</strong>、<strong>clip</strong>、<strong>winsorize</strong> 和 <strong>dropna</strong> 是数据预处理中常用的函数，用于处理缺失值、极端值以及修剪数据范围。以下是它们的详细介绍和用法：</p>
+<h3 id="11-fillna填充缺失值">1.1. fillna：填充缺失值</h3>
+<p>fillna 用于填充 DataFrame 或 Series 中的缺失值（NaN）。它支持多种填充方式，例如用固定值、前向填充、后向填充、均值填充等。</p>
+<p>语法：</p>
+<pre><code class="language-python">DataFrame.fillna(value=None, method=None, axis=None, inplace=False,
+                 limit=None, downcast=None)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>​<strong>value</strong>：用于填充缺失值的值，可以是标量、字典、Series 或 DataFrame。</li>
+<li>​<strong>method</strong>：填充方法，可选 &#39;ffill&#39;（前向填充）、&#39;bfill&#39;（后向填充）。</li>
+<li>​<strong>axis</strong>：填充的轴，0 表示按行填充，1 表示按列填充。</li>
+<li>​<strong>inplace</strong>：是否原地修改数据，默认为 False。</li>
+<li>​<strong>limit</strong>：限制填充的最大连续缺失值数量。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+
+# 创建示例 DataFrame
+data = {&#39;A&#39;: [1, 2, np.nan], &#39;B&#39;: [np.nan, 5, 6]}
+df = pd.DataFrame(data)
+</code></pre>
+<hr>
+<pre><code class="language-python"># 用 0 填充缺失值
+df_filled = df.fillna(0)
+
+# 前向填充
+df_ffill = df.fillna(method=&#39;ffill&#39;)
+
+# 用均值填充
+df_mean_filled = df.fillna(df.mean())
+</code></pre>
+<h3 id="12-clip修剪数据范围">1.2. ​clip：修剪数据范围</h3>
+<p>clip 用于将数据限制在指定的范围内，超出范围的值会被替换为边界值。</p>
+<pre><code class="language-python">DataFrame.clip(lower=None, upper=None, axis=None, inplace=False)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li><strong>lower</strong>：下限值，低于此值的会被替换为下限。</li>
+<li>​<strong>upper</strong>：上限值，高于此值的会被替换为上限。</li>
+<li><strong>axis</strong>：修剪的轴，0 表示按行修剪，1 表示按列修剪。</li>
+<li>​<strong>inplace</strong>：是否原地修改数据。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-python"># 将数据限制在 1 到 5 之间
+df_clipped = df.clip(lower=1, upper=5)
+</code></pre>
+<hr>
+<pre><code class="language-python"># 对每列设置不同的上下限
+lower = pd.Series([1, 2])
+upper = pd.Series([4, 5])
+df_clipped_custom = df.clip(lower=lower, upper=upper, axis=1)
+</code></pre>
+<h3 id="13-winsorize缩尾处理">1.3. ​winsorize：缩尾处理</h3>
+<p>winsorize 用于处理极端值，将超出指定分位数的值替换为分位数的值。它通常用于减少极端值对数据分析的影响。语法（通过 scipy.stats.mstats.winsorize）：</p>
+<pre><code class="language-python">from scipy.stats.mstats import winsorize
+winsorize(data, limits=[lower_limit, upper_limit])
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>​<strong>limits</strong>：指定上下分位数，例如 [0.05, 0.95] 表示将低于 5% 和高于 95% 的值替换为对应分位数的值。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-python">from scipy.stats.mstats import winsorize
+
+# 对数据进行上下 5% 的缩尾处理
+df[&#39;A_winsorized&#39;] = winsorize(df[&#39;A&#39;], limits=[0.05, 0.95])
+</code></pre>
+<hr>
+<h3 id="14-dropna删除缺失值">1.4. ​<strong>dropna：删除缺失值</strong></h3>
+<p>dropna 用于删除包含缺失值的行或列。</p>
+<pre><code class="language-python">DataFrame.dropna(axis=0, how=&#39;any&#39;, thresh=None, subset=None, inplace=False)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li><strong>axis</strong>：删除的轴，0 表示删除行，1 表示删除列。</li>
+<li>​<strong>how</strong>：删除条件，&#39;any&#39;（默认）表示只要有一个缺失值就删除，&#39;all&#39; 表示只有全部为缺失值才删除。</li>
+<li>​<strong>thresh</strong>：保留非缺失值的最小数量。</li>
+<li>​<strong>subset</strong>：指定检查缺失值的列。</li>
+<li>​<strong>inplace</strong>：是否原地修改数据。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-python"># 删除包含缺失值的行
+df_dropped = df.dropna()
+
+# 删除包含缺失值的列
+df_dropped_cols = df.dropna(axis=1)
+
+# 只删除指定列中包含缺失值的行
+df_dropped_subset = df.dropna(subset=[&#39;A&#39;])
+</code></pre>
+<hr>
+<p>!!! 总结
+    - ​<strong>fillna</strong>：用于填充缺失值，支持多种填充方式。
+    - <strong>clip</strong>：用于将数据限制在指定范围内，处理极端值。
+    - <strong>winsorize</strong>：用于缩尾处理，减少极端值的影响。
+    - <strong>dropna</strong>：用于删除包含缺失值的行或列。</p>
+<h2 id="2-io-操作">2. IO 操作</h2>
+<!--_如何将数据从csv,网页,数据库,parquet等地方读进来_-->
+<p>Pandas 中的 DataFrame 提供了丰富的 IO 操作功能，支持从多种文件格式中读取数据，并将数据写入到不同的文件格式中。</p>
+<h3 id="21-csv">2.1. csv</h3>
+<!--_除基本操作外，还将介绍读取 csv 时如何加速_-->
+<h4>2.1.1. 读取 csv</h4>
+<p>CSV 是最常用的文件格式之一，Pandas 提供了 <code>read_csv</code> 函数来读取 CSV 文件。</p>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv(&#39;data.csv&#39;)
+</code></pre>
+<p>常用参数：</p>
+<ul>
+<li>sep：指定分隔符，默认为逗号 ,。</li>
+<li>header：指定标题行，默认为 0（第一行）。</li>
+</ul>
+<hr>
+<ul>
+<li>index_col：指定哪一列作为索引。</li>
+<li>encoding：指定文件编码，如 utf-8 或 gbk。</li>
+<li>na_values：指定哪些值应被视为缺失值。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="language-python">df = pd.read_csv(&#39;data.csv&#39;, sep=&#39;;&#39;, header=0, index_col=&#39;ID&#39;, encoding=&#39;utf-8&#39;)
+</code></pre>
+<h4>2.1.2. 读取 csv 时如何加速</h4>
+<p>在读取大型 CSV 文件时，除了基本的 pd.read_csv 操作外，可以通过以下方法显著提升读取速度：</p>
+<p>[分块读取 (chunksize)]</p>
+<p>对于非常大的文件，一次性加载到内存可能会导致内存不足。可以使用 chunksize 参数分块读取数据，逐块处理。</p>
+<pre><code class="language-python">chunk_size = 10000  # 每次读取 10000 行
+for chunk in pd.read_csv(&#39;large_file.csv&#39;, chunksize=chunk_size):
+    process(chunk)  # 自定义处理函数
+</code></pre>
+<p>这种方法可以有效减少内存占用，并允许边读边处理。</p>
+<p>[指定列读取 (usecols)]</p>
+<p>如果只需要部分列的数据，可以使用 usecols 参数指定要读取的列，避免加载不必要的数据。</p>
+<hr>
+<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, usecols=[&#39;column1&#39;, &#39;column2&#39;])
+</code></pre>
+<p>这样可以减少内存使用并加快读取速度。</p>
+<p>[优化数据类型 (dtype)]</p>
+<p>Pandas 默认会推断每列的数据类型，但这可能会导致内存浪费。通过显式指定 dtype，可以减少内存占用并提升性能。</p>
+<pre><code class="language-python">dtypes = {&#39;column1&#39;: &#39;int32&#39;, &#39;column2&#39;: &#39;float32&#39;}
+df = pd.read_csv(&#39;large_file.csv&#39;, dtype=dtypes)
+</code></pre>
+<p>例如，将 int64 改为 int32 可以节省内存。</p>
+<p>[使用更高效的解析器 (engine=&#39;pyarrow&#39;)]</p>
+<p>Pandas 1.4 版本引入了 pyarrow 作为 CSV 解析器，相比默认的解析器，速度更快。</p>
+<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, engine=&#39;pyarrow&#39;)
+</code></pre>
+<p>pyarrow 支持并行解析，特别适合处理<strong>大文件</strong>。</p>
+<p>[​跳过无用数据 (skiprows, nrows)]</p>
+<p>如果文件中有不需要的行或数据，可以使用 skiprows 跳过指定行，或使用 nrows 只读取前几行。</p>
+<hr>
+<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, skiprows=[1, 2], nrows=1000)
+</code></pre>
+<p>这样可以减少数据处理量。</p>
+<p>[​并行处理 (Dask 或 Multiprocessing)]</p>
+<p>对于非常大的数据集，可以使用并行处理工具如 Dask 来加速读取和处理。</p>
+<pre><code class="language-python">import dask.dataframe as dd
+df = dd.read_csv(&#39;large_file.csv&#39;)
+result = df.groupby(&#39;column1&#39;).mean().compute()
+</code></pre>
+<p>Dask 会自动将文件分块并并行处理。</p>
+<p>[​使用更高效的文件格式 (如 Parquet)]</p>
+<p>如果可能，将 CSV 文件转换为 Parquet 格式，Parquet 是一种列式存储格式，读取速度更快。</p>
+<pre><code class="language-python">df = pd.read_parquet(&#39;large_file.parquet&#39;, engine=&#39;fastparquet&#39;)
+</code></pre>
+<p>Parquet 文件不仅读取速度快，还能显著减少存储空间。</p>
+<p>[​内存映射文件 (memory_map)]</p>
+<hr>
+<p>对于特别大的文件，可以使用 memory_map 参数将文件映射到内存中，减少内存占用。</p>
+<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, memory_map=True)
+</code></pre>
+<p>这种方法适合处理<strong>超大型文件</strong>。</p>
+<h4>2.1.3. 写入 csv</h4>
+<p>使用 to_csv 函数将数据写入 CSV 文件。</p>
+<pre><code class="language-python">df.to_csv(&#39;output.csv&#39;, index=False)
+</code></pre>
+<p>常用参数：</p>
+<ul>
+<li>index：是否写入索引，默认为 True。</li>
+<li>header：是否写入列名，默认为 True。</li>
+<li>encoding：指定文件编码。</li>
+</ul>
+<h3 id="22-pkl-和-hdf5">2.2. pkl 和 hdf5</h3>
+<p>在 Pandas 中，DataFrame 可以方便地对 .pkl 和 .hdf5 文件进行读写操作。以下是详细的方法和示例：
+​
+.pkl 文件是 Python 的序列化文件格式，通常用于保存和加载 Python 对象，包括 DataFrame。使用 <code>read_pickle</code> 方法从 .pkl 文件中加载 DataFrame，使用 <code>to_pickle</code> 方法将 DataFrame 保存为 .pkl 文件。</p>
+<hr>
+<pre><code class="language-python">import pandas as pd
+
+# 创建示例 DataFrame
+df = pd.DataFrame({&#39;A&#39;: [1, 2, 3], &#39;B&#39;: [4, 5, 6]})
+
+# 保存为 .pkl 文件
+df.to_pickle(&#39;data.pkl&#39;)
+
+# 从 .pkl 文件加载 DataFrame
+df = pd.read_pickle(&#39;data.pkl&#39;)
+print(df)
+</code></pre>
+<p>.hdf5 是一种高效的存储格式，适合存储大规模数据。Pandas 提供了 HDFStore 和 to_hdf/read_hdf 方法来操作 .hdf5 文件。</p>
+<pre><code class="language-python"># 保存为 .hdf5 文件
+df.to_hdf(&#39;data.h5&#39;, key=&#39;df&#39;, mode=&#39;w&#39;)
+
+# 从 .hdf5 文件加载 DataFrame
+df = pd.read_hdf(&#39;data.h5&#39;, key=&#39;df&#39;)
+print(df)
+</code></pre>
+<p>HDFStore 提供了更灵活的操作方式，支持多个数据集的存储和读取：</p>
+<pre><code class="language-python"># 创建 HDFStore 对象
+store = pd.HDFStore(&#39;data.h5&#39;)
+</code></pre>
+<hr>
+<pre><code class="language-python"># 存储多个 DataFrame
+store.put(&#39;df1&#39;, df1)
+store.put(&#39;df2&#39;, df2)
+
+# 读取特定 DataFrame
+df1 = store[&#39;df1&#39;]
+df2 = store.get(&#39;df2&#39;)
+
+# 关闭 HDFStore
+store.close()
+</code></pre>
+<div class="admonition admonition-Notes"><p class="admonition-title">Notes</p>
+总结：
+- **.pkl 文件**：适合保存和加载单个 DataFrame，操作简单。
+- **.hdf5 文件**：适合存储大规模数据，支持多个数据集和高效压缩。
+</div>
+
+<h3 id="23-parquet">2.3. parquet</h3>
+<p>Pandas 支持读取 Parquet 文件，使用 read_parquet 函数。</p>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_parquet(&#39;data.parquet&#39;)
+</code></pre>
+<p>常用参数：</p>
+<ul>
+<li>engine：指定引擎，如 pyarrow 或 fastparquet。</li>
+<li>columns：指定要读取的列。</li>
+</ul>
+<hr>
+<p>示例：</p>
+<pre><code class="language-python">df = pd.read_parquet(&#39;data.parquet&#39;, engine=&#39;pyarrow&#39;, columns=[&#39;col1&#39;, &#39;col2&#39;])
+</code></pre>
+<h3 id="24-html-和-md">2.4. html 和 md</h3>
+<!--换个思路，就是爬虫-->
+<p>Pandas 的 read_html 函数可以从网页中读取 HTML 表格数据。</p>
+<pre><code class="language-python">url = &#39;http://example.com/table.html&#39;
+tables = pd.read_html(url)
+df = tables[0]  # 获取第一个表格
+</code></pre>
+<p>如果需要处理复杂的网页数据，可以结合 <code>requests</code> 和 <code>BeautifulSoup</code> 库：</p>
+<pre><code class="language-python">import requests
+from bs4 import BeautifulSoup
+
+response = requests.get(url)
+soup = BeautifulSoup(response.text, &#39;html.parser&#39;)
+table = soup.find_all(&#39;table&#39;)[0]
+df = pd.read_html(str(table))[0]
+</code></pre>
+<hr>
+<h3 id="25-sql">2.5. sql</h3>
+<p>Pandas 支持从 SQL 数据库中读取数据，使用 read_sql 函数。</p>
+<pre><code class="language-python">import sqlite3
+
+# 连接到数据库
+conn = sqlite3.connect(&#39;database.db&#39;)
+
+# 执行 SQL 查询并读取数据
+df = pd.read_sql(&#39;SELECT * FROM table_name&#39;, conn)
+
+# 关闭数据库连接
+conn.close()
+</code></pre>
+<p>如果需要连接其他数据库（如 MySQL、PostgreSQL），可以使用相应的数据库驱动（如 pymysql、psycopg2）。</p>
+</div> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-数据预处理类" title="1. 数据预处理类">1. 数据预处理类</a> </li><li class="lv3"> <a href="#11-fillna填充缺失值" title="1.1. fillna：填充缺失值">1.1. fillna：填充缺失值</a> </li><li class="lv3"> <a href="#12-clip修剪数据范围" title="1.2. ​clip：修剪数据范围">1.2. ​clip：修剪数据范围</a> </li><li class="lv3"> <a href="#13-winsorize缩尾处理" title="1.3. ​winsorize：缩尾处理">1.3. ​winsorize：缩尾处理</a> </li><li class="lv3"> <a href="#14-dropna删除缺失值" title="1.4. ​dropna：删除缺失值">1.4. ​dropna：删除缺失值</a> </li><li class> <a href="#2-io-操作" title="2. IO 操作">2. IO 操作</a> </li><li class="lv3"> <a href="#21-csv" title="2.1. csv">2.1. csv</a> </li><li class="lv3"> <a href="#22-pkl-和-hdf5" title="2.2. pkl 和 hdf5">2.2. pkl 和 hdf5</a> </li><li class="lv3"> <a href="#23-parquet" title="2.3. parquet">2.3. parquet</a> </li><li class="lv3"> <a href="#24-html-和-md" title="2.4. html 和 md">2.4. html 和 md</a> </li><li class="lv3"> <a href="#25-sql" title="2.5. sql">2.5. sql</a> </li> </ul> </aside> </div>  <footer class="foot"> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="pv">本站总访问量 <span id="busuanzi_value_site_pv">-</span> · 访客数 <span id="busuanzi_value_site_uv">-</span></span> </footer> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idx = null;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idx) {
+            var m = await import('/pagefind/pagefind.js');
+            idx = await m.options({ baseUrl: '/' });
+          }
+          var r = await idx.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + (d.meta?.title || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>
