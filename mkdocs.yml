@@ -21,6 +21,9 @@ exclude_docs: |
   _drafts/**
   _archive/**
   videoscripts/**
+  **/__pycache__/**
+# 草稿（_ 前缀）：mkdocs serve 预览可见，gh-deploy 生产构建自动剔除
+draft_docs: |
   **/_*
 not_in_nav: |
   /articles/express/_references.md
@@ -63,6 +66,7 @@ plugins:
       tags_file: tags.md
   - rss:
       match_path: "(blog|articles)/.*"
+      cache_dir: .runtime/rss_cache
       categories:
         - category
         - tags
