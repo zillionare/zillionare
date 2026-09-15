@@ -2,7 +2,7 @@
 
 > 专注量化投资研究与 Python 量化交易实战。
 >
-> 📖 博客正站：https://blog.quantide.cn ｜ 本 README 由构建自动生成（与首页同源），请勿手改。
+> 📖 博客正站：https://blog.quantide.cn。
 
 ## 最新文章
 
