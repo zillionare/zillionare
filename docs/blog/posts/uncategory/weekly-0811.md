@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-g
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, career]
+excerpt: "央行表示，将在公开市场操作中增加国债买卖。坚决防范汇率超调风险。 统计局：七月 CPI 同比上涨 0.5%，PPI 同比下降 0.8% 美最新初请失业金人数明显下降，市场对经济衰退的担忧稍解，美股震荡回升"
 ---
 
 ## 本周要闻

@@ -8,6 +8,7 @@ lineNumbers: true
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney-cover.jpg
 tags: 
     - 人物
+excerpt: "正如死亡和税收不可避免，Pandas对量化人而言，也具有同样的地位 -- 每个人都不可避免地要与之打交道。而Wes Mckinney正是Pandas的创建者。Pandas是有史以来，最成功的Python库之一，以一已之力，开拓了Python的生存空间。"
 ---
 
 正如死亡和税收不可避免，Pandas对量化人而言，也具有同样的地位 -- 每个人都不可避免地要与之打交道。而Wes Mckinney正是Pandas的创建者。Pandas是有史以来，最成功的Python库之一，以一已之力，开拓了Python的生存空间。

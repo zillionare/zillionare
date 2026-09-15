@@ -1,5 +1,6 @@
 ---
 slug: factor-machine-learning-syllabus
+excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---
 
 <style>

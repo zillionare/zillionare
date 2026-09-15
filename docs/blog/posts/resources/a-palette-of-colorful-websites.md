@@ -11,6 +11,7 @@ stamp_height: 60%
 tags: 
     - 工具
     - colors
+excerpt: "用Powerpoint做课件，动画编排太累了，于是找到了slidev。Slidev好用是好用，但研墨调色都得自己来，一时竟误入藕花深处，沈醉不知归路。"
 ---
 
 用Powerpoint做课件，动画编排太累了，于是找到了slidev。Slidev好用是好用，但研墨调色都得自己来，一时竟误入藕花深处，沈醉不知归路。

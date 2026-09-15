@@ -10,6 +10,7 @@ tags: [others, weekly, numpy, pandas]
 seq: 第 12 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "本周要闻 月25日起，存量房贷统一下调！ Robotaxi Day草草收场，特斯拉暴跌 一揽子增量财政策略超预期，规模或在5万亿以上 化债概念出炉！"
 ---
 
 ### 本周要闻

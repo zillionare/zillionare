@@ -11,6 +11,7 @@ tags:
   - story
 lineNumbers: true
 aspectRatio: 10/16    
+excerpt: "上交所放大招，将发布上证全收益指数！ 私募巨头发声，大跌不是我们干的！ 交易所加强异常交易监管..."
 ---
 
 ## 本周要闻回顾

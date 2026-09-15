@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/purdue
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy]
+excerpt: "题图：普渡大学 Engineering Fountain。普渡大学是印度安纳州的一所大学，距芝加哥 100 英里。QS 排名全球第 89 名。该校校训是 Every giant leap starts with one small step，即不积硅步，无以致千里。"
 ---
 
 题图：普渡大学 Engineering Fountain。普渡大学是印度安纳州的一所大学，距芝加哥 100 英里。QS 排名全球第 89 名。该校校训是 Every giant leap starts with one small step，即不积硅步，无以致千里。

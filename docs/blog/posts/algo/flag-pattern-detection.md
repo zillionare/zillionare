@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/daniel-th
 stamp_width: 60%
 stamp_height: 60%
 tags: [算法,模式识别]
+excerpt: "<!--PAID CONTENT START--> 本文是几个月前《三角形整理检测》的后续篇，改进了算法，增加了应用场景的讨论。 <!--PAID CONTENT END-->"
 ---
 
 <!--PAID CONTENT START-->

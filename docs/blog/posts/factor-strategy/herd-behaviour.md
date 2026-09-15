@@ -7,6 +7,7 @@ lunar: 冬月十六
 category: strategy
 tags:
     - strategy
+excerpt: "在之前的笔记中，我们多次将现代金融理论与A股中流行的股谚、规律和大V的经验之谈结合起来，我们戏称为现代金融理论的中国化。本篇笔记将继续沿着这一思路展开，介绍羊群效应，以及在A股中，它有哪些表现，如何实现因子化，等等。"
 ---
 
 ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/structual-modeling-herd-behaviour.png)

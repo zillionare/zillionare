@@ -8,6 +8,7 @@ category: strategy
 tags:
     - strategy
     - factor
+excerpt: "球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以上的引用。这篇论文名为《Asset Pricing and Sports Betting》。"
 ---
 
 ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/tobias-moskowitz.png)

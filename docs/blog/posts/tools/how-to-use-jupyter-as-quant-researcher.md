@@ -6,6 +6,7 @@ category: arsenal
 tags: 
     - tools
     - Jupyter
+excerpt: "网上有很多jupyter的使用技巧。但我相信，这篇文章会让你全面涨姿势。很多用法，你应该没见过。"
 ---
 
 网上有很多jupyter的使用技巧。但我相信，这篇文章会让你全面涨姿势。很多用法，你应该没见过。

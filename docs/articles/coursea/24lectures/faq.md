@@ -5,6 +5,7 @@ date: 2024-01-04
 category: 课程
 tags: 
     - 课程
+excerpt: "!!! abstract '课程怎么学？' 课程以视频、notebook 和答疑方式提供。视频在荔枝微课上，notebook 由我们提供的服务器 host。<br><br> 购买后，加宽粉（quantfans99）账号，开通课件服务器账号，即可开始学习。"
 ---
 
 ## 报名流程和学习环境

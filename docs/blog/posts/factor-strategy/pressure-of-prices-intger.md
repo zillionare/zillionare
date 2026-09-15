@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-
 lunar:
 tags: 
     - strategy
+excerpt: "常常有人问，新的因子/策略从哪里来？今天的笔记或许能启发你的思路。"
 ---
 
 常常有人问，新的因子/策略从哪里来？今天的笔记或许能启发你的思路。

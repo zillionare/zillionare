@@ -12,6 +12,7 @@ puppeteer:
     displayHeaderFooter: true
     headerTemplate: '<div style="width:100%; text-align:center; border-bottom: 1pt solid #eeeeee; margin: 20px 10px 10px; font-size: 10pt;padding-bottom:10px"><span class=title></span></div>'
     footerTemplate: '<div style="display:flex; justify-content:space-around;width:100%;border-top: 1pt solid #eeeeee; margin: 10px 10px 20px; font-size: 8pt;color:#aaa"><div style="width:30%"><span class=pageNumber></span>/<span class=totalPages></span></div><div style="width:30%">大富翁量化课程</div><div style="width:30%">宽粉（quantfans_99)</div>'
+excerpt: "年，欧洲太空署（European Space Agency）打算向火星派出一个探测器（如图），把一些岩石样品带回地球，以检测火星上是否存在生命。受燃料限制，探测器只能带回 500g 的火星岩石。因此，只有精心挑选的样本才能被带回地球。科学家们准备构建一个现场挑选器，这个挑选器必须具有视觉重建能力，为此他们构建了一个人工"
 ---
 
 2020 年，欧洲太空署（European Space Agency）打算向火星派出一个探测器（如图），把一些岩石样品带回地球，以检测火星上是否存在生命。受燃料限制，探测器只能带回 500g 的火星岩石。因此，只有精心挑选的样本才能被带回地球。科学家们准备构建一个现场挑选器，这个挑选器必须具有视觉重建能力，为此他们构建了一个人工神经网络。在这项任务中，无论是构建神经网络和多 CPU 集群，还是通过 PyCUDA 来使用 NVIDIA 的 CUDA 库，都重度依赖 Python。

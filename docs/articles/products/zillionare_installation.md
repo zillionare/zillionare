@@ -1,6 +1,7 @@
 ---
 title: Zillionare 2.0 安装指南
 slug: installation-guide-for-zillionare-2.0
+excerpt: "table { background-color: transparent; border-collapse: collapse; border-spacing: 0; display: table !important;"
 ---
 <style>
 

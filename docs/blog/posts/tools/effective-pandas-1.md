@@ -9,6 +9,7 @@ lineNumbers: true
 tags: 
     - quantlib
     - pandas
+excerpt: "在量化领域，Pandas是不可或缺的工具，它以强大的数据处理和分析功能，极大地简化了数据操作流程。"
 ---
 
 

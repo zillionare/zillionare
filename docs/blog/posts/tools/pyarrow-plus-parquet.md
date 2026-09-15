@@ -10,6 +10,7 @@ tags:
     - pyarrow
     - parquet
     - 量化数据存储
+excerpt: "在上一篇笔记中，我们指出，如果我们只在日线级别上存储行情数据和因子，HDF5 无论如何都是够用了。即使是在存储了 40 年分钟线的单个股数据集上，查询时间也只花了 0.2 秒 -- 这个速度已经足够快了，如果我们不需要在分钟级别上进行横截面数据查询的话。 <!--more--> 但是，如果个人交易者确实有条件（网速和硬"
 ---
 
 ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/apache-arrow.jpg)

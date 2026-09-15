@@ -1,5 +1,6 @@
 ---
 slug: 24-lectures-syllabus
+excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---
 
 <style>

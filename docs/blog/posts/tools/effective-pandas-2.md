@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/pricet
 stamp_width: 60%
 stamp_height: 60%
 tags: [pandas, code]
+excerpt: "题图： 普林斯顿大学。普林斯顿大学在量化金融领域有着非常强的研究实力，并且拥有一些著名的学者，比如马克·布伦纳迈尔，范剑青教授（华裔统计学家，普林斯顿大学金融教授，复旦大学大数据学院院长）等。"
 ---
 
 题图： 普林斯顿大学。普林斯顿大学在量化金融领域有着非常强的研究实力，并且拥有一些著名的学者，比如马克·布伦纳迈尔，范剑青教授（华裔统计学家，普林斯顿大学金融教授，复旦大学大数据学院院长）等。

@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-g
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, career]
+excerpt: "全球猴痘病例超1.56万，相关美股 GeoVax Labs收涨110.75% 央行发布重要数据，7月M2同比增长6.3%，M1同比下降6.6% 月美国CPI同比上涨2.9%，零售销售额环比增长1% 证券时报：国企可转债的刚兑信仰该放下了"
 ---
 
 ### 本周要闻

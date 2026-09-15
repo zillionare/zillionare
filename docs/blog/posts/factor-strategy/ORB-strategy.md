@@ -10,6 +10,7 @@ tags:
   - ORB
   - 策略
 lineNumbers: true
+excerpt: "这个策略来自 Carlo Zarattini 等人，在 Quantpedia 2023 年大赛中获第三名。他们研究了最近 6 年的美股市场，发现聚焦在热门股 (Stocks in Play) 中时，5 分钟 ORB 策略实现了超过 1600%的总净收益，夏普高达 2.81，年化 Alpha 为 36%。同期标普只有 1"
 ---
 
 这个策略来自 Carlo Zarattini 等人，在 Quantpedia 2023 年大赛中获第三名。他们研究了最近 6 年的美股市场，发现聚焦在热门股 (Stocks in Play) 中时，5 分钟 ORB 策略实现了超过 1600%的总净收益，夏普高达 2.81，年化 Alpha 为 36%。同期标普只有 198%。

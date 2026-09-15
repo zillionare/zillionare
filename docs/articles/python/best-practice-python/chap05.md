@@ -19,6 +19,7 @@ puppeteer:
     displayHeaderFooter: true
     headerTemplate: '<div style="width:100%; text-align:center; border-bottom: 1pt solid #eeeeee; margin: 20px 10px 10px; font-size: 10pt;padding-bottom:10px"><span class=title></span></div>'
     footerTemplate: '<div style="display:flex; justify-content:space-around;width:100%;border-top: 1pt solid #eeeeee; margin: 10px 10px 20px; font-size: 8pt;color:#aaa"><div style="width:30%"><span class=pageNumber></span>/<span class=totalPages></span></div><div style="width:30%">大富翁量化课程</div><div style="width:30%">宽粉（quantfans_99)</div>'
+excerpt: "上一章里，我们通过 ppw 生成了一个规范的 python 项目，对初学者来说，许多闻所未闻、见所未见的概念和名词扑面而来，不免让人一时眼花缭乱，目不暇接。然而，如果我们不从头讲起，可能读者也无从理解，ppw 为何要应用这些技术，又倒底解决了哪些问题。"
 ---
 
 上一章里，我们通过 ppw 生成了一个规范的 python 项目，对初学者来说，许多闻所未闻、见所未见的概念和名词扑面而来，不免让人一时眼花缭乱，目不暇接。然而，如果我们不从头讲起，可能读者也无从理解，ppw 为何要应用这些技术，又倒底解决了哪些问题。

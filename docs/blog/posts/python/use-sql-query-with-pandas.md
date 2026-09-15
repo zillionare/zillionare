@@ -10,6 +10,7 @@ tags:
     - python
     - pandas
     - duckdb
+excerpt: "对有一定SQL基础的人来说，pandas中的查询会有点繁琐。"
 ---
 
 对有一定SQL基础的人来说，pandas中的查询会有点繁琐。

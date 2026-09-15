@@ -10,6 +10,7 @@ tags: [others, weekly, numpy, pandas]
 seq: 第 8 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "央行：降准有空间 利率进一步下行面临一定约束 巴菲特再次减持美国银行，这次要做空自己的祖国？ 存量房贷下调预期落空，沪指连续三日跌破2800点"
 ---
 
 ### 本周要闻

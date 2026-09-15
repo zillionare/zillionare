@@ -8,6 +8,7 @@ img: https://unsplash.com/photos/xFYYOpnxolw/download?force=true&w=1920
 stamp_width: 60%
 stamp_height: 60%
 tags: []
+excerpt: "周一，巴菲特二季度大幅减仓、持有现金量超历史的消息，重创了全球股市。"
 ---
 
 周一，巴菲特二季度大幅减仓、持有现金量超历史的消息，重创了全球股市。

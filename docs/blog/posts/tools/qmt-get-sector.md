@@ -8,6 +8,7 @@ category: arsenal
 tags:
     - xtquant
     - quantlib
+excerpt: "xtquant 中有哪些板块和板块分类？ 如何获取板块的成份股？ 如何获取指数的行情数据？"
 ---
 
 ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sector-cloud.jpg?4)

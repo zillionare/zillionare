@@ -13,6 +13,7 @@ tags:
     - tools
     - programming
     - Numpy
+excerpt: "NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个多维度、同质并且大小固定的数组对象。"
 ---
 
 ## 1. 基本数据结构

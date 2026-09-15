@@ -1,6 +1,7 @@
 ---
 title: Zillionare 2.0维护指南
 slug: zillionare-2.0-maintaining-guid
+excerpt: "在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下："
 ---
 
 ## 行情数据同步原理

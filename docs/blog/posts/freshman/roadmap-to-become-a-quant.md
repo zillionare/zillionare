@@ -11,6 +11,7 @@ tags:
   - resources
   - career
 lineNumbers: true
+excerpt: "题图为 MIT 的 Simmons University。版权声明 wiki/public domain。"
 ---
 
 

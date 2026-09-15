@@ -8,6 +8,7 @@ img: https://www.citadel.com/wp-content/uploads/2024/07/Citadel_Intenship_KenSpe
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy]
+excerpt: "Citadel是一家顶级的全球性对冲基金管理公司，由肯尼斯.格里芬(Kenneth Griffin)创建于1990年，是许多量化人的梦中情司。"
 ---
 
 Citadel是一家顶级的全球性对冲基金管理公司，由肯尼斯.格里芬(Kenneth Griffin)创建于1990年，是许多量化人的梦中情司。

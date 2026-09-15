@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/north-
 stamp_width: 60%
 stamp_height: 60%
 tags: [career, 课程]
+excerpt: "面对毕业论文的压力，选择一个既具有实际应用价值又能激发研究兴趣的主题至关重要。对金融/计量专业的学生来说，在众多研究领域中，量化交易是兼顾自己的专长、又有利于未来发展的一个选择。"
 ---
 
 面对毕业论文的压力，选择一个既具有实际应用价值又能激发研究兴趣的主题至关重要。对金融/计量专业的学生来说，在众多研究领域中，量化交易是兼顾自己的专长、又有利于未来发展的一个选择。

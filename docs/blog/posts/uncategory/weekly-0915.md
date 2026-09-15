@@ -10,6 +10,7 @@ tags: [others, weekly, numpy, pandas]
 seq: 第 9 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "主要指数创今年最低周收盘，也是5年最低周收盘 月有增有降，广义货币增长6.5%，狭义货币下降7.3%。 一意孤行！美提高部分对华301关税 中方：强烈不满 坚决反对 茅台业绩说明会之后，本周白酒指数再跌3.21%"
 ---
 
 ### 本周要闻

@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy, pe]
+excerpt: "节前迎来揪心一幕，主要指数均创出今年最低周收盘。很自然，我们也想知道，现在处于什么状态，存在着低估机会吗？这篇文章，我们从市盈利的角度来探讨是存在机会，还是要警惕陷阱。"
 ---
 
 

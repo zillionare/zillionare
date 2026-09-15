@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-ni
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor, strategy, herd-behaviour]
+excerpt: "<div style='width:50%;text-align:center;margin: 0 auto 1rem'> <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'> <sp"
 ---
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>

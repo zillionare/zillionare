@@ -7,6 +7,7 @@ tags:
     - quant
     - algorithm
     - python
+excerpt: "既然c/java/python等语言的索引都从零开始，因此我们的盘点也从一行代码也没有的项目开始"
 ---
 
 既然c/java/python等语言的索引都从零开始，因此我们的盘点也从一行代码也没有的项目开始

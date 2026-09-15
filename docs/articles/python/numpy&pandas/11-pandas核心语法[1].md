@@ -16,6 +16,7 @@ tags:
     - programming
     - Numpy
     - Pandas
+excerpt: "Pandas在量化交易中，处于核心地位。许多基于Python SDK的数据源返回的数据格式一般是pandas.DataFrame。因子分析库Alphalens、性能评估库empyrical等都依赖于Pandas。"
 ---
 
 Pandas在量化交易中，处于核心地位。许多基于Python SDK的数据源返回的数据格式一般是pandas.DataFrame。因子分析库Alphalens、性能评估库empyrical等都依赖于Pandas。

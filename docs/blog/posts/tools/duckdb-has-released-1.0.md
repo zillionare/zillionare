@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, duckdb]
+excerpt: "有一个数据库项目，每月下载次数高达数百万，仅扩展的下载流量每天就超过 4 TB 。在 GitHub 和社交媒体平台上，该数据库拥有数以万计的 Stars 和粉丝，这是数据库类的产品难以企及的天花板。最近，这个极具人气的数据库迎来了自己的第一个大版本。"
 ---
 
 有一个数据库项目，每月下载次数高达数百万，仅扩展的下载流量每天就超过 4 TB 。在 GitHub 和社交媒体平台上，该数据库拥有数以万计的 Stars 和粉丝，这是数据库类的产品难以企及的天花板。最近，这个极具人气的数据库迎来了自己的第一个大版本。

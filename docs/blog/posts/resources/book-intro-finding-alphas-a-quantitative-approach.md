@@ -12,6 +12,7 @@ tags:
     - "world quant"
     - Alpha
     - pdf
+excerpt: "问：常常看到有人说Alpha seeking，这究竟是什么意思？"
 ---
 
 问：常常看到有人说Alpha seeking，这究竟是什么意思？

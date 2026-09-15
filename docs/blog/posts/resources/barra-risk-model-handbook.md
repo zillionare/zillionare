@@ -10,6 +10,7 @@ lineNumbers: true
 tags: 
     - "free resources"
     - barra
+excerpt: "Barra风险模型是业内最有名的多因子模型之一。它最初由Barra Inc（创始人Barr Rosenberg）提出，后来被MSCI（明晟）收购，因此现在是MSCI的资产。在MSCI网站上，我们还可以看到名为BarraOne的产品推介。"
 ---
 
 Barra风险模型是业内最有名的多因子模型之一。它最初由Barra Inc（创始人Barr Rosenberg）提出，后来被MSCI（明晟）收购，因此现在是MSCI的资产。在MSCI网站上，我们还可以看到名为BarraOne的产品推介。

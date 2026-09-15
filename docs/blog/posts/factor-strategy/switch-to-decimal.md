@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/switch-to
 tags: 
     - trade
     - history
+excerpt: "笔记左数效应、整数关口与光折射中引用了南加州大学Lawrence Harris的一篇论文中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。"
 ---
 
 笔记[左数效应、整数关口与光折射](https://blog.quantide.cn/blog/2024/01/23/left-side-effect-integer-pressure/)中引用了南加州大学Lawrence Harris的[一篇论文](/assets/ebooks/Stock-price-clustering-and-price-discreteness.pdf)中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。

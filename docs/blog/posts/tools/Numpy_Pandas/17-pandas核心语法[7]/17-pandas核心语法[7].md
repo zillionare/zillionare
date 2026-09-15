@@ -16,6 +16,7 @@ tags:
     - programming
     - Numpy
     - Pandas
+excerpt: "“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，轻松满足数据可视化需求。”"
 ---
 
 “Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，轻松满足数据可视化需求。”

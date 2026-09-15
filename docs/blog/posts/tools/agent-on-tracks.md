@@ -4,6 +4,7 @@ date: 2026-09-07
 description: Vibe Coding 能做大项目吗？通过几个数万行代码的项目，发现了 vibe coding 的难以克服的问题。编程领域的 Lean 框架，正呼之欲出。
 categories: basic
 tags: [Agent, vibe coding, AI, coding]
+excerpt: "Vibe Coding 确实圆了很多人做软件的梦，包括我们这种古法编程好多年的人，之前也有好多想法，因为人力不足、或者知识储备不足，不敢轻易尝试，现在也不免跃跃欲试了。"
 ---
 
 Vibe Coding 确实圆了很多人做软件的梦，包括我们这种古法编程好多年的人，之前也有好多想法，因为人力不足、或者知识储备不足，不敢轻易尝试，现在也不免跃跃欲试了。

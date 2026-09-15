@@ -6,6 +6,7 @@ slug: combining-pca-wavelet-and-xgboost
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, xgboost,PCA,wavelet]
+excerpt: "这是 Nobre, Neves 发表于 2019 年的 一篇论文。在论文一起，生成了一个机器学习交易策略，取得了比 Buy-and-Hold 策略及另一个对照策略更好的回报。本文正文部分为原论文的摘要，在最后的 QuanTide 评论中，我提供了一些点评。"
 ---
 
 > 这是 Nobre, Neves 发表于 2019 年的 [一篇论文](https://www.sciencedirect.com/science/article/abs/pii/S0957417419300995?via%3Dihub)。在论文一起，生成了一个机器学习交易策略，取得了比 Buy-and-Hold 策略及另一个对照策略更好的回报。本文正文部分为原论文的摘要，在最后的 QuanTide 评论中，我提供了一些点评。

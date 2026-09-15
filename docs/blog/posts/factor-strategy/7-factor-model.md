@@ -9,6 +9,7 @@ lineNumbers: true
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/duke.jpg
 tags: 
     - 因子
+excerpt: "这篇文章的源起是有读者问，七因子模型除了规模、市场、动量和价值之外，还包括哪几个因子？就这个题目，正好介绍一下Fung & Hsieh的七因子模型。"
 ---
 
 这篇文章的源起是有读者问，七因子模型除了规模、市场、动量和价值之外，还包括哪几个因子？就这个题目，正好介绍一下Fung & Hsieh的七因子模型。
