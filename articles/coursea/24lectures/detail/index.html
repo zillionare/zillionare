@@ -139,24 +139,26 @@ Alphalens 是 Quantpian 开发的 pyfolio 库中的一部分。Quantpian 曾经�
         });
       } catch (e) {}
       // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
       var input = document.getElementById('blog-search');
       var box = document.getElementById('blog-search-result');
       if (!input) return;
-      var idx = null;
+      var idxReady = false;
       input.addEventListener('input', async function () {
         var q = input.value.trim();
         if (!q) { box.hidden = true; return; }
         try {
-          if (!idx) {
+          if (!idxReady) {
             var m = await import('/pagefind/pagefind.js');
-            idx = await m.options({ baseUrl: '/' });
+            await m.init();
+            idxReady = m;
           }
-          var r = await idx.debouncedSearch(q);
+          var r = await idxReady.debouncedSearch(q);
           var items = (r.results || []).slice(0, 8);
           var html = '';
           for (const item of items) {
             const d = await item.data();
-            html += '<a href="' + d.url + '">' + (d.meta?.title || d.url) + '</a>';
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
           }
           box.innerHTML = html || '<span class="none">无结果</span>';
           box.hidden = false;
