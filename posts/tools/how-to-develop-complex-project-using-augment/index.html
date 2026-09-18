@@ -136,20 +136,38 @@ docker exec course_fa_quantide find /home/quantide/notebooks/courseware -name &q
 <p>实际上，我是从2023年7月的Github Copilot用起的。当时的copilot可以很好地完成文字润色和编造单元测试数据的任务，它记得很多经典算法的精巧代码结构。后来较长时间使用通义灵码，短暂使用过 Trae (国际版)和Cursor。同样是使用 Claude 3.7模型，但我感觉Augment的能力是最强的（Augment团队认为他们用的是Claude 3.7+O1的一个集成训练版，并不是简单的Claude 3.7）。另外，则于在推广期，所以使用人数少也是一大优势 -- 它的响应速度比较快。</p>
 <p>今天我们揭示了它的一个用法，即<strong>限制住Augment的Agent，不让它生成代码，而是让它像一个资深专家一样</strong>，深入到各个子系统，在主机与dockder容器网络之间来回穿梭，去排查一些很微不足道，但如果你不掌握系统的全部运行原理，就无法排查的问题。</p>
 <p>如果你认为我们的provision系统有一定复杂度和实用性，也苦恼过Augment或者其它AI工具无法构建复杂应用，可以给我留言，如果有较多读者认为这些经验值得分享，我就再来写一篇。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/">致命的 ID -- DuckDB 中的 Returning 子句之谜</a> <p>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，</p> </li><li> <a href="/posts/tools/量化人的2025新年礼/">睽违17年，ta-lib重装出发！</a> <p>在你看到这篇文章时，2024年已经余额不足，而新的一年，正在等待我们冲刺。新的一年，作为量化人，你将在新年里收到哪些礼物呢?</p> </li><li> <a href="/posts/tools/量化研究员如何写一手好代码/">量化研究员如何写一手好代码</a> <p>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a> <p>当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#系统架构" title="系统架构">系统架构</a> </li><li class> <a href="#令人疲惫的下午" title="令人疲惫的下午">令人疲惫的下午</a> </li><li class> <a href="#aha-时刻" title="Aha 时刻">Aha 时刻</a> </li><li class> <a href="#结论" title="结论">结论</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/">致命的 ID -- DuckDB 中的 Returning 子句之谜</a> <p>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，</p> </li><li> <a href="/posts/tools/量化人的2025新年礼/">睽违17年，ta-lib重装出发！</a> <p>在你看到这篇文章时，2024年已经余额不足，而新的一年，正在等待我们冲刺。新的一年，作为量化人，你将在新年里收到哪些礼物呢?</p> </li><li> <a href="/posts/tools/量化研究员如何写一手好代码/">量化研究员如何写一手好代码</a> <p>即使是Quant Research， 写一手高质量的代码也是非常重要的。再好的思路，如果不能正确地实现，都是没有意义的。只有正确实现了、通过回测检验过了，才能算是真正做出来了策略。</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a> <p>当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#系统架构" title="系统架构">系统架构</a> </li><li class> <a href="#令人疲惫的下午" title="令人疲惫的下午">令人疲惫的下午</a> </li><li class> <a href="#aha-时刻" title="Aha 时刻">Aha 时刻</a> </li><li class> <a href="#结论" title="结论">结论</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

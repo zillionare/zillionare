@@ -201,20 +201,38 @@ $$</p>
 <hr>
 <h2 id="为什么你值得quantide的课程">为什么你值得QuanTide的课程？</h2>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png" alt=""></p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/uncategory/weekly-1020/">[1020] QuanTide Weekly</a> <p>本周要闻 幻方量化宣布降低对冲全系产品投资仓位至0 月CPI、PPI及前三季度GDP数据出炉 潘功胜发声，宏观经济政策应更加重视消费</p> </li><li> <a href="/posts/uncategory/weekly-1013/">[1013] QuanTide Weekly</a> <p>本周要闻 月25日起，存量房贷统一下调！ Robotaxi Day草草收场，特斯拉暴跌 一揽子增量财政策略超预期，规模或在5万亿以上 化债概念出炉！</p> </li><li> <a href="/posts/uncategory/weekly-0929/">[0929] QuanTide Weekly</a> <p>本周要闻 大涨！沪指本周大涨12.8%，沪深300上涨15.7%。 首份市值管理指引文件出炉，明确指数成分股与破净股的市值管理 长江证券：银行、地产、建筑和非银等板块或更有可能受益</p> </li><li> <a href="/posts/uncategory/weekly-0915/">[0915] QuanTide Weekly</a> <p>主要指数创今年最低周收盘，也是5年最低周收盘 月有增有降，广义货币增长6.5%，狭义货币下降7.3%。 一意孤行！美提高部分对华301关税 中方：强烈不满 坚决反对 茅台业绩说明会</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#本周要闻" title="本周要闻">本周要闻</a> </li><li class="lv3"> <a href="#下周看点" title="下周看点">下周看点</a> </li><li class="lv3"> <a href="#本周精选" title="本周精选">本周精选</a> </li><li class> <a href="#numpy量化场景应用案例1" title="Numpy量化场景应用案例1">Numpy量化场景应用案例1</a> </li><li class> <a href="#连续值统计" title="连续值统计">连续值统计</a> </li><li class> <a href="#计算-connor39s-rsi中的streaks" title="计算 Connor&#38;#39;s RSI中的streaks">计算 Connor&amp;#39;s RSI中的streaks</a> </li><li class> <a href="#中位数极值法去极值" title="中位数极值法去极值">中位数极值法去极值</a> </li><li class> <a href="#因子投资与机器学习策略开课啦" title="《因子投资与机器学习策略》开课啦！">《因子投资与机器学习策略》开课啦！</a> </li><li class> <a href="#目标清晰-获得感强" title="目标清晰 获得感强">目标清晰 获得感强</a> </li><li class> <a href="#为什么你值得quantide的课程" title="为什么你值得QuanTide的课程？">为什么你值得QuanTide的课程？</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/uncategory/weekly-1020/">[1020] QuanTide Weekly</a> <p>本周要闻 幻方量化宣布降低对冲全系产品投资仓位至0 月CPI、PPI及前三季度GDP数据出炉 潘功胜发声，宏观经济政策应更加重视消费</p> </li><li> <a href="/posts/uncategory/weekly-1013/">[1013] QuanTide Weekly</a> <p>本周要闻 月25日起，存量房贷统一下调！ Robotaxi Day草草收场，特斯拉暴跌 一揽子增量财政策略超预期，规模或在5万亿以上 化债概念出炉！</p> </li><li> <a href="/posts/uncategory/weekly-0929/">[0929] QuanTide Weekly</a> <p>本周要闻 大涨！沪指本周大涨12.8%，沪深300上涨15.7%。 首份市值管理指引文件出炉，明确指数成分股与破净股的市值管理 长江证券：银行、地产、建筑和非银等板块或更有可能受益</p> </li><li> <a href="/posts/uncategory/weekly-0915/">[0915] QuanTide Weekly</a> <p>主要指数创今年最低周收盘，也是5年最低周收盘 月有增有降，广义货币增长6.5%，狭义货币下降7.3%。 一意孤行！美提高部分对华301关税 中方：强烈不满 坚决反对 茅台业绩说明会</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#本周要闻" title="本周要闻">本周要闻</a> </li><li class="lv3"> <a href="#下周看点" title="下周看点">下周看点</a> </li><li class="lv3"> <a href="#本周精选" title="本周精选">本周精选</a> </li><li class> <a href="#numpy量化场景应用案例1" title="Numpy量化场景应用案例1">Numpy量化场景应用案例1</a> </li><li class> <a href="#连续值统计" title="连续值统计">连续值统计</a> </li><li class> <a href="#计算-connor39s-rsi中的streaks" title="计算 Connor&#38;#39;s RSI中的streaks">计算 Connor&amp;#39;s RSI中的streaks</a> </li><li class> <a href="#中位数极值法去极值" title="中位数极值法去极值">中位数极值法去极值</a> </li><li class> <a href="#因子投资与机器学习策略开课啦" title="《因子投资与机器学习策略》开课啦！">《因子投资与机器学习策略》开课啦！</a> </li><li class> <a href="#目标清晰-获得感强" title="目标清晰 获得感强">目标清晰 获得感强</a> </li><li class> <a href="#为什么你值得quantide的课程" title="为什么你值得QuanTide的课程？">为什么你值得QuanTide的课程？</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

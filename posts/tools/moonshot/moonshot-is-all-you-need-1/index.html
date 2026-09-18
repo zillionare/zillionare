@@ -299,20 +299,38 @@ ms.data
 </code></pre>
 <p>现在我们看到，数据确实被重采样成了月度数据，并且索引是已经被设置为月度时间戳。</p>
 <p>这一期内容就到这里。下一期我们将实现研报中的第一个筛选器 -- 股息率。我们将完整地实现获取数据、定义筛选器方法，并且进行一个完整的回测。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a> <p>这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金 2023 年 12 月的一份研报，名为《在手之鸟，红利优选策略》。</p> </li><li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a> <p>涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。</p> </li><li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a> <p>本篇聚焦月线策略回测的『数据难题』，揭秘如何通过 tushare 高效获取、复权行情数据并实现本地缓存，彻底解决Alphalens在月线回测上的短板。跟随实战案例，掌握复权原理与缓</p> </li><li> <a href="/posts/algo/data-normalization/">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a> <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Poin</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#核心驱动框架" title="核心驱动框架">核心驱动框架</a> </li><li class> <a href="#moonshot-的实现" title="Moonshot 的实现">Moonshot 的实现</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a> <p>这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金 2023 年 12 月的一份研报，名为《在手之鸟，红利优选策略》。</p> </li><li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a> <p>涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。</p> </li><li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a> <p>本篇聚焦月线策略回测的『数据难题』，揭秘如何通过 tushare 高效获取、复权行情数据并实现本地缓存，彻底解决Alphalens在月线回测上的短板。跟随实战案例，掌握复权原理与缓</p> </li><li> <a href="/posts/algo/data-normalization/">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a> <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Poin</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#核心驱动框架" title="核心驱动框架">核心驱动框架</a> </li><li class> <a href="#moonshot-的实现" title="Moonshot 的实现">Moonshot 的实现</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

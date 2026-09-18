@@ -54,20 +54,38 @@
 <li>如标号 2 所示，点击添加远程 windows 机器。</li>
 <li>此后的每次连接都需要输入密码。您也可以设置通过密钥认证方式，实现免密登录，可以参考 <a href="https://code.visualstudio.com/docs/remote/ssh#_getting-started">微软官方文档</a></li>
 </ol>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/python/qmt-how-to-handle-dr-adjust/">QMT复权因子计算太慢？教你一个提速100倍的高效算法</a> <p>还在用XtQuant官方示例循环计算复权因子？速度慢且效率低。本文教你利用向量化运算，将分红送配信息批量转换为复权因子，行情存储与回测准备从此不再卡顿。实测比官方示例提速100倍以</p> </li><li> <a href="/posts/tools/qmt-get-sector/">xtquant 中的板块数据</a> <p>xtquant 中有哪些板块和板块分类？ 如何获取板块的成份股？ 如何获取指数的行情数据？</p> </li><li> <a href="/posts/tools/qmt-get-stock-price/">量化数据免费方案之 QMT</a> <p>!!! tip &#39;学习要点&#39; xtquant 提供了数据和交易接口 xtquant 可以独立于 QMT 之外运行 downloadhistorydata downloadhisto</p> </li><li> <a href="/posts/tools/trade-api/">量化实盘接口</a> <p>Easytrader Easytrader是一个通过模拟键鼠事件，操作券商客户端来实现交易功能的交易代理。这种方式中，easytrader提供了buy, sell等交易API，策略</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#获取及安装" title="获取及安装">获取及安装</a> </li><li class> <a href="#xtquant-的工作原理" title="XtQuant 的工作原理">XtQuant 的工作原理</a> </li><li class> <a href="#版本和文档一致性问题" title="版本和文档一致性问题">版本和文档一致性问题</a> </li><li class> <a href="#迅投是软件开发商最终为我们提供服务的是采购了-qmt-及-xtquant" title="迅投是软件开发商，最终为我们提供服务的，是采购了 QMT 及 XtQuant">迅投是软件开发商，最终为我们提供服务的，是采购了 QMT 及 XtQuant</a> </li><li class> <a href="#使用-vscode-远程开发" title="使用 VsCode 远程开发">使用 VsCode 远程开发</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/python/qmt-how-to-handle-dr-adjust/">QMT复权因子计算太慢？教你一个提速100倍的高效算法</a> <p>还在用XtQuant官方示例循环计算复权因子？速度慢且效率低。本文教你利用向量化运算，将分红送配信息批量转换为复权因子，行情存储与回测准备从此不再卡顿。实测比官方示例提速100倍以</p> </li><li> <a href="/posts/tools/qmt-get-sector/">xtquant 中的板块数据</a> <p>xtquant 中有哪些板块和板块分类？ 如何获取板块的成份股？ 如何获取指数的行情数据？</p> </li><li> <a href="/posts/tools/qmt-get-stock-price/">量化数据免费方案之 QMT</a> <p>!!! tip &#39;学习要点&#39; xtquant 提供了数据和交易接口 xtquant 可以独立于 QMT 之外运行 downloadhistorydata downloadhisto</p> </li><li> <a href="/posts/tools/trade-api/">量化实盘接口</a> <p>Easytrader Easytrader是一个通过模拟键鼠事件，操作券商客户端来实现交易功能的交易代理。这种方式中，easytrader提供了buy, sell等交易API，策略</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#获取及安装" title="获取及安装">获取及安装</a> </li><li class> <a href="#xtquant-的工作原理" title="XtQuant 的工作原理">XtQuant 的工作原理</a> </li><li class> <a href="#版本和文档一致性问题" title="版本和文档一致性问题">版本和文档一致性问题</a> </li><li class> <a href="#迅投是软件开发商最终为我们提供服务的是采购了-qmt-及-xtquant" title="迅投是软件开发商，最终为我们提供服务的，是采购了 QMT 及 XtQuant">迅投是软件开发商，最终为我们提供服务的，是采购了 QMT 及 XtQuant</a> </li><li class> <a href="#使用-vscode-远程开发" title="使用 VsCode 远程开发">使用 VsCode 远程开发</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

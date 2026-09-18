@@ -55,20 +55,38 @@
     <i>Jthjthh@wikimedia</i>
   </figcaption>
 </figure>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/tcn/tcn原理/">聊聊 TCN：一种更清晰的时间序列解构方式</a> <p>2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接</p> </li><li> <a href="/posts/algo/tcn/因果卷积/">为什么我们需要因果卷积？</a> <p>均线的参数到底设多少合适？20日还是30日？网格搜索出来的&quot;最优参数&quot;一上实盘就失效。这篇文章介绍一种思路：让模型自己从K线里学出权重，不用人工拍板——这就是因果卷积（Causal</p> </li><li> <a href="/posts/uncategory/quantide的课程怎么样/">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a> <p>花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金</p> </li><li> <a href="/posts/algo/tcn/ai股票分析/">一个很强的股票智能分析系统</a> <p>最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#困局通用时序模型为何在金融市场水土不服" title="困局：通用时序模型为何在金融市场“水土不服”？">困局：通用时序模型为何在金融市场“水土不服”？</a> </li><li class> <a href="#深度解读kronos-如何赋予-k-线语义" title="深度解读：Kronos 如何赋予 K 线“语义”？">深度解读：Kronos 如何赋予 K 线“语义”？</a> </li><li class> <a href="#从回测到平行宇宙kronos-的实战想象力" title="从回测到“平行宇宙”：Kronos 的实战想象力">从回测到“平行宇宙”：Kronos 的实战想象力</a> </li><li class> <a href="#争议与反思预训练模型是量化的终点吗" title="争议与反思：预训练模型是量化的终点吗？">争议与反思：预训练模型是量化的终点吗？</a> </li><li class> <a href="#本期问题" title="本期问题">本期问题</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/tcn/tcn原理/">聊聊 TCN：一种更清晰的时间序列解构方式</a> <p>2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接</p> </li><li> <a href="/posts/algo/tcn/因果卷积/">为什么我们需要因果卷积？</a> <p>均线的参数到底设多少合适？20日还是30日？网格搜索出来的&quot;最优参数&quot;一上实盘就失效。这篇文章介绍一种思路：让模型自己从K线里学出权重，不用人工拍板——这就是因果卷积（Causal</p> </li><li> <a href="/posts/uncategory/quantide的课程怎么样/">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a> <p>花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金</p> </li><li> <a href="/posts/algo/tcn/ai股票分析/">一个很强的股票智能分析系统</a> <p>最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#困局通用时序模型为何在金融市场水土不服" title="困局：通用时序模型为何在金融市场“水土不服”？">困局：通用时序模型为何在金融市场“水土不服”？</a> </li><li class> <a href="#深度解读kronos-如何赋予-k-线语义" title="深度解读：Kronos 如何赋予 K 线“语义”？">深度解读：Kronos 如何赋予 K 线“语义”？</a> </li><li class> <a href="#从回测到平行宇宙kronos-的实战想象力" title="从回测到“平行宇宙”：Kronos 的实战想象力">从回测到“平行宇宙”：Kronos 的实战想象力</a> </li><li class> <a href="#争议与反思预训练模型是量化的终点吗" title="争议与反思：预训练模型是量化的终点吗？">争议与反思：预训练模型是量化的终点吗？</a> </li><li class> <a href="#本期问题" title="本期问题">本期问题</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

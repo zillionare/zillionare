@@ -291,20 +291,38 @@ df = pd.read_sql(&#39;SELECT * FROM table_name&#39;, conn)
 conn.close()
 </code></pre>
 <p>如果需要连接其他数据库（如 MySQL、PostgreSQL），可以使用相应的数据库驱动（如 pymysql、psycopg2）。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy&#38;pandas/20-pandas应用案例[3]/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li><li> <a href="/articles/python/numpy&#38;pandas/19-pandas应用案例[2]/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy&#38;pandas/18-pandas应用案例[1]/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy&#38;pandas/17-pandas核心语法[7]/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-数据预处理类" title="1. 数据预处理类">1. 数据预处理类</a> </li><li class="lv3"> <a href="#11-fillna填充缺失值" title="1.1. fillna：填充缺失值">1.1. fillna：填充缺失值</a> </li><li class="lv3"> <a href="#12-clip修剪数据范围" title="1.2. ​clip：修剪数据范围">1.2. ​clip：修剪数据范围</a> </li><li class="lv3"> <a href="#13-winsorize缩尾处理" title="1.3. ​winsorize：缩尾处理">1.3. ​winsorize：缩尾处理</a> </li><li class="lv3"> <a href="#14-dropna删除缺失值" title="1.4. ​dropna：删除缺失值">1.4. ​dropna：删除缺失值</a> </li><li class> <a href="#2-io-操作" title="2. IO 操作">2. IO 操作</a> </li><li class="lv3"> <a href="#21-csv" title="2.1. csv">2.1. csv</a> </li><li class="lv3"> <a href="#22-pkl-和-hdf5" title="2.2. pkl 和 hdf5">2.2. pkl 和 hdf5</a> </li><li class="lv3"> <a href="#23-parquet" title="2.3. parquet">2.3. parquet</a> </li><li class="lv3"> <a href="#24-html-和-md" title="2.4. html 和 md">2.4. html 和 md</a> </li><li class="lv3"> <a href="#25-sql" title="2.5. sql">2.5. sql</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy&#38;pandas/20-pandas应用案例[3]/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li><li> <a href="/articles/python/numpy&#38;pandas/19-pandas应用案例[2]/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy&#38;pandas/18-pandas应用案例[1]/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy&#38;pandas/17-pandas核心语法[7]/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-数据预处理类" title="1. 数据预处理类">1. 数据预处理类</a> </li><li class="lv3"> <a href="#11-fillna填充缺失值" title="1.1. fillna：填充缺失值">1.1. fillna：填充缺失值</a> </li><li class="lv3"> <a href="#12-clip修剪数据范围" title="1.2. ​clip：修剪数据范围">1.2. ​clip：修剪数据范围</a> </li><li class="lv3"> <a href="#13-winsorize缩尾处理" title="1.3. ​winsorize：缩尾处理">1.3. ​winsorize：缩尾处理</a> </li><li class="lv3"> <a href="#14-dropna删除缺失值" title="1.4. ​dropna：删除缺失值">1.4. ​dropna：删除缺失值</a> </li><li class> <a href="#2-io-操作" title="2. IO 操作">2. IO 操作</a> </li><li class="lv3"> <a href="#21-csv" title="2.1. csv">2.1. csv</a> </li><li class="lv3"> <a href="#22-pkl-和-hdf5" title="2.2. pkl 和 hdf5">2.2. pkl 和 hdf5</a> </li><li class="lv3"> <a href="#23-parquet" title="2.3. parquet">2.3. parquet</a> </li><li class="lv3"> <a href="#24-html-和-md" title="2.4. html 和 md">2.4. html 和 md</a> </li><li class="lv3"> <a href="#25-sql" title="2.5. sql">2.5. sql</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

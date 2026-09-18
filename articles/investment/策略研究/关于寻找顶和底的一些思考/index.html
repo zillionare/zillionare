@@ -120,20 +120,38 @@ elif sell and order:
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202111/20211111170152.png" alt=""></p>
 <p>我们先是使用均线对波动进行平滑，然后通过argrelextrem进行峰和谷的检测，然后在此基础上，对峰和谷进行一些小的修正，使之与股价、而不是均线对齐。我们采用沪指过去6年的30分钟线，共发现734个顶点和738个底点，制作成为标注数据。</p>
 <p>有了这些标注数据，我们就可以训练和检验自己的机器学习模型了。出人意料的是，数据量并不大。这也说明在A股市场上，趋势一旦形成，往往还能持续一段时间。这也是量化模型能够有用武之地的一个注脚。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li><li> <a href="/articles/investment/策略研究/mpt-3/">投资组合理论与实战(3) - 优化算法</a> <p>寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：</p> </li><li> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡洛方法</a> <p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p> </li><li> <a href="/articles/investment/策略研究/mpt-1/">投资组合理论与实战(1) - 基本概念</a> <p>现代投资组合理论（MPT）是由马科维茨于 1952 年提出的，是现代金融 7 个基本理论之一。它用数学术语描述了多元化和风险管理等概念，为投资者提供了构建多元化投资组合的工具集，即</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li><li> <a href="/articles/investment/策略研究/mpt-3/">投资组合理论与实战(3) - 优化算法</a> <p>寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：</p> </li><li> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡洛方法</a> <p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p> </li><li> <a href="/articles/investment/策略研究/mpt-1/">投资组合理论与实战(1) - 基本概念</a> <p>现代投资组合理论（MPT）是由马科维茨于 1952 年提出的，是现代金融 7 个基本理论之一。它用数学术语描述了多元化和风险管理等概念，为投资者提供了构建多元化投资组合的工具集，即</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

@@ -314,20 +314,38 @@ print(f&quot;最终对冲误差约为 ${hedge_error:.2f}&quot;)
 <p>现在的我，承认历史数据是脏的，承认模型是脆弱的。我不追求算准明天，我只做大概率的事，严格对冲风险，分散持仓，然后把剩下的交给时间。</p>
 <p>如果你现在也在走这条路，不想把这些坑再从头踩一遍，可以先了解一下我们的《量化24课》，先把整个框架搭起来。等概率、统计和回测这些底子有了，再接着看我们的《因子挖掘与机器学习策略课程》，会更容易把因子研究、特征工程和策略迭代这些事情真正串起来。</p>
 <p>这大概就是我这 20 个月里真正学到的东西。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/ks-test-and-cdf/">KS Test, 广义双曲分布和抄底沪指</a> <p>上一篇笔记我们抛出一个问题，沪指大跌 4%时，能不能抄底？今天的笔记，我们就通过 KS 检验，找出沪指的概率分布，进而回答这个问题。在后面的笔记中，我们还将换一个方法继续回答这个问</p> </li><li> <a href="/posts/uncategory/quantide的课程怎么样/">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a> <p>花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金</p> </li><li> <a href="/posts/algo/tcn/ai股票分析/">一个很强的股票智能分析系统</a> <p>最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判</p> </li><li> <a href="/posts/algo/tcn/tcn原理/">聊聊 TCN：一种更清晰的时间序列解构方式</a> <p>2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#一个散户自学量化的-20-个月" title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a> </li><li class> <a href="#从猜涨跌到开始算概率" title="从猜涨跌，到开始算概率">从猜涨跌，到开始算概率</a> </li><li class="lv3"> <a href="#1-散户看单点量化看条件" title="1. 散户看单点，量化看“条件”">1. 散户看单点，量化看“条件”</a> </li><li class="lv3"> <a href="#2-被套牢的本质是不懂贝叶斯" title="2. 被套牢的本质，是不懂贝叶斯">2. 被套牢的本质，是不懂贝叶斯</a> </li><li class="lv3"> <a href="#3-为什么看对了大趋势账户还是亏光了" title="3. 为什么看对了大趋势，账户还是亏光了？">3. 为什么看对了大趋势，账户还是亏光了？</a> </li><li class> <a href="#写策略之前先学会怀疑自己" title="写策略之前，先学会怀疑自己">写策略之前，先学会怀疑自己</a> </li><li class="lv3"> <a href="#1-先假设自己是个骗子" title="1. 先假设自己是个骗子">1. 先假设自己是个骗子</a> </li><li class="lv3"> <a href="#2-调参就是自我欺骗" title="2. 调参就是自我欺骗">2. 调参就是自我欺骗</a> </li><li class="lv3"> <a href="#3-接受自己算不准" title="3. 接受自己算不准">3. 接受自己算不准</a> </li><li class> <a href="#股票不是一只一只看的" title="股票不是一只一只看的">股票不是一只一只看的</a> </li><li class="lv3"> <a href="#1-股票是互相牵扯的" title="1. 股票是互相牵扯的">1. 股票是互相牵扯的</a> </li><li class="lv3"> <a href="#2-剥离掉没用的新闻" title="2. 剥离掉没用的新闻">2. 剥离掉没用的新闻</a> </li><li class> <a href="#算出来的最优解实盘不一定能做" title="算出来的最优解，实盘不一定能做">算出来的最优解，实盘不一定能做</a> </li><li class="lv3"> <a href="#1-别看太远顾好眼下" title="1. 别看太远，顾好眼下">1. 别看太远，顾好眼下</a> </li><li class="lv3"> <a href="#2-戴着镣铐跳舞" title="2. 戴着镣铐跳舞">2. 戴着镣铐跳舞</a> </li><li class> <a href="#到了期权这一步才知道波动本身也会吃钱" title="到了期权这一步，才知道波动本身也会吃钱">到了期权这一步，才知道波动本身也会吃钱</a> </li><li class="lv3"> <a href="#1-颠簸本身就会吃钱" title="1. 颠簸本身就会吃钱">1. 颠簸本身就会吃钱</a> </li><li class="lv3"> <a href="#2-放弃个人看法" title="2. 放弃个人看法">2. 放弃个人看法</a> </li><li class> <a href="#最后真正卡住我的是估算误差" title="最后真正卡住我的，是估算误差">最后真正卡住我的，是估算误差</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/ks-test-and-cdf/">KS Test, 广义双曲分布和抄底沪指</a> <p>上一篇笔记我们抛出一个问题，沪指大跌 4%时，能不能抄底？今天的笔记，我们就通过 KS 检验，找出沪指的概率分布，进而回答这个问题。在后面的笔记中，我们还将换一个方法继续回答这个问</p> </li><li> <a href="/posts/uncategory/quantide的课程怎么样/">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a> <p>花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金</p> </li><li> <a href="/posts/algo/tcn/ai股票分析/">一个很强的股票智能分析系统</a> <p>最近我看了开源项目 `daily_stock_analysis`，GitHub 上有 31k stars。它的核心不在“AI”，而在解决投资中稀缺的能力：将爆炸式信息稳定地转化为判</p> </li><li> <a href="/posts/algo/tcn/tcn原理/">聊聊 TCN：一种更清晰的时间序列解构方式</a> <p>2018 年 Shaojie Bai 等人的那篇论文，让 TCN 真正走进了量化视野。它不是某种黑盒，而是一套极其清晰的时序解构方案：因果卷积守住底线，膨胀卷积扩大感受野，残差连接</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#一个散户自学量化的-20-个月" title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a> </li><li class> <a href="#从猜涨跌到开始算概率" title="从猜涨跌，到开始算概率">从猜涨跌，到开始算概率</a> </li><li class="lv3"> <a href="#1-散户看单点量化看条件" title="1. 散户看单点，量化看“条件”">1. 散户看单点，量化看“条件”</a> </li><li class="lv3"> <a href="#2-被套牢的本质是不懂贝叶斯" title="2. 被套牢的本质，是不懂贝叶斯">2. 被套牢的本质，是不懂贝叶斯</a> </li><li class="lv3"> <a href="#3-为什么看对了大趋势账户还是亏光了" title="3. 为什么看对了大趋势，账户还是亏光了？">3. 为什么看对了大趋势，账户还是亏光了？</a> </li><li class> <a href="#写策略之前先学会怀疑自己" title="写策略之前，先学会怀疑自己">写策略之前，先学会怀疑自己</a> </li><li class="lv3"> <a href="#1-先假设自己是个骗子" title="1. 先假设自己是个骗子">1. 先假设自己是个骗子</a> </li><li class="lv3"> <a href="#2-调参就是自我欺骗" title="2. 调参就是自我欺骗">2. 调参就是自我欺骗</a> </li><li class="lv3"> <a href="#3-接受自己算不准" title="3. 接受自己算不准">3. 接受自己算不准</a> </li><li class> <a href="#股票不是一只一只看的" title="股票不是一只一只看的">股票不是一只一只看的</a> </li><li class="lv3"> <a href="#1-股票是互相牵扯的" title="1. 股票是互相牵扯的">1. 股票是互相牵扯的</a> </li><li class="lv3"> <a href="#2-剥离掉没用的新闻" title="2. 剥离掉没用的新闻">2. 剥离掉没用的新闻</a> </li><li class> <a href="#算出来的最优解实盘不一定能做" title="算出来的最优解，实盘不一定能做">算出来的最优解，实盘不一定能做</a> </li><li class="lv3"> <a href="#1-别看太远顾好眼下" title="1. 别看太远，顾好眼下">1. 别看太远，顾好眼下</a> </li><li class="lv3"> <a href="#2-戴着镣铐跳舞" title="2. 戴着镣铐跳舞">2. 戴着镣铐跳舞</a> </li><li class> <a href="#到了期权这一步才知道波动本身也会吃钱" title="到了期权这一步，才知道波动本身也会吃钱">到了期权这一步，才知道波动本身也会吃钱</a> </li><li class="lv3"> <a href="#1-颠簸本身就会吃钱" title="1. 颠簸本身就会吃钱">1. 颠簸本身就会吃钱</a> </li><li class="lv3"> <a href="#2-放弃个人看法" title="2. 放弃个人看法">2. 放弃个人看法</a> </li><li class> <a href="#最后真正卡住我的是估算误差" title="最后真正卡住我的，是估算误差">最后真正卡住我的，是估算误差</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

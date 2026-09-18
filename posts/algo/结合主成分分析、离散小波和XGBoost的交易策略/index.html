@@ -163,20 +163,38 @@ y_t =
 <p>论文中提到，他们使用了Min-Max来进行归一化。这一点上是个灾难的选择。我们只能对取值范围固定的数据进行Min-Max归一化，而股价的值域从理论上看，是$(0, +\infty)$。</p>
 <p>在我们学习量化的过程中，参考已发表的论文无疑是成长的捷径。但是，有些学者并身没有太多的实际交易经验，导致论文中也可能存在各种瑕疵，这无疑也会导致论文的结果无法在实战中运用。因此，我们开设了《因子投资与机器学习策略》的课程，如果对这一领域感兴趣，但不得其门而入的，可以加入我们一起学习。</p>
 <p>该论文可在<a href="https://blog.quantide.cn/assets/ebooks/Combining-Principal-Component-Analysis-Discrete-Wavelet-Transform-and-XGBoost-to-trade-in-the-financial-markets.pdf">这里</a>下载</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/pdf-is-all-you-need-3/">PDF is all you need(3)</a> <p>当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线时，你是否想过这背后隐藏着怎样的数学奥秘？从概率密度到期望值，从离散到连续，这篇文章将带你揭开随机世界的神秘面纱。想知道如何用积分计算</p> </li><li> <a href="/posts/algo/pdf-is-all-you-need-2/">PDF is all you need(2)</a> <p>从赌场游戏到数学家们的战争，概率论如何摆脱直觉的束缚？柯尔莫哥洛夫的公理化革命，让微积分成为概率论的新武器，彻底改写了我们对随机世界的理解</p> </li><li> <a href="/posts/algo/fft/">快速傅里叶变换与股价预测研究</a> <p>一个不证自明的事实：经济活动是有周期的。但是，这个事实似乎长久以来被量化界所忽略。无论是在资产定价理论，还是在趋势交易理论中我们几乎都找不到周期研究的位置 -- 在后者语境中，大家</p> </li><li> <a href="/posts/algo/noise-test/">样本外测试之外，我们还有哪些过拟合检测方法？</a> <p>在知乎上看到一个搞笑的贴子，说是有人为了卖策略，让回测结果好看，会在代码中植入大量的if 语句，判断当前时间是特定的日期，就不进行交易。但奥妙全在这些日期里，因为在这些日期时，交易</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#相关工作" title="相关工作">相关工作</a> </li><li class="lv3"> <a href="#主成分分析" title="主成分分析">主成分分析</a> </li><li class="lv3"> <a href="#离散小波变换" title="离散小波变换">离散小波变换</a> </li><li class="lv3"> <a href="#遗传算法" title="遗传算法">遗传算法</a> </li><li class="lv3"> <a href="#xgboost" title="XGBoost">XGBoost</a> </li><li class> <a href="#提议中的方案" title="提议中的方案">提议中的方案</a> </li><li class="lv3"> <a href="#系统架构" title="系统架构">系统架构</a> </li><li class="lv3"> <a href="#目标方程" title="目标方程">目标方程</a> </li><li class="lv3"> <a href="#技术分析模块" title="技术分析模块">技术分析模块</a> </li><li class="lv3"> <a href="#数据预处理模块" title="数据预处理模块">数据预处理模块</a> </li><li class="lv3"> <a href="#xgboost-模块" title="XGBoost 模块">XGBoost 模块</a> </li><li class="lv3"> <a href="#交易模块" title="交易模块">交易模块</a> </li><li class> <a href="#实验结果" title="实验结果">实验结果</a> </li><li class="lv3"> <a href="#案例-1-使用-pca-的效果" title="案例 1 使用 PCA 的效果">案例 1 使用 PCA 的效果</a> </li><li class="lv3"> <a href="#案例-2-使用离散小波分析的效果" title="案例 2 使用离散小波分析的效果">案例 2 使用离散小波分析的效果</a> </li><li class="lv3"> <a href="#案例-3-性能评估" title="案例 3 性能评估">案例 3 性能评估</a> </li><li class> <a href="#结论" title="结论">结论</a> </li><li class> <a href="#quantide-评论" title="QuanTide 评论">QuanTide 评论</a> </li><li class="lv3"> <a href="#数据标注问题" title="数据标注问题">数据标注问题</a> </li><li class="lv3"> <a href="#遗传算法-1" title="遗传算法">遗传算法</a> </li><li class="lv3"> <a href="#使用dwt来去除噪声" title="使用DWT来去除噪声">使用DWT来去除噪声</a> </li><li class="lv3"> <a href="#关于归一化算法" title="关于归一化算法">关于归一化算法</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/pdf-is-all-you-need-3/">PDF is all you need(3)</a> <p>当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线时，你是否想过这背后隐藏着怎样的数学奥秘？从概率密度到期望值，从离散到连续，这篇文章将带你揭开随机世界的神秘面纱。想知道如何用积分计算</p> </li><li> <a href="/posts/algo/pdf-is-all-you-need-2/">PDF is all you need(2)</a> <p>从赌场游戏到数学家们的战争，概率论如何摆脱直觉的束缚？柯尔莫哥洛夫的公理化革命，让微积分成为概率论的新武器，彻底改写了我们对随机世界的理解</p> </li><li> <a href="/posts/algo/fft/">快速傅里叶变换与股价预测研究</a> <p>一个不证自明的事实：经济活动是有周期的。但是，这个事实似乎长久以来被量化界所忽略。无论是在资产定价理论，还是在趋势交易理论中我们几乎都找不到周期研究的位置 -- 在后者语境中，大家</p> </li><li> <a href="/posts/algo/noise-test/">样本外测试之外，我们还有哪些过拟合检测方法？</a> <p>在知乎上看到一个搞笑的贴子，说是有人为了卖策略，让回测结果好看，会在代码中植入大量的if 语句，判断当前时间是特定的日期，就不进行交易。但奥妙全在这些日期里，因为在这些日期时，交易</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#相关工作" title="相关工作">相关工作</a> </li><li class="lv3"> <a href="#主成分分析" title="主成分分析">主成分分析</a> </li><li class="lv3"> <a href="#离散小波变换" title="离散小波变换">离散小波变换</a> </li><li class="lv3"> <a href="#遗传算法" title="遗传算法">遗传算法</a> </li><li class="lv3"> <a href="#xgboost" title="XGBoost">XGBoost</a> </li><li class> <a href="#提议中的方案" title="提议中的方案">提议中的方案</a> </li><li class="lv3"> <a href="#系统架构" title="系统架构">系统架构</a> </li><li class="lv3"> <a href="#目标方程" title="目标方程">目标方程</a> </li><li class="lv3"> <a href="#技术分析模块" title="技术分析模块">技术分析模块</a> </li><li class="lv3"> <a href="#数据预处理模块" title="数据预处理模块">数据预处理模块</a> </li><li class="lv3"> <a href="#xgboost-模块" title="XGBoost 模块">XGBoost 模块</a> </li><li class="lv3"> <a href="#交易模块" title="交易模块">交易模块</a> </li><li class> <a href="#实验结果" title="实验结果">实验结果</a> </li><li class="lv3"> <a href="#案例-1-使用-pca-的效果" title="案例 1 使用 PCA 的效果">案例 1 使用 PCA 的效果</a> </li><li class="lv3"> <a href="#案例-2-使用离散小波分析的效果" title="案例 2 使用离散小波分析的效果">案例 2 使用离散小波分析的效果</a> </li><li class="lv3"> <a href="#案例-3-性能评估" title="案例 3 性能评估">案例 3 性能评估</a> </li><li class> <a href="#结论" title="结论">结论</a> </li><li class> <a href="#quantide-评论" title="QuanTide 评论">QuanTide 评论</a> </li><li class="lv3"> <a href="#数据标注问题" title="数据标注问题">数据标注问题</a> </li><li class="lv3"> <a href="#遗传算法-1" title="遗传算法">遗传算法</a> </li><li class="lv3"> <a href="#使用dwt来去除噪声" title="使用DWT来去除噪声">使用DWT来去除噪声</a> </li><li class="lv3"> <a href="#关于归一化算法" title="关于归一化算法">关于归一化算法</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

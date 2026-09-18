@@ -117,20 +117,38 @@ df[df.slope &gt; quant_25].nsmallest(10, &quot;vol&quot;)
 </code></pre>
 <h2 id="结束语">结束语</h2>
 <p>人迹罕至的道路，有时提供更好的旅程。<strong>新国九条之后，红利股在投资中的重要性将大大加强</strong>，而低波动因子在发现红利股、白马股方面有优秀的选择能力。如果一个市场里的财务数据不那么可靠，那么我们就应该使用低波动因子来代替价值因子。<strong>量价数据永远不说谎</strong>。如果一家过去看起来很好的公司，最近出了问题，看财报的人永远是最后一个知道的。但股价会提前反映。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/洛书投资解读/">洛书投资：先验性因子与波动率等权</a> <p>本文是“解读私募创始人公开采访实录”系列的首期文章。通过深度解读洛书投资创始人谢冬的采访，揭示了其区别于主流统计套利的量化核心逻辑：坚持基于经济学规律的“先验性因子”挖掘（贝叶斯派</p> </li><li> <a href="/posts/factor-strategy/word-count/">WorldQuant? Word Count!</a> <p>如果你去商场逛，你会发现，销量最好的店和最好的商品总是占据人气中心。对股票来说也是一样，被新闻和社交媒体频频提起的个股，往往更容易获得更大的成交量。</p> </li><li> <a href="/posts/factor-strategy/week-day-factor/">周一到周五，哪天能买股？做对了夏普22.5！</a> <p>在第12课我们讲了如何从量、价、时、空四个维度来拓展因子（或者策略）。在时间维度上，我们指出从周一到周五，不同的时间点买入，收益是不一样的。这篇文章我们就来揭示下，究竟哪一天买入收</p> </li><li> <a href="/posts/factor-strategy/max-volume-direction/">捕捉主力-最大成交量因子</a> <p>&lt;div style=&#39;width:50%;text-align:center;margin: 0 auto 1rem&#39;&gt; &lt;img src=&#39;https://cdn.jsdeli</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#低波动因子的数据表现" title="低波动因子的数据表现">低波动因子的数据表现</a> </li><li class> <a href="#低波动因子的有效性解释" title="低波动因子的有效性解释">低波动因子的有效性解释</a> </li><li class> <a href="#波动率的计算" title="波动率的计算">波动率的计算</a> </li><li class> <a href="#低波动率策略" title="低波动率策略">低波动率策略</a> </li><li class> <a href="#结束语" title="结束语">结束语</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/洛书投资解读/">洛书投资：先验性因子与波动率等权</a> <p>本文是“解读私募创始人公开采访实录”系列的首期文章。通过深度解读洛书投资创始人谢冬的采访，揭示了其区别于主流统计套利的量化核心逻辑：坚持基于经济学规律的“先验性因子”挖掘（贝叶斯派</p> </li><li> <a href="/posts/factor-strategy/word-count/">WorldQuant? Word Count!</a> <p>如果你去商场逛，你会发现，销量最好的店和最好的商品总是占据人气中心。对股票来说也是一样，被新闻和社交媒体频频提起的个股，往往更容易获得更大的成交量。</p> </li><li> <a href="/posts/factor-strategy/week-day-factor/">周一到周五，哪天能买股？做对了夏普22.5！</a> <p>在第12课我们讲了如何从量、价、时、空四个维度来拓展因子（或者策略）。在时间维度上，我们指出从周一到周五，不同的时间点买入，收益是不一样的。这篇文章我们就来揭示下，究竟哪一天买入收</p> </li><li> <a href="/posts/factor-strategy/max-volume-direction/">捕捉主力-最大成交量因子</a> <p>&lt;div style=&#39;width:50%;text-align:center;margin: 0 auto 1rem&#39;&gt; &lt;img src=&#39;https://cdn.jsdeli</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#低波动因子的数据表现" title="低波动因子的数据表现">低波动因子的数据表现</a> </li><li class> <a href="#低波动因子的有效性解释" title="低波动因子的有效性解释">低波动因子的有效性解释</a> </li><li class> <a href="#波动率的计算" title="波动率的计算">波动率的计算</a> </li><li class> <a href="#低波动率策略" title="低波动率策略">低波动率策略</a> </li><li class> <a href="#结束语" title="结束语">结束语</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

@@ -100,20 +100,38 @@ assert sigmoid(13) - sigmoid(26) &lt; 1e-7
 <h3 id="概率因子">概率因子</h3>
 <p>一些数据转换成概率之后，天然就是分布在[0,1]之间的。所以，当我们没有归一化思路时，也可以通过经验分布函数，求得经验cdf/ppf函数，从而得到某个数据出现时，对应的概率。这个概率也可以作为深度学习的因子。</p>
 <p>对本文中的一些概念，比如浮点误差，归一化函数的作用，CDF/PPF，不太理解的话，你可能需要系统地学习一些量化课程。本篇内容整理自我们的课程素材，欢迎加入！</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/打新不中，买新当如何/">2026年打新总不中签怎么办？散户买新股必看5大量化策略</a> <p>摩尔线程、沐曦股份引爆打新市场：中一签分别可赚27万、40万。中签后该在什么价位卖出？没中签还有上车机会吗？本文从量化视角拆解新股估值，手把手用东方财富数据与机器学习模型，讲解数据</p> </li><li> <a href="/posts/tools/量子计算/">量子计算能否重构量化金融未来？</a> <p>从 2010 年“闪电崩盘”的历史教训出发，本文探讨了传统计算在极端金融风险评估中的算力瓶颈。通过解读汇丰与 IBM 在量子算法交易系统上的最新突破，揭示了量子计算在组合优化、风险</p> </li><li> <a href="/posts/factor-strategy/洛书投资解读/">洛书投资：先验性因子与波动率等权</a> <p>本文是“解读私募创始人公开采访实录”系列的首期文章。通过深度解读洛书投资创始人谢冬的采访，揭示了其区别于主流统计套利的量化核心逻辑：坚持基于经济学规律的“先验性因子”挖掘（贝叶斯派</p> </li><li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/">Moonshot is all you need - 红利策略完结篇</a> <p>本篇是本系列的最后一篇,运用之前的Moonshot回测框架，我们将最终完成红利策略的构建。5年回测结果表明，本策略年化达到11.6%，sharpe 高达4.55，远远超过同期沪深3</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#归一化标准化与正则化辨析" title="归一化、标准化与正则化辨析">归一化、标准化与正则化辨析</a> </li><li class> <a href="#常见的归一化函数讨论" title="常见的归一化函数讨论">常见的归一化函数讨论</a> </li><li class="lv3"> <a href="#min-max-scale" title="min-max scale">min-max scale</a> </li><li class="lv3"> <a href="#sigmoid和tanh" title="sigmoid和tanh">sigmoid和tanh</a> </li><li class="lv3"> <a href="#sine" title="sine">sine</a> </li><li class="lv3"> <a href="#z-score和正则化" title="z-score和正则化">z-score和正则化</a> </li><li class> <a href="#什么是好的归一化函数" title="什么是好的归一化函数">什么是好的归一化函数</a> </li><li class> <a href="#因子归一化示例" title="因子归一化示例">因子归一化示例</a> </li><li class="lv3"> <a href="#涨停后整理周期因子" title="涨停后整理周期因子">涨停后整理周期因子</a> </li><li class="lv3"> <a href="#地量因子" title="地量因子">地量因子</a> </li><li class="lv3"> <a href="#概率因子" title="概率因子">概率因子</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/打新不中，买新当如何/">2026年打新总不中签怎么办？散户买新股必看5大量化策略</a> <p>摩尔线程、沐曦股份引爆打新市场：中一签分别可赚27万、40万。中签后该在什么价位卖出？没中签还有上车机会吗？本文从量化视角拆解新股估值，手把手用东方财富数据与机器学习模型，讲解数据</p> </li><li> <a href="/posts/tools/量子计算/">量子计算能否重构量化金融未来？</a> <p>从 2010 年“闪电崩盘”的历史教训出发，本文探讨了传统计算在极端金融风险评估中的算力瓶颈。通过解读汇丰与 IBM 在量子算法交易系统上的最新突破，揭示了量子计算在组合优化、风险</p> </li><li> <a href="/posts/factor-strategy/洛书投资解读/">洛书投资：先验性因子与波动率等权</a> <p>本文是“解读私募创始人公开采访实录”系列的首期文章。通过深度解读洛书投资创始人谢冬的采访，揭示了其区别于主流统计套利的量化核心逻辑：坚持基于经济学规律的“先验性因子”挖掘（贝叶斯派</p> </li><li> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/">Moonshot is all you need - 红利策略完结篇</a> <p>本篇是本系列的最后一篇,运用之前的Moonshot回测框架，我们将最终完成红利策略的构建。5年回测结果表明，本策略年化达到11.6%，sharpe 高达4.55，远远超过同期沪深3</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#归一化标准化与正则化辨析" title="归一化、标准化与正则化辨析">归一化、标准化与正则化辨析</a> </li><li class> <a href="#常见的归一化函数讨论" title="常见的归一化函数讨论">常见的归一化函数讨论</a> </li><li class="lv3"> <a href="#min-max-scale" title="min-max scale">min-max scale</a> </li><li class="lv3"> <a href="#sigmoid和tanh" title="sigmoid和tanh">sigmoid和tanh</a> </li><li class="lv3"> <a href="#sine" title="sine">sine</a> </li><li class="lv3"> <a href="#z-score和正则化" title="z-score和正则化">z-score和正则化</a> </li><li class> <a href="#什么是好的归一化函数" title="什么是好的归一化函数">什么是好的归一化函数</a> </li><li class> <a href="#因子归一化示例" title="因子归一化示例">因子归一化示例</a> </li><li class="lv3"> <a href="#涨停后整理周期因子" title="涨停后整理周期因子">涨停后整理周期因子</a> </li><li class="lv3"> <a href="#地量因子" title="地量因子">地量因子</a> </li><li class="lv3"> <a href="#概率因子" title="概率因子">概率因子</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

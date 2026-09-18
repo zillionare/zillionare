@@ -251,20 +251,38 @@
 <p>[1] <a href="https://arxiv.org/html/2508.18653v1">https://arxiv.org/html/2508.18653v1</a></p>
 <!--
 我现在可以把 OCW_THRESHOLD 恢复为默认（5），或把该环境写回到 plist（持久化）。要我现在恢复哪个？-->
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/如何成为一名量化研究员 /">一个散户自学量化的 20 个月</a> <p>从A股散户到自学量化，这20个月让我明白：量化的核心不是预测未来，不是写代码，而是用概率、统计、组合与风控重新理解市场，也重新理解自己。这篇文章写的是真正走过的坑和学到的东西。</p> </li><li> <a href="/posts/algo/强化学习与监督学习/">强化学习 vs 监督学习：AI炒股的两种思路</a> <p>强化学习 vs 监督学习哪个更适合AI炒股？监督学习像&quot;背答案&quot;，强化学习像&quot;实战练&quot;。一篇文讲清楚两者的核心区别、优缺点，以及在金融量化中该怎么选。</p> </li><li> <a href="/posts/algo/data-normalization/">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a> <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Poin</p> </li><li> <a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a> <p>最近在整一个适合个人使用的量化框架，数据源选择了 tushare，实时数据和交易 API 使用 QMT。在尝试一个策略时，发现该发出信号的时候，没有发出信号，于是就开始了排错之旅。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-为什么要研究这个方向" title="1. 为什么要研究这个方向？">1. 为什么要研究这个方向？</a> </li><li class> <a href="#2-piam-声学模型" title="2. PIAM 声学模型">2. PIAM 声学模型</a> </li><li class> <a href="#3-抓住声音的裂隙" title="3. 抓住声音的裂隙">3. 抓住声音的裂隙</a> </li><li class> <a href="#4-被量化的情绪波动" title="4. 被量化的情绪波动">4. 被量化的情绪波动</a> </li><li class> <a href="#5-物理约束" title="5. 物理约束">5. 物理约束</a> </li><li class> <a href="#6-爆裂无声" title="6. 爆裂无声">6. 爆裂无声</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/如何成为一名量化研究员 /">一个散户自学量化的 20 个月</a> <p>从A股散户到自学量化，这20个月让我明白：量化的核心不是预测未来，不是写代码，而是用概率、统计、组合与风控重新理解市场，也重新理解自己。这篇文章写的是真正走过的坑和学到的东西。</p> </li><li> <a href="/posts/algo/强化学习与监督学习/">强化学习 vs 监督学习：AI炒股的两种思路</a> <p>强化学习 vs 监督学习哪个更适合AI炒股？监督学习像&quot;背答案&quot;，强化学习像&quot;实战练&quot;。一篇文讲清楚两者的核心区别、优缺点，以及在金融量化中该怎么选。</p> </li><li> <a href="/posts/algo/data-normalization/">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a> <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Poin</p> </li><li> <a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a> <p>最近在整一个适合个人使用的量化框架，数据源选择了 tushare，实时数据和交易 API 使用 QMT。在尝试一个策略时，发现该发出信号的时候，没有发出信号，于是就开始了排错之旅。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-为什么要研究这个方向" title="1. 为什么要研究这个方向？">1. 为什么要研究这个方向？</a> </li><li class> <a href="#2-piam-声学模型" title="2. PIAM 声学模型">2. PIAM 声学模型</a> </li><li class> <a href="#3-抓住声音的裂隙" title="3. 抓住声音的裂隙">3. 抓住声音的裂隙</a> </li><li class> <a href="#4-被量化的情绪波动" title="4. 被量化的情绪波动">4. 被量化的情绪波动</a> </li><li class> <a href="#5-物理约束" title="5. 物理约束">5. 物理约束</a> </li><li class> <a href="#6-爆裂无声" title="6. 爆裂无声">6. 爆裂无声</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

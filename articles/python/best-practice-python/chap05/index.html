@@ -681,20 +681,38 @@ virtualenvs.prompt = &quot;{project_name}-py{python_version}&quot;
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">点击此链接购买本书正版</a>
 </div>
 </div>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/lof套利怎么做/">白银大涨引发的量化套利策略</a> <p>全球避险情绪与工业需求双重驱动下，白银价格一路狂飙。这种单边行情不仅让持有实物或期货的投资者获利丰厚，更在场内催生了一个低风险的“捡钱”机会——LOF 基金场内外溢价套利。</p> </li><li> <a href="/posts/tools/2026十大量化技术/pandas/">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a> <p>深度解析 pandas 3.0 在 2026 年量化技术栈中的核心地位，探讨从 NumPy 到 PyArrow 的架构转型、字符串处理革命、Copy-on-Write 机制以及开发</p> </li><li> <a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a> <p>本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 </p> </li><li> <a href="/articles/python/best-practice-python/chap11/">11 发布应用</a> <p>我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-semantic-versioning基于语义的版本管理" title="1. SEMANTIC VERSIONING（基于语义的版本管理）">1. SEMANTIC VERSIONING（基于语义的版本管理）</a> </li><li class> <a href="#2-poetry简洁清晰的项目管理工具" title="2. POETRY：简洁清晰的项目管理工具">2. POETRY：简洁清晰的项目管理工具</a> </li><li class="lv3"> <a href="#21-版本管理" title="2.1. 版本管理">2.1. 版本管理</a> </li><li class="lv3"> <a href="#22-依赖管理" title="2.2. 依赖管理">2.2. 依赖管理</a> </li><li class="lv3"> <a href="#23-虚拟运行时" title="2.3. 虚拟运行时">2.3. 虚拟运行时</a> </li><li class="lv3"> <a href="#24-构建发行包" title="2.4. 构建发行包">2.4. 构建发行包</a> </li><li class="lv3"> <a href="#25-其他重要的-poetry-命令" title="2.5. 其他重要的 Poetry 命令">2.5. 其他重要的 Poetry 命令</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/lof套利怎么做/">白银大涨引发的量化套利策略</a> <p>全球避险情绪与工业需求双重驱动下，白银价格一路狂飙。这种单边行情不仅让持有实物或期货的投资者获利丰厚，更在场内催生了一个低风险的“捡钱”机会——LOF 基金场内外溢价套利。</p> </li><li> <a href="/posts/tools/2026十大量化技术/pandas/">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a> <p>深度解析 pandas 3.0 在 2026 年量化技术栈中的核心地位，探讨从 NumPy 到 PyArrow 的架构转型、字符串处理革命、Copy-on-Write 机制以及开发</p> </li><li> <a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a> <p>本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 </p> </li><li> <a href="/articles/python/best-practice-python/chap11/">11 发布应用</a> <p>我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-semantic-versioning基于语义的版本管理" title="1. SEMANTIC VERSIONING（基于语义的版本管理）">1. SEMANTIC VERSIONING（基于语义的版本管理）</a> </li><li class> <a href="#2-poetry简洁清晰的项目管理工具" title="2. POETRY：简洁清晰的项目管理工具">2. POETRY：简洁清晰的项目管理工具</a> </li><li class="lv3"> <a href="#21-版本管理" title="2.1. 版本管理">2.1. 版本管理</a> </li><li class="lv3"> <a href="#22-依赖管理" title="2.2. 依赖管理">2.2. 依赖管理</a> </li><li class="lv3"> <a href="#23-虚拟运行时" title="2.3. 虚拟运行时">2.3. 虚拟运行时</a> </li><li class="lv3"> <a href="#24-构建发行包" title="2.4. 构建发行包">2.4. 构建发行包</a> </li><li class="lv3"> <a href="#25-其他重要的-poetry-命令" title="2.5. 其他重要的 Poetry 命令">2.5. 其他重要的 Poetry 命令</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

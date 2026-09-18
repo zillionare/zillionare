@@ -128,20 +128,38 @@ Connor&#39;s RSI（Connor&#39;s Relative Strength Index）是一种技术分析�
 </code></pre>
 <p>这段代码首先将股价序列划分为上涨、下跌和平盘三个子系列，然后对每个子系列计算连续上涨或下跌的天数，并将结果合并成一个新的数组。</p>
 <p>在streaks中，连续上涨天数要用正数表示，连续下跌天数用负数表示，所以在第5行中，通过np.select将条件数组转换为[1, 0, -1]的序列，后面使用乘法就能得到正确的连续上涨（下跌）天数了。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/关于复权那些事儿/">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a> <p>这是所有的量化课程都不会告诉你的，基于静态复权计算出来的因子，很可能不具有时间平稳性，这意味着我们无法基于它来发现统计规律。</p> </li><li> <a href="/posts/tools/effective-pandas-2/">高效量化编程: Pandas 的多级索引</a> <p>题图： 普林斯顿大学。普林斯顿大学在量化金融领域有着非常强的研究实力，并且拥有一些著名的学者，比如马克·布伦纳迈尔，范剑青教授（华裔统计学家，普林斯顿大学金融教授，复旦大学大数据学</p> </li><li> <a href="/posts/python/it-is-π-thon/">π-thon以及他的朋友们</a> <p>在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝</p> </li><li> <a href="/posts/uncategory/weekly-1020/">[1020] QuanTide Weekly</a> <p>本周要闻 幻方量化宣布降低对冲全系产品投资仓位至0 月CPI、PPI及前三季度GDP数据出炉 潘功胜发声，宏观经济政策应更加重视消费</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/关于复权那些事儿/">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a> <p>这是所有的量化课程都不会告诉你的，基于静态复权计算出来的因子，很可能不具有时间平稳性，这意味着我们无法基于它来发现统计规律。</p> </li><li> <a href="/posts/tools/effective-pandas-2/">高效量化编程: Pandas 的多级索引</a> <p>题图： 普林斯顿大学。普林斯顿大学在量化金融领域有着非常强的研究实力，并且拥有一些著名的学者，比如马克·布伦纳迈尔，范剑青教授（华裔统计学家，普林斯顿大学金融教授，复旦大学大数据学</p> </li><li> <a href="/posts/python/it-is-π-thon/">π-thon以及他的朋友们</a> <p>在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝</p> </li><li> <a href="/posts/uncategory/weekly-1020/">[1020] QuanTide Weekly</a> <p>本周要闻 幻方量化宣布降低对冲全系产品投资仓位至0 月CPI、PPI及前三季度GDP数据出炉 潘功胜发声，宏观经济政策应更加重视消费</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

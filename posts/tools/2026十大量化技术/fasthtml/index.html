@@ -144,20 +144,38 @@ serve()
 </ol>
 <p>这一系列技术选型的共同点是：<strong>反内卷，重实效</strong>。它们都不追求“大而全”的企业级架构，而是致力于让个人开发者和小团队以最小的认知负担，构建出高性能、高可用的量化系统。</p>
 <p>在 2026 年，技术的门槛应该被踏平，而不是被筑高。希望这套“新基建”能帮你从繁琐的基建工作中解放出来，把最宝贵的精力，投入到 Alpha 的挖掘中去。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/2026十大量化技术/sqlite/">2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？</a> <p>量化交易中，委托与成交数据如何高效存储？SQLite并非玩具，WAL模式支持多进程并发读写。配合sqlite-utils，用Pythonic方式简化数据库操作，提升表达力。本文详解</p> </li><li> <a href="/posts/tools/rd-agent-for-quant-intro/">微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？</a> <p>量化投研总在因子挖掘、回测调参和策略失效之间反复试错？微软RD-Agent(Q)已于2025年被NeurIPS接收，GitHub获12,000+ Stars。它用研究、开发、调度、</p> </li><li> <a href="/posts/tools/hermes/">2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？</a> <p>量化投资者必看！深度体验Hermes Agent与OpenClaw，从安装失败到Eureka时刻。Hermes自包含依赖、零帧起手，但API Key校验缺失易踩坑；OpenClaw</p> </li><li> <a href="/posts/resources/白嫖顶级AI算力指南/">龙虾流量太贵？ 我一招搞定每天7500万词元</a> <p>OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的tok</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#曾经的王者streamlit" title="曾经的王者：Streamlit">曾经的王者：Streamlit</a> </li><li class> <a href="#不妥协的-fasthtml" title="不妥协的 fasthtml">不妥协的 fasthtml</a> </li><li class> <a href="#魔法的核心htmx" title="魔法的核心：HTMX">魔法的核心：HTMX</a> </li><li class> <a href="#炙手可热的新星" title="炙手可热的新星">炙手可热的新星</a> </li><li class> <a href="#fasthtml-快速上手" title="FastHTML 快速上手">FastHTML 快速上手</a> </li><li class="lv3"> <a href="#1-hello-world" title="1. Hello, World!">1. Hello, World!</a> </li><li class="lv3"> <a href="#2-添加交互-htmx" title="2. 添加交互 HTMX">2. 添加交互 HTMX</a> </li><li class> <a href="#jeremy-的个人印记" title="Jeremy 的“个人印记”">Jeremy 的“个人印记”</a> </li><li class="lv3"> <a href="#1-像数据分析一样写-web-nbdev-基因" title="1. 像数据分析一样写 Web nbdev 基因">1. 像数据分析一样写 Web nbdev 基因</a> </li><li class="lv3"> <a href="#2-为-ai-时代而生-ai-first" title="2. 为 AI 时代而生 AI-First">2. 为 AI 时代而生 AI-First</a> </li><li class> <a href="#关于美学" title="关于美学？">关于美学？</a> </li><li class> <a href="#结语让技术回归服务" title="结语：让技术回归服务">结语：让技术回归服务</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/2026十大量化技术/sqlite/">2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？</a> <p>量化交易中，委托与成交数据如何高效存储？SQLite并非玩具，WAL模式支持多进程并发读写。配合sqlite-utils，用Pythonic方式简化数据库操作，提升表达力。本文详解</p> </li><li> <a href="/posts/tools/rd-agent-for-quant-intro/">微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？</a> <p>量化投研总在因子挖掘、回测调参和策略失效之间反复试错？微软RD-Agent(Q)已于2025年被NeurIPS接收，GitHub获12,000+ Stars。它用研究、开发、调度、</p> </li><li> <a href="/posts/tools/hermes/">2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？</a> <p>量化投资者必看！深度体验Hermes Agent与OpenClaw，从安装失败到Eureka时刻。Hermes自包含依赖、零帧起手，但API Key校验缺失易踩坑；OpenClaw</p> </li><li> <a href="/posts/resources/白嫖顶级AI算力指南/">龙虾流量太贵？ 我一招搞定每天7500万词元</a> <p>OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的tok</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#曾经的王者streamlit" title="曾经的王者：Streamlit">曾经的王者：Streamlit</a> </li><li class> <a href="#不妥协的-fasthtml" title="不妥协的 fasthtml">不妥协的 fasthtml</a> </li><li class> <a href="#魔法的核心htmx" title="魔法的核心：HTMX">魔法的核心：HTMX</a> </li><li class> <a href="#炙手可热的新星" title="炙手可热的新星">炙手可热的新星</a> </li><li class> <a href="#fasthtml-快速上手" title="FastHTML 快速上手">FastHTML 快速上手</a> </li><li class="lv3"> <a href="#1-hello-world" title="1. Hello, World!">1. Hello, World!</a> </li><li class="lv3"> <a href="#2-添加交互-htmx" title="2. 添加交互 HTMX">2. 添加交互 HTMX</a> </li><li class> <a href="#jeremy-的个人印记" title="Jeremy 的“个人印记”">Jeremy 的“个人印记”</a> </li><li class="lv3"> <a href="#1-像数据分析一样写-web-nbdev-基因" title="1. 像数据分析一样写 Web nbdev 基因">1. 像数据分析一样写 Web nbdev 基因</a> </li><li class="lv3"> <a href="#2-为-ai-时代而生-ai-first" title="2. 为 AI 时代而生 AI-First">2. 为 AI 时代而生 AI-First</a> </li><li class> <a href="#关于美学" title="关于美学？">关于美学？</a> </li><li class> <a href="#结语让技术回归服务" title="结语：让技术回归服务">结语：让技术回归服务</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

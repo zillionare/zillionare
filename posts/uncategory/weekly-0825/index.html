@@ -388,20 +388,38 @@ Connor&#39;s RSI（Connor&#39;s Relative Strength Index）是一种技术分析�
 <p>在这个3D图中，参数选择为 X= 9和Y=4,如黑色简单所示。显然，这一区域靠近敏感区域，在其周围，策略的性能下降非常厉害。按照传统的推荐，我们应该选择参数 X=8和Y=8，这一区域图形更为平坦。</p>
 <p>在很多时候，参数平原的提示是对的 -- 因为我们选择的参数，其实价格变化的函数；但它毕竟不是价格变化。最直接的方法是，当价格发生轻微变化时，策略的性能如果仍然处在一个平坦的表面，就更能说明策略是鲁棒的。</p>
 <p>不过，这种图很难绘制，所以，Build Alpha绘制的仍然是以参数为n维空间的坐标、策略性能为其取值的三维图，但它不再是基于单个历史数据，而是基于一组历史数据：真实历史数据和增加了噪声的数据。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/uncategory/weekly-0818/">[0818] QuanTide Weekly</a> <p>全球猴痘病例超1.56万，相关美股 GeoVax Labs收涨110.75% 央行发布重要数据，7月M2同比增长6.3%，M1同比下降6.6% 月美国CPI同比上涨2.9%，零售销</p> </li><li> <a href="/posts/uncategory/weekly-0811/">[0811] QuanTide Weekly</a> <p>央行表示，将在公开市场操作中增加国债买卖。坚决防范汇率超调风险。 统计局：七月 CPI 同比上涨 0.5%，PPI 同比下降 0.8% 美最新初请失业金人数明显下降，市场对经济衰退</p> </li><li> <a href="/posts/uncategory/weekly-1103/">[1103] QuanTide Weekly</a> <p>本周要闻 英伟达和宣伟公司纳入道指 制造业PMI时隔5个月重返景气区间 三季报收官，8成上市公司实现盈利</p> </li><li> <a href="/posts/uncategory/weekly-1027/">[1027] QuanTide Weekly</a> <p>本周要闻 财政部：中国还将加大财政政策逆周期调节力度 统计局：1-9月全国规上工业利润下降3.5% 纽交所计划延长美股交易时间。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#本周要闻" title="本周要闻">本周要闻</a> </li><li class="lv3"> <a href="#下周看点" title="下周看点">下周看点</a> </li><li class="lv3"> <a href="#本周精选" title="本周精选">本周精选</a> </li><li class> <a href="#要闻详情" title="要闻详情">要闻详情</a> </li><li class> <a href="#如何实现alpha-101" title="如何实现Alpha 101？">如何实现Alpha 101？</a> </li><li class> <a href="#alpha-101-因子中的数据和算子" title="Alpha 101 因子中的数据和算子">Alpha 101 因子中的数据和算子</a> </li><li class="lv3"> <a href="#三目运算符" title="三目运算符">三目运算符</a> </li><li class="lv3"> <a href="#rank" title="rank">rank</a> </li><li class="lv3"> <a href="#ts" title="ts">ts</a> </li><li class="lv3"> <a href="#delay" title="delay">delay</a> </li><li class="lv3"> <a href="#correlation-和-covariance" title="correlation 和 covariance">correlation 和 covariance</a> </li><li class="lv3"> <a href="#scale" title="scale">scale</a> </li><li class="lv3"> <a href="#decaylinear" title="decaylinear">decaylinear</a> </li><li class="lv3"> <a href="#delta" title="delta">delta</a> </li><li class="lv3"> <a href="#advd" title="adv{d}">adv{d}</a> </li><li class="lv3"> <a href="#signedpower" title="signedpower">signedpower</a> </li><li class> <a href="#alpha-101-因子解读" title="Alpha 101 因子解读">Alpha 101 因子解读</a> </li><li class> <a href="#开源的alpha101因子分析库" title="开源的Alpha101因子分析库">开源的Alpha101因子分析库</a> </li><li class> <a href="#高效量化编程---mask-array-and-find-runs" title="高效量化编程 - Mask Array and Find Runs">高效量化编程 - Mask Array and Find Runs</a> </li><li class> <a href="#样本测试之外我们还有哪些过拟合检测方法" title="样本测试之外，我们还有哪些过拟合检测方法？">样本测试之外，我们还有哪些过拟合检测方法？</a> </li><li class> <a href="#过拟合和检测方法" title="过拟合和检测方法">过拟合和检测方法</a> </li><li class> <a href="#新尝试噪声测试" title="新尝试：噪声测试">新尝试：噪声测试</a> </li><li class> <a href="#参数平原与噪声测试" title="参数平原与噪声测试">参数平原与噪声测试</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/uncategory/weekly-0818/">[0818] QuanTide Weekly</a> <p>全球猴痘病例超1.56万，相关美股 GeoVax Labs收涨110.75% 央行发布重要数据，7月M2同比增长6.3%，M1同比下降6.6% 月美国CPI同比上涨2.9%，零售销</p> </li><li> <a href="/posts/uncategory/weekly-0811/">[0811] QuanTide Weekly</a> <p>央行表示，将在公开市场操作中增加国债买卖。坚决防范汇率超调风险。 统计局：七月 CPI 同比上涨 0.5%，PPI 同比下降 0.8% 美最新初请失业金人数明显下降，市场对经济衰退</p> </li><li> <a href="/posts/uncategory/weekly-1103/">[1103] QuanTide Weekly</a> <p>本周要闻 英伟达和宣伟公司纳入道指 制造业PMI时隔5个月重返景气区间 三季报收官，8成上市公司实现盈利</p> </li><li> <a href="/posts/uncategory/weekly-1027/">[1027] QuanTide Weekly</a> <p>本周要闻 财政部：中国还将加大财政政策逆周期调节力度 统计局：1-9月全国规上工业利润下降3.5% 纽交所计划延长美股交易时间。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#本周要闻" title="本周要闻">本周要闻</a> </li><li class="lv3"> <a href="#下周看点" title="下周看点">下周看点</a> </li><li class="lv3"> <a href="#本周精选" title="本周精选">本周精选</a> </li><li class> <a href="#要闻详情" title="要闻详情">要闻详情</a> </li><li class> <a href="#如何实现alpha-101" title="如何实现Alpha 101？">如何实现Alpha 101？</a> </li><li class> <a href="#alpha-101-因子中的数据和算子" title="Alpha 101 因子中的数据和算子">Alpha 101 因子中的数据和算子</a> </li><li class="lv3"> <a href="#三目运算符" title="三目运算符">三目运算符</a> </li><li class="lv3"> <a href="#rank" title="rank">rank</a> </li><li class="lv3"> <a href="#ts" title="ts">ts</a> </li><li class="lv3"> <a href="#delay" title="delay">delay</a> </li><li class="lv3"> <a href="#correlation-和-covariance" title="correlation 和 covariance">correlation 和 covariance</a> </li><li class="lv3"> <a href="#scale" title="scale">scale</a> </li><li class="lv3"> <a href="#decaylinear" title="decaylinear">decaylinear</a> </li><li class="lv3"> <a href="#delta" title="delta">delta</a> </li><li class="lv3"> <a href="#advd" title="adv{d}">adv{d}</a> </li><li class="lv3"> <a href="#signedpower" title="signedpower">signedpower</a> </li><li class> <a href="#alpha-101-因子解读" title="Alpha 101 因子解读">Alpha 101 因子解读</a> </li><li class> <a href="#开源的alpha101因子分析库" title="开源的Alpha101因子分析库">开源的Alpha101因子分析库</a> </li><li class> <a href="#高效量化编程---mask-array-and-find-runs" title="高效量化编程 - Mask Array and Find Runs">高效量化编程 - Mask Array and Find Runs</a> </li><li class> <a href="#样本测试之外我们还有哪些过拟合检测方法" title="样本测试之外，我们还有哪些过拟合检测方法？">样本测试之外，我们还有哪些过拟合检测方法？</a> </li><li class> <a href="#过拟合和检测方法" title="过拟合和检测方法">过拟合和检测方法</a> </li><li class> <a href="#新尝试噪声测试" title="新尝试：噪声测试">新尝试：噪声测试</a> </li><li class> <a href="#参数平原与噪声测试" title="参数平原与噪声测试">参数平原与噪声测试</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

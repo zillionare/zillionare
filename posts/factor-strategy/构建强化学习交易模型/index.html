@@ -851,20 +851,38 @@ qs.plots.snapshot(portfolio_returns, benchmark=benchmark, figsize=(15, 10))
 <li>量化交易中的强化学习：<a href="https://dl.acm.org/doi/10.1145/3582560">https://dl.acm.org/doi/10.1145/3582560</a></li>
 <li>Alphastock，一个追涨杀跌模型：<a href="https://arxiv.org/abs/1908.02646">https://arxiv.org/abs/1908.02646</a></li>
 </ol>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/强化学习与监督学习/">强化学习 vs 监督学习：AI炒股的两种思路</a> <p>强化学习 vs 监督学习哪个更适合AI炒股？监督学习像&quot;背答案&quot;，强化学习像&quot;实战练&quot;。一篇文讲清楚两者的核心区别、优缺点，以及在金融量化中该怎么选。</p> </li><li> <a href="/posts/factor-strategy/decision-tree-made-easy/">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a> <p>在第13课中，拿决策树介绍了机器学习的原理之后，有的学员已经积极开始思考，之前学习了那么多因子，但都是单因子模型，可否使用决策树模型把这些因子整合到一个策略里呢？</p> </li><li> <a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/">不能求二阶导的metrics&lt;br&gt;不是好的objective</a> <p>!!!quote 最消耗你的东西，不是别人，而是自己的念头。人生之苦，苦在执着。人生之难，难在放下。强大不是对抗，而是接受。一念放下，万般自由。&lt;br&gt;&lt;br&gt; To accept</p> </li><li> <a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/">基于 XGBoost 的组合策略基本框架</a> <p>!!! quote 人的放纵是本能，自律才是修行。短时间让你快乐的东西，一定能够让你感到痛苦。反之，那些让你痛苦的东西，最终一定会让你功成名就。记住，低级的快乐，放纵即可拥有，高级</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#究竟什么是强化学习" title="究竟什么是强化学习？">究竟什么是强化学习？</a> </li><li class> <a href="#强化学习强在哪儿" title="强化学习强在哪儿？">强化学习强在哪儿？</a> </li><li class> <a href="#从quot追涨杀跌quot的-alphastock-说起" title="从&#38;quot;追涨杀跌&#38;quot;的 AlphaStock 说起">从&amp;quot;追涨杀跌&amp;quot;的 AlphaStock 说起</a> </li><li class> <a href="#get-hands-dirty-动手练一下" title="Get Hands Dirty! 动手练一下！">Get Hands Dirty! 动手练一下！</a> </li><li class="lv3"> <a href="#安装-finrl" title="安装 FinRL">安装 FinRL</a> </li><li class="lv3"> <a href="#安装-gymnasium-和-sb3" title="安装 Gymnasium 和 SB3！">安装 Gymnasium 和 SB3！</a> </li><li class="lv3"> <a href="#定义环境" title="定义环境">定义环境</a> </li><li class> <a href="#定义-agent-及训练" title="定义 Agent 及训练">定义 Agent 及训练</a> </li><li class="lv3"> <a href="#回测与结果" title="回测与结果">回测与结果</a> </li><li class> <a href="#one-more-thing" title="One More Thing">One More Thing</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/强化学习与监督学习/">强化学习 vs 监督学习：AI炒股的两种思路</a> <p>强化学习 vs 监督学习哪个更适合AI炒股？监督学习像&quot;背答案&quot;，强化学习像&quot;实战练&quot;。一篇文讲清楚两者的核心区别、优缺点，以及在金融量化中该怎么选。</p> </li><li> <a href="/posts/factor-strategy/decision-tree-made-easy/">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a> <p>在第13课中，拿决策树介绍了机器学习的原理之后，有的学员已经积极开始思考，之前学习了那么多因子，但都是单因子模型，可否使用决策树模型把这些因子整合到一个策略里呢？</p> </li><li> <a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/">不能求二阶导的metrics&lt;br&gt;不是好的objective</a> <p>!!!quote 最消耗你的东西，不是别人，而是自己的念头。人生之苦，苦在执着。人生之难，难在放下。强大不是对抗，而是接受。一念放下，万般自由。&lt;br&gt;&lt;br&gt; To accept</p> </li><li> <a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/">基于 XGBoost 的组合策略基本框架</a> <p>!!! quote 人的放纵是本能，自律才是修行。短时间让你快乐的东西，一定能够让你感到痛苦。反之，那些让你痛苦的东西，最终一定会让你功成名就。记住，低级的快乐，放纵即可拥有，高级</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#究竟什么是强化学习" title="究竟什么是强化学习？">究竟什么是强化学习？</a> </li><li class> <a href="#强化学习强在哪儿" title="强化学习强在哪儿？">强化学习强在哪儿？</a> </li><li class> <a href="#从quot追涨杀跌quot的-alphastock-说起" title="从&#38;quot;追涨杀跌&#38;quot;的 AlphaStock 说起">从&amp;quot;追涨杀跌&amp;quot;的 AlphaStock 说起</a> </li><li class> <a href="#get-hands-dirty-动手练一下" title="Get Hands Dirty! 动手练一下！">Get Hands Dirty! 动手练一下！</a> </li><li class="lv3"> <a href="#安装-finrl" title="安装 FinRL">安装 FinRL</a> </li><li class="lv3"> <a href="#安装-gymnasium-和-sb3" title="安装 Gymnasium 和 SB3！">安装 Gymnasium 和 SB3！</a> </li><li class="lv3"> <a href="#定义环境" title="定义环境">定义环境</a> </li><li class> <a href="#定义-agent-及训练" title="定义 Agent 及训练">定义 Agent 及训练</a> </li><li class="lv3"> <a href="#回测与结果" title="回测与结果">回测与结果</a> </li><li class> <a href="#one-more-thing" title="One More Thing">One More Thing</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

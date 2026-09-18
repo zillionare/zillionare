@@ -770,20 +770,38 @@ for h in (1, 21):
 <li>Cameron, Gelbach &amp; Miller (2011), <em>Robust Inference With Multiway Clustering</em>, JBES.</li>
 <li>Tushare, <a href="https://tushare.pro/document/2?doc_id=170">股东增减持（stk_holdertrade）接口文档</a>。</li>
 </ul>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/">涨到溢出！PEPE告诉我，大盘还能涨几多？</a> <p>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：</p> </li><li> <a href="/posts/factor-strategy/7-factor-model/">7因子模型，除了规模、市场、动量和价值，还有哪些？</a> <p>这篇文章的源起是有读者问，七因子模型除了规模、市场、动量和价值之外，还包括哪几个因子？就这个题目，正好介绍一下Fung &amp; Hsieh的七因子模型。</p> </li><li> <a href="/posts/factor-strategy/low-turnover-factor-4/">Alphalens因子分析(4) - Information Coefficient方法</a> <p>在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是</p> </li><li> <a href="/posts/factor-strategy/low-turnover-factor-3/">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a> <p>我们继续 Alphalens 因子分析报告的解读。在过去的两篇笔记中，我们都提到，运用 Alphalens 进行因子分析步骤很简单，但是如果不了解它背后的机制与逻辑，很容易得到似是</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#内幕交易局外人能否利用" title="内幕交易，局外人能否利用">内幕交易，局外人能否利用</a> </li><li class> <a href="#sec-form-4-内部人买入" title="SEC Form 4 内部人买入">SEC Form 4 内部人买入</a> </li><li class="lv3"> <a href="#form-4-的交易代码" title="Form 4 的交易代码">Form 4 的交易代码</a> </li><li class="lv3"> <a href="#原文的核心结果" title="原文的核心结果">原文的核心结果</a> </li><li class> <a href="#a-股-form-4" title="A 股 Form 4">A 股 Form 4</a> </li><li class> <a href="#tushare-的对应数据接口" title="Tushare 的对应数据接口">Tushare 的对应数据接口</a> </li><li class="lv3"> <a href="#实验设计" title="实验设计">实验设计</a> </li><li class> <a href="#三结论" title="三、结论">三、结论</a> </li><li class> <a href="#减持是卖出信号吗" title="减持是卖出信号吗？">减持是卖出信号吗？</a> </li><li class="lv3"> <a href="#假说" title="假说">假说</a> </li><li class="lv3"> <a href="#方法初步" title="方法（初步）">方法（初步）</a> </li><li class="lv3"> <a href="#结果" title="结果">结果</a> </li><li class="lv3"> <a href="#为何利空成了利好" title="为何利空成了利好？">为何利空成了利好？</a> </li><li class> <a href="#本文参考" title="本文参考">本文参考</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/">涨到溢出！PEPE告诉我，大盘还能涨几多？</a> <p>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：</p> </li><li> <a href="/posts/factor-strategy/7-factor-model/">7因子模型，除了规模、市场、动量和价值，还有哪些？</a> <p>这篇文章的源起是有读者问，七因子模型除了规模、市场、动量和价值之外，还包括哪几个因子？就这个题目，正好介绍一下Fung &amp; Hsieh的七因子模型。</p> </li><li> <a href="/posts/factor-strategy/low-turnover-factor-4/">Alphalens因子分析(4) - Information Coefficient方法</a> <p>在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是</p> </li><li> <a href="/posts/factor-strategy/low-turnover-factor-3/">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a> <p>我们继续 Alphalens 因子分析报告的解读。在过去的两篇笔记中，我们都提到，运用 Alphalens 进行因子分析步骤很简单，但是如果不了解它背后的机制与逻辑，很容易得到似是</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#内幕交易局外人能否利用" title="内幕交易，局外人能否利用">内幕交易，局外人能否利用</a> </li><li class> <a href="#sec-form-4-内部人买入" title="SEC Form 4 内部人买入">SEC Form 4 内部人买入</a> </li><li class="lv3"> <a href="#form-4-的交易代码" title="Form 4 的交易代码">Form 4 的交易代码</a> </li><li class="lv3"> <a href="#原文的核心结果" title="原文的核心结果">原文的核心结果</a> </li><li class> <a href="#a-股-form-4" title="A 股 Form 4">A 股 Form 4</a> </li><li class> <a href="#tushare-的对应数据接口" title="Tushare 的对应数据接口">Tushare 的对应数据接口</a> </li><li class="lv3"> <a href="#实验设计" title="实验设计">实验设计</a> </li><li class> <a href="#三结论" title="三、结论">三、结论</a> </li><li class> <a href="#减持是卖出信号吗" title="减持是卖出信号吗？">减持是卖出信号吗？</a> </li><li class="lv3"> <a href="#假说" title="假说">假说</a> </li><li class="lv3"> <a href="#方法初步" title="方法（初步）">方法（初步）</a> </li><li class="lv3"> <a href="#结果" title="结果">结果</a> </li><li class="lv3"> <a href="#为何利空成了利好" title="为何利空成了利好？">为何利空成了利好？</a> </li><li class> <a href="#本文参考" title="本文参考">本文参考</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

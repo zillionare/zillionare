@@ -55,20 +55,38 @@
 <p>在很多时候，参数平原的提示是对的 -- 因为我们选择的参数，其实价格变化的函数；但它毕竟不是价格变化。最直接的方法是，当价格发生轻微变化时，策略的性能如果仍然处在一个平坦的表面，就更能说明策略是鲁棒的。</p>
 <p>不过，这种图很难绘制，所以，Build Alpha绘制的仍然是以参数为n维空间的坐标、策略性能为其取值的三维图，但它不再是基于单个历史数据，而是基于一组历史数据：真实历史数据和增加了噪声的数据。在这种情况下，我们基于参数平原选择的最优参数将更为可靠。</p>
 <p>本文参考了Build Alpha网站上的两篇文章，<a href="https://www.buildalpha.com/noise-test-parameter-optimization/">噪声测试参数优化</a>和<a href="https://www.buildalpha.com/noise-test/">噪声测试</a>，并得到了 Nelson 网友的帮助，特此鸣谢！</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/data-normalization/">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a> <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Poin</p> </li><li> <a href="/posts/algo/picking-nickles-in-front-of-steamroller/">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a> <p>看似“稳稳赚”，实则“险相伴”：在压路机前捡硬币，迟早被碾一遍。动量、套息、做市皆负偏，做空Gamma埋祸根；大众逼空、LTCM为镜鉴。解法：多元化、买保护、动态降杠杆——慢慢赚，</p> </li><li> <a href="/posts/algo/pdf-is-all-you-need-3/">PDF is all you need(3)</a> <p>当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线时，你是否想过这背后隐藏着怎样的数学奥秘？从概率密度到期望值，从离散到连续，这篇文章将带你揭开随机世界的神秘面纱。想知道如何用积分计算</p> </li><li> <a href="/posts/algo/pdf-is-all-you-need-2/">PDF is all you need(2)</a> <p>从赌场游戏到数学家们的战争，概率论如何摆脱直觉的束缚？柯尔莫哥洛夫的公理化革命，让微积分成为概率论的新武器，彻底改写了我们对随机世界的理解</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#过拟合和检测方法" title="过拟合和检测方法">过拟合和检测方法</a> </li><li class> <a href="#新尝试噪声测试" title="新尝试：噪声测试">新尝试：噪声测试</a> </li><li class> <a href="#参数平原与噪声测试" title="参数平原与噪声测试">参数平原与噪声测试</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/data-normalization/">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a> <p>本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Poin</p> </li><li> <a href="/posts/algo/picking-nickles-in-front-of-steamroller/">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a> <p>看似“稳稳赚”，实则“险相伴”：在压路机前捡硬币，迟早被碾一遍。动量、套息、做市皆负偏，做空Gamma埋祸根；大众逼空、LTCM为镜鉴。解法：多元化、买保护、动态降杠杆——慢慢赚，</p> </li><li> <a href="/posts/algo/pdf-is-all-you-need-3/">PDF is all you need(3)</a> <p>当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线时，你是否想过这背后隐藏着怎样的数学奥秘？从概率密度到期望值，从离散到连续，这篇文章将带你揭开随机世界的神秘面纱。想知道如何用积分计算</p> </li><li> <a href="/posts/algo/pdf-is-all-you-need-2/">PDF is all you need(2)</a> <p>从赌场游戏到数学家们的战争，概率论如何摆脱直觉的束缚？柯尔莫哥洛夫的公理化革命，让微积分成为概率论的新武器，彻底改写了我们对随机世界的理解</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#过拟合和检测方法" title="过拟合和检测方法">过拟合和检测方法</a> </li><li class> <a href="#新尝试噪声测试" title="新尝试：噪声测试">新尝试：噪声测试</a> </li><li class> <a href="#参数平原与噪声测试" title="参数平原与噪声测试">参数平原与噪声测试</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

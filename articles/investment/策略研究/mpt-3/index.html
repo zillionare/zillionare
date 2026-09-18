@@ -276,20 +276,38 @@ plt.scatter(vols[pos], rets[pos], marker=&#39;*&#39;, s=80, color=&#39;red&#39;)
 <li>尽管我们的标的池里有 500 个标的，但如果必须将投资组合限制为最多 10 项资产，又该如何处理？这可不仅仅是从中挑选 10 支标的再把前面的流程走一遍那么简单。毕竟，该如何从 500 个标的的标的池里，选出最佳的 10 支呢？</li>
 <li>如果我们希望进行行业中性化呢（即每个行业均衡配置资产，而不要出现资产主要配置在某一个行业内的情况）？</li>
 </ol>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/">关于寻找顶和底的一些研究</a> <p>scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法：</p> </li><li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li><li> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡洛方法</a> <p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p> </li><li> <a href="/articles/investment/策略研究/mpt-1/">投资组合理论与实战(1) - 基本概念</a> <p>现代投资组合理论（MPT）是由马科维茨于 1952 年提出的，是现代金融 7 个基本理论之一。它用数学术语描述了多元化和风险管理等概念，为投资者提供了构建多元化投资组合的工具集，即</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#minimizescalar" title="minimizescalar">minimizescalar</a> </li><li class="lv3"> <a href="#使用-minimize-方法" title="使用 minimize 方法">使用 minimize 方法</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/">关于寻找顶和底的一些研究</a> <p>scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法：</p> </li><li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li><li> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡洛方法</a> <p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p> </li><li> <a href="/articles/investment/策略研究/mpt-1/">投资组合理论与实战(1) - 基本概念</a> <p>现代投资组合理论（MPT）是由马科维茨于 1952 年提出的，是现代金融 7 个基本理论之一。它用数学术语描述了多元化和风险管理等概念，为投资者提供了构建多元化投资组合的工具集，即</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#minimizescalar" title="minimizescalar">minimizescalar</a> </li><li class="lv3"> <a href="#使用-minimize-方法" title="使用 minimize 方法">使用 minimize 方法</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

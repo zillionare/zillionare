@@ -250,20 +250,38 @@ assert_series_equal(by_pre_close, df_ts[&quot;pct_chg&quot;], atol=1e-2, check_n
 <h2 id="结语">结语</h2>
 <p>量化是一门精准的学问，需要我们以特别的耐心，去拷问每一个细节。通过今天的讨论，你知道了数据的差异可能会引入系统性偏差，也明白了如何通过复权因子和数据对比来验证数据的可靠性。</p>
 <p>如果你对量化交易充满兴趣，想要深入了解如何挖掘因子、构建策略、优化模型，不妨加入我们的 <strong>量化24课</strong>。这是一门专为量化爱好者设计的课程，从基础到进阶，带你全面掌握量化交易的核心技能。让我们一起探索量化的世界，发现更多的可能性！</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/强化学习与监督学习/">强化学习 vs 监督学习：AI炒股的两种思路</a> <p>强化学习 vs 监督学习哪个更适合AI炒股？监督学习像&quot;背答案&quot;，强化学习像&quot;实战练&quot;。一篇文讲清楚两者的核心区别、优缺点，以及在金融量化中该怎么选。</p> </li><li> <a href="/posts/algo/flag-pattern-detection/">烛台密码 三角形整理如何提示玄机</a> <p>&lt;!--PAID CONTENT START--&gt; 本文是几个月前《三角形整理检测》的后续篇，改进了算法，增加了应用场景的讨论。 &lt;!--PAID CONTENT END--&gt;</p> </li><li> <a href="/posts/algo/HDBSCAN_1/">用HDBSCAN聚类算法选股是否有效</a> <p>前篇文章提到可以用HDBSCAN算法来来对资产进行聚类，在聚类完成之后，对聚类结果进行协整检验，通过计算对冲比，可以构造成平稳序列。我们知道一个平稳时间序列的均值、方差恒定并且有自</p> </li><li> <a href="/posts/algo/hdbscan/">hdbscan 聚类算法扫描配对交易 速度提升99倍</a> <p>配对交易是一种交易策略，由摩根士丹利的量化分析师农齐奥.塔尔塔里亚在 20 世纪 80 年代首创。他现在是意大利雅典娜资产管理公司的创始人。该策略涉及监控两只历史上相关性较强的证券</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#昨天该涨多少还没想好" title="昨天该涨多少，还没想好">昨天该涨多少，还没想好</a> </li><li class> <a href="#涨跌幅是怎么算的" title="涨跌幅是怎么算的？">涨跌幅是怎么算的？</a> </li><li class> <a href="#请-akshare-出庭作证" title="请 akshare 出庭作证">请 akshare 出庭作证</a> </li><li class> <a href="#最后的证明" title="最后的证明">最后的证明</a> </li><li class> <a href="#结语" title="结语">结语</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/强化学习与监督学习/">强化学习 vs 监督学习：AI炒股的两种思路</a> <p>强化学习 vs 监督学习哪个更适合AI炒股？监督学习像&quot;背答案&quot;，强化学习像&quot;实战练&quot;。一篇文讲清楚两者的核心区别、优缺点，以及在金融量化中该怎么选。</p> </li><li> <a href="/posts/algo/flag-pattern-detection/">烛台密码 三角形整理如何提示玄机</a> <p>&lt;!--PAID CONTENT START--&gt; 本文是几个月前《三角形整理检测》的后续篇，改进了算法，增加了应用场景的讨论。 &lt;!--PAID CONTENT END--&gt;</p> </li><li> <a href="/posts/algo/HDBSCAN_1/">用HDBSCAN聚类算法选股是否有效</a> <p>前篇文章提到可以用HDBSCAN算法来来对资产进行聚类，在聚类完成之后，对聚类结果进行协整检验，通过计算对冲比，可以构造成平稳序列。我们知道一个平稳时间序列的均值、方差恒定并且有自</p> </li><li> <a href="/posts/algo/hdbscan/">hdbscan 聚类算法扫描配对交易 速度提升99倍</a> <p>配对交易是一种交易策略，由摩根士丹利的量化分析师农齐奥.塔尔塔里亚在 20 世纪 80 年代首创。他现在是意大利雅典娜资产管理公司的创始人。该策略涉及监控两只历史上相关性较强的证券</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#昨天该涨多少还没想好" title="昨天该涨多少，还没想好">昨天该涨多少，还没想好</a> </li><li class> <a href="#涨跌幅是怎么算的" title="涨跌幅是怎么算的？">涨跌幅是怎么算的？</a> </li><li class> <a href="#请-akshare-出庭作证" title="请 akshare 出庭作证">请 akshare 出庭作证</a> </li><li class> <a href="#最后的证明" title="最后的证明">最后的证明</a> </li><li class> <a href="#结语" title="结语">结语</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

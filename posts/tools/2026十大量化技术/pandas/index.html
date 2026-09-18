@@ -145,20 +145,38 @@ df.select(pd.col(&quot;price&quot;) * pd.col(&quot;volume&quot;))
 <li>拉马・孔特（Rama Cont），该校数学金融讲席教授，获法国科学院 “路易・巴舍利耶奖”（量化金融界最高荣誉之一）</li>
 <li>扬・奥布洛伊（Jan Obloj），该校数学教授，研究聚焦 “量化模型的鲁棒性”（避免过度拟合），对高频交易策略的稳定性有重要影响。研究高频交易的同学不妨找找他的文章看看。</li>
 </ol>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/lof套利怎么做/">白银大涨引发的量化套利策略</a> <p>全球避险情绪与工业需求双重驱动下，白银价格一路狂飙。这种单边行情不仅让持有实物或期货的投资者获利丰厚，更在场内催生了一个低风险的“捡钱”机会——LOF 基金场内外溢价套利。</p> </li><li> <a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a> <p>本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 </p> </li><li> <a href="/posts/tools/关于复权那些事儿/">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a> <p>这是所有的量化课程都不会告诉你的，基于静态复权计算出来的因子，很可能不具有时间平稳性，这意味着我们无法基于它来发现统计规律。</p> </li><li> <a href="/posts/uncategory/quantumn-computing-break-through/">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a> <p>当华尔街遇上“量子飞跃”，交易的游戏规则将被彻底改写。汇丰与IBM联手，将传说中的量子计算带入债券交易，从投资组合优化到风险毫秒级分析，经典模型已显“廉颇老矣”。这不仅是技术的突破</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#大象席地而坐" title="大象席地而坐">大象席地而坐</a> </li><li class> <a href="#核心革命从-numpy-转向-pyarrow" title="核心革命：从 NumPy 转向 PyArrow">核心革命：从 NumPy 转向 PyArrow</a> </li><li class="lv3"> <a href="#内存布局列式存储与缓存一致性" title="内存布局：列式存储与缓存一致性">内存布局：列式存储与缓存一致性</a> </li><li class="lv3"> <a href="#字符串革命告别-object拥抱-arrow-string" title="字符串革命：告别 Object，拥抱 Arrow String">字符串革命：告别 Object，拥抱 Arrow String</a> </li><li class> <a href="#copy-on-write-cow" title="Copy-on-Write CoW">Copy-on-Write CoW</a> </li><li class="lv3"> <a href="#30-中的确定性与安全感" title="3.0 中的确定性与安全感">3.0 中的确定性与安全感</a> </li><li class> <a href="#向声明式迈进" title="向声明式迈进">向声明式迈进</a> </li><li class> <a href="#幕后推手patrick-hoefler-与-cow-的执着" title="幕后推手：Patrick Hoefler 与 CoW 的执着">幕后推手：Patrick Hoefler 与 CoW 的执着</a> </li><li class> <a href="#迟到的-30" title="迟到的 3.0">迟到的 3.0</a> </li><li class> <a href="#迎接大象的王者归来" title="迎接大象的王者归来">迎接大象的王者归来</a> </li><li class> <a href="#今日名校" title="今日名校">今日名校</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/lof套利怎么做/">白银大涨引发的量化套利策略</a> <p>全球避险情绪与工业需求双重驱动下，白银价格一路狂飙。这种单边行情不仅让持有实物或期货的投资者获利丰厚，更在场内催生了一个低风险的“捡钱”机会——LOF 基金场内外溢价套利。</p> </li><li> <a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a> <p>本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 </p> </li><li> <a href="/posts/tools/关于复权那些事儿/">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a> <p>这是所有的量化课程都不会告诉你的，基于静态复权计算出来的因子，很可能不具有时间平稳性，这意味着我们无法基于它来发现统计规律。</p> </li><li> <a href="/posts/uncategory/quantumn-computing-break-through/">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a> <p>当华尔街遇上“量子飞跃”，交易的游戏规则将被彻底改写。汇丰与IBM联手，将传说中的量子计算带入债券交易，从投资组合优化到风险毫秒级分析，经典模型已显“廉颇老矣”。这不仅是技术的突破</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#大象席地而坐" title="大象席地而坐">大象席地而坐</a> </li><li class> <a href="#核心革命从-numpy-转向-pyarrow" title="核心革命：从 NumPy 转向 PyArrow">核心革命：从 NumPy 转向 PyArrow</a> </li><li class="lv3"> <a href="#内存布局列式存储与缓存一致性" title="内存布局：列式存储与缓存一致性">内存布局：列式存储与缓存一致性</a> </li><li class="lv3"> <a href="#字符串革命告别-object拥抱-arrow-string" title="字符串革命：告别 Object，拥抱 Arrow String">字符串革命：告别 Object，拥抱 Arrow String</a> </li><li class> <a href="#copy-on-write-cow" title="Copy-on-Write CoW">Copy-on-Write CoW</a> </li><li class="lv3"> <a href="#30-中的确定性与安全感" title="3.0 中的确定性与安全感">3.0 中的确定性与安全感</a> </li><li class> <a href="#向声明式迈进" title="向声明式迈进">向声明式迈进</a> </li><li class> <a href="#幕后推手patrick-hoefler-与-cow-的执着" title="幕后推手：Patrick Hoefler 与 CoW 的执着">幕后推手：Patrick Hoefler 与 CoW 的执着</a> </li><li class> <a href="#迟到的-30" title="迟到的 3.0">迟到的 3.0</a> </li><li class> <a href="#迎接大象的王者归来" title="迎接大象的王者归来">迎接大象的王者归来</a> </li><li class> <a href="#今日名校" title="今日名校">今日名校</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

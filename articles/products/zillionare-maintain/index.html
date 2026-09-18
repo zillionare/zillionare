@@ -29,20 +29,38 @@
 <p>也就是，以交易日15：00之前来看，昨天的日线在influxdb中，上一周的周线、上一个月的月线在influxdb中。但今天的日线、这周的周线等，都需要实时计算和更新。更新来自1分钟数据，1分钟数据缓存在redis中。这个1分钟数据会在盘中实时更新，并触发其它周期的unclosed数据的计算。</p>
 <p>如果安装zillionare的时间在盘后，则在初次运行时，redis中是没有分钟线及所有分钟级别的行情数据的。此时zillionare-omega在日志上会报一些错误。这些错误可以忽略。从部署之日后的午夜（需要交易日）起，会有多个下载任务，待数据补齐后，就不再会出现这些问题。</p>
 <p>部署后的第一个交易日完成后，上述错误应该消失，但此时week, month的unclosed bay能否计算正确，取决于quota。如果quota够同步1周的分钟和日线，则week bar正确；如果能同步1个月的分钟和日线，则月bar正确。否则，还需要等待。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/products/zillionare_installation/">Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？</a> <p>Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li><li> <a href="/articles/products/gm-adaptor-installation/">东财量化接口安装指南</a> <p>1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#行情数据同步原理" title="行情数据同步原理">行情数据同步原理</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/products/zillionare_installation/">Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？</a> <p>Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li><li> <a href="/articles/products/gm-adaptor-installation/">东财量化接口安装指南</a> <p>1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#行情数据同步原理" title="行情数据同步原理">行情数据同步原理</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

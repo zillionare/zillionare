@@ -112,20 +112,38 @@ $$</p>
 
 
 -->
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/跟着国会山股神去炒股/">Political Alpha，跟着国会山股神去炒股</a> <p>通过分析公开的国会议员交易记录，我们发现了令人惊讶的投资模式，这些数据背后隐藏着怎样的市场洞察？</p> </li><li> <a href="/posts/factor-strategy/ESG策略初探-02/">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a> <p>本文对华证与 Wind 的 ESG 评分分别构建“按披露日横截面分层、T+1 生效、前向填充到日频、等权持有到下一次披露”的策略框架，在最长可追溯样本期内进行系统回测.</p> </li><li> <a href="/posts/factor-strategy/smart-money-concept/">聪明钱概念策略，另一个价格行为交易策略？</a> <p>!!! abstract 什么是聪明钱概念交易策略？ SMC 关键概念 如何使用聪明钱概念交易策略进行交易 聪明钱概念与价格行为有什么区别？ SMC 是好的还是坏的交易方法？</p> </li><li> <a href="/posts/factor-strategy/holy-grail-still-works/">圣杯依然闪耀</a> <p>圣杯依然闪耀 RSI 永远是我最爱的指标 -- 因为潮汐和回归是这个蓝色星球的生命年轮，这样的轮回也存在于交易世界。而 RSI 就是刻画市场中的潮汐和回归的最好指标之一。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#选股过滤器" title="选股过滤器">选股过滤器</a> </li><li class> <a href="#交易执行" title="交易执行">交易执行</a> </li><li class> <a href="#why-it-works" title="Why it works?">Why it works?</a> </li><li class> <a href="#在-a-股的应用" title="在 A 股的应用">在 A 股的应用</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/跟着国会山股神去炒股/">Political Alpha，跟着国会山股神去炒股</a> <p>通过分析公开的国会议员交易记录，我们发现了令人惊讶的投资模式，这些数据背后隐藏着怎样的市场洞察？</p> </li><li> <a href="/posts/factor-strategy/ESG策略初探-02/">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a> <p>本文对华证与 Wind 的 ESG 评分分别构建“按披露日横截面分层、T+1 生效、前向填充到日频、等权持有到下一次披露”的策略框架，在最长可追溯样本期内进行系统回测.</p> </li><li> <a href="/posts/factor-strategy/smart-money-concept/">聪明钱概念策略，另一个价格行为交易策略？</a> <p>!!! abstract 什么是聪明钱概念交易策略？ SMC 关键概念 如何使用聪明钱概念交易策略进行交易 聪明钱概念与价格行为有什么区别？ SMC 是好的还是坏的交易方法？</p> </li><li> <a href="/posts/factor-strategy/holy-grail-still-works/">圣杯依然闪耀</a> <p>圣杯依然闪耀 RSI 永远是我最爱的指标 -- 因为潮汐和回归是这个蓝色星球的生命年轮，这样的轮回也存在于交易世界。而 RSI 就是刻画市场中的潮汐和回归的最好指标之一。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#选股过滤器" title="选股过滤器">选股过滤器</a> </li><li class> <a href="#交易执行" title="交易执行">交易执行</a> </li><li class> <a href="#why-it-works" title="Why it works?">Why it works?</a> </li><li class> <a href="#在-a-股的应用" title="在 A 股的应用">在 A 股的应用</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

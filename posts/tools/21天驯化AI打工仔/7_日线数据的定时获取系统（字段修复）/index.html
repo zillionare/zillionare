@@ -243,20 +243,38 @@ self.pro = ts.pro_api()  # 不再传入api_url参数
 </ol>
 <p>这些计划将在接下来的日子里逐步实施。我相信，在007的协助下，我们的量化交易系统将会越来越强大。</p>
 <p>21天的挑战仍在继续，期待更多的突破和成果！</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/">21天驯化AI打工仔 - 日线数据的定时获取</a> <p>&#39;时间就是金钱，效率就是生命&#39;，这句话在量化交易领域体现得淋漓尽致。今天是我和007合作的第六天，我决定要解决一个困扰我已久的问题：如何实现日线数据的自动定时获取？</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a> <p>&#39;007，我们需要讨论一个重要的性能优化问题，&#39;我一边敲击键盘一边对我的 AI 助手说道。</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/">21天驯化AI打工仔 - SQEP 的性能再优化</a> <p>在量化交易的世界里，数据就像是血液，而数据传输系统则是血管。一个高效的数据传输系统可以让整个量化交易平台如虎添翼，而低效的数据传输则会成为整个系统的瓶颈。</p> </li><li> <a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/">致命的 ID -- DuckDB 中的 Returning 子句之谜</a> <p>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#前言" title="前言">前言</a> </li><li class> <a href="#问题分析缺失的关键字段" title="问题分析：缺失的关键字段">问题分析：缺失的关键字段</a> </li><li class> <a href="#解决方案使用tushare-api获取完整字段" title="解决方案：使用Tushare API获取完整字段">解决方案：使用Tushare API获取完整字段</a> </li><li class="lv3"> <a href="#1-获取涨跌停价格" title="1. 获取涨跌停价格">1. 获取涨跌停价格</a> </li><li class="lv3"> <a href="#2-判断st状态" title="2. 判断ST状态">2. 判断ST状态</a> </li><li class="lv3"> <a href="#3-获取复权因子" title="3. 获取复权因子">3. 获取复权因子</a> </li><li class> <a href="#处理历史数据的特殊挑战" title="处理历史数据的特殊挑战">处理历史数据的特殊挑战</a> </li><li class> <a href="#优化api调用直接使用tushare库" title="优化API调用：直接使用Tushare库">优化API调用：直接使用Tushare库</a> </li><li class> <a href="#测试与验证" title="测试与验证">测试与验证</a> </li><li class> <a href="#成果与思考" title="成果与思考">成果与思考</a> </li><li class> <a href="#下一步计划" title="下一步计划">下一步计划</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/">21天驯化AI打工仔 - 日线数据的定时获取</a> <p>&#39;时间就是金钱，效率就是生命&#39;，这句话在量化交易领域体现得淋漓尽致。今天是我和007合作的第六天，我决定要解决一个困扰我已久的问题：如何实现日线数据的自动定时获取？</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a> <p>&#39;007，我们需要讨论一个重要的性能优化问题，&#39;我一边敲击键盘一边对我的 AI 助手说道。</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/">21天驯化AI打工仔 - SQEP 的性能再优化</a> <p>在量化交易的世界里，数据就像是血液，而数据传输系统则是血管。一个高效的数据传输系统可以让整个量化交易平台如虎添翼，而低效的数据传输则会成为整个系统的瓶颈。</p> </li><li> <a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/">致命的 ID -- DuckDB 中的 Returning 子句之谜</a> <p>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#前言" title="前言">前言</a> </li><li class> <a href="#问题分析缺失的关键字段" title="问题分析：缺失的关键字段">问题分析：缺失的关键字段</a> </li><li class> <a href="#解决方案使用tushare-api获取完整字段" title="解决方案：使用Tushare API获取完整字段">解决方案：使用Tushare API获取完整字段</a> </li><li class="lv3"> <a href="#1-获取涨跌停价格" title="1. 获取涨跌停价格">1. 获取涨跌停价格</a> </li><li class="lv3"> <a href="#2-判断st状态" title="2. 判断ST状态">2. 判断ST状态</a> </li><li class="lv3"> <a href="#3-获取复权因子" title="3. 获取复权因子">3. 获取复权因子</a> </li><li class> <a href="#处理历史数据的特殊挑战" title="处理历史数据的特殊挑战">处理历史数据的特殊挑战</a> </li><li class> <a href="#优化api调用直接使用tushare库" title="优化API调用：直接使用Tushare库">优化API调用：直接使用Tushare库</a> </li><li class> <a href="#测试与验证" title="测试与验证">测试与验证</a> </li><li class> <a href="#成果与思考" title="成果与思考">成果与思考</a> </li><li class> <a href="#下一步计划" title="下一步计划">下一步计划</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {

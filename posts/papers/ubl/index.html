@@ -206,20 +206,38 @@ display(calc_wr_down_factor(barss, 20))
 <p>此外，本文也提到了不同的 Python 库在一些基本概念实现上的不同，比如大家耳熟能详的标准差计算，Pandas 与 Numpy 就有不同。通常情况下（只把标准差当成衡量误差的尺度时），这种差异可以忽略，但一旦我们将它用作因子，你可能注要注意这种差异了。</p>
 <p>量化不只是有一个 idea，就能自动付诸实施。量化交易策略的成功，既需要我们『天才』般的创意与创新，也需要我们能够深入每一个细节，正确实现它。这往往需要经过系统的训练。匡醍的量化课程以其严谨、体系化的课程内容著称，如果你正在寻找这样一门课程，强烈推荐你学习匡醍的『量化二十四课』和『因子挖掘与机器学习策略』课程。</p>
 <p>本文为系列文章，下一篇我们将进行因子回测，来验证研报的结论。欢迎关注订阅，及时得到更新。本文（及后续文章）附有源代码，可在 Quantide Research 平台阅读和运行。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/papers/ubl-2/">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a> <p>上一期文章中，我们复现了研报的因子构建部分，分别是影线因子、威廉影线因子以及由此组合而来的 UBL 因子。这一期我们将对这些因子进行检验。</p> </li><li> <a href="/posts/papers/研报该如何复现/">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a> <p>如何读懂并复现研？这是我们学员提出来的一个问题。</p> </li><li> <a href="/posts/papers/rsrs择时指标/">RSRS 择时指标</a> <p>RSRS 因子在 2005 年 3 月到 2017 年 3 月的上证 50 指数上，12 年总收益 1432.36%，年化 24.84%，夏普 1.42。同期指数收益仅为 290.</p> </li><li> <a href="/posts/papers/04-年化25%的策略为何翻车/">『译研报04』 年化25%的策略到底有没有翻车？</a> <p>LLT均线策略回测结果好到难以置信，年化收益竟达25%！但当我们用显微镜审视每个细节时，发现了隐藏的致命陷阱：未来数据泄露、信号对齐错误、交易成本设置不当...这些看似微小的技术细</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#因子原理" title="因子原理">因子原理</a> </li><li class> <a href="#因子构建" title="因子构建">因子构建</a> </li><li class="lv3"> <a href="#上下影线" title="上下影线">上下影线</a> </li><li class="lv3"> <a href="#威廉指标变种" title="威廉指标变种">威廉指标变种</a> </li><li class="lv3"> <a href="#月度因子计算" title="月度因子计算">月度因子计算</a> </li><li class="lv3"> <a href="#ubl-因子" title="UBL 因子">UBL 因子</a> </li><li class> <a href="#结论" title="结论">结论</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本站总访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
-    // 页脚 GA4 真实总数：读构建期写入的 /site-stats.json（随发布更新，每日 6 点拉取）
-    fetch('/site-stats.json').then((r) => r.json()).then((d) => {
-      document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
-      document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
-      if (d.updated_at) {
-        const t = new Date(d.updated_at * 1000).toLocaleDateString();
-        document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/papers/ubl-2/">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a> <p>上一期文章中，我们复现了研报的因子构建部分，分别是影线因子、威廉影线因子以及由此组合而来的 UBL 因子。这一期我们将对这些因子进行检验。</p> </li><li> <a href="/posts/papers/研报该如何复现/">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a> <p>如何读懂并复现研？这是我们学员提出来的一个问题。</p> </li><li> <a href="/posts/papers/rsrs择时指标/">RSRS 择时指标</a> <p>RSRS 因子在 2005 年 3 月到 2017 年 3 月的上证 50 指数上，12 年总收益 1432.36%，年化 24.84%，夏普 1.42。同期指数收益仅为 290.</p> </li><li> <a href="/posts/papers/04-年化25%的策略为何翻车/">『译研报04』 年化25%的策略到底有没有翻车？</a> <p>LLT均线策略回测结果好到难以置信，年化收益竟达25%！但当我们用显微镜审视每个细节时，发现了隐藏的致命陷阱：未来数据泄露、信号对齐错误、交易成本设置不当...这些看似微小的技术细</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#因子原理" title="因子原理">因子原理</a> </li><li class> <a href="#因子构建" title="因子构建">因子构建</a> </li><li class="lv3"> <a href="#上下影线" title="上下影线">上下影线</a> </li><li class="lv3"> <a href="#威廉指标变种" title="威廉指标变种">威廉指标变种</a> </li><li class="lv3"> <a href="#月度因子计算" title="月度因子计算">月度因子计算</a> </li><li class="lv3"> <a href="#ubl-因子" title="UBL 因子">UBL 因子</a> </li><li class> <a href="#结论" title="结论">结论</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
       }
-      // 文章页单页阅读量：按当前 path 查表
-      const pages = d.pages || {};
-      const pv = pages[location.pathname];
-      document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
-    }).catch(() => {});
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
   </script> <script>
     (function () {
       try {
