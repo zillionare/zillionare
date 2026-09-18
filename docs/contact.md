@@ -9,6 +9,8 @@ date: 2024-01-09
 
 ## Quantide@公众号
 
+**关注公众号：Quantide**，每日量化干货不错过（页面下方扫码）。
+
 每日更新，内容涵盖 Python 编程和量化策略研究、量化框架开发。通过公众号，可以及时获得我们的内容更新，联系到课程助理。欢迎点击[Follow](https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg)
 
 

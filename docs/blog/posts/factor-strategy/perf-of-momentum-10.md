@@ -1,5 +1,5 @@
 ---
-title: 7月：斜率动量因子表现回顾
+title: "7月斜率动量因子复盘：10天回归斜率在A股表现如何？"
 slug: perf-of-momentum-10
 date: 2024-08-02
 category: factors
@@ -11,7 +11,7 @@ tags:
     - 因子策略
     - momentum
     - 因子评估
-excerpt: "<!--这一轮牛市持续了86400秒！文明再次进入了休眠状态-->"
+excerpt: "斜率动量因子源自Andreas F. Clenow，比卡哈特年度动量更灵敏。本文回顾7月表现，实测过去10天回归斜率在A股的信号效果，并与90天版本、经典动量做对比。短周期斜率能否捕捉A股快速轮动？附Python moving_slope实现思路与因子细节。"
 ---
 
 

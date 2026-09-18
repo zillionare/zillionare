@@ -1,7 +1,7 @@
 ---
-title: Zillionare 2.0 安装指南
+title: "Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？"
 slug: installation-guide-for-zillionare-2.0
-excerpt: "table { background-color: transparent; border-collapse: collapse; border-spacing: 0; display: table !important;"
+excerpt: "Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，自带约 1.3G 两年日线和 30 分钟数据。启动后通过 8888 端口访问，默认密码 1234 可改；文末还说明东财实盘接入与 gm-adaptor。安装文件仅对量化课程学员及重要客户开放，需要可加 quantfans_99。"
 ---
 <style>
 
