@@ -1,0 +1,463 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>[0804] QuanTide Weekly | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/posts/others/weekly-0804/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="[0804] QuanTide Weekly | 匡醍量化"><meta property="og:description" content="上期重要日历提示本周为超级央行周，叠加美股科技股年报，风浪比较大。果然，这周外围股市受到严重冲击。英特尔更是一天下跌超 26%。"><meta property="og:url" content="https://blog.quantide.cn/posts/others/weekly-0804/"><meta property="og:image" content="https://blog.quantide.cn/images/2024/08/second-derivative-quantile-10.jpg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class="active" aria-current="page">博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"[0804] QuanTide Weekly","description":"上期重要日历提示本周为超级央行周，叠加美股科技股年报，风浪比较大。果然，这周外围股市受到严重冲击。英特尔更是一天下跌超 26%。","image":"https://images.jieyu.ai/images/2024/08/second-derivative-quantile-10.jpg","datePublished":"2024-08-04","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/posts/others/weekly-0804/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"[0804] QuanTide Weekly","item":"https://blog.quantide.cn/posts/others/weekly-0804/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">博客目录</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">algo</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/algo/HDBSCAN_1/" class title="用HDBSCAN聚类算法选股是否有效">用HDBSCAN聚类算法选股是否有效</a></li><li><a href="/posts/algo/an-enigma-min-range/" class title="地量见地价？我拿一年的上证数据算了算">地量见地价？我拿一年的上证数据算了算</a></li><li><a href="/posts/algo/fft/" class title="快速傅里叶变换与股价预测研究">快速傅里叶变换与股价预测研究</a></li><li><a href="/posts/algo/flag-pattern-detection/" class title="烛台密码 三角形整理如何提示玄机">烛台密码 三角形整理如何提示玄机</a></li><li><a href="/posts/algo/hdbscan/" class title="hdbscan 聚类算法扫描配对交易 速度提升99倍">hdbscan 聚类算法扫描配对交易 速度提升99倍</a></li><li><a href="/posts/algo/how-gradient-boost-learned-from-regression/" class title="比Deepseek还要Deep！起底GBDT做回归预测的秘密">比Deepseek还要Deep！起底GBDT做回归预测的秘密</a></li><li><a href="/posts/algo/ks-test-and-cdf/" class title="KS Test, 广义双曲分布和抄底沪指">KS Test, 广义双曲分布和抄底沪指</a></li><li><a href="/posts/algo/monte-carlo/" class title="蒙特卡洛：看似很高端的技术，其实很暴力很初级">蒙特卡洛：看似很高端的技术，其实很暴力很初级</a></li><li><a href="/posts/algo/noise-test/" class title="样本外测试之外，我们还有哪些过拟合检测方法？">样本外测试之外，我们还有哪些过拟合检测方法？</a></li><li><a href="/posts/algo/normalization/" class title="基于深度学习的量化策略如何实现归一化？">基于深度学习的量化策略如何实现归一化？</a></li><li><a href="/posts/algo/前视偏差-看似明白，实则糊涂/" class title="前视偏差 - 看似明白，实则糊涂">前视偏差 - 看似明白，实则糊涂</a></li><li><a href="/posts/algo/千禧年的脑筋急转弯/" class title="2024已过一半，千禧年发布了这道脑筯急转弯">2024已过一半，千禧年发布了这道脑筯急转弯</a></li><li><a href="/posts/algo/结合主成分分析、离散小波和XGBoost的交易策略/" class title="带你读论文：PCA、离散小波和 XGBoost构建交易策略">带你读论文：PCA、离散小波和 XGBoost构建交易策略</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">career&amp;figure</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/career&#38;figure/Daniel-Kahneman/" class title="没能上热搜，但卡尼曼值得我们纪念">没能上热搜，但卡尼曼值得我们纪念</a></li><li><a href="/posts/career&#38;figure/how-to-apply-citadel/" class title="Datathon-我的Citadel量化岗之路！附历年比赛资料">Datathon-我的Citadel量化岗之路！附历年比赛资料</a></li><li><a href="/posts/career&#38;figure/how-to-determine-research-topic/" class title="金融/计量专业，硕士论文怎么确定研究课题？">金融/计量专业，硕士论文怎么确定研究课题？</a></li><li><a href="/posts/career&#38;figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story/" class title="高薪金领都用啥编程语言？SQL、Python领航，附排名！">高薪金领都用啥编程语言？SQL、Python领航，附排名！</a></li><li><a href="/posts/career&#38;figure/john-fawcett/" class title="反抗者的崛起！Fawce 和 Quantopian 的量化之路">反抗者的崛起！Fawce 和 Quantopian 的量化之路</a></li><li><a href="/posts/career&#38;figure/rolf-banz/" class title="牛人太多：小市值因子之父，毕业论文被大佬狂怼">牛人太多：小市值因子之父，毕业论文被大佬狂怼</a></li><li><a href="/posts/career&#38;figure/月亮和pandas/" class title="月亮和Pandas - Wes Mckinney的传奇故事">月亮和Pandas - Wes Mckinney的传奇故事</a></li><li><a href="/posts/career&#38;figure/追随美的指引/" class title="追随美的指引-纪念西蒙斯">追随美的指引-纪念西蒙斯</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">factor-strategy</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/factor-strategy/1赔10，3月27日我抄底了/" class title="1赔10！中证1000应该这样抄底">1赔10！中证1000应该这样抄底</a></li><li><a href="/posts/factor-strategy/3月27日为什么大跌/" class title="交割日魔咒？">交割日魔咒？</a></li><li><a href="/posts/factor-strategy/7-factor-model/" class title="7因子模型，除了规模、市场、动量和价值，还有哪些？">7因子模型，除了规模、市场、动量和价值，还有哪些？</a></li><li><a href="/posts/factor-strategy/Is-the-A-share-market-undervalued/" class title="节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？">节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？</a></li><li><a href="/posts/factor-strategy/ORB-strategy/" class title="ORB! Alpha 达到年化 36%">ORB! Alpha 达到年化 36%</a></li><li><a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/" class title="不能求二阶导的metrics<br>不是好的objective">不能求二阶导的metrics&lt;br&gt;不是好的objective</a></li><li><a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/" class title="基于 XGBoost 的组合策略基本框架">基于 XGBoost 的组合策略基本框架</a></li><li><a href="/posts/factor-strategy/alpha042/" class title="第42个因子:年化17.6%，15年累计10倍">第42个因子:年化17.6%，15年累计10倍</a></li><li><a href="/posts/factor-strategy/connors-rsi/" class title="年终特稿：这个指标我愿称之为年度最强发现">年终特稿：这个指标我愿称之为年度最强发现</a></li><li><a href="/posts/factor-strategy/decision-tree-made-easy/" class title="如果模型预测准确率超过85%，这台印钞机应该值多少马内？">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a></li><li><a href="/posts/factor-strategy/first-level-derivation/" class title="当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建">当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a></li><li><a href="/posts/factor-strategy/genetic-algorithms/" class title="量化交易中的遗传算法">量化交易中的遗传算法</a></li><li><a href="/posts/factor-strategy/growing-star-market-weights/" class title="量化股票投资起手式<br>指数增强之<br>指数成份股信息挖掘">量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘</a></li><li><a href="/posts/factor-strategy/herd-behaviour/" class title="羊群效应及其因子化">羊群效应及其因子化</a></li><li><a href="/posts/factor-strategy/hindsight-how-do-i-missed-dlsy/" class title="后见之明！错过6个涨停之后的复盘">后见之明！错过6个涨停之后的复盘</a></li><li><a href="/posts/factor-strategy/hockey-and-coin/" class title="球队和硬币因子">球队和硬币因子</a></li><li><a href="/posts/factor-strategy/holy-grail-still-works/" class title="圣杯依然闪耀">圣杯依然闪耀</a></li><li><a href="/posts/factor-strategy/low-turnover-factor/" class title="Alphalens 因子分析 - 以低换手率因子为例(1)">Alphalens 因子分析 - 以低换手率因子为例(1)</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-2/" class title="Alphalens因子分析(2) - low turnover秒杀98%的基金经理!">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-3/" class title="因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-4/" class title="Alphalens因子分析(4) - Information Coefficient方法">Alphalens因子分析(4) - Information Coefficient方法</a></li><li><a href="/posts/factor-strategy/magic-hot-word-factor/" class title="龙凤呈祥：这种无底限炒作，如何用量化方法发现它？">龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</a></li><li><a href="/posts/factor-strategy/max-volume-direction/" class title="捕捉主力-最大成交量因子">捕捉主力-最大成交量因子</a></li><li><a href="/posts/factor-strategy/ml-predict-peaks-valleys-1/" class title="机器学习(XgBoost）预测顶和底">机器学习(XgBoost）预测顶和底</a></li><li><a href="/posts/factor-strategy/nh-nl/" class title="净新高占比因子">净新高占比因子</a></li><li><a href="/posts/factor-strategy/perf-of-momentum-10/" class title="7月：斜率动量因子表现回顾">7月：斜率动量因子表现回顾</a></li><li><a href="/posts/factor-strategy/pressure-of-prices-intger/" class title="左数效应 整数关口与光折射">左数效应 整数关口与光折射</a></li><li><a href="/posts/factor-strategy/regret/" class title="Sharpe 5.5!遗憾规避因子">Sharpe 5.5!遗憾规避因子</a></li><li><a href="/posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023/" class title="私募量化策略大盘点-2024年初">私募量化策略大盘点-2024年初</a></li><li><a href="/posts/factor-strategy/santa-clause/" class title="Santa Claus Rally">Santa Claus Rally</a></li><li><a href="/posts/factor-strategy/second-derivative/" class title="动能反转：二阶导动量因子年化Alpha达到61%！">动能反转：二阶导动量因子年化Alpha达到61%！</a></li><li><a href="/posts/factor-strategy/switch-to-decimal/" class title="改用十进制！点差如何影响策略">改用十进制！点差如何影响策略</a></li><li><a href="/posts/factor-strategy/time-will-tell/" class title="时间会证明一切！抢头财（报）就是抢头彩？！">时间会证明一切！抢头财（报）就是抢头彩？！</a></li><li><a href="/posts/factor-strategy/ultimate-oscillator/" class title="一门三杰 一年翻十倍的男人发明了 UO 指标">一门三杰 一年翻十倍的男人发明了 UO 指标</a></li><li><a href="/posts/factor-strategy/week-day-factor/" class title="周一到周五，哪天能买股？做对了夏普22.5！">周一到周五，哪天能买股？做对了夏普22.5！</a></li><li><a href="/posts/factor-strategy/word-count/" class title="WorldQuant? Word Count!">WorldQuant? Word Count!</a></li><li><a href="/posts/factor-strategy/z-score-factor/" class title="Z-score 因子的深入思考">Z-score 因子的深入思考</a></li><li><a href="/posts/factor-strategy/低波动因子/" class title="新国九条下，低波动因子重要性提升！">新国九条下，低波动因子重要性提升！</a></li><li><a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/" class title="在这一刻抄底，胜率高达95%">在这一刻抄底，胜率高达95%</a></li><li><a href="/posts/factor-strategy/市盈率因子该怎么用/" class title="不看懂这篇文章，不要在量化中使用市盈率！">不看懂这篇文章，不要在量化中使用市盈率！</a></li><li><a href="/posts/factor-strategy/拯救cci/" class title="拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！">拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！</a></li><li><a href="/posts/factor-strategy/暴力美学！洗盘模式如何检测/" class title="暴力美学！洗盘模式如何检测？">暴力美学！洗盘模式如何检测？</a></li><li><a href="/posts/factor-strategy/构建强化学习交易模型/" class title="魔鬼都在细节里！如何实现强化学习交易模型">魔鬼都在细节里！如何实现强化学习交易模型</a></li><li><a href="/posts/factor-strategy/终极猜想!底蓓离的成因分析/" class title="终极猜想！底蓓离的成因分析">终极猜想！底蓓离的成因分析</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">freshman</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/freshman/roadmap-to-become-a-quant/" class title="问薪无愧！<br>自学量化大纲有这75页就够了">问薪无愧！&lt;br&gt;自学量化大纲有这75页就够了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/策略研究</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/策略研究/capm/" class title="资本资产定价模型">资本资产定价模型</a></li><li><a href="/articles/investment/策略研究/mpt-1/" class title="投资组合理论与实战(1) - 基本概念">投资组合理论与实战(1) - 基本概念</a></li><li><a href="/articles/investment/策略研究/mpt-2/" class title="投资组合理论与实战(2) - 蒙特卡洛方法">投资组合理论与实战(2) - 蒙特卡洛方法</a></li><li><a href="/articles/investment/策略研究/mpt-3/" class title="投资组合理论与实战(3) - 优化算法">投资组合理论与实战(3) - 优化算法</a></li><li><a href="/articles/investment/策略研究/mpt-4/" class title="投资组合理论与实战(4) - PyportfolioOpt工具库">投资组合理论与实战(4) - PyportfolioOpt工具库</a></li><li><a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/" class title="关于寻找顶和底的一些研究">关于寻找顶和底的一些研究</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/实盘接入/" class title="量化实盘接入方式">量化实盘接入方式</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库-数据持久化</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/数据持久化/数据持久化/" class title="量化数据的持久化方案">量化数据的持久化方案</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化杂谈</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化杂谈/tulipmania/" class title="花开曾倾国">花开曾倾国</a></li><li><a href="/articles/investment/量化杂谈/voc/" class title="东印度公司">东印度公司</a></li><li><a href="/articles/investment/量化杂谈/起底百亿私募创始人/" class title="找校友！起底百亿私募创始人">找校友！起底百亿私募创始人</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">others</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/others/crowed-strike-postmoterm/" class title="全球Windows机器蓝屏，作为量化人，我的检讨来了">全球Windows机器蓝屏，作为量化人，我的检讨来了</a></li><li><a href="/posts/others/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/" class title="DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a></li><li><a href="/posts/others/ipv6-how-to/" class title="当我在星巴克连上家里的服务器，IPV6，你是值得的">当我在星巴克连上家里的服务器，IPV6，你是值得的</a></li><li><a href="/posts/others/the-awaken-of-machine/" class title="机器的觉醒！人工智能风云激荡70年">机器的觉醒！人工智能风云激荡70年</a></li><li><a href="/posts/others/weekly-0721/" class title="[0721] QuanTide Weekly">[0721] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0728/" class title="[0728] QuanTide Weekly">[0728] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0804/" class="current" title="[0804] QuanTide Weekly">[0804] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0811/" class title="[0811] QuanTide Weekly">[0811] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0818/" class title="[0818] QuanTide Weekly">[0818] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0825/" class title="[0825] QuanTide Weekly">[0825] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0901/" class title="[0901] QuanTide Weekly">[0901] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0908/" class title="[0908] QuanTide Weekly">[0908] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0915/" class title="[0915] QuanTide Weekly">[0915] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0922/" class title="[0922] QuanTide Weekly">[0922] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-0929/" class title="[0929] QuanTide Weekly">[0929] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-1013/" class title="[1013] QuanTide Weekly">[1013] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-1020/" class title="[1020] QuanTide Weekly">[1020] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-1027/" class title="[1027] QuanTide Weekly">[1027] QuanTide Weekly</a></li><li><a href="/posts/others/weekly-1103/" class title="[1103] QuanTide Weekly">[1103] QuanTide Weekly</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">papers</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/papers/rsrs择时指标/" class title="RSRS 择时指标">RSRS 择时指标</a></li><li><a href="/posts/papers/研报该如何复现/" class title="把研报『翻译』成代码，80%的工作都在这篇文章里讲了">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/python/awesome-code/" class title="只廖廖数行，但很惊艳的代码">只廖廖数行，但很惊艳的代码</a></li><li><a href="/posts/python/duckdb-2/" class title="为什么量化人应该使用duckdb？">为什么量化人应该使用duckdb？</a></li><li><a href="/posts/python/how-to-set-env-in-jupyter-notebook/" class title="Jupyter Notebook中如何设置环境变量？">Jupyter Notebook中如何设置环境变量？</a></li><li><a href="/posts/python/pypinyin/" class title="4k stars! 如何实现按拼音首字母查询证券代码？">4k stars! 如何实现按拼音首字母查询证券代码？</a></li><li><a href="/posts/python/python-just-released-3.13/" class title="10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本">10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本</a></li><li><a href="/posts/python/qmt-how-to-handle-dr-adjust/" class title="提速100倍！QMT复权因子高效算法">提速100倍！QMT复权因子高效算法</a></li><li><a href="/posts/python/static-blog-in-2024/" class title="2024年，免费博客赚钱方案">2024年，免费博客赚钱方案</a></li><li><a href="/posts/python/use-sql-query-with-pandas/" class title="给Pandas找个搭子，用SQL玩转Dataframe!">给Pandas找个搭子，用SQL玩转Dataframe!</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">resources</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/resources/a-palette-of-colorful-websites/" class title="一些和颜色相关的网站">一些和颜色相关的网站</a></li><li><a href="/posts/resources/barra-risk-model-handbook/" class title="Barra风险模型构建完全指南">Barra风险模型构建完全指南</a></li><li><a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/" class title="来自世坤！寻找Alpha 构建交易策略的量化方法">来自世坤！寻找Alpha 构建交易策略的量化方法</a></li><li><a href="/posts/resources/free-paper-download/" class title="论如何白嫖论文">论如何白嫖论文</a></li><li><a href="/posts/resources/top-journals-in-quantitative-finance/" class title="量化金融人都在看哪些顶刊">量化金融人都在看哪些顶刊</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">21天驯化AI打工仔</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/21天驯化AI打工仔/1_数据获取/" class title="21天驯化AI打工仔 - 我如何获取量化数据">21天驯化AI打工仔 - 我如何获取量化数据</a></li><li><a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/" class title="21天驯化AI打工仔 - 开发量化交易系统">21天驯化AI打工仔 - 开发量化交易系统</a></li><li><a href="/posts/tools/21天驯化AI打工仔/3_数据库的优化设计/" class title="21天驯化AI打工仔 - 数据库的优化">21天驯化AI打工仔 - 数据库的优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/" class title="21天驯化AI打工仔 - 如何存储10亿个Symbol?">21天驯化AI打工仔 - 如何存储10亿个Symbol?</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/" class title="21天驯化AI打工仔 - SQEP 的性能再优化">21天驯化AI打工仔 - SQEP 的性能再优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/" class title="21天驯化AI打工仔 - SQEP与symbol编码性能测试">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a></li><li><a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/" class title="21天驯化AI打工仔 - 日线数据的定时获取">21天驯化AI打工仔 - 日线数据的定时获取</a></li><li><a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/" class title="21天驯化AI打工仔 - 日线数据的定时获取（2）">21天驯化AI打工仔 - 日线数据的定时获取（2）</a></li><li><a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/" class title="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a></li><li><a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/" class title="21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">AI-tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/AI-tools/remote-agent/" class title="Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">Numpy_Pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/Numpy_Pandas/01-introduction/01-introduction/" class title="这是你的量化母语">这是你的量化母语</a></li><li><a href="/posts/tools/Numpy_Pandas/02-numpy核心语法[1]/02-numpy核心语法[1]/" class title="Numpy核心语法[1]">Numpy核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/03-numpy核心语法[2]/03-numpy核心语法[2]/" class title="Numpy处理表格数据">Numpy处理表格数据</a></li><li><a href="/posts/tools/Numpy_Pandas/04-numpy核心语法[3]/04-numpy核心语法[3]/" class title="Numpy核心语法[3]">Numpy核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/05-numpy核心语法[4]/05-numpy核心语法[4]/" class title="Numpy核心语法[4]">Numpy核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/06-numpy核心语法[5]/06-numpy核心语法[5]/" class title="Numpy核心语法[5]">Numpy核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/07-numpy核心语法[6]/07-numpy核心语法[6]/" class title="Numpy核心语法[6]">Numpy核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/08-numpy应用案例[1]/08-numpy应用案例[1]/" class title="Numpy应用案例[1]">Numpy应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/09-numpy应用案例[2]/09-numpy应用案例[2]/" class title="Numpy应用案例[2]">Numpy应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/10-numpy应用案例[3]/10-numpy应用案例[3]/" class title="Numpy应用案例[3]">Numpy应用案例[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/11-pandas核心语法[1]/11-pandas核心语法[1]/" class title="Pandas核心语法[1]">Pandas核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/12-pandas核心语法[2]/12-pandas核心语法[2]/" class title="Pandas核心语法[2]">Pandas核心语法[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/13-pandas核心语法[3]/13-pandas核心语法[3]/" class title="Pandas核心语法[3]">Pandas核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/14-pandas核心语法[4]/14-pandas核心语法[4]/" class title="Pandas核心语法[4]">Pandas核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/15-pandas核心语法[5]/15-pandas核心语法[5]/" class title="Pandas核心语法[5]">Pandas核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/16-pandas核心语法[6]/16-pandas核心语法[6]/" class title="Pandas核心语法[6]">Pandas核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/17-pandas核心语法[7]/17-pandas核心语法[7]/" class title="Pandas核心语法[7]">Pandas核心语法[7]</a></li><li><a href="/posts/tools/Numpy_Pandas/18-pandas应用案例[1]/18-pandas应用案例[1]/" class title="Pandas应用案例[1]">Pandas应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/19-pandas应用案例[2]/19-pandas应用案例[2]/" class title="Pandas应用案例[2]">Pandas应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/20-pandas应用案例[3]/20-pandas应用案例[3]/" class title="Pandas应用案例[3]">Pandas应用案例[3]</a></li> </ul> </details> </li><li><a href="/posts/tools/8个ipython技巧/" class title="你可能不知道的8个IPython技巧">你可能不知道的8个IPython技巧</a></li><li><a href="/posts/tools/all-about-openbb-as-a-newhand/" class title="OpenBB 实战！轻松获取海外市场数据">OpenBB 实战！轻松获取海外市场数据</a></li><li><a href="/posts/tools/augment-daily-dose/" class title="Augment随手记">Augment随手记</a></li><li><a href="/posts/tools/auto-restart-miniqmt/" class title="如何免登录重启miniqmt?">如何免登录重启miniqmt?</a></li><li><a href="/posts/tools/do-not-fly-solo-copilot/" class title="Don't fly solo! 量化人如何使用AI工具">Don&#39;t fly solo! 量化人如何使用AI工具</a></li><li><a href="/posts/tools/duckdb-has-released-1.0/" class title="里程碑！DuckDB 发布 1.0">里程碑！DuckDB 发布 1.0</a></li><li><a href="/posts/tools/effective-numpy-1/" class title="高效量化编程: Mask Array应用和find_runs">高效量化编程: Mask Array应用和find_runs</a></li><li><a href="/posts/tools/effective-pandas-1/" class title="Pandas高级技巧-1">Pandas高级技巧-1</a></li><li><a href="/posts/tools/effective-pandas-2/" class title="高效量化编程: Pandas 的多级索引">高效量化编程: Pandas 的多级索引</a></li><li><a href="/posts/tools/get-clean-factor-and-forward-returns/" class title="12个参数，48个组合，这么复杂的函数怎么学？">12个参数，48个组合，这么复杂的函数怎么学？</a></li><li><a href="/posts/tools/hdf5/" class title="200倍速！基于 HDF5 的证券数据存储">200倍速！基于 HDF5 的证券数据存储</a></li><li><a href="/posts/tools/how-to-develop-complex-project-using-augment/" class title="试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目">试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher/" class title="量化人如何用好Jupyter环境？（一）">量化人如何用好Jupyter环境？（一）</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher-2/" class title="量化人如何用好 Jupyter？（二）">量化人如何用好 Jupyter？（二）</a></li><li><a href="/posts/tools/pandas-连续涨停统计/" class title="Pandas连续涨停统计">Pandas连续涨停统计</a></li><li><a href="/posts/tools/pyarrow-plus-parquet/" class title="存了50TB！pyarrow + parquet">存了50TB！pyarrow + parquet</a></li><li><a href="/posts/tools/qmt-get-sector/" class title="xtquant 中的板块数据">xtquant 中的板块数据</a></li><li><a href="/posts/tools/qmt-get-stock-price/" class title="量化数据免费方案之 QMT">量化数据免费方案之 QMT</a></li><li><a href="/posts/tools/quantstats-reloaded/" class title="Quantstats Reloaded">Quantstats Reloaded</a></li><li><a href="/posts/tools/trade-api/" class title="量化实盘接口">量化实盘接口</a></li><li><a href="/posts/tools/why-click-house-so-fast/" class title="ClickHouse: One table to rule them all!">ClickHouse: One table to rule them all!</a></li><li><a href="/posts/tools/work-with-xtquant/" class title="QMT/XtQuant 之开发环境篇">QMT/XtQuant 之开发环境篇</a></li><li><a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/" class title="致命的 ID -- DuckDB 中的 Returning 子句之谜">致命的 ID -- DuckDB 中的 Returning 子句之谜</a></li><li><a href="/posts/tools/量化人的2025新年礼/" class title="睽违17年，ta-lib重装出发！">睽违17年，ta-lib重装出发！</a></li><li><a href="/posts/tools/量化研究员如何写一手好代码/" class title="量化研究员如何写一手好代码">量化研究员如何写一手好代码</a></li><li><a href="/posts/tools/顶底标注/" class title="为了机器能学习，我标注了 2 万条行情数据">为了机器能学习，我标注了 2 万条行情数据</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（63 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.44" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.27" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（27 篇）"> <span class="tag-name" data-size="1.08" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="1.00" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.93" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（14 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（13 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（13 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（9 篇）"> <span class="tag-name" data-size="0.82" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（9 篇）"> <span class="tag-name" data-size="0.82" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（8 篇）"> <span class="tag-name" data-size="0.80" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（7 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-career" title="career（7 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（5 篇）"> <span class="tag-name" data-size="0.76" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（5 篇）"> <span class="tag-name" data-size="0.76" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.76" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-xgboost" title="xgboost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkViolet" data-tag="xgboost">xgboost</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-Xgboost" title="Xgboost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkCyan" data-tag="Xgboost">Xgboost</span> </a><a class="tag" href="/tags/#tag-alpha" title="alpha（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="alpha">alpha</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-algorithm" title="algorithm（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="algorithm">algorithm</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-momentum" title="momentum（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkViolet" data-tag="momentum">momentum</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E8%AF%84%E4%BC%B0" title="因子评估（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkCyan" data-tag="因子评估">因子评估</span> </a><a class="tag" href="/tags/#tag-freshman" title="freshman（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkCyan" data-tag="freshman">freshman</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-network" title="network（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="network">network</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%22free" title="&#34;free（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="&#34;free">&quot;free</span> </a><a class="tag" href="/tags/#tag-resources%22" title="resources&#34;（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGoldenrod" data-tag="resources&#34;">resources&quot;</span> </a><a class="tag" href="/tags/#tag-redis" title="redis（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="redis">redis</span> </a><a class="tag" href="/tags/#tag-clickhouse" title="clickhouse（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="clickhouse">clickhouse</span> </a><a class="tag" href="/tags/#tag-arsenal" title="arsenal（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="arsenal">arsenal</span> </a><a class="tag" href="/tags/#tag-code" title="code（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="code">code</span> </a><a class="tag" href="/tags/#tag-Jupyter" title="Jupyter（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGoldenrod" data-tag="Jupyter">Jupyter</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BC%A0%E5%A5%87" title="量化传奇（1 篇）"> <span class="tag-name" data-size="0.70" data-color="DarkGreen" data-tag="量化传奇">量化传奇</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（1 篇）"> <span class="tag-name" data-size="0.70" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-Poetry" title="Poetry（1 篇）"> <span class="tag-name" data-size="0.70" data-color="DarkGoldenrod" data-tag="Poetry">Poetry</span> </a><a class="tag" href="/tags/#tag-ppw" title="ppw（1 篇）"> <span class="tag-name" data-size="0.70" data-color="DarkMagenta" data-tag="ppw">ppw</span> </a><a class="tag" href="/tags/#tag-%E9%80%89%E8%82%A1" title="选股（1 篇）"> <span class="tag-name" data-size="0.70" data-color="DarkCyan" data-tag="选股">选股</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">[0804] QuanTide Weekly</h1> <p class="meta"> <span>📅 2024-08-04</span> <span>🏷 [others, weekly, story]</span> <span>👁 本月阅读 <span data-page-pv>—</span></span> </p> <img class="cover-img" src="https://images.jieyu.ai/images/2024/08/second-derivative-quantile-10.jpg" alt="[0804] QuanTide Weekly"> <div class="md-body" data-pagefind-body><p>上期<strong>重要日历</strong>提示本周为超级央行周，叠加美股科技股年报，风浪比较大。果然，这周外围股市受到严重冲击。英特尔更是一天下跌超 26%。</p>
+<h2 id="本周要闻回顾">本周要闻回顾</h2>
+<ul>
+<li>美国 7 月非农数据爆冷，萨姆规则被触发，美联储未就降息做出决定</li>
+<li>日本央行加息，引爆全球股市重挫，原油、美元大跌，人民币大涨近千点！</li>
+<li>金融圈打虎！董国群、陈小澎等被查</li>
+<li>英伟达 Blackwell 芯片缺陷导致量产推迟</li>
+</ul>
+<h2 id="下周看点">下周看点</h2>
+<ul>
+<li>周一财新发布 PMI，周五统计局发布 CPI/PPI。</li>
+<li>减肥双雄诺和诺德与礼来均将于下周公布季报</li>
+<li>工程机械巨头卡特彼勒和娱乐巨头迪士尼分别将于下周二和周三公布财报</li>
+</ul>
+<h2 id="本周精选">本周精选</h2>
+<ul>
+<li>二阶导因子跑出 Alpha 61.5%!（公众号付费文章）</li>
+<li>TradeGPT! 快来用 ChatGPT 生成交易策略！</li>
+<li>Awesome! 资产新闻情感分析新工具</li>
+<li>你们都是在哪儿下载论文的？附两个网站，速度！</li>
+</ul>
+<hr>
+<h1 id="要闻回顾">要闻回顾</h1>
+<ul>
+<li>美国 7 月非农数据爆冷，萨姆规则被触发，美联储未就降息做出决定<br>
+美劳工部数据称，7 月美国新增就业 11.4 万，薪资增速回落至 3.6%，刷新近三年低点。同时，失业率则由 4.1%上升到 4.3%，已触发预示衰退的萨姆规则。<br>
+在上周的美联储议息会议上，美联储决定将基准利率维持在 5.25%~5.50%的区间内。由于美联储在 8 月和 10 月没有常规议息会议，因此，9 月份的议息会议将十分关键。<br>
+鲍威尔称，如果美国经济按照预期走势发展，美联储最早可能在 9 月份降息。关于萨姆规则，鲍威尔称知道萨姆规则，称其为统计规律。
+不过也有分析认为，7 月非农数据受季节性飓风影响。<br></li>
+<li>日本央行加息，叠加美股科技股年报和非农数据不及预期，引爆全球股市重挫。日经周五重挫 5.81%，纳指下跌 2.43%。英特尔暴跌逾 26%，并且预计第三季度收入低于预期，将裁员 1.5 万人。其它大幅下跌科技股还有亚马逊（-8.78%）、阿斯麦（-8.41%）。原油周五下跌 3.41%，美元对六种主要货币指数下跌 1.15%，人民币上涨 873 点。</li>
+<li>金融圈打虎！原上交所副总董国群、证监会深圳监管局原党委书记、局长陈小澎等被查。海通证券公告，公司副总经理姜诚君申请辞职。</li>
+<li>英伟达 Blackwell 芯片缺陷导致量产推迟，涉及数百亿美元芯片订单。同时，英伟达还面临美国司法部反垄断调查。</li>
+<li>因全球化工龙头巴斯夫在德国的工厂突发爆炸，维生素 A 报价 2 天飙升 53%，维生素 E 报价上涨 20%。8月1日晚，巴斯夫（中国）公司对证券时报记者称，何时复产，目前无法评估和判断。</li>
+</ul>
+<p><claimer>根据财联社、东方财富、证券时报等资讯汇编</claimer></p>
+<hr>
+<h1 id="二阶导因子跑出-alpha-615">二阶导因子跑出 ALPHA 61.5%!</h1>
+<p>这一期，我们将介绍一个二阶导因子。我们将演示二阶导因子的探索优化过程，进一步介绍因子分析的原理，包括：</p>
+<ol>
+<li>如何让 Alphalens 使用我们指定的分层</li>
+<li>二阶导动量因子的数学原理</li>
+<li>By quantiles or By bins, 分层究竟意味着什么</li>
+</ol>
+<p>最后，我们在 A 股 40%的抽样中，得到最近半年二阶导因子的最佳参数是 5 天。在此参数下，<strong>年化 Alpha 分别是 38.4%（多空）和 61.5%（单边做多）</strong>， beta 为-0.12，即收益独立于市场。</p>
+<p>上一期我们检视了斜率因子。本质上，斜率因子是一阶导动量因子。比如，以如下方式生成的数组，它的斜率和一阶导是相等的：</p>
+<pre><code class="language-python">from scipy.stats import linregress
+
+slope = 0.2
+x = np.arange(10)
+y = slope * x + 1
+
+d1 = np.diff(y).mean()
+
+# 如果我们通过线性回归来求斜率
+alpha, beta, *_ = linregress(x, y)
+
+print(f&quot;slope is {slope:.1f}&quot;)
+print(f&quot;first derivative is {d1:.1f}&quot;)
+print(f&quot;slope by linear regression is {alpha:.1f}&quot;)
+</code></pre>
+<p>三项输出都是 0.2。如果我们对价格序列求<strong>二阶导</strong>作为因子，它会对未来趋势有预测作用吗？我们先看结果，再来讨论背后的原理。</p>
+<h2 id="二阶导动量因子检验">二阶导动量因子检验</h2>
+<p>下面这段代码可以生成一个二阶导动量因子。</p>
+<hr>
+<pre><code class="language-python">def d2_factor(close: NDArray, win: int = 10) -&gt; NDArray:
+    n = len(close)
+
+    d1 = close[1:]/close[:-1] - 1
+    d2 = d1[1:] - d1[:-1]
+
+    factor = move_mean(d2, win)
+    # 进行左填充，使之与输入等长
+    factor = np.pad(factor, (n-len(factor), 0), ...)
+    
+    return factor
+</code></pre>
+<p>注意我们用<code>close[1:]/close[:-1]-1</code>代替了通常意义上的一阶导，以起到某种标准化的作用。如果我们不这样做，那么高价股的因子将永远大于低价股的因子，从而永远有更高的因子暴露。</p>
+<p>因子本身的参数是<code>win</code>，表示我们是在多长的时间段内计算的二阶导。</p>
+<p>然后我们通过 Alphalens 来进行因子检验。第一次调用 Alphalens，我们按 quantiles 分层，分层数为 10。</p>
+<p>从分层图来看，继续进行收益分析是没有意义的，我们必须先进行优化。</p>
+<h3 id="第一次调优">第一次调优</h3>
+<p>考虑到做多收益在第 8 层达到最大值，所以，我们考虑 drop 掉第 9 层和第 10 层后进行分析，看看结果如何。</p>
+<p>通过 Alphalens 进行分析中，一般有三个步骤：</p>
+<hr>
+<ol>
+<li>构造因子。</li>
+<li>数据预处理，一般是通过调用 get_clean_factor_and_forward_returns 来实现的。</li>
+<li>调用 create_full_tearsheet 来执行因子检验并输出报表。它的输入是第 2 步中的输出。</li>
+</ol>
+<p>Alphalens 是在第二步实现的分层。然后它将第二步的输出，用作第 3 步的输入。</p>
+<p>所以，我们可以在拿到第 2 步的输出之后，drop 掉第 9 层和第 10 层，然后调用 create_full_tearsheet 来进行收益分析。这样，在 Alphalens 看来，top 分层就是第 8 层，所有的分析都是在这个基础上进行。</p>
+<p><i>根据 Alphalens 的官方文档，这样做是允许的。</i></p>
+<p>第 2 步输出的是一个 DataFrame，它的格式如下：</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/second-derivative-factor-quantile.jpg" alt=""></p>
+<p>所以，要 drop 掉第 9 层和第 10 层，可以这样做：</p>
+<pre><code class="language-python">
+factor_data = factor_data[factor_data.factor_quantile &lt;= 8]
+</code></pre>
+<div class="admonition admonition-tip"><p class="admonition-title">tip</p>
+这是本文介绍的第一个技巧。在前面的课程中，为了让 Alphalens 按照我们的意愿，按指定的对空分层进行收益分析，我们使用的是改造因子本身的方法，比这个方法在阶段上更提前一些。两个方法都可以使用，但这里的方法更简单。
+</div>
+
+<hr>
+<p>这一次我们得到了令人满意的分层收益均值图，单调且递增，完全适合进一步进行因子分析。</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/second-derivative-quantiles-8.jpg" alt=""></p>
+<p>这个图其实基本上就是完全还原了上一个图，只不过缺少第 9 层和第 10 层而已。但是，现在第 8 层就成了 top 分层，这是 Alphalens 在计算多空收益时，将要做多的一层。</p>
+<div class="admonition admonition-tip"><p class="admonition-title">tip</p>
+由于我们在实盘交易中也一样可以 drop 掉第 9 层和第 10 层，因此这种操作是合理的。类似的手法，我们在 Alpha101 中也可以看到。
+</div>
+
+<p>现在我们得到的 Alpha 是 23.2%（1D 年化），Beta 是-0.07，7 个月的累计收益是 11%左右。</p>
+<h3 id="纯多的情况">纯多的情况</h3>
+<p>我们在之前的几期里讲过，由于制度因素，并不是所有人都能条件做空。所以我们看看纯做多的情况下，因子表现如何。</p>
+<p>这一次，年化 Alpha 只有 17.6%，beta 为-0.6。但 7 个月的累积收益是 15%左右，还略高了一些。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>Alpha</th>
+<th>Beta</th>
+<th>累计收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多空、10</td>
+<td>23.2%</td>
+<td>-0.07</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>单多、10</td>
+<td>17.6%</td>
+<td>-0.60</td>
+<td>15%</td>
+</tr>
+</tbody></table>
+<p>我们对比一下前后两次的累积收益图，可以发现，多空组合绝对收益低了一些，但平抑风险的能力更强了：</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/second-derivative-long-short-cum.jpg" alt="">
+<cap>多空组合</cap></p>
+<p><img src="https://images.jieyu.ai/images/2024/08/second-derivative-cum-long-only.jpg" alt="">
+<cap>单边做多</cap></p>
+<p>为什么多空的 Alpha 大于纯多，多空组合的累积收益还低于单边做多？这可能是在对二阶导因子做空的过程中，有一些负面效应。一些强势股，在急杀之后（二阶导为负），往往还会有一个小反弹，如果刚好在小反弹前做空，就会带来损失。</p>
+<hr>
+<h3 id="寻找最有效的窗口">寻找最有效的窗口</h3>
+<p>到目前为止，我们使用的都是 10 天的窗口来计算的二阶导。如果使用其它窗口呢？我们分别测试了 2、4、6、8 天的数据。现在，我们把所有的数据汇总起来：</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>Alpha</th>
+<th>Beta</th>
+<th>累计收益</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多空、2</td>
+<td>30.6%</td>
+<td>-0.06</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>多空、4</td>
+<td>35.3%</td>
+<td>-0.1</td>
+<td>17%</td>
+</tr>
+<tr>
+<td>多空、5</td>
+<td>38.4%</td>
+<td>-0.12</td>
+<td>19%</td>
+</tr>
+<tr>
+<td>多空、6</td>
+<td>37.3%</td>
+<td>-0.12</td>
+<td>18%</td>
+</tr>
+<tr>
+<td>多空、8</td>
+<td>32.4%</td>
+<td>-0.06</td>
+<td>14.8%</td>
+</tr>
+<tr>
+<td>多空、10</td>
+<td>23.2%</td>
+<td>-0.07</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>单多、10</td>
+<td>17.6%</td>
+<td>-0.60</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>单多、5</td>
+<td>61.5%</td>
+<td>-0.58</td>
+<td>37%</td>
+</tr>
+</tbody></table>
+<p>看起来在 A 股市场上，二阶导动量因子使用周期为 5 时表现最好。此时如果能构建多空组合，年化 Alpha 是 38.4%，今年以来累计收益是 19%；如果只能构建单多组合，年化 Alpha 是 61.5%，今年以来累计收益是 37%。</p>
+<h2 id="回顾一点高中数学">回顾一点高中数学</h2>
+<p>前一期讨论的斜率因子（即一阶导因子）反映的是价格上涨的速度。</p>
+<p>那么二阶导因子代表什么呢？</p>
+<p>二阶导因子反映的是价格变化的<strong>加速度</strong>。</p>
+<hr>
+<p>当一阶导为正，而二阶导为负时，价格将仍然上涨，但趋势减缓，有可能出现变盘。反之亦然。下面的公式显示了一个存在二阶导的函数：</p>
+<p>$$
+y = a x^2 + b x + c
+$$</p>
+<p>当 a 和 b 分别在 [-1, 0, 0, 1] 和 [10, 10, -10, -10] 之间取值时，我们就得到下面的图形：</p>
+<!--
+
+```python
+import matplotlib.pyplot as plt
+x = np.arange(8)
+
+for a,b in zip([-1, 0, 0, 1], [10, 10, -10, -10]):
+    y = a * x**2 + b*x
+    d1 = np.diff(y).mean()
+    d2 = np.diff(np.diff(y)).mean()
+    plt.plot(x, y, label=f'a={a:.1f} d1={d1:.1f} d2={d2:.1f}')
+plt.legend()
+```
+
+-->
+
+<p><img src="https://images.jieyu.ai/images/2024/08/second-derivative-1.jpg" alt="50%"></p>
+<p>这个图说明，二阶导对证券价格运行的趋势具有修正效应。本来处于上涨趋势的品种，如果二阶导持续为负，它迟早会到达峰顶、然后转为下跌；反之，本来处于下跌趋势的品种，如果二阶导持续为正，它迟早会触及谷底，然后转为上涨。</p>
+<p>正因为这样，与一阶导不同，二阶导有能力<strong>提前预测价格趋势的变化</strong>。它是一种<strong>反转动能</strong>。</p>
+<p>在测试中，表现最好的参数是 5 天。考虑到二阶导需要额外多两个窗口才能计算，因此我们实际上是基于过去 7 天的数据来发出交易信号。</p>
+<p><strong>7 天，这是上帝之数。</strong></p>
+<h2 id="眼见为实">眼见为实</h2>
+<p>看到 38%的 Alpha，老实说有点吃惊。</p>
+<hr>
+<p>这是真的吗？还是说什么地方 Pseudo-Logoi，这位谎言之神悄悄地溜了进来？</p>
+<p>尽管可以相信 Alphalens 是品质的保证，但比起一堆统计数字，你可能更愿意相信自己的卡姿兰大眼睛。</p>
+<p>所以，我决定把第 8 层的个股走势画出来。绘制方法是，先取出某一天（记为 T0）quantile = 8 的所有标的，然后再取出最近 8 天（截止 T0 为止）的收盘价。在绘图之前，先对收盘价起点归一化到 1。</p>
+<p>绘图中，我们共使用了** 199 个样本**，代表性和稳健性都足够了。</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/double-check-trendline.jpg" alt=""></p>
+<p>图中的红色线是趋势线，其斜率是 0.001，表明总体上是上涨的；颜色的深浅，代表了样本的分布密度，可以看出，零线上方分布更多一些。</p>
+<hr>
+<p>我很喜欢从一些股谚中寻找灵感。因为公司底色、市场机制和交易制度的不同，<strong>照搬海外股市的做法是行不通的</strong>。我们这边博弈的底色更重一点。</p>
+<p>按理说，跟二阶导动量因子有关的股谚是<strong>黄金坑和圆弧顶</strong>，<strong>或者 V 反</strong>。那么，能直观地画出来在这些标的中，有多少漂亮的黄金坑吗？</p>
+<p>很难只用一张图、同一个参数就绘制出来：每个黄金坑的周期、深度和构造阶段等指标都是不一样的。环肥燕瘦，我们很难一笔画尽美人风姿。</p>
+<h2 id="by-bins-or-by-quantiles">By bins, or By quantiles？</h2>
+<p>在这次测试中，我们一直使用的都是 by quantiles 进行的分层，没有探索 by bins 分层。</p>
+<p>by quantiles 是一种排名分层。这是 quantiles 的定义决定的。使用 by bins 方法，我们更关注的是因子值本身的金融含义。</p>
+<p>比如，对 RSI 来说，它的值在 0 到 100 之间，大家会认为超过 80 的值是“超买”，低于 20 的值是“超卖”。因此，直接使用因子值是有意义的。</p>
+<p>本文没有使用 by quantiles 方法，一方面因子值本身的信号意义可能没那么强：</p>
+<p>我们寻找买入或者卖出信号，是根据后面是涨还是跌来验证的。但是，二阶导只能告诉我们趋势的改变方向，并不能立即决定涨跌。</p>
+<p>因此，我们可能更应该使用它的排名来做因子，因为资金往往会寻找<strong>反转动能最强</strong>的标的。</p>
+<hr>
+<div class="admonition admonition-info"><p class="admonition-title">info</p>
+题外话：by quantiles 分层用的是排名，有点 Rank IC 的感觉，但计算收益时，又是根据因子值来进行权重分配的，则与 Ranked IC 的方法区别。<br><br>通过这些参数以及它们之间的混搭，Alphalens 赋予了我们强大的探索能力。
+</div>
+
+<p>另一方面，我并不清楚它的最小值、最大值和分布情况，所以在实操上难以给出 bins 数组。这也是没有使用 by bins 的原因。</p>
+<p>当然，这并非绝对。也许，有时间的话，也应该探索下 by bins 分层。</p>
+<p>如果需要获取全部代码及进行测试，可以通过 <a href="https://mp.weixin.qq.com/s?__biz=MzI2MzE3MzY4Ng==&mid=2662263080&idx=1&sn=df6599aac9ace5afab2985c9855165fe&chksm=f1e5aa71c69223672e1003597b3c9478564836a0e0b66eacdd757551cf29f9a5b2087faf2eed&payreadticket=HLL8Mwsi7D0j05AcuA6ptWSetz3H4JCt9JDXWP-6kcmvThOXEyy3WenE0BEXpEy6AdtAVeI#rd">公众号付费文章</a> 获得运行环境、代码和数据。</p>
+<hr>
+<h1 id="tradegpt-快来用-chatgpt-生成交易策略">TradeGPT! 快来用 CHATGPT 生成交易策略</h1>
+<p>通过 ChatGPT，我们可以基于宏观经济层面生成一些有用的交易策略。</p>
+<p>要有效使用 ChatGPT，我们可以尝试 RISE 提问模型，即 Role, Instructions, Steps and End goal 模型。下面是一个例子：</p>
+<pre><code class="language-markdown">Role: Assume the role of a world-class trader with expertise in trading energy futures. Specifically, you excel in trading the crack spread against refiner stocks.
+
+Instructions: Write 5 trading ideas related to trading a crack spread position in futures against a refiner stock.
+
+Steps: 1. Start with the composition of the crack spread. Proceed with a description of how to trade it against a refiner stock. Proceed with explaining the economic rationale why the crack spread and refiner stocks should be related. Finish with the description of a trade that the difference between the crack spread and refiner stock.
+
+End Goal: The goal is a concise description of a trade I can execute.
+</code></pre>
+<p>最终 ChatGPT 就会给我们想要的答案：</p>
+<pre><code class="language-markdown">
+Composition of the Crack Spread The crack spread is a trading strategy in the energy sector that captures the price
+differential between crude oil and its refined products, most commonly gasoline and heating oil. To construct a simple 3:2:1 crack spread, you would buy 3 futures contracts of crude oil
+and simultaneously sell 2 contracts of gasoline and 1 contract of heating oil.
+Trading Crack Spread Against a Refiner Stock When trading the crack spread against a refiner stock, you are essentially comparing the
+profitability of refining operations to the market&#39;s valuation of a specific refining company. Refiner stocks should theoretically benefit from a widening crack spread, as their margins
+improve when the price difference between crude and its products increases.
+Economic Rationale The economic rationale behind the correlation between the crack spread and refiner stocks is straightforward. Refiners purchase crude oil and sell its refined products. When the spread between the two widens, the refiner&#39;s profit margin inherently expands. Consequently, refiner stocks should move in tandem with crack spreads, although other factors such as operational efficiency, regulatory changes, and broader market sentiment can cause
+divergence.
+Trade Ideas
+1. Long Crack Spread, Short Refiner Stock - Mean Reversion If the crack spread widens substantially but a refiner&#39;s stock hasn&#39;t reacted proportionally, you may execute a mean-reversion strategy. Long the crack spread and short the refiner stock, expecting the stock to catch up to the increased profitability suggested by the crack
+spread.
+1. Short Crack Spread, Long Refiner Stock - Divergence Trade If the crack spread narrows but a refiner&#39;s stock price remains resilient, it could suggest that the market is overly optimistic about the refiner&#39;s profit margins. Short the crack spread and go long on the refiner stock, anticipating that the stock will correct downward as margins
+compress.
+1. Long Crack Spread, Long Refiner Stock - Trend Confirmation In an environment where both the crack spread and the refiner stock are trending upward, take a long position in both to capitalize on the sustained strength in refining margins and
+investor sentiment towards the sector.
+1. Relative Strength Trade - Pairing Strong with Weak Identify two refiner stocks: one showing strong performance and another showing weak performance. If the crack spread is expanding, go long on the strong stock and short the
+weak stock, expecting the strong stock to outperform further.
+1. Arbitrage Opportunities - Geographical Spreads Some refiners have a more significant presence in specific geographic regions where the crack spread may be widening more quickly. Long the local crack spread and short a global crack spread index while simultaneously long the refiner stock most affected by the local
+crack spread.
+Trade Execution: Long Crack Spread, Short Refiner Stock
+1. Buy 3 futures contracts of WTI crude oil.
+2. Sell 2 futures contracts of RBOB gasoline.
+3. Sell 1 futures contract of Heating Oil. 4. Short shares of a specific refiner stock that has not yet reacted to the widening crack
+spread. This strategy aims to capture the eventual rise in the refiner stock to align more closely with the improved economics implied by a wider crack spread. Keep a close eye on market developments that might affect either the crack spread or the refiner stock and adjust your
+positions accordingly.
+</code></pre>
+<p>chatGPT的输出就不翻译了。</p>
+<hr>
+<p>chatGPT 生成的交易策略大意是，通过捕捉原油与其精炼产品（最常见的是汽油和取暖油）之间的价格差异，构建一个简单的 3:2:1 裂解价差，你需要买入 3 份原油期货合约，并同时卖出 2 份汽油期货合约和 1 份取暖油期货合约。</p>
+<p>不过，要让 chatGPT 生成可执行的代码，还有很多工作要做。</p>
+<p><claimer>本段内容来自 PyQuantNews </claimer></p>
+<hr>
+<h1 id="awesome-资产新闻情感分析新工具">AWESOME! 资产新闻情感分析新工具</h1>
+<p><claimer>本段内容来自 AssetNewsSentimentAnalyzer 的使用说明</claimer></p>
+<p><a href="https://github.com/KVignesh122/AssetNewsSentimentAnalyzer">Asset News Sentiment Analyzer</a> 最新发布到 0.1.4 版本，并加入到了 <a href="https://github.com/wilsonfreitas/awesome-quant">awesome-quant</a> 推荐中。</p>
+<p>一个简单的交易策略涉及来自该包的每日情绪分析信号，可以提供目标资产的基本市场吸引力（我们对过去 100 个市场日的商品进行了样本回测）。</p>
+<p>这是原油的：</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/mean-prices-with-sentiment-signals.jpg" alt=""></p>
+<hr>
+<p>这是黄金的：</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/mean-prices-with-sentiment-gold.jpg" alt=""></p>
+<p>该Python库提供了两种复杂的工具，可通过 Google 搜索结果和在线新闻文章对金融资产和证券进行情感分析。您只需要一个 OpenAI API 密钥即可开始使用并利用此软件包提供的所有功能，即获取新闻文章、分析其内容并为投资和交易决策生成有见地的报告。</p>
+<p>使用方法比较简单：</p>
+<pre><code class="language-python">from asset_sentiment_analyzer import SentimentAnalyzer
+
+# INITIALIZE THE ANALYZER
+analyzer = SentimentAnalyzer(asset=&#39;Crude Oil&#39;, openai_key=&#39;your-openai-key&#39;)
+
+# GET SENTIMENT ANALYSIS AS STRING FOR TODAY OR ANY DATE IN THE PAST (RETURNS &quot;BULLISH&quot;, &quot;BEARISH&quot;, OR &quot;NEUTRAL&quot;)
+sentiment = analyzer.get_sentiment(date=&#39;06-02-2024&#39;)
+print(f&quot;The sentiment for the asset is: {sentiment}&quot;)
+
+# FETCH NEWS LINKS FOR ANY DATE WITH NEWS_DATE ARGUMENT IN MM-DD-YYYY FORMAT.
+news_links = analyzer.fetch_news_links(news_date=&#39;06-02-2024&#39;)
+
+# DISPLAY NEWS CONTENT
+for url in news_links:
+    print(analyzer.show_news_content(url))
+
+# GENERATE A REPORT
+report = analyzer.produce_daily_report(date=&#39;06-02-2024&#39;, max_words=300)
+print(report)
+</code></pre>
+<hr>
+<h1 id="你们都是在哪儿下载论文的">你们都是在哪儿下载论文的？</h1>
+<p>上一期我们介绍了金融人最常看的顶刊。有同学问，要怎么订阅这些杂志。</p>
+<p>其实答案只有一个，就是美金。它们的订阅地址在官网都有。</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/sci-hub.jpg" alt="L50">
+我知道我们都应该尊重知识产权。在我们的周刊里，到处是关于第三方知识产权的声明。不过，作为个人研究者，订阅所有的杂志、软件和书籍也是不太现实的。我通常的做法是，先看先用，如果确实有用且需要，我会去书店、电影院、官网加倍返还。</p>
+<p><img src="https://images.jieyu.ai/images/2024/08/freefullpdf.jpg" alt="R50">这里就介绍两个免费看论文的网站。第一个是 <a href="https://www.sci-hub.se/">sci-hub</a>。它已经保存了 25million 篇论文，索引压缩包就达 478M。搜索方式是按标题和按引用。</p>
+<p>第二个网站是 <a href="https://www.freefullpdf.com/">freefullpdf</a>,它的搜索使用了 google，搜索体验会更好一些。</p>
+<about/>
+
+<copyright/>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/others/weekly-0728/">[0728] QuanTide Weekly</a> <p>广东私募自查，量化交易、基金规模是否达标成是重点</p> </li><li> <a href="/posts/others/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a> <p>在我们的《因子分析与机器学习策略》课程中，提供了从2005年到2023年，长达18年的日线数据（共1100多万条记录）供学员进行因子挖掘与验证。最初，我们是通过functools中</p> </li><li> <a href="/posts/others/weekly-1103/">[1103] QuanTide Weekly</a> <p>一门三杰！一年翻十倍的男人发明了 UO 指标</p> </li><li> <a href="/posts/others/weekly-1027/">[1027] QuanTide Weekly</a> <p>财政部：中国还将加大财政政策逆周期调节力度</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#本周要闻回顾" title="本周要闻回顾">本周要闻回顾</a> </li><li class> <a href="#下周看点" title="下周看点">下周看点</a> </li><li class> <a href="#本周精选" title="本周精选">本周精选</a> </li><li class> <a href="#要闻回顾" title="要闻回顾">要闻回顾</a> </li><li class> <a href="#二阶导因子跑出-alpha-615" title="二阶导因子跑出 ALPHA 61.5%!">二阶导因子跑出 ALPHA 61.5%!</a> </li><li class> <a href="#二阶导动量因子检验" title="二阶导动量因子检验">二阶导动量因子检验</a> </li><li class="lv3"> <a href="#第一次调优" title="第一次调优">第一次调优</a> </li><li class="lv3"> <a href="#纯多的情况" title="纯多的情况">纯多的情况</a> </li><li class="lv3"> <a href="#寻找最有效的窗口" title="寻找最有效的窗口">寻找最有效的窗口</a> </li><li class> <a href="#回顾一点高中数学" title="回顾一点高中数学">回顾一点高中数学</a> </li><li class> <a href="#眼见为实" title="眼见为实">眼见为实</a> </li><li class> <a href="#by-bins-or-by-quantiles" title="By bins, or By quantiles？">By bins, or By quantiles？</a> </li><li class> <a href="#tradegpt-快来用-chatgpt-生成交易策略" title="TradeGPT! 快来用 CHATGPT 生成交易策略">TradeGPT! 快来用 CHATGPT 生成交易策略</a> </li><li class> <a href="#awesome-资产新闻情感分析新工具" title="AWESOME! 资产新闻情感分析新工具">AWESOME! 资产新闻情感分析新工具</a> </li><li class> <a href="#你们都是在哪儿下载论文的" title="你们都是在哪儿下载论文的？">你们都是在哪儿下载论文的？</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>
