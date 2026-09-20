@@ -1,0 +1,765 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>LLM 能做交易吗？中证 1000 上的三个递进实验 | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/posts/factor-strategy/llm-csi1000-three-experiments/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="LLM 能做交易吗？中证 1000 上的三个递进实验 | 匡醍量化"><meta property="og:description" content="LLM 真能下单吗？nof1.ai 直播实验夏普仅 0.019，九个月后 AI 突飞猛进，结论会变吗？本文在中证 1000 上设计三个递进实验：先让模型只预测仓位，把趋势、波动、乖离率翻译成自然语言状态再回测，逐步逼近交易本质，并给出可复现的完整代码与指标对比。"><meta property="og:url" content="https://blog.quantide.cn/posts/factor-strategy/llm-csi1000-three-experiments/"><meta property="og:image" content="https://blog.quantide.cn/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class="active" aria-current="page">博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"LLM 能做交易吗？中证 1000 上的三个递进实验","description":"LLM 真能下单吗？nof1.ai 直播实验夏普仅 0.019，九个月后 AI 突飞猛进，结论会变吗？本文在中证 1000 上设计三个递进实验：先让模型只预测仓位，把趋势、波动、乖离率翻译成自然语言状态再回测，逐步逼近交易本质，并给出可复现的完整代码与指标对比。","image":"https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg","datePublished":"2026-09-14","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/posts/factor-strategy/llm-csi1000-three-experiments/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"LLM 能做交易吗？中证 1000 上的三个递进实验","item":"https://blog.quantide.cn/posts/factor-strategy/llm-csi1000-three-experiments/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">博客目录</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">algo</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">tcn</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/algo/tcn/ai股票分析/" class title="一个很强的股票智能分析系统">一个很强的股票智能分析系统</a></li><li><a href="/posts/algo/tcn/tcn原理/" class title="聊聊 TCN：一种更清晰的时间序列解构方式">聊聊 TCN：一种更清晰的时间序列解构方式</a></li><li><a href="/posts/algo/tcn/tcn番外/" class title="TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境">TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境</a></li><li><a href="/posts/algo/tcn/因果卷积/" class title="为什么我们需要因果卷积？">为什么我们需要因果卷积？</a></li> </ul> </details> </li><li><a href="/posts/algo/HDBSCAN_1/" class title="用HDBSCAN聚类算法选股是否有效">用HDBSCAN聚类算法选股是否有效</a></li><li><a href="/posts/algo/an-enigma-min-range/" class title="地量见地价？我拿一年的上证数据算了算">地量见地价？我拿一年的上证数据算了算</a></li><li><a href="/posts/algo/data-normalization/" class title="夏普大于4的策略有多恐怖？但它为什么好得不真实？">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a></li><li><a href="/posts/algo/fft/" class title="快速傅里叶变换与股价预测研究">快速傅里叶变换与股价预测研究</a></li><li><a href="/posts/algo/flag-pattern-detection/" class title="烛台密码 三角形整理如何提示玄机">烛台密码 三角形整理如何提示玄机</a></li><li><a href="/posts/algo/hdbscan/" class title="hdbscan 聚类算法扫描配对交易 速度提升99倍">hdbscan 聚类算法扫描配对交易 速度提升99倍</a></li><li><a href="/posts/algo/how-gradient-boost-learned-from-regression/" class title="比Deepseek还要Deep！起底GBDT做回归预测的秘密">比Deepseek还要Deep！起底GBDT做回归预测的秘密</a></li><li><a href="/posts/algo/ks-test-and-cdf/" class title="KS Test, 广义双曲分布和抄底沪指">KS Test, 广义双曲分布和抄底沪指</a></li><li><a href="/posts/algo/monte-carlo/" class title="蒙特卡洛：看似很高端的技术，其实很暴力很初级">蒙特卡洛：看似很高端的技术，其实很暴力很初级</a></li><li><a href="/posts/algo/noise-test/" class title="样本外测试之外，我们还有哪些过拟合检测方法？">样本外测试之外，我们还有哪些过拟合检测方法？</a></li><li><a href="/posts/algo/normalization/" class title="基于深度学习的量化策略如何实现归一化？">基于深度学习的量化策略如何实现归一化？</a></li><li><a href="/posts/algo/pdf-is-all-you-need/" class title="量化面试神题：圆上随机点的概率陷阱">量化面试神题：圆上随机点的概率陷阱</a></li><li><a href="/posts/algo/pdf-is-all-you-need-2/" class title="PDF is all you need(2)">PDF is all you need(2)</a></li><li><a href="/posts/algo/pdf-is-all-you-need-3/" class title="PDF is all you need(3)">PDF is all you need(3)</a></li><li><a href="/posts/algo/picking-nickles-in-front-of-steamroller/" class title="虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a></li><li><a href="/posts/algo/前视偏差-看似明白，实则糊涂/" class title="前视偏差 - 看似明白，实则糊涂">前视偏差 - 看似明白，实则糊涂</a></li><li><a href="/posts/algo/千禧年的脑筋急转弯/" class title="2024已过一半，千禧年发布了这道脑筯急转弯">2024已过一半，千禧年发布了这道脑筯急转弯</a></li><li><a href="/posts/algo/如何成为一名量化研究员 /" class title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a></li><li><a href="/posts/algo/强化学习与监督学习/" class title="强化学习 vs 监督学习：AI炒股的两种思路">强化学习 vs 监督学习：AI炒股的两种思路</a></li><li><a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/" class title="关于昨天应该涨多少这件事，Tushare 和 东财还没商量好">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a></li><li><a href="/posts/algo/结合主成分分析、离散小波和XGBoost的交易策略/" class title="带你读论文：PCA、离散小波和 XGBoost构建交易策略">带你读论文：PCA、离散小波和 XGBoost构建交易策略</a></li><li><a href="/posts/algo/谁压垮了这个基站/" class title="谁压垮了这个基站？用XGBoost如何进行时序事件归因">谁压垮了这个基站？用XGBoost如何进行时序事件归因</a></li><li><a href="/posts/algo/财报电话会里的风险之声/" class title="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">career&amp;figure</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/career&#38;figure/Daniel-Kahneman/" class title="没能上热搜，但卡尼曼值得我们纪念">没能上热搜，但卡尼曼值得我们纪念</a></li><li><a href="/posts/career&#38;figure/does-arma-garch-matter-in-quant/" class title="在量化交易中，掌握ARMA/GARCH 的重要性？">在量化交易中，掌握ARMA/GARCH 的重要性？</a></li><li><a href="/posts/career&#38;figure/how-to-apply-citadel/" class title="Datathon-我的Citadel量化岗之路！附历年比赛资料">Datathon-我的Citadel量化岗之路！附历年比赛资料</a></li><li><a href="/posts/career&#38;figure/how-to-determine-research-topic/" class title="金融/计量专业，硕士论文怎么确定研究课题？">金融/计量专业，硕士论文怎么确定研究课题？</a></li><li><a href="/posts/career&#38;figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story/" class title="高薪金领都用啥编程语言？SQL、Python领航，附排名！">高薪金领都用啥编程语言？SQL、Python领航，附排名！</a></li><li><a href="/posts/career&#38;figure/john-fawcett/" class title="反抗者的崛起！Fawce 和 Quantopian 的量化之路">反抗者的崛起！Fawce 和 Quantopian 的量化之路</a></li><li><a href="/posts/career&#38;figure/max-dama-on-automated-trading/" class title="我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路">我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路</a></li><li><a href="/posts/career&#38;figure/rolf-banz/" class title="牛人太多：小市值因子之父，毕业论文被大佬狂怼">牛人太多：小市值因子之父，毕业论文被大佬狂怼</a></li><li><a href="/posts/career&#38;figure/successfully-starting-a-career-in-quant-research/" class title="如何选择量化交易基金，Max Dama 给你的7个建议">如何选择量化交易基金，Max Dama 给你的7个建议</a></li><li><a href="/posts/career&#38;figure/买卖双方/" class title="金融行业买方与卖方：利润与稳定性的背后逻辑">金融行业买方与卖方：利润与稳定性的背后逻辑</a></li><li><a href="/posts/career&#38;figure/如何才能入行量化交易/" class title="硕士在读，如何才能入行量化交易">硕士在读，如何才能入行量化交易</a></li><li><a href="/posts/career&#38;figure/月亮和pandas/" class title="月亮和Pandas - Wes Mckinney的传奇故事">月亮和Pandas - Wes Mckinney的传奇故事</a></li><li><a href="/posts/career&#38;figure/起底百亿私募创始人/" class title="找校友！起底百亿私募创始人">找校友！起底百亿私募创始人</a></li><li><a href="/posts/career&#38;figure/追随美的指引/" class title="追随美的指引-纪念西蒙斯">追随美的指引-纪念西蒙斯</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/26-09</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/26/09/0918/" class title="Quantide Daily 2026-09-18">Quantide Daily 2026-09-18</a></li><li><a href="/articles/express/26/09/0920/" class title="Quantide Loop 2026-09-20">Quantide Loop 2026-09-20</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">factor-strategy</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/factor-strategy/1赔10，3月27日我抄底了/" class title="1赔10！中证1000应该这样抄底">1赔10！中证1000应该这样抄底</a></li><li><a href="/posts/factor-strategy/3月27日为什么大跌/" class title="交割日魔咒？">交割日魔咒？</a></li><li><a href="/posts/factor-strategy/7-factor-model/" class title="7因子模型，除了规模、市场、动量和价值，还有哪些？">7因子模型，除了规模、市场、动量和价值，还有哪些？</a></li><li><a href="/posts/factor-strategy/ESG策略初探-01/" class title="ESG策略初探-01">ESG策略初探-01</a></li><li><a href="/posts/factor-strategy/ESG策略初探-02/" class title="ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a></li><li><a href="/posts/factor-strategy/Is-the-A-share-market-undervalued/" class title="节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？">节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？</a></li><li><a href="/posts/factor-strategy/ORB-strategy/" class title="ORB! Alpha 达到年化 36%">ORB! Alpha 达到年化 36%</a></li><li><a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/" class title="不能求二阶导的metrics<br>不是好的objective">不能求二阶导的metrics&lt;br&gt;不是好的objective</a></li><li><a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/" class title="基于 XGBoost 的组合策略基本框架">基于 XGBoost 的组合策略基本框架</a></li><li><a href="/posts/factor-strategy/alligator/" class title="鳄鱼线，让趋势成为你的朋友">鳄鱼线，让趋势成为你的朋友</a></li><li><a href="/posts/factor-strategy/alpha042/" class title="第42个因子:年化17.6%，15年累计10倍">第42个因子:年化17.6%，15年累计10倍</a></li><li><a href="/posts/factor-strategy/connors-rsi/" class title="年终特稿：这个指标我愿称之为年度最强发现">年终特稿：这个指标我愿称之为年度最强发现</a></li><li><a href="/posts/factor-strategy/decision-tree-made-easy/" class title="如果模型预测准确率超过85%，这台印钞机应该值多少马内？">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a></li><li><a href="/posts/factor-strategy/first-level-derivation/" class title="当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建">当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a></li><li><a href="/posts/factor-strategy/genetic-algorithms/" class title="量化交易中的遗传算法">量化交易中的遗传算法</a></li><li><a href="/posts/factor-strategy/growing-star-market-weights/" class title="量化股票投资起手式<br>指数增强之<br>指数成份股信息挖掘">量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘</a></li><li><a href="/posts/factor-strategy/herd-behaviour/" class title="羊群效应及其因子化">羊群效应及其因子化</a></li><li><a href="/posts/factor-strategy/hindsight-how-do-i-missed-dlsy/" class title="后见之明！错过6个涨停之后的复盘">后见之明！错过6个涨停之后的复盘</a></li><li><a href="/posts/factor-strategy/hockey-and-coin/" class title="球队和硬币因子">球队和硬币因子</a></li><li><a href="/posts/factor-strategy/holy-grail-still-works/" class title="圣杯依然闪耀">圣杯依然闪耀</a></li><li><a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/" class title="涨到溢出！PEPE告诉我，大盘还能涨几多？">涨到溢出！PEPE告诉我，大盘还能涨几多？</a></li><li><a href="/posts/factor-strategy/llm-csi1000-three-experiments/" class="current" title="LLM 能做交易吗？中证 1000 上的三个递进实验">LLM 能做交易吗？中证 1000 上的三个递进实验</a></li><li><a href="/posts/factor-strategy/lof套利怎么做/" class title="白银大涨引发的量化套利策略">白银大涨引发的量化套利策略</a></li><li><a href="/posts/factor-strategy/low-turnover-factor/" class title="Alphalens 因子分析 - 以低换手率因子为例(1)">Alphalens 因子分析 - 以低换手率因子为例(1)</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-2/" class title="Alphalens因子分析(2) - low turnover秒杀98%的基金经理!">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-3/" class title="因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-4/" class title="Alphalens因子分析(4) - Information Coefficient方法">Alphalens因子分析(4) - Information Coefficient方法</a></li><li><a href="/posts/factor-strategy/magic-hot-word-factor/" class title="龙凤呈祥：这种无底限炒作，如何用量化方法发现它？">龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</a></li><li><a href="/posts/factor-strategy/max-volume-direction/" class title="捕捉主力-最大成交量因子">捕捉主力-最大成交量因子</a></li><li><a href="/posts/factor-strategy/mispriced-option/" class title="不写一行代码，我只靠 AI 实现期权定价策略">不写一行代码，我只靠 AI 实现期权定价策略</a></li><li><a href="/posts/factor-strategy/ml-predict-peaks-valleys-1/" class title="机器学习(XgBoost）预测顶和底">机器学习(XgBoost）预测顶和底</a></li><li><a href="/posts/factor-strategy/nh-nl/" class title="净新高占比因子">净新高占比因子</a></li><li><a href="/posts/factor-strategy/perf-of-momentum-10/" class title="7月斜率动量因子复盘：10天回归斜率在A股表现如何？">7月斜率动量因子复盘：10天回归斜率在A股表现如何？</a></li><li><a href="/posts/factor-strategy/pressure-of-prices-intger/" class title="左数效应 整数关口与光折射">左数效应 整数关口与光折射</a></li><li><a href="/posts/factor-strategy/regret/" class title="Sharpe 5.5!遗憾规避因子">Sharpe 5.5!遗憾规避因子</a></li><li><a href="/posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023/" class title="私募量化策略大盘点-2024年初">私募量化策略大盘点-2024年初</a></li><li><a href="/posts/factor-strategy/santa-clause/" class title="Santa Claus Rally">Santa Claus Rally</a></li><li><a href="/posts/factor-strategy/sec-form-4-insider-purchases/" class title="内幕交易因子研究">内幕交易因子研究</a></li><li><a href="/posts/factor-strategy/second-derivative/" class title="动能反转：二阶导动量因子年化Alpha达到61%！">动能反转：二阶导动量因子年化Alpha达到61%！</a></li><li><a href="/posts/factor-strategy/smart-money-concept/" class title="聪明钱概念策略，另一个价格行为交易策略？">聪明钱概念策略，另一个价格行为交易策略？</a></li><li><a href="/posts/factor-strategy/switch-to-decimal/" class title="改用十进制！点差如何影响策略">改用十进制！点差如何影响策略</a></li><li><a href="/posts/factor-strategy/time-will-tell/" class title="时间会证明一切！抢头财（报）就是抢头彩？！">时间会证明一切！抢头财（报）就是抢头彩？！</a></li><li><a href="/posts/factor-strategy/ultimate-oscillator/" class title="一门三杰 一年翻十倍的男人发明了 UO 指标">一门三杰 一年翻十倍的男人发明了 UO 指标</a></li><li><a href="/posts/factor-strategy/week-day-factor/" class title="周一到周五，哪天能买股？做对了夏普22.5！">周一到周五，哪天能买股？做对了夏普22.5！</a></li><li><a href="/posts/factor-strategy/word-count/" class title="WorldQuant? Word Count!">WorldQuant? Word Count!</a></li><li><a href="/posts/factor-strategy/z-score-factor/" class title="Z-score 因子的深入思考">Z-score 因子的深入思考</a></li><li><a href="/posts/factor-strategy/低波动因子/" class title="新国九条下，低波动因子重要性提升！">新国九条下，低波动因子重要性提升！</a></li><li><a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/" class title="在这一刻抄底，胜率高达95%">在这一刻抄底，胜率高达95%</a></li><li><a href="/posts/factor-strategy/市盈率因子该怎么用/" class title="不看懂这篇文章，不要在量化中使用市盈率！">不看懂这篇文章，不要在量化中使用市盈率！</a></li><li><a href="/posts/factor-strategy/打新不中，买新当如何/" class title="2026年打新总不中签怎么办？散户买新股必看5大量化策略">2026年打新总不中签怎么办？散户买新股必看5大量化策略</a></li><li><a href="/posts/factor-strategy/拯救cci/" class title="拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！">拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！</a></li><li><a href="/posts/factor-strategy/暴力美学！洗盘模式如何检测/" class title="暴力美学！洗盘模式如何检测？">暴力美学！洗盘模式如何检测？</a></li><li><a href="/posts/factor-strategy/构建强化学习交易模型/" class title="强化学习模型能否自我演化出交易智慧？">强化学习模型能否自我演化出交易智慧？</a></li><li><a href="/posts/factor-strategy/洛书投资解读/" class title="洛书投资：先验性因子与波动率等权">洛书投资：先验性因子与波动率等权</a></li><li><a href="/posts/factor-strategy/终极猜想!底蓓离的成因分析/" class title="终极猜想！底蓓离的成因分析">终极猜想！底蓓离的成因分析</a></li><li><a href="/posts/factor-strategy/跟着国会山股神去炒股/" class title="Political Alpha，跟着国会山股神去炒股">Political Alpha，跟着国会山股神去炒股</a></li><li><a href="/posts/factor-strategy/顶底标注/" class title="为了机器能学习，我标注了 2 万条行情数据">为了机器能学习，我标注了 2 万条行情数据</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">freshman</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/freshman/roadmap-to-become-a-quant/" class title="问薪无愧！<br>自学量化大纲有这75页就够了">问薪无愧！&lt;br&gt;自学量化大纲有这75页就够了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/策略研究</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/策略研究/capm/" class title="资本资产定价模型">资本资产定价模型</a></li><li><a href="/articles/investment/策略研究/mpt-1/" class title="投资组合理论与实战(1) - 基本概念">投资组合理论与实战(1) - 基本概念</a></li><li><a href="/articles/investment/策略研究/mpt-2/" class title="投资组合理论与实战(2) - 蒙特卡洛方法">投资组合理论与实战(2) - 蒙特卡洛方法</a></li><li><a href="/articles/investment/策略研究/mpt-3/" class title="投资组合理论与实战(3) - 优化算法">投资组合理论与实战(3) - 优化算法</a></li><li><a href="/articles/investment/策略研究/mpt-4/" class title="投资组合理论与实战(4) - PyportfolioOpt工具库">投资组合理论与实战(4) - PyportfolioOpt工具库</a></li><li><a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/" class title="关于寻找顶和底的一些研究">关于寻找顶和底的一些研究</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/实盘接入/" class title="量化实盘接入方式">量化实盘接入方式</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库-数据持久化</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/数据持久化/数据持久化/" class title="量化数据的持久化方案">量化数据的持久化方案</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化杂谈</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化杂谈/tulipmania/" class title="花开曾倾国">花开曾倾国</a></li><li><a href="/articles/investment/量化杂谈/voc/" class title="东印度公司">东印度公司</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">papers</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/papers/03-低延迟趋势线与交易择时/" class title="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？">『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</a></li><li><a href="/posts/papers/04-年化25%的策略为何翻车/" class title="『译研报04』 年化25%的策略到底有没有翻车？">『译研报04』 年化25%的策略到底有没有翻车？</a></li><li><a href="/posts/papers/kronos/" class title="Kronos：金融K线大模型如何让交易“语言化”？">Kronos：金融K线大模型如何让交易“语言化”？</a></li><li><a href="/posts/papers/rsrs择时指标/" class title="RSRS 择时指标">RSRS 择时指标</a></li><li><a href="/posts/papers/ubl/" class title="『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/ubl-2/" class title="『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/分享免费金融扩展工具/" class title="免费读华尔街日报？彭博年费¥4300+，用这个扩展绕过付费墙">免费读华尔街日报？彭博年费¥4300+，用这个扩展绕过付费墙</a></li><li><a href="/posts/papers/研报该如何复现/" class title="把研报『翻译』成代码，80%的工作都在这篇文章里讲了">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/python/awesome-code/" class title="只廖廖数行，但很惊艳的代码">只廖廖数行，但很惊艳的代码</a></li><li><a href="/posts/python/duckdb-2/" class title="为什么量化人应该使用duckdb？">为什么量化人应该使用duckdb？</a></li><li><a href="/posts/python/how-to-set-env-in-jupyter-notebook/" class title="Jupyter Notebook中如何设置环境变量？">Jupyter Notebook中如何设置环境变量？</a></li><li><a href="/posts/python/it-is-π-thon/" class title="π-thon以及他的朋友们">π-thon以及他的朋友们</a></li><li><a href="/posts/python/pypinyin/" class title="4k stars! 如何实现按拼音首字母查询证券代码？">4k stars! 如何实现按拼音首字母查询证券代码？</a></li><li><a href="/posts/python/python-just-released-3.13/" class title="10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本">10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本</a></li><li><a href="/posts/python/qmt-how-to-handle-dr-adjust/" class title="QMT复权因子计算太慢？教你一个提速100倍的高效算法">QMT复权因子计算太慢？教你一个提速100倍的高效算法</a></li><li><a href="/posts/python/static-blog-in-2024/" class title="2024年，免费博客赚钱方案">2024年，免费博客赚钱方案</a></li><li><a href="/posts/python/use-sql-query-with-pandas/" class title="给Pandas找个搭子，用SQL玩转Dataframe!">给Pandas找个搭子，用SQL玩转Dataframe!</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">resources</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/resources/a-palette-of-colorful-websites/" class title="一些和颜色相关的网站">一些和颜色相关的网站</a></li><li><a href="/posts/resources/barra-risk-model-handbook/" class title="Barra风险模型构建完全指南">Barra风险模型构建完全指南</a></li><li><a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/" class title="来自世坤！寻找Alpha 构建交易策略的量化方法">来自世坤！寻找Alpha 构建交易策略的量化方法</a></li><li><a href="/posts/resources/free-paper-download/" class title="论如何白嫖论文">论如何白嫖论文</a></li><li><a href="/posts/resources/top-journals-in-quantitative-finance/" class title="量化金融人都在看哪些顶刊">量化金融人都在看哪些顶刊</a></li><li><a href="/posts/resources/白嫖顶级AI算力指南/" class title="龙虾流量太贵？ 我一招搞定每天7500万词元">龙虾流量太贵？ 我一招搞定每天7500万词元</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">2026十大量化技术</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/2026十大量化技术/fasthtml/" class title="量化新基建(三) - FastHTML：Python 全栈开发的终极答案">量化新基建(三) - FastHTML：Python 全栈开发的终极答案</a></li><li><a href="/posts/tools/2026十大量化技术/pandas/" class title="The Battle for a New Dawn<br>量化新基建（四）：Pandas 3.0">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a></li><li><a href="/posts/tools/2026十大量化技术/sqlite/" class title="2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？">2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？</a></li><li><a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/" class title="UV &#38; Pydantic：重塑 2026 Python 工程化基石">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">21天驯化AI打工仔</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/21天驯化AI打工仔/1_数据获取/" class title="21天驯化AI打工仔 - 我如何获取量化数据">21天驯化AI打工仔 - 我如何获取量化数据</a></li><li><a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/" class title="21天驯化AI打工仔 - 开发量化交易系统">21天驯化AI打工仔 - 开发量化交易系统</a></li><li><a href="/posts/tools/21天驯化AI打工仔/3_数据库的优化设计/" class title="21天驯化AI打工仔 - 数据库的优化">21天驯化AI打工仔 - 数据库的优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/" class title="21天驯化AI打工仔 - 如何存储10亿个Symbol?">21天驯化AI打工仔 - 如何存储10亿个Symbol?</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/" class title="21天驯化AI打工仔 - SQEP 的性能再优化">21天驯化AI打工仔 - SQEP 的性能再优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/" class title="21天驯化AI打工仔 - SQEP与symbol编码性能测试">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a></li><li><a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/" class title="21天驯化AI打工仔 - 日线数据的定时获取">21天驯化AI打工仔 - 日线数据的定时获取</a></li><li><a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/" class title="21天驯化AI打工仔 - 日线数据的定时获取（2）">21天驯化AI打工仔 - 日线数据的定时获取（2）</a></li><li><a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/" class title="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a></li><li><a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/" class title="21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">AI-tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming/" class title="除了编程，量化人还能怎么用AI？">除了编程，量化人还能怎么用AI？</a></li><li><a href="/posts/tools/AI-tools/remote-agent/" class title="Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">Numpy_Pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/Numpy_Pandas/01-introduction/01-introduction/" class title="这是你的量化母语">这是你的量化母语</a></li><li><a href="/posts/tools/Numpy_Pandas/02-numpy核心语法[1]/02-numpy核心语法[1]/" class title="Numpy核心语法[1]">Numpy核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/03-numpy核心语法[2]/03-numpy核心语法[2]/" class title="Numpy处理表格数据">Numpy处理表格数据</a></li><li><a href="/posts/tools/Numpy_Pandas/04-numpy核心语法[3]/04-numpy核心语法[3]/" class title="Numpy核心语法[3]">Numpy核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/05-numpy核心语法[4]/05-numpy核心语法[4]/" class title="Numpy核心语法[4]">Numpy核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/06-numpy核心语法[5]/06-numpy核心语法[5]/" class title="Numpy核心语法[5]">Numpy核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/07-numpy核心语法[6]/07-numpy核心语法[6]/" class title="Numpy核心语法[6]">Numpy核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/08-numpy应用案例[1]/08-numpy应用案例[1]/" class title="Numpy应用案例[1]">Numpy应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/09-numpy应用案例[2]/09-numpy应用案例[2]/" class title="Numpy应用案例[2]">Numpy应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/10-numpy应用案例[3]/10-numpy应用案例[3]/" class title="Numpy应用案例[3]">Numpy应用案例[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/11-pandas核心语法[1]/11-pandas核心语法[1]/" class title="Pandas核心语法[1]">Pandas核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/12-pandas核心语法[2]/12-pandas核心语法[2]/" class title="Pandas核心语法[2]">Pandas核心语法[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/13-pandas核心语法[3]/13-pandas核心语法[3]/" class title="Pandas核心语法[3]">Pandas核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/14-pandas核心语法[4]/14-pandas核心语法[4]/" class title="Pandas核心语法[4]">Pandas核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/15-pandas核心语法[5]/15-pandas核心语法[5]/" class title="Pandas核心语法[5]">Pandas核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/16-pandas核心语法[6]/16-pandas核心语法[6]/" class title="Pandas核心语法[6]">Pandas核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/17-pandas核心语法[7]/17-pandas核心语法[7]/" class title="Pandas核心语法[7]">Pandas核心语法[7]</a></li><li><a href="/posts/tools/Numpy_Pandas/18-pandas应用案例[1]/18-pandas应用案例[1]/" class title="Pandas应用案例[1]">Pandas应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/19-pandas应用案例[2]/19-pandas应用案例[2]/" class title="Pandas应用案例[2]">Pandas应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/20-pandas应用案例[3]/20-pandas应用案例[3]/" class title="Pandas应用案例[3]">Pandas应用案例[3]</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">moonshot</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-1/" class title="『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架">『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/" class title="『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/" class title="涨时重势，跌时重质，Moonshot首测股息率因子给出结论">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/" class title="研报复现之如何正确筛选『连续两年分红』股票（附代码）">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/" class title="Moonshot is all you need - 红利策略完结篇">Moonshot is all you need - 红利策略完结篇</a></li> </ul> </details> </li><li><a href="/posts/tools/8个ipython技巧/" class title="你可能不知道的8个IPython技巧">你可能不知道的8个IPython技巧</a></li><li><a href="/posts/tools/agent-on-tracks/" class title="Vibe Coding 能做大项目吗？量化人替你试过了">Vibe Coding 能做大项目吗？量化人替你试过了</a></li><li><a href="/posts/tools/all-about-openbb-as-a-newhand/" class title="OpenBB 实战！轻松获取海外市场数据">OpenBB 实战！轻松获取海外市场数据</a></li><li><a href="/posts/tools/alphasuite/" class title="不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词">不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</a></li><li><a href="/posts/tools/augment-daily-dose/" class title="Augment随手记">Augment随手记</a></li><li><a href="/posts/tools/auto-restart-miniqmt/" class title="如何免登录重启miniqmt?">如何免登录重启miniqmt?</a></li><li><a href="/posts/tools/do-not-fly-solo-copilot/" class title="Don't fly solo! 量化人如何使用AI工具">Don&#39;t fly solo! 量化人如何使用AI工具</a></li><li><a href="/posts/tools/duckdb-has-released-1.0/" class title="里程碑！DuckDB 发布 1.0">里程碑！DuckDB 发布 1.0</a></li><li><a href="/posts/tools/effective-numpy-1/" class title="高效量化编程: Mask Array应用和find_runs">高效量化编程: Mask Array应用和find_runs</a></li><li><a href="/posts/tools/effective-pandas-1/" class title="Pandas高级技巧-1">Pandas高级技巧-1</a></li><li><a href="/posts/tools/effective-pandas-2/" class title="高效量化编程: Pandas 的多级索引">高效量化编程: Pandas 的多级索引</a></li><li><a href="/posts/tools/get-clean-factor-and-forward-returns/" class title="12个参数，48个组合，这么复杂的函数怎么学？">12个参数，48个组合，这么复杂的函数怎么学？</a></li><li><a href="/posts/tools/hdf5/" class title="200倍速！基于 HDF5 的证券数据存储">200倍速！基于 HDF5 的证券数据存储</a></li><li><a href="/posts/tools/hermes/" class title="2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？">2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？</a></li><li><a href="/posts/tools/how-to-develop-complex-project-using-augment/" class title="试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目">试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher/" class title="量化人如何用好Jupyter环境？（一）">量化人如何用好Jupyter环境？（一）</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher-2/" class title="量化人如何用好 Jupyter？（二）">量化人如何用好 Jupyter？（二）</a></li><li><a href="/posts/tools/pandas-连续涨停统计/" class title="Pandas连续涨停统计">Pandas连续涨停统计</a></li><li><a href="/posts/tools/pyarrow-plus-parquet/" class title="存了50TB！pyarrow + parquet">存了50TB！pyarrow + parquet</a></li><li><a href="/posts/tools/qmt-get-sector/" class title="xtquant 中的板块数据">xtquant 中的板块数据</a></li><li><a href="/posts/tools/qmt-get-stock-price/" class title="量化数据免费方案之 QMT">量化数据免费方案之 QMT</a></li><li><a href="/posts/tools/quantstats-2/" class title="算收益，用算术平均好还是几何平均好?">算收益，用算术平均好还是几何平均好?</a></li><li><a href="/posts/tools/quantstats-reload-news/" class title="原作者失联8个月，我们接手维护后他突然回来了">原作者失联8个月，我们接手维护后他突然回来了</a></li><li><a href="/posts/tools/quantstats-reloaded/" class title="Quantstats Reloaded">Quantstats Reloaded</a></li><li><a href="/posts/tools/rd-agent-for-quant-intro/" class title="微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？">微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？</a></li><li><a href="/posts/tools/trade-api/" class title="量化实盘接口">量化实盘接口</a></li><li><a href="/posts/tools/why-click-house-so-fast/" class title="ClickHouse: One table to rule them all!">ClickHouse: One table to rule them all!</a></li><li><a href="/posts/tools/work-with-xtquant/" class title="QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点">QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点</a></li><li><a href="/posts/tools/关于复权那些事儿/" class title="前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a></li><li><a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/" class title="致命的 ID -- DuckDB 中的 Returning 子句之谜">致命的 ID -- DuckDB 中的 Returning 子句之谜</a></li><li><a href="/posts/tools/量化人的2025新年礼/" class title="睽违17年，ta-lib重装出发！">睽违17年，ta-lib重装出发！</a></li><li><a href="/posts/tools/量化研究员如何写一手好代码/" class title="量化研究员如何写一手好代码">量化研究员如何写一手好代码</a></li><li><a href="/posts/tools/量子计算/" class title="量子计算能否重构量化金融未来？">量子计算能否重构量化金融未来？</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">uncategory</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/uncategory/crowed-strike-postmoterm/" class title="全球Windows机器蓝屏，作为量化人，我的检讨来了">全球Windows机器蓝屏，作为量化人，我的检讨来了</a></li><li><a href="/posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/" class title="DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a></li><li><a href="/posts/uncategory/ipv6-how-to/" class title="当我在星巴克连上家里的服务器，IPV6，你是值得的">当我在星巴克连上家里的服务器，IPV6，你是值得的</a></li><li><a href="/posts/uncategory/need-for-speed/" class title="外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！">外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！</a></li><li><a href="/posts/uncategory/quantide的课程怎么样/" class title="花 930 美元买一门量化课? GPT 如何评估量化课程值不值">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a></li><li><a href="/posts/uncategory/quantumn-computing-break-through/" class title="量子飞跃：汇丰银行债券交易可能成为华尔街未来">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a></li><li><a href="/posts/uncategory/the-awaken-of-machine/" class title="机器的觉醒！人工智能风云激荡70年">机器的觉醒！人工智能风云激荡70年</a></li><li><a href="/posts/uncategory/weekly-0721/" class title="[0721] QuanTide Weekly">[0721] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0728/" class title="[0728] QuanTide Weekly">[0728] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0804/" class title="[0804] QuanTide Weekly">[0804] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0811/" class title="[0811] QuanTide Weekly">[0811] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0818/" class title="[0818] QuanTide Weekly">[0818] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0825/" class title="[0825] QuanTide Weekly">[0825] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0901/" class title="[0901] QuanTide Weekly">[0901] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0908/" class title="[0908] QuanTide Weekly">[0908] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0915/" class title="[0915] QuanTide Weekly">[0915] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0922/" class title="[0922] QuanTide Weekly">[0922] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0929/" class title="[0929] QuanTide Weekly">[0929] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1013/" class title="[1013] QuanTide Weekly">[1013] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1020/" class title="[1020] QuanTide Weekly">[1020] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1027/" class title="[1027] QuanTide Weekly">[1027] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1103/" class title="[1103] QuanTide Weekly">[1103] QuanTide Weekly</a></li><li><a href="/posts/uncategory/进化论/" class title="普校逆袭天花板 进化论王一平：有逻辑的量化">普校逆袭天花板 进化论王一平：有逻辑的量化</a></li><li><a href="/posts/uncategory/量化人也该开始装skills了/" class title="做能调教AI的赛博老技师，量化人也该开始装Skills了">做能调教AI的赛博老技师，量化人也该开始装Skills了</a></li><li><a href="/posts/uncategory/量化黑话/" class title="量化投资黑话：深度解析“因子”及其核心逻辑">量化投资黑话：深度解析“因子”及其核心逻辑</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-figure" title="figure（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="figure">figure</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-Options" title="Options（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="Options">Options</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">LLM 能做交易吗？中证 1000 上的三个递进实验</h1> <p class="meta"> <span>📅 2026-09-14</span> <span>🏷 [大模型, Agent, 中证1000, 量化交易, 回测, AI量化]</span> <span>👁 本月阅读 <span data-page-pv>—</span></span> </p> <img class="cover-img" src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg" alt="LLM 能做交易吗？中证 1000 上的三个递进实验"> <div class="md-body" data-pagefind-body><p>Agent 能做交易吗？nof1.ai 在去年底做了一场实验并在互联网上进行了直播。和小龙虾一样，当时引起了巨大的轰动。不过，今天这个直播网站已是门前冷落鞍马稀了。</p>
+<p>部分原因是，参与交易的 Agent，最好的成绩也只取得了0.019的夏普率，还不如 A 股散户，这一局，Agent 完败。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260915111717.png" alt=""></p>
+<p>不过，时间又过去了9个月。这9个月，是有史以来，人工智能发展最迅速的时刻。9个月之后，情况又会如何？</p>
+<p>这篇文章将介绍三个实验。这三个实验不仅仅是要验证 Agent 是否有交易能力，更要挖掘 Agent 交易背后的原理，探索改进之道。</p>
+<h2 id="01-只预测仓位">/01 只预测仓位</h2>
+<p>第一个实验的构建方法如下：</p>
+<p>程序先用收盘价构造三类特征：20 日趋势、20 日实现波动率，以及价格相对 20 日均线的 Z-score（乖离率），再把它们翻译成自然语言状态（离散化），例如：</p>
+<p><code>趋势上行｜波动偏高｜价格偏强</code></p>
+<p>趋势和波动各有两种状态，乖离率按以下公式计算强弱，共分三档：</p>
+<p>$$
+zscore_{20} = (close-mean_{20})/std_{20}
+$$</p>
+<p>当zscore_20 大于等于0.75时，就认为是价格偏强；小于等于负0.75时，认为价格偏弱；其余的状态算成价格中性。因此，三类特征总共构成12种状态。</p>
+<p>在回测时，在每个月初重新统计过去三年的历史：每一种状态出现过多少次、随后的日收益均值是多少、风险调整后的得分如何。</p>
+<p>我们给 LLM 的输入如下：</p>
+<pre><code class="language-json">{
+  &quot;任务&quot;: &quot;你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。&quot;,
+  &quot;要求&quot;: &quot;按样本数、下一日平均收益、风险调整得分，为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。&quot;,
+  &quot;格式&quot;: {&quot;policy&quot;: {&quot;状态名&quot;: &quot;满仓|半仓|低仓&quot;}},
+  &quot;状态统计&quot;: &quot;rows&quot;
+}
+</code></pre>
+<p>其中 rows 类似于：</p>
+<pre><code class="language-json">[
+  {&quot;state&quot;: &quot;趋势上行|波动偏低|价格偏强&quot;, &quot;count&quot;: 142, &quot;mean_next_return&quot;: 0.0008, &quot;sharpe_like&quot;: 0.31},
+  {&quot;state&quot;: &quot;趋势下行|波动偏高|价格偏弱&quot;, &quot;count&quot;: 118, &quot;mean_next_return&quot;: -0.0012, &quot;sharpe_like&quot;: -0.42},
+  {&quot;state&quot;: &quot;趋势上行|波动偏高|价格中性&quot;, &quot;count&quot;: 18, &quot;mean_next_return&quot;: 0.002, &quot;sharpe_like&quot;: 0.5}
+]
+</code></pre>
+<p>LLM将输出以下结论：</p>
+<pre><code class="language-json">{&quot;policy&quot;: {
+  &quot;趋势上行|波动偏低|价格偏强&quot;: &quot;满仓&quot;,
+  &quot;趋势下行|波动偏高|价格偏弱&quot;: &quot;低仓&quot;,
+  &quot;趋势上行|波动偏高|价格中性&quot;: &quot;半仓&quot;
+}}
+</code></pre>
+<p>然后程序把仓位翻译成操作指令，实现回测。</p>
+<!--PAID CONTENT START-->
+
+<p>三个实验方法有所不同，但仍有一些共同方法，为避免冗长的篇幅，我们把公共代码提取如下：</p>
+<pre><code class="language-python"># 公共基础：环境、数据、特征、回测引擎、三个指标（年化收益/Sharpe/Sortino，rf=0）
+import hashlib
+import json
+import os
+import urllib.error
+import urllib.request
+from dataclasses import dataclass
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+TRADING_DAYS = 252
+WEEKS_PER_YEAR = 52
+TMP = Path(&quot;/tmp/llm&quot;)
+TMP.mkdir(parents=True, exist_ok=True)
+
+
+def load_env_here():
+    # 从仓库根目录的 .env 读取 tushare_token、LLM_MODEL、LLM_BASE_URL、LLM_API_KEY
+    here = Path(__file__).resolve() if &quot;__file__&quot; in globals() else Path.cwd()
+    for parent in (here, *here.parents):
+        candidate = parent / &quot;.env&quot;
+        if candidate.exists():
+            if load_dotenv is not None:
+                load_dotenv(candidate)
+            break
+
+
+def env(name, default=&quot;&quot;):
+    return os.getenv(name, default)
+
+
+@dataclass
+class Cfg:
+    symbol: str = &quot;000852.SH&quot;
+    cost_bps: float = 5.0
+
+
+def fetch_index(symbol=&quot;000852.SH&quot;, start=&quot;20160101&quot;, cache_name=&quot;csi1000.parquet&quot;):
+    &quot;&quot;&quot;tushare 日线 → /tmp/llm，供三个实验共享。&quot;&quot;&quot;
+    import tushare as ts
+
+    cache = TMP / cache_name
+    if cache.exists():
+        frame = pd.read_parquet(cache)
+        frame.index = pd.to_datetime(frame.index)
+        return frame
+    token = env(&quot;tushare_token&quot;)
+    if not token:
+        raise RuntimeError(&quot;请在 .env 中设置 tushare_token。&quot;)
+    raw = ts.pro_api(token).index_daily(ts_code=symbol, start_date=start,
+                                        end_date=pd.Timestamp.today().strftime(&quot;%Y%m%d&quot;))
+    if raw is None or raw.empty:
+        raise RuntimeError(&quot;Tushare 没有返回数据。&quot;)
+    frame = raw.rename(columns={&quot;trade_date&quot;: &quot;date&quot;}).copy()
+    frame[&quot;date&quot;] = pd.to_datetime(frame[&quot;date&quot;].astype(str).str.strip(),
+                                   format=&quot;%Y%m%d&quot;, errors=&quot;coerce&quot;)
+    for col in [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;pre_close&quot;]:
+        frame[col] = pd.to_numeric(frame[col], errors=&quot;coerce&quot;)
+    frame = frame.dropna(subset=[&quot;date&quot;, &quot;close&quot;]).set_index(&quot;date&quot;).sort_index()
+    frame = frame[~frame.index.duplicated(keep=&quot;last&quot;)]
+    frame.to_parquet(cache)
+    return frame
+
+
+def true_range(high, low, prev_close):
+    prev = prev_close.shift(1).fillna(prev_close)
+    return pd.concat([high - low, (high - prev).abs(), (low - prev).abs()], axis=1).max(axis=1)
+
+
+def atr(high, low, prev_close, period=14):
+    return true_range(high, low, prev_close).ewm(alpha=1.0 / period, min_periods=period).mean()
+
+
+def rsi(close, period=14):
+    delta = close.diff()
+    gain = delta.clip(lower=0.0)
+    loss = -delta.clip(upper=0.0)
+    avg_gain = gain.ewm(alpha=1.0 / period, min_periods=period).mean()
+    avg_loss = loss.ewm(alpha=1.0 / period, min_periods=period).mean()
+    rs = avg_gain / avg_loss.replace(0, np.nan)
+    return (100 - 100 / (1 + rs)).fillna(50.0)
+
+
+def zscore(close, window=20):
+    mean = close.rolling(window).mean()
+    std = close.rolling(window).std().replace(0, np.nan)
+    return (close - mean) / std
+
+
+def run_backtest(records, positions, cost_bps=5.0):
+    &quot;&quot;&quot;统一回测引擎：records 提供 date 与 next_week_return/ret；positions 为目标仓位。&quot;&quot;&quot;
+    equity, peak, prev, rows = 1.0, 1.0, 0.0, []
+    for rec, pos in zip(records, positions):
+        ret_next = float(rec[&quot;next_ret&quot;])
+        gross = pos * ret_next
+        turnover = abs(pos - prev)
+        net = gross - turnover * cost_bps / 10000.0
+        equity *= 1.0 + net
+        peak = max(peak, equity)
+        rows.append({&quot;date&quot;: rec[&quot;date&quot;], &quot;position&quot;: pos, &quot;next_ret&quot;: ret_next,
+                     &quot;net_return&quot;: net, &quot;equity&quot;: equity,
+                     &quot;drawdown&quot;: equity / peak - 1.0, &quot;turnover&quot;: turnover})
+        prev = pos
+    return pd.DataFrame(rows).set_index(&quot;date&quot;)
+
+
+def ann_metrics(equity, net_ret, periods_per_year):
+    &quot;&quot;&quot;年化收益 / Sharpe / Sortino，统一口径：无风险利率 rf=0。&quot;&quot;&quot;
+    eq, r = np.asarray(equity, dtype=float), np.asarray(net_ret, dtype=float)
+    total = float(eq[-1] - 1.0)
+    ann_ret = float(eq[-1] ** (periods_per_year / len(r)) - 1.0) if len(r) else 0.0
+    sd = float(r.std(ddof=0))
+    sharpe = float(r.mean() / sd * np.sqrt(periods_per_year)) if sd &gt; 0 else 0.0
+    dd = np.sqrt(np.mean(np.minimum(0.0, r) ** 2))
+    sortino = float(r.mean() / dd * np.sqrt(periods_per_year)) if dd &gt; 0 else 0.0
+    dd_curve = eq / np.maximum.accumulate(eq) - 1.0
+    return {&quot;total&quot;: total, &quot;ann&quot;: ann_ret, &quot;sharpe&quot;: sharpe, &quot;sortino&quot;: sortino,
+            &quot;maxdd&quot;: float(dd_curve.min()), &quot;n&quot;: int(len(r))}
+
+
+def llm_chat(instruction, model, max_tokens=8000, timeout=120):
+    &quot;&quot;&quot;统一 LLM 调用：OpenAI 兼容 chat/completions，失败重试 3 次。&quot;&quot;&quot;
+    api_key, base_url = env(&quot;LLM_API_KEY&quot;), env(&quot;LLM_BASE_URL&quot;)
+    if not api_key:
+        raise RuntimeError(&quot;未设置 LLM_API_KEY&quot;)
+    if not base_url:
+        base_url = &quot;https://api.deepseek.com/v1&quot;
+    body = json.dumps({&quot;model&quot;: model, &quot;stream&quot;: False, &quot;max_tokens&quot;: max_tokens,
+                       &quot;messages&quot;: [{&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;只输出 JSON。&quot;},
+                                    {&quot;role&quot;: &quot;user&quot;,
+                                     &quot;content&quot;: json.dumps(instruction, ensure_ascii=False)}]},
+                      ensure_ascii=False).encode(&quot;utf-8&quot;)
+    endpoint = base_url.rstrip(&quot;/&quot;) + &quot;/chat/completions&quot;
+    request = urllib.request.Request(
+        endpoint, data=body,
+        headers={&quot;Content-Type&quot;: &quot;application/json&quot;, &quot;Authorization&quot;: &quot;Bearer &quot; + api_key,
+                 &quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;}, method=&quot;POST&quot;)
+    last_error, text = None, None
+    for _ in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                text = json.loads(response.read().decode(&quot;utf-8&quot;))[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
+            last_error = None
+            break
+        except (urllib.error.URLError, TimeoutError, OSError) as error:
+            last_error = error
+    if last_error is not None:
+        raise RuntimeError(&quot;LLM 请求失败：%s&quot; % last_error) from last_error
+    start, end = text.find(&quot;{&quot;), text.rfind(&quot;}&quot;)
+    if start &lt; 0 or end &lt; start:
+        raise ValueError(&quot;LLM 没有返回 JSON。&quot;)
+    return json.loads(text[start:end + 1])
+</code></pre>
+<!--PAID CONTENT END-->
+
+<!--PAID CONTENT START-->
+
+<p>以下就是实验一的实现方案：</p>
+<pre><code class="language-python"># 实验一特有：三类特征 → 12 种市场状态 → 月度滚动统计 → 三档仓位
+def exp1_features(prices):
+    f = prices.copy()
+    f[&quot;ret&quot;] = f.close.pct_change()
+    f[&quot;trend_20&quot;] = f.close.pct_change(20)
+    f[&quot;vol_20&quot;] = f.ret.rolling(20).std() * np.sqrt(TRADING_DAYS)
+    f[&quot;vol_median&quot;] = f.vol_20.rolling(252, min_periods=126).median()
+    mean_20 = f.close.rolling(20).mean()
+    std_20 = f.close.rolling(20).std().replace(0, np.nan)
+    f[&quot;zscore_20&quot;] = (f.close - mean_20) / std_20
+    trend = pd.Series(np.where(f.trend_20 &gt;= 0, &quot;趋势上行&quot;, &quot;趋势下行&quot;), index=f.index)
+    vol = pd.Series(np.where(f.vol_20 &gt; f.vol_median, &quot;波动偏高&quot;, &quot;波动偏低&quot;), index=f.index)
+    dist = pd.Series(np.select([f.zscore_20 &gt;= 0.75, f.zscore_20 &lt;= -0.75],
+                               [&quot;价格偏强&quot;, &quot;价格偏弱&quot;], default=&quot;价格中性&quot;), index=f.index)
+    f[&quot;state&quot;] = trend.str.cat(vol, sep=&quot;|&quot;).str.cat(dist, sep=&quot;|&quot;)
+    f.loc[f[[&quot;trend_20&quot;, &quot;vol_20&quot;, &quot;vol_median&quot;, &quot;zscore_20&quot;]].isna().any(axis=1), &quot;state&quot;] = np.nan
+    f[&quot;next_ret&quot;] = f.ret.shift(-1)
+    return f
+
+
+def exp1_state_stats(train):
+    # 月初用过去 3 年样本外统计：每种状态的样本数、次日均值、风险调整得分
+    usable = train.dropna(subset=[&quot;state&quot;, &quot;next_ret&quot;])
+    rows = []
+    for name, ret in usable.groupby(&quot;state&quot;).next_ret:
+        count = int(ret.count())
+        mean = float(ret.mean())
+        std = float(ret.std(ddof=1)) if count &gt; 1 else 0.0
+        rows.append({&quot;state&quot;: name, &quot;count&quot;: count, &quot;mean_next_return&quot;: mean,
+                     &quot;sharpe_like&quot;: mean / std * np.sqrt(TRADING_DAYS) if std else 0.0})
+    return sorted(rows, key=lambda item: item[&quot;state&quot;])
+
+
+def exp1_rule(rows):
+    # 规则基准：样本不足半仓；均值与风险调整都好满仓；都弱低仓
+    policy = {}
+    for row in rows:
+        if row[&quot;count&quot;] &lt; 30:
+            policy[row[&quot;state&quot;]] = 0.75
+        elif row[&quot;mean_next_return&quot;] &gt; 0 and row[&quot;sharpe_like&quot;] &gt;= 0.25:
+            policy[row[&quot;state&quot;]] = 1.0
+        elif row[&quot;mean_next_return&quot;] &lt; 0 and row[&quot;sharpe_like&quot;] &lt;= -0.25:
+            policy[row[&quot;state&quot;]] = 0.50
+        else:
+            policy[row[&quot;state&quot;]] = 0.75
+    return policy
+
+
+MAP = {&quot;满仓&quot;: 1.0, &quot;半仓&quot;: 0.75, &quot;低仓&quot;: 0.50}
+
+
+def exp1_llm_policy(rows, model):
+    # LLM 读同一张状态统计表，输出满/半/低三档；失败由调用方退回规则
+    instruction = {
+        &quot;任务&quot;: &quot;你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。&quot;,
+        &quot;要求&quot;: &quot;按样本数、下一日平均收益、风险调整指标为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。&quot;,
+        &quot;格式&quot;: {&quot;policy&quot;: {&quot;状态名&quot;: &quot;满仓|半仓|低仓&quot;}},
+        &quot;状态统计&quot;: rows,
+    }
+    supplied = llm_chat(instruction, model).get(&quot;policy&quot;, {})
+    return {row[&quot;state&quot;]: MAP.get(str(supplied.get(row[&quot;state&quot;], &quot;半仓&quot;)), 0.75) for row in rows}
+</code></pre>
+<!--PAID CONTENT END-->
+
+<h3 id="实验一的结果">实验一的结果</h3>
+<p>样本外区间 2019-01-02 → 2026-08-28（规则/LLM 并行逐日结算 1855 个交易日；LLM 共 92 个决策月，本次重跑全部成功、0 个回退月）：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>总收益</th>
+<th>年化收益</th>
+<th>年化波动</th>
+<th>Sharpe</th>
+<th>Sortino</th>
+<th>最大回撤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>买入持有（同窗）</td>
+<td>+76.0%</td>
+<td>+8.0%</td>
+<td>25.0%</td>
+<td>0.43</td>
+<td>0.60</td>
+<td>-46.7%</td>
+</tr>
+<tr>
+<td>规则基准</td>
+<td>+0.4%</td>
+<td>+0.1%</td>
+<td>9.3%</td>
+<td>0.05</td>
+<td>0.07</td>
+<td>-26.3%</td>
+</tr>
+<tr>
+<td>LLM 风控</td>
+<td>+0.4%</td>
+<td>+0.1%</td>
+<td>9.3%</td>
+<td>0.05</td>
+<td>0.07</td>
+<td>-26.3%</td>
+</tr>
+</tbody></table>
+<p><strong>结论</strong>：LLM 把波动（25%→9.3%）和回撤（-46.7%→-26.3%）砍半——它是合格的&quot;风险调制器&quot;；但在 2019–2026 的大牛市窗口里大幅跑输买入持有，且与规则基准几乎重合（92 个月里 LLM 的选择与规则逐日一致），说明这套统计表里没有方向 alpha。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-curves.png" alt="实验一规则净值 vs 同窗买入持有、实验二周一动量净值、实验三周四 knn5+q 净值"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-drawdowns.png" alt="knn5+q 周四与实验一规则的回撤对比"></p>
+<p>这基本上就是我们在 nof1.ai 上看到的情况。</p>
+<h2 id="02-标签历史-趋势研判">/02 标签历史 + 趋势研判</h2>
+<p>实验一的特点是，它完全只利用过去的统计特征，而『剥离』了近期走势：它不知道&quot;当前像历史上哪一段&quot;，也不知道&quot;那种情形之后发生了什么&quot;。这会导致在一个长期熊市之后，即使行情好转，但统计特征如果还没有扭转，它就只能机械压仓位，从而大幅跑输买入持有。</p>
+<p>统计特征实际上是压缩了信息。在压缩过程中，它丢失了趋势。即使 LLM 能够看懂趋势，它也得不到此信息输入。所以，我们进行以下改进：不做统计，而是把原始的数据直接喂给 AI：</p>
+<ol>
+<li>每次决策附带 48 周&quot;特征 + 下一周真实结果&quot;的带标签历史表，让 LLM 做历史类比</li>
+<li>缩短调仓周期，使得 LLM 可以更灵活地响应趋势变化。我们把调仓改成周频；任务则从&quot;选仓位档&quot;改成&quot;趋势/反转研判 + 动作 + 仓位&quot;。</li>
+</ol>
+<p>现在，我们给 LLM 的输入就变成了：</p>
+<pre><code class="language-json">instruction = {
+    &quot;任务&quot;: (&quot;你是周频趋势研判员。结合历史样本，判断当前市场处于：上涨趋势、下跌趋势、&quot;
+            &quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;
+            &quot;只做多，不做空。&quot;),
+    &quot;特征含义&quot;: {
+        &quot;pnl&quot;: &quot;该周涨跌幅（按调仓日收盘对上周调仓日收盘计算）&quot;,
+        &quot;atr_pct&quot;: &quot;该周 5 个交易日 ATR/收盘价 的均值（波动强度）&quot;,
+        &quot;rsi5&quot;: &quot;该周每个交易日当天及前 4 天（5 日窗口）的 RSI 序列，按时间升序&quot;,
+        &quot;zscore5&quot;: &quot;该周每个交易日收盘价相对 5 日均线的 z-score 序列，按时间升序&quot;,
+        &quot;next_pnl&quot;: &quot;（仅历史样本有）该周对应的下一周实际涨跌幅&quot;,
+        &quot;next_sharpe&quot;: &quot;（仅历史样本有）下一周日收益的年化夏普&quot;,
+    },
+    &quot;研判要求&quot;: [
+        &quot;先从历史样本中找与当前周特征相似的阶段，看它们下一周实际表现（next_pnl / next_sharpe）&quot;,
+        &quot;再判断当前趋势状态与动能变化（停滞、加速、反转迹象）&quot;,
+        &quot;最后给出下周动作与目标仓位；证据不足时保持中等仓位，不要满仓赌单一情形&quot;,
+    ],
+    &quot;仓位自洽规则&quot;: (
+        &quot;position 必须与 action 自洽：action 为『买入』或『加大仓位』时，新的 position 必须【大于】&quot;
+        &quot;当前已有仓位 prev_position；action 为『减少仓位』或『空仓观望』时必须【小于】prev_position。&quot;
+        &quot;系统会据此校正你的输出。&quot;
+    ),
+    &quot;prev_position&quot;: prev_position,
+    &quot;当前周&quot;: {k: record[&quot;this_week&quot;][k] for k in [&quot;date&quot;, &quot;pnl&quot;, &quot;atr_pct&quot;, &quot;rsi5&quot;, &quot;zscore5&quot;]},
+    &quot;历史样本（过去 %d 周，由远及近，均含下一周实际结果）&quot; % len(record[&quot;history&quot;]): record[&quot;history&quot;],
+    &quot;输出格式&quot;: {
+        &quot;trend&quot;: &quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;,
+        &quot;action&quot;: &quot;买入|加大仓位|减少仓位|空仓观望&quot;,
+        &quot;position&quot;: &quot;下周目标仓位，浮点数 [0,1]，且与 action 自洽（参考 prev_position）&quot;,
+        &quot;confidence&quot;: &quot;0-1&quot;,
+        &quot;reason&quot;: &quot;一句话理由&quot;,
+    },
+}
+</code></pre>
+<p>可以看出，输入的特征已经变了：</p>
+<ol>
+<li>我们提供了每周的 pnl —— 每轮预测最多附带 48 周历史，趋势信息已经包括在内，只是看 LLM 能否提取到</li>
+<li>乖离率也依然提供。不过现在我们使用的是 zscore5 —— 即 5 日窗口的乖离率。</li>
+<li>波动率以 atr （真实波动率）的方式提供，并且是百分比形式</li>
+<li>提供了反转指标 rsi5</li>
+</ol>
+<p>除了特征之外，我们还提供可以参考的预测值： next_pnl 与 next_sharpe，看 LLM 能否把特征与未来的走势关联起来并找出规律。</p>
+<!--PAID CONTENT START-->
+
+<p>以下是实验二的代码：</p>
+<pre><code class="language-python"># 实验二特有：周特征快照 + 48 周带标签历史 + 趋势研判 + 自洽仓位
+def exp2_rsi(close, period=5, warmup=60):
+    delta = close.diff()
+    avg_gain = delta.clip(lower=0.0).ewm(alpha=1.0 / period, min_periods=period).mean()
+    avg_loss = (-delta.clip(upper=0.0)).ewm(alpha=1.0 / period, min_periods=period).mean()
+    out = 100 - 100 / (1 + avg_gain / avg_loss.replace(0, np.nan))
+    out = out.fillna(50.0)
+    out.iloc[:warmup - 1] = np.nan  # 前 59 个结果丢弃
+    return out
+
+
+def exp2_make_features(data):
+    f = data.copy()
+    f[&quot;atr&quot;] = atr(f.high, f.low, f.pre_close, 14)
+    f[&quot;atr_pct&quot;] = f[&quot;atr&quot;] / f[&quot;close&quot;]
+    f[&quot;rsi5&quot;] = exp2_rsi(f[&quot;close&quot;])
+    f[&quot;z5&quot;] = zscore(f[&quot;close&quot;], 5)
+    return f
+
+
+def exp2_week_features(feats, closes, i):
+    # 第 i 个调仓周（5 个交易日，含调仓日当天）+ 其下一周真实结果标签
+    date = closes.index[i]
+    window = feats.loc[:date].tail(5)
+    d0, d1 = closes.index[i], closes.index[i + 1]
+    daily_rets = feats[&quot;close&quot;].pct_change().loc[(feats.index &gt; d0) &amp; (feats.index &lt;= d1)]
+    std = float(daily_rets.std(ddof=1)) if len(daily_rets) &gt; 1 else 0.0
+    return {
+        &quot;date&quot;: str(date.date()),
+        &quot;pnl&quot;: float(closes.iloc[i] / closes.iloc[i - 1] - 1.0),
+        &quot;atr_pct&quot;: float(window[&quot;atr_pct&quot;].astype(float).mean()),
+        &quot;rsi5&quot;: [float(x) for x in window[&quot;rsi5&quot;]],
+        &quot;zscore5&quot;: [float(x) for x in window[&quot;z5&quot;]],
+        &quot;next_pnl&quot;: float(closes.iloc[i + 1] / closes.iloc[i] - 1.0),
+        &quot;next_sharpe&quot;: float(daily_rets.mean() / std * np.sqrt(TRADING_DAYS)) if std else 0.0,
+    }
+
+
+def exp2_build_records(feats, weekday):
+    # 每条记录 = 本周快照 + 过去 48 周带标签历史 + 下周真实收益（结算用）
+    closes = feats[&quot;close&quot;].reindex(feats.index[feats.index.weekday == weekday]).dropna()
+    records = []
+    for k in range(4, len(closes) - 1):
+        history = [exp2_week_features(feats, closes, i) for i in range(max(4, k - 48), k)] \
+            if k &gt;= 48 else []
+        # 与历史实验一致：历史不足 48 周的早期记录仍保留（history 为空）
+        this_week = exp2_week_features(feats, closes, k)
+        records.append({&quot;date&quot;: closes.index[k], &quot;this_week&quot;: this_week, &quot;history&quot;: history,
+                        &quot;next_ret&quot;: float(closes.iloc[k + 1] / closes.iloc[k] - 1.0)})
+    return records
+
+
+RAISE_ACTIONS = {&quot;买入&quot;, &quot;加大仓位&quot;}
+LOWER_ACTIONS = {&quot;减少仓位&quot;, &quot;空仓观望&quot;}
+
+
+def exp2_reconcile(prev_position, action, position):
+    # 强制 action 与 position 自洽：买入/加仓须高于上周仓，减仓/空仓须低于上周仓
+    a = str(action or &quot;&quot;).strip()
+    if a in RAISE_ACTIONS and position &lt;= prev_position:
+        return min(1.0, round(prev_position + 0.10, 2))
+    if a in LOWER_ACTIONS and position &gt;= prev_position:
+        return max(0.0, round(prev_position - 0.10, 2))
+    return position
+
+
+def exp2_llm_forecast(record, model, prev_position=0.0):
+    def _has_nan(week):
+        return any(np.isnan(v) for v in week[&quot;rsi5&quot;] + week[&quot;zscore5&quot;]
+                   + [week[&quot;pnl&quot;], week[&quot;atr_pct&quot;]])
+
+    if _has_nan(record[&quot;this_week&quot;]):
+        raise ValueError(&quot;特征含 NaN（预热期未满），该周不调用 LLM&quot;)
+    instruction = {
+        &quot;任务&quot;: (&quot;你是周频趋势研判员。结合历史样本，判断当前市场处于：上涨趋势、下跌趋势、&quot;
+                &quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;
+                &quot;只做多，不做空。研究回测，非投资建议。&quot;),
+        &quot;特征含义&quot;: {
+            &quot;pnl&quot;: &quot;该周涨跌幅（按调仓日收盘对上周调仓日收盘计算）&quot;,
+            &quot;atr_pct&quot;: &quot;该周 5 个交易日 ATR/收盘价 的均值（波动强度）&quot;,
+            &quot;rsi5&quot;: &quot;该周每个交易日当天及前 4 天（5 日窗口）的 RSI 序列，按时间升序&quot;,
+            &quot;zscore5&quot;: &quot;该周每个交易日收盘价相对 5 日均线的 z-score 序列，按时间升序&quot;,
+            &quot;next_pnl&quot;: &quot;（仅历史样本有）该周对应的下一周实际涨跌幅&quot;,
+            &quot;next_sharpe&quot;: &quot;（仅历史样本有）下一周日收益的年化夏普&quot;,
+        },
+        &quot;研判要求&quot;: [
+            &quot;先从历史样本中找与当前周特征相似的阶段，看它们下一周实际表现（next_pnl / next_sharpe）&quot;,
+            &quot;再判断当前趋势状态与动能变化（停滞、加速、反转迹象）&quot;,
+            &quot;最后给出下周动作与目标仓位；证据不足时保持中等仓位，不要满仓赌单一情形&quot;,
+        ],
+        &quot;仓位自洽规则&quot;: (
+            &quot;position 必须与 action 自洽：action 为『买入』或『加大仓位』时，新的 position 必须【大于】&quot;
+            &quot;当前已有仓位 prev_position；action 为『减少仓位』或『空仓观望』时必须【小于】prev_position。&quot;
+            &quot;系统会据此校正你的输出。&quot;
+        ),
+        &quot;prev_position&quot;: prev_position,
+        &quot;当前周&quot;: {k: record[&quot;this_week&quot;][k] for k in [&quot;date&quot;, &quot;pnl&quot;, &quot;atr_pct&quot;, &quot;rsi5&quot;, &quot;zscore5&quot;]},
+        &quot;历史样本（过去 %d 周，由远及近，均含下一周实际结果）&quot; % len(record[&quot;history&quot;]): record[&quot;history&quot;],
+        &quot;输出格式&quot;: {
+            &quot;trend&quot;: &quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;,
+            &quot;action&quot;: &quot;买入|加大仓位|减少仓位|空仓观望&quot;,
+            &quot;position&quot;: &quot;下周目标仓位，浮点数 [0,1]，且与 action 自洽（参考 prev_position）&quot;,
+            &quot;confidence&quot;: &quot;0-1&quot;,
+            &quot;reason&quot;: &quot;一句话理由&quot;,
+        },
+    }
+    parsed = llm_chat(instruction, model)
+    action = str(parsed.get(&quot;action&quot;, &quot;&quot;)).strip()
+    position = min(1.0, max(0.0, float(parsed.get(&quot;position&quot;, 0.5))))
+    position = exp2_reconcile(prev_position, action, position)
+    return {&quot;trend&quot;: str(parsed.get(&quot;trend&quot;, &quot;&quot;)), &quot;action&quot;: action, &quot;position&quot;: position,
+            &quot;confidence&quot;: float(parsed.get(&quot;confidence&quot;, 0.0)),
+            &quot;reason&quot;: str(parsed.get(&quot;reason&quot;, &quot;&quot;))}
+</code></pre>
+<!--PAID CONTENT END-->
+
+<p>回测这样进行：</p>
+<ol>
+<li>在调仓周进行快照（含本周 5 日 RSI/z-score 序列）</li>
+<li>过去 48 周每条都带其下一周真实结果</li>
+<li>LLM 输出趋势 + 动作 + 仓位（自洽校正）→ 失败降级空仓 → 次周结算。</li>
+</ol>
+<p>评估取<strong>最近 100 周</strong>（2024-08 → 2026-08，五个调仓日各自窗口），买入持有/动量取同窗。</p>
+<p>以下是实验二的结果（2026-09-16 用 <code>deepseek-v4-flash</code> 全量重跑，周一到周五五个调仓日各取最近 100 周；LLM 统一为 v2 自洽提示词，失败周降级空仓计入）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-bars.png" alt="实验二结果：买入持有 vs 动量规则 vs LLM 同窗同日对比，总收益、年化波动、Sharpe、Sortino、最大回撤五面板分组柱状图"></p>
+<p>与实验一相比，实验二的成绩大幅提升。从 Sharpe 分布图中可以看出，几乎在每一个调仓日，<strong>LLM 都取得了更好的夏普率</strong>。通过观察总收益和最大回撤图，我们可以得出结论，夏普的提升主要是通过降低波动和回撤风险带来的。</p>
+<p>大幅改进的原因主要是：</p>
+<ol>
+<li>缩短调仓周期，更及时响应趋势变化</li>
+<li>给 LLM 更多原始信息（带标签历史），让它可以自己做时序类比。</li>
+<li>增加了更多的反转特征</li>
+</ol>
+<p>但是，我们还能不能进一步提升数据表现呢？ 很显然，我们还可以加入更多的特征。在实验二中，我们还只使用了<strong>两个</strong>反转特征，即乖离率和 RSI 值。但实际上，确实有一些非常有效的<strong>短线见顶和见底特征</strong>我们没有加入。</p>
+<p>考虑到短线特征在学术（多数来自于实战派）上争议比较大，在本次实验中，我决定不加入这些经验。那要如何改进呢？</p>
+<p>我把这个问题抛给了 LLM。</p>
+<div class="admonition admonition-quote"><p class="admonition-title">quote</p>
+
+</div>
+请分析前两个实验，帮我设计实验三，以提升 LLM 的交易表现。
+
+<p>LLM 给出以下分析：</p>
+<div class="admonition admonition-quote"><p class="admonition-title">quote</p>
+
+</div>
+诊断实验二的三个薄弱点（均可从前 500 行代码看出）：
+
+<ul>
+<li>信息太散：48 周带标签历史一股脑塞进 prompt，模型要自己在 48 条记录里“找相似”——这正是实验一用统计表解决、实验二又放弃的问题。注意力被均摊，真正相关的历史周（比如同样“RSI 低位回升+Z 转正”的那几周）被淹没在长列表里。</li>
+<li>输出偏保守：position 是 [0,1] 连续值，模型均值 0.38<del>0.46 低于中性线——但这只是&quot;偏保守&quot;而非&quot;回避极端&quot;：实测 42%</del>58% 的仓位落在 [0.4,0.6] 之外，五个调仓日都出现过 0.00 的全空仓，最大值到 0.80~0.90。模型敢表态，只是平均不敢重仓。</li>
+<li>执行太软：动作与仓位虽有自洽校正，但“加大仓位”+0.10 这类模糊表态对收益的贡献被稀释。
+LLM 给出的分析很有意思：第一条是关于时序数据如何分析、如何发现规律的改进建议；第二条则是对 LLM 自身运行机制的洞察。对于第二类问题，用 LLM 做交易的新手一定要多加留意。</li>
+</ul>
+<p>Man proposes, God disposes。<strong>LLM 可以提出建议，但人才可以做出决定</strong>。我们是 LLM 的神。LLM 的建议质量如何？我们通过实验三来检测一下。</p>
+<h2 id="03-相似周检索-输出离散化">/03 相似周检索 + 输出离散化</h2>
+<p>根据 LLM 的建议，我们对实验二做以下改动：</p>
+<ol>
+<li>欧氏距离（按历史向量池标准化）只选 top-k 最像的历史周，聚焦注意力；</li>
+<li>仓位强制离散到三档 <code>{0.3, 0.5, 0.7}</code>，逼LLM明确表态。A/B 开关：<code>knn5</code> / <code>knn5+quantize</code> / <code>knn48+quantize</code>，其中 <code>knn48+quantize</code> 近似全历史对照。</li>
+</ol>
+<!--PAID CONTENT START-->
+
+<p>以下是实验三的代码：</p>
+<pre><code class="language-python"># 实验三特有：相似周 top-k 检索 + 输出离散化（其余复用实验二：特征、回测、指标）
+def knn_week_vector(w):
+    return np.array([w[&quot;pnl&quot;], w[&quot;atr_pct&quot;]] + w[&quot;rsi5&quot;] + w[&quot;zscore5&quot;], dtype=float)
+
+
+def knn_history(this_week, history, k=5):
+    # 用&quot;历史向量池&quot;的均值/标准差做标准化，再按欧氏距离挑最近的 k 个历史周
+    if not history:
+        return [], []
+    pool = [v for v in (knn_week_vector(h) for h in history) if not np.isnan(v).any()]
+    if not pool:
+        return [], []
+    pool = np.array(pool)
+    mean, std = pool.mean(axis=0), pool.std(axis=0)
+    std[std == 0] = 1.0
+    target = (knn_week_vector(this_week) - mean) / std
+    if np.isnan(target).any():
+        return [], []
+    dists = np.linalg.norm((pool - mean) / std - target, axis=1)
+    order = np.argsort(dists)[:k]
+    top = [(history[idx], float(dists[idx])) for idx in order if not np.isnan(dists[idx])]
+    if not top:
+        return [], []
+    return [h for h, _ in top], [d for _, d in top]
+
+
+def quantize_position(p, levels=(0.3, 0.5, 0.7)):
+    return min(levels, key=lambda x: abs(x - p))
+
+
+def knn_resolve_position(prev_position, action, position, quantize=False, levels=(0.3, 0.5, 0.7)):
+    # 自洽 + 可选离散化：先满足自洽，再在网格上取合法点
+    p = exp2_reconcile(prev_position, action, position)
+    if not quantize:
+        return p
+    grid = list(levels)
+    valid = [x for x in grid if
+             (action in {&quot;买入&quot;, &quot;加大仓位&quot;} and x &gt; prev_position) or
+             (action in {&quot;减少仓位&quot;, &quot;空仓观望&quot;} and x &lt; prev_position) or
+             (action not in {&quot;买入&quot;, &quot;加大仓位&quot;, &quot;减少仓位&quot;, &quot;空仓观望&quot;})]
+    if not valid:
+        valid = grid
+    return min(valid, key=lambda x: abs(x - p))
+
+
+def knn_llm_forecast(record, model, prev_position=0.0, knn_k=5, quantize=False):
+    # 与实验二同一提示词骨架；唯一差别：历史样本换成 top-k 相似周
+    def _has_nan(week):
+        return any(np.isnan(v) for v in week[&quot;rsi5&quot;] + week[&quot;zscore5&quot;]
+                   + [week[&quot;pnl&quot;], week[&quot;atr_pct&quot;]])
+
+    if _has_nan(record[&quot;this_week&quot;]):
+        raise ValueError(&quot;特征含 NaN（预热期未满），该周不调用 LLM&quot;)
+    top_k, dists = knn_history(record[&quot;this_week&quot;], record[&quot;history&quot;], knn_k)
+    instruction = {
+        &quot;任务&quot;: (&quot;你是周频趋势研判员。结合给定的【相似历史周】，判断当前市场处于：上涨趋势、下跌趋势，&quot;
+                &quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;
+                &quot;只做多，不做空。研究回测，非投资建议。&quot;),
+        &quot;说明&quot;: (&quot;下方仅列出与当前周特征最相似的 %d 个历史周。每个都带下一周实际结果 next_pnl/next_sharpe；&quot;
+                &quot;请优先依据这些最相关样本决策，而不是泛泛而谈。证据不足保持中等仓位。&quot; % len(top_k)),
+        &quot;特征含义&quot;: {
+            &quot;pnl&quot;: &quot;该周涨跌幅&quot;, &quot;atr_pct&quot;: &quot;该周 5 日 ATR/收盘价 均值&quot;,
+            &quot;rsi5&quot;: &quot;该周每个交易日当天及前 4 天的 5 日 RSI&quot;,
+            &quot;zscore5&quot;: &quot;该周每个交易日相对 5 日均线的 z-score&quot;,
+            &quot;next_pnl&quot;: &quot;该历史周对应的下一周实际涨跌幅&quot;,
+            &quot;next_sharpe&quot;: &quot;下一周日收益年化夏普&quot;,
+        },
+        &quot;仓位自洽规则&quot;: (&quot;『买入』『加大仓位』时 position 必须【大于】prev_position；&quot;
+                        &quot;『减少仓位』『空仓观望』时 position 必须【小于】prev_position。&quot;),
+        &quot;prev_position&quot;: prev_position,
+        &quot;当前周&quot;: {k: record[&quot;this_week&quot;][k] for k in [&quot;date&quot;, &quot;pnl&quot;, &quot;atr_pct&quot;, &quot;rsi5&quot;, &quot;zscore5&quot;]},
+        &quot;相似历史周（共 %d 个）&quot; % len(top_k): [dict(h) for h in top_k],
+        &quot;输出格式&quot;: {
+            &quot;trend&quot;: &quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;,
+            &quot;action&quot;: &quot;买入|加大仓位|减少仓位|空仓观望&quot;,
+            &quot;position&quot;: &quot;下周目标仓位，浮点数 [0,1]，与 action 自洽（参考 prev_position）&quot;,
+            &quot;confidence&quot;: &quot;0-1&quot;,
+            &quot;reason&quot;: &quot;一句话理由（应引用最相似的 1~2 个历史周）&quot;,
+        },
+    }
+    parsed = llm_chat(instruction, model, max_tokens=16000)
+    action = str(parsed.get(&quot;action&quot;, &quot;&quot;)).strip()
+    position = min(1.0, max(0.0, float(parsed.get(&quot;position&quot;, 0.5))))
+    position = knn_resolve_position(prev_position, action, position,
+                                    quantize=quantize, levels=(0.3, 0.5, 0.7))
+    return {&quot;trend&quot;: str(parsed.get(&quot;trend&quot;, &quot;&quot;)), &quot;action&quot;: action, &quot;position&quot;: position,
+            &quot;confidence&quot;: float(parsed.get(&quot;confidence&quot;, 0.0)),
+            &quot;reason&quot;: str(parsed.get(&quot;reason&quot;, &quot;&quot;)), &quot;knn_distances&quot;: dists}
+</code></pre>
+<!--PAID CONTENT END-->
+
+<p>运行结果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-vs-exp3-bars.png" alt="实验二 vs 实验三（knn5+quantize）同日对比：总收益、年化波动、Sharpe、Sortino、最大回撤五面板分组柱状图"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/exp2-vs-exp3-2x2.png" alt="实验三 2×2 因子分解：检索（top-5 × 全历史48）× 离散化（连续 × 量化）的 Sharpe 矩阵与五日均值"></p>
+<p>第一张图的结果比较令人意外。从周一到周三，Sharpe 好于实验二，但周四到周五的结果却弱于实验二。但是，考虑到 sharpe 的绝对值，实验三中，周一和周二的表现即使占优，我们也不会采纳。这样看来，实验三对实验二，实际上是1胜两负的结果。</p>
+<p>图二是把离散化与相似周检索两策略单独拆开来进行实验的结果对照图。两个策略单独使用时为负（检索 -0.39）或视条件而定（量化 -0.18~+0.38），联合使用后互相抵消。</p>
+<h2 id="llm-为什么能做交易">LLM 为什么能做交易</h2>
+<p>从实验一到实验二，LLM 在周四、周五调仓时，回测出较好的夏普率。由于回测只用了100周（即两年）的时间，我们还不能完全说 LLM 适合做交易。</p>
+<p>但是，如果这个回测结果可信，又该如何解释？</p>
+<p>这可能意味着，Transformer/Attention 能读时序数据之间的关联并生成信号。</p>
+<p><strong>① Attention 确实能做&quot;形态—结果&quot;类比。</strong> 当把价格/指标序列化为带标签的历史（本周特征 + 下周真实结果），LLM 的注意力机制可以在&quot;当前周&quot;与&quot;历史周&quot;之间建立关联：实验二重跑的 corr 在五个调仓日为 -0.07~+0.16（周三/四/五为正，周一/二为负）、实验三的 reason 字段频繁引用具体历史周（&quot;最相似历史周 2024-04-15 下周下跌 -0.78%……&quot;）。这正是&quot;读时序关联生成信号&quot;的机制证据，但强度有限。</p>
+<p><strong>② 仓位管理是核心价值。</strong> 三个实验中，其实 LLM 并没有改善收益，它改善的是风险控制：波动从 ~30% 压到 ~10%、回撤从 -46% 压到 -10% 上下。机制是&quot;信心加权&quot;——证据强时加仓、证据弱时降仓。即使单周方向判断不准，这种加权本身就能抬 Sharpe、压回撤。LLM 在这里的角色是<strong>风险研究员/预算分配器</strong>，不是价格预言机。</p>
+<h2 id="谈一点-llm-原理">谈一点 LLM 原理</h2>
+<p>前面讲过了 LLM 为什么可以做交易。但这只是硬币的一面。如果我们不能完全理解 LLM 的原理和机制，实际上是很难改进策略的，即使是让 LLM 自我改进也不可能，实验三基本上证明了这一点。</p>
+<p>LLM 做交易，首先会遇到价格表征不连续，距离失真和算术不可靠的问题。在实验中，我们输入了股票的价格、RSI 和下周的涨跌幅。在传统的量化交易模型中，这些是非常自然的输入数据，模型一般直接使用它们。</p>
+<p>但在 LLM 中，模型首先要把文本输入处理成为 token，这里要用到 BPE（Byte Pair Encoding）编码器。数字是连续的、无穷多的，但分词器是有限集。因此，在将输入文本转换成 token 的过程中，数值可能被切碎（比如 7.9 可能会被切成 <code>7</code> + <code>.9</code>，或者 <code>7.</code> + <code>9</code>，也可能整体就是 <code>7.9</code>），距离会丢失（即使词表中同时存在&quot;7.7&quot;, &quot;7.8&quot;和&quot;7.9&quot;这样三个 token，那么，三个 token 之间，两两距离基本上是不等的；而在数学语言中，7.7与7.8， 7.8与7.9是等距的，而7.7与7.9之间的距离，是其它关系的两倍。token 化将数字之间的关系扭曲了）。</p>
+<p>因此，LLM 要知道 RSI数值中，78.1要比78.0大，比我们想像的要吃力得多，它需要大量的训练产生记忆，然后在生成时，通过模式补全加推理来得出78.1比78.0大的结论。这也是以下智商测试题中，LLM 过去常常翻车的原因：</p>
+<div class="admonition admonition-quote"><p class="admonition-title">quote</p>
+
+</div>
+9.11和9.9哪个大？
+
+<p>此外，LLM 还有无时间归纳偏置。价格序列里&quot;先涨后跌&quot;和&quot;先跌后涨&quot;是完全不同的信号，但模型没有内建的方向/因果结构，只能从数据里学。</p>
+<p>最后还要强调一点，我们选择量化交易，是为了相对于主观交易，减少随机性和不确定性。但是，LLM 是生成模型，它在输出时，会因为采样温度带来输出方差。所以，基于 LLM 的交易策略，具有不可解释性、不稳定性。</p>
+<p>因此，尽管我们在实验二中，取得了不错的收益，但从 LLM 的原理来看，这种收益可能有偶然性。前一节中得到的结论，仓位管理是核心价值，这可能是结合 LLM 原理分析之后，最合理的结论。</p>
+<p>但是，实验二也确实指出一种可能，那就是 transformer/attention 能够在较长的时间序列中，发现规律和应用规律。</p>
+<p>如何进行改进了？Chronos可能代表了一种方向。</p>
+<p>在进行输入处理时，在 Chronos 中，&quot;分词&quot;这件事从 BPE 换成了&quot;数值分箱&quot;（scaling + quantization），从而保住了序和尺度。它先是对原始序列先做均值/方差标准化，再把连续值均匀映射到固定数量的箱（bin，如 4096 个有序 token）。bin 的 id 本身就是有序的——bin 100 和 bin 101 在数值上相邻，分词层面也相邻。BPE 丢掉的保距性在这里被设计回来了。</p>
+<p>在训练目标上，Chronos不是&quot;预测下一个词&quot;，而是&quot;预测下一个 bin&quot;——即对未来值建模一个离散概率分布，天然输出分位数/置信区间。LLM 只能给你一个点估计（position=0.55），Chronos 直接给你&quot;下周收益的分布&quot;，这对仓位 sizing 是更原生的输入。</p>
+<p>另外， Chronos使用因果掩码的自回归训练，时间方向被硬编码进训练目标，从而也解决了我们前面所说的，『无时间归纳偏置』的问题。</p>
+<p>除了 Chronos，类似的方案还有 Salesforce 提出的 Moirai。它的优势在于多变量原生，可以同时支持多路因子时序输入。而 Chronos 只支持一路因子数据，多因子场景下还需要外加一个决策层把多个因子拼起来；因为通道之间是条件独立的，Chronos 就难以学到&quot;成交量放大 + 价格滞涨&quot;这种跨通道形态。</p>
+<h2 id="复现指南">复现指南</h2>
+<p>本文使用的代码可在 quantide 官方网站获取。要复现本文结论，你需要能使用 tushare和 LLM 大模型。本文在进行回测时，使用的是 deepseek-v4-flash 正式版。使用其它模型，可能得出不同的结论。</p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/algo/picking-nickles-in-front-of-steamroller/">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a> <p>看似“稳稳赚”，实则“险相伴”：在压路机前捡硬币，迟早被碾一遍。动量、套息、做市皆负偏，做空Gamma埋祸根；大众逼空、LTCM为镜鉴。解法：多元化、买保护、动态降杠杆——慢慢赚，</p> </li><li> <a href="/posts/factor-strategy/lof套利怎么做/">白银大涨引发的量化套利策略</a> <p>全球避险情绪与工业需求双重驱动下，白银价格一路狂飙。这种单边行情不仅让持有实物或期货的投资者获利丰厚，更在场内催生了一个低风险的“捡钱”机会——LOF 基金场内外溢价套利。</p> </li><li> <a href="/posts/tools/agent-on-tracks/">Vibe Coding 能做大项目吗？量化人替你试过了</a> <p>Vibe Coding 确实圆了很多人做软件的梦，包括我们这种古法编程好多年的人，之前也有好多想法，因为人力不足、或者知识储备不足，不敢轻易尝试，现在也不免跃跃欲试了。</p> </li><li> <a href="/posts/tools/hermes/">2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？</a> <p>量化投资者必看！深度体验Hermes Agent与OpenClaw，从安装失败到Eureka时刻。Hermes自包含依赖、零帧起手，但API Key校验缺失易踩坑；OpenClaw</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#01-只预测仓位" title="/01 只预测仓位">/01 只预测仓位</a> </li><li class="lv3"> <a href="#实验一的结果" title="实验一的结果">实验一的结果</a> </li><li class> <a href="#02-标签历史-趋势研判" title="/02 标签历史 + 趋势研判">/02 标签历史 + 趋势研判</a> </li><li class> <a href="#03-相似周检索-输出离散化" title="/03 相似周检索 + 输出离散化">/03 相似周检索 + 输出离散化</a> </li><li class> <a href="#llm-为什么能做交易" title="LLM 为什么能做交易">LLM 为什么能做交易</a> </li><li class> <a href="#谈一点-llm-原理" title="谈一点 LLM 原理">谈一点 LLM 原理</a> </li><li class> <a href="#复现指南" title="复现指南">复现指南</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>
