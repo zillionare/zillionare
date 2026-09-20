@@ -5,6 +5,7 @@ category: tools
 slug: how-to-count-continuous-buy-limit
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg
 tags: [tools, pandas]
+excerpt: "常常需要快速统计出一段时间内，最强的股和最弱的股，以便研究该区间内，强势股和弱势股有什么特点。"
 ---
 
 

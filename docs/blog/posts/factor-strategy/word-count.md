@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/my-company.jp
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor,strategy]
+excerpt: "如果你去商场逛，你会发现，销量最好的店和最好的商品总是占据人气中心。对股票来说也是一样，被新闻和社交媒体频频提起的个股，往往更容易获得更大的成交量。"
 ---
 
 

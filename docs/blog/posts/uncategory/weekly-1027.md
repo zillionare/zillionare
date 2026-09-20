@@ -10,6 +10,7 @@ tags: [others, weekly, factor]
 seq: 第 14 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "本周要闻 财政部：中国还将加大财政政策逆周期调节力度 统计局：1-9月全国规上工业利润下降3.5% 纽交所计划延长美股交易时间。"
 ---
 
 ### 本周要闻

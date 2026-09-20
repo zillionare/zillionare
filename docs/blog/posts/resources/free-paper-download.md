@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sci-hub.j
 stamp_width: 60%
 stamp_height: 60%
 tags: []
+excerpt: "上一期我们介绍了金融人最常看的顶刊。有同学问，要怎么订阅这些杂志。"
 ---
 
 上一期我们介绍了金融人最常看的顶刊。有同学问，要怎么订阅这些杂志。

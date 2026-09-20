@@ -4,6 +4,7 @@ date: 2025-10-04
 img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg
 tags: [SMC, 聪明钱, 策略]
 category: strategy
+excerpt: "!!! abstract 什么是聪明钱概念交易策略？ SMC 关键概念 如何使用聪明钱概念交易策略进行交易 聪明钱概念与价格行为有什么区别？ SMC 是好的还是坏的交易方法？"
 ---
 
 !!! abstract

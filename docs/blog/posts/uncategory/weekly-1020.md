@@ -10,6 +10,7 @@ tags: [others, weekly, numpy, pandas]
 seq: 第 13 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "本周要闻 幻方量化宣布降低对冲全系产品投资仓位至0 月CPI、PPI及前三季度GDP数据出炉 潘功胜发声，宏观经济政策应更加重视消费"
 ---
 
 ### 本周要闻

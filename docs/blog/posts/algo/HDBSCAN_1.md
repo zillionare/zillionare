@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-
 stamp_width: 60%
 stamp_height: 60%
 tags: [算法,hdbscan,聚类,选股]
+excerpt: "前篇文章提到可以用HDBSCAN算法来来对资产进行聚类，在聚类完成之后，对聚类结果进行协整检验，通过计算对冲比，可以构造成平稳序列。我们知道一个平稳时间序列的均值、方差恒定并且有自协相关特性，那么，一旦它偏离了均值，迟早都会回归到均值上。利用这一点，可以生成交易信号。"
 ---
 
 ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112164819.png)

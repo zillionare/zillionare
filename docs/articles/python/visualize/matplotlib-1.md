@@ -1,6 +1,7 @@
 ---
 title: matplotlib的布局问题（1）
 slug: layout-of-matplotlib-1
+excerpt: "这一篇笔记，我们来介绍matplotlib中的布局概念。"
 ---
 
 这一篇笔记，我们来介绍matplotlib中的布局概念。

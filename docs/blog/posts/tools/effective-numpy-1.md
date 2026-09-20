@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-tes
 stamp_width: 60%
 stamp_height: 60%
 tags: [numpy, code]
+excerpt: "在很多量化场景下，我们都需要统计某个事件连续发生了多少次，比如，连续涨跌停、N连阳、计算Connor's RSI中的streaks等等。"
 ---
 
 在很多量化场景下，我们都需要统计某个事件连续发生了多少次，比如，连续涨跌停、N连阳、计算Connor's RSI中的streaks等等。

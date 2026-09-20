@@ -6,6 +6,7 @@ slug: is-the-ashare-market-overvalued
 motto: "如果这个世界不喜欢你，那它就是我的敌人了"
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg
 tags: [strategy, pe, tushare]
+excerpt: "这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了："
 ---
 
 这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：

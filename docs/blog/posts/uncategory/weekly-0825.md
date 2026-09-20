@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-g
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, career]
+excerpt: "美联储主席鲍威尔表示，美联储降息时机已经到来 摩根大通港股仓位近日大量转仓，涉及市值超1.1万亿港元"
 ---
 
 ### 本周要闻

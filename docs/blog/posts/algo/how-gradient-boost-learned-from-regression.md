@@ -8,6 +8,7 @@ img:
 stamp_width: 60%
 stamp_height: 60%
 tags: [GBDT, 机器学习, LightGBM, XGBoost]
+excerpt: "决策树是机器学习中一类重要的算法。它本质是这样一种算法，即将由程序hard-coded的各种if-else逻辑，改写成为可以通过数据训练得到的模型，而该模型在效果上等价于硬编码的if-else逻辑。"
 ---
 
 决策树是机器学习中一类重要的算法。它本质是这样一种算法，即将由程序hard-coded的各种if-else逻辑，改写成为可以通过数据训练得到的模型，而该模型在效果上等价于硬编码的if-else逻辑。

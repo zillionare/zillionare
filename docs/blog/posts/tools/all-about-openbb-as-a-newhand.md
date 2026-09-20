@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, openbb, 数据]
+excerpt: "你有没有这样的经历？常常看到一些外文的论文或者博文，研究方法很好，结论也很吸引人，忍不住就想复现一下。"
 ---
 
 你有没有这样的经历？常常看到一些外文的论文或者博文，研究方法很好，结论也很吸引人，忍不住就想复现一下。

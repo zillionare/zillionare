@@ -1,6 +1,7 @@
 ---
 title: 04 项目布局和项目生成向导
 slug: python-project-layout-and-wizard
+excerpt: "通过前三章的学习，我们了解了如何构建开发环境，并且也完成了一个最简单的 python 程序 —— Hello World。"
 ---
 
 通过前三章的学习，我们了解了如何构建开发环境，并且也完成了一个最简单的 python 程序 —— Hello World。

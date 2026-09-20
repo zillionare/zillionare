@@ -10,6 +10,7 @@ tags: [others, weekly, numpy, pandas]
 seq: 第 11 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "本周要闻 大涨！沪指本周大涨12.8%，沪深300上涨15.7%。 首份市值管理指引文件出炉，明确指数成分股与破净股的市值管理 长江证券：银行、地产、建筑和非银等板块或更有可能受益于破净公司估值提升计划"
 ---
 
 

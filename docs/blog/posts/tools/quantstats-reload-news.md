@@ -6,6 +6,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/kamil-pie
 tags: 
     - python
     - quantstats
+excerpt: "Quantstats是非常著名的量化策略评估与可视化库。从2024年底起约8个月里，它没有得到积极的维护，出现了在Python 3.12以上，完全无法运行等严重bug。"
 ---
 
 Quantstats是非常著名的量化策略评估与可视化库。从2024年底起约8个月里，它没有得到积极的维护，出现了在Python 3.12以上，完全无法运行等严重bug。

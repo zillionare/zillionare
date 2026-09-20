@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/larry-wil
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor,indicators,alpha]
+excerpt: "指标 Ultimate Oscillator（终极振荡器）是由 Larry Williams 在 1976 年发表的技术分析因子。"
 ---
 
 ![Larry Williams，1987 年世界期货交易大赛冠军](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/larry-willimans-card.jpg)

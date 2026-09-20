@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toront
 stamp_width: 60%
 stamp_height: 60%
 tags: [Algo, minimum,numpy]
+excerpt: "股谚云，天量见天价、地量见地价。今天我们就来验证一下。"
 ---
 
 ![多伦多大学校园。2024诺贝尔物理学奖获得者，Geoffrey Hinton在此任教。](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp)

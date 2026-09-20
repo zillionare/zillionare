@@ -10,6 +10,7 @@ stamp_height: 60%
 tags: 
     - 工具
     - quantlib
+excerpt: "在Alphalens中，getcleanfactorandforwardreturns函数自动实现了收益计算、分层、缺失值处理和标准化，大大简化了因子分析的工作。"
 ---
 
 在Alphalens中，get_clean_factor_and_forward_returns函数自动实现了收益计算、分层、缺失值处理和标准化，大大简化了因子分析的工作。

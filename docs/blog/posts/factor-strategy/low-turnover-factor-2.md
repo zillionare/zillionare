@@ -10,6 +10,7 @@ tags:
     - factor
     - 因子分析
     - Alphalens
+excerpt: "上一篇笔记，我们已经为因子分析准备好了数据。这一篇笔记，我们就进行因子分析。分析过程在 Alphalens 中非常简单，核心是读懂它的报告。"
 ---
 
 ![R33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kaiyun.jpg)

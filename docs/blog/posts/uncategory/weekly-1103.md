@@ -10,6 +10,7 @@ tags: [others, weekly, factor]
 seq: 第 15 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'
+excerpt: "本周要闻 英伟达和宣伟公司纳入道指 制造业PMI时隔5个月重返景气区间 三季报收官，8成上市公司实现盈利"
 ---
 
 ### 本周要闻

@@ -4,6 +4,7 @@ date: 2025-10-13
 category: strategy
 img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg
 tags: [strategy, Alligator, Indicator]
+excerpt: "策略核心观点 本文构建了一个包含短、中、长期综合考量的鳄鱼线投资策略。它通过吸纳不同时间跨度的信息生成投资信号。严格的多空信号标准使其有着优秀的beta收益。此外，通过不断地纳入AO、分形以及MACD因子，其投资表现越来越好。 引言"
 ---
 
 ## 1. 策略核心观点

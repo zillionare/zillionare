@@ -10,6 +10,7 @@ tags:
     - arsenal
     - Jupyter
     - jupysql
+excerpt: "当我们使用 Jupyter 时，很显然我们的主要目的是探索数据。这篇文章将介绍如何利用 JupySQL 来进行数据查询--甚至代替你正在使用的 Navicat, dbeaver 或者 pgAdmin。此外，我们还将介绍如何更敏捷地探索数据，相信这些工具，可以帮你省下 90%的 coding 时间。"
 ---
 
 当我们使用 Jupyter 时，很显然我们的主要目的是探索数据。这篇文章将介绍如何利用 JupySQL 来进行数据查询--甚至代替你正在使用的 Navicat, dbeaver 或者 pgAdmin。此外，我们还将介绍如何更敏捷地探索数据，相信这些工具，可以帮你省下 90%的 coding 时间。

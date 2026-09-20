@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehle
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, factor, wave]
+excerpt: "这篇文章的部分思想来自于 John Ehlers。他曾是雷神的工程师，当年是为NASA造火箭的。他有深厚的数字信号处理（DSP）技术背景，为石油钻探发明了最大熵频谱分析（MESA）。这种分析方法能为短暂的地震回波提供高分辩率的显示。"
 ---
 
 ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png)

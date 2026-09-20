@@ -14,6 +14,7 @@ tags:
     - strategy
     - 机器学习
     - Xgboost
+excerpt: "!!!quote 最消耗你的东西，不是别人，而是自己的念头。人生之苦，苦在执着。人生之难，难在放下。强大不是对抗，而是接受。一念放下，万般自由。<br><br> To accept the things I cannot change, the courage to change the things I can, a"
 ---
 
 &nbsp;

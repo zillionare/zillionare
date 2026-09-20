@@ -1,6 +1,7 @@
 ---
 title: 大富翁开源产品系列
 slug: introduction-to-zillionare
+excerpt: "大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。"
 ---
 
 ## 大富翁 (Zillionare )

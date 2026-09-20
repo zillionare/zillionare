@@ -9,6 +9,7 @@ tags:
     - strategy
     - 因子
     - zscore
+excerpt: "最新（2024 年 1 月）出版的 SC 技术分析（Techical Analysis of Stock & Commodities）的第 4 条文章给到了 Z-score，原文标题为《Z-score: How to use it in Trading》。今天的笔记，就借此机会，同步推出我们对通过Z-score来构建量"
 ---
 
 ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/normal-dist.jpg)

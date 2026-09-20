@@ -1,8 +1,8 @@
 ---
-title: 2026量化新基建(二) - sqlite 与 sqlite-utils
+title: "2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？"
 date: 2026-01-01
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg
-excerpt: 对量化人来说，有一个场景，非常适合使用 sqlite： 无须安装和设置、以 pythonic 的方式进行开发，并且具有非常好的性能。但是，一直以来，我是直接使用 python 内置的 sqlite3 模块来操作 sqlite 数据库的。直到最近，我发现了 sqlite-utils 这个库，它让我以最简洁的方式，获得了全所未有的表达力。
+excerpt: "量化交易中，委托与成交数据如何高效存储？SQLite并非玩具，WAL模式支持多进程并发读写。配合sqlite-utils，用Pythonic方式简化数据库操作，提升表达力。本文详解性能优势与实战配置，助你构建轻量级交易数据库，告别传统sqlite3模块的繁琐。"
 categories: tools
 tags: [tools, sqlite, sqlite-utils, fastlite]
 addons:

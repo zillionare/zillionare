@@ -12,6 +12,7 @@ tags:
     - python
     - numpy
     - scikit-learn
+excerpt: "在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝对是Python发展史上的有一个分水岭。"
 ---
 
 

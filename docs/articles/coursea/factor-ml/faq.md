@@ -1,5 +1,6 @@
 ---
 slug: factor-ml-faq
+excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传到了荔枝微课。"
 ---
 
 ## 报名流程和学习环境

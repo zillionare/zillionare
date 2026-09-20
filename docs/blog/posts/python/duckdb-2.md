@@ -8,6 +8,7 @@ lunar:
 tags: 
     - quantlib
     - python
+excerpt: "上一篇笔记介绍了通过duckdb，使用SQL进行DataFrame的操作。我们还特别介绍了它独有的 Asof Join 功能，由于量化人常常处理跨周期行情对齐，这一功能因此格外实用。但是duckdb的好手段，不止如此。"
 ---
 
 上一篇笔记介绍了通过duckdb，使用SQL进行DataFrame的操作。我们还特别介绍了它独有的 **Asof Join** 功能，由于量化人常常处理跨周期行情对齐，这一功能因此格外实用。但是duckdb的好手段，不止如此。

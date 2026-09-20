@@ -6,6 +6,7 @@ slug: introduction-to-24-lectures
 category: 课程
 tags: 
     - 课程
+excerpt: "本课程是量化交易的入门课程，它面向打算进入量化交易领域的学生、程序员和正在从事主观交易的机构投资者和个人投资者。"
 ---
 
 ## 1. 简介

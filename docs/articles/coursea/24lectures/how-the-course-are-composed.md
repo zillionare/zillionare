@@ -5,6 +5,7 @@ date: 2024-01-04
 category: 课程
 tags: 
     - 课程
+excerpt: "课程内容 本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括： 如何获取数据 我们会介绍akshare, tushare, jqdatasdk这些常用库，也会介绍机构在用什么数据库 Python金融数据分析 numpy pandas scipy（重点sta"
 ---
 
 ## 01 课程内容

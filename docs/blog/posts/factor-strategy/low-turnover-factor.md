@@ -12,6 +12,7 @@ tags:
     - factor
     - Alphalens
     - 因子分析
+excerpt: "因子分析是量化研究的基本技能之一。通过因子分析，找出有效的因子，通过相关性去重后，就可以通过机器学习、线性回归等方法把因子组合起来，构成交易策略。"
 ---
 
 ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg?2)

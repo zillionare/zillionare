@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/quantide-
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor, 技术指标]
+excerpt: "CCI（商品通道指数） 由 Donald Lambert 研发，首次发表于 1980 年的《商品期货》杂志，一直以来很受交易大量推崇。但是，简单地将这个指标作为因子进行因子检验，差点使明珠蒙尘。最后，因子密度分布图揭示了真相，通过因子纯化，最终检验结果给出了与传统经验一致的结论！"
 ---
 
 CCI（商品通道指数） 由 Donald Lambert 研发，首次发表于 1980 年的《商品期货》杂志，一直以来很受交易大量推崇。但是，简单地将这个指标作为因子进行因子检验，差点使明珠蒙尘。最后，因子密度分布图揭示了真相，通过因子纯化，最终检验结果给出了与传统经验一致的结论！

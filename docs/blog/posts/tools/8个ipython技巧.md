@@ -14,6 +14,7 @@ fonts:
     mono: "WenQuanYi Micro Hei Mono"
 tags: 
     - 工具
+excerpt: "题图为科罗拉多大学博尔德分校的麦基礼堂。博尔德分校是科罗拉多大学系统的旗舰大学，共有5名诺奖学者，1名图灵奖。"
 ---
 
 

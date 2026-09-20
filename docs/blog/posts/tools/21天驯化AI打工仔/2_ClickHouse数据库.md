@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/202505142
 tags: 
     - tools
     - programming
+excerpt: "今天是第二天，我计划实现如下任务： 安装 ClickHouse 和 DBeaver 创建 ClickHouse 数据表 修改 Redis 消息队列代码以支持 ClickHouse 存储"
 ---
 
 今天是第二天，我计划实现如下任务：

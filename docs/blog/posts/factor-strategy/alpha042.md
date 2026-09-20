@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Free-U
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor,alpha101,alpha]
+excerpt: "《101个公式化因子》是Zura Kahushadze于2015年发表的paper。在这篇paper中，他拿出了在worldquant广泛使用的因子中，便于公式化的因子（约80个），加上其它自创因子，共101个，集结发表在预印论文网站arXiv上。"
 ---
 
 ![题图：第比利斯自由大学，Kahushadze在此任教](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp)

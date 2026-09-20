@@ -8,6 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.
 stamp_width: 60%
 stamp_height: 60%
 tags: []
+excerpt: "今天（10 月 24 日）是码农节。这一天也是裘伯君、Chris Lattner, Robert Khan 等人的生日。Lattner 是 LLVM 开源编译器的创始人、Swift 和 Mojo 语言的主要设计者。Khan 是互联网奠基人之一，他与温顿。瑟夫共同发明了 TCP/IP 协议。"
 ---
 
 ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png)

@@ -13,6 +13,7 @@ tags:
     - cursor
     - augment
     - trae
+excerpt: "常常有人问，真有人用 AI 完成过一个复杂的项目吗？"
 ---
 
 常常有人问，真有人用 AI 完成过一个复杂的项目吗？

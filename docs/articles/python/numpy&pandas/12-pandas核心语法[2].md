@@ -16,6 +16,7 @@ tags:
     - programming
     - Numpy
     - Pandas
+excerpt: "Series 的基本功能 本节，我们将介绍Series的一些数据的基本操作方法。后续将会深入地挖掘pandas在数据分析和处理方面的功能。"
 ---
 
 ## 1. Series 的基本功能

@@ -7,6 +7,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/rolf-banz
 stamp_width: 60%
 stamp_height: 60%
 tags: [figure, Banz]
+excerpt: "Rolf W. Banz，瑞士人，70 年代在芝加哥大学获得博士学位，并在该校任教过。此后他在伦敦经营了一家专注于小盘股投资的投资精品店，1991 年出售给 Alliance Capital。职业生涯的最后阶段，他回到了瑞士，在一家瑞士私人银行的资产管理子公司担任了高级职位。"
 ---
 
 Rolf W. Banz，瑞士人，70 年代在芝加哥大学获得博士学位，并在该校任教过。此后他在伦敦经营了一家专注于小盘股投资的投资精品店，1991 年出售给 Alliance Capital。职业生涯的最后阶段，他回到了瑞士，在一家瑞士私人银行的资产管理子公司担任了高级职位。

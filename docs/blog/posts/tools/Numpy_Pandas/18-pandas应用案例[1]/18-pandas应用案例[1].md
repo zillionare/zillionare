@@ -16,6 +16,7 @@ tags:
     - programming
     - Numpy
     - Pandas
+excerpt: "“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setindex，可以轻松完成格式转换，为因子分析奠定基础。”"
 ---
 
 “Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivot_table 和 set_index，可以轻松完成格式转换，为因子分析奠定基础。”
