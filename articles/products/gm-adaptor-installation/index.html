@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>东财量化接口安装指南 | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/articles/products/gm-adaptor-installation/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="东财量化接口安装指南 | 匡醍量化"><meta property="og:description" content="1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运行 1.4. 运行和维护 1.4.1. 启动 1.4.2. 每日维护 2.1. 客户端请求 2.2. 返回结果 2.3. 资产表 2.4. "><meta property="og:url" content="https://blog.quantide.cn/articles/products/gm-adaptor-installation/"><meta property="og:image" content="https://blog.quantide.cn/gh/zillionare/images@main/images/2023/03/20230403154605.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class>博客</a><a href="/articles/products/index/" class="active" aria-current="page">量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"东财量化接口安装指南","description":"1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运行 1.4. 运行和维护 1.4.1. 启动 1.4.2. 每日维护 2.1. 客户端请求 2.2. 返回结果 2.3. 资产表 2.4. ","image":"https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230403154605.png","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/articles/products/gm-adaptor-installation/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"东财量化接口安装指南","item":"https://blog.quantide.cn/articles/products/gm-adaptor-installation/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">量化产品</p> <details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">products</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/products/1.0/" class title="zillionare 1.0简介">zillionare 1.0简介</a></li><li><a href="/articles/products/gm-adaptor-installation/" class="current" title="东财量化接口安装指南">东财量化接口安装指南</a></li><li><a href="/articles/products/index/" class title="大富翁开源产品系列">大富翁开源产品系列</a></li><li><a href="/articles/products/zillionare-maintain/" class title="Zillionare 2.0维护指南">Zillionare 2.0维护指南</a></li><li><a href="/articles/products/zillionare-troubleshooting/" class title="Zillionare 2.0 故障排除">Zillionare 2.0 故障排除</a></li><li><a href="/articles/products/zillionare_installation/" class title="Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？">Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-figure" title="figure（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="figure">figure</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">东财量化接口安装指南</h1> <p class="meta">   <span>👁 本月阅读 <span data-page-pv>—</span></span> </p> <img class="cover-img" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230403154605.png" alt="东财量化接口安装指南"> <div class="md-body" data-pagefind-body><p>【目录】</p>
+<ul>
+<li><a href="#11-%E5%AE%89%E8%A3%85">1.1. 安装</a></li>
+<li><a href="#12-%E7%94%B3%E8%AF%B7%E6%9D%83%E9%99%90">1.2. 申请权限</a></li>
+<li><a href="#13-%E6%A8%A1%E6%8B%9F%E5%92%8C%E6%B5%8B%E8%AF%95">1.3. 模拟和测试</a><ul>
+<li><a href="#131-%E9%85%8D%E7%BD%AE%E8%B4%A6%E5%8F%B7">1.3.1. 配置账号</a><ul>
+<li><a href="#1311-gmadaptor%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">1.3.1.1. gmadaptor的配置文件</a></li>
+<li><a href="#1312-%E9%85%8D%E7%BD%AEemc">1.3.1.2. 配置EMC</a></li>
+</ul>
+</li>
+<li><a href="#132-%E6%A8%A1%E6%8B%9F%E8%BF%90%E8%A1%8C">1.3.2. 模拟运行</a></li>
+</ul>
+</li>
+<li><a href="#14-%E8%BF%90%E8%A1%8C%E5%92%8C%E7%BB%B4%E6%8A%A4">1.4. 运行和维护</a><ul>
+<li><a href="#141-%E5%90%AF%E5%8A%A8">1.4.1. 启动</a></li>
+<li><a href="#142-%E6%AF%8F%E6%97%A5%E7%BB%B4%E6%8A%A4">1.4.2. 每日维护</a></li>
+</ul>
+</li>
+<li><a href="#21-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%B7%E6%B1%82">2.1. 客户端请求</a></li>
+<li><a href="#22-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C">2.2. 返回结果</a></li>
+<li><a href="#23-%E8%B5%84%E4%BA%A7%E8%A1%A8">2.3. 资产表</a></li>
+<li><a href="#24-%E6%8C%81%E4%BB%93%E8%A1%A8">2.4. 持仓表</a></li>
+<li><a href="#25-%E9%99%90%E4%BB%B7%E4%B9%B0%E5%85%A5">2.5. 限价买入</a></li>
+<li><a href="#26-%E5%B8%82%E4%BB%B7%E4%B9%B0%E5%85%A5">2.6. 市价买入</a></li>
+<li><a href="#27-%E9%99%90%E4%BB%B7%E5%8D%96%E5%87%BA">2.7. 限价卖出</a></li>
+<li><a href="#28-%E5%B8%82%E4%BB%B7%E5%8D%96%E5%87%BA">2.8. 市价卖出</a></li>
+<li><a href="#29-%E5%8F%96%E6%B6%88%E5%A7%94%E6%89%98">2.9. 取消委托</a></li>
+<li><a href="#210-%E6%9F%A5%E8%AF%A2%E5%BD%93%E6%97%A5%E5%A7%94%E6%89%98">2.10. 查询当日委托</a></li>
+<li><a href="#%E6%92%AE%E5%90%88%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99">撮合配置规则</a></li>
+<li><a href="#%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F">联系方式</a></li>
+</ul>
+<h1 id="1-安装与配置">1. 安装与配置</h1>
+<h2 id="11-安装">1.1. 安装</h2>
+<ol>
+<li><p>在windows机器上安装<a href="https://emt.eastmoneysec.com/down">https://emt.eastmoneysec.com/down</a>，下载并安装第二个软件：</p>
+</li>
+<li><p>在同一台机器上安装conda，推荐安装miniconda，并创建虚拟运行环境（python版本3.8）：</p>
+<pre><code>conda create -n gmclient python=3.8
+</code></pre>
+</li>
+<li><p>安装gmadaptor:</p>
+<pre><code>pip install gmadaptor-1.1.3-py3-none-any.whl
+</code></pre>
+</li>
+</ol>
+<h2 id="12-申请权限">1.2. 申请权限</h2>
+<p>请加入东方财富量化仿真交流群：971584613 ，找管理员申请开通量化实盘权限。请先看群置顶文件。
+开通的主要门槛是要求100万初始资金。开通后可以撤资。</p>
+<h2 id="13-模拟和测试">1.3. 模拟和测试</h2>
+<p>在等待实盘权限开通的过程中，可以通过 <a href="https://emt.18.cn/apply/test-apply-client">https://emt.18.cn/apply/test-apply-client</a> 开通模拟账号，先把程序和配置调通。</p>
+<p>申请后，记录普通资金账号和密码，如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/%E4%BB%BF%E7%9C%9F.jpg" alt=""></p>
+<p>在登录界面中，选择仿真交易：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/login.jpg" alt=""></p>
+<p>登录后，界面显示如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403200024.png" alt=""></p>
+<h3 id="131-配置账号">1.3.1. 配置账号</h3>
+<p>以下步骤对实盘和模拟盘均有效。</p>
+<h4>1.3.1.1. gmadaptor的配置文件</h4>
+<p>需要将量化软件中的实盘账号配置到gmadaptor的配置文件中。在用户目录下，创建<code>gmadaptor/config</code>目录，放置以下文件：</p>
+<pre><code class="language-yaml"># defaults.yaml
+log_level: INFO
+
+server_info:
+    port: 9000
+    # client 使用这一token来访问 gmadaptor 提供的服务
+    access_token : &quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;
+
+gm_info:
+    fake: false
+    # 文件单输出目录
+    gm_output: &quot;~/gmadaptor/FileOrders/out&quot;
+    trade_fees:
+        commission: 2.5
+        stamp_duty: 10.0
+        transfer_fee: 0.1
+        minimum_cost: 5.0
+    accounts:
+        # 账号名
+        - name: fileorder_s01
+          acct_id: 1a66e81c-ae5d-11ec-aef5-00163e0a4100
+          # 文件单输入目录。东财量化终端将从这里读取文件单
+          acct_input: &quot;~/gmadaptor/FileOrders/inputs/fileorder_s01&quot;
+</code></pre>
+<p>上述配置中，access_token 可任意指定，任何要访问此服务的客户端，必须持有此 token。</p>
+<p>gm_output/acct_input 文件设置后，如果未创建，gmadaptor 将在启动时自动创建，请确保 gmadaptor 有权限读写这些文件夹。</p>
+<p>accounts &gt; name 中的值来自于在 EMC 终端中，您创建文件单输入时，指定的名称，见下图中的序号2：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403194653.png" alt=""></p>
+<p>accounts &gt; acct_id 来自于下面序号3的位置，点击<code>ID</code>即可复制：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403195425.png" alt=""></p>
+<h4>1.3.1.2. 配置EMC</h4>
+<p>在 量化 &gt; 文件单 &gt; 文件单输出 中，对下图中的 4，5，6，7 进行配置。其中4选择我们在上面配置文件中gm_output中设置的路径；5选择<code>csv</code>作为输出格式；6选择自动启动；7将所有项目全选中。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/output.jpg?1" alt=""></p>
+<p>在 量化 &gt; 文件单 &gt; 文件单输入 中，对下图中的 3和4进行配置。其中3选择我们在上面配置文件中设置的 acct_input 路径，4选择自动启动。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/input.jpg?1" alt=""></p>
+<h3 id="132-模拟运行">1.3.2. 模拟运行</h3>
+<p>在前面生成的gmclient虚拟环境中，执行以下命令，以启动gmadaptor服务器：</p>
+<pre><code>python -m gmadaptor.server
+</code></pre>
+<p>如果出现如下界面，表明服务器启动成功：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/started.jpg" alt=""></p>
+<p>此时我们另开一个<code>conda</code>窗口，同样使用<code>gmclient</code>的虚拟环境，通过以下命令进行测试:</p>
+<pre><code>python -m gmtest %account %token %server %port
+</code></pre>
+<p>这里的account即 gmadaptor配置文件中的 gm_info &gt; accounts &gt; account_id, token 即server_info &gt; access_token</p>
+<p>这里的 server 即gmadaptor 所在的机器IP， port为端口。如果不提供，默认地，这两项分别为localhost和9000。</p>
+<p>如果配置正常，这将打印出初始账号资金，当前持仓，和一笔买、卖的信息。</p>
+<h2 id="14-运行和维护">1.4. 运行和维护</h2>
+<p>另外启动一个计划任务，在每天早上8:45左右启动EMC。</p>
+<h3 id="141-启动">1.4.1. 启动</h3>
+<p>使用下面的脚本来启动：</p>
+<pre><code>@echo off
+call C:\ProgramData\Anaconda3\Scripts\activate.bat C:\ProgramData\anaconda3
+call conda activate gmclient
+python -m gmadaptor.server
+pause
+</code></pre>
+<h3 id="142-每日维护">1.4.2. 每日维护</h3>
+<p>EMC量化终端有时候不稳定。我们可以通过定时重启来提高起稳定性。通过以下代码，在盘后退出EMC：</p>
+<pre><code>REM kill process
+TASKKILL /F /IM EMCTrade.exe
+
+REM sleep 5 seconds
+TIMEOUT  /T 5
+
+REM remove all file orders after process killed
+
+DEL /Q C:\zillionare\FileOrders\real_input\*.csv
+</code></pre>
+<div class="admonition admonition-Warning"><p class="admonition-title">Warning</p>
+如果在输入输出目录中还有未归档的文件，则量化交易将无法自动启动。上述代码中最后一行的作用就是清理未归档文件。
+这也要求使用者自行对委托进行核验，确保这些文件可以被自动删除。
+</div>
+# 2. 客户端与服务器交互
+## 2.1. 客户端请求
+
+<p>客户端通过 http request来请求gmadaptor。以下示例均以同步请求实现，但您也可以根据需要，改为异步请求。服务器对客户端的鉴权是通过<code>headers</code>来实现的，具体请看示例（任意一示例均可）。客户端向服务器发送数据，都使用的是post方法，gmadaptor所有的方法都只响应post请求。如果请求成功完成，则返回代码是200。</p>
+<p>在所有的操作中，股票代码都必须以简码+交易所后缀方式出现，其中上交所为.XSHG，深交所为.XSHE。在仿真测试时，对股票进行操作时，都有特定的响应（比如对某支股票，进行买入时，无论给的参数是多少，返回都会是部分成交；对另一支股票，则永远返回限制买入等等），具体响应文档请在东财量化Q群中，找管理员要文档。</p>
+<p>在一些会改变状态的请求中（比如买入操作），往往会需要<code>cid</code>参数和<code>timeout</code>参数，其作用是，调用会在指定的timeout期间等待EMC处理请求，并返回结果；但EMC也可能无法在指定的timeout期间返回结果，比如委买单报价过低，一直不能成交，此时将无法产生回报结果。在这种情况下，调用会在timeout之后返回。之后的委买结果查询，就需要依赖<code>cid</code>参数。注意<code>cid</code>是必选参数，<code>timeout</code>是可选参数。</p>
+<p><code>cid</code>参数（即client entrust id）由客户端自行产生，建议使用以下代码：</p>
+<pre><code class="language-python">import uuid
+
+cid = str(uuid.uuid4())
+</code></pre>
+<p><code>cid</code>产生之后，请在客户端保存，直到事务结束，不再需要为止。</p>
+<p>为简练起见，以下示例中，可能删除了这些代码：</p>
+<pre><code class="language-python">import httpx
+headers = {
+    &quot;Authorization&quot;: &quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;,
+    &quot;Account-ID&quot;: &quot;780dc4fda3d0af8a2d3ab0279bfa48c9&quot;
+}
+
+_url_prefix = &quot;http://192.168.100.100:9000/&quot;
+
+buy_entrust_no = None
+sell_entrust_no = None
+</code></pre>
+<h2 id="22-返回结果">2.2. 返回结果</h2>
+<p>返回错误可能发生在三个层面。一是http层（包括 bad request 或者 Internal server error); 二是 gmadaptor层，三是 emc可能返回错误。</p>
+<p>第一层的错误，我们通过 http status code来检查。比如，如果我们使用的客户端是httpx，则可以检查 <code>response.status_code</code>是否为200。</p>
+<p>gmadaptor始终通过<code>json</code>来返回响应，响应包括三个字段，即：</p>
+<pre><code>status: int,如果为零，则表明在此层没有发生错误，即gmadaptor已经将请求正确上报
+msg: str, human readable message
+data: dict 如果一切顺利，则返回数据在此项中
+</code></pre>
+<p>第三层的错误由 emc trader给出。即使gmadaptor正确上报的请求，也可能emc trader无法执行，此时它也会通过<code>status</code>和<code>reason</code>来给出错误信息。</p>
+<p>下面的示例给出了一个<code>response.json()</code>的输出：</p>
+<pre><code class="language-json">{
+    &quot;status&quot;: 0,
+    &quot;msg&quot;: &quot;OK&quot;,
+    &quot;data&quot;: {
+        &quot;code&quot;: &quot;000001.XSHE&quot;,
+        &quot;price&quot;: 0.0,
+        &quot;volume&quot;: 100,
+        &quot;order_side&quot;: 1,
+        &quot;bid_type&quot;: 2,
+        &quot;time&quot;: &quot;2023-04-04 15:27:38.921555&quot;,
+        &quot;entrust_no&quot;: &quot;0d23bb4e-d81e-4ef2-ab21-c58e0fe6814f&quot;,
+        &quot;status&quot;: -1,
+        &quot;average_price&quot;: 0.0,
+        &quot;filled&quot;: 0,
+        &quot;filled_amount&quot;: 0,
+        &quot;eid&quot;: &quot;&quot;,
+        &quot;trade_fees&quot;: 0,
+        &quot;reason&quot;: &quot;[Counter] [EMC_PC]不支持该下单类型&quot;,
+        &quot;recv_at&quot;: &quot;2023-04-04 15:27:38.924565&quot;
+    }
+}
+</code></pre>
+<p>因此，即使在gmadator层面给出的状态是成功，也并不意味着该笔委托成功。另一个例子是，以过低的价格委买，只要参数合法且被EMC接收，gmadaptor都会返回成功，但该委托是否真正成交，还得通过entrust_no来查询。</p>
+<h2 id="23-资产表">2.3. 资产表</h2>
+<pre><code class="language-python"># 请求资金信息
+import httpx
+headers = {
+    &quot;Authorization&quot;: &quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;,
+    &quot;Account-ID&quot;: &quot;780dc4fda3d0af8a2d3ab0279bfa48c9&quot;
+}
+
+_url_prefix = &quot;http://192.168.100.100:9000/&quot;
+
+def get_balance():
+    r = httpx.post(_url_prefix + &quot;balance&quot;, headers=headers)
+    resp = r.json()
+    if r.status_code == 200 and resp[&#39;status&#39;] == 0:
+        print(&quot;\n------ 账户资金信息 ------&quot;)
+        print(resp[&quot;data&quot;])
+</code></pre>
+<h2 id="24-持仓表">2.4. 持仓表</h2>
+<pre><code class="language-python">def get_positions():
+    r = httpx.post(_url_prefix + &quot;positions&quot;, headers=headers)
+    
+    resp = r.json()
+    if r.status_code == 200 and resp[&#39;status&#39;] == 0:
+        print(&quot;\n----- 持仓信息 ------&quot;)
+        print(resp[&quot;data&quot;])
+</code></pre>
+<h2 id="25-限价买入">2.5. 限价买入</h2>
+<pre><code class="language-python">    r = httpx.post(_url_prefix + &quot;buy&quot;, headers=headers, json={
+        &quot;security&quot;: &quot;000001.XSHE&quot;,
+        &quot;price&quot;: 13,
+        &quot;volume&quot;: 100,
+        &quot;cid&quot;: str(uuid.uuid4()),
+        &quot;timeout&quot;: 1
+    })
+
+    print(r.json())
+</code></pre>
+<h2 id="26-市价买入">2.6. 市价买入</h2>
+<pre><code class="language-python">def market_buy():
+    global buy_entrust_no
+    r = httpx.post(_url_prefix + &quot;market_buy&quot;, headers=headers, json={
+        &quot;security&quot;: &quot;000001.XSHE&quot;,
+        &quot;volume&quot;: 100,
+        &quot;cid&quot;: cid,
+        &quot;timeout&quot;: 1
+    })
+
+    resp = r.json()
+    if r.status_code == 200 and resp[&quot;status&quot;] == 0:
+        print(&quot;\n ------ 委买成功 ------&quot;)
+        print(resp[&quot;status&quot;], resp[&quot;msg&quot;], resp[&quot;data&quot;])
+        buy_entrust_no = resp[&quot;data&quot;][&quot;entrust_no&quot;]
+    else:
+        print(&quot;委买失败:&quot;, r.status_code, resp)
+</code></pre>
+<h2 id="27-限价卖出">2.7. 限价卖出</h2>
+<pre><code class="language-python">def sell():
+    global sell_entrust_no
+
+    r = httpx.post(_url_prefix + &quot;sell&quot;, headers=headers, json={
+        &quot;security&quot;: &quot;000001.XSHE&quot;,
+        &quot;price&quot;: 10,
+        &quot;volume&quot;: 100,
+        &quot;cid&quot;: cid,
+        &quot;timeout&quot;: 1
+    })
+
+    resp = r.json()
+    if r.status_code == 200 and resp[&quot;status&quot;] == 0:
+        print(&quot;\n ------ 限价委卖成功 ------&quot;)
+        data = resp[&quot;data&quot;]
+        print(data)
+        sell_entrust_no = data[&quot;entrust_no&quot;]
+    else:
+        print(&quot;卖出失败:&quot;, r.status_code, resp)
+</code></pre>
+<h2 id="28-市价卖出">2.8. 市价卖出</h2>
+<pre><code class="language-python">def market_sell():
+    r = httpx.post(_url_prefix + &quot;market_sell&quot;, headers=headers, json = {
+        &quot;security&quot;: &quot;000001.XSHE&quot;,
+        &quot;volume&quot;: 100,
+        &quot;cid&quot;: cid
+    })
+
+    resp = r.json()
+    if r.status_code == 200 and resp[&quot;status&quot;] == 0:
+        print(&quot;\n ------ 市价委卖成功 ------&quot;)
+        print(resp[&quot;data&quot;])
+    else:
+        print(resp)
+</code></pre>
+<h2 id="29-取消委托">2.9. 取消委托</h2>
+<pre><code class="language-python">def cancel_entrust():
+    global buy_entrust_no
+
+    r = httpx.post(_url_prefix + &quot;cancel_entrust&quot;, headers=headers, json = {
+        &quot;entrust_no&quot;: buy_entrust_no,
+        &quot;timeout&quot;: 1
+    })
+
+    resp = r.json()
+    print(resp[&quot;status&quot;], resp[&quot;msg&quot;], resp[&quot;data&quot;])
+</code></pre>
+<h2 id="210-查询当日委托">2.10. 查询当日委托</h2>
+<pre><code class="language-python">def today_entrusts():
+    r = httpx.post(_url_prefix + &quot;today_entrusts&quot;, headers=headers, json = {
+        # 此处可以传入记录的委托号。传入空数组时，表明取当天所有委托。
+        &quot;entrust_no&quot;: [],
+        &quot;timeout&quot;: 1
+    })
+
+    resp = r.json()
+    print(resp[&quot;status&quot;], resp[&quot;msg&quot;], resp[&quot;data&quot;])
+</code></pre>
+<h1 id="3-故障排除与帮助">3. 故障排除与帮助</h1>
+<p>关于东财文件单，请参考：<a href="https://emquant.18.cn/file-help/?doc=file_order">https://emquant.18.cn/file-help/?doc=file_order</a>
+东财量化Q群：971584613</p>
+<p>即使实现了EMC的每日自动重启，也有可能偶发连接异常或者其它错误。此时可能需要手动执行：</p>
+<ol>
+<li>重新连接</li>
+<li>清除文件单，重新启动</li>
+</ol>
+<h2 id="撮合配置规则">撮合配置规则</h2>
+<p>在仿真交易测试中，EMTrader对每个品种，都指定了对应的响应。比如，对000572这个品种，买入一定会全部成交，对000010这个品种，则一定会拒绝。这是为了方便测试的需要。东财提供了名为《撮合配置规则》的文件，该文件可能随时更新，所以，需要在测试前，加他们技术人员QQ领取。</p>
+<p>该文件2023年3月份部分内容如下：</p>
+<pre><code>[全部成交]
+000572	full
+000725	full
+
+[分笔成交] 
+分成两笔：
+000002	lot      	2
+
+[部分成交] 成交一半
+000001	part
+000004	part
+...
+[挂单]	只有响应，没有成交
+018014	pending
+020417	pending
+...
+
+[拒单]	
+000010	reject
+010609	reject
+
+[拒绝撤单] 部分成交，不可撤单
+000008	cancel_reject
+000151	cancel_reject
+</code></pre>
+<h2 id="联系方式">联系方式</h2>
+<p>如果您在使用本模块中需要帮助，或者需要参加<a href="https://github.com/zillionare">《大富翁量化编程实战课》</a>学习，请添加 宽粉 的微信：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.jpg" alt=""></p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/products/zillionare_installation/">Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？</a> <p>Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/zillionare-maintain/">Zillionare 2.0维护指南</a> <p>在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下：</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-安装与配置" title="1. 安装与配置">1. 安装与配置</a> </li><li class> <a href="#11-安装" title="1.1. 安装">1.1. 安装</a> </li><li class> <a href="#12-申请权限" title="1.2. 申请权限">1.2. 申请权限</a> </li><li class> <a href="#13-模拟和测试" title="1.3. 模拟和测试">1.3. 模拟和测试</a> </li><li class="lv3"> <a href="#131-配置账号" title="1.3.1. 配置账号">1.3.1. 配置账号</a> </li><li class="lv3"> <a href="#132-模拟运行" title="1.3.2. 模拟运行">1.3.2. 模拟运行</a> </li><li class> <a href="#14-运行和维护" title="1.4. 运行和维护">1.4. 运行和维护</a> </li><li class="lv3"> <a href="#141-启动" title="1.4.1. 启动">1.4.1. 启动</a> </li><li class="lv3"> <a href="#142-每日维护" title="1.4.2. 每日维护">1.4.2. 每日维护</a> </li><li class> <a href="#22-返回结果" title="2.2. 返回结果">2.2. 返回结果</a> </li><li class> <a href="#23-资产表" title="2.3. 资产表">2.3. 资产表</a> </li><li class> <a href="#24-持仓表" title="2.4. 持仓表">2.4. 持仓表</a> </li><li class> <a href="#25-限价买入" title="2.5. 限价买入">2.5. 限价买入</a> </li><li class> <a href="#26-市价买入" title="2.6. 市价买入">2.6. 市价买入</a> </li><li class> <a href="#27-限价卖出" title="2.7. 限价卖出">2.7. 限价卖出</a> </li><li class> <a href="#28-市价卖出" title="2.8. 市价卖出">2.8. 市价卖出</a> </li><li class> <a href="#29-取消委托" title="2.9. 取消委托">2.9. 取消委托</a> </li><li class> <a href="#210-查询当日委托" title="2.10. 查询当日委托">2.10. 查询当日委托</a> </li><li class> <a href="#3-故障排除与帮助" title="3. 故障排除与帮助">3. 故障排除与帮助</a> </li><li class> <a href="#撮合配置规则" title="撮合配置规则">撮合配置规则</a> </li><li class> <a href="#联系方式" title="联系方式">联系方式</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>20 - Pandas应用案例[3] | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/articles/python/numpy&pandas/20-pandas应用案例[3]/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="20 - Pandas应用案例[3] | 匡醍量化"><meta property="og:description" content="“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的 1/3；Dask 则支持分布式计算，轻松处理 TB 级数据。”"><meta property="og:url" content="https://blog.quantide.cn/articles/python/numpy&pandas/20-pandas应用案例[3]/"><meta property="og:image" content="https://blog.quantide.cn/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class>博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class="active" aria-current="page">免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"20 - Pandas应用案例[3]","description":"“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的 1/3；Dask 则支持分布式计算，轻松处理 TB 级数据。”","image":"https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg","datePublished":"2025-04-05","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/articles/python/numpy&pandas/20-pandas应用案例[3]/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"20 - Pandas应用案例[3]","item":"https://blog.quantide.cn/articles/python/numpy&pandas/20-pandas应用案例[3]/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">免费教程</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">best-practice-python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/python/best-practice-python/chap01/" class title="01 为什么要学 Python">01 为什么要学 Python</a></li><li><a href="/articles/python/best-practice-python/chap02/" class title="02 编程开发环境">02 编程开发环境</a></li><li><a href="/articles/python/best-practice-python/chap03/" class title="03 构建 Python 虚拟环境">03 构建 Python 虚拟环境</a></li><li><a href="/articles/python/best-practice-python/chap04/" class title="04 项目布局和项目生成向导">04 项目布局和项目生成向导</a></li><li><a href="/articles/python/best-practice-python/chap05/" class title="05 Poetry: 项目管理的诗和远方">05 Poetry: 项目管理的诗和远方</a></li><li><a href="/articles/python/best-practice-python/chap06/" class title="06 10 倍速！高效编码">06 10 倍速！高效编码</a></li><li><a href="/articles/python/best-practice-python/chap07/" class title="07 代码单元测试">07 代码单元测试</a></li><li><a href="/articles/python/best-practice-python/chap08/" class title="08 代码版本管理">08 代码版本管理</a></li><li><a href="/articles/python/best-practice-python/chap09/" class title="09 持续集成">09 持续集成</a></li><li><a href="/articles/python/best-practice-python/chap10/" class title="10 撰写技术文档">10 撰写技术文档</a></li><li><a href="/articles/python/best-practice-python/chap11/" class title="11 发布应用">11 发布应用</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">numpy&amp;pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/python/numpy&#38;pandas/01-introduction/" class title="01 - 这是你的量化母语">01 - 这是你的量化母语</a></li><li><a href="/articles/python/numpy&#38;pandas/02-numpy核心语法[1]/" class title="02 - Numpy核心语法[1]">02 - Numpy核心语法[1]</a></li><li><a href="/articles/python/numpy&#38;pandas/03-numpy核心语法[2]/" class title="03 - Numpy处理表格数据">03 - Numpy处理表格数据</a></li><li><a href="/articles/python/numpy&#38;pandas/04-numpy核心语法[3]/" class title="04 - Numpy核心语法[3]">04 - Numpy核心语法[3]</a></li><li><a href="/articles/python/numpy&#38;pandas/05-numpy核心语法[4]/" class title="05 - Numpy核心语法[4]">05 - Numpy核心语法[4]</a></li><li><a href="/articles/python/numpy&#38;pandas/06-numpy核心语法[5]/" class title="06 - Numpy核心语法[5]">06 - Numpy核心语法[5]</a></li><li><a href="/articles/python/numpy&#38;pandas/07-numpy核心语法[6]/" class title="07 - Numpy核心语法[6]">07 - Numpy核心语法[6]</a></li><li><a href="/articles/python/numpy&#38;pandas/08-numpy应用案例[1]/" class title="08 - Numpy应用案例[1]">08 - Numpy应用案例[1]</a></li><li><a href="/articles/python/numpy&#38;pandas/09-numpy应用案例[2]/" class title="09 - Numpy应用案例[2]">09 - Numpy应用案例[2]</a></li><li><a href="/articles/python/numpy&#38;pandas/10-numpy应用案例[3]/" class title="10 - Numpy应用案例[3]">10 - Numpy应用案例[3]</a></li><li><a href="/articles/python/numpy&#38;pandas/11-pandas核心语法[1]/" class title="11 - Pandas核心语法[1]">11 - Pandas核心语法[1]</a></li><li><a href="/articles/python/numpy&#38;pandas/12-pandas核心语法[2]/" class title="12 - Pandas核心语法[2]">12 - Pandas核心语法[2]</a></li><li><a href="/articles/python/numpy&#38;pandas/13-pandas核心语法[3]/" class title="13 - Pandas核心语法[3]">13 - Pandas核心语法[3]</a></li><li><a href="/articles/python/numpy&#38;pandas/14-pandas核心语法[4]/" class title="14 - Pandas核心语法[4]">14 - Pandas核心语法[4]</a></li><li><a href="/articles/python/numpy&#38;pandas/15-pandas核心语法[5]/" class title="15 - Pandas核心语法[5]">15 - Pandas核心语法[5]</a></li><li><a href="/articles/python/numpy&#38;pandas/16-pandas核心语法[6]/" class title="16 - Pandas核心语法[6]">16 - Pandas核心语法[6]</a></li><li><a href="/articles/python/numpy&#38;pandas/17-pandas核心语法[7]/" class title="17 - Pandas核心语法[7]">17 - Pandas核心语法[7]</a></li><li><a href="/articles/python/numpy&#38;pandas/18-pandas应用案例[1]/" class title="18 - Pandas应用案例[1]">18 - Pandas应用案例[1]</a></li><li><a href="/articles/python/numpy&#38;pandas/19-pandas应用案例[2]/" class title="19 - Pandas应用案例[2]">19 - Pandas应用案例[2]</a></li><li><a href="/articles/python/numpy&#38;pandas/20-pandas应用案例[3]/" class="current" title="20 - Pandas应用案例[3]">20 - Pandas应用案例[3]</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">visualize</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/python/visualize/dash/" class title="Dash-用Python也能做网页">Dash-用Python也能做网页</a></li><li><a href="/articles/python/visualize/how-to-scale/" class title="量化策略中如何进行缩放和归一化">量化策略中如何进行缩放和归一化</a></li><li><a href="/articles/python/visualize/matplotlib-1/" class title="matplotlib的布局问题（1）">matplotlib的布局问题（1）</a></li><li><a href="/articles/python/visualize/matplotlib-2/" class title="matplotlib的布局问题（2）">matplotlib的布局问题（2）</a></li><li><a href="/articles/python/visualize/qq-plot/" class title="为什么Q-Q图可用来进行统计推断">为什么Q-Q图可用来进行统计推断</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-figure" title="figure（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="figure">figure</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">20 - Pandas应用案例[3]</h1> <p class="meta"> <span>📅 2025-04-05</span> <span>🏷 tools,programming,Numpy,Pandas</span> <span>👁 本月阅读 <span data-page-pv>—</span></span> </p> <img class="cover-img" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg" alt="20 - Pandas应用案例[3]"> <div class="md-body" data-pagefind-body><p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的 1/3；Dask 则支持分布式计算，轻松处理 TB 级数据。”</p>
+<hr>
+<h3 id="14-使用eval或者query">1.4. 使用eval或者query</h3>
+<!--使用 isin 筛选 https://zhuanlan.zhihu.com/p/97012199-->
+
+<p>关于 query 方法，我它类似于SQL的where子句，允许用字符串表达式，这样代码更简洁。比如df.query(&#39;Q1 &gt; Q2 &gt; 90&#39;)，还支持用@符号引入外部变量。比如计算平均分后筛选高于平均分的数据。同时，eval方法类似，但返回布尔索引，需要配合df[]使用，例如：<code>df[df.eval(&quot;Q1 &gt; 90 &gt; Q3 &gt;10&quot;)]</code>。</p>
+<p>isin 方法，用于筛选某列的值是否在指定列表中。例如，用 <code>b1[&quot;类别&quot;].isin([&quot;能源&quot;,&quot;电器&quot;])</code> 来筛选类别列中的值。此外，还可以结合多个条件，例如：<code>df[df[&#39;ucity&#39;].isin([&#39;广州市&#39;,&#39;深圳&#39;])]</code>。</p>
+<h4>1.4.1. query() 函数：SQL风格的条件筛选</h4>
+<ol>
+<li><strong>核心语法</strong></li>
+</ol>
+<pre><code class="language-python">df.query(&#39;表达式&#39;)  # 表达式需用引号包裹，支持逻辑运算符和列名直接引用
+</code></pre>
+<ol start="2">
+<li><strong>金融场景示例</strong></li>
+</ol>
+<pre><code class="language-python">&quot;&quot;&quot;案例1：筛选特定股票代码的高额交易&quot;&quot;&quot;
+# 筛选AAPL或TSLA股票，且金额超过100万的交易
+df.query(&quot;symbol in [&#39;AAPL&#39;, &#39;TSLA&#39;] and amount &gt; 1e6&quot;)
+
+&quot;&quot;&quot;案例2：动态引用外部变量&quot;&quot;&quot;
+avg_amount = df[&#39;amount&#39;].mean()  # 计算平均交易金额
+df.query(&quot;amount &gt; @avg_amount * 2&quot;)  # 筛选金额超过平均2倍的交易[3,5](@ref)
+</code></pre>
+<hr>
+<pre><code class="language-python">&quot;&quot;&quot;案例3：多条件组合&quot;&quot;&quot;
+# 筛选2025年Q1买入且成交价高于开盘价的交易
+df.query(&quot;trade_type == &#39;buy&#39; and trade_date &gt;= &#39;2025-01-01&#39; and price &gt; open_price&quot;)
+</code></pre>
+<ol start="3">
+<li>​<strong>性能优势</strong></li>
+</ol>
+<ul>
+<li>​表达式优化：底层通过 numexpr 库加速计算，比传统布尔索引快30%以上</li>
+<li>​列名处理：列名含空格或特殊字符时需用反引号包裹（如 <code>收盘价</code> &gt; 100）</li>
+</ul>
+<h4>1.4.2. eval() 函数：表达式生成布尔索引</h4>
+<ol>
+<li>​<strong>核心语法</strong></li>
+</ol>
+<pre><code class="language-python">mask = df.eval(&quot;表达式&quot;)  # 返回布尔数组
+df[mask]  # 用布尔索引筛选数据
+</code></pre>
+<ol start="2">
+<li><strong>​金融场景示例</strong></li>
+</ol>
+<pre><code class="language-python">&quot;&quot;&quot;案例1：计算复杂交易条件&quot;&quot;&quot;
+# 筛选波动率超过阈值且交易量增长的股票
+df[df.eval(&quot;(high - low)/close &gt; 0.05 and volume &gt; volume.shift(1)&quot;)]
+
+&quot;&quot;&quot;案例2：动态公式计算&quot;&quot;&quot;
+# 筛选夏普比率高于行业平均的基金
+industry_avg = 1.2
+df[df.eval(&quot;(returns - risk_free_rate)/std_dev &gt; @industry_avg&quot;)]
+</code></pre>
+<ol start="3">
+<li><strong>​与query()的区别</strong><ul>
+<li>eval() 返回布尔数组，需配合 df[] 使用；query() 直接返回筛选后的DataFrame</li>
+<li>两者共享相同表达式引擎，性能差异可忽略，按代码简洁性选择即可</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4>1.4.3. isin() 函数：多值匹配筛选</h4>
+<ol>
+<li>​<strong>核心语法</strong></li>
+</ol>
+<pre><code class="language-python">df[df[&#39;列名&#39;].isin(值列表)]  # 筛选列值存在于列表中的行
+</code></pre>
+<ol start="2">
+<li><strong>​金融场景示例</strong></li>
+</ol>
+<pre><code class="language-python">&quot;&quot;&quot;案例1：筛选特定股票池&quot;&quot;&quot;
+blue_chips = [&#39;600519.SH&#39;, &#39;000858.SZ&#39;, &#39;601318.SH&#39;]  # 上证50成分股
+df[df[&#39;symbol&#39;].isin(blue_chips)]
+
+&quot;&quot;&quot;案例2：排除ST/ST风险股&quot;&quot;&quot;
+risk_stocks = [&#39;*ST长生&#39;, &#39;ST康美&#39;]  
+df[~df[&#39;stock_name&#39;].isin(risk_stocks)]  # 使用~取反[2](@ref)
+
+&quot;&quot;&quot;案例3：联合多列筛选&quot;&quot;&quot;
+# 筛选沪深300且行业为科技或金融的股票
+target_industries = [&#39;Technology&#39;, &#39;Financials&#39;]
+df[df[&#39;index&#39;].isin([&#39;000300.SH&#39;]) &amp; df[&#39;industry&#39;].isin(target_industries)]
+</code></pre>
+<ol start="3">
+<li>​<strong>进阶用法</strong><ul>
+<li>​字典筛选：多列联合匹配（如 df[df.isin({&#39;symbol&#39;:&#39;AAPL&#39;, &#39;exchange&#39;:&#39;NASDAQ&#39;})]）</li>
+<li>性能优化：对大列表（&gt;1万元素）建议先转换为集合（set()）提升速度</li>
+</ul>
+</li>
+</ol>
+<h4>1.4.4. 综合性能优化策略</h4>
+<ol>
+<li><strong>先筛选再计算</strong></li>
+</ol>
+<hr>
+<pre><code class="language-python"># 错误：先计算全量再筛选
+df[&#39;return&#39;] = df[&#39;close&#39;].pct_change()  
+df_filtered = df[df[&#39;volume&#39;] &gt; 1e6]
+
+# 正确：先筛选减少计算量
+df_filtered = df[df[&#39;volume&#39;] &gt; 1e6].copy()  
+df_filtered[&#39;return&#39;] = df_filtered[&#39;close&#39;].pct_change()[6](@ref)
+</code></pre>
+<ol start="2">
+<li><strong>​避免链式操作</strong></li>
+</ol>
+<pre><code class="language-python"># 错误：两次索引降低性能
+df[df[&#39;symbol&#39;] == &#39;AAPL&#39;][&#39;close&#39;]  
+# 正确：单次loc操作
+df.loc[df[&#39;symbol&#39;] == &#39;AAPL&#39;, &#39;close&#39;][3](@ref)
+</code></pre>
+<ol start="3">
+<li><strong>​类型优化</strong></li>
+</ol>
+<pre><code class="language-python"># 将字符串列转为category提升isin速度
+df[&#39;symbol&#39;] = df[&#39;symbol&#39;].astype(&#39;category&#39;)[8](@ref)
+</code></pre>
+<h4>1.4.5. 方法对比与适用场景</h4>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th>适用场景</th>
+<th>性能优势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">query()</td>
+<td>复杂多条件组合，需动态变量引用</td>
+<td>表达式优化加速</td>
+</tr>
+<tr>
+<td align="center">eval()</td>
+<td>生成中间布尔索引，用于后续处理</td>
+<td>与query性能接近</td>
+</tr>
+<tr>
+<td align="center">isin()</td>
+<td>快速匹配离散值列表（如股票代码）</td>
+<td>集合加速+类型优化</td>
+</tr>
+</tbody></table>
+<p>实践建议：</p>
+<ul>
+<li>​高频筛选：优先用 query() 保持代码简洁</li>
+</ul>
+<hr>
+<ul>
+<li>​超大列表：用 isin() + 集合类型提升速度</li>
+<li>​动态计算：eval() 适合嵌入数学公式或跨列运算</li>
+</ul>
+<h3 id="15-pandas-的其它替代方案">1.5. Pandas 的其它替代方案</h3>
+<h4>1.5.1. modin：单机多核并行加速器</h4>
+<p><em>一行代码，实现pandas替代，并拥有多核、不受内存限制的计算能力。</em></p>
+<ol>
+<li><p><strong>​核心原理</strong></p>
+<ul>
+<li>​并行化改造：将 Pandas 的 DataFrame 拆分为多个分区，利用多核 CPU 并行处理，底层支持 Ray 或 Dask 引擎。</li>
+<li>​语法兼容性：仅需修改导入语句（import modin.pandas as pd），即可无缝替代原生 Pandas，支持 90% 以上常用 API。</li>
+</ul>
+</li>
+<li><p><strong>​性能优势</strong></p>
+<ul>
+<li>读取加速：读取 10GB CSV 文件时，比 Pandas 快 4-8 倍。</li>
+<li>​计算优化：groupby 等聚合操作在 4 核机器上提速 3-5 倍，内存占用减少 30%。</li>
+<li>​适用场景：单机环境下处理 100MB~50GB 数据集，适合金融高频交易日志分析、用户行为数据清洗等。</li>
+</ul>
+</li>
+<li><p><strong>​使用案例</strong></p>
+</li>
+</ol>
+<pre><code class="language-python"># 读取大规模交易数据（并行加速）
+import modin.pandas as pd
+df = pd.read_csv(&quot;trades.csv&quot;, parse_dates=[&quot;timestamp&quot;])
+</code></pre>
+<hr>
+<pre><code class="language-python"># 实时计算每分钟交易量
+volume_by_minute = df.groupby(pd.Grouper(key=&quot;timestamp&quot;, freq=&quot;T&quot;))[&quot;amount&quot;].sum().compute()
+</code></pre>
+<ol start="4">
+<li><strong>​注意事项</strong><ul>
+<li>​小数据集劣势：处理 &lt;100MB 数据时可能比 Pandas 更慢（启动开销）。</li>
+<li>​内存消耗：需预留 2-3 倍数据大小的内存，避免 OOM。</li>
+</ul>
+</li>
+</ol>
+<h4>1.5.2. polars：Rust 驱动的极速引擎</h4>
+<p><em>最快的tableu解决方案</em></p>
+<ol>
+<li><p><strong>​核心原理</strong></p>
+<ul>
+<li>​Rust + Arrow 架构：基于 Rust 语言和 Apache Arrow 内存格式，支持零拷贝数据处理与 SIMD 指令优化。</li>
+<li>​多线程与惰性执行：自动并行化计算，通过 lazy() 延迟执行并优化查询计划。</li>
+</ul>
+</li>
+<li><p><strong>​性能优势</strong></p>
+<ul>
+<li>速度对比：同等操作比 Pandas 快 5-10 倍，1 亿行 groupby 计算仅需 11 秒（Pandas 需 187 秒）。</li>
+<li>​内存效率：内存占用仅为 Pandas 的 1/3，支持处理内存不足时的核外计算。</li>
+</ul>
+</li>
+<li><p><strong>​适用场景</strong></p>
+<ul>
+<li>​高频金融数据：如实时波动率计算、订单簿快照分析。</li>
+<li>​复杂聚合：多条件统计、时间窗口滚动计算（如 VWAP）。</li>
+</ul>
+</li>
+<li><p>​<strong>代码示例</strong></p>
+</li>
+</ol>
+<hr>
+<pre><code class="language-python">import polars as pl
+# 惰性执行优化查询
+df = pl.scan_csv(&quot;market_data.csv&quot;)
+result = (
+   df.filter(pl.col(&quot;price&quot;) &gt; 100)
+   .groupby(&quot;symbol&quot;)
+   .agg([pl.col(&quot;volume&quot;).sum(), pl.col(&quot;price&quot;).mean()])
+   .collect()  # 触发计算
+)
+</code></pre>
+<div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>
+​注意事项
+- ​语法差异：部分 Pandas 方法需改写（如 df[df.col > 0] → df.filter(pl.col("col") > 0)）。
+- ​可视化兼容性：需转换为 Pandas 或 NumPy 才能使用 Matplotlib/seaborn。
+</div>
+
+<h4>1.5.3. dask：分布式计算的瑞士军刀</h4>
+<p><em>分布式tableu，可运行在数千结点上</em></p>
+<ol>
+<li><strong>​核心原理</strong><ul>
+<li>​分布式任务调度：将任务拆分为 DAG（有向无环图），支持单机多核或集群分布式执行。</li>
+<li>​核外计算：通过分区处理超出内存的数据集（如 TB 级日志）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="2">
+<li><p><strong>​性能优势</strong></p>
+<ul>
+<li>​横向扩展：在 16 核机器上处理 50GB 数据比 Pandas 快 10 倍，支持扩展到千节点集群。</li>
+<li>​兼容生态：无缝对接 XGBoost、Dask-ML 等库，支持分布式模型训练。</li>
+</ul>
+</li>
+<li><p><strong>​适用场景</strong></p>
+<ul>
+<li>​超大规模数据：如全市场历史行情分析、社交网络图谱计算。</li>
+<li>​ETL 流水线：多步骤数据清洗与特征工程（需依赖管理）。</li>
+</ul>
+</li>
+<li><p>​<strong>实战技巧</strong></p>
+<pre><code class="language-python">import dask.dataframe as dd
+# 分块读取与处理
+ddf = dd.read_csv(&quot;s3://bucket/large_file_*.csv&quot;, blocksize=&quot;256MB&quot;)
+# 并行计算每支股票的年化波动率
+volatility = ddf.groupby(&quot;symbol&quot;)[&quot;return&quot;].std().compute()
+</code></pre>
+</li>
+</ol>
+<div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>
+​注意事项
+- ​调试复杂性：需用 Dask Dashboard 监控任务状态，定位数据倾斜问题。
+- ​配置优化：合理设置分区大小（建议 100MB~1GB），避免调度开销。
+</div>
+
+<hr>
+<h4>1.5.4. 选型决策树</h4>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>​推荐工具</th>
+<th>​理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单机中数据（&lt;50GB）</td>
+<td>Modin</td>
+<td>零代码修改，快速提升现有 Pandas 脚本性能</td>
+</tr>
+<tr>
+<td>高频计算/内存受限</td>
+<td>Polars</td>
+<td>极致速度与低内存消耗，适合量化交易场景</td>
+</tr>
+<tr>
+<td>分布式/超大数据（&gt;1TB）</td>
+<td>Dask</td>
+<td>支持集群扩展，生态完善</td>
+</tr>
+</tbody></table>
+<p>​注：实际测试显示，Polars 在单机性能上全面领先，而 Dask 在分布式场景下更具优势。建议结合数据规模与硬件资源综合选择。</p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy&#38;pandas/19-pandas应用案例[2]/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy&#38;pandas/18-pandas应用案例[1]/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy&#38;pandas/17-pandas核心语法[7]/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li><li> <a href="/articles/python/numpy&#38;pandas/16-pandas核心语法[6]/">16 - Pandas核心语法[6]</a> <p>“Pandas 提供了强大的日期时间处理功能，从字符串到时间戳的转换、时区调整到格式化输出，都可以轻松实现。此外，字符串操作如替换、分割、过滤等，也能通过 str 访问器高效完成。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class="lv3"> <a href="#14-使用eval或者query" title="1.4. 使用eval或者query">1.4. 使用eval或者query</a> </li><li class="lv3"> <a href="#15-pandas-的其它替代方案" title="1.5. Pandas 的其它替代方案">1.5. Pandas 的其它替代方案</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>

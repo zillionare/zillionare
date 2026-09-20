@@ -1,0 +1,2003 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>21天驯化AI打工仔 - SQEP与symbol编码性能测试 | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="21天驯化AI打工仔 - SQEP与symbol编码性能测试 | 匡醍量化"><meta property="og:description" content="'007，我们需要讨论一个重要的性能优化问题，'我一边敲击键盘一边对我的 AI 助手说道。"><meta property="og:url" content="https://blog.quantide.cn/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/"><meta property="og:image" content="https://blog.quantide.cn/gh/zillionare/images@main/images/2025/05/20250514202750.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class="active" aria-current="page">博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"21天驯化AI打工仔 - SQEP与symbol编码性能测试","description":"'007，我们需要讨论一个重要的性能优化问题，'我一边敲击键盘一边对我的 AI 助手说道。","image":"https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png","datePublished":"2025-05-18","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"21天驯化AI打工仔 - SQEP与symbol编码性能测试","item":"https://blog.quantide.cn/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">博客目录</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">algo</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">tcn</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/algo/tcn/ai股票分析/" class title="一个很强的股票智能分析系统">一个很强的股票智能分析系统</a></li><li><a href="/posts/algo/tcn/tcn原理/" class title="聊聊 TCN：一种更清晰的时间序列解构方式">聊聊 TCN：一种更清晰的时间序列解构方式</a></li><li><a href="/posts/algo/tcn/tcn番外/" class title="TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境">TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境</a></li><li><a href="/posts/algo/tcn/因果卷积/" class title="为什么我们需要因果卷积？">为什么我们需要因果卷积？</a></li> </ul> </details> </li><li><a href="/posts/algo/HDBSCAN_1/" class title="用HDBSCAN聚类算法选股是否有效">用HDBSCAN聚类算法选股是否有效</a></li><li><a href="/posts/algo/an-enigma-min-range/" class title="地量见地价？我拿一年的上证数据算了算">地量见地价？我拿一年的上证数据算了算</a></li><li><a href="/posts/algo/data-normalization/" class title="夏普大于4的策略有多恐怖？但它为什么好得不真实？">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a></li><li><a href="/posts/algo/fft/" class title="快速傅里叶变换与股价预测研究">快速傅里叶变换与股价预测研究</a></li><li><a href="/posts/algo/flag-pattern-detection/" class title="烛台密码 三角形整理如何提示玄机">烛台密码 三角形整理如何提示玄机</a></li><li><a href="/posts/algo/hdbscan/" class title="hdbscan 聚类算法扫描配对交易 速度提升99倍">hdbscan 聚类算法扫描配对交易 速度提升99倍</a></li><li><a href="/posts/algo/how-gradient-boost-learned-from-regression/" class title="比Deepseek还要Deep！起底GBDT做回归预测的秘密">比Deepseek还要Deep！起底GBDT做回归预测的秘密</a></li><li><a href="/posts/algo/ks-test-and-cdf/" class title="KS Test, 广义双曲分布和抄底沪指">KS Test, 广义双曲分布和抄底沪指</a></li><li><a href="/posts/algo/monte-carlo/" class title="蒙特卡洛：看似很高端的技术，其实很暴力很初级">蒙特卡洛：看似很高端的技术，其实很暴力很初级</a></li><li><a href="/posts/algo/noise-test/" class title="样本外测试之外，我们还有哪些过拟合检测方法？">样本外测试之外，我们还有哪些过拟合检测方法？</a></li><li><a href="/posts/algo/normalization/" class title="基于深度学习的量化策略如何实现归一化？">基于深度学习的量化策略如何实现归一化？</a></li><li><a href="/posts/algo/pdf-is-all-you-need/" class title="量化面试神题：圆上随机点的概率陷阱">量化面试神题：圆上随机点的概率陷阱</a></li><li><a href="/posts/algo/pdf-is-all-you-need-2/" class title="PDF is all you need(2)">PDF is all you need(2)</a></li><li><a href="/posts/algo/pdf-is-all-you-need-3/" class title="PDF is all you need(3)">PDF is all you need(3)</a></li><li><a href="/posts/algo/picking-nickles-in-front-of-steamroller/" class title="虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a></li><li><a href="/posts/algo/前视偏差-看似明白，实则糊涂/" class title="前视偏差 - 看似明白，实则糊涂">前视偏差 - 看似明白，实则糊涂</a></li><li><a href="/posts/algo/千禧年的脑筋急转弯/" class title="2024已过一半，千禧年发布了这道脑筯急转弯">2024已过一半，千禧年发布了这道脑筯急转弯</a></li><li><a href="/posts/algo/如何成为一名量化研究员 /" class title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a></li><li><a href="/posts/algo/强化学习与监督学习/" class title="强化学习 vs 监督学习：AI炒股的两种思路">强化学习 vs 监督学习：AI炒股的两种思路</a></li><li><a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/" class title="关于昨天应该涨多少这件事，Tushare 和 东财还没商量好">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a></li><li><a href="/posts/algo/结合主成分分析、离散小波和XGBoost的交易策略/" class title="带你读论文：PCA、离散小波和 XGBoost构建交易策略">带你读论文：PCA、离散小波和 XGBoost构建交易策略</a></li><li><a href="/posts/algo/谁压垮了这个基站/" class title="谁压垮了这个基站？用XGBoost如何进行时序事件归因">谁压垮了这个基站？用XGBoost如何进行时序事件归因</a></li><li><a href="/posts/algo/财报电话会里的风险之声/" class title="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">career&amp;figure</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/career&#38;figure/Daniel-Kahneman/" class title="没能上热搜，但卡尼曼值得我们纪念">没能上热搜，但卡尼曼值得我们纪念</a></li><li><a href="/posts/career&#38;figure/does-arma-garch-matter-in-quant/" class title="在量化交易中，掌握ARMA/GARCH 的重要性？">在量化交易中，掌握ARMA/GARCH 的重要性？</a></li><li><a href="/posts/career&#38;figure/how-to-apply-citadel/" class title="Datathon-我的Citadel量化岗之路！附历年比赛资料">Datathon-我的Citadel量化岗之路！附历年比赛资料</a></li><li><a href="/posts/career&#38;figure/how-to-determine-research-topic/" class title="金融/计量专业，硕士论文怎么确定研究课题？">金融/计量专业，硕士论文怎么确定研究课题？</a></li><li><a href="/posts/career&#38;figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story/" class title="高薪金领都用啥编程语言？SQL、Python领航，附排名！">高薪金领都用啥编程语言？SQL、Python领航，附排名！</a></li><li><a href="/posts/career&#38;figure/john-fawcett/" class title="反抗者的崛起！Fawce 和 Quantopian 的量化之路">反抗者的崛起！Fawce 和 Quantopian 的量化之路</a></li><li><a href="/posts/career&#38;figure/max-dama-on-automated-trading/" class title="我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路">我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路</a></li><li><a href="/posts/career&#38;figure/rolf-banz/" class title="牛人太多：小市值因子之父，毕业论文被大佬狂怼">牛人太多：小市值因子之父，毕业论文被大佬狂怼</a></li><li><a href="/posts/career&#38;figure/successfully-starting-a-career-in-quant-research/" class title="如何选择量化交易基金，Max Dama 给你的7个建议">如何选择量化交易基金，Max Dama 给你的7个建议</a></li><li><a href="/posts/career&#38;figure/买卖双方/" class title="金融行业买方与卖方：利润与稳定性的背后逻辑">金融行业买方与卖方：利润与稳定性的背后逻辑</a></li><li><a href="/posts/career&#38;figure/如何才能入行量化交易/" class title="硕士在读，如何才能入行量化交易">硕士在读，如何才能入行量化交易</a></li><li><a href="/posts/career&#38;figure/月亮和pandas/" class title="月亮和Pandas - Wes Mckinney的传奇故事">月亮和Pandas - Wes Mckinney的传奇故事</a></li><li><a href="/posts/career&#38;figure/起底百亿私募创始人/" class title="找校友！起底百亿私募创始人">找校友！起底百亿私募创始人</a></li><li><a href="/posts/career&#38;figure/追随美的指引/" class title="追随美的指引-纪念西蒙斯">追随美的指引-纪念西蒙斯</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/26-09</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/26/09/0918/" class title="Quantide Daily 2026-09-18">Quantide Daily 2026-09-18</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">factor-strategy</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/factor-strategy/1赔10，3月27日我抄底了/" class title="1赔10！中证1000应该这样抄底">1赔10！中证1000应该这样抄底</a></li><li><a href="/posts/factor-strategy/3月27日为什么大跌/" class title="交割日魔咒？">交割日魔咒？</a></li><li><a href="/posts/factor-strategy/7-factor-model/" class title="7因子模型，除了规模、市场、动量和价值，还有哪些？">7因子模型，除了规模、市场、动量和价值，还有哪些？</a></li><li><a href="/posts/factor-strategy/ESG策略初探-01/" class title="ESG策略初探-01">ESG策略初探-01</a></li><li><a href="/posts/factor-strategy/ESG策略初探-02/" class title="ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a></li><li><a href="/posts/factor-strategy/Is-the-A-share-market-undervalued/" class title="节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？">节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？</a></li><li><a href="/posts/factor-strategy/ORB-strategy/" class title="ORB! Alpha 达到年化 36%">ORB! Alpha 达到年化 36%</a></li><li><a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/" class title="不能求二阶导的metrics<br>不是好的objective">不能求二阶导的metrics&lt;br&gt;不是好的objective</a></li><li><a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/" class title="基于 XGBoost 的组合策略基本框架">基于 XGBoost 的组合策略基本框架</a></li><li><a href="/posts/factor-strategy/alligator/" class title="鳄鱼线，让趋势成为你的朋友">鳄鱼线，让趋势成为你的朋友</a></li><li><a href="/posts/factor-strategy/alpha042/" class title="第42个因子:年化17.6%，15年累计10倍">第42个因子:年化17.6%，15年累计10倍</a></li><li><a href="/posts/factor-strategy/connors-rsi/" class title="年终特稿：这个指标我愿称之为年度最强发现">年终特稿：这个指标我愿称之为年度最强发现</a></li><li><a href="/posts/factor-strategy/decision-tree-made-easy/" class title="如果模型预测准确率超过85%，这台印钞机应该值多少马内？">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a></li><li><a href="/posts/factor-strategy/first-level-derivation/" class title="当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建">当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a></li><li><a href="/posts/factor-strategy/genetic-algorithms/" class title="量化交易中的遗传算法">量化交易中的遗传算法</a></li><li><a href="/posts/factor-strategy/growing-star-market-weights/" class title="量化股票投资起手式<br>指数增强之<br>指数成份股信息挖掘">量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘</a></li><li><a href="/posts/factor-strategy/herd-behaviour/" class title="羊群效应及其因子化">羊群效应及其因子化</a></li><li><a href="/posts/factor-strategy/hindsight-how-do-i-missed-dlsy/" class title="后见之明！错过6个涨停之后的复盘">后见之明！错过6个涨停之后的复盘</a></li><li><a href="/posts/factor-strategy/hockey-and-coin/" class title="球队和硬币因子">球队和硬币因子</a></li><li><a href="/posts/factor-strategy/holy-grail-still-works/" class title="圣杯依然闪耀">圣杯依然闪耀</a></li><li><a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/" class title="涨到溢出！PEPE告诉我，大盘还能涨几多？">涨到溢出！PEPE告诉我，大盘还能涨几多？</a></li><li><a href="/posts/factor-strategy/llm-csi1000-three-experiments/" class title="LLM 能做交易吗？中证 1000 上的三个递进实验">LLM 能做交易吗？中证 1000 上的三个递进实验</a></li><li><a href="/posts/factor-strategy/lof套利怎么做/" class title="白银大涨引发的量化套利策略">白银大涨引发的量化套利策略</a></li><li><a href="/posts/factor-strategy/low-turnover-factor/" class title="Alphalens 因子分析 - 以低换手率因子为例(1)">Alphalens 因子分析 - 以低换手率因子为例(1)</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-2/" class title="Alphalens因子分析(2) - low turnover秒杀98%的基金经理!">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-3/" class title="因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-4/" class title="Alphalens因子分析(4) - Information Coefficient方法">Alphalens因子分析(4) - Information Coefficient方法</a></li><li><a href="/posts/factor-strategy/magic-hot-word-factor/" class title="龙凤呈祥：这种无底限炒作，如何用量化方法发现它？">龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</a></li><li><a href="/posts/factor-strategy/max-volume-direction/" class title="捕捉主力-最大成交量因子">捕捉主力-最大成交量因子</a></li><li><a href="/posts/factor-strategy/mispriced-option/" class title="不写一行代码，我只靠 AI 实现期权定价策略">不写一行代码，我只靠 AI 实现期权定价策略</a></li><li><a href="/posts/factor-strategy/ml-predict-peaks-valleys-1/" class title="机器学习(XgBoost）预测顶和底">机器学习(XgBoost）预测顶和底</a></li><li><a href="/posts/factor-strategy/nh-nl/" class title="净新高占比因子">净新高占比因子</a></li><li><a href="/posts/factor-strategy/perf-of-momentum-10/" class title="7月斜率动量因子复盘：10天回归斜率在A股表现如何？">7月斜率动量因子复盘：10天回归斜率在A股表现如何？</a></li><li><a href="/posts/factor-strategy/pressure-of-prices-intger/" class title="左数效应 整数关口与光折射">左数效应 整数关口与光折射</a></li><li><a href="/posts/factor-strategy/regret/" class title="Sharpe 5.5!遗憾规避因子">Sharpe 5.5!遗憾规避因子</a></li><li><a href="/posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023/" class title="私募量化策略大盘点-2024年初">私募量化策略大盘点-2024年初</a></li><li><a href="/posts/factor-strategy/santa-clause/" class title="Santa Claus Rally">Santa Claus Rally</a></li><li><a href="/posts/factor-strategy/sec-form-4-insider-purchases/" class title="内幕交易因子研究">内幕交易因子研究</a></li><li><a href="/posts/factor-strategy/second-derivative/" class title="动能反转：二阶导动量因子年化Alpha达到61%！">动能反转：二阶导动量因子年化Alpha达到61%！</a></li><li><a href="/posts/factor-strategy/smart-money-concept/" class title="聪明钱概念策略，另一个价格行为交易策略？">聪明钱概念策略，另一个价格行为交易策略？</a></li><li><a href="/posts/factor-strategy/switch-to-decimal/" class title="改用十进制！点差如何影响策略">改用十进制！点差如何影响策略</a></li><li><a href="/posts/factor-strategy/time-will-tell/" class title="时间会证明一切！抢头财（报）就是抢头彩？！">时间会证明一切！抢头财（报）就是抢头彩？！</a></li><li><a href="/posts/factor-strategy/ultimate-oscillator/" class title="一门三杰 一年翻十倍的男人发明了 UO 指标">一门三杰 一年翻十倍的男人发明了 UO 指标</a></li><li><a href="/posts/factor-strategy/week-day-factor/" class title="周一到周五，哪天能买股？做对了夏普22.5！">周一到周五，哪天能买股？做对了夏普22.5！</a></li><li><a href="/posts/factor-strategy/word-count/" class title="WorldQuant? Word Count!">WorldQuant? Word Count!</a></li><li><a href="/posts/factor-strategy/z-score-factor/" class title="Z-score 因子的深入思考">Z-score 因子的深入思考</a></li><li><a href="/posts/factor-strategy/低波动因子/" class title="新国九条下，低波动因子重要性提升！">新国九条下，低波动因子重要性提升！</a></li><li><a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/" class title="在这一刻抄底，胜率高达95%">在这一刻抄底，胜率高达95%</a></li><li><a href="/posts/factor-strategy/市盈率因子该怎么用/" class title="不看懂这篇文章，不要在量化中使用市盈率！">不看懂这篇文章，不要在量化中使用市盈率！</a></li><li><a href="/posts/factor-strategy/打新不中，买新当如何/" class title="2026年打新总不中签怎么办？散户买新股必看5大量化策略">2026年打新总不中签怎么办？散户买新股必看5大量化策略</a></li><li><a href="/posts/factor-strategy/拯救cci/" class title="拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！">拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！</a></li><li><a href="/posts/factor-strategy/暴力美学！洗盘模式如何检测/" class title="暴力美学！洗盘模式如何检测？">暴力美学！洗盘模式如何检测？</a></li><li><a href="/posts/factor-strategy/构建强化学习交易模型/" class title="强化学习模型能否自我演化出交易智慧？">强化学习模型能否自我演化出交易智慧？</a></li><li><a href="/posts/factor-strategy/洛书投资解读/" class title="洛书投资：先验性因子与波动率等权">洛书投资：先验性因子与波动率等权</a></li><li><a href="/posts/factor-strategy/终极猜想!底蓓离的成因分析/" class title="终极猜想！底蓓离的成因分析">终极猜想！底蓓离的成因分析</a></li><li><a href="/posts/factor-strategy/跟着国会山股神去炒股/" class title="Political Alpha，跟着国会山股神去炒股">Political Alpha，跟着国会山股神去炒股</a></li><li><a href="/posts/factor-strategy/顶底标注/" class title="为了机器能学习，我标注了 2 万条行情数据">为了机器能学习，我标注了 2 万条行情数据</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">freshman</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/freshman/roadmap-to-become-a-quant/" class title="问薪无愧！<br>自学量化大纲有这75页就够了">问薪无愧！&lt;br&gt;自学量化大纲有这75页就够了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/策略研究</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/策略研究/capm/" class title="资本资产定价模型">资本资产定价模型</a></li><li><a href="/articles/investment/策略研究/mpt-1/" class title="投资组合理论与实战(1) - 基本概念">投资组合理论与实战(1) - 基本概念</a></li><li><a href="/articles/investment/策略研究/mpt-2/" class title="投资组合理论与实战(2) - 蒙特卡洛方法">投资组合理论与实战(2) - 蒙特卡洛方法</a></li><li><a href="/articles/investment/策略研究/mpt-3/" class title="投资组合理论与实战(3) - 优化算法">投资组合理论与实战(3) - 优化算法</a></li><li><a href="/articles/investment/策略研究/mpt-4/" class title="投资组合理论与实战(4) - PyportfolioOpt工具库">投资组合理论与实战(4) - PyportfolioOpt工具库</a></li><li><a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/" class title="关于寻找顶和底的一些研究">关于寻找顶和底的一些研究</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/实盘接入/" class title="量化实盘接入方式">量化实盘接入方式</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库-数据持久化</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/数据持久化/数据持久化/" class title="量化数据的持久化方案">量化数据的持久化方案</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化杂谈</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化杂谈/tulipmania/" class title="花开曾倾国">花开曾倾国</a></li><li><a href="/articles/investment/量化杂谈/voc/" class title="东印度公司">东印度公司</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">papers</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/papers/03-低延迟趋势线与交易择时/" class title="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？">『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</a></li><li><a href="/posts/papers/04-年化25%的策略为何翻车/" class title="『译研报04』 年化25%的策略到底有没有翻车？">『译研报04』 年化25%的策略到底有没有翻车？</a></li><li><a href="/posts/papers/kronos/" class title="Kronos：金融K线大模型如何让交易“语言化”？">Kronos：金融K线大模型如何让交易“语言化”？</a></li><li><a href="/posts/papers/rsrs择时指标/" class title="RSRS 择时指标">RSRS 择时指标</a></li><li><a href="/posts/papers/ubl/" class title="『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/ubl-2/" class title="『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/分享免费金融扩展工具/" class title="免费读华尔街日报？彭博年费¥4300+，用这个扩展绕过付费墙">免费读华尔街日报？彭博年费¥4300+，用这个扩展绕过付费墙</a></li><li><a href="/posts/papers/研报该如何复现/" class title="把研报『翻译』成代码，80%的工作都在这篇文章里讲了">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/python/awesome-code/" class title="只廖廖数行，但很惊艳的代码">只廖廖数行，但很惊艳的代码</a></li><li><a href="/posts/python/duckdb-2/" class title="为什么量化人应该使用duckdb？">为什么量化人应该使用duckdb？</a></li><li><a href="/posts/python/how-to-set-env-in-jupyter-notebook/" class title="Jupyter Notebook中如何设置环境变量？">Jupyter Notebook中如何设置环境变量？</a></li><li><a href="/posts/python/it-is-π-thon/" class title="π-thon以及他的朋友们">π-thon以及他的朋友们</a></li><li><a href="/posts/python/pypinyin/" class title="4k stars! 如何实现按拼音首字母查询证券代码？">4k stars! 如何实现按拼音首字母查询证券代码？</a></li><li><a href="/posts/python/python-just-released-3.13/" class title="10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本">10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本</a></li><li><a href="/posts/python/qmt-how-to-handle-dr-adjust/" class title="QMT复权因子计算太慢？教你一个提速100倍的高效算法">QMT复权因子计算太慢？教你一个提速100倍的高效算法</a></li><li><a href="/posts/python/static-blog-in-2024/" class title="2024年，免费博客赚钱方案">2024年，免费博客赚钱方案</a></li><li><a href="/posts/python/use-sql-query-with-pandas/" class title="给Pandas找个搭子，用SQL玩转Dataframe!">给Pandas找个搭子，用SQL玩转Dataframe!</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">resources</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/resources/a-palette-of-colorful-websites/" class title="一些和颜色相关的网站">一些和颜色相关的网站</a></li><li><a href="/posts/resources/barra-risk-model-handbook/" class title="Barra风险模型构建完全指南">Barra风险模型构建完全指南</a></li><li><a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/" class title="来自世坤！寻找Alpha 构建交易策略的量化方法">来自世坤！寻找Alpha 构建交易策略的量化方法</a></li><li><a href="/posts/resources/free-paper-download/" class title="论如何白嫖论文">论如何白嫖论文</a></li><li><a href="/posts/resources/top-journals-in-quantitative-finance/" class title="量化金融人都在看哪些顶刊">量化金融人都在看哪些顶刊</a></li><li><a href="/posts/resources/白嫖顶级AI算力指南/" class title="龙虾流量太贵？ 我一招搞定每天7500万词元">龙虾流量太贵？ 我一招搞定每天7500万词元</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">2026十大量化技术</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/2026十大量化技术/fasthtml/" class title="量化新基建(三) - FastHTML：Python 全栈开发的终极答案">量化新基建(三) - FastHTML：Python 全栈开发的终极答案</a></li><li><a href="/posts/tools/2026十大量化技术/pandas/" class title="The Battle for a New Dawn<br>量化新基建（四）：Pandas 3.0">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a></li><li><a href="/posts/tools/2026十大量化技术/sqlite/" class title="2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？">2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？</a></li><li><a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/" class title="UV &#38; Pydantic：重塑 2026 Python 工程化基石">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub" open> <summary class="nav-dir"><span class="nav-label">21天驯化AI打工仔</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/21天驯化AI打工仔/1_数据获取/" class title="21天驯化AI打工仔 - 我如何获取量化数据">21天驯化AI打工仔 - 我如何获取量化数据</a></li><li><a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/" class title="21天驯化AI打工仔 - 开发量化交易系统">21天驯化AI打工仔 - 开发量化交易系统</a></li><li><a href="/posts/tools/21天驯化AI打工仔/3_数据库的优化设计/" class title="21天驯化AI打工仔 - 数据库的优化">21天驯化AI打工仔 - 数据库的优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/" class title="21天驯化AI打工仔 - 如何存储10亿个Symbol?">21天驯化AI打工仔 - 如何存储10亿个Symbol?</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/" class title="21天驯化AI打工仔 - SQEP 的性能再优化">21天驯化AI打工仔 - SQEP 的性能再优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/" class="current" title="21天驯化AI打工仔 - SQEP与symbol编码性能测试">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a></li><li><a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/" class title="21天驯化AI打工仔 - 日线数据的定时获取">21天驯化AI打工仔 - 日线数据的定时获取</a></li><li><a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/" class title="21天驯化AI打工仔 - 日线数据的定时获取（2）">21天驯化AI打工仔 - 日线数据的定时获取（2）</a></li><li><a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/" class title="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a></li><li><a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/" class title="21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">AI-tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming/" class title="除了编程，量化人还能怎么用AI？">除了编程，量化人还能怎么用AI？</a></li><li><a href="/posts/tools/AI-tools/remote-agent/" class title="Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">Numpy_Pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/Numpy_Pandas/01-introduction/01-introduction/" class title="这是你的量化母语">这是你的量化母语</a></li><li><a href="/posts/tools/Numpy_Pandas/02-numpy核心语法[1]/02-numpy核心语法[1]/" class title="Numpy核心语法[1]">Numpy核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/03-numpy核心语法[2]/03-numpy核心语法[2]/" class title="Numpy处理表格数据">Numpy处理表格数据</a></li><li><a href="/posts/tools/Numpy_Pandas/04-numpy核心语法[3]/04-numpy核心语法[3]/" class title="Numpy核心语法[3]">Numpy核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/05-numpy核心语法[4]/05-numpy核心语法[4]/" class title="Numpy核心语法[4]">Numpy核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/06-numpy核心语法[5]/06-numpy核心语法[5]/" class title="Numpy核心语法[5]">Numpy核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/07-numpy核心语法[6]/07-numpy核心语法[6]/" class title="Numpy核心语法[6]">Numpy核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/08-numpy应用案例[1]/08-numpy应用案例[1]/" class title="Numpy应用案例[1]">Numpy应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/09-numpy应用案例[2]/09-numpy应用案例[2]/" class title="Numpy应用案例[2]">Numpy应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/10-numpy应用案例[3]/10-numpy应用案例[3]/" class title="Numpy应用案例[3]">Numpy应用案例[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/11-pandas核心语法[1]/11-pandas核心语法[1]/" class title="Pandas核心语法[1]">Pandas核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/12-pandas核心语法[2]/12-pandas核心语法[2]/" class title="Pandas核心语法[2]">Pandas核心语法[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/13-pandas核心语法[3]/13-pandas核心语法[3]/" class title="Pandas核心语法[3]">Pandas核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/14-pandas核心语法[4]/14-pandas核心语法[4]/" class title="Pandas核心语法[4]">Pandas核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/15-pandas核心语法[5]/15-pandas核心语法[5]/" class title="Pandas核心语法[5]">Pandas核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/16-pandas核心语法[6]/16-pandas核心语法[6]/" class title="Pandas核心语法[6]">Pandas核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/17-pandas核心语法[7]/17-pandas核心语法[7]/" class title="Pandas核心语法[7]">Pandas核心语法[7]</a></li><li><a href="/posts/tools/Numpy_Pandas/18-pandas应用案例[1]/18-pandas应用案例[1]/" class title="Pandas应用案例[1]">Pandas应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/19-pandas应用案例[2]/19-pandas应用案例[2]/" class title="Pandas应用案例[2]">Pandas应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/20-pandas应用案例[3]/20-pandas应用案例[3]/" class title="Pandas应用案例[3]">Pandas应用案例[3]</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">moonshot</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-1/" class title="『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架">『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/" class title="『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/" class title="涨时重势，跌时重质，Moonshot首测股息率因子给出结论">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/" class title="研报复现之如何正确筛选『连续两年分红』股票（附代码）">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/" class title="Moonshot is all you need - 红利策略完结篇">Moonshot is all you need - 红利策略完结篇</a></li> </ul> </details> </li><li><a href="/posts/tools/8个ipython技巧/" class title="你可能不知道的8个IPython技巧">你可能不知道的8个IPython技巧</a></li><li><a href="/posts/tools/agent-on-tracks/" class title="Vibe Coding 能做大项目吗？量化人替你试过了">Vibe Coding 能做大项目吗？量化人替你试过了</a></li><li><a href="/posts/tools/all-about-openbb-as-a-newhand/" class title="OpenBB 实战！轻松获取海外市场数据">OpenBB 实战！轻松获取海外市场数据</a></li><li><a href="/posts/tools/alphasuite/" class title="不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词">不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</a></li><li><a href="/posts/tools/augment-daily-dose/" class title="Augment随手记">Augment随手记</a></li><li><a href="/posts/tools/auto-restart-miniqmt/" class title="如何免登录重启miniqmt?">如何免登录重启miniqmt?</a></li><li><a href="/posts/tools/do-not-fly-solo-copilot/" class title="Don't fly solo! 量化人如何使用AI工具">Don&#39;t fly solo! 量化人如何使用AI工具</a></li><li><a href="/posts/tools/duckdb-has-released-1.0/" class title="里程碑！DuckDB 发布 1.0">里程碑！DuckDB 发布 1.0</a></li><li><a href="/posts/tools/effective-numpy-1/" class title="高效量化编程: Mask Array应用和find_runs">高效量化编程: Mask Array应用和find_runs</a></li><li><a href="/posts/tools/effective-pandas-1/" class title="Pandas高级技巧-1">Pandas高级技巧-1</a></li><li><a href="/posts/tools/effective-pandas-2/" class title="高效量化编程: Pandas 的多级索引">高效量化编程: Pandas 的多级索引</a></li><li><a href="/posts/tools/get-clean-factor-and-forward-returns/" class title="12个参数，48个组合，这么复杂的函数怎么学？">12个参数，48个组合，这么复杂的函数怎么学？</a></li><li><a href="/posts/tools/hdf5/" class title="200倍速！基于 HDF5 的证券数据存储">200倍速！基于 HDF5 的证券数据存储</a></li><li><a href="/posts/tools/hermes/" class title="2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？">2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？</a></li><li><a href="/posts/tools/how-to-develop-complex-project-using-augment/" class title="试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目">试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher/" class title="量化人如何用好Jupyter环境？（一）">量化人如何用好Jupyter环境？（一）</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher-2/" class title="量化人如何用好 Jupyter？（二）">量化人如何用好 Jupyter？（二）</a></li><li><a href="/posts/tools/pandas-连续涨停统计/" class title="Pandas连续涨停统计">Pandas连续涨停统计</a></li><li><a href="/posts/tools/pyarrow-plus-parquet/" class title="存了50TB！pyarrow + parquet">存了50TB！pyarrow + parquet</a></li><li><a href="/posts/tools/qmt-get-sector/" class title="xtquant 中的板块数据">xtquant 中的板块数据</a></li><li><a href="/posts/tools/qmt-get-stock-price/" class title="量化数据免费方案之 QMT">量化数据免费方案之 QMT</a></li><li><a href="/posts/tools/quantstats-2/" class title="算收益，用算术平均好还是几何平均好?">算收益，用算术平均好还是几何平均好?</a></li><li><a href="/posts/tools/quantstats-reload-news/" class title="原作者失联8个月，我们接手维护后他突然回来了">原作者失联8个月，我们接手维护后他突然回来了</a></li><li><a href="/posts/tools/quantstats-reloaded/" class title="Quantstats Reloaded">Quantstats Reloaded</a></li><li><a href="/posts/tools/rd-agent-for-quant-intro/" class title="微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？">微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？</a></li><li><a href="/posts/tools/trade-api/" class title="量化实盘接口">量化实盘接口</a></li><li><a href="/posts/tools/why-click-house-so-fast/" class title="ClickHouse: One table to rule them all!">ClickHouse: One table to rule them all!</a></li><li><a href="/posts/tools/work-with-xtquant/" class title="QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点">QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点</a></li><li><a href="/posts/tools/关于复权那些事儿/" class title="前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a></li><li><a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/" class title="致命的 ID -- DuckDB 中的 Returning 子句之谜">致命的 ID -- DuckDB 中的 Returning 子句之谜</a></li><li><a href="/posts/tools/量化人的2025新年礼/" class title="睽违17年，ta-lib重装出发！">睽违17年，ta-lib重装出发！</a></li><li><a href="/posts/tools/量化研究员如何写一手好代码/" class title="量化研究员如何写一手好代码">量化研究员如何写一手好代码</a></li><li><a href="/posts/tools/量子计算/" class title="量子计算能否重构量化金融未来？">量子计算能否重构量化金融未来？</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">uncategory</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/uncategory/crowed-strike-postmoterm/" class title="全球Windows机器蓝屏，作为量化人，我的检讨来了">全球Windows机器蓝屏，作为量化人，我的检讨来了</a></li><li><a href="/posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/" class title="DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a></li><li><a href="/posts/uncategory/ipv6-how-to/" class title="当我在星巴克连上家里的服务器，IPV6，你是值得的">当我在星巴克连上家里的服务器，IPV6，你是值得的</a></li><li><a href="/posts/uncategory/need-for-speed/" class title="外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！">外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！</a></li><li><a href="/posts/uncategory/quantide的课程怎么样/" class title="花 930 美元买一门量化课? GPT 如何评估量化课程值不值">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a></li><li><a href="/posts/uncategory/quantumn-computing-break-through/" class title="量子飞跃：汇丰银行债券交易可能成为华尔街未来">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a></li><li><a href="/posts/uncategory/the-awaken-of-machine/" class title="机器的觉醒！人工智能风云激荡70年">机器的觉醒！人工智能风云激荡70年</a></li><li><a href="/posts/uncategory/weekly-0721/" class title="[0721] QuanTide Weekly">[0721] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0728/" class title="[0728] QuanTide Weekly">[0728] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0804/" class title="[0804] QuanTide Weekly">[0804] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0811/" class title="[0811] QuanTide Weekly">[0811] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0818/" class title="[0818] QuanTide Weekly">[0818] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0825/" class title="[0825] QuanTide Weekly">[0825] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0901/" class title="[0901] QuanTide Weekly">[0901] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0908/" class title="[0908] QuanTide Weekly">[0908] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0915/" class title="[0915] QuanTide Weekly">[0915] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0922/" class title="[0922] QuanTide Weekly">[0922] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0929/" class title="[0929] QuanTide Weekly">[0929] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1013/" class title="[1013] QuanTide Weekly">[1013] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1020/" class title="[1020] QuanTide Weekly">[1020] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1027/" class title="[1027] QuanTide Weekly">[1027] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1103/" class title="[1103] QuanTide Weekly">[1103] QuanTide Weekly</a></li><li><a href="/posts/uncategory/进化论/" class title="普校逆袭天花板 进化论王一平：有逻辑的量化">普校逆袭天花板 进化论王一平：有逻辑的量化</a></li><li><a href="/posts/uncategory/量化人也该开始装skills了/" class title="做能调教AI的赛博老技师，量化人也该开始装Skills了">做能调教AI的赛博老技师，量化人也该开始装Skills了</a></li><li><a href="/posts/uncategory/量化黑话/" class title="量化投资黑话：深度解析“因子”及其核心逻辑">量化投资黑话：深度解析“因子”及其核心逻辑</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-figure" title="figure（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="figure">figure</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">21天驯化AI打工仔 - SQEP与symbol编码性能测试</h1> <p class="meta"> <span>📅 2025-05-18</span> <span>🏷 tools,programming,Augment</span> <span>👁 本月阅读 <span data-page-pv>—</span></span> </p> <img class="cover-img" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png" alt="21天驯化AI打工仔 - SQEP与symbol编码性能测试"> <div class="md-body" data-pagefind-body><p>&quot;007，我们需要讨论一个重要的性能优化问题，&quot;我一边敲击键盘一边对我的 AI 助手说道。</p>
+<p>&quot;什么问题？我已经准备好了，&quot;007 回应道，它的语音合成器发出了一种几乎可以称为热情的声音。</p>
+<p>&quot;在量化交易系统中，数据查询性能至关重要。我们需要测试一下股票代码编码方式对查询速度的影响。&quot;</p>
+<hr>
+<p>前三天，我们讨论了如何从 Tushare 获取 OHLC (开盘价、最高价、最低价、收盘价) 数据和调整因子 (adj_factor)。当时我们存储的数据结构如下：</p>
+<pre><code class="language-python">{
+    &quot;timestamp&quot;: &quot;时间戳&quot;,
+    &quot;ts_code&quot;: &quot;股票代码&quot;,
+    &quot;ohlc&quot;: {
+        &quot;ts_code&quot;: &quot;股票代码&quot;,
+        &quot;open&quot;: &quot;开盘价&quot;,
+        &quot;high&quot;: &quot;最高价&quot;,
+        &quot;low&quot;: &quot;最低价&quot;,
+        &quot;close&quot;: &quot;收盘价&quot;,
+        &quot;vol&quot;: &quot;成交量&quot;
+    },
+    &quot;adj_factor&quot;: {
+        &quot;ts_code&quot;: &quot;股票代码&quot;,
+        &quot;trade_date&quot;: &quot;交易日期&quot;,
+        &quot;adj_factor&quot;: &quot;复权因子&quot;
+    }
+}
+</code></pre>
+<p>现在，我们需要设计一种通用的数据交换格式（Standard Quotes Exchange Protocol, SQEP）。这种格式的工作原理是：由数据生产者（因为只有生产者才了解原始数据的具体格式）将数据转换为这种标准格式，然后再将其推送到 Redis 中供消费者使用。</p>
+<p>&quot;在金融数据处理中，毫秒级的延迟可能意味着巨大的差异，&quot;007 解释道，&quot;特别是在高频交易场景下，查询性能的优化至关重要。&quot;</p>
+<p>我点点头：&quot;没错，其中一个关键问题是股票代码 symbol 的数据类型选择。理论上，整数类型的查询和比较操作应该比字符串更高效，但我们需要实际测试来验证这一点。&quot;</p>
+<p>&quot;我可以帮你设计一个严谨的实验，&quot;007 建议道，&quot;我们可以生成足够大的数据集，然后在相同条件下比较 string 和 int64 类型的查询性能。&quot;</p>
+<p>于是，我和 007 决定生成 1 亿条股票数据，对 string 类型和 int64 类型的 symbol 进行严谨公平的性能测试，以量化分析不同编码方式对查询效率的实际影响。这个实验将帮助我们在构建高性能量化交易系统时做出更明智的技术选择。</p>
+<h2 id="1-sqep-bar-day-日线场景下的数据交换格式">1. SQEP-BAR-DAY 日线场景下的数据交换格式</h2>
+<p>&quot;设计一个好的数据交换格式需要考虑多方面因素，&quot;007 分析道，&quot;包括数据完整性、传输效率、存储空间和查询性能。&quot;</p>
+<p>SQEP-BAR-DAY 是标准行情交换协议 (Standard Quotes Exchange Protocol) 中用于日线数据的格式规范。该格式设计用于在不同系统组件间高效传输和处理股票日线数据，确保数据的一致性和互操作性。</p>
+<p>这种标准化的数据格式解决了量化交易系统中一个常见的痛点：不同数据源提供的数据格式各不相同，导致系统需要为每个数据源编写特定的处理逻辑。通过 SQEP，我们可以将这种复杂性隔离在数据生产者端，让消费者端的代码更加简洁和通用。</p>
+<h3 id="11-字段定义">1.1. 字段定义</h3>
+<p>SQEP-BAR-DAY 包含以下标准字段：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>symbol</td>
+<td>str/int</td>
+<td>股票代码。推荐使用整型编码以提高性能</td>
+</tr>
+<tr>
+<td>frame</td>
+<td>datetime.date</td>
+<td>交易日期</td>
+</tr>
+<tr>
+<td>open</td>
+<td>float64</td>
+<td>开盘价</td>
+</tr>
+<tr>
+<td>high</td>
+<td>float64</td>
+<td>最高价</td>
+</tr>
+<tr>
+<td>low</td>
+<td>float64</td>
+<td>最低价</td>
+</tr>
+<tr>
+<td>close</td>
+<td>float64</td>
+<td>收盘价</td>
+</tr>
+<tr>
+<td>vol</td>
+<td>float64</td>
+<td>成交量</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float64</td>
+<td>成交额</td>
+</tr>
+<tr>
+<td>adjust</td>
+<td>float64</td>
+<td>复权因子</td>
+</tr>
+<tr>
+<td>st</td>
+<td>bool</td>
+<td>是否为 ST 股票（可选扩展字段）</td>
+</tr>
+<tr>
+<td>buy_limit</td>
+<td>float64</td>
+<td>涨停价（可选扩展字段）</td>
+</tr>
+<tr>
+<td>sell_limit</td>
+<td>float64</td>
+<td>跌停价（可选扩展字段）</td>
+</tr>
+</tbody></table>
+<h3 id="12-编码约定">1.2. 编码约定</h3>
+<p>&quot;在设计数据结构时，命名和编码约定看似小事，但实际上对系统的长期维护和性能有着深远影响，&quot;007 提醒道。</p>
+<ol>
+<li><p><strong>字段命名</strong>：使用 <code>frame</code> 而非 <code>date</code> 或 <code>timestamp</code>，因为后两者在某些数据库中不适合作为列名。</p>
+</li>
+<li><p><strong>股票代码编码</strong>：为提高查询性能，推荐将字符串格式的股票代码转换为整型：</p>
+<ul>
+<li>上海证券交易所：000001.SH → 1000001</li>
+<li>深圳证券交易所：000001.SZ → 2000001</li>
+</ul>
+<p>这种编码方式最多可支持 9 个不同交易所（数字 1-9，0 不能用作前缀）。</p>
+</li>
+</ol>
+<p>&quot;这种整数编码方案非常巧妙，&quot;我评论道，&quot;它不仅保留了原始代码的所有信息，还能通过前缀区分不同交易所，同时将字符串转换为可能更高效的整数类型。&quot;</p>
+<p>007 补充道：&quot;是的，而且这种编码方式在保持可读性的同时，还能充分利用数据库的整数索引优化，理论上应该能提高查询性能。不过，我们需要通过实际测试来验证这一假设。&quot;</p>
+<h3 id="13-使用场景">1.3. 使用场景</h3>
+<p>SQEP-BAR-DAY 主要应用于：</p>
+<ol>
+<li>数据生产者（如 Tushare、QMT 等数据源）将原始数据转换为标准格式</li>
+<li>通过 Redis 等中间件在系统组件间传输</li>
+<li>数据消费者（如分析引擎、回测系统）处理标准格式数据</li>
+<li>存储到 ClickHouse 等时序数据库中进行长期保存</li>
+</ol>
+<h2 id="2-symbol-编码的性能测试">2. symbol 编码的性能测试</h2>
+<p>&quot;理论上，整数类型的查询应该比字符串更快，但具体提升多少呢？&quot;我思考着。</p>
+<p>&quot;这正是我们需要通过实验来回答的问题，&quot;007 回应道，&quot;让我们设计一个严谨的性能测试，确保结果具有科学性和可重复性。&quot;</p>
+<p>在数据库性能优化中，选择合适的数据类型对查询效率有着显著影响。特别是对于像股票代码这样频繁用于查询条件的字段，其存储和索引方式可能会直接影响系统的整体性能。本节将通过大规模数据集测试，量化分析字符串型和整数型股票代码在查询性能上的差异。</p>
+<h3 id="21-测试环境">2.1. 测试环境</h3>
+<p>&quot;为了确保测试的公平性，我们需要设计一个完整的数据流程，&quot;007 建议道，&quot;从数据生成、存储到查询，每个环节都需要精心设计。&quot;</p>
+<p>首先，我们通过 Redis 来把 symbol 编码的数据进行存储，然后通过 ClickHouse 来进行查询。ClickHouse 是一个专为 OLAP（在线分析处理）设计的列式数据库管理系统，非常适合大规模数据的快速分析查询。</p>
+<pre><code class="language-python"># 配置参数
+REDIS_HOST = &quot;localhost&quot;
+REDIS_PORT = 6379
+REDIS_PASSWORD = &quot;添加Redis密码&quot;  # 添加 Redis 密码
+REDIS_QUEUE_NAME = &quot;test_queue&quot;
+
+CLICKHOUSE_HOST = &quot;localhost&quot;
+CLICKHOUSE_PORT = 9000
+CLICKHOUSE_DB = &quot;test_data&quot;
+CLICKHOUSE_TABLE = &quot;stock_data&quot;
+
+BATCH_SIZE = 100000  # 每批次处理的记录数
+TOTAL_RECORDS = 100000000  # 总记录数 (1 亿)
+
+# 初始化 Redis 连接
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, decode_responses=True)
+
+# 初始化 ClickHouse 连接
+clickhouse_client = Client(host=CLICKHOUSE_HOST, port=CLICKHOUSE_PORT, database=CLICKHOUSE_DB)
+</code></pre>
+<h3 id="22-生成-stockdata-数据">2.2. 生成 stock_data 数据</h3>
+<p>&quot;生成有代表性的测试数据是实验成功的关键，&quot;007 指出，&quot;我们需要模拟真实市场环境中的数据分布和特征。&quot;</p>
+<p>为了测试查询速度，我们需要生成 stock_data 数据，这里我随机生成 1 亿条数据。这个规模足够大，可以消除随机波动的影响，同时也能反映真实生产环境中的性能表现。</p>
+<p>&quot;1 亿条记录，&quot;我思考着，&quot;这应该足够模拟真实的生产环境了。&quot;</p>
+<p>&quot;是的，&quot;007 回应，&quot;大规模数据集能更好地展现不同编码方式在索引和查询上的性能差异。我已经设计好了数据生成算法，包括股票代码、交易日期、价格和交易量等关键字段。&quot;</p>
+<h4>2.2.1. 生成股票和指数代码</h4>
+<pre><code class="language-python">&quot;&quot;&quot;生成股票和指数代码（沪市和深市各一半），返回symbols&quot;&quot;&quot;
+def generate_symbols(num_stocks=5000):
+    symbols = []
+
+    for i in range(num_stocks):
+        if i &lt; num_stocks // 2:
+            # 沪市股票 (600xxx, 601xxx, 603xxx, 605xxx, 688xxx)
+            prefix = random.choice([&#39;600&#39;, &#39;601&#39;, &#39;603&#39;, &#39;605&#39;, &#39;688&#39;])
+            suffix = str(random.randint(0, 999)).zfill(3)
+            symbols.append(f&quot;{prefix}{suffix}.SH&quot;)
+        else:
+            # 深市股票 (000xxx, 001xxx, 002xxx, 003xxx, 300xxx, 301xxx)
+            prefix = random.choice([&#39;000&#39;, &#39;001&#39;, &#39;002&#39;, &#39;003&#39;, &#39;300&#39;, &#39;301&#39;])
+            suffix = str(random.randint(0, 999)).zfill(3)
+            symbols.append(f&quot;{prefix}{suffix}.SZ&quot;)
+
+    # 添加主要指数
+    indices = [
+        # 上证指数
+        &quot;000001.SH&quot;,  # 上证综指
+        &quot;000016.SH&quot;,  # 上证50
+        &quot;000300.SH&quot;,  # 沪深300
+        &quot;000905.SH&quot;,  # 中证500
+        &quot;000852.SH&quot;,  # 中证1000
+        # 深证指数
+        &quot;399001.SZ&quot;,  # 深证成指
+        &quot;399006.SZ&quot;,  # 创业板指
+        &quot;399300.SZ&quot;,  # 沪深300
+        &quot;399905.SZ&quot;,  # 中证500
+        # 其他重要指数
+        &quot;000688.SH&quot;,  # 科创50
+        &quot;399673.SZ&quot;,  # 创业板50
+    ]
+
+    # 添加指数到符号列表
+    symbols.extend(indices)
+
+    return symbols
+</code></pre>
+<h4>2.2.2. 生成ST股票列表</h4>
+<pre><code class="language-python">&quot;&quot;&quot;生成ST股票列表，返回st_stocks&quot;&quot;&quot;
+def generate_st_stocks(symbols, st_ratio=0.05):
+    &quot;&quot;&quot;
+    Args:
+        symbols: 所有股票代码列表
+        st_ratio: ST股票的比例
+
+    Returns:
+        ST股票代码集合
+    &quot;&quot;&quot;
+    # 过滤掉指数
+    stock_symbols = [s for s in symbols if not s in [&quot;000001.SH&quot;, &quot;000016.SH&quot;, &quot;000300.SH&quot;, &quot;000905.SH&quot;,
+                                                    &quot;000852.SH&quot;, &quot;399001.SZ&quot;, &quot;399006.SZ&quot;, &quot;399300.SZ&quot;,
+                                                    &quot;399905.SZ&quot;, &quot;000688.SH&quot;, &quot;399673.SZ&quot;]]
+
+    # 随机选择一部分股票作为ST股票
+    st_count = int(len(stock_symbols) * st_ratio)
+    st_stocks = set(random.sample(stock_symbols, st_count))
+
+    return st_stocks
+</code></pre>
+<h4>2.2.3. 生成股票数据</h4>
+<pre><code class="language-python">def generate_batch_data(batch_size, start_idx, symbols, trading_days, st_stocks):
+    &quot;&quot;&quot;
+    Args:
+        batch_size: 批次大小
+        start_idx: 起始索引
+        symbols: 股票和指数代码列表
+        trading_days: 交易日列表
+        st_stocks: ST股票代码集合
+
+    Returns:
+        包含股票数据的CSV字符串
+    &quot;&quot;&quot;
+    # 准备CSV输出
+    output = io.StringIO()
+    csv_writer = csv.writer(output)
+
+    # 生成数据
+    for i in range(batch_size):
+        if (start_idx + i) &gt;= TOTAL_RECORDS:
+            break
+
+        # 随机选择股票/指数和日期
+        symbol = random.choice(symbols)
+        trade_date = random.choice(trading_days)
+
+        # 判断是否为指数
+        is_index = symbol in [&quot;000001.SH&quot;, &quot;000016.SH&quot;, &quot;000300.SH&quot;, &quot;000905.SH&quot;, &quot;000852.SH&quot;,
+                             &quot;399001.SZ&quot;, &quot;399006.SZ&quot;, &quot;399300.SZ&quot;, &quot;399905.SZ&quot;, &quot;000688.SH&quot;, &quot;399673.SZ&quot;]
+
+        # 判断是否为ST股票
+        is_st = symbol in st_stocks
+
+        # 为指数生成不同范围的价格
+        if is_index:
+            if &quot;000001.SH&quot; in symbol:  # 上证综指
+                base_price = random.uniform(2000, 6000)
+            elif &quot;399001.SZ&quot; in symbol:  # 深证成指
+                base_price = random.uniform(6000, 15000)
+            elif &quot;399006.SZ&quot; in symbol:  # 创业板指
+                base_price = random.uniform(1000, 3500)
+            elif &quot;000300.SH&quot; in symbol or &quot;399300.SZ&quot; in symbol:  # 沪深300
+                base_price = random.uniform(3000, 5500)
+            else:  # 其他指数
+                base_price = random.uniform(4000, 10000)
+
+            # 指数波动通常较小
+            high = base_price * random.uniform(1, 1.03)
+            low = base_price * random.uniform(0.97, 1)
+            open_price = random.uniform(low, high)
+            close = random.uniform(low, high)
+
+            # 指数成交量和金额较大
+            vol = random.uniform(10000000, 100000000)
+            amount = random.uniform(100000000, 1000000000)
+            adjust = 1.0  # 指数没有复权因子
+
+            # 指数没有ST状态和涨跌停限制
+            st = False
+            buy_limit = 0.0
+            sell_limit = 0.0
+        else:
+            # 普通股票
+            # ST股票价格通常较低
+            if is_st:
+                open_price = random.uniform(1, 10)
+            else:
+                open_price = random.uniform(5, 100)
+
+            high = open_price * random.uniform(1, 1.1)
+            low = open_price * random.uniform(0.9, 1)
+            close = random.uniform(low, high)
+
+            # 生成成交量和金额
+            vol = random.uniform(10000, 10000000)
+            amount = vol * close * random.uniform(0.9, 1.1)
+
+            # 生成复权因子
+            adjust = random.uniform(0.8, 1.2)
+
+            # ST状态
+            st = is_st
+
+            # 涨跌停限制
+            if is_st:
+                # ST股票涨跌停限制为5%
+                limit_pct = 0.05
+            else:
+                # 普通股票涨跌停限制为10%（创业板20%，但简化处理）
+                limit_pct = 0.1
+
+            # 计算涨跌停价格
+            prev_close = close / random.uniform(0.95, 1.05)  # 模拟前一日收盘价
+            buy_limit = round(prev_close * (1 + limit_pct), 2)  # 涨停价
+            sell_limit = round(prev_close * (1 - limit_pct), 2)  # 跌停价
+
+        # 写入CSV
+        csv_writer.writerow([
+            symbol,
+            trade_date.strftime(&#39;%Y-%m-%d&#39;),
+            round(open_price, 2),
+            round(high, 2),
+            round(low, 2),
+            round(close, 2),
+            round(vol, 2),
+            round(amount, 2),
+            round(adjust, 4),
+            1 if st else 0,  # 布尔值转为0/1
+            round(buy_limit, 2),
+            round(sell_limit, 2)
+        ])
+
+    return output.getvalue()
+</code></pre>
+<h4>2.2.4. 生成交易日</h4>
+<pre><code class="language-python">print(f&quot;开始生成{TOTAL_RECORDS}条股票和指数数据...&quot;)
+
+# 生成股票和指数代码
+symbols = generate_symbols(5000)
+print(f&quot;已生成{len(symbols)}个股票和指数代码&quot;)
+
+# 生成ST股票
+st_stocks = generate_st_stocks(symbols)
+print(f&quot;已生成{len(st_stocks)}只ST股票&quot;)
+
+# 生成交易日
+start_date = datetime(2010, 1, 1)
+trading_days = []
+
+# 生成约2500个交易日 (每年约250个交易日，10年约2500个)
+current_date = start_date
+for _ in range(2500):
+    # 跳过周末
+    if current_date.weekday() &lt; 5:  # 0-4 表示周一至周五
+        trading_days.append(current_date)
+    current_date += timedelta(days=1)
+
+print(f&quot;已生成{len(trading_days)}个交易日&quot;)
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/generate_stock_data.png" alt=""></p>
+<h3 id="23-redis-生产者把数据推送到-redis-队列">2.3. Redis 生产者：把数据推送到 Redis 队列</h3>
+<p>&quot;数据生成后，我们需要一个高效的方式将其传输到数据库，&quot;007 解释道，&quot;Redis 作为中间件非常适合这个场景，它能高效处理大量数据的快速传输。&quot;</p>
+<p>我点点头：&quot;使用生产者-消费者模式也能让我们更好地控制数据流，避免一次性加载过多数据导致系统压力过大。&quot;</p>
+<pre><code class="language-python"># 计算需要的批次数
+num_batches = (TOTAL_RECORDS + BATCH_SIZE - 1) // BATCH_SIZE
+
+# 使用tqdm显示进度
+with tqdm(total=num_batches) as pbar:
+    for batch_idx in range(num_batches):
+        start_idx = batch_idx * BATCH_SIZE
+
+        # 生成批次数据
+        batch_data = generate_batch_data(BATCH_SIZE, start_idx, symbols, trading_days, st_stocks)
+
+        # 创建唯一的批次ID
+        batch_id = str(uuid.uuid4())
+
+        # 推送到Redis
+        redis_client.set(f&quot;stock_data:{batch_id}&quot;, batch_data, ex=3600)  # 设置1小时过期
+        redis_client.lpush(REDIS_QUEUE_NAME, batch_id)
+
+        pbar.update(1)
+
+        # 每10个批次暂停一下，避免Redis压力过大
+        if batch_idx % 10 == 9:
+            time.sleep(1)
+
+print(&quot;数据生成完成，已全部推送到Redis队列&quot;)
+</code></pre>
+<p>&quot;这个批处理设计很巧妙，&quot;007 评论道，&quot;通过 UUID 确保了每个批次的唯一性，同时设置过期时间避免了数据长期占用内存。每处理 10 个批次暂停一下也能防止 Redis 服务器压力过大。&quot;</p>
+<p>大概运行 20 分钟左右，可以运行结束。数据生成过程中，我们可以看到进度条稳步前进，表明数据正在被成功生成并推送到 Redis 队列中。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/redis_producer.png" alt=""></p>
+<p>&quot;数据生成和推送过程顺利完成，&quot;我观察着进度条，&quot;现在我们需要设计消费者端来处理这些数据。&quot;</p>
+<h3 id="24-redis-消费者从-redis-队列中读取数据并写入-clickhouse-数据库">2.4. Redis 消费者：从 Redis 队列中读取数据并写入 clickhouse 数据库</h3>
+<p>&quot;消费者端的设计同样重要，&quot;007 说道，&quot;它需要高效地从 Redis 读取数据，并正确地将其写入 ClickHouse 数据库。&quot;</p>
+<p>&quot;是的，而且我们需要确保数据的完整性和一致性，&quot;我补充道，&quot;特别是在处理如此大量的数据时。&quot;</p>
+<p>007 点点头：&quot;我已经设计了一个健壮的消费者程序，它能够处理各种异常情况，并提供实时的进度反馈。&quot;</p>
+<pre><code class="language-python">def create_table_if_not_exists():
+    &quot;&quot;&quot;创建ClickHouse表（如果不存在）&quot;&quot;&quot;
+    clickhouse_client.execute(&quot;&quot;&quot;
+    CREATE TABLE IF NOT EXISTS stock_data (
+        symbol String,
+        frame Date,
+        open Float64,
+        high Float64,
+        low Float64,
+        close Float64,
+        vol Float64,
+        amount Float64,
+        adjust Float64,
+        st UInt8,
+        buy_limit Float64,
+        sell_limit Float64,
+        is_index UInt8 MATERIALIZED if(match(symbol, &#39;^(000001|000016|000300|000905|000852|000688|399001|399006|399300|399905|399673)\\.(SH|SZ)$&#39;), 1, 0)
+    ) ENGINE = MergeTree()
+    PARTITION BY toYYYYMM(frame)
+    ORDER BY (symbol, frame)
+    &quot;&quot;&quot;
+    )
+
+    # 创建索引视图，方便查询
+    clickhouse_client.execute(&quot;&quot;&quot;
+    CREATE VIEW IF NOT EXISTS stock_view AS
+    SELECT
+        symbol,
+        frame,
+        open,
+        high,
+        low,
+        close,
+        vol,
+        amount,
+        adjust,
+        st,
+        buy_limit,
+        sell_limit,
+        is_index,
+        splitByChar(&#39;.&#39;, symbol)[1] AS code,
+        splitByChar(&#39;.&#39;, symbol)[2] AS exchange
+    FROM stock_data
+    &quot;&quot;&quot;)
+
+    print(&quot;ClickHouse表和视图已准备就绪&quot;)
+</code></pre>
+<h4>2.4.1. 处理一个批次的数据</h4>
+<pre><code class="language-python">def process_batch(batch_id):
+    &quot;&quot;&quot;
+    Args:
+        batch_id: Redis中的批次ID
+
+    Returns:
+        处理的记录数
+    &quot;&quot;&quot;
+    # 从Redis获取数据
+    csv_data = redis_client.get(f&quot;stock_data:{batch_id}&quot;)
+    if not csv_data:
+        return 0
+
+    # 解析CSV数据
+    csv_reader = csv.reader(io.StringIO(csv_data))
+    rows = []
+
+    for row in csv_reader:
+        try:
+            # 将日期字符串转换为日期对象
+            date_str = row[1]
+            # 尝试解析不同格式的日期
+            try:
+                # 尝试解析YYYY-MM-DD格式
+                date_obj = datetime.strptime(date_str, &#39;%Y-%m-%d&#39;).date()
+            except ValueError:
+                try:
+                    # 尝试解析YYYYMMDD格式
+                    date_obj = datetime.strptime(date_str, &#39;%Y%m%d&#39;).date()
+                except ValueError:
+                    # 如果都失败，打印错误信息并跳过此行
+                    print(f&quot;无法解析日期: {date_str}，跳过此行&quot;)
+                    continue
+
+            # 转换数据类型
+            rows.append((
+                row[0],                    # symbol (String)
+                date_obj,                  # frame (Date as date object)
+                float(row[2]),             # open (Float64)
+                float(row[3]),             # high (Float64)
+                float(row[4]),             # low (Float64)
+                float(row[5]),             # close (Float64)
+                float(row[6]),             # vol (Float64)
+                float(row[7]),             # amount (Float64)
+                float(row[8]),             # adjust (Float64)
+                int(row[9]),               # st (UInt8)
+                float(row[10]),            # buy_limit (Float64)
+                float(row[11])             # sell_limit (Float64)
+            ))
+        except Exception as e:
+            print(f&quot;处理行数据时出错: {e}, 行数据: {row}&quot;)
+            continue
+
+    # 插入到ClickHouse
+    if rows:
+        try:
+            clickhouse_client.execute(
+                f&quot;INSERT INTO {CLICKHOUSE_TABLE} (symbol, frame, open, high, low, close, vol, amount, adjust, st, buy_limit, sell_limit) VALUES&quot;,
+                rows
+            )
+        except Exception as e:
+            print(f&quot;插入ClickHouse时出错: {e}&quot;)
+            return 0
+
+    # 删除Redis中的数据
+    redis_client.delete(f&quot;stock_data:{batch_id}&quot;)
+
+    return len(rows)
+</code></pre>
+<h4>2.4.2. 把 Redis 队列中的数据存入 stock_data 表中</h4>
+<pre><code class="language-python">create_table_if_not_exists()
+
+print(&quot;开始从Redis队列消费数据并写入ClickHouse...&quot;)
+total_processed = 0
+start_time = time.time()
+
+try:
+    with tqdm() as pbar:
+        while True:
+            # 从队列中获取批次ID
+            result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=5)
+
+            if not result:
+                # 队列为空，检查是否还有未处理的批次
+                if redis_client.llen(REDIS_QUEUE_NAME) == 0:
+                    print(&quot;队列为空，等待新数据...&quot;)
+                    time.sleep(5)
+                    if time.time() - start_time &gt; 60 and total_processed == 0:
+                        print(&quot;1分钟内没有数据，退出程序&quot;)
+                        break
+                    continue
+
+            # 处理批次
+            _, batch_id = result
+            records_processed = process_batch(batch_id)
+            total_processed += records_processed
+
+            # 更新进度条
+            pbar.update(records_processed)
+            pbar.set_description(f&quot;已处理: {total_processed:,}&quot;)
+
+            # 每处理100万条记录，显示一次统计信息
+            if total_processed % 1000000 == 0:
+                elapsed = time.time() - start_time
+                rate = total_processed / elapsed if elapsed &gt; 0 else 0
+                print(f&quot;\n已处理 {total_processed:,} 条记录，速率: {rate:.2f} 记录/秒&quot;)
+
+                # 查询一些统计信息
+                try:
+                    stock_count = clickhouse_client.execute(&quot;SELECT count(DISTINCT symbol) FROM stock_data WHERE is_index = 0&quot;)[0][0]
+                    index_count = clickhouse_client.execute(&quot;SELECT count(DISTINCT symbol) FROM stock_data WHERE is_index = 1&quot;)[0][0]
+                    st_count = clickhouse_client.execute(&quot;SELECT count(DISTINCT symbol) FROM stock_data WHERE st = 1&quot;)[0][0]
+                    date_range = clickhouse_client.execute(&quot;SELECT min(frame), max(frame) FROM stock_data&quot;)[0]
+
+                    print(f&quot;数据统计: {stock_count} 只股票, {index_count} 个指数, {st_count} 只ST股票&quot;)
+                    print(f&quot;日期范围: {date_range[0]} 至 {date_range[1]}&quot;)
+
+                    # 查询涨跌停统计
+                    limit_stats = clickhouse_client.execute(&quot;&quot;&quot;
+                    SELECT
+                        count() as total_records,
+                        sum(if(close &gt;= buy_limit AND buy_limit &gt; 0, 1, 0)) as up_limit_count,
+                        sum(if(close &lt;= sell_limit AND sell_limit &gt; 0, 1, 0)) as down_limit_count
+                    FROM stock_data
+                    WHERE is_index = 0
+                    &quot;&quot;&quot;)[0]
+
+                    if limit_stats[0] &gt; 0:
+                        up_limit_pct = (limit_stats[1] / limit_stats[0]) * 100
+                        down_limit_pct = (limit_stats[2] / limit_stats[0]) * 100
+                        print(f&quot;涨停比例: {up_limit_pct:.2f}%, 跌停比例: {down_limit_pct:.2f}%&quot;)
+                except Exception as e:
+                    print(f&quot;统计查询失败: {str(e)}&quot;)
+
+except KeyboardInterrupt:
+    print(&quot;\n程序被手动中断&quot;)
+
+except Exception as e:
+    print(f&quot;\n程序执行异常: {str(e)}&quot;)
+
+finally:
+    elapsed = time.time() - start_time
+    rate = total_processed / elapsed if elapsed &gt; 0 else 0
+    print(f&quot;\n总计处理 {total_processed:,} 条记录，总耗时: {elapsed:.2f} 秒，平均速率: {rate:.2f} 记录/秒&quot;)
+
+    # 显示最终统计信息
+    try:
+        total_records = clickhouse_client.execute(&quot;SELECT count() FROM stock_data&quot;)[0][0]
+        print(f&quot;ClickHouse中总记录数: {total_records:,}&quot;)
+    except Exception as e:
+        print(f&quot;最终统计查询失败: {str(e)}&quot;)
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data.png" alt=""></p>
+<p>&quot;数据已经成功导入 ClickHouse，&quot;我看着终端输出说道，&quot;现在我们有了一个包含大量记录的 stock_data 表。&quot;</p>
+<p>007 显示出一丝满意：&quot;是的，数据导入过程顺利完成。现在我们可以进入实验的核心部分了：创建整数编码的表并进行性能对比。&quot;</p>
+<h3 id="25-stockdatawithint-表格的创建">2.5. stock_data_with_int 表格的创建</h3>
+<p>&quot;为了进行公平的性能比较，我们需要创建一个新表，结构与原表相同，但将 symbol 字段编码为整数类型，&quot;007 解释道。</p>
+<p>我点点头：&quot;这样我们就能在相同的数据集上比较两种不同编码方式的查询性能了。&quot;</p>
+<p>我现在要把 ClickHouse 中所有的 symbol 编码成 int 类型，作为 symbol_int 字段进行存储，然后测试 ClickHouse 两种不同编码方式的查询速度。这个过程需要精心设计，确保两个表除了股票代码的编码方式外，其他方面完全相同，以保证测试的公平性。</p>
+<pre><code class="language-python">def encode_symbol(symbol: str) -&gt; int:
+    &quot;&quot;&quot;将字符串格式的股票代码转换为整型编码
+
+    Args:
+        symbol: 股票代码，如 &#39;000001.SZ&#39; 或 &#39;600519.SH&#39;
+
+    Returns:
+        整型编码的股票代码，如 2000001 或 1600519
+    &quot;&quot;&quot;
+    code, exchange = symbol.split(&#39;.&#39;)
+    code = code.lstrip(&#39;0&#39;)  # 移除前导零，但保留至少一位数字
+    if not code:
+        code = &#39;0&#39;
+
+    if exchange.upper() == &#39;SH&#39;:
+        prefix = &#39;1&#39;
+    elif exchange.upper() == &#39;SZ&#39;:
+        prefix = &#39;2&#39;
+    else:
+        raise ValueError(f&quot;不支持的交易所: {exchange}&quot;)
+
+    return int(prefix + code)
+
+def decode_symbol(encoded_symbol: int) -&gt; str:
+    &quot;&quot;&quot;将整型编码的股票代码转换回字符串格式
+
+    Args:
+        encoded_symbol: 整型编码的股票代码，如 2000001
+
+    Returns:
+        字符串格式的股票代码，如 &#39;000001.SZ&#39;
+    &quot;&quot;&quot;
+    encoded_str = str(encoded_symbol)
+    prefix = encoded_str[0]
+    code = encoded_str[1:]
+
+    # 补齐6位数字
+    code = code.zfill(6)
+
+    if prefix == &#39;1&#39;:
+        exchange = &#39;SH&#39;
+    elif prefix == &#39;2&#39;:
+        exchange = &#39;SZ&#39;
+    else:
+        raise ValueError(f&quot;不支持的交易所前缀: {prefix}&quot;)
+
+    return f&quot;{code}.{exchange}&quot;
+</code></pre>
+<pre><code class="language-python">&quot;&quot;&quot;创建一个新表，将symbol编码为symbol_int，保留前导零&quot;&quot;&quot;
+def create_table_with_symbol_int_preserve_zeros(clickhouse_client):
+    try:
+        # 创建一个新表，包含symbol_int列
+        print(&quot;创建新表...&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        CREATE TABLE IF NOT EXISTS stock_data_with_int (
+            symbol String,
+            symbol_int Int64,  # 使用Int64以确保能存储足够大的数字
+            frame Date,
+            open Float64,
+            high Float64,
+            low Float64,
+            close Float64,
+            vol Float64,
+            amount Float64,
+            adjust Float64,
+            st UInt8,
+            buy_limit Float64,
+            sell_limit Float64,
+            is_index UInt8 MATERIALIZED if(match(symbol, &#39;^(000001|000016|000300|000905|000852|000688|399001|399006|399300|399905|399673)\\.(SH|SZ)$&#39;), 1, 0)
+        ) ENGINE = MergeTree()
+        PARTITION BY toYYYYMM(frame)
+        ORDER BY (symbol, frame)
+        &quot;&quot;&quot;)
+
+        # 从原表插入数据，同时计算symbol_int
+        print(&quot;从原表复制数据并计算symbol_int（保留前导零）...&quot;)
+
+        # 使用正确的SQL语法计算symbol_int，保留前导零
+        clickhouse_client.execute(&quot;&quot;&quot;
+        INSERT INTO stock_data_with_int
+        SELECT
+            symbol,
+            -- 使用条件判断交易所，然后拼接前缀和完整的股票代码（包括前导零）
+            CASE
+                WHEN endsWith(symbol, &#39;.SH&#39;) THEN toInt64(concat(&#39;1&#39;, splitByChar(&#39;.&#39;, symbol)[1]))
+                WHEN endsWith(symbol, &#39;.SZ&#39;) THEN toInt64(concat(&#39;2&#39;, splitByChar(&#39;.&#39;, symbol)[1]))
+                ELSE 0
+            END AS symbol_int,
+            frame, open, high, low, close, vol, amount, adjust, st, buy_limit, sell_limit
+        FROM stock_data
+        &quot;&quot;&quot;)
+
+        print(&quot;新表创建并填充完成&quot;)
+
+        # 创建索引
+        print(&quot;在symbol_int列上创建索引...&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        ALTER TABLE stock_data_with_int
+        ADD INDEX idx_symbol_int (symbol_int) TYPE minmax GRANULARITY 1
+        &quot;&quot;&quot;)
+
+        # 验证数据
+        result = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT
+            symbol,
+            symbol_int,
+            count()
+        FROM stock_data_with_int
+        GROUP BY symbol, symbol_int
+        ORDER BY count() DESC
+        LIMIT 10
+        &quot;&quot;&quot;)
+
+        print(&quot;\n验证数据（前10条）:&quot;)
+        for row in result:
+            print(f&quot;Symbol: {row[0]}, Symbol Int: {row[1]}, Count: {row[2]}&quot;)
+
+    except Exception as e:
+        print(f&quot;创建新表时出错: {str(e)}&quot;)
+
+
+create_table_with_symbol_int_preserve_zeros(clickhouse_client)
+</code></pre>
+<pre><code class="language-python">&quot;&quot;&quot;重新创建表，不包含symbol列&quot;&quot;&quot;
+def recreate_table_without_symbol():
+    try:
+        # 获取表结构
+        columns = clickhouse_client.execute(&quot;DESCRIBE TABLE stock_data_with_int&quot;)
+
+        # 创建新表定义，排除symbol列
+        column_defs = []
+        for col in columns:
+            col_name = col[0]
+            col_type = col[1]
+
+            # 跳过symbol列
+            if col_name == &#39;symbol&#39;:
+                continue
+
+            # 处理is_index列，使其基于symbol_int
+            if col_name == &#39;is_index&#39;:
+                column_defs.append(f&quot;{col_name} UInt8 MATERIALIZED if(symbol_int IN (1000001, 1000016, 1000300, 1000905, 1000852, 1000688, 2399001, 2399006, 2399300, 2399905, 2399673), 1, 0)&quot;)
+            else:
+                # 添加其他列
+                column_defs.append(f&quot;{col_name} {col_type}&quot;)
+
+        # 创建新表
+        print(&quot;创建新表stock_data_with_int_new...&quot;)
+        create_table_sql = f&quot;&quot;&quot;
+        CREATE TABLE stock_data_with_int_new (
+            {&#39;, &#39;.join(column_defs)}
+        ) ENGINE = MergeTree()
+        PARTITION BY toYYYYMM(frame)
+        ORDER BY (symbol_int, frame)
+        &quot;&quot;&quot;
+
+        clickhouse_client.execute(create_table_sql)
+
+        # 复制数据，排除symbol列
+        print(&quot;复制数据到新表...&quot;)
+        copy_data_sql = &quot;&quot;&quot;
+        INSERT INTO stock_data_with_int_new
+        SELECT
+            symbol_int, frame, open, high, low, close, vol, amount, adjust, st, buy_limit, sell_limit
+        FROM stock_data_with_int
+        &quot;&quot;&quot;
+
+        clickhouse_client.execute(copy_data_sql)
+
+        # 验证数据
+        old_count = clickhouse_client.execute(&quot;SELECT count() FROM stock_data_with_int&quot;)[0][0]
+        new_count = clickhouse_client.execute(&quot;SELECT count() FROM stock_data_with_int_new&quot;)[0][0]
+
+        print(f&quot;原表记录数: {old_count}&quot;)
+        print(f&quot;新表记录数: {new_count}&quot;)
+
+        if old_count == new_count:
+            # 删除旧表并重命名新表
+            print(&quot;删除旧表并重命名新表...&quot;)
+            clickhouse_client.execute(&quot;DROP TABLE stock_data_with_int&quot;)
+            clickhouse_client.execute(&quot;RENAME TABLE stock_data_with_int_new TO stock_data_with_int&quot;)
+
+            print(&quot;表重建成功，symbol列已移除&quot;)
+        else:
+            print(&quot;警告: 数据复制不完整，保留两个表以供检查&quot;)
+
+    except Exception as e:
+        print(f&quot;重建表时出错: {str(e)}&quot;)
+
+# 执行表重建
+recreate_table_without_symbol()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/recreate_table_without_symbol.png" alt=""></p>
+<pre><code class="language-python">&quot;&quot;&quot;为表设置symbol_int为索引&quot;&quot;&quot;
+def add_index_to_stock_data_with_int():
+    &quot;&quot;&quot;为stock_data_with_int表添加symbol_int列的索引&quot;&quot;&quot;
+    try:
+        # 检查表是否存在
+        table_exists = clickhouse_client.execute(&quot;EXISTS TABLE stock_data_with_int&quot;)[0][0]
+        if not table_exists:
+            print(&quot;表stock_data_with_int不存在&quot;)
+            return
+
+        # 检查symbol_int列是否存在
+        columns = clickhouse_client.execute(&quot;DESCRIBE TABLE stock_data_with_int&quot;)
+        has_symbol_int = False
+        for col in columns:
+            if col[0] == &#39;symbol_int&#39;:
+                has_symbol_int = True
+                print(f&quot;找到symbol_int列，类型为: {col[1]}&quot;)
+                break
+
+        if not has_symbol_int:
+            print(&quot;表中没有symbol_int列，无法创建索引&quot;)
+            return
+
+        # 添加索引
+        print(&quot;为stock_data_with_int表添加symbol_int列的索引...&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        ALTER TABLE stock_data_with_int
+        ADD INDEX idx_symbol_int (symbol_int) TYPE minmax GRANULARITY 1
+        &quot;&quot;&quot;)
+
+        # 验证索引是否创建成功
+        indexes = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT name, expr
+        FROM system.data_skipping_indices
+        WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)
+
+        if indexes:
+            print(&quot;\n索引创建成功:&quot;)
+            for idx in indexes:
+                print(f&quot;索引名称: {idx[0]}, 表达式: {idx[1]}&quot;)
+        else:
+            print(&quot;\n索引创建失败&quot;)
+
+    except Exception as e:
+        print(f&quot;添加索引时出错: {str(e)}&quot;)
+
+# 执行添加索引
+add_index_to_stock_data_with_int()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data_with_int.png" alt=""></p>
+<p>&quot;表创建成功，&quot;我看着屏幕上的输出说道，&quot;现在我们有了两个结构相似但股票代码编码方式不同的表。&quot;</p>
+<p>007 提醒道：&quot;在进行性能测试前，我们需要确保两个表在结构、数据量和索引等方面是一致的，这样测试结果才有意义。&quot;</p>
+<p>&quot;你说得对，&quot;我点点头，&quot;让我们进行全面的表结构对比，确保测试的公平性。&quot;</p>
+<h3 id="26-检查两张表格确保测试前的数据是严谨公平的">2.6. 检查两张表格，确保测试前的数据是严谨公平的</h3>
+<p>&quot;科学实验的关键在于控制变量，&quot;007 解释道，&quot;我们需要确保两个表除了股票代码的编码方式外，其他所有方面都相同。&quot;</p>
+<p>我认真地检查着两个表的结构：&quot;是的，只有在确保其他条件完全相同的情况下，我们才能得出关于编码方式影响的可靠结论。&quot;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_01.png" alt=""></p>
+<p>&quot;我设计了一系列检查函数，&quot;007 说，&quot;它们会全面比较两个表的结构、索引、分区方式和数据量，确保测试的严谨性。&quot;</p>
+<h4>2.6.1. 表结构对比</h4>
+<pre><code class="language-python">def compare_table_structures():
+    &quot;&quot;&quot;对比两个表的结构&quot;&quot;&quot;
+    try:
+        # 获取两个表的结构
+        stock_data_columns = clickhouse_client.execute(&quot;DESCRIBE TABLE stock_data&quot;)
+        stock_data_with_int_columns = clickhouse_client.execute(&quot;DESCRIBE TABLE stock_data_with_int&quot;)
+
+        # 打印两个表的列信息
+        print(&quot;stock_data表结构:&quot;)
+        for col in stock_data_columns:
+            print(f&quot;列名: {col[0]}, 类型: {col[1]}, 默认表达式: {col[2] if len(col) &gt; 2 else &#39;None&#39;}&quot;)
+
+        print(&quot;\nstock_data_with_int表结构:&quot;)
+        for col in stock_data_with_int_columns:
+            print(f&quot;列名: {col[0]}, 类型: {col[1]}, 默认表达式: {col[2] if len(col) &gt; 2 else &#39;None&#39;}&quot;)
+
+        # 检查列数是否相同（不考虑symbol/symbol_int）
+        stock_data_col_count = len([c for c in stock_data_columns if c[0] != &#39;symbol&#39;])
+        stock_data_with_int_col_count = len([c for c in stock_data_with_int_columns if c[0] != &#39;symbol_int&#39;])
+
+        if stock_data_col_count != stock_data_with_int_col_count:
+            print(f&quot;\n警告: 两个表的列数不同 (不考虑symbol/symbol_int): stock_data有{stock_data_col_count}列，stock_data_with_int有{stock_data_with_int_col_count}列&quot;)
+        else:
+            print(f&quot;\n两个表的列数相同 (不考虑symbol/symbol_int): 各有{stock_data_col_count}列&quot;)
+
+        return stock_data_columns, stock_data_with_int_columns
+
+    except Exception as e:
+        print(f&quot;对比表结构时出错: {str(e)}&quot;)
+        return None, None
+
+# 执行表结构对比
+stock_data_columns, stock_data_with_int_columns = compare_table_structures()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E8%A1%A8%E7%BB%93%E6%9E%84%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<h4>2.6.2. 数据量对比</h4>
+<pre><code class="language-python">def compare_data_volume():
+    &quot;&quot;&quot;对比两个表的数据量&quot;&quot;&quot;
+    try:
+        # 获取两个表的记录数
+        stock_data_count = clickhouse_client.execute(&quot;SELECT count() FROM stock_data&quot;)[0][0]
+        stock_data_with_int_count = clickhouse_client.execute(&quot;SELECT count() FROM stock_data_with_int&quot;)[0][0]
+
+        print(f&quot;stock_data表记录数: {stock_data_count:,}&quot;)
+        print(f&quot;stock_data_with_int表记录数: {stock_data_with_int_count:,}&quot;)
+
+        if stock_data_count != stock_data_with_int_count:
+            print(f&quot;警告: 两个表的记录数不同，相差{abs(stock_data_count - stock_data_with_int_count):,}条记录&quot;)
+        else:
+            print(&quot;两个表的记录数相同&quot;)
+
+        # 检查不同股票代码的数量
+        stock_data_symbols = clickhouse_client.execute(&quot;SELECT count(DISTINCT symbol) FROM stock_data&quot;)[0][0]
+        stock_data_with_int_symbols = clickhouse_client.execute(&quot;SELECT count(DISTINCT symbol_int) FROM stock_data_with_int&quot;)[0][0]
+
+        print(f&quot;stock_data表不同股票数: {stock_data_symbols:,}&quot;)
+        print(f&quot;stock_data_with_int表不同股票数: {stock_data_with_int_symbols:,}&quot;)
+
+        if stock_data_symbols != stock_data_with_int_symbols:
+            print(f&quot;警告: 两个表的不同股票数不同，相差{abs(stock_data_symbols - stock_data_with_int_symbols):,}个股票&quot;)
+        else:
+            print(&quot;两个表的不同股票数相同&quot;)
+
+    except Exception as e:
+        print(f&quot;对比数据量时出错: {str(e)}&quot;)
+
+# 执行数据量对比
+compare_data_volume()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E6%95%B0%E6%8D%AE%E9%87%8F%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<h4>2.6.3. 索引对比</h4>
+<pre><code class="language-python">def compare_indexes_fixed():
+    try:
+        # 首先检查system.data_skipping_indices表的结构
+        columns = clickhouse_client.execute(&quot;&quot;&quot;
+        DESCRIBE TABLE system.data_skipping_indices
+        &quot;&quot;&quot;)
+
+        print(&quot;system.data_skipping_indices表的列:&quot;)
+        column_names = [col[0] for col in columns]
+        for col in columns:
+            print(f&quot;列名: {col[0]}, 类型: {col[1]}&quot;)
+
+        # 根据实际列名调整查询
+        # 常见的列名可能是expression、expr或其他
+        expression_column = None
+        for possible_name in [&#39;expression&#39;, &#39;expr&#39;, &#39;definition&#39;, &#39;data_type&#39;]:
+            if possible_name in column_names:
+                expression_column = possible_name
+                break
+
+        if not expression_column:
+            print(&quot;\n无法找到表达式相关的列，将只显示索引名称&quot;)
+
+            # 获取两个表的索引，只查询名称
+            stock_data_indexes = clickhouse_client.execute(f&quot;&quot;&quot;
+            SELECT name
+            FROM system.data_skipping_indices
+            WHERE table = &#39;stock_data&#39; AND database = currentDatabase()
+            &quot;&quot;&quot;)
+
+            stock_data_with_int_indexes = clickhouse_client.execute(f&quot;&quot;&quot;
+            SELECT name
+            FROM system.data_skipping_indices
+            WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+            &quot;&quot;&quot;)
+
+            print(&quot;\nstock_data表索引:&quot;)
+            for idx in stock_data_indexes:
+                print(f&quot;索引名称: {idx[0]}&quot;)
+
+            print(&quot;\nstock_data_with_int表索引:&quot;)
+            for idx in stock_data_with_int_indexes:
+                print(f&quot;索引名称: {idx[0]}&quot;)
+        else:
+            # 使用找到的表达式列名
+            print(f&quot;\n使用列 &#39;{expression_column}&#39; 作为表达式列&quot;)
+
+            # 获取两个表的索引
+            stock_data_indexes = clickhouse_client.execute(f&quot;&quot;&quot;
+            SELECT name, {expression_column}
+            FROM system.data_skipping_indices
+            WHERE table = &#39;stock_data&#39; AND database = currentDatabase()
+            &quot;&quot;&quot;)
+
+            stock_data_with_int_indexes = clickhouse_client.execute(f&quot;&quot;&quot;
+            SELECT name, {expression_column}
+            FROM system.data_skipping_indices
+            WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+            &quot;&quot;&quot;)
+
+            print(&quot;\nstock_data表索引:&quot;)
+            for idx in stock_data_indexes:
+                print(f&quot;索引名称: {idx[0]}, 表达式: {idx[1]}&quot;)
+
+            print(&quot;\nstock_data_with_int表索引:&quot;)
+            for idx in stock_data_with_int_indexes:
+                print(f&quot;索引名称: {idx[0]}, 表达式: {idx[1]}&quot;)
+
+        # 检查索引数量
+        if len(stock_data_indexes) != len(stock_data_with_int_indexes):
+            print(f&quot;\n警告: 两个表的索引数量不同: stock_data有{len(stock_data_indexes)}个索引，stock_data_with_int有{len(stock_data_with_int_indexes)}个索引&quot;)
+        else:
+            print(f&quot;\n两个表的索引数量相同: 各有{len(stock_data_indexes)}个索引&quot;)
+
+    except Exception as e:
+        print(f&quot;对比索引时出错: {str(e)}&quot;)
+
+# 执行修复后的索引对比
+compare_indexes_fixed()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E7%B4%A2%E5%BC%95%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<h4>2.6.4. 排序键对比</h4>
+<pre><code class="language-python">def compare_sort_keys():
+    &quot;&quot;&quot;对比两个表的排序键&quot;&quot;&quot;
+    try:
+        # 获取两个表的排序键
+        stock_data_sort_keys = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT name, type
+        FROM system.columns
+        WHERE table = &#39;stock_data&#39; AND database = currentDatabase() AND is_in_sorting_key = 1
+        ORDER BY name
+        &quot;&quot;&quot;)
+
+        stock_data_with_int_sort_keys = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT name, type
+        FROM system.columns
+        WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase() AND is_in_sorting_key = 1
+        ORDER BY name
+        &quot;&quot;&quot;)
+
+        print(&quot;stock_data表排序键:&quot;)
+        for key in stock_data_sort_keys:
+            print(f&quot;列名: {key[0]}, 类型: {key[1]}&quot;)
+
+        print(&quot;\nstock_data_with_int表排序键:&quot;)
+        for key in stock_data_with_int_sort_keys:
+            print(f&quot;列名: {key[0]}, 类型: {key[1]}&quot;)
+
+        # 检查排序键数量
+        if len(stock_data_sort_keys) != len(stock_data_with_int_sort_keys):
+            print(f&quot;\n警告: 两个表的排序键数量不同: stock_data有{len(stock_data_sort_keys)}个排序键，stock_data_with_int有{len(stock_data_with_int_sort_keys)}个排序键&quot;)
+        else:
+            print(f&quot;\n两个表的排序键数量相同: 各有{len(stock_data_sort_keys)}个排序键&quot;)
+
+    except Exception as e:
+        print(f&quot;对比排序键时出错: {str(e)}&quot;)
+
+# 执行排序键对比
+compare_sort_keys()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E6%8E%92%E5%BA%8F%E9%94%AE%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<h4>2.6.5. 分区对比</h4>
+<pre><code class="language-python">def compare_partitions_fixed():
+    &quot;&quot;&quot;对比两个表的分区（修复版）&quot;&quot;&quot;
+    try:
+        # 从system.parts表获取分区信息
+        stock_data_partitions = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT partition, sum(rows) as row_count
+        FROM system.parts
+        WHERE table = &#39;stock_data&#39; AND database = currentDatabase() AND active = 1
+        GROUP BY partition
+        ORDER BY partition
+        &quot;&quot;&quot;)
+
+        stock_data_with_int_partitions = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT partition, sum(rows) as row_count
+        FROM system.parts
+        WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase() AND active = 1
+        GROUP BY partition
+        ORDER BY partition
+        &quot;&quot;&quot;)
+
+        print(&quot;stock_data表分区:&quot;)
+        for part in stock_data_partitions:
+            print(f&quot;分区: {part[0]}, 记录数: {part[1]:,}&quot;)
+
+        print(&quot;\nstock_data_with_int表分区:&quot;)
+        for part in stock_data_with_int_partitions:
+            print(f&quot;分区: {part[0]}, 记录数: {part[1]:,}&quot;)
+
+        # 检查分区数量
+        if len(stock_data_partitions) != len(stock_data_with_int_partitions):
+            print(f&quot;\n警告: 两个表的分区数量不同: stock_data有{len(stock_data_partitions)}个分区，stock_data_with_int有{len(stock_data_with_int_partitions)}个分区&quot;)
+        else:
+            print(f&quot;\n两个表的分区数量相同: 各有{len(stock_data_partitions)}个分区&quot;)
+
+        # 检查分区键
+        try:
+            # 获取表的分区键
+            stock_data_partition_key = clickhouse_client.execute(&quot;&quot;&quot;
+            SELECT partition_key
+            FROM system.tables
+            WHERE name = &#39;stock_data&#39; AND database = currentDatabase()
+            &quot;&quot;&quot;)[0][0]
+
+            stock_data_with_int_partition_key = clickhouse_client.execute(&quot;&quot;&quot;
+            SELECT partition_key
+            FROM system.tables
+            WHERE name = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+            &quot;&quot;&quot;)[0][0]
+
+            print(f&quot;\nstock_data表分区键: {stock_data_partition_key}&quot;)
+            print(f&quot;stock_data_with_int表分区键: {stock_data_with_int_partition_key}&quot;)
+
+            if stock_data_partition_key != stock_data_with_int_partition_key:
+                print(f&quot;\n警告: 两个表的分区键不同&quot;)
+            else:
+                print(f&quot;\n两个表的分区键相同: {stock_data_partition_key}&quot;)
+        except Exception as e:
+            print(f&quot;\n获取分区键信息时出错: {str(e)}&quot;)
+            print(&quot;尝试使用SHOW CREATE TABLE获取表定义...&quot;)
+
+            try:
+                stock_data_create = clickhouse_client.execute(&quot;SHOW CREATE TABLE stock_data&quot;)[0][0]
+                stock_data_with_int_create = clickhouse_client.execute(&quot;SHOW CREATE TABLE stock_data_with_int&quot;)[0][0]
+
+                # 提取PARTITION BY子句
+                import re
+                stock_data_partition_match = re.search(r&#39;PARTITION BY\s+([^\n]+)&#39;, stock_data_create)
+                stock_data_with_int_partition_match = re.search(r&#39;PARTITION BY\s+([^\n]+)&#39;, stock_data_with_int_create)
+
+                if stock_data_partition_match and stock_data_with_int_partition_match:
+                    stock_data_partition = stock_data_partition_match.group(1)
+                    stock_data_with_int_partition = stock_data_with_int_partition_match.group(1)
+
+                    print(f&quot;\nstock_data表分区表达式: {stock_data_partition}&quot;)
+                    print(f&quot;stock_data_with_int表分区表达式: {stock_data_with_int_partition}&quot;)
+
+                    if stock_data_partition != stock_data_with_int_partition:
+                        print(f&quot;\n警告: 两个表的分区表达式不同&quot;)
+                    else:
+                        print(f&quot;\n两个表的分区表达式相同: {stock_data_partition}&quot;)
+                else:
+                    print(&quot;\n无法从表定义中提取分区表达式&quot;)
+            except Exception as e:
+                print(f&quot;\n获取表定义时出错: {str(e)}&quot;)
+
+    except Exception as e:
+        print(f&quot;对比分区时出错: {str(e)}&quot;)
+
+# 执行修复后的分区对比
+compare_partitions_fixed()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E5%88%86%E5%8C%BA%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<h4>2.6.6. 表引擎对比</h4>
+<pre><code class="language-python">def compare_engines():
+    &quot;&quot;&quot;对比两个表的引擎&quot;&quot;&quot;
+    try:
+        # 获取两个表的引擎
+        stock_data_engine = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT engine
+        FROM system.tables
+        WHERE name = &#39;stock_data&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)[0][0]
+
+        stock_data_with_int_engine = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT engine
+        FROM system.tables
+        WHERE name = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)[0][0]
+
+        print(f&quot;stock_data表引擎: {stock_data_engine}&quot;)
+        print(f&quot;stock_data_with_int表引擎: {stock_data_with_int_engine}&quot;)
+
+        if stock_data_engine != stock_data_with_int_engine:
+            print(f&quot;警告: 两个表的引擎不同&quot;)
+        else:
+            print(&quot;两个表的引擎相同&quot;)
+
+    except Exception as e:
+        print(f&quot;对比引擎时出错: {str(e)}&quot;)
+
+# 执行引擎对比
+compare_engines()
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E8%A1%A8%E5%BC%95%E6%93%8E%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<h4>2.6.7. 综合对比</h4>
+<pre><code class="language-python">def assess_fairness():
+    &quot;&quot;&quot;综合评估测试公平性&quot;&quot;&quot;
+    try:
+        # 收集所有对比结果
+        issues = []
+
+        # 检查表结构
+        stock_data_col_count = len([c for c in stock_data_columns if c[0] != &#39;symbol&#39;])
+        stock_data_with_int_col_count = len([c for c in stock_data_with_int_columns if c[0] != &#39;symbol_int&#39;])
+        if stock_data_col_count != stock_data_with_int_col_count:
+            issues.append(f&quot;两个表的列数不同 (不考虑symbol/symbol_int): stock_data有{stock_data_col_count}列，stock_data_with_int有{stock_data_with_int_col_count}列&quot;)
+
+        # 检查数据量
+        stock_data_count = clickhouse_client.execute(&quot;SELECT count() FROM stock_data&quot;)[0][0]
+        stock_data_with_int_count = clickhouse_client.execute(&quot;SELECT count() FROM stock_data_with_int&quot;)[0][0]
+        if stock_data_count != stock_data_with_int_count:
+            issues.append(f&quot;两个表的记录数不同: stock_data有{stock_data_count:,}条记录，stock_data_with_int有{stock_data_with_int_count:,}条记录&quot;)
+
+        # 检查索引
+        stock_data_indexes = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT count(*)
+        FROM system.data_skipping_indices
+        WHERE table = &#39;stock_data&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)[0][0]
+
+        stock_data_with_int_indexes = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT count(*)
+        FROM system.data_skipping_indices
+        WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)[0][0]
+
+        if stock_data_indexes != stock_data_with_int_indexes:
+            issues.append(f&quot;两个表的索引数量不同: stock_data有{stock_data_indexes}个索引，stock_data_with_int有{stock_data_with_int_indexes}个索引&quot;)
+
+        # 检查排序键
+        stock_data_sort_keys = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT count(*)
+        FROM system.columns
+        WHERE table = &#39;stock_data&#39; AND database = currentDatabase() AND is_in_sorting_key = 1
+        &quot;&quot;&quot;)[0][0]
+
+        stock_data_with_int_sort_keys = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT count(*)
+        FROM system.columns
+        WHERE table = &#39;stock_data_with_int&#39; AND database = currentDatabase() AND is_in_sorting_key = 1
+        &quot;&quot;&quot;)[0][0]
+
+        if stock_data_sort_keys != stock_data_with_int_sort_keys:
+            issues.append(f&quot;两个表的排序键数量不同: stock_data有{stock_data_sort_keys}个排序键，stock_data_with_int有{stock_data_with_int_sort_keys}个排序键&quot;)
+
+        # 检查引擎
+        stock_data_engine = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT engine
+        FROM system.tables
+        WHERE name = &#39;stock_data&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)[0][0]
+
+        stock_data_with_int_engine = clickhouse_client.execute(&quot;&quot;&quot;
+        SELECT engine
+        FROM system.tables
+        WHERE name = &#39;stock_data_with_int&#39; AND database = currentDatabase()
+        &quot;&quot;&quot;)[0][0]
+
+        if stock_data_engine != stock_data_with_int_engine:
+            issues.append(f&quot;两个表的引擎不同: stock_data使用{stock_data_engine}，stock_data_with_int使用{stock_data_with_int_engine}&quot;)
+
+        # 给出综合评估
+        print(&quot;\n综合评估:&quot;)
+        if issues:
+            print(&quot;发现以下可能影响测试公平性的问题:&quot;)
+            for i, issue in enumerate(issues):
+                print(f&quot;{i+1}. {issue}&quot;)
+            print(&quot;\n建议: 在进行性能测试前，先解决这些问题，确保两个表除了symbol/symbol_int列的类型外，其他方面尽可能相同。&quot;)
+        else:
+            print(&quot;两个表在结构、数据量、索引等方面基本一致，适合进行公平的性能测试。&quot;)
+
+    except Exception as e:
+        print(f&quot;评估公平性时出错: {str(e)}&quot;)
+
+# 执行公平性评估
+assess_fairness()
+</code></pre>
+<p>综合评估:
+两个表在结构、数据量、索引等方面基本一致，适合进行公平的性能测试。</p>
+<p>&quot;太好了！&quot;我看着最终的评估结果说道，&quot;两个表的结构完全一致，只有股票代码的编码方式不同，这正是我们想要的测试环境。&quot;</p>
+<p>007 点点头：&quot;是的，我们已经确保了测试的公平性和科学性。现在可以进行真正的性能测试了，看看整数编码是否真的能提升查询效率，以及提升幅度有多大。&quot;</p>
+<p>&quot;这个结果对于我们设计高性能量化交易系统将有重要参考价值，&quot;我补充道，&quot;特别是在处理大规模数据时。&quot;</p>
+<h3 id="27-性能测试">2.7. 性能测试</h3>
+<p>&quot;现在进入实验的关键阶段，&quot;007 说道，&quot;我们将设计一系列查询场景，测试两种编码方式在不同条件下的性能表现。&quot;</p>
+<p>我思考了一下：&quot;我们应该测试单条记录查询、范围查询、批量查询等多种场景，这样才能全面了解不同编码方式的优缺点。&quot;</p>
+<p>&quot;完全同意，&quot;007 回应，&quot;我已经设计了一个全面的测试函数，它会在相同条件下对两种编码方式进行公平比较。&quot;</p>
+<pre><code class="language-python">def test_query_performance_fixed(num_tests=50):
+    # 获取随机股票代码
+    test_symbols = clickhouse_client.execute(f&quot;&quot;&quot;
+    SELECT DISTINCT symbol FROM stock_data
+    WHERE is_index = 0
+    ORDER BY rand()
+    LIMIT {num_tests}
+    &quot;&quot;&quot;)
+
+    string_query_times = []
+    int_query_times = []
+
+    print(f&quot;开始测试 {len(test_symbols)} 个股票的查询性能...&quot;)
+
+    for symbol_tuple in tqdm(test_symbols, desc=&quot;测试查询性能&quot;):
+        symbol = symbol_tuple[0]
+
+        # 获取对应的整数编码
+        code, exchange = symbol.split(&#39;.&#39;)
+        if exchange.upper() == &#39;SH&#39;:
+            prefix = &#39;1&#39;
+        elif exchange.upper() == &#39;SZ&#39;:
+            prefix = &#39;2&#39;
+        else:
+            continue
+        symbol_int = int(prefix + code)
+
+        # 清理缓冲
+        print(&quot;清理缓冲&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        SYSTEM DROP MARK CACHE;
+        &quot;&quot;&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        SYSTEM DROP UNCOMPRESSED CACHE;
+        &quot;&quot;&quot;)
+
+        # 测试字符串查询
+        start_time = time.time()
+        clickhouse_client.execute(f&quot;&quot;&quot;
+        SELECT
+            symbol, frame, open, high, low, close, vol, amount
+        FROM stock_data
+        WHERE symbol = &#39;{symbol}&#39;
+        ORDER BY frame
+        LIMIT 1000
+        &quot;&quot;&quot;)
+        string_time = time.time() - start_time
+        string_query_times.append(string_time)
+
+        # 清理缓冲
+        print(&quot;清理缓冲&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        SYSTEM DROP MARK CACHE;
+        &quot;&quot;&quot;)
+        clickhouse_client.execute(&quot;&quot;&quot;
+        SYSTEM DROP UNCOMPRESSED CACHE;
+        &quot;&quot;&quot;)
+
+        # 测试整数查询
+        start_time = time.time()
+        clickhouse_client.execute(f&quot;&quot;&quot;
+        SELECT
+            symbol_int, frame, open, high, low, close, vol, amount
+        FROM stock_data_with_int
+        WHERE symbol_int = {symbol_int}
+        ORDER BY frame
+        LIMIT 1000
+        &quot;&quot;&quot;)
+
+        int_time = time.time() - start_time
+        int_query_times.append(int_time)
+
+    # 计算平均查询时间
+    avg_string_time = sum(string_query_times) / len(string_query_times)
+    avg_int_time = sum(int_query_times) / len(int_query_times)
+
+    print(f&quot;字符串查询平均时间: {avg_string_time:.6f} 秒&quot;)
+    print(f&quot;整数查询平均时间: {avg_int_time:.6f} 秒&quot;)
+    print(f&quot;性能提升: {(avg_string_time - avg_int_time) / avg_string_time * 100:.2f}%&quot;)
+
+    return {
+        &#39;string_times&#39;: string_query_times,
+        &#39;int_times&#39;: int_query_times,
+        &#39;avg_string_time&#39;: avg_string_time,
+        &#39;avg_int_time&#39;: avg_int_time,
+        &#39;improvement&#39;: (avg_string_time - avg_int_time) / avg_string_time * 100
+    }
+
+&quot;&quot;&quot;绘制性能对比图表&quot;&quot;&quot;
+def plot_performance_comparison(results):
+    plt.figure(figsize=(15, 12))
+
+    # 1. 单条记录查询性能对比
+    if &#39;single&#39; in results:
+        plt.subplot(2, 2, 1)
+        data = [results[&#39;single&#39;][&#39;string_times&#39;], results[&#39;single&#39;][&#39;int_times&#39;]]
+        plt.boxplot(data, labels=[&#39;字符串查询&#39;, &#39;整数查询&#39;])
+        plt.title(&#39;单条记录查询性能对比&#39;)
+        plt.ylabel(&#39;查询时间 (秒)&#39;)
+        plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    # 2. 日期范围查询性能对比
+    if &#39;range&#39; in results:
+        plt.subplot(2, 2, 2)
+        data = [results[&#39;range&#39;][&#39;string_times&#39;], results[&#39;range&#39;][&#39;int_times&#39;]]
+        plt.boxplot(data, labels=[&#39;字符串查询&#39;, &#39;整数查询&#39;])
+        plt.title(&#39;日期范围查询性能对比&#39;)
+        plt.ylabel(&#39;查询时间 (秒)&#39;)
+        plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    # 3. 批量查询性能对比
+    if &#39;batch&#39; in results:
+        plt.subplot(2, 2, 3)
+        batch_sizes = [r[&#39;batch_size&#39;] for r in results[&#39;batch&#39;]]
+        string_times = [r[&#39;string_time&#39;] for r in results[&#39;batch&#39;]]
+        int_times = [r[&#39;int_time&#39;] for r in results[&#39;batch&#39;]]
+
+        x = np.arange(len(batch_sizes))
+        width = 0.35
+
+        plt.bar(x - width/2, string_times, width, label=&#39;字符串查询&#39;)
+        plt.bar(x + width/2, int_times, width, label=&#39;整数查询&#39;)
+
+        plt.xlabel(&#39;批量大小&#39;)
+        plt.ylabel(&#39;查询时间 (秒)&#39;)
+        plt.title(&#39;批量查询性能对比&#39;)
+        plt.xticks(x, batch_sizes)
+        plt.legend()
+        plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    # 4. 性能提升百分比
+    plt.subplot(2, 2, 4)
+    categories = []
+    improvements = []
+
+    if &#39;single&#39; in results:
+        categories.append(&#39;单条查询&#39;)
+        improvements.append(results[&#39;single&#39;][&#39;improvement&#39;])
+
+    if &#39;range&#39; in results:
+        categories.append(&#39;范围查询&#39;)
+        improvements.append(results[&#39;range&#39;][&#39;improvement&#39;])
+
+    if &#39;batch&#39; in results:
+        categories.append(&#39;批量查询&#39;)
+        # 使用平均提升
+        avg_batch_improvement = sum(r[&#39;improvement&#39;] for r in results[&#39;batch&#39;]) / len(results[&#39;batch&#39;])
+        improvements.append(avg_batch_improvement)
+
+    if &#39;aggregate&#39; in results:
+        categories.append(&#39;聚合查询&#39;)
+        improvements.append(results[&#39;aggregate&#39;][&#39;improvement&#39;])
+
+    plt.bar(categories, improvements)
+    plt.title(&#39;整数编码性能提升百分比&#39;)
+    plt.ylabel(&#39;性能提升 (%)&#39;)
+    plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    plt.tight_layout()
+    plt.savefig(&#39;symbol_encoding_performance_comparison.png&#39;)
+    plt.close()
+
+    print(&quot;\n性能对比图已保存为 symbol_encoding_performance_comparison.png&quot;)
+
+print(&quot;开始symbol编码性能测试...&quot;)
+
+# 1. 清理缓冲
+print(&quot;清理缓冲&quot;)
+clickhouse_client.execute(&quot;&quot;&quot;
+SYSTEM DROP MARK CACHE;
+&quot;&quot;&quot;)
+clickhouse_client.execute(&quot;&quot;&quot;
+SYSTEM DROP UNCOMPRESSED CACHE;
+&quot;&quot;&quot;)
+
+# 2. 执行测试
+results = test_query_performance_fixed(num_tests=50)
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<p>&quot;测试结果出来了！&quot;我兴奋地说道，看着屏幕上显示的性能数据。</p>
+<p>007 分析道：&quot;数据显示整数编码确实带来了显著的性能提升。字符串查询平均时间为 0.331844 秒，而整数查询平均时间为 0.259308 秒，性能提升了 21.86%。&quot;</p>
+<p>&quot;这是一个相当可观的提升，&quot;我思考着这个结果的实际意义，&quot;在高频交易或大规模数据分析场景下，这种优化可能会带来显著的系统性能提升。&quot;</p>
+<p>&quot;是的，&quot;007 补充道，&quot;而且这只是单次查询的结果。在实际系统中，可能会有数百万次查询，累积起来的性能差异将更加明显。&quot;</p>
+<h3 id="28-性能测试报告">2.8. 性能测试报告</h3>
+<p>&quot;让我们将测试结果可视化，以便更直观地理解不同编码方式的性能差异，&quot;007 建议道。</p>
+<p>我点点头：&quot;好主意，图表能帮助我们更清晰地看到性能差异的模式和趋势。&quot;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_02.png" alt=""></p>
+<p>&quot;我已经设计了一个全面的可视化方案，&quot;007 说，&quot;包括条形图、箱线图和饼图等多种图表类型，从不同角度展示性能测试结果。&quot;</p>
+<pre><code class="language-python"># 查询性能可视化
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import time
+from tqdm import tqdm
+import seaborn as sns
+from matplotlib.ticker import PercentFormatter
+
+from matplotlib import font_manager
+font_path = &#39;/Volumes/share/data/WBQ/note/4_性能测试/SimHei.ttf&#39;  # 替换为SimHei.ttf的实际路径
+font_manager.fontManager.addfont(font_path)
+plt.rcParams[&#39;font.family&#39;] = &#39;SimHei&#39;
+
+def visualize_performance_results(results):
+    &quot;&quot;&quot;将性能测试结果可视化为图表&quot;&quot;&quot;
+    if not results:
+        print(&quot;没有测试结果可供可视化&quot;)
+        return
+
+    # 设置图表风格
+    sns.set(style=&quot;whitegrid&quot;)
+    plt.figure(figsize=(20, 15))
+
+    # 1. 查询时间对比 - 条形图
+    plt.subplot(2, 2, 1)
+    test_names = [r[&#39;name&#39;] for r in results]
+    str_times = [r[&#39;avg_str_time&#39;] for r in results]
+    int_times = [r[&#39;avg_int_time&#39;] for r in results]
+
+    x = np.arange(len(test_names))
+    width = 0.35
+
+    plt.bar(x - width/2, str_times, width, label=&#39;字符串查询 (symbol)&#39;, color=&#39;#3498db&#39;,
+            yerr=[r[&#39;std_str_time&#39;] for r in results], capsize=5)
+    plt.bar(x + width/2, int_times, width, label=&#39;整数查询 (symbol_int)&#39;, color=&#39;#e74c3c&#39;,
+            yerr=[r[&#39;std_int_time&#39;] for r in results], capsize=5)
+
+    plt.xlabel(&#39;查询类型&#39;, fontsize=12)
+    plt.ylabel(&#39;平均查询时间 (秒)&#39;, fontsize=12)
+    plt.title(&#39;不同查询类型的平执行时间对比&#39;, fontsize=14, fontweight=&#39;bold&#39;)
+    plt.xticks(x, [name if len(name) &lt; 15 else name[:12] + &#39;...&#39; for name in test_names], rotation=45, ha=&#39;right&#39;)
+    plt.legend(fontsize=10)
+    plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    # 2. 性能提升百分比 - 水平条形图
+    plt.subplot(2, 2, 2)
+    improvements = [r[&#39;improvement&#39;] for r in results]
+    colors = [&#39;#2ecc71&#39; if imp &gt; 0 else &#39;#e74c3c&#39; for imp in improvements]
+
+    y_pos = np.arange(len(test_names))
+    plt.barh(y_pos, improvements, color=colors)
+    plt.axvline(x=0, color=&#39;black&#39;, linestyle=&#39;-&#39;, alpha=0.7)
+    plt.yticks(y_pos, [name if len(name) &lt; 15 else name[:12] + &#39;...&#39; for name in test_names])
+    plt.xlabel(&#39;性能提升 (%)&#39;, fontsize=12)
+    plt.title(&#39;整数编码相对于字符串的性能提升&#39;, fontsize=14, fontweight=&#39;bold&#39;)
+    plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    # 添加数值标签
+    for i, v in enumerate(improvements):
+        plt.text(v + (1 if v &gt;= 0 else -1), i, f&quot;{v:.1f}%&quot;,
+                 va=&#39;center&#39;, fontweight=&#39;bold&#39;, color=&#39;black&#39;)
+
+    # 3. 查询时间分布 - 箱线图
+    plt.subplot(2, 2, 3)
+
+    # 准备数据
+    data_to_plot = []
+    labels = []
+
+    for r in results:
+        data_to_plot.append(r[&#39;str_times&#39;])
+        data_to_plot.append(r[&#39;int_times&#39;])
+        labels.append(f&quot;{r[&#39;name&#39;]} (str)&quot;)
+        labels.append(f&quot;{r[&#39;name&#39;]} (int)&quot;)
+
+    # 绘制箱线图
+    box = plt.boxplot(data_to_plot, patch_artist=True, labels=labels)
+
+    # 设置颜色
+    colors = []
+    for i in range(len(data_to_plot)):
+        if i % 2 == 0:  # 字符串查询
+            colors.append(&#39;#3498db&#39;)
+        else:  # 整数查询
+            colors.append(&#39;#e74c3c&#39;)
+
+    for patch, color in zip(box[&#39;boxes&#39;], colors):
+        patch.set_facecolor(color)
+
+    plt.xticks(rotation=90)
+    plt.ylabel(&#39;查询时间 (秒)&#39;, fontsize=12)
+    plt.title(&#39;查询时间分布&#39;, fontsize=14, fontweight=&#39;bold&#39;)
+    plt.grid(True, linestyle=&#39;--&#39;, alpha=0.7)
+
+    # 4. 平均性能对比 - 饼图
+    plt.subplot(2, 2, 4)
+
+    # 计算平均性能提升
+    avg_improvement = sum(improvements) / len(improvements)
+
+    # 创建饼图数据
+    if avg_improvement &gt; 0:
+        # 整数查询更快
+        labels = [&#39;整数查询更快&#39;, &#39;字符串查询&#39;]
+        sizes = [avg_improvement, 100 - avg_improvement]
+        colors = [&#39;#2ecc71&#39;, &#39;#3498db&#39;]
+        title = f&#39;平均而言，整数查询比字符串查询快 {avg_improvement:.1f}%&#39;
+    else:
+        # 字符串查询更快
+        labels = [&#39;字符串查询更快&#39;, &#39;整数查询&#39;]
+        sizes = [-avg_improvement, 100 + avg_improvement]
+        colors = [&#39;#3498db&#39;, &#39;#e74c3c&#39;]
+        title = f&#39;平均而言，字符串查询比整数查询快 {-avg_improvement:.1f}%&#39;
+
+    plt.pie(sizes, labels=labels, colors=colors, autopct=&#39;%1.1f%%&#39;,
+            startangle=90, explode=(0.1, 0), shadow=True)
+    plt.axis(&#39;equal&#39;)
+    plt.title(title, fontsize=14, fontweight=&#39;bold&#39;)
+
+    # 调整布局并保存
+    plt.tight_layout()
+    plt.savefig(&#39;query_performance_comparison.png&#39;, dpi=300, bbox_inches=&#39;tight&#39;)
+    plt.show()
+
+    print(&quot;性能测试结果图表已保存为 &#39;query_performance_comparison.png&#39;&quot;)
+
+    # 创建详细的性能报告
+    create_performance_report(results)
+
+def create_performance_report(results):
+    &quot;&quot;&quot;创建详细的性能测试报告&quot;&quot;&quot;
+    # 创建DataFrame
+    report_data = []
+
+    for r in results:
+        report_data.append({
+            &#39;查询类型&#39;: r[&#39;name&#39;],
+            &#39;字符串查询平均时间(秒)&#39;: r[&#39;avg_str_time&#39;],
+            &#39;整数查询平均时间(秒)&#39;: r[&#39;avg_int_time&#39;],
+            &#39;字符串查询标准差&#39;: r[&#39;std_str_time&#39;],
+            &#39;整数查询标准差&#39;: r[&#39;std_int_time&#39;],
+            &#39;性能提升(%)&#39;: r[&#39;improvement&#39;],
+            &#39;字符串查询最小时间&#39;: min(r[&#39;str_times&#39;]),
+            &#39;字符串查询最大时间&#39;: max(r[&#39;str_times&#39;]),
+            &#39;整数查询最小时间&#39;: min(r[&#39;int_times&#39;]),
+            &#39;整数查询最大时间&#39;: max(r[&#39;int_times&#39;]),
+        })
+
+    df = pd.DataFrame(report_data)
+
+    # 计算总体统计
+    avg_str_time = df[&#39;字符串查询平均时间(秒)&#39;].mean()
+    avg_int_time = df[&#39;整数查询平均时间(秒)&#39;].mean()
+    avg_improvement = df[&#39;性能提升(%)&#39;].mean()
+
+    # 打印报告
+    print(&quot;\n===== 性能测试详细报告 =====&quot;)
+    print(f&quot;测试场景数量: {len(results)}&quot;)
+    print(f&quot;总体平均字符串查询时间: {avg_str_time:.6f} 秒&quot;)
+    print(f&quot;总体平均整数查询时间: {avg_int_time:.6f} 秒&quot;)
+    print(f&quot;总体平均性能提升: {avg_improvement:.2f}%&quot;)
+
+    # 打印每个场景的详细信息
+    print(&quot;\n各场景详细数据:&quot;)
+    print(df.to_string(index=False))
+
+    # 保存报告到CSV
+    df.to_csv(&#39;performance_test_report.csv&#39;, index=False)
+    print(&quot;\n详细报告已保存到 &#39;performance_test_report.csv&#39;&quot;)
+
+def run_performance_test(test_cases, num_iterations=5):
+    &quot;&quot;&quot;
+    运行性能测试
+
+    Args:
+        test_cases: 测试用例列表，每个测试用例是一个字典，包含name, str_query和int_query
+        num_iterations: 每个测试用例重复执行的次数
+
+    Returns:
+        测试结果列表
+    &quot;&quot;&quot;
+    results = []
+
+    for test_idx, test_case in enumerate(test_cases):
+        str_query = test_case[&#39;str_query&#39;]
+        int_query = test_case[&#39;int_query&#39;]
+        test_name = test_case[&#39;name&#39;]
+
+        print(f&quot;\n测试 {test_idx+1}/{len(test_cases)}: {test_name}&quot;)
+
+        str_times = []
+        int_times = []
+
+        for i in range(num_iterations):
+            try:
+                # 清除缓存
+                if i == 0:  # 只在第一次迭代时清除缓存
+                    try:
+                        clickhouse_client.execute(&quot;SYSTEM DROP MARK CACHE&quot;)
+                        clickhouse_client.execute(&quot;SYSTEM DROP UNCOMPRESSED CACHE&quot;)
+                    except:
+                        pass  # 忽略清除缓存的错误
+
+                # 测试字符串查询
+                start_time = time.time()
+                clickhouse_client.execute(str_query)
+                str_time = time.time() - start_time
+                str_times.append(str_time)
+
+                # 测试整数查询
+                start_time = time.time()
+                clickhouse_client.execute(int_query)
+                int_time = time.time() - start_time
+                int_times.append(int_time)
+
+                print(f&quot;  迭代 {i+1}/{num_iterations}: 字符串 {str_time:.6f}秒, 整数 {int_time:.6f}秒&quot;)
+            except Exception as e:
+                print(f&quot;  迭代 {i+1}/{num_iterations} 出错: {str(e)}&quot;)
+                print(f&quot;  字符串查询: {str_query}&quot;)
+                print(f&quot;  整数查询: {int_query}&quot;)
+                continue
+
+        if not str_times or not int_times:
+            print(f&quot;  测试 {test_name} 失败，跳过&quot;)
+            continue
+
+        # 计算平均时间和标准差
+        avg_str_time = sum(str_times) / len(str_times)
+        avg_int_time = sum(int_times) / len(int_times)
+        std_str_time = (sum((t - avg_str_time) ** 2 for t in str_times) / len(str_times)) ** 0.5
+        std_int_time = (sum((t - avg_int_time) ** 2 for t in int_times) / len(int_times)) ** 0.5
+
+        improvement = (avg_str_time - avg_int_time) / avg_str_time * 100
+
+        print(f&quot;  平均: 字符串 {avg_str_time:.6f}±{std_str_time:.6f}秒, 整数 {avg_int_time:.6f}±{std_int_time:.6f}秒&quot;)
+        print(f&quot;  性能提升: {improvement:.2f}%&quot;)
+
+        results.append({
+            &#39;name&#39;: test_name,
+            &#39;str_times&#39;: str_times,
+            &#39;int_times&#39;: int_times,
+            &#39;avg_str_time&#39;: avg_str_time,
+            &#39;avg_int_time&#39;: avg_int_time,
+            &#39;std_str_time&#39;: std_str_time,
+            &#39;std_int_time&#39;: std_int_time,
+            &#39;improvement&#39;: improvement
+        })
+
+    return results
+
+# 定义多种查询场景的测试用例
+def create_test_cases():
+    &quot;&quot;&quot;创建多种查询场景的测试用例&quot;&quot;&quot;
+    # 获取一些随机的股票代码用于测试
+    symbols = clickhouse_client.execute(&quot;&quot;&quot;
+    SELECT DISTINCT symbol FROM stock_data
+    ORDER BY rand()
+    LIMIT 20
+    &quot;&quot;&quot;)
+
+    symbol_ints = []
+    for symbol_tuple in symbols:
+        symbol = symbol_tuple[0]
+        code, exchange = symbol.split(&#39;.&#39;)
+        if exchange.upper() == &#39;SH&#39;:
+            prefix = &#39;1&#39;
+        elif exchange.upper() == &#39;SZ&#39;:
+            prefix = &#39;2&#39;
+        else:
+            continue
+        symbol_ints.append(int(prefix + code))
+
+    # 确保我们有足够的股票代码
+    if len(symbols) &lt; 10 or len(symbol_ints) &lt; 10:
+        print(&quot;警告: 没有足够的股票代码用于测试&quot;)
+        return []
+
+    # 创建测试用例
+    test_cases = [
+        # 1. 单条记录精确查询
+        {
+            &#39;name&#39;: &#39;单条记录精确查询&#39;,
+            &#39;str_query&#39;: f&quot;SELECT * FROM stock_data WHERE symbol = &#39;{symbols[0][0]}&#39; LIMIT 1000&quot;,
+            &#39;int_query&#39;: f&quot;SELECT * FROM stock_data_with_int WHERE symbol_int = {symbol_ints[0]} LIMIT 1000&quot;
+        },
+
+        # 2. 日期范围查询
+        {
+            &#39;name&#39;: &#39;日期范围查询&#39;,
+            &#39;str_query&#39;: f&quot;SELECT * FROM stock_data WHERE symbol = &#39;{symbols[1][0]}&#39; AND frame BETWEEN &#39;2016-01-01&#39; AND &#39;2016-12-31&#39;&quot;,
+            &#39;int_query&#39;: f&quot;SELECT * FROM stock_data_with_int WHERE symbol_int = {symbol_ints[1]} AND frame BETWEEN &#39;2016-01-01&#39; AND &#39;2016-12-31&#39;&quot;
+        },
+
+        # 3. 批量查询 (IN条件)
+        {
+            &#39;name&#39;: &#39;批量查询 (5个股票)&#39;,
+            &#39;str_query&#39;: f&quot;SELECT * FROM stock_data WHERE symbol IN (&#39;{symbols[0][0]}&#39;, &#39;{symbols[1][0]}&#39;, &#39;{symbols[2][0]}&#39;, &#39;{symbols[3][0]}&#39;, &#39;{symbols[4][0]}&#39;) LIMIT 1000&quot;,
+            &#39;int_query&#39;: f&quot;SELECT * FROM stock_data_with_int WHERE symbol_int IN ({symbol_ints[0]}, {symbol_ints[1]}, {symbol_ints[2]}, {symbol_ints[3]}, {symbol_ints[4]}) LIMIT 1000&quot;
+        },
+
+        # 4. 聚合查询 (AVG)
+        {
+            &#39;name&#39;: &#39;聚合查询 (AVG)&#39;,
+            &#39;str_query&#39;: f&quot;SELECT AVG(close) FROM stock_data WHERE symbol = &#39;{symbols[2][0]}&#39; GROUP BY toYYYYMM(frame)&quot;,
+            &#39;int_query&#39;: f&quot;SELECT AVG(close) FROM stock_data_with_int WHERE symbol_int = {symbol_ints[2]} GROUP BY toYYYYMM(frame)&quot;
+        },
+
+        # 5. 排序查询
+        {
+            &#39;name&#39;: &#39;排序查询&#39;,
+            &#39;str_query&#39;: f&quot;SELECT * FROM stock_data WHERE symbol = &#39;{symbols[3][0]}&#39; ORDER BY frame DESC LIMIT 1000&quot;,
+            &#39;int_query&#39;: f&quot;SELECT * FROM stock_data_with_int WHERE symbol_int = {symbol_ints[3]} ORDER BY frame DESC LIMIT 1000&quot;
+        },
+
+        # 6. 复杂条件查询
+        {
+            &#39;name&#39;: &#39;复杂条件查询&#39;,
+            &#39;str_query&#39;: f&quot;SELECT * FROM stock_data WHERE symbol = &#39;{symbols[4][0]}&#39; AND close &gt; open AND vol &gt; 1000000 LIMIT 1000&quot;,
+            &#39;int_query&#39;: f&quot;SELECT * FROM stock_data_with_int WHERE symbol_int = {symbol_ints[4]} AND close &gt; open AND vol &gt; 1000000 LIMIT 1000&quot;
+        },
+
+        # 7. JOIN查询
+        {
+            &#39;name&#39;: &#39;JOIN查询&#39;,
+            &#39;str_query&#39;: f&quot;&quot;&quot;
+            SELECT a.symbol, a.frame, a.close, b.close as prev_close
+            FROM stock_data a
+            LEFT JOIN stock_data b ON a.symbol = b.symbol AND b.frame = addDays(a.frame, -1)
+            WHERE a.symbol = &#39;{symbols[5][0]}&#39;
+            LIMIT 1000
+            &quot;&quot;&quot;,
+            &#39;int_query&#39;: f&quot;&quot;&quot;
+            SELECT a.symbol_int, a.frame, a.close, b.close as prev_close
+            FROM stock_data_with_int a
+            LEFT JOIN stock_data_with_int b ON a.symbol_int = b.symbol_int AND b.frame = addDays(a.frame, -1)
+            WHERE a.symbol_int = {symbol_ints[5]}
+            LIMIT 1000
+            &quot;&quot;&quot;
+        },
+
+        # 8. 大批量查询 (更多股票)
+        {
+            &#39;name&#39;: &#39;大批量查询 (10个股票)&#39;,
+            &#39;str_query&#39;: &quot;SELECT * FROM stock_data WHERE symbol IN (&quot; + &quot;, &quot;.join([f&quot;&#39;{s[0]}&#39;&quot; for s in symbols[:10]]) + &quot;) LIMIT 5000&quot;,
+            &#39;int_query&#39;: &quot;SELECT * FROM stock_data_with_int WHERE symbol_int IN (&quot; + &quot;, &quot;.join([str(s) for s in symbol_ints[:10]]) + &quot;) LIMIT 5000&quot;
+        },
+
+        # 9. 聚合查询 (COUNT)
+        {
+            &#39;name&#39;: &#39;聚合查询 (COUNT)&#39;,
+            &#39;str_query&#39;: f&quot;SELECT COUNT(*) FROM stock_data WHERE symbol = &#39;{symbols[6][0]}&#39; GROUP BY toYear(frame)&quot;,
+            &#39;int_query&#39;: f&quot;SELECT COUNT(*) FROM stock_data_with_int WHERE symbol_int = {symbol_ints[6]} GROUP BY toYear(frame)&quot;
+        },
+
+        # 10. 复杂聚合查询
+        {
+            &#39;name&#39;: &#39;复杂聚合查询&#39;,
+            &#39;str_query&#39;: f&quot;&quot;&quot;
+            SELECT
+                toYear(frame) AS year,
+                AVG(close) AS avg_close,
+                MAX(high) AS max_high,
+                MIN(low) AS min_low,
+                SUM(vol) AS total_vol
+            FROM stock_data
+            WHERE symbol = &#39;{symbols[7][0]}&#39;
+            GROUP BY year
+            ORDER BY year
+            &quot;&quot;&quot;,
+            &#39;int_query&#39;: f&quot;&quot;&quot;
+            SELECT
+                toYear(frame) AS year,
+                AVG(close) AS avg_close,
+                MAX(high) AS max_high,
+                MIN(low) AS min_low,
+                SUM(vol) AS total_vol
+            FROM stock_data_with_int
+            WHERE symbol_int = {symbol_ints[7]}
+            GROUP BY year
+            ORDER BY year
+            &quot;&quot;&quot;
+        }
+    ]
+
+    return test_cases
+
+
+# 创建测试用例
+test_cases = create_test_cases()
+
+if not test_cases:
+    print(&quot;无法创建测试用例，请检查数据库连接和表结构&quot;)
+    exit()
+
+# 运行性能测试
+print(f&quot;开始运行 {len(test_cases)} 个测试用例，每个用例重复 5 次...&quot;)
+results = run_performance_test(test_cases, num_iterations=5)
+
+if not results:
+    print(&quot;测试失败，没有结果可供分析&quot;)
+    exit()
+
+# 可视化结果
+visualize_performance_results(results)
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E7%BB%86%E6%8A%A5%E5%91%8A.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/performance_test_report.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/query_performance_comparision.png" alt=""></p>
+<h2 id="3-结论与建议">3. 结论与建议</h2>
+<p>&quot;测试结果非常明确，&quot;007 总结道，&quot;在所有测试场景中，整数编码的股票代码在查询性能上普遍优于字符串编码，平均提升约 25%。&quot;</p>
+<p>我认真分析着图表：&quot;是的，而且在某些特定场景下，如单条查询、聚合查询、复杂聚合查询和排序查询，性能提升甚至超过了 30%。&quot;</p>
+<p>基于我们的实验结果，可以得出以下结论：</p>
+<ol>
+<li><p><strong>整数编码显著提升查询性能</strong>：在所有测试场景中，使用整数编码的 symbol_int 字段查询性能均优于字符串类型的 symbol 字段，平均提升 24.70%。</p>
+</li>
+<li><p><strong>不同查询类型的性能差异</strong>：整数编码在复杂查询（如 JOIN 和聚合查询）中的性能优势更为明显，这可能是因为这些操作涉及更多的比较和索引查找操作。</p>
+</li>
+<li><p><strong>稳定性提升</strong>：整数查询的标准差普遍小于字符串查询，表明整数编码不仅提高了平均性能，还提高了查询性能的稳定性和可预测性。</p>
+</li>
+<li><p><strong>存储效率</strong>：整数类型通常比字符串类型占用更少的存储空间，特别是在大规模数据集中，这可能带来额外的存储和内存使用效率提升。</p>
+</li>
+</ol>
+<h3 id="31-实际应用建议">3.1 实际应用建议</h3>
+<p>基于实验结果，我们对量化交易系统的开发提出以下建议：</p>
+<ol>
+<li><p><strong>采用整数编码</strong>：在设计数据库架构时，建议将股票代码编码为整数类型存储，特别是在性能关键的应用中。</p>
+</li>
+<li><p><strong>保留原始代码映射</strong>：虽然使用整数编码，但应保留原始代码与整数编码之间的映射关系，以便于调试和数据验证。</p>
+</li>
+<li><p><strong>考虑编码规则的扩展性</strong>：设计编码规则时，应考虑未来可能需要支持更多交易所或特殊类型证券的情况。</p>
+</li>
+</ol>
+<p>&quot;这个实验为我们的系统设计提供了重要的指导，&quot;我总结道，&quot;通过简单的编码转换，我们可以显著提升系统性能，这在高频交易和大规模数据分析场景下尤为重要。&quot;</p>
+<p>007 点点头：&quot;是的，而且这种优化几乎没有额外成本，只需在数据入库时进行一次转换即可。在追求毫秒级甚至微秒级性能的量化交易系统中，这种优化可能带来关键的竞争优势。&quot;</p>
+<p>&quot;下一步，我们可以将这种编码策略应用到实际的交易系统中，并在更多样化的查询场景下进行测试，&quot;我补充道，&quot;同时也可以探索其他可能的性能优化方向。&quot;</p>
+<p>&quot;完全同意，&quot;007 回应，&quot;数据结构和存储优化是构建高性能量化交易系统的基础，我们的实验只是迈出了第一步。&quot;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/quantide.png" alt=""></p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/">21天驯化AI打工仔 - 日线数据的定时获取（2）</a> <p>数据如同血液，字段则是血型标记。本章带你深入A股数据的&#39;涨跌停&#39;与&#39;ST&#39;世界，让007助手为你揭秘如何用Tushare API完美修复那些缺失的关键字段，让量化策略在真实市场环境</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/">21天驯化AI打工仔 - 日线数据的定时获取</a> <p>&#39;时间就是金钱，效率就是生命&#39;，这句话在量化交易领域体现得淋漓尽致。今天是我和007合作的第六天，我决定要解决一个困扰我已久的问题：如何实现日线数据的自动定时获取？</p> </li><li> <a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/">21天驯化AI打工仔 - SQEP 的性能再优化</a> <p>在量化交易的世界里，数据就像是血液，而数据传输系统则是血管。一个高效的数据传输系统可以让整个量化交易平台如虎添翼，而低效的数据传输则会成为整个系统的瓶颈。</p> </li><li> <a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/">致命的 ID -- DuckDB 中的 Returning 子句之谜</a> <p>Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-sqep-bar-day-日线场景下的数据交换格式" title="1. SQEP-BAR-DAY 日线场景下的数据交换格式">1. SQEP-BAR-DAY 日线场景下的数据交换格式</a> </li><li class="lv3"> <a href="#11-字段定义" title="1.1. 字段定义">1.1. 字段定义</a> </li><li class="lv3"> <a href="#12-编码约定" title="1.2. 编码约定">1.2. 编码约定</a> </li><li class="lv3"> <a href="#13-使用场景" title="1.3. 使用场景">1.3. 使用场景</a> </li><li class> <a href="#2-symbol-编码的性能测试" title="2. symbol 编码的性能测试">2. symbol 编码的性能测试</a> </li><li class="lv3"> <a href="#21-测试环境" title="2.1. 测试环境">2.1. 测试环境</a> </li><li class="lv3"> <a href="#22-生成-stockdata-数据" title="2.2. 生成 stockdata 数据">2.2. 生成 stockdata 数据</a> </li><li class="lv3"> <a href="#23-redis-生产者把数据推送到-redis-队列" title="2.3. Redis 生产者：把数据推送到 Redis 队列">2.3. Redis 生产者：把数据推送到 Redis 队列</a> </li><li class="lv3"> <a href="#24-redis-消费者从-redis-队列中读取数据并写入-clickhouse-数据库" title="2.4. Redis 消费者：从 Redis 队列中读取数据并写入 clickhouse 数据库">2.4. Redis 消费者：从 Redis 队列中读取数据并写入 clickhouse 数据库</a> </li><li class="lv3"> <a href="#25-stockdatawithint-表格的创建" title="2.5. stockdatawithint 表格的创建">2.5. stockdatawithint 表格的创建</a> </li><li class="lv3"> <a href="#26-检查两张表格确保测试前的数据是严谨公平的" title="2.6. 检查两张表格，确保测试前的数据是严谨公平的">2.6. 检查两张表格，确保测试前的数据是严谨公平的</a> </li><li class="lv3"> <a href="#27-性能测试" title="2.7. 性能测试">2.7. 性能测试</a> </li><li class="lv3"> <a href="#28-性能测试报告" title="2.8. 性能测试报告">2.8. 性能测试报告</a> </li><li class> <a href="#3-结论与建议" title="3. 结论与建议">3. 结论与建议</a> </li><li class="lv3"> <a href="#31-实际应用建议" title="3.1 实际应用建议">3.1 实际应用建议</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>

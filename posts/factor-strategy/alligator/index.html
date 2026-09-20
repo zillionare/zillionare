@@ -1,0 +1,1327 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>鳄鱼线，让趋势成为你的朋友 | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/posts/factor-strategy/alligator/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="鳄鱼线，让趋势成为你的朋友 | 匡醍量化"><meta property="og:description" content="策略核心观点 本文构建了一个包含短、中、长期综合考量的鳄鱼线投资策略。它通过吸纳不同时间跨度的信息生成投资信号。严格的多空信号标准使其有着优秀的beta收益。此外，通过不断地纳入AO、分形以及MACD因子，其投资表现越来越好。 引言"><meta property="og:url" content="https://blog.quantide.cn/posts/factor-strategy/alligator/"><meta property="og:image" content="https://blog.quantide.cn/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class="active" aria-current="page">博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"鳄鱼线，让趋势成为你的朋友","description":"策略核心观点 本文构建了一个包含短、中、长期综合考量的鳄鱼线投资策略。它通过吸纳不同时间跨度的信息生成投资信号。严格的多空信号标准使其有着优秀的beta收益。此外，通过不断地纳入AO、分形以及MACD因子，其投资表现越来越好。 引言","image":"https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg","datePublished":"2025-10-13","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/posts/factor-strategy/alligator/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"鳄鱼线，让趋势成为你的朋友","item":"https://blog.quantide.cn/posts/factor-strategy/alligator/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">博客目录</p> <details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">algo</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">tcn</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/algo/tcn/ai股票分析/" class title="一个很强的股票智能分析系统">一个很强的股票智能分析系统</a></li><li><a href="/posts/algo/tcn/tcn原理/" class title="聊聊 TCN：一种更清晰的时间序列解构方式">聊聊 TCN：一种更清晰的时间序列解构方式</a></li><li><a href="/posts/algo/tcn/tcn番外/" class title="TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境">TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境</a></li><li><a href="/posts/algo/tcn/因果卷积/" class title="为什么我们需要因果卷积？">为什么我们需要因果卷积？</a></li> </ul> </details> </li><li><a href="/posts/algo/HDBSCAN_1/" class title="用HDBSCAN聚类算法选股是否有效">用HDBSCAN聚类算法选股是否有效</a></li><li><a href="/posts/algo/an-enigma-min-range/" class title="地量见地价？我拿一年的上证数据算了算">地量见地价？我拿一年的上证数据算了算</a></li><li><a href="/posts/algo/data-normalization/" class title="夏普大于4的策略有多恐怖？但它为什么好得不真实？">夏普大于4的策略有多恐怖？但它为什么好得不真实？</a></li><li><a href="/posts/algo/fft/" class title="快速傅里叶变换与股价预测研究">快速傅里叶变换与股价预测研究</a></li><li><a href="/posts/algo/flag-pattern-detection/" class title="烛台密码 三角形整理如何提示玄机">烛台密码 三角形整理如何提示玄机</a></li><li><a href="/posts/algo/hdbscan/" class title="hdbscan 聚类算法扫描配对交易 速度提升99倍">hdbscan 聚类算法扫描配对交易 速度提升99倍</a></li><li><a href="/posts/algo/how-gradient-boost-learned-from-regression/" class title="比Deepseek还要Deep！起底GBDT做回归预测的秘密">比Deepseek还要Deep！起底GBDT做回归预测的秘密</a></li><li><a href="/posts/algo/ks-test-and-cdf/" class title="KS Test, 广义双曲分布和抄底沪指">KS Test, 广义双曲分布和抄底沪指</a></li><li><a href="/posts/algo/monte-carlo/" class title="蒙特卡洛：看似很高端的技术，其实很暴力很初级">蒙特卡洛：看似很高端的技术，其实很暴力很初级</a></li><li><a href="/posts/algo/noise-test/" class title="样本外测试之外，我们还有哪些过拟合检测方法？">样本外测试之外，我们还有哪些过拟合检测方法？</a></li><li><a href="/posts/algo/normalization/" class title="基于深度学习的量化策略如何实现归一化？">基于深度学习的量化策略如何实现归一化？</a></li><li><a href="/posts/algo/pdf-is-all-you-need/" class title="量化面试神题：圆上随机点的概率陷阱">量化面试神题：圆上随机点的概率陷阱</a></li><li><a href="/posts/algo/pdf-is-all-you-need-2/" class title="PDF is all you need(2)">PDF is all you need(2)</a></li><li><a href="/posts/algo/pdf-is-all-you-need-3/" class title="PDF is all you need(3)">PDF is all you need(3)</a></li><li><a href="/posts/algo/picking-nickles-in-front-of-steamroller/" class title="虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱">虎口夺食：量化交易中高频率、低风险策略的诱惑与陷阱</a></li><li><a href="/posts/algo/前视偏差-看似明白，实则糊涂/" class title="前视偏差 - 看似明白，实则糊涂">前视偏差 - 看似明白，实则糊涂</a></li><li><a href="/posts/algo/千禧年的脑筋急转弯/" class title="2024已过一半，千禧年发布了这道脑筯急转弯">2024已过一半，千禧年发布了这道脑筯急转弯</a></li><li><a href="/posts/algo/如何成为一名量化研究员 /" class title="一个散户自学量化的 20 个月">一个散户自学量化的 20 个月</a></li><li><a href="/posts/algo/强化学习与监督学习/" class title="强化学习 vs 监督学习：AI炒股的两种思路">强化学习 vs 监督学习：AI炒股的两种思路</a></li><li><a href="/posts/algo/昨天应该涨多少？Tushare和东财还没商量好/" class title="关于昨天应该涨多少这件事，Tushare 和 东财还没商量好">关于昨天应该涨多少这件事，Tushare 和 东财还没商量好</a></li><li><a href="/posts/algo/结合主成分分析、离散小波和XGBoost的交易策略/" class title="带你读论文：PCA、离散小波和 XGBoost构建交易策略">带你读论文：PCA、离散小波和 XGBoost构建交易策略</a></li><li><a href="/posts/algo/谁压垮了这个基站/" class title="谁压垮了这个基站？用XGBoost如何进行时序事件归因">谁压垮了这个基站？用XGBoost如何进行时序事件归因</a></li><li><a href="/posts/algo/财报电话会里的风险之声/" class title="The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子">The Sound of Risk! 闻弦歌而知雅意, 声音里隐藏的另类因子</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">career&amp;figure</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/career&#38;figure/Daniel-Kahneman/" class title="没能上热搜，但卡尼曼值得我们纪念">没能上热搜，但卡尼曼值得我们纪念</a></li><li><a href="/posts/career&#38;figure/does-arma-garch-matter-in-quant/" class title="在量化交易中，掌握ARMA/GARCH 的重要性？">在量化交易中，掌握ARMA/GARCH 的重要性？</a></li><li><a href="/posts/career&#38;figure/how-to-apply-citadel/" class title="Datathon-我的Citadel量化岗之路！附历年比赛资料">Datathon-我的Citadel量化岗之路！附历年比赛资料</a></li><li><a href="/posts/career&#38;figure/how-to-determine-research-topic/" class title="金融/计量专业，硕士论文怎么确定研究课题？">金融/计量专业，硕士论文怎么确定研究课题？</a></li><li><a href="/posts/career&#38;figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story/" class title="高薪金领都用啥编程语言？SQL、Python领航，附排名！">高薪金领都用啥编程语言？SQL、Python领航，附排名！</a></li><li><a href="/posts/career&#38;figure/john-fawcett/" class title="反抗者的崛起！Fawce 和 Quantopian 的量化之路">反抗者的崛起！Fawce 和 Quantopian 的量化之路</a></li><li><a href="/posts/career&#38;figure/max-dama-on-automated-trading/" class title="我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路">我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路</a></li><li><a href="/posts/career&#38;figure/rolf-banz/" class title="牛人太多：小市值因子之父，毕业论文被大佬狂怼">牛人太多：小市值因子之父，毕业论文被大佬狂怼</a></li><li><a href="/posts/career&#38;figure/successfully-starting-a-career-in-quant-research/" class title="如何选择量化交易基金，Max Dama 给你的7个建议">如何选择量化交易基金，Max Dama 给你的7个建议</a></li><li><a href="/posts/career&#38;figure/买卖双方/" class title="金融行业买方与卖方：利润与稳定性的背后逻辑">金融行业买方与卖方：利润与稳定性的背后逻辑</a></li><li><a href="/posts/career&#38;figure/如何才能入行量化交易/" class title="硕士在读，如何才能入行量化交易">硕士在读，如何才能入行量化交易</a></li><li><a href="/posts/career&#38;figure/月亮和pandas/" class title="月亮和Pandas - Wes Mckinney的传奇故事">月亮和Pandas - Wes Mckinney的传奇故事</a></li><li><a href="/posts/career&#38;figure/起底百亿私募创始人/" class title="找校友！起底百亿私募创始人">找校友！起底百亿私募创始人</a></li><li><a href="/posts/career&#38;figure/追随美的指引/" class title="追随美的指引-纪念西蒙斯">追随美的指引-纪念西蒙斯</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">express/26-09</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/26/09/0918/" class title="Quantide Daily 2026-09-18">Quantide Daily 2026-09-18</a></li> </ul> </details><details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">factor-strategy</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/factor-strategy/1赔10，3月27日我抄底了/" class title="1赔10！中证1000应该这样抄底">1赔10！中证1000应该这样抄底</a></li><li><a href="/posts/factor-strategy/3月27日为什么大跌/" class title="交割日魔咒？">交割日魔咒？</a></li><li><a href="/posts/factor-strategy/7-factor-model/" class title="7因子模型，除了规模、市场、动量和价值，还有哪些？">7因子模型，除了规模、市场、动量和价值，还有哪些？</a></li><li><a href="/posts/factor-strategy/ESG策略初探-01/" class title="ESG策略初探-01">ESG策略初探-01</a></li><li><a href="/posts/factor-strategy/ESG策略初探-02/" class title="ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）">ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）</a></li><li><a href="/posts/factor-strategy/Is-the-A-share-market-undervalued/" class title="节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？">节前迎来揪心一幕！谁来告诉我，A股现在有没有低估？</a></li><li><a href="/posts/factor-strategy/ORB-strategy/" class title="ORB! Alpha 达到年化 36%">ORB! Alpha 达到年化 36%</a></li><li><a href="/posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2/" class title="不能求二阶导的metrics<br>不是好的objective">不能求二阶导的metrics&lt;br&gt;不是好的objective</a></li><li><a href="/posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1/" class title="基于 XGBoost 的组合策略基本框架">基于 XGBoost 的组合策略基本框架</a></li><li><a href="/posts/factor-strategy/alligator/" class="current" title="鳄鱼线，让趋势成为你的朋友">鳄鱼线，让趋势成为你的朋友</a></li><li><a href="/posts/factor-strategy/alpha042/" class title="第42个因子:年化17.6%，15年累计10倍">第42个因子:年化17.6%，15年累计10倍</a></li><li><a href="/posts/factor-strategy/connors-rsi/" class title="年终特稿：这个指标我愿称之为年度最强发现">年终特稿：这个指标我愿称之为年度最强发现</a></li><li><a href="/posts/factor-strategy/decision-tree-made-easy/" class title="如果模型预测准确率超过85%，这台印钞机应该值多少马内？">如果模型预测准确率超过85%，这台印钞机应该值多少马内？</a></li><li><a href="/posts/factor-strategy/first-level-derivation/" class title="当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建">当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a></li><li><a href="/posts/factor-strategy/genetic-algorithms/" class title="量化交易中的遗传算法">量化交易中的遗传算法</a></li><li><a href="/posts/factor-strategy/growing-star-market-weights/" class title="量化股票投资起手式<br>指数增强之<br>指数成份股信息挖掘">量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘</a></li><li><a href="/posts/factor-strategy/herd-behaviour/" class title="羊群效应及其因子化">羊群效应及其因子化</a></li><li><a href="/posts/factor-strategy/hindsight-how-do-i-missed-dlsy/" class title="后见之明！错过6个涨停之后的复盘">后见之明！错过6个涨停之后的复盘</a></li><li><a href="/posts/factor-strategy/hockey-and-coin/" class title="球队和硬币因子">球队和硬币因子</a></li><li><a href="/posts/factor-strategy/holy-grail-still-works/" class title="圣杯依然闪耀">圣杯依然闪耀</a></li><li><a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/" class title="涨到溢出！PEPE告诉我，大盘还能涨几多？">涨到溢出！PEPE告诉我，大盘还能涨几多？</a></li><li><a href="/posts/factor-strategy/llm-csi1000-three-experiments/" class title="LLM 能做交易吗？中证 1000 上的三个递进实验">LLM 能做交易吗？中证 1000 上的三个递进实验</a></li><li><a href="/posts/factor-strategy/lof套利怎么做/" class title="白银大涨引发的量化套利策略">白银大涨引发的量化套利策略</a></li><li><a href="/posts/factor-strategy/low-turnover-factor/" class title="Alphalens 因子分析 - 以低换手率因子为例(1)">Alphalens 因子分析 - 以低换手率因子为例(1)</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-2/" class title="Alphalens因子分析(2) - low turnover秒杀98%的基金经理!">Alphalens因子分析(2) - low turnover秒杀98%的基金经理!</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-3/" class title="因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！">因子分析（3）- 都是坑！这么简单的Alpha计算，竟然错了？！</a></li><li><a href="/posts/factor-strategy/low-turnover-factor-4/" class title="Alphalens因子分析(4) - Information Coefficient方法">Alphalens因子分析(4) - Information Coefficient方法</a></li><li><a href="/posts/factor-strategy/magic-hot-word-factor/" class title="龙凤呈祥：这种无底限炒作，如何用量化方法发现它？">龙凤呈祥：这种无底限炒作，如何用量化方法发现它？</a></li><li><a href="/posts/factor-strategy/max-volume-direction/" class title="捕捉主力-最大成交量因子">捕捉主力-最大成交量因子</a></li><li><a href="/posts/factor-strategy/mispriced-option/" class title="不写一行代码，我只靠 AI 实现期权定价策略">不写一行代码，我只靠 AI 实现期权定价策略</a></li><li><a href="/posts/factor-strategy/ml-predict-peaks-valleys-1/" class title="机器学习(XgBoost）预测顶和底">机器学习(XgBoost）预测顶和底</a></li><li><a href="/posts/factor-strategy/nh-nl/" class title="净新高占比因子">净新高占比因子</a></li><li><a href="/posts/factor-strategy/perf-of-momentum-10/" class title="7月斜率动量因子复盘：10天回归斜率在A股表现如何？">7月斜率动量因子复盘：10天回归斜率在A股表现如何？</a></li><li><a href="/posts/factor-strategy/pressure-of-prices-intger/" class title="左数效应 整数关口与光折射">左数效应 整数关口与光折射</a></li><li><a href="/posts/factor-strategy/regret/" class title="Sharpe 5.5!遗憾规避因子">Sharpe 5.5!遗憾规避因子</a></li><li><a href="/posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023/" class title="私募量化策略大盘点-2024年初">私募量化策略大盘点-2024年初</a></li><li><a href="/posts/factor-strategy/santa-clause/" class title="Santa Claus Rally">Santa Claus Rally</a></li><li><a href="/posts/factor-strategy/sec-form-4-insider-purchases/" class title="内幕交易因子研究">内幕交易因子研究</a></li><li><a href="/posts/factor-strategy/second-derivative/" class title="动能反转：二阶导动量因子年化Alpha达到61%！">动能反转：二阶导动量因子年化Alpha达到61%！</a></li><li><a href="/posts/factor-strategy/smart-money-concept/" class title="聪明钱概念策略，另一个价格行为交易策略？">聪明钱概念策略，另一个价格行为交易策略？</a></li><li><a href="/posts/factor-strategy/switch-to-decimal/" class title="改用十进制！点差如何影响策略">改用十进制！点差如何影响策略</a></li><li><a href="/posts/factor-strategy/time-will-tell/" class title="时间会证明一切！抢头财（报）就是抢头彩？！">时间会证明一切！抢头财（报）就是抢头彩？！</a></li><li><a href="/posts/factor-strategy/ultimate-oscillator/" class title="一门三杰 一年翻十倍的男人发明了 UO 指标">一门三杰 一年翻十倍的男人发明了 UO 指标</a></li><li><a href="/posts/factor-strategy/week-day-factor/" class title="周一到周五，哪天能买股？做对了夏普22.5！">周一到周五，哪天能买股？做对了夏普22.5！</a></li><li><a href="/posts/factor-strategy/word-count/" class title="WorldQuant? Word Count!">WorldQuant? Word Count!</a></li><li><a href="/posts/factor-strategy/z-score-factor/" class title="Z-score 因子的深入思考">Z-score 因子的深入思考</a></li><li><a href="/posts/factor-strategy/低波动因子/" class title="新国九条下，低波动因子重要性提升！">新国九条下，低波动因子重要性提升！</a></li><li><a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/" class title="在这一刻抄底，胜率高达95%">在这一刻抄底，胜率高达95%</a></li><li><a href="/posts/factor-strategy/市盈率因子该怎么用/" class title="不看懂这篇文章，不要在量化中使用市盈率！">不看懂这篇文章，不要在量化中使用市盈率！</a></li><li><a href="/posts/factor-strategy/打新不中，买新当如何/" class title="2026年打新总不中签怎么办？散户买新股必看5大量化策略">2026年打新总不中签怎么办？散户买新股必看5大量化策略</a></li><li><a href="/posts/factor-strategy/拯救cci/" class title="拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！">拯救CCI！因子纯化后，证实CCI确实是超有效的技术指标！</a></li><li><a href="/posts/factor-strategy/暴力美学！洗盘模式如何检测/" class title="暴力美学！洗盘模式如何检测？">暴力美学！洗盘模式如何检测？</a></li><li><a href="/posts/factor-strategy/构建强化学习交易模型/" class title="强化学习模型能否自我演化出交易智慧？">强化学习模型能否自我演化出交易智慧？</a></li><li><a href="/posts/factor-strategy/洛书投资解读/" class title="洛书投资：先验性因子与波动率等权">洛书投资：先验性因子与波动率等权</a></li><li><a href="/posts/factor-strategy/终极猜想!底蓓离的成因分析/" class title="终极猜想！底蓓离的成因分析">终极猜想！底蓓离的成因分析</a></li><li><a href="/posts/factor-strategy/跟着国会山股神去炒股/" class title="Political Alpha，跟着国会山股神去炒股">Political Alpha，跟着国会山股神去炒股</a></li><li><a href="/posts/factor-strategy/顶底标注/" class title="为了机器能学习，我标注了 2 万条行情数据">为了机器能学习，我标注了 2 万条行情数据</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">freshman</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/freshman/roadmap-to-become-a-quant/" class title="问薪无愧！<br>自学量化大纲有这75页就够了">问薪无愧！&lt;br&gt;自学量化大纲有这75页就够了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/策略研究</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/策略研究/capm/" class title="资本资产定价模型">资本资产定价模型</a></li><li><a href="/articles/investment/策略研究/mpt-1/" class title="投资组合理论与实战(1) - 基本概念">投资组合理论与实战(1) - 基本概念</a></li><li><a href="/articles/investment/策略研究/mpt-2/" class title="投资组合理论与实战(2) - 蒙特卡洛方法">投资组合理论与实战(2) - 蒙特卡洛方法</a></li><li><a href="/articles/investment/策略研究/mpt-3/" class title="投资组合理论与实战(3) - 优化算法">投资组合理论与实战(3) - 优化算法</a></li><li><a href="/articles/investment/策略研究/mpt-4/" class title="投资组合理论与实战(4) - PyportfolioOpt工具库">投资组合理论与实战(4) - PyportfolioOpt工具库</a></li><li><a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/" class title="关于寻找顶和底的一些研究">关于寻找顶和底的一些研究</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/实盘接入/" class title="量化实盘接入方式">量化实盘接入方式</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化库-数据持久化</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化库/数据持久化/数据持久化/" class title="量化数据的持久化方案">量化数据的持久化方案</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">investment/量化杂谈</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/investment/量化杂谈/tulipmania/" class title="花开曾倾国">花开曾倾国</a></li><li><a href="/articles/investment/量化杂谈/voc/" class title="东印度公司">东印度公司</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">papers</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/papers/03-低延迟趋势线与交易择时/" class title="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？">『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？</a></li><li><a href="/posts/papers/04-年化25%的策略为何翻车/" class title="『译研报04』 年化25%的策略到底有没有翻车？">『译研报04』 年化25%的策略到底有没有翻车？</a></li><li><a href="/posts/papers/kronos/" class title="Kronos：金融K线大模型如何让交易“语言化”？">Kronos：金融K线大模型如何让交易“语言化”？</a></li><li><a href="/posts/papers/rsrs择时指标/" class title="RSRS 择时指标">RSRS 择时指标</a></li><li><a href="/posts/papers/ubl/" class title="『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/ubl-2/" class title="『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地">『匡醍译研报 02』 驯龙高手，从股谚到量化因子的工程化落地</a></li><li><a href="/posts/papers/分享免费金融扩展工具/" class title="免费读华尔街日报？彭博年费¥4300+，用这个扩展绕过付费墙">免费读华尔街日报？彭博年费¥4300+，用这个扩展绕过付费墙</a></li><li><a href="/posts/papers/研报该如何复现/" class title="把研报『翻译』成代码，80%的工作都在这篇文章里讲了">把研报『翻译』成代码，80%的工作都在这篇文章里讲了</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">python</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/python/awesome-code/" class title="只廖廖数行，但很惊艳的代码">只廖廖数行，但很惊艳的代码</a></li><li><a href="/posts/python/duckdb-2/" class title="为什么量化人应该使用duckdb？">为什么量化人应该使用duckdb？</a></li><li><a href="/posts/python/how-to-set-env-in-jupyter-notebook/" class title="Jupyter Notebook中如何设置环境变量？">Jupyter Notebook中如何设置环境变量？</a></li><li><a href="/posts/python/it-is-π-thon/" class title="π-thon以及他的朋友们">π-thon以及他的朋友们</a></li><li><a href="/posts/python/pypinyin/" class title="4k stars! 如何实现按拼音首字母查询证券代码？">4k stars! 如何实现按拼音首字母查询证券代码？</a></li><li><a href="/posts/python/python-just-released-3.13/" class title="10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本">10 月 24 日，庆祝码农节！Python 刚刚发布了 3.13 版本</a></li><li><a href="/posts/python/qmt-how-to-handle-dr-adjust/" class title="QMT复权因子计算太慢？教你一个提速100倍的高效算法">QMT复权因子计算太慢？教你一个提速100倍的高效算法</a></li><li><a href="/posts/python/static-blog-in-2024/" class title="2024年，免费博客赚钱方案">2024年，免费博客赚钱方案</a></li><li><a href="/posts/python/use-sql-query-with-pandas/" class title="给Pandas找个搭子，用SQL玩转Dataframe!">给Pandas找个搭子，用SQL玩转Dataframe!</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">resources</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/resources/a-palette-of-colorful-websites/" class title="一些和颜色相关的网站">一些和颜色相关的网站</a></li><li><a href="/posts/resources/barra-risk-model-handbook/" class title="Barra风险模型构建完全指南">Barra风险模型构建完全指南</a></li><li><a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/" class title="来自世坤！寻找Alpha 构建交易策略的量化方法">来自世坤！寻找Alpha 构建交易策略的量化方法</a></li><li><a href="/posts/resources/free-paper-download/" class title="论如何白嫖论文">论如何白嫖论文</a></li><li><a href="/posts/resources/top-journals-in-quantitative-finance/" class title="量化金融人都在看哪些顶刊">量化金融人都在看哪些顶刊</a></li><li><a href="/posts/resources/白嫖顶级AI算力指南/" class title="龙虾流量太贵？ 我一招搞定每天7500万词元">龙虾流量太贵？ 我一招搞定每天7500万词元</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">2026十大量化技术</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/2026十大量化技术/fasthtml/" class title="量化新基建(三) - FastHTML：Python 全栈开发的终极答案">量化新基建(三) - FastHTML：Python 全栈开发的终极答案</a></li><li><a href="/posts/tools/2026十大量化技术/pandas/" class title="The Battle for a New Dawn<br>量化新基建（四）：Pandas 3.0">The Battle for a New Dawn&lt;br&gt;量化新基建（四）：Pandas 3.0</a></li><li><a href="/posts/tools/2026十大量化技术/sqlite/" class title="2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？">2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？</a></li><li><a href="/posts/tools/2026十大量化技术/uv&#38;pydantic/" class title="UV &#38; Pydantic：重塑 2026 Python 工程化基石">UV &amp; Pydantic：重塑 2026 Python 工程化基石</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">21天驯化AI打工仔</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/21天驯化AI打工仔/1_数据获取/" class title="21天驯化AI打工仔 - 我如何获取量化数据">21天驯化AI打工仔 - 我如何获取量化数据</a></li><li><a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/" class title="21天驯化AI打工仔 - 开发量化交易系统">21天驯化AI打工仔 - 开发量化交易系统</a></li><li><a href="/posts/tools/21天驯化AI打工仔/3_数据库的优化设计/" class title="21天驯化AI打工仔 - 数据库的优化">21天驯化AI打工仔 - 数据库的优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/" class title="21天驯化AI打工仔 - 如何存储10亿个Symbol?">21天驯化AI打工仔 - 如何存储10亿个Symbol?</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_SQEP再优化/" class title="21天驯化AI打工仔 - SQEP 的性能再优化">21天驯化AI打工仔 - SQEP 的性能再优化</a></li><li><a href="/posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试/" class title="21天驯化AI打工仔 - SQEP与symbol编码性能测试">21天驯化AI打工仔 - SQEP与symbol编码性能测试</a></li><li><a href="/posts/tools/21天驯化AI打工仔/6_日线数据的定时获取系统（基本架构实现）/" class title="21天驯化AI打工仔 - 日线数据的定时获取">21天驯化AI打工仔 - 日线数据的定时获取</a></li><li><a href="/posts/tools/21天驯化AI打工仔/7_日线数据的定时获取系统（字段修复）/" class title="21天驯化AI打工仔 - 日线数据的定时获取（2）">21天驯化AI打工仔 - 日线数据的定时获取（2）</a></li><li><a href="/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统/" class title="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题">21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题</a></li><li><a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/" class title="21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成">21 天驯化 AI 打工仔:系统逻辑优化与分钟线数据合成</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">AI-tools</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming/" class title="除了编程，量化人还能怎么用AI？">除了编程，量化人还能怎么用AI？</a></li><li><a href="/posts/tools/AI-tools/remote-agent/" class title="Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?">Augment Remote Agent: 有了本地Agent，为什么你还需要Remote Agent?</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">Numpy_Pandas</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/Numpy_Pandas/01-introduction/01-introduction/" class title="这是你的量化母语">这是你的量化母语</a></li><li><a href="/posts/tools/Numpy_Pandas/02-numpy核心语法[1]/02-numpy核心语法[1]/" class title="Numpy核心语法[1]">Numpy核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/03-numpy核心语法[2]/03-numpy核心语法[2]/" class title="Numpy处理表格数据">Numpy处理表格数据</a></li><li><a href="/posts/tools/Numpy_Pandas/04-numpy核心语法[3]/04-numpy核心语法[3]/" class title="Numpy核心语法[3]">Numpy核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/05-numpy核心语法[4]/05-numpy核心语法[4]/" class title="Numpy核心语法[4]">Numpy核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/06-numpy核心语法[5]/06-numpy核心语法[5]/" class title="Numpy核心语法[5]">Numpy核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/07-numpy核心语法[6]/07-numpy核心语法[6]/" class title="Numpy核心语法[6]">Numpy核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/08-numpy应用案例[1]/08-numpy应用案例[1]/" class title="Numpy应用案例[1]">Numpy应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/09-numpy应用案例[2]/09-numpy应用案例[2]/" class title="Numpy应用案例[2]">Numpy应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/10-numpy应用案例[3]/10-numpy应用案例[3]/" class title="Numpy应用案例[3]">Numpy应用案例[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/11-pandas核心语法[1]/11-pandas核心语法[1]/" class title="Pandas核心语法[1]">Pandas核心语法[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/12-pandas核心语法[2]/12-pandas核心语法[2]/" class title="Pandas核心语法[2]">Pandas核心语法[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/13-pandas核心语法[3]/13-pandas核心语法[3]/" class title="Pandas核心语法[3]">Pandas核心语法[3]</a></li><li><a href="/posts/tools/Numpy_Pandas/14-pandas核心语法[4]/14-pandas核心语法[4]/" class title="Pandas核心语法[4]">Pandas核心语法[4]</a></li><li><a href="/posts/tools/Numpy_Pandas/15-pandas核心语法[5]/15-pandas核心语法[5]/" class title="Pandas核心语法[5]">Pandas核心语法[5]</a></li><li><a href="/posts/tools/Numpy_Pandas/16-pandas核心语法[6]/16-pandas核心语法[6]/" class title="Pandas核心语法[6]">Pandas核心语法[6]</a></li><li><a href="/posts/tools/Numpy_Pandas/17-pandas核心语法[7]/17-pandas核心语法[7]/" class title="Pandas核心语法[7]">Pandas核心语法[7]</a></li><li><a href="/posts/tools/Numpy_Pandas/18-pandas应用案例[1]/18-pandas应用案例[1]/" class title="Pandas应用案例[1]">Pandas应用案例[1]</a></li><li><a href="/posts/tools/Numpy_Pandas/19-pandas应用案例[2]/19-pandas应用案例[2]/" class title="Pandas应用案例[2]">Pandas应用案例[2]</a></li><li><a href="/posts/tools/Numpy_Pandas/20-pandas应用案例[3]/20-pandas应用案例[3]/" class title="Pandas应用案例[3]">Pandas应用案例[3]</a></li> </ul> </details> </li><li> <details class="nav-tree nav-sub"> <summary class="nav-dir"><span class="nav-label">moonshot</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-1/" class title="『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架">『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-2/" class title="『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器">『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/" class title="涨时重势，跌时重质，Moonshot首测股息率因子给出结论">涨时重势，跌时重质，Moonshot首测股息率因子给出结论</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-4/" class title="研报复现之如何正确筛选『连续两年分红』股票（附代码）">研报复现之如何正确筛选『连续两年分红』股票（附代码）</a></li><li><a href="/posts/tools/moonshot/moonshot-is-all-you-need-5/" class title="Moonshot is all you need - 红利策略完结篇">Moonshot is all you need - 红利策略完结篇</a></li> </ul> </details> </li><li><a href="/posts/tools/8个ipython技巧/" class title="你可能不知道的8个IPython技巧">你可能不知道的8个IPython技巧</a></li><li><a href="/posts/tools/agent-on-tracks/" class title="Vibe Coding 能做大项目吗？量化人替你试过了">Vibe Coding 能做大项目吗？量化人替你试过了</a></li><li><a href="/posts/tools/all-about-openbb-as-a-newhand/" class title="OpenBB 实战！轻松获取海外市场数据">OpenBB 实战！轻松获取海外市场数据</a></li><li><a href="/posts/tools/alphasuite/" class title="不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词">不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</a></li><li><a href="/posts/tools/augment-daily-dose/" class title="Augment随手记">Augment随手记</a></li><li><a href="/posts/tools/auto-restart-miniqmt/" class title="如何免登录重启miniqmt?">如何免登录重启miniqmt?</a></li><li><a href="/posts/tools/do-not-fly-solo-copilot/" class title="Don't fly solo! 量化人如何使用AI工具">Don&#39;t fly solo! 量化人如何使用AI工具</a></li><li><a href="/posts/tools/duckdb-has-released-1.0/" class title="里程碑！DuckDB 发布 1.0">里程碑！DuckDB 发布 1.0</a></li><li><a href="/posts/tools/effective-numpy-1/" class title="高效量化编程: Mask Array应用和find_runs">高效量化编程: Mask Array应用和find_runs</a></li><li><a href="/posts/tools/effective-pandas-1/" class title="Pandas高级技巧-1">Pandas高级技巧-1</a></li><li><a href="/posts/tools/effective-pandas-2/" class title="高效量化编程: Pandas 的多级索引">高效量化编程: Pandas 的多级索引</a></li><li><a href="/posts/tools/get-clean-factor-and-forward-returns/" class title="12个参数，48个组合，这么复杂的函数怎么学？">12个参数，48个组合，这么复杂的函数怎么学？</a></li><li><a href="/posts/tools/hdf5/" class title="200倍速！基于 HDF5 的证券数据存储">200倍速！基于 HDF5 的证券数据存储</a></li><li><a href="/posts/tools/hermes/" class title="2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？">2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜一筹？</a></li><li><a href="/posts/tools/how-to-develop-complex-project-using-augment/" class title="试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目">试过 Cursor 和 Trae 之后，我如何用 Augment 完成了一个复杂项目</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher/" class title="量化人如何用好Jupyter环境？（一）">量化人如何用好Jupyter环境？（一）</a></li><li><a href="/posts/tools/how-to-use-jupyter-as-quant-researcher-2/" class title="量化人如何用好 Jupyter？（二）">量化人如何用好 Jupyter？（二）</a></li><li><a href="/posts/tools/pandas-连续涨停统计/" class title="Pandas连续涨停统计">Pandas连续涨停统计</a></li><li><a href="/posts/tools/pyarrow-plus-parquet/" class title="存了50TB！pyarrow + parquet">存了50TB！pyarrow + parquet</a></li><li><a href="/posts/tools/qmt-get-sector/" class title="xtquant 中的板块数据">xtquant 中的板块数据</a></li><li><a href="/posts/tools/qmt-get-stock-price/" class title="量化数据免费方案之 QMT">量化数据免费方案之 QMT</a></li><li><a href="/posts/tools/quantstats-2/" class title="算收益，用算术平均好还是几何平均好?">算收益，用算术平均好还是几何平均好?</a></li><li><a href="/posts/tools/quantstats-reload-news/" class title="原作者失联8个月，我们接手维护后他突然回来了">原作者失联8个月，我们接手维护后他突然回来了</a></li><li><a href="/posts/tools/quantstats-reloaded/" class title="Quantstats Reloaded">Quantstats Reloaded</a></li><li><a href="/posts/tools/rd-agent-for-quant-intro/" class title="微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？">微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破解因子挖掘痛点？</a></li><li><a href="/posts/tools/trade-api/" class title="量化实盘接口">量化实盘接口</a></li><li><a href="/posts/tools/why-click-house-so-fast/" class title="ClickHouse: One table to rule them all!">ClickHouse: One table to rule them all!</a></li><li><a href="/posts/tools/work-with-xtquant/" class title="QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点">QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点</a></li><li><a href="/posts/tools/关于复权那些事儿/" class title="前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因">前后复权都不对，动态复权又太贵！一文揭示策略失败的根本原因</a></li><li><a href="/posts/tools/致命的ID - DuckDB中的Returning子句之谜/" class title="致命的 ID -- DuckDB 中的 Returning 子句之谜">致命的 ID -- DuckDB 中的 Returning 子句之谜</a></li><li><a href="/posts/tools/量化人的2025新年礼/" class title="睽违17年，ta-lib重装出发！">睽违17年，ta-lib重装出发！</a></li><li><a href="/posts/tools/量化研究员如何写一手好代码/" class title="量化研究员如何写一手好代码">量化研究员如何写一手好代码</a></li><li><a href="/posts/tools/量子计算/" class title="量子计算能否重构量化金融未来？">量子计算能否重构量化金融未来？</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">uncategory</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/posts/uncategory/crowed-strike-postmoterm/" class title="全球Windows机器蓝屏，作为量化人，我的检讨来了">全球Windows机器蓝屏，作为量化人，我的检讨来了</a></li><li><a href="/posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger/" class title="DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了">DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了</a></li><li><a href="/posts/uncategory/ipv6-how-to/" class title="当我在星巴克连上家里的服务器，IPV6，你是值得的">当我在星巴克连上家里的服务器，IPV6，你是值得的</a></li><li><a href="/posts/uncategory/need-for-speed/" class title="外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！">外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！</a></li><li><a href="/posts/uncategory/quantide的课程怎么样/" class title="花 930 美元买一门量化课? GPT 如何评估量化课程值不值">花 930 美元买一门量化课? GPT 如何评估量化课程值不值</a></li><li><a href="/posts/uncategory/quantumn-computing-break-through/" class title="量子飞跃：汇丰银行债券交易可能成为华尔街未来">量子飞跃：汇丰银行债券交易可能成为华尔街未来</a></li><li><a href="/posts/uncategory/the-awaken-of-machine/" class title="机器的觉醒！人工智能风云激荡70年">机器的觉醒！人工智能风云激荡70年</a></li><li><a href="/posts/uncategory/weekly-0721/" class title="[0721] QuanTide Weekly">[0721] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0728/" class title="[0728] QuanTide Weekly">[0728] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0804/" class title="[0804] QuanTide Weekly">[0804] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0811/" class title="[0811] QuanTide Weekly">[0811] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0818/" class title="[0818] QuanTide Weekly">[0818] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0825/" class title="[0825] QuanTide Weekly">[0825] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0901/" class title="[0901] QuanTide Weekly">[0901] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0908/" class title="[0908] QuanTide Weekly">[0908] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0915/" class title="[0915] QuanTide Weekly">[0915] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0922/" class title="[0922] QuanTide Weekly">[0922] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-0929/" class title="[0929] QuanTide Weekly">[0929] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1013/" class title="[1013] QuanTide Weekly">[1013] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1020/" class title="[1020] QuanTide Weekly">[1020] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1027/" class title="[1027] QuanTide Weekly">[1027] QuanTide Weekly</a></li><li><a href="/posts/uncategory/weekly-1103/" class title="[1103] QuanTide Weekly">[1103] QuanTide Weekly</a></li><li><a href="/posts/uncategory/进化论/" class title="普校逆袭天花板 进化论王一平：有逻辑的量化">普校逆袭天花板 进化论王一平：有逻辑的量化</a></li><li><a href="/posts/uncategory/量化人也该开始装skills了/" class title="做能调教AI的赛博老技师，量化人也该开始装Skills了">做能调教AI的赛博老技师，量化人也该开始装Skills了</a></li><li><a href="/posts/uncategory/量化黑话/" class title="量化投资黑话：深度解析“因子”及其核心逻辑">量化投资黑话：深度解析“因子”及其核心逻辑</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-figure" title="figure（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="figure">figure</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">鳄鱼线，让趋势成为你的朋友</h1> <p class="meta"> <span>📅 2025-10-13</span> <span>🏷 [strategy, Alligator, Indicator]</span> <span>👁 本月阅读 <span data-page-pv>—</span></span> </p> <img class="cover-img" src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg" alt="鳄鱼线，让趋势成为你的朋友"> <div class="md-body" data-pagefind-body><h2 id="1-策略核心观点">1. 策略核心观点</h2>
+<p>本文构建了一个包含短、中、长期综合考量的鳄鱼线投资策略。它通过吸纳不同时间跨度的信息生成投资信号。严格的多空信号标准使其有着优秀的beta收益。此外，通过不断地纳入AO、分形以及MACD因子，其投资表现越来越好。</p>
+<h2 id="2-引言">2. 引言</h2>
+<div class="admonition admonition-tip"><p class="admonition-title">tip</p>
+“你无法阻止波浪，但你可以学会冲浪。”   —— 乔恩·卡巴金
+</div>
+
+<p>对于交易者而言，市场就像一片浩瀚的大海，时而风平浪静，时而波涛汹涌。许多人试图预测每一个浪花的起落，结果在反复的颠簸中耗尽心力。而真正的冲浪高手，他们从不追逐每一个微小的涟漪。他们会漂在冲浪板上，静静感受海水的流动，耐心等待那股足以形成完美浪管的巨大力量。</p>
+<p>当“鳄鱼”从深海中苏醒，巨浪开始形成的瞬间，他们会果断转身，与趋势的力量融为一体。</p>
+<p>今天，我们将要复现的“鳄鱼线”(Alligator Indicator)指标，正是这样一种“鳄鱼捕食”的哲学在量化交易中的完美体现。它由三条移动平均线组成，模拟鳄鱼的“嘴唇”、“牙齿”和“下颚”。通过观察这三条线的缠绕与发散，我们就能学会像顶级猎手一样，在趋势沉睡时保持耐心，在趋势苏醒时果断跟随。</p>
+<h2 id="3-鳄鱼线的构成">3. 鳄鱼线的构成</h2>
+<p>该策略的核心就是以鳄鱼线为题展开的，可以说是生动形象。</p>
+<p>理清一点呢，鳄鱼头是由白色上唇线（5天移动平均并向未来移动3天），黄色牙齿线（8天移动平均并向未来移动5天）和紫色下颚线（13天移动平均并向未来移动8天）构成。</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760189852042-284b72cc-087d-4657-b78c-11b5809a4623.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图一 趴着的鳄鱼
+  </figcaption>
+</figure>
+
+
+<p>如图一，多头：上唇 &gt; 牙齿 &gt; 下颚（鳄鱼趴着，嘴向上张）三线自上而下依次为上唇、牙齿、下颚，且间距逐步拉开，说明快线带动中慢线向上推进，趋势有序发酵，此时做多。</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190022086-3d28c48f-5e72-4d36-b491-82e49b8f8210.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图二 翻过来的鳄鱼
+  </figcaption>
+</figure>
+
+
+<p>如图二，做空时鳄鱼线的头反过来（下颚&gt;牙齿&gt;上唇），像是死掉的鱼一点都不新鲜，因此做空。</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190077480-c61f2bd6-1d9b-4673-8aae-f918d11eacdb.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图三 不明情况的鳄鱼
+  </figcaption>
+</figure>
+
+<p>如图三，其他时候头歪着的鳄鱼我们也看不出来到底是死是活，因此空仓处理。</p>
+<h2 id="4-鳄鱼线策略">4. 鳄鱼线策略</h2>
+<ul>
+<li><p>价格序列：</p>
+<p>$$O_t,;H_t,;L_t,;C_t$$</p>
+<p>分别为开、高、低、收。</p>
+</li>
+<li><p>简单移动平均（SMA）：</p>
+<p>$$\operatorname{SMA}<em>{n}(x)<em>t=\frac{1}{n}\sum</em>{i=0}^{n-1}x</em>{t-i}$$</p>
+</li>
+<li><p>指数移动平均（EMA），(\alpha=\frac{2}{n+1})：</p>
+<p>$$\operatorname{EMA}<em>{n}(x)<em>t=\alpha x_t+(1-\alpha)\operatorname{EMA}</em>{n}(x)</em>{t-1}$$</p>
+</li>
+<li><p>向右平移 (k) 日（避免未来函数）：</p>
+<p>$$\operatorname{shift}_{+k}(x)<em>t=x</em>{t-k}$$</p>
+</li>
+<li><p>鳄鱼线
+$$
+\begin{aligned}
+\text{Jaw}<em>t   &amp;= \operatorname{shift}</em>{+8}\big(\operatorname{SMA}_{13}(C)\big)<em>t \
+\text{Teeth}<em>t &amp;= \operatorname{shift}</em>{+5}\big(\operatorname{SMA}</em>{8}(C)\big)<em>t \
+\text{Lips}<em>t  &amp;= \operatorname{shift}</em>{+3}\big(\operatorname{SMA}</em>{5}(C)\big)_t
+\end{aligned}
+$$</p>
+</li>
+</ul>
+<p>状态判别：</p>
+<p>$$
+\begin{aligned}
+\text{bull}_t &amp;:; \text{Lips}_t&gt;\text{Teeth}_t&gt;\text{Jaw}_t \
+\text{bear}_t &amp;:; \text{Lips}_t&lt;\text{Teeth}_t&lt;\text{Jaw}_t
+\end{aligned}
+$$</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760182898590-539f49be-1ce6-4f02-afbb-bca25f1208c7.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图四 鳄鱼线
+  </figcaption>
+</figure>
+
+
+<p>根据上证指数的回测结果（图四），我们可以发现：
+1.在趋势市中，该指标能够有效捕捉主升浪，因此具有明显的趋势跟随特征。
+2.震荡市中，鳄鱼线会频繁发出“假信号&quot;，导致交易过于频繁，收益表现呈现明显的β属性(跟随大盘)，但α能力有限
+3.在我们的回测结果中，单纯鳄鱼线的年化收益率约为9.9%，但最大回撤高达51%。
+恐怖的回撤或许没有几个投资者把钱投入到这个单一策略中，同时也表明单一的 Aligator 难以形成稳健的择时逻辑。</p>
+<p>因此，正是由于鳄鱼线的缺点，所以需要结合其他指标进行改进。</p>
+<h2 id="5-鳄鱼线ao">5. 鳄鱼线+AO</h2>
+<p>AO为5日与34日价格均差：刻画短中期动量，并以“三连升/三连降”约束连续性；</p>
+<p>$$
+\begin{aligned}
+M_t &amp;= \frac{H_t+L_t}{2} \
+\operatorname{AO}<em>t &amp;= \operatorname{SMA}</em>{5}(M)<em>t - \operatorname{SMA}</em>{34}(M)_t
+\end{aligned}
+$$</p>
+<p>三连升/三连降：</p>
+<p>$$
+\begin{aligned}
+\text{AO：rising3}<em>t &amp;:; \operatorname{AO}<em>t&gt;\operatorname{AO}</em>{t-1}&gt;\operatorname{AO}</em>{t-2} \
+\text{AO：falling3}<em>t &amp;:; \operatorname{AO}<em>t&lt;\operatorname{AO}</em>{t-1}&lt;\operatorname{AO}</em>{t-2}
+\end{aligned}
+$$</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183287136-eac9301d-9368-4952-abfa-b02113e2233d.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图五 鳄鱼线+AO
+  </figcaption>
+</figure>
+
+
+<p>在执行上以鳄鱼线判趋势结构（张口方向），AO 判力度与持续性，仅在“张口向上且 AO 连升”时进场，“收口或 AO 连降/转负”时离场，从而显著削弱震荡期假突破与无效交易。
+上证的结果显示：相对单鳄鱼线年化约 9.9%、最大回撤约 51% 的脆弱性，引入 AO 后最大回撤降至约 16%，交易频率与噪声同步下降。</p>
+<h2 id="6-鳄鱼线ao分形">6. 鳄鱼线+AO+分形</h2>
+<p>分形是<strong>“5 根 K 线的局部极值”</strong>记号：上分形的中间那根有全组最高点，下分形的中间那根有全组最低点，等第 5 根收盘后才确认，再把最近一次分形价前向填充成“最近上/下分形”作为动态阻力/支撑。</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190730608-5997a993-f0d8-4377-8e22-139cc5596ea1.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图六 分形示意图
+  </figcaption>
+</figure>
+
+
+
+<p>如图六所示，绿色结构为上分形，红色结构更为下分形
+分形检测：</p>
+<p>$$
+\begin{aligned}
+\text{UpFrac at }t &amp;: H_t\ge H_{t-1}\land H_t\ge H_{t-2}\land H_t\ge H_{t+1}\land H_t\ge H_{t+2} \
+\text{DnFrac at }t &amp;: L_t\le L_{t-1}\land L_t\le L_{t-2}\land L_t\le L_{t+1}\land L_t\le L_{t+2}
+\end{aligned}
+$$</p>
+<p>在 (t+2) 日发布分形价位：</p>
+<p>$$
+\begin{aligned}
+\text{FracUp}<em>t &amp;= \operatorname{shift}</em>{+2}\big(1_{\text{UpFrac at }t}\cdot H_t\big) \
+\text{FracDn}<em>t &amp;= \operatorname{shift}</em>{+2}\big(1_{\text{DnFrac at }t}\cdot L_t\big)
+\end{aligned}
+$$</p>
+<p>前向填充最近已发布分形：</p>
+<p>$$
+\begin{aligned}
+\text{FracUpRecent}_t &amp;= \max{\text{FracUp}_s \mid s\le t\text{ 且非空}} \
+\text{FracDnRecent}_t &amp;= \min{\text{FracDn}_s \mid s\le t\text{ 且非空}}
+\end{aligned}
+$$</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183676577-6f29a67c-0560-4be2-a249-f24164f1f619.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图七 鳄鱼线+AO+分形
+  </figcaption>
+</figure>
+
+<p>策略上先以鳄鱼线与 AO 筛“方向与力度”，再要求“收盘有效突破最近上分形”才开多、跌破最近下分形或鳄鱼线收口则离场，形成“结构→力度→价位”的三级闸门。
+这样可避免“刚买就撞阻力”的低质量入场，使净值更平滑、回撤更短更浅，但由于分形发布存在 t+2 滞后，强趋势早段会让渡部分利润，整体性价比仍优于频繁误判。</p>
+<h2 id="7-鳄鱼线ao分形macd">7. 鳄鱼线+AO+分形+MACD</h2>
+<p>MACD是用两条指数均线差(DIF=EMA12−EMA26)和其信号线(DEA=EMA9 的 DIF)来给“节奏确认”，用来判断“是否进入/退出一段新节拍”。</p>
+<p>$$
+\begin{aligned}
+\text{DIF}<em>t &amp;= \operatorname{EMA}</em>{12}(C)<em>t - \operatorname{EMA}</em>{26}(C)_t \
+\text{DEA}<em>t &amp;= \operatorname{EMA}</em>{9}(\text{DIF})_t \
+\text{HIST}_t &amp;= 2\cdot\big(\text{DIF}_t-\text{DEA}_t\big)
+\end{aligned}
+$$</p>
+<p>交叉信号：</p>
+<p>$$
+\begin{aligned}
+\text{GoldenCross}_t &amp;: \text{DIF}<em>t&gt;\text{DEA}<em>t\cap \text{DIF}</em>{t-1}\le \text{DEA}</em>{t-1} \
+\text{DeadCross}_t &amp;: \text{DIF}<em>t&lt;\text{DEA}<em>t\cap \text{DIF}</em>{t-1}\ge \text{DEA}</em>{t-1}
+\end{aligned}
+$$</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183695403-f3f3a1ab-04b1-448c-a712-0ab3a146423d.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图八 鳄鱼线+AO+分形+MACD
+  </figcaption>
+</figure>
+
+
+<p>在结构、力度与价位三关后加入 MACD（金叉/死叉）作为节奏确认：仅当鳄鱼线张口向上、AO 连升、分形位被收盘突破且 MACD 金叉共振时进场，任一否决或 MACD 死叉时退出，从“是否突破”延伸到“是否进入新节拍”。
+该组合进一步减少假突破后的迅速回杀，缩短回撤持续期并压低波动，但多重均线系信号叠加会带来进场更晚的代价，需用交易成本与参数稳健性测试校准窗长。</p>
+<h2 id="8-鳄鱼线ao分形macd的股债轮动">8. 鳄鱼线+AO+分形+MACD的股债轮动</h2>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183708678-ca858146-e5fc-4fbb-8fa9-ae6f92cd249b.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图九 股债轮动
+  </figcaption>
+</figure>
+
+
+<p>当多信号不满足而判定“空仓”时，以债券指数或低波固收替代资产承接资金，待信号再度共振时切回股票，从而把择时空窗转化为稳态收益、显著拉直资金曲线并降低最大回撤与回撤时间；
+在牛短熊长的 A 股环境下，该机制提升了 Alpha 能见度与资金利用率。</p>
+<h2 id="9-指标对比">9. 指标对比</h2>
+<p>前文均是一个因子一个因子叠加地研究，所以并未针对单独一个因子看看效果，如果我们一开始是用鳄鱼线加上分形，结果会如何呢？</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760184670268-13d24e17-42bb-4300-be5f-082edd9f5972.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    图十 鳄鱼线+分形
+  </figcaption>
+</figure>
+
+
+
+<p>发现单纯加入分形后回撤情况并未有很大改善</p>
+<figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
+  <img
+    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760184798253-113c780e-b1be-445e-bb1d-f67b1366913e.png"
+    style="width: 100%; height: auto; display: block; margin: 0 auto;"
+  >
+  <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
+    各指标对比图
+  </figcaption>
+</figure>
+
+<p>加入更多因子后是什么导致的夏普的提高、回撤的减少，可以看到随着指标的逐项加入，盈亏比的提高是很关键的。
+<strong>但是谁最有用？</strong>
+<strong>很明显是<strong>AO，加入AO后盈亏比提高巨大</strong></strong>这样使得即使交易会亏损但只亏一点，一赚就赚一大笔。
+其他分形，macd其实看起来提升效果较AO来说就比较小了
+读者若有兴趣可以对AO进行因子分析。
+除了鳄鱼线之外，还有其他以动物名称命名的因子，比如<strong>狼波，三只乌鸦，龙线</strong>等，都是技术指标层面的分析，感兴趣的朋友也可以搜索了解一下。</p>
+<div class="admonition admonition-info"><p class="admonition-title">info</p>
+根据尤金·法玛的有效市场理论，我们靠技术分析能盈利的原因归根结底就是信息反映的不充分，而国内的各种交易限制刚好提供了这种结构性摩擦，大量非理性的散户操作也给了我们套利空间，我们需要的不是爱上某个形态，而是把它变成可被验证、可被替换的模块。
+</div>
+
+<h2 id="10-代码">10. 代码</h2>
+<h3 id="101-因子计算">10.1. 因子计算</h3>
+<pre><code class="language-python">from typing import List, Optional
+from pathlib import Path
+import tushare as ts
+import pandas as pd
+import os
+pro = ts.pro_api()
+
+data_dir = str(data_home / &quot;rw/alligator/data&quot;)
+factor_dir = str(data_home / &quot;rw/alligator/factor&quot;)
+signal_dir = str(data_home / &quot;rw/alligator/signal&quot;)
+report_dir = str(get_jupyter_root_dir() / &quot;reports/alligator/&quot;)
+universe = [&#39;000300.SH&#39;,&quot;000001.SH&quot;,&quot;000852.SH&quot;,&quot;000905.SH&quot;,&quot;000985.CSI&quot;,&quot;CBA00101.CS&quot;]
+
+def _prepare_df(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;确保 trade_date 升序、关键列为数值。&quot;&quot;&quot;
+    if &quot;trade_date&quot; not in df.columns:
+        raise ValueError(&quot;缺少 trade_date 列&quot;)
+
+    df = df.copy()
+    df[&quot;trade_date&quot;] = pd.to_datetime(df[&quot;trade_date&quot;].astype(str), errors=&quot;coerce&quot;)
+    df = df.dropna(subset=[&quot;trade_date&quot;]).sort_values(&quot;trade_date&quot;).reset_index(drop=True)
+
+    # 转数值
+    for c in [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;]:
+        if c in df.columns:
+            df[c] = pd.to_numeric(df[c], errors=&quot;coerce&quot;)
+
+    return df
+
+def get_index_daily_data(ts_codes: List[str],
+                          start_date: Optional[str] = None,
+                          end_date: Optional[str] = None,
+                          save_path: str = data_dir) -&gt; None:
+     os.makedirs(save_path, exist_ok=True)
+     for ts_code in ts_codes:
+         df = pro.index_daily(ts_code=ts_code, start_date=start_date, end_date=end_date)
+         if df is None or df.empty:
+             print(f&quot;[warn] 无数据: {ts_code}&quot;)
+             continue
+         df = _prepare_df(df)
+         out = os.path.join(save_path, f&quot;{ts_code}.parquet&quot;)
+         df.to_parquet(out, index=False)
+         print(f&quot;[ok] 保存: {out}&quot;)
+
+get_index_daily_data(
+         ts_codes=universe,
+         start_date=&quot;20040630&quot;,
+         end_date=&quot;20250901&quot;
+     )
+</code></pre>
+<pre><code class="language-python">def _clip_by_date(
+    df: pd.DataFrame,
+    start: Optional[pd.Timestamp | str],
+    end: Optional[pd.Timestamp | str],
+) -&gt; pd.DataFrame:
+    if start is not None:
+        start = pd.to_datetime(start)
+        df = df[df[&quot;trade_date&quot;] &gt;= start]
+    if end is not None:
+        end = pd.to_datetime(end)
+        df = df[df[&quot;trade_date&quot;] &lt;= end]
+    return df
+</code></pre>
+<h4>10.1.1. Alligator</h4>
+<pre><code class="language-python"># ============== 指标计算 ==============
+
+def calculate_alligator(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;
+    Alligator（SMA）并右移：
+    Jaw=13 shift(8), Teeth=8 shift(5), Lips=5 shift(3)
+    状态：
+      bull: lips &gt; teeth &gt; jaw
+      bear: lips &lt; teeth &lt; jaw
+      否则 neutral
+    &quot;&quot;&quot;
+    df = _prepare_df(df)
+    close = df[&quot;close&quot;]
+
+    df[&quot;alligator_jaw&quot;]   = close.rolling(13).mean().shift(8)
+    df[&quot;alligator_teeth&quot;] = close.rolling(8).mean().shift(5)
+    df[&quot;alligator_lips&quot;]  = close.rolling(5).mean().shift(3)
+
+    bull = (df[&quot;alligator_lips&quot;] &gt; df[&quot;alligator_teeth&quot;]) &amp; (df[&quot;alligator_teeth&quot;] &gt; df[&quot;alligator_jaw&quot;])
+    bear = (df[&quot;alligator_lips&quot;] &lt; df[&quot;alligator_teeth&quot;]) &amp; (df[&quot;alligator_teeth&quot;] &lt; df[&quot;alligator_jaw&quot;])
+
+    df[&quot;alligator_state&quot;] = &quot;neutral&quot;
+    df.loc[bull, &quot;alligator_state&quot;] = &quot;bull&quot;
+    df.loc[bear, &quot;alligator_state&quot;] = &quot;bear&quot;
+    return df
+</code></pre>
+<h4>10.1.2. Awesome Oscillator</h4>
+<pre><code class="language-python">def calculate_ao(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;
+    AO = SMA(median,5) - SMA(median,34)
+    连涨3天：AO_t &gt; AO_{t-1} &gt; AO_{t-2}
+    连跌3天：AO_t &lt; AO_{t-1} &lt; AO_{t-2}
+    &quot;&quot;&quot;
+    df = _prepare_df(df)
+    if not {&quot;high&quot;, &quot;low&quot;}.issubset(df.columns):
+        # 缺列则给空占位
+        df[&quot;ao&quot;] = pd.NA
+        df[&quot;ao_rising3&quot;] = False
+        df[&quot;ao_falling3&quot;] = False
+        return df
+
+    median_price = (df[&quot;high&quot;] + df[&quot;low&quot;]) / 2.0
+    ao_short = median_price.rolling(5).mean()
+    ao_long = median_price.rolling(34).mean()
+    df[&quot;ao&quot;] = ao_short - ao_long
+
+    ao = df[&quot;ao&quot;]
+    df[&quot;ao_rising3&quot;] = (ao &gt; ao.shift(1)) &amp; (ao.shift(1) &gt; ao.shift(2))
+    df[&quot;ao_falling3&quot;] = (ao &lt; ao.shift(1)) &amp; (ao.shift(1) &lt; ao.shift(2))
+    return df
+</code></pre>
+<h4>10.1.3. Fractals</h4>
+<pre><code class="language-python">
+def calculate_fractals(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;
+    分形允许等号，t±2 检测；整体 shift(+2) 发布，再 ffill 维持最近分形。
+    输出: fractal_up, fractal_dn, fractal_up_recent, fractal_dn_recent
+    &quot;&quot;&quot;
+    df = _prepare_df(df)
+    if not {&quot;high&quot;, &quot;low&quot;}.issubset(df.columns):
+        for c in [&quot;fractal_up&quot;, &quot;fractal_dn&quot;, &quot;fractal_up_recent&quot;, &quot;fractal_dn_recent&quot;]:
+            df[c] = pd.NA
+        return df
+
+    highs, lows = df[&quot;high&quot;], df[&quot;low&quot;]
+
+    up = (highs.shift(2) &lt;= highs.shift(1)) &amp; (highs.shift(1) &lt;= highs) &amp; \
+         (highs.shift(-1) &lt;= highs) &amp; (highs.shift(-2) &lt;= highs)
+    dn = (lows.shift(2)  &gt;= lows.shift(1))  &amp; (lows.shift(1)  &gt;= lows)  &amp; \
+         (lows.shift(-1)  &gt;= lows)          &amp; (lows.shift(-2)  &gt;= lows)
+
+    # 检测点放在 t，然后整体滞后发布到 t+2
+    fr_up = pd.Series(pd.NA, index=df.index)
+    fr_dn = pd.Series(pd.NA, index=df.index)
+    fr_up[up] = highs[up]
+    fr_dn[dn] = lows[dn]
+
+    df[&quot;fractal_up&quot;] = fr_up.shift(2)
+    df[&quot;fractal_dn&quot;] = fr_dn.shift(2)
+
+    df[&quot;fractal_up_recent&quot;] = df[&quot;fractal_up&quot;].ffill()
+    df[&quot;fractal_dn_recent&quot;] = df[&quot;fractal_dn&quot;].ffill()
+    return df
+</code></pre>
+<h4>10.1.4. MACD</h4>
+<pre><code class="language-python">def calculate_macd(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;
+    MACD 固参：12/26/9
+    金叉/死叉用 DIF 与 DEA 的穿越
+    “水上/零轴/水下”按“交叉当日 DIF 的正负”分类，不用 diff==0
+    输出：macd_diff, macd_dea, macd_hist, macd_long, macd_short
+    &quot;&quot;&quot;
+    df = _prepare_df(df)
+    close = df[&quot;close&quot;]
+
+    ema12 = close.ewm(span=12, adjust=False).mean()  # 12日EMA
+    ema26 = close.ewm(span=26, adjust=False).mean()  # 26日EMA
+    diff = ema12 - ema26  # DIF线（快速线）
+    dea = diff.ewm(span=9, adjust=False).mean()  # DEA线（慢速线）
+    hist = 2 * (diff - dea)  # MACD直方图
+
+    df[&quot;macd_diff&quot;] = diff
+    df[&quot;macd_dea&quot;] = dea
+    df[&quot;macd_hist&quot;] = hist
+
+    # 金叉和死叉判断
+    golden = (diff &gt; dea) &amp; (diff.shift(1) &lt;= dea.shift(1))  # DIF上穿DEA：金叉
+    dead = (diff &lt; dea) &amp; (diff.shift(1) &gt;= dea.shift(1))    # DIF下穿DEA：死叉
+
+    # 水上金叉和水下金叉
+    above_golden = golden &amp; (diff &gt; 0)  # DIF在零轴上金叉
+    zero_golden = golden &amp; (diff &lt;= 0)  # DIF在零轴下金叉
+    below_dead = dead &amp; (diff &lt; 0)     # DIF在零轴下死叉
+    zero_dead = dead &amp; (diff &gt;= 0)     # DIF在零轴上死叉
+
+    # 生成MACD的多空信号
+    df[&quot;macd_long&quot;] = above_golden | zero_golden
+    df[&quot;macd_short&quot;] = below_dead | zero_dead
+
+    return df  # MACD四象限合成信号（由gen_factor计算）
+</code></pre>
+<h4>10.1.5. IO 管线</h4>
+<pre><code class="language-python">def read_parquet_files(
+    data_folder: str = data_dir
+) -&gt; Dict[str, pd.DataFrame]:
+    &quot;&quot;&quot;
+    读取 data_folder 下所有 .parquet，返回 {ts_code: df}
+    要求文件名即 ts_code，如 000001.SH.parquet
+    &quot;&quot;&quot;
+    data: Dict[str, pd.DataFrame] = {}
+    if not os.path.exists(data_folder):
+        raise FileNotFoundError(f&quot;数据目录不存在: {data_folder}&quot;)
+
+    files = [f for f in os.listdir(data_folder) if f.endswith(&quot;.parquet&quot;)]
+    if not files:
+        print(f&quot;[warn] 目录无 parquet 文件: {data_folder}&quot;)
+
+    for file in files:
+        ts_code = file.replace(&quot;.parquet&quot;, &quot;&quot;)
+        path = os.path.join(data_folder, file)
+        df = pd.read_parquet(path)
+        df = _prepare_df(df)
+        data[ts_code] = df
+    return data
+</code></pre>
+<pre><code class="language-python">def _compute_all_factors(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;在单个 df 上依次计算所有指标（保持列齐全）。&quot;&quot;&quot;
+    df1 = calculate_alligator(df)
+    df2 = calculate_ao(df1)
+    df3 = calculate_fractals(df2)
+    df4 = calculate_macd(df3)
+    return df4
+</code></pre>
+<pre><code class="language-python">def save_alligator_to_parquet(
+    data: Dict[str, pd.DataFrame],
+    factor_folder: Path = factor_dir,
+    factor_start_date: Optional[str] = None,
+    factor_end_date: Optional[str] = None,
+) -&gt; None:
+    &quot;&quot;&quot;
+    计算指标并保存为 parquet：{factor_folder}/{ts_code}_alligator.parquet
+    可在因子阶段用 factor_start_date / factor_end_date 裁剪
+    &quot;&quot;&quot;
+    os.makedirs(factor_folder, exist_ok=True)
+
+    for ts_code, df in data.items():
+        # 裁剪窗口仅作用于“因子计算阶段”，后续策略/回测再自行设窗口
+        df_clip = _clip_by_date(df, factor_start_date, factor_end_date)
+        if df_clip.empty:
+            print(f&quot;[warn] {ts_code} 在所选时间窗无数据，跳过&quot;)
+            continue
+
+        out_df = _compute_all_factors(df_clip)
+        out_path = os.path.join(factor_folder, f&quot;{ts_code}_alligator.parquet&quot;)
+        out_df.to_parquet(out_path, index=False)
+        print(f&quot;[ok] {ts_code} 因子保存 -&gt; {out_path}&quot;)
+</code></pre>
+<pre><code class="language-python">def process_alligator_from_data(
+    data_folder: str = data_dir,
+    factor_folder: str = factor_dir,
+    factor_start_date: Optional[str] = None,
+    factor_end_date: Optional[str] = None,
+) -&gt; None:
+    &quot;&quot;&quot;
+    从 data_folder 读取行情，计算因子，保存至 factor_folder
+    &quot;&quot;&quot;
+    data = read_parquet_files(data_folder=data_folder)
+    save_alligator_to_parquet(
+        data,
+        factor_folder=factor_folder,
+        factor_start_date=factor_start_date,
+        factor_end_date=factor_end_date,
+    )
+</code></pre>
+<h4>10.1.6. 入口函数</h4>
+<pre><code class="language-python">
+def run_all(
+    data_folder: str = data_dir,
+    factor_folder: str = factor_dir,
+    factor_start_date: Optional[str] = None,
+    factor_end_date: Optional[str] = None,
+) -&gt; None:
+    &quot;&quot;&quot;
+    一键执行因子生成。默认不下载，直接读取本地 parquet。
+    你可以在这里指定因子计算的时间窗；后续 strategy/backtest 再指定自己的交易窗。
+    &quot;&quot;&quot;
+    print(&quot;[start] factor generation&quot;)
+    process_alligator_from_data(
+        data_folder=data_folder,
+        factor_folder=factor_folder,
+        factor_start_date=factor_start_date,
+        factor_end_date=factor_end_date,
+    )
+    print(&quot;[done] factor generation&quot;)
+
+run_all(
+    factor_start_date=&quot;2004-06-30&quot;,
+    factor_end_date=&quot;2025-09-01&quot;,
+)
+</code></pre>
+<h3 id="102-信号生成">10.2. 信号生成</h3>
+<pre><code class="language-python"># ============== 策略信号生成 ==============
+from __future__ import annotations
+import os
+from typing import Optional, Dict, List
+import pandas as pd
+
+# 需要的列名（由 gen_factor 生成）
+REQ_COLS = [
+    &quot;trade_date&quot;, &quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;,
+    &quot;alligator_jaw&quot;, &quot;alligator_teeth&quot;, &quot;alligator_lips&quot;, &quot;alligator_state&quot;,
+    &quot;ao&quot;, &quot;ao_rising3&quot;, &quot;ao_falling3&quot;,
+    &quot;fractal_up&quot;, &quot;fractal_dn&quot;, &quot;fractal_up_recent&quot;, &quot;fractal_dn_recent&quot;,
+    &quot;macd_diff&quot;, &quot;macd_dea&quot;, &quot;macd_hist&quot;, &quot;macd_long&quot;, &quot;macd_short&quot;,
+]
+
+
+def _ensure_dt_index(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;确保 trade_date 为升序 DatetimeIndex。&quot;&quot;&quot;
+    if &quot;trade_date&quot; not in df.columns:
+        raise ValueError(&quot;缺少 trade_date 列；请先用 gen_factor 生成标准因子文件后再运行 strategy&quot;)
+    df = df.copy()
+    df[&quot;trade_date&quot;] = pd.to_datetime(df[&quot;trade_date&quot;].astype(str), errors=&quot;coerce&quot;)
+    df = df.dropna(subset=[&quot;trade_date&quot;]).set_index(&quot;trade_date&quot;).sort_index()
+    df.index.name = &quot;trade_date&quot;
+    return df
+
+
+def _clip_window(df: pd.DataFrame,
+                 start: Optional[str | pd.Timestamp],
+                 end: Optional[str | pd.Timestamp]) -&gt; pd.DataFrame:
+    if start is not None:
+        df = df[df.index &gt;= pd.to_datetime(start)]
+    if end is not None:
+        df = df[df.index &lt;= pd.to_datetime(end)]
+    return df
+
+
+def generate_trade_signals_alligator_only(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;基于 alligator_state 生成 position 与 trade_signal（A 层辅助）。&quot;&quot;&quot;
+    if &quot;alligator_state&quot; not in df.columns:
+        return df
+    pos = []
+    cur = 0
+    vals = df[&quot;alligator_state&quot;].astype(&quot;string&quot;)
+    for s in vals:
+        if pd.notna(s):
+            if s == &quot;bull&quot;:
+                cur = 1
+            elif s == &quot;bear&quot;:
+                cur = 0
+        pos.append(cur)
+    df[&quot;position&quot;] = pd.Series(pos, index=df.index, dtype=&quot;int64&quot;)
+    prev = df[&quot;position&quot;].shift(1).fillna(0).astype(int)
+    # trade_signal 表示 T 日收盘后的状态变化：1 从 0-&gt;1，-1 从 1-&gt;0
+    delta = df[&quot;position&quot;] - prev
+    df[&quot;trade_signal&quot;] = delta.where(delta.isin([1, -1]), 0).astype(int)
+    return df
+
+
+def _build_fractal_breakouts(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;生成 fractal_long / fractal_short（T 日判定）。
+    要求 gen_factor 已经把 fractal_up/dn 用 shift(+2) 发布，并用 ffill 形成 *_recent。
+    突破规则：
+      long:  close_t &gt; up_recent_{t-1}
+      short: close_t &lt; dn_recent_{t-1}
+    &quot;&quot;&quot;
+    df = df.copy()
+    if {&quot;close&quot;, &quot;fractal_up_recent&quot;, &quot;fractal_dn_recent&quot;}.issubset(df.columns):
+        up_recent_shifted = df[&quot;fractal_up_recent&quot;].shift(1)
+        dn_recent_shifted = df[&quot;fractal_dn_recent&quot;].shift(1)
+        valid_long = df[&quot;close&quot;].notna() &amp; up_recent_shifted.notna()
+        valid_short = df[&quot;close&quot;].notna() &amp; dn_recent_shifted.notna()
+        df[&quot;fractal_long&quot;] = False
+        df[&quot;fractal_short&quot;] = False
+        df.loc[valid_long, &quot;fractal_long&quot;] = (df.loc[valid_long, &quot;close&quot;] &gt; up_recent_shifted.loc[valid_long])
+        df.loc[valid_short, &quot;fractal_short&quot;] = (df.loc[valid_short, &quot;close&quot;] &lt; dn_recent_shifted.loc[valid_short])
+    else:
+        df[&quot;fractal_long&quot;], df[&quot;fractal_short&quot;] = False, False
+    return df
+
+
+def build_stage_signals(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;产出分层信号列：
+    - sig_alligator_long/short
+    - sig_ao_long/short
+    - sig_fractal_long/short
+    - sig_macd_long/short
+    - sig_combo_long/short (最终组合)
+    并提供每层 entries/exits（T 日信号，用于 T+1 执行）。
+    &quot;&quot;&quot;
+    df = df.copy()
+
+    # A: Alligator
+    df[&quot;sig_alligator_long&quot;] = (df.get(&quot;alligator_state&quot;).astype(&quot;string&quot;) == &quot;bull&quot;)
+    df[&quot;sig_alligator_short&quot;] = (df.get(&quot;alligator_state&quot;).astype(&quot;string&quot;) == &quot;bear&quot;)
+
+    # AO 连涨/连跌信号（由 gen_factor 计算）
+    df[&quot;sig_ao_long&quot;] = df.get(&quot;ao_rising3&quot;, False).fillna(False)
+    df[&quot;sig_ao_short&quot;] = df.get(&quot;ao_falling3&quot;, False).fillna(False)
+
+    # Fractal 突破
+    df = _build_fractal_breakouts(df)
+    df[&quot;sig_fractal_long&quot;] = df[&quot;fractal_long&quot;].fillna(False)
+    df[&quot;sig_fractal_short&quot;] = df[&quot;fractal_short&quot;].fillna(False)
+
+    # MACD 四象限合成信号（由 gen_factor 计算）
+    df[&quot;sig_macd_long&quot;] = df.get(&quot;macd_long&quot;, False).fillna(False)
+    df[&quot;sig_macd_short&quot;] = df.get(&quot;macd_short&quot;, False).fillna(False)
+
+    # D: 最终组合
+    df[&quot;sig_combo_long&quot;] = df[&quot;sig_alligator_long&quot;] &amp; (df[&quot;sig_fractal_long&quot;] | df[&quot;sig_macd_long&quot;])  # 多头不强制 AO
+    df[&quot;sig_combo_short&quot;] = (
+        df[&quot;sig_alligator_short&quot;] | df[&quot;sig_ao_short&quot;] | df[&quot;sig_fractal_short&quot;] | df[&quot;sig_macd_short&quot;]
+    )
+
+    # 为回测方便，派生每层 entries/exits（等价于 sig_*）
+    df[&quot;entries_A&quot;], df[&quot;exits_A&quot;] = df[&quot;sig_alligator_long&quot;], df[&quot;sig_alligator_short&quot;]
+    df[&quot;entries_B&quot;], df[&quot;exits_B&quot;] = (df[&quot;sig_alligator_long&quot;] &amp; df[&quot;sig_ao_long&quot;]), (df[&quot;sig_alligator_short&quot;] | df[&quot;sig_ao_short&quot;])
+    df[&quot;entries_C&quot;], df[&quot;exits_C&quot;] = (df[&quot;sig_alligator_long&quot;] &amp; df[&quot;sig_fractal_long&quot;]), (df[&quot;sig_alligator_short&quot;] | df[&quot;sig_fractal_short&quot;])
+    df[&quot;entries_D&quot;], df[&quot;exits_D&quot;] = df[&quot;sig_combo_long&quot;], df[&quot;sig_combo_short&quot;]
+
+    # 保证布尔类型
+    bool_cols = [c for c in df.columns if c.startswith(&quot;sig_&quot;) or c.startswith(&quot;entries_&quot;) or c.startswith(&quot;exits_&quot;)]
+    for c in bool_cols:
+        df[c] = df[c].astype(bool)
+    return df
+
+
+def process_alligator_signals(
+    factor_folder: str = &quot;factor&quot;,
+    output_folder: str = &quot;signals&quot;,
+    strategy_start_date: Optional[str] = None,
+    strategy_end_date: Optional[str] = None,
+) -&gt; None:
+    &quot;&quot;&quot;读取因子 parquet，按独立交易时间窗生成信号并写回 parquet。&quot;&quot;&quot;
+    os.makedirs(output_folder, exist_ok=True)
+    files = [f for f in os.listdir(factor_folder) if f.endswith(&quot;.parquet&quot;)]
+    if not files:
+        print(f&quot;[warn] 未在 {factor_folder} 找到 parquet 文件&quot;)
+        return
+
+    for fn in files:
+        path = os.path.join(factor_folder, fn)
+        ts_code = fn.replace(&quot;.parquet&quot;, &quot;&quot;)
+        try:
+            df = pd.read_parquet(path)
+        except Exception as e:
+            print(f&quot;[warn] 读取失败 {path}: {e}&quot;)
+            continue
+
+        # 基础检查与窗口裁剪
+        df = _ensure_dt_index(df)
+        # 缺列直接跳过（不强制全部 REQ_COLS，只要生成信号用到的在即可）
+        missing = [c for c in [&quot;close&quot;, &quot;alligator_state&quot;] if c not in df.columns]
+        if missing:
+            print(f&quot;[warn] {ts_code} 缺列 {missing}，跳过&quot;)
+            continue
+
+        df_clip = _clip_window(df, strategy_start_date, strategy_end_date)
+        if df_clip.empty:
+            print(f&quot;[warn] {ts_code} 在策略窗内无数据，跳过&quot;)
+            continue
+
+        # 生成信号
+        df_sig = generate_trade_signals_alligator_only(df_clip)
+        df_sig = build_stage_signals(df_sig)
+
+        # 输出 1：完整信号
+        out1 = os.path.join(output_folder, f&quot;{ts_code}_trade_signals.parquet&quot;)
+        df_sig.reset_index().to_parquet(out1, index=False)
+
+        # 输出 2：拆分信号（便于回测脚本直接带入）
+        split_cols = [
+            &quot;sig_alligator_long&quot;, &quot;sig_alligator_short&quot;,
+            &quot;sig_ao_long&quot;, &quot;sig_ao_short&quot;,
+            &quot;sig_fractal_long&quot;, &quot;sig_fractal_short&quot;,
+            &quot;sig_macd_long&quot;, &quot;sig_macd_short&quot;,
+            &quot;sig_combo_long&quot;, &quot;sig_combo_short&quot;,
+            &quot;entries_A&quot;, &quot;exits_A&quot;,
+            &quot;entries_B&quot;, &quot;exits_B&quot;,
+            &quot;entries_C&quot;, &quot;exits_C&quot;,
+            &quot;entries_D&quot;, &quot;exits_D&quot;,
+            &quot;position&quot;, &quot;trade_signal&quot;,
+        ]
+        out2 = os.path.join(output_folder, f&quot;{ts_code}_signals_split.parquet&quot;)
+        df_sig[split_cols].reset_index().to_parquet(out2, index=False)
+
+        print(f&quot;[ok] {ts_code} -&gt; {out1}; {out2}&quot;)
+
+
+def run_all(
+    factor_folder: str = factor_dir,
+    output_folder: str = signal_dir,
+    strategy_start_date: Optional[str] = None,
+    strategy_end_date: Optional[str] = None,
+) -&gt; None:
+    print(&quot;[start] strategy signal generation&quot;)
+    process_alligator_signals(
+        factor_folder=factor_folder,
+        output_folder=output_folder,
+        strategy_start_date=strategy_start_date,
+        strategy_end_date=strategy_end_date,
+    )
+    print(&quot;[done] strategy signal generation&quot;)
+
+run_all(
+    strategy_start_date=&quot;2005-01-04&quot;, 
+    strategy_end_date=&quot;2024-01-04&quot;,  
+)
+</code></pre>
+<h3 id="103-回测分析">10.3. 回测分析</h3>
+<pre><code class="language-python">from matplotlib.ticker import PercentFormatter
+import matplotlib.patches as mpatches
+import quantstats as qs
+
+def _to_dt_index(df: pd.DataFrame) -&gt; pd.DataFrame:
+    df = df.copy()
+    if &#39;trade_date&#39; not in df.columns:
+        raise ValueError(&#39;missing trade_date column&#39;)
+    df[&#39;trade_date&#39;] = pd.to_datetime(df[&#39;trade_date&#39;].astype(str), errors=&#39;coerce&#39;)
+    df = df.dropna(subset=[&#39;trade_date&#39;]).set_index(&#39;trade_date&#39;).sort_index()
+    df.index.name = &#39;trade_date&#39;
+    return df
+
+
+def read_split_signals(folder: str, ts_code: str) -&gt; Optional[pd.DataFrame]:
+    p1 = os.path.join(folder, f&#39;{ts_code}_signals_split.parquet&#39;)
+    p2 = os.path.join(folder, f&#39;{ts_code}_alligator_signals_split.parquet&#39;)
+    path = p1 if os.path.exists(p1) else p2
+    if not os.path.exists(path):
+        return None
+    df = pd.read_parquet(path)
+    if &#39;trade_date&#39; in df.columns:
+        df = _to_dt_index(df)
+    elif &#39;index&#39; in df.columns:
+        df[&#39;index&#39;] = pd.to_datetime(df[&#39;index&#39;].astype(str), errors=&#39;coerce&#39;)
+        df = df.dropna(subset=[&#39;index&#39;]).set_index(&#39;index&#39;).sort_index()
+    return df
+
+
+def read_price_series(data_folder: str, ts_code: str, col: str) -&gt; pd.Series:
+    path = os.path.join(data_folder, f&#39;{ts_code}.parquet&#39;)
+    if not os.path.exists(path):
+        raise FileNotFoundError(f&#39;missing price file: {path}&#39;)
+    df = pd.read_parquet(path)
+    df = _to_dt_index(df)
+    if col not in df.columns:
+        raise ValueError(f&#39;{path} missing column: {col}&#39;)
+    return df[col]
+
+# ============================ Backtest engine ============================
+
+def backtest_strategy(entries: pd.Series,
+                      exits: pd.Series,
+                      open_price: pd.Series,
+                      init_cash: float = 1e8,
+                      size_granularity: int = 100,
+                      fees: float = 0.00015,
+                      report_mode: bool = True) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;T-day signal, T+1 open execution; sell first then buy; flat-to-full.
+    report_mode=True disables fees and lot size.
+    &quot;&quot;&quot;
+    idx = open_price.index.intersection(entries.index).intersection(exits.index)
+    if len(idx) &lt; 2:
+        return pd.DataFrame()
+    px = open_price.loc[idx]
+    ent = entries.loc[idx].fillna(False)
+    ex  = exits.loc[idx].fillna(False)
+
+    if report_mode:
+        fees = 0.0
+        size_granularity = 1
+
+    cash_before = init_cash
+    cash_after  = init_cash
+    position = 0.0
+
+    rows = []
+    for i in range(1, len(idx)):
+        p = float(px.iloc[i])
+        e_prev = bool(ent.iloc[i-1])
+        x_prev = bool(ex.iloc[i-1])
+
+        # close first
+        if x_prev and position &gt; 0:
+            cash_after += position * p * (1 - fees)
+            cash_before += position * p
+            position = 0.0
+
+        # open after closing
+        if e_prev and position == 0:
+            if report_mode:
+                shares = cash_after / p
+            else:
+                max_shares = int(cash_after // (p * (1 + fees)))
+                shares = (max_shares // size_granularity) * size_granularity
+            if shares &gt; 0:
+                position = float(shares)
+                cash_after -= shares * p * (1 + fees)
+                cash_before -= shares * p
+
+        pv_b = cash_before + position * p
+        pv_a = cash_after  + position * p
+        rows.append((idx[i], pv_b, pv_a, cash_before, cash_after, position))
+
+    res = pd.DataFrame(rows, columns=[&#39;date&#39;,&#39;portfolio_value_before_fees&#39;,&#39;portfolio_value_after_fees&#39;,&#39;cash_before&#39;,&#39;cash_after&#39;,&#39;position&#39;]).set_index(&#39;date&#39;)
+    if len(res):
+        res[&#39;daily_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;].pct_change()
+        res[&#39;daily_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;].pct_change()
+        res[&#39;total_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;] / res[&#39;portfolio_value_before_fees&#39;].iloc[0] - 1
+        res[&#39;total_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;]  / res[&#39;portfolio_value_after_fees&#39;].iloc[0]  - 1
+    return res
+
+
+def backtest_bond_rotation(entries: pd.Series,
+                           exits: pd.Series,
+                           stock_open: pd.Series,
+                           bond_open: pd.Series,
+                           init_cash: float = 1e8,
+                           size_granularity: int = 100,
+                           fees: float = 0.00015,
+                           report_mode: bool = True) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;Equity–Bond rotation: if prev-day wants equity (entry True and not exit) hold equity; else hold bond.&quot;&quot;&quot;
+    idx = stock_open.index.intersection(bond_open.index).intersection(entries.index).intersection(exits.index)
+    if len(idx) &lt; 2:
+        return pd.DataFrame()
+    s_px = stock_open.loc[idx]
+    b_px = bond_open.loc[idx]
+    ent  = entries.loc[idx].fillna(False)
+    ex   = exits.loc[idx].fillna(False)
+
+    if report_mode:
+        fees = 0.0
+        size_granularity = 1
+
+    cash_before = init_cash
+    cash_after  = init_cash
+    pos_s = 0.0
+    pos_b = 0.0
+
+    rows = []
+    for i in range(1, len(idx)):
+        ps = float(s_px.iloc[i])
+        pb = float(b_px.iloc[i])
+
+        # liquidate existing
+        if pos_s &gt; 0:
+            cash_after += pos_s * ps * (1 - fees)
+            cash_before += pos_s * ps
+            pos_s = 0.0
+        if pos_b &gt; 0:
+            cash_after += pos_b * pb * (1 - fees)
+            cash_before += pos_b * pb
+            pos_b = 0.0
+
+        want_equity = bool(ent.iloc[i-1]) and not bool(ex.iloc[i-1])
+        if want_equity:
+            if report_mode:
+                shares = cash_after / ps
+            else:
+                max_shares = int(cash_after // (ps * (1 + fees)))
+                shares = (max_shares // size_granularity) * size_granularity
+            if shares &gt; 0:
+                pos_s = float(shares)
+                cash_after -= shares * ps * (1 + fees)
+                cash_before -= shares * ps
+        else:
+            if report_mode:
+                shares = cash_after / pb
+            else:
+                max_shares = int(cash_after // (pb * (1 + fees)))
+                shares = (max_shares // size_granularity) * size_granularity
+            if shares &gt; 0:
+                pos_b = float(shares)
+                cash_after -= shares * pb * (1 + fees)
+                cash_before -= shares * pb
+
+        pv_b = cash_before + pos_s * ps + pos_b * pb
+        pv_a = cash_after  + pos_s * ps + pos_b * pb
+        rows.append((idx[i], pv_b, pv_a, cash_before, cash_after, 1 if pos_s &gt; 0 else 0))
+
+    res = pd.DataFrame(rows, columns=[&#39;date&#39;,&#39;portfolio_value_before_fees&#39;,&#39;portfolio_value_after_fees&#39;,&#39;cash_before&#39;,&#39;cash_after&#39;,&#39;position&#39;]).set_index(&#39;date&#39;)
+    if len(res):
+        res[&#39;daily_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;].pct_change()
+        res[&#39;daily_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;].pct_change()
+        res[&#39;total_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;] / res[&#39;portfolio_value_before_fees&#39;].iloc[0] - 1
+        res[&#39;total_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;]  / res[&#39;portfolio_value_after_fees&#39;].iloc[0]  - 1
+    return res
+
+# ============================ Metrics ============================
+
+def calculate_metrics(result_df: pd.DataFrame) -&gt; Dict[str, float]:
+    &quot;&quot;&quot;计算策略指标：quantstats 标准指标 + 自定义仓位指标&quot;&quot;&quot;
+    if result_df is None or len(result_df) == 0:
+        return {}
+    
+    returns = result_df[&#39;daily_return_after_fees&#39;].dropna()
+    if len(returns) == 0:
+        return {}
+    
+    # ===== quantstats 标准指标（直接调用，不重复计算）=====
+    metrics = {
+        &#39;annual_return&#39;: float(qs.stats.cagr(returns)),
+        &#39;max_drawdown&#39;: float(qs.stats.max_drawdown(returns)),
+        &#39;sharpe&#39;: float(qs.stats.sharpe(returns)),
+        &#39;calmar&#39;: float(qs.stats.calmar(returns)),
+        &#39;daily_win_rate&#39;: float(qs.stats.win_rate(returns)),
+    }
+    
+    # ===== 自定义指标（quantstats 没有的）=====
+    # 盈亏比
+    positive_returns = returns[returns &gt; 0]
+    negative_returns = returns[returns &lt; 0]
+    metrics[&#39;daily_profit_loss_ratio&#39;] = float(
+        positive_returns.mean() / abs(negative_returns.mean())
+    ) if len(negative_returns) &gt; 0 and negative_returns.mean() != 0 else 0.0
+    
+    # 仓位相关指标
+    position_data = result_df.get(&#39;position&#39;, pd.Series(0, index=result_df.index))
+    full_position_returns = returns[position_data &gt; 0]
+    empty_position_returns = returns[position_data == 0]
+    
+    metrics[&#39;full_position_win_rate&#39;] = float((full_position_returns &gt; 0).mean()) if len(full_position_returns) &gt; 0 else 0.0
+    metrics[&#39;empty_position_win_rate&#39;] = float((empty_position_returns &gt; 0).mean()) if len(empty_position_returns) &gt; 0 else 0.0
+    metrics[&#39;empty_position_ratio&#39;] = float((position_data == 0).sum() / len(position_data)) if len(position_data) &gt; 0 else 0.0
+    
+    # 交易次数和换手率
+    trade_signals = result_df.get(&#39;trade_signal&#39;, pd.Series(0, index=result_df.index))
+    total_trades = (trade_signals != 0).sum()
+    total_days = len(result_df)
+    
+    metrics[&#39;total_trades&#39;] = int(total_trades)
+    metrics[&#39;annual_turnover&#39;] = float(total_trades / (total_days / 365.25)) if total_days &gt; 0 else 0.0
+    metrics[&#39;monthly_turnover&#39;] = float(total_trades / (total_days / 30.44)) if total_days &gt; 0 else 0.0
+    metrics[&#39;avg_holding_days&#39;] = float(total_days / total_trades) if total_trades &gt; 0 else 0.0
+    
+    return metrics
+
+# ============================ Report-style plotting ============================
+
+def _plot_report(returns: pd.Series, benchmark_returns: pd.Series, title: str, outpath: str) -&gt; None:
+    &quot;&quot;&quot;策略对比图表：净值曲线 + 从上往下的半透明绿色回撤区域&quot;&quot;&quot;
+    if returns is None or len(returns) &lt; 2:
+        return
+    
+    os.makedirs(os.path.dirname(outpath) or &#39;.&#39;, exist_ok=True)
+    
+    # 计算累积收益
+    cum = (1 + returns).cumprod()
+    bench = benchmark_returns if benchmark_returns is not None and len(benchmark_returns) &gt; 0 else None
+    
+    # 回撤负值 -&gt; 幅度正数
+    dd = qs.stats.to_drawdown_series(returns).fillna(0)
+    dd_mag = (-dd).clip(lower=0)  # 正数
+    
+    # 创建图表
+    fig, ax1 = plt.subplots(figsize=(16, 8))
+    
+    # 先画累计收益线（黑色）
+    ax1.plot(cum.index, cum.values, linewidth=2.0, color=&#39;#FF0000&#39;, label=&#39;Strategy&#39;, zorder=3)
+    
+    # 基准可选（深灰）
+    if bench is not None:
+        cum_bench = (1 + bench).cumprod()
+        ax1.plot(cum_bench.index, cum_bench.values, linewidth=1.4, color=&#39;#777777&#39;, label=&#39;Benchmark&#39;, zorder=2)
+    
+    ax1.set_ylabel(&#39;Net Asset Value&#39;, fontsize=12)
+    ax1.set_xlabel(&#39;Date&#39;, fontsize=12)
+    ax1.grid(True, alpha=0.3, zorder=0)
+    
+    # 右轴：回撤用半透明绿色
+    ax2 = ax1.twinx()
+    ax1.set_zorder(ax2.get_zorder() + 1)
+    ax1.patch.set_visible(False)
+    
+    # 关键：绿色 + 透明度
+    ax2.fill_between(
+        dd_mag.index, 0, dd_mag.values * 100,
+        facecolor=(0.0, 0.55, 0.0, 0.35),  # 深绿，35%透明
+        edgecolor=&#39;none&#39;,
+        zorder=1
+    )
+    
+    # 让回撤从上往下灌
+    hi = dd_mag.max() * 100
+    ax2.set_ylim(hi * 1.05, 0)
+    ax2.set_ylabel(&#39;Drawdown (%)&#39;, fontsize=12)
+    ax2.yaxis.set_major_formatter(PercentFormatter(xmax=100))
+    
+    # 标题
+    ax1.set_title(title, fontsize=16, pad=20)
+    
+    # 图例：给回撤补一个绿色块
+    handles, labels = ax1.get_legend_handles_labels()
+    handles.append(mpatches.Patch(facecolor=(0.0, 0.55, 0.0, 0.35), edgecolor=&#39;none&#39;, label=&#39;Drawdown&#39;))
+    ax1.legend(handles=handles, loc=&#39;upper left&#39;, frameon=False, fontsize=11)
+    
+    plt.tight_layout()
+    plt.savefig(outpath, dpi=100, bbox_inches=&#39;tight&#39;)
+    plt.close()
+
+
+def plot_reports_for_results(results: Dict[str, dict], bench_close: pd.Series, ts_code: str, out_dir: str) -&gt; Dict[str, str]:
+    &quot;&quot;&quot;为每个策略生成对比报告图表&quot;&quot;&quot;
+    out = {}
+    order = [
+        (&#39;1_Alligator&#39;,                    &#39;1. Alligator&#39;),
+        (&#39;B_Alligator_AO&#39;,                 &#39;2. Alligator + AO&#39;),
+        (&#39;C_Alligator_Fractal&#39;,            &#39;3. Alligator + Fractal&#39;),
+        (&#39;D_Alligator_AO_Fractal&#39;,         &#39;4. Alligator + AO + Fractal&#39;),
+        (&#39;E_Alligator_AO_Fractal_MACD&#39;,     &#39;5. Alligator + AO + Fractal + MACD&#39;),
+        (&#39;E_Bond_Rotation&#39;,                &#39;6. Equity–Bond Rotation&#39;),
+    ]
+    
+    # 计算基准收益率
+    bench_returns = bench_close.pct_change().dropna()
+    
+    for key, ttl in order:
+        if key not in results or &#39;result_df&#39; not in results[key] or results[key][&#39;result_df&#39;] is None or len(results[key][&#39;result_df&#39;]) == 0:
+            continue
+        
+        res_df = results[key][&#39;result_df&#39;]
+        strategy_returns = res_df[&#39;daily_return_after_fees&#39;].dropna()
+        
+        if len(strategy_returns) &lt; 2:
+            continue
+        
+        # 对齐基准收益率
+        aligned_bench_returns = bench_returns.reindex(strategy_returns.index).fillna(0)
+        
+        # 将图表保存到各自的资产文件夹中
+        f = f&#39;{out_dir}/{ts_code}/report_{key}.png&#39;
+        
+        _plot_report(strategy_returns, aligned_bench_returns, f&#39;{ts_code} — {ttl}&#39;, f)
+        out[key] = f
+    
+    return out
+
+# ============================ Orchestrator ============================
+
+
+def run_staged_backtest(ts_code: str = &#39;000300.SH&#39;,
+                        signal_folder: str = signal_dir,
+                        factor_folder: str = factor_dir,
+                        data_folder: str = data_dir,
+                        report_mode: bool = True,
+                        report_folder: str = report_dir,
+                        backtest_start_date: Optional[str] = None,
+                        backtest_end_date: Optional[str] = None,
+                        bond_code: str = &#39;CBA00101.CS&#39;) -&gt; Dict[str, dict]:
+    sig = read_split_signals(signal_dir, ts_code)
+    if sig is None:
+        raise FileNotFoundError(&#39;missing split signals; run strategy.py first&#39;)
+
+    open_px  = read_price_series(data_folder, ts_code, col=&#39;open&#39;)
+    close_px = read_price_series(data_folder, ts_code, col=&#39;close&#39;)
+
+    # clip window
+    if backtest_start_date is not None:
+        dt0 = pd.to_datetime(backtest_start_date)
+        open_px  = open_px[open_px.index   &gt;= dt0]
+        close_px = close_px[close_px.index &gt;= dt0]
+        sig      = sig[sig.index           &gt;= dt0]
+    if backtest_end_date is not None:
+        dt1 = pd.to_datetime(backtest_end_date)
+        open_px  = open_px[open_px.index   &lt;= dt1]
+        close_px = close_px[close_px.index &lt;= dt1]
+        sig      = sig[sig.index           &lt;= dt1]
+
+    idx = open_px.index.intersection(sig.index)
+    if len(idx) &lt; 2:
+        raise RuntimeError(&#39;not enough overlapping dates for backtest&#39;)
+    px  = open_px.loc[idx]
+    sig = sig.loc[idx].fillna(False)
+
+    # 策略配置：避免重复代码
+    strategies = [
+        (&#39;1_Alligator&#39;, sig[&#39;sig_alligator_long&#39;], sig[&#39;sig_alligator_short&#39;]),
+        (&#39;B_Alligator_AO&#39;, sig[&#39;sig_alligator_long&#39;] &amp; sig[&#39;sig_ao_long&#39;], sig[&#39;sig_alligator_short&#39;] | sig[&#39;sig_ao_short&#39;]),
+        (&#39;C_Alligator_Fractal&#39;, sig[&#39;sig_alligator_long&#39;] &amp; sig[&#39;sig_fractal_long&#39;], sig[&#39;sig_alligator_short&#39;] | sig[&#39;sig_fractal_short&#39;]),
+        (&#39;D_Alligator_AO_Fractal&#39;, sig[&#39;sig_alligator_long&#39;] &amp; sig[&#39;sig_ao_long&#39;] &amp; sig[&#39;sig_fractal_long&#39;], sig[&#39;sig_alligator_short&#39;] | sig[&#39;sig_ao_short&#39;] | sig[&#39;sig_fractal_short&#39;]),
+        (&#39;E_Alligator_AO_Fractal_MACD&#39;, sig[&#39;sig_combo_long&#39;], sig[&#39;sig_combo_short&#39;]),
+    ]
+    
+    results: Dict[str, dict] = {}
+    
+    for key, entries, exits in strategies:
+        res = backtest_strategy(entries.astype(bool), exits.astype(bool), px, report_mode=report_mode)
+        if &#39;trade_signal&#39; in sig.columns and &#39;position&#39; in sig.columns:
+            res[&#39;trade_signal&#39;] = sig[&#39;trade_signal&#39;]
+            res[&#39;position&#39;] = sig[&#39;position&#39;]
+        results[key] = {&#39;result_df&#39;: res}
+
+    # Bond rotation strategy (Equity–Bond)
+    try:
+        bond_open = read_price_series(data_folder, bond_code, col=&#39;open&#39;)
+        if bond_open.isna().all():
+            bond_open = read_price_series(data_folder, bond_code, col=&#39;close&#39;)
+        
+        idx2 = px.index.intersection(bond_open.index)
+        if len(idx2) &gt;= 2:
+            rot = backtest_bond_rotation(
+                sig[&#39;sig_combo_long&#39;].reindex(idx2).fillna(False),
+                sig[&#39;sig_combo_short&#39;].reindex(idx2).fillna(False),
+                px.reindex(idx2),
+                bond_open.reindex(idx2),
+                report_mode=report_mode
+            )
+            if &#39;trade_signal&#39; in sig.columns and &#39;position&#39; in sig.columns:
+                rot[&#39;trade_signal&#39;] = sig[&#39;trade_signal&#39;].reindex(idx2)
+                rot[&#39;position&#39;] = sig[&#39;position&#39;].reindex(idx2)
+            results[&#39;E_Bond_Rotation&#39;] = {&#39;result_df&#39;: rot}
+    except Exception as e:
+        print(f&#39;[warn] Bond rotation skipped: {e}&#39;)
+
+    # plot report-only charts
+    plot_reports_for_results(results, bench_close=close_px, ts_code=ts_code, out_dir = report_folder)
+
+    return results
+
+def save_results_to_csv(results: Dict[str, dict], ts_code: str, output_folder: str = report_dir) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;保存策略对比结果到CSV文件&quot;&quot;&quot;
+    name_map = {
+        &#39;1_Alligator&#39;: &#39;1. Alligator&#39;,
+        &#39;B_Alligator_AO&#39;: &#39;2. Alligator + AO&#39;,
+        &#39;C_Alligator_Fractal&#39;: &#39;3. Alligator + Fractal&#39;,
+        &#39;D_Alligator_AO_Fractal&#39;: &#39;4. Alligator + AO + Fractal&#39;,
+        &#39;E_Alligator_AO_Fractal_MACD&#39;: &#39;5. Alligator + AO + Fractal + MACD&#39;,
+        &#39;E_Bond_Rotation&#39;: &#39;6. Equity–Bond Rotation&#39;,
+    }
+    
+    # 计算所有策略的指标
+    data = {}
+    for k, v in results.items():
+        if &#39;result_df&#39; in v and v[&#39;result_df&#39;] is not None and len(v[&#39;result_df&#39;]) &gt; 0:
+            data[name_map.get(k, k)] = calculate_metrics(v[&#39;result_df&#39;])
+    
+    df = pd.DataFrame(data).T
+    
+    # 保存到文件
+    asset_folder = os.path.join(output_folder, ts_code)
+    os.makedirs(asset_folder, exist_ok=True)
+    out = os.path.join(asset_folder, f&#39;{ts_code}_strategies_comparison.csv&#39;)
+    df.to_csv(out)
+    print(f&#39;Metrics saved: {out}&#39;)
+    return df
+
+
+def run_all(ts_codes: list[str],
+            report_mode: bool = True,
+            strategy_start_date: Optional[str] = None,
+            strategy_end_date: Optional[str] = None,
+            bond_code: str = &#39;CBA00101.CS&#39;) -&gt; None:
+    &quot;&quot;&quot;运行所有标的的回测分析&quot;&quot;&quot;
+    print(&#39;Starting staged backtests with quantstats...&#39;)
+    for code in ts_codes:
+        print(f&#39;\nSymbol: {code}&#39;)
+        res = run_staged_backtest(
+            ts_code=code,
+            report_mode=report_mode,
+            backtest_start_date=strategy_start_date,
+            backtest_end_date=strategy_end_date,
+            bond_code=bond_code
+        )
+        if res:
+            save_results_to_csv(res, ts_code=code)
+    print(&#39;\nDone.&#39;)
+
+
+
+run_all(report_mode=True, ts_codes = universe)
+</code></pre>
+<div class="admonition admonition-attention"><p class="admonition-title">attention</p>
+请在 /reports/alligator 目录下查看回测结果。
+</div>
+
+<h2 id="关于本文作者">关于本文作者</h2>
+<p>Jerrick Rex，金融工程专业，多次参与数学建模竞赛，获美国大学生数学建模竞赛 F 奖；曾在燧石等量化基金公司从业实习。平时热爱量化研究，也在高频量化基金公司里有实习经历，参与因子研究、回测与数据管线搭建，把想法用代码落地是我的日常。我相信研究的价值在于被验证、被使用、被迭代。保持好奇、保持乐观、持续复盘，市场会奖励认真和自律的人。欢迎交流，一起把复杂的问题研究明白。</p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/factor-strategy/洛书投资解读/">洛书投资：先验性因子与波动率等权</a> <p>本文是“解读私募创始人公开采访实录”系列的首期文章。通过深度解读洛书投资创始人谢冬的采访，揭示了其区别于主流统计套利的量化核心逻辑：坚持基于经济学规律的“先验性因子”挖掘（贝叶斯派</p> </li><li> <a href="/posts/factor-strategy/打新不中，买新当如何/">2026年打新总不中签怎么办？散户买新股必看5大量化策略</a> <p>摩尔线程、沐曦股份引爆打新市场：中一签分别可赚27万、40万。中签后该在什么价位卖出？没中签还有上车机会吗？本文从量化视角拆解新股估值，手把手用东方财富数据与机器学习模型，讲解数据</p> </li><li> <a href="/posts/factor-strategy/is-the-Ashare-market-overvalued/">涨到溢出！PEPE告诉我，大盘还能涨几多？</a> <p>这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了：</p> </li><li> <a href="/posts/factor-strategy/word-count/">WorldQuant? Word Count!</a> <p>如果你去商场逛，你会发现，销量最好的店和最好的商品总是占据人气中心。对股票来说也是一样，被新闻和社交媒体频频提起的个股，往往更容易获得更大的成交量。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-策略核心观点" title="1. 策略核心观点">1. 策略核心观点</a> </li><li class> <a href="#2-引言" title="2. 引言">2. 引言</a> </li><li class> <a href="#3-鳄鱼线的构成" title="3. 鳄鱼线的构成">3. 鳄鱼线的构成</a> </li><li class> <a href="#4-鳄鱼线策略" title="4. 鳄鱼线策略">4. 鳄鱼线策略</a> </li><li class> <a href="#5-鳄鱼线ao" title="5. 鳄鱼线+AO">5. 鳄鱼线+AO</a> </li><li class> <a href="#6-鳄鱼线ao分形" title="6. 鳄鱼线+AO+分形">6. 鳄鱼线+AO+分形</a> </li><li class> <a href="#7-鳄鱼线ao分形macd" title="7. 鳄鱼线+AO+分形+MACD">7. 鳄鱼线+AO+分形+MACD</a> </li><li class> <a href="#8-鳄鱼线ao分形macd的股债轮动" title="8. 鳄鱼线+AO+分形+MACD的股债轮动">8. 鳄鱼线+AO+分形+MACD的股债轮动</a> </li><li class> <a href="#9-指标对比" title="9. 指标对比">9. 指标对比</a> </li><li class> <a href="#10-代码" title="10. 代码">10. 代码</a> </li><li class="lv3"> <a href="#101-因子计算" title="10.1. 因子计算">10.1. 因子计算</a> </li><li class="lv3"> <a href="#102-信号生成" title="10.2. 信号生成">10.2. 信号生成</a> </li><li class="lv3"> <a href="#103-回测分析" title="10.3. 回测分析">10.3. 回测分析</a> </li><li class> <a href="#关于本文作者" title="关于本文作者">关于本文作者</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>

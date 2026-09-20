@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>zillionare 1.0简介 | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/articles/products/1.0/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="zillionare 1.0简介 | 匡醍量化"><meta property="og:description" content="Zillionare（大富翁）是一个分布式高速量化交易框架。它基于Python 3.8以上版本构建，使用了异步IO和微服务技术，其目标是："><meta property="og:url" content="https://blog.quantide.cn/articles/products/1.0/"><meta property="og:image" content="https://blog.quantide.cn/img/logo.jpg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class>博客</a><a href="/articles/products/index/" class="active" aria-current="page">量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"zillionare 1.0简介","description":"Zillionare（大富翁）是一个分布式高速量化交易框架。它基于Python 3.8以上版本构建，使用了异步IO和微服务技术，其目标是：","image":"https://blog.quantide.cn/img/logo.jpg","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/articles/products/1.0/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"zillionare 1.0简介","item":"https://blog.quantide.cn/articles/products/1.0/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">量化产品</p> <details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">products</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/products/1.0/" class="current" title="zillionare 1.0简介">zillionare 1.0简介</a></li><li><a href="/articles/products/gm-adaptor-installation/" class title="东财量化接口安装指南">东财量化接口安装指南</a></li><li><a href="/articles/products/index/" class title="大富翁开源产品系列">大富翁开源产品系列</a></li><li><a href="/articles/products/zillionare-maintain/" class title="Zillionare 2.0维护指南">Zillionare 2.0维护指南</a></li><li><a href="/articles/products/zillionare-troubleshooting/" class title="Zillionare 2.0 故障排除">Zillionare 2.0 故障排除</a></li><li><a href="/articles/products/zillionare_installation/" class title="Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？">Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？</a></li> </ul> </details> </div> <div class="tag-cloud-side"> <p class="nav-group">标签云</p> <div class="tag-cloud" data-cloud> <a class="tag" href="/tags/#tag-tools" title="tools（69 篇）"> <span class="tag-name" data-size="1.60" data-color="DarkOliveGreen" data-tag="tools">tools</span> </a><a class="tag" href="/tags/#tag-programming" title="programming（52 篇）"> <span class="tag-name" data-size="1.38" data-color="DarkSlateBlue" data-tag="programming">programming</span> </a><a class="tag" href="/tags/#tag-Numpy" title="Numpy（40 篇）"> <span class="tag-name" data-size="1.22" data-color="DarkOliveGreen" data-tag="Numpy">Numpy</span> </a><a class="tag" href="/tags/#tag-strategy" title="strategy（34 篇）"> <span class="tag-name" data-size="1.14" data-color="DarkSlateGray" data-tag="strategy">strategy</span> </a><a class="tag" href="/tags/#tag-Pandas" title="Pandas（22 篇）"> <span class="tag-name" data-size="0.98" data-color="DarkTurquoise" data-tag="Pandas">Pandas</span> </a><a class="tag" href="/tags/#tag-others" title="others（17 篇）"> <span class="tag-name" data-size="0.91" data-color="DarkMagenta" data-tag="others">others</span> </a><a class="tag" href="/tags/#tag-factor" title="factor（16 篇）"> <span class="tag-name" data-size="0.90" data-color="DarkOliveGreen" data-tag="factor">factor</span> </a><a class="tag" href="/tags/#tag-pandas" title="pandas（15 篇）"> <span class="tag-name" data-size="0.89" data-color="DarkGoldenrod" data-tag="pandas">pandas</span> </a><a class="tag" href="/tags/#tag-quantlib" title="quantlib（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkGreen" data-tag="quantlib">quantlib</span> </a><a class="tag" href="/tags/#tag-weekly" title="weekly（14 篇）"> <span class="tag-name" data-size="0.87" data-color="DarkSlateBlue" data-tag="weekly">weekly</span> </a><a class="tag" href="/tags/#tag-quant" title="quant（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkMagenta" data-tag="quant">quant</span> </a><a class="tag" href="/tags/#tag-career" title="career（12 篇）"> <span class="tag-name" data-size="0.85" data-color="DarkGreen" data-tag="career">career</span> </a><a class="tag" href="/tags/#tag-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkCyan" data-tag="机器学习">机器学习</span> </a><a class="tag" href="/tags/#tag-numpy" title="numpy（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkSlateGray" data-tag="numpy">numpy</span> </a><a class="tag" href="/tags/#tag-python" title="python（11 篇）"> <span class="tag-name" data-size="0.83" data-color="DarkViolet" data-tag="python">python</span> </a><a class="tag" href="/tags/#tag-%E7%A0%94%E6%8A%A5" title="研报（9 篇）"> <span class="tag-name" data-size="0.81" data-color="DarkGoldenrod" data-tag="研报">研报</span> </a><a class="tag" href="/tags/#tag-%E8%AF%BE%E7%A8%8B" title="课程（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkGoldenrod" data-tag="课程">课程</span> </a><a class="tag" href="/tags/#tag-algo" title="algo（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkSlateGray" data-tag="algo">algo</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90" title="因子（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkCyan" data-tag="因子">因子</span> </a><a class="tag" href="/tags/#tag-AI" title="AI（8 篇）"> <span class="tag-name" data-size="0.79" data-color="DarkRed" data-tag="AI">AI</span> </a><a class="tag" href="/tags/#tag-%E7%AE%97%E6%B3%95" title="算法（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkOrchid" data-tag="算法">算法</span> </a><a class="tag" href="/tags/#tag-%E5%9B%9E%E6%B5%8B" title="回测（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkSlateBlue" data-tag="回测">回测</span> </a><a class="tag" href="/tags/#tag-Augment" title="Augment（7 篇）"> <span class="tag-name" data-size="0.78" data-color="DarkTurquoise" data-tag="Augment">Augment</span> </a><a class="tag" href="/tags/#tag-tushare" title="tushare（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGreen" data-tag="tushare">tushare</span> </a><a class="tag" href="/tags/#tag-story" title="story（6 篇）"> <span class="tag-name" data-size="0.77" data-color="DarkGoldenrod" data-tag="story">story</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93" title="量化交易（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkOrchid" data-tag="量化交易">量化交易</span> </a><a class="tag" href="/tags/#tag-%E7%AD%96%E7%95%A5" title="策略（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkMagenta" data-tag="策略">策略</span> </a><a class="tag" href="/tags/#tag-xtquant" title="xtquant（5 篇）"> <span class="tag-name" data-size="0.75" data-color="DarkSlateGray" data-tag="xtquant">xtquant</span> </a><a class="tag" href="/tags/#tag-Python" title="Python（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkRed" data-tag="Python">Python</span> </a><a class="tag" href="/tags/#tag-%E4%BA%BA%E7%89%A9" title="人物（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="人物">人物</span> </a><a class="tag" href="/tags/#tag-%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87" title="技术指标（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkSlateGray" data-tag="技术指标">技术指标</span> </a><a class="tag" href="/tags/#tag-Alphalens" title="Alphalens（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="Alphalens">Alphalens</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90" title="因子分析（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkBlue" data-tag="因子分析">因子分析</span> </a><a class="tag" href="/tags/#tag-papers" title="papers（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="papers">papers</span> </a><a class="tag" href="/tags/#tag-qmt" title="qmt（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkViolet" data-tag="qmt">qmt</span> </a><a class="tag" href="/tags/#tag-duckdb" title="duckdb（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="duckdb">duckdb</span> </a><a class="tag" href="/tags/#tag-Moonshot" title="Moonshot（4 篇）"> <span class="tag-name" data-size="0.74" data-color="DarkOliveGreen" data-tag="Moonshot">Moonshot</span> </a><a class="tag" href="/tags/#tag-%E6%A6%82%E7%8E%87" title="概率（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkTurquoise" data-tag="概率">概率</span> </a><a class="tag" href="/tags/#tag-pdf" title="pdf（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGreen" data-tag="pdf">pdf</span> </a><a class="tag" href="/tags/#tag-time-series" title="time-series（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkMagenta" data-tag="time-series">time-series</span> </a><a class="tag" href="/tags/#tag-figure" title="figure（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="figure">figure</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E7%AD%96%E7%95%A5" title="因子策略（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateGray" data-tag="因子策略">因子策略</span> </a><a class="tag" href="/tags/#tag-resources" title="resources（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="resources">resources</span> </a><a class="tag" href="/tags/#tag-%E5%B7%A5%E5%85%B7" title="工具（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkBlue" data-tag="工具">工具</span> </a><a class="tag" href="/tags/#tag-augment" title="augment（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkGoldenrod" data-tag="augment">augment</span> </a><a class="tag" href="/tags/#tag-Agent" title="Agent（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="Agent">Agent</span> </a><a class="tag" href="/tags/#tag-%E9%87%8F%E5%8C%96%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8" title="量化数据存储（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkSlateBlue" data-tag="量化数据存储">量化数据存储</span> </a><a class="tag" href="/tags/#tag-quantstats" title="quantstats（3 篇）"> <span class="tag-name" data-size="0.73" data-color="DarkRed" data-tag="quantstats">quantstats</span> </a><a class="tag" href="/tags/#tag-%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84" title="因子投资（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="因子投资">因子投资</span> </a><a class="tag" href="/tags/#tag-hdbscan" title="hdbscan（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="hdbscan">hdbscan</span> </a><a class="tag" href="/tags/#tag-%E8%81%9A%E7%B1%BB" title="聚类（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateBlue" data-tag="聚类">聚类</span> </a><a class="tag" href="/tags/#tag-XGBoost" title="XGBoost（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkRed" data-tag="XGBoost">XGBoost</span> </a><a class="tag" href="/tags/#tag-statistics" title="statistics（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="statistics">statistics</span> </a><a class="tag" href="/tags/#tag-machine" title="machine（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOliveGreen" data-tag="machine">machine</span> </a><a class="tag" href="/tags/#tag-learning" title="learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkBlue" data-tag="learning">learning</span> </a><a class="tag" href="/tags/#tag-deep-learning" title="deep-learning（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkSlateGray" data-tag="deep-learning">deep-learning</span> </a><a class="tag" href="/tags/#tag-tcn" title="tcn（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkMagenta" data-tag="tcn">tcn</span> </a><a class="tag" href="/tags/#tag-causal-convolution" title="causal-convolution（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkGreen" data-tag="causal-convolution">causal-convolution</span> </a><a class="tag" href="/tags/#tag-risk-management" title="risk-management（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkTurquoise" data-tag="risk-management">risk-management</span> </a><a class="tag" href="/tags/#tag-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0" title="强化学习（2 篇）"> <span class="tag-name" data-size="0.71" data-color="DarkOrchid" data-tag="强化学习">强化学习</span> </a> </div> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">zillionare 1.0简介</h1> <p class="meta">   <span>👁 本月阅读 <span data-page-pv>—</span></span> </p>  <div class="md-body" data-pagefind-body><p>Zillionare（大富翁）是一个分布式高速量化交易框架。它基于Python 3.8以上版本构建，使用了异步IO和微服务技术，其目标是：</p>
+<ul>
+<li>分布式高速量化计算平台，算力可根据需要无缝扩展</li>
+<li>行情数据本地化存储，低延时同步，轻松支持实时触发分钟级别以上交易信号</li>
+<li>支持私有化部署，保护您的策略</li>
+<li>虚拟化部署，更易维护</li>
+<li>诸多量化因子</li>
+<li>基于机器学习的交易策略</li>
+<li>基于深度学习的交易策略</li>
+<li>高速回测框架</li>
+</ul>
+<p>如果您不是从<a href="https://blog.quantide.cn">解语科技</a>官方网站打开的本文档，请点击链接<a href="https://blog.quantide.cn">解语科技</a>，跳转到官网阅读本文。我们在网站上提供了更多文档和教程，并且排版更适合阅读。</p>
+<h1 id="为什么要开发大富翁"><strong>为什么要开发大富翁？</strong></h1>
+<p>作者从2019年起开始关注量化交易。在试用了一些商业和开源的产品后，作者发现，还没有一个产品能够以可负担的成本提供低延时、准确的数据，在基于机器学习和深度学习的交易策略方面更是完全没有。</p>
+<p>一些产品在数据源组织上做的比较好，数据可靠性高，但是不提供离线存储。如果每一笔数据都要在线获取的话，这样产生了数据请求响应速度和费用问题。</p>
+<p><strong>数据请求响应速度慢</strong></p>
+<p>???+ Info
+    我们的策略常常是要对全市场进行扫描，以尽可能地发现交易信号。但是这样会导致大量的数据请求。</p>
+<pre><code>我们以一个均线策略为例，假设该策略用到了年线数据，则在对全市场进行扫描的情况下，一次扫描需要从服务器上取得1百万条数据（按A股全市场4000支标的，每支最大取年线250日计算）。
+
+要取得这么多数据，网络请求数量和耗时都是惊人的。以某sdk为例，单会话取100万条数据，一般大概需要7-10小时左右。如此一来，就不可能实现任何实时或者准实时的交易策略。即使在一些非实时的场合，比如初次安装完成后的数据库初始化，某开源项目的初始化等待时间以天计（当然支持断点），这也似乎是难以接受的。
+</code></pre>
+<p><strong>费用</strong></p>
+<p>???+ Info</p>
+<pre><code>所有数据都从服务器获取的话，也给服务器带来较大的负荷，因此服务不可能免费提供。
+
+比如聚宽是一个非常优秀的数据提供者，使用者可以申请一年期的免费试用权限，试用期间，每天提供100万笔（次）数据。尽管这个方案已经十分慷慨了，但不要说对于实际生产环境，就是自行进行研究也是捉襟见肘。作者自己也常常遇到一轮单元测试没跑完，Quota就不够的情况。
+
+解决上述问题的根本，是应该将已收盘的k线数据，在本地存储起来，然后实时同步本地与上游服务器之间的差分数据。
+
+一些产品提供了类似的数据本地化存储方案，但也有一些限制和缺陷。
+
+比如一些产品把获取数据的API分为离线和在线两类。使用离线API可以从本地存储中读取数据，但数据不是实时的，无法用于指导实时交易；要得到实时数据仍然必须使用在线API，要么一次性获取全部需要的数据（这就抛开了本地存储的优势），要么通过在线API获取差分数据，自己再读取数据库中的离线数据，自行合并。实际上产品应该能够透明地提供用户需要的数据，把这些技术细节隐藏在内部，这样使用者可以将更多精力放在策略开发上。
+</code></pre>
+<p><strong>技术债务</strong></p>
+<p>???+ Info</p>
+<pre><code>从技术上看，Python社区一直在进步，一些产品起步早，架构锁定在了一些陈旧的技术栈上，产生了技术债务。
+
+量化交易框架的使用者往往都要进行二次开发。在二次开发过程中，也无形中将自己的技术栈锁定在了这些老旧的技术上。这对二次开发者来说也是不公平的。
+
+如一些产品无论是读本地数据（从数据库中读）还是读远程数据，都在使用同步IO，这对于使用Python作为开发语言的应用来说，这是严重的性能设计缺陷。Python能利用的为数不多的计算资源，往往被消耗在IO等待上了。
+</code></pre>
+<p><strong>品控</strong></p>
+<p>???+ Info</p>
+<pre><code>一些商业项目的品控无法评估，但如果开源项目未使用CI，没有测试覆盖率报告，尽管开源了，也很难评估其品控。
+</code></pre>
+<p>因此，作者决定自行开发一个框架，致力于解决上述几个方面的问题，并且在交易策略上引入机器学习和深度学习。</p>
+<p>当然，由于个人技术能力和眼界所限，大富翁也肯定存在各种不足。是否达到了作者的预期，也需要用户的评价。</p>
+<h1 id="大富翁有哪些技术特点"><strong>大富翁有哪些技术特点？</strong></h1>
+<p><strong>高性能</strong>
+    为了确保大富翁的高性能，作者从架构、组件选型到算法和数据结构做了较深入的思考，并从产品定位角度上做了取舍。</p>
+<p>???+ Info<br>    大富翁架构在多进程、分布式微服务基础之上，使用了消息队列、负载均衡、缓存（内存）数据库等技术。在行情同步（实时和非实时）时，都使用了多进程协作模式，极大地提高了网络并发量。在进程协作方面，既有负载均衡模式（通过nginx)，也有并行模式(内置消息机制支持）。</p>
+<pre><code>在网络组件方面尽可能使用支持异步IO的第三方组件。比如访问Redis数据库时，使用了aioredis；访问数据库时，使用了asyncpg。
+
+在对主要的数据种类--行情数据的深入研究后，根据数据的分布和处理加工特点，决定使用Redis来持久化保存行情数据；使用Numpy的结构化数组来作为行情数据的内存表示--其它框架一般使用的是Pandas。关于为何这样的选择，请参考[[TODO]]。
+
+另外，我们还从运营的角度不断进行优化。比如初次安装后的数据导入，由于我们使用了CDN加速和多进程模式，在大富翁中导入一年A股的数据（含30分钟及以上K线），只需要170 ~ 240秒之间（取决于你的CPU核心数和网络带宽）。如果CPU核数足够多，则导入几年的数据，也大概在15~20分钟以内（实测中导入70个月的数据，也只用了776秒。共使用了32个进程）。这些数据今后还会持续优化，以使得它们在较低配置的电脑上也可以取得较好的速度。关于大富翁的速度，对比使用过其它产品的用户可能有较深的感触。
+</code></pre>
+<p><strong>易用性和品控</strong> 
+    在1.0发布之前，大富翁早期最重要的两个组件都经过了多次重写，以确保功能得到恰当解耦和聚合，以保证API的稳定性和易读性。
+???+ Info</p>
+<pre><code>如果您有机会深入研究一下大富翁的开发工具链，您会发现品控发生在从代码提交、单元测试到持续集成的各个环。
+
+为促进大富翁开源社区的活跃，作者发布了一系列文章来介绍Python开发的工具链，请参考[[TODO]]
+
+在部署方面，我们支持虚拟化部署和pip安装两种模式。虚拟化部署一键全自动，pip安装模式则在安装之后，提供了一个安装向导来引导用户进行配置，整个过程都比较简单。
+</code></pre>
+<p><strong>与社区最新技术保持同步</strong></p>
+<p>???+ Info
+    最初Zillionare使用了cookie-cutter的pyproject模板来搭建开发框架。这个模板使用了makefile, pip和requirements文件来管理依赖和构建工程，使用twine来发布；使用tox, pytest等几种lint tools等工具来进行品控，使用sphinx来构建文档。</p>
+<pre><code>在依赖管理上，我们发现社区正在往新的标准和工具上迁移。比如完全遵循PEP517的标准的Poetry已经成为了当前社区选择的依赖、构建及版本管理工具。因此，Zillionare在去年11月完全换掉了构建框架。
+
+文档工具也替换成了mkdocs,以反映markdown格式更受作者、读者喜欢的现实。
+
+此外，我们还加入了Travis CI和Codecov来进行持续集成。使用了pre-commit-hooks来保证签入代码的质量。在1.0发布之前，这个测试覆盖率已经达到了93%。
+
+今后大富翁将继续坚持这样的技术定位，同时在项目发布上力求更加规范。我们会通过RFC的方式来确定项目的方向，约定API接口，并技术通过测试覆盖来保证接口的可用性。
+</code></pre>
+<p><strong>人工智能导向</strong> </p>
+<p>???+ Info</p>
+<pre><code>尽管大富翁的人工智能功能目前还在实现中，但我们的各项设计充分反映了人工智能优先的导向。比如我们设计中更优先动量策略，对文本和财务数据则关注度不够。原因是，目前人工智能在文本分析上还不是特别有把握，同时依靠消息炒股，确定性也不高。财务数据也有类似的问题。目前人工智能表现最好的，就是在动量策略这一块，所以这也是大富翁的重点。
+
+对于量化因子，我们不象传统的金融工程那样，把它看成能通过简单组合就能下金蛋的母鸡，而是把更多地把它当成机器学习和深度学习的数据预处理和特征提取工作。这也反映了我们在设计上的人工智能导向。我想这也是一个正确的导向。
+</code></pre>
+<p><strong>完善和详尽的帮助文档</strong></p>
+<p>???+ Info
+    大富翁提供了丰富的文档，包括新手指南，教程和详尽的API文档。</p>
+<pre><code>除了这两个特点以外，作者还力求在文档中既讲是什么，更讲为什么，多讲一些技术决定背后的思考，这样读者会更容易理解和变通。
+</code></pre>
+<h1 id="大富翁适合哪些用户"><strong>大富翁适合哪些用户？</strong></h1>
+<ol>
+<li>大富翁的定位是为A股市场提供量化交易工具和策略，重点是动量类策略。大富翁目前没有接入期货和数字货币的考虑。</li>
+<li>高频套利交易也不是大富翁的关注领域--这个领域更多地的是拼硬件和网速，或者从根本上说，是拼资本，算法和策略可能在这个领域不占主导地位。大富翁定位于服务复杂的A股市场，为A股市场带来开源的人工智能技术。大富翁的架构设计为处理分钟级别以上的行情数据。我们认为，对Tick级别的数据进行深度学习固然有其意义，但这一领域应该还是套利交易为主。</li>
+<li>大富翁提供的历史行情数据从2015年开始，目前包括了所有的股票30分钟及以上的行情数据。</li>
+<li>量化交易框架的用户往往都有自己进行二次开发的需求。大富翁的技术选型的先进性和规范性，保证了用户的投入在未来较长的时间内都会有效。</li>
+<li>从技术栈角度来说，大富翁使用纯Python开发。操作系统上限定为Ubuntu &gt; 18。如果对这种操作系统不太熟悉的用户，可以通过我们提供的容器化部署方式来部署。</li>
+</ol>
+<p>相对于其它产品而言，大富翁的功能面收得比较紧，我们更希望保持专注，集中精力把事情做好。</p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/products/zillionare_installation/">Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？</a> <p>Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/zillionare-maintain/">Zillionare 2.0维护指南</a> <p>在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下：</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#为什么要开发大富翁" title="为什么要开发大富翁？">为什么要开发大富翁？</a> </li><li class> <a href="#大富翁有哪些技术特点" title="大富翁有哪些技术特点？">大富翁有哪些技术特点？</a> </li><li class> <a href="#大富翁适合哪些用户" title="大富翁适合哪些用户？">大富翁适合哪些用户？</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>
