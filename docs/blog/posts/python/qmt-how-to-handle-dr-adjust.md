@@ -6,10 +6,7 @@ category: arsenal
 motto: It is the time you‘ve wasted for your rose makes your rose so important
 lunar:
 lineNumbers: true
-tags: 
-    - qmt
-    - xtquant
-    - quantlib
+tags: [qmt, xtquant, quantlib]
 excerpt: "还在用XtQuant官方示例循环计算复权因子？速度慢且效率低。本文教你利用向量化运算，将分红送配信息批量转换为复权因子，行情存储与回测准备从此不再卡顿。实测比官方示例提速100倍以上，附完整代码思路，助你快速构建高效量化数据管道。"
 ---
 

@@ -3,10 +3,7 @@ title: "量化面试神题：圆上随机点的概率陷阱"
 date: 2025-07-24
 category: algo
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg
-tags: 
-    - 数学
-    - 概率
-    - 面试题
+tags: [数学, 概率, 面试题]
 excerpt: "常常有人问，做量化交易需要什么样的数学基础？"
 ---
 

@@ -11,11 +11,7 @@ motto: If you want to go fast, go alone. If you want to go far, go together.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "Series 的基本功能 本节，我们将介绍Series的一些数据的基本操作方法。后续将会深入地挖掘pandas在数据分析和处理方面的功能。"
 ---
 

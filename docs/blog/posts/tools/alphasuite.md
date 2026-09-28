@@ -6,11 +6,7 @@ slug: alphasuite-canslim
 img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg
 except: |
     AlphaSuite，又一个开源量化新项目。不过，这个轮子至少引入了 CANSLIM投资模型，也为我们使用 LLM 进行投资分析打了个样
-tags:
-  - risk-management
-  - llm
-  - prompt
-  - CANSLIM
+tags: [risk-management, llm, prompt, CANSLIM]
 excerpt: "许多量化人都会构建自己的量化库，为此投入了大量时间。这样做真的值得吗？我个人的答案是肯定的，因为我也是千千万万个自己造轮子的人之一。"
 ---
 

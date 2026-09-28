@@ -11,11 +11,7 @@ motto: Perseverance is not a long race; it is many short races one after the oth
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，轻松满足数据可视化需求。”"
 ---
 

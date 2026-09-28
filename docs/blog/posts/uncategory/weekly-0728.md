@@ -5,10 +5,7 @@ slug: quantide-weekly
 date: 2024-07-28
 motto: 
 category: others
-tags:
-  - others
-  - story
-  - weekly
+tags: [others, story, weekly]
 lineNumbers: true
 aspectRatio: 10/16    
 excerpt: "高频交易费率或将提升 10 倍 巴黎奥运开幕，奥运概念板块新鲜出炉 广东私募自查，量化交易、基金规模是否达标成是重点 纳斯达克大跌 3.64%，日经指数创 2021 年 10 月来最长连跌记录"

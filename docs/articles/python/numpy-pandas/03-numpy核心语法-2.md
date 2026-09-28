@@ -11,10 +11,7 @@ motto: Fortune favors the bold.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/fortune-favors-the-bold.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "一开始，Numpy 的数组只能存放同质的元素，即元素必须有相同的数据类型。但对表格类数据而言，它们往往是由一条条记录组成的，而这些记录，又是由不同数据类型的数据组成的。"
 ---
 

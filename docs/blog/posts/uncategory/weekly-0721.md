@@ -6,9 +6,7 @@ date: 2024-07-21
 motto: 值得歌颂的不是苦难 而是你屹立不倒的意志
 lunar: 十六
 category: others
-tags:
-  - others
-  - story
+tags: [others, story]
 lineNumbers: true
 aspectRatio: 10/16    
 excerpt: "上交所放大招，将发布上证全收益指数！ 私募巨头发声，大跌不是我们干的！ 交易所加强异常交易监管..."

@@ -11,12 +11,7 @@ stamp_width: 60%
 stamp_height: 60%
 fonts:
     sans: 'wqy-microhei-lite, sans-serif'
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
-    - pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "<!-- 课程简介 课程编排说明 什么是 Numpy 什么是 Pandas Pandas 生态环境 Numpy 与 Pandas 比较"
 ---
 

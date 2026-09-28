@@ -5,10 +5,7 @@ slug: ks-test-and-cdf
 category: strategy
 motto: 无论上辈子造了什么孽，炒了 A 股，就都还清了
 lunar: 冬月廿四
-tags: 
-    - statistics
-    - CDF
-    - KS-Test
+tags: [statistics, CDF, KS-Test]
 excerpt: "上一篇笔记我们抛出一个问题，沪指大跌 4%时，能不能抄底？今天的笔记，我们就通过 KS 检验，找出沪指的概率分布，进而回答这个问题。在后面的笔记中，我们还将换一个方法继续回答这个问题。"
 ---
 

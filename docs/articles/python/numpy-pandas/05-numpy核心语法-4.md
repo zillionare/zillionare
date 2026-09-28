@@ -11,10 +11,7 @@ motto: Adversity makes men, and prosperity makes monsters.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "“随机数和采样是量化中的高频操作。通过 Numpy 的 random 模块，我们可以轻松生成符合正态分布的收益率数组，并利用 np.cumprod() 计算价格走势，快速模拟资产的夏普率与价格关系。”"
 ---
 

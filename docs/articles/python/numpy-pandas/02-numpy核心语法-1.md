@@ -9,10 +9,7 @@ date: 2025-03-18
 category: tools
 motto: Make Every Single Day Count - Grow with Quantide
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/grow-with-quantide.jpg
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个多维度、同质并且大小固定的数组对象。"
 ---
 

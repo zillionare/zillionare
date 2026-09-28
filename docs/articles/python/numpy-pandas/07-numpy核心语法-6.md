@@ -11,10 +11,7 @@ motto: You have within you right now, everything you need to deal with whatever 
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "“Masked Array 是 Numpy 中的重要概念，能帮助我们在保持数据完整性的同时，屏蔽无效值进行运算。而 ufunc 则通过底层 C 实现的向量化操作，让复杂计算变得高效且简洁。”"
 ---
 

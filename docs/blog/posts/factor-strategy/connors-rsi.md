@@ -5,9 +5,7 @@ lunar: 冬月十七
 motto: Fate wishpers to the warrrior, you can't withstand the storm. The warrrior whispers back, I am the storm!
 slug: connor-rsi-the-best
 category: strategy
-tags:
-    - strategy
-    - 技术指标
+tags: [strategy, 技术指标]
 excerpt: "如果说在多因子时代，我们可以仅凭一个因子就构建出策略，并且还很有可能跑赢市场的话，这个因子就是不二之选。"
 ---
 

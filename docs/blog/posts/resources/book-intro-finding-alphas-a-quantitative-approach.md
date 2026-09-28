@@ -7,11 +7,7 @@ category:
 motto: 谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊
 lunar:
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kitty-in-basket.jpg
-tags: 
-    - "free resources"
-    - "world quant"
-    - Alpha
-    - pdf
+tags: [free resources","world quant",Alpha,pdf]
 excerpt: "问：常常看到有人说Alpha seeking，这究竟是什么意思？"
 ---
 

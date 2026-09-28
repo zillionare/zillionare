@@ -11,10 +11,7 @@ motto: You have within you right now, everything you need to deal with whatever 
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "“去极值是量化分析预处理中不可或缺的一步。在各种方法中，中位数拉回法因其鲁棒性和适应性广泛应用。通过 Numpy 的向量化实现，我们可以轻松完成多资产的去极值操作，显著提升计算效率。”"
 ---
 

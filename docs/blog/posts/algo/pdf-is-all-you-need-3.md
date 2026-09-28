@@ -4,10 +4,7 @@ excerpt: "当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线�
 date: 2025-08-08
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg
 category: algo
-tags:
-    - pdf
-    - algo
-    - 概率
+tags: [pdf, algo, 概率]
 ---
 
 

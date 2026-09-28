@@ -11,11 +11,7 @@ motto: In every walk of life, people can make a difference, and everyone has the
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "“DataFrame 是 Pandas 的核心数据结构，支持多种数据类型和灵活的操作方式。无论是嵌套字典、NumPy 数组还是 CSV 文件，都可以轻松转换为 DataFrame，助你快速完成数据分析任务。”"
 ---
 

@@ -5,9 +5,7 @@ date: 2025-05-14
 category: tools
 motto: You only live once, but if you do it right, once is enough
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
-tags: 
-    - tools
-    - programming
+tags: [tools, programming]
 excerpt: "现在，我们需要设计一种通用的数据交换格式（Standard Quotes Exchange Protocol, SQEP）。这种格式的工作原理是：由数据生产者（因为只有生产者才了解原始数据的具体格式）将数据转换为这种标准格式，然后再将其推送到Redis中供消费者使用。"
 ---
 

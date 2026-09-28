@@ -4,8 +4,7 @@ slug: quant-trade-in-the-storm
 date: 2024-06-30
 category:
   - Info
-tags:
-  - Info
+tags: [Info]
 lineNumbers: true
 drawings:
   presenterOnly: true

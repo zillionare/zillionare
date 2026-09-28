@@ -3,10 +3,7 @@ title: "『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工�
 date: 2025-06-29
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png
 category: papers
-tags: 
-    - papers
-    - 研报
-    - UBL
+tags: [papers, 研报, UBL]
 excerpt: "头上三柱香，不死也赔光。这是一句股谚，说得是如果在高位出现三根长上影线，那么股价短期内很可能会下跌。因为上影线代表了上面的抛压特别大。这种说法能得到统计数据上的验证吗？来自东吴证券的一份研报，就讨论了这个问题。"
 ---
 

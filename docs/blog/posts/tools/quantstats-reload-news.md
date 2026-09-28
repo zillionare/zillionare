@@ -3,9 +3,7 @@ title: 原作者失联8个月，我们接手维护后他突然回来了
 date: 2025-07-23
 category: tools
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/kamil-pietrzak-AlA8S9tALAs-unsplash.jpg
-tags: 
-    - python
-    - quantstats
+tags: [python, quantstats]
 excerpt: "Quantstats是非常著名的量化策略评估与可视化库。从2024年底起约8个月里，它没有得到积极的维护，出现了在Python 3.12以上，完全无法运行等严重bug。"
 ---
 

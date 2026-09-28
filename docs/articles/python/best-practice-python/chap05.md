@@ -4,10 +4,7 @@ slug: poetry-for-project-management
 date: 2023-12-26
 categories:
     - Python
-tags:
-    - Python
-    - Poetry
-    - ppw
+tags: [python, Poetry, ppw]
 puppeteer:
     format: "A4"
     scale: 1

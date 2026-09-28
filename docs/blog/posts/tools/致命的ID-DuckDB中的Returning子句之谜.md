@@ -5,12 +5,7 @@ date: 2025-05-14
 category: tools
 motto: You only live once, but if you do it right, once is enough
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514210946.png
-tags: 
-    - tools
-    - programming
-    - AI
-    - Augment
-    - duckdb
+tags: [tools, programming, AI, Augment, duckdb]
 excerpt: "Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，我们找到了根本原因，并且通过坚实的实验验证了结论。"
 ---
 

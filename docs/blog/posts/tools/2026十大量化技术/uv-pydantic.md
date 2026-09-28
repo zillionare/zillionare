@@ -6,11 +6,7 @@ excerpt: "本文将探讨两项彻底改变 Python 开发体验的技术：Astra
 categories:
   - Tools
   - Quant
-tags:
-  - Python
-  - UV
-  - Pydantic
-  - Engineering
+tags: [python, UV, Pydantic, Engineering]
 addons:
   - slidev_themes/addons/slidev-addon-quantide-layout
   - slidev_themes/addons/slidev-addon-mouse-trail-pen

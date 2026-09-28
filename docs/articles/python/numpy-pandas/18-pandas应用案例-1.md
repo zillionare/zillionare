@@ -11,11 +11,7 @@ motto: Perseverance is not a long race; it is many short races one after the oth
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setindex，可以轻松完成格式转换，为因子分析奠定基础。”"
 ---
 

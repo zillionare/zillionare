@@ -6,10 +6,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/panda.jpg
 category: arsenal
 motto: Do What you Love, the Money will Follow
 lunar:
-tags: 
-    - python
-    - pandas
-    - duckdb
+tags: [python, pandas, duckdb]
 excerpt: "对有一定SQL基础的人来说，pandas中的查询会有点繁琐。"
 ---
 

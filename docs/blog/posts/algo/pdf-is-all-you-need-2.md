@@ -4,10 +4,7 @@ excerpt: "从赌场游戏到数学家们的战争，概率论如何摆脱直觉�
 date: 2025-07-31
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg
 categories: algo
-tags:
-    - pdf
-    - algo
-    - 概率
+tags: [pdf, algo, 概率]
 ---
 
 在上一篇中，我们使用了初等概率的方法来解题。这种方法，需要我们『数』出来样本空间总数和各个事件包含的基本事件数。两者的商即为概率。

@@ -3,9 +3,7 @@ title: 量化人如何用好Jupyter环境？（一）
 slug: how-to-use-jupyter-as-quant-researcher
 date: 2024-03-04
 category: arsenal
-tags: 
-    - tools
-    - Jupyter
+tags: [tools, Jupyter]
 excerpt: "网上有很多jupyter的使用技巧。但我相信，这篇文章会让你全面涨姿势。很多用法，你应该没见过。"
 ---
 

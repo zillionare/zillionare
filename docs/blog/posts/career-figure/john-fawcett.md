@@ -5,9 +5,7 @@ date: 2024-06-01
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg
 category:
   - 人物
-tags:
-  - 人物
-  - Quantopian
+tags: [人物, Quantopian]
 excerpt: "年的金融危机后，华尔街开始围绕人工智能、算法策略和海量数据构建美丽新世界。掌握编程和算法的大拿是这个新世界的宠儿。也有一批反叛者，他们拒绝华尔街的征召：宁愿穿着睡衣在书房里工作，也不愿在豪华大楼的格子间正襟危坐。"
 ---
 

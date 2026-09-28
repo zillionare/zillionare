@@ -6,10 +6,7 @@ category: resources
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/books-cover.jpg
 imgCopyRight: wiki/public domain
 motto: 我不是才华横溢的少年 我只是一往无前
-tags:
-  - freshman
-  - resources
-  - career
+tags: [freshman, resources, career]
 lineNumbers: true
 excerpt: "精选了 7 种量化金融人都在看的顶刊，从最经典的有效市场假说理论，到最新的关于加密货币的研究，都发表在这些期刊上。"
 ---

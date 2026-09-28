@@ -5,10 +5,7 @@ date: 2025-05-18
 category: tools
 motto: You only live once, but if you do it right, once is enough
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
-tags: 
-    - tools
-    - programming
-    - Augment
+tags: [tools, programming, Augment]
 excerpt: "在量化交易的世界里，数据就像是血液，而数据传输系统则是血管。一个高效的数据传输系统可以让整个量化交易平台如虎添翼，而低效的数据传输则会成为整个系统的瓶颈。"
 ---
 

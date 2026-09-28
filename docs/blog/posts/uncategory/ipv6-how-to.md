@@ -4,9 +4,7 @@ slug: ipv6-how-to
 date: 2024-07-29
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg
 category: others
-tags:
-  - network
-  - tools
+tags: [network, tools]
 lineNumbers: true  
 excerpt: "我们的课程环境是构建在一个256GB内存，192核CPU的集群上，学员可以通过浏览器，输入地址访问。要在阿某云上租这样一个服务器，价格并不便宜。所以，这些服务器一直放在公司里，创业期间，公司也就是租的民用宽带，没有公网IP，所以，在阿某云上租了个机器，做的端口转发。"
 ---

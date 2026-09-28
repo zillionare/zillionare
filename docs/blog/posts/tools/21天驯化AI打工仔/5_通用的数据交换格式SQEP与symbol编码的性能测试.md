@@ -5,10 +5,7 @@ date: 2025-05-18
 category: tools
 motto: You only live once, but if you do it right, once is enough
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
-tags: 
-    - tools
-    - programming
-    - Augment
+tags: [tools, programming, Augment]
 excerpt: "'007，我们需要讨论一个重要的性能优化问题，'我一边敲击键盘一边对我的 AI 助手说道。"
 ---
 

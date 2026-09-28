@@ -11,11 +11,7 @@ motto: The greatest discovery of all time is that a person can change his future
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "“在 Pandas 中，逻辑运算和比较运算是数据筛选的基础工具。通过与（&）、或（|）等操作符，可以轻松实现复杂条件筛选，比如选出市盈率最大且市净率最小的股票。”"
 ---
 

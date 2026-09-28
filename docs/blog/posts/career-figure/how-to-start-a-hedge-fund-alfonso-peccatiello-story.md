@@ -6,9 +6,7 @@ motto: 瞄准月亮射去吧，即使你错过了，也将落在星辰之中 - L
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/fencing.jpg
 category:
   - 人物
-tags:
-  - 人物
-  - 职场
+tags: [人物, 职场]
 excerpt: "最近两天，收到私信咨询，想进入量化领域难吗？"
 ---
 

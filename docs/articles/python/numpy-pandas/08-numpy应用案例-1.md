@@ -11,10 +11,7 @@ motto: Hard work beats talent when talent doesn't work hard.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "“在很多量化场景下，我们都需要统计某个事件连续发生的次数，比如连续涨停、N 连阳等。通过 Numpy 的向量化操作，我们可以快速实现这些需求，既高效又简洁。”"
 ---
 

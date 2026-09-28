@@ -11,11 +11,7 @@ motto: Every adversity, every failure, every heartache carries with it the seed 
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/three-books.png
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "“Pandas 提供了强大的日期时间处理功能，从字符串到时间戳的转换、时区调整到格式化输出，都可以轻松实现。此外，字符串操作如替换、分割、过滤等，也能通过 str 访问器高效完成。”"
 ---
 

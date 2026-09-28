@@ -5,8 +5,7 @@ slug: santa-claus-rally
 motto: 保持热烈 不要熄灭
 lunar: 冬月十三
 category: strategy
-tags:
-    - strategy
+tags: [strategy]
 excerpt: "Santa Claus Rally 是指 12 月 25 日圣诞节前后股市的持续上涨这样一个现象。《股票交易员年鉴》的创始人 Yale Hirsch 于 1972 年创造了这个定义，他将当年最后五个交易日和次年前两个交易日的时间范围定义为反弹日期。"
 ---
 

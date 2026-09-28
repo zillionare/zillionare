@@ -11,11 +11,7 @@ motto: Keep your face to the sunshine and you cannot see a shadow.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "“Pandas 提供了丰富的 IO 操作功能，支持从 CSV、SQL、Parquet 等多种文件格式中读取数据。通过优化参数如 chunksize、usecols 和 dtype，可以显著提升读取速度并减少内存占用。”"
 ---
 

@@ -5,10 +5,7 @@ slug: how-to-setup-xtquatn-development-env
 lunar: 冬至
 motto: 宜吃汤圆 必成双成对
 category: arsenal
-tags:
-    - quantlib
-    - xtquant
-    - qmt
+tags: [quantlib, xtquant, qmt]
 description: "XtQuant 是可脱离 QMT 运行的行情与交易接口库。本文讲解 XtQuant 的获取与安装、工作原理、版本与文档一致性问题的应对，以及用 VSCode 进行远程开发的完整环境配置。"
 excerpt: "本文详解QMT/XtQuant开发环境搭建全流程：如何从迅投官网获取XtQuant源码包并安装到Conda虚拟环境，剖析其与QMT的Socket通信原理，指出券商服务端与官方文档版本不一致的坑，并演示使用VsCode远程开发。助你避开环境配置中的常见问题，快速上手量化交易开发。"
 ---

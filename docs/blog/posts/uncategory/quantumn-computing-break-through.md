@@ -4,11 +4,7 @@ date: 2025-09-28
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/quantum.jpeg
 category: others
 excerpt: 当华尔街遇上“量子飞跃”，交易的游戏规则将被彻底改写。汇丰与IBM联手，将传说中的量子计算带入债券交易，从投资组合优化到风险毫秒级分析，经典模型已显“廉颇老矣”。这不仅是技术的突破，更是金融世界新旧秩序的对决。你的交易策略，还能跟上“量子霸权”的脚步吗？
-tags:
-  - 量子计算
-  - 金融交易
-  - IBM
-  - 量化交易
+tags: [量子计算, 金融交易, IBM, 量化交易]
 ---
 
 

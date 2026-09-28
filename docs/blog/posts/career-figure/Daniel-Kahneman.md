@@ -7,9 +7,7 @@ category: career
 motto: A reliable way to make people believe in falsehoods is frequent repetition, because familiarity is not easily distinguished from truth.       Daniel Kahneman
 lunar:
 lineNumbers: true
-tags: 
-    - Figures
-    - "Behavioral Economics"
+tags: [Figures, Behavioral Economics]
 excerpt: "月27日，行为经济学的开山鼻祖丹尼尔.卡尼曼去世。作为行为经济学的一个分支，行为金融学在量化中的运用越来越广泛，并成功地解释了时序方向上价格波动的诸多原因。"
 ---
 

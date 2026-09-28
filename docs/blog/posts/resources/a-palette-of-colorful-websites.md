@@ -8,9 +8,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/colors.jp
 stamp: others
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - 工具
-    - colors
+tags: [工具, colors]
 excerpt: "用Powerpoint做课件，动画编排太累了，于是找到了slidev。Slidev好用是好用，但研墨调色都得自己来，一时竟误入藕花深处，沈醉不知归路。"
 ---
 

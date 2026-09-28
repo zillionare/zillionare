@@ -11,11 +11,7 @@ motto: You have within you right now, everything you need to deal with whatever 
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
-    - Pandas
+tags: [tools, programming, Numpy, pandas]
 excerpt: "Pandas在量化交易中，处于核心地位。许多基于Python SDK的数据源返回的数据格式一般是pandas.DataFrame。因子分析库Alphalens、性能评估库empyrical等都依赖于Pandas。"
 ---
 

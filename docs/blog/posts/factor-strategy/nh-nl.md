@@ -1,9 +1,7 @@
 ---
 date: 2023-12-24
 category: strategy
-tags:
-    - 因子
-    - strategy
+tags: [因子, strategy]
 motto: 你当像鸟飞向你的山
 title: 净新高占比因子
 slug: net-high-net-low-factor

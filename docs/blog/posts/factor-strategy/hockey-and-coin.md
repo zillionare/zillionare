@@ -5,9 +5,7 @@ slug: hockey-and-coid
 lunar: 冬月十一
 motto: 要懂得钱为你工作 而不是相反
 category: strategy
-tags:
-    - strategy
-    - factor
+tags: [strategy, factor]
 excerpt: "球队和硬币因子最初来自于耶鲁大学 Tobias Moskowitz 的发表于 2021 年 9 月的一篇论文，发布以来，得到了超过 14 次以上的引用。这篇论文名为《Asset Pricing and Sports Betting》。"
 ---
 

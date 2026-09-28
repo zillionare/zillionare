@@ -7,9 +7,7 @@ category:
 motto: 我的语言，就是我的世界的边界 -- 维特根斯坦
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-risk-model-cover.jpg
 lineNumbers: true
-tags: 
-    - "free resources"
-    - barra
+tags: [free resources",barra]
 excerpt: "Barra风险模型是业内最有名的多因子模型之一。它最初由Barra Inc（创始人Barr Rosenberg）提出，后来被MSCI（明晟）收购，因此现在是MSCI的资产。在MSCI网站上，我们还可以看到名为BarraOne的产品推介。"
 ---
 

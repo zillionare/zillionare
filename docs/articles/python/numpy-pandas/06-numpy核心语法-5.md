@@ -11,10 +11,7 @@ motto: Tough times never last, but tough people do.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "“日期和时间的处理从来都不简单。时区、夏令时、闰秒等问题让时间计算变得复杂。Numpy 提供了高效的日期时间处理工具，帮助我们轻松应对这些挑战。”"
 ---
 

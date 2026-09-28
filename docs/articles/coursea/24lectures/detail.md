@@ -3,8 +3,7 @@ title: 二十四课内容详情
 slug: detailed-introduction-of-24-lectures
 date: 2024-01-04
 category: 课程
-tags: 
-    - 课程
+tags: [课程]
 excerpt: "共 40 万字，461 段超过 7000 行代码（另有若干策略代码作为福利赠送，未计入），这门课用一句话介绍：涵盖了量化交易全流程、学完就能进入实战的课程。"
 ---
 

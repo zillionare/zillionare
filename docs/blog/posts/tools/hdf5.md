@@ -5,11 +5,7 @@ lunar: 冬月廿一
 slug: save-quote-data-with-hdf5
 motto: Data Science is 90% data and 10% science<br> and 100% impossible without python.
 category: arsenal
-tags:
-    - quantlib
-    - 量化数据存储
-    - hdf5
-    - h5py
+tags: [quantlib, 量化数据存储, hdf5, h5py]
 excerpt: "去年 15 日的笔记挖了个坑，给出了量化数据和因子的存储方案技术导图。这一篇笔记就开始填坑。"
 ---
 

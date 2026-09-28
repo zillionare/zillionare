@@ -11,10 +11,7 @@ motto: Cherish your visions and your dreams as they are the children of your sou
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iphone-6.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - tools
-    - programming
-    - Numpy
+tags: [tools, programming, Numpy]
 excerpt: "“线性回归是量化分析中的常用工具，但在大规模数据中，循环实现效率低下。通过 Numpy 的向量化技巧，我们可以将计算提速百倍，轻松应对滑动窗口和批量计算等复杂需求。”"
 ---
 
