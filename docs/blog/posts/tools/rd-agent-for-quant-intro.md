@@ -3,7 +3,7 @@ title: "微软RD-Agent：2025年量化投研AI搭档，四大智能体如何破�
 excerpt: "量化投研总在因子挖掘、回测调参和策略失效之间反复试错？微软RD-Agent(Q)已于2025年被NeurIPS接收，GitHub获12,000+ Stars。它用研究、开发、调度、实现四大LLM智能体协作，自动读研报、提假设、写Python代码，并借QLib回测闭环约束幻觉。想了解这款AI研发搭档能否提升因子挖掘与模型优化效率？点开看全文。"
     做过量化的人都知道，因子挖掘和策略研发是一条漫长而孤独的路。
     当大模型遇上量化投研，「让 AI 驱动 AI」不再是一句口号。
-tags: [tools, RDAgent, qlib, agent]
+tags: [tools, RDAgent, qlib, Agent]
 category: tools
 date: 2026-04-30
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg

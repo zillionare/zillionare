@@ -6,7 +6,7 @@ slug: quantide-weekly-0908
 img: 
 stamp_width: 60%
 stamp_height: 60%
-tags: [others, weekly, numpy, pandas]
+tags: [others, weekly, Numpy, pandas]
 seq: 第 8 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'

@@ -3,7 +3,7 @@ title: 做能调教AI的赛博老技师，量化人也该开始装Skills了
 date: 2026-03-26
 excerpt: Skills Marketplace 让量化人把 Tushare、XtQuant、BaoStock 这类 A 股上下文装进 AI 工作流，比多一个 prompt 更重要。
 category: others
-tags: [Agent Skills, Skills Marketplace, VS Code, Tushare, XtQuant, BaoStock, A股, 量化]
+tags: [Agent Skills, Skills Marketplace, VS Code, tushare, xtquant, BaoStock, A股, 量化]
 font: "阿里巴巴普惠体-Regular"
 addons:
   - quantide-palette

@@ -6,7 +6,7 @@ slug: quantide-weekly-0901
 img: 
 stamp_width: 60%
 stamp_height: 60%
-tags: [others, weekly, numpy, pandas]
+tags: [others, weekly, Numpy, pandas]
 seq: 第 7 期
 excerpt: "市场传闻存量房贷利率下调，房地产 ETF 大涨，但尾盘多股炸板 中国 8 月官方制造业 PMI 为 49.1% 比上月下降 0.3 个百分点 国家市监总局宣布阿里整改完成 半年报第一股！桐昆股份同比增长 911.35%，为已发布半年报公司中净利润增速最高。"
 ---

@@ -7,7 +7,7 @@ motto:
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
 stamp_width: 60%
 stamp_height: 60%
-tags: [Algo, minimum,numpy]
+tags: [algo, minimum, Numpy]
 excerpt: "股谚云，天量见天价、地量见地价。今天我们就来验证一下。"
 ---
 
