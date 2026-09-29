@@ -18,50 +18,43 @@
 <h3 id="11-创建-dataframe">1.1. 创建 DataFrame</h3>
 <p>DataFrame 含有一组有序且有命名的列，每一列可以是不同的数据类型（数值、字符串、布尔值等）。DataFrame 既有行索引也有列索引，可以看作由共用同一个索引的Series组成的字典。虽然DataFrame是二维的，但利用层次化索引，仍然可以用其表示更高维度的表格型数据。如果你使用的是Jupyter notebook，pandas的DataFrame 对象将会展示为对浏览器更为友好的HTML表格。</p>
 <h4>1.1.1. 传入一个由等长列表或Numpy数组构成的字典</h4>
-<pre><code class="language-python">import pandas as pd
-data = {&quot;state&quot;:[&quot;Ohio&quot;,&quot;Ohio&quot;,&quot;Ohio&quot;,&quot;Nevada&quot;,&quot;Nevada&quot;,&quot;Nevada&quot;],
-       &quot;year&quot;:[2000,2001,2002,2003,2004,2005],
-       &quot;pop&quot;:[1.5,1.7,3.6,2.4,2.9,3.2]}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+data = {<span class="hljs-string">&quot;state&quot;</span>:[<span class="hljs-string">&quot;Ohio&quot;</span>,<span class="hljs-string">&quot;Ohio&quot;</span>,<span class="hljs-string">&quot;Ohio&quot;</span>,<span class="hljs-string">&quot;Nevada&quot;</span>,<span class="hljs-string">&quot;Nevada&quot;</span>,<span class="hljs-string">&quot;Nevada&quot;</span>],
+       <span class="hljs-string">&quot;year&quot;</span>:[<span class="hljs-number">2000</span>,<span class="hljs-number">2001</span>,<span class="hljs-number">2002</span>,<span class="hljs-number">2003</span>,<span class="hljs-number">2004</span>,<span class="hljs-number">2005</span>],
+       <span class="hljs-string">&quot;pop&quot;</span>:[<span class="hljs-number">1.5</span>,<span class="hljs-number">1.7</span>,<span class="hljs-number">3.6</span>,<span class="hljs-number">2.4</span>,<span class="hljs-number">2.9</span>,<span class="hljs-number">3.2</span>]}
 frame = pd.DataFrame(data)
-frame
-</code></pre>
+frame</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/016.png" alt="50%"></p>
 <p>生成的DataFrame会自动加上索引（和Series一样），且全部列会按照data键（键的顺序取决于在字典中插入的顺序）的顺序有序排列。
 （如果你使用的是Jupyter notebook，pandas的DataFrame对象会展示为对浏览器更为友好的HTML表格）</p>
 <hr>
 <p>对于特别大的DataFrame，可以使用<code>head</code>方法，只展示前5行。相似地，<code>tail</code>方法会返回最后5行。</p>
-<pre><code class="language-python">print(frame.head())
-print(frame.tail())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(frame.head())
+<span class="hljs-built_in">print</span>(frame.tail())</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/017.png" alt="50%"></p>
 <p>下面还有几种创建DataFrame的情况：</p>
-<pre><code class="language-python"># 如果指定了列的顺序，则DataFrame的列就会按照指定顺序进行排列
-frame1 = pd.DataFrame(data=data,columns=[&quot;year&quot;,&quot;state&quot;,&quot;pop&quot;])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 如果指定了列的顺序，则DataFrame的列就会按照指定顺序进行排列</span>
+frame1 = pd.DataFrame(data=data,columns=[<span class="hljs-string">&quot;year&quot;</span>,<span class="hljs-string">&quot;state&quot;</span>,<span class="hljs-string">&quot;pop&quot;</span>])
 
-# 如果字典中不包括传入的列，就会在结果中产生缺失值
-frame2 = pd.DataFrame(data=data,columns=[&quot;year&quot;,&quot;state&quot;,&quot;pop&quot;,&quot;debt&quot;])
-</code></pre>
+<span class="hljs-comment"># 如果字典中不包括传入的列，就会在结果中产生缺失值</span>
+frame2 = pd.DataFrame(data=data,columns=[<span class="hljs-string">&quot;year&quot;</span>,<span class="hljs-string">&quot;state&quot;</span>,<span class="hljs-string">&quot;pop&quot;</span>,<span class="hljs-string">&quot;debt&quot;</span>])</span></code></pre>
 <hr>
 <h4>1.1.2. 传入嵌套字典</h4>
 <p>如果将嵌套字典传给DataFrame，pandas就会将外层字典的键解释为列，将内层字典的键解释为行索引。</p>
-<pre><code class="language-python">populations = {&quot;Ohio&quot;:{2000:1.5,2001:1.7,2002:3.6},&quot;Nevada&quot;:{2001:2.4,2002:2.9}}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">populations = {<span class="hljs-string">&quot;Ohio&quot;</span>:{<span class="hljs-number">2000</span>:<span class="hljs-number">1.5</span>,<span class="hljs-number">2001</span>:<span class="hljs-number">1.7</span>,<span class="hljs-number">2002</span>:<span class="hljs-number">3.6</span>},<span class="hljs-string">&quot;Nevada&quot;</span>:{<span class="hljs-number">2001</span>:<span class="hljs-number">2.4</span>,<span class="hljs-number">2002</span>:<span class="hljs-number">2.9</span>}}
 frame3 = pd.DataFrame(populations)
-frame3
-</code></pre>
+frame3</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/018.png" alt="50%"></p>
 <p>使用类似于Numpy数组的方法，可以对 DataFrame 进行转置（交换行和列）：</p>
-<pre><code class="language-python">frame3.T
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">frame3.T</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/019.png" alt="50%"></p>
 <p>内层字典的键被合并后形成了结果的索引。如果明确指定了索引，则不会这样：</p>
 <hr>
-<pre><code class="language-python">pd.DataFrame(populations,index=[&quot;2001&quot;,&quot;2002&quot;,&quot;2003&quot;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pd.DataFrame(populations,index=[<span class="hljs-string">&quot;2001&quot;</span>,<span class="hljs-string">&quot;2002&quot;</span>,<span class="hljs-string">&quot;2003&quot;</span>])</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/020.png" alt="50%"></p>
 <p>由Series组成的字典差不多也是一样的用法：</p>
-<pre><code class="language-python">pdata = {&quot;Ohio&quot;:frame3[&quot;Ohio&quot;][:-1],&quot;Nevada&quot;:frame3[&quot;Nevada&quot;][:2]}
-pd.DataFrame(pdata)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">pdata = {<span class="hljs-string">&quot;Ohio&quot;</span>:frame3[<span class="hljs-string">&quot;Ohio&quot;</span>][:-<span class="hljs-number">1</span>],<span class="hljs-string">&quot;Nevada&quot;</span>:frame3[<span class="hljs-string">&quot;Nevada&quot;</span>][:<span class="hljs-number">2</span>]}
+pd.DataFrame(pdata)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/021.png" alt="50%"></p>
 <p>可以向DataFrame构造器输入的数据：</p>
 <hr>
@@ -122,18 +115,16 @@ pd.DataFrame(pdata)
 </tr>
 </tbody></table>
 <p>如果设置了DataFrame的index和columns的name属性，则这些信息也会显示出来：</p>
-<pre><code class="language-python">frame3.index.name = &quot;year&quot;
-frame3.columns.name = &quot;state&quot;
-frame3
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">frame3.index.name = <span class="hljs-string">&quot;year&quot;</span>
+frame3.columns.name = <span class="hljs-string">&quot;state&quot;</span>
+frame3</span></code></pre>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/022.png" alt="50%"></p>
-<pre><code class="language-python"># 二维的ndarray的DataFrame形式返回
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 二维的ndarray的DataFrame形式返回</span>
 frame3.to_numpy()
 
-# 如果DataFrame各列的数据类型不同，则返回数组会选用能兼容所有列的数据类型：
-frame2.to_numpy()
-</code></pre>
+<span class="hljs-comment"># 如果DataFrame各列的数据类型不同，则返回数组会选用能兼容所有列的数据类型：</span>
+frame2.to_numpy()</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/023.png" alt="50%"></p>
 <!--_index, info,describe,columns,head,tail 等_-->
 
@@ -155,19 +146,18 @@ frame2.to_numpy()
 <li><strong>keys</strong>：为拼接后的数据添加层次化索引。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-df1 = pd.DataFrame({&#39;A&#39;: [1, 2], &#39;B&#39;: [3, 4]})
-df2 = pd.DataFrame({&#39;A&#39;: [5, 6], &#39;B&#39;: [7, 8]})
+df1 = pd.DataFrame({<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]})
+df2 = pd.DataFrame({<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]})
 
-# 按行拼接
-result = pd.concat([df1, df2], axis=0)
-print(result)
+<span class="hljs-comment"># 按行拼接</span>
+result = pd.concat([df1, df2], axis=<span class="hljs-number">0</span>)
+<span class="hljs-built_in">print</span>(result)
 
-# 按列拼接
-result = pd.concat([df1, df2], axis=1)
-print(result)
-</code></pre>
+<span class="hljs-comment"># 按列拼接</span>
+result = pd.concat([df1, df2], axis=<span class="hljs-number">1</span>)
+<span class="hljs-built_in">print</span>(result)</span></code></pre>
 <p>适用场景：</p>
 <ul>
 <li>将多个结构相似的数据集简单堆叠在一起。</li>
@@ -186,16 +176,15 @@ print(result)
 <li><strong>suffixes</strong>：当两个 DataFrame 中存在重复列名时，用于区分的后缀。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">df1 = pd.DataFrame({&#39;key&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;], &#39;value1&#39;: [1, 2, 3]})
-df2 = pd.DataFrame({&#39;key&#39;: [&#39;B&#39;, &#39;C&#39;, &#39;D&#39;], &#39;value2&#39;: [4, 5, 6]})
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">df1 = pd.DataFrame({<span class="hljs-string">&#x27;key&#x27;</span>: [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>], <span class="hljs-string">&#x27;value1&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]})
+df2 = pd.DataFrame({<span class="hljs-string">&#x27;key&#x27;</span>: [<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>], <span class="hljs-string">&#x27;value2&#x27;</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]})
 
-# 内连接
-result = pd.merge(df1, df2, on=&#39;key&#39;, how=&#39;inner&#39;)
-print(result)
-# 外连接
-result = pd.merge(df1, df2, on=&#39;key&#39;, how=&#39;outer&#39;)
-print(result)
-</code></pre>
+<span class="hljs-comment"># 内连接</span>
+result = pd.merge(df1, df2, on=<span class="hljs-string">&#x27;key&#x27;</span>, how=<span class="hljs-string">&#x27;inner&#x27;</span>)
+<span class="hljs-built_in">print</span>(result)
+<span class="hljs-comment"># 外连接</span>
+result = pd.merge(df1, df2, on=<span class="hljs-string">&#x27;key&#x27;</span>, how=<span class="hljs-string">&#x27;outer&#x27;</span>)
+<span class="hljs-built_in">print</span>(result)</span></code></pre>
 <p>适用场景：</p>
 <ul>
 <li>需要根据某些列（键）将两个表关联。</li>
@@ -212,13 +201,12 @@ print(result)
 <li>​<strong>lsuffix/rsuffix</strong>：当两个 DataFrame 中存在重复列名时，分别指定左侧和右侧的后缀。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">df1 = pd.DataFrame({&#39;A&#39;: [1, 2], &#39;B&#39;: [3, 4]}, index=[&#39;x&#39;, &#39;y&#39;])
-df2 = pd.DataFrame({&#39;C&#39;: [5, 6], &#39;D&#39;: [7, 8]}, index=[&#39;x&#39;, &#39;y&#39;])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">df1 = pd.DataFrame({<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]}, index=[<span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>])
+df2 = pd.DataFrame({<span class="hljs-string">&#x27;C&#x27;</span>: [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-string">&#x27;D&#x27;</span>: [<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]}, index=[<span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>])
 
-# 基于索引的左连接
-result = df1.join(df2, how=&#39;left&#39;)
-print(result)
-</code></pre>
+<span class="hljs-comment"># 基于索引的左连接</span>
+result = df1.join(df2, how=<span class="hljs-string">&#x27;left&#x27;</span>)
+<span class="hljs-built_in">print</span>(result)</span></code></pre>
 <p>适用场景：</p>
 <ul>
 <li>基于索引进行简单的数据合并。</li>
@@ -259,43 +247,39 @@ print(result)
 <hr>
 <h3 id="13-删除行和列">1.3. 删除行和列</h3>
 <p>关键字<code>del</code>可以像在字典中那样删除列。</p>
-<pre><code class="language-python">frame2[&quot;eastern&quot;] = frame2[&quot;state&quot;] = &quot;ohio&quot;
-print(frame2)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">frame2[<span class="hljs-string">&quot;eastern&quot;</span>] = frame2[<span class="hljs-string">&quot;state&quot;</span>] = <span class="hljs-string">&quot;ohio&quot;</span>
+<span class="hljs-built_in">print</span>(frame2)
 
-del frame2[&quot;eastern&quot;]
-print(frame2.columns)
-</code></pre>
+<span class="hljs-keyword">del</span> frame2[<span class="hljs-string">&quot;eastern&quot;</span>]
+<span class="hljs-built_in">print</span>(frame2.columns)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/026.png" alt="50%"></p>
 <h3 id="114-定位读取和修改">1.1.4. 定位、读取和修改</h3>
 <!--_介绍Pandas中的索引(indexing)、数据选择_-->
 <h4>1.1.4.1. 获取列</h4>
 <p>通过类似于字典标记或点属性的方式，可以将DataFrame的列获取为一个Series。</p>
-<pre><code class="language-python">print(frame2[&quot;state&quot;])
-print(frame2.year)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(frame2[<span class="hljs-string">&quot;state&quot;</span>])
+<span class="hljs-built_in">print</span>(frame2.year)</span></code></pre>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/024.png" alt="50%"></p>
 <p>如果列名包含空格或下划线以外的符号，是不能用点属性的方式访问的。</p>
 <h4>1.1.4.2. 修改列</h4>
-<pre><code class="language-python">import numpy as np
-# 通过赋值的方法修改列
-frame2[&quot;debt&quot;] = 16.5
-print(frame2)
-frame2[&quot;debt&quot;] = np.arange(6.)
-print(frame2)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-comment"># 通过赋值的方法修改列</span>
+frame2[<span class="hljs-string">&quot;debt&quot;</span>] = <span class="hljs-number">16.5</span>
+<span class="hljs-built_in">print</span>(frame2)
+frame2[<span class="hljs-string">&quot;debt&quot;</span>] = np.arange(<span class="hljs-number">6.</span>)
+<span class="hljs-built_in">print</span>(frame2)
 
-# 将列表和数组赋值给某个列
-val = pd.Series([1.2,-1.5,-1.7],index=[&quot;two&quot;,&quot;four&quot;,&quot;five&quot;])  # 长度必须与DataFrame保持一致
-frame2[&quot;debt&quot;] = val
-print(frame2)
-</code></pre>
+<span class="hljs-comment"># 将列表和数组赋值给某个列</span>
+val = pd.Series([<span class="hljs-number">1.2</span>,-<span class="hljs-number">1.5</span>,-<span class="hljs-number">1.7</span>],index=[<span class="hljs-string">&quot;two&quot;</span>,<span class="hljs-string">&quot;four&quot;</span>,<span class="hljs-string">&quot;five&quot;</span>])  <span class="hljs-comment"># 长度必须与DataFrame保持一致</span>
+frame2[<span class="hljs-string">&quot;debt&quot;</span>] = val
+<span class="hljs-built_in">print</span>(frame2)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/025.png" alt="50%"></p>
 <hr>
 <h4>1.1.4.2. 获取行（iloc和loc）</h4>
 <p>通过<code>iloc</code>和<code>loc</code>属性，也可以通过位置或名称的方式进行获取行。</p>
-<pre><code class="language-python">print(frame2.loc[1])
-print(frame2.iloc[2])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(frame2.loc[<span class="hljs-number">1</span>])
+<span class="hljs-built_in">print</span>(frame2.iloc[<span class="hljs-number">2</span>])</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/027.png" alt="50%"></p>
 <h3 id="115-转置">1.1.5. 转置</h3>
 <p>转置操作是将 DataFrame 的行和列进行互换，即将行变为列，列变为行。Pandas 提供了两种方法来实现转置：</p>
@@ -304,21 +288,20 @@ print(frame2.iloc[2])
 <li>​<strong>transpose() 方法</strong>：通过 DataFrame.transpose() 实现转置。</li>
 </ul>
 <hr>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建一个示例 DataFrame
-data = {&#39;Name&#39;: [&#39;Tom&#39;, &#39;Jack&#39;, &#39;Steve&#39;], &#39;Age&#39;: [28, 34, 29], 
-        &#39;City&#39;: [&#39;London&#39;, &#39;New York&#39;, &#39;Sydney&#39;]}
+<span class="hljs-comment"># 创建一个示例 DataFrame</span>
+data = {<span class="hljs-string">&#x27;Name&#x27;</span>: [<span class="hljs-string">&#x27;Tom&#x27;</span>, <span class="hljs-string">&#x27;Jack&#x27;</span>, <span class="hljs-string">&#x27;Steve&#x27;</span>], <span class="hljs-string">&#x27;Age&#x27;</span>: [<span class="hljs-number">28</span>, <span class="hljs-number">34</span>, <span class="hljs-number">29</span>], 
+        <span class="hljs-string">&#x27;City&#x27;</span>: [<span class="hljs-string">&#x27;London&#x27;</span>, <span class="hljs-string">&#x27;New York&#x27;</span>, <span class="hljs-string">&#x27;Sydney&#x27;</span>]}
 df = pd.DataFrame(data)
 
-# 使用 T 属性转置
+<span class="hljs-comment"># 使用 T 属性转置</span>
 transposed_df = df.T
-print(transposed_df)
+<span class="hljs-built_in">print</span>(transposed_df)
 
-# 使用 transpose() 方法转置
+<span class="hljs-comment"># 使用 transpose() 方法转置</span>
 transposed_df = df.transpose()
-print(transposed_df)
-</code></pre>
+<span class="hljs-built_in">print</span>(transposed_df)</span></code></pre>
 <p>注意事项：</p>
 <ul>
 <li>转置操作会改变 DataFrame 的结构，但不会修改原始数据。</li>
@@ -331,22 +314,21 @@ print(transposed_df)
 <li>​下采样（Downsampling）​：将高频数据转换为低频数据（如将分钟数据转换为小时数据）。</li>
 </ul>
 <hr>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建一个示例时间序列 DataFrame
-data = {&#39;date&#39;: pd.date_range(start=&#39;1/1/2020&#39;, periods=100, freq=&#39;D&#39;),
-        &#39;price&#39;: range(100)}
+<span class="hljs-comment"># 创建一个示例时间序列 DataFrame</span>
+data = {<span class="hljs-string">&#x27;date&#x27;</span>: pd.date_range(start=<span class="hljs-string">&#x27;1/1/2020&#x27;</span>, periods=<span class="hljs-number">100</span>, freq=<span class="hljs-string">&#x27;D&#x27;</span>),
+        <span class="hljs-string">&#x27;price&#x27;</span>: <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>)}
 df = pd.DataFrame(data)
-df.set_index(&#39;date&#39;, inplace=True)
+df.set_index(<span class="hljs-string">&#x27;date&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
 
-# 下采样：将日数据转换为月数据，并计算每月的平均价格
-monthly_avg_price = df[&#39;price&#39;].resample(&#39;M&#39;).mean()
-print(monthly_avg_price)
+<span class="hljs-comment"># 下采样：将日数据转换为月数据，并计算每月的平均价格</span>
+monthly_avg_price = df[<span class="hljs-string">&#x27;price&#x27;</span>].resample(<span class="hljs-string">&#x27;M&#x27;</span>).mean()
+<span class="hljs-built_in">print</span>(monthly_avg_price)
 
-# 上采样：将日数据转换为小时数据，并使用前向填充
-hourly_price = df[&#39;price&#39;].resample(&#39;H&#39;).ffill()
-print(hourly_price)
-</code></pre>
+<span class="hljs-comment"># 上采样：将日数据转换为小时数据，并使用前向填充</span>
+hourly_price = df[<span class="hljs-string">&#x27;price&#x27;</span>].resample(<span class="hljs-string">&#x27;H&#x27;</span>).ffill()
+<span class="hljs-built_in">print</span>(hourly_price)</span></code></pre>
 <p>注意事项：</p>
 <ul>
 <li>重采样需要 DataFrame 的索引为时间类型。</li>

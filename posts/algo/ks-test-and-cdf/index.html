@@ -22,35 +22,32 @@ $$</p>
 <hr>
 <p>K-S 是一种非参数检验，是统计检验中的一种。它可以用来检验一组样本是否来自某个概率分布 (one-sample K-S test)，或者比较两组样本的分布是否相同 (two-sample K-S test)。K-S 检验是以它的两个提出者，俄国统计学家 (Kolmogorov 和 Smirnov) 的名字来命名的。</p>
 <p>我们可以通过 scipy.stats.kstest 来执行 k-S 检验。该方法的签名如下：</p>
-<pre><code class="language-python">kstest(rvs, cdf, args=(), N=20, alternative=&#39;two-sided&#39;, method=&#39;auto&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">kstest(rvs, cdf, args=(), N=<span class="hljs-number">20</span>, alternative=<span class="hljs-string">&#x27;two-sided&#x27;</span>, method=<span class="hljs-string">&#x27;auto&#x27;</span>)</span></code></pre>
 <p>这里 rvs 是随机变量状态，在我们接下来的示例中，我们将传入沪指 1000 个交易日的涨跌幅。在 cdf 参数中，我们传入要测试的随机分布名称。</p>
 <p>返回结果为一个 KstestResult 类，它包括 statistic， pvalue 等重要属性。</p>
 <p>现在，我们就通过 kstest，对 scipy.stats 中已实现的分布模型，逐一进行 One-Sample test，看看能否有通过检验的：</p>
-<pre><code class="language-python">pct = close[:-1]/close[1:] - 1
-dist_names = [&#39;burr12&#39;, &#39;dgamma&#39;, &#39;dweibull&#39;, &#39;fisk&#39;, &#39;genhyperbolic&#39;, 
-              &#39;genlogistic&#39;, &#39;gennorm&#39;, &#39;hypsecant&#39;, &#39;johnsonsu&#39;, 
-              &#39;laplace&#39;, &#39;laplace_asymmetric&#39;, &#39;logistic&#39;, &#39;loglaplace&#39;,
-              &#39;nct&#39;, &#39;norminvgauss&#39;]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">pct = close[:-<span class="hljs-number">1</span>]/close[<span class="hljs-number">1</span>:] - <span class="hljs-number">1</span>
+dist_names = [<span class="hljs-string">&#x27;burr12&#x27;</span>, <span class="hljs-string">&#x27;dgamma&#x27;</span>, <span class="hljs-string">&#x27;dweibull&#x27;</span>, <span class="hljs-string">&#x27;fisk&#x27;</span>, <span class="hljs-string">&#x27;genhyperbolic&#x27;</span>, 
+              <span class="hljs-string">&#x27;genlogistic&#x27;</span>, <span class="hljs-string">&#x27;gennorm&#x27;</span>, <span class="hljs-string">&#x27;hypsecant&#x27;</span>, <span class="hljs-string">&#x27;johnsonsu&#x27;</span>, 
+              <span class="hljs-string">&#x27;laplace&#x27;</span>, <span class="hljs-string">&#x27;laplace_asymmetric&#x27;</span>, <span class="hljs-string">&#x27;logistic&#x27;</span>, <span class="hljs-string">&#x27;loglaplace&#x27;</span>,
+              <span class="hljs-string">&#x27;nct&#x27;</span>, <span class="hljs-string">&#x27;norminvgauss&#x27;</span>]</span></code></pre>
 <hr>
-<pre><code class="language-python">xmin, xmax = min(pct), max(pct)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body">xmin, xmax = <span class="hljs-built_in">min</span>(pct), <span class="hljs-built_in">max</span>(pct)
 dist_pvalue = []
 
-for name in dist_names:
-    dist = getattr(scipy.stats, name)
-    if getattr(dist, &#39;fit&#39;):
+<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> dist_names:
+    dist = <span class="hljs-built_in">getattr</span>(scipy.stats, name)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">getattr</span>(dist, <span class="hljs-string">&#x27;fit&#x27;</span>):
         params = dist.fit(pct)
         ks = scipy.stats.kstest(pct, name, args=params)
-        dist_pvalue.append(round(ks.pvalue, 2))
+        dist_pvalue.append(<span class="hljs-built_in">round</span>(ks.pvalue, <span class="hljs-number">2</span>))
         
 df = pd.DataFrame({
-    &quot;name&quot;: dist_names,
-    &quot;pvalue&quot;: dist_pvalue
+    <span class="hljs-string">&quot;name&quot;</span>: dist_names,
+    <span class="hljs-string">&quot;pvalue&quot;</span>: dist_pvalue
 })
 
-df.sort_values(&quot;pvalue&quot;, ascending=False).transpose()
-</code></pre>
+df.sort_values(<span class="hljs-string">&quot;pvalue&quot;</span>, ascending=<span class="hljs-literal">False</span>).transpose()</span></code></pre>
 <p>我们将得到以下输出：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_kstest_result.png" alt=""></p>
 <p>图可能有点宽，导致手机上没法看清楚。不过我们只要知道，这里的第一行，genhyperbolic，即广义双曲分布的 pvalue 最高，达到了 0.97。</p>
@@ -58,18 +55,17 @@ df.sort_values(&quot;pvalue&quot;, ascending=False).transpose()
 <hr>
 <p>因此，上述输出表明，<strong>genhyperbolic，即广义双曲分布</strong>，是所有假设中，沪指最接近的分布。</p>
 <p>我们可以通过绘图来验证一下这个结论是否正确：</p>
-<pre><code class="language-python">from scipy.stats import genhyperbolic
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> genhyperbolic
 
 params = genhyperbolic.fit(pct)
 rv = genhyperbolic(*params)
 
-fig, ax = plt.subplots(1,1)
-x = np.linspace(rv.ppf(0.01), rv.ppf(0.99), 100)
-ax.plot(x, rv.pdf(x), label = &#39;genhyperbolic pdf&#39;, color=&quot;#EABFC7&quot;)
+fig, ax = plt.subplots(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)
+x = np.linspace(rv.ppf(<span class="hljs-number">0.01</span>), rv.ppf(<span class="hljs-number">0.99</span>), <span class="hljs-number">100</span>)
+ax.plot(x, rv.pdf(x), label = <span class="hljs-string">&#x27;genhyperbolic pdf&#x27;</span>, color=<span class="hljs-string">&quot;#EABFC7&quot;</span>)
 
 ax2 = ax.twinx()
-_ = ax2.hist(pct, bins=50)
-</code></pre>
+_ = ax2.hist(pct, bins=<span class="hljs-number">50</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png" alt="75%"></p>
 <hr>
 <p>不能说十分相似，简直是一模一样。pdf 函数曲线刚好框住了实际分布直方图的外轮廓。</p>
@@ -83,12 +79,11 @@ Satou 没有使用 scipy.stats 中的 ks-test，而是自己实现了一个。�
 
 <p>现在，我们就来求广义双曲分布下，跌幅小于-4%的累积概率，也就是继续下跌的概率：</p>
 <hr>
-<pre><code class="language-python">from scipy.stats import genhyperbolic
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> genhyperbolic
 
 params = genhyperbolic.fit(pct)
 rv = genhyperbolic(*params)
-print(f&quot;继续下跌的概率为：{rv.cdf(-0.04):.2%}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;继续下跌的概率为：<span class="hljs-subst">{rv.cdf(-<span class="hljs-number">0.04</span>):<span class="hljs-number">.2</span>%}</span>&quot;</span>)</span></code></pre>
 <p>结果表明，<strong>继续下跌的概率仅为 0.16%</strong>。所以，结论是：本答案仅依据历史数据，仅为演示和说明量化算法，不构成任何投资建议！</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 看不太懂为什么 cdf(-0.04) 代表继续下跌的概率？我们的课程会从直方图讲起，直到你看懂为止。

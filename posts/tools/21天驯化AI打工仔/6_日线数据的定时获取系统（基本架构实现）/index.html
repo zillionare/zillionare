@@ -27,327 +27,308 @@
 </ol>
 <p>&quot;这个系统的架构应该如何设计？&quot;我问道。</p>
 <p>007展示了一个清晰的系统架构图：</p>
-<pre><code class="language-mermaid">graph TD
-    %% 主要组件
-    Main[主程序 main.py] --&gt; Scheduler[调度器 scheduler.py]
-    Main --&gt; DataFetcher[数据获取 data_fetcher.py]
-    Main --&gt; DataProcessor[数据处理 data_processor.py]
-    Main --&gt; RedisHandler[Redis处理 redis_handler.py]
-    Main --&gt; ClickHouseHandler[ClickHouse处理 clickhouse_handler.py]
+<pre><code class="hljs language-mermaid"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span></span><span class="cl-body">graph TD
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 主要组件
+    Main[主程序 main.py] <span class="hljs-comment">--&gt; Scheduler[调度器 scheduler.py]</span>
+    Main <span class="hljs-comment">--&gt; DataFetcher[数据获取 data_fetcher.py]</span>
+    Main <span class="hljs-comment">--&gt; DataProcessor[数据处理 data_processor.py]</span>
+    Main <span class="hljs-comment">--&gt; RedisHandler[Redis处理 redis_handler.py]</span>
+    Main <span class="hljs-comment">--&gt; ClickHouseHandler[ClickHouse处理 clickhouse_handler.py]</span>
     
-    %% 配置和工具
-    Config[配置 config.py] --&gt; Main
-    Config --&gt; Scheduler
-    Config --&gt; DataFetcher
-    Config --&gt; RedisHandler
-    Config --&gt; ClickHouseHandler
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 配置和工具
+    Config[配置 config.py] <span class="hljs-comment">--&gt; Main</span>
+    Config <span class="hljs-comment">--&gt; Scheduler</span>
+    Config <span class="hljs-comment">--&gt; DataFetcher</span>
+    Config <span class="hljs-comment">--&gt; RedisHandler</span>
+    Config <span class="hljs-comment">--&gt; ClickHouseHandler</span>
     
-    Utils[工具函数 utils.py] --&gt; DataFetcher
-    Utils --&gt; Scheduler
+    Utils[工具函数 utils.py] <span class="hljs-comment">--&gt; DataFetcher</span>
+    Utils <span class="hljs-comment">--&gt; Scheduler</span>
     
-    Logger[日志 logger.py] --&gt; Main
-    Logger --&gt; Scheduler
-    Logger --&gt; DataFetcher
-    Logger --&gt; DataProcessor
-    Logger --&gt; RedisHandler
-    Logger --&gt; ClickHouseHandler
+    Logger[日志 logger.py] <span class="hljs-comment">--&gt; Main</span>
+    Logger <span class="hljs-comment">--&gt; Scheduler</span>
+    Logger <span class="hljs-comment">--&gt; DataFetcher</span>
+    Logger <span class="hljs-comment">--&gt; DataProcessor</span>
+    Logger <span class="hljs-comment">--&gt; RedisHandler</span>
+    Logger <span class="hljs-comment">--&gt; ClickHouseHandler</span>
     
-    %% 监控和异常处理
-    Monitor[监控 monitor.py] --&gt; Scheduler
-    Exceptions[异常处理 exceptions.py] --&gt; Main
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 监控和异常处理
+    Monitor[监控 monitor.py] <span class="hljs-comment">--&gt; Scheduler</span>
+    Exceptions[异常处理 exceptions.py] <span class="hljs-comment">--&gt; Main</span>
     
-    %% 数据流向
-    DataFetcher --&gt;|获取数据| TushareAPI[Tushare API]
-    DataFetcher --&gt;|返回数据| DataProcessor
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 数据流向
+    DataFetcher <span class="hljs-comment">--&gt;|获取数据| TushareAPI[Tushare API]</span>
+    DataFetcher <span class="hljs-comment">--&gt;|返回数据| DataProcessor</span>
     
-    %% 处理方式1：直接存储
-    DataProcessor --&gt;|直接存储| ClickHouseHandler
-    ClickHouseHandler --&gt;|写入| ClickHouse[(ClickHouse 数据库)]
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 处理方式<span class="hljs-number">1</span>：直接存储
+    DataProcessor <span class="hljs-comment">--&gt;|直接存储| ClickHouseHandler</span>
+    ClickHouseHandler <span class="hljs-comment">--&gt;|写入| ClickHouse[(ClickHouse 数据库)]</span>
     
-    %% 处理方式2：通过Redis队列
-    DataProcessor --&gt;|发布数据| RedisHandler
-    RedisHandler --&gt;|写入队列| Redis[(Redis 队列)]
-    RedisConsumer[消费者 redis_consumer.py] --&gt;|读取队列| Redis
-    RedisConsumer --&gt;|存储数据| ClickHouseHandler
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 处理方式<span class="hljs-number">2</span>：通过Redis队列
+    DataProcessor <span class="hljs-comment">--&gt;|发布数据| RedisHandler</span>
+    RedisHandler <span class="hljs-comment">--&gt;|写入队列| Redis[(Redis 队列)]</span>
+    RedisConsumer[消费者 redis_consumer.py] <span class="hljs-comment">--&gt;|读取队列| Redis</span>
+    RedisConsumer <span class="hljs-comment">--&gt;|存储数据| ClickHouseHandler</span>
     
-    %% 定时任务
-    Scheduler --&gt;|定时获取当日数据| DataFetcher
-    Scheduler --&gt;|定时获取历史数据| DataFetcher
-    Scheduler --&gt;|定时更新股票列表| DataFetcher
-    Scheduler --&gt;|定时更新交易日历| DataFetcher
-    Scheduler --&gt;|定时检查连接| RedisHandler
-    Scheduler --&gt;|定时检查连接| ClickHouseHandler
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 定时任务
+    Scheduler <span class="hljs-comment">--&gt;|定时获取当日数据| DataFetcher</span>
+    Scheduler <span class="hljs-comment">--&gt;|定时获取历史数据| DataFetcher</span>
+    Scheduler <span class="hljs-comment">--&gt;|定时更新股票列表| DataFetcher</span>
+    Scheduler <span class="hljs-comment">--&gt;|定时更新交易日历| DataFetcher</span>
+    Scheduler <span class="hljs-comment">--&gt;|定时检查连接| RedisHandler</span>
+    Scheduler <span class="hljs-comment">--&gt;|定时检查连接| ClickHouseHandler</span>
     
-    %% 样式
-    classDef core fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef db fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef util fill:#bfb,stroke:#333,stroke-width:2px;
-    classDef api fill:#fbb,stroke:#333,stroke-width:2px;
+    <span class="hljs-operator">%</span><span class="hljs-operator">%</span> 样式
+    classDef core fill:#f9f,stroke:#<span class="hljs-number">333</span>,stroke<span class="hljs-operator">-</span>width:<span class="hljs-number">2</span>px;
+    classDef db fill:#bbf,stroke:#<span class="hljs-number">333</span>,stroke<span class="hljs-operator">-</span>width:<span class="hljs-number">2</span>px;
+    classDef util fill:#bfb,stroke:#<span class="hljs-number">333</span>,stroke<span class="hljs-operator">-</span>width:<span class="hljs-number">2</span>px;
+    classDef api fill:#fbb,stroke:#<span class="hljs-number">333</span>,stroke<span class="hljs-operator">-</span>width:<span class="hljs-number">2</span>px;
     
     class Main,Scheduler,DataFetcher,DataProcessor,RedisHandler,ClickHouseHandler,RedisConsumer core;
     class Redis,ClickHouse db;
     class Config,Utils,Logger,Monitor,Exceptions util;
-    class TushareAPI api;
-</code></pre>
+    class TushareAPI api;</span></code></pre>
 <p>&quot;我们将系统分为多个模块，每个模块负责特定的功能，这样可以提高代码的可维护性和可扩展性。&quot;007解释道，&quot;配置模块负责管理系统配置，数据获取模块负责从Tushare获取数据，数据处理模块负责处理数据并发布到Redis或直接存储到ClickHouse，调度器模块负责管理定时任务，确保数据获取的可靠性。&quot;</p>
 <h2 id="定时器的魔力">定时器的魔力</h2>
 <p>&quot;定时器是整个系统的核心，&quot;007继续说道，&quot;我们将使用APScheduler库来实现定时任务调度。&quot;</p>
-<pre><code class="language-python">from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.cron import CronTrigger
-import pytz
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-keyword">from</span> apscheduler.schedulers.background <span class="hljs-keyword">import</span> BackgroundScheduler
+<span class="hljs-keyword">from</span> apscheduler.triggers.cron <span class="hljs-keyword">import</span> CronTrigger
+<span class="hljs-keyword">import</span> pytz
 
-scheduler = BackgroundScheduler(timezone=pytz.timezone(&#39;Asia/Shanghai&#39;))
+scheduler = BackgroundScheduler(timezone=pytz.timezone(<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>))
 
-# 每个交易日15:30获取当日数据
+<span class="hljs-comment"># 每个交易日15:30获取当日数据</span>
 scheduler.add_job(
     fetch_daily_data,
-    CronTrigger(hour=15, minute=30, day_of_week=&#39;mon-fri&#39;),
-    id=&#39;daily_data_job&#39;,
-    replace_existing=True
+    CronTrigger(hour=<span class="hljs-number">15</span>, minute=<span class="hljs-number">30</span>, day_of_week=<span class="hljs-string">&#x27;mon-fri&#x27;</span>),
+    <span class="hljs-built_in">id</span>=<span class="hljs-string">&#x27;daily_data_job&#x27;</span>,
+    replace_existing=<span class="hljs-literal">True</span>
 )
 
-# 每天凌晨1:00获取历史数据
+<span class="hljs-comment"># 每天凌晨1:00获取历史数据</span>
 scheduler.add_job(
     fetch_historical_data,
-    CronTrigger(hour=1, minute=0),
-    id=&#39;historical_data_job&#39;,
-    replace_existing=True
+    CronTrigger(hour=<span class="hljs-number">1</span>, minute=<span class="hljs-number">0</span>),
+    <span class="hljs-built_in">id</span>=<span class="hljs-string">&#x27;historical_data_job&#x27;</span>,
+    replace_existing=<span class="hljs-literal">True</span>
 )
 
-scheduler.start()
-</code></pre>
+scheduler.start()</span></code></pre>
 <p>&quot;这样设置后，系统会在每个工作日的15:30自动获取当日数据，在每天凌晨1:00自动获取历史数据。&quot;007解释道。</p>
 <h2 id="数据完整性的保障">数据完整性的保障</h2>
 <p>&quot;但是，&quot;我提出了一个关键问题，&quot;如果某一天因为网络问题或者其他原因，数据获取失败了怎么办？&quot;</p>
 <p>007微微一笑：&quot;这就是为什么我们需要数据完整性检查机制。系统会定期检查ClickHouse中的数据，找出缺失的日期，然后自动补充这些数据。&quot;</p>
-<pre><code class="language-python">def check_data_completeness(start_date, end_date):
-    &quot;&quot;&quot;检查数据完整性，找出缺失的日期&quot;&quot;&quot;
-    # 获取交易日历
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_data_completeness</span>(<span class="hljs-params">start_date, end_date</span>):
+    <span class="hljs-string">&quot;&quot;&quot;检查数据完整性，找出缺失的日期&quot;&quot;&quot;</span>
+    <span class="hljs-comment"># 获取交易日历</span>
     trade_cal = get_trade_calendar(start_date, end_date)
 
-    # 查询ClickHouse中已有的数据日期
+    <span class="hljs-comment"># 查询ClickHouse中已有的数据日期</span>
     existing_dates = query_existing_dates(start_date, end_date)
 
-    # 找出缺失的日期
-    missing_dates = set(trade_cal) - set(existing_dates)
+    <span class="hljs-comment"># 找出缺失的日期</span>
+    missing_dates = <span class="hljs-built_in">set</span>(trade_cal) - <span class="hljs-built_in">set</span>(existing_dates)
 
-    return list(missing_dates)
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">list</span>(missing_dates)
 
-def complete_missing_data():
-    &quot;&quot;&quot;补充缺失的数据&quot;&quot;&quot;
-    # 获取最近30天的日期范围
-    end_date = datetime.now().strftime(&#39;%Y%m%d&#39;)
-    start_date = (datetime.now() - timedelta(days=30)).strftime(&#39;%Y%m%d&#39;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">complete_missing_data</span>():
+    <span class="hljs-string">&quot;&quot;&quot;补充缺失的数据&quot;&quot;&quot;</span>
+    <span class="hljs-comment"># 获取最近30天的日期范围</span>
+    end_date = datetime.now().strftime(<span class="hljs-string">&#x27;%Y%m%d&#x27;</span>)
+    start_date = (datetime.now() - timedelta(days=<span class="hljs-number">30</span>)).strftime(<span class="hljs-string">&#x27;%Y%m%d&#x27;</span>)
 
-    # 检查数据完整性
+    <span class="hljs-comment"># 检查数据完整性</span>
     missing_dates = check_data_completeness(start_date, end_date)
 
-    if missing_dates:
-        logger.info(f&quot;发现缺失数据日期: {missing_dates}&quot;)
-        for date in missing_dates:
+    <span class="hljs-keyword">if</span> missing_dates:
+        logger.info(<span class="hljs-string">f&quot;发现缺失数据日期: <span class="hljs-subst">{missing_dates}</span>&quot;</span>)
+        <span class="hljs-keyword">for</span> date <span class="hljs-keyword">in</span> missing_dates:
             fetch_data_for_date(date)
-    else:
-        logger.info(&quot;数据完整性检查通过，无缺失数据&quot;)
-</code></pre>
+    <span class="hljs-keyword">else</span>:
+        logger.info(<span class="hljs-string">&quot;数据完整性检查通过，无缺失数据&quot;</span>)</span></code></pre>
 <p>&quot;这个机制确保了即使某一天的数据获取失败，系统也能在后续的检查中发现并补充这些数据。&quot;007补充道。</p>
 <h2 id="智能跳过已有数据">智能跳过已有数据</h2>
 <p>&quot;重复获取数据会浪费API调用次数和系统资源，&quot;我说，&quot;我们需要一个智能跳过机制。&quot;</p>
 <p>007点点头：&quot;系统会在获取数据前先检查ClickHouse中是否已经存在该日期的数据，如果存在则跳过，只获取缺失的数据。&quot;</p>
-<pre><code class="language-python">def fetch_historical_data(days=7, force=False):
-    &quot;&quot;&quot;获取历史数据，支持智能跳过已有数据&quot;&quot;&quot;
-    end_date = datetime.now().strftime(&#39;%Y%m%d&#39;)
-    start_date = (datetime.now() - timedelta(days=days)).strftime(&#39;%Y%m%d&#39;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_historical_data</span>(<span class="hljs-params">days=<span class="hljs-number">7</span>, force=<span class="hljs-literal">False</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;获取历史数据，支持智能跳过已有数据&quot;&quot;&quot;</span>
+    end_date = datetime.now().strftime(<span class="hljs-string">&#x27;%Y%m%d&#x27;</span>)
+    start_date = (datetime.now() - timedelta(days=days)).strftime(<span class="hljs-string">&#x27;%Y%m%d&#x27;</span>)
 
-    if not force:
-        # 检查已有数据，只获取缺失的日期
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> force:
+        <span class="hljs-comment"># 检查已有数据，只获取缺失的日期</span>
         missing_dates = check_data_completeness(start_date, end_date)
-        if not missing_dates:
-            logger.info(f&quot;从 {start_date} 到 {end_date} 的数据已完整，跳过获取&quot;)
-            return
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> missing_dates:
+            logger.info(<span class="hljs-string">f&quot;从 <span class="hljs-subst">{start_date}</span> 到 <span class="hljs-subst">{end_date}</span> 的数据已完整，跳过获取&quot;</span>)
+            <span class="hljs-keyword">return</span>
 
-        logger.info(f&quot;智能获取缺失日期: {missing_dates}&quot;)
-        for date in missing_dates:
+        logger.info(<span class="hljs-string">f&quot;智能获取缺失日期: <span class="hljs-subst">{missing_dates}</span>&quot;</span>)
+        <span class="hljs-keyword">for</span> date <span class="hljs-keyword">in</span> missing_dates:
             fetch_data_for_date(date)
-    else:
-        # 强制获取所有数据
-        logger.info(f&quot;强制获取从 {start_date} 到 {end_date} 的所有数据&quot;)
-        fetch_data_for_date_range(start_date, end_date)
-</code></pre>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-comment"># 强制获取所有数据</span>
+        logger.info(<span class="hljs-string">f&quot;强制获取从 <span class="hljs-subst">{start_date}</span> 到 <span class="hljs-subst">{end_date}</span> 的所有数据&quot;</span>)
+        fetch_data_for_date_range(start_date, end_date)</span></code></pre>
 <p>&quot;这个机制大大提高了系统的效率，避免了不必要的API调用。&quot;007说。</p>
 <p>&quot;由于我们在获取数据的时候已经确保输入的每个日期的数据都是完整的，所以我们这里也只需要判断时间区间即可。&quot;我感叹道，“这个设计巧妙！”</p>
 <h2 id="分批获取的艺术">分批获取的艺术</h2>
 <p>&quot;Tushare API有调用限制，如果一次性获取所有股票的数据可能会超出限制，&quot;我担忧地说。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/6_01.png" alt=""></p>
 <p>&quot;别担心，&quot;007胸有成竹，&quot;我们会实现分批获取策略，将股票列表分成多个批次，逐批获取数据。&quot;</p>
-<pre><code class="language-python">def fetch_data_in_batches(date, batch_size=100):
-    &quot;&quot;&quot;分批获取数据，解决API调用限制问题&quot;&quot;&quot;
-    # 获取股票列表
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_data_in_batches</span>(<span class="hljs-params">date, batch_size=<span class="hljs-number">100</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;分批获取数据，解决API调用限制问题&quot;&quot;&quot;</span>
+    <span class="hljs-comment"># 获取股票列表</span>
     stock_list = get_stock_list()
 
-    # 计算批次数
-    total_stocks = len(stock_list)
-    batch_count = (total_stocks + batch_size - 1) // batch_size
+    <span class="hljs-comment"># 计算批次数</span>
+    total_stocks = <span class="hljs-built_in">len</span>(stock_list)
+    batch_count = (total_stocks + batch_size - <span class="hljs-number">1</span>) // batch_size
 
-    logger.info(f&quot;开始分批获取 {date} 的数据，共 {total_stocks} 只股票，分 {batch_count} 批处理&quot;)
+    logger.info(<span class="hljs-string">f&quot;开始分批获取 <span class="hljs-subst">{date}</span> 的数据，共 <span class="hljs-subst">{total_stocks}</span> 只股票，分 <span class="hljs-subst">{batch_count}</span> 批处理&quot;</span>)
 
-    for i in range(batch_count):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(batch_count):
         start_idx = i * batch_size
-        end_idx = min((i + 1) * batch_size, total_stocks)
+        end_idx = <span class="hljs-built_in">min</span>((i + <span class="hljs-number">1</span>) * batch_size, total_stocks)
         batch_stocks = stock_list[start_idx:end_idx]
 
-        logger.info(f&quot;处理第 {i+1}/{batch_count} 批，包含 {len(batch_stocks)} 只股票&quot;)
+        logger.info(<span class="hljs-string">f&quot;处理第 <span class="hljs-subst">{i+<span class="hljs-number">1</span>}</span>/<span class="hljs-subst">{batch_count}</span> 批，包含 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(batch_stocks)}</span> 只股票&quot;</span>)
 
-        # 获取这批股票的数据
+        <span class="hljs-comment"># 获取这批股票的数据</span>
         fetch_data_for_stocks(date, batch_stocks)
 
-        # 适当休眠，避免API调用过于频繁
-        if i &lt; batch_count - 1:
-            time.sleep(1)
-</code></pre>
+        <span class="hljs-comment"># 适当休眠，避免API调用过于频繁</span>
+        <span class="hljs-keyword">if</span> i &lt; batch_count - <span class="hljs-number">1</span>:
+            time.sleep(<span class="hljs-number">1</span>)</span></code></pre>
 <p>&quot;这个策略不仅解决了API调用限制问题，还提高了系统的稳定性。&quot;007补充道。</p>
 <h2 id="实战测试">实战测试</h2>
 <p>理论设计完成后，我迫不及待地想要看到系统的实际运行效果。</p>
 <p>&quot;让我们启动系统，看看它是如何工作的。&quot;我说。</p>
 <p>007执行了启动命令：</p>
-<pre><code class="language-bash">python main.py start
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python main.py start</span></code></pre>
 <p>系统启动后，控制台输出了日志信息：</p>
-<pre><code>(course) (base) quantide@mini-one 日线数据定时获取 % python main.py start
-2025-05-21 14:23:38,748 - day_bar_fetcher - INFO - Redis连接成功
-2025-05-21 14:23:38,791 - day_bar_fetcher - INFO - ClickHouse连接成功
-2025-05-21 14:23:38,807 - day_bar_fetcher - INFO - 已确保表 RealTime_DailyLine_DB.day_bar 存在
-2025-05-21 14:23:38,807 - day_bar_fetcher - INFO - 调度器初始化成功
-2025-05-21 14:23:38,808 - day_bar_fetcher - INFO - 正在启动日线数据定时获取系统...
-2025-05-21 14:23:38,808 - day_bar_fetcher - INFO - 已添加所有定时任务
-2025-05-21 14:23:38,809 - day_bar_fetcher - INFO - 调度器已启动
-2025-05-21 14:23:38,809 - day_bar_fetcher - INFO - 系统已启动，按Ctrl+C终止
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-string">(course)</span> <span class="hljs-string">(base)</span> <span class="hljs-string">quantide@mini-one</span> <span class="hljs-string">日线数据定时获取</span> <span class="hljs-string">%</span> <span class="hljs-string">python</span> <span class="hljs-string">main.py</span> <span class="hljs-string">start</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,748</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Redis连接成功</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,791</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse连接成功</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,807</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">已确保表</span> <span class="hljs-string">RealTime_DailyLine_DB.day_bar</span> <span class="hljs-string">存在</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,807</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">调度器初始化成功</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,808</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">正在启动日线数据定时获取系统...</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,808</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">已添加所有定时任务</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,809</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">调度器已启动</span>
+<span class="hljs-number">2025-05-21 14:23:38</span><span class="hljs-string">,809</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">系统已启动，按Ctrl+C终止</span></span></code></pre>
 <p>&quot;太棒了！系统成功启动，并且已经添加了所有定时任务。&quot;我兴奋地说。</p>
 <p>为了测试系统的功能，我决定手动触发一次当日数据获取：</p>
-<pre><code class="language-bash">python main.py daily
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python main.py daily</span></code></pre>
 <p>系统立即开始工作：</p>
-<pre><code>(course) (base) mini-one:日线数据定时获取 quantide$ python main.py daily
-2025-05-21 16:55:37,018 - day_bar_fetcher - INFO - Tushare API初始化成功
-2025-05-21 16:55:37,038 - day_bar_fetcher - INFO - Redis连接成功
-2025-05-21 16:55:37,099 - day_bar_fetcher - INFO - ClickHouse连接成功
-2025-05-21 16:55:37,103 - day_bar_fetcher - INFO - 已确保表 RealTime_DailyLine_DB.day_bar 存在
-2025-05-21 16:55:37,104 - day_bar_fetcher - INFO - 调度器初始化成功
-2025-05-21 16:55:37,105 - day_bar_fetcher - INFO - 手动获取当日数据
-2025-05-21 16:55:37,764 - day_bar_fetcher - INFO - 获取日线数据，日期: 20250521, 股票代码: 所有
-2025-05-21 16:55:37,764 - day_bar_fetcher - INFO - 获取股票列表...
-2025-05-21 16:55:38,530 - day_bar_fetcher - INFO - 获取股票列表成功，共 5416 条记录
-2025-05-21 16:55:38,540 - day_bar_fetcher - INFO - 日期 20250521 在ClickHouse中已有 0 个股票的数据
-2025-05-21 16:55:38,540 - day_bar_fetcher - INFO - 日期 20250521 没有已存在的数据，需要获取 5416 个股票的数据
-2025-05-21 16:55:38,540 - day_bar_fetcher - INFO - 获取日线数据，日期: 20250521, 批次: 1/6, 股票数量: 1000
-2025-05-21 16:55:39,025 - day_bar_fetcher - INFO - 批次 1 获取成功，共 993 条记录
-2025-05-21 16:55:39,025 - day_bar_fetcher - INFO - 获取日线数据，日期: 20250521, 批次: 2/6, 股票数量: 1000
-...
-2025-05-21 16:55:42,125 - day_bar_fetcher - INFO - 获取日线数据成功，共 5390 条记录
-2025-05-21 16:55:42,125 - day_bar_fetcher - INFO - 开始处理并存储 5390 条数据
-2025-05-21 16:55:42,151 - day_bar_fetcher - INFO - 已插入 1000 条数据到ClickHouse表 RealTime_DailyLine_DB.day_bar
-...
-RealTime_DailyLine_DB.day_bar
-2025-05-21 16:55:42,372 - day_bar_fetcher - INFO - 已处理并存储 5390/5390 条数据
-2025-05-21 16:55:42,373 - day_bar_fetcher - INFO - 数据处理和存储完成，共 5390 条记录
-2025-05-21 16:55:42,373 - day_bar_fetcher - INFO - 检查并补充日期 20250521 的数据
-2025-05-21 16:55:42,407 - day_bar_fetcher - INFO - 日期 20250521 在ClickHouse中共有 5390 个股票的数据
-2025-05-21 16:55:42,418 - day_bar_fetcher - INFO - 日期 20250521 数据完整度: 99.93% (5390/5394), 是否完整: True
-2025-05-21 16:55:42,419 - day_bar_fetcher - INFO - 日期 20250521 的数据已完整，无需补充
-2025-05-21 16:55:42,419 - day_bar_fetcher - INFO - 当日数据获取完成
-2025-05-21 16:55:42,426 - day_bar_fetcher - INFO - ==================================================
-2025-05-21 16:55:42,426 - day_bar_fetcher - INFO - ClickHouse中已有数据的时间范围: 20250514 - 20250521
-2025-05-21 16:55:42,429 - day_bar_fetcher - INFO - ClickHouse中共有 32344 条数据记录
-2025-05-21 16:55:42,429 - day_bar_fetcher - INFO - ==================================================
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body"><span class="hljs-string">(course)</span> <span class="hljs-string">(base)</span> <span class="hljs-string">mini-one:日线数据定时获取</span> <span class="hljs-string">quantide$</span> <span class="hljs-string">python</span> <span class="hljs-string">main.py</span> <span class="hljs-string">daily</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,018</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Tushare</span> <span class="hljs-string">API初始化成功</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,038</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Redis连接成功</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,099</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse连接成功</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,103</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">已确保表</span> <span class="hljs-string">RealTime_DailyLine_DB.day_bar</span> <span class="hljs-string">存在</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,104</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">调度器初始化成功</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,105</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">手动获取当日数据</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,764</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">获取日线数据，日期:</span> <span class="hljs-number">20250521</span><span class="hljs-string">,</span> <span class="hljs-string">股票代码:</span> <span class="hljs-string">所有</span>
+<span class="hljs-number">2025-05-21 16:55:37</span><span class="hljs-string">,764</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">获取股票列表...</span>
+<span class="hljs-number">2025-05-21 16:55:38</span><span class="hljs-string">,530</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">获取股票列表成功，共</span> <span class="hljs-number">5416</span> <span class="hljs-string">条记录</span>
+<span class="hljs-number">2025-05-21 16:55:38</span><span class="hljs-string">,540</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">在ClickHouse中已有</span> <span class="hljs-number">0</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-21 16:55:38</span><span class="hljs-string">,540</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">没有已存在的数据，需要获取</span> <span class="hljs-number">5416</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-21 16:55:38</span><span class="hljs-string">,540</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">获取日线数据，日期:</span> <span class="hljs-number">20250521</span><span class="hljs-string">,</span> <span class="hljs-string">批次:</span> <span class="hljs-number">1</span><span class="hljs-string">/6,</span> <span class="hljs-string">股票数量:</span> <span class="hljs-number">1000</span>
+<span class="hljs-number">2025-05-21 16:55:39</span><span class="hljs-string">,025</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">批次</span> <span class="hljs-number">1</span> <span class="hljs-string">获取成功，共</span> <span class="hljs-number">993</span> <span class="hljs-string">条记录</span>
+<span class="hljs-number">2025-05-21 16:55:39</span><span class="hljs-string">,025</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">获取日线数据，日期:</span> <span class="hljs-number">20250521</span><span class="hljs-string">,</span> <span class="hljs-string">批次:</span> <span class="hljs-number">2</span><span class="hljs-string">/6,</span> <span class="hljs-string">股票数量:</span> <span class="hljs-number">1000</span>
+<span class="hljs-string">...</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,125</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">获取日线数据成功，共</span> <span class="hljs-number">5390</span> <span class="hljs-string">条记录</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,125</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">开始处理并存储</span> <span class="hljs-number">5390</span> <span class="hljs-string">条数据</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,151</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">已插入</span> <span class="hljs-number">1000</span> <span class="hljs-string">条数据到ClickHouse表</span> <span class="hljs-string">RealTime_DailyLine_DB.day_bar</span>
+<span class="hljs-string">...</span>
+<span class="hljs-string">RealTime_DailyLine_DB.day_bar</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,372</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">已处理并存储</span> <span class="hljs-number">5390</span><span class="hljs-string">/5390</span> <span class="hljs-string">条数据</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,373</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">数据处理和存储完成，共</span> <span class="hljs-number">5390</span> <span class="hljs-string">条记录</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,373</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">检查并补充日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">的数据</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,407</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5390</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,418</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">99.93</span><span class="hljs-string">%</span> <span class="hljs-string">(5390/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,419</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">的数据已完整，无需补充</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,419</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">当日数据获取完成</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,426</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">==================================================</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,426</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse中已有数据的时间范围:</span> <span class="hljs-number">20250514</span> <span class="hljs-bullet">-</span> <span class="hljs-number">20250521</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,429</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse中共有</span> <span class="hljs-number">32344</span> <span class="hljs-string">条数据记录</span>
+<span class="hljs-number">2025-05-21 16:55:42</span><span class="hljs-string">,429</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">==================================================</span></span></code></pre>
 <p>&quot;系统运行得非常好，&quot;我赞叹道，&quot;它成功获取了当日的数据，并且详细记录了处理过程。&quot;</p>
 <p>&quot;当然，如果你对获取数据的完整性依旧放心不下，我们可以运行<code>python main.py complete</code>或<code>python main.py info</code>来检查我们已经存储的数据信息。&quot;，007 补充道。</p>
 <p>说罢，007 执行了以下命令：</p>
-<pre><code>python main.py complete
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python main.py complete</span></code></pre>
 <p>系统显示了如下 Clickhouse 的信息：</p>
-<pre><code>2025-05-22 09:40:17,208 - day_bar_fetcher - INFO - Tushare API初始化成功
-2025-05-22 09:40:17,259 - day_bar_fetcher - INFO - Redis连接成功
-2025-05-22 09:40:17,410 - day_bar_fetcher - INFO - ClickHouse连接成功
-2025-05-22 09:40:17,426 - day_bar_fetcher - INFO - 已确保表 RealTime_DailyLine_DB.day_bar 存在
-2025-05-22 09:40:17,428 - day_bar_fetcher - INFO - 调度器初始化成功
-2025-05-22 09:40:17,429 - day_bar_fetcher - INFO - 检查并补充日期范围 最早 - 最新 的数据
-2025-05-22 09:40:17,479 - day_bar_fetcher - INFO - 日期 20250514 在ClickHouse中共有 5391 个股票的数据
-2025-05-22 09:40:17,483 - day_bar_fetcher - INFO - 日期 20250514 数据完整度: 99.94% (5391/5394), 是否完整: True
-2025-05-22 09:40:17,485 - day_bar_fetcher - INFO - 日期 20250515 在ClickHouse中共有 5390 个股票的数据
-2025-05-22 09:40:17,488 - day_bar_fetcher - INFO - 日期 20250515 数据完整度: 99.93% (5390/5394), 是否完整: True
-2025-05-22 09:40:17,490 - day_bar_fetcher - INFO - 日期 20250516 在ClickHouse中共有 5391 个股票的数据
-2025-05-22 09:40:17,494 - day_bar_fetcher - INFO - 日期 20250516 数据完整度: 99.94% (5391/5394), 是否完整: True
-2025-05-22 09:40:17,498 - day_bar_fetcher - INFO - 日期 20250519 在ClickHouse中共有 5388 个股票的数据
-2025-05-22 09:40:17,501 - day_bar_fetcher - INFO - 日期 20250519 数据完整度: 99.89% (5388/5394), 是否完整: True
-2025-05-22 09:40:17,503 - day_bar_fetcher - INFO - 日期 20250520 在ClickHouse中共有 5394 个股票的数据
-2025-05-22 09:40:17,507 - day_bar_fetcher - INFO - 日期 20250520 数据完整度: 100.00% (5394/5394), 是否完整: True
-2025-05-22 09:40:17,510 - day_bar_fetcher - INFO - 日期 20250521 在ClickHouse中共有 5390 个股票的数据
-2025-05-22 09:40:17,512 - day_bar_fetcher - INFO - 日期 20250521 数据完整度: 99.93% (5390/5394), 是否完整: True
-2025-05-22 09:40:17,512 - day_bar_fetcher - INFO - 日期范围 20250514 - 20250521 内共有 0 个不完整的日期
-2025-05-22 09:40:17,512 - day_bar_fetcher - INFO - 所有日期的数据都已完整，无需补充
-2025-05-22 09:40:17,515 - day_bar_fetcher - INFO - ==================================================
-2025-05-22 09:40:17,515 - day_bar_fetcher - INFO - ClickHouse中已有数据的时间范围: 20250514 - 20250521
-2025-05-22 09:40:17,517 - day_bar_fetcher - INFO - ClickHouse中共有 32344 条数据记录
-2025-05-22 09:40:17,517 - day_bar_fetcher - INFO - ==================================================
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body"><span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,208</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Tushare</span> <span class="hljs-string">API初始化成功</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,259</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Redis连接成功</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,410</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse连接成功</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,426</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">已确保表</span> <span class="hljs-string">RealTime_DailyLine_DB.day_bar</span> <span class="hljs-string">存在</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,428</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">调度器初始化成功</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,429</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">检查并补充日期范围</span> <span class="hljs-string">最早</span> <span class="hljs-bullet">-</span> <span class="hljs-string">最新</span> <span class="hljs-string">的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,479</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250514</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5391</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,483</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250514</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">99.94</span><span class="hljs-string">%</span> <span class="hljs-string">(5391/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,485</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250515</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5390</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,488</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250515</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">99.93</span><span class="hljs-string">%</span> <span class="hljs-string">(5390/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,490</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250516</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5391</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,494</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250516</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">99.94</span><span class="hljs-string">%</span> <span class="hljs-string">(5391/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,498</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250519</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5388</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,501</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250519</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">99.89</span><span class="hljs-string">%</span> <span class="hljs-string">(5388/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,503</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250520</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5394</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,507</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250520</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">100.00</span><span class="hljs-string">%</span> <span class="hljs-string">(5394/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,510</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">在ClickHouse中共有</span> <span class="hljs-number">5390</span> <span class="hljs-string">个股票的数据</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,512</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期</span> <span class="hljs-number">20250521</span> <span class="hljs-string">数据完整度:</span> <span class="hljs-number">99.93</span><span class="hljs-string">%</span> <span class="hljs-string">(5390/5394),</span> <span class="hljs-string">是否完整:</span> <span class="hljs-literal">True</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,512</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">日期范围</span> <span class="hljs-number">20250514</span> <span class="hljs-bullet">-</span> <span class="hljs-number">20250521</span> <span class="hljs-string">内共有</span> <span class="hljs-number">0</span> <span class="hljs-string">个不完整的日期</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,512</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">所有日期的数据都已完整，无需补充</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,515</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">==================================================</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,515</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse中已有数据的时间范围:</span> <span class="hljs-number">20250514</span> <span class="hljs-bullet">-</span> <span class="hljs-number">20250521</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,517</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">ClickHouse中共有</span> <span class="hljs-number">32344</span> <span class="hljs-string">条数据记录</span>
+<span class="hljs-number">2025-05-22 09:40:17</span><span class="hljs-string">,517</span> <span class="hljs-bullet">-</span> <span class="hljs-string">day_bar_fetcher</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">==================================================</span></span></code></pre>
 <p>为了保证系统的功能性，我们增加了一些参数来更好的使用该系统：</p>
 <h3 id="启动系统">启动系统</h3>
-<pre><code class="language-bash">python main.py start
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python main.py start</span></code></pre>
 <h3 id="手动获取当日数据">手动获取当日数据</h3>
-<pre><code class="language-bash"># 获取当日数据
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 获取当日数据</span>
 python main.py daily
 
-# 使用分批获取，每批100个股票
-python main.py daily --batch-size 100
-</code></pre>
+<span class="hljs-comment"># 使用分批获取，每批100个股票</span>
+python main.py daily --batch-size 100</span></code></pre>
 <h3 id="手动获取历史数据">手动获取历史数据</h3>
-<pre><code class="language-bash"># 获取最近7天的历史数据
-python main.py history --days 7
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 获取最近7天的历史数据</span>
+python main.py <span class="hljs-built_in">history</span> --days 7
 
-# 获取指定日期范围的历史数据
-python main.py history --start 20230101 --end 20230107
+<span class="hljs-comment"># 获取指定日期范围的历史数据</span>
+python main.py <span class="hljs-built_in">history</span> --start 20230101 --end 20230107
 
-# 强制获取所有数据，不跳过已存在的数据
-python main.py history --days 7 --force
+<span class="hljs-comment"># 强制获取所有数据，不跳过已存在的数据</span>
+python main.py <span class="hljs-built_in">history</span> --days 7 --force
 
-# 使用分批获取，每批100个股票
-python main.py history --days 7 --batch-size 100
-</code></pre>
+<span class="hljs-comment"># 使用分批获取，每批100个股票</span>
+python main.py <span class="hljs-built_in">history</span> --days 7 --batch-size 100</span></code></pre>
 <h3 id="检查并补充不完整的数据">检查并补充不完整的数据</h3>
-<pre><code class="language-bash"># 检查并补充所有不完整的数据
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 检查并补充所有不完整的数据</span>
 python main.py complete
 
-# 检查并补充指定日期的数据
-python main.py complete --date 20230101
+<span class="hljs-comment"># 检查并补充指定日期的数据</span>
+python main.py complete --<span class="hljs-built_in">date</span> 20230101
 
-# 检查并补充指定日期范围的数据
+<span class="hljs-comment"># 检查并补充指定日期范围的数据</span>
 python main.py complete --start 20230101 --end 20230107
 
-# 使用分批获取，每批100个股票
-python main.py complete --batch-size 100
-</code></pre>
+<span class="hljs-comment"># 使用分批获取，每批100个股票</span>
+python main.py complete --batch-size 100</span></code></pre>
 <h3 id="显示数据信息">显示数据信息</h3>
-<pre><code class="language-bash"># 显示ClickHouse中的数据信息（时间范围和记录数量）
-python main.py info
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 显示ClickHouse中的数据信息（时间范围和记录数量）</span>
+python main.py info</span></code></pre>
 <h3 id="手动更新股票列表">手动更新股票列表</h3>
-<pre><code class="language-bash">python main.py stock_list
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python main.py stock_list</span></code></pre>
 <h3 id="手动更新交易日历">手动更新交易日历</h3>
-<pre><code class="language-bash">python main.py trade_cal
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python main.py trade_cal</span></code></pre>
 <h3 id="手动检查连接">手动检查连接</h3>
-<pre><code class="language-bash"># 检查所有连接
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 检查所有连接</span>
 python main.py check
 
-# 只检查Redis连接
+<span class="hljs-comment"># 只检查Redis连接</span>
 python main.py check --redis
 
-# 只检查ClickHouse连接
-python main.py check --clickhouse
-</code></pre>
+<span class="hljs-comment"># 只检查ClickHouse连接</span>
+python main.py check --clickhouse</span></code></pre>
 <h2 id="成果与展望">成果与展望</h2>
 <p>经过一天的努力，我和007成功实现了日线数据定时获取系统。这个系统具有以下特点：</p>
 <ol>

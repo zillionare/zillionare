@@ -23,24 +23,21 @@
 <ol>
 <li><strong>核心语法</strong></li>
 </ol>
-<pre><code class="language-python">df.query(&#39;表达式&#39;)  # 表达式需用引号包裹，支持逻辑运算符和列名直接引用
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.query(<span class="hljs-string">&#x27;表达式&#x27;</span>)  <span class="hljs-comment"># 表达式需用引号包裹，支持逻辑运算符和列名直接引用</span></span></code></pre>
 <ol start="2">
 <li><strong>金融场景示例</strong></li>
 </ol>
-<pre><code class="language-python">&quot;&quot;&quot;案例1：筛选特定股票代码的高额交易&quot;&quot;&quot;
-# 筛选AAPL或TSLA股票，且金额超过100万的交易
-df.query(&quot;symbol in [&#39;AAPL&#39;, &#39;TSLA&#39;] and amount &gt; 1e6&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;案例1：筛选特定股票代码的高额交易&quot;&quot;&quot;</span>
+<span class="hljs-comment"># 筛选AAPL或TSLA股票，且金额超过100万的交易</span>
+df.query(<span class="hljs-string">&quot;symbol in [&#x27;AAPL&#x27;, &#x27;TSLA&#x27;] and amount &gt; 1e6&quot;</span>)
 
-&quot;&quot;&quot;案例2：动态引用外部变量&quot;&quot;&quot;
-avg_amount = df[&#39;amount&#39;].mean()  # 计算平均交易金额
-df.query(&quot;amount &gt; @avg_amount * 2&quot;)  # 筛选金额超过平均2倍的交易[3,5](@ref)
-</code></pre>
+<span class="hljs-string">&quot;&quot;&quot;案例2：动态引用外部变量&quot;&quot;&quot;</span>
+avg_amount = df[<span class="hljs-string">&#x27;amount&#x27;</span>].mean()  <span class="hljs-comment"># 计算平均交易金额</span>
+df.query(<span class="hljs-string">&quot;amount &gt; @avg_amount * 2&quot;</span>)  <span class="hljs-comment"># 筛选金额超过平均2倍的交易[3,5](@ref)</span></span></code></pre>
 <hr>
-<pre><code class="language-python">&quot;&quot;&quot;案例3：多条件组合&quot;&quot;&quot;
-# 筛选2025年Q1买入且成交价高于开盘价的交易
-df.query(&quot;trade_type == &#39;buy&#39; and trade_date &gt;= &#39;2025-01-01&#39; and price &gt; open_price&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;案例3：多条件组合&quot;&quot;&quot;</span>
+<span class="hljs-comment"># 筛选2025年Q1买入且成交价高于开盘价的交易</span>
+df.query(<span class="hljs-string">&quot;trade_type == &#x27;buy&#x27; and trade_date &gt;= &#x27;2025-01-01&#x27; and price &gt; open_price&quot;</span>)</span></code></pre>
 <ol start="3">
 <li>​<strong>性能优势</strong></li>
 </ol>
@@ -52,21 +49,19 @@ df.query(&quot;trade_type == &#39;buy&#39; and trade_date &gt;= &#39;2025-01-01&
 <ol>
 <li>​<strong>核心语法</strong></li>
 </ol>
-<pre><code class="language-python">mask = df.eval(&quot;表达式&quot;)  # 返回布尔数组
-df[mask]  # 用布尔索引筛选数据
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">mask = df.<span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;表达式&quot;</span>)  <span class="hljs-comment"># 返回布尔数组</span>
+df[mask]  <span class="hljs-comment"># 用布尔索引筛选数据</span></span></code></pre>
 <ol start="2">
 <li><strong>​金融场景示例</strong></li>
 </ol>
-<pre><code class="language-python">&quot;&quot;&quot;案例1：计算复杂交易条件&quot;&quot;&quot;
-# 筛选波动率超过阈值且交易量增长的股票
-df[df.eval(&quot;(high - low)/close &gt; 0.05 and volume &gt; volume.shift(1)&quot;)]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;案例1：计算复杂交易条件&quot;&quot;&quot;</span>
+<span class="hljs-comment"># 筛选波动率超过阈值且交易量增长的股票</span>
+df[df.<span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;(high - low)/close &gt; 0.05 and volume &gt; volume.shift(1)&quot;</span>)]
 
-&quot;&quot;&quot;案例2：动态公式计算&quot;&quot;&quot;
-# 筛选夏普比率高于行业平均的基金
-industry_avg = 1.2
-df[df.eval(&quot;(returns - risk_free_rate)/std_dev &gt; @industry_avg&quot;)]
-</code></pre>
+<span class="hljs-string">&quot;&quot;&quot;案例2：动态公式计算&quot;&quot;&quot;</span>
+<span class="hljs-comment"># 筛选夏普比率高于行业平均的基金</span>
+industry_avg = <span class="hljs-number">1.2</span>
+df[df.<span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;(returns - risk_free_rate)/std_dev &gt; @industry_avg&quot;</span>)]</span></code></pre>
 <ol start="3">
 <li><strong>​与query()的区别</strong><ul>
 <li>eval() 返回布尔数组，需配合 df[] 使用；query() 直接返回筛选后的DataFrame</li>
@@ -79,24 +74,22 @@ df[df.eval(&quot;(returns - risk_free_rate)/std_dev &gt; @industry_avg&quot;)]
 <ol>
 <li>​<strong>核心语法</strong></li>
 </ol>
-<pre><code class="language-python">df[df[&#39;列名&#39;].isin(值列表)]  # 筛选列值存在于列表中的行
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[df[<span class="hljs-string">&#x27;列名&#x27;</span>].isin(值列表)]  <span class="hljs-comment"># 筛选列值存在于列表中的行</span></span></code></pre>
 <ol start="2">
 <li><strong>​金融场景示例</strong></li>
 </ol>
-<pre><code class="language-python">&quot;&quot;&quot;案例1：筛选特定股票池&quot;&quot;&quot;
-blue_chips = [&#39;600519.SH&#39;, &#39;000858.SZ&#39;, &#39;601318.SH&#39;]  # 上证50成分股
-df[df[&#39;symbol&#39;].isin(blue_chips)]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;案例1：筛选特定股票池&quot;&quot;&quot;</span>
+blue_chips = [<span class="hljs-string">&#x27;600519.SH&#x27;</span>, <span class="hljs-string">&#x27;000858.SZ&#x27;</span>, <span class="hljs-string">&#x27;601318.SH&#x27;</span>]  <span class="hljs-comment"># 上证50成分股</span>
+df[df[<span class="hljs-string">&#x27;symbol&#x27;</span>].isin(blue_chips)]
 
-&quot;&quot;&quot;案例2：排除ST/ST风险股&quot;&quot;&quot;
-risk_stocks = [&#39;*ST长生&#39;, &#39;ST康美&#39;]  
-df[~df[&#39;stock_name&#39;].isin(risk_stocks)]  # 使用~取反[2](@ref)
+<span class="hljs-string">&quot;&quot;&quot;案例2：排除ST/ST风险股&quot;&quot;&quot;</span>
+risk_stocks = [<span class="hljs-string">&#x27;*ST长生&#x27;</span>, <span class="hljs-string">&#x27;ST康美&#x27;</span>]  
+df[~df[<span class="hljs-string">&#x27;stock_name&#x27;</span>].isin(risk_stocks)]  <span class="hljs-comment"># 使用~取反[2](@ref)</span>
 
-&quot;&quot;&quot;案例3：联合多列筛选&quot;&quot;&quot;
-# 筛选沪深300且行业为科技或金融的股票
-target_industries = [&#39;Technology&#39;, &#39;Financials&#39;]
-df[df[&#39;index&#39;].isin([&#39;000300.SH&#39;]) &amp; df[&#39;industry&#39;].isin(target_industries)]
-</code></pre>
+<span class="hljs-string">&quot;&quot;&quot;案例3：联合多列筛选&quot;&quot;&quot;</span>
+<span class="hljs-comment"># 筛选沪深300且行业为科技或金融的股票</span>
+target_industries = [<span class="hljs-string">&#x27;Technology&#x27;</span>, <span class="hljs-string">&#x27;Financials&#x27;</span>]
+df[df[<span class="hljs-string">&#x27;index&#x27;</span>].isin([<span class="hljs-string">&#x27;000300.SH&#x27;</span>]) &amp; df[<span class="hljs-string">&#x27;industry&#x27;</span>].isin(target_industries)]</span></code></pre>
 <ol start="3">
 <li>​<strong>进阶用法</strong><ul>
 <li>​字典筛选：多列联合匹配（如 df[df.isin({&#39;symbol&#39;:&#39;AAPL&#39;, &#39;exchange&#39;:&#39;NASDAQ&#39;})]）</li>
@@ -109,28 +102,25 @@ df[df[&#39;index&#39;].isin([&#39;000300.SH&#39;]) &amp; df[&#39;industry&#39;].
 <li><strong>先筛选再计算</strong></li>
 </ol>
 <hr>
-<pre><code class="language-python"># 错误：先计算全量再筛选
-df[&#39;return&#39;] = df[&#39;close&#39;].pct_change()  
-df_filtered = df[df[&#39;volume&#39;] &gt; 1e6]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># 错误：先计算全量再筛选</span>
+df[<span class="hljs-string">&#x27;return&#x27;</span>] = df[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()  
+df_filtered = df[df[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">1e6</span>]
 
-# 正确：先筛选减少计算量
-df_filtered = df[df[&#39;volume&#39;] &gt; 1e6].copy()  
-df_filtered[&#39;return&#39;] = df_filtered[&#39;close&#39;].pct_change()[6](@ref)
-</code></pre>
+<span class="hljs-comment"># 正确：先筛选减少计算量</span>
+df_filtered = df[df[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">1e6</span>].copy()  
+df_filtered[<span class="hljs-string">&#x27;return&#x27;</span>] = df_filtered[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()[<span class="hljs-number">6</span>](@ref)</span></code></pre>
 <ol start="2">
 <li><strong>​避免链式操作</strong></li>
 </ol>
-<pre><code class="language-python"># 错误：两次索引降低性能
-df[df[&#39;symbol&#39;] == &#39;AAPL&#39;][&#39;close&#39;]  
-# 正确：单次loc操作
-df.loc[df[&#39;symbol&#39;] == &#39;AAPL&#39;, &#39;close&#39;][3](@ref)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 错误：两次索引降低性能</span>
+df[df[<span class="hljs-string">&#x27;symbol&#x27;</span>] == <span class="hljs-string">&#x27;AAPL&#x27;</span>][<span class="hljs-string">&#x27;close&#x27;</span>]  
+<span class="hljs-comment"># 正确：单次loc操作</span>
+df.loc[df[<span class="hljs-string">&#x27;symbol&#x27;</span>] == <span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;close&#x27;</span>][<span class="hljs-number">3</span>](@ref)</span></code></pre>
 <ol start="3">
 <li><strong>​类型优化</strong></li>
 </ol>
-<pre><code class="language-python"># 将字符串列转为category提升isin速度
-df[&#39;symbol&#39;] = df[&#39;symbol&#39;].astype(&#39;category&#39;)[8](@ref)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 将字符串列转为category提升isin速度</span>
+df[<span class="hljs-string">&#x27;symbol&#x27;</span>] = df[<span class="hljs-string">&#x27;symbol&#x27;</span>].astype(<span class="hljs-string">&#x27;category&#x27;</span>)[<span class="hljs-number">8</span>](@ref)</span></code></pre>
 <h4>1.4.5. 方法对比与适用场景</h4>
 <table>
 <thead>
@@ -185,14 +175,12 @@ df[&#39;symbol&#39;] = df[&#39;symbol&#39;].astype(&#39;category&#39;)[8](@ref)
 <li><p><strong>​使用案例</strong></p>
 </li>
 </ol>
-<pre><code class="language-python"># 读取大规模交易数据（并行加速）
-import modin.pandas as pd
-df = pd.read_csv(&quot;trades.csv&quot;, parse_dates=[&quot;timestamp&quot;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 读取大规模交易数据（并行加速）</span>
+<span class="hljs-keyword">import</span> modin.pandas <span class="hljs-keyword">as</span> pd
+df = pd.read_csv(<span class="hljs-string">&quot;trades.csv&quot;</span>, parse_dates=[<span class="hljs-string">&quot;timestamp&quot;</span>])</span></code></pre>
 <hr>
-<pre><code class="language-python"># 实时计算每分钟交易量
-volume_by_minute = df.groupby(pd.Grouper(key=&quot;timestamp&quot;, freq=&quot;T&quot;))[&quot;amount&quot;].sum().compute()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 实时计算每分钟交易量</span>
+volume_by_minute = df.groupby(pd.Grouper(key=<span class="hljs-string">&quot;timestamp&quot;</span>, freq=<span class="hljs-string">&quot;T&quot;</span>))[<span class="hljs-string">&quot;amount&quot;</span>].<span class="hljs-built_in">sum</span>().compute()</span></code></pre>
 <ol start="4">
 <li><strong>​注意事项</strong><ul>
 <li>​小数据集劣势：处理 &lt;100MB 数据时可能比 Pandas 更慢（启动开销）。</li>
@@ -225,16 +213,15 @@ volume_by_minute = df.groupby(pd.Grouper(key=&quot;timestamp&quot;, freq=&quot;T
 </li>
 </ol>
 <hr>
-<pre><code class="language-python">import polars as pl
-# 惰性执行优化查询
-df = pl.scan_csv(&quot;market_data.csv&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">import</span> polars <span class="hljs-keyword">as</span> pl
+<span class="hljs-comment"># 惰性执行优化查询</span>
+df = pl.scan_csv(<span class="hljs-string">&quot;market_data.csv&quot;</span>)
 result = (
-   df.filter(pl.col(&quot;price&quot;) &gt; 100)
-   .groupby(&quot;symbol&quot;)
-   .agg([pl.col(&quot;volume&quot;).sum(), pl.col(&quot;price&quot;).mean()])
-   .collect()  # 触发计算
-)
-</code></pre>
+   df.<span class="hljs-built_in">filter</span>(pl.col(<span class="hljs-string">&quot;price&quot;</span>) &gt; <span class="hljs-number">100</span>)
+   .groupby(<span class="hljs-string">&quot;symbol&quot;</span>)
+   .agg([pl.col(<span class="hljs-string">&quot;volume&quot;</span>).<span class="hljs-built_in">sum</span>(), pl.col(<span class="hljs-string">&quot;price&quot;</span>).mean()])
+   .collect()  <span class="hljs-comment"># 触发计算</span>
+)</span></code></pre>
 <div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>
 ​注意事项
 - ​语法差异：部分 Pandas 方法需改写（如 df[df.col > 0] → df.filter(pl.col("col") > 0)）。
@@ -265,12 +252,11 @@ result = (
 </ul>
 </li>
 <li><p>​<strong>实战技巧</strong></p>
-<pre><code class="language-python">import dask.dataframe as dd
-# 分块读取与处理
-ddf = dd.read_csv(&quot;s3://bucket/large_file_*.csv&quot;, blocksize=&quot;256MB&quot;)
-# 并行计算每支股票的年化波动率
-volatility = ddf.groupby(&quot;symbol&quot;)[&quot;return&quot;].std().compute()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> dask.dataframe <span class="hljs-keyword">as</span> dd
+<span class="hljs-comment"># 分块读取与处理</span>
+ddf = dd.read_csv(<span class="hljs-string">&quot;s3://bucket/large_file_*.csv&quot;</span>, blocksize=<span class="hljs-string">&quot;256MB&quot;</span>)
+<span class="hljs-comment"># 并行计算每支股票的年化波动率</span>
+volatility = ddf.groupby(<span class="hljs-string">&quot;symbol&quot;</span>)[<span class="hljs-string">&quot;return&quot;</span>].std().compute()</span></code></pre>
 </li>
 </ol>
 <div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>

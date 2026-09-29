@@ -56,20 +56,17 @@
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-dns-settings.jpg" alt=""></p>
 <h2 id="测试是否获得公网ipv6地址">测试是否获得公网IPv6地址</h2>
 <p>ipw.cn网站提供了测试服务。喜欢命令行的可以使用以下命令：</p>
-<pre><code class="language-bash">curl 6.ipw.cn
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">curl 6.ipw.cn</span></code></pre>
 <p>如果你的机器有了IPv6地址，它就会返回你的IPv6地址。再检查如果它是以2开头的，则说明是公网IP。如果是以F开头的，那你的设置仍然是在私域。</p>
 <p>通过下面的命令检测IPv4是否仍然工作：</p>
-<pre><code class="language-bash">curl 4.ipw.cn
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">curl 4.ipw.cn</span></code></pre>
 <p>这会返回你的IPv4地址。</p>
 <p>如果不习惯使用命令行，也可以登录ipw.cn的网站。它将返回你当前的IP地址。如果使用了IPv6，它将提示IPv6优先，否则，就是配置不成功。</p>
 <h2 id="配置ddns">配置DDNS</h2>
 <p>尽管IPv6地址是公网地址，而且很充裕，但也不排除ISP有时候会更换你的IPv6地址。因此，我们需要DDNS服务，及时更新变化后的IP。平常只使用域名来访问。</p>
 <p>最好用的DDNS服务是Cloudflare。要做到这一点，首先，你要在Cloudflare上已有托管的域名。然后，在<a href="https://dash.cloudflare.com/profile/api-tokens">dashboard</a>中，申请一个API token。</p>
 <p>DDNS使用go-ddns的容器就好。每一个需要在外网能独立访问的设备都需要安装。</p>
-<pre><code class="language-bash">sudo docker run -d --name ddns-go --restart=always --net=host -v /opt/ddns-go:/root jeessy/ddns-go
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">sudo</span> docker run -d --name ddns-go --restart=always --net=host -v /opt/ddns-go:/root jeessy/ddns-go</span></code></pre>
 <p>然后打开 <a href="http://ip:9876">http://ip:9876</a> 更新配置即可。由于于API token，所以不需要在Cloudflare上事先创建子域名。直接在这里的界面输入子域名，go-ddns会自动帮你创建。</p>
 <p>设置完成后，看一下日志就好了。</p>
 <h2 id="注意事项">注意事项</h2>

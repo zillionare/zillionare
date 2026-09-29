@@ -25,8 +25,7 @@
 <p>pyarrow 是 Apache Arrow 库的一个 python 实现。Apache Arrow 还有 R， Java 等多种其它实现。但是， Pyarrow 是 Apache Arrow 实现中的头等公民，许多先进的功能都率先在这里实现了，然后才是 R 等其它语言。</p>
 <hr>
 <p>Pyarrow 支持从 3.8 到 3.11 的 Python 版本。我们使用下面的命令来安装它：</p>
-<pre><code class="language-bash">pip install pyarrow
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install pyarrow</span></code></pre>
 <h2 id="parquet">Parquet</h2>
 <p>parquet 是一种数据存储格式。在大数据存储语境下，我们还常常看到 feather 这种格式。两者的区别是，parquet 提供了 RLE 压缩，字典编码（与 pandas 中的 category 替换类似）和数据页压缩。因此，在读写速度上要慢于 feather，但更省磁盘空间。</p>
 <h2 id="基本概念">基本概念</h2>
@@ -51,93 +50,85 @@
 <p>另一方面，每个 parquet 文件的大小最好在 20M 和 2GB 之间，所以，对于分钟线以上级别的数据，可以考虑按周或者更大的尺度写入一个文件。</p>
 <hr>
 <p>这是磁盘文件结构示例：</p>
-<pre><code class="language-bash">/tmp/pyarrow
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">/tmp/pyarrow
 ├── 1d
 ├── 1m
 │   ├── 2023-12-27.parquet
 │   ├── 2023-12-28.parquet
 │   └── 2023-12-29.parquet
-└── factors
-</code></pre>
+└── factors</span></code></pre>
 <p>首先，我们定义存储字段：</p>
-<pre><code class="language-python">import pyarrow as pa
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pyarrow <span class="hljs-keyword">as</span> pa
 
 schema = pa.schema([
-        (&quot;symbol&quot;, pa.string()),
-        (&quot;frame&quot;, pa.date64()),
-        (&quot;open&quot;, pa.float32()),
-        (&quot;high&quot;, pa.float32()),
-        (&quot;low&quot;, pa.float32()),
-        (&quot;close&quot;, pa.float32()),
-        (&quot;volume&quot;, pa.float64()),
-        (&quot;money&quot;, pa.float64()),
-        (&quot;factor&quot;, pa.float64())
-])
-</code></pre>
+        (<span class="hljs-string">&quot;symbol&quot;</span>, pa.string()),
+        (<span class="hljs-string">&quot;frame&quot;</span>, pa.date64()),
+        (<span class="hljs-string">&quot;open&quot;</span>, pa.float32()),
+        (<span class="hljs-string">&quot;high&quot;</span>, pa.float32()),
+        (<span class="hljs-string">&quot;low&quot;</span>, pa.float32()),
+        (<span class="hljs-string">&quot;close&quot;</span>, pa.float32()),
+        (<span class="hljs-string">&quot;volume&quot;</span>, pa.float64()),
+        (<span class="hljs-string">&quot;money&quot;</span>, pa.float64()),
+        (<span class="hljs-string">&quot;factor&quot;</span>, pa.float64())
+])</span></code></pre>
 <p><strong>pyarrow 支持字符串类型和日期类型！</strong></p>
 <p>接下来，我们就实现数据追加和读写部分。由于我们是将每天的分钟线存为一个 parquet 文件，所以代码非常简单：</p>
 <hr>
-<pre><code class="language-python">import arrow
-import pyarrow.parquet as pq
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">import</span> arrow
+<span class="hljs-keyword">import</span> pyarrow.parquet <span class="hljs-keyword">as</span> pq
 
-async def save_1m_bars(codes, dt: datetime.datetime):
-    tables = None
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">save_1m_bars</span>(<span class="hljs-params">codes, dt: datetime.datetime</span>):
+    tables = <span class="hljs-literal">None</span>
 
-    for code in codes:
-        bars = await Stock.get_bars(code, 240, FrameType.MIN1, end=dt)
-        data = [[code] * len(bars)]
+    <span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> codes:
+        bars = <span class="hljs-keyword">await</span> Stock.get_bars(code, <span class="hljs-number">240</span>, FrameType.MIN1, end=dt)
+        data = [[code] * <span class="hljs-built_in">len</span>(bars)]
 
         data.extend([
-                    bars[key] for key in bars.dtype.names
+                    bars[key] <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> bars.dtype.names
                 ])
         table = pa.Table.from_arrays(data, schema=schema)
-        if tables is None:
+        <span class="hljs-keyword">if</span> tables <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
             tables = table
-        else: # 拼接表
+        <span class="hljs-keyword">else</span>: <span class="hljs-comment"># 拼接表</span>
             tables = pa.concat_tables([tables, table])
 
-    # 写入磁盘
-    name = arrow.get(dt).format(&quot;YYYY-MM-DD&quot;)
-    pq.write_table(tables, f&quot;/tmp/pyarrow/1m/{name}.parquet&quot;)
-</code></pre>
+    <span class="hljs-comment"># 写入磁盘</span>
+    name = arrow.get(dt).<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;YYYY-MM-DD&quot;</span>)
+    pq.write_table(tables, <span class="hljs-string">f&quot;/tmp/pyarrow/1m/<span class="hljs-subst">{name}</span>.parquet&quot;</span>)</span></code></pre>
 <p>!!! warning 此 Arrow 非彼 Arrow
     注意这段代码开头处，我们引入了 arrow 这个库。它是一个非常好用的 Python 时间库。在这个时间库中， 主要的数据结构也称作 Arrow。</p>
 <p>omicron 返回的 bars 是一个 numpy structured array，在转换成 pyarrow Table 时，我们需要先将它拆成 List[array] 的格式，然后通过 from_arrays 来生成一个子 table，它包含了某支个股的 1 分钟行情数据。</p>
 <hr>
 <p>由于我们要将所有的个股、指数数据存放在同一张大表里，所以，我们还调用了 concat_tables 来实现拼接。<strong>在其它常见的类似数据结构中，无论是 numpy, 还是 pandas 或者 hdf5，这种拼接都有比较昂贵的代价</strong>，但在 pyarrow 中，这种拼接几乎是零成本的！没有数据被拷贝。</p>
 <p>接下来，我们就演示一下如何调用 save_1m_bars 来保存数据：</p>
-<pre><code class="language-python">codes = [&quot;000001.XSHE&quot;, &quot;600000.XSHG&quot;]
-for i in (25, 26, 27, 28, 29):
-    dt = datetime.datetime(2023, 12, i, 15)
-    await save_1m_bars(codes, dt)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">codes = [<span class="hljs-string">&quot;000001.XSHE&quot;</span>, <span class="hljs-string">&quot;600000.XSHG&quot;</span>]
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> (<span class="hljs-number">25</span>, <span class="hljs-number">26</span>, <span class="hljs-number">27</span>, <span class="hljs-number">28</span>, <span class="hljs-number">29</span>):
+    dt = datetime.datetime(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, i, <span class="hljs-number">15</span>)
+    <span class="hljs-keyword">await</span> save_1m_bars(codes, dt)</span></code></pre>
 <h2 id="查询数据">查询数据</h2>
 <p>现在，我们把刚刚写进去的数据，再读回来：</p>
-<pre><code class="language-python">import pyarrow.dataset as ds
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pyarrow.dataset <span class="hljs-keyword">as</span> ds
 
-dataset = ds.dataset(&quot;/tmp/pyarrow/1m&quot;)
-dataset.files
-</code></pre>
+dataset = ds.dataset(<span class="hljs-string">&quot;/tmp/pyarrow/1m&quot;</span>)
+dataset.files</span></code></pre>
 <p>dataset 在这里，只是一种元数据。到此为止，它并不会真的从磁盘上加载任何数据。加载数据是从 to_table, 或者某个查询开始的。</p>
 <hr>
 <p>上述代码将显示该数据集所包含的磁盘文件。</p>
 <p>我们可以将 dataset 转换成一张大表：</p>
-<pre><code class="language-python">table = dataset.to_table()
-table
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">table = dataset.to_table()
+table</span></code></pre>
 <p>这将输出 table 的数据字段定义，以及部分数据。</p>
 <p>to_table 将会把所有的数据都加载进内存。如果数据量很大，这会导致内存不够用。因此，很多情况下，我们可能使用 RecordBatch:</p>
-<pre><code class="language-python">for rb in dataset.to_batches():
-    print(rb.to_pandas())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">for</span> rb <span class="hljs-keyword">in</span> dataset.to_batches():
+    <span class="hljs-built_in">print</span>(rb.to_pandas())</span></code></pre>
 <p>每一个 RecordBatch, 都有一个 to_pandas 方法，这样就进入了你所熟悉的领域。</p>
 <p>但更多的时候，我们会通过查询，只加载我们需要的那部分数据。此时，我们需要使用 pyarrow.compute 中的表达式语法，主要是field函数，逻辑运算符和bitwise运算符（此处未演示，即 &amp; | 等）：</p>
 <hr>
-<pre><code class="language-python">import pyarrow.compute as pc
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pyarrow.compute <span class="hljs-keyword">as</span> pc
 
-filter = (pc.field(&quot;frame&quot;) &gt; pc.scalar(datetime.datetime(2023, 12, 28, 15)))
-dataset.filter(filter).to_table().to_pandas()
-</code></pre>
+<span class="hljs-built_in">filter</span> = (pc.field(<span class="hljs-string">&quot;frame&quot;</span>) &gt; pc.scalar(datetime.datetime(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">28</span>, <span class="hljs-number">15</span>)))
+dataset.<span class="hljs-built_in">filter</span>(<span class="hljs-built_in">filter</span>).to_table().to_pandas()</span></code></pre>
 <p>溺水三千，只取一瓢。这次我们只把其中的 480 条记录加载的了内存中。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pyarrow-filter.jpg" alt=""></p>
 <p>!!! tip TAKEAWAY

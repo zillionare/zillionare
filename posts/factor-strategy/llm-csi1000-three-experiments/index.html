@@ -28,258 +28,253 @@ $$</p>
 <p>当zscore_20 大于等于0.75时，就认为是价格偏强；小于等于负0.75时，认为价格偏弱；其余的状态算成价格中性。因此，三类特征总共构成12种状态。</p>
 <p>在回测时，在每个月初重新统计过去三年的历史：每一种状态出现过多少次、随后的日收益均值是多少、风险调整后的得分如何。</p>
 <p>我们给 LLM 的输入如下：</p>
-<pre><code class="language-json">{
-  &quot;任务&quot;: &quot;你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。&quot;,
-  &quot;要求&quot;: &quot;按样本数、下一日平均收益、风险调整得分，为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。&quot;,
-  &quot;格式&quot;: {&quot;policy&quot;: {&quot;状态名&quot;: &quot;满仓|半仓|低仓&quot;}},
-  &quot;状态统计&quot;: &quot;rows&quot;
-}
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;任务&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;要求&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;按样本数、下一日平均收益、风险调整得分，为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;格式&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;policy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;状态名&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;满仓|半仓|低仓&quot;</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;状态统计&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;rows&quot;</span>
+<span class="hljs-punctuation">}</span></span></code></pre>
 <p>其中 rows 类似于：</p>
-<pre><code class="language-json">[
-  {&quot;state&quot;: &quot;趋势上行|波动偏低|价格偏强&quot;, &quot;count&quot;: 142, &quot;mean_next_return&quot;: 0.0008, &quot;sharpe_like&quot;: 0.31},
-  {&quot;state&quot;: &quot;趋势下行|波动偏高|价格偏弱&quot;, &quot;count&quot;: 118, &quot;mean_next_return&quot;: -0.0012, &quot;sharpe_like&quot;: -0.42},
-  {&quot;state&quot;: &quot;趋势上行|波动偏高|价格中性&quot;, &quot;count&quot;: 18, &quot;mean_next_return&quot;: 0.002, &quot;sharpe_like&quot;: 0.5}
-]
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;state&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;趋势上行|波动偏低|价格偏强&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">142</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;mean_next_return&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0008</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sharpe_like&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.31</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;state&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;趋势下行|波动偏高|价格偏弱&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">118</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;mean_next_return&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-0.0012</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sharpe_like&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-0.42</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;state&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;趋势上行|波动偏高|价格中性&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">18</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;mean_next_return&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.002</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sharpe_like&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.5</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span></span></code></pre>
 <p>LLM将输出以下结论：</p>
-<pre><code class="language-json">{&quot;policy&quot;: {
-  &quot;趋势上行|波动偏低|价格偏强&quot;: &quot;满仓&quot;,
-  &quot;趋势下行|波动偏高|价格偏弱&quot;: &quot;低仓&quot;,
-  &quot;趋势上行|波动偏高|价格中性&quot;: &quot;半仓&quot;
-}}
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;policy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;趋势上行|波动偏低|价格偏强&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;满仓&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;趋势下行|波动偏高|价格偏弱&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;低仓&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;趋势上行|波动偏高|价格中性&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;半仓&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span></span></code></pre>
 <p>然后程序把仓位翻译成操作指令，实现回测。</p>
 <!--PAID CONTENT START-->
 
 <p>三个实验方法有所不同，但仍有一些共同方法，为避免冗长的篇幅，我们把公共代码提取如下：</p>
-<pre><code class="language-python"># 公共基础：环境、数据、特征、回测引擎、三个指标（年化收益/Sharpe/Sortino，rf=0）
-import hashlib
-import json
-import os
-import urllib.error
-import urllib.request
-from dataclasses import dataclass
-from pathlib import Path
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span><span class="cl">123</span><span class="cl">124</span><span class="cl">125</span><span class="cl">126</span><span class="cl">127</span><span class="cl">128</span><span class="cl">129</span><span class="cl">130</span><span class="cl">131</span><span class="cl">132</span><span class="cl">133</span><span class="cl">134</span><span class="cl">135</span><span class="cl">136</span><span class="cl">137</span><span class="cl">138</span><span class="cl">139</span><span class="cl">140</span><span class="cl">141</span><span class="cl">142</span><span class="cl">143</span><span class="cl">144</span><span class="cl">145</span><span class="cl">146</span><span class="cl">147</span><span class="cl">148</span><span class="cl">149</span><span class="cl">150</span><span class="cl">151</span><span class="cl">152</span><span class="cl">153</span><span class="cl">154</span><span class="cl">155</span><span class="cl">156</span><span class="cl">157</span><span class="cl">158</span><span class="cl">159</span></span><span class="cl-body"><span class="hljs-comment"># 公共基础：环境、数据、特征、回测引擎、三个指标（年化收益/Sharpe/Sortino，rf=0）</span>
+<span class="hljs-keyword">import</span> hashlib
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> urllib.error
+<span class="hljs-keyword">import</span> urllib.request
+<span class="hljs-keyword">from</span> dataclasses <span class="hljs-keyword">import</span> dataclass
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
 
-import numpy as np
-import pandas as pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    load_dotenv = None
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-keyword">from</span> dotenv <span class="hljs-keyword">import</span> load_dotenv
+<span class="hljs-keyword">except</span> ImportError:
+    load_dotenv = <span class="hljs-literal">None</span>
 
-TRADING_DAYS = 252
-WEEKS_PER_YEAR = 52
-TMP = Path(&quot;/tmp/llm&quot;)
-TMP.mkdir(parents=True, exist_ok=True)
+TRADING_DAYS = <span class="hljs-number">252</span>
+WEEKS_PER_YEAR = <span class="hljs-number">52</span>
+TMP = Path(<span class="hljs-string">&quot;/tmp/llm&quot;</span>)
+TMP.mkdir(parents=<span class="hljs-literal">True</span>, exist_ok=<span class="hljs-literal">True</span>)
 
 
-def load_env_here():
-    # 从仓库根目录的 .env 读取 tushare_token、LLM_MODEL、LLM_BASE_URL、LLM_API_KEY
-    here = Path(__file__).resolve() if &quot;__file__&quot; in globals() else Path.cwd()
-    for parent in (here, *here.parents):
-        candidate = parent / &quot;.env&quot;
-        if candidate.exists():
-            if load_dotenv is not None:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">load_env_here</span>():
+    <span class="hljs-comment"># 从仓库根目录的 .env 读取 tushare_token、LLM_MODEL、LLM_BASE_URL、LLM_API_KEY</span>
+    here = Path(__file__).resolve() <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;__file__&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">globals</span>() <span class="hljs-keyword">else</span> Path.cwd()
+    <span class="hljs-keyword">for</span> parent <span class="hljs-keyword">in</span> (here, *here.parents):
+        candidate = parent / <span class="hljs-string">&quot;.env&quot;</span>
+        <span class="hljs-keyword">if</span> candidate.exists():
+            <span class="hljs-keyword">if</span> load_dotenv <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
                 load_dotenv(candidate)
-            break
+            <span class="hljs-keyword">break</span>
 
 
-def env(name, default=&quot;&quot;):
-    return os.getenv(name, default)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">env</span>(<span class="hljs-params">name, default=<span class="hljs-string">&quot;&quot;</span></span>):
+    <span class="hljs-keyword">return</span> os.getenv(name, default)
 
 
-@dataclass
-class Cfg:
-    symbol: str = &quot;000852.SH&quot;
-    cost_bps: float = 5.0
+<span class="hljs-meta">@dataclass</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Cfg</span>:
+    symbol: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;000852.SH&quot;</span>
+    cost_bps: <span class="hljs-built_in">float</span> = <span class="hljs-number">5.0</span>
 
 
-def fetch_index(symbol=&quot;000852.SH&quot;, start=&quot;20160101&quot;, cache_name=&quot;csi1000.parquet&quot;):
-    &quot;&quot;&quot;tushare 日线 → /tmp/llm，供三个实验共享。&quot;&quot;&quot;
-    import tushare as ts
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_index</span>(<span class="hljs-params">symbol=<span class="hljs-string">&quot;000852.SH&quot;</span>, start=<span class="hljs-string">&quot;20160101&quot;</span>, cache_name=<span class="hljs-string">&quot;csi1000.parquet&quot;</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;tushare 日线 → /tmp/llm，供三个实验共享。&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
 
     cache = TMP / cache_name
-    if cache.exists():
+    <span class="hljs-keyword">if</span> cache.exists():
         frame = pd.read_parquet(cache)
         frame.index = pd.to_datetime(frame.index)
-        return frame
-    token = env(&quot;tushare_token&quot;)
-    if not token:
-        raise RuntimeError(&quot;请在 .env 中设置 tushare_token。&quot;)
+        <span class="hljs-keyword">return</span> frame
+    token = env(<span class="hljs-string">&quot;tushare_token&quot;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> token:
+        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;请在 .env 中设置 tushare_token。&quot;</span>)
     raw = ts.pro_api(token).index_daily(ts_code=symbol, start_date=start,
-                                        end_date=pd.Timestamp.today().strftime(&quot;%Y%m%d&quot;))
-    if raw is None or raw.empty:
-        raise RuntimeError(&quot;Tushare 没有返回数据。&quot;)
-    frame = raw.rename(columns={&quot;trade_date&quot;: &quot;date&quot;}).copy()
-    frame[&quot;date&quot;] = pd.to_datetime(frame[&quot;date&quot;].astype(str).str.strip(),
-                                   format=&quot;%Y%m%d&quot;, errors=&quot;coerce&quot;)
-    for col in [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;pre_close&quot;]:
-        frame[col] = pd.to_numeric(frame[col], errors=&quot;coerce&quot;)
-    frame = frame.dropna(subset=[&quot;date&quot;, &quot;close&quot;]).set_index(&quot;date&quot;).sort_index()
-    frame = frame[~frame.index.duplicated(keep=&quot;last&quot;)]
+                                        end_date=pd.Timestamp.today().strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>))
+    <span class="hljs-keyword">if</span> raw <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> raw.empty:
+        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;Tushare 没有返回数据。&quot;</span>)
+    frame = raw.rename(columns={<span class="hljs-string">&quot;trade_date&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>}).copy()
+    frame[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(frame[<span class="hljs-string">&quot;date&quot;</span>].astype(<span class="hljs-built_in">str</span>).<span class="hljs-built_in">str</span>.strip(),
+                                   <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%Y%m%d&quot;</span>, errors=<span class="hljs-string">&quot;coerce&quot;</span>)
+    <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;pre_close&quot;</span>]:
+        frame[col] = pd.to_numeric(frame[col], errors=<span class="hljs-string">&quot;coerce&quot;</span>)
+    frame = frame.dropna(subset=[<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]).set_index(<span class="hljs-string">&quot;date&quot;</span>).sort_index()
+    frame = frame[~frame.index.duplicated(keep=<span class="hljs-string">&quot;last&quot;</span>)]
     frame.to_parquet(cache)
-    return frame
+    <span class="hljs-keyword">return</span> frame
 
 
-def true_range(high, low, prev_close):
-    prev = prev_close.shift(1).fillna(prev_close)
-    return pd.concat([high - low, (high - prev).abs(), (low - prev).abs()], axis=1).max(axis=1)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">true_range</span>(<span class="hljs-params">high, low, prev_close</span>):
+    prev = prev_close.shift(<span class="hljs-number">1</span>).fillna(prev_close)
+    <span class="hljs-keyword">return</span> pd.concat([high - low, (high - prev).<span class="hljs-built_in">abs</span>(), (low - prev).<span class="hljs-built_in">abs</span>()], axis=<span class="hljs-number">1</span>).<span class="hljs-built_in">max</span>(axis=<span class="hljs-number">1</span>)
 
 
-def atr(high, low, prev_close, period=14):
-    return true_range(high, low, prev_close).ewm(alpha=1.0 / period, min_periods=period).mean()
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">atr</span>(<span class="hljs-params">high, low, prev_close, period=<span class="hljs-number">14</span></span>):
+    <span class="hljs-keyword">return</span> true_range(high, low, prev_close).ewm(alpha=<span class="hljs-number">1.0</span> / period, min_periods=period).mean()
 
 
-def rsi(close, period=14):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">rsi</span>(<span class="hljs-params">close, period=<span class="hljs-number">14</span></span>):
     delta = close.diff()
-    gain = delta.clip(lower=0.0)
-    loss = -delta.clip(upper=0.0)
-    avg_gain = gain.ewm(alpha=1.0 / period, min_periods=period).mean()
-    avg_loss = loss.ewm(alpha=1.0 / period, min_periods=period).mean()
-    rs = avg_gain / avg_loss.replace(0, np.nan)
-    return (100 - 100 / (1 + rs)).fillna(50.0)
+    gain = delta.clip(lower=<span class="hljs-number">0.0</span>)
+    loss = -delta.clip(upper=<span class="hljs-number">0.0</span>)
+    avg_gain = gain.ewm(alpha=<span class="hljs-number">1.0</span> / period, min_periods=period).mean()
+    avg_loss = loss.ewm(alpha=<span class="hljs-number">1.0</span> / period, min_periods=period).mean()
+    rs = avg_gain / avg_loss.replace(<span class="hljs-number">0</span>, np.nan)
+    <span class="hljs-keyword">return</span> (<span class="hljs-number">100</span> - <span class="hljs-number">100</span> / (<span class="hljs-number">1</span> + rs)).fillna(<span class="hljs-number">50.0</span>)
 
 
-def zscore(close, window=20):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">zscore</span>(<span class="hljs-params">close, window=<span class="hljs-number">20</span></span>):
     mean = close.rolling(window).mean()
-    std = close.rolling(window).std().replace(0, np.nan)
-    return (close - mean) / std
+    std = close.rolling(window).std().replace(<span class="hljs-number">0</span>, np.nan)
+    <span class="hljs-keyword">return</span> (close - mean) / std
 
 
-def run_backtest(records, positions, cost_bps=5.0):
-    &quot;&quot;&quot;统一回测引擎：records 提供 date 与 next_week_return/ret；positions 为目标仓位。&quot;&quot;&quot;
-    equity, peak, prev, rows = 1.0, 1.0, 0.0, []
-    for rec, pos in zip(records, positions):
-        ret_next = float(rec[&quot;next_ret&quot;])
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">run_backtest</span>(<span class="hljs-params">records, positions, cost_bps=<span class="hljs-number">5.0</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;统一回测引擎：records 提供 date 与 next_week_return/ret；positions 为目标仓位。&quot;&quot;&quot;</span>
+    equity, peak, prev, rows = <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>, []
+    <span class="hljs-keyword">for</span> rec, pos <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(records, positions):
+        ret_next = <span class="hljs-built_in">float</span>(rec[<span class="hljs-string">&quot;next_ret&quot;</span>])
         gross = pos * ret_next
-        turnover = abs(pos - prev)
-        net = gross - turnover * cost_bps / 10000.0
-        equity *= 1.0 + net
-        peak = max(peak, equity)
-        rows.append({&quot;date&quot;: rec[&quot;date&quot;], &quot;position&quot;: pos, &quot;next_ret&quot;: ret_next,
-                     &quot;net_return&quot;: net, &quot;equity&quot;: equity,
-                     &quot;drawdown&quot;: equity / peak - 1.0, &quot;turnover&quot;: turnover})
+        turnover = <span class="hljs-built_in">abs</span>(pos - prev)
+        net = gross - turnover * cost_bps / <span class="hljs-number">10000.0</span>
+        equity *= <span class="hljs-number">1.0</span> + net
+        peak = <span class="hljs-built_in">max</span>(peak, equity)
+        rows.append({<span class="hljs-string">&quot;date&quot;</span>: rec[<span class="hljs-string">&quot;date&quot;</span>], <span class="hljs-string">&quot;position&quot;</span>: pos, <span class="hljs-string">&quot;next_ret&quot;</span>: ret_next,
+                     <span class="hljs-string">&quot;net_return&quot;</span>: net, <span class="hljs-string">&quot;equity&quot;</span>: equity,
+                     <span class="hljs-string">&quot;drawdown&quot;</span>: equity / peak - <span class="hljs-number">1.0</span>, <span class="hljs-string">&quot;turnover&quot;</span>: turnover})
         prev = pos
-    return pd.DataFrame(rows).set_index(&quot;date&quot;)
+    <span class="hljs-keyword">return</span> pd.DataFrame(rows).set_index(<span class="hljs-string">&quot;date&quot;</span>)
 
 
-def ann_metrics(equity, net_ret, periods_per_year):
-    &quot;&quot;&quot;年化收益 / Sharpe / Sortino，统一口径：无风险利率 rf=0。&quot;&quot;&quot;
-    eq, r = np.asarray(equity, dtype=float), np.asarray(net_ret, dtype=float)
-    total = float(eq[-1] - 1.0)
-    ann_ret = float(eq[-1] ** (periods_per_year / len(r)) - 1.0) if len(r) else 0.0
-    sd = float(r.std(ddof=0))
-    sharpe = float(r.mean() / sd * np.sqrt(periods_per_year)) if sd &gt; 0 else 0.0
-    dd = np.sqrt(np.mean(np.minimum(0.0, r) ** 2))
-    sortino = float(r.mean() / dd * np.sqrt(periods_per_year)) if dd &gt; 0 else 0.0
-    dd_curve = eq / np.maximum.accumulate(eq) - 1.0
-    return {&quot;total&quot;: total, &quot;ann&quot;: ann_ret, &quot;sharpe&quot;: sharpe, &quot;sortino&quot;: sortino,
-            &quot;maxdd&quot;: float(dd_curve.min()), &quot;n&quot;: int(len(r))}
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">ann_metrics</span>(<span class="hljs-params">equity, net_ret, periods_per_year</span>):
+    <span class="hljs-string">&quot;&quot;&quot;年化收益 / Sharpe / Sortino，统一口径：无风险利率 rf=0。&quot;&quot;&quot;</span>
+    eq, r = np.asarray(equity, dtype=<span class="hljs-built_in">float</span>), np.asarray(net_ret, dtype=<span class="hljs-built_in">float</span>)
+    total = <span class="hljs-built_in">float</span>(eq[-<span class="hljs-number">1</span>] - <span class="hljs-number">1.0</span>)
+    ann_ret = <span class="hljs-built_in">float</span>(eq[-<span class="hljs-number">1</span>] ** (periods_per_year / <span class="hljs-built_in">len</span>(r)) - <span class="hljs-number">1.0</span>) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(r) <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    sd = <span class="hljs-built_in">float</span>(r.std(ddof=<span class="hljs-number">0</span>))
+    sharpe = <span class="hljs-built_in">float</span>(r.mean() / sd * np.sqrt(periods_per_year)) <span class="hljs-keyword">if</span> sd &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    dd = np.sqrt(np.mean(np.minimum(<span class="hljs-number">0.0</span>, r) ** <span class="hljs-number">2</span>))
+    sortino = <span class="hljs-built_in">float</span>(r.mean() / dd * np.sqrt(periods_per_year)) <span class="hljs-keyword">if</span> dd &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    dd_curve = eq / np.maximum.accumulate(eq) - <span class="hljs-number">1.0</span>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;total&quot;</span>: total, <span class="hljs-string">&quot;ann&quot;</span>: ann_ret, <span class="hljs-string">&quot;sharpe&quot;</span>: sharpe, <span class="hljs-string">&quot;sortino&quot;</span>: sortino,
+            <span class="hljs-string">&quot;maxdd&quot;</span>: <span class="hljs-built_in">float</span>(dd_curve.<span class="hljs-built_in">min</span>()), <span class="hljs-string">&quot;n&quot;</span>: <span class="hljs-built_in">int</span>(<span class="hljs-built_in">len</span>(r))}
 
 
-def llm_chat(instruction, model, max_tokens=8000, timeout=120):
-    &quot;&quot;&quot;统一 LLM 调用：OpenAI 兼容 chat/completions，失败重试 3 次。&quot;&quot;&quot;
-    api_key, base_url = env(&quot;LLM_API_KEY&quot;), env(&quot;LLM_BASE_URL&quot;)
-    if not api_key:
-        raise RuntimeError(&quot;未设置 LLM_API_KEY&quot;)
-    if not base_url:
-        base_url = &quot;https://api.deepseek.com/v1&quot;
-    body = json.dumps({&quot;model&quot;: model, &quot;stream&quot;: False, &quot;max_tokens&quot;: max_tokens,
-                       &quot;messages&quot;: [{&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;只输出 JSON。&quot;},
-                                    {&quot;role&quot;: &quot;user&quot;,
-                                     &quot;content&quot;: json.dumps(instruction, ensure_ascii=False)}]},
-                      ensure_ascii=False).encode(&quot;utf-8&quot;)
-    endpoint = base_url.rstrip(&quot;/&quot;) + &quot;/chat/completions&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">llm_chat</span>(<span class="hljs-params">instruction, model, max_tokens=<span class="hljs-number">8000</span>, timeout=<span class="hljs-number">120</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;统一 LLM 调用：OpenAI 兼容 chat/completions，失败重试 3 次。&quot;&quot;&quot;</span>
+    api_key, base_url = env(<span class="hljs-string">&quot;LLM_API_KEY&quot;</span>), env(<span class="hljs-string">&quot;LLM_BASE_URL&quot;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> api_key:
+        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;未设置 LLM_API_KEY&quot;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> base_url:
+        base_url = <span class="hljs-string">&quot;https://api.deepseek.com/v1&quot;</span>
+    body = json.dumps({<span class="hljs-string">&quot;model&quot;</span>: model, <span class="hljs-string">&quot;stream&quot;</span>: <span class="hljs-literal">False</span>, <span class="hljs-string">&quot;max_tokens&quot;</span>: max_tokens,
+                       <span class="hljs-string">&quot;messages&quot;</span>: [{<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;只输出 JSON。&quot;</span>},
+                                    {<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>,
+                                     <span class="hljs-string">&quot;content&quot;</span>: json.dumps(instruction, ensure_ascii=<span class="hljs-literal">False</span>)}]},
+                      ensure_ascii=<span class="hljs-literal">False</span>).encode(<span class="hljs-string">&quot;utf-8&quot;</span>)
+    endpoint = base_url.rstrip(<span class="hljs-string">&quot;/&quot;</span>) + <span class="hljs-string">&quot;/chat/completions&quot;</span>
     request = urllib.request.Request(
         endpoint, data=body,
-        headers={&quot;Content-Type&quot;: &quot;application/json&quot;, &quot;Authorization&quot;: &quot;Bearer &quot; + api_key,
-                 &quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;}, method=&quot;POST&quot;)
-    last_error, text = None, None
-    for _ in range(3):
-        try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
-                text = json.loads(response.read().decode(&quot;utf-8&quot;))[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
-            last_error = None
-            break
-        except (urllib.error.URLError, TimeoutError, OSError) as error:
+        headers={<span class="hljs-string">&quot;Content-Type&quot;</span>: <span class="hljs-string">&quot;application/json&quot;</span>, <span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">&quot;Bearer &quot;</span> + api_key,
+                 <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0&quot;</span>}, method=<span class="hljs-string">&quot;POST&quot;</span>)
+    last_error, text = <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-keyword">with</span> urllib.request.urlopen(request, timeout=timeout) <span class="hljs-keyword">as</span> response:
+                text = json.loads(response.read().decode(<span class="hljs-string">&quot;utf-8&quot;</span>))[<span class="hljs-string">&quot;choices&quot;</span>][<span class="hljs-number">0</span>][<span class="hljs-string">&quot;message&quot;</span>][<span class="hljs-string">&quot;content&quot;</span>]
+            last_error = <span class="hljs-literal">None</span>
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">except</span> (urllib.error.URLError, TimeoutError, OSError) <span class="hljs-keyword">as</span> error:
             last_error = error
-    if last_error is not None:
-        raise RuntimeError(&quot;LLM 请求失败：%s&quot; % last_error) from last_error
-    start, end = text.find(&quot;{&quot;), text.rfind(&quot;}&quot;)
-    if start &lt; 0 or end &lt; start:
-        raise ValueError(&quot;LLM 没有返回 JSON。&quot;)
-    return json.loads(text[start:end + 1])
-</code></pre>
+    <span class="hljs-keyword">if</span> last_error <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;LLM 请求失败：%s&quot;</span> % last_error) <span class="hljs-keyword">from</span> last_error
+    start, end = text.find(<span class="hljs-string">&quot;{&quot;</span>), text.rfind(<span class="hljs-string">&quot;}&quot;</span>)
+    <span class="hljs-keyword">if</span> start &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> end &lt; start:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;LLM 没有返回 JSON。&quot;</span>)
+    <span class="hljs-keyword">return</span> json.loads(text[start:end + <span class="hljs-number">1</span>])</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!--PAID CONTENT START-->
 
 <p>以下就是实验一的实现方案：</p>
-<pre><code class="language-python"># 实验一特有：三类特征 → 12 种市场状态 → 月度滚动统计 → 三档仓位
-def exp1_features(prices):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span></span><span class="cl-body"><span class="hljs-comment"># 实验一特有：三类特征 → 12 种市场状态 → 月度滚动统计 → 三档仓位</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp1_features</span>(<span class="hljs-params">prices</span>):
     f = prices.copy()
-    f[&quot;ret&quot;] = f.close.pct_change()
-    f[&quot;trend_20&quot;] = f.close.pct_change(20)
-    f[&quot;vol_20&quot;] = f.ret.rolling(20).std() * np.sqrt(TRADING_DAYS)
-    f[&quot;vol_median&quot;] = f.vol_20.rolling(252, min_periods=126).median()
-    mean_20 = f.close.rolling(20).mean()
-    std_20 = f.close.rolling(20).std().replace(0, np.nan)
-    f[&quot;zscore_20&quot;] = (f.close - mean_20) / std_20
-    trend = pd.Series(np.where(f.trend_20 &gt;= 0, &quot;趋势上行&quot;, &quot;趋势下行&quot;), index=f.index)
-    vol = pd.Series(np.where(f.vol_20 &gt; f.vol_median, &quot;波动偏高&quot;, &quot;波动偏低&quot;), index=f.index)
-    dist = pd.Series(np.select([f.zscore_20 &gt;= 0.75, f.zscore_20 &lt;= -0.75],
-                               [&quot;价格偏强&quot;, &quot;价格偏弱&quot;], default=&quot;价格中性&quot;), index=f.index)
-    f[&quot;state&quot;] = trend.str.cat(vol, sep=&quot;|&quot;).str.cat(dist, sep=&quot;|&quot;)
-    f.loc[f[[&quot;trend_20&quot;, &quot;vol_20&quot;, &quot;vol_median&quot;, &quot;zscore_20&quot;]].isna().any(axis=1), &quot;state&quot;] = np.nan
-    f[&quot;next_ret&quot;] = f.ret.shift(-1)
-    return f
+    f[<span class="hljs-string">&quot;ret&quot;</span>] = f.close.pct_change()
+    f[<span class="hljs-string">&quot;trend_20&quot;</span>] = f.close.pct_change(<span class="hljs-number">20</span>)
+    f[<span class="hljs-string">&quot;vol_20&quot;</span>] = f.ret.rolling(<span class="hljs-number">20</span>).std() * np.sqrt(TRADING_DAYS)
+    f[<span class="hljs-string">&quot;vol_median&quot;</span>] = f.vol_20.rolling(<span class="hljs-number">252</span>, min_periods=<span class="hljs-number">126</span>).median()
+    mean_20 = f.close.rolling(<span class="hljs-number">20</span>).mean()
+    std_20 = f.close.rolling(<span class="hljs-number">20</span>).std().replace(<span class="hljs-number">0</span>, np.nan)
+    f[<span class="hljs-string">&quot;zscore_20&quot;</span>] = (f.close - mean_20) / std_20
+    trend = pd.Series(np.where(f.trend_20 &gt;= <span class="hljs-number">0</span>, <span class="hljs-string">&quot;趋势上行&quot;</span>, <span class="hljs-string">&quot;趋势下行&quot;</span>), index=f.index)
+    vol = pd.Series(np.where(f.vol_20 &gt; f.vol_median, <span class="hljs-string">&quot;波动偏高&quot;</span>, <span class="hljs-string">&quot;波动偏低&quot;</span>), index=f.index)
+    dist = pd.Series(np.select([f.zscore_20 &gt;= <span class="hljs-number">0.75</span>, f.zscore_20 &lt;= -<span class="hljs-number">0.75</span>],
+                               [<span class="hljs-string">&quot;价格偏强&quot;</span>, <span class="hljs-string">&quot;价格偏弱&quot;</span>], default=<span class="hljs-string">&quot;价格中性&quot;</span>), index=f.index)
+    f[<span class="hljs-string">&quot;state&quot;</span>] = trend.<span class="hljs-built_in">str</span>.cat(vol, sep=<span class="hljs-string">&quot;|&quot;</span>).<span class="hljs-built_in">str</span>.cat(dist, sep=<span class="hljs-string">&quot;|&quot;</span>)
+    f.loc[f[[<span class="hljs-string">&quot;trend_20&quot;</span>, <span class="hljs-string">&quot;vol_20&quot;</span>, <span class="hljs-string">&quot;vol_median&quot;</span>, <span class="hljs-string">&quot;zscore_20&quot;</span>]].isna().<span class="hljs-built_in">any</span>(axis=<span class="hljs-number">1</span>), <span class="hljs-string">&quot;state&quot;</span>] = np.nan
+    f[<span class="hljs-string">&quot;next_ret&quot;</span>] = f.ret.shift(-<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> f
 
 
-def exp1_state_stats(train):
-    # 月初用过去 3 年样本外统计：每种状态的样本数、次日均值、风险调整得分
-    usable = train.dropna(subset=[&quot;state&quot;, &quot;next_ret&quot;])
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp1_state_stats</span>(<span class="hljs-params">train</span>):
+    <span class="hljs-comment"># 月初用过去 3 年样本外统计：每种状态的样本数、次日均值、风险调整得分</span>
+    usable = train.dropna(subset=[<span class="hljs-string">&quot;state&quot;</span>, <span class="hljs-string">&quot;next_ret&quot;</span>])
     rows = []
-    for name, ret in usable.groupby(&quot;state&quot;).next_ret:
-        count = int(ret.count())
-        mean = float(ret.mean())
-        std = float(ret.std(ddof=1)) if count &gt; 1 else 0.0
-        rows.append({&quot;state&quot;: name, &quot;count&quot;: count, &quot;mean_next_return&quot;: mean,
-                     &quot;sharpe_like&quot;: mean / std * np.sqrt(TRADING_DAYS) if std else 0.0})
-    return sorted(rows, key=lambda item: item[&quot;state&quot;])
+    <span class="hljs-keyword">for</span> name, ret <span class="hljs-keyword">in</span> usable.groupby(<span class="hljs-string">&quot;state&quot;</span>).next_ret:
+        count = <span class="hljs-built_in">int</span>(ret.count())
+        mean = <span class="hljs-built_in">float</span>(ret.mean())
+        std = <span class="hljs-built_in">float</span>(ret.std(ddof=<span class="hljs-number">1</span>)) <span class="hljs-keyword">if</span> count &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+        rows.append({<span class="hljs-string">&quot;state&quot;</span>: name, <span class="hljs-string">&quot;count&quot;</span>: count, <span class="hljs-string">&quot;mean_next_return&quot;</span>: mean,
+                     <span class="hljs-string">&quot;sharpe_like&quot;</span>: mean / std * np.sqrt(TRADING_DAYS) <span class="hljs-keyword">if</span> std <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>})
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sorted</span>(rows, key=<span class="hljs-keyword">lambda</span> item: item[<span class="hljs-string">&quot;state&quot;</span>])
 
 
-def exp1_rule(rows):
-    # 规则基准：样本不足半仓；均值与风险调整都好满仓；都弱低仓
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp1_rule</span>(<span class="hljs-params">rows</span>):
+    <span class="hljs-comment"># 规则基准：样本不足半仓；均值与风险调整都好满仓；都弱低仓</span>
     policy = {}
-    for row in rows:
-        if row[&quot;count&quot;] &lt; 30:
-            policy[row[&quot;state&quot;]] = 0.75
-        elif row[&quot;mean_next_return&quot;] &gt; 0 and row[&quot;sharpe_like&quot;] &gt;= 0.25:
-            policy[row[&quot;state&quot;]] = 1.0
-        elif row[&quot;mean_next_return&quot;] &lt; 0 and row[&quot;sharpe_like&quot;] &lt;= -0.25:
-            policy[row[&quot;state&quot;]] = 0.50
-        else:
-            policy[row[&quot;state&quot;]] = 0.75
-    return policy
+    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> rows:
+        <span class="hljs-keyword">if</span> row[<span class="hljs-string">&quot;count&quot;</span>] &lt; <span class="hljs-number">30</span>:
+            policy[row[<span class="hljs-string">&quot;state&quot;</span>]] = <span class="hljs-number">0.75</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">&quot;mean_next_return&quot;</span>] &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> row[<span class="hljs-string">&quot;sharpe_like&quot;</span>] &gt;= <span class="hljs-number">0.25</span>:
+            policy[row[<span class="hljs-string">&quot;state&quot;</span>]] = <span class="hljs-number">1.0</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">&quot;mean_next_return&quot;</span>] &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> row[<span class="hljs-string">&quot;sharpe_like&quot;</span>] &lt;= -<span class="hljs-number">0.25</span>:
+            policy[row[<span class="hljs-string">&quot;state&quot;</span>]] = <span class="hljs-number">0.50</span>
+        <span class="hljs-keyword">else</span>:
+            policy[row[<span class="hljs-string">&quot;state&quot;</span>]] = <span class="hljs-number">0.75</span>
+    <span class="hljs-keyword">return</span> policy
 
 
-MAP = {&quot;满仓&quot;: 1.0, &quot;半仓&quot;: 0.75, &quot;低仓&quot;: 0.50}
+MAP = {<span class="hljs-string">&quot;满仓&quot;</span>: <span class="hljs-number">1.0</span>, <span class="hljs-string">&quot;半仓&quot;</span>: <span class="hljs-number">0.75</span>, <span class="hljs-string">&quot;低仓&quot;</span>: <span class="hljs-number">0.50</span>}
 
 
-def exp1_llm_policy(rows, model):
-    # LLM 读同一张状态统计表，输出满/半/低三档；失败由调用方退回规则
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp1_llm_policy</span>(<span class="hljs-params">rows, model</span>):
+    <span class="hljs-comment"># LLM 读同一张状态统计表，输出满/半/低三档；失败由调用方退回规则</span>
     instruction = {
-        &quot;任务&quot;: &quot;你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。&quot;,
-        &quot;要求&quot;: &quot;按样本数、下一日平均收益、风险调整指标为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。&quot;,
-        &quot;格式&quot;: {&quot;policy&quot;: {&quot;状态名&quot;: &quot;满仓|半仓|低仓&quot;}},
-        &quot;状态统计&quot;: rows,
+        <span class="hljs-string">&quot;任务&quot;</span>: <span class="hljs-string">&quot;你是研究回测里的仓位风控助手。不要预测涨跌，不要给投资建议。&quot;</span>,
+        <span class="hljs-string">&quot;要求&quot;</span>: <span class="hljs-string">&quot;按样本数、下一日平均收益、风险调整指标为每个状态选择满仓、半仓或低仓；证据不足选半仓；仅返回 JSON。&quot;</span>,
+        <span class="hljs-string">&quot;格式&quot;</span>: {<span class="hljs-string">&quot;policy&quot;</span>: {<span class="hljs-string">&quot;状态名&quot;</span>: <span class="hljs-string">&quot;满仓|半仓|低仓&quot;</span>}},
+        <span class="hljs-string">&quot;状态统计&quot;</span>: rows,
     }
-    supplied = llm_chat(instruction, model).get(&quot;policy&quot;, {})
-    return {row[&quot;state&quot;]: MAP.get(str(supplied.get(row[&quot;state&quot;], &quot;半仓&quot;)), 0.75) for row in rows}
-</code></pre>
+    supplied = llm_chat(instruction, model).get(<span class="hljs-string">&quot;policy&quot;</span>, {})
+    <span class="hljs-keyword">return</span> {row[<span class="hljs-string">&quot;state&quot;</span>]: MAP.get(<span class="hljs-built_in">str</span>(supplied.get(row[<span class="hljs-string">&quot;state&quot;</span>], <span class="hljs-string">&quot;半仓&quot;</span>)), <span class="hljs-number">0.75</span>) <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> rows}</span></code></pre>
 <!--PAID CONTENT END-->
 
 <h3 id="实验一的结果">实验一的结果</h3>
@@ -336,40 +331,39 @@ def exp1_llm_policy(rows, model):
 <li>缩短调仓周期，使得 LLM 可以更灵活地响应趋势变化。我们把调仓改成周频；任务则从&quot;选仓位档&quot;改成&quot;趋势/反转研判 + 动作 + 仓位&quot;。</li>
 </ol>
 <p>现在，我们给 LLM 的输入就变成了：</p>
-<pre><code class="language-json">instruction = {
-    &quot;任务&quot;: (&quot;你是周频趋势研判员。结合历史样本，判断当前市场处于：上涨趋势、下跌趋势、&quot;
-            &quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;
-            &quot;只做多，不做空。&quot;),
-    &quot;特征含义&quot;: {
-        &quot;pnl&quot;: &quot;该周涨跌幅（按调仓日收盘对上周调仓日收盘计算）&quot;,
-        &quot;atr_pct&quot;: &quot;该周 5 个交易日 ATR/收盘价 的均值（波动强度）&quot;,
-        &quot;rsi5&quot;: &quot;该周每个交易日当天及前 4 天（5 日窗口）的 RSI 序列，按时间升序&quot;,
-        &quot;zscore5&quot;: &quot;该周每个交易日收盘价相对 5 日均线的 z-score 序列，按时间升序&quot;,
-        &quot;next_pnl&quot;: &quot;（仅历史样本有）该周对应的下一周实际涨跌幅&quot;,
-        &quot;next_sharpe&quot;: &quot;（仅历史样本有）下一周日收益的年化夏普&quot;,
-    },
-    &quot;研判要求&quot;: [
-        &quot;先从历史样本中找与当前周特征相似的阶段，看它们下一周实际表现（next_pnl / next_sharpe）&quot;,
-        &quot;再判断当前趋势状态与动能变化（停滞、加速、反转迹象）&quot;,
-        &quot;最后给出下周动作与目标仓位；证据不足时保持中等仓位，不要满仓赌单一情形&quot;,
-    ],
-    &quot;仓位自洽规则&quot;: (
-        &quot;position 必须与 action 自洽：action 为『买入』或『加大仓位』时，新的 position 必须【大于】&quot;
-        &quot;当前已有仓位 prev_position；action 为『减少仓位』或『空仓观望』时必须【小于】prev_position。&quot;
-        &quot;系统会据此校正你的输出。&quot;
-    ),
-    &quot;prev_position&quot;: prev_position,
-    &quot;当前周&quot;: {k: record[&quot;this_week&quot;][k] for k in [&quot;date&quot;, &quot;pnl&quot;, &quot;atr_pct&quot;, &quot;rsi5&quot;, &quot;zscore5&quot;]},
-    &quot;历史样本（过去 %d 周，由远及近，均含下一周实际结果）&quot; % len(record[&quot;history&quot;]): record[&quot;history&quot;],
-    &quot;输出格式&quot;: {
-        &quot;trend&quot;: &quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;,
-        &quot;action&quot;: &quot;买入|加大仓位|减少仓位|空仓观望&quot;,
-        &quot;position&quot;: &quot;下周目标仓位，浮点数 [0,1]，且与 action 自洽（参考 prev_position）&quot;,
-        &quot;confidence&quot;: &quot;0-1&quot;,
-        &quot;reason&quot;: &quot;一句话理由&quot;,
-    },
-}
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span></span><span class="cl-body">instruction = <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;任务&quot;</span><span class="hljs-punctuation">:</span> (<span class="hljs-string">&quot;你是周频趋势研判员。结合历史样本，判断当前市场处于：上涨趋势、下跌趋势、&quot;</span>
+            <span class="hljs-string">&quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;</span>
+            <span class="hljs-string">&quot;只做多，不做空。&quot;</span>)<span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;特征含义&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;pnl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;该周涨跌幅（按调仓日收盘对上周调仓日收盘计算）&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;atr_pct&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;该周 5 个交易日 ATR/收盘价 的均值（波动强度）&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;rsi5&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;该周每个交易日当天及前 4 天（5 日窗口）的 RSI 序列，按时间升序&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;zscore5&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;该周每个交易日收盘价相对 5 日均线的 z-score 序列，按时间升序&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;next_pnl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;（仅历史样本有）该周对应的下一周实际涨跌幅&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;next_sharpe&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;（仅历史样本有）下一周日收益的年化夏普&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;研判要求&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">&quot;先从历史样本中找与当前周特征相似的阶段，看它们下一周实际表现（next_pnl / next_sharpe）&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">&quot;再判断当前趋势状态与动能变化（停滞、加速、反转迹象）&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">&quot;最后给出下周动作与目标仓位；证据不足时保持中等仓位，不要满仓赌单一情形&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;仓位自洽规则&quot;</span><span class="hljs-punctuation">:</span> (
+        <span class="hljs-string">&quot;position 必须与 action 自洽：action 为『买入』或『加大仓位』时，新的 position 必须【大于】&quot;</span>
+        <span class="hljs-string">&quot;当前已有仓位 prev_position；action 为『减少仓位』或『空仓观望』时必须【小于】prev_position。&quot;</span>
+        <span class="hljs-string">&quot;系统会据此校正你的输出。&quot;</span>
+    )<span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;prev_position&quot;</span><span class="hljs-punctuation">:</span> prev_position<span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;当前周&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>k<span class="hljs-punctuation">:</span> record<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;this_week&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">[</span>k<span class="hljs-punctuation">]</span> for k in <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;date&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;pnl&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;atr_pct&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;rsi5&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;zscore5&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">&quot;历史样本（过去 %d 周，由远及近，均含下一周实际结果）&quot;</span> % len(record<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;history&quot;</span><span class="hljs-punctuation">]</span>)<span class="hljs-punctuation">:</span> record<span class="hljs-punctuation">[</span><span class="hljs-string">&quot;history&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;输出格式&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;trend&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;action&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;买入|加大仓位|减少仓位|空仓观望&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;下周目标仓位，浮点数 [0,1]，且与 action 自洽（参考 prev_position）&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;confidence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0-1&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;reason&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;一句话理由&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-punctuation">}</span></span></code></pre>
 <p>可以看出，输入的特征已经变了：</p>
 <ol>
 <li>我们提供了每周的 pnl —— 每轮预测最多附带 48 周历史，趋势信息已经包括在内，只是看 LLM 能否提取到</li>
@@ -381,120 +375,119 @@ def exp1_llm_policy(rows, model):
 <!--PAID CONTENT START-->
 
 <p>以下是实验二的代码：</p>
-<pre><code class="language-python"># 实验二特有：周特征快照 + 48 周带标签历史 + 趋势研判 + 自洽仓位
-def exp2_rsi(close, period=5, warmup=60):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span></span><span class="cl-body"><span class="hljs-comment"># 实验二特有：周特征快照 + 48 周带标签历史 + 趋势研判 + 自洽仓位</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp2_rsi</span>(<span class="hljs-params">close, period=<span class="hljs-number">5</span>, warmup=<span class="hljs-number">60</span></span>):
     delta = close.diff()
-    avg_gain = delta.clip(lower=0.0).ewm(alpha=1.0 / period, min_periods=period).mean()
-    avg_loss = (-delta.clip(upper=0.0)).ewm(alpha=1.0 / period, min_periods=period).mean()
-    out = 100 - 100 / (1 + avg_gain / avg_loss.replace(0, np.nan))
-    out = out.fillna(50.0)
-    out.iloc[:warmup - 1] = np.nan  # 前 59 个结果丢弃
-    return out
+    avg_gain = delta.clip(lower=<span class="hljs-number">0.0</span>).ewm(alpha=<span class="hljs-number">1.0</span> / period, min_periods=period).mean()
+    avg_loss = (-delta.clip(upper=<span class="hljs-number">0.0</span>)).ewm(alpha=<span class="hljs-number">1.0</span> / period, min_periods=period).mean()
+    out = <span class="hljs-number">100</span> - <span class="hljs-number">100</span> / (<span class="hljs-number">1</span> + avg_gain / avg_loss.replace(<span class="hljs-number">0</span>, np.nan))
+    out = out.fillna(<span class="hljs-number">50.0</span>)
+    out.iloc[:warmup - <span class="hljs-number">1</span>] = np.nan  <span class="hljs-comment"># 前 59 个结果丢弃</span>
+    <span class="hljs-keyword">return</span> out
 
 
-def exp2_make_features(data):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp2_make_features</span>(<span class="hljs-params">data</span>):
     f = data.copy()
-    f[&quot;atr&quot;] = atr(f.high, f.low, f.pre_close, 14)
-    f[&quot;atr_pct&quot;] = f[&quot;atr&quot;] / f[&quot;close&quot;]
-    f[&quot;rsi5&quot;] = exp2_rsi(f[&quot;close&quot;])
-    f[&quot;z5&quot;] = zscore(f[&quot;close&quot;], 5)
-    return f
+    f[<span class="hljs-string">&quot;atr&quot;</span>] = atr(f.high, f.low, f.pre_close, <span class="hljs-number">14</span>)
+    f[<span class="hljs-string">&quot;atr_pct&quot;</span>] = f[<span class="hljs-string">&quot;atr&quot;</span>] / f[<span class="hljs-string">&quot;close&quot;</span>]
+    f[<span class="hljs-string">&quot;rsi5&quot;</span>] = exp2_rsi(f[<span class="hljs-string">&quot;close&quot;</span>])
+    f[<span class="hljs-string">&quot;z5&quot;</span>] = zscore(f[<span class="hljs-string">&quot;close&quot;</span>], <span class="hljs-number">5</span>)
+    <span class="hljs-keyword">return</span> f
 
 
-def exp2_week_features(feats, closes, i):
-    # 第 i 个调仓周（5 个交易日，含调仓日当天）+ 其下一周真实结果标签
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp2_week_features</span>(<span class="hljs-params">feats, closes, i</span>):
+    <span class="hljs-comment"># 第 i 个调仓周（5 个交易日，含调仓日当天）+ 其下一周真实结果标签</span>
     date = closes.index[i]
-    window = feats.loc[:date].tail(5)
-    d0, d1 = closes.index[i], closes.index[i + 1]
-    daily_rets = feats[&quot;close&quot;].pct_change().loc[(feats.index &gt; d0) &amp; (feats.index &lt;= d1)]
-    std = float(daily_rets.std(ddof=1)) if len(daily_rets) &gt; 1 else 0.0
-    return {
-        &quot;date&quot;: str(date.date()),
-        &quot;pnl&quot;: float(closes.iloc[i] / closes.iloc[i - 1] - 1.0),
-        &quot;atr_pct&quot;: float(window[&quot;atr_pct&quot;].astype(float).mean()),
-        &quot;rsi5&quot;: [float(x) for x in window[&quot;rsi5&quot;]],
-        &quot;zscore5&quot;: [float(x) for x in window[&quot;z5&quot;]],
-        &quot;next_pnl&quot;: float(closes.iloc[i + 1] / closes.iloc[i] - 1.0),
-        &quot;next_sharpe&quot;: float(daily_rets.mean() / std * np.sqrt(TRADING_DAYS)) if std else 0.0,
+    window = feats.loc[:date].tail(<span class="hljs-number">5</span>)
+    d0, d1 = closes.index[i], closes.index[i + <span class="hljs-number">1</span>]
+    daily_rets = feats[<span class="hljs-string">&quot;close&quot;</span>].pct_change().loc[(feats.index &gt; d0) &amp; (feats.index &lt;= d1)]
+    std = <span class="hljs-built_in">float</span>(daily_rets.std(ddof=<span class="hljs-number">1</span>)) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(daily_rets) &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-built_in">str</span>(date.date()),
+        <span class="hljs-string">&quot;pnl&quot;</span>: <span class="hljs-built_in">float</span>(closes.iloc[i] / closes.iloc[i - <span class="hljs-number">1</span>] - <span class="hljs-number">1.0</span>),
+        <span class="hljs-string">&quot;atr_pct&quot;</span>: <span class="hljs-built_in">float</span>(window[<span class="hljs-string">&quot;atr_pct&quot;</span>].astype(<span class="hljs-built_in">float</span>).mean()),
+        <span class="hljs-string">&quot;rsi5&quot;</span>: [<span class="hljs-built_in">float</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> window[<span class="hljs-string">&quot;rsi5&quot;</span>]],
+        <span class="hljs-string">&quot;zscore5&quot;</span>: [<span class="hljs-built_in">float</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> window[<span class="hljs-string">&quot;z5&quot;</span>]],
+        <span class="hljs-string">&quot;next_pnl&quot;</span>: <span class="hljs-built_in">float</span>(closes.iloc[i + <span class="hljs-number">1</span>] / closes.iloc[i] - <span class="hljs-number">1.0</span>),
+        <span class="hljs-string">&quot;next_sharpe&quot;</span>: <span class="hljs-built_in">float</span>(daily_rets.mean() / std * np.sqrt(TRADING_DAYS)) <span class="hljs-keyword">if</span> std <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>,
     }
 
 
-def exp2_build_records(feats, weekday):
-    # 每条记录 = 本周快照 + 过去 48 周带标签历史 + 下周真实收益（结算用）
-    closes = feats[&quot;close&quot;].reindex(feats.index[feats.index.weekday == weekday]).dropna()
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp2_build_records</span>(<span class="hljs-params">feats, weekday</span>):
+    <span class="hljs-comment"># 每条记录 = 本周快照 + 过去 48 周带标签历史 + 下周真实收益（结算用）</span>
+    closes = feats[<span class="hljs-string">&quot;close&quot;</span>].reindex(feats.index[feats.index.weekday == weekday]).dropna()
     records = []
-    for k in range(4, len(closes) - 1):
-        history = [exp2_week_features(feats, closes, i) for i in range(max(4, k - 48), k)] \
-            if k &gt;= 48 else []
-        # 与历史实验一致：历史不足 48 周的早期记录仍保留（history 为空）
+    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>, <span class="hljs-built_in">len</span>(closes) - <span class="hljs-number">1</span>):
+        history = [exp2_week_features(feats, closes, i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">max</span>(<span class="hljs-number">4</span>, k - <span class="hljs-number">48</span>), k)] \
+            <span class="hljs-keyword">if</span> k &gt;= <span class="hljs-number">48</span> <span class="hljs-keyword">else</span> []
+        <span class="hljs-comment"># 与历史实验一致：历史不足 48 周的早期记录仍保留（history 为空）</span>
         this_week = exp2_week_features(feats, closes, k)
-        records.append({&quot;date&quot;: closes.index[k], &quot;this_week&quot;: this_week, &quot;history&quot;: history,
-                        &quot;next_ret&quot;: float(closes.iloc[k + 1] / closes.iloc[k] - 1.0)})
-    return records
+        records.append({<span class="hljs-string">&quot;date&quot;</span>: closes.index[k], <span class="hljs-string">&quot;this_week&quot;</span>: this_week, <span class="hljs-string">&quot;history&quot;</span>: history,
+                        <span class="hljs-string">&quot;next_ret&quot;</span>: <span class="hljs-built_in">float</span>(closes.iloc[k + <span class="hljs-number">1</span>] / closes.iloc[k] - <span class="hljs-number">1.0</span>)})
+    <span class="hljs-keyword">return</span> records
 
 
-RAISE_ACTIONS = {&quot;买入&quot;, &quot;加大仓位&quot;}
-LOWER_ACTIONS = {&quot;减少仓位&quot;, &quot;空仓观望&quot;}
+RAISE_ACTIONS = {<span class="hljs-string">&quot;买入&quot;</span>, <span class="hljs-string">&quot;加大仓位&quot;</span>}
+LOWER_ACTIONS = {<span class="hljs-string">&quot;减少仓位&quot;</span>, <span class="hljs-string">&quot;空仓观望&quot;</span>}
 
 
-def exp2_reconcile(prev_position, action, position):
-    # 强制 action 与 position 自洽：买入/加仓须高于上周仓，减仓/空仓须低于上周仓
-    a = str(action or &quot;&quot;).strip()
-    if a in RAISE_ACTIONS and position &lt;= prev_position:
-        return min(1.0, round(prev_position + 0.10, 2))
-    if a in LOWER_ACTIONS and position &gt;= prev_position:
-        return max(0.0, round(prev_position - 0.10, 2))
-    return position
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp2_reconcile</span>(<span class="hljs-params">prev_position, action, position</span>):
+    <span class="hljs-comment"># 强制 action 与 position 自洽：买入/加仓须高于上周仓，减仓/空仓须低于上周仓</span>
+    a = <span class="hljs-built_in">str</span>(action <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span>).strip()
+    <span class="hljs-keyword">if</span> a <span class="hljs-keyword">in</span> RAISE_ACTIONS <span class="hljs-keyword">and</span> position &lt;= prev_position:
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(<span class="hljs-number">1.0</span>, <span class="hljs-built_in">round</span>(prev_position + <span class="hljs-number">0.10</span>, <span class="hljs-number">2</span>))
+    <span class="hljs-keyword">if</span> a <span class="hljs-keyword">in</span> LOWER_ACTIONS <span class="hljs-keyword">and</span> position &gt;= prev_position:
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-number">0.0</span>, <span class="hljs-built_in">round</span>(prev_position - <span class="hljs-number">0.10</span>, <span class="hljs-number">2</span>))
+    <span class="hljs-keyword">return</span> position
 
 
-def exp2_llm_forecast(record, model, prev_position=0.0):
-    def _has_nan(week):
-        return any(np.isnan(v) for v in week[&quot;rsi5&quot;] + week[&quot;zscore5&quot;]
-                   + [week[&quot;pnl&quot;], week[&quot;atr_pct&quot;]])
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">exp2_llm_forecast</span>(<span class="hljs-params">record, model, prev_position=<span class="hljs-number">0.0</span></span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_has_nan</span>(<span class="hljs-params">week</span>):
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">any</span>(np.isnan(v) <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> week[<span class="hljs-string">&quot;rsi5&quot;</span>] + week[<span class="hljs-string">&quot;zscore5&quot;</span>]
+                   + [week[<span class="hljs-string">&quot;pnl&quot;</span>], week[<span class="hljs-string">&quot;atr_pct&quot;</span>]])
 
-    if _has_nan(record[&quot;this_week&quot;]):
-        raise ValueError(&quot;特征含 NaN（预热期未满），该周不调用 LLM&quot;)
+    <span class="hljs-keyword">if</span> _has_nan(record[<span class="hljs-string">&quot;this_week&quot;</span>]):
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;特征含 NaN（预热期未满），该周不调用 LLM&quot;</span>)
     instruction = {
-        &quot;任务&quot;: (&quot;你是周频趋势研判员。结合历史样本，判断当前市场处于：上涨趋势、下跌趋势、&quot;
-                &quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;
-                &quot;只做多，不做空。研究回测，非投资建议。&quot;),
-        &quot;特征含义&quot;: {
-            &quot;pnl&quot;: &quot;该周涨跌幅（按调仓日收盘对上周调仓日收盘计算）&quot;,
-            &quot;atr_pct&quot;: &quot;该周 5 个交易日 ATR/收盘价 的均值（波动强度）&quot;,
-            &quot;rsi5&quot;: &quot;该周每个交易日当天及前 4 天（5 日窗口）的 RSI 序列，按时间升序&quot;,
-            &quot;zscore5&quot;: &quot;该周每个交易日收盘价相对 5 日均线的 z-score 序列，按时间升序&quot;,
-            &quot;next_pnl&quot;: &quot;（仅历史样本有）该周对应的下一周实际涨跌幅&quot;,
-            &quot;next_sharpe&quot;: &quot;（仅历史样本有）下一周日收益的年化夏普&quot;,
+        <span class="hljs-string">&quot;任务&quot;</span>: (<span class="hljs-string">&quot;你是周频趋势研判员。结合历史样本，判断当前市场处于：上涨趋势、下跌趋势、&quot;</span>
+                <span class="hljs-string">&quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;</span>
+                <span class="hljs-string">&quot;只做多，不做空。研究回测，非投资建议。&quot;</span>),
+        <span class="hljs-string">&quot;特征含义&quot;</span>: {
+            <span class="hljs-string">&quot;pnl&quot;</span>: <span class="hljs-string">&quot;该周涨跌幅（按调仓日收盘对上周调仓日收盘计算）&quot;</span>,
+            <span class="hljs-string">&quot;atr_pct&quot;</span>: <span class="hljs-string">&quot;该周 5 个交易日 ATR/收盘价 的均值（波动强度）&quot;</span>,
+            <span class="hljs-string">&quot;rsi5&quot;</span>: <span class="hljs-string">&quot;该周每个交易日当天及前 4 天（5 日窗口）的 RSI 序列，按时间升序&quot;</span>,
+            <span class="hljs-string">&quot;zscore5&quot;</span>: <span class="hljs-string">&quot;该周每个交易日收盘价相对 5 日均线的 z-score 序列，按时间升序&quot;</span>,
+            <span class="hljs-string">&quot;next_pnl&quot;</span>: <span class="hljs-string">&quot;（仅历史样本有）该周对应的下一周实际涨跌幅&quot;</span>,
+            <span class="hljs-string">&quot;next_sharpe&quot;</span>: <span class="hljs-string">&quot;（仅历史样本有）下一周日收益的年化夏普&quot;</span>,
         },
-        &quot;研判要求&quot;: [
-            &quot;先从历史样本中找与当前周特征相似的阶段，看它们下一周实际表现（next_pnl / next_sharpe）&quot;,
-            &quot;再判断当前趋势状态与动能变化（停滞、加速、反转迹象）&quot;,
-            &quot;最后给出下周动作与目标仓位；证据不足时保持中等仓位，不要满仓赌单一情形&quot;,
+        <span class="hljs-string">&quot;研判要求&quot;</span>: [
+            <span class="hljs-string">&quot;先从历史样本中找与当前周特征相似的阶段，看它们下一周实际表现（next_pnl / next_sharpe）&quot;</span>,
+            <span class="hljs-string">&quot;再判断当前趋势状态与动能变化（停滞、加速、反转迹象）&quot;</span>,
+            <span class="hljs-string">&quot;最后给出下周动作与目标仓位；证据不足时保持中等仓位，不要满仓赌单一情形&quot;</span>,
         ],
-        &quot;仓位自洽规则&quot;: (
-            &quot;position 必须与 action 自洽：action 为『买入』或『加大仓位』时，新的 position 必须【大于】&quot;
-            &quot;当前已有仓位 prev_position；action 为『减少仓位』或『空仓观望』时必须【小于】prev_position。&quot;
-            &quot;系统会据此校正你的输出。&quot;
+        <span class="hljs-string">&quot;仓位自洽规则&quot;</span>: (
+            <span class="hljs-string">&quot;position 必须与 action 自洽：action 为『买入』或『加大仓位』时，新的 position 必须【大于】&quot;</span>
+            <span class="hljs-string">&quot;当前已有仓位 prev_position；action 为『减少仓位』或『空仓观望』时必须【小于】prev_position。&quot;</span>
+            <span class="hljs-string">&quot;系统会据此校正你的输出。&quot;</span>
         ),
-        &quot;prev_position&quot;: prev_position,
-        &quot;当前周&quot;: {k: record[&quot;this_week&quot;][k] for k in [&quot;date&quot;, &quot;pnl&quot;, &quot;atr_pct&quot;, &quot;rsi5&quot;, &quot;zscore5&quot;]},
-        &quot;历史样本（过去 %d 周，由远及近，均含下一周实际结果）&quot; % len(record[&quot;history&quot;]): record[&quot;history&quot;],
-        &quot;输出格式&quot;: {
-            &quot;trend&quot;: &quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;,
-            &quot;action&quot;: &quot;买入|加大仓位|减少仓位|空仓观望&quot;,
-            &quot;position&quot;: &quot;下周目标仓位，浮点数 [0,1]，且与 action 自洽（参考 prev_position）&quot;,
-            &quot;confidence&quot;: &quot;0-1&quot;,
-            &quot;reason&quot;: &quot;一句话理由&quot;,
+        <span class="hljs-string">&quot;prev_position&quot;</span>: prev_position,
+        <span class="hljs-string">&quot;当前周&quot;</span>: {k: record[<span class="hljs-string">&quot;this_week&quot;</span>][k] <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;pnl&quot;</span>, <span class="hljs-string">&quot;atr_pct&quot;</span>, <span class="hljs-string">&quot;rsi5&quot;</span>, <span class="hljs-string">&quot;zscore5&quot;</span>]},
+        <span class="hljs-string">&quot;历史样本（过去 %d 周，由远及近，均含下一周实际结果）&quot;</span> % <span class="hljs-built_in">len</span>(record[<span class="hljs-string">&quot;history&quot;</span>]): record[<span class="hljs-string">&quot;history&quot;</span>],
+        <span class="hljs-string">&quot;输出格式&quot;</span>: {
+            <span class="hljs-string">&quot;trend&quot;</span>: <span class="hljs-string">&quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;</span>,
+            <span class="hljs-string">&quot;action&quot;</span>: <span class="hljs-string">&quot;买入|加大仓位|减少仓位|空仓观望&quot;</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;下周目标仓位，浮点数 [0,1]，且与 action 自洽（参考 prev_position）&quot;</span>,
+            <span class="hljs-string">&quot;confidence&quot;</span>: <span class="hljs-string">&quot;0-1&quot;</span>,
+            <span class="hljs-string">&quot;reason&quot;</span>: <span class="hljs-string">&quot;一句话理由&quot;</span>,
         },
     }
     parsed = llm_chat(instruction, model)
-    action = str(parsed.get(&quot;action&quot;, &quot;&quot;)).strip()
-    position = min(1.0, max(0.0, float(parsed.get(&quot;position&quot;, 0.5))))
+    action = <span class="hljs-built_in">str</span>(parsed.get(<span class="hljs-string">&quot;action&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)).strip()
+    position = <span class="hljs-built_in">min</span>(<span class="hljs-number">1.0</span>, <span class="hljs-built_in">max</span>(<span class="hljs-number">0.0</span>, <span class="hljs-built_in">float</span>(parsed.get(<span class="hljs-string">&quot;position&quot;</span>, <span class="hljs-number">0.5</span>))))
     position = exp2_reconcile(prev_position, action, position)
-    return {&quot;trend&quot;: str(parsed.get(&quot;trend&quot;, &quot;&quot;)), &quot;action&quot;: action, &quot;position&quot;: position,
-            &quot;confidence&quot;: float(parsed.get(&quot;confidence&quot;, 0.0)),
-            &quot;reason&quot;: str(parsed.get(&quot;reason&quot;, &quot;&quot;))}
-</code></pre>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;trend&quot;</span>: <span class="hljs-built_in">str</span>(parsed.get(<span class="hljs-string">&quot;trend&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)), <span class="hljs-string">&quot;action&quot;</span>: action, <span class="hljs-string">&quot;position&quot;</span>: position,
+            <span class="hljs-string">&quot;confidence&quot;</span>: <span class="hljs-built_in">float</span>(parsed.get(<span class="hljs-string">&quot;confidence&quot;</span>, <span class="hljs-number">0.0</span>)),
+            <span class="hljs-string">&quot;reason&quot;</span>: <span class="hljs-built_in">str</span>(parsed.get(<span class="hljs-string">&quot;reason&quot;</span>, <span class="hljs-string">&quot;&quot;</span>))}</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>回测这样进行：</p>
@@ -541,95 +534,94 @@ LLM 给出的分析很有意思：第一条是关于时序数据如何分析、�
 <!--PAID CONTENT START-->
 
 <p>以下是实验三的代码：</p>
-<pre><code class="language-python"># 实验三特有：相似周 top-k 检索 + 输出离散化（其余复用实验二：特征、回测、指标）
-def knn_week_vector(w):
-    return np.array([w[&quot;pnl&quot;], w[&quot;atr_pct&quot;]] + w[&quot;rsi5&quot;] + w[&quot;zscore5&quot;], dtype=float)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span></span><span class="cl-body"><span class="hljs-comment"># 实验三特有：相似周 top-k 检索 + 输出离散化（其余复用实验二：特征、回测、指标）</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">knn_week_vector</span>(<span class="hljs-params">w</span>):
+    <span class="hljs-keyword">return</span> np.array([w[<span class="hljs-string">&quot;pnl&quot;</span>], w[<span class="hljs-string">&quot;atr_pct&quot;</span>]] + w[<span class="hljs-string">&quot;rsi5&quot;</span>] + w[<span class="hljs-string">&quot;zscore5&quot;</span>], dtype=<span class="hljs-built_in">float</span>)
 
 
-def knn_history(this_week, history, k=5):
-    # 用&quot;历史向量池&quot;的均值/标准差做标准化，再按欧氏距离挑最近的 k 个历史周
-    if not history:
-        return [], []
-    pool = [v for v in (knn_week_vector(h) for h in history) if not np.isnan(v).any()]
-    if not pool:
-        return [], []
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">knn_history</span>(<span class="hljs-params">this_week, history, k=<span class="hljs-number">5</span></span>):
+    <span class="hljs-comment"># 用&quot;历史向量池&quot;的均值/标准差做标准化，再按欧氏距离挑最近的 k 个历史周</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> history:
+        <span class="hljs-keyword">return</span> [], []
+    pool = [v <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> (knn_week_vector(h) <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> history) <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> np.isnan(v).<span class="hljs-built_in">any</span>()]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> pool:
+        <span class="hljs-keyword">return</span> [], []
     pool = np.array(pool)
-    mean, std = pool.mean(axis=0), pool.std(axis=0)
-    std[std == 0] = 1.0
+    mean, std = pool.mean(axis=<span class="hljs-number">0</span>), pool.std(axis=<span class="hljs-number">0</span>)
+    std[std == <span class="hljs-number">0</span>] = <span class="hljs-number">1.0</span>
     target = (knn_week_vector(this_week) - mean) / std
-    if np.isnan(target).any():
-        return [], []
-    dists = np.linalg.norm((pool - mean) / std - target, axis=1)
+    <span class="hljs-keyword">if</span> np.isnan(target).<span class="hljs-built_in">any</span>():
+        <span class="hljs-keyword">return</span> [], []
+    dists = np.linalg.norm((pool - mean) / std - target, axis=<span class="hljs-number">1</span>)
     order = np.argsort(dists)[:k]
-    top = [(history[idx], float(dists[idx])) for idx in order if not np.isnan(dists[idx])]
-    if not top:
-        return [], []
-    return [h for h, _ in top], [d for _, d in top]
+    top = [(history[idx], <span class="hljs-built_in">float</span>(dists[idx])) <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> order <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> np.isnan(dists[idx])]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> top:
+        <span class="hljs-keyword">return</span> [], []
+    <span class="hljs-keyword">return</span> [h <span class="hljs-keyword">for</span> h, _ <span class="hljs-keyword">in</span> top], [d <span class="hljs-keyword">for</span> _, d <span class="hljs-keyword">in</span> top]
 
 
-def quantize_position(p, levels=(0.3, 0.5, 0.7)):
-    return min(levels, key=lambda x: abs(x - p))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">quantize_position</span>(<span class="hljs-params">p, levels=(<span class="hljs-params"><span class="hljs-number">0.3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.7</span></span>)</span>):
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(levels, key=<span class="hljs-keyword">lambda</span> x: <span class="hljs-built_in">abs</span>(x - p))
 
 
-def knn_resolve_position(prev_position, action, position, quantize=False, levels=(0.3, 0.5, 0.7)):
-    # 自洽 + 可选离散化：先满足自洽，再在网格上取合法点
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">knn_resolve_position</span>(<span class="hljs-params">prev_position, action, position, quantize=<span class="hljs-literal">False</span>, levels=(<span class="hljs-params"><span class="hljs-number">0.3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.7</span></span>)</span>):
+    <span class="hljs-comment"># 自洽 + 可选离散化：先满足自洽，再在网格上取合法点</span>
     p = exp2_reconcile(prev_position, action, position)
-    if not quantize:
-        return p
-    grid = list(levels)
-    valid = [x for x in grid if
-             (action in {&quot;买入&quot;, &quot;加大仓位&quot;} and x &gt; prev_position) or
-             (action in {&quot;减少仓位&quot;, &quot;空仓观望&quot;} and x &lt; prev_position) or
-             (action not in {&quot;买入&quot;, &quot;加大仓位&quot;, &quot;减少仓位&quot;, &quot;空仓观望&quot;})]
-    if not valid:
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> quantize:
+        <span class="hljs-keyword">return</span> p
+    grid = <span class="hljs-built_in">list</span>(levels)
+    valid = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> grid <span class="hljs-keyword">if</span>
+             (action <span class="hljs-keyword">in</span> {<span class="hljs-string">&quot;买入&quot;</span>, <span class="hljs-string">&quot;加大仓位&quot;</span>} <span class="hljs-keyword">and</span> x &gt; prev_position) <span class="hljs-keyword">or</span>
+             (action <span class="hljs-keyword">in</span> {<span class="hljs-string">&quot;减少仓位&quot;</span>, <span class="hljs-string">&quot;空仓观望&quot;</span>} <span class="hljs-keyword">and</span> x &lt; prev_position) <span class="hljs-keyword">or</span>
+             (action <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> {<span class="hljs-string">&quot;买入&quot;</span>, <span class="hljs-string">&quot;加大仓位&quot;</span>, <span class="hljs-string">&quot;减少仓位&quot;</span>, <span class="hljs-string">&quot;空仓观望&quot;</span>})]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> valid:
         valid = grid
-    return min(valid, key=lambda x: abs(x - p))
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(valid, key=<span class="hljs-keyword">lambda</span> x: <span class="hljs-built_in">abs</span>(x - p))
 
 
-def knn_llm_forecast(record, model, prev_position=0.0, knn_k=5, quantize=False):
-    # 与实验二同一提示词骨架；唯一差别：历史样本换成 top-k 相似周
-    def _has_nan(week):
-        return any(np.isnan(v) for v in week[&quot;rsi5&quot;] + week[&quot;zscore5&quot;]
-                   + [week[&quot;pnl&quot;], week[&quot;atr_pct&quot;]])
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">knn_llm_forecast</span>(<span class="hljs-params">record, model, prev_position=<span class="hljs-number">0.0</span>, knn_k=<span class="hljs-number">5</span>, quantize=<span class="hljs-literal">False</span></span>):
+    <span class="hljs-comment"># 与实验二同一提示词骨架；唯一差别：历史样本换成 top-k 相似周</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_has_nan</span>(<span class="hljs-params">week</span>):
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">any</span>(np.isnan(v) <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> week[<span class="hljs-string">&quot;rsi5&quot;</span>] + week[<span class="hljs-string">&quot;zscore5&quot;</span>]
+                   + [week[<span class="hljs-string">&quot;pnl&quot;</span>], week[<span class="hljs-string">&quot;atr_pct&quot;</span>]])
 
-    if _has_nan(record[&quot;this_week&quot;]):
-        raise ValueError(&quot;特征含 NaN（预热期未满），该周不调用 LLM&quot;)
-    top_k, dists = knn_history(record[&quot;this_week&quot;], record[&quot;history&quot;], knn_k)
+    <span class="hljs-keyword">if</span> _has_nan(record[<span class="hljs-string">&quot;this_week&quot;</span>]):
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;特征含 NaN（预热期未满），该周不调用 LLM&quot;</span>)
+    top_k, dists = knn_history(record[<span class="hljs-string">&quot;this_week&quot;</span>], record[<span class="hljs-string">&quot;history&quot;</span>], knn_k)
     instruction = {
-        &quot;任务&quot;: (&quot;你是周频趋势研判员。结合给定的【相似历史周】，判断当前市场处于：上涨趋势、下跌趋势，&quot;
-                &quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;
-                &quot;只做多，不做空。研究回测，非投资建议。&quot;),
-        &quot;说明&quot;: (&quot;下方仅列出与当前周特征最相似的 %d 个历史周。每个都带下一周实际结果 next_pnl/next_sharpe；&quot;
-                &quot;请优先依据这些最相关样本决策，而不是泛泛而谈。证据不足保持中等仓位。&quot; % len(top_k)),
-        &quot;特征含义&quot;: {
-            &quot;pnl&quot;: &quot;该周涨跌幅&quot;, &quot;atr_pct&quot;: &quot;该周 5 日 ATR/收盘价 均值&quot;,
-            &quot;rsi5&quot;: &quot;该周每个交易日当天及前 4 天的 5 日 RSI&quot;,
-            &quot;zscore5&quot;: &quot;该周每个交易日相对 5 日均线的 z-score&quot;,
-            &quot;next_pnl&quot;: &quot;该历史周对应的下一周实际涨跌幅&quot;,
-            &quot;next_sharpe&quot;: &quot;下一周日收益年化夏普&quot;,
+        <span class="hljs-string">&quot;任务&quot;</span>: (<span class="hljs-string">&quot;你是周频趋势研判员。结合给定的【相似历史周】，判断当前市场处于：上涨趋势、下跌趋势，&quot;</span>
+                <span class="hljs-string">&quot;还是即将反转/正在反转/已经反转；并决定下周动作：买入、加大仓位、减少仓位或空仓观望。&quot;</span>
+                <span class="hljs-string">&quot;只做多，不做空。研究回测，非投资建议。&quot;</span>),
+        <span class="hljs-string">&quot;说明&quot;</span>: (<span class="hljs-string">&quot;下方仅列出与当前周特征最相似的 %d 个历史周。每个都带下一周实际结果 next_pnl/next_sharpe；&quot;</span>
+                <span class="hljs-string">&quot;请优先依据这些最相关样本决策，而不是泛泛而谈。证据不足保持中等仓位。&quot;</span> % <span class="hljs-built_in">len</span>(top_k)),
+        <span class="hljs-string">&quot;特征含义&quot;</span>: {
+            <span class="hljs-string">&quot;pnl&quot;</span>: <span class="hljs-string">&quot;该周涨跌幅&quot;</span>, <span class="hljs-string">&quot;atr_pct&quot;</span>: <span class="hljs-string">&quot;该周 5 日 ATR/收盘价 均值&quot;</span>,
+            <span class="hljs-string">&quot;rsi5&quot;</span>: <span class="hljs-string">&quot;该周每个交易日当天及前 4 天的 5 日 RSI&quot;</span>,
+            <span class="hljs-string">&quot;zscore5&quot;</span>: <span class="hljs-string">&quot;该周每个交易日相对 5 日均线的 z-score&quot;</span>,
+            <span class="hljs-string">&quot;next_pnl&quot;</span>: <span class="hljs-string">&quot;该历史周对应的下一周实际涨跌幅&quot;</span>,
+            <span class="hljs-string">&quot;next_sharpe&quot;</span>: <span class="hljs-string">&quot;下一周日收益年化夏普&quot;</span>,
         },
-        &quot;仓位自洽规则&quot;: (&quot;『买入』『加大仓位』时 position 必须【大于】prev_position；&quot;
-                        &quot;『减少仓位』『空仓观望』时 position 必须【小于】prev_position。&quot;),
-        &quot;prev_position&quot;: prev_position,
-        &quot;当前周&quot;: {k: record[&quot;this_week&quot;][k] for k in [&quot;date&quot;, &quot;pnl&quot;, &quot;atr_pct&quot;, &quot;rsi5&quot;, &quot;zscore5&quot;]},
-        &quot;相似历史周（共 %d 个）&quot; % len(top_k): [dict(h) for h in top_k],
-        &quot;输出格式&quot;: {
-            &quot;trend&quot;: &quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;,
-            &quot;action&quot;: &quot;买入|加大仓位|减少仓位|空仓观望&quot;,
-            &quot;position&quot;: &quot;下周目标仓位，浮点数 [0,1]，与 action 自洽（参考 prev_position）&quot;,
-            &quot;confidence&quot;: &quot;0-1&quot;,
-            &quot;reason&quot;: &quot;一句话理由（应引用最相似的 1~2 个历史周）&quot;,
+        <span class="hljs-string">&quot;仓位自洽规则&quot;</span>: (<span class="hljs-string">&quot;『买入』『加大仓位』时 position 必须【大于】prev_position；&quot;</span>
+                        <span class="hljs-string">&quot;『减少仓位』『空仓观望』时 position 必须【小于】prev_position。&quot;</span>),
+        <span class="hljs-string">&quot;prev_position&quot;</span>: prev_position,
+        <span class="hljs-string">&quot;当前周&quot;</span>: {k: record[<span class="hljs-string">&quot;this_week&quot;</span>][k] <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;pnl&quot;</span>, <span class="hljs-string">&quot;atr_pct&quot;</span>, <span class="hljs-string">&quot;rsi5&quot;</span>, <span class="hljs-string">&quot;zscore5&quot;</span>]},
+        <span class="hljs-string">&quot;相似历史周（共 %d 个）&quot;</span> % <span class="hljs-built_in">len</span>(top_k): [<span class="hljs-built_in">dict</span>(h) <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> top_k],
+        <span class="hljs-string">&quot;输出格式&quot;</span>: {
+            <span class="hljs-string">&quot;trend&quot;</span>: <span class="hljs-string">&quot;上涨趋势|下跌趋势|反转酝酿|反转进行中|反转已确立&quot;</span>,
+            <span class="hljs-string">&quot;action&quot;</span>: <span class="hljs-string">&quot;买入|加大仓位|减少仓位|空仓观望&quot;</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;下周目标仓位，浮点数 [0,1]，与 action 自洽（参考 prev_position）&quot;</span>,
+            <span class="hljs-string">&quot;confidence&quot;</span>: <span class="hljs-string">&quot;0-1&quot;</span>,
+            <span class="hljs-string">&quot;reason&quot;</span>: <span class="hljs-string">&quot;一句话理由（应引用最相似的 1~2 个历史周）&quot;</span>,
         },
     }
-    parsed = llm_chat(instruction, model, max_tokens=16000)
-    action = str(parsed.get(&quot;action&quot;, &quot;&quot;)).strip()
-    position = min(1.0, max(0.0, float(parsed.get(&quot;position&quot;, 0.5))))
+    parsed = llm_chat(instruction, model, max_tokens=<span class="hljs-number">16000</span>)
+    action = <span class="hljs-built_in">str</span>(parsed.get(<span class="hljs-string">&quot;action&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)).strip()
+    position = <span class="hljs-built_in">min</span>(<span class="hljs-number">1.0</span>, <span class="hljs-built_in">max</span>(<span class="hljs-number">0.0</span>, <span class="hljs-built_in">float</span>(parsed.get(<span class="hljs-string">&quot;position&quot;</span>, <span class="hljs-number">0.5</span>))))
     position = knn_resolve_position(prev_position, action, position,
-                                    quantize=quantize, levels=(0.3, 0.5, 0.7))
-    return {&quot;trend&quot;: str(parsed.get(&quot;trend&quot;, &quot;&quot;)), &quot;action&quot;: action, &quot;position&quot;: position,
-            &quot;confidence&quot;: float(parsed.get(&quot;confidence&quot;, 0.0)),
-            &quot;reason&quot;: str(parsed.get(&quot;reason&quot;, &quot;&quot;)), &quot;knn_distances&quot;: dists}
-</code></pre>
+                                    quantize=quantize, levels=(<span class="hljs-number">0.3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.7</span>))
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">&quot;trend&quot;</span>: <span class="hljs-built_in">str</span>(parsed.get(<span class="hljs-string">&quot;trend&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)), <span class="hljs-string">&quot;action&quot;</span>: action, <span class="hljs-string">&quot;position&quot;</span>: position,
+            <span class="hljs-string">&quot;confidence&quot;</span>: <span class="hljs-built_in">float</span>(parsed.get(<span class="hljs-string">&quot;confidence&quot;</span>, <span class="hljs-number">0.0</span>)),
+            <span class="hljs-string">&quot;reason&quot;</span>: <span class="hljs-built_in">str</span>(parsed.get(<span class="hljs-string">&quot;reason&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)), <span class="hljs-string">&quot;knn_distances&quot;</span>: dists}</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>运行结果如下：</p>

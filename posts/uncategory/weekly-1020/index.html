@@ -77,94 +77,91 @@
 <li>通过np.poly1d生成趋势线</li>
 <li>将趋势线和k线图画在一张图上</li>
 </ol>
-<pre><code class="language-python">def find_peak_pivots(df, win):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_peak_pivots</span>(<span class="hljs-params">df, win</span>):
     local_high = (df.close.rolling(win)
-                    .apply(lambda x: x.argmax()== win-1))
-    local_high[:win] = 0
+                    .apply(<span class="hljs-keyword">lambda</span> x: x.argmax()== win-<span class="hljs-number">1</span>))
+    local_high[:win] = <span class="hljs-number">0</span>
     
-    # find_runs函数是量化24课内容
+    <span class="hljs-comment"># find_runs函数是量化24课内容</span>
     v,s,l = find_runs(local_high)
 
     peaks = []
-    i = 0
-    while i &lt; len(v):
-        if l[i] &gt;= win // 2:
-            if s[i] &gt; 0:
-                peaks.append(s[i] - 1)
-        for j in range(i+1, len(v)):
-            if l[j] &gt;= win // 2:
-                peaks.append(s[j] - 1)
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(v):
+        <span class="hljs-keyword">if</span> l[i] &gt;= win // <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">if</span> s[i] &gt; <span class="hljs-number">0</span>:
+                peaks.append(s[i] - <span class="hljs-number">1</span>)
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i+<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(v)):
+            <span class="hljs-keyword">if</span> l[j] &gt;= win // <span class="hljs-number">2</span>:
+                peaks.append(s[j] - <span class="hljs-number">1</span>)
                 i = j
-        if j == len(v)-1:
-            break
+        <span class="hljs-keyword">if</span> j == <span class="hljs-built_in">len</span>(v)-<span class="hljs-number">1</span>:
+            <span class="hljs-keyword">break</span>
 
-    return peaks
-</code></pre>
+    <span class="hljs-keyword">return</span> peaks</span></code></pre>
 <hr>
-<pre><code class="language-python">def find_valley_pivots(df, win):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_valley_pivots</span>(<span class="hljs-params">df, win</span>):
     local_min = (df.close.rolling(win)
-                .apply(lambda x: x.argmin()== win-1))
-    local_min[:win] = 0
+                .apply(<span class="hljs-keyword">lambda</span> x: x.argmin()== win-<span class="hljs-number">1</span>))
+    local_min[:win] = <span class="hljs-number">0</span>
     
     v,s,l = find_runs(local_min)
 
     valleys = []
-    i = 0
-    while i &lt; len(v):
-        if l[i] &gt;= win // 2:
-            if s[i] &gt; 0:
-                valleys.append(s[i] - 1)
-        for j in range(i+1, len(v)):
-            if l[j] &gt;= win // 2:
-                valleys.append(s[j] - 1)
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(v):
+        <span class="hljs-keyword">if</span> l[i] &gt;= win // <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">if</span> s[i] &gt; <span class="hljs-number">0</span>:
+                valleys.append(s[i] - <span class="hljs-number">1</span>)
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i+<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(v)):
+            <span class="hljs-keyword">if</span> l[j] &gt;= win // <span class="hljs-number">2</span>:
+                valleys.append(s[j] - <span class="hljs-number">1</span>)
                 i = j
-        if j == len(v)-1:
-            break
+        <span class="hljs-keyword">if</span> j == <span class="hljs-built_in">len</span>(v)-<span class="hljs-number">1</span>:
+            <span class="hljs-keyword">break</span>
 
-    return valleys
+    <span class="hljs-keyword">return</span> valleys
 
-def trendline(df):
-    peaks = find_peak_pivots(df, 20)
-    valleys = find_valley_pivots(df, 20)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">trendline</span>(<span class="hljs-params">df</span>):
+    peaks = find_peak_pivots(df, <span class="hljs-number">20</span>)
+    valleys = find_valley_pivots(df, <span class="hljs-number">20</span>)
 
     y = df.close[peaks].values
-    p = np.polyfit(x=peaks, y = y, deg=1)
-    upper_trendline = np.poly1d(p)(np.arange(0, len(df)))
+    p = np.polyfit(x=peaks, y = y, deg=<span class="hljs-number">1</span>)
+    upper_trendline = np.poly1d(p)(np.arange(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(df)))
 
     y = df.close[valleys].values
-    v = np.polyfit(x=valleys, y = y, deg=1)
-    lower_trendline = np.poly1d(v)(np.arange(0, len(df)))
-</code></pre>
+    v = np.polyfit(x=valleys, y = y, deg=<span class="hljs-number">1</span>)
+    lower_trendline = np.poly1d(v)(np.arange(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(df)))</span></code></pre>
 <hr>
-<pre><code class="language-python">    candle = go.Candlestick(x=df.index,
-                    open=df[&#39;open&#39;],
-                    high=df[&#39;high&#39;],
-                    low=df[&#39;low&#39;],
-                    close=df[&#39;close&#39;],
-                    line=dict({&quot;width&quot;: 1}),
-                    name=&quot;K 线&quot;,
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body">    candle = go.Candlestick(x=df.index,
+                    <span class="hljs-built_in">open</span>=df[<span class="hljs-string">&#x27;open&#x27;</span>],
+                    high=df[<span class="hljs-string">&#x27;high&#x27;</span>],
+                    low=df[<span class="hljs-string">&#x27;low&#x27;</span>],
+                    close=df[<span class="hljs-string">&#x27;close&#x27;</span>],
+                    line=<span class="hljs-built_in">dict</span>({<span class="hljs-string">&quot;width&quot;</span>: <span class="hljs-number">1</span>}),
+                    name=<span class="hljs-string">&quot;K 线&quot;</span>,
                     increasing = {
-                        &quot;fillcolor&quot;:&quot;rgba(255,255,255,0.9)&quot;,
-                        &quot;line&quot;: dict({&quot;color&quot;: RED})
+                        <span class="hljs-string">&quot;fillcolor&quot;</span>:<span class="hljs-string">&quot;rgba(255,255,255,0.9)&quot;</span>,
+                        <span class="hljs-string">&quot;line&quot;</span>: <span class="hljs-built_in">dict</span>({<span class="hljs-string">&quot;color&quot;</span>: RED})
                     },
                     decreasing = {
-                        &quot;fillcolor&quot;: GREEN, 
-                        &quot;line&quot;: dict(color =  GREEN)
+                        <span class="hljs-string">&quot;fillcolor&quot;</span>: GREEN, 
+                        <span class="hljs-string">&quot;line&quot;</span>: <span class="hljs-built_in">dict</span>(color =  GREEN)
                     })
     upper_trace = go.Scatter(x=df.index, 
                              y=upper_trendline, 
-                             mode=&#39;lines&#39;, 
-                             name=&#39;压力线&#39;)
+                             mode=<span class="hljs-string">&#x27;lines&#x27;</span>, 
+                             name=<span class="hljs-string">&#x27;压力线&#x27;</span>)
 
     lower_trace = go.Scatter(x=df.index, 
                              y=lower_trendline, 
-                             mode=&#39;lines&#39;, 
-                             name=&#39;支撑线&#39;)
+                             mode=<span class="hljs-string">&#x27;lines&#x27;</span>, 
+                             name=<span class="hljs-string">&#x27;支撑线&#x27;</span>)
 
     fig = go.Figure(data=[candle,lower_trace, upper_trace])
 
-    fig.show()
-</code></pre>
+    fig.show()</span></code></pre>
 <p>最后，我们对该标的在上涨之前的形态进行检测，得到以下结果：</p>
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-605148.png" style="position:relative;margin-top:-100px;z-index:-1; width:90%"/>
 

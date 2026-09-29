@@ -30,70 +30,67 @@
 </div>
 
 <p>因此，这个函数的签名是：</p>
-<pre><code class="language-python">def load_bars(start_date:datetime.date, 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_bars</span>(<span class="hljs-params">start_date:datetime.date, 
               end_date:datetime.date, 
-              universe: Tuple[str]|int = 500)-&gt;pd.DataFrame:
-    pass
-</code></pre>
+              universe: <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">str</span>]|<span class="hljs-built_in">int</span> = <span class="hljs-number">500</span></span>)-&gt;pd.DataFrame:
+    <span class="hljs-keyword">pass</span></span></code></pre>
 <p>学员的学习过程是阅读我们的notebook文档，并尝试单元格中的代码，也可能修改这些代码再运行。因此，这是一个交互式的操作，一般来说，只要用户的等待时间不超过3秒，都是可以接受的。如果响应速度低于1秒，则可以认为是理想的。</p>
 <p>去掉缓存后，最初的一个实现的运行速度大致是5秒：</p>
-<pre><code class="language-python">start = datetime.date(2023, 12,1)
-end = datetime.date(2023, 12,31)
-%time load_bars(start, end, 2000)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>,<span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>,<span class="hljs-number">31</span>)
+%time load_bars(start, end, <span class="hljs-number">2000</span>)</span></code></pre>
 <p><em>后面的测试将使用现样的参数。</em></p>
 <p>当然，如果使用更大的universe，则时间还会加长。</p>
 <p>由于这个结果超过了3秒，所以，希望能对代码进行一些优化。性能优化是编程中比较有难度的例子，因为它涉及到对程序运行原理的理解，涉及到对多个技术栈的掌握。在这个过程中我探索了Deep Seek R1的能力边界，可供大家参考。</p>
 <h2 id="最初的方案">最初的方案</h2>
 <p>最初的代码如下：</p>
-<pre><code class="language-python">def load_bars_v1(
-    start: datetime.date, end: datetime.date, universe: Tuple[str]|int = 500
-)-&gt;pd.DataFrame:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_bars_v1</span>(<span class="hljs-params">
+    start: datetime.date, end: datetime.date, universe: <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">str</span>]|<span class="hljs-built_in">int</span> = <span class="hljs-number">500</span>
+</span>)-&gt;pd.DataFrame:
 
-    if barss is None:
-        with open(os.path.join(data_home, &quot;bars_1d_2005_2023.pkl&quot;), &quot;rb&quot;) as f:
+    <span class="hljs-keyword">if</span> barss <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(os.path.join(data_home, <span class="hljs-string">&quot;bars_1d_2005_2023.pkl&quot;</span>), <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
             barss = pickle.load(f)
 
-    keys = list(barss.keys())
-    if isinstance(universe, int):
-        if universe == -1:
+    keys = <span class="hljs-built_in">list</span>(barss.keys())
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(universe, <span class="hljs-built_in">int</span>):
+        <span class="hljs-keyword">if</span> universe == -<span class="hljs-number">1</span>:
             selected_keys = keys
-        else:
-            selected_keys = random.sample(keys, min(universe, len(keys)))
-            try:
-                pos = selected_keys.index(&quot;000001.XSHE&quot;)
-                swp = selected_keys[0]
-                selected_keys[0] = &quot;000001.XSHE&quot;
+        <span class="hljs-keyword">else</span>:
+            selected_keys = random.sample(keys, <span class="hljs-built_in">min</span>(universe, <span class="hljs-built_in">len</span>(keys)))
+            <span class="hljs-keyword">try</span>:
+                pos = selected_keys.index(<span class="hljs-string">&quot;000001.XSHE&quot;</span>)
+                swp = selected_keys[<span class="hljs-number">0</span>]
+                selected_keys[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;000001.XSHE&quot;</span>
                 selected_keys[pos] = swp
-            except ValueError:
-                selected_keys[0] = &quot;000001.XSHE&quot;
+            <span class="hljs-keyword">except</span> ValueError:
+                selected_keys[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;000001.XSHE&quot;</span>
 
-    else:
+    <span class="hljs-keyword">else</span>:
         selected_keys = universe
 
     dfs = []
-    for symbol in selected_keys:
-        qry = &quot;frame &gt;= @start &amp; frame &lt;= @end&quot;
+    <span class="hljs-keyword">for</span> symbol <span class="hljs-keyword">in</span> selected_keys:
+        qry = <span class="hljs-string">&quot;frame &gt;= @start &amp; frame &lt;= @end&quot;</span>
         df = pd.DataFrame(barss[symbol]).assign(asset=symbol).query(qry)
 
-        if len(df) == 0:
-            logger.debug(&quot;no bars for %s from %s to %s&quot;, symbol, start, end)
-            continue
-        # 前复权
-        last = df.iloc[-1][&quot;factor&quot;]
-        adjust_factor = df[&quot;factor&quot;] / last
-        adjust = [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;volume&quot;]
-        df.loc[:, adjust] = df.loc[:, adjust].multiply(adjust_factor, axis=&quot;index&quot;)
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(df) == <span class="hljs-number">0</span>:
+            logger.debug(<span class="hljs-string">&quot;no bars for %s from %s to %s&quot;</span>, symbol, start, end)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-comment"># 前复权</span>
+        last = df.iloc[-<span class="hljs-number">1</span>][<span class="hljs-string">&quot;factor&quot;</span>]
+        adjust_factor = df[<span class="hljs-string">&quot;factor&quot;</span>] / last
+        adjust = [<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;volume&quot;</span>]
+        df.loc[:, adjust] = df.loc[:, adjust].multiply(adjust_factor, axis=<span class="hljs-string">&quot;index&quot;</span>)
 
         dfs.append(df)
 
-    df = pd.concat(dfs, ignore_index=True)
-    df.set_index([&quot;frame&quot;, &quot;asset&quot;], inplace=True)
-    df.index.names = [&quot;date&quot;, &quot;asset&quot;]
-    df.drop(&quot;factor&quot;, axis=1, inplace=True)
-    df[&quot;price&quot;] = df[&quot;open&quot;].shift(-1)
-    return df
-</code></pre>
+    df = pd.concat(dfs, ignore_index=<span class="hljs-literal">True</span>)
+    df.set_index([<span class="hljs-string">&quot;frame&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>], inplace=<span class="hljs-literal">True</span>)
+    df.index.names = [<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>]
+    df.drop(<span class="hljs-string">&quot;factor&quot;</span>, axis=<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
+    df[<span class="hljs-string">&quot;price&quot;</span>] = df[<span class="hljs-string">&quot;open&quot;</span>].shift(-<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <p>代码已进行了相当的优化（其中部分也基于AI建议）。比如，将数据保存为字典，先按universe进行筛选，再拼接为dataframe，而不是将所有数据保存为dataframe，通过pandas来按universe进行筛选（将花费数倍时间）。</p>
 <p>此外，在进行前复权时，它使用了multiply方法，从而可以一次对多个列进行前复权操作，这一建议正是AI给出来的。</p>
 <p>但是，代码中还存在一个for loop，如果消除了这个循环，是否能进一步提升速度呢？</p>
@@ -110,95 +107,91 @@ end = datetime.date(2023, 12,31)
 
 
 <p>Deep Seek的思考过程很长，这里略过了。我们直接看它的答案。磁盘读写对速度的影响并不大，所以，我们先把数据从磁盘中加载出来，保存到barss中：</p>
-<pre><code class="language-python">with open(os.path.join(data_home, &quot;bars_1d_2005_2023.pkl&quot;), &quot;rb&quot;) as f:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(os.path.join(data_home, <span class="hljs-string">&quot;bars_1d_2005_2023.pkl&quot;</span>), <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
     data = pickle.load(f)
 
 dfs = []
-for symbol, bars in data.items():
+<span class="hljs-keyword">for</span> symbol, bars <span class="hljs-keyword">in</span> data.items():
     df = pd.DataFrame(bars)
-    df[&quot;asset&quot;] = symbol
-    df = df.rename(columns={&quot;frame&quot;: &quot;date&quot;})
+    df[<span class="hljs-string">&quot;asset&quot;</span>] = symbol
+    df = df.rename(columns={<span class="hljs-string">&quot;frame&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>})
     dfs.append(df)
 
-barss = pd.concat(dfs,ignore_index=True).set_index([&quot;date&quot;, &quot;asset&quot;]).sort_index()
-print(len(barss))
+barss = pd.concat(dfs,ignore_index=<span class="hljs-literal">True</span>).set_index([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>]).sort_index()
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(barss))
 
-# 定义一个一致的universe，便于比较
-universe = barss.index.get_level_values(&quot;asset&quot;).unique().tolist()
-</code></pre>
+<span class="hljs-comment"># 定义一个一致的universe，便于比较</span>
+universe = barss.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).unique().tolist()</span></code></pre>
 <p>以下的代码都出自于 Deep Seek。我们让它对最耗时的筛选和复权部分给出方案：</p>
 <h2 id="基于pandas的实现">基于Pandas的实现</h2>
-<pre><code class="language-python">def adjust_pandas(df, selected_symbols, start, end):
-    # 筛选数据
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">adjust_pandas</span>(<span class="hljs-params">df, selected_symbols, start, end</span>):
+    <span class="hljs-comment"># 筛选数据</span>
     idx = pd.IndexSlice
     filtered = df.loc[idx[start:end, selected_symbols], :]
     
-    # 按 asset 分组计算最后复权因子
-    grouped = filtered.groupby(&#39;asset&#39;, group_keys=False)
-    last_factor = grouped[&#39;factor&#39;].transform(&#39;last&#39;)
+    <span class="hljs-comment"># 按 asset 分组计算最后复权因子</span>
+    grouped = filtered.groupby(<span class="hljs-string">&#x27;asset&#x27;</span>, group_keys=<span class="hljs-literal">False</span>)
+    last_factor = grouped[<span class="hljs-string">&#x27;factor&#x27;</span>].transform(<span class="hljs-string">&#x27;last&#x27;</span>)
     
-    # 计算调整比例
-    ratio = filtered[&#39;factor&#39;] / last_factor
+    <span class="hljs-comment"># 计算调整比例</span>
+    ratio = filtered[<span class="hljs-string">&#x27;factor&#x27;</span>] / last_factor
     
-    # 计算复权后字段
+    <span class="hljs-comment"># 计算复权后字段</span>
     adjusted = filtered.assign(
-        open   = filtered[&#39;open&#39;] * ratio,
-        high   = filtered[&#39;high&#39;] * ratio,
-        low    = filtered[&#39;low&#39;] * ratio,
-        close  = filtered[&#39;close&#39;] * ratio,
-        volume = filtered[&#39;volume&#39;] * (last_factor / filtered[&#39;factor&#39;])
+        <span class="hljs-built_in">open</span>   = filtered[<span class="hljs-string">&#x27;open&#x27;</span>] * ratio,
+        high   = filtered[<span class="hljs-string">&#x27;high&#x27;</span>] * ratio,
+        low    = filtered[<span class="hljs-string">&#x27;low&#x27;</span>] * ratio,
+        close  = filtered[<span class="hljs-string">&#x27;close&#x27;</span>] * ratio,
+        volume = filtered[<span class="hljs-string">&#x27;volume&#x27;</span>] * (last_factor / filtered[<span class="hljs-string">&#x27;factor&#x27;</span>])
     )
     
-    # 选择最终列并保持索引
-    return adjusted[[&#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;close&#39;, &#39;volume&#39;, &#39;amount&#39;]]
+    <span class="hljs-comment"># 选择最终列并保持索引</span>
+    <span class="hljs-keyword">return</span> adjusted[[<span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;high&#x27;</span>, <span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-string">&#x27;volume&#x27;</span>, <span class="hljs-string">&#x27;amount&#x27;</span>]]
 
 %time adjust_pandas(barss, universe, start, end)
-adjust_pandas(barss, universe, start, end)
-</code></pre>
+adjust_pandas(barss, universe, start, end)</span></code></pre>
 <p>尽管我对Pandas很熟悉了，但仍有一些API是不知道的，比如transform。但运用正确的API，恰恰是 Python中提升性能的关键一招。</p>
 <p>这个版本的平均运行时长是7秒。说明pandas的筛选确实很慢。</p>
 <p>我们略过pyarrow的版本。pyarrow版本的运行时间大致是3.7秒左右。比原始版本只略有进步。这里也看出python 3.11中，for loop的运行速度已经很快了。</p>
 <h2 id="基于polars的实现">基于Polars的实现</h2>
 <p>这是它给出的polars的版本：</p>
-<pre><code class="language-python">import polars as pl
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">import</span> polars <span class="hljs-keyword">as</span> pl
 
-def adjust_polars(df, selected_symbols, start, end):
-    # 筛选数据
-    filtered = df.filter(
-        (pl.col(&quot;date&quot;).is_between(start, end)) &amp;
-        (pl.col(&quot;asset&quot;).is_in(selected_symbols))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">adjust_polars</span>(<span class="hljs-params">df, selected_symbols, start, end</span>):
+    <span class="hljs-comment"># 筛选数据</span>
+    filtered = df.<span class="hljs-built_in">filter</span>(
+        (pl.col(<span class="hljs-string">&quot;date&quot;</span>).is_between(start, end)) &amp;
+        (pl.col(<span class="hljs-string">&quot;asset&quot;</span>).is_in(selected_symbols))
     )
     
-    # 计算最后复权因子和调整比例
+    <span class="hljs-comment"># 计算最后复权因子和调整比例</span>
     adjusted = filtered.with_columns(
-        last_factor = pl.col(&quot;factor&quot;).last().over(&quot;asset&quot;)
+        last_factor = pl.col(<span class="hljs-string">&quot;factor&quot;</span>).last().over(<span class="hljs-string">&quot;asset&quot;</span>)
     ).with_columns(
-        ratio = pl.col(&quot;factor&quot;) / pl.col(&quot;last_factor&quot;),
-        volume_ratio = pl.col(&quot;last_factor&quot;) / pl.col(&quot;factor&quot;)
+        ratio = pl.col(<span class="hljs-string">&quot;factor&quot;</span>) / pl.col(<span class="hljs-string">&quot;last_factor&quot;</span>),
+        volume_ratio = pl.col(<span class="hljs-string">&quot;last_factor&quot;</span>) / pl.col(<span class="hljs-string">&quot;factor&quot;</span>)
     ).with_columns(
-        open   = pl.col(&quot;open&quot;) * pl.col(&quot;ratio&quot;),
-        high   = pl.col(&quot;high&quot;) * pl.col(&quot;ratio&quot;),
-        low    = pl.col(&quot;low&quot;) * pl.col(&quot;ratio&quot;),
-        close  = pl.col(&quot;close&quot;) * pl.col(&quot;ratio&quot;),
-        volume = pl.col(&quot;volume&quot;) * pl.col(&quot;volume_ratio&quot;)
+        <span class="hljs-built_in">open</span>   = pl.col(<span class="hljs-string">&quot;open&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        high   = pl.col(<span class="hljs-string">&quot;high&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        low    = pl.col(<span class="hljs-string">&quot;low&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        close  = pl.col(<span class="hljs-string">&quot;close&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        volume = pl.col(<span class="hljs-string">&quot;volume&quot;</span>) * pl.col(<span class="hljs-string">&quot;volume_ratio&quot;</span>)
     )
     
-    # 选择最终列
-    return adjusted.select([&quot;date&quot;, &quot;asset&quot;, &quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;volume&quot;, &quot;amount&quot;])
+    <span class="hljs-comment"># 选择最终列</span>
+    <span class="hljs-keyword">return</span> adjusted.select([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;volume&quot;</span>, <span class="hljs-string">&quot;amount&quot;</span>])
 
-adjust_polars(barss, universe, start, end)
-</code></pre>
+adjust_polars(barss, universe, start, end)</span></code></pre>
 <p>之前我并不熟悉Polars，Deep Seek一下子扩展了我的能力边界。如果我要通过自学，然后来实现这部分功能，我不知道要多久才能发现<code>.over</code>这个API，因为这是 Polars 独有的一个窗口运算API，我无法把知识从我熟悉的Pandas中迁移过来。</p>
 <p>但是，这个版本有一个错误：它没有遵从我给的数据格式，而是把barss当成了一个有asset和date列的polars DataFrame。通过使用通义灵码，修正了此错误，修正后的代码如下：</p>
-<pre><code class="language-python">%time adjust_polars(pl.from_pandas(barss.reset_index()), universe, start, end)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%time adjust_polars(pl.from_pandas(barss.reset_index()), universe, start, end)</span></code></pre>
 <p>得到的运行速度是1.01秒，已很接近我们要求的理想速度了。</p>
 <h2 id="基于duckdb的实现">基于DuckDB的实现</h2>
 <p>现在，我们来看它给出的duckdb的版本：</p>
-<pre><code class="language-python">import duckdb
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span></span><span class="cl-body"><span class="hljs-keyword">import</span> duckdb
 
-def adjust_duckdb(df, selected_symbols, start, end):
-    query = f&quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">adjust_duckdb</span>(<span class="hljs-params">df, selected_symbols, start, end</span>):
+    query = <span class="hljs-string">f&quot;&quot;&quot;
     SELECT 
         date, asset,
         open * (factor / last_factor) AS open,
@@ -217,17 +210,15 @@ def adjust_duckdb(df, selected_symbols, start, end):
             ) AS last_factor
         FROM df
         WHERE 
-            asset IN ({&#39;,&#39;.join([f&quot;&#39;{s}&#39;&quot; for s in selected_symbols])})
-            AND date BETWEEN &#39;{start}&#39; AND &#39;{end}&#39;
+            asset IN (<span class="hljs-subst">{<span class="hljs-string">&#x27;,&#x27;</span>.join([<span class="hljs-string">f&quot;&#x27;<span class="hljs-subst">{s}</span>&#x27;&quot;</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> selected_symbols])}</span>)
+            AND date BETWEEN &#x27;<span class="hljs-subst">{start}</span>&#x27; AND &#x27;<span class="hljs-subst">{end}</span>&#x27;
     )
-    &quot;&quot;&quot;
-    return duckdb.query(query).to_df()
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> duckdb.query(query).to_df()
 
-adjust_duckdb(barss, universe, start, end)
-</code></pre>
+adjust_duckdb(barss, universe, start, end)</span></code></pre>
 <p>这里也会出现一个类似的错误，即查询语句需要df中存在asset, date列，但它们却出现在索引中。我们略作修正即可运行：</p>
-<pre><code class="language-python">%time adjust_duckdb(barss.reset_index(), universe, start, end)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%time adjust_duckdb(barss.reset_index(), universe, start, end)</span></code></pre>
 <p>最终运行速度是1.21秒，在这个例子中略慢于polars，在所有方案中排在第二（在另一台机器，使用机械阵列硬盘时，更强的CPU时， duckdb更快）。但是，duckdb方案在数据规模上可能更有优势，即，如果数据集再大一到两个量级，它很可能超过polars。</p>
 <p>在polars与duckdb中，需要的都是扁平结果的数据结构（即asset/date不作为索引，而是作为列字段存在），因此，我们可以考虑将数据结构进行重构，使用apache parquet格式写入到磁盘中，这样可以保存整个方案耗时仍保持在1秒左右。</p>
 <h2 id="终极咒语急急如律令">终极咒语：急急如律令</h2>
@@ -240,83 +231,80 @@ adjust_duckdb(barss, universe, start, end)
 我有一个dataframe，以date和asset为联合索引，有open, high, low, close, volume, amount和factor等列。其中factor是复权因子。
 </div>
 
-<pre><code>现在，要对该数据结构实现以下功能：
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">现在，要对该数据结构实现以下功能：
 
-1. 筛选出asset 在 selected_symbols列表中，date在[start, end]中的记录
-2. 对这些记录，按asset进行分组，然后对 open, high, low, close, volume进行前复权。
-3. 结果用dataframe返回，索引仍为date/asset，列为复权后的open, high,low, close, volume字段，以及未处理的amount。
+<span class="hljs-number">1.</span> 筛选出asset 在 selected_symbols列表中，<span class="hljs-type">date</span>在[<span class="hljs-keyword">start</span>, <span class="hljs-keyword">end</span>]中的记录
+<span class="hljs-number">2.</span> 对这些记录，按asset进行分组，然后对 <span class="hljs-keyword">open</span>, high, low, <span class="hljs-keyword">close</span>, volume进行前复权。
+<span class="hljs-number">3.</span> 结果用dataframe返回，索引仍为<span class="hljs-type">date</span><span class="hljs-operator">/</span>asset，列为复权后的<span class="hljs-keyword">open</span>, high,low, <span class="hljs-keyword">close</span>, volume字段，以及未处理的amount。
 
-输入数据是1000万条以上，时间跨度是2005年到2023年，到2023年底，大约有5000支股票。输出结果将包含2000支股票的2005年到2023年的数据。请给出基于python，能在1秒左右实现上述功能的方案。
-</code></pre>
+输入数据是<span class="hljs-number">1000</span>万条以上，时间跨度是<span class="hljs-number">2005</span>年到<span class="hljs-number">2023</span>年，到<span class="hljs-number">2023</span>年底，大约有<span class="hljs-number">5000</span>支股票。输出结果将包含<span class="hljs-number">2000</span>支股票的<span class="hljs-number">2005</span>年到<span class="hljs-number">2023</span>年的数据。请给出基于python，能在<span class="hljs-number">1</span>秒左右实现上述功能的方案。</span></code></pre>
 <p>这一次，我们只要求技术方案限定在Python领域内，给了Deep Seek极大的发挥空间。</p>
 <p>Deep Seek不仅给出了代码，还给出了『评测报告』，认为它给出的方案，能在某个CPU+内存组合上达到我们要求的速度。</p>
 <p>Deep Seek认为，对于千万条记录级别的数据集，必须使用像parallel pandas这样的库来进行并行化才能达成目标。<strong>事实上这个认知是错误的</strong>。</p>
 <p>这一次Deep Seek给出的代码可运行度不高，我们没法验证基于并行化之后，速度是不是真的更快了。不过，令人印象深刻的是，它还给出了一个performance benchmark。这是它自己GAN出来的，还是真有人做过类似的测试，或者是从类似的规模推导出来的，就不得而知了。</p>
 <p>重要的是，在给了Deek Seek更大的自由发挥空间之后，它找出了之前在筛选时，性能糟糕的重要原因： asset是字符串类型！</p>
 <p>在海量记录中进行字符串搜索是相当慢的。在pandas中，我们可以将整数转换为category类型，此后的筛选就快很多了：</p>
-<pre><code class="language-python">import pyarrow as pa
-import pyarrow.parquet as pq
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pyarrow <span class="hljs-keyword">as</span> pa
+<span class="hljs-keyword">import</span> pyarrow.parquet <span class="hljs-keyword">as</span> pq
 
 data_home = os.path.expanduser(data_home)
-origin_data_file = os.path.join(data_home, &quot;bars_1d_2005_2023.pkl&quot;)
-with open(origin_data_file, &#39;rb&#39;) as f:
+origin_data_file = os.path.join(data_home, <span class="hljs-string">&quot;bars_1d_2005_2023.pkl&quot;</span>)
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(origin_data_file, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:
     data = pickle.load(f)
 
 dfs = []
-for symbol, bars in data.items():
+<span class="hljs-keyword">for</span> symbol, bars <span class="hljs-keyword">in</span> data.items():
     df = pd.DataFrame(bars)
-    df[&quot;asset&quot;] = symbol
-    df = df.rename(columns={&quot;frame&quot;: &quot;date&quot;})
+    df[<span class="hljs-string">&quot;asset&quot;</span>] = symbol
+    df = df.rename(columns={<span class="hljs-string">&quot;frame&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>})
     dfs.append(df)
 
-barss = pd.concat(dfs,ignore_index=True)
-barss[&#39;asset&#39;] = barss[&#39;asset&#39;].astype(&#39;category&#39;)
-print(len(barss))
+barss = pd.concat(dfs,ignore_index=<span class="hljs-literal">True</span>)
+barss[<span class="hljs-string">&#x27;asset&#x27;</span>] = barss[<span class="hljs-string">&#x27;asset&#x27;</span>].astype(<span class="hljs-string">&#x27;category&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(barss))
 
 table = pa.Table.from_pandas(barss)
 
-parquet_file_path = &quot;/tmp/bars_1d_2005_2023_category.parquet&quot;
+parquet_file_path = <span class="hljs-string">&quot;/tmp/bars_1d_2005_2023_category.parquet&quot;</span>
 
-with open(parquet_file_path, &#39;wb&#39;) as f:
-    pq.write_table(table, f)
-</code></pre>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(parquet_file_path, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+    pq.write_table(table, f)</span></code></pre>
 <p>现在，我们再来看polars或者duckdb的方案的速度：</p>
-<pre><code class="language-python">import polars as pl
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span></span><span class="cl-body"><span class="hljs-keyword">import</span> polars <span class="hljs-keyword">as</span> pl
 
-def adjust_polars(df, selected_symbols, start, end):
-    # 筛选数据
-    filtered = df.filter(
-        (pl.col(&quot;date&quot;).is_between(start, end)) &amp;
-        (pl.col(&quot;asset&quot;).is_in(selected_symbols))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">adjust_polars</span>(<span class="hljs-params">df, selected_symbols, start, end</span>):
+    <span class="hljs-comment"># 筛选数据</span>
+    filtered = df.<span class="hljs-built_in">filter</span>(
+        (pl.col(<span class="hljs-string">&quot;date&quot;</span>).is_between(start, end)) &amp;
+        (pl.col(<span class="hljs-string">&quot;asset&quot;</span>).is_in(selected_symbols))
     )
     
-    # 计算最后复权因子和调整比例
+    <span class="hljs-comment"># 计算最后复权因子和调整比例</span>
     adjusted = filtered.with_columns(
-        last_factor = pl.col(&quot;factor&quot;).last().over(&quot;asset&quot;)
+        last_factor = pl.col(<span class="hljs-string">&quot;factor&quot;</span>).last().over(<span class="hljs-string">&quot;asset&quot;</span>)
     ).with_columns(
-        ratio = pl.col(&quot;factor&quot;) / pl.col(&quot;last_factor&quot;),
-        volume_ratio = pl.col(&quot;last_factor&quot;) / pl.col(&quot;factor&quot;)
+        ratio = pl.col(<span class="hljs-string">&quot;factor&quot;</span>) / pl.col(<span class="hljs-string">&quot;last_factor&quot;</span>),
+        volume_ratio = pl.col(<span class="hljs-string">&quot;last_factor&quot;</span>) / pl.col(<span class="hljs-string">&quot;factor&quot;</span>)
     ).with_columns(
-        open   = pl.col(&quot;open&quot;) * pl.col(&quot;ratio&quot;),
-        high   = pl.col(&quot;high&quot;) * pl.col(&quot;ratio&quot;),
-        low    = pl.col(&quot;low&quot;) * pl.col(&quot;ratio&quot;),
-        close  = pl.col(&quot;close&quot;) * pl.col(&quot;ratio&quot;),
-        volume = pl.col(&quot;volume&quot;) * pl.col(&quot;volume_ratio&quot;)
+        <span class="hljs-built_in">open</span>   = pl.col(<span class="hljs-string">&quot;open&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        high   = pl.col(<span class="hljs-string">&quot;high&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        low    = pl.col(<span class="hljs-string">&quot;low&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        close  = pl.col(<span class="hljs-string">&quot;close&quot;</span>) * pl.col(<span class="hljs-string">&quot;ratio&quot;</span>),
+        volume = pl.col(<span class="hljs-string">&quot;volume&quot;</span>) * pl.col(<span class="hljs-string">&quot;volume_ratio&quot;</span>)
     )
     
-    # 选择最终列
-    return adjusted.select([pl.col(&quot;date&quot;), pl.col(&quot;asset&quot;), pl.col(&quot;open&quot;), pl.col(&quot;high&quot;), pl.col(&quot;low&quot;), pl.col(&quot;close&quot;), pl.col(&quot;volume&quot;), pl.col(&quot;amount&quot;)])
+    <span class="hljs-comment"># 选择最终列</span>
+    <span class="hljs-keyword">return</span> adjusted.select([pl.col(<span class="hljs-string">&quot;date&quot;</span>), pl.col(<span class="hljs-string">&quot;asset&quot;</span>), pl.col(<span class="hljs-string">&quot;open&quot;</span>), pl.col(<span class="hljs-string">&quot;high&quot;</span>), pl.col(<span class="hljs-string">&quot;low&quot;</span>), pl.col(<span class="hljs-string">&quot;close&quot;</span>), pl.col(<span class="hljs-string">&quot;volume&quot;</span>), pl.col(<span class="hljs-string">&quot;amount&quot;</span>)])
 
-# 示例调用
-start = datetime.date(2005, 1, 1)
-end = datetime.date(2023, 12, 31)
+<span class="hljs-comment"># 示例调用</span>
+start = datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
 
-barss = pl.read_parquet(&quot;/tmp/bars_1d_2005_2023_category.parquet&quot;)
+barss = pl.read_parquet(<span class="hljs-string">&quot;/tmp/bars_1d_2005_2023_category.parquet&quot;</span>)
 
-universe = random.sample(barss[&#39;asset&#39;].unique().to_list(), 2000)
+universe = random.sample(barss[<span class="hljs-string">&#x27;asset&#x27;</span>].unique().to_list(), <span class="hljs-number">2000</span>)
 
-%time adjust_polars(barss, universe, start, end)
-</code></pre>
+%time adjust_polars(barss, universe, start, end)</span></code></pre>
 <p>结果是只需要91ms，令人印象深刻。duckdb的方案需要390ms，可能是因为我们需要在Python域拼接大量的selected_symbols字符串的原因。</p>
 <p>借助 Deep Seek，我们把一个需要5秒左右的操作，加速到了0.1秒，速度提升了50倍。</p>
 <p><em>本文测试都在一台mac m1机器上运行，RAM是16GB</em>。当运行在其它机器上，因CPU，RAM及硬盘类型不同，数据表现甚至排名都会有所不同_。</p>

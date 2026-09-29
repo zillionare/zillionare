@@ -18,54 +18,51 @@
 <p>声明：本文发布的目的是为了分享如何解决将研报策略实现为代码的技术问题，请勿以此作为投资决策。</p>
 <h2 id="未来数据">未来数据</h2>
 <p>在我们昨天的研报复现中，实际上是有一点使用未来数据的嫌疑的。问题出在下面的代码中：</p>
-<pre><code class="language-{code-block}">df = df.copy()
-df[&#39;slope&#39;] = (df[factor_col].rolling(slope_window)
+<pre><code class="hljs language-{code-block} python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-built_in">df</span> = df.copy()
+<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;slope&#x27;</span>] = (<span class="hljs-built_in">df</span>[factor_col].rolling(slope_window)
                 .apply(lambda x: np.polyfit(np.arange(slope_window), x, 1)[0]))
 
-df[&#39;signal&#39;] = 0
-df.loc[df[&#39;slope&#39;] &gt; 0, &#39;signal&#39;] = 1
-df.loc[df[&#39;slope&#39;] &lt; 0, &#39;signal&#39;] = -1
+<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;signal&#x27;</span>] = 0
+df.loc[<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;slope&#x27;</span>] &gt; 0, <span class="hljs-string">&#x27;signal&#x27;</span>] = 1
+df.loc[<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;slope&#x27;</span>] &lt; 0, <span class="hljs-string">&#x27;signal&#x27;</span>] = -1
 
-# 计算每日收益率
-df[&#39;benchmark&#39;] = df[&#39;close&#39;].pct_change()
+<span class="hljs-comment"># 计算每日收益率</span>
+<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;benchmark&#x27;</span>] = <span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()
 
-# 计算多空组合收益
-df[&#39;long_return&#39;] = np.where(df[&#39;signal&#39;] == 1, df[&#39;benchmark&#39;], 0)
-df[&#39;short_return&#39;] = np.where(df[&#39;signal&#39;] == -1, -df[&#39;benchmark&#39;], 0)
+<span class="hljs-comment"># 计算多空组合收益</span>
+<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;long_return&#x27;</span>] = np.where(<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;signal&#x27;</span>] == 1, <span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;benchmark&#x27;</span>], 0)
+<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;short_return&#x27;</span>] = np.where(<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;signal&#x27;</span>] == -1, -<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;benchmark&#x27;</span>], 0)
 
-# 组合收益 = 多头收益 * 多头权重 + 空头收益 * 空头权重
-df[&#39;strategy&#39;] = df[&#39;long_return&#39;] * long_weight + df[&#39;short_return&#39;] * short_weight
+<span class="hljs-comment"># 组合收益 = 多头收益 * 多头权重 + 空头收益 * 空头权重</span>
+<span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;strategy&#x27;</span>] = <span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;long_return&#x27;</span>] * long_weight + <span class="hljs-built_in">df</span>[<span class="hljs-string">&#x27;short_return&#x27;</span>] * short_weight
 
-return df
-</code></pre>
+<span class="hljs-built_in">return</span> <span class="hljs-built_in">df</span></span></code></pre>
 <p>如果把signal看成因子，那么这段代码里，因子与远期回报是按时间对齐的，而不是错位对齐的。即，代码把$T_0$日的收益归因为$T_0$日的因子。而$T_0$日收益的确切含义是，你要在$T_{-1}$日买入，在$T_0$日卖出，才能计算出来。这当然是错误的。</p>
 <p>如果今天股价上涨，那么均线的切线就可能方向向上，从而 signal = 1；如果今天股价下跌，均线切线就有可能方向向下，从而 signal = -1。这两种情况都被不合理的计入了组合收益。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 按照研报，它是这样建仓的：
 </div>
 
-<pre><code>![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250717143703.png)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250717143703.png)</span></code></pre>
 <p>这句话虽然没有包含实现细节，但本质上也是包含了未来数据的，不过它的副作用会小一点：它只是要求在收盘后，根据收盘价计算出来趋势线切线斜率和信号后，再以收盘价买入。</p>
 <p>尽管这也有一点点未来数据的含义，但在实践中是允许的，因为理论上你可以赶在尾盘集合竞价时计算信号并买入：这样你计算信号时使用的价格，与最终的收盘价相差并不大，很可能就是一个滑点的价格。在一些回测工具中，也是允许这样做的。比如，backtrader 就允许以当天收盘价买入，只要你声明允许 COC(Cheat on Close)。</p>
 <h2 id="修正算法">修正算法</h2>
 <p>现在，我们来修正上述代码的错误，我们先考虑能否连带研报中的Cheat on Close这个小小的瑕疵也规避了？</p>
-<pre><code class="language-python">def backtest(df, calc_signal, args, 
-             price: str = &quot;open&quot;, 
-             long_weight: float = 0.5, 
-             short_weight: float = 0.5):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">backtest</span>(<span class="hljs-params">df, calc_signal, args, 
+             price: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;open&quot;</span>, 
+             long_weight: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.5</span>, 
+             short_weight: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.5</span></span>):
     df = df.copy()
-    df[&quot;signal&quot;] = calc_signal(df, *args)
-    df[&quot;signal&quot;] = df[&quot;signal&quot;].fillna(0)
-    df[&quot;signal_shifted&quot;] = df[&quot;signal&quot;].shift(1)
-    df[&quot;benchmark&quot;] = df[price].pct_change()
+    df[<span class="hljs-string">&quot;signal&quot;</span>] = calc_signal(df, *args)
+    df[<span class="hljs-string">&quot;signal&quot;</span>] = df[<span class="hljs-string">&quot;signal&quot;</span>].fillna(<span class="hljs-number">0</span>)
+    df[<span class="hljs-string">&quot;signal_shifted&quot;</span>] = df[<span class="hljs-string">&quot;signal&quot;</span>].shift(<span class="hljs-number">1</span>)
+    df[<span class="hljs-string">&quot;benchmark&quot;</span>] = df[price].pct_change()
     
-    df[&#39;long_return&#39;] = np.where(df[&#39;signal_shifted&#39;] == 1, df[&#39;benchmark&#39;], 0)
-    df[&#39;short_return&#39;] = np.where(df[&#39;signal_shifted&#39;] == -1, -df[&#39;benchmark&#39;], 0)
-    df[&quot;long_short_return&quot;] = df[&#39;long_return&#39;] * long_weight + df[&#39;short_return&#39;] * short_weight
+    df[<span class="hljs-string">&#x27;long_return&#x27;</span>] = np.where(df[<span class="hljs-string">&#x27;signal_shifted&#x27;</span>] == <span class="hljs-number">1</span>, df[<span class="hljs-string">&#x27;benchmark&#x27;</span>], <span class="hljs-number">0</span>)
+    df[<span class="hljs-string">&#x27;short_return&#x27;</span>] = np.where(df[<span class="hljs-string">&#x27;signal_shifted&#x27;</span>] == -<span class="hljs-number">1</span>, -df[<span class="hljs-string">&#x27;benchmark&#x27;</span>], <span class="hljs-number">0</span>)
+    df[<span class="hljs-string">&quot;long_short_return&quot;</span>] = df[<span class="hljs-string">&#x27;long_return&#x27;</span>] * long_weight + df[<span class="hljs-string">&#x27;short_return&#x27;</span>] * short_weight
     
-    return df
-</code></pre>
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <p>与上一版相比，重要的区别有两点：</p>
 <ol>
 <li>我们将信号后移了一行（而不是向前！）。这样在计算仓位时，如果前一天信号为 1，我们就用这个 1 来乘以当天的涨跌幅。</li>
@@ -95,44 +92,43 @@ return df
 
 <!--PAID CONTENT START-->
 <p>这是计算llt与切线斜率，生成信号的代码。与前一篇相比，我们增加了thresh参数，将会在调优中使用。</p>
-<pre><code class="language-python">def calculate_llt(prices, alpha=0.05):
-    # 转换为numpy数组以避免pandas索引问题
-    if hasattr(prices, &#39;values&#39;):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_llt</span>(<span class="hljs-params">prices, alpha=<span class="hljs-number">0.05</span></span>):
+    <span class="hljs-comment"># 转换为numpy数组以避免pandas索引问题</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">hasattr</span>(prices, <span class="hljs-string">&#x27;values&#x27;</span>):
         prices = prices.values
     
-    n = len(prices)
+    n = <span class="hljs-built_in">len</span>(prices)
     llt = np.zeros(n)
-    if n &gt;= 1:
-        llt[0] = prices[0]
-    if n &gt;= 2:
-        llt[1] = prices[1]
+    <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">1</span>:
+        llt[<span class="hljs-number">0</span>] = prices[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">2</span>:
+        llt[<span class="hljs-number">1</span>] = prices[<span class="hljs-number">1</span>]
     
-    a1 = alpha - (alpha**2) / 4
-    a2 = (alpha**2) / 2
-    a3 = alpha - 3 * (alpha**2) / 4
-    a4 = 2 * (1 - alpha)
-    a5 = - (1 - alpha)**2
+    a1 = alpha - (alpha**<span class="hljs-number">2</span>) / <span class="hljs-number">4</span>
+    a2 = (alpha**<span class="hljs-number">2</span>) / <span class="hljs-number">2</span>
+    a3 = alpha - <span class="hljs-number">3</span> * (alpha**<span class="hljs-number">2</span>) / <span class="hljs-number">4</span>
+    a4 = <span class="hljs-number">2</span> * (<span class="hljs-number">1</span> - alpha)
+    a5 = - (<span class="hljs-number">1</span> - alpha)**<span class="hljs-number">2</span>
     
-    for t in range(2, n):
-        llt[t] = a1 * prices[t] + a2 * prices[t-1] - a3 * prices[t-2] + a4 * llt[t-1] + a5 * llt[t-2]
+    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, n):
+        llt[t] = a1 * prices[t] + a2 * prices[t-<span class="hljs-number">1</span>] - a3 * prices[t-<span class="hljs-number">2</span>] + a4 * llt[t-<span class="hljs-number">1</span>] + a5 * llt[t-<span class="hljs-number">2</span>]
     
-    return llt
+    <span class="hljs-keyword">return</span> llt
 
-# 信号计算函数
-def llt_slope_signal(df, d: int=39, slope_window=5, thresh=(0, 0)):
+<span class="hljs-comment"># 信号计算函数</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">llt_slope_signal</span>(<span class="hljs-params">df, d: <span class="hljs-built_in">int</span>=<span class="hljs-number">39</span>, slope_window=<span class="hljs-number">5</span>, thresh=(<span class="hljs-params"><span class="hljs-number">0</span>, <span class="hljs-number">0</span></span>)</span>):
     df = df.copy()
-    alpha = 2 / (d + 1)
-    df[&quot;llt&quot;] = calculate_llt(df[&quot;close&quot;], alpha)
-    df[&#39;slope&#39;] = (df[&quot;llt&quot;].rolling(slope_window)
-                    .apply(lambda x: np.polyfit(np.arange(slope_window), x, 1)[0]))
+    alpha = <span class="hljs-number">2</span> / (d + <span class="hljs-number">1</span>)
+    df[<span class="hljs-string">&quot;llt&quot;</span>] = calculate_llt(df[<span class="hljs-string">&quot;close&quot;</span>], alpha)
+    df[<span class="hljs-string">&#x27;slope&#x27;</span>] = (df[<span class="hljs-string">&quot;llt&quot;</span>].rolling(slope_window)
+                    .apply(<span class="hljs-keyword">lambda</span> x: np.polyfit(np.arange(slope_window), x, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]))
     
-    signals = pd.Series(0, index=df.index)
-    signals[df[&#39;slope&#39;] &gt; thresh[1]] = 1
-    signals[df[&#39;slope&#39;] &lt; thresh[0]] = -1
-    signals.ffill(inplace = True)
+    signals = pd.Series(<span class="hljs-number">0</span>, index=df.index)
+    signals[df[<span class="hljs-string">&#x27;slope&#x27;</span>] &gt; thresh[<span class="hljs-number">1</span>]] = <span class="hljs-number">1</span>
+    signals[df[<span class="hljs-string">&#x27;slope&#x27;</span>] &lt; thresh[<span class="hljs-number">0</span>]] = -<span class="hljs-number">1</span>
+    signals.ffill(inplace = <span class="hljs-literal">True</span>)
     
-    return signals
-</code></pre>
+    <span class="hljs-keyword">return</span> signals</span></code></pre>
 <!--PAID CONTENT END-->
 
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
@@ -140,63 +136,62 @@ def llt_slope_signal(df, d: int=39, slope_window=5, thresh=(0, 0)):
 </div>
 
 <p>这是回测策略类：</p>
-<pre><code class="language-python">import backtrader as bt
-class LLTStrategy(bt.Strategy):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span></span><span class="cl-body"><span class="hljs-keyword">import</span> backtrader <span class="hljs-keyword">as</span> bt
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">LLTStrategy</span>(bt.Strategy):
     params = (
-        (&#39;d&#39;, 39),
-        (&#39;slope_window&#39;, 5), 
-        (&#39;position_ratio&#39;, 1),
-        (&#39;thresh&#39;, (0, 0))
+        (<span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-number">39</span>),
+        (<span class="hljs-string">&#x27;slope_window&#x27;</span>, <span class="hljs-number">5</span>), 
+        (<span class="hljs-string">&#x27;position_ratio&#x27;</span>, <span class="hljs-number">1</span>),
+        (<span class="hljs-string">&#x27;thresh&#x27;</span>, (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>))
     )
     
-    def __init__(self):
-        self.order_dict = {}
-        self.signals = llt_slope_signal(
-            self.data._dataname,
-            d=self.p.d,
-            slope_window=self.p.slope_window,
-            thresh=self.p.thresh
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-variable language_">self</span>.order_dict = {}
+        <span class="hljs-variable language_">self</span>.signals = llt_slope_signal(
+            <span class="hljs-variable language_">self</span>.data._dataname,
+            d=<span class="hljs-variable language_">self</span>.p.d,
+            slope_window=<span class="hljs-variable language_">self</span>.p.slope_window,
+            thresh=<span class="hljs-variable language_">self</span>.p.thresh
         )
         
-        self._last_direction = 0
+        <span class="hljs-variable language_">self</span>._last_direction = <span class="hljs-number">0</span>
         
-        print(f&quot;策略初始化完成，信号数量: {len(self.signals)}&quot;)
-        print(f&quot;信号前20个值: {self.signals.head(20)}&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;策略初始化完成，信号数量: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(self.signals)}</span>&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;信号前20个值: <span class="hljs-subst">{self.signals.head(<span class="hljs-number">20</span>)}</span>&quot;</span>)
     
-    def next(self):
-        current_date = pd.Timestamp(self.data.datetime.date())
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">next</span>(<span class="hljs-params">self</span>):
+        current_date = pd.Timestamp(<span class="hljs-variable language_">self</span>.data.datetime.date())
         
-        current_signal = self.signals.loc[current_date]
-        position = self.getposition(self.data).size
+        current_signal = <span class="hljs-variable language_">self</span>.signals.loc[current_date]
+        position = <span class="hljs-variable language_">self</span>.getposition(<span class="hljs-variable language_">self</span>.data).size
         
-        if current_signal != 0:
-            print(f&quot;日期: {current_date}, 信号: {current_signal}, 当前持仓: {position}&quot;)
+        <span class="hljs-keyword">if</span> current_signal != <span class="hljs-number">0</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;日期: <span class="hljs-subst">{current_date}</span>, 信号: <span class="hljs-subst">{current_signal}</span>, 当前持仓: <span class="hljs-subst">{position}</span>&quot;</span>)
         
-        if current_signal == 1 and self._last_direction &lt;= 0:
-            order = self.order_target_percent(target=0.95)
-            if order:
-                print(f&quot;做多信号: {current_date.date()}&quot;)
-        elif current_signal == -1 and self._last_direction &gt;= 0:
-            order = self.order_target_percent(target=-0.95)
-            if order:
-                print(f&quot;做空信号: {current_date.date()}&quot;)
-        elif current_signal == 0 and position != 0:
-            order = self.order_target_percent(target=0.0)
-            if order:
-                print(f&quot;平仓信号: {current_date.date()}&quot;)
-        else:
-            pass
-</code></pre>
+        <span class="hljs-keyword">if</span> current_signal == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> <span class="hljs-variable language_">self</span>._last_direction &lt;= <span class="hljs-number">0</span>:
+            order = <span class="hljs-variable language_">self</span>.order_target_percent(target=<span class="hljs-number">0.95</span>)
+            <span class="hljs-keyword">if</span> order:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;做多信号: <span class="hljs-subst">{current_date.date()}</span>&quot;</span>)
+        <span class="hljs-keyword">elif</span> current_signal == -<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> <span class="hljs-variable language_">self</span>._last_direction &gt;= <span class="hljs-number">0</span>:
+            order = <span class="hljs-variable language_">self</span>.order_target_percent(target=-<span class="hljs-number">0.95</span>)
+            <span class="hljs-keyword">if</span> order:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;做空信号: <span class="hljs-subst">{current_date.date()}</span>&quot;</span>)
+        <span class="hljs-keyword">elif</span> current_signal == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> position != <span class="hljs-number">0</span>:
+            order = <span class="hljs-variable language_">self</span>.order_target_percent(target=<span class="hljs-number">0.0</span>)
+            <span class="hljs-keyword">if</span> order:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;平仓信号: <span class="hljs-subst">{current_date.date()}</span>&quot;</span>)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">pass</span></span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>我们省略回测调用代码，以节省篇幅。如果你需要这些代码，可以购买匡醍会员。如果你不太理解我们在讨论些啥，你应该报名匡醍的《量化24课》和《因子挖掘与机器学习策略》。</p>
 <!-- END IPYNB STRIPOUT -->
 
 <!--PAID CONTENT START-->
-<pre><code class="language-python">def run_backtest(data, d=39, 
-                 slope_window=5, 
-                 thresh=(0,0),
-                 initial_cash=1_000_0000, 
-                 commission=1e-4):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">run_backtest</span>(<span class="hljs-params">data, d=<span class="hljs-number">39</span>, 
+                 slope_window=<span class="hljs-number">5</span>, 
+                 thresh=(<span class="hljs-params"><span class="hljs-number">0</span>,<span class="hljs-number">0</span></span>),
+                 initial_cash=<span class="hljs-number">1_000_0000</span>, 
+                 commission=<span class="hljs-number">1e-4</span></span>):
     cerebro = bt.Cerebro()
 
     cerebro.broker.setcash(initial_cash)
@@ -207,63 +202,61 @@ class LLTStrategy(bt.Strategy):
     bt_data = bt.feeds.PandasData(dataname=data)
     cerebro.adddata(bt_data)
     
-    # 添加绩效分析器
-    cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name=&#39;sharpe&#39;)
-    cerebro.addanalyzer(bt.analyzers.DrawDown, _name=&#39;drawdown&#39;)
-    cerebro.addanalyzer(bt.analyzers.Returns, _name=&#39;returns&#39;)
+    <span class="hljs-comment"># 添加绩效分析器</span>
+    cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name=<span class="hljs-string">&#x27;sharpe&#x27;</span>)
+    cerebro.addanalyzer(bt.analyzers.DrawDown, _name=<span class="hljs-string">&#x27;drawdown&#x27;</span>)
+    cerebro.addanalyzer(bt.analyzers.Returns, _name=<span class="hljs-string">&#x27;returns&#x27;</span>)
     
-    # 运行回测
-    print(f&quot;初始资金: {cerebro.broker.getvalue():.2f}&quot;)
+    <span class="hljs-comment"># 运行回测</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;初始资金: <span class="hljs-subst">{cerebro.broker.getvalue():<span class="hljs-number">.2</span>f}</span>&quot;</span>)
     results = cerebro.run()
     final_value = cerebro.broker.getvalue()
-    print(f&quot;最终资金: {final_value:.2f}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最终资金: <span class="hljs-subst">{final_value:<span class="hljs-number">.2</span>f}</span>&quot;</span>)
     
-    # 输出绩效指标
-    strat = results[0]
+    <span class="hljs-comment"># 输出绩效指标</span>
+    strat = results[<span class="hljs-number">0</span>]
     returns = strat.analyzers.returns.get_analysis()
     sharpe = strat.analyzers.sharpe.get_analysis()
     drawdown = strat.analyzers.drawdown.get_analysis()
     
-    print(f&quot;夏普比率: {sharpe.get(&#39;sharperatio&#39;, 0):.2f}&quot;)
-    print(f&quot;最大回撤: {drawdown.get(&#39;max&#39;, {}).get(&#39;drawdown&#39;, 0):.2f}%&quot;)
-    print(f&quot;年化收益率: {returns.get(&#39;rnorm&#39;, 0):.2%}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;夏普比率: <span class="hljs-subst">{sharpe.get(<span class="hljs-string">&#x27;sharperatio&#x27;</span>, <span class="hljs-number">0</span>):<span class="hljs-number">.2</span>f}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最大回撤: <span class="hljs-subst">{drawdown.get(<span class="hljs-string">&#x27;max&#x27;</span>, {}</span>).get(&#x27;drawdown&#x27;, 0):.2f}%&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;年化收益率: <span class="hljs-subst">{returns.get(<span class="hljs-string">&#x27;rnorm&#x27;</span>, <span class="hljs-number">0</span>):<span class="hljs-number">.2</span>%}</span>&quot;</span>)
 
-    return returns.get(&#39;rnorm&#39;, 0), sharpe.get(&#39;sharperatio&#39;, 0), drawdown.get(&#39;max&#39;,{}).get(&#39;drawdown&#39;,0)
+    <span class="hljs-keyword">return</span> returns.get(<span class="hljs-string">&#x27;rnorm&#x27;</span>, <span class="hljs-number">0</span>), sharpe.get(<span class="hljs-string">&#x27;sharperatio&#x27;</span>, <span class="hljs-number">0</span>), drawdown.get(<span class="hljs-string">&#x27;max&#x27;</span>,{}).get(<span class="hljs-string">&#x27;drawdown&#x27;</span>,<span class="hljs-number">0</span>)
 
 
-def get_price(symbol, start_date, end_date):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_price</span>(<span class="hljs-params">symbol, start_date, end_date</span>):
     pro = pro_api()
 
     price_df = pro.index_daily(
         ts_code=symbol,
-        start_date=start_date.strftime(&quot;%Y%m%d&quot;),
-        end_date=end_date.strftime(&quot;%Y%m%d&quot;),
+        start_date=start_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>),
+        end_date=end_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>),
     )
 
     price_df = (
-        price_df.rename({&quot;trade_date&quot;: &quot;date&quot;, &quot;ts_code&quot;: &quot;asset&quot;}, axis=1)
-        .sort_values(&quot;date&quot;, ascending=True)
-        .set_index(&quot;date&quot;)
+        price_df.rename({<span class="hljs-string">&quot;trade_date&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>}, axis=<span class="hljs-number">1</span>)
+        .sort_values(<span class="hljs-string">&quot;date&quot;</span>, ascending=<span class="hljs-literal">True</span>)
+        .set_index(<span class="hljs-string">&quot;date&quot;</span>)
     )
 
     price_df.index = pd.to_datetime(price_df.index)
-    return price_df
+    <span class="hljs-keyword">return</span> price_df
 
-start = datetime.date(2005, 9, 6)
-end = datetime.date(2013, 6, 28)
-prices= get_price(&quot;000001.SH&quot;, start, end)
+start = datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">9</span>, <span class="hljs-number">6</span>)
+end = datetime.date(<span class="hljs-number">2013</span>, <span class="hljs-number">6</span>, <span class="hljs-number">28</span>)
+prices= get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
 
-run_backtest(prices, commission = 1e-3)
-</code></pre>
+run_backtest(prices, commission = <span class="hljs-number">1e-3</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>我们得到的结果是，年化收益11.8%，夏普0.4。会比基准略好一点。但是，如果我们对2013年之后的区间进行回测，会发现我们其实只是捡回来一条咬人的毒蛇：</p>
-<pre><code class="language-python">start = datetime.date(2013, 1, 1)
-end = datetime.date(2024, 12, 31)
-prices= get_price(&quot;000001.SH&quot;, start, end)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2013</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+prices= get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
 
-run_backtest(prices, commission=1e-3)
-</code></pre>
+run_backtest(prices, commission=<span class="hljs-number">1e-3</span>)</span></code></pre>
 <p>这次的年化是-6.4%，最大回撤79%。</p>
 <h2 id="backtrader参数优化">backtrader参数优化</h2>
 <p>我们应该对此失望吗？</p>
@@ -278,54 +271,52 @@ run_backtest(prices, commission=1e-3)
 <p>在仔细分析之后，我们发现信号翻转过于频繁。当切线斜率从-0.01 变化为 0.005 时，我们就要从空单马上变为多单？这显然不合理，我们应该过滤掉这种虚假的信号。切线斜率的计算本身，也受到 alpha 的影响。我们之前的回测中，使用的是 0.05,它会是最优的吗？</p>
 <p>我们决定使用 backtrader 自带的参数优化方案来帮我们调优。但是，调优可能出现过拟合，所以，我们最后还要分享如何判断调优的结果没有过拟合。</p>
 <p>我们先来定义优化函数。</p>
-<pre><code class="language-python">from IPython.display import clear_output
-def optimize(data, d, thresh):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span></span><span class="cl-body"><span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> clear_output
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">optimize</span>(<span class="hljs-params">data, d, thresh</span>):
     cerebro = bt.Cerebro()
 
-    cerebro.broker.setcash(1_000_0000)
-    # 万分之一的佣金。现在多数券商给到了万分之 0.854
-    cerebro.broker.setcommission(commission=0.0001)
+    cerebro.broker.setcash(<span class="hljs-number">1_000_0000</span>)
+    <span class="hljs-comment"># 万分之一的佣金。现在多数券商给到了万分之 0.854</span>
+    cerebro.broker.setcommission(commission=<span class="hljs-number">0.0001</span>)
     
     bt_data = bt.feeds.PandasData(dataname=data)
     cerebro.adddata(bt_data)
     
-    # 添加绩效分析
-    cerebro.addanalyzer(bt.analyzers.Returns, _name=&#39;returns&#39;)
+    <span class="hljs-comment"># 添加绩效分析</span>
+    cerebro.addanalyzer(bt.analyzers.Returns, _name=<span class="hljs-string">&#x27;returns&#x27;</span>)
     
     cerebro.optstrategy(LLTStrategy, d = d, thresh = thresh)
-    strats = cerebro.run(maxcpus = 1, optreturn = True)
+    strats = cerebro.run(maxcpus = <span class="hljs-number">1</span>, optreturn = <span class="hljs-literal">True</span>)
 
     clear_output()
 
     params_and_returns = []
-    for s in strats:
-        returns = s[0].analyzers.returns.get_analysis()
-        d, thresh = s[0].params.d, s[0].params.thresh[0]
+    <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> strats:
+        returns = s[<span class="hljs-number">0</span>].analyzers.returns.get_analysis()
+        d, thresh = s[<span class="hljs-number">0</span>].params.d, s[<span class="hljs-number">0</span>].params.thresh[<span class="hljs-number">0</span>]
         
-        rnorm, pnl = f&quot;{returns[&#39;rnorm&#39;]:.2%}&quot;, f&quot;{returns[&#39;rtot&#39;]:.2%}&quot;
+        rnorm, pnl = <span class="hljs-string">f&quot;<span class="hljs-subst">{returns[<span class="hljs-string">&#x27;rnorm&#x27;</span>]:<span class="hljs-number">.2</span>%}</span>&quot;</span>, <span class="hljs-string">f&quot;<span class="hljs-subst">{returns[<span class="hljs-string">&#x27;rtot&#x27;</span>]:<span class="hljs-number">.2</span>%}</span>&quot;</span>
         params_and_returns.append((d, thresh, rnorm, pnl))
 
-    return pd.DataFrame(params_and_returns, columns=[&quot;d&quot;, &quot;thresh&quot;, &quot;rnorm&quot;, &quot;pnl&quot;])
+    <span class="hljs-keyword">return</span> pd.DataFrame(params_and_returns, columns=[<span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;thresh&quot;</span>, <span class="hljs-string">&quot;rnorm&quot;</span>, <span class="hljs-string">&quot;pnl&quot;</span>])
 
-start = datetime.date(2008, 1, 1)
-end = datetime.date(2012, 12, 31)
-prices= get_price(&quot;000001.SH&quot;, start, end)
+start = datetime.date(<span class="hljs-number">2008</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2012</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+prices= get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
 
 result = optimize(prices, 
-                  (9, 19, 39, 49, 59), 
+                  (<span class="hljs-number">9</span>, <span class="hljs-number">19</span>, <span class="hljs-number">39</span>, <span class="hljs-number">49</span>, <span class="hljs-number">59</span>), 
                   (
-                    (-0.01, 0.01), 
-                    (-0.02, 0.02), 
-                    (-0.04, 0.04), 
-                    (-0.08, 0.08), 
-                    (-0.12, 0.12)
+                    (-<span class="hljs-number">0.01</span>, <span class="hljs-number">0.01</span>), 
+                    (-<span class="hljs-number">0.02</span>, <span class="hljs-number">0.02</span>), 
+                    (-<span class="hljs-number">0.04</span>, <span class="hljs-number">0.04</span>), 
+                    (-<span class="hljs-number">0.08</span>, <span class="hljs-number">0.08</span>), 
+                    (-<span class="hljs-number">0.12</span>, <span class="hljs-number">0.12</span>)
                   ))
-result
-</code></pre>
+result</span></code></pre>
 <p>通过backtrader来进行参数优化，关键是这样两行代码：</p>
-<pre><code class="language-{code-block}">    cerebro.optstrategy(LLTStrategy, d = d, thresh = thresh)
-    strats = cerebro.run(maxcpus = 1, optreturn = True)
-</code></pre>
+<pre><code class="hljs language-{code-block} python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">    cerebro.optstrategy(LLTStrategy, d = d, thresh = thresh)
+    strats = cerebro.run(maxcpus = <span class="hljs-number">1</span>, optreturn = <span class="hljs-literal">True</span>)</span></code></pre>
 <p>在 notebook 中运行时，我们必须设置maxcpus = 1。如果maccpus &gt; 1，将会启动多进程优化。此时涉及到notebook中代码的持久化（因为要把代码传送到新的进程中），就会出错。</p>
 <!--PAID CONTENT START-->
 <p>我们在《量化24课》中，详细介绍了如何使用backtrader，也包括了策略优化。</p>
@@ -348,26 +339,25 @@ result
 <p>当我们使用backtrader来进行参数优化时，一定要注意会比较容易出现过拟合。</p>
 <p>在上一节，我们已经把基于[2008,2012]得到的最优参数，运用于过去[2005, 2012]和未来[2013,2014]，来对比观察结果。这是检验过拟合是否存在的一种方法。如果参数没有过拟合，那么它就应该在它没有见过的数据上，也能讲出好的故事出来。</p>
 <p>这里还介绍另外一个思路。关于thresh参数的。基于 thresh 来决定 signal，显然要比简单地基于 0 来判断 signal 合理，这一点无庸置疑。但优化的thresh参数会不会导致过拟合？这时候我们可以观察下切线斜率的分布：</p>
-<pre><code class="language-python">def llt_slope(df, d: int=59, slope_window=5):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">llt_slope</span>(<span class="hljs-params">df, d: <span class="hljs-built_in">int</span>=<span class="hljs-number">59</span>, slope_window=<span class="hljs-number">5</span></span>):
     df = df.copy()
-    alpha = 2 / (d + 1)
-    df[&quot;llt&quot;] = calculate_llt(df[&quot;close&quot;], alpha)
-    df[&#39;slope&#39;] = (df[&quot;llt&quot;].rolling(slope_window)
-                    .apply(lambda x: np.polyfit(np.arange(slope_window), x, 1)[0]))
+    alpha = <span class="hljs-number">2</span> / (d + <span class="hljs-number">1</span>)
+    df[<span class="hljs-string">&quot;llt&quot;</span>] = calculate_llt(df[<span class="hljs-string">&quot;close&quot;</span>], alpha)
+    df[<span class="hljs-string">&#x27;slope&#x27;</span>] = (df[<span class="hljs-string">&quot;llt&quot;</span>].rolling(slope_window)
+                    .apply(<span class="hljs-keyword">lambda</span> x: np.polyfit(np.arange(slope_window), x, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]))
     
-    return df[&#39;slope&#39;]
+    <span class="hljs-keyword">return</span> df[<span class="hljs-string">&#x27;slope&#x27;</span>]
 
-start = datetime.date(2005, 1, 1)
-end = datetime.date(2013, 12, 31)
-prices= get_price(&quot;000001.SH&quot;, start, end)
+start = datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2013</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+prices= get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
 
-slopes = llt_slope(prices, d = 39)
-slopes.plot(kind=&#39;hist&#39;)
-s1 = (slopes &lt; -0.02).sum()/len(slopes)
-s2 = (slopes &lt; 0.02).sum()/len(slopes)
+slopes = llt_slope(prices, d = <span class="hljs-number">39</span>)
+slopes.plot(kind=<span class="hljs-string">&#x27;hist&#x27;</span>)
+s1 = (slopes &lt; -<span class="hljs-number">0.02</span>).<span class="hljs-built_in">sum</span>()/<span class="hljs-built_in">len</span>(slopes)
+s2 = (slopes &lt; <span class="hljs-number">0.02</span>).<span class="hljs-built_in">sum</span>()/<span class="hljs-built_in">len</span>(slopes)
 
-s2 - s1
-</code></pre>
+s2 - s1</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250718165206.png'>
@@ -379,42 +369,41 @@ s2 - s1
 <p>如果我们通过[2008, 2012]年的数据优化出来的参数 <code>d = 59, thresh = [-0.01, 0.01]</code> 用在2013年到2024年不变的话，那么年化收益率会衰减到2.79%。这说明，市场风格其实是一直在变化的。这个策略也只是一个$\beta$因子。</p>
 <p>不过，我们可以每隔几年就更新一次参数，再在接下来的一小段时间内，使用这个策略。</p>
 <p>下面的代码演示了如何基于过去5年的数据搜索出优化参数，然后用在随后两年的投资中：</p>
-<pre><code class="language-python">rolling_results = []
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span></span><span class="cl-body">rolling_results = []
 
-for year in range(2014, 2026, 2):
-    opt_start = datetime.date(year - 6, 1, 1)
-    opt_end = datetime.date(year - 1, 12, 31)
+<span class="hljs-keyword">for</span> year <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2014</span>, <span class="hljs-number">2026</span>, <span class="hljs-number">2</span>):
+    opt_start = datetime.date(year - <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+    opt_end = datetime.date(year - <span class="hljs-number">1</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
     
-    prices = get_price(&quot;000001.SH&quot;, opt_start, opt_end)
+    prices = get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, opt_start, opt_end)
     result = optimize(
         prices,
-        (19, 39, 49, 59),
-        ((-0.01, 0.01), (-0.02, 0.02), (-0.04, 0.04), (-0.08, 0.08), (-0.12, 0.12)),
+        (<span class="hljs-number">19</span>, <span class="hljs-number">39</span>, <span class="hljs-number">49</span>, <span class="hljs-number">59</span>),
+        ((-<span class="hljs-number">0.01</span>, <span class="hljs-number">0.01</span>), (-<span class="hljs-number">0.02</span>, <span class="hljs-number">0.02</span>), (-<span class="hljs-number">0.04</span>, <span class="hljs-number">0.04</span>), (-<span class="hljs-number">0.08</span>, <span class="hljs-number">0.08</span>), (-<span class="hljs-number">0.12</span>, <span class="hljs-number">0.12</span>)),
     )
     clear_output()
 
-    # 找出最佳参数
-    result[&quot;cagr&quot;] = result.rnorm.str.strip(&quot;%&quot;).astype(float)
-    max_row = result[result.cagr == result.cagr.max()]
-    d, thresh = max_row[[&quot;d&quot;, &quot;thresh&quot;]].values[0].tolist()
+    <span class="hljs-comment"># 找出最佳参数</span>
+    result[<span class="hljs-string">&quot;cagr&quot;</span>] = result.rnorm.<span class="hljs-built_in">str</span>.strip(<span class="hljs-string">&quot;%&quot;</span>).astype(<span class="hljs-built_in">float</span>)
+    max_row = result[result.cagr == result.cagr.<span class="hljs-built_in">max</span>()]
+    d, thresh = max_row[[<span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;thresh&quot;</span>]].values[<span class="hljs-number">0</span>].tolist()
 
-    # 对接下来的两年进行回测
-    backtest_start = datetime.date(year, 1, 1)
-    backtest_end = datetime.date(year + 1, 12, 31)
-    prices = get_price(&quot;000001.SH&quot;, backtest_start, backtest_end)
-    returns, sharpe, drawdown = run_backtest(prices, d = d, thresh = (thresh, -1 * thresh))
+    <span class="hljs-comment"># 对接下来的两年进行回测</span>
+    backtest_start = datetime.date(year, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+    backtest_end = datetime.date(year + <span class="hljs-number">1</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+    prices = get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, backtest_start, backtest_end)
+    returns, sharpe, drawdown = run_backtest(prices, d = d, thresh = (thresh, -<span class="hljs-number">1</span> * thresh))
 
     rolling_results.append([
-        year, year + 1, d, thresh, f&quot;{returns:.2%}&quot;, sharpe, f&quot;{drawdown:.2f}%&quot;
+        year, year + <span class="hljs-number">1</span>, d, thresh, <span class="hljs-string">f&quot;<span class="hljs-subst">{returns:<span class="hljs-number">.2</span>%}</span>&quot;</span>, sharpe, <span class="hljs-string">f&quot;<span class="hljs-subst">{drawdown:<span class="hljs-number">.2</span>f}</span>%&quot;</span>
     ])
 
     clear_output()
-    # 运行时间较长，因此我们在一次运行之后中断。
-    break
+    <span class="hljs-comment"># 运行时间较长，因此我们在一次运行之后中断。</span>
+    <span class="hljs-keyword">break</span>
 
-columns=[&quot;start&quot;, &quot;end&quot;, &quot;d&quot;, &quot;thresh&quot;, &quot;returns&quot;, &quot;sharpe&quot;, &quot;drawdown&quot;]
-pd.DataFrame(rolling_results, columns=columns)
-</code></pre>
+columns=[<span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;end&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;thresh&quot;</span>, <span class="hljs-string">&quot;returns&quot;</span>, <span class="hljs-string">&quot;sharpe&quot;</span>, <span class="hljs-string">&quot;drawdown&quot;</span>]
+pd.DataFrame(rolling_results, columns=columns)</span></code></pre>
 <p>最终，我们得到历年（两年）的收益如下：</p>
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250721160705.png'>

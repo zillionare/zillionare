@@ -36,8 +36,7 @@ There should be one -- and preferably only one -- obvious way to do it.
 永远都应该只有一种显而易见的解决之道
 </div>
 
-<pre><code>从 Python 的虚拟环境解决方案之多来看，要达到这样的境界似乎是困难的。人们试图建造巴别塔（Tower of Babel），但上帝会毁灭它。不过，类似的困境并非 Python 独有。比如， Javascript 在其高歌猛进、攻城掠寨式的行进中，自身的语法也在发生剧烈的改变，以至于有人不得不开发一个模块来翻译不同版本的 Javascript 语法，这个模块就叫 Babel，倒也恰如其分。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">从 Python 的虚拟环境解决方案之多来看，要达到这样的境界似乎是困难的。人们试图建造巴别塔（Tower of Babel），但上帝会毁灭它。不过，类似的困境并非 Python 独有。比如， Javascript 在其高歌猛进、攻城掠寨式的行进中，自身的语法也在发生剧烈的改变，以至于有人不得不开发一个模块来翻译不同版本的 Javascript 语法，这个模块就叫 Babel，倒也恰如其分。</span></code></pre>
 <p>在上面这些令人眼花缭乱的词语中，Annaconda（以下简称 conda) 和 Virtualenv 是一对儿对手，Pipenv 则和 Poetry 相互竞争。而 Venv 则是其中血统最为纯正的一个，得到了 Python 官方的祝福。</p>
 <p>pipenv 和 poetry，尽管常常被人在讨论虚拟环境的场合下提起，也确实与虚拟环境相关，但他们所做的工作都远远超过了虚拟环境本身——它们的主要功能是提供依赖管理，poetry 还提供了构建和打包功能（我们将在第五章——Poetry 那一章中来详细介绍）。</p>
 <p>venv 不是一个独立的工具，它只是一个模块。venv 是从 Python 3.8 起，标准库里提供的一个模块，你可以使用<code>python -m venv</code>来运行它。它的目标与 virtualenv 比较接近，但只提供了 virutalenv 的一个命令子集。由于它是标准库提供的，因此许多工具，比如 poetry, pyenv 现在都是基于它来构建的。因此，如果你是某个工具的开发者，我想你需要掌握它；否则，你将在使用 poetry 等工具时，自然而然地接触和使用到它，但可能并不知道，幕后英雄其实是 venv。</p>
@@ -68,55 +67,47 @@ There should be one -- and preferably only one -- obvious way to do it.
 <h3 id="22-配置-conda-环境">2.2. 配置 conda 环境</h3>
 <p>conda 安装后，一般情况下，无须配置即可使用。但是，如果我们需要使用代理服务器，或者变更 conda 源以加快下载速度，则需要配置 conda。</p>
 <p>conda 的配置文件是用户目录下的.condarc，它是一个 YAML 格式的文件。这个文件直到你第一次调用 conda config 时才会产生，比如，增加一个 conda 源：</p>
-<pre><code class="language-shell">conda config --add channels conda-forge
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">conda config --add channels conda-forge</span></code></pre>
 <p>我们也可以直接编辑。condarc 文件：</p>
-<pre><code class="language-yaml">channels:
-  - https://mirrors.aliyun.com/anaconda/pkgs/free/
-  - https://mirrors.aliyun.com/anaconda/pkgs/main/
-  - file:///some/local/directory
-  - defaults
+<pre><code class="hljs language-yaml title=".condarc""><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">channels:
+  <span class="hljs-operator">-</span> https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>mirrors.aliyun.com<span class="hljs-operator">/</span>anaconda<span class="hljs-operator">/</span>pkgs<span class="hljs-operator">/</span><span class="hljs-keyword">free</span><span class="hljs-operator">/</span>
+  <span class="hljs-operator">-</span> https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span>mirrors.aliyun.com<span class="hljs-operator">/</span>anaconda<span class="hljs-operator">/</span>pkgs<span class="hljs-operator">/</span>main<span class="hljs-operator">/</span>
+  <span class="hljs-operator">-</span> file:<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">some</span><span class="hljs-operator">/</span><span class="hljs-keyword">local</span><span class="hljs-operator">/</span>directory
+  <span class="hljs-operator">-</span> defaults
 proxy_servers:
-    http: http://user:pass@corp.com:8080
-    https: https://user:pass@corp.com:8080
-    ssl_verify: False
-</code></pre>
+    http: http:<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">user</span>:pass<span class="hljs-variable">@corp</span>.com:<span class="hljs-number">8080</span>
+    https: https:<span class="hljs-operator">/</span><span class="hljs-operator">/</span><span class="hljs-keyword">user</span>:pass<span class="hljs-variable">@corp</span>.com:<span class="hljs-number">8080</span>
+    ssl_verify: <span class="hljs-literal">False</span></span></code></pre>
 <p>上述示例中，首先配置了 conda 源。我们添加了国内常用的阿里镜像，并且添加了一个本地目录。如果我们有一些内部安装包，就可以放在这个目录下。当 conda 无法从阿里镜像服务器上找到这些包时（显然会找不到），就会搜索这个目录。上面所有的路径都失效时，conda 最后会使用系统默认的源来搜索。这种情况多见于某个包有了最新的版本，但镜像服务器还没有同步过去的情形。</p>
 <p>有时候访问 conda 的官方源时，我们需要使用代理服务器来进行加速。上面的示例显示了如何进行这些配置。有一些代理服务器对 ssl 验证支持的不是太好，这种情况下，你需要设置 ssl_verify 为 False, 正如以上示例所示。</p>
 <p>conda 还允许其它一些配置，如果有需要，推荐读者进一步阅读配置 conda<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html">^config</a>。</p>
 <h3 id="23-创建和管理虚拟环境">2.3. 创建和管理虚拟环境</h3>
 <p>现在，我们来创建一个虚拟环境，并且通过 conda 的一些命令来看看如何管理它。</p>
-<pre><code class="language-shell">$ conda create -n test python=3.8
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda create -n <span class="hljs-built_in">test</span> python=3.8</span></span></code></pre>
 <p>上述命令创建了一个名为 test 的虚拟环境，并且安装 python=3.8。现在我们查看一下，当前系统中，都存在哪些虚拟环境：</p>
-<pre><code class="language-shell">$ conda env list
-
-# 输出应该类似于：
-# CONDA ENVIRONMENTS:
-#
-base           /root/miniconda3
-test           /root/miniconda3/envs/test
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda <span class="hljs-built_in">env</span> list</span>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">输出应该类似于：</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">CONDA ENVIRONMENTS:</span>
+<span class="hljs-meta prompt_">#</span><span class="language-bash">
+base           /root/miniconda3</span>
+test           /root/miniconda3/envs/test</span></code></pre>
 <p>上面的输出表明，我们在/root 下安装了一个 miniconda，并且还创建了一个名为 test 的虚拟环境。这个虚拟环境的文件夹是/root/miniconda3/envs/test。</p>
 <p>现在让我们切换到新创建的这个虚拟环境中：</p>
-<pre><code class="language-shell">$ conda activate test
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda activate <span class="hljs-built_in">test</span></span></span></code></pre>
 <p>现在，你的 shell 提示符应该修改为类似于：</p>
-<pre><code>(test) root@ubuntu:~# 
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">(test) root@ubuntu:~<span class="hljs-comment"># </span></span></code></pre>
 <p>我们的测试是在一个 ubuntu 虚拟机上，直接使用了 root 账户来进行测试。所以，上面的提示符中，root 是当前用户名。在当前用户名之前的 (test)，表明我们当前处在 test 虚拟环境中。</p>
 <p>要往这个虚拟环境中安装一个包，可以使用 conda install 命令：</p>
-<pre><code class="language-sheel">$ conda install PACKAGENAME
-</code></pre>
+<pre><code class="hljs language-sheel"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ conda install PACKAGENAME</span></code></pre>
 <p>现在，假设我们要移除这个虚拟环境：</p>
-<pre><code class="language-shell"># 退出当前的虚拟环境 TEST，以便可以删除它
-$ conda deactivate
-$ conda env remove --name test
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">退出当前的虚拟环境 TEST，以便可以删除它</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">conda deactivate</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">conda <span class="hljs-built_in">env</span> remove --name <span class="hljs-built_in">test</span></span></span></code></pre>
 <p>上述命令不会给你确认的机会，所以，在使用这个命令之前，必须小心。当然，conda 这样设计并没有任何问题，虚拟环境本身就应该是可以随时创建和随时销毁的。如果不小心删除错误，那么重建一个就好了。后悔药一直都在。</p>
 <p>在结束这一节内容之前，我们还想介绍一些高级使用方法，掌握这些方法，会在出现疑难问题时，更加容易解决问题。</p>
 <p>首先，我们可以通过 conda info 命令来检查 conda 安装的一些关键信息：</p>
-<pre><code class="language-shell">$ conda info
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda info</span>
 
      active environment : base
     active env location : /root/miniconda3
@@ -134,8 +125,7 @@ $ conda env remove --name test
           package cache : /root/miniconda3/pkgs
                           /root/.conda/pkgs
        envs directories : /root/miniconda3/envs
-                          /root/.conda/envs
-</code></pre>
+                          /root/.conda/envs</span></code></pre>
 <p>上面的内容是 conda info 命令的输出（为了简洁起见，删掉了一些不重要的内容），它揭示了一些关键信息：</p>
 <ol>
 <li>当前我们处于 base 虚拟环境下。这是当你安装了 conda 之后，就默认存在的一个虚拟环境。它的文件目录是/root/miniconda3。如果你是在 test 虚拟环境下，则 active env location 应该指向/root/miniconda3/envs/test</li>
@@ -144,47 +134,40 @@ $ conda env remove --name test
 <li>conda 下载安装包时，会将其缓存。package cache 告诉我们 conda 缓存安装包的位置。当我们发现安装包的行为不正常时，有可能要清除这个缓存。</li>
 <li>最后，envs directories 告诉我们，所有虚拟环境的文件目录位置何在。我们可以列一下/root/miniconda3/envs 目录：</li>
 </ol>
-<pre><code>ls /root/miniconda3/envs
-# 以下假设上述输出中包含 TEST 虚拟环境
-ls /root/miniconda3/envs/test
-# 输出中将包含以下重要目录：
-bin # 在 bin 目录下，存放有 python, pip 等重要命令
-lib # 在 lib 下，存放有 python3.x 目录，site-packages 等安装包将最终安装到这里。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-built_in">ls</span> /root/miniconda3/envs
+<span class="hljs-comment"># 以下假设上述输出中包含 TEST 虚拟环境</span>
+<span class="hljs-built_in">ls</span> /root/miniconda3/envs/test
+<span class="hljs-comment"># 输出中将包含以下重要目录：</span>
+bin <span class="hljs-comment"># 在 bin 目录下，存放有 python, pip 等重要命令</span>
+lib <span class="hljs-comment"># 在 lib 下，存放有 python3.x 目录，site-packages 等安装包将最终安装到这里。</span></span></code></pre>
 <p>另一个对查错有用的重要命令，是 conda list。它将列出当前 conda 环境下已安装的库（package）。</p>
 <h3 id="24-几个常见问题">2.4. 几个常见问题</h3>
 <ol>
 <li>可以重命名一个虚拟环境吗？
 从 conda 4.14 起，conda 支持重命名虚拟环境：</li>
 </ol>
-<pre><code>$ conda rename -n old_name -d new_name
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ conda rename -n old_name -d new_name</span></code></pre>
 <p>不过，上述命令其实只是 conda create 和 conda remove 的简单组合，所以，在旧的 conda 版本下，你可以这样重命名一个虚拟环境：</p>
-<pre><code>$ conda create --name new_name --clone old_name
-$ conda env remove --name old_name
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">$ conda <span class="hljs-keyword">create</span> <span class="hljs-comment">--name new_name --clone old_name</span>
+$ conda env remove <span class="hljs-comment">--name old_name</span></span></code></pre>
 <ol start="2">
 <li>如何追踪一个虚拟环境的变更？
 这是 conda 提供的一个有用的功能之一，即可以追踪一个虚拟环境的变更历史：</li>
 </ol>
-<pre><code># 切换到关注的虚拟环境，并运行以下命令：
-$ conda list --revisions
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 切换到关注的虚拟环境，并运行以下命令：</span>
+$ conda <span class="hljs-built_in">list</span> --revisions
 
-# 恢复变更到某个镜像点
-$ conda install --revision 2
-</code></pre>
+<span class="hljs-comment"># 恢复变更到某个镜像点</span>
+$ conda install --revision <span class="hljs-number">2</span></span></code></pre>
 <p>注意区分 conda list 与 conda env list。后者是列出虚拟环境，前者则是列出当前虚拟环境里安装的 packages 和版本。</p>
 <p>如果想全面而快速地了解 conda 命令，可以参考 conda 小抄 <a href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">^cheatsheet</a>。</p>
 <h2 id="3-轻量的-python-包安装工具-pip">3. 轻量的 Python 包安装工具 Pip</h2>
 <p>在上一节，我们介绍了如何往虚拟环境中安装程序库：</p>
-<pre><code>$ conda install PACKAGENAME
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ conda install PACKAGENAME</span></code></pre>
 <p>您也可以使用 pip 来安装程序库：</p>
-<pre><code>$ pip install PACKAGENAME
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ pip install PACKAGENAME</span></code></pre>
 <p>实际上，以您前面创建的 test 环境为例，conda 已经把 pip 安装到了/root/miniconda3/test/bin 目录下：</p>
-<pre><code>$ ls /root/miniconda3/envs/test/bin
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ <span class="hljs-built_in">ls</span> /root/miniconda3/envs/test/bin</span></code></pre>
 <p>Pip 安装第三方库有多种方式。这里简单介绍一些：
 1.	从 wheel 文件或者 github 进行安装。
 2.	从本地文件目录进行安装。这在开发调试阶段中非常有用。它的命令是 pip install -e path/to/your/source。这里的 ‘-e’ 是关键。这样一来，我们每一次对源代码的修改，都会自动生效，而不再次安装。
@@ -197,15 +180,13 @@ $ conda install --revision 2
 <p>就会出现如下图所示的列表（您的电脑上显示会有所不同）：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20220820220821200119.png" alt=""></p>
 <p>如果要选择前面创建的 test 环境，也可以直接在这里输入：</p>
-<pre><code>/root/miniconda3/envs/test/bin/python
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">/root/miniconda3/envs/test/bin/python</span></code></pre>
 <p>此外，您也可以在 VS Code 的状态栏中，寻找类似下面的提示文字：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224143053.png" alt=""></p>
 <p>然后点击它，也可进入&quot;python: Select Interpreter&quot;菜单。</p>
 <p>大功告成！</p>
 <p>至此，您就完成了最基础的开发环境设置：IDE 已经安装好，并且要使用的 python 版本也已经指定！现在，您就可以编写一个最简单的 python 程序：</p>
-<pre><code class="language-python">print(&quot;Hello World&quot;)
-</code></pre>
+<pre><code class="hljs language-python title="helloworld.py""><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hello World&quot;</span>)</span></code></pre>
 <p>把这个程序存为 helloworld.py，然后可以在命令行下，通过<code>python helloworld.py</code>来运行它！</p>
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">

@@ -139,22 +139,20 @@ $$</p>
 <p>但我们总能找到一种方法来分析问题。</p>
 <h2 id="波谱变换">波谱变换</h2>
 <p>我们先简单地介绍波谱变换。</p>
-<pre><code class="language-python">fft_result = np.fft.fft(close)
-freqs = np.fft.fftfreq(len(close))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">fft_result = np.fft.fft(close)
+freqs = np.fft.fftfreq(<span class="hljs-built_in">len</span>(close))
 
-# 逆傅里叶变换
+<span class="hljs-comment"># 逆傅里叶变换</span>
 filtered = fft_result.copy()
-filtered[20:] = 0
+filtered[<span class="hljs-number">20</span>:] = <span class="hljs-number">0</span>
 inverse_fft = np.fft.ifft(filtered)
-inversed = pd.Series(inverse_fft.real, index=close.index)
-</code></pre>
+inversed = pd.Series(inverse_fft.real, index=close.index)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 绘制原始信号和分解后的信号
-plt.figure(figsize=(14, 7))
-plt.plot(close, label=&#39;Original Close&#39;)
-plt.plot(inversed, label=&#39;Reconstructed from Sine Waves&#39;)
-plt.legend()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 绘制原始信号和分解后的信号</span>
+plt.figure(figsize=(<span class="hljs-number">14</span>, <span class="hljs-number">7</span>))
+plt.plot(close, label=<span class="hljs-string">&#x27;Original Close&#x27;</span>)
+plt.plot(inversed, label=<span class="hljs-string">&#x27;Reconstructed from Sine Waves&#x27;</span>)
+plt.legend()</span></code></pre>
 <p>第一行代码是将时间序列变换成频谱，也就是所谓的时频变换。变换后的结果是一个复数数组，其中实部是频谱，虚部是频谱的偏移。</p>
 <p>该数组是按频率由小大到排列的，也就是数组的开始部分是低频信号，结尾部分是高频信号。元素的取值是该信号的能量。一般我们把高频信号当成时噪声。 在这个数组当中零号元素有特殊的含义，它的频率是零赫兹，也就是它是一种直流分量。</p>
 <p>第一行是生成频率的代码。注意它只与时间序列本身的长度有关系。也就是一个序列如果长度为30个时间单位，那么我们认为它的最高频率是30次。至于该频率实际上有没有信号，要看前一个数组对应位置的数值，如果是非零，就认为该频率的波存在。</p>
@@ -176,14 +174,13 @@ plt.legend()
 <p>这就意味着有新的长线资金（超过窗口期）进来了。那么，股价就应该看涨。</p>
 <h2 id="直流分量差分因子">直流分量差分因子</h2>
 <p>这个因子的原理是把股价当成一种波动，对它按30天为滑动窗口，进行波谱分析，提取直流分量（即频率为0的分量）的差分作为因子。</p>
-<pre><code class="language-python">def calc_wave_energy(df, win):
-    close = df.close / df.close[0]
-    dc = close.rolling(win).apply(lambda x: np.fft.fft(x)[0])
-    return-1 * dc.diff()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_wave_energy</span>(<span class="hljs-params">df, win</span>):
+    close = df.close / df.close[<span class="hljs-number">0</span>]
+    dc = close.rolling(win).apply(<span class="hljs-keyword">lambda</span> x: np.fft.fft(x)[<span class="hljs-number">0</span>])
+    <span class="hljs-keyword">return</span>-<span class="hljs-number">1</span> * dc.diff()
 
-np.random.seed(78)
-_ = alphatest(2000, start, end, calc_factor=calc_wave_energy, args=(30,), top=9)
-</code></pre>
+np.random.seed(<span class="hljs-number">78</span>)
+_ = alphatest(<span class="hljs-number">2000</span>, start, end, calc_factor=calc_wave_energy, args=(<span class="hljs-number">30</span>,), top=<span class="hljs-number">9</span>)</span></code></pre>
 <p>这是年化Alpha，很意外我们就得到了17%的年化：</p>
 <table>
 <thead>

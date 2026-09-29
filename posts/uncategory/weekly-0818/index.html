@@ -50,8 +50,7 @@
 <p>于是，OpenBB 就这样杀入了市场。从这名字看，他们是想做一个一个 Open Source 的 Bloomberg。</p>
 <h2 id="安装-openbb">安装 openbb</h2>
 <p>通过以下命令安装 openbb:</p>
-<pre><code class="language-bash">pip install openbb[all]
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install openbb[all]</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 openbb 要求的 Python 版本是 3.11 以上。你最好单独为它创建一个虚拟环境。
 </div>
@@ -67,31 +66,27 @@ openbb 要求的 Python 版本是 3.11 以上。你最好单独为它创建一�
 <p>效果有点出人意料，哈哈。</p>
 <hr>
 <p>比较有趣的是，他们把命令设计成为 unix 路径的模式。所以，在执行完刚才的命令之后，我们可以输入以根目录为起点的其它命令，比如：</p>
-<pre><code class="language-bash">/economy/gdp
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">/economy/gdp</span></code></pre>
 <p>我们就可以查询全球 GDP 数据。</p>
 <h2 id="使用-python">使用 Python</h2>
 <p>我们通过 notebook 来演示一下它的使用。</p>
-<pre><code class="language-python">from openbb import obb
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> openbb <span class="hljs-keyword">import</span> obb
 
-obb
-</code></pre>
+obb</span></code></pre>
 <p>这个 obb 对象，就是我们使用 openbb 的入口。当我们直接在单元格中输入 obb 时，就会提示我们它的属性和方法：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/help-openbb-jupyter.jpg" alt=""></p>
 <p>在这里，openbb 保持了接口的一致性。我们看到的内容和在 cli 中看到的差不多。</p>
 <p>现在，我们演示一些具体的功能。首先，通过名字来查找股票代码：</p>
 <hr>
-<pre><code class="language-python">from openbb import obb
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> openbb <span class="hljs-keyword">import</span> obb
 
-obb.equity.search(&quot;JPMorgan&quot;, provider=&quot;nasdaq&quot;).to_df().head(3)
-</code></pre>
+obb.equity.search(<span class="hljs-string">&quot;JPMorgan&quot;</span>, provider=<span class="hljs-string">&quot;nasdaq&quot;</span>).to_df().head(<span class="hljs-number">3</span>)</span></code></pre>
 <p>输出结果为：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-equity-search.jpg" alt=""></p>
 <p>作为一个外国人，表示要搞清楚股票代码与数据提供商的关系，有点困难。不过，如果是每天都研究它，花点时间也是应该的。</p>
 <p>我们从刚才的结果中，得知小摩（我常常记不清 JPMorgan 是大摩还是小摩。但实际上很好记。一个叫摩根士丹利，另一个叫摩根大通。大通是小摩）的股票代码是 AMJB（名字是 JPMorgan Chase 的那一个），于是我们想查一下它的历史行情数据。如果能顺利取得它的行情数据，我们的教程就可以结束了。</p>
 <p>但是，当我们调用以下代码时：</p>
-<pre><code class="language-python">obb.equity.price.historical(&quot;AMJB&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">obb.equity.price.historical(<span class="hljs-string">&quot;AMJB&quot;</span>)</span></code></pre>
 <p>出错了！提示 No result found.</p>
 <h2 id="使用免费但需要注册的数据源">使用免费、但需要注册的数据源</h2>
 <p>真实原因是 OpenBB 中，只有一个开箱即用的免费数据源 -- CBOE，但免费的 CBOE 数据源里没有这个股票。我们要选择另外一个数据源，比如 FMP。但是，需要先注册 FMP 账号（免费），再将 FMP 账号的 API key 添加到 OpenBB hub 中。</p>
@@ -107,28 +102,25 @@ OpenBB 支持许多数据源。这些数据源往往都提供了一些免费使�
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-hub.jpg" alt="50%"></p>
 <p>现在，我们将数据源改为 FMP，再运行刚才的代码，就可以得到我们想要的结果了。</p>
 <hr>
-<pre><code class="language-python">obb.equity.price.historical(&quot;AMJB&quot;, provider=&quot;fmp&quot;).to_df().tail()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">obb.equity.price.historical(<span class="hljs-string">&quot;AMJB&quot;</span>, provider=<span class="hljs-string">&quot;fmp&quot;</span>).to_df().tail()</span></code></pre>
 <p>我们将得到如下结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-amjb-quotes.jpg" alt=""></p>
 <p>换一支股票，apple 的，我们也是先通过 search 命令，拿到它的代码&#39;AAPL&#39;（我常常记作 APPL），再代入上面的代码，也能拿到数据了。</p>
 <p>需要做一点基本面研究，比如，想知道 apple 历年的现金流数据？</p>
-<pre><code class="language-python">obb.equity.fundamental.cash(&quot;AAPL&quot;, provider=&#39;fmp&#39;).to_df().tail()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">obb.equity.fundamental.cash(<span class="hljs-string">&quot;AAPL&quot;</span>, provider=<span class="hljs-string">&#x27;fmp&#x27;</span>).to_df().tail()</span></code></pre>
 <p>任何时候，交易日历、复权信息和成份股列表都是回测中不可或缺的（在 A 股，还必须有 ST 列表和涨跌停历史价格）。我们来看看如何获取股标列表和成份股列表：</p>
-<pre><code class="language-python"># 获取所有股票列表
-all_companies = obb.equity.search(&quot;&quot;, provider=&quot;sec&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-comment"># 获取所有股票列表</span>
+all_companies = obb.equity.search(<span class="hljs-string">&quot;&quot;</span>, provider=<span class="hljs-string">&quot;sec&quot;</span>)
 
-print(len(all_companies.results))
-print(all_companies.to_df().head(10))
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(all_companies.results))
+<span class="hljs-built_in">print</span>(all_companies.to_df().head(<span class="hljs-number">10</span>))
 
-# 获取指数列表
-indices = obb.index.available(provider=&quot;fmp&quot;).to_df()
-print(indices)
+<span class="hljs-comment"># 获取指数列表</span>
+indices = obb.index.available(provider=<span class="hljs-string">&quot;fmp&quot;</span>).to_df()
+<span class="hljs-built_in">print</span>(indices)
 
-# 获取指数成份股，DOWJONES, NASDAQ, SP500（无权限）
-obb.index.constituents(&quot;dowjones&quot;, provider=&#39;fmp&#39;).to_df()
-</code></pre>
+<span class="hljs-comment"># 获取指数成份股，DOWJONES, NASDAQ, SP500（无权限）</span>
+obb.index.constituents(<span class="hljs-string">&quot;dowjones&quot;</span>, provider=<span class="hljs-string">&#x27;fmp&#x27;</span>).to_df()</span></code></pre>
 <hr>
 <p>好了。尝试一个新的库很花时间。而且往往只有花过时间之后，你才能决定是否要继续使用它。如果最终不想使用它，那么前面的探索时间就白花了。</p>
 <p>于是，我们就构建了一个计算环境，在其中安装了 OpenBB，并且注册了 fmp 数据源，提供了示例 notebook，供大家练习 openbb。</p>

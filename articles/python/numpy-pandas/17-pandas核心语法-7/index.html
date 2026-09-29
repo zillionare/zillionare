@@ -18,50 +18,42 @@
 <p>Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。以下是关键方法和示例：</p>
 <h3 id="11-基础样式设置">1.1. ​基础样式设置</h3>
 <p>通过 DataFrame.style 访问样式功能，支持链式调用：</p>
-<pre><code class="language-python">df.style.set_caption(&quot;标题&quot;).set_properties(**{&#39;background-color&#39;: &#39;lightgray&#39;})
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.style.set_caption(<span class="hljs-string">&quot;标题&quot;</span>).set_properties(**{<span class="hljs-string">&#x27;background-color&#x27;</span>: <span class="hljs-string">&#x27;lightgray&#x27;</span>})</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/070.png" alt="50%"></p>
 <h3 id="12-条件着色">1.2. ​条件着色</h3>
 <h3 id="121-单列条件着色">1.2.1. 单列条件着色</h3>
 <hr>
-<pre><code class="language-python">def color_negative_red(val):
-    color = &#39;red&#39; if val &lt; 0.2 else &#39;black&#39;
-    return f&#39;color: {color}&#39;
-df.style.applymap(color_negative_red)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">color_negative_red</span>(<span class="hljs-params">val</span>):
+    color = <span class="hljs-string">&#x27;red&#x27;</span> <span class="hljs-keyword">if</span> val &lt; <span class="hljs-number">0.2</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;black&#x27;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">f&#x27;color: <span class="hljs-subst">{color}</span>&#x27;</span>
+df.style.applymap(color_negative_red)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/071.png" alt="50%"></p>
 <h3 id="122-多列条件着色">1.2.2. 多列条件着色</h3>
-<pre><code class="language-python">df.style.apply(lambda x: [&#39;background: yellow&#39; if v &gt; 0.2 else &#39;&#39; for v in x], 
-                        subset=[&#39;A&#39;, &#39;C&#39;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df.style.apply(<span class="hljs-keyword">lambda</span> x: [<span class="hljs-string">&#x27;background: yellow&#x27;</span> <span class="hljs-keyword">if</span> v &gt; <span class="hljs-number">0.2</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> x], 
+                        subset=[<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>])</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/072.png" alt="50%"></p>
 <h3 id="123-极值高亮">1.2.3. ​极值高亮</h3>
 <hr>
-<pre><code class="language-python">df.style.highlight_max(color=&#39;lightgreen&#39;).highlight_min(color=&#39;pink&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.style.highlight_max(color=<span class="hljs-string">&#x27;lightgreen&#x27;</span>).highlight_min(color=<span class="hljs-string">&#x27;pink&#x27;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/073.png" alt="50%"></p>
 <h3 id="124-渐变色背景">1.2.4. 渐变色背景</h3>
-<pre><code class="language-python">df.style.background_gradient(cmap=&#39;Blues&#39;, subset=[&#39;B&#39;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.style.background_gradient(cmap=<span class="hljs-string">&#x27;Blues&#x27;</span>, subset=[<span class="hljs-string">&#x27;B&#x27;</span>])</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/074.png" alt="50%"></p>
 <h3 id="125-条形图样式">1.2.5. 条形图样式</h3>
-<pre><code class="language-python">df.style.bar(subset=[&#39;C&#39;], color=&#39;#5fba7d&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.style.bar(subset=[<span class="hljs-string">&#x27;C&#x27;</span>], color=<span class="hljs-string">&#x27;#5fba7d&#x27;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/075.png" alt="50%"></p>
 <hr>
 <h3 id="126-自定义表格样式">1.2.6. 自定义表格样式</h3>
-<pre><code class="language-python">headers = {&#39;selector&#39;: &#39;th&#39;,
-    &#39;props&#39;: &#39;background-color: #5e17eb; color: white;&#39;}
-df.style.set_table_styles([headers])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">headers = {<span class="hljs-string">&#x27;selector&#x27;</span>: <span class="hljs-string">&#x27;th&#x27;</span>,
+    <span class="hljs-string">&#x27;props&#x27;</span>: <span class="hljs-string">&#x27;background-color: #5e17eb; color: white;&#x27;</span>}
+df.style.set_table_styles([headers])</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/076.png" alt="50%"></p>
 <h3 id="127-动态条件着色复杂逻辑">1.2.7. 动态条件着色（复杂逻辑）​</h3>
-<pre><code class="language-python">def highlight_risk(row):
-    # 当A列&gt;90且B列&lt;50时标黄
-    return [&#39;background: yellow&#39; if (row[&#39;A&#39;]&gt;0.3) &amp; 
-    (row[&#39;B&#39;]&lt;0.5) else &#39;&#39; for _ in row]  # 返回与行等长的样式列表
-df.style.apply(highlight_risk, axis=1)  # axis=1表示按行处理
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">highlight_risk</span>(<span class="hljs-params">row</span>):
+    <span class="hljs-comment"># 当A列&gt;90且B列&lt;50时标黄</span>
+    <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;background: yellow&#x27;</span> <span class="hljs-keyword">if</span> (row[<span class="hljs-string">&#x27;A&#x27;</span>]&gt;<span class="hljs-number">0.3</span>) &amp; 
+    (row[<span class="hljs-string">&#x27;B&#x27;</span>]&lt;<span class="hljs-number">0.5</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> row]  <span class="hljs-comment"># 返回与行等长的样式列表</span>
+df.style.apply(highlight_risk, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># axis=1表示按行处理</span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/077.png" alt="50%"></p>
 <div class="admonition admonition-Notes"><p class="admonition-title">Notes</p>
 - 样式仅在 Jupyter Notebook 或导出为 HTML 时生效，不支持直接修改原始数据。
@@ -74,9 +66,8 @@ df.style.apply(highlight_risk, axis=1)  # axis=1表示按行处理
 <p>在 pandas 中，我们可能有多列数据，还有行标签和列标签。pandas 自身就有内置的方法，用于简化从 DataFrame 和 Series 绘制图形。</p>
 <h3 id="21-线形图">2.1. 线形图</h3>
 <p>Series 和 DataFrame 都有一个 plot 属性，用于绘制基本图表。默认情况下，plot() 生成的是线形图。</p>
-<pre><code class="language-python">s = pd.Series(np.random.standard_normal(10).cumsum(), index=np.arange(0, 100, 10))
-s.plot()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">s = pd.Series(np.random.standard_normal(<span class="hljs-number">10</span>).cumsum(), index=np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">10</span>))
+s.plot()</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/065.png" alt="50%"></p>
 <hr>
 <p>该 Series 对象的索引会被传给matplotlib，并用于绘制 x 轴。可以通过 use_index=False 来禁用索引。x 轴的刻度和界限可以通过 xtick 和 xlim 选项进行调节，y 轴用 yticks 和 ylim 调节。plot 参数的部分列表参见下表：</p>
@@ -179,12 +170,11 @@ s.plot()
 <hr>
 <p>pandas 的大部分绘图方法都接收一个可选的 ax 参数，它可以是 matplotlib 的子图对象，这使你能够在网格布局中更为灵活地处理子图的位置。</p>
 <p>DataFrame 的 plot 方法将各个列绘制成同一子图中的线，并自动创建图例。</p>
-<pre><code class="language-python">df = pd.DataFrame(np.random.standard_normal((10, 4)).cumsum(0),
-                  columns=[&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;],
-                  index=np.arange(0, 100, 10))
-plt.style.use(&#39;grayscale&#39;)
-df.plot()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">df = pd.DataFrame(np.random.standard_normal((<span class="hljs-number">10</span>, <span class="hljs-number">4</span>)).cumsum(<span class="hljs-number">0</span>),
+                  columns=[<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>],
+                  index=np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">10</span>))
+plt.style.use(<span class="hljs-string">&#x27;grayscale&#x27;</span>)
+df.plot()</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/066.png" alt="50%"></p>
 <div class="admonition admonition-Notes"><p class="admonition-title">Notes</p>
 这里使用了 plt.style.use('grayscale') 将配色模式设置为灰度模式。
@@ -231,25 +221,22 @@ plot 的额外关键字参数会传递给相应的 matplotlib 绘图函数，所
 </tbody></table>
 <h3 id="22-柱状图">2.2. 柱状图</h3>
 <p>plot.bar() 和 plot.barh() 分别用于绘制水平柱状图和垂直柱状图。对于柱状图，Series 或 DataFrame 的索引将被用作x轴（bar）或y轴（barh）的刻度。</p>
-<pre><code class="language-python">fig, axes = plt.subplots(2,1)
-data = pd.Series(np.random.uniform(size=16), index=list(&#39;abcdefghijklmnop&#39;))
-data.plot.bar(ax=axes[0], color=&#39;k&#39;, alpha=0.7)
-data.plot.barh(ax=axes[1], color=&#39;k&#39;, alpha=0.7)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">fig, axes = plt.subplots(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
+data = pd.Series(np.random.uniform(size=<span class="hljs-number">16</span>), index=<span class="hljs-built_in">list</span>(<span class="hljs-string">&#x27;abcdefghijklmnop&#x27;</span>))
+data.plot.bar(ax=axes[<span class="hljs-number">0</span>], color=<span class="hljs-string">&#x27;k&#x27;</span>, alpha=<span class="hljs-number">0.7</span>)
+data.plot.barh(ax=axes[<span class="hljs-number">1</span>], color=<span class="hljs-string">&#x27;k&#x27;</span>, alpha=<span class="hljs-number">0.7</span>)</span></code></pre>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/067.png" alt="50%"></p>
 <p>对于 DataFrame，柱状图会将每一行的值分为一组，并排显示。</p>
-<pre><code class="language-python">df = pd.DataFrame(np.random.uniform(size=(6, 4)),
-        index=[&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;, &quot;six&quot;],
-        columns=pd.Index([&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;], name=&quot;Genus&quot;))
-df.plot.bar()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">df = pd.DataFrame(np.random.uniform(size=(<span class="hljs-number">6</span>, <span class="hljs-number">4</span>)),
+        index=[<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>, <span class="hljs-string">&quot;four&quot;</span>, <span class="hljs-string">&quot;five&quot;</span>, <span class="hljs-string">&quot;six&quot;</span>],
+        columns=pd.Index([<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>], name=<span class="hljs-string">&quot;Genus&quot;</span>))
+df.plot.bar()</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/068.png" alt="50%"></p>
 <p>注意，DataFrame 各列的名称“Genus”被用作图例标题。</p>
 <hr>
 <p>传入stacked=True即可为DataFrame生成堆积柱状图，这样每行的值就会水平堆积在一起。</p>
-<pre><code class="language-python">df.plot.bar(stacked=True,alpha=0.5)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.plot.bar(stacked=<span class="hljs-literal">True</span>,alpha=<span class="hljs-number">0.5</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/069.png" alt="50%"></p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/16-pandas核心语法-6/">← 上一篇：16 - Pandas核心语法[6]</a> <a class="series-next" href="/articles/python/numpy-pandas/18-pandas应用案例-1/">下一篇：18 - Pandas应用案例[1] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 39/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/16-pandas核心语法-6/">← 16 - Pandas核心语法[6]</a> <a href="/posts/python/pypinyin/">4k stars! 如何实现按拼音首 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/16-pandas核心语法-6/">16 - Pandas核心语法[6]</a> <p>“Pandas 提供了强大的日期时间处理功能，从字符串到时间戳的转换、时区调整到格式化输出，都可以轻松实现。此外，字符串操作如替换、分割、过滤等，也能通过 str 访问器高效完成。</p> </li><li> <a href="/articles/python/numpy-pandas/15-pandas核心语法-5/">15 - Pandas核心语法[5]</a> <p>“Pandas 提供了丰富的 IO 操作功能，支持从 CSV、SQL、Parquet 等多种文件格式中读取数据。通过优化参数如 chunksize、usecols 和 dtype，</p> </li><li> <a href="/articles/python/numpy-pandas/14-pandas核心语法-4/">14 - Pandas核心语法[4]</a> <p>“在 Pandas 中，逻辑运算和比较运算是数据筛选的基础工具。通过与（&amp;）、或（|）等操作符，可以轻松实现复杂条件筛选，比如选出市盈率最大且市净率最小的股票。”</p> </li><li> <a href="/articles/python/numpy-pandas/13-pandas核心语法-3/">13 - Pandas核心语法[3]</a> <p>“DataFrame 是 Pandas 的核心数据结构，支持多种数据类型和灵活的操作方式。无论是嵌套字典、NumPy 数组还是 CSV 文件，都可以轻松转换为 DataFrame，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-表格和样式" title="1. 表格和样式">1. 表格和样式</a> </li><li class="lv3"> <a href="#11-基础样式设置" title="1.1. ​基础样式设置">1.1. ​基础样式设置</a> </li><li class="lv3"> <a href="#12-条件着色" title="1.2. ​条件着色">1.2. ​条件着色</a> </li><li class="lv3"> <a href="#121-单列条件着色" title="1.2.1. 单列条件着色">1.2.1. 单列条件着色</a> </li><li class="lv3"> <a href="#122-多列条件着色" title="1.2.2. 多列条件着色">1.2.2. 多列条件着色</a> </li><li class="lv3"> <a href="#123-极值高亮" title="1.2.3. ​极值高亮">1.2.3. ​极值高亮</a> </li><li class="lv3"> <a href="#124-渐变色背景" title="1.2.4. 渐变色背景">1.2.4. 渐变色背景</a> </li><li class="lv3"> <a href="#125-条形图样式" title="1.2.5. 条形图样式">1.2.5. 条形图样式</a> </li><li class="lv3"> <a href="#126-自定义表格样式" title="1.2.6. 自定义表格样式">1.2.6. 自定义表格样式</a> </li><li class="lv3"> <a href="#127-动态条件着色复杂逻辑" title="1.2.7. 动态条件着色（复杂逻辑）​">1.2.7. 动态条件着色（复杂逻辑）​</a> </li><li class> <a href="#2-pandas-内置绘图功能" title="2. Pandas 内置绘图功能">2. Pandas 内置绘图功能</a> </li><li class="lv3"> <a href="#21-线形图" title="2.1. 线形图">2.1. 线形图</a> </li><li class="lv3"> <a href="#22-柱状图" title="2.2. 柱状图">2.2. 柱状图</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

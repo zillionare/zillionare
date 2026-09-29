@@ -35,80 +35,79 @@
 <p>下面的代码演示了 5, 10, 30 和 60 日均线。其中 30 日均线被称为生命线。最后的绘图中，显示了 30 日均线上，切线由正转负的情况。</p>
 <!--PAID CONTENT START-->
 
-<pre><code class="language-python">def get_price(symbol, start_date, end_date):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_price</span>(<span class="hljs-params">symbol, start_date, end_date</span>):
     pro = pro_api()
 
     price_df = pro.index_daily(
         ts_code=symbol,
-        start_date=start_date.strftime(&quot;%Y%m%d&quot;),
-        end_date=end_date.strftime(&quot;%Y%m%d&quot;),
+        start_date=start_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>),
+        end_date=end_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>),
     )
 
     price_df = (
-        price_df.rename({&quot;trade_date&quot;: &quot;date&quot;, &quot;ts_code&quot;: &quot;asset&quot;}, axis=1)
-        .sort_values(&quot;date&quot;, ascending=True)
-        .set_index(&quot;date&quot;)
+        price_df.rename({<span class="hljs-string">&quot;trade_date&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>}, axis=<span class="hljs-number">1</span>)
+        .sort_values(<span class="hljs-string">&quot;date&quot;</span>, ascending=<span class="hljs-literal">True</span>)
+        .set_index(<span class="hljs-string">&quot;date&quot;</span>)
     )
 
-    return price_df[[&quot;close&quot;]]
+    <span class="hljs-keyword">return</span> price_df[[<span class="hljs-string">&quot;close&quot;</span>]]
 
-start = datetime.date(2012, 10, 26)
-end = datetime.date(2013, 4, 9)
+start = datetime.date(<span class="hljs-number">2012</span>, <span class="hljs-number">10</span>, <span class="hljs-number">26</span>)
+end = datetime.date(<span class="hljs-number">2013</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>)
 
-price_df = get_price(&quot;000001.SH&quot;, start, end)
+price_df = get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
 
-for i in [5, 10, 30, 60]:
-    price_df[f&quot;MA%d&quot; % i] = price_df[&quot;close&quot;].rolling(i).mean()
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>, <span class="hljs-number">60</span>]:
+    price_df[<span class="hljs-string">f&quot;MA%d&quot;</span> % i] = price_df[<span class="hljs-string">&quot;close&quot;</span>].rolling(i).mean()
 
-# 计算生命线趋势拐点
-price_df[&quot;slope_30_5&quot;] = price_df[&quot;MA30&quot;].rolling(5, min_periods=5).apply(lambda y: np.polyfit(np.arange(5), y, 1)[0])
+<span class="hljs-comment"># 计算生命线趋势拐点</span>
+price_df[<span class="hljs-string">&quot;slope_30_5&quot;</span>] = price_df[<span class="hljs-string">&quot;MA30&quot;</span>].rolling(<span class="hljs-number">5</span>, min_periods=<span class="hljs-number">5</span>).apply(<span class="hljs-keyword">lambda</span> y: np.polyfit(np.arange(<span class="hljs-number">5</span>), y, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>])
 
-price_df[&quot;slope_30_5&quot;] = price_df[&quot;slope_30_5&quot;].fillna(0)
-signs = np.sign(price_df[&quot;slope_30_5&quot;])
-sign_changes = signs * signs.shift(1) == -1
+price_df[<span class="hljs-string">&quot;slope_30_5&quot;</span>] = price_df[<span class="hljs-string">&quot;slope_30_5&quot;</span>].fillna(<span class="hljs-number">0</span>)
+signs = np.sign(price_df[<span class="hljs-string">&quot;slope_30_5&quot;</span>])
+sign_changes = signs * signs.shift(<span class="hljs-number">1</span>) == -<span class="hljs-number">1</span>
 
 revert_dates = price_df.index[sign_changes]
-print(&quot;找到的反转日期：&quot;, [i for i in revert_dates])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;找到的反转日期：&quot;</span>, [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> revert_dates])
 
-# 在现有图表上添加切线
-cols = [&quot;MA5&quot;, &quot;MA10&quot;, &quot;MA30&quot;, &quot;MA60&quot;]
-ax = price_df[cols].plot(figsize=(18, 8), title=&#39;30 日均线切线分析&#39;)
+<span class="hljs-comment"># 在现有图表上添加切线</span>
+cols = [<span class="hljs-string">&quot;MA5&quot;</span>, <span class="hljs-string">&quot;MA10&quot;</span>, <span class="hljs-string">&quot;MA30&quot;</span>, <span class="hljs-string">&quot;MA60&quot;</span>]
+ax = price_df[cols].plot(figsize=(<span class="hljs-number">18</span>, <span class="hljs-number">8</span>), title=<span class="hljs-string">&#x27;30 日均线切线分析&#x27;</span>)
 
-# 切线长度
-tangent_length = 15
+<span class="hljs-comment"># 切线长度</span>
+tangent_length = <span class="hljs-number">15</span>
 
-for dt in revert_dates:
-    # 获取该位置的 MA 值和斜率
-    ma_value = price_df.loc[dt, &#39;MA30&#39;]
-    slope = price_df.loc[dt, &#39;slope_30_5&#39;]
+<span class="hljs-keyword">for</span> dt <span class="hljs-keyword">in</span> revert_dates:
+    <span class="hljs-comment"># 获取该位置的 MA 值和斜率</span>
+    ma_value = price_df.loc[dt, <span class="hljs-string">&#x27;MA30&#x27;</span>]
+    slope = price_df.loc[dt, <span class="hljs-string">&#x27;slope_30_5&#x27;</span>]
     i = price_df.index.get_loc(dt)
     
-    # 计算切线范围
-    start_idx = max(0, i - tangent_length)
-    end_idx = min(len(price_df), i + tangent_length + 1)
+    <span class="hljs-comment"># 计算切线范围</span>
+    start_idx = <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, i - tangent_length)
+    end_idx = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">len</span>(price_df), i + tangent_length + <span class="hljs-number">1</span>)
     
-    # 计算切线坐标
+    <span class="hljs-comment"># 计算切线坐标</span>
     x_offset = np.arange(start_idx - i, end_idx - i)
     y_tangent = ma_value + slope * x_offset
     tangent_dates = np.arange(start_idx, end_idx)
     
-    # 绘制切线
-    color = &#39;green&#39; if slope &gt; 0 else &#39;red&#39;
-    linestyle = &#39;-.&#39; if slope &gt; 0 else &#39;--&#39;
+    <span class="hljs-comment"># 绘制切线</span>
+    color = <span class="hljs-string">&#x27;green&#x27;</span> <span class="hljs-keyword">if</span> slope &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;red&#x27;</span>
+    linestyle = <span class="hljs-string">&#x27;-.&#x27;</span> <span class="hljs-keyword">if</span> slope &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;--&#x27;</span>
     
     ax.plot(tangent_dates, y_tangent, 
-           color=color, linestyle=linestyle, linewidth=2, alpha=0.8)
+           color=color, linestyle=linestyle, linewidth=<span class="hljs-number">2</span>, alpha=<span class="hljs-number">0.8</span>)
     
-    # 标记切点
-    ax.scatter(i, ma_value, color=color, s=100, zorder=5)
+    <span class="hljs-comment"># 标记切点</span>
+    ax.scatter(i, ma_value, color=color, s=<span class="hljs-number">100</span>, zorder=<span class="hljs-number">5</span>)
     ax.annotate(dt, 
                xy=(i, ma_value),
-               xytext=(5, 10), textcoords=&#39;offset points&#39;,
-               fontsize=9, color=color,
-               bbox=dict(boxstyle=&#39;round,pad=0.3&#39;, facecolor=&#39;white&#39;, alpha=0.8))
+               xytext=(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>), textcoords=<span class="hljs-string">&#x27;offset points&#x27;</span>,
+               fontsize=<span class="hljs-number">9</span>, color=color,
+               bbox=<span class="hljs-built_in">dict</span>(boxstyle=<span class="hljs-string">&#x27;round,pad=0.3&#x27;</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>, alpha=<span class="hljs-number">0.8</span>))
 
-plt.show()
-</code></pre>
+plt.show()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -128,9 +127,8 @@ plt.show()
     sign_changes = signs * signs.shift(1) == -1
 </div>
 
-<pre><code>    revert_dates = price_df.index[sign_changes]
-```
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">    revert_dates = price_df.<span class="hljs-property">index</span>[sign_changes]
+<span class="hljs-string">``</span><span class="hljs-string">`</span></span></code></pre>
 <p>如何解决传统均线在延迟和平滑上，存在鱼与熊掌不可兼得的矛盾？</p>
 <h2 id="llt-均线">LLT 均线</h2>
 <p>研报在 LLT 均线的原理及推导上介绍得比较深入细致。但是，要理解 LLT，需要有 Z 变换等基础，我们简单解释如下：</p>
@@ -152,12 +150,12 @@ $$</p>
 <!--PAID CONTENT START-->
 
 <p>它的实现代码是：</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-def calculate_llt(prices, alpha=0.05):
-    &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_llt</span>(<span class="hljs-params">prices, alpha=<span class="hljs-number">0.05</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     计算LLT (Linearly Weighted Least Squares Triangular) 均线
     
     参数:
@@ -166,41 +164,39 @@ def calculate_llt(prices, alpha=0.05):
     
     返回:
     array: LLT均线序列
-    &quot;&quot;&quot;
-    n = len(prices)
+    &quot;&quot;&quot;</span>
+    n = <span class="hljs-built_in">len</span>(prices)
     llt = np.zeros(n)
     
-    # 初始化前两个值
-    if n &gt;= 1:
-        llt[0] = prices[0]
-    if n &gt;= 2:
-        llt[1] = prices[1]
+    <span class="hljs-comment"># 初始化前两个值</span>
+    <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">1</span>:
+        llt[<span class="hljs-number">0</span>] = prices[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">if</span> n &gt;= <span class="hljs-number">2</span>:
+        llt[<span class="hljs-number">1</span>] = prices[<span class="hljs-number">1</span>]
     
-    # 计算系数
-    a1 = alpha - (alpha**2) / 4
-    a2 = (alpha**2) / 2
-    a3 = alpha - 3 * (alpha**2) / 4
-    a4 = 2 * (1 - alpha)
-    a5 = - (1 - alpha)**2
+    <span class="hljs-comment"># 计算系数</span>
+    a1 = alpha - (alpha**<span class="hljs-number">2</span>) / <span class="hljs-number">4</span>
+    a2 = (alpha**<span class="hljs-number">2</span>) / <span class="hljs-number">2</span>
+    a3 = alpha - <span class="hljs-number">3</span> * (alpha**<span class="hljs-number">2</span>) / <span class="hljs-number">4</span>
+    a4 = <span class="hljs-number">2</span> * (<span class="hljs-number">1</span> - alpha)
+    a5 = - (<span class="hljs-number">1</span> - alpha)**<span class="hljs-number">2</span>
     
-    # 递归计算LLT
-    for t in range(2, n):
-        llt[t] = a1 * prices[t] + a2 * prices[t-1] - a3 * prices[t-2] + a4 * llt[t-1] + a5 * llt[t-2]
+    <span class="hljs-comment"># 递归计算LLT</span>
+    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, n):
+        llt[t] = a1 * prices[t] + a2 * prices[t-<span class="hljs-number">1</span>] - a3 * prices[t-<span class="hljs-number">2</span>] + a4 * llt[t-<span class="hljs-number">1</span>] + a5 * llt[t-<span class="hljs-number">2</span>]
     
-    return llt
-</code></pre>
+    <span class="hljs-keyword">return</span> llt</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>下面，我们对比一下EMA， 5日均线以及LLT均线：</p>
-<pre><code class="language-python">price_df = get_price(&quot;000001.SH&quot;, start, end)
-price_df[&#39;EMA&#39;] = price_df[&#39;close&#39;].ewm(alpha=0.05, adjust=False).mean()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">price_df = get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
+price_df[<span class="hljs-string">&#x27;EMA&#x27;</span>] = price_df[<span class="hljs-string">&#x27;close&#x27;</span>].ewm(alpha=<span class="hljs-number">0.05</span>, adjust=<span class="hljs-literal">False</span>).mean()
 
 
-price_df[&#39;MA30&#39;] = price_df[&#39;close&#39;].rolling(30).mean()
-price_df[&#39;LLT&#39;] = calculate_llt(price_df[&#39;close&#39;], 0.05)
+price_df[<span class="hljs-string">&#x27;MA30&#x27;</span>] = price_df[<span class="hljs-string">&#x27;close&#x27;</span>].rolling(<span class="hljs-number">30</span>).mean()
+price_df[<span class="hljs-string">&#x27;LLT&#x27;</span>] = calculate_llt(price_df[<span class="hljs-string">&#x27;close&#x27;</span>], <span class="hljs-number">0.05</span>)
 
-price_df.plot(figsize=(18,8),title=&#39;各类趋势线比较&#39;)
-</code></pre>
+price_df.plot(figsize=(<span class="hljs-number">18</span>,<span class="hljs-number">8</span>),title=<span class="hljs-string">&#x27;各类趋势线比较&#x27;</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250716153707.png'>
@@ -210,13 +206,12 @@ price_df.plot(figsize=(18,8),title=&#39;各类趋势线比较&#39;)
 
 <p>从这个个例上看，LLT确实跟得更紧（接近MA5），同时做到了比较平滑（比EMA更平滑，接近MA30）。</p>
 <p>在计算LLT时，有一个$\alpha$参数，它的取值对平滑程度和延迟性都有影响：</p>
-<pre><code class="language-python">for a in [0.03,0.04,0.05]:
-    price_df[f&#39;LLT(%s)&#39;%a] = calculate_llt(price_df[&#39;close&#39;],a)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> [<span class="hljs-number">0.03</span>,<span class="hljs-number">0.04</span>,<span class="hljs-number">0.05</span>]:
+    price_df[<span class="hljs-string">f&#x27;LLT(%s)&#x27;</span>%a] = calculate_llt(price_df[<span class="hljs-string">&#x27;close&#x27;</span>],a)
     
 
-show_cols = [&quot;LLT(0.03)&quot;, &quot;LLT(0.04)&quot;, &quot;LLT(0.05)&quot;]
-price_df[show_cols].plot(figsize=(18,9),title=&#39;不同α参数的LLT趋势线&#39;)
-</code></pre>
+show_cols = [<span class="hljs-string">&quot;LLT(0.03)&quot;</span>, <span class="hljs-string">&quot;LLT(0.04)&quot;</span>, <span class="hljs-string">&quot;LLT(0.05)&quot;</span>]
+price_df[show_cols].plot(figsize=(<span class="hljs-number">18</span>,<span class="hljs-number">9</span>),title=<span class="hljs-string">&#x27;不同α参数的LLT趋势线&#x27;</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250716161354.png'>
@@ -226,10 +221,10 @@ price_df[show_cols].plot(figsize=(18,9),title=&#39;不同α参数的LLT趋势线
 
 <h2 id="回测与对比">回测与对比</h2>
 <p>我们先来看看传统均线的回测情况。我们将定义一个交易函数，它接受一个dataframe，因子列名和计算slope的窗口。后面我们在对LLT进行回测时，我们将使用同一个函数，这样可以确保对比的公正性。</p>
-<pre><code class="language-python">import quantstats as qs
-mport quantstats as qs
-def trading_strategy(df, factor_col: str, slope_window=5, long_weight=0.5, short_weight=0.5):
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span></span><span class="cl-body"><span class="hljs-keyword">import</span> quantstats <span class="hljs-keyword">as</span> qs
+mport quantstats <span class="hljs-keyword">as</span> qs
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">trading_strategy</span>(<span class="hljs-params">df, factor_col: <span class="hljs-built_in">str</span>, slope_window=<span class="hljs-number">5</span>, long_weight=<span class="hljs-number">0.5</span>, short_weight=<span class="hljs-number">0.5</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     计算基于均线斜率的多空组合策略收益
     
     参数:
@@ -241,85 +236,83 @@ def trading_strategy(df, factor_col: str, slope_window=5, long_weight=0.5, short
     
     返回:
     DataFrame: 包含策略收益的DataFrame
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = df.copy()
-    df[&#39;slope&#39;] = (df[factor_col].rolling(slope_window)
-                    .apply(lambda x: np.polyfit(np.arange(slope_window), x, 1)[0]))
+    df[<span class="hljs-string">&#x27;slope&#x27;</span>] = (df[factor_col].rolling(slope_window)
+                    .apply(<span class="hljs-keyword">lambda</span> x: np.polyfit(np.arange(slope_window), x, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]))
 
-    df[&#39;signal&#39;] = 0
-    df.loc[df[&#39;slope&#39;] &gt; 0, &#39;signal&#39;] = 1
-    df.loc[df[&#39;slope&#39;] &lt; 0, &#39;signal&#39;] = -1
+    df[<span class="hljs-string">&#x27;signal&#x27;</span>] = <span class="hljs-number">0</span>
+    df.loc[df[<span class="hljs-string">&#x27;slope&#x27;</span>] &gt; <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;signal&#x27;</span>] = <span class="hljs-number">1</span>
+    df.loc[df[<span class="hljs-string">&#x27;slope&#x27;</span>] &lt; <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;signal&#x27;</span>] = -<span class="hljs-number">1</span>
     
-    # 计算每日收益率
-    df[&#39;benchmark&#39;] = df[&#39;close&#39;].pct_change()
+    <span class="hljs-comment"># 计算每日收益率</span>
+    df[<span class="hljs-string">&#x27;benchmark&#x27;</span>] = df[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()
     
-    # 计算多空组合收益
-    df[&#39;long_return&#39;] = np.where(df[&#39;signal&#39;] == 1, df[&#39;benchmark&#39;], 0)
-    df[&#39;short_return&#39;] = np.where(df[&#39;signal&#39;] == -1, -df[&#39;benchmark&#39;], 0)
+    <span class="hljs-comment"># 计算多空组合收益</span>
+    df[<span class="hljs-string">&#x27;long_return&#x27;</span>] = np.where(df[<span class="hljs-string">&#x27;signal&#x27;</span>] == <span class="hljs-number">1</span>, df[<span class="hljs-string">&#x27;benchmark&#x27;</span>], <span class="hljs-number">0</span>)
+    df[<span class="hljs-string">&#x27;short_return&#x27;</span>] = np.where(df[<span class="hljs-string">&#x27;signal&#x27;</span>] == -<span class="hljs-number">1</span>, -df[<span class="hljs-string">&#x27;benchmark&#x27;</span>], <span class="hljs-number">0</span>)
     
-    # 组合收益 = 多头收益 * 多头权重 + 空头收益 * 空头权重
-    df[&#39;strategy&#39;] = df[&#39;long_return&#39;] * long_weight + df[&#39;short_return&#39;] * short_weight
+    <span class="hljs-comment"># 组合收益 = 多头收益 * 多头权重 + 空头收益 * 空头权重</span>
+    df[<span class="hljs-string">&#x27;strategy&#x27;</span>] = df[<span class="hljs-string">&#x27;long_return&#x27;</span>] * long_weight + df[<span class="hljs-string">&#x27;short_return&#x27;</span>] * short_weight
     
-    return df
+    <span class="hljs-keyword">return</span> df
 
 
-def backtest_ma(start, end, win:int=30):
-    price_df = get_price(&quot;000001.SH&quot;, start, end)
-    factor_col = f&quot;ma{win}&quot;
-    price_df[factor_col] = price_df[&quot;close&quot;].rolling(win).mean()
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">backtest_ma</span>(<span class="hljs-params">start, end, win:<span class="hljs-built_in">int</span>=<span class="hljs-number">30</span></span>):
+    price_df = get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
+    factor_col = <span class="hljs-string">f&quot;ma<span class="hljs-subst">{win}</span>&quot;</span>
+    price_df[factor_col] = price_df[<span class="hljs-string">&quot;close&quot;</span>].rolling(win).mean()
 
     strategy_df = trading_strategy(price_df, factor_col)
     strategy_df.index = pd.to_datetime(strategy_df.index)
 
     qs.plots.returns(
-                returns=strategy_df[&quot;strategy&quot;],
-                benchmark=strategy_df[&quot;benchmark&quot;]
+                returns=strategy_df[<span class="hljs-string">&quot;strategy&quot;</span>],
+                benchmark=strategy_df[<span class="hljs-string">&quot;benchmark&quot;</span>]
             )
     
     metrics = qs.reports.metrics(
-            returns = strategy_df[&quot;strategy&quot;],
-            benchmark = strategy_df[&quot;benchmark&quot;],
-            display=False
+            returns = strategy_df[<span class="hljs-string">&quot;strategy&quot;</span>],
+            benchmark = strategy_df[<span class="hljs-string">&quot;benchmark&quot;</span>],
+            display=<span class="hljs-literal">False</span>
         )
     
-    print(metrics[:10])
+    <span class="hljs-built_in">print</span>(metrics[:<span class="hljs-number">10</span>])
 
-start = datetime.date(2005, 9, 6)
-end = datetime.date(2013, 6, 28)
-backtest_ma(start, end)
-</code></pre>
+start = datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">9</span>, <span class="hljs-number">6</span>)
+end = datetime.date(<span class="hljs-number">2013</span>, <span class="hljs-number">6</span>, <span class="hljs-number">28</span>)
+backtest_ma(start, end)</span></code></pre>
 <p>我们在30日均线上，回测得到的结果，与研报基本一致，都在300%左右。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 理论上，知道回测时间，我们应该能做到像素级的复现。但是，这里有一个重要的参数，即求斜率时的窗口大小，研报没有披露。我们在复现时，使用的窗口为5。
 </div>
 
 <p>所以，在对LLT进行回测时，我们只需要先计算出LLT，再将LLT作为因子传入 trading_strategy 函数即可。</p>
-<pre><code class="language-python">def backtest_llt(start, end, win:int=30, d=20):
-    price_df = get_price(&quot;000001.SH&quot;, start, end)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">backtest_llt</span>(<span class="hljs-params">start, end, win:<span class="hljs-built_in">int</span>=<span class="hljs-number">30</span>, d=<span class="hljs-number">20</span></span>):
+    price_df = get_price(<span class="hljs-string">&quot;000001.SH&quot;</span>, start, end)
 
-    alpha = 2 / (d + 1)
-    price_df[&quot;llt&quot;] = calculate_llt(price_df[&quot;close&quot;], alpha)
+    alpha = <span class="hljs-number">2</span> / (d + <span class="hljs-number">1</span>)
+    price_df[<span class="hljs-string">&quot;llt&quot;</span>] = calculate_llt(price_df[<span class="hljs-string">&quot;close&quot;</span>], alpha)
 
-    strategy_df = trading_strategy(price_df, &quot;llt&quot;)
+    strategy_df = trading_strategy(price_df, <span class="hljs-string">&quot;llt&quot;</span>)
     strategy_df.index = pd.to_datetime(strategy_df.index)
 
     qs.plots.returns(
-                returns=strategy_df[&quot;strategy&quot;],
-                benchmark=strategy_df[&quot;benchmark&quot;]
+                returns=strategy_df[<span class="hljs-string">&quot;strategy&quot;</span>],
+                benchmark=strategy_df[<span class="hljs-string">&quot;benchmark&quot;</span>]
             )
     
     metrics = qs.reports.metrics(
-            returns = strategy_df[&quot;strategy&quot;],
-            benchmark = strategy_df[&quot;benchmark&quot;],
-            display=False
+            returns = strategy_df[<span class="hljs-string">&quot;strategy&quot;</span>],
+            benchmark = strategy_df[<span class="hljs-string">&quot;benchmark&quot;</span>],
+            display=<span class="hljs-literal">False</span>
         )
 
-    print(metrics[:10])
+    <span class="hljs-built_in">print</span>(metrics[:<span class="hljs-number">10</span>])
 
-start = datetime.date(2005, 1, 1)
-end = datetime.date(2012, 10, 1)
-backtest_llt(start, end)
-</code></pre>
+start = datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2012</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>)
+backtest_llt(start, end)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250716192349.png'>
@@ -330,10 +323,9 @@ backtest_llt(start, end)
 <p>以上是研报复现的情况。研报发表时间较早，因此只回测到2013年，在此之后，情况如何？这个策略是否仍然有效?</p>
 <p>如果把回测时间改到2013年之后，2024年底之前，保持alpha仍为0.05, 我们发现收益率对benchmark，仍有明显的超额。考虑到2015年之后，A股就一直没有大的行情，作为趋势跟随策略，收益不可能象之前那么好，也是理所当然。</p>
 <p>不过，考虑增加alpha值（对应ema线窗口缩短）为0.1，以捕捉更短的波段，增加交易机会之后，则仍可以得到非常漂亮的超额和夏普：</p>
-<pre><code class="language-python">start = datetime.date(2013, 1, 1)
-end = datetime.date(2024, 12, 31)
-backtest_llt(start, end, d = 10)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2013</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+backtest_llt(start, end, d = <span class="hljs-number">10</span>)</span></code></pre>
 <p>如果进一步增加alpha值到0.17（对应d=5）左右，则从2014年之后，上证指数多空组合收益达到了345%，夏普达到了1.33！</p>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250716194706.png'>

@@ -26,8 +26,7 @@
 <p>尽管在《zen of Python》中写道，&quot;永远都应该只有一种显而易见的解决之道&quot;，但是，理想照进现实的过程总要经过曲折的投影。我们一路讲述下来，读者已经发现，Python 在虚拟环境、依赖解析和打包构建等领域都先后出现了好多个方案来解决相似的问题，出现了让人莫衷一是的“百花齐放”，如果没有经过系统的梳理，很多人会难免感到困惑，不知道哪一个方案能够通向未来，自己掌握的技术与资讯，是否已经被社区抛弃。好在 Python 社区现在已经通过一系列的 PEP 回答了标准问题，相关的工具和生态逐渐在遵循标准的基础上建立起来了，今后的这样的“百花齐放”，可能会少一些。是否遵循最新的 PEP，也正是 ppw 工具和本书选择某项技术的准则。</p>
 <p>在<code>ppw</code>中，我们的发布是在 Github Actions 中完成的。这部分我们已经在 <a href="chap09.md">持续集成</a> 那一章讲过了。万一你存在手工发布的需求，那么请回顾 [基于 Poetry 进行发行包的构建](chap05.md#基于 Poetry 进行发行包的构建)那一节。</p>
 <p>这里简要地回顾一下，在 Poetry 出现之前，我们是如何发布 Python 库的，以防读者偶尔还会遇到需要维护老旧的 Python 项目的情况。在 Poetry 之前，我们需要通过 twine 这个命令来发布 Python 库。这个命令可以通过 pip 来安装：</p>
-<pre><code class="language-shell">$ pip install twine
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">pip install twine</span></span></code></pre>
 <p>尽管<code>ppw</code>生成的项目中，我们使用了别的技术来发布 Python 库，但这个命令也保留了下来。用在<code>poetry build</code>之后，检查构建物是否合乎 PyPI 的规定，以提前预防发布失败。</p>
 <h2 id="1-打包和分发流程">1. 打包和分发流程</h2>
 <p>打包和发布是一个从开发者的源代码起，到用户可以安装并使用的 Python 库的过程。这个过程中，我们需要经历以下几个步骤：</p>
@@ -54,33 +53,32 @@
 
 <h3 id="12-分发包的元数据">1.2. 分发包的元数据</h3>
 <p>在创建的分发包中，包含了一个名为 METADATA 的文件。这个文件的内容如下所示：</p>
-<pre><code>Metadata-Version: 2.1
-Name: sample
-Version: 0.1.0
-Summary: Skeleton project created by Python Project Wizard (ppw).
-License: MIT
-Requires-Python: &gt;=3.8,&lt;3.9
-Classifier: Development Status :: 2 - Pre-Alpha
-...
-Classifier: Programming Language :: Python :: 3.9
-Provides-Extra: dev
-...
-Requires-Dist: black (&gt;=22.3.0,&lt;23.0.0) ; extra == &quot;test&quot;
-...
-Requires-Dist: virtualenv (&gt;=20.13.1,&lt;21.0.0) ; extra == &quot;dev&quot;
-Description-Content-Type: text/markdown
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-attr">Metadata-Version:</span> <span class="hljs-number">2.1</span>
+<span class="hljs-attr">Name:</span> <span class="hljs-string">sample</span>
+<span class="hljs-attr">Version:</span> <span class="hljs-number">0.1</span><span class="hljs-number">.0</span>
+<span class="hljs-attr">Summary:</span> <span class="hljs-string">Skeleton</span> <span class="hljs-string">project</span> <span class="hljs-string">created</span> <span class="hljs-string">by</span> <span class="hljs-string">Python</span> <span class="hljs-string">Project</span> <span class="hljs-string">Wizard</span> <span class="hljs-string">(ppw).</span>
+<span class="hljs-attr">License:</span> <span class="hljs-string">MIT</span>
+<span class="hljs-attr">Requires-Python:</span> <span class="hljs-string">&gt;=3.8,&lt;3.9</span>
+<span class="hljs-attr">Classifier: Development Status ::</span> <span class="hljs-number">2</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Pre-Alpha</span>
+<span class="hljs-string">...</span>
+<span class="hljs-attr">Classifier: Programming Language :: Python ::</span> <span class="hljs-number">3.9</span>
+<span class="hljs-attr">Provides-Extra:</span> <span class="hljs-string">dev</span>
+<span class="hljs-string">...</span>
+<span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">black</span> <span class="hljs-string">(&gt;=22.3.0,&lt;23.0.0)</span> <span class="hljs-string">;</span> <span class="hljs-string">extra</span> <span class="hljs-string">==</span> <span class="hljs-string">&quot;test&quot;</span>
+<span class="hljs-string">...</span>
+<span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">virtualenv</span> <span class="hljs-string">(&gt;=20.13.1,&lt;21.0.0)</span> <span class="hljs-string">;</span> <span class="hljs-string">extra</span> <span class="hljs-string">==</span> <span class="hljs-string">&quot;dev&quot;</span>
+<span class="hljs-attr">Description-Content-Type:</span> <span class="hljs-string">text/markdown</span>
 
-# SAMPLE
+<span class="hljs-comment"># SAMPLE</span>
 
-this is hotfix 533
-...
+<span class="hljs-string">this</span> <span class="hljs-string">is</span> <span class="hljs-string">hotfix</span> <span class="hljs-number">533</span>
+<span class="hljs-string">...</span>
 
-* TODO
+<span class="hljs-string">*</span> <span class="hljs-string">TODO</span>
 
-## Credits
+<span class="hljs-comment">## Credits</span>
 
-This package was created with the [ppw](https://zillionare.github.io/python-project-wizard) tool...
-</code></pre>
+<span class="hljs-string">This</span> <span class="hljs-string">package</span> <span class="hljs-string">was</span> <span class="hljs-string">created</span> <span class="hljs-string">with</span> <span class="hljs-string">the</span> [<span class="hljs-string">ppw</span>]<span class="hljs-string">(https://zillionare.github.io/python-project-wizard)</span> <span class="hljs-string">tool...</span></span></code></pre>
 <p>文件内容进行了适当的删节。</p>
 <p>这个文件中有一些字段我们需要简单介绍一下</p>
 <p>Name，Author，Author-email，License， Homepage, Keywords, Download-URL 等字段的含义不言自明，无须解释。在旧式的项目（即通过 setuptools 来打包的项目）中，这些字段都要指定在 setup.py 文件中，并传递给一个名为<code>setup</code>的可以接受非常多参数的函数。在使用了 Poetry 的项目中，Poetry 会从 pyproject.toml 文件中提取这些信息。</p>
@@ -94,10 +92,9 @@ This package was created with the [ppw](https://zillionare.github.io/python-proj
 <p><img src="assets/img/chap11/meta_classifier.png" alt=""></p>
 <p>PyPI 的分类系统是一个树形结构。最顶层的分类是框架（Framework），主题（Topic），开发状态（Development Status），操作系统（Operating System）等 10 个大类别。其实，PyPi 上的第三方库可谓浩如烟海，人工查询这些分类意义并不大。这些分类有助于 PyPI 组织和管理所有的库，但并不是强制的，对包的安装也没有帮助。但是，PyPA 仍然推荐在任何项目中，都至少声明该库工作的 Python 版本、license, 操作系统等分类。</p>
 <p>此外，新加入的 Typing 分类符比较有意思。它的作用是告诉 PyPI 这个项目是一个类型注解的项目。如果我们的项目是一个类型注解就绪的项目，那么我们应该在项目的源代码目录下加入 py.typed 文件，并在 pyproject.toml 中加入这个分类符：</p>
-<pre><code class="language-toml">classifiers=[
-    &#39;Typing :: Typed&#39;,
-]
-</code></pre>
+<pre><code class="hljs language-toml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-attr">classifiers</span>=[
+    <span class="hljs-string">&#x27;Typing :: Typed&#x27;</span>,
+]</span></code></pre>
 <p>**Requires-Dist 字段：**这个字段用来描述项目的依赖关系。<code>pip</code>在安装时，需要读取这个字段以发现哪些依赖需要安装。
 **Requires-Python 字段：**表明这个项目需要的 Python 版本。</p>
 <p>遗憾的是，尽管每一个包都包含了这些信息，但是对于一些重要的信息，特别是象 requires-dist 这样的信息，PyPI 并没有将其提取出来单独管理。其它语言的库管理器，比如 maven，在这一点上做得更好。为什么这是一个遗憾，我们将在很快讲到。</p>
@@ -107,41 +104,37 @@ This package was created with the [ppw](https://zillionare.github.io/python-proj
 <p>我们以大富翁量化框架为例。这是一个包含了多个模块的大型应用。其中，zillionare-omicron 是数据读写的 sdk， zillionare-omega 是行情数据服务器，它依赖于 zillionare-omicron，还有许多其他模块。不过要理解我们这里的示例，只需要知道这两个模块就够了。实际上，你可以完全不知道什么是大富翁量化框架，只需要知道几个模块之间的依赖关系就可以了。</p>
 <p>假设<code>zillionare-omicron</code>当前最新的开发版本是 1.2.3a1。<code>zillionare-omicron</code>使用了基于语义的版本管理方案，因此从版本号上我们得知，这不是正式版本，只会发布到 testpypi 上去。如果要在项目中使用这个版本，我们需要先将 testpypi 添加为一个源，然后在<code>pyproject.toml</code>中指定<code>zillionare-omicron</code>的版本为<code>1.2.3a1</code>。这样，当我们执行<code>poetry install</code>时，poetry 就会从 testpypi 中查找<code>zillionare-omicron</code>的 1.2.3a1 版本，然后安装到本地。</p>
 <p>我们在 [第 5 章 poetry 依赖解析的工作原理](chap05.md#poetry 依赖解析的工作原理)那一节介绍过如何增加第二个源。我们这里用同样的方法来增加 testpypi 源：</p>
-<pre><code class="language-bash">$ poetry source add -s testpypi https://test.pypi.org/simple
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ poetry <span class="hljs-built_in">source</span> add -s testpypi https://test.pypi.org/simple</span></code></pre>
 <p>然后我们的 pyproject.toml 文件中将会多这样一项：</p>
-<pre><code class="language-toml">[[tool.poetry.source]]
-name = &quot;testpypi&quot;
-url = &quot;https://test.pypi.org/simple&quot;
-default = false
-secondary = true
-</code></pre>
+<pre><code class="hljs language-toml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-section">[[tool.poetry.source]]</span>
+<span class="hljs-attr">name</span> = <span class="hljs-string">&quot;testpypi&quot;</span>
+<span class="hljs-attr">url</span> = <span class="hljs-string">&quot;https://test.pypi.org/simple&quot;</span>
+<span class="hljs-attr">default</span> = <span class="hljs-literal">false</span>
+<span class="hljs-attr">secondary</span> = <span class="hljs-literal">true</span></span></code></pre>
 <p>现在我们就可以把对 zillionare-omicron 的开发中版本的依赖加进来：</p>
-<pre><code class="language-shell">$ poetry add -v zillionare-omicron^1.2.3a1
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">poetry add -v zillionare-omicron^1.2.3a1</span></span></code></pre>
 <p>命令将成功执行，你可以从更新后的 pyproject.toml 中看到对<code>zillionare-omicron</code>的引用。如果我们没有添加这个源，则上述命令在执行时会报出以下错误：</p>
-<pre><code>Using virtualenv: /home/aaron/miniconda3/envs/sample
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body">Using virtualenv: /home/aaron/miniconda3/envs/sample
 
   ValueError
 
-  Could not find a matching version of package zillionare-omicron
+  Could <span class="hljs-keyword">not</span> find a matching version of package zillionare-omicron
 
-  at ~/miniconda3/envs/sample/lib/python3.8/site-packages/poetry/console/commands/init.py:414 in _find_best_version_for_package
-      410│         )
-      411│ 
-      412│         if not package:
-      413│             # TODO: find similar
-    → 414│             raise ValueError(f&quot;Could not find a matching version of package {name}&quot;)
-      415│ 
-      416│         return package.pretty_name, selector.find_recommended_require_version(package)
-      417│ 
-      418│     def _parse_requirements(self, requirements: list[str]) -&gt; list[dict[str, Any]]:
-</code></pre>
+  at ~/miniconda3/envs/sample/lib/python3<span class="hljs-number">.8</span>/site-packages/poetry/console/commands/init.py:<span class="hljs-number">414</span> <span class="hljs-keyword">in</span> _find_best_version_for_package
+      <span class="hljs-number">410</span>│         )
+      <span class="hljs-number">411</span>│ 
+      <span class="hljs-number">412</span>│         <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> package:
+      <span class="hljs-number">413</span>│             <span class="hljs-comment"># <span class="hljs-doctag">TODO:</span> find similar</span>
+    → <span class="hljs-number">414</span>│             <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;Could not find a matching version of package <span class="hljs-subst">{name}</span>&quot;</span>)
+      <span class="hljs-number">415</span>│ 
+      <span class="hljs-number">416</span>│         <span class="hljs-keyword">return</span> package.pretty_name, selector.find_recommended_require_version(package)
+      <span class="hljs-number">417</span>│ 
+      <span class="hljs-number">418</span>│     <span class="hljs-keyword">def</span> <span class="hljs-title function_">_parse_requirements</span>(<span class="hljs-params">self, requirements: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-built_in">list</span>[<span class="hljs-built_in">dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]]:</span></code></pre>
 <h2 id="3-pip-python-包管理工具">3. Pip: Python 包管理工具</h2>
 <p>你可能感到好奇，<code>pip</code>几乎是所有学习 Python 的人最早接触的几个命令之一，也是本书最早使用的那些命令之一，为什么我们却安排到了最后来介绍？原因是，因为大家非常熟悉<code>pip</code>了，所以对<code>pip</code>的一般性介绍已经不太有必要。值得一提的是，<code>pip</code>同样面临着依赖解析的问题，最适合讨论这个问题的地方，则是在了解了构建和分发系统的全貌之后。</p>
 <p>依赖解析。这是我们又一次接触到这个词。上一次还是在讲 Poetry 的那一章。是的，Poetry 只解决了开发阶段的依赖问题，并为安装阶段的依赖解析打下了良好基础，但是，<code>pip</code>仍然要独自面临依赖解析问题。</p>
 <p>下面的示例来自于<code>pip</code>的文档：</p>
-<pre><code class="language-shell">$ pip install tea
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">pip install tea</span>
 Collecting tea
   Downloading tea-1.9.8-py2.py3-none-any.whl (346 kB)
      |████████████████████████████████| 346 kB 10.4 MB/s
@@ -176,13 +169,12 @@ This could take a while.
   Downloading cup-3.15.0-py2.py3-none-any.whl (378 kB)
      |████████████████████████████████| 378 kB 21.4 MB/s
   Downloading cup-3.14.0-py2.py3-none-any.whl (372 kB)
-     |████████████████████████████████| 372 kB 21.1 MB/s
-</code></pre>
+     |████████████████████████████████| 372 kB 21.1 MB/s</span></code></pre>
 <p>要品一口香茗，除了好茶，你还得有热水，茶匙和杯子。在这里，<code>tea</code>依赖于<code>hot-water</code>, <code>spoon</code>和<code>cup</code>。当安装<code>tea</code>时，<code>pip</code>下载了最新的<code>spoon</code>和<code>cup</code>，发现两者不兼容，于是它不得不向前搜索兼容的版本，这个功能被称之为回溯，是从 20.3 起才有的功能。由于依赖信息不能通过查询 PyPI 得到，所以它不得不一次又一次的下载早前版本的包，从这些包中提取依赖信息，看是否与<code>spoon</code>兼容，不断重复这个过程直到找到一个兼容的版本。</p>
 <p>这个过程我们在 Poetry 进行依赖解析时也看到过。我们在 [第 5 章 poetry 依赖解析的工作原理](chap05.md#poetry 依赖解析的工作原理）中解释过，PyPI 上并没有某个库的依赖树，所以，Poetry 要知道某个库的依赖项，就必须先把它下载下来。这个说法其实只是部分正确。在读过 <a href="chap11.md#%E5%88%86%E5%8F%91%E5%8C%85%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE">分发包的元数据</a>那一节之后，我们已经知道，这些信息已经上传到了 PyPI，只是由于某些历史原因，PyPI 并没有把它们单独提取出来以供使用而已。</p>
 <p>人们花了这么多功夫来解决依赖问题，看来“依赖地狱”一说，并非虚妄。</p>
 <p>问题是，既然 Poetry 在添加依赖时，已经进行过了依赖解析，又生成了 lock 文件，为何<code>pip</code>不能直接使用些信息，还要重新进行一次依赖解析呢？现在请你打开<code>sample</code>工程构建出来的 wheel 文件。我们说过，它是<code>zip</code>格式的压缩文件。打开后，其内容如下：</p>
-<pre><code>.
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">.
 ├── sample
 │   ├── __init__.py
 │   ├── app.py
@@ -192,23 +184,20 @@ This could take a while.
     ├── METADATA
     ├── RECORD
     ├── WHEEL
-    └── entry_points.txt
-</code></pre>
+    └── entry_points.txt</span></code></pre>
 <p>我们在这里找不到任何跟 poetry 有关的东西。这并不奇怪，毕竟，poetry 与 pip 不属于同一个开发者，而 poetry 还不是标准库的一部分，所以 pip 没有理由去解析任何 poetry 直接相关的东西。所有的依赖信息都在 METADATA 这个文件里，特别是 Requires-Dist:</p>
-<pre><code>Requires-Dist: black (&gt;=22.3.0,&lt;23.0.0) ; extra == &quot;test&quot;
-Requires-Dist: fire (==0.4.0)
-Requires-Dist: flake8 (==4.0.1) ; extra == &quot;test&quot;
-Requires-Dist: flake8-docstrings (&gt;=1.6.0,&lt;2.0.0) ; extra == &quot;test&quot;
-Requires-Dist: isort (==5.10.1) ; extra == &quot;test&quot;
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">black</span> <span class="hljs-string">(&gt;=22.3.0,&lt;23.0.0)</span> <span class="hljs-string">;</span> <span class="hljs-string">extra</span> <span class="hljs-string">==</span> <span class="hljs-string">&quot;test&quot;</span>
+<span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">fire</span> <span class="hljs-string">(==0.4.0)</span>
+<span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">flake8</span> <span class="hljs-string">(==4.0.1)</span> <span class="hljs-string">;</span> <span class="hljs-string">extra</span> <span class="hljs-string">==</span> <span class="hljs-string">&quot;test&quot;</span>
+<span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">flake8-docstrings</span> <span class="hljs-string">(&gt;=1.6.0,&lt;2.0.0)</span> <span class="hljs-string">;</span> <span class="hljs-string">extra</span> <span class="hljs-string">==</span> <span class="hljs-string">&quot;test&quot;</span>
+<span class="hljs-attr">Requires-Dist:</span> <span class="hljs-string">isort</span> <span class="hljs-string">(==5.10.1)</span> <span class="hljs-string">;</span> <span class="hljs-string">extra</span> <span class="hljs-string">==</span> <span class="hljs-string">&quot;test&quot;</span></span></code></pre>
 <p>我们看到，有一些依赖指定了精确的版本，有的则只指定了版本范围，这里使用的是不等式语法（请见 [Poetry 进行依赖管理的相关命令](chap05.md#Poetry 进行依赖管理的相关命令）)。所以，尽管 Poetry 通过 lock 文件锁定了精确的版本，但 lock 文件只会在开发者之间共享，以加快他们的开发环境构建速度，而不会发布给终端用户。发布给终端用户的依赖信息，是 Poetry 按照 pyproject.toml 文件的内容生成的，两者语义完全一致，只不过 Poetry 允许开发者使用包括通配符、插字符、波浪符、不等式等多种语法来指定版本号，而在生成 METADATA 时，都被转换成不等式语法而已。我们再来回忆一下 sample 项目中的 pyproject.toml 文件的相关部分：</p>
-<pre><code>fire = &quot;0.4.0&quot;
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">fire = <span class="hljs-string">&quot;0.4.0&quot;</span>
 
-black  = { version = &quot;^22.3.0&quot;, optional = true}
-isort  = { version = &quot;5.10.1&quot;, optional = true}
-flake8  = { version = &quot;4.0.1&quot;, optional = true}
-flake8-docstrings = { version = &quot;^1.6.0&quot;, optional = true }
-</code></pre>
+black  = { version = <span class="hljs-string">&quot;^22.3.0&quot;</span>, optional = <span class="hljs-literal">true</span>}
+isort  = { version = <span class="hljs-string">&quot;5.10.1&quot;</span>, optional = <span class="hljs-literal">true</span>}
+flake8  = { version = <span class="hljs-string">&quot;4.0.1&quot;</span>, optional = <span class="hljs-literal">true</span>}
+flake8-docstrings = { version = <span class="hljs-string">&quot;^1.6.0&quot;</span>, optional = <span class="hljs-literal">true</span> }</span></code></pre>
 <p>Poetry 为何不将<code>lock</code>文件中锁定的版本号写入到 METADATA 文件中呢？这是因为，lock 文件完全锁死了依赖的版本号，这样虽然安装速度变快，但也会导致任何更新，就连安全更新也不可用。</p>
 <p>现在我们明白了，在 Poetry 向项目中增加一个依赖时，如果发生了回溯，那么极有可能在<code>pip</code>安装时也发生同样的回溯。要加快<code>pip</code>安装的速度，我们应该查看<code>poetry.lock</code>文件，找出其锁定的版本，以它为基点，重新指定一个恰当的版本范围，这样可以极大程度上避免在<code>pip</code>安装时发生回溯。</p>
 <p>一个好消息是，根据<code>pip</code>的文档，致力于不下载 Python package 就能得到其依赖信息的方案正在工作当中。让我们期待它的到来吧。</p>
@@ -222,37 +211,33 @@ flake8-docstrings = { version = &quot;^1.6.0&quot;, optional = true }
 <p>Makeself[^2] 是一个可用以 Unix/Linux 和 MacOs 下的自解压工具。如果用户使用 Windows，则在安装了 cygwin 的前提下，也可使用（不过这样一来，基本上就将普通用户排除在外了，所以并不是好的方案）。Makeself 本身是一个小型 shell 脚本，可从指定目录生成可自解压的压缩文档。生成的文件显示为 shell 脚本，并且可以在 shell 下启动执行。执行时，这个压缩文档将自行解压缩到一个临时目录，然后执行事先指定好的命令（例如安装脚本）。这与在 Windows 世界中使用 WinZip Self-Extractor 生成的档案非常相似。Makeself 档案还包括用于完整性自我验证的校验和（CRC 和/或 MD5/SHA256 校验和）。</p>
 <p>我们介绍这个工具，是因为在运维领域它应用非常广泛，在 Github 上也有过千 stars。另外，对于 Python 开发者来说，这个概念很可能并不陌生。如果你在 Linux 下安装过 Anaconda，你可能知道，Anaconda 的安装包就是一个类似于 shell 脚本的压缩包，不确定的是，它是用 makeself 打包的，还是用其它工具打包的。</p>
 <p>Makeself 的使用方法也非常简单，几乎没有学习成本。在 Ubuntu 下，它可以通过以下命令安装：</p>
-<pre><code class="language-shell">$ sudo apt-get install makeself
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> apt-get install makeself</span></span></code></pre>
 <p>在其它操作系统上，您可能需要从其官网 [^2] 下载安装。也可以通过<code>conda</code>命令来安装：</p>
-<pre><code class="language-shell">$ conda install -c conda-forge makeself
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda install -c conda-forge makeself</span></span></code></pre>
 <p>它的用法如下：</p>
-<pre><code class="language-shell">$ makeself.sh [args] archive_dir file_name label startup_script [script_args]
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">makeself.sh [args] archive_dir file_name label startup_script [script_args]</span></span></code></pre>
 <p>args 是 Makeself 自己在打包时要使用的参数。参数比较多，涵盖了如何压缩、是否加密、解压缩行为等，这里就不一一详述。请读者在需要时参考官方文档 [^2]。</p>
 <p>在准备阶段，我们通常把要打包安装的文件都放在一个目录下。archive_dir 就是这个目录的名字，比如项目下的 dist 文件夹；file_name 是最终制作出的安装文件名，比如 install_sample.sh；label 则是对安装文件的描述，比如“Install sample”; startup_script 是安装文件解压后要执行的脚本，比如 install.sh；script_args 是 startup_script 的参数。</p>
 <p>仍以<code>sample</code>项目为例，我们可以使用以下脚本来完成打包：</p>
-<pre><code class="language-shell">#!/BIN/BASH
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/BIN/BASH</span>
   
 poetry build
 rm -rf /tmp/sample
 mkdir /tmp/sample
 
-version=`poetry version | awk &#39;{print $2}&#39;`
+version=`poetry version | awk &#x27;{print $2}&#x27;`
 
 echo &quot;version is $version&quot;
-# PREPARE ARCHIVE
+<span class="hljs-meta prompt_"># </span><span class="language-bash">PREPARE ARCHIVE</span>
 cp dist/sample-$version-py3-none-any.whl /tmp/sample/
-
-# PREPARE INSTALL SCRIPT
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">PREPARE INSTALL SCRIPT</span>
 echo &quot;#! /bin/bash&quot; &gt; /tmp/sample/install.sh
 echo &quot;pip install ./sample-$version-py3-none-any.whl&quot; &gt;&gt; /tmp/sample/install.sh
 chmod +x /tmp/sample/install.sh
-
-# PACKAGING WITH MAKESELF
-makeself /tmp/sample install_sample.sh &quot;sample package made by makeself&quot; ./install.sh
-</code></pre>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">PACKAGING WITH MAKESELF</span>
+makeself /tmp/sample install_sample.sh &quot;sample package made by makeself&quot; ./install.sh</span></code></pre>
 <p>非常轻巧和干净，这正是我们介绍它的原因。我们这里使用了一个名为 install.sh 的脚本作为启动脚本。在这个脚本里，我们仅仅演示了如何执行安装命令，一个安整的安装脚本可能需要：</p>
 <ol>
 <li>检查符合版本要求的 Python 是否可用，如果不可用，下载并安装。这里也可以询问用户意见，如果用户不接受，则退出安装。</li>
@@ -264,8 +249,7 @@ makeself /tmp/sample install_sample.sh &quot;sample package made by makeself&quo
 <li>创建一个启动脚本（假设名字为 start.sh），这个启动脚本的作用是通过虚拟环境中的 python 来调用我们的应用程序<code>sample</code>。如果<code>sample</code>程序提供了<code>console script</code>，那么启动脚本的任务就是直接调用它；否则，就要看<code>sample</code>的入口程序是如何提供的了。这部分只能交给读者自行完成了。</li>
 <li>创建一个软链接，将启动脚本链接到<code>/usr/local/bin</code>下，这样就可以在任何地方通过<code>sample</code>命令来启动我们的应用程序了。创建软链接的命令是：</li>
 </ol>
-<pre><code class="language-shell">$ sudo ln -s path/to/your/app/start.sh /usr/local/bin/sample
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">ln</span> -s path/to/your/app/start.sh /usr/local/bin/sample</span></span></code></pre>
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
 </div>
@@ -282,77 +266,68 @@ makeself /tmp/sample install_sample.sh &quot;sample package made by makeself&quo
 <p>看上去 Nuitka 似乎更有发展前景，毕竟，它有性能加成的因素。随着使用 Type hint 的 Python 库越来越多，这种性能加成将会越来越明显。因此，这里我们只对 Nuitka 进行简单介绍。如果读者对 PyInstaller 感兴趣，可以按照我们文中给出的官网链接，自行学习。</p>
 <p>下面，我们以一个简单的例子来说明如何使用 Nuitka 打包 Python 程序。尽管我们所有的示例都推荐在 Ubunutu 或者 MacOS 上运行，但这一次，我们需要在 windows 上运行这个示例。</p>
 <p>首先，我们要安装 nuitka，可以通过 pip 安装（注意我们需要创建一个虚拟环境，在其中安装 nuitka）：</p>
-<pre><code class="language-shell">$ pip install nuitka
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">pip install nuitka</span></span></code></pre>
 <p>然后，我们创建一个名为<code>greetings.py</code>的文件，内容如下：</p>
-<pre><code class="language-python">import fire
+<pre><code class="hljs language-python title="greetings.py""><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> fire
 
-def greeting(name: str):
-    print(f&quot;hi {name}&quot;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">greeting</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>):
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;hi <span class="hljs-subst">{name}</span>&quot;</span>)
 
 fire.Fire({
-    &quot;greeting&quot;: greeting
-})
-</code></pre>
+    <span class="hljs-string">&quot;greeting&quot;</span>: greeting
+})</span></code></pre>
 <p>接下来就是见证奇迹的时刻，我们这样进行打包：</p>
-<pre><code>python -m nuitka greetings.py
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python -m nuitka greetings.py</span></code></pre>
 <p>这会在给出以下警示后，程序继续：</p>
-<pre><code>Nuitka-Options:INFO: Used command line options: greetings.py
-Nuitka-Options:WARNING: You did not specify to follow or include anything but main program. Check options and make sure
-Nuitka-Options:WARNING: that is intended.
-Nuitka:WARNING: Using very slow fallback for ordered sets, please install &#39;orderedset&#39; PyPI package for best Python
-Nuitka:WARNING: compile time performance.
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-attr">Nuitka-Options:INFO: Used command line options:</span> <span class="hljs-string">greetings.py</span>
+<span class="hljs-attr">Nuitka-Options:WARNING:</span> <span class="hljs-string">You</span> <span class="hljs-string">did</span> <span class="hljs-string">not</span> <span class="hljs-string">specify</span> <span class="hljs-string">to</span> <span class="hljs-string">follow</span> <span class="hljs-string">or</span> <span class="hljs-string">include</span> <span class="hljs-string">anything</span> <span class="hljs-string">but</span> <span class="hljs-string">main</span> <span class="hljs-string">program.</span> <span class="hljs-string">Check</span> <span class="hljs-string">options</span> <span class="hljs-string">and</span> <span class="hljs-string">make</span> <span class="hljs-string">sure</span>
+<span class="hljs-attr">Nuitka-Options:WARNING:</span> <span class="hljs-string">that</span> <span class="hljs-string">is</span> <span class="hljs-string">intended.</span>
+<span class="hljs-attr">Nuitka:WARNING:</span> <span class="hljs-string">Using</span> <span class="hljs-string">very</span> <span class="hljs-string">slow</span> <span class="hljs-string">fallback</span> <span class="hljs-string">for</span> <span class="hljs-string">ordered</span> <span class="hljs-string">sets,</span> <span class="hljs-string">please</span> <span class="hljs-string">install</span> <span class="hljs-string">&#x27;orderedset&#x27;</span> <span class="hljs-string">PyPI</span> <span class="hljs-string">package</span> <span class="hljs-string">for</span> <span class="hljs-string">best</span> <span class="hljs-string">Python</span>
+<span class="hljs-attr">Nuitka:WARNING:</span> <span class="hljs-string">compile</span> <span class="hljs-string">time</span> <span class="hljs-string">performance.</span></span></code></pre>
 <p>Nuitka 在编译中给出了一些性能相关的警告。对我们这个简单的程序，这些警告不会有任何影响。比如，其中的一条是，如果你的程序中使用了<code>set</code>，那么你应该安装<code>orderedset</code>，这样可以提高运行速度。我们的示例程序是如此简单，以致于即使我们按提示安装了 orderedset，也不会得到性能上的提升。因此，我们可以完全忽略这些警告。</p>
 <p>接下来，它要求下载并安装 MinGW64 和 ccache。这个下载可能会失败，如果是这样，你需要自行下载，并且将下载的压缩包解压缩后，按提示放到指定的位置，比如&#39;C:\Users\Administrator\AppData\Local\Nuitka\Nuitka\Cache\downloads\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3&#39;。这个位置可能会因为你的系统不同而不同，但都会打印在命令行窗口中。</p>
 <p>接下来，它开始进行编译：</p>
-<pre><code>Nuitka:INFO: Starting Python compilation with Nuitka &#39;1.4.3&#39; on Python &#39;3.8&#39; commercial grade &#39;not installed&#39;.
-Nuitka:INFO: Completed Python level compilation and optimization.
-Nuitka:INFO: Generating source code for C backend compiler.
-Nuitka:INFO: Running data composer tool for optimal constant value handling.
-Nuitka:INFO: Running C compilation via Scons.
-Nuitka-Scons:INFO: Backend C compiler: gcc (gcc).
-Nuitka-Scons:INFO: Backend linking program with 6 files (no progress information available).
-Nuitka-Scons:INFO: Compiled 24 C files using ccache.
-Nuitka-Scons:INFO: Cached C files (using ccache) with result &#39;cache miss&#39;: 6
-Nuitka:INFO: Keeping build directory &#39;greetings.build&#39;.
-Nuitka:INFO: Successfully created &#39;greetings.exe&#39;.
-Nuitka:INFO: Execute it by launching &#39;greetings.cmd&#39;, the batch file needs to set environment.
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">Nuitka:INFO: Starting Python compilation <span class="hljs-keyword">with</span> Nuitka <span class="hljs-string">&#x27;1.4.3&#x27;</span> <span class="hljs-keyword">on</span> Python <span class="hljs-string">&#x27;3.8&#x27;</span> commercial grade <span class="hljs-string">&#x27;not installed&#x27;</span>.
+Nuitka:INFO: Completed Python level compilation <span class="hljs-keyword">and</span> optimization.
+Nuitka:INFO: Generating source code <span class="hljs-keyword">for</span> C backend compiler.
+Nuitka:INFO: <span class="hljs-keyword">Running</span> data composer tool <span class="hljs-keyword">for</span> optimal constant <span class="hljs-keyword">value</span> handling.
+Nuitka:INFO: <span class="hljs-keyword">Running</span> C compilation via Scons.
+Nuitka<span class="hljs-operator">-</span>Scons:INFO: Backend C compiler: gcc (gcc).
+Nuitka<span class="hljs-operator">-</span>Scons:INFO: Backend linking program <span class="hljs-keyword">with</span> <span class="hljs-number">6</span> files (<span class="hljs-keyword">no</span> progress information available).
+Nuitka<span class="hljs-operator">-</span>Scons:INFO: Compiled <span class="hljs-number">24</span> C files <span class="hljs-keyword">using</span> ccache.
+Nuitka<span class="hljs-operator">-</span>Scons:INFO: Cached C files (<span class="hljs-keyword">using</span> ccache) <span class="hljs-keyword">with</span> <span class="hljs-keyword">result</span> <span class="hljs-string">&#x27;cache miss&#x27;</span>: <span class="hljs-number">6</span>
+Nuitka:INFO: Keeping build directory <span class="hljs-string">&#x27;greetings.build&#x27;</span>.
+Nuitka:INFO: Successfully created <span class="hljs-string">&#x27;greetings.exe&#x27;</span>.
+Nuitka:INFO: <span class="hljs-keyword">Execute</span> it <span class="hljs-keyword">by</span> launching <span class="hljs-string">&#x27;greetings.cmd&#x27;</span>, the batch file needs <span class="hljs-keyword">to</span> <span class="hljs-keyword">set</span> environment.</span></code></pre>
 <p>根据提示，我们看到它将 python 代码转换成 c 的源码，并进一步编译成 windows 上可以运行的原生程序。最终，我们得到了两个文件，一个是&#39;greetings.exe&#39;，另一个是&#39;greetings.cmd&#39;。如果我们是在刚刚进行打包的窗口中，则可以直接运行<code>greetings.exe</code>，否则，我们应该运行<code>greetings.cmd</code>。</p>
 <p>运行结果如下：</p>
-<pre><code class="language-shell">$ greetings.exe greeting aaron
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">greetings.exe greeting aaron</span>
 
-hi aaron
-</code></pre>
+hi aaron</span></code></pre>
 <p>这仅仅是一个命令行程序，所以看上去可能不那么令人兴奋。如果我们打算从资源管理器里找到它，双击并运行它，我们会被提示缺少某些 python 的 dll。为了使这个程序能完全独立运行，我们需要在打包时加上--standalone 参数：</p>
-<pre><code class="language-shell">$ python -m nuitka --standalone --follow-imports greetings.py
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">python -m nuitka --standalone --follow-imports greetings.py</span></span></code></pre>
 <p>这一次，又会提示下载一些东西，主要是 msvc 的运行时，但这次下载会非常顺利。最终，编译成功，我们得到了一个名为 greetings.dist 的文件夹。现在，如果 greetings 是一个带图形界面的应用，我们就可以在资源管理器中，直接双击其中的 greetings.exe 运行了。不过，由于我们的 greetings 程序需要接收用户输入，所以我们还是得从命令行中打开它。但这次，我们可以将新生成的文件夹拷贝到没有安装 python 和 nuitka 的机器上，然后在命令行下运行 greetings.exe：</p>
-<pre><code class="language-shell">$ greetings.exe greeting aaron
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">greetings.exe greeting aaron</span>
 
-hi aaron
-</code></pre>
+hi aaron</span></code></pre>
 <p>Nuitka 的打包构建过程已经可以和 poetry 整合，我们只需要这样修改<code>pyproject.toml</code>即可工作：</p>
-<pre><code class="language-toml">[build-system]
-requires = [&quot;setuptools&gt;=42&quot;, &quot;wheel&quot;, &quot;nuitka&quot;, &quot;toml&quot;]
-build-backend = &quot;nuitka.distutils.Build&quot;
+<pre><code class="hljs language-toml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-section">[build-system]</span>
+<span class="hljs-attr">requires</span> = [<span class="hljs-string">&quot;setuptools&gt;=42&quot;</span>, <span class="hljs-string">&quot;wheel&quot;</span>, <span class="hljs-string">&quot;nuitka&quot;</span>, <span class="hljs-string">&quot;toml&quot;</span>]
+<span class="hljs-attr">build-backend</span> = <span class="hljs-string">&quot;nuitka.distutils.Build&quot;</span>
 
-[nuitka]
-# THESE ARE NOT RECOMMENDED, BUT THEY MAKE IT OBVIOUS TO HAVE EFFECT.
+<span class="hljs-section">[nuitka]</span>
+<span class="hljs-comment"># THESE ARE NOT RECOMMENDED, BUT THEY MAKE IT OBVIOUS TO HAVE EFFECT.</span>
 
-# BOOLEAN OPTION, E.G. IF YOU CARED FOR C COMPILATION COMMANDS, LEADING
-# DASHES ARE OMITTED
-show-scons = true
+<span class="hljs-comment"># BOOLEAN OPTION, E.G. IF YOU CARED FOR C COMPILATION COMMANDS, LEADING</span>
+<span class="hljs-comment"># DASHES ARE OMITTED</span>
+<span class="hljs-attr">show-scons</span> = <span class="hljs-literal">true</span>
 
-# OPTIONS WITH SINGLE VALUES, E.G. ENABLE A PLUGIN OF NUITKA
-enable-plugin = pyside2
+<span class="hljs-comment"># OPTIONS WITH SINGLE VALUES, E.G. ENABLE A PLUGIN OF NUITKA</span>
+<span class="hljs-attr">enable-plugin</span> = pyside2
 
-# OPTIONS WITH SEVERAL VALUES, E.G. AVOIDING INCLUDING MODULES, ACCEPTS
-# LIST ARGUMENT.
-nofollow-import-to = [&quot;*.tests&quot;, &quot;*.distutils&quot;]
-</code></pre>
+<span class="hljs-comment"># OPTIONS WITH SEVERAL VALUES, E.G. AVOIDING INCLUDING MODULES, ACCEPTS</span>
+<span class="hljs-comment"># LIST ARGUMENT.</span>
+<span class="hljs-attr">nofollow-import-to</span> = [<span class="hljs-string">&quot;*.tests&quot;</span>, <span class="hljs-string">&quot;*.distutils&quot;</span>]</span></code></pre>
 <p>现在，我们来思考一下，PyInstaller 和 Nuitka 的定位。它们都是打包程序，显然。但他们并不是安装程序。通过它们打包，我们实现的目标是让这些程序可以在用户的桌面操作系统上，在不安装 Python 和依赖的情况下，就可以直接运行，但是，它只适合无须安装的“绿色程序”，如果我们的程序需要创建桌面快捷方式，修改注册表，那么它将无能为力。</p>
 <p>如果您的程序需要有一个较华丽的安装界面，建议您查看一下 Inno Setup[^4] 或者 Wix[^9]。</p>
 <h2 id="5-移动应用程序">5. 移动应用程序</h2>
@@ -374,7 +349,7 @@ nofollow-import-to = [&quot;*.tests&quot;, &quot;*.distutils&quot;]
 <p>Python 的云部署有 Heroku, GoogleApp 等方式。但更广泛使用的方式可能是基于云的容器化部署。容器是一种轻量化的虚拟机，它与虚拟机不同的是，它不需要一个完整的操作系统，而是直接使用宿主机的内核。这样，容器的启动速度比虚拟机快很多，而且它们的资源占用也更少。一般地，我们使用容器来运行某个服务，当该服务停止时，容器也就终结了。</p>
 <p>Docker 是目前最流行的容器化部署工具。构建基于容器的服务，一般分为两个步骤：构建镜像和运行容器。镜像是通常由一个操作系统内核，一个 Python 解释器，以及我们的 Python 服务组成。这些组件可以通过 Dockerfile 来描述。Dockerfile 是一个文本文件，它包含了一系列命令和参数，用以构建一个镜像。镜像是一个只读的模板，它描述了一个 Docker 容器应该如何运行。当镜像被 Docker 运行时拉取到本地并执行时，就会生成一个容器，并且服务就在容器中运行。</p>
 <p>下面我们通过一个例子来说明如何构建和运行一个 Python 服务的容器。示例的源代码在 code/chap11/docker 目录下。我们仍然是通过<code>ppw</code>来创建一个名为 sample 的项目。与以往不同的是，我们将在项目根目录下创建一个名为<code>docker</code>（名字可任意）的目录，其中包含以下文件：</p>
-<pre><code>.
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">.
 ├── build.sh
 ├── dockerfile
 └── rootfs
@@ -382,32 +357,30 @@ nofollow-import-to = [&quot;*.tests&quot;, &quot;*.distutils&quot;]
         ├── entrypoint.sh
         └── sample
             ├── index.html
-            └── mars.jpg
-</code></pre>
+            └── mars.jpg</span></code></pre>
 <p>所有跟构建镜像相关的文件都放在这个目录下。</p>
 <p>其中，build.sh 是一个脚本，用于构建镜像。dockerfile 用于描述镜像。rootfs 是一个目录，用于存放我们需要带到镜像中的文件。在构建镜像时，它将被映射为容器的根目录。</p>
 <p>build.sh 主要的工作是构建 sample 项目，将相应的文件拷贝到 rootfs 下，再执行<code>docker build</code>命令来构建镜像。</p>
 <p>以下是 build.sh 的主要内容：</p>
-<pre><code class="language-shell">version=`poetry version | awk &#39;{print $2}&#39;`
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body">version=`poetry version | awk &#x27;{print $2}&#x27;`
 wheel=&quot;/root/sample/sample-$version-py3-none-any.whl&quot;
 
 poetry build
-
-# 将 WHEEL 包拷贝到 ROOTFS 目录下以便构建镜像时进行安装。我们也可以将 WHEEL 包上传到 PYPI，然后在
-# DOCKERFILE 中通过 PIP INSTALL SAMPLE 安装。
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">将 WHEEL 包拷贝到 ROOTFS 目录下以便构建镜像时进行安装。我们也可以将 WHEEL 包上传到 PYPI，然后在</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">DOCKERFILE 中通过 PIP INSTALL SAMPLE 安装。</span>
 cp ../dist/*$version*.whl rootfs/root/sample/
-
-# 移除上一次编译生成的镜像，重新构建。这将生成一个名为 SAMPLE 的镜像。
-# 注意我们在构建过程中通过--BUILD-ARG 传入编译期变量给镜像
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">移除上一次编译生成的镜像，重新构建。这将生成一个名为 SAMPLE 的镜像。</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">注意我们在构建过程中通过--BUILD-ARG 传入编译期变量给镜像</span>
 docker rmi sample
 docker build --build-arg version=$version --build-arg wheel=$wheel . -t sample
-
-# 启动服务
-docker run -d --name sample -p 7878:7878 sample
-</code></pre>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">启动服务</span>
+docker run -d --name sample -p 7878:7878 sample</span></code></pre>
 <p>在这个构建脚本里，我们首先构建了 sample 项目的 wheel 包，然后将它拷贝到 rootfs 目录下。接着，我们执行<code>docker build</code>命令，构建了一个名为 sample 的镜像，最后，我们以此镜像为基础，启动了一个名为 sample 的容器，并且将端口 7878 映射为主机端口。</p>
 <p>Dockerfile 是这一节的核心，现在，我们来看看 Dockerfile 的内容：</p>
-<pre><code class="language-Dockerfile">FROM python:3.8-alpine3.17
+<pre><code class="hljs language-Dockerfile"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">FROM python:3.8-alpine3.17
 
 WORKDIR /
 COPY rootfs ./
@@ -417,12 +390,11 @@ ARG pypi=https://pypi.tuna.tsinghua.edu.cn/simple
 ARG wheel
 ENV PORT=7878
 
-RUN pip config set global.index-url ${pypi} \
-    &amp;&amp; pip install ${wheel}
+RUN pip config <span class="hljs-built_in">set</span> global.index-url <span class="hljs-variable">${pypi}</span> \
+    &amp;&amp; pip install <span class="hljs-variable">${wheel}</span>
 
-EXPOSE $PORT
-ENTRYPOINT [&quot;/root/entrypoint.sh&quot;]
-</code></pre>
+EXPOSE <span class="hljs-variable">$PORT</span>
+ENTRYPOINT [<span class="hljs-string">&quot;/root/entrypoint.sh&quot;</span>]</span></code></pre>
 <p>构建任何镜像时，我们都是从一个基础的镜像开始。这个基础镜像可以是像 Linux Alpine 或者 Ubuntu 这样的操作系统镜像，也可以是构建在操作系统之上的应用镜像，比如示例中的 python:3.8-alphine3.17 就是一个构建在 Alpine 操作系统之上的 Python 应用镜像。镜像的标识符一般是&quot;开发者/镜像名：版本&quot;的形式。这里冒号之后的字符串是标签，一般是其版本号，如果不指定版本，那么默认是 latest。如果没有指定开发者，意味着这是一个来自于官方的镜像，或者是我们自己构建的本地镜像。</p>
 <p>镜像的分发是一个二级架构。如果在本地不存在 python:3.8-alpine3.17 这个镜像，docker 就会去 Docker Hub[^12] 上查找。Docker Hub，类似于 PyPI，是一个公共的镜像仓库，它提供了大量的镜像供我们使用。现在，我们来看看 Docker Hub 上的 python:3.8-alpine3.17 这个镜像，它究竟是什么。在 Docker Hub 上，我们要通过镜像名（即不带版本标签）来搜索。这样我们得到如下结果：</p>
 <p><img src="assets/img/chap11/docker_hub_python.png" alt="">{width=&quot;50%&quot;}</p>
@@ -433,10 +405,9 @@ ENTRYPOINT [&quot;/root/entrypoint.sh&quot;]
 <p>然后我们指定当前的工作目录为根目录，并将 rootfs 目录下的文件拷贝到容器的根目录下。接着，它安装了 sample 项目的 wheel 包。最后，它设置了容器的入口点为/root/entrypoint.sh。</p>
 <p>我们用<code>ARG</code>来传递 docker 编译期变量。这里的 version 和 wheel 是两个编译器变量，它们是由 build.sh 通过<code>--arg $version</code>传递进来的。<code>EXPOSE</code>命令是将端口暴露出来。我们在<code>entrypoint.sh</code>中启动了一个监听在$PORT 上的 HTTP 服务，我们必须把这个端口暴露给主机，以便我们可以从主机上访问这里的服务。</p>
 <p>接下来，我们来看看<code>entrypoint.sh</code>的内容：</p>
-<pre><code>#!/BIN/SH
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta">#!/BIN/SH</span>
 
-python3 -m http.server -d /root/sample $PORT
-</code></pre>
+python3 -m http.server -d /root/sample <span class="hljs-variable">$PORT</span></span></code></pre>
 <p>由于这只是个演示性的程序，我们在这里就没有用到 sample 的任何功能，而是简单地通过 python 内置<code>http</code>模块来启动了一个 web 服务。您只需要知道，如果您想使用 sample 的功能，您可以在这里调用它的命令即可。这与我们在别的地方调用它没有任何不同。</p>
 <p>当我们在本地测试通过后，就可以在 Docker Hub 上注册账号，将我们的镜像发布上去，供其它人下载，这样就完成了基于容器的应用发布。当然，我们也可以建立一个私有云的镜像仓库，将镜像发布到私有云上，供内部部署使用。</p>
 <p>在这个示例中，最终我们构建的镜像文件只有 66MB 左右。实际上，由于 docker 文件系统的分层设计，如果其他人从 Docker Hub 上下载我们的镜像，他们实际上要下载的数据量会更小。</p>

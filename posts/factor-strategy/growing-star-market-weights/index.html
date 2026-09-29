@@ -44,14 +44,12 @@
 <p>按照这个思路，我们以中证 1000 为例，找出科创板个股纳入指数的日期，分别是 2020 年 12 月 14 日， 2021 年 6 月 15 日，...，2023 年 12 月 21 日等。</p>
 <p>我们先看 2020 年 12 月 14 日，把这一天所有个股，从前一个月、到后 120 个交易日的行情数据取出，计算前一个月涨幅（prev），后一个月涨幅 (&quot;20D&quot;)、后 60 个交易日涨幅 (&quot;60D&quot;)、后 120 个交易日涨幅 (&quot;120D&quot;)，分别对这些列进行排序，分别计为 rank_prev, rank_20, rank_60 和 rank_120。</p>
 <p>我们使用的排序方法是 pandas 自带的函数：</p>
-<pre><code class="language-python">for col in [&quot;prev&quot;, &quot;20&quot;, &quot;60&quot;, &quot;120&quot;]:
-    df[f&quot;rank-{col}&quot;] = df[col].rank(method=&#39;average&#39;, ascending=False)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;prev&quot;</span>, <span class="hljs-string">&quot;20&quot;</span>, <span class="hljs-string">&quot;60&quot;</span>, <span class="hljs-string">&quot;120&quot;</span>]:
+    df[<span class="hljs-string">f&quot;rank-<span class="hljs-subst">{col}</span>&quot;</span>] = df[col].rank(method=<span class="hljs-string">&#x27;average&#x27;</span>, ascending=<span class="hljs-literal">False</span>)</span></code></pre>
 <p>method 的作用是，万一存在多个相同值时，让 pandas 自动选择一个排名。</p>
 <p>这样我们就得到了在 12 月 14 日这一天，所有个股的前一个月收益和远期收益及其排名。接下来，我们用当天进入中证 1000 的科创板个股筛选出一个子表，分别计算各项均值。</p>
 <p>在 pandas 中，从一个 DataFrame 中，选择列值在某个集合中的所有行，可以用以下语句：</p>
-<pre><code class="language-python">df[df[&#39;symbol&#39;].str.contains(&#39;|&#39;.join(includes))]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[df[<span class="hljs-string">&#x27;symbol&#x27;</span>].<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">&#x27;|&#x27;</span>.join(includes))]</span></code></pre>
 <p>这里假设 df 是包含所有个股的总表，includes 则是 12 月 14 日纳入中证 1000 的科创板个股。</p>
 <p>语法的要点是，如果 pandas 的某个列是字符串类型，那么它就有 str 这个对象，通过过该对象我们可以调用很多字符串的方法，也包括这里的 contains 方法。</p>
 <p>contains 方法支持按正则表达式匹配，因此，我们通过 join 方法，将 includes 中的所有元素用竖线（|）连接起来，作为正则表达式的匹配字符串，这样就选择出来所有新纳入中证 1000 的个股。</p>
@@ -60,16 +58,15 @@
 </div>
 
 <p>为了便于比较，我们对两个 dataframe 求均值，再进行合并，最后绘图。</p>
-<pre><code class="language-python">kcb_df = df[df[&#39;symbol&#39;].str.contains(&#39;|&#39;.join(includes))]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">kcb_df = df[df[<span class="hljs-string">&#x27;symbol&#x27;</span>].<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">&#x27;|&#x27;</span>.join(includes))]
 
-df = pd.concat((df.mean(), kcb_df.mean()), axis=1)
-df.columns = [&quot;all&quot;, &quot;kcb&quot;]
+df = pd.concat((df.mean(), kcb_df.mean()), axis=<span class="hljs-number">1</span>)
+df.columns = [<span class="hljs-string">&quot;all&quot;</span>, <span class="hljs-string">&quot;kcb&quot;</span>]
 
-df.T[[&quot;prev&quot;, &quot;20&quot;, &quot;60&quot;, &quot;120&quot;]].T.plot.bar()
-df.T[[&quot;rank-prev&quot;, &quot;rank-20&quot;, &quot;rank-60&quot;, &quot;rank-120&quot;]].T.plot.bar()
+df.T[[<span class="hljs-string">&quot;prev&quot;</span>, <span class="hljs-string">&quot;20&quot;</span>, <span class="hljs-string">&quot;60&quot;</span>, <span class="hljs-string">&quot;120&quot;</span>]].T.plot.bar()
+df.T[[<span class="hljs-string">&quot;rank-prev&quot;</span>, <span class="hljs-string">&quot;rank-20&quot;</span>, <span class="hljs-string">&quot;rank-60&quot;</span>, <span class="hljs-string">&quot;rank-120&quot;</span>]].T.plot.bar()
 plt.title(date)
-plt.show()
-</code></pre>
+plt.show()</span></code></pre>
 <p>这里 df 仍然是包含所有个股的总表。代码中多次使用了转置<code>T</code>，这是我们通过pandas内置函数，对两个系列进行比较，绘制柱状图的关键。</p>
 <p>最终，我们得到 2020 年 12 月 14 日，中证 1000 中新纳入的科创板个股表现如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2020-12-14-comparison.jpg" alt=""></p>

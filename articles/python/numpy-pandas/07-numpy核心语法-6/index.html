@@ -21,81 +21,75 @@
 </div>
 
 <p>很显然，我们无法直接对这些数据进行运算。请看下面的例子：</p>
-<pre><code class="language-python">x = np.array([1, 2, 3, np.inf, np.nan, None])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, np.inf, np.nan, <span class="hljs-literal">None</span>])
 np.mean(x)
-np.nanmean(x)
-</code></pre>
+np.nanmean(x)</span></code></pre>
 <p>只要数据中包含 np.nan, np.inf 或者 None，numpy 的函数就无法处理它们。即使数据在语法上合法，但在语义上无效，Numpy 强行进行计算，结果也是错误的。</p>
 <hr>
 <p>这里有一个量化中可能遇到的真实场景，某公司有一年的年利润为零，这样使得它的 YoY 利润增长在次年变得无法计算。如果我们需要利用 YoY 数据进一步进行运算，我们就需要屏蔽这一年的无效值。否则，我们会连 YoY 利润的均值都无法计算出来。</p>
 <p>这里有一个补救的方法，就是将原数据拷贝一份，并且将无效值替换为 np.nan。此后多数运算，都可以用<code>np.nan*</code>来计算。这个方法我们已经介绍过了。但是，如果你是原始数据的收集者，显然你应该照原样发布数据，任何修改都是不合适的；如果你是数据的应用者，当然应该对数据进行预处理后，才开始运算。但是，你又很可能缺少了对数据进行预处理所必须的信息 -- 你怎么能想到像-1, 0 这样看起来人畜无害的小可爱们，竟然是隐藏着的错误呢？</p>
 <p>为了解决这个问题，Numpy 就提供了 Masked Array。但是我们不打算在 Masked Array 上过多着墨。关于 Masked Array，我们可以借用这样一句话，<strong>很多人不需要知道 Masked Array，知道 Masked Array 的人则已经精通它了。</strong></p>
 <p>有一点需要注意的是，仅在需要时，使用 Masked Array。因为可能与您相像的相反，Masked Array 不会提高性能，反而，它大大降低了性能：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# NUMPY VERSION 1.24.4
-g = np.random.random((5000,5000))
-indx = np.random.randint(0,4999,(500,2))
+<span class="hljs-comment"># NUMPY VERSION 1.24.4</span>
+g = np.random.random((<span class="hljs-number">5000</span>,<span class="hljs-number">5000</span>))
+indx = np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">4999</span>,(<span class="hljs-number">500</span>,<span class="hljs-number">2</span>))
 g_nan = g.copy()
 g_nan[indx] = np.nan
-mask =  np.full((5000,5000),False,dtype=bool)
-</code></pre>
+mask =  np.full((<span class="hljs-number">5000</span>,<span class="hljs-number">5000</span>),<span class="hljs-literal">False</span>,dtype=<span class="hljs-built_in">bool</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python">mask[indx] = True
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">mask[indx] = <span class="hljs-literal">True</span>
 g_mask = np.ma.array(g,mask=mask)
 
-%timeit (g_mask + g_mask)**2
-# 901 MS ± 52.3 MS PER LOOP ...
-%timeit (g_nan + g_nan)**2
-# 109 MS ± 72.2 ΜS PER LOOP ...
-</code></pre>
+%timeit (g_mask + g_mask)**<span class="hljs-number">2</span>
+<span class="hljs-comment"># 901 MS ± 52.3 MS PER LOOP ...</span>
+%timeit (g_nan + g_nan)**<span class="hljs-number">2</span>
+<span class="hljs-comment"># 109 MS ± 72.2 ΜS PER LOOP ...</span></span></code></pre>
 <p>可以看出，Masked Array 的性能慢了接近 9 倍。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 如果你不得不对含有 np.nan 的数组进行运算，那么可以尝试使用 bottleneck 库中的 nan *函数。由于并不存在 nansquare 函数，但是考虑到求方差的运算中必然包含乘方运算，因此我们可以考虑通过 nanvar 函数来评测 numpy 与 bottleneck 的性能差异。
 </div>
 
-<pre><code>```python
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">```python
     %timeit np.var(g_mask)
-    # 587 MS ± 37.9 MS PER LOOP ...
+    <span class="hljs-comment"># 587 MS ± 37.9 MS PER LOOP ...</span>
     %timeit np.nanvar(g_nan)
-    # 281 MS ± 1.46 MS PER ...
+    <span class="hljs-comment"># 281 MS ± 1.46 MS PER ...</span>
     %timeit nanvar(g_nan)
-    # 61 MS ± 362 ΜS PER LOOP ...
+    <span class="hljs-comment"># 61 MS ± 362 ΜS PER LOOP ...</span>
 ```
 
-bottleneck 要比 numpy 快接近 5 倍。如果你使用的 numpy 版本较旧，那么 bottleneck 还会快得更多。
-</code></pre>
+bottleneck 要比 numpy 快接近 <span class="hljs-number">5</span> 倍。如果你使用的 numpy 版本较旧，那么 bottleneck 还会快得更多。</span></code></pre>
 <hr>
 <h2 id="2-ufunc">2. ufunc</h2>
 <p>ufunc 是 Numpy 中的重要概念，它对两个输入数组同时进行逐元素的操作（比如，相加，比较大小等）。在 Numpy 中大约定义了 61 个左右的 ufunc。这些操作都是由底层的 C 语言实现的，并且支持向量化，因此，它们往往具有更快的速度。</p>
 <p>比如，在 numpy 中，求数组中的最大值，有两个相似的函数， <code>np.max</code>和<code>np.maximum</code>可以达成这一目标。后者是 ufunc，前者不是，两者除了用法上有所区别之外，后者的速度也要快一些。</p>
-<pre><code class="language-python">arr = np.random.normal(size=(1_000_000,))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">arr = np.random.normal(size=(<span class="hljs-number">1_000_000</span>,))
 
-%timeit np.max(arr)
-# 801 MS ± 54.7 MS PER LOOP ...
+%timeit np.<span class="hljs-built_in">max</span>(arr)
+<span class="hljs-comment"># 801 MS ± 54.7 MS PER LOOP ...</span>
 %timeit np.maximum.reduce(arr)
-# 775 MS ± 12.1 MS PER LOOP ...
-</code></pre>
+<span class="hljs-comment"># 775 MS ± 12.1 MS PER LOOP ...</span></span></code></pre>
 <p><code>np.maximum</code>作为 ufunc，它本来是要接收两个参数的，并不能用来求一维数组的最大值。这种情况下，我们要使用<code>reduce</code>操作才能得到想要的结果。</p>
 <p>这里<code>np.maximum</code>是一个 ufunc，则<code>reduce</code>是 unfunc 对象（在 Python 中，一切都是对象，包括函数）的属性之一。<code>ufunc</code>的其它属性还有<code>accumulate</code>、<code>outer</code>、<code>reduceat</code>等。</p>
 <p><code>accumulate</code>是 ufunc 中的另一个常用属性，可能你之前已经有所接触。比如，在求最大回撤时，我们就会用到它：</p>
 <hr>
-<pre><code class="language-python"># 模拟一个股价序列
-n = 1000
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-comment"># 模拟一个股价序列</span>
+n = <span class="hljs-number">1000</span>
 xs = np.random.randn(n).cumsum()
 
-# 最大回撤结束期
+<span class="hljs-comment"># 最大回撤结束期</span>
 i = np.argmax(np.maximum.accumulate(xs) - xs) 
 
-# 最大回撤开始期
+<span class="hljs-comment"># 最大回撤开始期</span>
 j = np.argmax(xs[:i]) 
 
-# 最大回撤
+<span class="hljs-comment"># 最大回撤</span>
 mdd = (xs[j] - xs[i])/xs[j]
 
 plt.plot(xs)
-plt.plot([i, j], [xs[i], xs[j]], &#39;o&#39;, color=&#39;Red&#39;, markersize=10)
-</code></pre>
+plt.plot([i, j], [xs[i], xs[j]], <span class="hljs-string">&#x27;o&#x27;</span>, color=<span class="hljs-string">&#x27;Red&#x27;</span>, markersize=<span class="hljs-number">10</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg" alt="50%"></p>
 <p><strong>简洁就是美</strong>。在使用了<code>accumulate</code>之后，我们发现，计算最大回撤竟简单到只有两三行代码即可实现。</p>
 <hr>
@@ -113,18 +107,17 @@ $$</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg" alt=""></p>
 <p>如果 upper_shadow &gt; threshold，则可认为出现了长上影线（当然，需要对 upper_shadow 进行归一化）。检测单日的上影线很简单，我们下面的代码将演示如何向量化地求解：</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-rng = np.random.default_rng(seed=78)
-matrix = rng.uniform(0.98, 1.02, (4, 30)).cumprod(axis=1)
-opn = matrix[0]
-close = matrix[-1]
-high = np.max(matrix, axis=0)
+rng = np.random.default_rng(seed=<span class="hljs-number">78</span>)
+matrix = rng.uniform(<span class="hljs-number">0.98</span>, <span class="hljs-number">1.02</span>, (<span class="hljs-number">4</span>, <span class="hljs-number">30</span>)).cumprod(axis=<span class="hljs-number">1</span>)
+opn = matrix[<span class="hljs-number">0</span>]
+close = matrix[-<span class="hljs-number">1</span>]
+high = np.<span class="hljs-built_in">max</span>(matrix, axis=<span class="hljs-number">0</span>)
 
 upper_shadow = (high - np.maximum(opn, close))/close
-np.round(upper_shadow, 2)
-</code></pre>
+np.<span class="hljs-built_in">round</span>(upper_shadow, <span class="hljs-number">2</span>)</span></code></pre>
 <!--这里我们使用了 randomstate-->
 <!--uniform 是生成均匀分布-->
 <hr>

@@ -17,35 +17,33 @@
 
 <p>有一个非公开的方法。国金版的qmt在登录时，会生成一个linkMini的文件。该文件包含了密码及其它信息，当该文件存在于\bin.x64目录下时，miniqmt就能免登录启动。</p>
 <p>linkMini文件是在qmt（注意和miniqmt，即极简模式相对应）登录后生成的，它只存在很短的时间，立刻又被删除了。因此，我们需要把这个文件copy出来：</p>
-<pre><code class="language-batch">:loop
-if exist linkMini (
+<pre><code class="hljs language-batch"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">:loop
+<span class="hljs-keyword">if</span> exist linkMini (
     copy linkMini linkMini_copy 
-    echo finish
+    <span class="hljs-built_in">echo</span> finish
     goto end
 )
-if exist linkmini (
+<span class="hljs-keyword">if</span> exist linkmini (
     copy linkmini linkMini_copy 
-    echo finish
+    <span class="hljs-built_in">echo</span> finish
     goto end
 )
-echo continue
-timeout /t 0.1 &gt;nul
+<span class="hljs-built_in">echo</span> <span class="hljs-built_in">continue</span>
+<span class="hljs-built_in">timeout</span> /t 0.1 &gt;nul
 goto loop
-:end
-</code></pre>
+:end</span></code></pre>
 <p>这个脚本需要放到\bin.x64目录下运行。copy成功后，脚本就会自动退出。此时，我们也退出QMT，进入到bin.x64目录，复制一份linkMini_copy为linkMini，然后修改其安全属性：</p>
 <p>我们需要将system及users用户组下的权限中的允许完全取消，在拒绝部分，选中写入。这样设置之后，该文件变成只读，不会被qmt删除掉。</p>
 <p>此时我们就可以自动重启miniqmt了，因为有参数传递，所以，我们要通过脚本来实现：</p>
-<pre><code class="language-batch">@echo on
-title run MiniQmt without logon
+<pre><code class="hljs language-batch"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-variable">@echo</span> <span class="hljs-keyword">on</span>
+title run MiniQmt <span class="hljs-keyword">without</span> logon
 
-set qmtPath=D:\QMT\bin.x64
-CD /D %qmtPath%
+<span class="hljs-keyword">set</span> qmtPath<span class="hljs-operator">=</span>D:\QMT\bin.x64
+CD <span class="hljs-operator">/</span>D <span class="hljs-operator">%</span>qmtPath<span class="hljs-operator">%</span>
 
-taskkill /F /IM xtMiniQmt.exe /T
+taskkill <span class="hljs-operator">/</span>F <span class="hljs-operator">/</span>IM xtMiniQmt.exe <span class="hljs-operator">/</span>T
 
-start &quot;&quot; &quot;xtMiniQmt.exe&quot; linkMini
-</code></pre>
+<span class="hljs-keyword">start</span> &quot;&quot; &quot;xtMiniQmt.exe&quot; linkMini</span></code></pre>
 <p>该方案由量化群里小伙伴提出，特别感谢！</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/tools/augment-daily-dose/">← 上一篇：Augment随手记</a> <a class="series-next" href="/posts/tools/do-not-fly-solo-copilot/">下一篇：Don&#39;t fly solo! 量化人如何使用AI工具 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 64/96 篇</span> <span class="reading-path-links"> <a href="/posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming/">← 除了编程，量化人还能怎么用AI？</a> <a href="/posts/tools/do-not-fly-solo-copilot/">Don&#39;t fly solo! 量化 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/qmt/intro/">玩转XtQuant量化交易</a> <p>QMT是迅投公司推出的量化交易软件，它是券端采购软件，因此具有量化实盘接口。当前定制采购了QMT的券商约50家左右，开通量化权限的门槛从数万元到数十万元不等，开通量化权限除仍然能享</p> </li><li> <a href="/articles/investment/量化库/实盘接入/">量化实盘接入方式</a> <p>Easytrader Easytrader是一个通过模拟键鼠事件，操作券商客户端来实现交易功能的交易代理。这种方式中，easytrader提供了buy, sell等交易API，策略</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

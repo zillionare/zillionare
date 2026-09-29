@@ -55,25 +55,24 @@ $$
 <li><strong>实战任务 1：</strong> 用 Python 写一个蒙特卡洛模拟器，测算如果一个策略胜率是 55%，赔率是 1:1，而你的本金只够扛 10 次亏损，那么在 100 笔交易内的破产概率有多大。</li>
 <li><strong>实战任务 2：</strong> 写一个贝叶斯追踪脚本，模拟一个连亏 5 天的趋势策略，观察它的“后验有效性”是如何跌破 20% 警戒线的。</li>
 </ul>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 测算：胜率55%，赔率1:1，初始资金10万，每次下注1万，100笔交易内的破产概率
-def simulate_ruin(win_rate=0.55, initial_capital=10, bet_size=1, n_simulations=10000, n_trades=100):
-    ruin_count = 0
-    for _ in range(n_simulations):
+<span class="hljs-comment"># 测算：胜率55%，赔率1:1，初始资金10万，每次下注1万，100笔交易内的破产概率</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">simulate_ruin</span>(<span class="hljs-params">win_rate=<span class="hljs-number">0.55</span>, initial_capital=<span class="hljs-number">10</span>, bet_size=<span class="hljs-number">1</span>, n_simulations=<span class="hljs-number">10000</span>, n_trades=<span class="hljs-number">100</span></span>):
+    ruin_count = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n_simulations):
         capital = initial_capital
-        for _ in range(n_trades):
-            # 赢了+1万，输了-1万
-            capital += bet_size if np.random.rand() &lt; win_rate else -bet_size
-            if capital &lt;= 0:
-                ruin_count += 1
-                break
-    return ruin_count / n_simulations
+        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n_trades):
+            <span class="hljs-comment"># 赢了+1万，输了-1万</span>
+            capital += bet_size <span class="hljs-keyword">if</span> np.random.rand() &lt; win_rate <span class="hljs-keyword">else</span> -bet_size
+            <span class="hljs-keyword">if</span> capital &lt;= <span class="hljs-number">0</span>:
+                ruin_count += <span class="hljs-number">1</span>
+                <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">return</span> ruin_count / n_simulations
 
 ruin_prob = simulate_ruin()
-print(f&quot;正期望策略的破产概率（方差的惩罚）：{ruin_prob*100:.2f}%&quot;)
-# 哪怕期望收益为正，只要仓位管理不对，你依然可能死在半路上。
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;正期望策略的破产概率（方差的惩罚）：<span class="hljs-subst">{ruin_prob*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%&quot;</span>)
+<span class="hljs-comment"># 哪怕期望收益为正，只要仓位管理不对，你依然可能死在半路上。</span></span></code></pre>
 <hr>
 <h2 id="写策略之前先学会怀疑自己">写策略之前，先学会怀疑自己</h2>
 <p>学了点代码后，我开始疯狂写策略。有一天，我调出了一个年化 50% 的完美参数，兴奋得一晚上没睡。上线实盘，半个月亏了 15%。</p>
@@ -94,33 +93,32 @@ $$
 <li><strong>实战任务 1：</strong> 拉取标普 500 过去 10 年的数据，写一个滚动窗口（Rolling Window），用 MLE 估算收益率的尖峰厚尾特征。</li>
 <li><strong>实战任务 2：</strong> 自己手写一个置换检验器：固定未来收益，把交易信号打乱重排 5,000 次，看原始策略的夏普率在这 5,000 个随机结果里排在什么位置。排不进前 5%，就直接废弃。</li>
 </ul>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 用置换检验打碎你的“回测幻觉”
-def permutation_test(signal, future_returns, n_permutations=5000):
+<span class="hljs-comment"># 用置换检验打碎你的“回测幻觉”</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">permutation_test</span>(<span class="hljs-params">signal, future_returns, n_permutations=<span class="hljs-number">5000</span></span>):
     strategy_returns = signal * future_returns
-    actual_sharpe = np.mean(strategy_returns) / np.std(strategy_returns) * np.sqrt(252)
+    actual_sharpe = np.mean(strategy_returns) / np.std(strategy_returns) * np.sqrt(<span class="hljs-number">252</span>)
 
     random_sharpes = []
-    for _ in range(n_permutations):
-        # 固定未来收益，只打乱信号与收益的对应关系
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n_permutations):
+        <span class="hljs-comment"># 固定未来收益，只打乱信号与收益的对应关系</span>
         shuffled_signal = np.random.permutation(signal)
         shuffled_returns = shuffled_signal * future_returns
-        sharpe = np.mean(shuffled_returns) / np.std(shuffled_returns) * np.sqrt(252)
+        sharpe = np.mean(shuffled_returns) / np.std(shuffled_returns) * np.sqrt(<span class="hljs-number">252</span>)
         random_sharpes.append(sharpe)
 
     p_value = np.mean(np.array(random_sharpes) &gt;= actual_sharpe)
-    return actual_sharpe, p_value
+    <span class="hljs-keyword">return</span> actual_sharpe, p_value
 
-np.random.seed(42)
-future_returns = np.random.normal(0.0005, 0.015, 1000)
-signal = np.where(np.random.randn(1000) &gt; 0, 1, -1)
+np.random.seed(<span class="hljs-number">42</span>)
+future_returns = np.random.normal(<span class="hljs-number">0.0005</span>, <span class="hljs-number">0.015</span>, <span class="hljs-number">1000</span>)
+signal = np.where(np.random.randn(<span class="hljs-number">1000</span>) &gt; <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)
 
 sharpe, p_val = permutation_test(signal, future_returns)
-print(f&quot;原策略夏普: {sharpe:.2f}&quot;)
-print(f&quot;随机打乱信号后仍然不弱于它的概率: {p_val:.4f}&quot;)
-# 如果 p 值大于 0.05，这个策略大概率只是噪音。
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;原策略夏普: <span class="hljs-subst">{sharpe:<span class="hljs-number">.2</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;随机打乱信号后仍然不弱于它的概率: <span class="hljs-subst">{p_val:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+<span class="hljs-comment"># 如果 p 值大于 0.05，这个策略大概率只是噪音。</span></span></code></pre>
 <hr>
 <h2 id="股票不是一只一只看的">股票不是一只一只看的</h2>
 <p>散户看盘，是一只股票一只股票地看。但量化不能这么玩，当你管理几十只股票时，你必须学会<strong>线性代数</strong>，看清它们背后的网。</p>
@@ -142,35 +140,34 @@ $$
 <li><strong>必做推导：</strong> 在纸上用特征分解，一步步把多资产组合的方差公式 $\sigma_p^2=\mathbf{w}&#39;\Sigma\mathbf{w}$ 拆解到最底层的正交向量上。</li>
 <li><strong>实战任务：</strong> 下载纳斯达克 100 指数的成分股日频数据，自己写一个基于 PCA 的统计套利（Statistical Arbitrage）回测：先提取前几个主成分，再研究剥离公共因子后的残差序列。</li>
 </ul>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 模拟 50 只股票的收益率矩阵（带有一定的系统性相关）
-np.random.seed(42)
-n_stocks = 50
-n_days = 1000
-market_factor = np.random.normal(0, 0.01, n_days)
-# 股票收益 = 市场因子暴露 + 个股特异性噪音
-returns = np.outer(market_factor, np.random.uniform(0.5, 1.5, n_stocks)) + np.random.normal(0, 0.02, (n_days, n_stocks))
-centered_returns = returns - returns.mean(axis=0, keepdims=True)
+<span class="hljs-comment"># 模拟 50 只股票的收益率矩阵（带有一定的系统性相关）</span>
+np.random.seed(<span class="hljs-number">42</span>)
+n_stocks = <span class="hljs-number">50</span>
+n_days = <span class="hljs-number">1000</span>
+market_factor = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>, n_days)
+<span class="hljs-comment"># 股票收益 = 市场因子暴露 + 个股特异性噪音</span>
+returns = np.outer(market_factor, np.random.uniform(<span class="hljs-number">0.5</span>, <span class="hljs-number">1.5</span>, n_stocks)) + np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.02</span>, (n_days, n_stocks))
+centered_returns = returns - returns.mean(axis=<span class="hljs-number">0</span>, keepdims=<span class="hljs-literal">True</span>)
 
-# PCA：协方差矩阵特征分解
-cov_matrix = np.cov(centered_returns, rowvar=False)
+<span class="hljs-comment"># PCA：协方差矩阵特征分解</span>
+cov_matrix = np.cov(centered_returns, rowvar=<span class="hljs-literal">False</span>)
 eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
 
-# 对特征值降序排列
-idx = np.argsort(eigenvalues)[::-1]
+<span class="hljs-comment"># 对特征值降序排列</span>
+idx = np.argsort(eigenvalues)[::-<span class="hljs-number">1</span>]
 eigenvalues = eigenvalues[idx]
 eigenvectors = eigenvectors[:, idx]
 
-variance_explained = eigenvalues / np.sum(eigenvalues)
-top_k = 3
+variance_explained = eigenvalues / np.<span class="hljs-built_in">sum</span>(eigenvalues)
+top_k = <span class="hljs-number">3</span>
 factor_loadings = centered_returns @ eigenvectors[:, :top_k]
 common_component = factor_loadings @ eigenvectors[:, :top_k].T
 residuals = centered_returns - common_component
 
-print(f&quot;前三个主成分一共解释了总方差的: {variance_explained[:top_k].sum()*100:.2f}%&quot;)
-print(f&quot;去掉公共因子后，残差日波动率均值约为: {residuals.std(axis=0).mean():.4f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;前三个主成分一共解释了总方差的: <span class="hljs-subst">{variance_explained[:top_k].<span class="hljs-built_in">sum</span>()*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;去掉公共因子后，残差日波动率均值约为: <span class="hljs-subst">{residuals.std(axis=<span class="hljs-number">0</span>).mean():<span class="hljs-number">.4</span>f}</span>&quot;</span>)</span></code></pre>
 <hr>
 <h2 id="算出来的最优解实盘不一定能做">算出来的最优解，实盘不一定能做</h2>
 <p>算出了完美的持仓比例，但实盘买不进去怎么办？我开始学<strong>微积分与优化理论</strong>，学习怎么向现实妥协。</p>
@@ -190,46 +187,45 @@ $$
 <li><strong>推导任务：</strong> 证明拉格朗日乘子（Lagrange Multipliers）在投资组合资金限制约束下的经济学含义（即“影子价格”）。</li>
 <li><strong>实战任务：</strong> 使用 <code>scipy.optimize</code> 构建一个多空组合模型，加入“最大杠杆率 = 1.5”和“单期换手率 &lt; 10%”这两个约束，再额外加一个换手惩罚项，然后强行求解。</li>
 </ul>
-<pre><code class="language-python">import numpy as np
-from scipy.optimize import minimize
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> scipy.optimize <span class="hljs-keyword">import</span> minimize
 
-# 一个带有现实约束的“脏活”优化器
-def constrained_portfolio_optimization(
+<span class="hljs-comment"># 一个带有现实约束的“脏活”优化器</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">constrained_portfolio_optimization</span>(<span class="hljs-params">
     expected_returns,
     cov_matrix,
     previous_weights,
-    target_return=0.03,
-    max_leverage=1.5,
-    max_turnover=0.10,
-    turnover_penalty=0.01,
-):
-    n = len(expected_returns)
+    target_return=<span class="hljs-number">0.03</span>,
+    max_leverage=<span class="hljs-number">1.5</span>,
+    max_turnover=<span class="hljs-number">0.10</span>,
+    turnover_penalty=<span class="hljs-number">0.01</span>,
+</span>):
+    n = <span class="hljs-built_in">len</span>(expected_returns)
     
-    def objective(weights):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">objective</span>(<span class="hljs-params">weights</span>):
         variance = np.dot(weights.T, np.dot(cov_matrix, weights))
-        turnover_cost = turnover_penalty * np.sum(np.abs(weights - previous_weights))
-        return variance + turnover_cost
+        turnover_cost = turnover_penalty * np.<span class="hljs-built_in">sum</span>(np.<span class="hljs-built_in">abs</span>(weights - previous_weights))
+        <span class="hljs-keyword">return</span> variance + turnover_cost
     
-    # 限制1：权重和为1（不能无限借钱）
-    # 限制2：预期收益必须达到目标
-    # 限制3：总杠杆不能超过 max_leverage
-    # 限制4：单期换手率不能超过 max_turnover，这里按 0.5 * sum(|w_t - w_{t-1}|) 计算
+    <span class="hljs-comment"># 限制1：权重和为1（不能无限借钱）</span>
+    <span class="hljs-comment"># 限制2：预期收益必须达到目标</span>
+    <span class="hljs-comment"># 限制3：总杠杆不能超过 max_leverage</span>
+    <span class="hljs-comment"># 限制4：单期换手率不能超过 max_turnover，这里按 0.5 * sum(|w_t - w_{t-1}|) 计算</span>
     constraints = [
-        {&#39;type&#39;: &#39;eq&#39;, &#39;fun&#39;: lambda w: np.sum(w) - 1},
-        {&#39;type&#39;: &#39;ineq&#39;, &#39;fun&#39;: lambda w: np.dot(w, expected_returns) - target_return},
-        {&#39;type&#39;: &#39;ineq&#39;, &#39;fun&#39;: lambda w: max_leverage - np.sum(np.abs(w))},
-        {&#39;type&#39;: &#39;ineq&#39;, &#39;fun&#39;: lambda w: max_turnover - 0.5 * np.sum(np.abs(w - previous_weights))}
+        {<span class="hljs-string">&#x27;type&#x27;</span>: <span class="hljs-string">&#x27;eq&#x27;</span>, <span class="hljs-string">&#x27;fun&#x27;</span>: <span class="hljs-keyword">lambda</span> w: np.<span class="hljs-built_in">sum</span>(w) - <span class="hljs-number">1</span>},
+        {<span class="hljs-string">&#x27;type&#x27;</span>: <span class="hljs-string">&#x27;ineq&#x27;</span>, <span class="hljs-string">&#x27;fun&#x27;</span>: <span class="hljs-keyword">lambda</span> w: np.dot(w, expected_returns) - target_return},
+        {<span class="hljs-string">&#x27;type&#x27;</span>: <span class="hljs-string">&#x27;ineq&#x27;</span>, <span class="hljs-string">&#x27;fun&#x27;</span>: <span class="hljs-keyword">lambda</span> w: max_leverage - np.<span class="hljs-built_in">sum</span>(np.<span class="hljs-built_in">abs</span>(w))},
+        {<span class="hljs-string">&#x27;type&#x27;</span>: <span class="hljs-string">&#x27;ineq&#x27;</span>, <span class="hljs-string">&#x27;fun&#x27;</span>: <span class="hljs-keyword">lambda</span> w: max_turnover - <span class="hljs-number">0.5</span> * np.<span class="hljs-built_in">sum</span>(np.<span class="hljs-built_in">abs</span>(w - previous_weights))}
     ]
     
-    # 现实的枷锁：单只股票仓位不能超过30%，可以做空但不能低于-10%
-    bounds = tuple((-0.1, 0.3) for _ in range(n))
+    <span class="hljs-comment"># 现实的枷锁：单只股票仓位不能超过30%，可以做空但不能低于-10%</span>
+    bounds = <span class="hljs-built_in">tuple</span>((-<span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n))
     
     initial_weights = previous_weights.copy()
-    result = minimize(objective, initial_weights, method=&#39;SLSQP&#39;, bounds=bounds, constraints=constraints)
-    return result.x
+    result = minimize(objective, initial_weights, method=<span class="hljs-string">&#x27;SLSQP&#x27;</span>, bounds=bounds, constraints=constraints)
+    <span class="hljs-keyword">return</span> result.x
 
-# 市场并不完美，求解器给你的往往也是一个满是“妥协”的解。
-</code></pre>
+<span class="hljs-comment"># 市场并不完美，求解器给你的往往也是一个满是“妥协”的解。</span></span></code></pre>
 <hr>
 <h2 id="到了期权这一步才知道波动本身也会吃钱">到了期权这一步，才知道波动本身也会吃钱</h2>
 <p>最后，我触碰到了量化的深水区：<strong>随机微积分</strong>。</p>
@@ -264,49 +260,48 @@ $$
 <li><strong>实战任务 1：</strong> 自己在纸上用二叉树（Binomial Tree）模型推导出期权定价，并证明当步长 $\Delta t \to 0$ 时，它收敛于 Black-Scholes 解析解。</li>
 <li><strong>实战任务 2：</strong> 写一个期权动态 Delta 对冲的模拟器（Delta Hedging Simulator）。给定一条带有跳跃（Jump）的股价路径，计算你每天对冲需要花费多少摩擦成本，再看看最后的对冲误差到底有多大。</li>
 </ul>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 这是一个极其简化的 Delta 对冲模拟器：同时看看对冲误差和摩擦成本
-def simulate_delta_hedging(S0=100, K=100, T=1.0, r=0.05, sigma=0.2, steps=252):
-    from scipy.stats import norm
+<span class="hljs-comment"># 这是一个极其简化的 Delta 对冲模拟器：同时看看对冲误差和摩擦成本</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">simulate_delta_hedging</span>(<span class="hljs-params">S0=<span class="hljs-number">100</span>, K=<span class="hljs-number">100</span>, T=<span class="hljs-number">1.0</span>, r=<span class="hljs-number">0.05</span>, sigma=<span class="hljs-number">0.2</span>, steps=<span class="hljs-number">252</span></span>):
+    <span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> norm
     dt = T / steps
     
-    # 模拟一条真实的带有跳跃的股价路径
+    <span class="hljs-comment"># 模拟一条真实的带有跳跃的股价路径</span>
     prices = [S0]
-    for _ in range(steps):
-        jump = np.random.normal(0, sigma * np.sqrt(dt))
-        # 偶尔来个暴跌（模拟黑天鹅）
-        if np.random.rand() &lt; 0.01: jump -= 0.05
-        prices.append(prices[-1] * np.exp((r - 0.5*sigma**2)*dt + jump))
+    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(steps):
+        jump = np.random.normal(<span class="hljs-number">0</span>, sigma * np.sqrt(dt))
+        <span class="hljs-comment"># 偶尔来个暴跌（模拟黑天鹅）</span>
+        <span class="hljs-keyword">if</span> np.random.rand() &lt; <span class="hljs-number">0.01</span>: jump -= <span class="hljs-number">0.05</span>
+        prices.append(prices[-<span class="hljs-number">1</span>] * np.exp((r - <span class="hljs-number">0.5</span>*sigma**<span class="hljs-number">2</span>)*dt + jump))
         
-    def get_delta(S, t):
-        if t &gt;= T: return 1.0 if S &gt; K else 0.0
-        tau = max(T - t, 1e-12)
-        d1 = (np.log(S/K) + (r + sigma**2/2)*tau) / (sigma*np.sqrt(tau))
-        return norm.cdf(d1)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_delta</span>(<span class="hljs-params">S, t</span>):
+        <span class="hljs-keyword">if</span> t &gt;= T: <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span> <span class="hljs-keyword">if</span> S &gt; K <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+        tau = <span class="hljs-built_in">max</span>(T - t, <span class="hljs-number">1e-12</span>)
+        d1 = (np.log(S/K) + (r + sigma**<span class="hljs-number">2</span>/<span class="hljs-number">2</span>)*tau) / (sigma*np.sqrt(tau))
+        <span class="hljs-keyword">return</span> norm.cdf(d1)
     
-    # 每天调整仓位，计算摩擦成本
-    hedging_cost = 0
-    current_delta = get_delta(S0, 0)
-    cash_account = -current_delta * prices[0]
-    for i in range(1, steps):
+    <span class="hljs-comment"># 每天调整仓位，计算摩擦成本</span>
+    hedging_cost = <span class="hljs-number">0</span>
+    current_delta = get_delta(S0, <span class="hljs-number">0</span>)
+    cash_account = -current_delta * prices[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, steps):
         new_delta = get_delta(prices[i], i*dt)
-        # 假设每次调仓有万分之五的手续费
+        <span class="hljs-comment"># 假设每次调仓有万分之五的手续费</span>
         delta_change = new_delta - current_delta
-        trade_cost = abs(delta_change) * prices[i] * 0.0005
+        trade_cost = <span class="hljs-built_in">abs</span>(delta_change) * prices[i] * <span class="hljs-number">0.0005</span>
         cash_account -= delta_change * prices[i] + trade_cost
         hedging_cost += trade_cost
         current_delta = new_delta
     
-    option_payoff = max(prices[-1] - K, 0)
-    hedge_value = current_delta * prices[-1] + cash_account
+    option_payoff = <span class="hljs-built_in">max</span>(prices[-<span class="hljs-number">1</span>] - K, <span class="hljs-number">0</span>)
+    hedge_value = current_delta * prices[-<span class="hljs-number">1</span>] + cash_account
     hedge_error = hedge_value - option_payoff
-    return hedging_cost, hedge_error
+    <span class="hljs-keyword">return</span> hedging_cost, hedge_error
 
 cost, hedge_error = simulate_delta_hedging()
-print(f&quot;一年下来，摩擦成本大约吃掉了 ${cost:.2f}&quot;)
-print(f&quot;最终对冲误差约为 ${hedge_error:.2f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;一年下来，摩擦成本大约吃掉了 $<span class="hljs-subst">{cost:<span class="hljs-number">.2</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最终对冲误差约为 $<span class="hljs-subst">{hedge_error:<span class="hljs-number">.2</span>f}</span>&quot;</span>)</span></code></pre>
 <hr>
 <h2 id="最后真正卡住我的是估算误差">最后真正卡住我的，是估算误差</h2>
 <p>20 个月后，我不再看K线图了，也不再去股吧里跟人争论明天的大盘走势了。</p>

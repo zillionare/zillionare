@@ -31,17 +31,16 @@
 5. **高可用性**：7×24 小时稳定运行，自动重连和错误恢复
 </div>
 
-<pre><code>**性能要求**
-- **低延迟**：数据延迟控制在 1 秒以内
-- **高吞吐**：支持每秒处理 1000+ 条数据
-- **高可靠性**：数据丢失率控制在 0.1% 以下
-- **可扩展性**：后续可以接入更多数据源和处理逻辑
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-string">**性能要求**</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**低延迟**：数据延迟控制在</span> <span class="hljs-number">1</span> <span class="hljs-string">秒以内</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**高吞吐**：支持每秒处理</span> <span class="hljs-number">1000</span><span class="hljs-string">+</span> <span class="hljs-string">条数据</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**高可靠性**：数据丢失率控制在</span> <span class="hljs-number">0.1</span><span class="hljs-string">%</span> <span class="hljs-string">以下</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**可扩展性**：后续可以接入更多数据源和处理逻辑</span>
 
-**技术约束**
-- **QMT 限制**：只能在 Windows 环境运行
-- **网络环境**：需要跨网络传输数据
-- **存储需求**：海量时序数据的高效存储和查询
-</code></pre>
+<span class="hljs-string">**技术约束**</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**QMT</span> <span class="hljs-string">限制**：只能在</span> <span class="hljs-string">Windows</span> <span class="hljs-string">环境运行</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**网络环境**：需要跨网络传输数据</span>
+<span class="hljs-bullet">-</span> <span class="hljs-string">**存储需求**：海量时序数据的高效存储和查询</span></span></code></pre>
 <p>&quot;这些需求看起来很有挑战性，特别是跨平台的实时数据传输。&quot;我对 007 说道。</p>
 <p>&quot;没问题！我们可以用 Redis 作为消息队列，实现 Windows 到 Mac 的数据传输。&quot;007 信心满满地回答。</p>
 <h2 id="qmt-接口深度调研">🔧 QMT 接口深度调研</h2>
@@ -53,18 +52,17 @@
 `xtdata.subscribe_quote(stock_code, period='1m', callback=callback_func)`
 </div>
 
-<pre><code>2. 全推行情订阅接口（增强版的关键发现）
-`xtdata.subscribe_whole_quote(code_list, callback=callback_func)`
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-number">2.</span> 全推行情订阅接口（增强版的关键发现）
+<span class="hljs-string">`xtdata.subscribe_whole_quote(code_list, callback=callback_func)`</span>
 
-3. 历史数据获取接口
-`xtdata.get_market_data_ex(stock_list, period, start_time, end_time)`
+<span class="hljs-number">3.</span> 历史数据获取接口
+<span class="hljs-string">`xtdata.get_market_data_ex(stock_list, period, start_time, end_time)`</span>
 
-4. 股票列表获取接口
-`xtdata.get_stock_list_in_sector(&#39;沪深A股&#39;)`
+<span class="hljs-number">4.</span> 股票列表获取接口
+<span class="hljs-string">`xtdata.get_stock_list_in_sector(&#x27;沪深A股&#x27;)`</span>
 
-5. 实时 tick 数据获取接口
-`xtdata.get_full_tick(stock_list)`
-</code></pre>
+<span class="hljs-number">5.</span> 实时 tick 数据获取接口
+<span class="hljs-string">`xtdata.get_full_tick(stock_list)`</span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_02.png" alt=""></p>
 <h3 id="连接和控制接口">连接和控制接口</h3>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
@@ -72,21 +70,19 @@
 `xtdata.connect()`
 </div>
 
-<pre><code>2. 启动数据接收循环
-`xtdata.run()`
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-number">2.</span> 启动数据接收循环
+<span class="hljs-string">`xtdata.run()`</span>
 
-3. 取消订阅
-`xtdata.unsubscribe_quote()`
-</code></pre>
+<span class="hljs-number">3.</span> 取消订阅
+<span class="hljs-string">`xtdata.unsubscribe_quote()`</span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_03.png" alt=""></p>
 <h3 id="技术架构设计">技术架构设计</h3>
 <p>经过深入调研和讨论，我们确定了以下技术架构：</p>
-<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Windows端     |    |    远程Redis     │    │    Mac端        │
 │   QMT数据源      │───▶│    消息队列      │───▶│   ClickHouse    │
 │                 │    │                 │    │   数据存储       │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-</code></pre>
+└─────────────────┘    └─────────────────┘    └─────────────────┘</span></code></pre>
 <p><strong>核心组件选择：</strong></p>
 <ul>
 <li><strong>Windows 端</strong>：使用 QMT 接口获取实时数据，Python + xtquant 库</li>
@@ -100,56 +96,54 @@
 <h3 id="第一步windows-端数据订阅器">第一步：Windows 端数据订阅器</h3>
 <p>007 首先在 Windows 端搭建了数据订阅器。最初的想法很简单：逐个订阅股票，接收数据后发送到 Redis。</p>
 <p>&quot;我们先用最直接的方式实现，单股订阅模式。&quot;007 解释道。</p>
-<pre><code class="language-python">class QMTSubscriber:
-    def __init__(self, config):
-        self.config = config
-        self.redis_client = redis.StrictRedis(
-            host=config[&#39;redis&#39;][&#39;host&#39;],
-            port=config[&#39;redis&#39;][&#39;port&#39;],
-            password=config[&#39;redis&#39;][&#39;password&#39;]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">QMTSubscriber</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):
+        <span class="hljs-variable language_">self</span>.config = config
+        <span class="hljs-variable language_">self</span>.redis_client = redis.StrictRedis(
+            host=config[<span class="hljs-string">&#x27;redis&#x27;</span>][<span class="hljs-string">&#x27;host&#x27;</span>],
+            port=config[<span class="hljs-string">&#x27;redis&#x27;</span>][<span class="hljs-string">&#x27;port&#x27;</span>],
+            password=config[<span class="hljs-string">&#x27;redis&#x27;</span>][<span class="hljs-string">&#x27;password&#x27;</span>]
         )
 
-    def start_subscription(self):
-        # 获取股票列表
-        stock_list = self.get_stock_list()
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_subscription</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-comment"># 获取股票列表</span>
+        stock_list = <span class="hljs-variable language_">self</span>.get_stock_list()
 
-        # 逐个订阅
-        for stock_code in stock_list:
+        <span class="hljs-comment"># 逐个订阅</span>
+        <span class="hljs-keyword">for</span> stock_code <span class="hljs-keyword">in</span> stock_list:
             seq = xtdata.subscribe_quote(
                 stock_code=stock_code,
-                period=&#39;1m&#39;,
-                callback=self.on_data
+                period=<span class="hljs-string">&#x27;1m&#x27;</span>,
+                callback=<span class="hljs-variable language_">self</span>.on_data
             )
 
-    def on_data(self, data):
-        # 处理接收到的数据
-        for symbol, quote_data in data.items():
-            minute_bar = self.process_data(symbol, quote_data)
-            # 发送到Redis
-            self.redis_client.lpush(&quot;minute_bar_queue&quot;,
-                                  json.dumps(minute_bar))
-</code></pre>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_data</span>(<span class="hljs-params">self, data</span>):
+        <span class="hljs-comment"># 处理接收到的数据</span>
+        <span class="hljs-keyword">for</span> symbol, quote_data <span class="hljs-keyword">in</span> data.items():
+            minute_bar = <span class="hljs-variable language_">self</span>.process_data(symbol, quote_data)
+            <span class="hljs-comment"># 发送到Redis</span>
+            <span class="hljs-variable language_">self</span>.redis_client.lpush(<span class="hljs-string">&quot;minute_bar_queue&quot;</span>,
+                                  json.dumps(minute_bar))</span></code></pre>
 <h3 id="第二步mac-端数据消费器">第二步：Mac 端数据消费器</h3>
 <p>&quot;Windows 端负责数据获取，Mac 端负责数据存储和查询。&quot;我对 007 说明了分工。</p>
 <p>在 Mac 端，007 搭建了数据消费器，从 Redis 获取数据并存储到 ClickHouse：</p>
-<pre><code class="language-python">class DataConsumer:
-    def __init__(self, config):
-        self.redis_client = redis.StrictRedis(
-            host=&quot;8.217.201.221&quot;,
-            port=16379,
-            password=&quot;quantide666&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DataConsumer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):
+        <span class="hljs-variable language_">self</span>.redis_client = redis.StrictRedis(
+            host=<span class="hljs-string">&quot;8.217.201.221&quot;</span>,
+            port=<span class="hljs-number">16379</span>,
+            password=<span class="hljs-string">&quot;quantide666&quot;</span>
         )
-        self.clickhouse_client = Client(host=&#39;localhost&#39;)
+        <span class="hljs-variable language_">self</span>.clickhouse_client = Client(host=<span class="hljs-string">&#x27;localhost&#x27;</span>)
 
-    def consume_data(self):
-        while True:
-            # 从 Redis 获取数据
-            data = self.redis_client.brpop(&quot;minute_bar_queue&quot;, timeout=1)
-            if data:
-                minute_bar = json.loads(data[1])
-                # 插入 ClickHouse
-                self.insert_to_clickhouse(minute_bar)
-</code></pre>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_data</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+            <span class="hljs-comment"># 从 Redis 获取数据</span>
+            data = <span class="hljs-variable language_">self</span>.redis_client.brpop(<span class="hljs-string">&quot;minute_bar_queue&quot;</span>, timeout=<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">if</span> data:
+                minute_bar = json.loads(data[<span class="hljs-number">1</span>])
+                <span class="hljs-comment"># 插入 ClickHouse</span>
+                <span class="hljs-variable language_">self</span>.insert_to_clickhouse(minute_bar)</span></code></pre>
 <h3 id="第三步初步测试与现实的冲击">第三步：初步测试与现实的冲击</h3>
 <p>&quot;系统搭建完成，我们来测试一下效果。&quot;我满怀期待地说道。</p>
 <p>基础版系统搭建完成后，我们进行了初步测试。结果让人喜忧参半：</p>
@@ -173,9 +167,8 @@
 <p>&quot;我们需要仔细分析基础版的问题，才能有针对性地优化。&quot;我对 007 说道。</p>
 <p>在基础版系统运行了一段时间后，我们发现了几个明显的问题：</p>
 <h3 id="问题-1订阅效率低下">问题 1：订阅效率低下</h3>
-<pre><code>2025-05-29 15:00:46,949 - qmt_subscriber - INFO - 订阅完成: 成功 100 只, 失败 0 只
-2025-05-29 15:00:46,949 - qmt_subscriber - WARNING - 订阅成功率较低(100/1000)，切换到轮询模式...
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-number">2025-05-29 15:00:46</span><span class="hljs-string">,949</span> <span class="hljs-bullet">-</span> <span class="hljs-string">qmt_subscriber</span> <span class="hljs-bullet">-</span> <span class="hljs-string">INFO</span> <span class="hljs-bullet">-</span> <span class="hljs-string">订阅完成:</span> <span class="hljs-string">成功</span> <span class="hljs-number">100</span> <span class="hljs-string">只,</span> <span class="hljs-string">失败</span> <span class="hljs-number">0</span> <span class="hljs-string">只</span>
+<span class="hljs-number">2025-05-29 15:00:46</span><span class="hljs-string">,949</span> <span class="hljs-bullet">-</span> <span class="hljs-string">qmt_subscriber</span> <span class="hljs-bullet">-</span> <span class="hljs-string">WARNING</span> <span class="hljs-bullet">-</span> <span class="hljs-string">订阅成功率较低(100/1000)，切换到轮询模式...</span></span></code></pre>
 <p>&quot;这个日志很有意思，明明成功率是 100%，为什么系统判断为&#39;较低&#39;？&quot;我疑惑地问道。</p>
 <p>007 分析后发现：系统误判 100% 的成功率为&quot;较低&quot;，频繁切换到低效的轮询模式。更要命的是，单股订阅模式下，1000 只股票需要逐个订阅，每只股票耗时约 0.3 秒，总计需要 5 分钟才能完成订阅。</p>
 <h3 id="问题-2性能瓶颈明显">问题 2：性能瓶颈明显</h3>
@@ -196,237 +189,233 @@
 <h3 id="基础版-vs-增强版订阅对比">基础版 vs 增强版订阅对比</h3>
 <p>让我们来看看两种订阅模式的具体差异：</p>
 <p><strong>基础版（单股订阅）：</strong></p>
-<pre><code class="language-python"># 逐个订阅，效率低下
-def start_individual_subscription(self):
-    success_count = 0
-    for stock_code in stock_list:
-        try:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-comment"># 逐个订阅，效率低下</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">start_individual_subscription</span>(<span class="hljs-params">self</span>):
+    success_count = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> stock_code <span class="hljs-keyword">in</span> stock_list:
+        <span class="hljs-keyword">try</span>:
             seq = xtdata.subscribe_quote(
                 stock_code=stock_code,
-                period=&#39;1m&#39;,
-                callback=self.on_data
+                period=<span class="hljs-string">&#x27;1m&#x27;</span>,
+                callback=<span class="hljs-variable language_">self</span>.on_data
             )
-            success_count += 1
-            time.sleep(0.1)  # 避免 API 调用过快
-        except Exception as e:
-            self.logger.error(f&quot;订阅失败: {stock_code}, {e}&quot;)
+            success_count += <span class="hljs-number">1</span>
+            time.sleep(<span class="hljs-number">0.1</span>)  <span class="hljs-comment"># 避免 API 调用过快</span>
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;订阅失败: <span class="hljs-subst">{stock_code}</span>, <span class="hljs-subst">{e}</span>&quot;</span>)
 
-    self.logger.info(f&quot;订阅完成: 成功 {success_count} 只&quot;)
-</code></pre>
+    <span class="hljs-variable language_">self</span>.logger.info(<span class="hljs-string">f&quot;订阅完成: 成功 <span class="hljs-subst">{success_count}</span> 只&quot;</span>)</span></code></pre>
 <p><strong>增强版（全推行情订阅）：</strong></p>
-<pre><code class="language-python"># 一次性订阅全市场，效率极高
-def start_whole_quote_subscription(self):
-    try:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-comment"># 一次性订阅全市场，效率极高</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">start_whole_quote_subscription</span>(<span class="hljs-params">self</span>):
+    <span class="hljs-keyword">try</span>:
         result = xtdata.subscribe_whole_quote(
-            code_list=self.stock_list,
-            callback=self.on_whole_quote_data
+            code_list=<span class="hljs-variable language_">self</span>.stock_list,
+            callback=<span class="hljs-variable language_">self</span>.on_whole_quote_data
         )
-        if result == 0:  # 0 表示成功
-            self.logger.info(f&quot;全推行情订阅成功: {len(self.stock_list)} 只股票&quot;)
-            return True
-    except Exception as e:
-        self.logger.error(f&quot;全推行情订阅失败: {e}&quot;)
-        # 自动降级到单股订阅
-        return self.start_individual_subscription()
-</code></pre>
+        <span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:  <span class="hljs-comment"># 0 表示成功</span>
+            <span class="hljs-variable language_">self</span>.logger.info(<span class="hljs-string">f&quot;全推行情订阅成功: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(self.stock_list)}</span> 只股票&quot;</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;全推行情订阅失败: <span class="hljs-subst">{e}</span>&quot;</span>)
+        <span class="hljs-comment"># 自动降级到单股订阅</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.start_individual_subscription()</span></code></pre>
 <p>&quot;选择合适的 API 对性能的影响是决定性的。&quot;007 总结道。</p>
 <h2 id="批量处理性能提升">⚡ 批量处理性能提升</h2>
 <p>&quot;基础版性能还是不够。单条处理太慢了，我们需要批量处理！&quot;007 提出了关键的性能优化思路。</p>
 <p>&quot;批量处理确实是提升性能的关键。&quot;我赞同道，&quot;但要注意平衡批量大小和实时性。&quot;</p>
 <h3 id="windows-端生产者批量处理架构">Windows 端：生产者批量处理架构</h3>
 <p>007 设计了一个精巧的生产者-消费者模式的多线程架构：</p>
-<pre><code class="language-python">class EnhancedQMTSubscriber:
-    def __init__(self, config):
-        self.batch_size = config[&#39;system&#39;][&#39;batch_size&#39;]  # 100
-        self.batch_timeout = config[&#39;system&#39;][&#39;batch_timeout&#39;]  # 1.0 秒
-        self.data_queue = queue.Queue(maxsize=5000)
-        self.batch_data = []
-        self.last_batch_time = time.time()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">EnhancedQMTSubscriber</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):
+        <span class="hljs-variable language_">self</span>.batch_size = config[<span class="hljs-string">&#x27;system&#x27;</span>][<span class="hljs-string">&#x27;batch_size&#x27;</span>]  <span class="hljs-comment"># 100</span>
+        <span class="hljs-variable language_">self</span>.batch_timeout = config[<span class="hljs-string">&#x27;system&#x27;</span>][<span class="hljs-string">&#x27;batch_timeout&#x27;</span>]  <span class="hljs-comment"># 1.0 秒</span>
+        <span class="hljs-variable language_">self</span>.data_queue = queue.Queue(maxsize=<span class="hljs-number">5000</span>)
+        <span class="hljs-variable language_">self</span>.batch_data = []
+        <span class="hljs-variable language_">self</span>.last_batch_time = time.time()
 
-    def start_data_processing_threads(self):
-        &quot;&quot;&quot;启动数据处理线程&quot;&quot;&quot;
-        # 批量发布线程
-        publish_thread = threading.Thread(target=self.batch_publish_worker, daemon=True)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_data_processing_threads</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;启动数据处理线程&quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 批量发布线程</span>
+        publish_thread = threading.Thread(target=<span class="hljs-variable language_">self</span>.batch_publish_worker, daemon=<span class="hljs-literal">True</span>)
         publish_thread.start()
 
-        # 数据清理线程
-        cleanup_thread = threading.Thread(target=self.data_cleanup_worker, daemon=True)
+        <span class="hljs-comment"># 数据清理线程</span>
+        cleanup_thread = threading.Thread(target=<span class="hljs-variable language_">self</span>.data_cleanup_worker, daemon=<span class="hljs-literal">True</span>)
         cleanup_thread.start()
 
-        # 性能监控线程
-        monitor_thread = threading.Thread(target=self.performance_monitor, daemon=True)
+        <span class="hljs-comment"># 性能监控线程</span>
+        monitor_thread = threading.Thread(target=<span class="hljs-variable language_">self</span>.performance_monitor, daemon=<span class="hljs-literal">True</span>)
         monitor_thread.start()
 
-    def batch_publish_worker(self):
-        &quot;&quot;&quot;批量发布工作线程&quot;&quot;&quot;
-        while True:
-            try:
-                # 从队列获取数据
-                minute_bar = self.data_queue.get(timeout=0.1)
-                self.batch_data.append(minute_bar)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_publish_worker</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;批量发布工作线程&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+            <span class="hljs-keyword">try</span>:
+                <span class="hljs-comment"># 从队列获取数据</span>
+                minute_bar = <span class="hljs-variable language_">self</span>.data_queue.get(timeout=<span class="hljs-number">0.1</span>)
+                <span class="hljs-variable language_">self</span>.batch_data.append(minute_bar)
 
-                # 检查是否需要发布批量数据
+                <span class="hljs-comment"># 检查是否需要发布批量数据</span>
                 current_time = time.time()
                 should_publish = (
-                    len(self.batch_data) &gt;= self.batch_size or
-                    current_time - self.last_batch_time &gt;= self.batch_timeout
+                    <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.batch_data) &gt;= <span class="hljs-variable language_">self</span>.batch_size <span class="hljs-keyword">or</span>
+                    current_time - <span class="hljs-variable language_">self</span>.last_batch_time &gt;= <span class="hljs-variable language_">self</span>.batch_timeout
                 )
 
-                if should_publish and self.batch_data:
-                    self.batch_publish_to_redis(self.batch_data.copy())
-                    self.batch_data.clear()
-                    self.last_batch_time = current_time
+                <span class="hljs-keyword">if</span> should_publish <span class="hljs-keyword">and</span> <span class="hljs-variable language_">self</span>.batch_data:
+                    <span class="hljs-variable language_">self</span>.batch_publish_to_redis(<span class="hljs-variable language_">self</span>.batch_data.copy())
+                    <span class="hljs-variable language_">self</span>.batch_data.clear()
+                    <span class="hljs-variable language_">self</span>.last_batch_time = current_time
 
-            except queue.Empty:
-                # 超时检查
+            <span class="hljs-keyword">except</span> queue.Empty:
+                <span class="hljs-comment"># 超时检查</span>
                 current_time = time.time()
-                if (self.batch_data and
-                    current_time - self.last_batch_time &gt;= self.batch_timeout):
-                    self.batch_publish_to_redis(self.batch_data.copy())
-                    self.batch_data.clear()
-                    self.last_batch_time = current_time
+                <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">self</span>.batch_data <span class="hljs-keyword">and</span>
+                    current_time - <span class="hljs-variable language_">self</span>.last_batch_time &gt;= <span class="hljs-variable language_">self</span>.batch_timeout):
+                    <span class="hljs-variable language_">self</span>.batch_publish_to_redis(<span class="hljs-variable language_">self</span>.batch_data.copy())
+                    <span class="hljs-variable language_">self</span>.batch_data.clear()
+                    <span class="hljs-variable language_">self</span>.last_batch_time = current_time
 
-    def batch_publish_to_redis(self, batch_data):
-        &quot;&quot;&quot;批量发布到Redis&quot;&quot;&quot;
-        try:
-            pipe = self.redis_client.pipeline()
-            for data in batch_data:
-                pipe.lpush(&quot;minute_bar_queue&quot;, json.dumps(data))
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_publish_to_redis</span>(<span class="hljs-params">self, batch_data</span>):
+        <span class="hljs-string">&quot;&quot;&quot;批量发布到Redis&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">try</span>:
+            pipe = <span class="hljs-variable language_">self</span>.redis_client.pipeline()
+            <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> batch_data:
+                pipe.lpush(<span class="hljs-string">&quot;minute_bar_queue&quot;</span>, json.dumps(data))
             pipe.execute()
 
-            self.stats[&#39;published_count&#39;] += len(batch_data)
-            self.logger.debug(f&quot;批量发布成功: {len(batch_data)} 条数据&quot;)
+            <span class="hljs-variable language_">self</span>.stats[<span class="hljs-string">&#x27;published_count&#x27;</span>] += <span class="hljs-built_in">len</span>(batch_data)
+            <span class="hljs-variable language_">self</span>.logger.debug(<span class="hljs-string">f&quot;批量发布成功: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(batch_data)}</span> 条数据&quot;</span>)
 
-        except Exception as e:
-            self.logger.error(f&quot;批量发布失败: {e}&quot;)
-            # 降级到单条发布
-            self.fallback_single_publish(batch_data)
-</code></pre>
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;批量发布失败: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-comment"># 降级到单条发布</span>
+            <span class="hljs-variable language_">self</span>.fallback_single_publish(batch_data)</span></code></pre>
 <h3 id="mac-端多工作线程批量插入">Mac 端：多工作线程批量插入</h3>
 <p>在 Mac 端，007 设计了更强大的多工作线程批量插入机制：</p>
-<pre><code class="language-python">class EnhancedDataConsumer:
-    def __init__(self, config):
-        self.worker_count = config[&#39;system&#39;][&#39;worker_count&#39;]  # 4
-        self.batch_size = config[&#39;system&#39;][&#39;batch_size&#39;]  # 1000
-        self.batch_timeout = config[&#39;system&#39;][&#39;batch_timeout&#39;]  # 5.0 秒
-        self.worker_queues = [queue.Queue(maxsize=1000) for _ in range(self.worker_count)]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">EnhancedDataConsumer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):
+        <span class="hljs-variable language_">self</span>.worker_count = config[<span class="hljs-string">&#x27;system&#x27;</span>][<span class="hljs-string">&#x27;worker_count&#x27;</span>]  <span class="hljs-comment"># 4</span>
+        <span class="hljs-variable language_">self</span>.batch_size = config[<span class="hljs-string">&#x27;system&#x27;</span>][<span class="hljs-string">&#x27;batch_size&#x27;</span>]  <span class="hljs-comment"># 1000</span>
+        <span class="hljs-variable language_">self</span>.batch_timeout = config[<span class="hljs-string">&#x27;system&#x27;</span>][<span class="hljs-string">&#x27;batch_timeout&#x27;</span>]  <span class="hljs-comment"># 5.0 秒</span>
+        <span class="hljs-variable language_">self</span>.worker_queues = [queue.Queue(maxsize=<span class="hljs-number">1000</span>) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.worker_count)]
 
-    def start_worker_threads(self):
-        &quot;&quot;&quot;启动工作线程&quot;&quot;&quot;
-        for i in range(self.worker_count):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_worker_threads</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;启动工作线程&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.worker_count):
             worker_thread = threading.Thread(
-                target=self.batch_insert_worker,
-                args=(f&quot;worker-{i}&quot;, self.worker_queues[i]),
-                daemon=True
+                target=<span class="hljs-variable language_">self</span>.batch_insert_worker,
+                args=(<span class="hljs-string">f&quot;worker-<span class="hljs-subst">{i}</span>&quot;</span>, <span class="hljs-variable language_">self</span>.worker_queues[i]),
+                daemon=<span class="hljs-literal">True</span>
             )
             worker_thread.start()
-            self.logger.info(f&quot;启动工作线程: worker-{i}&quot;)
+            <span class="hljs-variable language_">self</span>.logger.info(<span class="hljs-string">f&quot;启动工作线程: worker-<span class="hljs-subst">{i}</span>&quot;</span>)
 
-    def batch_insert_worker(self, worker_name, worker_queue):
-        &quot;&quot;&quot;批量插入工作线程&quot;&quot;&quot;
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_insert_worker</span>(<span class="hljs-params">self, worker_name, worker_queue</span>):
+        <span class="hljs-string">&quot;&quot;&quot;批量插入工作线程&quot;&quot;&quot;</span>
         batch_data = []
         last_batch_time = time.time()
 
-        while True:
-            try:
-                # 从工作队列获取数据
-                data = worker_queue.get(timeout=0.5)
+        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+            <span class="hljs-keyword">try</span>:
+                <span class="hljs-comment"># 从工作队列获取数据</span>
+                data = worker_queue.get(timeout=<span class="hljs-number">0.5</span>)
                 batch_data.append(data)
 
-                # 检查是否需要批量插入
+                <span class="hljs-comment"># 检查是否需要批量插入</span>
                 current_time = time.time()
                 should_insert = (
-                    len(batch_data) &gt;= self.batch_size or
-                    current_time - last_batch_time &gt;= self.batch_timeout
+                    <span class="hljs-built_in">len</span>(batch_data) &gt;= <span class="hljs-variable language_">self</span>.batch_size <span class="hljs-keyword">or</span>
+                    current_time - last_batch_time &gt;= <span class="hljs-variable language_">self</span>.batch_timeout
                 )
 
-                if should_insert and batch_data:
-                    self.batch_insert_clickhouse(worker_name, batch_data.copy())
+                <span class="hljs-keyword">if</span> should_insert <span class="hljs-keyword">and</span> batch_data:
+                    <span class="hljs-variable language_">self</span>.batch_insert_clickhouse(worker_name, batch_data.copy())
                     batch_data.clear()
                     last_batch_time = current_time
 
-            except queue.Empty:
-                # 超时检查
+            <span class="hljs-keyword">except</span> queue.Empty:
+                <span class="hljs-comment"># 超时检查</span>
                 current_time = time.time()
-                if (batch_data and
-                    current_time - last_batch_time &gt;= self.batch_timeout):
-                    self.batch_insert_clickhouse(worker_name, batch_data.copy())
+                <span class="hljs-keyword">if</span> (batch_data <span class="hljs-keyword">and</span>
+                    current_time - last_batch_time &gt;= <span class="hljs-variable language_">self</span>.batch_timeout):
+                    <span class="hljs-variable language_">self</span>.batch_insert_clickhouse(worker_name, batch_data.copy())
                     batch_data.clear()
                     last_batch_time = current_time
 
-    def batch_insert_clickhouse(self, worker_name, batch_data):
-        &quot;&quot;&quot;批量插入ClickHouse&quot;&quot;&quot;
-        try:
-            # 数据格式转换
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_insert_clickhouse</span>(<span class="hljs-params">self, worker_name, batch_data</span>):
+        <span class="hljs-string">&quot;&quot;&quot;批量插入ClickHouse&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 数据格式转换</span>
             formatted_data = []
-            for item in batch_data:
+            <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> batch_data:
                 formatted_data.append([
-                    item[&#39;symbol&#39;], item[&#39;frame&#39;], item[&#39;open&#39;],
-                    item[&#39;high&#39;], item[&#39;low&#39;], item[&#39;close&#39;],
-                    item[&#39;vol&#39;], item[&#39;amount&#39;]
+                    item[<span class="hljs-string">&#x27;symbol&#x27;</span>], item[<span class="hljs-string">&#x27;frame&#x27;</span>], item[<span class="hljs-string">&#x27;open&#x27;</span>],
+                    item[<span class="hljs-string">&#x27;high&#x27;</span>], item[<span class="hljs-string">&#x27;low&#x27;</span>], item[<span class="hljs-string">&#x27;close&#x27;</span>],
+                    item[<span class="hljs-string">&#x27;vol&#x27;</span>], item[<span class="hljs-string">&#x27;amount&#x27;</span>]
                 ])
 
-            # 批量插入
-            self.clickhouse_client.execute(
-                &quot;INSERT INTO minute_bars VALUES&quot;,
+            <span class="hljs-comment"># 批量插入</span>
+            <span class="hljs-variable language_">self</span>.clickhouse_client.execute(
+                <span class="hljs-string">&quot;INSERT INTO minute_bars VALUES&quot;</span>,
                 formatted_data
             )
 
-            self.stats[&#39;inserted_count&#39;] += len(batch_data)
-            self.logger.debug(f&quot;{worker_name} 批量插入成功: {len(batch_data)} 条&quot;)
+            <span class="hljs-variable language_">self</span>.stats[<span class="hljs-string">&#x27;inserted_count&#x27;</span>] += <span class="hljs-built_in">len</span>(batch_data)
+            <span class="hljs-variable language_">self</span>.logger.debug(<span class="hljs-string">f&quot;<span class="hljs-subst">{worker_name}</span> 批量插入成功: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(batch_data)}</span> 条&quot;</span>)
 
-        except Exception as e:
-            self.logger.error(f&quot;{worker_name} 批量插入失败: {e}&quot;)
-            self.stats[&#39;insert_errors&#39;] += 1
-</code></pre>
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;<span class="hljs-subst">{worker_name}</span> 批量插入失败: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-variable language_">self</span>.stats[<span class="hljs-string">&#x27;insert_errors&#x27;</span>] += <span class="hljs-number">1</span></span></code></pre>
 <p>&quot;批量处理确实是性能优化的银弹，特别是在 I/O 密集型场景中。&quot;007 总结道。</p>
 <h2 id="实时监控系统状态一目了然">📊 <strong>实时监控：系统状态一目了然</strong></h2>
 <p>&quot;没有监控的系统是盲飞。&quot;我对 007 说。</p>
 <p>007 设计了详细的性能监控系统，每分钟输出一次报告：</p>
 <h3 id="windows-端实时监控">Windows 端实时监控</h3>
-<pre><code>2025-06-07 09:32:35,229 - INFO - 🚀 启动 QMT 分钟线全推订阅器...
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span></span><span class="cl-body">2025-06-07 09:32:35,229 - INFO - 🚀 启动 QMT 分钟线全推订阅器...
 2025-06-07 09:32:35,808 - INFO - ✅ Redis 连接池创建成功: 8.217.201.221:16379
 2025-06-07 09:32:35,809 - INFO - 📊 连接池配置: 最大连接数=20, 启用 keepalive
 ***** xtdata 连接成功 *****
-服务信息: {&#39;tag&#39;: &#39;sp3&#39;, &#39;version&#39;: &#39;1.0&#39;}
+服务信息: {'tag': 'sp3', 'version': '1.0'}
 服务地址: 127.0.0.1:58610
 数据路径: C:\Program Files\国金证券 QMT 交易端\bin.x64/../userdata_mini/datadir
 设置 xtdata.enable_hello = False 可隐藏此消息
 
-2025-06-07 09:32:35,822 - INFO - QMT 连接对象: &lt;class &#39;xtquant.datacenter.IPythonApiClient&#39;&gt;
+2025-06-07 09:32:35,822 - INFO - QMT 连接对象: &lt;class 'xtquant.datacenter.IPythonApiClient'>
 2025-06-07 09:32:35,826 - INFO - ✅ QMT 连接成功 - 测试股票: 平安银行
 2025-06-07 09:32:35,826 - INFO - 🔍 获取沪深 A 股完整列表...
 2025-06-07 09:32:35,867 - INFO - 🎉 成功获取沪深 A 股: 5147 只股票!
 2025-06-07 09:32:35,868 - INFO - 📋 股票范围: 600051.SH 到 300271.SZ
 2025-06-07 09:32:35,872 - INFO - 📊 股票分布: 深圳 2867 只, 上海 2280 只
 2025-06-07 09:32:35,873 - INFO - 🚀 启动 QMT 全推分钟线订阅...
-2025-06-07 09:32:35,909 - INFO - 📊 subscribe_whole_quote 返回: 1 (类型: &lt;class &#39;int&#39;&gt;)
+2025-06-07 09:32:35,909 - INFO - 📊 subscribe_whole_quote 返回: 1 (类型: &lt;class 'int'>)
 2025-06-07 09:32:35,909 - INFO - ✅ 全推订阅成功! 订阅股票数: 5147
 2025-06-07 09:32:35,912 - INFO - ✅ 监控线程已启动
 2025-06-07 09:32:35,913 - INFO - ✅ 订阅器启动成功，开始接收数据...
 2025-06-07 09:32:35,914 - INFO - 按 Ctrl+C 停止订阅
 2025-06-07 09:32:35,917 - INFO - 🔔 全推数据回调 #1
-2025-06-07 09:32:35,917 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:35,917 - INFO -    数据类型: &lt;class 'dict'>
 2025-06-07 09:32:35,918 - INFO -    数据量: 1
-2025-06-07 09:32:35,927 - INFO -    样例股票: [&#39;601878.SH&#39;]
-2025-06-07 09:32:35,928 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
-2025-06-07 09:32:35,929 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:35,927 - INFO -    样例股票: ['601878.SH']
+2025-06-07 09:32:35,928 - INFO -    样例数据类型: &lt;class 'dict'>
+2025-06-07 09:32:35,929 - INFO -    样例字段: ['time', 'lastPrice', 'open', 'high', 'low', 'lastClose', 'amount', 'volume', 'pvolume', 'stockStatus']
 2025-06-07 09:32:36,142 - INFO - 🔔 全推数据回调 #2
-2025-06-07 09:32:36,143 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:36,143 - INFO -    数据类型: &lt;class 'dict'>
 2025-06-07 09:32:36,145 - INFO -    数据量: 2278
-2025-06-07 09:32:36,146 - INFO -    样例股票: [&#39;600000.SH&#39;, &#39;600004.SH&#39;, &#39;600006.SH&#39;]
-2025-06-07 09:32:36,147 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
-2025-06-07 09:32:36,148 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:36,146 - INFO -    样例股票: ['600000.SH', '600004.SH', '600006.SH']
+2025-06-07 09:32:36,147 - INFO -    样例数据类型: &lt;class 'dict'>
+2025-06-07 09:32:36,148 - INFO -    样例字段: ['time', 'lastPrice', 'open', 'high', 'low', 'lastClose', 'amount', 'volume', 'pvolume', 'stockStatus']
 2025-06-07 09:32:37,596 - INFO - 📊 批量发布: 100条, 总计: 500条, 平均批量: 100.0
 2025-06-07 09:32:38,696 - INFO - 📊 批量发布: 100条, 总计: 1000条, 平均批量: 100.0
 2025-06-07 09:32:39,756 - INFO - 📊 批量发布: 100条, 总计: 1500条, 平均批量: 100.0
 2025-06-07 09:32:40,781 - INFO - 📊 批量发布: 100条, 总计: 2000条, 平均批量: 100.0
 2025-06-07 09:32:41,196 - INFO - 🔔 全推数据回调 #3
-2025-06-07 09:32:41,196 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:41,196 - INFO -    数据类型: &lt;class 'dict'>
 2025-06-07 09:32:41,198 - INFO -    数据量: 2865
-2025-06-07 09:32:41,200 - INFO -    样例股票: [&#39;000001.SZ&#39;, &#39;000002.SZ&#39;, &#39;000004.SZ&#39;]
-2025-06-07 09:32:41,200 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
-2025-06-07 09:32:41,201 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:41,200 - INFO -    样例股票: ['000001.SZ', '000002.SZ', '000004.SZ']
+2025-06-07 09:32:41,200 - INFO -    样例数据类型: &lt;class 'dict'>
+2025-06-07 09:32:41,201 - INFO -    样例字段: ['time', 'lastPrice', 'open', 'high', 'low', 'lastClose', 'amount', 'volume', 'pvolume', 'stockStatus']
 2025-06-07 09:32:41,688 - INFO - 📊 批量发布: 100条, 总计: 2500条, 平均批量: 100.0
 2025-06-07 09:32:42,564 - INFO - 📊 批量发布: 100条, 总计: 3000条, 平均批量: 100.0
 2025-06-07 09:32:43,415 - INFO - 📊 批量发布: 100条, 总计: 3500条, 平均批量: 100.0
@@ -434,17 +423,17 @@ def start_whole_quote_subscription(self):
 2025-06-07 09:32:45,120 - INFO - 📊 批量发布: 100条, 总计: 4500条, 平均批量: 100.0
 2025-06-07 09:32:45,955 - INFO - 📊 批量发布: 100条, 总计: 5000条, 平均批量: 100.0
 2025-06-07 09:32:46,128 - INFO - 🔔 全推数据回调 #4
-2025-06-07 09:32:46,129 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:46,129 - INFO -    数据类型: &lt;class 'dict'>
 2025-06-07 09:32:46,131 - INFO -    数据量: 1
-2025-06-07 09:32:46,132 - INFO -    样例股票: [&#39;688757.SH&#39;]
-2025-06-07 09:32:46,133 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
-2025-06-07 09:32:46,134 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:46,132 - INFO -    样例股票: ['688757.SH']
+2025-06-07 09:32:46,133 - INFO -    样例数据类型: &lt;class 'dict'>
+2025-06-07 09:32:46,134 - INFO -    样例字段: ['time', 'lastPrice', 'open', 'high', 'low', 'lastClose', 'amount', 'volume', 'pvolume', 'stockStatus']
 2025-06-07 09:32:46,135 - INFO - 🔔 全推数据回调 #5
-2025-06-07 09:32:46,136 - INFO -    数据类型: &lt;class &#39;dict&#39;&gt;
+2025-06-07 09:32:46,136 - INFO -    数据类型: &lt;class 'dict'>
 2025-06-07 09:32:46,136 - INFO -    数据量: 4
-2025-06-07 09:32:46,137 - INFO -    样例股票: [&#39;601225.SH&#39;, &#39;601658.SH&#39;, &#39;688458.SH&#39;]
-2025-06-07 09:32:46,138 - INFO -    样例数据类型: &lt;class &#39;dict&#39;&gt;
-2025-06-07 09:32:46,139 - INFO -    样例字段: [&#39;time&#39;, &#39;lastPrice&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;lastClose&#39;, &#39;amount&#39;, &#39;volume&#39;, &#39;pvolume&#39;, &#39;stockStatus&#39;]
+2025-06-07 09:32:46,137 - INFO -    样例股票: ['601225.SH', '601658.SH', '688458.SH']
+2025-06-07 09:32:46,138 - INFO -    样例数据类型: &lt;class 'dict'>
+2025-06-07 09:32:46,139 - INFO -    样例字段: ['time', 'lastPrice', 'open', 'high', 'low', 'lastClose', 'amount', 'volume', 'pvolume', 'stockStatus']
 2025-06-07 09:32:46,844 - INFO - 📊 批量发布: 100条, 总计: 5500条, 平均批量: 100.0
 2025-06-07 09:33:05,913 - INFO - 📊 Windows 端性能统计 - 运行时间: 0:00:30.001766
 2025-06-07 09:33:05,913 - INFO -    回调: 464 次 (15.5 次/秒)
@@ -472,8 +461,7 @@ def start_whole_quote_subscription(self):
 2025-06-07 09:34:05,936 - INFO -    错误统计: 处理错误0次
 2025-06-07 09:34:05,937 - INFO -    批量统计: 141次, 平均: 77.7条/批
 2025-06-07 09:34:05,937 - INFO -    缓冲区: 12条 | Redis操作: 141次
-2025-06-07 09:34:05,938 - INFO -    处理股票: 5143只 | 数据完整性: ✅
-</code></pre>
+2025-06-07 09:34:05,938 - INFO -    处理股票: 5143只 | 数据完整性: ✅</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 为什么日志中的成功率不是100%呢？
 </div>
@@ -481,13 +469,12 @@ def start_whole_quote_subscription(self):
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_12.png" alt=""></p>
 <p>007给出了以下回答。</p>
 <p>在我们的程序中，有检测数据完整性的验证逻辑：</p>
-<pre><code class="language-python">def validate_minute_bar_data(self, minute_bar: Dict) -&gt; bool:
-    # 检查必要字段存在性
-    required_fields = [&#39;symbol&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;close&#39;, &#39;vol&#39;]
-    for field in required_fields:
-        if field not in minute_bar or minute_bar[field] is None:
-            return False
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_minute_bar_data</span>(<span class="hljs-params">self, minute_bar: <span class="hljs-type">Dict</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+    <span class="hljs-comment"># 检查必要字段存在性</span>
+    required_fields = [<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;high&#x27;</span>, <span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-string">&#x27;vol&#x27;</span>]
+    <span class="hljs-keyword">for</span> field <span class="hljs-keyword">in</span> required_fields:
+        <span class="hljs-keyword">if</span> field <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> minute_bar <span class="hljs-keyword">or</span> minute_bar[field] <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></span></code></pre>
 <p>如果QMT返回的某些股票数据缺少必要字段或字段值为None，这些数据会被过滤掉，不会发布到Redis。在 <code>build_minute_bar</code> 函数中，如果QMT返回的数据格式异常、数据类型转换失败或其他构建过程中的异常都会导致数据不被发布。此外，从日志中可以看到“缓冲区: 12条”，说明还有12条数据在等待发布，这些数据已经被“接收”计数，但还没有被“发布”到Redis，会在下次批量发布或程序停止时才发布。</p>
 <p>由于统计是实时计算的，在某个时间点（例如 09:34:05）：</p>
 <ul>
@@ -497,7 +484,7 @@ def start_whole_quote_subscription(self):
 </ul>
 <p>总结：99.9% 的成功率是正常的，主要原因是缓冲区中有少量数据还未发布，以及极少数数据因完整性验证失败被过滤。这个成功率表明系统运行良好，数据质量控制有效。</p>
 <h3 id="mac-端实时监控">Mac 端实时监控</h3>
-<pre><code>    ╔══════════════════════════════════════════════════════════════╗
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span></span><span class="cl-body">    ╔══════════════════════════════════════════════════════════════╗
     ║                增强版数据消费系统 v2.0 - Mac端                 ║
     ║                                                              ║
     ║  基于最佳实践的高性能股票数据消费与存储系统                     ║
@@ -560,42 +547,39 @@ Mac端系统配置信息
 2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 队列大小: 0
 2025-06-06 18:46:44,278 - enhanced_data_consumer - INFO - 处理股票: 716只
 2025-06-06 18:46:44,279 - enhanced_data_consumer - INFO - 最后插入: 2025-06-06 18:46:41.544365
-2025-06-06 18:46:44,279 - enhanced_data_consumer - INFO - ============================================================
-</code></pre>
+2025-06-06 18:46:44,279 - enhanced_data_consumer - INFO - ============================================================</span></code></pre>
 <h2 id="开发过程中的技术挑战">🛠️ <strong>开发过程中的技术挑战</strong></h2>
 <h3 id="挑战-1qmt-api-的兼容性问题">挑战 1：QMT API 的兼容性问题</h3>
 <p>在测试全推行情订阅时，我们遇到了 API 兼容性问题：</p>
-<pre><code class="language-python"># 第一次尝试失败
-try:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-comment"># 第一次尝试失败</span>
+<span class="hljs-keyword">try</span>:
     result = xtdata.subscribe_whole_quote(
-        code_list=self.stock_list,
-        callback=self.on_whole_quote_data
+        code_list=<span class="hljs-variable language_">self</span>.stock_list,
+        callback=<span class="hljs-variable language_">self</span>.on_whole_quote_data
     )
-except Exception as e:
-    self.logger.error(f&quot;全推行情订阅失败: {e}&quot;)
-    # 自动降级到单股订阅
-    return self.start_individual_subscription()
-</code></pre>
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;全推行情订阅失败: <span class="hljs-subst">{e}</span>&quot;</span>)
+    <span class="hljs-comment"># 自动降级到单股订阅</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.start_individual_subscription()</span></code></pre>
 <p>007 机智地设计了降级机制：如果全推行情订阅失败，自动切换到单股订阅模式，确保系统的鲁棒性。</p>
 <h3 id="挑战-2数据格式的多样性">挑战 2：数据格式的多样性</h3>
 <p>QMT 返回的数据格式并不统一，有时是字典，有时是列表：</p>
-<pre><code class="language-python">def process_quote_data(self, symbol, quote_data):
-    &quot;&quot;&quot;处理行情数据&quot;&quot;&quot;
-    if isinstance(quote_data, dict):
-        # 字典格式处理
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_quote_data</span>(<span class="hljs-params">self, symbol, quote_data</span>):
+    <span class="hljs-string">&quot;&quot;&quot;处理行情数据&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(quote_data, <span class="hljs-built_in">dict</span>):
+        <span class="hljs-comment"># 字典格式处理</span>
         minute_bar = {
-            &quot;symbol&quot;: symbol,
-            &quot;open&quot;: float(quote_data.get(&#39;open&#39;, 0)),
-            # ...
+            <span class="hljs-string">&quot;symbol&quot;</span>: symbol,
+            <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-built_in">float</span>(quote_data.get(<span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-number">0</span>)),
+            <span class="hljs-comment"># ...</span>
         }
-    elif isinstance(quote_data, list) and len(quote_data) &gt;= 6:
-        # 列表格式处理
+    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(quote_data, <span class="hljs-built_in">list</span>) <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(quote_data) &gt;= <span class="hljs-number">6</span>:
+        <span class="hljs-comment"># 列表格式处理</span>
         minute_bar = {
-            &quot;symbol&quot;: symbol,
-            &quot;open&quot;: float(quote_data[1]) if len(quote_data) &gt; 1 else 0,
-            # ...
-        }
-</code></pre>
+            <span class="hljs-string">&quot;symbol&quot;</span>: symbol,
+            <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-built_in">float</span>(quote_data[<span class="hljs-number">1</span>]) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(quote_data) &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>,
+            <span class="hljs-comment"># ...</span>
+        }</span></code></pre>
 <p>007 设计了智能的数据格式适配器，能够自动识别和处理不同的数据格式。</p>
 <h3 id="系统功能验证">系统功能验证</h3>
 <p>增强版系统自动完成了以下功能：</p>
@@ -610,16 +594,15 @@ except Exception as e:
 </ul>
 <h3 id="数据存储效果验证">数据存储效果验证</h3>
 <p>&quot;让我们快速查询一下最近 3 分钟的数据，验证系统的实时性。&quot;我打开 ClickHouse 客户端。</p>
-<pre><code class="language-sql">-- 查询最近 3 分钟的数据
-SELECT
-    count() as total_records,
-    count(DISTINCT symbol) as unique_symbols,
-    min(frame) as earliest_time,
-    max(frame) as latest_time,
-    round(avg(vol), 0) as avg_volume
-FROM minute_bars
-WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
-</code></pre>
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-comment">-- 查询最近 3 分钟的数据</span>
+<span class="hljs-keyword">SELECT</span>
+    <span class="hljs-built_in">count</span>() <span class="hljs-keyword">as</span> total_records,
+    <span class="hljs-built_in">count</span>(<span class="hljs-keyword">DISTINCT</span> symbol) <span class="hljs-keyword">as</span> unique_symbols,
+    <span class="hljs-built_in">min</span>(frame) <span class="hljs-keyword">as</span> earliest_time,
+    <span class="hljs-built_in">max</span>(frame) <span class="hljs-keyword">as</span> latest_time,
+    round(<span class="hljs-built_in">avg</span>(vol), <span class="hljs-number">0</span>) <span class="hljs-keyword">as</span> avg_volume
+<span class="hljs-keyword">FROM</span> minute_bars
+<span class="hljs-keyword">WHERE</span> frame <span class="hljs-operator">&gt;=</span> now() <span class="hljs-operator">-</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">3</span> <span class="hljs-keyword">MINUTE</span>;</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_05.png" alt=""></p>
 <p>&quot;太棒了！&quot;我兴奋地指着查询结果，&quot;你看：</p>
 <ul>
@@ -633,7 +616,7 @@ WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
 </div>
 
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_11.png" alt=""></p>
-<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body">┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   数据生产者     │───▶│  Redis Streams  │───▶│   消费者组      │
 │  (QMT Windows)  │    │                 │    │                 │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
@@ -649,14 +632,12 @@ WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
                        ▼                                ▼                                ▼
               ┌─────────────────┐              ┌─────────────────┐              ┌─────────────────┐
               │  ClickHouse DB  │              │  ClickHouse DB  │              │  其他存储系统     │
-              └─────────────────┘              └─────────────────┘              └─────────────────┘
-</code></pre>
+              └─────────────────┘              └─────────────────┘              └─────────────────┘</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_06.png" alt=""></p>
 <p>007 非常贴心地给出了以下的方案：</p>
 <h3 id="方案设计">方案设计</h3>
 <h4>方案一：发布/订阅模式（Pub/Sub）- 推荐</h4>
-<pre><code>数据生产者 → Redis Pub/Sub Channel → 多个消费者客户端
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">数据生产者 → Redis Pub/Sub Channel → 多个消费者客户端</span></code></pre>
 <p>优点：</p>
 <ul>
 <li>天然支持多个订阅者</li>
@@ -669,8 +650,7 @@ WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
 <li>无法保证消息送达</li>
 </ul>
 <h4>方案二：Redis Streams + 消费者组 - 最佳方案</h4>
-<pre><code>数据生产者 → Redis Stream → 消费者组 → 多个消费者客户端
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">数据生产者 → Redis Stream → 消费者组 → 多个消费者客户端</span></code></pre>
 <p>优点：</p>
 <ul>
 <li>消息持久化</li>
@@ -679,8 +659,7 @@ WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
 <li>支持故障恢复</li>
 </ul>
 <h4>方案三：多队列分片模式</h4>
-<pre><code>数据生产者 → 多个 Redis 队列 → 多个消费者客户端（每个客户端消费所有队列）
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">数据生产者 → 多个 Redis 队列 → 多个消费者客户端（每个客户端消费所有队列）</span></code></pre>
 <h3 id="具体实现">具体实现</h3>
 <p>🏗️ 架构设计</p>
 <ul>
@@ -701,80 +680,77 @@ WHERE frame &gt;= now() - INTERVAL 3 MINUTE;
 <li><code>stream_producer_example.py</code> - 生产者端示例代码</li>
 </ul>
 <p>Redis Streams 数据结构：</p>
-<pre><code>Stream Key: minute_bar_stream
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">Stream Key: minute_bar_stream
 消息格式: {
-    &quot;symbol&quot;: &quot;000001.SZ&quot;,
-    &quot;frame&quot;: &quot;2025-06-05 10:30:00&quot;,
-    &quot;open&quot;: 10.50,
-    &quot;high&quot;: 10.80,
-    &quot;low&quot;: 10.45,
-    &quot;close&quot;: 10.75,
-    &quot;vol&quot;: 1000000,
-    &quot;amount&quot;: 10750000,
-    &quot;timestamp&quot;: 1733356200.123,
-    &quot;quality_score&quot;: 0.95
-}
-</code></pre>
+    <span class="hljs-string">&quot;symbol&quot;</span>: <span class="hljs-string">&quot;000001.SZ&quot;</span>,
+    <span class="hljs-string">&quot;frame&quot;</span>: <span class="hljs-string">&quot;2025-06-05 10:30:00&quot;</span>,
+    <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-number">10.50</span>,
+    <span class="hljs-string">&quot;high&quot;</span>: <span class="hljs-number">10.80</span>,
+    <span class="hljs-string">&quot;low&quot;</span>: <span class="hljs-number">10.45</span>,
+    <span class="hljs-string">&quot;close&quot;</span>: <span class="hljs-number">10.75</span>,
+    <span class="hljs-string">&quot;vol&quot;</span>: <span class="hljs-number">1000000</span>,
+    <span class="hljs-string">&quot;amount&quot;</span>: <span class="hljs-number">10750000</span>,
+    <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-number">1733356200.123</span>,
+    <span class="hljs-string">&quot;quality_score&quot;</span>: <span class="hljs-number">0.95</span>
+}</span></code></pre>
 <p>消费者组配置：</p>
-<pre><code>消费者组名: minute_bar_consumers
-消费者ID: client_mac_001, client_linux_002, etc.
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">消费者组名: minute_bar_consumers
+消费者ID: client_mac_001, client_linux_002, etc.</span></code></pre>
 <p>消费者端的架构：</p>
-<pre><code class="language-python">class MultiClientDataConsumer:
-    def __init__(self, client_id, consumer_group=&quot;minute_bar_consumers&quot;):
-        self.client_id = client_id
-        self.consumer_group = consumer_group
-        self.stream_key = &quot;minute_bar_stream&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MultiClientDataConsumer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, client_id, consumer_group=<span class="hljs-string">&quot;minute_bar_consumers&quot;</span></span>):
+        <span class="hljs-variable language_">self</span>.client_id = client_id
+        <span class="hljs-variable language_">self</span>.consumer_group = consumer_group
+        <span class="hljs-variable language_">self</span>.stream_key = <span class="hljs-string">&quot;minute_bar_stream&quot;</span>
 
-    def start_consumption(self):
-        # 创建消费者组
-        self.create_consumer_group()
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_consumption</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-comment"># 创建消费者组</span>
+        <span class="hljs-variable language_">self</span>.create_consumer_group()
 
-        # 开始消费数据
-        self.consume_stream_data()
+        <span class="hljs-comment"># 开始消费数据</span>
+        <span class="hljs-variable language_">self</span>.consume_stream_data()
 
-    def create_consumer_group(self):
-        try:
-            self.redis_client.xgroup_create(
-                self.stream_key,
-                self.consumer_group,
-                id=&#39;0&#39;,
-                mkstream=True
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_consumer_group</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-variable language_">self</span>.redis_client.xgroup_create(
+                <span class="hljs-variable language_">self</span>.stream_key,
+                <span class="hljs-variable language_">self</span>.consumer_group,
+                <span class="hljs-built_in">id</span>=<span class="hljs-string">&#x27;0&#x27;</span>,
+                mkstream=<span class="hljs-literal">True</span>
             )
-        except redis.ResponseError:
-            # 消费者组已存在
-            pass
+        <span class="hljs-keyword">except</span> redis.ResponseError:
+            <span class="hljs-comment"># 消费者组已存在</span>
+            <span class="hljs-keyword">pass</span>
 
-    def consume_stream_data(self):
-        while self.is_running:
-            # 从Stream读取数据
-            messages = self.redis_client.xreadgroup(
-                self.consumer_group,
-                self.client_id,
-                {self.stream_key: &#39;&gt;&#39;},
-                count=100,
-                block=1000
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_stream_data</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-keyword">while</span> <span class="hljs-variable language_">self</span>.is_running:
+            <span class="hljs-comment"># 从Stream读取数据</span>
+            messages = <span class="hljs-variable language_">self</span>.redis_client.xreadgroup(
+                <span class="hljs-variable language_">self</span>.consumer_group,
+                <span class="hljs-variable language_">self</span>.client_id,
+                {<span class="hljs-variable language_">self</span>.stream_key: <span class="hljs-string">&#x27;&gt;&#x27;</span>},
+                count=<span class="hljs-number">100</span>,
+                block=<span class="hljs-number">1000</span>
             )
 
-            for stream, msgs in messages:
-                for msg_id, fields in msgs:
-                    self.process_message(msg_id, fields)
+            <span class="hljs-keyword">for</span> stream, msgs <span class="hljs-keyword">in</span> messages:
+                <span class="hljs-keyword">for</span> msg_id, fields <span class="hljs-keyword">in</span> msgs:
+                    <span class="hljs-variable language_">self</span>.process_message(msg_id, fields)
 
-    def process_message(self, msg_id, fields):
-        try:
-            # 处理数据
-            self.handle_minute_bar_data(fields)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">process_message</span>(<span class="hljs-params">self, msg_id, fields</span>):
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 处理数据</span>
+            <span class="hljs-variable language_">self</span>.handle_minute_bar_data(fields)
 
-            # 确认消息处理完成
-            self.redis_client.xack(
-                self.stream_key,
-                self.consumer_group,
+            <span class="hljs-comment"># 确认消息处理完成</span>
+            <span class="hljs-variable language_">self</span>.redis_client.xack(
+                <span class="hljs-variable language_">self</span>.stream_key,
+                <span class="hljs-variable language_">self</span>.consumer_group,
                 msg_id
             )
-        except Exception as e:
-            self.logger.error(f&quot;处理消息失败: {e}&quot;)
-            # 可以选择重试或放入死信队列
-</code></pre>
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;处理消息失败: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-comment"># 可以选择重试或放入死信队列</span></span></code></pre>
 <h3 id="实现效果">实现效果</h3>
 <p>我们设计了一个多客户端消费器管理页面，在没有任何输入的时候会返回平安银行的实时价格：
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_10.png" alt=""></p>

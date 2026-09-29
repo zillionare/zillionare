@@ -68,19 +68,17 @@ vol = \sqrt{var(R)}/T
 $$</p>
 <p>这里的T是产生回报率R的周期数。但也有不除以T的做法。</p>
 <p>在金融领域，波动率常以年化方式进行呈现和比较。这可以用pandas来计算:</p>
-<pre><code class="language-python">bars = ...
-close = bars[&quot;close&quot;]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">bars = ...
+close = bars[<span class="hljs-string">&quot;close&quot;</span>]
 
 close.pct_change().rolling(window_size)
-     .std() * (252**0.5)
-</code></pre>
+     .std() * (<span class="hljs-number">252</span>**<span class="hljs-number">0.5</span>)</span></code></pre>
 <p>在进行单因子检验时，我们需要求得每一天的标的的波动率，因此会需要这里的rolling版本。</p>
 <p>或者，更简单地，使用quantpian的开源库empyrical:</p>
-<pre><code class="language-python">from empyrical import annual_volatility
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> empyrical <span class="hljs-keyword">import</span> annual_volatility
 
 daily_returns = close.pct_change()
-annual_volatility
-</code></pre>
+annual_volatility</span></code></pre>
 <h2 id="低波动率策略">低波动率策略</h2>
 <p>一般而言，我们无须自行检验低波动率因子的有效性，可以直接使用它来进行选股。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
@@ -92,29 +90,27 @@ annual_volatility
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg" alt="相同波动率下完全不同的股价走势对比图"></p>
 <p>在低波动率条件下，判断股价走势非常容易，我们对价格进行回归，如果得到的直线斜率大于0，则走势是向上的。</p>
 <p>这里的关键点是，我们首先要使用<strong>月线，至少24个周期以上</strong>。在较短的周期上，低波动率的背后没有经济学上的意义支撑。主要代码如下：</p>
-<pre><code class="language-python">for symbol, name, _ in get_secs():
-    bars = get_bars(symbol, 24, ...)
-    if len(bars) &lt; 24:
-        continue
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-keyword">for</span> symbol, name, _ <span class="hljs-keyword">in</span> get_secs():
+    bars = get_bars(symbol, <span class="hljs-number">24</span>, ...)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(bars) &lt; <span class="hljs-number">24</span>:
+        <span class="hljs-keyword">continue</span>
 
-    close = bars[&quot;close&quot;][-24:]
-    returns = close[1:]/close[:-1] - 1
-    # 计算波动率
+    close = bars[<span class="hljs-string">&quot;close&quot;</span>][-<span class="hljs-number">24</span>:]
+    returns = close[<span class="hljs-number">1</span>:]/close[:-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
+    <span class="hljs-comment"># 计算波动率</span>
     vol = np.std(returns)
 
-    # 计算斜率
-    a, b = np.polyfit(np.arange(24), close/close[0], degree=1)
+    <span class="hljs-comment"># 计算斜率</span>
+    a, b = np.polyfit(np.arange(<span class="hljs-number">24</span>), close/close[<span class="hljs-number">0</span>], degree=<span class="hljs-number">1</span>)
     result.append((name, symbol, vol, a))
 
-df = pd.DataFrame(result, columns=[&quot;name&quot;, &quot;symbol&quot;, &quot;vol&quot;, &quot;slope&quot;])
+df = pd.DataFrame(result, columns=[<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;symbol&quot;</span>, <span class="hljs-string">&quot;vol&quot;</span>, <span class="hljs-string">&quot;slope&quot;</span>])
 
-df[df.slope&gt;0].nsmallest(10, &quot;vol&quot;)
-</code></pre>
+df[df.slope&gt;<span class="hljs-number">0</span>].nsmallest(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;vol&quot;</span>)</span></code></pre>
 <p>这样我们就选出了趋势向上，波动率最小的10支。当slope接近0时，实际上还不能认为趋势向上，所以，我们可以通过分位数来进行筛选：</p>
-<pre><code class="language-python">quant_25 = df[df.slope&gt;0].slope.quantile(0.25)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">quant_25 = df[df.slope&gt;<span class="hljs-number">0</span>].slope.quantile(<span class="hljs-number">0.25</span>)
 
-df[df.slope &gt; quant_25].nsmallest(10, &quot;vol&quot;)
-</code></pre>
+df[df.slope &gt; quant_25].nsmallest(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;vol&quot;</span>)</span></code></pre>
 <h2 id="结束语">结束语</h2>
 <p>人迹罕至的道路，有时提供更好的旅程。<strong>新国九条之后，红利股在投资中的重要性将大大加强</strong>，而低波动因子在发现红利股、白马股方面有优秀的选择能力。如果一个市场里的财务数据不那么可靠，那么我们就应该使用低波动因子来代替价值因子。<strong>量价数据永远不说谎</strong>。如果一家过去看起来很好的公司，最近出了问题，看财报的人永远是最后一个知道的。但股价会提前反映。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/factor-strategy/z-score-factor/">← 上一篇：Z-score 因子的深入思考</a> <a class="series-next" href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/">下一篇：在这一刻抄底，胜率高达95% →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 48/80 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/z-score-factor/">← Z-score 因子的深入思考</a> <a href="/posts/factor-strategy/在这一刻抄底，胜率高达95%/">在这一刻抄底，胜率高达95% →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/factor-ml/intro/">课程简介</a> <p>《因子分析与机器学习策略》简介 这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。</p> </li><li> <a href="/articles/investment/策略研究/capm/">资本资产定价模型</a> <p>资本资产定价模型（CAPM）描述了资产的预期回报与市场系统风险之间的关系。它由威廉. 夏普等人在 1960 年代提出。威廉. 夏普获得了 1990 年的诺贝尔经济学奖。CAPM 被</p> </li><li> <a href="/articles/investment/策略研究/mpt-1/">投资组合理论与实战(1) - 基本概念</a> <p>现代投资组合理论（MPT）是由马科维茨于 1952 年提出的，是现代金融 7 个基本理论之一。它用数学术语描述了多元化和风险管理等概念，为投资者提供了构建多元化投资组合的工具集，即</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#低波动因子的数据表现" title="低波动因子的数据表现">低波动因子的数据表现</a> </li><li class> <a href="#低波动因子的有效性解释" title="低波动因子的有效性解释">低波动因子的有效性解释</a> </li><li class> <a href="#波动率的计算" title="波动率的计算">波动率的计算</a> </li><li class> <a href="#低波动率策略" title="低波动率策略">低波动率策略</a> </li><li class> <a href="#结束语" title="结束语">结束语</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

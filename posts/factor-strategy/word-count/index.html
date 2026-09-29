@@ -28,18 +28,16 @@
 <li>橙子 香蕉 梨</li>
 </ol>
 <p>看上去不像文档，不过这确实是文档的最简化的形式--就是一堆词的组合（在 TF-IDF 时代，还无法处理词的顺序）。在第 1 篇文档中，橙子、香蕉和苹果词各出现 1 次，每个词的 TF 都记为 1，我们得到：</p>
-<pre><code>TF_1 = {
-    &#39;苹果&#39;: 1/3,
-    &#39;香蕉&#39;: 1/3,
-    &#39;橙子&#39;: 1/3,
-}
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">TF_1 = {
+    <span class="hljs-string">&#x27;苹果&#x27;</span>: <span class="hljs-number">1</span>/<span class="hljs-number">3</span>,
+    <span class="hljs-string">&#x27;香蕉&#x27;</span>: <span class="hljs-number">1</span>/<span class="hljs-number">3</span>,
+    <span class="hljs-string">&#x27;橙子&#x27;</span>: <span class="hljs-number">1</span>/<span class="hljs-number">3</span>,
+}</span></code></pre>
 <p>在第二篇文档中，苹果出现 1 次，香蕉出现 2 次，橙子和梨都没有出现。于是得到：</p>
-<pre><code>TF_2 = {
-    &#39;苹果&#39;: 1/3,
-    &#39;香蕉&#39;: 2/3,
-}
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">TF_2 = {
+    <span class="hljs-string">&#x27;苹果&#x27;</span>: <span class="hljs-number">1</span>/<span class="hljs-number">3</span>,
+    <span class="hljs-string">&#x27;香蕉&#x27;</span>: <span class="hljs-number">2</span>/<span class="hljs-number">3</span>,
+}</span></code></pre>
 <p>第三篇文档中，TF 的计算依次类推。</p>
 <p>IDF 实际上是每个词的信息权重，它的计算按以下公式进行：</p>
 <p>$$
@@ -102,20 +100,19 @@ $$</p>
 <p>我们把每一行称为文档的向量，它代表了文档的特征。如果两篇文档的向量完全相同，那么它们很可能实际上是同一篇文章（近似。因为，即使完全使用同样的词和词频，也可以写出不同的文章。</p>
 <p>比如，『可以清心也』这几个字，可以排列成『以清心也可』，也可以排列成『心也可以清』，或者『清心也可以』，都是语句通顺的文章。</p>
 <p>在实际应用中，我们可以使用 sklearn 的 TfidfVectorizer 来实现 TF-IDF 的计算：</p>
-<pre><code class="language-python">import pandas as pd
-def jieba_tokenizer(text):
-    return list(jieba.cut(text))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">jieba_tokenizer</span>(<span class="hljs-params">text</span>):
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">list</span>(jieba.cut(text))
 
-d1 = &quot;苹果橙子香蕉&quot;
-d2 = &quot;苹果香蕉香蕉&quot;
-d3 = &quot;橙子香蕉梨&quot;
+d1 = <span class="hljs-string">&quot;苹果橙子香蕉&quot;</span>
+d2 = <span class="hljs-string">&quot;苹果香蕉香蕉&quot;</span>
+d3 = <span class="hljs-string">&quot;橙子香蕉梨&quot;</span>
 
 vectorizer = TfidfVectorizer(tokenizer = jieba_tokenizer)
 matrix = vectorizer.fit_transform([d1, d2, d3])
 
 df = pd.DataFrame(matrix.toarray(), columns = vectorizer.get_feature_names_out())
-df
-</code></pre>
+df</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div>
 <table border="1" class="dataframe">
@@ -159,7 +156,7 @@ df
 <p>从上面的例子可以看出，TF-IDF 是用来提取文章的特征向量的。有了这个特征向量，就可以通过计算余弦距离，来比较两篇文档是否相似。这可以用在论文查重、信息检索、比较文学和像今日头条这样的图文推荐应用上。</p>
 <p>比如，要证明曹雪芹只写了《红楼梦》的前87回，就可以把前87回和后面的文本分别计算TF-IDF，然后计算余弦距离，此时就能看出差别了。</p>
 <p>又比如，如果用TF-IDF分析琼瑶的作品，你会发现，如果去掉一些最重要的名词之后，许多她的文章的相似度会比较高。下面是对《还珠格格》分析后，得到的最重要的词汇及其TF-IDF：</p>
-<pre><code>紫薇: 0.0876
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">紫薇: 0.0876
 皇帝: 0.0754
 尔康: 0.0692
 皇后: 0.0621
@@ -168,8 +165,7 @@ df
 小燕子: 0.0556
 四阿哥: 0.0548
 福晋: 0.0532
-金锁: 0.0519
-</code></pre>
+金锁: 0.0519</span></code></pre>
 <p>跟你的印象是否一致？但是，TF-IDF的分析方法，在量化交易中有何作用，目前还没有例证。</p>
 <p>讲到这里，关于 TF-IDF 在量化交易中的作用，基本上就讲完了。因为，接下来，我们要跳出 TF-IDF 的窠臼，自己构建因子了！</p>
 <h2 id="word-count-因子">word-count 因子</h2>
@@ -179,18 +175,17 @@ df
 <h2 id="获取新闻文本数据">获取新闻文本数据</h2>
 <p>我们可以通过 tushare 的 news 接口来获取新闻。
 这个方法是：</p>
-<pre><code class="language-text">news = pro.news(src=&#39;sina&#39;, 
+<pre><code class="hljs language-text"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">news = pro.news(src=&#x27;sina&#x27;, 
                 date=start,
                 end_date=end,
-)
-</code></pre>
+)</span></code></pre>
 <p>我们把获取的新闻数据先保存到本地，以免后面还可能进行其它挖掘：</p>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 即使是高级账号，tushare对每天能调用的新闻条数也是有限制的。所以，请在您本地安装tushare, 申请高级账号来运行以下代码，不要在Quantide Reseach环境中运行！！
 运行代码前，需要指定data_home变量，以便将news保存到本地。
 </div>
 
-<pre><code class="language-markdown">```python
+<pre><code class="hljs language-markdown"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span></span><span class="cl-body"><span class="hljs-code">```python
 def retry_fetch(start, end, offset):
     i = 1
     while True:
@@ -226,127 +221,122 @@ def fetch_news(start, end):
 
         # tushare 对新闻接口调用次数及单次返回的新闻条数都有限制
         time.sleep(3.5 * 60)
-```
-</code></pre>
+```</span></span></code></pre>
 <p>在统计新闻中上市公司出现的词频时，我们需要先给 jieba 增加自定义词典，以免出现分词错误。比如，如果不添加关键词『万科 A』，那么它一定会被 jieba 分解为万科和 A 两个词。</p>
 <p>增加自定义词典的代码如下：</p>
-<pre><code class="language-python">def init():
-    # get_stock_list 是自定义的函数，用于获取股票列表。在 quantide research 环境可用
-    stocks = get_stock_list(datetime.date(2024,11,1), code_only=False)
-    stocks = set(stocks.name)
-    for name in stocks:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">init</span>():
+    <span class="hljs-comment"># get_stock_list 是自定义的函数，用于获取股票列表。在 quantide research 环境可用</span>
+    stocks = get_stock_list(datetime.date(<span class="hljs-number">2024</span>,<span class="hljs-number">11</span>,<span class="hljs-number">1</span>), code_only=<span class="hljs-literal">False</span>)
+    stocks = <span class="hljs-built_in">set</span>(stocks.name)
+    <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> stocks:
         jieba.add_word(name)
 
-    return stocks
-</code></pre>
+    <span class="hljs-keyword">return</span> stocks</span></code></pre>
 <p>这里得到的证券列表，后面还要使用，所以作为函数返回值。</p>
 <p>接下来，就是统计词频了：</p>
-<pre><code class="language-python">def count_words(news, stocks)-&gt;pd.DataFrame:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">count_words</span>(<span class="hljs-params">news, stocks</span>)-&gt;pd.DataFrame:
     data = []
-    for dt, content, _ in news.to_records(index=False):
+    <span class="hljs-keyword">for</span> dt, content, _ <span class="hljs-keyword">in</span> news.to_records(index=<span class="hljs-literal">False</span>):
         words = jieba.cut(content)
         word_counts = Counter(words)
-        for word, count in word_counts.items():
-            if word in stocks:
+        <span class="hljs-keyword">for</span> word, count <span class="hljs-keyword">in</span> word_counts.items():
+            <span class="hljs-keyword">if</span> word <span class="hljs-keyword">in</span> stocks:
                 data.append((dt, word, count))
-    df = pd.DataFrame(data, columns=[&#39;date&#39;, &#39;word&#39;, &#39;count&#39;])
-    df[&quot;date&quot;] = pd.to_datetime(df[&#39;date&#39;])
-    df.set_index(&#39;date&#39;, inplace=True)
+    df = pd.DataFrame(data, columns=[<span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;word&#x27;</span>, <span class="hljs-string">&#x27;count&#x27;</span>])
+    df[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>])
+    df.set_index(<span class="hljs-string">&#x27;date&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
 
-    return df
-</code></pre>
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <p>tushare 返回的数据共有三列，其中 date, content 是我们关心的字段。公司名词频就从 content 中提取。</p>
 <p>然后我们对所有已下载的新闻进行分析，统计每日词频和移动均值：</p>
-<pre><code class="language-python">def count_words_in_files(stocks, ma_groups=None):
-    ma_groups = ma_groups or [30, 60, 250]
-    # 获取指定日期范围内的数据
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">count_words_in_files</span>(<span class="hljs-params">stocks, ma_groups=<span class="hljs-literal">None</span></span>):
+    ma_groups = ma_groups <span class="hljs-keyword">or</span> [<span class="hljs-number">30</span>, <span class="hljs-number">60</span>, <span class="hljs-number">250</span>]
+    <span class="hljs-comment"># 获取指定日期范围内的数据</span>
     results = []
 
-    files = glob.glob(os.path.join(data_home, &quot;*.news.csv&quot;))
-    for file in files:
-        news = pd.read_csv(file, index_col=0)
+    files = glob.glob(os.path.join(data_home, <span class="hljs-string">&quot;*.news.csv&quot;</span>))
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files:
+        news = pd.read_csv(file, index_col=<span class="hljs-number">0</span>)
 
         df = count_words(news, stocks)
         results.append(df)
 
     df = pd.concat(results)
     df = df.sort_index()
-    df = df.groupby(&quot;word&quot;).resample(&#39;D&#39;).sum()
-    df.drop(&quot;word&quot;, axis=1, inplace=True)
+    df = df.groupby(<span class="hljs-string">&quot;word&quot;</span>).resample(<span class="hljs-string">&#x27;D&#x27;</span>).<span class="hljs-built_in">sum</span>()
+    df.drop(<span class="hljs-string">&quot;word&quot;</span>, axis=<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
     df = df.swaplevel()
-    unstacked = df.unstack(level=&quot;word&quot;).fillna(0)
-    for win in ma_groups:
-        df[f&quot;ma_{win}&quot;] = unstacked.rolling(window=win).mean().stack()
+    unstacked = df.unstack(level=<span class="hljs-string">&quot;word&quot;</span>).fillna(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> win <span class="hljs-keyword">in</span> ma_groups:
+        df[<span class="hljs-string">f&quot;ma_<span class="hljs-subst">{win}</span>&quot;</span>] = unstacked.rolling(window=win).mean().stack()
     
-    return df
-</code></pre>
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <p>最后，完整的代码如下：</p>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 以下代码需要先将新闻数据存在放在变量data_home指定的目录，否则会报错。
 </div>
 
-<pre><code class="language-python">import os
-import glob
-import jieba
-from collections import Counter
-import time
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span></span><span class="cl-body"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> glob
+<span class="hljs-keyword">import</span> jieba
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> Counter
+<span class="hljs-keyword">import</span> time
 
-data_home = &quot;/data/rw/news&quot;
-def init():
-    stocks = get_stock_list(datetime.date(2024,12,2), code_only=False)
-    stocks = set(stocks.name)
-    for name in stocks:
+data_home = <span class="hljs-string">&quot;/data/rw/news&quot;</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">init</span>():
+    stocks = get_stock_list(datetime.date(<span class="hljs-number">2024</span>,<span class="hljs-number">12</span>,<span class="hljs-number">2</span>), code_only=<span class="hljs-literal">False</span>)
+    stocks = <span class="hljs-built_in">set</span>(stocks.name)
+    <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> stocks:
         jieba.add_word(name)
 
-    return stocks
+    <span class="hljs-keyword">return</span> stocks
 
-def count_words(news, stocks)-&gt;pd.DataFrame:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">count_words</span>(<span class="hljs-params">news, stocks</span>)-&gt;pd.DataFrame:
     data = []
-    for dt, content, *_ in news.to_records(index=False):
-        if content is None or not isinstance(content, str):
-            continue
+    <span class="hljs-keyword">for</span> dt, content, *_ <span class="hljs-keyword">in</span> news.to_records(index=<span class="hljs-literal">False</span>):
+        <span class="hljs-keyword">if</span> content <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(content, <span class="hljs-built_in">str</span>):
+            <span class="hljs-keyword">continue</span>
 
-        try:
+        <span class="hljs-keyword">try</span>:
             words = jieba.cut(content)
             word_counts = Counter(words)
-            for word, count in word_counts.items():
-                if word in stocks:
+            <span class="hljs-keyword">for</span> word, count <span class="hljs-keyword">in</span> word_counts.items():
+                <span class="hljs-keyword">if</span> word <span class="hljs-keyword">in</span> stocks:
                     data.append((dt, word, count))
-        except Exception as e:
-            print(dt, content)
-    df = pd.DataFrame(data, columns=[&#39;date&#39;, &#39;word&#39;, &#39;count&#39;])
-    df[&quot;date&quot;] = pd.to_datetime(df[&#39;date&#39;])
-    df.set_index(&#39;date&#39;, inplace=True)
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(dt, content)
+    df = pd.DataFrame(data, columns=[<span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;word&#x27;</span>, <span class="hljs-string">&#x27;count&#x27;</span>])
+    df[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>])
+    df.set_index(<span class="hljs-string">&#x27;date&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
 
-    return df
+    <span class="hljs-keyword">return</span> df
 
-def count_words_in_files(stocks, ma_groups=None):
-    ma_groups = ma_groups or [30, 60, 250]
-    # 获取指定日期范围内的数据
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">count_words_in_files</span>(<span class="hljs-params">stocks, ma_groups=<span class="hljs-literal">None</span></span>):
+    ma_groups = ma_groups <span class="hljs-keyword">or</span> [<span class="hljs-number">30</span>, <span class="hljs-number">60</span>, <span class="hljs-number">250</span>]
+    <span class="hljs-comment"># 获取指定日期范围内的数据</span>
     results = []
 
-    files = glob.glob(os.path.join(data_home, &quot;*.news.csv&quot;))
-    for file in files:
-        news = pd.read_csv(file, index_col=0)
+    files = glob.glob(os.path.join(data_home, <span class="hljs-string">&quot;*.news.csv&quot;</span>))
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files:
+        news = pd.read_csv(file, index_col=<span class="hljs-number">0</span>)
 
         df = count_words(news, stocks)
         results.append(df)
 
     df = pd.concat(results)
     df = df.sort_index()
-    df = df.groupby(&quot;word&quot;).resample(&#39;D&#39;).sum()
-    df.drop(&quot;word&quot;, axis=1, inplace=True)
+    df = df.groupby(<span class="hljs-string">&quot;word&quot;</span>).resample(<span class="hljs-string">&#x27;D&#x27;</span>).<span class="hljs-built_in">sum</span>()
+    df.drop(<span class="hljs-string">&quot;word&quot;</span>, axis=<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
     df = df.swaplevel()
-    unstacked = df.unstack(level=&quot;word&quot;).fillna(0)
-    for win in ma_groups:
-        df[f&quot;ma_{win}&quot;] = unstacked.rolling(window=win).mean().stack()
+    unstacked = df.unstack(level=<span class="hljs-string">&quot;word&quot;</span>).fillna(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> win <span class="hljs-keyword">in</span> ma_groups:
+        df[<span class="hljs-string">f&quot;ma_<span class="hljs-subst">{win}</span>&quot;</span>] = unstacked.rolling(window=win).mean().stack()
     
-    return df.sort_index(), unstacked.sort_index()
+    <span class="hljs-keyword">return</span> df.sort_index(), unstacked.sort_index()
 
 stocks = init()
 factor, raw = count_words_in_files(stocks)
-factor.tail(20)
-</code></pre>
+factor.tail(<span class="hljs-number">20</span>)</span></code></pre>
 <p>这里计算的仍然是原始数据。最终因子化要通过 factor[&quot;count&quot;]/factor[&quot;ma_30&quot;] 来计算并执行 rank，这里的 ma_30 可以替换为 ma_60, ma_250 等。</p>
 <p>跟以往的文章不同，这一次我们没有直接得到好的结果。我们的研究其实多数时候都是寂寞的等待，然后挑一些成功的例子发表而已。毕竟，发表不成功的例子，估计意义不大（很少人看）。</p>
 <p>但是这一篇有所不同。我们没有得到结果，主要是因为数据还在积累中。这篇文章从草稿到现在，已经半个月了，但是我仍然没能获取到 1 年以上的新闻数据，所以，无法准确得到每家公司的**『基底噪声』**，从而也就无法得到每家公司最新的信息熵。但要获得 1 年以上的数据，大概还要一个月左右的时间。所以，先把已经获得的成果发出来。</p>

@@ -52,41 +52,38 @@
 <hr>
 <p>在价量数据中，Alpha101 依赖的最原始数据是 OHLC, volume（成交额）, amount（成交量），turnover（换手率），并在此基础上，计算出来 returns（每日涨跌幅）和 vwap（加权平均成交价格）。</p>
 <p>returns 和 vwap 的计算方法如下：</p>
-<pre><code class="language-python"># THE NUMPY WAY
-vwap = bars[&quot;amount&quot;] / bars[&quot;volume&quot;] / 100
-returns = bars[&quot;close&quot;][1:]/bars[&quot;close&quot;][:-1] - 1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># THE NUMPY WAY</span>
+vwap = bars[<span class="hljs-string">&quot;amount&quot;</span>] / bars[<span class="hljs-string">&quot;volume&quot;</span>] / <span class="hljs-number">100</span>
+returns = bars[<span class="hljs-string">&quot;close&quot;</span>][<span class="hljs-number">1</span>:]/bars[<span class="hljs-string">&quot;close&quot;</span>][:-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
 
-# THE PANDAS WAY
-vwap = df.amount / df.volume / 100
-returns = df.close.pct_change()
-</code></pre>
+<span class="hljs-comment"># THE PANDAS WAY</span>
+vwap = df.amount / df.volume / <span class="hljs-number">100</span>
+returns = df.close.pct_change()</span></code></pre>
 <p>除此之外，要理解 Alpha101，重要的是理解它的公用算子。在 Alpha101 中，总共有约 30 个左右的算子，其中有一些像 abs, log, sign, min, max 以及数学运算符（+, -, *, /）等都是无须解释的。</p>
 <p>下面，我们就先逐一解释需要说明的算子。</p>
 <h3 id="三目运算符">三目运算符</h3>
 <p>三目运算符是 Python 中没有，但存在于 C 编程语言的一个算子。这个运算符可以表示为：&quot;x ? y : z&quot;，它相当于 Python 中的：</p>
-<pre><code class="language-python">expr_result = None
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">expr_result = <span class="hljs-literal">None</span>
 
-if x:
+<span class="hljs-keyword">if</span> x:
     expr_result = y
-else:
-    expr_result = z
-</code></pre>
+<span class="hljs-keyword">else</span>:
+    expr_result = z</span></code></pre>
 <h3 id="rank">rank</h3>
 <p>在 Alpha101 中，存在两个 rank，一个是横截面上的，即对同一时间点上 universe 中所有的股票进行排序；另一个是时间序列上的，即对同一股票在时间序列上的排序。</p>
 <hr>
 <p>在横截面上的 rank 直接调用 DataFrame 的 rank。比如，</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
 data = {
-    &#39;asset&#39;: [&quot;000001&quot;, &quot;000002&quot;, &quot;000004&quot;, &quot;000005&quot;, &quot;000006&quot;],
-    &#39;factor&#39;: [85, 92, 78, 92, 88],
-    &#39;date&#39;: [0] * 5
+    <span class="hljs-string">&#x27;asset&#x27;</span>: [<span class="hljs-string">&quot;000001&quot;</span>, <span class="hljs-string">&quot;000002&quot;</span>, <span class="hljs-string">&quot;000004&quot;</span>, <span class="hljs-string">&quot;000005&quot;</span>, <span class="hljs-string">&quot;000006&quot;</span>],
+    <span class="hljs-string">&#x27;factor&#x27;</span>: [<span class="hljs-number">85</span>, <span class="hljs-number">92</span>, <span class="hljs-number">78</span>, <span class="hljs-number">92</span>, <span class="hljs-number">88</span>],
+    <span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-number">0</span>] * <span class="hljs-number">5</span>
 }
-df = pd.DataFrame(data).set_index(&#39;date&#39;).pivot(index=None, columns=&quot;asset&quot;, values=&quot;factor&quot;)
+df = pd.DataFrame(data).set_index(<span class="hljs-string">&#x27;date&#x27;</span>).pivot(index=<span class="hljs-literal">None</span>, columns=<span class="hljs-string">&quot;asset&quot;</span>, values=<span class="hljs-string">&quot;factor&quot;</span>)
 
-def rank(df):
-    return df.rank(axis=1, pct=True, method=&#39;min&#39;)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">rank</span>(<span class="hljs-params">df</span>):
+    <span class="hljs-keyword">return</span> df.rank(axis=<span class="hljs-number">1</span>, pct=<span class="hljs-literal">True</span>, method=<span class="hljs-string">&#x27;min&#x27;</span>)</span></code></pre>
 <!-- 这段代码我们也可以使用 bottlenect 中的 rank_data 来实现
 import bottleneck as bn
 
@@ -101,50 +98,46 @@ print(ranked_data)
 -->
 <p>在上面这段代码中，date 为索引，列名字为各 asset，factor 为其值，此时，我们就可以通 rank(axis=1) 的方法，对各 asset 的 factor 值在截面上进行排序。当我们使用 axis=1 参数时，索引是不参与排序。pct 为 True 表示返回的是百分比排名，False 表示返回的是排名。</p>
 <p>有时候我们也需要在时间序列上进行排序，在 Alpha101 中，这种排序被定义为 ts_rank，通过前缀 ts_来与截面上的 rank 相区分。此后，当我们看到 ts_前缀时，也应该作同样理解。</p>
-<pre><code class="language-python">from bottleneck import move_rank
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> bottleneck <span class="hljs-keyword">import</span> move_rank
 
-def ts_rank(df, window=10, min_count=1):
-    return move_rank(df, window, axis=0, min_count=min_count)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">ts_rank</span>(<span class="hljs-params">df, window=<span class="hljs-number">10</span>, min_count=<span class="hljs-number">1</span></span>):
+    <span class="hljs-keyword">return</span> move_rank(df, window, axis=<span class="hljs-number">0</span>, min_count=min_count)</span></code></pre>
 <p>在这里我们使用的是 bottleneck 中的 move_rank，它的速度要显著高于 pandas 和 scipy 中的同类实现。如果使用 pandas 来实现，代码如下：</p>
-<pre><code class="language-python">def rolling_rank(na):
-    return rankdata(na,method=&#39;min&#39;)[-1]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">rolling_rank</span>(<span class="hljs-params">na</span>):
+    <span class="hljs-keyword">return</span> rankdata(na,method=<span class="hljs-string">&#x27;min&#x27;</span>)[-<span class="hljs-number">1</span>]
 
-def ts_rank(df, window=10):
-    return df.rolling(window).apply(rolling_rank)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">ts_rank</span>(<span class="hljs-params">df, window=<span class="hljs-number">10</span></span>):
+    <span class="hljs-keyword">return</span> df.rolling(window).apply(rolling_rank)</span></code></pre>
 <p>注意第 3 行中的 [-1] 是必须的。</p>
 <hr>
 <p>rank 和 ts_rank 的使用在 alpha004 因子中的应用最为典型。这个因子是：</p>
-<pre><code class="language-python"># ALPHA#4	 (-1 * TS_RANK(RANK(LOW), 9))
-def alpha004(low):
-    return -1 * ts_rank(rank(low), 9)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># ALPHA#4	 (-1 * TS_RANK(RANK(LOW), 9))</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">alpha004</span>(<span class="hljs-params">low</span>):
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span> * ts_rank(rank(low), <span class="hljs-number">9</span>)</span></code></pre>
 <p>在这里，参数 low 是一个以 asset 为列、日期为索引，当日最低价为值的 dataframe，是一个宽表。下面，我们看一下对参数 low 依次调用 rank 和 ts_rank 的结果。通过深入几个示例之后，我们就很快能够明白 Alpha101 的因子计算过程。</p>
-<pre><code class="language-python">from bottleneck import move_rank
-from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = &quot;all&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-keyword">from</span> bottleneck <span class="hljs-keyword">import</span> move_rank
+<span class="hljs-keyword">from</span> IPython.core.interactiveshell <span class="hljs-keyword">import</span> InteractiveShell
+InteractiveShell.ast_node_interactivity = <span class="hljs-string">&quot;all&quot;</span>
 
 df = pd.DataFrame(
-       [[6.18, 19.36, 33.13, 14.23,  6.8 ,  6.34],
-       [6.55, 20.36, 32.69, 14.52,  6.4,  6.44 ],
-       [7.  , 20.79, 32.51, 14.56,  6.0 ,  6.54],
-       [7.06, 21.35, 33.13, 14.47,  6.5,  6.64],
-       [7.03, 21.56, 33.6 , 14.6 ,  6.5,  6.44]], 
-       columns=[&#39;000001&#39;, &#39;000002&#39;, &#39;000063&#39;, &#39;000066&#39;, &#39;000069&#39;, &#39;000100&#39;], 
-       index=[&#39;2022-01-04&#39;, &#39;2022-01-05&#39;, &#39;2022-01-06&#39;, &#39;2022-01-07&#39;, &#39;2022-01-10&#39;])
+       [[<span class="hljs-number">6.18</span>, <span class="hljs-number">19.36</span>, <span class="hljs-number">33.13</span>, <span class="hljs-number">14.23</span>,  <span class="hljs-number">6.8</span> ,  <span class="hljs-number">6.34</span>],
+       [<span class="hljs-number">6.55</span>, <span class="hljs-number">20.36</span>, <span class="hljs-number">32.69</span>, <span class="hljs-number">14.52</span>,  <span class="hljs-number">6.4</span>,  <span class="hljs-number">6.44</span> ],
+       [<span class="hljs-number">7.</span>  , <span class="hljs-number">20.79</span>, <span class="hljs-number">32.51</span>, <span class="hljs-number">14.56</span>,  <span class="hljs-number">6.0</span> ,  <span class="hljs-number">6.54</span>],
+       [<span class="hljs-number">7.06</span>, <span class="hljs-number">21.35</span>, <span class="hljs-number">33.13</span>, <span class="hljs-number">14.47</span>,  <span class="hljs-number">6.5</span>,  <span class="hljs-number">6.64</span>],
+       [<span class="hljs-number">7.03</span>, <span class="hljs-number">21.56</span>, <span class="hljs-number">33.6</span> , <span class="hljs-number">14.6</span> ,  <span class="hljs-number">6.5</span>,  <span class="hljs-number">6.44</span>]], 
+       columns=[<span class="hljs-string">&#x27;000001&#x27;</span>, <span class="hljs-string">&#x27;000002&#x27;</span>, <span class="hljs-string">&#x27;000063&#x27;</span>, <span class="hljs-string">&#x27;000066&#x27;</span>, <span class="hljs-string">&#x27;000069&#x27;</span>, <span class="hljs-string">&#x27;000100&#x27;</span>], 
+       index=[<span class="hljs-string">&#x27;2022-01-04&#x27;</span>, <span class="hljs-string">&#x27;2022-01-05&#x27;</span>, <span class="hljs-string">&#x27;2022-01-06&#x27;</span>, <span class="hljs-string">&#x27;2022-01-07&#x27;</span>, <span class="hljs-string">&#x27;2022-01-10&#x27;</span>])
 
-def rank(df):
-    return df.rank(axis=1, pct=True, method=&#39;min&#39;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">rank</span>(<span class="hljs-params">df</span>):
+    <span class="hljs-keyword">return</span> df.rank(axis=<span class="hljs-number">1</span>, pct=<span class="hljs-literal">True</span>, method=<span class="hljs-string">&#x27;min&#x27;</span>)
 
-def ts_rank(df, window=10, min_count=1):
-    return move_rank(df, window, axis=0, min_count=min_count)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">ts_rank</span>(<span class="hljs-params">df, window=<span class="hljs-number">10</span>, min_count=<span class="hljs-number">1</span></span>):
+    <span class="hljs-keyword">return</span> move_rank(df, window, axis=<span class="hljs-number">0</span>, min_count=min_count)
 
 df
 rank(df)
 
--1 * ts_rank(rank(df), 3)
-</code></pre>
+-<span class="hljs-number">1</span> * ts_rank(rank(df), <span class="hljs-number">3</span>)</span></code></pre>
 <p>示例 <a href="#example-7"></a> 将依次输出三个 DataFrame。我们看到，rank 是执行在行上，它将各股票按最低价进行排序；ts_rank 执行在列上，对各股票在横截面上的排序再进行排序，反应出最低位置的变化。</p>
 <p>比如，000100 这支股票，在 2022 年 1 月 4 日，横截面的排位在 33%分位，到了 1 月 10 日，它在横截面上的排位下降到 16.7%。</p>
 <hr>
@@ -160,26 +153,24 @@ rank(df)
 <h3 id="delay">delay</h3>
 <p>在 Alpha101 中，delay 算子用来获取 n 天前的数据。比如，</p>
 <hr>
-<pre><code class="language-python">def delay(df, n):
-    return df.shift(n)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">delay</span>(<span class="hljs-params">df, n</span>):
+    <span class="hljs-keyword">return</span> df.shift(n)
 
 data = {
-    &#39;date&#39;: pd.date_range(start=&#39;2023-01-01&#39;, periods=10),
-    &#39;close&#39;: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109]
+    <span class="hljs-string">&#x27;date&#x27;</span>: pd.date_range(start=<span class="hljs-string">&#x27;2023-01-01&#x27;</span>, periods=<span class="hljs-number">10</span>),
+    <span class="hljs-string">&#x27;close&#x27;</span>: [<span class="hljs-number">100</span>, <span class="hljs-number">101</span>, <span class="hljs-number">102</span>, <span class="hljs-number">103</span>, <span class="hljs-number">104</span>, <span class="hljs-number">105</span>, <span class="hljs-number">106</span>, <span class="hljs-number">107</span>, <span class="hljs-number">108</span>, <span class="hljs-number">109</span>]
 }
 df = pd.DataFrame(data)
 
-delay(df, 5)
-</code></pre>
+delay(df, <span class="hljs-number">5</span>)</span></code></pre>
 <p>如此一来，我们在计算第 5 天的因子时，使用的 close 数据就是 5 天前的，即原来索引为 0 处的 close。</p>
 <h3 id="correlation-和-covariance">correlation 和 covariance</h3>
 <p>correlation 就是两个时间序列在滑动窗口上的皮尔逊相关系数，这个算子可以实现为：</p>
-<pre><code class="language-python">def correlation(x, y, window=10):
-    return x.rolling(window).corr(y).fillna(0).replace([np.inf, -np.inf], 0)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">correlation</span>(<span class="hljs-params">x, y, window=<span class="hljs-number">10</span></span>):
+    <span class="hljs-keyword">return</span> x.rolling(window).corr(y).fillna(<span class="hljs-number">0</span>).replace([np.inf, -np.inf], <span class="hljs-number">0</span>)
 
-def covariance(x, y, window=10):
-    return x.rolling(window).cov(y)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">covariance</span>(<span class="hljs-params">x, y, window=<span class="hljs-number">10</span></span>):
+    <span class="hljs-keyword">return</span> x.rolling(window).cov(y)</span></code></pre>
 <p>注意在这里，尽管我们只对 x 调用了 rolling，但在计算相关系数时，经验证，y 也是按同样的窗口进行滑动的。</p>
 <!--练习：
 
@@ -205,17 +196,15 @@ for i in range(5, 10):
 
 <h3 id="scale">scale</h3>
 <p>按照 Alpha101 的解释，这个算子的作用，是将数组的元素进行缩放，使之满足 sum(abs(x)) = a，缺省情况下 a = 1。它可以实现为：</p>
-<pre><code class="language-python">def scale(df, k=1):
-    return df.mul(k).div(np.abs(df).sum())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">scale</span>(<span class="hljs-params">df, k=<span class="hljs-number">1</span></span>):
+    <span class="hljs-keyword">return</span> df.mul(k).div(np.<span class="hljs-built_in">abs</span>(df).<span class="hljs-built_in">sum</span>())</span></code></pre>
 <hr>
 <h3 id="decaylinear">decay_linear</h3>
 <p>这个算子的作用是将长度为 d 的时间序列中的元素进行线性加权衰减，使之总和为 1，且越往后的元素权重越大。</p>
-<pre><code class="language-python">def decay_linear(df, period=10):
-    weights = np.array(range(1, period+1))
-    sum_weights = np.sum(weights)
-    return df.rolling(period).apply(lambda x: np.sum(weights*x) / sum_weights)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">decay_linear</span>(<span class="hljs-params">df, period=<span class="hljs-number">10</span></span>):
+    weights = np.array(<span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, period+<span class="hljs-number">1</span>))
+    sum_weights = np.<span class="hljs-built_in">sum</span>(weights)
+    <span class="hljs-keyword">return</span> df.rolling(period).apply(<span class="hljs-keyword">lambda</span> x: np.<span class="hljs-built_in">sum</span>(weights*x) / sum_weights)</span></code></pre>
 <h3 id="delta">delta</h3>
 <p>相当于 dataframe.diff()。</p>
 <h3 id="advd">adv{d}</h3>
@@ -233,88 +222,79 @@ for i in range(5, 10):
 <h2 id="高效量化编程---mask-array-and-find-runs">高效量化编程 - Mask Array and Find Runs</h2>
 <p>在很多量化场景下，我们都需要统计某个事件连续发生了多少次，比如，连续涨跌停、N连阳、计算Connor&#39;s RSI中的streaks等等。</p>
 <p>比如，要判断下列收盘价中，最大的连续涨停次数是多少？最长的N连涨数是多少？应该如何计算呢？</p>
-<pre><code class="language-python">a = [15.28, 16.81, 18.49, 20.34, 21.2, 20.5, 22.37, 24.61, 27.07, 29.78, 
-     32.76, 36.04]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">a = [<span class="hljs-number">15.28</span>, <span class="hljs-number">16.81</span>, <span class="hljs-number">18.49</span>, <span class="hljs-number">20.34</span>, <span class="hljs-number">21.2</span>, <span class="hljs-number">20.5</span>, <span class="hljs-number">22.37</span>, <span class="hljs-number">24.61</span>, <span class="hljs-number">27.07</span>, <span class="hljs-number">29.78</span>, 
+     <span class="hljs-number">32.76</span>, <span class="hljs-number">36.04</span>]</span></code></pre>
 <p>假设我们以10%的涨幅为限，则可以将上述数组转换为：</p>
-<pre><code class="language-python">pct = np.diff(a) / a[:-1]
-pct &gt; 0.1
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">pct = np.diff(a) / a[:-<span class="hljs-number">1</span>]
+pct &gt; <span class="hljs-number">0.1</span></span></code></pre>
 <p>我们将得到以下数组：</p>
-<pre><code>flags = [True, False, True, False, False, False, True, False, True, True, True]
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">flags = [<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">True</span>]</span></code></pre>
 <p>这仍然不能计算出最大连续涨停次数，但它是很多此类问题的一个基本数据结构，我们将原始的数据按条件转换成类似的数组之后，就可以使用下面的神器了：</p>
-<pre><code class="language-python">from numpy.typing import ArrayLike
-from typing import Tuple
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numpy.typing <span class="hljs-keyword">import</span> ArrayLike
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Tuple</span>
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-def find_runs(x: ArrayLike) -&gt; Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    &quot;&quot;&quot;Find runs of consecutive items in an array.
-    &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">find_runs</span>(<span class="hljs-params">x: ArrayLike</span>) -&gt; <span class="hljs-type">Tuple</span>[np.ndarray, np.ndarray, np.ndarray]:
+    <span class="hljs-string">&quot;&quot;&quot;Find runs of consecutive items in an array.
+    &quot;&quot;&quot;</span>
 
-    # ensure array
+    <span class="hljs-comment"># ensure array</span>
     x = np.asanyarray(x)
-    if x.ndim != 1:
-        raise ValueError(&quot;only 1D array supported&quot;)
-    n = x.shape[0]
-</code></pre>
+    <span class="hljs-keyword">if</span> x.ndim != <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;only 1D array supported&quot;</span>)
+    n = x.shape[<span class="hljs-number">0</span>]
+</span></code></pre>
 <hr>
-<pre><code class="language-python">    # handle empty array
-    if n == 0:
-        return np.array([]), np.array([]), np.array([])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body">    <span class="hljs-comment"># handle empty array</span>
+    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> np.array([]), np.array([]), np.array([])
 
-    else:
-        # find run starts
-        loc_run_start = np.empty(n, dtype=bool)
-        loc_run_start[0] = True
-        np.not_equal(x[:-1], x[1:], out=loc_run_start[1:])
-        run_starts = np.nonzero(loc_run_start)[0]
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-comment"># find run starts</span>
+        loc_run_start = np.empty(n, dtype=<span class="hljs-built_in">bool</span>)
+        loc_run_start[<span class="hljs-number">0</span>] = <span class="hljs-literal">True</span>
+        np.not_equal(x[:-<span class="hljs-number">1</span>], x[<span class="hljs-number">1</span>:], out=loc_run_start[<span class="hljs-number">1</span>:])
+        run_starts = np.nonzero(loc_run_start)[<span class="hljs-number">0</span>]
 
-        # find run values
+        <span class="hljs-comment"># find run values</span>
         run_values = x[loc_run_start]
 
-        # find run lengths
+        <span class="hljs-comment"># find run lengths</span>
         run_lengths = np.diff(np.append(run_starts, n))
 
-        return run_values, run_starts, run_lengths
+        <span class="hljs-keyword">return</span> run_values, run_starts, run_lengths
 
 
-pct = np.diff(a) / a[:-1]
-v,s,l = find_runs(pct &gt; 0.099)
-(v, s, l)
-</code></pre>
+pct = np.diff(a) / a[:-<span class="hljs-number">1</span>]
+v,s,l = find_runs(pct &gt; <span class="hljs-number">0.099</span>)
+(v, s, l)</span></code></pre>
 <p>输出结果为：</p>
-<pre><code class="language-python">(array([ True, False,  True]), array([0, 3, 6]), array([3, 3, 5]))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">(array([ <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>]), array([<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>]), array([<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>]))</span></code></pre>
 <p>输出结果是一个由三个数组组成的元组，分别表示：</p>
 <p>value: unique values
 start: start indices
 length: length of runs
 在上面的输出中，v[0]为True，表示这是一系列涨停的开始，s[0]则是对应的起始位置，此时索引为0; l[0]则表示该连续的涨停次数为3次。同样，我们可以知道，原始数组中，最长连续涨停（v[2]）次数为5（l[2]），从索引6（s[2]）开始起。</p>
 <p>所以，要找出原始序列中的最大连续涨停次数，只需要找到l中的最大值即可。但要解决这个问题依然有一点技巧，我们需要使用第4章中介绍的 mask array。</p>
-<pre><code class="language-python">v_ma = np.ma.array(v, mask = ~v)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">v_ma = np.ma.array(v, mask = ~v)
 pos = np.argmax(v_ma * l)
-print(f&quot;最大连续涨停次数{l[pos]}，从索引{s[pos]}:{a[s[pos]]}开始。&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最大连续涨停次数<span class="hljs-subst">{l[pos]}</span>，从索引<span class="hljs-subst">{s[pos]}</span>:<span class="hljs-subst">{a[s[pos]]}</span>开始。&quot;</span>)</span></code></pre>
 <hr>
 <p>在这里，mask array的作用是，既不让 v == False 的数据参与计算（后面的 v_ma * l），又保留这些元素的次序（索引）不变，以便后面我们调用 argmax 函数时，找到的索引跟v, s, l中的对应位置是一致的。</p>
 <p>我们创建的v_ma是一个mask array，它的值为：</p>
-<pre><code>masked_array(data=[True, --, True],
-            mask=[False,  True, False],
-            fill_value=True)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">masked_array(data=[<span class="hljs-literal">True</span>, --, <span class="hljs-literal">True</span>],
+            mask=[<span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>],
+            fill_value=<span class="hljs-literal">True</span>)</span></code></pre>
 <p>当它与另一个整数数组相乘时，True就转化为数字1，这样相乘的结果也仍然是一个mask array:</p>
-<pre><code>masked_array(data=[3, --, 5],
-             mask=[False,  True, False],
-            fill_value=True)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">masked_array(data<span class="hljs-operator">=</span>[<span class="hljs-number">3</span>, <span class="hljs-comment">--, 5],</span>
+             mask<span class="hljs-operator">=</span>[<span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>],
+            fill_value<span class="hljs-operator">=</span><span class="hljs-literal">True</span>)</span></code></pre>
 <p>当arg_max作用在mask array时，它会忽略掉mask为True的元素，但保留它们的位置，因此，最终pos的结果为2，对应的 v,s,l中的元素值分别为: True, 6, 5。</p>
 <p>如果要统计最长N连涨呢？这是一个比寻找涨停更容易的任务。不过，这一次，我们将不使用mask array来实现：</p>
-<pre><code class="language-python">v,s,l = find_runs(np.diff(a) &gt; 0)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">v,s,l = find_runs(np.diff(a) &gt; <span class="hljs-number">0</span>)
 
 pos = np.argmax(v * l)
-print(f&quot;最长N连涨次数{l[pos]}，从索引{s[pos]}:{a[s[pos]]}开始。&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最长N连涨次数<span class="hljs-subst">{l[pos]}</span>，从索引<span class="hljs-subst">{s[pos]}</span>:<span class="hljs-subst">{a[s[pos]]}</span>开始。&quot;</span>)</span></code></pre>
 <p>输出结果是：最长N连涨次数6，从索引5:20.5开始。</p>
 <p>这里的关键是，当Numpy执行乘法时，True会被当成数字1，而False会被当成数字0，于是，乘法结果自然消除了没有连续上涨的部分，从而不干扰argmax的计算。</p>
 <p>当然，使用mask array可能在语义上更清楚一些，尽管mask array的速度会慢一点，但正确和易懂常常更重要。</p>
@@ -323,20 +303,19 @@ print(f&quot;最长N连涨次数{l[pos]}，从索引{s[pos]}:{a[s[pos]]}开始�
 Connor&#39;s RSI（Connor&#39;s Relative Strength Index）是一种技术分析指标，它是由Nirvana Systems开发的一种改进版的相对强弱指数（RSI）。</p>
 <p>Connor&#39;s RSI与传统RSI的主要区别在于它考虑了价格连续上涨或下跌的天数，也就是所谓的“连胜”（winning streaks）和“连败”（losing streaks）。这种考虑使得Connor&#39;s RSI能够更好地反映市场趋势的强度。</p>
 <p>在前面介绍了find_runs函数之后，计算streaks就变得非常简单了。</p>
-<pre><code class="language-python">def streaks(close):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">streaks</span>(<span class="hljs-params">close</span>):
     result = []
-    conds = [close[1:]&gt;close[:-1], close[1:]&lt;close[:-1]]
+    conds = [close[<span class="hljs-number">1</span>:]&gt;close[:-<span class="hljs-number">1</span>], close[<span class="hljs-number">1</span>:]&lt;close[:-<span class="hljs-number">1</span>]]
 
-    flags = np.select(conds, [1, -1], 0)
+    flags = np.select(conds, [<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>], <span class="hljs-number">0</span>)
     v, _, l = find_runs(flags)
-    for i in range(len(v)):
-        if v[i] == 0:
-            result.extend([0] * l[i])
-        else:
-            result.extend([v[i] * x for x in range(1, (l[i] + 1))])
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(v)):
+        <span class="hljs-keyword">if</span> v[i] == <span class="hljs-number">0</span>:
+            result.extend([<span class="hljs-number">0</span>] * l[i])
+        <span class="hljs-keyword">else</span>:
+            result.extend([v[i] * x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, (l[i] + <span class="hljs-number">1</span>))])
             
-    return np.insert(result, 0, 0)
-</code></pre>
+    <span class="hljs-keyword">return</span> np.insert(result, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)</span></code></pre>
 <p>这段代码首先将股价序列划分为上涨、下跌和平盘三个子系列，然后对每个子系列计算连续上涨或下跌的天数，并将结果合并成一个新的数组。</p>
 <p>在streaks中，连续上涨天数要用正数表示，连续下跌天数用负数表示，所以在第5行中，通过np.select将条件数组转换为[1, 0, -1]的序列，后面使用乘法就能得到正确的连续上涨（下跌）天数了。</p>
 <hr>

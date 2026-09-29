@@ -22,8 +22,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter.jpg" alt="50%"></p>
 <p>尽管有了Jupyter Notebook，但在今天，我们仍然有很多理由使用ipython，核心原因就是，它比Jupyter更轻量 -- 无论是从安装角度还是使用角度。更轻，但仍然长袖擅舞，颇有飞燕之姿。</p>
 <p>安装ipython比安装Jupyter更快更容易。</p>
-<pre><code class="language-bash">pip install ipython
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install ipython</span></code></pre>
 <hr>
 <p>然后在命令行下输入<code>ipython</code>就可以使用了。</p>
 <h3 id="1-使用magic命令">1. 使用%magic命令</h3>
@@ -38,40 +37,35 @@
 <h3 id="4-持久化临时变量">4. 持久化临时变量</h3>
 <p>使用 %store 命令将变量持久化到磁盘，即使重启内核也不会丢失数据。</p>
 <p>比如：</p>
-<pre><code class="language-bash">%store variable_name 存储变量。
-%store -r variable_name 从磁盘恢复变量。
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">%store variable_name 存储变量。
+%store -r variable_name 从磁盘恢复变量。</span></code></pre>
 <h3 id="5-绘图">5. 绘图</h3>
 <p>对很少使用IPython的人来说，很可能没有想到，即使IPython运行在shell下，但也是可以绘图的。</p>
 <hr>
-<pre><code class="language-python">import matplotlib.pyplot as plt 
-plt.plot([1,2,3], [1,2,3])
-plt.show(block=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt 
+plt.plot([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>], [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])
+plt.show(block=<span class="hljs-literal">True</span>)</span></code></pre>
 <p>这样会弹出一个窗口，显示正在绘制的图形。记住，<strong>最后一行的参数<code>block=True</code>是关键</strong>。否则你将什么也看不到。</p>
 <h3 id="6-历史命令及关联命令">6. 历史命令及关联命令</h3>
 <p>这一组命令是真正double工作效率的关键。</p>
 <p>可以通过%hist输出所有的历史命令。可以通过_i(n)来检索前n个命令。</p>
 <p>比如，在我的试验中，</p>
-<pre><code class="language-bash">_i10
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">_i10</span></code></pre>
 <p>输出了import matplotlib.pyplot as plt</p>
 <p>一个关联的用法是，将历史命令存到一个文件中。这是通过%save来实现的。</p>
-<pre><code class="language-bash">%save example 4 5 6 8
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%save example 4 5 6 8</span></code></pre>
 <hr>
 <p>然后你可以<strong>重置工作区间(%resset)</strong>，<strong>重新加载example.py文件（%load）</strong>。</p>
 <p>这样就可以逐步编写和验证的方式，不断构建和改进代码，最终生成高质量的可用python文件。  </p>
 <h3 id="7-启用调试">7. 启用调试</h3>
 <p>一旦代码运行出错，你就可以输入%debug进入调试模式。这点比Jupyter要方便。在调试模式下，你可以通过<code>p</code>命令来检查变量值，这往往是出错的原因。</p>
 <p>比如，下面的代码在运行时会出错：</p>
-<pre><code class="language-python">def example_function():
-    # 尝试使用未定义的变量 `data`
-    i = 10
-    print(data)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">example_function</span>():
+    <span class="hljs-comment"># 尝试使用未定义的变量 `data`</span>
+    i = <span class="hljs-number">10</span>
+    <span class="hljs-built_in">print</span>(data)
 
-example_function()
-</code></pre>
+example_function()</span></code></pre>
 <p>出错后，立即输入%debug，然后就可以用<code>l</code>命令来列出代码，<code>p</code>命令来检查变量值，<code>q</code>命令来退出。下图演示了如何进入调试状态，列代码及查看变量的过程：</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-debug.jpg" alt=""></p>
@@ -92,13 +86,11 @@ example_function()
 }
 </style>
 
-<pre><code class="language-bash">%bookmark my_project ~/Projects/my-python-project
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%bookmark my_project ~/Projects/my-python-project</span></code></pre>
 <p>这将创建一个名为my_project的书签，指向~/Projects/my-python-project目录。下次我们打开ipython窗口，就可以通过这个书签，直接进入my-python-project目录：</p>
-<pre><code class="language-bash"># 如果忘记了创建的书签，可以用%bookmark -l来列出所有书签
-# 如果要删除书签，可以用%bookmark -d来删除
-%cd -b my_project
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 如果忘记了创建的书签，可以用%bookmark -l来列出所有书签</span>
+<span class="hljs-comment"># 如果要删除书签，可以用%bookmark -d来删除</span>
+%<span class="hljs-built_in">cd</span> -b my_project</span></code></pre>
 <div class="wrap">
 
 <img class="image" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png"/>

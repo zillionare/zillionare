@@ -25,21 +25,21 @@
 <p>在Andreas Clenow的策略中，他使用了过去90天的年化指数的回归斜率作为动量因子。由于信号只响应过去90天的数据，因此，信号就比卡哈特的动量因子更灵敏一些。</p>
 <p>不过，我们今天测试的因子，是用过去10天的回归斜率作为动量因子。主要目标是尝试下新的可能性，也是考虑到在A股，动量因子的半衰期一般比较短的缘故。</p>
 <p>我们的计算方法如以下代码所示：</p>
-<pre><code class="language-python">def moving_slope(close: NDArray, win:int, *args):
-    # 创建滑动窗口的视图
-    shape = (win, close.size - win + 1)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">moving_slope</span>(<span class="hljs-params">close: NDArray, win:<span class="hljs-built_in">int</span>, *args</span>):
+    <span class="hljs-comment"># 创建滑动窗口的视图</span>
+    shape = (win, close.size - win + <span class="hljs-number">1</span>)
     strides = (close.itemsize, close.itemsize)
     cw = np.lib.stride_tricks.as_strided(close, 
                                          shape=shape, 
                                          strides=strides)
     
-    # 对每个窗口应用linregress，获取斜率
+    <span class="hljs-comment"># 对每个窗口应用linregress，获取斜率</span>
     x = np.arrange(win)
-    slopes = np.apply_along_axis(lambda y: linregress(x, y)[0],
-                                  axis=0, arr=cw)
+    slopes = np.apply_along_axis(<span class="hljs-keyword">lambda</span> y: linregress(x, y)[<span class="hljs-number">0</span>],
+                                  axis=<span class="hljs-number">0</span>, arr=cw)
     
-    return slopes
-</code></pre>
+    <span class="hljs-keyword">return</span> slopes
+</span></code></pre>
 <!--
 
 Momentum因子，即动量因子，是在金融领域中用来衡量证券价格趋势持续性的因素。它最早是由纳拉辛汉·贾格迪什（Narasimhan Jegadeesh）和谢尔登·科汉（Sheldon Grossman）以及后来的马克·卡哈特（Mark Carhart）在其学术研究中提出的。

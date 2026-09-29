@@ -26,40 +26,39 @@
 <p>假设我们有一个 2*2 的正方形，那么，它的内接圆的半径就是 1，面积就是$\pi$。根据几何概率，随机往这个正方形中投入一个点，它落入方形（包括内接圆）的概率当然是 1，落入内接圆的概率则是$\pi/4$。</p>
 <p>因此，如果我们在区间【1，1】上生成若干个随机数对（$X,Y$），如果对其中的任意一个点$(X,Y)$满足$X^2+Y^2&lt;1$，那么这个点就落在内接圆内。只要我们加大随机对个数，那么，最终统计出来的落点数的占比，就代表了圆周率。</p>
 <p>我们可以通过下面的代码来演示：</p>
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-def estimate_pi(n_points=10000, visualization = False):
-    # 生成均匀分布的随机点 (-1, 1)
-    x = np.random.uniform(-1, 1, n_points)
-    y = np.random.uniform(-1, 1, n_points)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">estimate_pi</span>(<span class="hljs-params">n_points=<span class="hljs-number">10000</span>, visualization = <span class="hljs-literal">False</span></span>):
+    <span class="hljs-comment"># 生成均匀分布的随机点 (-1, 1)</span>
+    x = np.random.uniform(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n_points)
+    y = np.random.uniform(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n_points)
     
-    # 判断点是否在圆内 (x² + y² ≤ 1)
-    inside = x**2 + y**2 &lt;= 1
+    <span class="hljs-comment"># 判断点是否在圆内 (x² + y² ≤ 1)</span>
+    inside = x**<span class="hljs-number">2</span> + y**<span class="hljs-number">2</span> &lt;= <span class="hljs-number">1</span>
     
-    # 计算圆周率估计值
-    pi_est = 4 * np.mean(inside)
+    <span class="hljs-comment"># 计算圆周率估计值</span>
+    pi_est = <span class="hljs-number">4</span> * np.mean(inside)
     
-    # 可视化结果
-    if visualization:
-        plt.figure(figsize=(6, 6))
-        plt.scatter(x[inside], y[inside], s=1, c=&#39;blue&#39;, label=&#39;Inside Circle&#39;)
-        plt.scatter(x[~inside], y[~inside], s=1, c=&#39;red&#39;, label=&#39;Outside Circle&#39;)
-        plt.title(f&#39;Estimated π = {pi_est:.6f} (n={n_points})&#39;)
+    <span class="hljs-comment"># 可视化结果</span>
+    <span class="hljs-keyword">if</span> visualization:
+        plt.figure(figsize=(<span class="hljs-number">6</span>, <span class="hljs-number">6</span>))
+        plt.scatter(x[inside], y[inside], s=<span class="hljs-number">1</span>, c=<span class="hljs-string">&#x27;blue&#x27;</span>, label=<span class="hljs-string">&#x27;Inside Circle&#x27;</span>)
+        plt.scatter(x[~inside], y[~inside], s=<span class="hljs-number">1</span>, c=<span class="hljs-string">&#x27;red&#x27;</span>, label=<span class="hljs-string">&#x27;Outside Circle&#x27;</span>)
+        plt.title(<span class="hljs-string">f&#x27;Estimated π = <span class="hljs-subst">{pi_est:<span class="hljs-number">.6</span>f}</span> (n=<span class="hljs-subst">{n_points}</span>)&#x27;</span>)
         plt.legend()
         plt.show()
     
-    return pi_est
+    <span class="hljs-keyword">return</span> pi_est
 
-# 示例运行
-for n in (100, 10000, 100_0000):
+<span class="hljs-comment"># 示例运行</span>
+<span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> (<span class="hljs-number">100</span>, <span class="hljs-number">10000</span>, <span class="hljs-number">100_0000</span>):
     pi_estimate = estimate_pi(n)
-    print(f&quot;Estimated Pi: {pi_estimate}&quot;)
-    print(f&quot;Error: {abs(pi_estimate - np.pi):.6f}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Estimated Pi: <span class="hljs-subst">{pi_estimate}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error: <span class="hljs-subst">{<span class="hljs-built_in">abs</span>(pi_estimate - np.pi):<span class="hljs-number">.6</span>f}</span>&quot;</span>)
 
-n = 10_0000
-estimate_pi(n, visualization = True)
-</code></pre>
+n = <span class="hljs-number">10_0000</span>
+estimate_pi(n, visualization = <span class="hljs-literal">True</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605113602.png'>
@@ -77,67 +76,65 @@ $$</p>
 <p>其中$\alpha$是置信水平。我们拿一个例子来解释这个公式，它表明，如果某投资组合在 95%置信水平下的日$VaR$为 100 万元，则意味着未来 20 个交易日中，可能会有一天的损失超过 100 万元。</p>
 <p>作为一个风险指标，$VaR$得到了巴塞尔委员的背书。1996 年，巴塞尔委员发布《资本协议市场风险补充规定》，允许银行使用内部 VaR 模型计算市场风险资本要求，推动 VaR 成为全球金融行业标准。</p>
 <p>在量化交易中，我们常常会想知道某个投资组合，在已知某些特征（比如波动率）的前提下，在未来的某一天，该组合的最大损失会是多少，以便做好风险管理（比如通过提前减仓来降低风险）。尽管有多种方法，但蒙特卡洛方法尽管计算性能不占优势，却往往最让人心里踏实 -- 毕竟，<strong>它是一种把几乎所有的路径都走了一遍，再回来告诉你一路上有哪些风险的方法</strong>。</p>
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import norm
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> norm
 
-# 投资组合参数
-initial_stock_price = 100    # 股票初始价格
-stock_volatility = 0.2       # 股票年化波动率
-risk_free_rate = 0.05        # 无风险利率
-option_strike = 105          # 看涨期权行权价
-option_maturity = 0.5        # 期权剩余期限（年）
-num_options = -10            # 期权空头份数（负号表示卖出）
-num_shares = 1000            # 股票多头数量
-portfolio_value = num_shares * initial_stock_price  # 初始组合价值
+<span class="hljs-comment"># 投资组合参数</span>
+initial_stock_price = <span class="hljs-number">100</span>    <span class="hljs-comment"># 股票初始价格</span>
+stock_volatility = <span class="hljs-number">0.2</span>       <span class="hljs-comment"># 股票年化波动率</span>
+risk_free_rate = <span class="hljs-number">0.05</span>        <span class="hljs-comment"># 无风险利率</span>
+option_strike = <span class="hljs-number">105</span>          <span class="hljs-comment"># 看涨期权行权价</span>
+option_maturity = <span class="hljs-number">0.5</span>        <span class="hljs-comment"># 期权剩余期限（年）</span>
+num_options = -<span class="hljs-number">10</span>            <span class="hljs-comment"># 期权空头份数（负号表示卖出）</span>
+num_shares = <span class="hljs-number">1000</span>            <span class="hljs-comment"># 股票多头数量</span>
+portfolio_value = num_shares * initial_stock_price  <span class="hljs-comment"># 初始组合价值</span>
 
-# 模拟参数
-num_simulations = 10000      # 模拟次数
-time_horizon = 10/252        # 10 个交易日的时间跨度（年化）
-dt = 1/252                   # 时间步长
+<span class="hljs-comment"># 模拟参数</span>
+num_simulations = <span class="hljs-number">10000</span>      <span class="hljs-comment"># 模拟次数</span>
+time_horizon = <span class="hljs-number">10</span>/<span class="hljs-number">252</span>        <span class="hljs-comment"># 10 个交易日的时间跨度（年化）</span>
+dt = <span class="hljs-number">1</span>/<span class="hljs-number">252</span>                   <span class="hljs-comment"># 时间步长</span>
 
-# Black-Scholes 期权定价函数
-def black_scholes_call(S, K, r, sigma, T):
-    d1 = (np.log(S/K) + (r + 0.5*sigma**2)*T) / (sigma*np.sqrt(T))
+<span class="hljs-comment"># Black-Scholes 期权定价函数</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">black_scholes_call</span>(<span class="hljs-params">S, K, r, sigma, T</span>):
+    d1 = (np.log(S/K) + (r + <span class="hljs-number">0.5</span>*sigma**<span class="hljs-number">2</span>)*T) / (sigma*np.sqrt(T))
     d2 = d1 - sigma*np.sqrt(T)
-    return S * norm.cdf(d1) - K * np.exp(-r*T) * norm.cdf(d2)
+    <span class="hljs-keyword">return</span> S * norm.cdf(d1) - K * np.exp(-r*T) * norm.cdf(d2)
 
-# 计算当前期权价值
+<span class="hljs-comment"># 计算当前期权价值</span>
 current_option_value = black_scholes_call(initial_stock_price, option_strike, 
                                           risk_free_rate, stock_volatility, option_maturity)
 
-# 计算当前组合价值
-current_portfolio_value = num_shares * initial_stock_price + num_options * current_option_value * 100  # 期权合约乘数 100
-print(f&quot;当前组合价值：${current_portfolio_value:.2f}&quot;)
-</code></pre>
+<span class="hljs-comment"># 计算当前组合价值</span>
+current_portfolio_value = num_shares * initial_stock_price + num_options * current_option_value * <span class="hljs-number">100</span>  <span class="hljs-comment"># 期权合约乘数 100</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;当前组合价值：$<span class="hljs-subst">{current_portfolio_value:<span class="hljs-number">.2</span>f}</span>&quot;</span>)</span></code></pre>
 <p>这样我们就得到了一个随机组合，并且它的当前价值是$95418.32 元。</p>
 <p>接下来，假设我们关心的是持有 10 天时，这个组合的收益和风险。我们不知道每个资产的涨跌将会如何演进，但是，我们可以这样『蒙』：</p>
-<pre><code class="language-python"># 生成随机收益率路径
-np.random.seed(42)  # 设置随机种子，确保结果可复现
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-comment"># 生成随机收益率路径</span>
+np.random.seed(<span class="hljs-number">42</span>)  <span class="hljs-comment"># 设置随机种子，确保结果可复现</span>
 daily_returns = np.random.normal((risk_free_rate * dt), 
                                 (stock_volatility * np.sqrt(dt)), 
-                                (num_simulations, int(time_horizon/dt)))
+                                (num_simulations, <span class="hljs-built_in">int</span>(time_horizon/dt)))
 
-# 计算累积收益率和未来股票价格
-cumulative_returns = np.cumprod(1 + daily_returns, axis=1)
-future_stock_prices = initial_stock_price * cumulative_returns[:, -1]
+<span class="hljs-comment"># 计算累积收益率和未来股票价格</span>
+cumulative_returns = np.cumprod(<span class="hljs-number">1</span> + daily_returns, axis=<span class="hljs-number">1</span>)
+future_stock_prices = initial_stock_price * cumulative_returns[:, -<span class="hljs-number">1</span>]
 
-# 计算未来期权到期时间
+<span class="hljs-comment"># 计算未来期权到期时间</span>
 future_option_maturity = option_maturity - time_horizon
 
-# 计算未来期权价值（考虑时间衰减和股价变动）
+<span class="hljs-comment"># 计算未来期权价值（考虑时间衰减和股价变动）</span>
 future_option_values = np.array([black_scholes_call(S, option_strike, risk_free_rate, 
                                                     stock_volatility, future_option_maturity)
-                                for S in future_stock_prices])
+                                <span class="hljs-keyword">for</span> S <span class="hljs-keyword">in</span> future_stock_prices])
 
-# 计算未来组合价值
-future_portfolio_values = num_shares * future_stock_prices + num_options * future_option_values * 100
+<span class="hljs-comment"># 计算未来组合价值</span>
+future_portfolio_values = num_shares * future_stock_prices + num_options * future_option_values * <span class="hljs-number">100</span>
 
-# 计算组合价值变动（损失为负收益）
+<span class="hljs-comment"># 计算组合价值变动（损失为负收益）</span>
 portfolio_changes = future_portfolio_values - current_portfolio_value
-losses = -portfolio_changes  # 将负收益转换为正损失
-losses
-</code></pre>
+losses = -portfolio_changes  <span class="hljs-comment"># 将负收益转换为正损失</span>
+losses</span></code></pre>
 <p>到现在为止，我们就得到了未来 10 天后，组合收益损失的一万种可能。</p>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
@@ -147,19 +144,18 @@ losses
 <!-- END IPYNB STRIPOUT -->
 
 <p>接下来，我们就可以使用一个小小的统计技巧，来计算不同置信水平下的 VaR:</p>
-<pre><code class="language-python">confidence_levels = [0.95, 0.99, 0.999]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">confidence_levels = [<span class="hljs-number">0.95</span>, <span class="hljs-number">0.99</span>, <span class="hljs-number">0.999</span>]
 var_values = {}
 
-for cl in confidence_levels:
-    var = np.percentile(losses, (1 - cl) * 100)
+<span class="hljs-keyword">for</span> cl <span class="hljs-keyword">in</span> confidence_levels:
+    var = np.percentile(losses, (<span class="hljs-number">1</span> - cl) * <span class="hljs-number">100</span>)
     var_values[cl] = var
-    print(f&quot;{cl*100:.1f}% VaR: ${var:.2f}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{cl*<span class="hljs-number">100</span>:<span class="hljs-number">.1</span>f}</span>% VaR: $<span class="hljs-subst">{var:<span class="hljs-number">.2</span>f}</span>&quot;</span>)
 
-# 计算 95%置信水平下的 ES（预期短缺）
-var_95 = var_values[0.95]
+<span class="hljs-comment"># 计算 95%置信水平下的 ES（预期短缺）</span>
+var_95 = var_values[<span class="hljs-number">0.95</span>]
 es_95 = np.mean(losses[losses &gt;= var_95])
-print(f&quot;95% ES （预期短缺）: ${es_95:.2f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;95% ES （预期短缺）: $<span class="hljs-subst">{es_95:<span class="hljs-number">.2</span>f}</span>&quot;</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>95.0% VaR: $-3446.95
 99.0% VaR: $-4387.73

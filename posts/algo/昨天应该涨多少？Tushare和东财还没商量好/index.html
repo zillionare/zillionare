@@ -29,12 +29,11 @@ symbol_ts = &quot;000001.SZ&quot;</p>
 
 <p>作为一个量化框架，必须要有本地数据存储的能力。在行情数据上，一般我们存储不复权数据和复权因子，在使用时，根据需要的复权类型实时计算。</p>
 <p>在 tushare 中，我们通过 <code>pro.daily</code> 接口获得每日未复权价格和每日涨跌幅：</p>
-<pre><code class="language-python">df_ts = pro.daily(ts_code = symbol_ts, start_date = start, end_date = end)
-df_ts.index=pd.to_datetime(df_ts[&quot;trade_date&quot;])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">df_ts = pro.daily(ts_code = symbol_ts, start_date = start, end_date = end)
+df_ts.index=pd.to_datetime(df_ts[<span class="hljs-string">&quot;trade_date&quot;</span>])
 
-df_ts.sort_index(inplace=True)
-df_ts
-</code></pre>
+df_ts.sort_index(inplace=<span class="hljs-literal">True</span>)
+df_ts</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
@@ -64,21 +63,20 @@ df_ts
 <h2 id="涨跌幅是怎么算的">涨跌幅是怎么算的？</h2>
 <p>理论上，涨跌幅就是T+1日的收盘价除以 T日的收盘价减去1；考虑到除权因素，我们需要先对收盘价进行复权，然后再才能计算涨跌幅。实际上，复权处理只影响除权日当天涨跌幅。所以，在未发生除权时，使用未复权价计算出来的涨跌幅与经过复权处理后，计算出来的涨跌幅是完全一致的。</p>
 <p>下面我们就来检验一下。这里要用到<code>adj_factor</code>接口来获取个股的复权因子。</p>
-<pre><code class="language-python">adjust_ts = pro.adj_factor(ts_code=symbol_ts, trade_date=&#39;&#39;)
-adjust_ts.index = pd.to_datetime(adjust_ts[&quot;trade_date&quot;])
-adjust_ts.sort_index(inplace=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">adjust_ts = pro.adj_factor(ts_code=symbol_ts, trade_date=<span class="hljs-string">&#x27;&#x27;</span>)
+adjust_ts.index = pd.to_datetime(adjust_ts[<span class="hljs-string">&quot;trade_date&quot;</span>])
+adjust_ts.sort_index(inplace=<span class="hljs-literal">True</span>)
 
-# 合并到主表
-df_ts[&quot;adjust&quot;] =  adjust_ts.query(&quot;index &gt;= &#39;2024-01-01&#39; and index &lt;= &#39;2024-12-31&#39;&quot;)[&quot;adj_factor&quot;]
+<span class="hljs-comment"># 合并到主表</span>
+df_ts[<span class="hljs-string">&quot;adjust&quot;</span>] =  adjust_ts.query(<span class="hljs-string">&quot;index &gt;= &#x27;2024-01-01&#x27; and index &lt;= &#x27;2024-12-31&#x27;&quot;</span>)[<span class="hljs-string">&quot;adj_factor&quot;</span>]
 
-# 计算每日涨跌幅
-adjust_close = df_ts[&quot;close&quot;] * df_ts[&quot;adjust&quot;]/df_ts[&quot;adjust&quot;][-1]
-df_ts[&quot;pct_chg_v2&quot;] = adjust_close.pct_change().round(4)*100
+<span class="hljs-comment"># 计算每日涨跌幅</span>
+adjust_close = df_ts[<span class="hljs-string">&quot;close&quot;</span>] * df_ts[<span class="hljs-string">&quot;adjust&quot;</span>]/df_ts[<span class="hljs-string">&quot;adjust&quot;</span>][-<span class="hljs-number">1</span>]
+df_ts[<span class="hljs-string">&quot;pct_chg_v2&quot;</span>] = adjust_close.pct_change().<span class="hljs-built_in">round</span>(<span class="hljs-number">4</span>)*<span class="hljs-number">100</span>
 
-# 显示关键字段
-cols = [&quot;close&quot;, &quot;pre_close&quot;, &quot;adjust&quot;, &quot;pct_chg&quot;, &quot;pct_chg_v2&quot;] 
-df_ts[cols]
-</code></pre>
+<span class="hljs-comment"># 显示关键字段</span>
+cols = [<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;pre_close&quot;</span>, <span class="hljs-string">&quot;adjust&quot;</span>, <span class="hljs-string">&quot;pct_chg&quot;</span>, <span class="hljs-string">&quot;pct_chg_v2&quot;</span>] 
+df_ts[cols]</span></code></pre>
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
     src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180058.png"
@@ -90,37 +88,36 @@ df_ts[cols]
 </figure>
 
 <p>可以看出，tushare接口<code>daily</code>中的每日涨跌幅，就是复权后的收盘价计算出来的涨跌幅。我们可以通过下面的代码来可视化地显示两个序列之间的差异：</p>
-<pre><code class="language-python">def compare(df1, col1, col2, df2=None, title=&quot;&quot;):
-    if df2 is not None:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">compare</span>(<span class="hljs-params">df1, col1, col2, df2=<span class="hljs-literal">None</span>, title=<span class="hljs-string">&quot;&quot;</span></span>):
+    <span class="hljs-keyword">if</span> df2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         df = pd.DataFrame({
             col1: df1[col1],
             col2: df2[col2]
         }, index=df1.index)
 
-    else:
+    <span class="hljs-keyword">else</span>:
         df = df1[[col1, col2]]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
+    fig, (ax1, ax2) = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, figsize=(<span class="hljs-number">14</span>, <span class="hljs-number">6</span>), sharey=<span class="hljs-literal">True</span>)
 
-    ax1.scatter(df[col1].round(2), df[col2].round(2), alpha=0.6, s=30, color=&quot;#1f77b4&quot;)
+    ax1.scatter(df[col1].<span class="hljs-built_in">round</span>(<span class="hljs-number">2</span>), df[col2].<span class="hljs-built_in">round</span>(<span class="hljs-number">2</span>), alpha=<span class="hljs-number">0.6</span>, s=<span class="hljs-number">30</span>, color=<span class="hljs-string">&quot;#1f77b4&quot;</span>)
 
-    x_min = min(df[col1].min(), df[col2].min())
-    x_max = max(df[col1].max(), df[col2].max())
-    ax1.plot([x_min, x_max], [x_min, x_max], &quot;r--&quot;, lw=2, label=&quot;y = x&quot;)
+    x_min = <span class="hljs-built_in">min</span>(df[col1].<span class="hljs-built_in">min</span>(), df[col2].<span class="hljs-built_in">min</span>())
+    x_max = <span class="hljs-built_in">max</span>(df[col1].<span class="hljs-built_in">max</span>(), df[col2].<span class="hljs-built_in">max</span>())
+    ax1.plot([x_min, x_max], [x_min, x_max], <span class="hljs-string">&quot;r--&quot;</span>, lw=<span class="hljs-number">2</span>, label=<span class="hljs-string">&quot;y = x&quot;</span>)
 
     df.plot(ax=ax2)
 
-    ax1.set_xlabel(col1, fontsize=12)
-    ax1.set_ylabel(col2, fontsize=12)
+    ax1.set_xlabel(col1, fontsize=<span class="hljs-number">12</span>)
+    ax1.set_ylabel(col2, fontsize=<span class="hljs-number">12</span>)
 
-    fig.suptitle(title, fontsize=14)
+    fig.suptitle(title, fontsize=<span class="hljs-number">14</span>)
     plt.legend()
-    plt.grid(alpha=0.3)
-    plt.axis(&quot;equal&quot;)  # x/y 轴等比例，避免视觉偏差
+    plt.grid(alpha=<span class="hljs-number">0.3</span>)
+    plt.axis(<span class="hljs-string">&quot;equal&quot;</span>)  <span class="hljs-comment"># x/y 轴等比例，避免视觉偏差</span>
     plt.show()
 
-compare(df_ts, &quot;pct_chg&quot;, &quot;pct_chg_v2&quot;, title=&quot;原始涨跌幅与收盘价（复权）涨跌幅对照&quot;)
-</code></pre>
+compare(df_ts, <span class="hljs-string">&quot;pct_chg&quot;</span>, <span class="hljs-string">&quot;pct_chg_v2&quot;</span>, title=<span class="hljs-string">&quot;原始涨跌幅与收盘价（复权）涨跌幅对照&quot;</span>)</span></code></pre>
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
     src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180334.png"
@@ -142,30 +139,29 @@ compare(df_ts, &quot;pct_chg&quot;, &quot;pct_chg_v2&quot;, title=&quot;原始�
 <p>以下内容要使用 akshare，受爬虫机制限制，在匡醍研究平台中，可能运行不稳定。</p>
 <!--PAID CONTENT END-->
 
-<pre><code class="language-python">data = []
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body">data = []
 
-# 不复权
-df_ak_no_fq = ak.stock_zh_a_hist(symbol=symbol_ak, start_date=start,end_date=end, adjust=&quot;&quot;)
-df_ak_no_fq.index = pd.to_datetime(df_ak_no_fq[&quot;日期&quot;])
-time.sleep(0.2)
+<span class="hljs-comment"># 不复权</span>
+df_ak_no_fq = ak.stock_zh_a_hist(symbol=symbol_ak, start_date=start,end_date=end, adjust=<span class="hljs-string">&quot;&quot;</span>)
+df_ak_no_fq.index = pd.to_datetime(df_ak_no_fq[<span class="hljs-string">&quot;日期&quot;</span>])
+time.sleep(<span class="hljs-number">0.2</span>)
 
-data.append(df_ak_no_fq[&quot;涨跌幅&quot;].rename(&quot;ak_no_fq&quot;))
+data.append(df_ak_no_fq[<span class="hljs-string">&quot;涨跌幅&quot;</span>].rename(<span class="hljs-string">&quot;ak_no_fq&quot;</span>))
 
-# 前复权
-df_ = ak.stock_zh_a_hist(symbol=symbol_ak, start_date=start,end_date=end, adjust=&quot;qfq&quot;)
-df_.index = pd.to_datetime(df_[&quot;日期&quot;])
-data.append(df_[&quot;涨跌幅&quot;].rename(&quot;ak_qfq&quot;))
-time.sleep(0.2)
+<span class="hljs-comment"># 前复权</span>
+df_ = ak.stock_zh_a_hist(symbol=symbol_ak, start_date=start,end_date=end, adjust=<span class="hljs-string">&quot;qfq&quot;</span>)
+df_.index = pd.to_datetime(df_[<span class="hljs-string">&quot;日期&quot;</span>])
+data.append(df_[<span class="hljs-string">&quot;涨跌幅&quot;</span>].rename(<span class="hljs-string">&quot;ak_qfq&quot;</span>))
+time.sleep(<span class="hljs-number">0.2</span>)
 
-# 后复权
-df_ = ak.stock_zh_a_hist(symbol=symbol_ak, start_date=start,end_date=end, adjust=&quot;hfq&quot;)
-df_.index = pd.to_datetime(df_[&quot;日期&quot;])
-data.append(df_[&quot;涨跌幅&quot;].rename(&quot;ak_hfq&quot;))
+<span class="hljs-comment"># 后复权</span>
+df_ = ak.stock_zh_a_hist(symbol=symbol_ak, start_date=start,end_date=end, adjust=<span class="hljs-string">&quot;hfq&quot;</span>)
+df_.index = pd.to_datetime(df_[<span class="hljs-string">&quot;日期&quot;</span>])
+data.append(df_[<span class="hljs-string">&quot;涨跌幅&quot;</span>].rename(<span class="hljs-string">&quot;ak_hfq&quot;</span>))
 
-df_ak = pd.concat(data, axis=1)
+df_ak = pd.concat(data, axis=<span class="hljs-number">1</span>)
 df_ak.index = df_ak_no_fq.index
-df_ak
-</code></pre>
+df_ak</span></code></pre>
 <p>这样我们就得到了akshare 下各种涨跌幅。</p>
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
@@ -221,18 +217,16 @@ df_ak
 
 <h2 id="最后的证明">最后的证明</h2>
 <p>在 tushare的<code>daily</code>接口中，还会返回 <code>pre_close</code>数据。</p>
-<pre><code class="language-python">from pandas.testing import assert_series_equal
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pandas.testing <span class="hljs-keyword">import</span> assert_series_equal
 
-by_pre_close = ((df_ts[&quot;close&quot;]/df_ts[&quot;pre_close&quot;] - 1)*100).round(2)
+by_pre_close = ((df_ts[<span class="hljs-string">&quot;close&quot;</span>]/df_ts[<span class="hljs-string">&quot;pre_close&quot;</span>] - <span class="hljs-number">1</span>)*<span class="hljs-number">100</span>).<span class="hljs-built_in">round</span>(<span class="hljs-number">2</span>)
 
-assert_series_equal(by_pre_close, df_ts[&quot;pct_chg&quot;], atol=1e-2, check_names = False)
-</code></pre>
+assert_series_equal(by_pre_close, df_ts[<span class="hljs-string">&quot;pct_chg&quot;</span>], atol=<span class="hljs-number">1e-2</span>, check_names = <span class="hljs-literal">False</span>)</span></code></pre>
 <p>通过 close/pre_close 计算出来的涨跌幅与日涨跌完全一致。而它的未复权的<code>close</code>与<code>pre_close</code>又都是正确的。所以，Tushare的数据是正确的。而东财的数据（或者说你通过 akshare得到的数据）则会与我们的期望不一样。它的未复权下的涨跌幅，是真正的未复权： 如果个股昨天实收5元，今天开盘上涨10%，但发生1：1除权，所以实收价是2.75，东财会把涨跌幅计为-45%。</p>
 <p>但是，它的前复权涨跌幅（这是我们打开行情软件，默认的视图）则是经过了某种处理（我不清楚是不是复权），因此，在我写下本文的这一刻，你看到的平安银行在2024年2月11日，它当天实际上涨9.97%，但会在东财软件上显示上涨了『11.86%』。东财这样处理当然有它的理由，不过从量化人的角度来看，可能并不符合我们的期望。</p>
 <p>有一句话叫谁掌握了历史，谁就掌握了未来；谁掌握了现在，谁就掌握了历史。在东财的默认视图中，事情似乎正是这样。不过，量化人相信，<strong>个股的涨跌幅应该是一个确定不变的值。它不应该随着时间的推移而发生改变，它不是薛定谔的猫，在不同的时间观察它，就会得到不一样的结果</strong>。</p>
 <p>在前面我们已经得到了 tushare 的复权数据。我们可以通过下面的图，直观地找出除权发生的日期：</p>
-<pre><code class="language-python">df_ts.adjust.plot()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df_ts.adjust.plot()</span></code></pre>
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
     src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124185710.png"

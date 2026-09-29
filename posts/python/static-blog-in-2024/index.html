@@ -30,33 +30,32 @@
 <h2 id="mkdocs-mkdocs---material">Mkdocs + Mkdocs - Material</h2>
 <p>基础搭建我都写在 <a href="https://blog.quantide.cn/articles/python/best-practice-python/chap01/">《Python 能做大项目》</a> 这本书的第 10 章中了，这里我们只介绍如何开通博客功能，以及定制首页。</p>
 <p>Material 自带了博客插件，我们只需要在配置中启用它（以及其它相关插件）:</p>
-<pre><code class="language-yaml">plugins:
-  - awesome-pages:
-      collapse_single_pages: true
-  - blog:
-      post_excerpt_separator: &lt;!--more--&gt;
-  - tags:
-      tags_file: tags.md
-  - rss:
-      match_path: &quot;(blog|articles)/.*&quot;
-      category:
-        - categories
-        - tags
-      date_from_meta:
-        as_creation: &quot;date&quot;
-        as_update: true
-  - rss:
-      match_path: &quot;(blog|articles)/.*&quot;
-      category:
-        - categories
-        - tags
-      date_from_meta:
-        as_creation: &quot;date&quot;
-        as_update: true
-        datetime_format: &quot;%Y-%m-%d %H:%M&quot;
-        default_timezone: Asia/Shanghai
-      use_git: false
-</code></pre>
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-attr">plugins:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">awesome-pages:</span>
+      <span class="hljs-attr">collapse_single_pages:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">blog:</span>
+      <span class="hljs-attr">post_excerpt_separator:</span> <span class="hljs-string">&lt;!--more--&gt;</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">tags:</span>
+      <span class="hljs-attr">tags_file:</span> <span class="hljs-string">tags.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">rss:</span>
+      <span class="hljs-attr">match_path:</span> <span class="hljs-string">&quot;(blog|articles)/.*&quot;</span>
+      <span class="hljs-attr">category:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">categories</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">tags</span>
+      <span class="hljs-attr">date_from_meta:</span>
+        <span class="hljs-attr">as_creation:</span> <span class="hljs-string">&quot;date&quot;</span>
+        <span class="hljs-attr">as_update:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">rss:</span>
+      <span class="hljs-attr">match_path:</span> <span class="hljs-string">&quot;(blog|articles)/.*&quot;</span>
+      <span class="hljs-attr">category:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">categories</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">tags</span>
+      <span class="hljs-attr">date_from_meta:</span>
+        <span class="hljs-attr">as_creation:</span> <span class="hljs-string">&quot;date&quot;</span>
+        <span class="hljs-attr">as_update:</span> <span class="hljs-literal">true</span>
+        <span class="hljs-attr">datetime_format:</span> <span class="hljs-string">&quot;%Y-%m-%d %H:%M&quot;</span>
+        <span class="hljs-attr">default_timezone:</span> <span class="hljs-string">Asia/Shanghai</span>
+      <span class="hljs-attr">use_git:</span> <span class="hljs-literal">false</span></span></code></pre>
 <p>其中 rss 插件需要安装 mkdocs-rss-plugin 插件。关于如何定制标签云，请参考 <a href="https://www.codeinsideout.com/blog/site-setup/add-new-features/#tag-cloud">Code Inside Out 上的这篇文章</a>。</p>
 <p>该文也提到了如何实现最新博文的功能。不过，博主最后决定自己用 Python 撸一个方案，以实现本文开头提到的效果 -- 动态和卡片式，并且能自动更新 github 的 profile。</p>
 <h2 id="自定义脚本生成卡片式首页和-github-profile">自定义脚本生成卡片式首页和 github profile</h2>
@@ -71,12 +70,11 @@
 <p>为了生成响应式的卡片布局，我使用了 bootstrap 中 card 样式。它简单到只要把父容器声明为 card-columns 类，card 元素的样式声明为 card 就可以了。此外，为了根据不同的屏幕大小，显示不同的 card 列数，可以使用媒体查询和 column-count 属性，在 docs/assets/templates/homepage.tpl 文件中有示例。</p>
 <p>在 publish.py 脚本中，我使用了 frontmatter 来提取文章中的 meta，但它的速度有点慢。不过这是一个使用多进程加速的好场景：</p>
 <hr>
-<pre><code class="language-python">metas = []
-articles = glob.glob(&quot;./docs/articles/**/*.md&quot;, recursive=True)
-with ProcessPoolExecutor() as executor:
-    results = executor.map(extract_article_meta, articles)
-    metas.extend([meta for meta in results if meta is not None])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">metas = []
+articles = glob.glob(<span class="hljs-string">&quot;./docs/articles/**/*.md&quot;</span>, recursive=<span class="hljs-literal">True</span>)
+<span class="hljs-keyword">with</span> ProcessPoolExecutor() <span class="hljs-keyword">as</span> executor:
+    results = executor.<span class="hljs-built_in">map</span>(extract_article_meta, articles)
+    metas.extend([meta <span class="hljs-keyword">for</span> meta <span class="hljs-keyword">in</span> results <span class="hljs-keyword">if</span> meta <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>])</span></code></pre>
 <p>这样就可以多进程处理文件了。最终结果会汇总到 metas 这个数组中。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">图片自动换新技巧</p>
 图片自动换新，可以给静态网站增加动态内容。让读者每次访问，都有不一样的感觉。这是通过 unsplash 网站的 gallery 功能来实现的。unsplash 是一个免费图片资源共享网站，提供了大量高清、很高质量的免费图片。如果我们将 img 元素的 url 指向'https://source.unsplash.com/random/360x200?{word}'这样的地址，unsplash 就会返回一个 360x200，并且其类别为 word 的图片。
@@ -90,8 +88,7 @@ with ProcessPoolExecutor() as executor:
 <p>因此，我们基于 mkdocs+material 创作的文档，只要加上少量的标记和定制，就可以很容易地转换成为图片。</p>
 <p>要实现这个功能，在安装 slidev 之后，先进行主题定制。最重要的是 cover layout 的定制。右图就是我之前为小红书日更设计的一个首页样式。</p>
 <p>我们可以设计多个样式，在导出时，使用下面的命令：</p>
-<pre><code class="language-bash">npx slidev export --format png -t /path/to/slidev_themes/special_theme_dir --output /tmp/xhs /path/to/src.md
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">npx slidev <span class="hljs-built_in">export</span> --format png -t /path/to/slidev_themes/special_theme_dir --output /tmp/xhs /path/to/src.md</span></code></pre>
 <p>我们需要在 markdown 内容中的合适位置，增加&quot;---&quot;作为分页符，这样就能导出一页页适合在小红书上发布的图片了。</p>
 <h2 id="发布到微信公众号">发布到微信公众号</h2>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/md-nice.jpg" alt="L33"></p>
@@ -113,44 +110,43 @@ with ProcessPoolExecutor() as executor:
 <h2 id="赚点小钱">赚点小钱</h2>
 <p>辛苦辛苦写了博客，想办法赚点钱吧。我们可以通过前面提到的 ovrrides 方案，让 mkdocs-material 为每个页面插入一个 js 脚本。</p>
 <p>如果你加入了广告联盟，它们一般就会为你提供一个 js 脚本，把这个 js 插入进去就可以了。也可以自己写一个 js，把自己要发布的广告，以 html 片段的形式，放在 docs 目录下的某一个子目录中，然后通过下面的代码把这些片段插入进来：</p>
-<pre><code class="language-js">function insertAd(minParas, minWords){
-    var links = document.querySelectorAll(&quot;a[href*=&#39;&quot; + link + &quot;&#39;]&quot;);
-    if (links.length &gt; 0){
-        console.log(&quot;已添加&quot;)
-        return
+<pre><code class="hljs language-js"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span></span><span class="cl-body"><span class="hljs-keyword">function</span> <span class="hljs-title function_">insertAd</span>(<span class="hljs-params">minParas, minWords</span>){
+    <span class="hljs-keyword">var</span> links = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&quot;a[href*=&#x27;&quot;</span> + link + <span class="hljs-string">&quot;&#x27;]&quot;</span>);
+    <span class="hljs-keyword">if</span> (links.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>){
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;已添加&quot;</span>)
+        <span class="hljs-keyword">return</span>
     }
 
-    var paras = document.querySelectorAll(&quot;article p&quot;);
-    var wordCount = 0
-    var paraCount = 0
-    var inserted = 0
-    for (var i = 0; i &lt; paras.length; i++){
-        var p = paras[i];
+    <span class="hljs-keyword">var</span> paras = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&quot;article p&quot;</span>);
+    <span class="hljs-keyword">var</span> wordCount = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">var</span> paraCount = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">var</span> inserted = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; paras.<span class="hljs-property">length</span>; i++){
+        <span class="hljs-keyword">var</span> p = paras[i];
         paraCount ++
-        wordCount += p.innerText.length
-        if (inserted &gt;= 2){
-            break
+        wordCount += p.<span class="hljs-property">innerText</span>.<span class="hljs-property">length</span>
+        <span class="hljs-keyword">if</span> (inserted &gt;= <span class="hljs-number">2</span>){
+            <span class="hljs-keyword">break</span>
         }
 
-        if (paraCount &gt;= minParas &amp;&amp; wordCount &gt;= minWords) {
-            console.log(&quot;find para&quot;, p, paraCount, wordCount)
-            p.insertAdjacentHTML(&quot;afterend&quot;, ad)
-            paraCount = 0
-            wordCount = 0
-            inserted += 1
+        <span class="hljs-keyword">if</span> (paraCount &gt;= minParas &amp;&amp; wordCount &gt;= minWords) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;find para&quot;</span>, p, paraCount, wordCount)
+            p.<span class="hljs-title function_">insertAdjacentHTML</span>(<span class="hljs-string">&quot;afterend&quot;</span>, ad)
+            paraCount = <span class="hljs-number">0</span>
+            wordCount = <span class="hljs-number">0</span>
+            inserted += <span class="hljs-number">1</span>
         }
     }
-    if (inserted == 0 &amp; paras.length &gt;= 5){
-        var article = document.getElementsByTagName(&quot;article&quot;)[0]
-        article.insertAdjacentHTML(&quot;beforeend&quot;, ad)
+    <span class="hljs-keyword">if</span> (inserted == <span class="hljs-number">0</span> &amp; paras.<span class="hljs-property">length</span> &gt;= <span class="hljs-number">5</span>){
+        <span class="hljs-keyword">var</span> article = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&quot;article&quot;</span>)[<span class="hljs-number">0</span>]
+        article.<span class="hljs-title function_">insertAdjacentHTML</span>(<span class="hljs-string">&quot;beforeend&quot;</span>, ad)
     }
 }
 
-document$.subscribe(function() {
-    console.log(&quot;call in ad&quot;)
-    insertAd(40, 4000)
-})
-</code></pre>
+<span class="hljs-variable language_">document</span>$.<span class="hljs-title function_">subscribe</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;call in ad&quot;</span>)
+    <span class="hljs-title function_">insertAd</span>(<span class="hljs-number">40</span>, <span class="hljs-number">4000</span>)
+})</span></code></pre>
 <p>这段代码实现了文中和文末插入。只有在文章内容足够长时，才会插入广告。同样地，完整的代码可以在 <a href="https://github.com/zillionare">zillionare</a> 这个项目下找到。具体位置是 docs/overrides/javascripts/course.js。注意不要使用 ad.js 这样好听好记的名字，它会被 adblock 这样的浏览器扩展拦截！</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/python/qmt-how-to-handle-dr-adjust/">← 上一篇：QMT复权因子计算太慢？教你一个提速100倍的高效算法</a> <a class="series-next" href="/posts/python/use-sql-query-with-pandas/">下一篇：给Pandas找个搭子，用SQL玩转Dataframe! →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 43/96 篇</span> <span class="reading-path-links"> <a href="/posts/python/qmt-how-to-handle-dr-adjust/">← QMT复权因子计算太慢？教你一个提速</a> <a href="/posts/python/use-sql-query-with-pandas/">给Pandas找个搭子，用SQL玩转 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/best-practice-python/chap10/">10 撰写技术文档</a> <p>所有好的产品都应该有一份简洁易读的使用说明书，除了苹果。苹果用户天生就知道如何使用他们的产品，因此完全不需要文档。这是真的，几乎所有的苹果产品，都没有用户说明书。</p> </li><li> <a href="/articles/python/best-practice-python/chap11/">11 发布应用</a> <p>我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。</p> </li><li> <a href="/articles/python/best-practice-python/chap08/">08 代码版本管理</a> <p>作者还在研究生阶段时，犯过一个刻骨铭心的错误：那是夜里两点，在 6 个小时之后，我们研发的系统就要在某个会议室里，交付给近 20 名使用者使用，而这些人将使用我们的软件，判定近 1</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#mkdocs-mkdocs---material" title="Mkdocs + Mkdocs - Material">Mkdocs + Mkdocs - Material</a> </li><li class> <a href="#自定义脚本生成卡片式首页和-github-profile" title="自定义脚本生成卡片式首页和 github profile">自定义脚本生成卡片式首页和 github profile</a> </li><li class> <a href="#发布到小红书" title="发布到小红书">发布到小红书</a> </li><li class> <a href="#发布到微信公众号" title="发布到微信公众号">发布到微信公众号</a> </li><li class> <a href="#发布到知乎" title="发布到知乎">发布到知乎</a> </li><li class> <a href="#转换为-pdf" title="转换为 pdf">转换为 pdf</a> </li><li class> <a href="#赚点小钱" title="赚点小钱">赚点小钱</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

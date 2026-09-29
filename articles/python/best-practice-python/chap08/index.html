@@ -42,66 +42,56 @@
 <p>Git 仓库（有人也称作存储库）是项目的虚拟存储。它允许您保存代码的版本，您可以在需要时访问这些版本。</p>
 <p>通常，我们有两种方式来创建 git 仓库，取决于你的开发工作是如何开始的。不过，在正式介绍之前，我们先看一个最基础的设置命令。</p>
 <p>当你在某台机器上（或者某个工程中）初始使用 git 时，我们需要做的第一件事就是设置你的用户名和邮箱地址。这些信息在每次提交时都会用到。</p>
-<pre><code class="language-shell">$ git config --global user.name &quot;John Doe&quot;
-$ git config --global user.email johndoe@example.com
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git config --global user.name <span class="hljs-string">&quot;John Doe&quot;</span></span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git config --global user.email johndoe@example.com</span></span></code></pre>
 <p>这里我们使用了--global 选项，如此一来，在同一台机器上仅需配置一次，所有的项目都将复用这个设置。但如果你同时为多个项目工作，并且希望在不同的项目中，使用不同的用户名和邮箱地址的话，就不要使用这一选项。其结果是，这些配置将会被写入到当前项目的.git/config 文件中，而不会影响到其它工程。当然，这种按项目的配置，就必须等到项目仓库设置完成之后才能进行。</p>
 <p>现在，让我们创建一个本地仓库。</p>
 <h4>2.1.1. 创建新的本地仓库：git init</h4>
 <p>要创建新的存储库，您将使用 git init 命令。git init 是您在新存储库的初始设置期间使用的一次性命令。执行此命令时，git 将在您当前的工作目录中创建一个新的子目录。这也将创建一个新的主分支。 </p>
 <p>此示例假设您已经有了一个现存的项目文件夹，希望把它加入的 git 的版本控制。我们需要先进入该项目的根目录，再运行 git init 命令。</p>
-<pre><code class="language-shell">$ cd /path/to/your/project/root
-$ git init
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> /path/to/your/project/root</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git init</span></span></code></pre>
 <p>这将创建一个名为。git 的子目录。这个子目录含有 Git 仓库中所有的必须文件，这些文件是 Git 仓库的骨干。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件变化还没有被跟踪（如果我们是通过从远程仓库克隆来创建的仓库，则所有的文件变化都已经被跟踪了）。</p>
 <h4>2.1.2. 克隆现有存储库：git clone</h4>
 <p>如果项目已经在中央存储库中建立起来，克隆命令是我们获取版本的最常用方式。</p>
 <p>假设 Github 是我们的服务器，我们需要把本书在 Github 上的仓库克隆到本地：</p>
-<pre><code class="language-shell">$ git clone git@github.com:zillionare/best-practice-python.git
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git <span class="hljs-built_in">clone</span> git@github.com:zillionare/best-practice-python.git</span></span></code></pre>
 <p>这将在当前目录下，创建一个名为 best-practice-python 的文件夹，所有的文件和 git 信息都将保存在这个文件夹下。</p>
 <p>除了上述方式还，我们还可以使用 https 协议来克隆：</p>
-<pre><code class="language-shell">$ git clone https://github.com/zillionare/best-practice-python.git
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/zillionare/best-practice-python.git</span></span></code></pre>
 <p>或者使用 Github CLI 来克隆：</p>
-<pre><code>$ gh repo clone zillionare/best-practice-python
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ gh repo <span class="hljs-built_in">clone</span> zillionare/best-practice-python</span></code></pre>
 <p>Github CLI 有着强大的功能，通过它可以实现许多自动化工作，我们将在稍后介绍。</p>
 <h3 id="22-建立与远程仓库的关联git-remote">2.2. 建立与远程仓库的关联：git remote</h3>
 <p>如果本地仓库是通过 git clone 建立起来的，那么它就已经和远程仓库建立了关联。如果是通过 git init 建立起来的，我们还需要通过 git remote 命令来建立这种关联，以便后续我们可以将本地的改动，推送到远程服务器上。</p>
 <p>如果你是为该项目第一个创建仓库的人，那么很可能你还得登录到服务器上，创建一个空的中央仓库。如果你是一个团队的一员，那么你可能已经有了一个中央仓库，你需要知道它的 URL。</p>
 <p>象 Github, gitlab，或者 bitbucket 这些代码托管平台，都提供了 web 界面，我们可以登录到 web 界面上进行操作。</p>
 <p>如果我们使用的托管平台是 github，还可以使用它的命令行工具 Github CLI 来进行操作。以下命令将在 github 上创建一个公开的仓库，名字为 sample。在很多场合下，这个名字也被称为 project_slug。</p>
-<pre><code class="language-shell">$ gh repo create sample --public
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">gh repo create sample --public</span></span></code></pre>
 <p>显然，上述命令执行前是需要鉴权的。</p>
 <p>现在，既然已经有了远程仓库，也得到了它的 URL，我们可以来建立本地与远程之间的关联了：</p>
-<pre><code class="language-shell"># 请替换下面语句中的{{GITHUB_USER_NAME}}为你的 GITHUB 用户名，{{PROJECT_SLUG}}为你的项目名
-# 比如， GIT REMOTE ADD ORIGIN GIT@GITHUB.COM:ZILLIONARE/SAMPLE.GIT
-$ git remote add origin git@github.com:{{github_user_name}}/{{project_slug}}.git
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">请替换下面语句中的{{GITHUB_USER_NAME}}为你的 GITHUB 用户名，{{PROJECT_SLUG}}为你的项目名</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">比如， GIT REMOTE ADD ORIGIN GIT@GITHUB.COM:ZILLIONARE/SAMPLE.GIT</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git remote add origin git@github.com:{{github_user_name}}/{{project_slug}}.git</span></span></code></pre>
 <p>这个命令还为远程仓库定义了一个别名，即 origin。这个别名可以是任意的，比如，既然我们的服务器使用了 github，我们也可以将别名声称为 github。不过 origin 是 git 默认的别名，因此，多数人一般都使用这个别名。定义了别名之后，我们就可以在其它命令中使用别名来代替远程仓库的地址，从而可以使命令变简洁。</p>
 <h3 id="23-保存更改add-commit-stash-等">2.3. 保存更改：add, commit, stash 等</h3>
 <p>当我们修改了工作区的一些文件（包括新建文件、修改文件内容和删除文件）时，我们需要保存这种更改到版本控制系统，或者暂时贮藏起来。这就需要 add, commit 和 stash 等命令。</p>
-<pre><code class="language-shell"># 将根目录下的文件及文件夹递归地加入跟踪，暂存模式
-$ git add .
-
-# 进入提交状态
-$ git commit -m &#39;initial project version&#39;
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">将根目录下的文件及文件夹递归地加入跟踪，暂存模式</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git add .</span>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">进入提交状态</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git commit -m <span class="hljs-string">&#x27;initial project version&#x27;</span></span></span></code></pre>
 <p>此时用 git branch -v 命令看一下，我们会发现，我们已经处于 main 分支上，而且已经有了一个 commit。如果分支名是 master，建议运行以下命令，将其改为 main：</p>
-<pre><code class="language-shell">$ git branch -M main
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git branch -M main</span></span></code></pre>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
  从 2022 年 10 月 1 日起，github 上创建的新的代码仓库，默认分支都是 main，而不是之前的 master。上述更名操作，正是为了保持与 github 的一致性。
 </div>
 
-<pre><code>github 将默认分支名从 master 改为 main，主要是受 2020 年 6 月美国的&quot;Black Lives Matter&quot;运动的影响。这个运动的目的是为了反对种族歧视，而 master 这个词，正是从奴隶主的角度来命名的，因此，将其改名为 main，是为了避免这种歧视。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">github 将默认分支名从 master 改为 main，主要是受 2020 年 6 月美国的<span class="hljs-string">&quot;Black Lives Matter&quot;</span>运动的影响。这个运动的目的是为了反对种族歧视，而 master 这个词，正是从奴隶主的角度来命名的，因此，将其改名为 main，是为了避免这种歧视。
 
-受&quot;Black Lives Matter&quot;影响，除了 github, 许多科技巨头或知名软件也都调整了自己的业务或者产品。比如，MySQL 宣布删除 master、黑名单、白名单等术语；Linus Torvalds 通过了 Linux 中避免 master/slave 等术语的提案；还有 Twitter 、GitHub、微软、LinkedIn、Ansible、Splunk、OpenZFS、OpenSSL、JP Morgan、 Android 移动操作系统、Go 编程语言、PHPUnit 和 Curl 等宣布要对此类术语进行删除或更改。
+受<span class="hljs-string">&quot;Black Lives Matter&quot;</span>影响，除了 github, 许多科技巨头或知名软件也都调整了自己的业务或者产品。比如，MySQL 宣布删除 master、黑名单、白名单等术语；Linus Torvalds 通过了 Linux 中避免 master/slave 等术语的提案；还有 Twitter 、GitHub、微软、LinkedIn、Ansible、Splunk、OpenZFS、OpenSSL、JP Morgan、 Android 移动操作系统、Go 编程语言、PHPUnit 和 Curl 等宣布要对此类术语进行删除或更改。
 
-实际上，计算机术语的政治正确性早已不是新鲜话题。2004 年，“master/slave” 曾被全球语言检测机构评为年度最不政治正确的十大词汇之一。2018 年，IETF 也在草案当中指出，要求开源软件更改 “master/slave” 和 “blacklist/whitelist” 两项表述。如果我们的软件是面向全球的，那么我们应该尽量避免使用这些术语，以免造成不必要的误解。
-</code></pre>
+实际上，计算机术语的政治正确性早已不是新鲜话题。2004 年，“master/slave” 曾被全球语言检测机构评为年度最不政治正确的十大词汇之一。2018 年，IETF 也在草案当中指出，要求开源软件更改 “master/slave” 和 “blacklist/whitelist” 两项表述。如果我们的软件是面向全球的，那么我们应该尽量避免使用这些术语，以免造成不必要的误解。</span></code></pre>
 <p>您已经注意到，我们将变更保存到 git 系统中的步骤不止一步。实际上，git 中的很多操作都是多阶段的，常常会经历一个修改（modified）、暂存（stagged），提交（committed）和推送（push）的过程。要理解这几个阶段，我们还得先深入介绍一下相关的三个基本概念：HEAD, index 和 working tree。</p>
 <p><strong>头（HEAD）</strong></p>
 <p>HEAD 是当前分支引用的指针，它总是指向该分支上的最后一次提交。同时也是下一次提交的父结点。在某些场景下，我们也可以把 HEAD 看作是分支的代名词。它是我们执行 git commit 命令后，变更要去往的地方。</p>
@@ -111,63 +101,60 @@ $ git commit -m &#39;initial project version&#39;
 <p>最后，我们得有自己的工作目录（通常也叫工作区）。另外两棵树（即 HEAD 和 INDEX）会以一种高效但并不直观的方式，将它们的内容存储在.git 文件夹中。而工作目录会将它们解包为实际的文件以便编辑。你可以把工作目录当做沙盒。在你将修改提交到暂存区并记录到历史之前，可以随意更改。</p>
 <p>下图则展示了这三个概念的关系：</p>
 <p>我们结合命令和图示来解释变更的流动。</p>
-<pre><code class="language-shell">$ git status
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git status</span>
 
 On branch main
-Your branch is up to date with &#39;origin/main&#39;.
+Your branch is up to date with &#x27;origin/main&#x27;.
 
 Changes not staged for commit:
   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
   (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
         modified:   README.md
 
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</code></pre>
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span></code></pre>
 <p>status 命令显示文件处在工作区（working directory），还没进入到暂存区。</p>
 <p>此时在 vscode 侧面板上，我们可以看到 README.md 文件出现在 changes 类别下（注意 vscode 使用的术语与 git 不同，这是可以理解的）， </p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125160932.png" alt=""></p>
 <p>我们可以通过 git add 命令将 README.md 文件添加到暂存区，然后再次查看状态：</p>
-<pre><code class="language-shell">$ git add README.md
-$ git status
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git add README.md</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git status</span>
 
 On branch main
-Your branch is up to date with &#39;origin/main&#39;.
+Your branch is up to date with &#x27;origin/main&#x27;.
 
 Changes to be committed:
   (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
-        modified:   README.md
-</code></pre>
+        modified:   README.md</span></code></pre>
 <p>Status 命令提示 README.md 还没有提交（此时文件处在暂存区 staging area 中）。此时在 vscode 侧面板上，我们可以看到 README.md 文件出现在 Staged Changes 类别下，如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125161054.png" alt=""></p>
 <p>接下来，我们提交到本地仓库，并再次查看当前状态：</p>
-<pre><code class="language-shell">$ git commit -m &quot;update README.md&quot;
-$ git status
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git commit -m <span class="hljs-string">&quot;update README.md&quot;</span></span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git status</span>
 
 On branch main
-Your branch is ahead of &#39;origin/main&#39; by 1 commit.
+Your branch is ahead of &#x27;origin/main&#x27; by 1 commit.
   (use &quot;git push&quot; to publish your local commits)
 
-nothing to commit, working tree clean
-</code></pre>
+nothing to commit, working tree clean</span></code></pre>
 <p>现在，三个区域的状态完全一致（见上面输出中的最后一句：nothing to commit, working tree clean）。但还有一条提示：本地分支领先远程 main 分支一个提交（Your branch is ahead of ‘origin/main’ by 1 commit），即我们刚刚提交的变更还没同步到远程服务器。此时，我们刚刚执行的提交将可以在 COMMITS 类别下找到。</p>
 <p>如下图所示，此时在 vscode 侧面板上，SOURCE CONTROL 类别下已清空，只出现了一个 sync changes 的按键，一旦我们点击此按钮，我们刚刚提交的变更就会发布到远程服务器上。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125161350.png" alt=""></p>
 <p>这种情况下，我们就需要用到 stash 命令。我们先介绍 git stash 命令行模式的一些例子，然后再介绍如何从图形界面来使用它：</p>
-<pre><code class="language-shell"># 贮藏当前未提交的变更
-$ git stash
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">贮藏当前未提交的变更</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git stash</span>
 Saved working directory and index state \
   &quot;WIP on master: 049d078 added the index file&quot;
 HEAD is now at 049d078 added the index file
 (To restore them type &quot;git stash apply&quot;)
-
-# 查看所有的贮藏
-$ git stash list
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">查看所有的贮藏</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git stash list</span>
 stash@{0}: WIP on master: 049d078 added the index file
 stash@{1}: WIP on master: c264051 Revert &quot;added file_size&quot;
 stash@{2}: WIP on master: 21d80a5 added number to log
-
-# 应用最近的贮藏，但不删除它。
-$ git stash apply
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">应用最近的贮藏，但不删除它。</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git stash apply</span>
 On branch master
 Changes not staged for commit:
   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
@@ -177,13 +164,12 @@ Changes not staged for commit:
 	modified:   lib/simplegit.rb
 
 no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-
-# 应用最近的贮藏，并删除它
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">应用最近的贮藏，并删除它</span>
 git stash pop
-
-# 直接删除最近的贮藏
-git stash drop
-</code></pre>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">直接删除最近的贮藏</span>
+git stash drop</span></code></pre>
 <p>当我们应用贮藏时，贮藏中的变更会被应用到当前的工作区，这也可能发生冲突，需要我们手动解决。在上述命令中，我们没有指定要操作的贮藏的名字，所以操作的目标都是最近的贮藏。但我们也可以在操作时，指定 stash 的名字。</p>
 <p>在 vscode 的 git lens 扩展中，我们可以在&quot;Changes&quot;面板中，将当前的变更贮藏（如图 8- 5 所示）：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125144030.png" alt=""></p>
@@ -195,15 +181,13 @@ git stash drop
 <p>.gitignore 文件的每一行都是一个符合 glob pattern<a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob</a> 的字符串匹配模式。被该模式匹配到的文件（或者文件夹），将不会被 git 跟踪。我们可以手动编辑这个文件，但一般地，我们应该使用相关的扩展来协助管理此文件。</p>
 <h3 id="24-与他人同步变更git-push-和-git-pull">2.4. 与他人同步变更：git push 和 git pull</h3>
 <p>前面的操作只是把变更记录在本地的 git 系统中。为了使得这些变更能为他人所见，我们得把这些变更推送到远程仓库中。</p>
-<pre><code class="language-shell">$ git push -u origin main
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git push -u origin main</span></span></code></pre>
 <p>-u 参数是为了将本地的 main 分支与远程的 main 分支关联起来，在以后的推送或者拉取分支时，就可以简化命令：</p>
-<pre><code class="language-bash"># 当我们不指定分支名时，GIT 会使用当前分支
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 当我们不指定分支名时，GIT 会使用当前分支</span>
 $ git push
 
-# 从远程仓库拉取其它人所做的变更
-$ git pull
-</code></pre>
+<span class="hljs-comment"># 从远程仓库拉取其它人所做的变更</span>
+$ git pull</span></code></pre>
 <p>注意，本地仓库与服务器关联的命令（即<code>git remote add</code>）只需要执行一次；而每次创建了新的分支后，都要在第一次往该分支推送变更时，执行<code>git push -u ...</code>这个命令，以便在推送的同时，也完成本地分支与远程分支的绑定。一旦绑定完成，在随后的推送（或者拉取）动作中，就可以省略-u 参数。</p>
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
@@ -217,32 +201,32 @@ $ git pull
 
 <h3 id="25-git-标签">2.5. git 标签</h3>
 <p>随着开发的进行，终有一天，我们会到达某个重要的节点，比如某个版本的完成。此时我们就会给仓库的状态打上标签，方便回溯。这就需要用到 git tag 的一系列命令。</p>
-<pre><code class="language-shell"># 列出所有的标签
-$ git tag
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">列出所有的标签</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git tag</span>
 v0.9
 V1.0
-
-# 有筛选地列出标签
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">有筛选地列出标签</span>
 git tag --list &quot;v1.0.*&quot;
 
 v1.0
-
-# 创建标签：使用-A 选项指定标签名，-M 指定标签的描述文字
-$ git tag -a v1.4 -m &quot;my version 1.4&quot;
-$ git tag
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">创建标签：使用-A 选项指定标签名，-M 指定标签的描述文字</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git tag -a v1.4 -m <span class="hljs-string">&quot;my version 1.4&quot;</span></span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git tag</span>
 v0.9
 v1.0
 v1.4
-
-$ git tag -a v1.5 -m &quot;my version 1.5&quot;
-$ git tag
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git tag -a v1.5 -m <span class="hljs-string">&quot;my version 1.5&quot;</span></span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git tag</span>
 v0.9
 v1.0
 v1.4
 v1.5
-
-# 查看标签信息
-$ git show v1.5
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">查看标签信息</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git show v1.5</span>
 
 tag v1.5
 Tagger: zillionare 
@@ -252,38 +236,32 @@ second
 
 commit 57eb735f513c753e49b2fe3005ccfa9b3412762d (HEAD -&gt; main, tag: v1.4, tag: v1.5, origin/main)
 Author: zillionare 
-Date:   Mon Jan 23 10:19:28 2023 +0800
-</code></pre>
+Date:   Mon Jan 23 10:19:28 2023 +0800</span></code></pre>
 <p>这里我们稍作停顿，解释下标签究竟意味着什么。前面我们说过，创建标签是给仓库的某个状态打上标记的动作。在上面示例中的第 14 行和第 15 行，我们在没有任何新的提交的情况下，连续创建了两个不同的标签。考虑到我们的仓库是一个线性的提交历史，那么这两个标签究竟指向了什么呢？随后，第 23 行的命令输出显示了，这两个标签指向了同一个提交，即 57eb。这两个标签关联的都是 57eb 提交之后的仓库状态。这也说明，标签与提交本身不是一对一的映射，而是多对一的映射。</p>
 <p>既然标签是指向提交的，您可能会想，我们是不是可以为过去的某个状态追加标签？您的猜测是正确的，我们确实可以这样做：</p>
-<pre><code class="language-shell"># 假设我们又向仓库做了若干提交之后，发现需要对&#39;57EB&#39;这个提交打上标签
-git tag -a v1.6 57eb -m &quot;my version 1.6&quot;
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">假设我们又向仓库做了若干提交之后，发现需要对<span class="hljs-string">&#x27;57EB&#x27;</span>这个提交打上标签</span>
+git tag -a v1.6 57eb -m &quot;my version 1.6&quot;</span></code></pre>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 前面讲过，在 git 中，许多对象的标识符都是一个 hash 串。每一次提交的标识符 (commit id) 也是一样，它是基于 SHA-1 算法的一个 40 字节的 hash 串。
 </div>
 
-<pre><code>在刚刚的命令示例中，我们使用了提交 (commit) 的 hash 串的前 4 个字节代替整个 hash 串。在 git 中，我们可以只使用提交的 hash 串的前若干个字节来代替整个 hash 串，只要它是唯一的、并且至少包括 4 个字节。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">在刚刚的命令示例中，我们使用了提交 (commit) 的 <span class="hljs-built_in">hash</span> 串的前 <span class="hljs-number">4</span> 个字节代替整个 <span class="hljs-built_in">hash</span> 串。在 git 中，我们可以只使用提交的 <span class="hljs-built_in">hash</span> 串的前若干个字节来代替整个 <span class="hljs-built_in">hash</span> 串，只要它是唯一的、并且至少包括 <span class="hljs-number">4</span> 个字节。
 
-也许您会感到好奇，如果一个项目足够大，commit id 发生 hash 碰撞的几率就会变大，那么最终我们可能要使用多少个字节，才能唯一地确定一个 hash 串呢？Linux 的内核是一个相当大的 Git 项目，截止 2019 年 2 月止，共记录了超过 875,000 个提交，通过计算得知，最少需要 12 个字符才能保证唯一性。
-</code></pre>
+也许您会感到好奇，如果一个项目足够大，commit <span class="hljs-built_in">id</span> 发生 <span class="hljs-built_in">hash</span> 碰撞的几率就会变大，那么最终我们可能要使用多少个字节，才能唯一地确定一个 <span class="hljs-built_in">hash</span> 串呢？Linux 的内核是一个相当大的 Git 项目，截止 <span class="hljs-number">2019</span> 年 <span class="hljs-number">2</span> 月止，共记录了超过 <span class="hljs-number">875</span>,<span class="hljs-number">000</span> 个提交，通过计算得知，最少需要 <span class="hljs-number">12</span> 个字符才能保证唯一性。</span></code></pre>
 <p>我们前面讲过，几乎所有的 git 操作都是多阶段的，创建 tag 也是一样。当我们执行<code>git tag -a</code>命令时，我们只在本地仓库创建了这个标签，我们仍然需要把它同步到远程服务器上：</p>
-<pre><code class="language-shell"># 一次性地将所有标签推送到远程
-$ git push origin --tags
-
-# 仅推送特定标签
-$ git push origin v1.6
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">一次性地将所有标签推送到远程</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git push origin --tags</span>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">仅推送特定标签</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git push origin v1.6</span></span></code></pre>
 <p>也有可能我们需要删除标签，这也是一个两阶段的操作</p>
-<pre><code># 从本地删除 V1.4 这个标签
-$ git tag -d v1.4
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 从本地删除 V1.4 这个标签</span>
+$ git tag -d v1<span class="hljs-number">.4</span>
 
-# 从远程删除 V1.4 这个标签。这一步可以与上一步独立运行
-$ git push origin --delete v1.4
-</code></pre>
+<span class="hljs-comment"># 从远程删除 V1.4 这个标签。这一步可以与上一步独立运行</span>
+$ git push origin --delete v1<span class="hljs-number">.4</span></span></code></pre>
 <p>标签创建以后，我们使用到该标签的常见操作是检出这个标签指向的文件版本，比如在 CI 服务器上检出这个版本制作构建（build）。此时我们可以使用 git checkout 命令：</p>
-<pre><code class="language-shell">git checkout v1.4
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">git checkout v1.4</span></code></pre>
 <p>如果我们签出某个标签的目的是为了进行修改，注意这种情况下，我们应该为这个检出创建一个新的分支。然后我们就可以在这个工作区里进行修改，再推送到服务器上。如果我们不创建新的分支，而直接对签出到工作区的代码进行修改，会导致仓库处于“分离头指针 (detached HEAD)”的状态。这种状态下，我们可以进行修改，但无法提交，也就是说，这些修改最终会丢失。</p>
 <p>至此，我们基本上接触到了 git 中全部基础的操作。我们学会了如何创建仓库，跟踪变更，提交变更，与远程服务器同步，并且创建标签以记录开发中的重要时刻。当然还有一些查错性质的操作我们没有介绍，比如查看日志 (git log)，读者可以自行了解。另外，在掌握 git 的工作原理之后，我们更倾向于通过图形界面来管理 git 仓库，因此象查看变更历史这样的操作，也应该通过图形界面来查看。</p>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
@@ -312,21 +290,19 @@ $ git push origin --delete v1.4
 <h3 id="31-功能分支-feature-branch">3.1. 功能分支 (Feature branch)</h3>
 <p>功能分支是从 develop 分支上创建出来的，用来开发某个新功能。当功能开发完成时，需要合并回 develop 分支。我们可以使用{{feature_name}}/{{developer}}来命令分支。这里 feature_name 是功能的名字，developer 是团队中负责这个功能的开发者。当然，如果功能只有一个人负责开发，也可以省略 developer 这一部分。</p>
 <p>我们应该这样创建一个功能分支：</p>
-<pre><code>git checkout -b feature_name/developer_name develop
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">git checkout -b feature_name/developer_name develop</span></code></pre>
 <p>在开发的过程中，我们应该及时把变更提交并推送到远程服务器上，以避免代码丢失，也方便其他人进行 code review。当功能开发完成时，我们应该及时把变更从功能分支合并回 develop 分支，并删除功能分支。以下是操作命令示例：</p>
-<pre><code class="language-shell">$ git checkout develop
-Switched to branch &#39;develop&#39;
-
-$ git merge --no-ff myfeature
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git checkout develop</span>
+Switched to branch &#x27;develop&#x27;
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git merge --no-ff myfeature</span>
 Updating ea1b82a..05e9557
 (Summary of changes)
-
-$ git branch -d myfeature
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git branch -d myfeature</span>
 Deleted branch myfeature (was 05e9557).
-
-$ git push origin develop
-</code></pre>
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git push origin develop</span></span></code></pre>
 <p>这里的命令用来描述工作流程，实际上在操作时，我们更倾向于使用 git lens 的图形化界面来操作。注意第 4 行的--no-ff 选项。这个选项的作用是，让我们在 develop 分支上仍然看到一个完整的历史记录，包括曾经存在一个 feature 分支，以及哪些提交构成了一个 feature。下图对比了是否使用该选项的差异：
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230123174246.png" alt=""></p>
 <p>上图中右边的部分显示了一个普通的合并（即没有指定--no-ff 选项），在这里，看不出来哪些提交构成了一个功能（除非检查日志），更不用说 feature 分支的存在了。另外，在右边这种情况下，回滚整个功能也会是令人头疼的事。</p>
@@ -334,36 +310,34 @@ $ git push origin develop
 <p>发布分支 （release branch）用来准备一个新的发布，用以完成正式发布前的每一个细节。这个分支也允许小的补丁和一些 meta-data 的变更（比如版本号，构建日期等）。一旦 release 分支被创建，develop 分支就可以继续开发下一个版本的功能了。当发布完成，需要合并回 develop 分支和 main 分支。分支名一般使用 release-*。</p>
 <p>从 develop 分支迁移到 release 分支应该发生在所有的功能都合并到 develop 之后，而任何不属于此次发布的功能，则绝对不应该在此前进入到 develop 分支。</p>
 <p>只有在 release 分支创建时，我们才应该确定版本号。创建 release 分支的命令是（假设之前的版本是 1.1.5，最新的版本定为 1.2）：</p>
-<pre><code class="language-shell">$ git checkout -b release-1.2 develop
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git checkout -b release-1.2 develop</span>
 Switched to a new branch &quot;release-1.2&quot;
-$ poetry version 1.2
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">poetry version 1.2</span>
 Files modified successfully, version bumped to 1.2.
-$ git commit -a -m &quot;Bumped version number to 1.2&quot;
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git commit -a -m <span class="hljs-string">&quot;Bumped version number to 1.2&quot;</span></span>
 [release-1.2 74d9424] Bumped version number to 1.2
-1 files changed, 1 insertions(+), 1 deletions(-)
-</code></pre>
+1 files changed, 1 insertions(+), 1 deletions(-)</span></code></pre>
 <p>当 release 分支最终稳定下来，可以发布时，我们应该把 release 分支合并到 main 分支，并打上一个 tag。这个 tag 的名字应该和版本号一致（一般以 V 开头）。最后，将 release 分支合并到 develop 分支上，即把所有的变更带入到下一个版本中。</p>
 <p>合并 release 分支到 main 分支的命令是：</p>
-<pre><code class="language-shell">$ git checkout main
-Switched to branch &#39;main&#39;
-
-$ git merge --no-ff release-1.2
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git checkout main</span>
+Switched to branch &#x27;main&#x27;
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git merge --no-ff release-1.2</span>
 Merge made by recursive.
 (Summary of changes)
-
-$ git tag -a 1.2
-
-$ git checkout develop
-Switched to branch &#39;develop&#39;
-
-$ git merge --no-ff release-1.2
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git tag -a 1.2</span>
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git checkout develop</span>
+Switched to branch &#x27;develop&#x27;
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git merge --no-ff release-1.2</span>
 Merge made by recursive.
 (Summary of changes)
-</code></pre>
+</span></code></pre>
 <p>最后，鉴于 release 分支上所有的变更都已合并到了 main 和 develop，因此，我们也没必要保留它了，现在我们应该删除这个分支：</p>
-<pre><code>$ git branch -d release-1.2
-Deleted branch release-1.2 (was ff452fe).
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">$ git branch <span class="hljs-operator">-</span>d <span class="hljs-keyword">release</span><span class="hljs-number">-1.2</span>
+Deleted branch <span class="hljs-keyword">release</span><span class="hljs-number">-1.2</span> (was ff452fe).</span></code></pre>
 <h3 id="33-热修复分支">3.3. 热修复分支</h3>
 <p>热修复分支 (hotfix branch) 从 main 分支上分出来，用来修复线上的 bug。当修复完成，需要合并回 main 分支和 develop 分支。分支名一般使用 hotfix-*。</p>
 <p>热修复分支的主要作用是使得在 develop 分支上的开发者不受影响，而其它人则可以快速修复线上的 bug。具体的操作命令与前面的示例大同小异，这里不再赘述。不过需要提醒的是，我们一样要给 hotfix 分配版本号并打上标签。</p>
@@ -401,11 +375,10 @@ Deleted branch release-1.2 (was ff452fe).
 <p>如果我们使用 git merge 的方法来进行合并，我们将得到下图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125111449.png" alt=""></p>
 <p>我们也可以对 hotfix_533 进行 rebase 操作，使得 c3 的父结点从 c2 变为 c4：</p>
-<pre><code>$ git checkout hotfix_533
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">$ git checkout hotfix_533
 $ git rebase main
-First, rewinding head to replay your work on top of it...
-Applying: added staged command
-</code></pre>
+First, rewinding <span class="hljs-built_in">head</span> to replay your work on top of it...
+Applying: added staged <span class="hljs-built_in">command</span></span></code></pre>
 <p>rebase 更像是一种操作重放，它把 main 分支上在 c2（共同祖先）之后的所有提交，都在 hotfix_533 分支上重新执行了一次，然后在此基础上，应用 c3。最后，我们将 hotfix_533 分支再合并回 main。图 8- 20 反应了两个分支上的变化和最终状态：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125114238.png" alt=""></p>
 <p>与不使用 rebase 相比，进行 rebase 之后，分支历史将不会出现分叉，这样可以使得分支历史更加清晰。</p>
@@ -418,8 +391,8 @@ Applying: added staged command
 <p>在进行代码合并前，我们常常会在不同的分支间进行比较，以便了解两个分支的差异。它也帮助我们在合并之前就发现有哪些合并冲突。</p>
 <p>Git 提供了 git diff 命令来比较两个分支的差异，不仅如此，它还可以比较两个提交之间的差异。我们先简单介绍下 git diff 命令行下的一些用法，然后就跳转到图形化界面。毕竟，图形化界面可以显示出更多的信息。</p>
 <p> 在调用 Git diff 时，显然我们需要给它提供待比较的分支名。这里又有所谓的两点语法和三点语法。前者是两个分支直接比较；后者则会引入共同祖先一起进行比较。</p>
-<pre><code class="language-shell"># 使用两点语法时，显示的是在后一个分支上，而不在前一个分支上的提交
-$ git diff branch1..branch2
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">使用两点语法时，显示的是在后一个分支上，而不在前一个分支上的提交</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git diff branch1..branch2</span>
 diff --git a/file-feature b/file-feature
 new file mode 100644
 index 0000000..add9a1c
@@ -427,10 +400,9 @@ index 0000000..add9a1c
 +++ b/file-feature
 @@ -0,0 +1 @@
 +this is a feature file
-
-# 使用三点语法，显示的是自共同祖先以来的所有提交的去同子集
-$ git diff branch1...branch2
-</code></pre>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">使用三点语法，显示的是自共同祖先以来的所有提交的去同子集</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git diff branch1...branch2</span></span></code></pre>
 <p>现在，我们来看看在 git lens 扩展中，如何比较两个分支。首先，我们在下面的菜单（图 8- 21）中，选择要比较的两个分支：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125121824.png" alt=""></p>
 <p>然后我们在&quot;Search &amp; Compare&quot;面板下，找到对比结果：</p>
@@ -440,38 +412,34 @@ $ git diff branch1...branch2
 <p>前面我们已经接触到了 checkout 命令。这里再介绍一个类似的命令，即 reset。</p>
 <p>要理解 reset 命令，我们需要先回顾下 git 的三棵树模型，即工作区、暂存区 (index) 和 HEAD。reset 命令的作用是将当前分支指向某个提交，同时重置暂存区和工作区，使它们与指定的提交一致。</p>
 <p>假设我们有如下提交历史：</p>
-<pre><code class="language-shell">$ git log --oneline
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git <span class="hljs-built_in">log</span> --oneline</span>
 59b6711 (HEAD -&gt; main) test reset
 4699b9e (origin/main, develop) Initial commit by ppw
-
-$ git status
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git status</span>
 git status
 On branch main
-Your branch is ahead of &#39;origin/main&#39; by 1 commit.
+Your branch is ahead of &#x27;origin/main&#x27; by 1 commit.
   (use &quot;git push&quot; to publish your local commits)
 
-nothing to commit, working tree clean
-</code></pre>
+nothing to commit, working tree clean</span></code></pre>
 <p>我们可以看到，当前共有 1 个未推送的提交，即 59b6711。现在，我们还可以重置这个提交：</p>
-<pre><code class="language-shell"># 重置到上一个提交。注意，这里的 HEAD~表示上一个提交，我们也可以用提交的 HASH 串
-$ git reset --soft HEAD~
-
-$ git status
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">重置到上一个提交。注意，这里的 HEAD~表示上一个提交，我们也可以用提交的 HASH 串</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git reset --soft HEAD~</span>
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git status</span>
 On branch main
-Your branch is up to date with &#39;origin/main&#39;.
+Your branch is up to date with &#x27;origin/main&#x27;.
 
 Changes to be committed:
   (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
-        modified:   README.md
-</code></pre>
+        modified:   README.md</span></code></pre>
 <p>现在，你将在 vscode 的侧边栏的&quot;SOURCE CONTROL&quot;面板的&quot;Staged Changes&quot;类别下，看到出现了 README.md 文件。这相当于取消了 commit 操作。</p>
 <p>现在我们将 README.md 再提交一次，然后再执行 reset 命令：</p>
-<pre><code class="language-shell">$ git reset --mixed HEAD~
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git reset --mixed HEAD~</span></span></code></pre>
 <p>这次，我们使用的参数是 mixed，我们将看到 README.md 文件出现在&quot;Changes&quot;类别下，即相当于取消了 commit 和 add 操作。</p>
 <p>如果我们使用--hard 参数来执行 reset，那么，我们还将取消文件的变更本身：</p>
-<pre><code class="language-shell">$ git reset --hard HEAD~
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git reset --hard HEAD~</span></span></code></pre>
 <p>如果我们不带任何参数，则 reset 将执行一个 mixed 的操作。</p>
 <p>如果我们从图形界面上执行 reset 操作，大概分这么几步。首先，我们找到 COMMITS 面板，然后找到要重置的提交，点击它，选择&quot;undo commit&quot;操作，这相当于执行了一个”reset --soft HEAD~&quot;操作。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125175133.png" alt=""></p>
@@ -486,7 +454,7 @@ Changes to be committed:
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230125171342.png" alt=""></p>
 <p>但是，由于我们已经修复了该错误代码，并且也过去了一段时间，所以该段代码已经从代码中删除了。现在，惟一的线索，就是只知道可能是一个错误的字符串引起了这个 bug。那么，如何通过这个字符串来搜索呢？</p>
 <p>答案是 git log 命令+git blame 命令。</p>
-<pre><code class="language-shell">$ git log -S &quot;hotfix 533&quot; -p --all
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git <span class="hljs-built_in">log</span> -S <span class="hljs-string">&quot;hotfix 533&quot;</span> -p --all</span>
 commit 8e24fd76282a9e876fe3ceed4e95908d4d4300fd (HEAD -&gt; main)
 Author: aaron yang &lt;aaron_yang@jieyu.ai&gt;
 Date:   Wed Jan 25 20:18:30 2023 +0800
@@ -498,7 +466,7 @@ index 8a5ccfb..909d4f6 100644
 --- a/README.md
 +++ b/README.md
 @@ -1,5 +1,6 @@
- # SAMPLE
+<span class="hljs-meta prompt_"> # </span><span class="language-bash">SAMPLE</span>
  
 +this is hotfix 533
  
@@ -516,14 +484,13 @@ index 8a5ccfb..2539c76 100644
 --- a/README.md
 +++ b/README.md
 @@ -1,5 +1,6 @@
- # SAMPLE
+<span class="hljs-meta prompt_"> # </span><span class="language-bash">SAMPLE</span>
  
 +this is hotfix 534, should be conflict with hotfix 533
-</code></pre>
+</span></code></pre>
 <p>共有两个提交包含字符串&quot;hotfix 533&quot;。我们更关心 8e24 这个提交中的变更是谁引入的，于是我们使用 git blame 命令来查看该提交的变更历史：</p>
-<pre><code class="language-shell">$ git blame
-8e24fd76 (aaron yang 2023-01-25 20:18:30 +0800  3) this is hotfix 533
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git blame</span>
+8e24fd76 (aaron yang 2023-01-25 20:18:30 +0800  3) this is hotfix 533</span></code></pre>
 <p>括号内显示了该行代码的提交者和提交时间。接下来我们会去问问他，当时引入这行代码的考虑是什么。</p>
 <h2 id="6-github-和-github-cli">6. Github 和 github cli</h2>
 <p>GitHub 是一个在线软件源代码托管服务平台，使用 Git 作为版本控制软件，由开发者 Chris Wanstrath、P. J. Hyett 和汤姆·普雷斯顿·沃纳使用 Ruby on Rails 编写而成。Github 开始于 2007 年 10 月 1 日， 2008 年 4 月正式上线。在 2018 年，GitHub 被微软公司收购。</p>
@@ -539,29 +506,25 @@ index 8a5ccfb..2539c76 100644
 <p>这些 API，使得我们可以通过 curl 来完成上述功能。Github 还基于这些 API，开发了一个命令行工具，github cli，简称 gh。</p>
 <h3 id="61-安装">6.1. 安装</h3>
 <p>在 mac 下安装 gh，可以使用 brew 安装：</p>
-<pre><code class="language-shell">$ brew install gh
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">brew install gh</span></span></code></pre>
 <p>在 linux 和 bsd 下安装，如果是 Debian, Ubuntu Linux, Raspberry Pi OS 等基于 apt 的系统，可以使用 apt 安装：</p>
-<pre><code class="language-shell">type -p curl &gt;/dev/null || sudo apt install curl -y
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">type -p curl &gt;/dev/null || sudo apt install curl -y
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
 &amp;&amp; sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
 &amp;&amp; echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main&quot; | sudo tee /etc/apt/sources.list.d/github-cli.list &gt; /dev/null \
 &amp;&amp; sudo apt update \
-&amp;&amp; sudo apt install gh -y
-</code></pre>
+&amp;&amp; sudo apt install gh -y</span></code></pre>
 <p>如果是 Fedora, CentOS, Red Hat Enterprise Linux 这些操作系统，可以使用 dnf:</p>
-<pre><code class="language-shell">$ sudo dnf install &#39;dnf-command(config-manager)&#39;
-$ sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-$ sudo dnf install gh
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> dnf install <span class="hljs-string">&#x27;dnf-command(config-manager)&#x27;</span></span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">sudo</span> dnf install gh</span></span></code></pre>
 <p>如果您使用的操作系统不在此列，可以参考 <a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md">installing gh on Linux and BSD</a> 这篇文章。</p>
 <p>如果是 windows，可以通过 winget, scoop, Chocolatey 等包管理工具安装，也可以直接下载 <a href="https://github.com/cli/cli/releases/tag/v2.22.0">安装包</a> 安装。</p>
 <p>最后，如果在所有的操作系统上，如果您已经安装了 conda，则也可以通过 conda 来安装：</p>
-<pre><code class="language-shell">$ conda install -c conda-forge gh
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda install -c conda-forge gh</span></span></code></pre>
 <h3 id="62-github-cli-的主要命令">6.2. Github cli 的主要命令</h3>
 <p>Github cli 的主要命令有：</p>
-<pre><code class="language-txt">auth:        完成 gh 和 git 在 github 上的鉴权
+<pre><code class="hljs language-txt"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body">auth:        完成 gh 和 git 在 github 上的鉴权
 codespace:   连接并管理 codespace
 gist:        管理 gists，主要是增删改查的一些动作
 issue:       管理 issue，包括查看、编辑、评论、关闭和重新打开、移交等 16 个子命令
@@ -577,10 +540,9 @@ label:       管理仓库中跟 issue 相关的标签。
 search:      搜索仓库，issue 和 pr。用法举例：搜索 python 主题下点赞数最多的仓库。
 secret:      管理跟仓库关联的一些机密信息
 ssh-key:     管理 ssh 秘钥
-status:      显示本账号关联的 issue，pr 状态和最近的活动
-</code></pre>
+status:      显示本账号关联的 issue，pr 状态和最近的活动</span></code></pre>
 <p>除上面的命令之外，我们还要专门介绍 api 这个命令。它可以用来发起一个 Github API 请求，因为 gh 已经鉴权了，所以这个请求可以免鉴权。gh 支持的命令是有限的，通过 api 这个命令，我们就可以对 gh 进行扩展，比如，要获取 Github 用户列表：</p>
-<pre><code class="language-shell">$ gh api users
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">gh api <span class="hljs-built_in">users</span></span>
 [
   {
     &quot;login&quot;: &quot;mojombo&quot;,
@@ -623,21 +585,19 @@ status:      显示本账号关联的 issue，pr 状态和最近的活动
     &quot;site_admin&quot;: false
   },
   ...
-]
-</code></pre>
+]</span></code></pre>
 <h3 id="63-github-cli-应用举例">6.3. Github cli 应用举例</h3>
 <p>Github cli 可以方便我们对账户和仓库执行一些自动化的操作。在 ppw 创建的项目中，有一个名为 repo.sh 的脚本，这里面就使用了 Github cli。</p>
 <p>当 ppw 生成了框架代码之后，我们需要把它提交到 Github 上去。由于此时 Github 上还没有这个仓库，我们必须等用户手动创建，因此这个提交也没法自动化。当我们使用了 Github cli 之后，这个问题就解决了：</p>
-<pre><code class="language-shell"># 调用 GH 命令创建仓库
-$ gh repo create sample --public
-
-# 由于仓库是 GH 创建的，因此脚本就知道远程服务器 URL
-$ git remote add origin git@github.com:zillionare/sample.git
-
-$ git remote add origin git@github.com:zillionare/sample.git
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-meta prompt_"># </span><span class="language-bash">调用 GH 命令创建仓库</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">gh repo create sample --public</span>
+<span class="hljs-meta prompt_">
+# </span><span class="language-bash">由于仓库是 GH 创建的，因此脚本就知道远程服务器 URL</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">git remote add origin git@github.com:zillionare/sample.git</span>
+<span class="hljs-meta prompt_">
+$ </span><span class="language-bash">git remote add origin git@github.com:zillionare/sample.git</span></span></code></pre>
 <p>另外，通过 Github 的 web 界面来设置仓库的一些机密信息比较繁琐，耗时较长。假设你管理了 10 个以上的仓库，还要定期更换这些机密信息的话就更是如此。我们可以通过 gh secret 命令来解决这个问题。下面的代码摘录自 repo.sh：</p>
-<pre><code class="language-shell">gh secret set PERSONAL_TOKEN --body $GH_TOKEN
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">gh secret set PERSONAL_TOKEN --body $GH_TOKEN
 gh secret set PYPI_API_TOKEN --body $PYPI_API_TOKEN
 gh secret set TEST_PYPI_API_TOKEN --body $TEST_PYPI_API_TOKEN
 
@@ -645,8 +605,7 @@ gh secret set BUILD_NOTIFY_MAIL_SERVER --body $BUILD_NOTIFY_MAIL_SERVER
 gh secret set BUILD_NOTIFY_MAIL_PORT --body $BUILD_NOTIFY_MAIL_PORT
 gh secret set BUILD_NOTIFY_MAIL_FROM --body $BUILD_NOTIFY_MAIL_FROM
 gh secret set BUILD_NOTIFY_MAIL_PASSWORD --body $BUILD_NOTIFY_MAIL_PASSWORD
-gh secret set BUILD_NOTIFY_MAIL_RCPT --body $BUILD_NOTIFY_MAIL_RCPT
-</code></pre>
+gh secret set BUILD_NOTIFY_MAIL_RCPT --body $BUILD_NOTIFY_MAIL_RCPT</span></code></pre>
 <p>在 ppw 生成的项目中，当 CI 运行时，需要有 pypi 和 test.pypi 的 API key, 发布文档时需要 Github 的 API key, 以及 CI 完成时，需要发送邮件通知，这需要配置相关服务器信息及发件人、收件人信息等诸多敏感信息。</p>
 <p>通过上述脚本，我们把当前宿主机上的环境变量导入到了仓库的机密信息中，这样在 Github actions 中就可以直接使用了。这个过程中，我们既保证了方便，又保证了机密信息的安全性。</p>
 <div style="width:70%;height:380px">

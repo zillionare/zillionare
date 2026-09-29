@@ -22,10 +22,9 @@
 它的开发者是陈天奇，上海交大ACM班06级毕业，华盛顿大学博士。现任卡内基.梅隆大学助理教授。
 </div>
 
-<pre><code>除了XgBoost，他还是MXNet的开发者，这个框架是一度与Tensorflow, Pytorch等齐名的四大深度学习框架之一。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">除了XgBoost，他还是MXNet的开发者，这个框架是一度与Tensorflow, Pytorch等齐名的四大深度学习框架之一。
 &lt;br&gt;&lt;br&gt;
-题图即为卡内基.梅隆大学校园。陈天奇现在任教于此。
-</code></pre>
+题图即为卡内基.梅隆大学校园。陈天奇现在任教于此。</span></code></pre>
 <p>在上一篇文章中，我们提到机器学习总是把要解决的问题归类为两类，一类是回归，一类是分类。如果要预测的target取值处在连续实数域上，这往往是个回归问题；如果target的值域为有限个离散状态，则是一个分类问题。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/regression-vs-classification.jpg" alt=""></p>
 <p>然而，具体问题总是复杂许多。初学者会觉得，既然股价的取值是在连续实数域上，因此可以把它看成回归问题，使用类似LSTM之类的神经网络来预测股价。但实际上由于金融数据的噪声问题，这么做并没有什么道理。</p>
@@ -33,8 +32,7 @@
 <p>如果我们要构建时序方向上的预测信号呢？很可能只能用我这里的方法，不去预测每一个bar的涨跌和价格，而是改为预测顶和底，最终实现买在底部，卖出在顶部。</p>
 <h2 id="安装xgboost">安装XgBoost</h2>
 <p>我们一般通过conda来安装它的Python包，但pip（需要版本在21.3以上）也是可以的。</p>
-<pre><code class="language-bash">conda install -c conda-forge py-xgboost
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">conda install -c conda-forge py-xgboost</span></code></pre>
 <p>在Windows上安装时，还需要额外安装VC的分发包。</p>
 <p>如果你的机器安装有支持cuda的GPU，那么conda会自动安装带GPU支持的xgboost。</p>
 <p>不过，GPU对xgboost的加速并没有对CNN这样的神经网络那么明显。也就是说，即使有GPU，xgboost也只会在某些阶段利用到GPU加速，总体上可能会快几倍而已。考虑到我们的标注数据本身比较小，这个加速并不重要。</p>
@@ -46,30 +44,29 @@
 <p>他们的结论是，根据这两类指标的变种tr得到的综合因子，在2009到2020年4月，以全A为样本，进行5组分层多空测试，得到<strong>年化收益为15.86%，最大回撤仅为3.68%</strong>，可以说具有非常明显的信号意义。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/%E4%B8%9C%E5%90%B4%E8%AF%81%E5%88%B8-ubl-%E5%9B%A0%E5%AD%90%E8%A1%A8%E7%8E%B0.jpg" alt="66%"></p>
 <p>基于这个基础，我们改用机器学习的方法来做一遍。我们用来提取上下影线和WR的方法如下：</p>
-<pre><code class="language-python">def wr_up(bars):
-    h, c, l = bars[&quot;high&quot;], bars[&quot;low&quot;], bars[&quot;close&quot;]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">wr_up</span>(<span class="hljs-params">bars</span>):
+    h, c, l = bars[<span class="hljs-string">&quot;high&quot;</span>], bars[<span class="hljs-string">&quot;low&quot;</span>], bars[<span class="hljs-string">&quot;close&quot;</span>]
     shadow = h - c
 
-    # 技巧：避免产生除零错误，且不影响结果正确
-    return shadow/(h - l + 1e-7)
+    <span class="hljs-comment"># 技巧：避免产生除零错误，且不影响结果正确</span>
+    <span class="hljs-keyword">return</span> shadow/(h - l + <span class="hljs-number">1e-7</span>)
 
-def wr_down(bars):
-    h, c, l = bars[&quot;high&quot;], bars[&quot;low&quot;], bars[&quot;close&quot;]
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">wr_down</span>(<span class="hljs-params">bars</span>):
+    h, c, l = bars[<span class="hljs-string">&quot;high&quot;</span>], bars[<span class="hljs-string">&quot;low&quot;</span>], bars[<span class="hljs-string">&quot;close&quot;</span>]
     shadow = c - l
-    return shadow/(h - l + 1e-7)
+    <span class="hljs-keyword">return</span> shadow/(h - l + <span class="hljs-number">1e-7</span>)
 
-def upper_shadow(bars):
-    h, c, l = bars[&quot;high&quot;], bars[&quot;low&quot;], bars[&quot;close&quot;]
-    o = bars[&quot;open&quot;]
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">upper_shadow</span>(<span class="hljs-params">bars</span>):
+    h, c, l = bars[<span class="hljs-string">&quot;high&quot;</span>], bars[<span class="hljs-string">&quot;low&quot;</span>], bars[<span class="hljs-string">&quot;close&quot;</span>]
+    o = bars[<span class="hljs-string">&quot;open&quot;</span>]
     shadow = h - np.maximum(o, c)
-    return shadow/(h - l + 1e-7)
+    <span class="hljs-keyword">return</span> shadow/(h - l + <span class="hljs-number">1e-7</span>)
 
-def lower_shadow(bars):
-    h, c, l = bars[&quot;high&quot;], bars[&quot;low&quot;], bars[&quot;close&quot;]
-    o = bars[&quot;open&quot;]
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">lower_shadow</span>(<span class="hljs-params">bars</span>):
+    h, c, l = bars[<span class="hljs-string">&quot;high&quot;</span>], bars[<span class="hljs-string">&quot;low&quot;</span>], bars[<span class="hljs-string">&quot;close&quot;</span>]
+    o = bars[<span class="hljs-string">&quot;open&quot;</span>]
     shadow = np.minimum(o, c) - l
-    return shadow/(h - l + 1e-7)
-</code></pre>
+    <span class="hljs-keyword">return</span> shadow/(h - l + <span class="hljs-number">1e-7</span>)</span></code></pre>
 <p>xgboost是基于树模型的，对数据的正则化本来没有要求，不过，为了便于分析和对比，我们对这四个指标都进行了归一化处理，使得数据的取值都在[0,1]之间。</p>
 <p>如果是上下影线，值为0.5时，表明影线占了当天振幅的一半高度。如果为1，则当天收T线或者倒T(也称为墓碑线)。</p>
 <p>William&#39;s R 是美国作家（不要脸一下，就是博主这一类型）、股市投资家拉里.威廉在1973年出版的《我如何赚得一百万》中首先发表的一个振荡类指标，它的公式是：</p>
@@ -80,58 +77,52 @@ $$</p>
 <p>n是区间长度，一般设置为14天。这样$H_n$即为14天以来的最高价。其它变量依次类推。如果我们把n设置为1天，就回归成类似于上下影线的一个指标。</p>
 <p>与K线上下影计算方法不同之处是，它只使用收盘价，而不是像上下影线那样，使用收盘价与开盘价的最大者（计算上影线时）或者最小者（计算下影线时）。</p>
 <p>这里还有一些技巧，比如我们使用了numpy的ufunc之一, maximum来挑选开盘价和收盘价中的最大者。另一个显而易见的方法是：</p>
-<pre><code class="language-python">np.select([c&gt;o, o&lt;c], [c, o])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">np.select([c&gt;o, o&lt;c], [c, o])</span></code></pre>
 <p>但此处使用ufunc会得到加速。</p>
 <p>接下来，我们就可以构建训练数据集了：</p>
-<pre><code class="language-python">data = {
-    &quot;label&quot;: raw[&quot;flag&quot;].values,
-    &quot;data&quot;: np.vstack(
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">data = {
+    <span class="hljs-string">&quot;label&quot;</span>: raw[<span class="hljs-string">&quot;flag&quot;</span>].values,
+    <span class="hljs-string">&quot;data&quot;</span>: np.vstack(
         (wr_up(bars), 
          wr_down(bars), 
          upper_shadow(bars), 
          lower_shadow(bars)
         )
         ).T
-}
-</code></pre>
+}</span></code></pre>
 <p>bars是numpy structured array, 包含了OHLC数据和flag，由之前的raw变量转换过来。</p>
 <p>最终我们生成了一个字典，训练数据存放在&quot;data&quot;下，标签数据存放在&quot;label&quot;下。使用了np.vstack来将特征合并起来。这些函数在《量化交易中的Numpy与Pandas》课程中有讲解。</p>
 <p>接下来，我们引入sklearn的中的方法，将上述数据集切分为训练集和测试集，然后进行训练：</p>
-<pre><code class="language-python">from sklearn.model_selection import train_test_split
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
 
 X_train, X_test, y_train, y_test = 
-                train_test_split(..., test_size=.2)
-</code></pre>
+                train_test_split(..., test_size=<span class="hljs-number">.2</span>)</span></code></pre>
 <p>我们保留了20%的数据作为测试数据。</p>
-<pre><code class="language-python">bst = XGBClassifier(n_estimators=3, max_depth=2, learning_rate=0.5)
-# fit model
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">bst = XGBClassifier(n_estimators=<span class="hljs-number">3</span>, max_depth=<span class="hljs-number">2</span>, learning_rate=<span class="hljs-number">0.5</span>)
+<span class="hljs-comment"># fit model</span>
 bst.fit(X_train, y_train)
-# make predictions
-preds = bst.predict(X_test)
-</code></pre>
+<span class="hljs-comment"># make predictions</span>
+preds = bst.predict(X_test)</span></code></pre>
 <p>现在，训练完成，并且我们在测试数据集上进行了预测。接下来，我们希望知道这个模型的有效性。为此我们要引入sklearn.metrics中的一些度量方法：</p>
-<pre><code class="language-python">from sklearn.metrics import *
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> *
 
 acc = accuracy_score(y_test,preds)
-print(f&quot;ACC: {acc:.3f}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;ACC: <span class="hljs-subst">{acc:<span class="hljs-number">.3</span>f}</span>&quot;</span>)
 
-recall = recall_score(y_test,preds, average=&#39;weighted&#39;)
-print(f&quot;Recall:{recall:.1%}&quot;)
+recall = recall_score(y_test,preds, average=<span class="hljs-string">&#x27;weighted&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Recall:<span class="hljs-subst">{recall:<span class="hljs-number">.1</span>%}</span>&quot;</span>)
 
-f1 = f1_score(y_test,preds, average=&#39;weighted&#39;)
-print(f&quot;F1-score: {f1:.1%}&quot;)
+f1 = f1_score(y_test,preds, average=<span class="hljs-string">&#x27;weighted&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;F1-score: <span class="hljs-subst">{f1:<span class="hljs-number">.1</span>%}</span>&quot;</span>)
 
-pre = precision_score(y_test,preds, average=&#39;weighted&#39;)
-print(f&quot;Precesion:{pre:.1%}&quot;)
-mx = confusion_matrix(y_test,preds)
-</code></pre>
+pre = precision_score(y_test,preds, average=<span class="hljs-string">&#x27;weighted&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Precesion:<span class="hljs-subst">{pre:<span class="hljs-number">.1</span>%}</span>&quot;</span>)
+mx = confusion_matrix(y_test,preds)</span></code></pre>
 <p>我们得到的结果看上去很完美：</p>
-<pre><code class="language-bash">ACC: 0.930
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">ACC: 0.930
 Recall:93.0%
 F1-score: 89.6%
-Precesion:86.5%
-</code></pre>
+Precesion:86.5%</span></code></pre>
 <p>但是，这些数据能表明模型真的有效吗？幸福会不会来得太容易？所以，我们还得往下深挖一层，看看实际的预测效果究竟如何。在分析大量样本预测结果时，我们有一个利器，称为困惑矩阵（confusion matrix）。</p>
 <hr>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
@@ -139,9 +130,8 @@ Precesion:86.5%
 </div>
 
 <p>我们要将矩阵mx可视化。人类，无论男人还是女人，都是视觉动物。我们无可救药地偏好各种色图。</p>
-<pre><code class="language-python">sns.heatmap(mx/np.sum(mx), cmap=&quot;YlGnBu&quot;, 
-            annot=True, fmt=&quot;.1%&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">sns.heatmap(mx/np.<span class="hljs-built_in">sum</span>(mx), cmap=<span class="hljs-string">&quot;YlGnBu&quot;</span>, 
+            annot=<span class="hljs-literal">True</span>, fmt=<span class="hljs-string">&quot;.1%&quot;</span>)</span></code></pre>
 <p>我们会得到这样一张图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/confustion-matrix.jpg" alt="50%"></p>
 <p>这张图表明：大约有3.8%的0类数据，被错误分类为标签1；大约有3.2%的2类数据，被错误地分类为标签1；所有的1类数据，都正确地分类为1。</p>

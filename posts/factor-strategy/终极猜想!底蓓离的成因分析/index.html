@@ -43,43 +43,40 @@
 <p>RSI是反转指标。它只能以一定概率给出会不会反转，但你不应该指望它给出趋势延续的预测。那是趋势类指标的任务。最重要的趋势类指标，莫过于判断均线的斜率，如果线性回归误差在可接受范围以内的话。在回归误差较大而失效的情况下，课程中也给出了一个非常鲁棒的方法。</p>
 <p>我们还是拿数据验证一下：</p>
 <hr>
-<pre><code class="language-python"># 日线2月27日、3月18日顶背离，前者RSI 78.3,后者RSI 77.7
-dclose = dbars[&quot;close&quot;].astype(np.float64)
-drsi = ta.RSI(dclose, 6)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-comment"># 日线2月27日、3月18日顶背离，前者RSI 78.3,后者RSI 77.7</span>
+dclose = dbars[<span class="hljs-string">&quot;close&quot;</span>].astype(np.float64)
+drsi = ta.RSI(dclose, <span class="hljs-number">6</span>)
 
-for dt in (datetime.date(2024, 2, 27), 
-           datetime.date(2024, 3, 18)):
-    mask = dbars[&quot;frame&quot;] == np.datetime64(dt)
-    i = np.flatnonzero(mask)[0]
-    print(dt, dclose[i], drsi[i])
+<span class="hljs-keyword">for</span> dt <span class="hljs-keyword">in</span> (datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">27</span>), 
+           datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">3</span>, <span class="hljs-number">18</span>)):
+    mask = dbars[<span class="hljs-string">&quot;frame&quot;</span>] == np.datetime64(dt)
+    i = np.flatnonzero(mask)[<span class="hljs-number">0</span>]
+    <span class="hljs-built_in">print</span>(dt, dclose[i], drsi[i])
 
-# --- output ---
-# 2024-02-27 5394.03 78.3
-# 2024-03-18 5648.01 77.7
-</code></pre>
+<span class="hljs-comment"># --- output ---</span>
+<span class="hljs-comment"># 2024-02-27 5394.03 78.3</span>
+<span class="hljs-comment"># 2024-03-18 5648.01 77.7</span></span></code></pre>
 <p>从数据看出，尽管日线价格在上涨，但RSI却下降了，构成了日线顶背离。</p>
 <p>接着看周线：</p>
-<pre><code class="language-python"># 周线rsi前高出现于2023年11月17日，数值为60.5
-wclose = wbars[&quot;close&quot;].astype(np.float64).copy()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 周线rsi前高出现于2023年11月17日，数值为60.5</span>
+wclose = wbars[<span class="hljs-string">&quot;close&quot;</span>].astype(np.float64).copy()
 
-nov_17 = np.datetime64(datetime.date(2023,11, 17))
-i = np.flatnonzero(wbars[&quot;frame&quot;] == nov_17)[0]
+nov_17 = np.datetime64(datetime.date(<span class="hljs-number">2023</span>,<span class="hljs-number">11</span>, <span class="hljs-number">17</span>))
+i = np.flatnonzero(wbars[<span class="hljs-string">&quot;frame&quot;</span>] == nov_17)[<span class="hljs-number">0</span>]
 
-rsi = np.round(ta.RSI(wclose, 6), 1)
-rsi[i]
-</code></pre>
+rsi = np.<span class="hljs-built_in">round</span>(ta.RSI(wclose, <span class="hljs-number">6</span>), <span class="hljs-number">1</span>)
+rsi[i]</span></code></pre>
 <hr>
 <p>前高为60.5。这里有一个<strong>技巧</strong>，如果没看明白，可以给我留言：</p>
-<pre><code class="language-python"># 3月22日，周线rsi数值盘中突破 61.9，高于前高60.5，触发回调
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-comment"># 3月22日，周线rsi数值盘中突破 61.9，高于前高60.5，触发回调</span>
 
-mar_22 = np.datetime64(datetime.date(2024, 3, 22))
-i = np.flatnonzero(wbars[&quot;frame&quot;] == mar_22)[0]
+mar_22 = np.datetime64(datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">3</span>, <span class="hljs-number">22</span>))
+i = np.flatnonzero(wbars[<span class="hljs-string">&quot;frame&quot;</span>] == mar_22)[<span class="hljs-number">0</span>]
 
-wclose[i] = wbars[&quot;high&quot;][i]
+wclose[i] = wbars[<span class="hljs-string">&quot;high&quot;</span>][i]
 
-rsi = ta.RSI(wclose.astype(np.float64), 6)
-rsi[i]
-</code></pre>
+rsi = ta.RSI(wclose.astype(np.float64), <span class="hljs-number">6</span>)
+rsi[i]</span></code></pre>
 <p>rsi后高为61.9，因此触发回调，并且这个阻力得到了确认。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 注意这里rsi没有到70就回调了。所以，你看到的所有关于RSI的教科书，都该改改了。是不存在 one size fits all。不同的标的、不同的周期以及不同的阶段，应该有不同的参数。这些参数应该可以通过量化程序（或者机器学习）计算出自适应的值。

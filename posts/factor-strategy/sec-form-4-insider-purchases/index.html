@@ -187,72 +187,70 @@
 <!--PAID CONTENT START-->
 
 <p>以下是获取数据示例代码，这里为提高效率，我们还进行了数据缓存:</p>
-<pre><code class="language-python">from pathlib import Path
-import tempfile
-import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+<span class="hljs-keyword">import</span> tempfile
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-import tushare as ts
+<span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
 
 pro = ts.pro_api()
 
-# cell 2：数据获取 + 缓存（stk_holdertrade 单次调用上限 3000 行，必须分片）
-# ---- 数据跨度开关（调试用）----
-# SAMPLE_YEARS = 0   → 用全部近 FULL_YEARS(7) 年（正式结论）
-# SAMPLE_YEARS = 1   → 只用最近 1 年（调试跑通逻辑，快）
-# 调通后把 SAMPLE_YEARS 设回 0 即可跑全量。
-FULL_YEARS = 7
-SAMPLE_YEARS = 0   # ← 正式：0（7 年全量）；调试可改 1（仅 1 年，速跑通）
+<span class="hljs-comment"># cell 2：数据获取 + 缓存（stk_holdertrade 单次调用上限 3000 行，必须分片）</span>
+<span class="hljs-comment"># ---- 数据跨度开关（调试用）----</span>
+<span class="hljs-comment"># SAMPLE_YEARS = 0   → 用全部近 FULL_YEARS(7) 年（正式结论）</span>
+<span class="hljs-comment"># SAMPLE_YEARS = 1   → 只用最近 1 年（调试跑通逻辑，快）</span>
+<span class="hljs-comment"># 调通后把 SAMPLE_YEARS 设回 0 即可跑全量。</span>
+FULL_YEARS = <span class="hljs-number">7</span>
+SAMPLE_YEARS = <span class="hljs-number">0</span>   <span class="hljs-comment"># ← 正式：0（7 年全量）；调试可改 1（仅 1 年，速跑通）</span>
 
-YEARS = FULL_YEARS if SAMPLE_YEARS == 0 else SAMPLE_YEARS
-END_DATE = pd.Timestamp.today().strftime(&quot;%Y%m%d&quot;)
-START_DATE = (pd.Timestamp.today() - pd.DateOffset(years=YEARS)).strftime(&quot;%Y%m%d&quot;)
+YEARS = FULL_YEARS <span class="hljs-keyword">if</span> SAMPLE_YEARS == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> SAMPLE_YEARS
+END_DATE = pd.Timestamp.today().strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+START_DATE = (pd.Timestamp.today() - pd.DateOffset(years=YEARS)).strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
 
-# 缓存目录：使用系统临时目录，保证任何环境（无需 .runtime）都能直接运行
-def runtime_dir():
-    return Path(tempfile.gettempdir()) / &quot;sec-form4-insider-purchases&quot;
+<span class="hljs-comment"># 缓存目录：使用系统临时目录，保证任何环境（无需 .runtime）都能直接运行</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">runtime_dir</span>():
+    <span class="hljs-keyword">return</span> Path(tempfile.gettempdir()) / <span class="hljs-string">&quot;sec-form4-insider-purchases&quot;</span>
 
 RUNTIME_DIR = runtime_dir()
-RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
-CACHE = RUNTIME_DIR / f&quot;holder_data_{YEARS}y.parquet&quot;   # 缓存按年份命名，避免调试/正式误用
-print(f&quot;缓存目录：{RUNTIME_DIR}&quot;)
-print(f&quot;数据范围：{START_DATE} ~ {END_DATE}（{&#39;近 7 年&#39; if SAMPLE_YEARS == 0 else f&#39;调试模式：仅 {YEARS} 年&#39;}）&quot;)
-</code></pre>
+RUNTIME_DIR.mkdir(parents=<span class="hljs-literal">True</span>, exist_ok=<span class="hljs-literal">True</span>)
+CACHE = RUNTIME_DIR / <span class="hljs-string">f&quot;holder_data_<span class="hljs-subst">{YEARS}</span>y.parquet&quot;</span>   <span class="hljs-comment"># 缓存按年份命名，避免调试/正式误用</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;缓存目录：<span class="hljs-subst">{RUNTIME_DIR}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;数据范围：<span class="hljs-subst">{START_DATE}</span> ~ <span class="hljs-subst">{END_DATE}</span>（<span class="hljs-subst">{<span class="hljs-string">&#x27;近 7 年&#x27;</span> <span class="hljs-keyword">if</span> SAMPLE_YEARS == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">f&#x27;调试模式：仅 <span class="hljs-subst">{YEARS}</span> 年&#x27;</span>}</span>）&quot;</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!--PAID CONTENT START-->
 
 <p>通过以下方法，获取 tushare 数据并利用缓存。</p>
-<pre><code class="language-python"># cell 2b：数据获取（含 begin_date/close_date 字段，用于披露滞后判断）
-# 调试开关：DEBUG_YEARS=1 只拉 1 年（快）；=0 用 cell 2 的 SAMPLE_YEARS 决定（正式 7 年）
-DEBUG_YEARS = 0  # ← 正式：0（7 年全量）；调试：1（1 年）
-_EFFECTIVE_YEARS = DEBUG_YEARS if DEBUG_YEARS else YEARS
-_CACHE = RUNTIME_DIR / f&quot;holder_data_{_EFFECTIVE_YEARS}y_v2.parquet&quot;  # v2: 含 begin/close 字段
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span></span><span class="cl-body"><span class="hljs-comment"># cell 2b：数据获取（含 begin_date/close_date 字段，用于披露滞后判断）</span>
+<span class="hljs-comment"># 调试开关：DEBUG_YEARS=1 只拉 1 年（快）；=0 用 cell 2 的 SAMPLE_YEARS 决定（正式 7 年）</span>
+DEBUG_YEARS = <span class="hljs-number">0</span>  <span class="hljs-comment"># ← 正式：0（7 年全量）；调试：1（1 年）</span>
+_EFFECTIVE_YEARS = DEBUG_YEARS <span class="hljs-keyword">if</span> DEBUG_YEARS <span class="hljs-keyword">else</span> YEARS
+_CACHE = RUNTIME_DIR / <span class="hljs-string">f&quot;holder_data_<span class="hljs-subst">{_EFFECTIVE_YEARS}</span>y_v2.parquet&quot;</span>  <span class="hljs-comment"># v2: 含 begin/close 字段</span>
 
-def fetch_holdertrade_all(start=None, end=None, chunk=&quot;3M&quot;):
-    start = start or (pd.Timestamp.today() - pd.DateOffset(years=_EFFECTIVE_YEARS)).strftime(&quot;%Y%m%d&quot;)
-    end = end or pd.Timestamp.today().strftime(&quot;%Y%m%d&quot;)
-    if _CACHE.exists():
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_holdertrade_all</span>(<span class="hljs-params">start=<span class="hljs-literal">None</span>, end=<span class="hljs-literal">None</span>, chunk=<span class="hljs-string">&quot;3M&quot;</span></span>):
+    start = start <span class="hljs-keyword">or</span> (pd.Timestamp.today() - pd.DateOffset(years=_EFFECTIVE_YEARS)).strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+    end = end <span class="hljs-keyword">or</span> pd.Timestamp.today().strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+    <span class="hljs-keyword">if</span> _CACHE.exists():
         df = pd.read_parquet(_CACHE)
-        if &quot;close_date&quot; in df.columns:  # 字段齐全才复用，否则重拉
-            return df
-    # 按季度分片，绕过单次 3000 行上限；显式请求 begin_date/close_date（默认不返回）
-    fields = &quot;ts_code,ann_date,holder_name,holder_type,in_de,change_vol,change_ratio,after_share,after_ratio,avg_price,total_share,begin_date,close_date&quot;
-    idx = pd.date_range(start, end, freq=chunk).strftime(&quot;%Y%m%d&quot;).tolist()
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;close_date&quot;</span> <span class="hljs-keyword">in</span> df.columns:  <span class="hljs-comment"># 字段齐全才复用，否则重拉</span>
+            <span class="hljs-keyword">return</span> df
+    <span class="hljs-comment"># 按季度分片，绕过单次 3000 行上限；显式请求 begin_date/close_date（默认不返回）</span>
+    fields = <span class="hljs-string">&quot;ts_code,ann_date,holder_name,holder_type,in_de,change_vol,change_ratio,after_share,after_ratio,avg_price,total_share,begin_date,close_date&quot;</span>
+    idx = pd.date_range(start, end, freq=chunk).strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>).tolist()
     idx.append(end)
     frames = []
-    for a, b in zip(idx, idx[1:]):
+    <span class="hljs-keyword">for</span> a, b <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(idx, idx[<span class="hljs-number">1</span>:]):
         df = pro.stk_holdertrade(start_date=a, end_date=b, fields=fields)
-        if df is not None and not df.empty:
+        <span class="hljs-keyword">if</span> df <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> df.empty:
             frames.append(df)
     out = pd.concat(frames).drop_duplicates()
     out.to_parquet(_CACHE)
-    return out
+    <span class="hljs-keyword">return</span> out
 
 raw = fetch_holdertrade_all()
-print(f&quot;原始记录：{len(raw)} 行（调试 {_EFFECTIVE_YEARS} 年，v2 含 begin/close 字段）&quot;)
-print(&quot;字段含 begin_date/close_date:&quot;, &quot;begin_date&quot; in raw.columns and &quot;close_date&quot; in raw.columns)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;原始记录：<span class="hljs-subst">{<span class="hljs-built_in">len</span>(raw)}</span> 行（调试 <span class="hljs-subst">{_EFFECTIVE_YEARS}</span> 年，v2 含 begin/close 字段）&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;字段含 begin_date/close_date:&quot;</span>, <span class="hljs-string">&quot;begin_date&quot;</span> <span class="hljs-keyword">in</span> raw.columns <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;close_date&quot;</span> <span class="hljs-keyword">in</span> raw.columns)</span></code></pre>
 <p>通过上述代码，我们把 [START_DATE, END_DATE] 区间的所有增减持记录获取下来，保存为 parquet 缓存文件，后续调试无需再调用 Tushare。</p>
 <!--PAID CONTENT END-->
 
@@ -283,38 +281,37 @@ print(&quot;字段含 begin_date/close_date:&quot;, &quot;begin_date&quot; in ra
 <!--PAID CONTENT START-->
 
 <p>以下代码构造买入信号：</p>
-<pre><code class="language-python"># cell 3：构造&quot;买入信号&quot;（映射 Form 4 漏斗的简化版，保留全部信号）
-# 按前文结论：只取 ann_date - close_date &lt;= 2 天的记录 —— 只有这类&quot;增持结束即公告&quot;
-# 的信号，其公告日才是&quot;公众首次可见&quot;的时点，才适合做公告日事件研究。
-MAX_DISCLOSURE_LAG = 2  # 增持结束(close_date)到公告(ann_date)的最长滞后（自然日）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body"><span class="hljs-comment"># cell 3：构造&quot;买入信号&quot;（映射 Form 4 漏斗的简化版，保留全部信号）</span>
+<span class="hljs-comment"># 按前文结论：只取 ann_date - close_date &lt;= 2 天的记录 —— 只有这类&quot;增持结束即公告&quot;</span>
+<span class="hljs-comment"># 的信号，其公告日才是&quot;公众首次可见&quot;的时点，才适合做公告日事件研究。</span>
+MAX_DISCLOSURE_LAG = <span class="hljs-number">2</span>  <span class="hljs-comment"># 增持结束(close_date)到公告(ann_date)的最长滞后（自然日）</span>
 
-def build_signals(raw):
-    &quot;&quot;&quot;增持 + 高管/个人/公司股东 → 同一股票×公告日合并为一个信号。
-    过滤：ann_date - close_date &lt;= MAX_DISCLOSURE_LAG（排除滞后公告/补录数据）。&quot;&quot;&quot;
-    if &quot;close_date&quot; not in raw.columns:
-        raise ValueError(&quot;缺少 close_date 字段，请先运行 cell 2b（需显式请求该字段）&quot;)
-    s = raw[raw[&quot;in_de&quot;] == &quot;IN&quot;].copy()
-    # 披露滞后 = 公告日 - 增持结束日
-    s[&quot;ann_dt&quot;] = pd.to_datetime(s[&quot;ann_date&quot;], format=&quot;%Y%m%d&quot;)
-    s[&quot;close_dt&quot;] = pd.to_datetime(s[&quot;close_date&quot;], format=&quot;%Y%m%d&quot;, errors=&quot;coerce&quot;)
-    s = s.dropna(subset=[&quot;close_dt&quot;])                    # 无 close_date 的记录无法判断时效，排除
-    s[&quot;disclosure_lag&quot;] = (s[&quot;ann_dt&quot;] - s[&quot;close_dt&quot;]).dt.days
-    s = s[s[&quot;disclosure_lag&quot;].between(0, MAX_DISCLOSURE_LAG)]  # 0~2 天：完成后立即公告
-    s[&quot;value&quot;] = s[&quot;change_vol&quot;] * s[&quot;avg_price&quot;].fillna(0)
-    signals = (s.groupby([&quot;ts_code&quot;, &quot;ann_date&quot;], as_index=False)
-                .agg(signals_n=(&quot;holder_name&quot;, &quot;size&quot;),
-                     holders=(&quot;holder_name&quot;, &quot;nunique&quot;),
-                     change_vol_sum=(&quot;change_vol&quot;, &quot;sum&quot;),
-                     value_sum=(&quot;value&quot;, &quot;sum&quot;),
-                     holders_type=(&quot;holder_type&quot;, lambda x: &quot;,&quot;.join(sorted(set(x.astype(str))))))
-                .rename(columns={&quot;ann_date&quot;: &quot;filing_date&quot;, &quot;ts_code&quot;: &quot;ticker&quot;}))
-    return signals
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">build_signals</span>(<span class="hljs-params">raw</span>):
+    <span class="hljs-string">&quot;&quot;&quot;增持 + 高管/个人/公司股东 → 同一股票×公告日合并为一个信号。
+    过滤：ann_date - close_date &lt;= MAX_DISCLOSURE_LAG（排除滞后公告/补录数据）。&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;close_date&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> raw.columns:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;缺少 close_date 字段，请先运行 cell 2b（需显式请求该字段）&quot;</span>)
+    s = raw[raw[<span class="hljs-string">&quot;in_de&quot;</span>] == <span class="hljs-string">&quot;IN&quot;</span>].copy()
+    <span class="hljs-comment"># 披露滞后 = 公告日 - 增持结束日</span>
+    s[<span class="hljs-string">&quot;ann_dt&quot;</span>] = pd.to_datetime(s[<span class="hljs-string">&quot;ann_date&quot;</span>], <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+    s[<span class="hljs-string">&quot;close_dt&quot;</span>] = pd.to_datetime(s[<span class="hljs-string">&quot;close_date&quot;</span>], <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%Y%m%d&quot;</span>, errors=<span class="hljs-string">&quot;coerce&quot;</span>)
+    s = s.dropna(subset=[<span class="hljs-string">&quot;close_dt&quot;</span>])                    <span class="hljs-comment"># 无 close_date 的记录无法判断时效，排除</span>
+    s[<span class="hljs-string">&quot;disclosure_lag&quot;</span>] = (s[<span class="hljs-string">&quot;ann_dt&quot;</span>] - s[<span class="hljs-string">&quot;close_dt&quot;</span>]).dt.days
+    s = s[s[<span class="hljs-string">&quot;disclosure_lag&quot;</span>].between(<span class="hljs-number">0</span>, MAX_DISCLOSURE_LAG)]  <span class="hljs-comment"># 0~2 天：完成后立即公告</span>
+    s[<span class="hljs-string">&quot;value&quot;</span>] = s[<span class="hljs-string">&quot;change_vol&quot;</span>] * s[<span class="hljs-string">&quot;avg_price&quot;</span>].fillna(<span class="hljs-number">0</span>)
+    signals = (s.groupby([<span class="hljs-string">&quot;ts_code&quot;</span>, <span class="hljs-string">&quot;ann_date&quot;</span>], as_index=<span class="hljs-literal">False</span>)
+                .agg(signals_n=(<span class="hljs-string">&quot;holder_name&quot;</span>, <span class="hljs-string">&quot;size&quot;</span>),
+                     holders=(<span class="hljs-string">&quot;holder_name&quot;</span>, <span class="hljs-string">&quot;nunique&quot;</span>),
+                     change_vol_sum=(<span class="hljs-string">&quot;change_vol&quot;</span>, <span class="hljs-string">&quot;sum&quot;</span>),
+                     value_sum=(<span class="hljs-string">&quot;value&quot;</span>, <span class="hljs-string">&quot;sum&quot;</span>),
+                     holders_type=(<span class="hljs-string">&quot;holder_type&quot;</span>, <span class="hljs-keyword">lambda</span> x: <span class="hljs-string">&quot;,&quot;</span>.join(<span class="hljs-built_in">sorted</span>(<span class="hljs-built_in">set</span>(x.astype(<span class="hljs-built_in">str</span>))))))
+                .rename(columns={<span class="hljs-string">&quot;ann_date&quot;</span>: <span class="hljs-string">&quot;filing_date&quot;</span>, <span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;ticker&quot;</span>}))
+    <span class="hljs-keyword">return</span> signals
 
 signals = build_signals(raw)
-print(f&quot;买入信号数（股票×公告日，滞后≤{MAX_DISCLOSURE_LAG}天，全量）: {len(signals)}&quot;)
-print(f&quot;涉及股票数: {signals[&#39;ticker&#39;].nunique()}&quot;)
-print(f&quot;信号时间跨度: {signals[&#39;filing_date&#39;].min()} ~ {signals[&#39;filing_date&#39;].max()}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;买入信号数（股票×公告日，滞后≤<span class="hljs-subst">{MAX_DISCLOSURE_LAG}</span>天，全量）: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(signals)}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;涉及股票数: <span class="hljs-subst">{signals[<span class="hljs-string">&#x27;ticker&#x27;</span>].nunique()}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;信号时间跨度: <span class="hljs-subst">{signals[<span class="hljs-string">&#x27;filing_date&#x27;</span>].<span class="hljs-built_in">min</span>()}</span> ~ <span class="hljs-subst">{signals[<span class="hljs-string">&#x27;filing_date&#x27;</span>].<span class="hljs-built_in">max</span>()}</span>&quot;</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <h3 id="实验设计">实验设计</h3>
@@ -363,120 +360,117 @@ print(f&quot;信号时间跨度: {signals[&#39;filing_date&#39;].min()} ~ {signa
 <!--PAID CONTENT START-->
 
 <p>下面 cell 4~7 就是这个设计的实现。cell 4/5 算 CAR，cell 6 算双向聚类 t，cell 7 构建 placebo；cell 8 汇总成最终的统计表和图。<strong>（完整可运行代码见网盘 ipynb；下文仅展示方法要点。）</strong></p>
-<pre><code class="language-python"># cell 4：日线数据与事件研究说明
-# 关键设计：公告一般是【盘后】发布，外部投资者最早只能【次日开盘】买入。
-# 所以事件研究的入场点 = 公告日之后第一个交易日的【开盘价】，
-# 第 1 日收益 = 次日 open→close；之后为 close→close。基准做同样处理。
-# 这避免了&quot;用当日收盘价&quot;——那是公告出来前就实现不了的收益（lookahead）。
-def fetch_daily(ticker, start=None, end=None):
-    df = pro.daily(ts_code=ticker, start_date=start or START_DATE, end_date=end or END_DATE)
-    if df is None or df.empty:
-        return None
-    df = df.set_index(pd.to_datetime(df[&quot;trade_date&quot;])).sort_index()
-    df[&quot;open_ret&quot;] = df[&quot;open&quot;].pct_change().fillna(0)     # 开盘→收盘
-    df[&quot;close_ret&quot;] = df[&quot;close&quot;].pct_change().fillna(0)   # 收盘→收盘
-    return df
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-comment"># cell 4：日线数据与事件研究说明</span>
+<span class="hljs-comment"># 关键设计：公告一般是【盘后】发布，外部投资者最早只能【次日开盘】买入。</span>
+<span class="hljs-comment"># 所以事件研究的入场点 = 公告日之后第一个交易日的【开盘价】，</span>
+<span class="hljs-comment"># 第 1 日收益 = 次日 open→close；之后为 close→close。基准做同样处理。</span>
+<span class="hljs-comment"># 这避免了&quot;用当日收盘价&quot;——那是公告出来前就实现不了的收益（lookahead）。</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_daily</span>(<span class="hljs-params">ticker, start=<span class="hljs-literal">None</span>, end=<span class="hljs-literal">None</span></span>):
+    df = pro.daily(ts_code=ticker, start_date=start <span class="hljs-keyword">or</span> START_DATE, end_date=end <span class="hljs-keyword">or</span> END_DATE)
+    <span class="hljs-keyword">if</span> df <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> df.empty:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+    df = df.set_index(pd.to_datetime(df[<span class="hljs-string">&quot;trade_date&quot;</span>])).sort_index()
+    df[<span class="hljs-string">&quot;open_ret&quot;</span>] = df[<span class="hljs-string">&quot;open&quot;</span>].pct_change().fillna(<span class="hljs-number">0</span>)     <span class="hljs-comment"># 开盘→收盘</span>
+    df[<span class="hljs-string">&quot;close_ret&quot;</span>] = df[<span class="hljs-string">&quot;close&quot;</span>].pct_change().fillna(<span class="hljs-number">0</span>)   <span class="hljs-comment"># 收盘→收盘</span>
+    <span class="hljs-keyword">return</span> df
 
-def fetch_benchmark(start=None, end=None):
-    df = pro.index_daily(ts_code=&quot;000300.SH&quot;, start_date=start or START_DATE, end_date=end or END_DATE)
-    if df is None or df.empty:
-        return None
-    df = df.set_index(pd.to_datetime(df[&quot;trade_date&quot;])).sort_index()
-    df[&quot;open_ret&quot;] = df[&quot;open&quot;].pct_change().fillna(0)
-    df[&quot;close_ret&quot;] = df[&quot;close&quot;].pct_change().fillna(0)
-    return df
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_benchmark</span>(<span class="hljs-params">start=<span class="hljs-literal">None</span>, end=<span class="hljs-literal">None</span></span>):
+    df = pro.index_daily(ts_code=<span class="hljs-string">&quot;000300.SH&quot;</span>, start_date=start <span class="hljs-keyword">or</span> START_DATE, end_date=end <span class="hljs-keyword">or</span> END_DATE)
+    <span class="hljs-keyword">if</span> df <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> df.empty:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+    df = df.set_index(pd.to_datetime(df[<span class="hljs-string">&quot;trade_date&quot;</span>])).sort_index()
+    df[<span class="hljs-string">&quot;open_ret&quot;</span>] = df[<span class="hljs-string">&quot;open&quot;</span>].pct_change().fillna(<span class="hljs-number">0</span>)
+    df[<span class="hljs-string">&quot;close_ret&quot;</span>] = df[<span class="hljs-string">&quot;close&quot;</span>].pct_change().fillna(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span> df
 
-print(&quot;基准：沪深 300（000300.SH）&quot;)
-print(&quot;入场规则：公告日（盘后）→ 次日开盘买入 → 第 1 日 open→close，之后 close→close&quot;)
-</code></pre>
-<pre><code class="language-python"># cell 5：事件研究主循环（次日开盘入场，CAR_1/2/3/5/21/63）
-def event_study(signals, daily_func, bench_func,
-                horizons=(1, 2, 3, 5, 21, 63), start=None, end=None):
-    &quot;&quot;&quot;对每个信号：公告日(盘后)后首个交易日【开盘】进场。
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;基准：沪深 300（000300.SH）&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;入场规则：公告日（盘后）→ 次日开盘买入 → 第 1 日 open→close，之后 close→close&quot;</span>)</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span></span><span class="cl-body"><span class="hljs-comment"># cell 5：事件研究主循环（次日开盘入场，CAR_1/2/3/5/21/63）</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">event_study</span>(<span class="hljs-params">signals, daily_func, bench_func,
+                horizons=(<span class="hljs-params"><span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span>, <span class="hljs-number">63</span></span>), start=<span class="hljs-literal">None</span>, end=<span class="hljs-literal">None</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;对每个信号：公告日(盘后)后首个交易日【开盘】进场。
     第 1 日收益 = 次日 open→close（当天持有）；之后 close→close。
     个股与基准各自如此，逐日算超额收益后累乘为 CAR_h = prod(1+x)-1。
     返回逐信号 DataFrame：ticker/filing_date/month + CAR_1..CAR_63。
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     bmk = bench_func(start, end)
-    if bmk is None:
-        return pd.DataFrame()
-    bmk = bmk[~bmk.index.duplicated(keep=&quot;last&quot;)].sort_index()
+    <span class="hljs-keyword">if</span> bmk <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> pd.DataFrame()
+    bmk = bmk[~bmk.index.duplicated(keep=<span class="hljs-string">&quot;last&quot;</span>)].sort_index()
     rows = []
-    for sig in signals.itertuples():
+    <span class="hljs-keyword">for</span> sig <span class="hljs-keyword">in</span> signals.itertuples():
         px = daily_func(sig.ticker, start, end)
-        if px is None or px.empty:
-            continue
-        px = px[~px.index.duplicated(keep=&quot;last&quot;)].sort_index()
-        i0 = px.index.searchsorted(pd.Timestamp(sig.filing_date)) + 1  # 公告后首个交易日
-        if i0 + max(horizons) &gt; len(px):
-            continue
-        # 对齐基准（个股交易日 reindex 到基准）
-        bmk_al = bmk[[&quot;open&quot;, &quot;close&quot;]].reindex(px.index).ffill()
-        rec = {&quot;ticker&quot;: sig.ticker, &quot;filing_date&quot;: str(sig.filing_date)}
-        # 第 1 日（i0）：开盘买、收盘卖
-        s1 = px[&quot;close&quot;].iloc[i0] / px[&quot;open&quot;].iloc[i0] - 1
-        b1 = bmk_al[&quot;close&quot;].iloc[i0] / bmk_al[&quot;open&quot;].iloc[i0] - 1
-        for h in horizons:
-            # 构造前 h 日的超额收益序列
+        <span class="hljs-keyword">if</span> px <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> px.empty:
+            <span class="hljs-keyword">continue</span>
+        px = px[~px.index.duplicated(keep=<span class="hljs-string">&quot;last&quot;</span>)].sort_index()
+        i0 = px.index.searchsorted(pd.Timestamp(sig.filing_date)) + <span class="hljs-number">1</span>  <span class="hljs-comment"># 公告后首个交易日</span>
+        <span class="hljs-keyword">if</span> i0 + <span class="hljs-built_in">max</span>(horizons) &gt; <span class="hljs-built_in">len</span>(px):
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-comment"># 对齐基准（个股交易日 reindex 到基准）</span>
+        bmk_al = bmk[[<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]].reindex(px.index).ffill()
+        rec = {<span class="hljs-string">&quot;ticker&quot;</span>: sig.ticker, <span class="hljs-string">&quot;filing_date&quot;</span>: <span class="hljs-built_in">str</span>(sig.filing_date)}
+        <span class="hljs-comment"># 第 1 日（i0）：开盘买、收盘卖</span>
+        s1 = px[<span class="hljs-string">&quot;close&quot;</span>].iloc[i0] / px[<span class="hljs-string">&quot;open&quot;</span>].iloc[i0] - <span class="hljs-number">1</span>
+        b1 = bmk_al[<span class="hljs-string">&quot;close&quot;</span>].iloc[i0] / bmk_al[<span class="hljs-string">&quot;open&quot;</span>].iloc[i0] - <span class="hljs-number">1</span>
+        <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> horizons:
+            <span class="hljs-comment"># 构造前 h 日的超额收益序列</span>
             xs = []
-            for t in range(h):
+            <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(h):
                 idx = i0 + t
-                if t == 0:
+                <span class="hljs-keyword">if</span> t == <span class="hljs-number">0</span>:
                     xs.append(s1 - b1)
-                else:
-                    xs.append((px[&quot;close&quot;].iloc[idx] / px[&quot;close&quot;].iloc[idx - 1] - 1)
-                              - (bmk_al[&quot;close&quot;].iloc[idx] / bmk_al[&quot;close&quot;].iloc[idx - 1] - 1))
-            rec[f&quot;CAR_{h}&quot;] = float(np.prod(1.0 + np.array(xs)) - 1.0)
+                <span class="hljs-keyword">else</span>:
+                    xs.append((px[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx] / px[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>)
+                              - (bmk_al[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx] / bmk_al[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>))
+            rec[<span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span>] = <span class="hljs-built_in">float</span>(np.prod(<span class="hljs-number">1.0</span> + np.array(xs)) - <span class="hljs-number">1.0</span>)
         rows.append(rec)
     out = pd.DataFrame(rows)
-    if not out.empty:
-        out[&quot;month&quot;] = pd.to_datetime(out[&quot;filing_date&quot;]).dt.to_period(&quot;M&quot;).astype(str)
-    return out
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> out.empty:
+        out[<span class="hljs-string">&quot;month&quot;</span>] = pd.to_datetime(out[<span class="hljs-string">&quot;filing_date&quot;</span>]).dt.to_period(<span class="hljs-string">&quot;M&quot;</span>).astype(<span class="hljs-built_in">str</span>)
+    <span class="hljs-keyword">return</span> out
 
-print(&quot;event_study() 已升级：次日开盘入场 + CAR_1/2/3/5/21/63，返回逐信号 CAR 表。&quot;)
-</code></pre>
-<pre><code class="language-python"># cell 6：双向聚类 t（Cameron–Gelbach–Miller）——&quot;股票 × 公告月&quot; 聚类
-# 文章&quot;完整复现需要补什么&quot;第 3 点的实现。输入：每个信号一行 CAR + ticker + 公告年月。
-def two_way_cluster_t(car_df, y_col, g1_col, g2_col):
-    &quot;&quot;&quot;CGM 最小充分量估计：t = mean / se，se 由 股票 × 公告月 双向聚类给出。&quot;&quot;&quot;
-    import numpy as np  # 局部 import，保证 cell 独立可运行
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;event_study() 已升级：次日开盘入场 + CAR_1/2/3/5/21/63，返回逐信号 CAR 表。&quot;</span>)</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span></span><span class="cl-body"><span class="hljs-comment"># cell 6：双向聚类 t（Cameron–Gelbach–Miller）——&quot;股票 × 公告月&quot; 聚类</span>
+<span class="hljs-comment"># 文章&quot;完整复现需要补什么&quot;第 3 点的实现。输入：每个信号一行 CAR + ticker + 公告年月。</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">two_way_cluster_t</span>(<span class="hljs-params">car_df, y_col, g1_col, g2_col</span>):
+    <span class="hljs-string">&quot;&quot;&quot;CGM 最小充分量估计：t = mean / se，se 由 股票 × 公告月 双向聚类给出。&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np  <span class="hljs-comment"># 局部 import，保证 cell 独立可运行</span>
 
     y = car_df[y_col].values
-    n = len(y)
-    g1 = car_df[g1_col].values       # 股票（issuer）
-    g2 = car_df[g2_col].values       # 公告月（entry-month）
+    n = <span class="hljs-built_in">len</span>(y)
+    g1 = car_df[g1_col].values       <span class="hljs-comment"># 股票（issuer）</span>
+    g2 = car_df[g2_col].values       <span class="hljs-comment"># 公告月（entry-month）</span>
 
-    # within-cluster sums for union adjustment
-    g1_ids, g1_inv = np.unique(g1, return_inverse=True)
-    g2_ids, g2_inv = np.unique(g2, return_inverse=True)
+    <span class="hljs-comment"># within-cluster sums for union adjustment</span>
+    g1_ids, g1_inv = np.unique(g1, return_inverse=<span class="hljs-literal">True</span>)
+    g2_ids, g2_inv = np.unique(g2, return_inverse=<span class="hljs-literal">True</span>)
 
-    # depvar residual (demeaned, no regressors -&gt; residual = y - mean)
+    <span class="hljs-comment"># depvar residual (demeaned, no regressors -&gt; residual = y - mean)</span>
     res = y - y.mean()
 
-    # meat = sum over clusters of (sum of res in cluster)^2
-    def meat(clusters, nids):
+    <span class="hljs-comment"># meat = sum over clusters of (sum of res in cluster)^2</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">meat</span>(<span class="hljs-params">clusters, nids</span>):
         M = np.zeros(nids)
-        for i in range(n):
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):
             M[clusters[i]] += res[i]
-        return (M ** 2).sum()
+        <span class="hljs-keyword">return</span> (M ** <span class="hljs-number">2</span>).<span class="hljs-built_in">sum</span>()
 
-    # sandwich: V = (n-1)/(n-2) * [meat_g1/n^2 + meat_g2/n^2 - meat_union/n^2]
-    union = (g1.astype(str) + &quot;|&quot; + g2.astype(str))
-    _, union_inv = np.unique(union, return_inverse=True)
-    meat_g1, meat_g2 = meat(g1_inv, len(g1_ids)), meat(g2_inv, len(g2_ids))
-    meat_union = meat(union_inv, len(np.unique(union_inv)))
-    n1, n2 = len(g1_ids), len(g2_ids)
-    df_adj = min(n1, n2) - 1
-    V = (n - 1) / (n - 2) * (meat_g1 + meat_g2 - meat_union) / n ** 2
+    <span class="hljs-comment"># sandwich: V = (n-1)/(n-2) * [meat_g1/n^2 + meat_g2/n^2 - meat_union/n^2]</span>
+    union = (g1.astype(<span class="hljs-built_in">str</span>) + <span class="hljs-string">&quot;|&quot;</span> + g2.astype(<span class="hljs-built_in">str</span>))
+    _, union_inv = np.unique(union, return_inverse=<span class="hljs-literal">True</span>)
+    meat_g1, meat_g2 = meat(g1_inv, <span class="hljs-built_in">len</span>(g1_ids)), meat(g2_inv, <span class="hljs-built_in">len</span>(g2_ids))
+    meat_union = meat(union_inv, <span class="hljs-built_in">len</span>(np.unique(union_inv)))
+    n1, n2 = <span class="hljs-built_in">len</span>(g1_ids), <span class="hljs-built_in">len</span>(g2_ids)
+    df_adj = <span class="hljs-built_in">min</span>(n1, n2) - <span class="hljs-number">1</span>
+    V = (n - <span class="hljs-number">1</span>) / (n - <span class="hljs-number">2</span>) * (meat_g1 + meat_g2 - meat_union) / n ** <span class="hljs-number">2</span>
     se = np.sqrt(V)
-    return y.mean() / se if se &gt; 0 else np.nan, df_adj
+    <span class="hljs-keyword">return</span> y.mean() / se <span class="hljs-keyword">if</span> se &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> np.nan, df_adj
 
-print(&quot;two_way_cluster_t() 就绪：把每个信号的 CAR 与 ticker、公告月拼成 DataFrame 即可用。&quot;)
-</code></pre>
-<pre><code class="language-python"># cell 7：placebo 对照（同一 ticker、事件窗口外、匹配动量/波动率的对照日期）
-def build_placebo(car_df, daily_years, bmk_daily, horizons=(1, 2, 3, 5, 21),
-                  blackout=63, n_placebo=200, seed=42):
-    &quot;&quot;&quot;为每个真实信号构建&quot;假日期&quot;(placebo) 的 CAR，衡量&quot;如果这天不是公告日，收益如何&quot;。
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;two_way_cluster_t() 就绪：把每个信号的 CAR 与 ticker、公告月拼成 DataFrame 即可用。&quot;</span>)</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span></span><span class="cl-body"><span class="hljs-comment"># cell 7：placebo 对照（同一 ticker、事件窗口外、匹配动量/波动率的对照日期）</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">build_placebo</span>(<span class="hljs-params">car_df, daily_years, bmk_daily, horizons=(<span class="hljs-params"><span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span></span>),
+                  blackout=<span class="hljs-number">63</span>, n_placebo=<span class="hljs-number">200</span>, seed=<span class="hljs-number">42</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;为每个真实信号构建&quot;假日期&quot;(placebo) 的 CAR，衡量&quot;如果这天不是公告日，收益如何&quot;。
     
     设计（对应原文 §placebo）：
       1. 对每个真实信号，在其同一只股票的【真实公告日 ±63 日之外】的交易日里，
@@ -487,146 +481,144 @@ def build_placebo(car_df, daily_years, bmk_daily, horizons=(1, 2, 3, 5, 21),
     解读：&quot;真实平均 CAR&quot; 若显著高于 placebo 分布上尾(如 95% 分位)，
     才说明&quot;公告这个时点本身&quot;携带信息；否则正收益更可能来自股票本身
     的动量/波动特征，与公告无关。
-    &quot;&quot;&quot;
-    import numpy as np, pandas as pd  # 局部 import
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np, pandas <span class="hljs-keyword">as</span> pd  <span class="hljs-comment"># 局部 import</span>
 
     bmk = bmk_daily
-    if bmk is None or bmk.empty:
-        return {h: [] for h in horizons}
-    bmk = bmk[~bmk.index.duplicated(keep=&quot;last&quot;)].sort_index()
-    bmk_al = bmk[[&quot;open&quot;, &quot;close&quot;]].reindex  # 后面按个股索引对齐
+    <span class="hljs-keyword">if</span> bmk <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> bmk.empty:
+        <span class="hljs-keyword">return</span> {h: [] <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> horizons}
+    bmk = bmk[~bmk.index.duplicated(keep=<span class="hljs-string">&quot;last&quot;</span>)].sort_index()
+    bmk_al = bmk[[<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]].reindex  <span class="hljs-comment"># 后面按个股索引对齐</span>
     rng = np.random.default_rng(seed)
-    panels = {h: [] for h in horizons}
-    for sig in car_df.itertuples():
+    panels = {h: [] <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> horizons}
+    <span class="hljs-keyword">for</span> sig <span class="hljs-keyword">in</span> car_df.itertuples():
         px = daily_years.get(sig.ticker)
-        if px is None or px.empty:
-            continue
-        px = px[~px.index.duplicated(keep=&quot;last&quot;)].sort_index()
+        <span class="hljs-keyword">if</span> px <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> px.empty:
+            <span class="hljs-keyword">continue</span>
+        px = px[~px.index.duplicated(keep=<span class="hljs-string">&quot;last&quot;</span>)].sort_index()
         bmk_px = bmk_al(px.index).ffill()
         i0 = px.index.searchsorted(pd.Timestamp(sig.filing_date))
-        cand = [i for i in range(60, len(px) - max(horizons) - 1)
-                if abs(i - i0) &gt; blackout]
-        def feat(i):
-            w = px[&quot;close&quot;].pct_change().iloc[max(0, i - 20):i]
-            return (w.mean(), w.std())
+        cand = [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">60</span>, <span class="hljs-built_in">len</span>(px) - <span class="hljs-built_in">max</span>(horizons) - <span class="hljs-number">1</span>)
+                <span class="hljs-keyword">if</span> <span class="hljs-built_in">abs</span>(i - i0) &gt; blackout]
+        <span class="hljs-keyword">def</span> <span class="hljs-title function_">feat</span>(<span class="hljs-params">i</span>):
+            w = px[<span class="hljs-string">&quot;close&quot;</span>].pct_change().iloc[<span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, i - <span class="hljs-number">20</span>):i]
+            <span class="hljs-keyword">return</span> (w.mean(), w.std())
         target = feat(i0)
-        scored = sorted(((abs(feat(i)[0] - target[0]) + abs(feat(i)[1] - target[1]), i)
-                         for i in cand), key=lambda x: x[0])
-        # 候选数不足 n_placebo 时&quot;有多少用多少&quot;（1 年调试数据日期有限，7 年全量则充足）
-        top = [i for _, i in scored[:max(1, min(n_placebo, len(scored)))]]
-        if len(top) &lt; 1:
-            continue
-        for h in horizons:
+        scored = <span class="hljs-built_in">sorted</span>(((<span class="hljs-built_in">abs</span>(feat(i)[<span class="hljs-number">0</span>] - target[<span class="hljs-number">0</span>]) + <span class="hljs-built_in">abs</span>(feat(i)[<span class="hljs-number">1</span>] - target[<span class="hljs-number">1</span>]), i)
+                         <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> cand), key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">0</span>])
+        <span class="hljs-comment"># 候选数不足 n_placebo 时&quot;有多少用多少&quot;（1 年调试数据日期有限，7 年全量则充足）</span>
+        top = [i <span class="hljs-keyword">for</span> _, i <span class="hljs-keyword">in</span> scored[:<span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">min</span>(n_placebo, <span class="hljs-built_in">len</span>(scored)))]]
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(top) &lt; <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> horizons:
             vals = []
-            for i in top:
-                if i + h &gt;= len(px):
-                    continue
-                # 与 event_study 相同的次日开盘入场规则
-                s1 = px[&quot;close&quot;].iloc[i + 1] / px[&quot;open&quot;].iloc[i + 1] - 1
-                b1 = bmk_px[&quot;close&quot;].iloc[i + 1] / bmk_px[&quot;open&quot;].iloc[i + 1] - 1
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> top:
+                <span class="hljs-keyword">if</span> i + h &gt;= <span class="hljs-built_in">len</span>(px):
+                    <span class="hljs-keyword">continue</span>
+                <span class="hljs-comment"># 与 event_study 相同的次日开盘入场规则</span>
+                s1 = px[<span class="hljs-string">&quot;close&quot;</span>].iloc[i + <span class="hljs-number">1</span>] / px[<span class="hljs-string">&quot;open&quot;</span>].iloc[i + <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
+                b1 = bmk_px[<span class="hljs-string">&quot;close&quot;</span>].iloc[i + <span class="hljs-number">1</span>] / bmk_px[<span class="hljs-string">&quot;open&quot;</span>].iloc[i + <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
                 xs = [s1 - b1]
-                for t in range(1, h):
-                    idx = i + 1 + t
-                    xs.append((px[&quot;close&quot;].iloc[idx] / px[&quot;close&quot;].iloc[idx - 1] - 1)
-                              - (bmk_px[&quot;close&quot;].iloc[idx] / bmk_px[&quot;close&quot;].iloc[idx - 1] - 1))
-                vals.append(float(np.prod(1.0 + np.array(xs)) - 1.0))
+                <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, h):
+                    idx = i + <span class="hljs-number">1</span> + t
+                    xs.append((px[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx] / px[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>)
+                              - (bmk_px[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx] / bmk_px[<span class="hljs-string">&quot;close&quot;</span>].iloc[idx - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>))
+                vals.append(<span class="hljs-built_in">float</span>(np.prod(<span class="hljs-number">1.0</span> + np.array(xs)) - <span class="hljs-number">1.0</span>))
             panels[h].append(vals)
-    return panels
+    <span class="hljs-keyword">return</span> panels
 
-print(&quot;build_placebo() 就绪：placebo 面板的均值分布 vs 真实 CAR——真实若显著高于 placebo 上尾，才说明申报时点本身有信息。&quot;)
-</code></pre>
-<pre><code class="language-python"># cell 8：真正执行事件研究 + 出图
-# 设计要点：
-#   - 样本：近 _EFFECTIVE_YEARS 年的全部买入信号（cell 2b 控制；调试 1 年、正式 7 年）；
-#   - 入场：公告日(盘后)→次日开盘买入（CAR_1/2/3 用 open→close，之后 close→close）；
-#   - 视距：1/2/3/5/21/63 个交易日（事件初期几天更重要，故加 CAR_2/CAR_3）；
-#   - 日线：每个 ticker 只拉一次并落盘缓存（按年份命名，调试/正式不互相污染）。
-import matplotlib.pyplot as plt
-import os
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;build_placebo() 就绪：placebo 面板的均值分布 vs 真实 CAR——真实若显著高于 placebo 上尾，才说明申报时点本身有信息。&quot;</span>)</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span></span><span class="cl-body"><span class="hljs-comment"># cell 8：真正执行事件研究 + 出图</span>
+<span class="hljs-comment"># 设计要点：</span>
+<span class="hljs-comment">#   - 样本：近 _EFFECTIVE_YEARS 年的全部买入信号（cell 2b 控制；调试 1 年、正式 7 年）；</span>
+<span class="hljs-comment">#   - 入场：公告日(盘后)→次日开盘买入（CAR_1/2/3 用 open→close，之后 close→close）；</span>
+<span class="hljs-comment">#   - 视距：1/2/3/5/21/63 个交易日（事件初期几天更重要，故加 CAR_2/CAR_3）；</span>
+<span class="hljs-comment">#   - 日线：每个 ticker 只拉一次并落盘缓存（按年份命名，调试/正式不互相污染）。</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> os
 
-# 与 cell 2b 的有效年份一致
-_ES = (pd.Timestamp.today() - pd.DateOffset(years=_EFFECTIVE_YEARS)).strftime(&quot;%Y%m%d&quot;)
-_EE = pd.Timestamp.today().strftime(&quot;%Y%m%d&quot;)
+<span class="hljs-comment"># 与 cell 2b 的有效年份一致</span>
+_ES = (pd.Timestamp.today() - pd.DateOffset(years=_EFFECTIVE_YEARS)).strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+_EE = pd.Timestamp.today().strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
 
-# 日线缓存也放系统临时目录（cell 2 已定位 RUNTIME_DIR）
-DAILY_CACHE = RUNTIME_DIR / f&quot;daily_cache_{_EFFECTIVE_YEARS}y_v2&quot;
-DAILY_CACHE.mkdir(parents=True, exist_ok=True)
+<span class="hljs-comment"># 日线缓存也放系统临时目录（cell 2 已定位 RUNTIME_DIR）</span>
+DAILY_CACHE = RUNTIME_DIR / <span class="hljs-string">f&quot;daily_cache_<span class="hljs-subst">{_EFFECTIVE_YEARS}</span>y_v2&quot;</span>
+DAILY_CACHE.mkdir(parents=<span class="hljs-literal">True</span>, exist_ok=<span class="hljs-literal">True</span>)
 
-def daily_cached(ticker, start=None, end=None):
-    &quot;&quot;&quot;拉取并缓存个股日线。event_study 会传 (ticker, start, end)；
-    缓存在 [start,end] 覆盖范围内即可复用（调试/正式按年份分目录）。&quot;&quot;&quot;
-    fp = DAILY_CACHE / f&quot;{ticker}.parquet&quot;
-    if fp.exists():
-        return pd.read_parquet(fp)
-    df = fetch_daily(ticker, start=start or _ES, end=end or _EE)
-    if df is not None and not df.empty:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">daily_cached</span>(<span class="hljs-params">ticker, start=<span class="hljs-literal">None</span>, end=<span class="hljs-literal">None</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;拉取并缓存个股日线。event_study 会传 (ticker, start, end)；
+    缓存在 [start,end] 覆盖范围内即可复用（调试/正式按年份分目录）。&quot;&quot;&quot;</span>
+    fp = DAILY_CACHE / <span class="hljs-string">f&quot;<span class="hljs-subst">{ticker}</span>.parquet&quot;</span>
+    <span class="hljs-keyword">if</span> fp.exists():
+        <span class="hljs-keyword">return</span> pd.read_parquet(fp)
+    df = fetch_daily(ticker, start=start <span class="hljs-keyword">or</span> _ES, end=end <span class="hljs-keyword">or</span> _EE)
+    <span class="hljs-keyword">if</span> df <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> df.empty:
         df.to_parquet(fp)
-    return df
+    <span class="hljs-keyword">return</span> df
 
-# 1) 逐信号算 CAR（对 signals 全量）
-print(f&quot;对 {len(signals)} 个信号做事件研究（{_ES}~{_EE}，每个 ticker 日线只拉一次）...&quot;)
+<span class="hljs-comment"># 1) 逐信号算 CAR（对 signals 全量）</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;对 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(signals)}</span> 个信号做事件研究（<span class="hljs-subst">{_ES}</span>~<span class="hljs-subst">{_EE}</span>，每个 ticker 日线只拉一次）...&quot;</span>)
 bmk_full = fetch_benchmark(start=_ES, end=_EE)
-car_df = event_study(signals, daily_cached, lambda s, e: bmk_full, start=_ES, end=_EE)
-print(f&quot;事件研究完成：{len(car_df)} 个信号有 CAR&quot;)
+car_df = event_study(signals, daily_cached, <span class="hljs-keyword">lambda</span> s, e: bmk_full, start=_ES, end=_EE)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;事件研究完成：<span class="hljs-subst">{<span class="hljs-built_in">len</span>(car_df)}</span> 个信号有 CAR&quot;</span>)
 
-# 2) 各视距：均值 CAR + pooled t + 双向聚类 t（股票×公告月）
-HORIZONS = (1, 2, 3, 5, 21, 63)
-print(&quot;\n视距 | 均值CAR | pooled t | 双向聚类t(股票×公告月) | n&quot;)
-for h in HORIZONS:
-    if f&quot;CAR_{h}&quot; not in car_df.columns:
-        continue
-    y = car_df[f&quot;CAR_{h}&quot;].dropna()
-    n = len(y)
+<span class="hljs-comment"># 2) 各视距：均值 CAR + pooled t + 双向聚类 t（股票×公告月）</span>
+HORIZONS = (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span>, <span class="hljs-number">63</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n视距 | 均值CAR | pooled t | 双向聚类t(股票×公告月) | n&quot;</span>)
+<span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> HORIZONS:
+    <span class="hljs-keyword">if</span> <span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> car_df.columns:
+        <span class="hljs-keyword">continue</span>
+    y = car_df[<span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span>].dropna()
+    n = <span class="hljs-built_in">len</span>(y)
     mean = y.mean()
-    pooled_t = mean / (y.std(ddof=1) / np.sqrt(n)) if y.std(ddof=1) &gt; 0 else np.nan
-    t2, _ = two_way_cluster_t(car_df.dropna(subset=[f&quot;CAR_{h}&quot;]), f&quot;CAR_{h}&quot;, &quot;ticker&quot;, &quot;month&quot;)
-    print(f&quot;  {h:&gt;3}日 | {mean*100:+.3f}% | {pooled_t:.2f} | {t2:.2f} | {n}&quot;)
+    pooled_t = mean / (y.std(ddof=<span class="hljs-number">1</span>) / np.sqrt(n)) <span class="hljs-keyword">if</span> y.std(ddof=<span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> np.nan
+    t2, _ = two_way_cluster_t(car_df.dropna(subset=[<span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span>]), <span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span>, <span class="hljs-string">&quot;ticker&quot;</span>, <span class="hljs-string">&quot;month&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  <span class="hljs-subst">{h:&gt;<span class="hljs-number">3</span>}</span>日 | <span class="hljs-subst">{mean*<span class="hljs-number">100</span>:+<span class="hljs-number">.3</span>f}</span>% | <span class="hljs-subst">{pooled_t:<span class="hljs-number">.2</span>f}</span> | <span class="hljs-subst">{t2:<span class="hljs-number">.2</span>f}</span> | <span class="hljs-subst">{n}</span>&quot;</span>)
 
-# 3) 图 1：CAR 路径（含 CAR_1/2/3，事件初期更密集）
-horizon_list = [0, 1, 2, 3, 5, 21, 63]
-exist = [h for h in horizon_list[1:] if f&quot;CAR_{h}&quot; in car_df.columns]
-mean_cars = [0.0] + [car_df[f&quot;CAR_{h}&quot;].mean() for h in exist]
-plt.figure(figsize=(8, 4))
-plt.plot([0] + exist, [m * 100 for m in mean_cars], marker=&quot;o&quot;, label=&quot;买入信号 均值CAR&quot;)
-plt.axhline(0, color=&quot;gray&quot;, ls=&quot;--&quot;, lw=0.8)
-plt.xlabel(&quot;公告后交易日&quot;); plt.ylabel(&quot;均值 CAR (%)&quot;)
-plt.title(&quot;买入信号 CAR 路径（相对沪深300，次日开盘入场）&quot;)
-plt.grid(alpha=0.3); plt.legend(); plt.show()
+<span class="hljs-comment"># 3) 图 1：CAR 路径（含 CAR_1/2/3，事件初期更密集）</span>
+horizon_list = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span>, <span class="hljs-number">63</span>]
+exist = [h <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> horizon_list[<span class="hljs-number">1</span>:] <span class="hljs-keyword">if</span> <span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span> <span class="hljs-keyword">in</span> car_df.columns]
+mean_cars = [<span class="hljs-number">0.0</span>] + [car_df[<span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span>].mean() <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> exist]
+plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">4</span>))
+plt.plot([<span class="hljs-number">0</span>] + exist, [m * <span class="hljs-number">100</span> <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> mean_cars], marker=<span class="hljs-string">&quot;o&quot;</span>, label=<span class="hljs-string">&quot;买入信号 均值CAR&quot;</span>)
+plt.axhline(<span class="hljs-number">0</span>, color=<span class="hljs-string">&quot;gray&quot;</span>, ls=<span class="hljs-string">&quot;--&quot;</span>, lw=<span class="hljs-number">0.8</span>)
+plt.xlabel(<span class="hljs-string">&quot;公告后交易日&quot;</span>); plt.ylabel(<span class="hljs-string">&quot;均值 CAR (%)&quot;</span>)
+plt.title(<span class="hljs-string">&quot;买入信号 CAR 路径（相对沪深300，次日开盘入场）&quot;</span>)
+plt.grid(alpha=<span class="hljs-number">0.3</span>); plt.legend(); plt.show()
 
-# 4) placebo 对照：CAR_1 与 CAR_21 各看一次
-# 7 年全量 7092 信号下，对每个信号都跑 200 个对照会很慢；
-# placebo 只用于&quot;分布对比&quot;，随机抽 max_placebo_signals 个信号构建即可(仍然稳健)。
-import random
-random.seed(42)
-MAX_PLACEBO_SIGNALS = 1200
-n_placebo = 100
-for h in (1, 21):
-    if f&quot;CAR_{h}&quot; not in car_df.columns:
-        continue
-    sig_sub = car_df[[&quot;ticker&quot;, &quot;filing_date&quot;]].sample(min(MAX_PLACEBO_SIGNALS, len(car_df)), random_state=42)
+<span class="hljs-comment"># 4) placebo 对照：CAR_1 与 CAR_21 各看一次</span>
+<span class="hljs-comment"># 7 年全量 7092 信号下，对每个信号都跑 200 个对照会很慢；</span>
+<span class="hljs-comment"># placebo 只用于&quot;分布对比&quot;，随机抽 max_placebo_signals 个信号构建即可(仍然稳健)。</span>
+<span class="hljs-keyword">import</span> random
+random.seed(<span class="hljs-number">42</span>)
+MAX_PLACEBO_SIGNALS = <span class="hljs-number">1200</span>
+n_placebo = <span class="hljs-number">100</span>
+<span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>, <span class="hljs-number">21</span>):
+    <span class="hljs-keyword">if</span> <span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> car_df.columns:
+        <span class="hljs-keyword">continue</span>
+    sig_sub = car_df[[<span class="hljs-string">&quot;ticker&quot;</span>, <span class="hljs-string">&quot;filing_date&quot;</span>]].sample(<span class="hljs-built_in">min</span>(MAX_PLACEBO_SIGNALS, <span class="hljs-built_in">len</span>(car_df)), random_state=<span class="hljs-number">42</span>)
     panels = build_placebo(sig_sub,
-                           daily_years={t: daily_cached(t) for t in sig_sub[&quot;ticker&quot;].unique()},
+                           daily_years={t: daily_cached(t) <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> sig_sub[<span class="hljs-string">&quot;ticker&quot;</span>].unique()},
                            bmk_daily=bmk_full, horizons=(h,),
-                           blackout=63, n_placebo=n_placebo, seed=42)
+                           blackout=<span class="hljs-number">63</span>, n_placebo=n_placebo, seed=<span class="hljs-number">42</span>)
     ph = panels.get(h, [])
-    if ph:
-        real_vals = car_df[f&quot;CAR_{h}&quot;].dropna().values
-        ph_means = np.array([np.mean(p) for p in ph if len(p)])
+    <span class="hljs-keyword">if</span> ph:
+        real_vals = car_df[<span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span>&quot;</span>].dropna().values
+        ph_means = np.array([np.mean(p) <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> ph <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(p)])
         real_rank = (np.mean(real_vals) &gt; ph_means).mean()
-        plt.figure(figsize=(8, 4))
-        plt.hist(ph_means * 100, bins=25, alpha=0.6, label=&quot;placebo 面板均值分布&quot;)
-        plt.axvline(np.mean(real_vals) * 100, color=&quot;red&quot;, ls=&quot;--&quot;, lw=2,
-                    label=f&quot;真实 CAR_{h} 均值 = {np.mean(real_vals)*100:+.3f}%&quot;)
-        plt.axvline(np.quantile(ph_means, 0.95) * 100, color=&quot;orange&quot;, ls=&quot;:&quot;, lw=1.5,
-                    label=f&quot;placebo 95 分位 = {np.quantile(ph_means, 0.95)*100:+.3f}%&quot;)
-        plt.xlabel(f&quot;CAR_{h} (%)&quot;); plt.ylabel(&quot;频数&quot;)
-        plt.title(f&quot;买入信号 CAR_{h} vs placebo（时点是否真有信息？）&quot;)
-        plt.legend(); plt.grid(alpha=0.3); plt.show()
-        verdict = &quot;&gt;95%：申报时点本身携带信息&quot; if real_rank &gt; 0.95 else &quot;≤95%：无法确认时点有信息（可能是风格/动量背景）&quot;
-        print(f&quot;真实 CAR_{h} 高于 placebo 面板的比例 = {real_rank:.1%} → {verdict}&quot;)
-    else:
-        print(f&quot;placebo 面板为空（CAR_{h}）：请确认 ticker 日线可拉取。&quot;)
-</code></pre>
+        plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">4</span>))
+        plt.hist(ph_means * <span class="hljs-number">100</span>, bins=<span class="hljs-number">25</span>, alpha=<span class="hljs-number">0.6</span>, label=<span class="hljs-string">&quot;placebo 面板均值分布&quot;</span>)
+        plt.axvline(np.mean(real_vals) * <span class="hljs-number">100</span>, color=<span class="hljs-string">&quot;red&quot;</span>, ls=<span class="hljs-string">&quot;--&quot;</span>, lw=<span class="hljs-number">2</span>,
+                    label=<span class="hljs-string">f&quot;真实 CAR_<span class="hljs-subst">{h}</span> 均值 = <span class="hljs-subst">{np.mean(real_vals)*<span class="hljs-number">100</span>:+<span class="hljs-number">.3</span>f}</span>%&quot;</span>)
+        plt.axvline(np.quantile(ph_means, <span class="hljs-number">0.95</span>) * <span class="hljs-number">100</span>, color=<span class="hljs-string">&quot;orange&quot;</span>, ls=<span class="hljs-string">&quot;:&quot;</span>, lw=<span class="hljs-number">1.5</span>,
+                    label=<span class="hljs-string">f&quot;placebo 95 分位 = <span class="hljs-subst">{np.quantile(ph_means, <span class="hljs-number">0.95</span>)*<span class="hljs-number">100</span>:+<span class="hljs-number">.3</span>f}</span>%&quot;</span>)
+        plt.xlabel(<span class="hljs-string">f&quot;CAR_<span class="hljs-subst">{h}</span> (%)&quot;</span>); plt.ylabel(<span class="hljs-string">&quot;频数&quot;</span>)
+        plt.title(<span class="hljs-string">f&quot;买入信号 CAR_<span class="hljs-subst">{h}</span> vs placebo（时点是否真有信息？）&quot;</span>)
+        plt.legend(); plt.grid(alpha=<span class="hljs-number">0.3</span>); plt.show()
+        verdict = <span class="hljs-string">&quot;&gt;95%：申报时点本身携带信息&quot;</span> <span class="hljs-keyword">if</span> real_rank &gt; <span class="hljs-number">0.95</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;≤95%：无法确认时点有信息（可能是风格/动量背景）&quot;</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;真实 CAR_<span class="hljs-subst">{h}</span> 高于 placebo 面板的比例 = <span class="hljs-subst">{real_rank:<span class="hljs-number">.1</span>%}</span> → <span class="hljs-subst">{verdict}</span>&quot;</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;placebo 面板为空（CAR_<span class="hljs-subst">{h}</span>）：请确认 ticker 日线可拉取。&quot;</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <h2 id="三结论">三、结论</h2>

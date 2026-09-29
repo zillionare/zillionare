@@ -21,24 +21,23 @@
 </div>
 
 <p>我们通过一个例子来说明夏普与股价走势之间的关系：</p>
-<pre><code class="language-python">import numpy as np
-from empyrical import sharpe_ratio
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> empyrical <span class="hljs-keyword">import</span> sharpe_ratio
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-returns_ = np.random.normal(0, 0.02, size=100)
+returns_ = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.02</span>, size=<span class="hljs-number">100</span>)
 legend = []
 
-for alpha in (-0.01, 0, 0.01):
+<span class="hljs-keyword">for</span> alpha <span class="hljs-keyword">in</span> (-<span class="hljs-number">0.01</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>):
     returns = returns_ + alpha
-    prices = np.cumprod(returns + 1)
+    prices = np.cumprod(returns + <span class="hljs-number">1</span>)
     sharpe = sharpe_ratio(returns)
     _ = plt.plot(prices)
-    legend.append(f&quot;{sharpe:.1f}&quot;)
-</code></pre>
+    legend.append(<span class="hljs-string">f&quot;<span class="hljs-subst">{sharpe:<span class="hljs-number">.1</span>f}</span>&quot;</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python">lines = plt.gca().lines
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">lines = plt.gca().lines
 plt.legend(lines, legend)
-</code></pre>
+</span></code></pre>
 <p>从绘制的图形可以看出，当 alpha 为 1%时，夏普率可达 8.2。国内优秀的基金经理可以在一年内，做到 2~3 左右的夏普率。大家可以调整 alpha 这个参数，看看 alpha 与夏普率的关系。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg" alt="50%"></p>
 <h3 id="11-the-legacy-nprandom-module">1.1. The legacy: np.random module</h3>
@@ -131,9 +130,8 @@ plt.bar(x=value[1:],height=count)
 <p>我们在上一节介绍了一些随机数生成函数，但没有介绍它的原理。Numpy 生成的随机数是伪随机数，它们是使用一个随机数生成器（RNG）来生成的。RNG 的输出是随机的，但是相同的输入总是会生成相同的输出。我们调用的每一个方法，实际上是在这个序列上的一个抽取动作（根据输入的 size/shape）。</p>
 <p>在 numpy.random 模块中，存在一个全局的 RNG。在我们调用具体的随机函数时，实际上是通过这个全局的 RNG 来产生随机数的。而这个全局的 RNG，总会有人在它之上调用 seed 方法来初始化。这会产生一些问题，因为你不清楚何时、在何地、以哪个参数被人重置了 seed。</p>
 <p>由于这个原因，现在已经不推荐直接使用 numpy.random 模块中的这些方法了。更好的方法是，为每一个具体地应用创建一个独立的 RNG，然后在这个对象上，调用相应的方法：</p>
-<pre><code class="language-python">rng = np.random.default_rng(seed=123)
-rng.random(size=10)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">rng = np.random.default_rng(seed=<span class="hljs-number">123</span>)
+rng.random(size=<span class="hljs-number">10</span>)</span></code></pre>
 <p>rng 是一个 Random Generator 对象，在初始化时，我们需要给它传入一个种子。如果省略，那么 Numpy 会使用系统时间作为种子。</p>
 <p>rng 拥有大多数前一节中提到的方法，比如 normal, f, gamma 等；但从 matlab 中移植过来的方法不再出现在这个对象上。另外，randint 被 rng.integers 替代。</p>
 <hr>
@@ -146,43 +144,39 @@ rng.random(size=10)
 <p>我们已经介绍了 choice 的功能，现在我们来举一个例子，如何使用 choice 来平衡数据集。</p>
 <p>在监督学习中，我们常常遇到数据不平衡的问题，比如，我们希望训练一个分类器，但是训练集的类别分布不均衡。我们可以通过 choice 方法对数据集进行 under sampling 或者 over sampling 来解决这个问题。</p>
 <p>为了便于理解，我们先生成一个不平衡的训练数据集。这个数据集共有 3 列，其中前两列是特征（你可以想像成因子特征），第三列则是标签。</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-rng = np.random.default_rng(seed=42)
-x = rng.random((10,3))
-x[:,-1] = rng.choice([0,1], len(x), p=[0.2, 0.8])
-</code></pre>
+rng = np.random.default_rng(seed=<span class="hljs-number">42</span>)
+x = rng.random((<span class="hljs-number">10</span>,<span class="hljs-number">3</span>))
+x[:,-<span class="hljs-number">1</span>] = rng.choice([<span class="hljs-number">0</span>,<span class="hljs-number">1</span>], <span class="hljs-built_in">len</span>(x), p=[<span class="hljs-number">0.2</span>, <span class="hljs-number">0.8</span>])</span></code></pre>
 <hr>
 <p>我们通过下面的方法对这个数据集进行可视化，以验证它确实是一个不平衡的数据集。</p>
-<pre><code class="language-python">df = pd.DataFrame(x, columns=[&#39;factor1&#39;, &#39;factor2&#39;, &#39;label&#39;])
-df.label.value_counts().plot(kind=&#39;bar&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df = pd.DataFrame(x, columns=[<span class="hljs-string">&#x27;factor1&#x27;</span>, <span class="hljs-string">&#x27;factor2&#x27;</span>, <span class="hljs-string">&#x27;label&#x27;</span>])
+df.label.value_counts().plot(kind=<span class="hljs-string">&#x27;bar&#x27;</span>)</span></code></pre>
 <p>运行结果为：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg" alt="50%"></p>
 <p>要在此基础上，得到一个新的平衡数据集，我们有两种思路，一种是 under sampling，即从多数类的数据中抽取部分数据，使得它与最小分类的数目相等；另一种是 over sampling，即从少数类的数据中复制部分数据，使得它与最大的类的数目相等。</p>
 <p>下面的例子演示了如何进行 under sampling:</p>
-<pre><code class="language-python">labels, counts = np.unique(x[:,-1], return_counts=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">labels, counts = np.unique(x[:,-<span class="hljs-number">1</span>], return_counts=<span class="hljs-literal">True</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 最小分类的标签
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-comment"># 最小分类的标签</span>
 min_label = labels[np.argmin(counts)]
 
-# 最小分类样本的数量，作为 UNDER SAMPLING 的样本数量
-min_label_count = np.min(counts)
+<span class="hljs-comment"># 最小分类样本的数量，作为 UNDER SAMPLING 的样本数量</span>
+min_label_count = np.<span class="hljs-built_in">min</span>(counts)
 
-# 最小分类无须抽取，全部提取
+<span class="hljs-comment"># 最小分类无须抽取，全部提取</span>
 results = [
-    x[x[:,-1] == min_label]
+    x[x[:,-<span class="hljs-number">1</span>] == min_label]
 ]
 
-# 对其它分类标签进行遍历，需要先剔除最小分类
-for label in np.delete(labels, np.argmin(counts)):
-    sampled = rng.choice(x[x[:,-1]== label], min_label_count)
+<span class="hljs-comment"># 对其它分类标签进行遍历，需要先剔除最小分类</span>
+<span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> np.delete(labels, np.argmin(counts)):
+    sampled = rng.choice(x[x[:,-<span class="hljs-number">1</span>]== label], min_label_count)
     results.append(sampled)
 
-np.concatenate(results)
-</code></pre>
+np.concatenate(results)</span></code></pre>
 <!--
 
 这里我们使用 np.unique 来获取标签，并且通过 return_counts 参数，来获得每个分类的数量，从而可以得知最小分类的数量。
@@ -229,55 +223,48 @@ np.concatenate(results)
 <!--genfromtxt 比 loadtxt，是一个更高级的 API，它可以处理缺失值、跳过尾部行、指定列名、处理注释、自动发现数据类型等。-->
 
 <p>我们通过下面的示例简单演示一下各自的用法：</p>
-<pre><code class="language-python">import io
-import numpy 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> io
+<span class="hljs-keyword">import</span> numpy 
 
-buffer = io.StringIO(&quot;&quot;&quot;1,2&quot;&quot;&quot;)
+buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;1,2&quot;&quot;&quot;</span>)
 
-# 默认情况下，LOADTXT 只能读取浮点数
-numpy.loadtxt(buffer, delimiter=&quot;,&quot;)
-</code></pre>
+<span class="hljs-comment"># 默认情况下，LOADTXT 只能读取浮点数</span>
+numpy.loadtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>)</span></code></pre>
 <p>这会输出数组<code>array([1., 2.])</code>。</p>
 <!--loadtxt 的第一个参数是文件对象，这里我们使用 io.StringIO 来模拟一个文件对象。-->
 
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;</span>)
 
-# 通过指定 DTYPE 参数，可以读取其它类型
-numpy.loadtxt(buffer, delimiter=&quot;,&quot;, dtype=[(&quot;age&quot;, &quot;i4&quot;), (&quot;score&quot;, &quot;f4&quot;), (&quot;name&quot;, &quot;U8&quot;)])
-</code></pre>
+<span class="hljs-comment"># 通过指定 DTYPE 参数，可以读取其它类型</span>
+numpy.loadtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>, dtype=[(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;i4&quot;</span>), (<span class="hljs-string">&quot;score&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>), (<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;U8&quot;</span>)])</span></code></pre>
 <hr>
 <p>这样我们将得到一个 Structured Array，其中第三列为字符串类型。如果我们不指定 dtype 参数，那么 loadtxt 将会解析失败。</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;
 1,2,hello
-&quot;&quot;&quot;)
-numpy.genfromtxt(buffer, delimiter=&quot;,&quot;)
-</code></pre>
+&quot;&quot;&quot;</span>)
+numpy.genfromtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>)</span></code></pre>
 <p>这一次我们使用了 genfromtxt 来加载数据，但没有指定 dtype 参数，genfromtxt 会将非数字列解析为 nan。因此，这段代码将输出：`array([1., 2.,  nan])</p>
 <p>现在，我们也给 genfromtxt 加上 dtype 参数：</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;</span>)
 
-numpy.genfromtxt(buffer, delimiter=&quot;,&quot;, dtype=[(&quot;age&quot;, &quot;i4&quot;), (&quot;score&quot;, &quot;f4&quot;), (&quot;name&quot;, &quot;U8&quot;)])
-</code></pre>
+numpy.genfromtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>, dtype=[(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;i4&quot;</span>), (<span class="hljs-string">&quot;score&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>), (<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;U8&quot;</span>)])</span></code></pre>
 <p>此时我们得到的结果是：<code>array((1, 2., &#39;hello&#39;), dtype=[(&#39;age&#39;, &#39;&lt;i4&#39;), (&#39;score&#39;, &#39;&lt;f4&#39;), (&#39;name&#39;, &#39;&lt;U8&#39;)])</code>。注意它是 Structured Array。</p>
 <p>recfromtxt 则不需要 dtype, 会自动推断数据类型。</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;</span>)
 
-numpy.recfromtxt(buffer,delimiter=&quot;,&quot;)
-</code></pre>
+numpy.recfromtxt(buffer,delimiter=<span class="hljs-string">&quot;,&quot;</span>)</span></code></pre>
 <hr>
 <p>这段代码输出为<code>rec.array((1, 2, b&#39;hello&#39;), dtype=[(&#39;f0&#39;, &#39;&lt;i8&#39;), (&#39;f1&#39;, &#39;&lt;i8&#39;), (&#39;f2&#39;, &#39;S5&#39;)])</code>。如果推断不准确，我们也可以自己加上 dtype 参数。</p>
 <p>如果我们使用 recfromcsv，则连 delimiter 参数都可以省掉。</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;age,score,name1,2,hello&quot;&quot;&quot;)
-numpy.recfromcsv(buffer)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;age,score,name1,2,hello&quot;&quot;&quot;</span>)
+numpy.recfromcsv(buffer)</span></code></pre>
 <p>输出跟上一例的结果一样。</p>
 <p>出于速度考虑，我们还可以使用其它库来解析 CSV 文件，再转换成为 numpy 数组。比如：</p>
-<pre><code class="language-python"># 利用 CSV.READER() 来解析，比 NUMPY 快 8 倍
-np.asarray(list(csv.reader()))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 利用 CSV.READER() 来解析，比 NUMPY 快 8 倍</span>
+np.asarray(<span class="hljs-built_in">list</span>(csv.reader()))
 
-# 利用 PANDAS 来解析，比 NUMPY 快 22 倍
-pd.read_csv(buffer).to_records()
-</code></pre>
+<span class="hljs-comment"># 利用 PANDAS 来解析，比 NUMPY 快 22 倍</span>
+pd.read_csv(buffer).to_records()</span></code></pre>
 <h3 id="22-读写二进制文件">2.2. 读写二进制文件</h3>
 <p>如果我们不需要与外界交换数据，数据都是自产自销型的，也可以使用二进制文件来保存数据。</p>
 <p>使用 numpy.save 函数来将单个数组保存数据为二进制文件，使用 numpy.load 函数来读取 numpy.save 保存的数据。这样保存的文件，文件扩展名为.npy。</p>

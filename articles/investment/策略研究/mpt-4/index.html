@@ -33,8 +33,7 @@
 <p>在了解了 PyportfolioOpt 的基本特性之后，我们再来看看如何使用它。</p>
 <p>当前的版本是是 1.5.4，尽管它的基本架构已经稳定，但维护还是很活跃，并且支持从 3.8 到 3.12 的各个版本的 Python。它已经使用了 Poetry 来进行依赖管理。</p>
 <p>安装PyportfolioOpt请使用以下命令：</p>
-<pre><code>pip install PyPortfolioOpt
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install PyPortfolioOpt</span></code></pre>
 <p>它还提供了一个 Docker 容器（真的很贴心了！），供我们练习它提供的一些示例。</p>
 <p>接下来，我们将通过一个示例来演示 pyPortforlioOpt的用法。在这个示例中，我们将演示：</p>
 <ol>
@@ -49,37 +48,36 @@
 推荐在**大富翁量化交易课程**课件环境中运行本示例。
 </div>
 
-<pre><code class="language-python">from coursea import *
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">from</span> coursea <span class="hljs-keyword">import</span> *
 
-await init()
+<span class="hljs-keyword">await</span> init()
 
-# 上证50指数
-SH50_CODE_LIST = [&quot;688599.XSHG&quot;,&quot;688111.XSHG&quot;,&quot;603986.XSHG&quot;,&quot;603799.XSHG&quot;,&quot;603501.XSHG&quot;,&quot;603288.XSHG&quot;,
-                  &quot;603260.XSHG&quot;,&quot;603259.XSHG&quot;,&quot;601919.XSHG&quot;,&quot;601899.XSHG&quot;,&quot;601888.XSHG&quot;,&quot;601857.XSHG&quot;,
-                  &quot;601728.XSHG&quot;,&quot;601669.XSHG&quot;,&quot;601668.XSHG&quot;,&quot;601633.XSHG&quot;,&quot;601628.XSHG&quot;,&quot;601398.XSHG&quot;,
-                  &quot;601390.XSHG&quot;,&quot;601318.XSHG&quot;,&quot;601288.XSHG&quot;,&quot;601225.XSHG&quot;,&quot;601166.XSHG&quot;,&quot;601088.XSHG&quot;,
-                  &quot;601066.XSHG&quot;,&quot;601012.XSHG&quot;,&quot;600905.XSHG&quot;,&quot;600900.XSHG&quot;,&quot;600893.XSHG&quot;,&quot;600887.XSHG&quot;,
-                  &quot;600809.XSHG&quot;,&quot;600745.XSHG&quot;,&quot;600690.XSHG&quot;,&quot;600519.XSHG&quot;,&quot;600438.XSHG&quot;,&quot;600436.XSHG&quot;,
-                  &quot;600406.XSHG&quot;,&quot;600309.XSHG&quot;,&quot;600276.XSHG&quot;,&quot;600196.XSHG&quot;,&quot;600111.XSHG&quot;,&quot;600104.XSHG&quot;,
-                  &quot;600089.XSHG&quot;,&quot;600050.XSHG&quot;,&quot;600048.XSHG&quot;,&quot;600036.XSHG&quot;,&quot;600031.XSHG&quot;,&quot;600030.XSHG&quot;,
-                  &quot;600028.XSHG&quot;,&quot;600010.XSHG&quot;]
+<span class="hljs-comment"># 上证50指数</span>
+SH50_CODE_LIST = [<span class="hljs-string">&quot;688599.XSHG&quot;</span>,<span class="hljs-string">&quot;688111.XSHG&quot;</span>,<span class="hljs-string">&quot;603986.XSHG&quot;</span>,<span class="hljs-string">&quot;603799.XSHG&quot;</span>,<span class="hljs-string">&quot;603501.XSHG&quot;</span>,<span class="hljs-string">&quot;603288.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;603260.XSHG&quot;</span>,<span class="hljs-string">&quot;603259.XSHG&quot;</span>,<span class="hljs-string">&quot;601919.XSHG&quot;</span>,<span class="hljs-string">&quot;601899.XSHG&quot;</span>,<span class="hljs-string">&quot;601888.XSHG&quot;</span>,<span class="hljs-string">&quot;601857.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;601728.XSHG&quot;</span>,<span class="hljs-string">&quot;601669.XSHG&quot;</span>,<span class="hljs-string">&quot;601668.XSHG&quot;</span>,<span class="hljs-string">&quot;601633.XSHG&quot;</span>,<span class="hljs-string">&quot;601628.XSHG&quot;</span>,<span class="hljs-string">&quot;601398.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;601390.XSHG&quot;</span>,<span class="hljs-string">&quot;601318.XSHG&quot;</span>,<span class="hljs-string">&quot;601288.XSHG&quot;</span>,<span class="hljs-string">&quot;601225.XSHG&quot;</span>,<span class="hljs-string">&quot;601166.XSHG&quot;</span>,<span class="hljs-string">&quot;601088.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;601066.XSHG&quot;</span>,<span class="hljs-string">&quot;601012.XSHG&quot;</span>,<span class="hljs-string">&quot;600905.XSHG&quot;</span>,<span class="hljs-string">&quot;600900.XSHG&quot;</span>,<span class="hljs-string">&quot;600893.XSHG&quot;</span>,<span class="hljs-string">&quot;600887.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;600809.XSHG&quot;</span>,<span class="hljs-string">&quot;600745.XSHG&quot;</span>,<span class="hljs-string">&quot;600690.XSHG&quot;</span>,<span class="hljs-string">&quot;600519.XSHG&quot;</span>,<span class="hljs-string">&quot;600438.XSHG&quot;</span>,<span class="hljs-string">&quot;600436.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;600406.XSHG&quot;</span>,<span class="hljs-string">&quot;600309.XSHG&quot;</span>,<span class="hljs-string">&quot;600276.XSHG&quot;</span>,<span class="hljs-string">&quot;600196.XSHG&quot;</span>,<span class="hljs-string">&quot;600111.XSHG&quot;</span>,<span class="hljs-string">&quot;600104.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;600089.XSHG&quot;</span>,<span class="hljs-string">&quot;600050.XSHG&quot;</span>,<span class="hljs-string">&quot;600048.XSHG&quot;</span>,<span class="hljs-string">&quot;600036.XSHG&quot;</span>,<span class="hljs-string">&quot;600031.XSHG&quot;</span>,<span class="hljs-string">&quot;600030.XSHG&quot;</span>,
+                  <span class="hljs-string">&quot;600028.XSHG&quot;</span>,<span class="hljs-string">&quot;600010.XSHG&quot;</span>]
 
-async def get_prices(stock_list, start_date, end_date):
-    frames = [tf.int2date(f) for f in tf.get_frames(start_date, end_date, FrameType.DAY)]
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_prices</span>(<span class="hljs-params">stock_list, start_date, end_date</span>):
+    frames = [tf.int2date(f) <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> tf.get_frames(start_date, end_date, FrameType.DAY)]
     dfs = [pd.DataFrame([], index=frames)]
-    for code in stock_list:
-        bars = await Stock.get_bars_in_range(code, FrameType.DAY, frames[0], frames[-1])
-        index = [v.item().date() for v in bars[&quot;frame&quot;]]
-        dfs.append(pd.DataFrame(bars[&quot;close&quot;], columns=[code], index=index))
+    <span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> stock_list:
+        bars = <span class="hljs-keyword">await</span> Stock.get_bars_in_range(code, FrameType.DAY, frames[<span class="hljs-number">0</span>], frames[-<span class="hljs-number">1</span>])
+        index = [v.item().date() <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> bars[<span class="hljs-string">&quot;frame&quot;</span>]]
+        dfs.append(pd.DataFrame(bars[<span class="hljs-string">&quot;close&quot;</span>], columns=[code], index=index))
     
-    return pd.concat(dfs, axis=1)
+    <span class="hljs-keyword">return</span> pd.concat(dfs, axis=<span class="hljs-number">1</span>)
 
-# 投资组合个数
-start = datetime.date(2022, 1, 1)
-end = datetime.date(2023, 1, 1)
-prices = await get_prices(SH50_CODE_LIST, start, end)
-prices.tail()
-</code></pre>
+<span class="hljs-comment"># 投资组合个数</span>
+start = datetime.date(<span class="hljs-number">2022</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+prices = <span class="hljs-keyword">await</span> get_prices(SH50_CODE_LIST, start, end)
+prices.tail()</span></code></pre>
 <p>我们将得到以下结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-5-price-df.png" alt=""></p>
 <p>我们将各资产走势绘制成下图：</p>
@@ -87,44 +85,40 @@ prices.tail()
 <p>上述代码中，技巧可能在第24行，它将多个dataframe按行进行拼接，最终成为一张宽表。这种格式，在使用pyfolio进行因子分析时，也曾使用过。</p>
 <h3 id="计算协方差">计算协方差</h3>
 <p>在前面的示例中，我们都是手动计算的协方差。在实际工作中，一方面我们可以使用pandas的DataFrame的协方差计算函数<code>cov</code>；在 PyPortfolioOpt 中，我们也可以使用它提供的<code>sample_cov</code>方法：</p>
-<pre><code class="language-python">from pypfopt import risk_models
-from pypfopt import plotting
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pypfopt <span class="hljs-keyword">import</span> risk_models
+<span class="hljs-keyword">from</span> pypfopt <span class="hljs-keyword">import</span> plotting
 
-sample_cov = risk_models.sample_cov(prices, frequency=252)
-sample_cov.head()
-</code></pre>
+sample_cov = risk_models.sample_cov(prices, frequency=<span class="hljs-number">252</span>)
+sample_cov.head()</span></code></pre>
 <p>结果如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov.png" alt=""></p>
 <p>区别在于，如果我们使用PyPortfolioOpt的sample_cov方法，就不需要进行收益率计算和去无效值操作，即一步操作，完成以下功能：</p>
-<pre><code>prices = ... # pd.DataFrame, price of each instrument
-returns = prices.pct_change().dropna(how=&#39;any&#39;)
-cov = returns.cov()
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">prices <span class="hljs-operator">=</span> ... # pd.DataFrame, price <span class="hljs-keyword">of</span> <span class="hljs-keyword">each</span> instrument
+<span class="hljs-keyword">returns</span> <span class="hljs-operator">=</span> prices.pct_change().dropna(how<span class="hljs-operator">=</span><span class="hljs-string">&#x27;any&#x27;</span>)
+cov <span class="hljs-operator">=</span> returns.cov()</span></code></pre>
 <p>我们通过以下命令，来可视化该矩阵：</p>
-<pre><code class="language-python">plotting.plot_covariance(sample_cov, plot_correlation=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">plotting.plot_covariance(sample_cov, plot_correlation=<span class="hljs-literal">True</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov-visualize.png" alt=""></p>
 <h3 id="求解最优资产组合">求解最优资产组合</h3>
 <p>我们以最大收益、最低波动来条件来求解最优资产组合：</p>
-<pre><code class="language-python">from pypfopt import EfficientFrontier
-from pypfopt import risk_models
-from pypfopt.expected_returns import mean_historical_return
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pypfopt <span class="hljs-keyword">import</span> EfficientFrontier
+<span class="hljs-keyword">from</span> pypfopt <span class="hljs-keyword">import</span> risk_models
+<span class="hljs-keyword">from</span> pypfopt.expected_returns <span class="hljs-keyword">import</span> mean_historical_return
 
 mu = mean_historical_return(prices)
 S = risk_models.sample_cov(prices)
 
-ef = EfficientFrontier(mu, S, weight_bounds=(0, 1))
+ef = EfficientFrontier(mu, S, weight_bounds=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
 
-# 求解出最小波动率时的权重
+<span class="hljs-comment"># 求解出最小波动率时的权重</span>
 w = ef.min_volatility()
 
-# 输出最小波动率时的年化收益、波动率和sharpe
-ef.portfolio_performance(verbose=True)
-df_w = pd.DataFrame(np.array([item for item in w.items()], dtype=[(&quot;code&quot;, &quot;O&quot;), (&quot;w&quot;, &quot;f4&quot;)]))
+<span class="hljs-comment"># 输出最小波动率时的年化收益、波动率和sharpe</span>
+ef.portfolio_performance(verbose=<span class="hljs-literal">True</span>)
+df_w = pd.DataFrame(np.array([item <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> w.items()], dtype=[(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;O&quot;</span>), (<span class="hljs-string">&quot;w&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>)]))
 
-# 显示权重
-df_w.head()
-</code></pre>
+<span class="hljs-comment"># 显示权重</span>
+df_w.head()</span></code></pre>
 <p>使用方法很简单。首先，我们求得回报均值，构建risk model，这里我们使用的是均值方差模型，因此，通过sampe_cov来返回这个模型。</p>
 <p>然后我们在第8行，实例化有效前沿对象。它接收三个参数，即均值、risk model和权重约束）。</p>
 <p>然后在第11行，我们以最小波动率为目标进行优化求解，得到的结果即为权重向量（以orderdict类型表示）。我们可以根据这个向量来自行计算对应的组合年化收益、夏普率，但也可以使用 pypfopt 自带的方法 <code>portfolio_performance</code>，如代码第14行所示。</p>
@@ -132,30 +126,29 @@ df_w.head()
 <p>这样，我们就求得了波动最小时的期望收益、资产组合（即权重），以及它们的夏普等指标。</p>
 <h3 id="可视化与有效前沿">可视化与有效前沿</h3>
 <p>我们刚刚使用的方法，仅生成了单个最优投资组合。但很多时候，我们可能还希望获得整个有效前沿。</p>
-<pre><code class="language-python">fig, ax = plt.subplots()
-ef = EfficientFrontier(mu, S, weight_bounds=(0, 1))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body">fig, ax = plt.subplots()
+ef = EfficientFrontier(mu, S, weight_bounds=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))
 ef_max_sharpe = ef.deepcopy()
-plotting.plot_efficient_frontier(ef, ax=ax, show_assets=False)
+plotting.plot_efficient_frontier(ef, ax=ax, show_assets=<span class="hljs-literal">False</span>)
 
-# Find the tangency portfolio
+<span class="hljs-comment"># Find the tangency portfolio</span>
 ef_max_sharpe.max_sharpe()
 ret_tangent, std_tangent, _ = ef_max_sharpe.portfolio_performance()
-ax.scatter(std_tangent, ret_tangent, marker=&quot;*&quot;, s=100, c=&quot;r&quot;, label=&quot;Max Sharpe&quot;)
+ax.scatter(std_tangent, ret_tangent, marker=<span class="hljs-string">&quot;*&quot;</span>, s=<span class="hljs-number">100</span>, c=<span class="hljs-string">&quot;r&quot;</span>, label=<span class="hljs-string">&quot;Max Sharpe&quot;</span>)
 
-# Generate random portfolios
-n_samples = 10000
+<span class="hljs-comment"># Generate random portfolios</span>
+n_samples = <span class="hljs-number">10000</span>
 w = np.random.dirichlet(np.ones(ef.n_assets), n_samples)
 rets = w.dot(ef.expected_returns)
 stds = np.sqrt(np.diag(w @ ef.cov_matrix @ w.T))
 sharpes = rets / stds
-ax.scatter(stds, rets, marker=&quot;.&quot;, c=sharpes, cmap=&quot;viridis_r&quot;)
+ax.scatter(stds, rets, marker=<span class="hljs-string">&quot;.&quot;</span>, c=sharpes, cmap=<span class="hljs-string">&quot;viridis_r&quot;</span>)
 
-# Output
-ax.set_title(&quot;Efficient Frontier with random portfolios&quot;)
+<span class="hljs-comment"># Output</span>
+ax.set_title(<span class="hljs-string">&quot;Efficient Frontier with random portfolios&quot;</span>)
 ax.legend()
 plt.tight_layout()
-plt.show()
-</code></pre>
+plt.show()</span></code></pre>
 <p>最终我们会得到下图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt_ef_with_random_port.png" alt=""></p>
 <p>这里有几点需要说明：</p>
@@ -165,9 +158,8 @@ plt.show()
 <li><p>第13行我们使用了狄利克雷分布。它是一个在(0,1)区间内分布，但分布总和为1的分布。我们在之前是使用下面的方法来做到这一点的：</p>
 </li>
 </ol>
-<pre><code class="language-python">w = np.random.random(size=50)
-w = w/sum(w)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">w = np.random.random(size=<span class="hljs-number">50</span>)
+w = w/<span class="hljs-built_in">sum</span>(w)</span></code></pre>
 <p>使用狄利克雷分布的写法看上去更优雅。不过要注意，两种方法的分布特征是不一样的。</p>
 <h2 id="capm与mpt">CAPM与MPT</h2>
 <p>前面一个系列讲解了CAPM。它与MPT有着千丝万缕的联系。首先，我们在求解最佳夏普率时，使用了 tangency portfolio，即切线投资组合这一说法（注释第6行）。切线投资组合是一种位于风险回报空间中有效前沿与最高可能资本市场线 (CML) 相切点的投资组合。</p>
@@ -175,16 +167,15 @@ w = w/sum(w)
 <p>这里的切线的斜率，就是夏普率。</p>
 <p>另外，我们在之前的计算中，使用的都是均值回报率，通过<code>mean_historical_return</code>求得。但实际上，均值回报率参考意义并不太大。因为我们不能简单地假设历史会重演。一种可能的办法，是通过CAPM求得资产的alpha，以此作为资产回报再来计算有效前沿。因此，在这一点上，CAPM与MPT理论有机地结合到了一起。</p>
 <p>pyfolio支持了这种做法。我们在实例化 EfficientFrontier对象时，可以这样：</p>
-<pre><code class="language-python">from pypfopt.expected_returns import capm_return
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pypfopt.expected_returns <span class="hljs-keyword">import</span> capm_return
 
-# 不用历史回报，而改为capm_return
+<span class="hljs-comment"># 不用历史回报，而改为capm_return</span>
 
-#mu = mean_historical_return(prices)
+<span class="hljs-comment">#mu = mean_historical_return(prices)</span>
 mu = capm_return(prices)
 S = risk_models.sample_cov(prices)
 
-ef = EfficientFrontier(mu, S, weight_bounds=(0, 1))
-</code></pre>
+ef = EfficientFrontier(mu, S, weight_bounds=(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))</span></code></pre>
 <p>不过，在我们的示例中，使用capm return可能会出错，提示没有任何一种资产的CAPM收益为正。这不是pyfolioopt的错，也不是我们的错。</p>
 <p>这个市场错了。</p>
 <h2 id="结束语">结束语</h2>
@@ -195,12 +186,11 @@ ef = EfficientFrontier(mu, S, weight_bounds=(0, 1))
 
 </div>
 
-<pre><code>Beta 系数、现代投资组合理论等等——这些在我看来都没什么道理。我们想要做到的是，用低廉的价格，甚至是合理的价格，来购买那些拥有可持续竞争优势的企业。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">Beta 系数、现代投资组合理论等等——这些在我看来都没什么道理。我们想要做到的是，用低廉的价格，甚至是合理的价格，来购买那些拥有可持续竞争优势的企业。
 
 大学教授怎么可以散播这种无稽之谈（股价波动是衡量风险的尺度）呢？几十年来，我一直都在等待这种胡言乱语结束。现在这样乱讲的人少了一些，但还是有。
 
-顺便说一声，我给那些信奉极端的有效市场理论的人取了个名字 -- 叫做“神经病”。那是一种逻辑上自洽的理论，让他们能够做出漂亮的数学题。所以我想，这种理论对那些有很高数学才华的人非常有吸引力。可是它的基本假设和现实生活并不相符。
-</code></pre>
+顺便说一声，我给那些信奉极端的有效市场理论的人取了个名字 <span class="hljs-comment">-- 叫做“神经病”。那是一种逻辑上自洽的理论，让他们能够做出漂亮的数学题。所以我想，这种理论对那些有很高数学才华的人非常有吸引力。可是它的基本假设和现实生活并不相符。</span></span></code></pre>
 <p>他还提到，这位世界上最伟大的经济学家之一，竟然是伯克希尔·哈撒韦的大股东，自从巴菲特掌管伯克希尔之后不久，他就开始投钱进来。他的教科书总是 教导学生说股市是极其有效率的，没有人能够打败它。但他自己的钱却流进了伯克希尔，这让他发了大财。</p>
 <p>尽管如此，学习这些理论，掌握它背后的数学方法、工具和思想，对增强我们的量化基本功，还是非常有必要的。在学习投资的道路上，不存在这样的一个理论和系统，只要你学习了它就能战胜市场。只要你不打算做资本市场里的骗子，一万小时定律就仍然对你适用。从基础入手，构建自己的方法论和洞察市场，才能树立自己的竞争门槛。</p>
 <p>这也是大富翁量化交易课程在编撰时秉持的原则。我们不承诺教会你马上可以一招致胜的策略，相反地，我们把市场上流行的量化工具、金融理论一一拆解，还原成一个个高复用的知识点，然后按照量化交易的天然流程重新组织起来，从而使得学员打下坚实的量化基础。</p>

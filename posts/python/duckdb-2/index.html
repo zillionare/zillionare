@@ -25,30 +25,27 @@
 <p>sqlite非常轻量，基于内存或者文件作为存储，无须像其它数据库一样进行复杂的服务器安装和设置。它是市占率最高的数据库 -- 但未来可能会有所不同：仅就功能而言，duckdb不仅仅完全实现了sqlite的所有功能，它甚至可能比postgres的语法还要丰富。而在性能上，sqlite就更是难以望其项背 -- 实际上，在大数据集的join和group by操作上，H2O.ai的测试表明，在与clickhouse, porlars一众明星选手打排位赛，duckdb都能排在第一位！</p>
 <h2 id="替代sqlite">替代sqlite</h2>
 <p>当我们使用sqlite时，特别是在进行单元测试时，我们可能使用内存数据库。duckdb也支持：</p>
-<pre><code class="language-python">import duckdb
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> duckdb
 
-duckdb.connect(&quot;:memory:&quot;)
-</code></pre>
+duckdb.connect(<span class="hljs-string">&quot;:memory:&quot;</span>)</span></code></pre>
 <p>如果将&quot;:memory:&quot;换成文件名，就是连接到文件数据库了。这些与sqlite没有任何区别。</p>
 <p>sqlite与duckdb都有rowid的概念。在duckdb中，rowid是一个伪列：</p>
-<pre><code class="language-sql">-- duckdb中的rowid无须声明，可直接使用
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment">-- duckdb中的rowid无须声明，可直接使用</span>
 
-CREATE TABLE t (id INT, content STRING);
-INSERT INTO t VALUES (42, &#39;hello&#39;), (43, &#39;world&#39;);
-SELECT rowid, id, content FROM t;
-</code></pre>
+<span class="hljs-keyword">CREATE TABLE</span> t (id <span class="hljs-type">INT</span>, content STRING);
+<span class="hljs-keyword">INSERT INTO</span> t <span class="hljs-keyword">VALUES</span> (<span class="hljs-number">42</span>, <span class="hljs-string">&#x27;hello&#x27;</span>), (<span class="hljs-number">43</span>, <span class="hljs-string">&#x27;world&#x27;</span>);
+<span class="hljs-keyword">SELECT</span> rowid, id, content <span class="hljs-keyword">FROM</span> t;</span></code></pre>
 <hr>
 <p>如果某行被删除，该rowid会被回收，后面可能会被复用，因此，rowid不具有惟一性，不推荐作为行标识符。</p>
 <p>在实现自增ID方面，sqlite可以通过autoincrement关键字来声明主键为自增字段，但在duckdb略微复杂一点，需要先创建一个sequence：</p>
-<pre><code class="language-sql">CREATE SEQUENCE seq_personid START 1;
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">CREATE</span> SEQUENCE seq_personid <span class="hljs-keyword">START</span> <span class="hljs-number">1</span>;
 
-CREATE TABLE Persons (
-    Personid integer primary key DEFAULT nextval(&#39;seq_personid&#39;),
-    Name varchar(255) not null,
+<span class="hljs-keyword">CREATE TABLE</span> Persons (
+    Personid <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span> <span class="hljs-keyword">DEFAULT</span> nextval(<span class="hljs-string">&#x27;seq_personid&#x27;</span>),
+    Name <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">not null</span>,
 );
 
-insert into Persons values (&#39;Aaron&#39;)
-</code></pre>
+<span class="hljs-keyword">insert into</span> Persons <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;Aaron&#x27;</span>)</span></code></pre>
 <p>也就是，我们要先创建一个sequence,然后在创建表的主键时，声明其缺省值来自于nextval()函数。在往表中写入数据时，我们需要忽略PersonId。</p>
 <h2 id="渐进式构建查询">渐进式构建查询</h2>
 <!--
@@ -66,9 +63,8 @@ duckdb为多种语言提供了接口。但是，在Python接口中提供了最�
 </div>
 
 <p>现在我们就来演示这个渐进式查询：</p>
-<pre><code class="language-python">r = duckdb.sql(&quot;from range(1000000000) tbl(id)&quot;)
-r.show()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">r = duckdb.sql(<span class="hljs-string">&quot;from range(1000000000) tbl(id)&quot;</span>)
+r.show()</span></code></pre>
 <p>第一行语句就构建了一个关系(relation)。它没有select!这是duckdb对sql语法的一种简化。当我们熟悉这种语法后，我们会发现，&quot;select * from ...&quot;这种传统的表达式实在是太啰嗦了。</p>
 <p>第一行语句并不会执行，只有当我们调用r.show()时，它才被真正求值。</p>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
@@ -83,29 +79,25 @@ r = duckdb.sql("from range(1000000000)")
 </div>
 
 <p>我们可以接着构建：</p>
-<pre><code class="language-python">r = duckdb.sql(&quot;from range(10000) tbl(id) select id, cast (id as varchar) as str_id&quot;)
-r.filter(&quot;id &gt; 20 and str_id like &#39;%1&#39;&quot;).limit(3).show()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">r = duckdb.sql(<span class="hljs-string">&quot;from range(10000) tbl(id) select id, cast (id as varchar) as str_id&quot;</span>)
+r.<span class="hljs-built_in">filter</span>(<span class="hljs-string">&quot;id &gt; 20 and str_id like &#x27;%1&#x27;&quot;</span>).limit(<span class="hljs-number">3</span>).show()</span></code></pre>
 <hr>
 <p>可以看出，跟使用pandas差不多，但它的表达式语法是sql的，方法名也更接近sql的关键字。</p>
 <p>在第一行，我们把select放在了from之后。这是duckdb的一个语法创新。在第二行中，这个表达式完全是SQL的表达式。我们在上一篇文章中介绍过，pandas是不支持这个语法的。</p>
 <p>如果我们更熟悉pandas语法，是不是可以将数据读取后，存入dataframe（比如通过read_csv， read_sql）后，再来执行类似的查询？Yes and No。pandas无法处理超过内存的数据。所以，如果数据量比较大，duckdb的API的优势就显示出来了。</p>
 <p>示例中演示了字符串匹配。duckdb有丰富的函数支持，包括字符串切片、正则表达式匹配。不过，这是一个比较特殊的场景，所以没有看到关于性能方面的报告。</p>
 <p>Relational API另一个强大的使用场景是用在join、intersect上：</p>
-<pre><code class="language-sql">import duckdb
-r1 = duckdb.sql(&quot;FROM range(5) tbl(id)&quot;).set_alias(&quot;r1&quot;)
-r2 = duckdb.sql(&quot;FROM range(10, 15) tbl(id)&quot;).set_alias(&quot;r2&quot;)
-r1.join(r2, &quot;r1.id + 10 = r2.id&quot;).show()
-</code></pre>
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">import duckdb
+r1 <span class="hljs-operator">=</span> duckdb.sql(&quot;FROM range(5) tbl(id)&quot;).set_alias(&quot;r1&quot;)
+r2 <span class="hljs-operator">=</span> duckdb.sql(&quot;FROM range(10, 15) tbl(id)&quot;).set_alias(&quot;r2&quot;)
+r1.join(r2, &quot;r1.id + 10 = r2.id&quot;).<span class="hljs-keyword">show</span>()</span></code></pre>
 <p>这里的语法非常简练、更加易懂（甚至比pandas的join）。无论是构建子查询还是CTE，都会比较繁琐易错，但基于Relational API，这一切都能得到化简，并且很容易基于中间结果进行调试。下面是一个子查询的例子:</p>
 <hr>
-<pre><code class="language-python">duckdb.sql(&quot;SELECT t FROM (SELECT unnest(generate_series(41, 43)) AS x, &#39;hello&#39; AS y) t where t.x &gt; 42&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">duckdb.sql(<span class="hljs-string">&quot;SELECT t FROM (SELECT unnest(generate_series(41, 43)) AS x, &#x27;hello&#x27; AS y) t where t.x &gt; 42&quot;</span>)</span></code></pre>
 <p>我们可以很容易地将其分解为：</p>
-<pre><code class="language-python">r1 = duckdb.sql(&quot;SELECT unnest(generate_series(41, 43)) AS x, &#39;hello&#39; AS y&quot;)
-r2 = duckdb.sql(&quot;from r1&quot;).filter(&quot;x&gt;42&quot;)
-r2
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">r1 = duckdb.sql(<span class="hljs-string">&quot;SELECT unnest(generate_series(41, 43)) AS x, &#x27;hello&#x27; AS y&quot;</span>)
+r2 = duckdb.sql(<span class="hljs-string">&quot;from r1&quot;</span>).<span class="hljs-built_in">filter</span>(<span class="hljs-string">&quot;x&gt;42&quot;</span>)
+r2</span></code></pre>
 <p>如此一来，如果我们非常擅长SQL，则仍然可以编写复杂的SQL语句交给duckdb执行；如果只能写一些简短的SQL语句，我们仍然可能通过Relational API将它们组装成为复杂的SQL。</p>
 <div class="admonition admonition-note"><p class="admonition-title">note</p>
 在Relational API中，不能使用prepared parameter。
@@ -116,53 +108,49 @@ r2
 <p>我们以发电厂数据为例：</p>
 <hr>
 <p>下面的语句将生成一个每日生产电力的7日移动平均：</p>
-<pre><code class="language-sql">SELECT &quot;Plant&quot;, &quot;Date&quot;,
-    avg(&quot;MWh&quot;) OVER (
-        PARTITION BY &quot;Plant&quot;
-        ORDER BY &quot;Date&quot; ASC
-        RANGE BETWEEN INTERVAL 3 DAYS PRECEDING
-                  AND INTERVAL 3 DAYS FOLLOWING)
-        AS &quot;MWh 7-day Moving Average&quot;
-FROM &quot;Generation History&quot;
-ORDER BY 1, 2;
-</code></pre>
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">SELECT</span> &quot;Plant&quot;, &quot;Date&quot;,
+    <span class="hljs-built_in">avg</span>(&quot;MWh&quot;) <span class="hljs-keyword">OVER</span> (
+        <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> &quot;Plant&quot;
+        <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> &quot;Date&quot; <span class="hljs-keyword">ASC</span>
+        <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">BETWEEN</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">3</span> DAYS PRECEDING
+                  <span class="hljs-keyword">AND</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">3</span> DAYS FOLLOWING)
+        <span class="hljs-keyword">AS</span> &quot;MWh 7-day Moving Average&quot;
+<span class="hljs-keyword">FROM</span> &quot;Generation History&quot;
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span>;</span></code></pre>
 <p>我们还可以通过window命令来定义命名窗口，以便可以复用它们以增强性能：</p>
-<pre><code class="language-sql">SELECT &quot;Plant&quot;, &quot;Date&quot;,
-    min(&quot;MWh&quot;) OVER seven AS &quot;MWh 7-day Moving Minimum&quot;,
-    avg(&quot;MWh&quot;) OVER three AS &quot;MWh 3-day Moving Average&quot;,
-FROM &quot;Generation History&quot;
-WINDOW
-    seven AS (
-        PARTITION BY &quot;Plant&quot;
-        ORDER BY &quot;Date&quot; ASC
-        RANGE BETWEEN INTERVAL 3 DAYS PRECEDING
-                  AND INTERVAL 3 DAYS FOLLOWING),
-    three AS (
-        PARTITION BY &quot;Plant&quot;
-        ORDER BY &quot;Date&quot; ASC
-        RANGE BETWEEN INTERVAL 1 DAYS PRECEDING
-        AND INTERVAL 1 DAYS FOLLOWING)
-ORDER BY 1, 2;
-</code></pre>
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">SELECT</span> &quot;Plant&quot;, &quot;Date&quot;,
+    <span class="hljs-built_in">min</span>(&quot;MWh&quot;) <span class="hljs-keyword">OVER</span> seven <span class="hljs-keyword">AS</span> &quot;MWh 7-day Moving Minimum&quot;,
+    <span class="hljs-built_in">avg</span>(&quot;MWh&quot;) <span class="hljs-keyword">OVER</span> three <span class="hljs-keyword">AS</span> &quot;MWh 3-day Moving Average&quot;,
+<span class="hljs-keyword">FROM</span> &quot;Generation History&quot;
+<span class="hljs-keyword">WINDOW</span>
+    seven <span class="hljs-keyword">AS</span> (
+        <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> &quot;Plant&quot;
+        <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> &quot;Date&quot; <span class="hljs-keyword">ASC</span>
+        <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">BETWEEN</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">3</span> DAYS PRECEDING
+                  <span class="hljs-keyword">AND</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">3</span> DAYS FOLLOWING),
+    three <span class="hljs-keyword">AS</span> (
+        <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> &quot;Plant&quot;
+        <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> &quot;Date&quot; <span class="hljs-keyword">ASC</span>
+        <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">BETWEEN</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">1</span> DAYS PRECEDING
+        <span class="hljs-keyword">AND</span> <span class="hljs-type">INTERVAL</span> <span class="hljs-number">1</span> DAYS FOLLOWING)
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span>;</span></code></pre>
 <hr>
 <p>上面的示例中，我们还看到了partition语法。每一个over子句（windowing）中，都隐藏了一个partition（如果没有使用partition语法），或者多个partition（如果使用了partition）。然后在每个partition内部，通过 range, preceding,following 等函数，定义一个个滑动的frame，最后，聚合运算就发生在这些frame上。</p>
 <h2 id="qualify语法">QUALIFY语法</h2>
 <p>这是个比较新的SQL语法，数年前由Teradata引入，随后被Oracle, snowflake, bigquery使用。它解决了这样的问题：如何取每个分组的某个列的前几名（或者其它条件）及它对应的整行数据？</p>
 <p>在可以使用pandas的地方，这个问题比较简单：</p>
-<pre><code class="language-python">df = pd.DataFrame({&#39;id&#39;:[1,1,1,2,2,2,2,3,4], &#39;value&#39;:[1,2,3,1,2,3,4,1,1]})
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">df = pd.DataFrame({<span class="hljs-string">&#x27;id&#x27;</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>], <span class="hljs-string">&#x27;value&#x27;</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]})
 
-df.groupby(&#39;id&#39;)[&quot;value&quot;].nlargest(2)
-</code></pre>
+df.groupby(<span class="hljs-string">&#x27;id&#x27;</span>)[<span class="hljs-string">&quot;value&quot;</span>].nlargest(<span class="hljs-number">2</span>)</span></code></pre>
 <p>输出结果是：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/pandas-group-by-topk.jpg" alt="75%"></p>
 <hr>
 <p>如果有别的条件，我们可以在groupby之后，使用apply和lambda函数来过滤。</p>
 <p>在标准SQL中要完成上述任务，必须使用子查询，先选择出分组后满足条件的行ID，再从原表中查询返回这些行的全部数据。这个语句比较复杂，但使用qualify，我们的查询可以简化为：</p>
-<pre><code class="language-python">df = pd.DataFrame({&#39;id&#39;:[1,1,1,2,2,2,2,3,4], &#39;value&#39;:[1,2,3,1,2,3,4,1,1]})
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">df = pd.DataFrame({<span class="hljs-string">&#x27;id&#x27;</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>], <span class="hljs-string">&#x27;value&#x27;</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]})
 
-sql = &quot;select id, value from df qualify row_number() over (partition by id order by value desc) &lt;=2 order by value&quot;
-duckdb.sql(sql).sort(&quot;id&quot;)
-</code></pre>
+sql = <span class="hljs-string">&quot;select id, value from df qualify row_number() over (partition by id order by value desc) &lt;=2 order by value&quot;</span>
+duckdb.sql(sql).sort(<span class="hljs-string">&quot;id&quot;</span>)</span></code></pre>
 <p>上述语句查询了每个ID最大的2个value值，并返回整行数据。over函数定义了窗口函数，在其中我们又通过partition将表按id划分成独立的“子表”，order by 就按value，对子表进行排序，并且每个partition内部产生行号。最后，我们通过qualify语法，获取行号前2的记录，就得到了满足要求的结果。</p>
 <h2 id="duckdb的荷兰方言">duckdb的荷兰方言</h2>
 <p>duckdb对标准SQL中的繁琐之处提出了一些改进。比如我们之前提到的省略&#39;select *&#39;，直接使用&#39;from tbl&#39;这样的语法。</p>
@@ -171,15 +159,14 @@ duckdb.sql(sql).sort(&quot;id&quot;)
 <p>有时候，我们可能希望同时选择这样三列，此时就可以使用它的Dynamic column select能力。比如&#39;select columns(&#39;RSI_*&#39;) from alpha101&#39;</p>
 <p>如果我们的RSI因子都以RSI开头，再跟上不同的参数，这样就可以一次性将它们都选择出来。</p>
 <p>duckdb为标量函数提供了链式调用，比如：</p>
-<pre><code class="language-sql">SELECT 
-     (&#39;Make it so&#39;)
-          .UPPER()
-          .string_split(&#39; &#39;)
-          .list_aggr(&#39;string_agg&#39;,&#39;.&#39;)
-          .concat(&#39;.&#39;) AS im_not_messing_around_number_one;
--- 输出
--- MAKE.IT.SO.
-</code></pre>
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">SELECT</span> 
+     (<span class="hljs-string">&#x27;Make it so&#x27;</span>)
+          .<span class="hljs-built_in">UPPER</span>()
+          .string_split(<span class="hljs-string">&#x27; &#x27;</span>)
+          .list_aggr(<span class="hljs-string">&#x27;string_agg&#x27;</span>,<span class="hljs-string">&#x27;.&#x27;</span>)
+          .concat(<span class="hljs-string">&#x27;.&#x27;</span>) <span class="hljs-keyword">AS</span> im_not_messing_around_number_one;
+<span class="hljs-comment">-- 输出</span>
+<span class="hljs-comment">-- MAKE.IT.SO.</span></span></code></pre>
 <p>还有很多好玩的功能，在他们的博客文章《even friendlier sql with duckdb》中有介绍。</p>
 <h2 id="duckdb的究竟是什么">duckdb的究竟是什么？</h2>
 <p>duckdb提供了与许多数据库、数据源的接口，在很多示例中，我们看到可以使用duckdb，基于这些数据进行分析，特别是对csv文件和parquet文件。当我们这样使用duckdb时，我们实际上是只使用它的分析引擎。</p>
@@ -195,25 +182,21 @@ duckdb.sql(sql).sort(&quot;id&quot;)
 <h2 id="在notebook中使用duckdb">在notebook中使用duckdb</h2>
 <p>在notebook中我们可以直接使用duckdb的Python API来进行查询。不过，我们也可以使用JupySQL这个扩展，来直接运行SQL查询，并实现可视化。</p>
 <p>我们通过下面的命令来安装JupySQL:</p>
-<pre><code class="language-bash">pip install jupysql
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install jupysql</span></code></pre>
 <p>在使用jupysql之前，我们需要加载它：</p>
-<pre><code class="language-bash">%load_ext sql
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%load_ext sql</span></code></pre>
 <hr>
 <p>接下来就是建立连接。如果我们使用的是文件存储：</p>
-<pre><code class="language-bash">%sql duckdb:///path/to/fild.db
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%sql duckdb:///path/to/fild.db</span></code></pre>
 <p>然后就可以在接下来的cell中，使用cell magic语法了：</p>
-<pre><code class="language-bash">%%sql
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">%%sql
 
 SELECT
     schema_name,
     function_name
 FROM duckdb_functions()
 ORDER BY ALL DESC
-LIMIT 5
-</code></pre>
+LIMIT 5</span></code></pre>
 <p>这比我们使用python API会更方便一点，因为可以自由地缩进和换行。在使用sqlite时，我常常会用sqlite browser来查看程序生成的数据表，但是我们也可以完全只用JupySQL。</p>
 <h2 id="结论">结论</h2>
 <p>作为量化人，我强烈推荐你使用duckdb作为个人使用的数据库工具。它完全替代和胜出了sqlite3。它是基于列存储和向量运算的，其性能超过了clickhouse和porlars。</p>

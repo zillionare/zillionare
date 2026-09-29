@@ -57,37 +57,35 @@
 </ol>
 <p>最后，我们在 A 股 40%的抽样中，得到最近半年二阶导因子的最佳参数是 5 天。在此参数下，<strong>年化 Alpha 分别是 38.4%（多空）和 61.5%（单边做多）</strong>， beta 为-0.12，即收益独立于市场。</p>
 <p>上一期我们检视了斜率因子。本质上，斜率因子是一阶导动量因子。比如，以如下方式生成的数组，它的斜率和一阶导是相等的：</p>
-<pre><code class="language-python">from scipy.stats import linregress
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> linregress
 
-slope = 0.2
-x = np.arange(10)
-y = slope * x + 1
+slope = <span class="hljs-number">0.2</span>
+x = np.arange(<span class="hljs-number">10</span>)
+y = slope * x + <span class="hljs-number">1</span>
 
 d1 = np.diff(y).mean()
 
-# 如果我们通过线性回归来求斜率
+<span class="hljs-comment"># 如果我们通过线性回归来求斜率</span>
 alpha, beta, *_ = linregress(x, y)
 
-print(f&quot;slope is {slope:.1f}&quot;)
-print(f&quot;first derivative is {d1:.1f}&quot;)
-print(f&quot;slope by linear regression is {alpha:.1f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;slope is <span class="hljs-subst">{slope:<span class="hljs-number">.1</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;first derivative is <span class="hljs-subst">{d1:<span class="hljs-number">.1</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;slope by linear regression is <span class="hljs-subst">{alpha:<span class="hljs-number">.1</span>f}</span>&quot;</span>)</span></code></pre>
 <p>三项输出都是 0.2。如果我们对价格序列求<strong>二阶导</strong>作为因子，它会对未来趋势有预测作用吗？我们先看结果，再来讨论背后的原理。</p>
 <h2 id="二阶导动量因子检验">二阶导动量因子检验</h2>
 <p>下面这段代码可以生成一个二阶导动量因子。</p>
 <hr>
-<pre><code class="language-python">def d2_factor(close: NDArray, win: int = 10) -&gt; NDArray:
-    n = len(close)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">d2_factor</span>(<span class="hljs-params">close: NDArray, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">10</span></span>) -&gt; NDArray:
+    n = <span class="hljs-built_in">len</span>(close)
 
-    d1 = close[1:]/close[:-1] - 1
-    d2 = d1[1:] - d1[:-1]
+    d1 = close[<span class="hljs-number">1</span>:]/close[:-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
+    d2 = d1[<span class="hljs-number">1</span>:] - d1[:-<span class="hljs-number">1</span>]
 
     factor = move_mean(d2, win)
-    # 进行左填充，使之与输入等长
-    factor = np.pad(factor, (n-len(factor), 0), ...)
+    <span class="hljs-comment"># 进行左填充，使之与输入等长</span>
+    factor = np.pad(factor, (n-<span class="hljs-built_in">len</span>(factor), <span class="hljs-number">0</span>), ...)
     
-    return factor
-</code></pre>
+    <span class="hljs-keyword">return</span> factor</span></code></pre>
 <p>注意我们用<code>close[1:]/close[:-1]-1</code>代替了通常意义上的一阶导，以起到某种标准化的作用。如果我们不这样做，那么高价股的因子将永远大于低价股的因子，从而永远有更高的因子暴露。</p>
 <p>因子本身的参数是<code>win</code>，表示我们是在多长的时间段内计算的二阶导。</p>
 <p>然后我们通过 Alphalens 来进行因子检验。第一次调用 Alphalens，我们按 quantiles 分层，分层数为 10。</p>
@@ -107,9 +105,8 @@ print(f&quot;slope by linear regression is {alpha:.1f}&quot;)
 <p>第 2 步输出的是一个 DataFrame，它的格式如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg" alt=""></p>
 <p>所以，要 drop 掉第 9 层和第 10 层，可以这样做：</p>
-<pre><code class="language-python">
-factor_data = factor_data[factor_data.factor_quantile &lt;= 8]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">
+factor_data = factor_data[factor_data.factor_quantile &lt;= <span class="hljs-number">8</span>]</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 这是本文介绍的第一个技巧。在前面的课程中，为了让 Alphalens 按照我们的意愿，按指定的对空分层进行收益分析，我们使用的是改造因子本身的方法，比这个方法在阶段上更提前一些。两个方法都可以使用，但这里的方法更简单。
 </div>
@@ -280,42 +277,40 @@ plt.legend()
 <h1 id="tradegpt-快来用-chatgpt-生成交易策略">TradeGPT! 快来用 CHATGPT 生成交易策略</h1>
 <p>通过 ChatGPT，我们可以基于宏观经济层面生成一些有用的交易策略。</p>
 <p>要有效使用 ChatGPT，我们可以尝试 RISE 提问模型，即 Role, Instructions, Steps and End goal 模型。下面是一个例子：</p>
-<pre><code class="language-markdown">Role: Assume the role of a world-class trader with expertise in trading energy futures. Specifically, you excel in trading the crack spread against refiner stocks.
+<pre><code class="hljs language-markdown"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">Role: Assume the role of a world-class trader with expertise in trading energy futures. Specifically, you excel in trading the crack spread against refiner stocks.
 
 Instructions: Write 5 trading ideas related to trading a crack spread position in futures against a refiner stock.
 
 Steps: 1. Start with the composition of the crack spread. Proceed with a description of how to trade it against a refiner stock. Proceed with explaining the economic rationale why the crack spread and refiner stocks should be related. Finish with the description of a trade that the difference between the crack spread and refiner stock.
 
-End Goal: The goal is a concise description of a trade I can execute.
-</code></pre>
+End Goal: The goal is a concise description of a trade I can execute.</span></code></pre>
 <p>最终 ChatGPT 就会给我们想要的答案：</p>
-<pre><code class="language-markdown">
+<pre><code class="hljs language-markdown"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body">
 Composition of the Crack Spread The crack spread is a trading strategy in the energy sector that captures the price
 differential between crude oil and its refined products, most commonly gasoline and heating oil. To construct a simple 3:2:1 crack spread, you would buy 3 futures contracts of crude oil
 and simultaneously sell 2 contracts of gasoline and 1 contract of heating oil.
 Trading Crack Spread Against a Refiner Stock When trading the crack spread against a refiner stock, you are essentially comparing the
-profitability of refining operations to the market&#39;s valuation of a specific refining company. Refiner stocks should theoretically benefit from a widening crack spread, as their margins
+profitability of refining operations to the market&#x27;s valuation of a specific refining company. Refiner stocks should theoretically benefit from a widening crack spread, as their margins
 improve when the price difference between crude and its products increases.
-Economic Rationale The economic rationale behind the correlation between the crack spread and refiner stocks is straightforward. Refiners purchase crude oil and sell its refined products. When the spread between the two widens, the refiner&#39;s profit margin inherently expands. Consequently, refiner stocks should move in tandem with crack spreads, although other factors such as operational efficiency, regulatory changes, and broader market sentiment can cause
+Economic Rationale The economic rationale behind the correlation between the crack spread and refiner stocks is straightforward. Refiners purchase crude oil and sell its refined products. When the spread between the two widens, the refiner&#x27;s profit margin inherently expands. Consequently, refiner stocks should move in tandem with crack spreads, although other factors such as operational efficiency, regulatory changes, and broader market sentiment can cause
 divergence.
 Trade Ideas
-1. Long Crack Spread, Short Refiner Stock - Mean Reversion If the crack spread widens substantially but a refiner&#39;s stock hasn&#39;t reacted proportionally, you may execute a mean-reversion strategy. Long the crack spread and short the refiner stock, expecting the stock to catch up to the increased profitability suggested by the crack
+<span class="hljs-bullet">1.</span> Long Crack Spread, Short Refiner Stock - Mean Reversion If the crack spread widens substantially but a refiner&#x27;s stock hasn&#x27;t reacted proportionally, you may execute a mean-reversion strategy. Long the crack spread and short the refiner stock, expecting the stock to catch up to the increased profitability suggested by the crack
 spread.
-1. Short Crack Spread, Long Refiner Stock - Divergence Trade If the crack spread narrows but a refiner&#39;s stock price remains resilient, it could suggest that the market is overly optimistic about the refiner&#39;s profit margins. Short the crack spread and go long on the refiner stock, anticipating that the stock will correct downward as margins
+<span class="hljs-bullet">1.</span> Short Crack Spread, Long Refiner Stock - Divergence Trade If the crack spread narrows but a refiner&#x27;s stock price remains resilient, it could suggest that the market is overly optimistic about the refiner&#x27;s profit margins. Short the crack spread and go long on the refiner stock, anticipating that the stock will correct downward as margins
 compress.
-1. Long Crack Spread, Long Refiner Stock - Trend Confirmation In an environment where both the crack spread and the refiner stock are trending upward, take a long position in both to capitalize on the sustained strength in refining margins and
+<span class="hljs-bullet">1.</span> Long Crack Spread, Long Refiner Stock - Trend Confirmation In an environment where both the crack spread and the refiner stock are trending upward, take a long position in both to capitalize on the sustained strength in refining margins and
 investor sentiment towards the sector.
-1. Relative Strength Trade - Pairing Strong with Weak Identify two refiner stocks: one showing strong performance and another showing weak performance. If the crack spread is expanding, go long on the strong stock and short the
+<span class="hljs-bullet">1.</span> Relative Strength Trade - Pairing Strong with Weak Identify two refiner stocks: one showing strong performance and another showing weak performance. If the crack spread is expanding, go long on the strong stock and short the
 weak stock, expecting the strong stock to outperform further.
-1. Arbitrage Opportunities - Geographical Spreads Some refiners have a more significant presence in specific geographic regions where the crack spread may be widening more quickly. Long the local crack spread and short a global crack spread index while simultaneously long the refiner stock most affected by the local
+<span class="hljs-bullet">1.</span> Arbitrage Opportunities - Geographical Spreads Some refiners have a more significant presence in specific geographic regions where the crack spread may be widening more quickly. Long the local crack spread and short a global crack spread index while simultaneously long the refiner stock most affected by the local
 crack spread.
 Trade Execution: Long Crack Spread, Short Refiner Stock
-1. Buy 3 futures contracts of WTI crude oil.
-2. Sell 2 futures contracts of RBOB gasoline.
-3. Sell 1 futures contract of Heating Oil. 4. Short shares of a specific refiner stock that has not yet reacted to the widening crack
+<span class="hljs-bullet">1.</span> Buy 3 futures contracts of WTI crude oil.
+<span class="hljs-bullet">2.</span> Sell 2 futures contracts of RBOB gasoline.
+<span class="hljs-bullet">3.</span> Sell 1 futures contract of Heating Oil. 4. Short shares of a specific refiner stock that has not yet reacted to the widening crack
 spread. This strategy aims to capture the eventual rise in the refiner stock to align more closely with the improved economics implied by a wider crack spread. Keep a close eye on market developments that might affect either the crack spread or the refiner stock and adjust your
-positions accordingly.
-</code></pre>
+positions accordingly.</span></code></pre>
 <p>chatGPT的输出就不翻译了。</p>
 <hr>
 <p>chatGPT 生成的交易策略大意是，通过捕捉原油与其精炼产品（最常见的是汽油和取暖油）之间的价格差异，构建一个简单的 3:2:1 裂解价差，你需要买入 3 份原油期货合约，并同时卖出 2 份汽油期货合约和 1 份取暖油期货合约。</p>
@@ -333,26 +328,26 @@ positions accordingly.
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/mean-prices-with-sentiment-gold.jpg" alt=""></p>
 <p>该Python库提供了两种复杂的工具，可通过 Google 搜索结果和在线新闻文章对金融资产和证券进行情感分析。您只需要一个 OpenAI API 密钥即可开始使用并利用此软件包提供的所有功能，即获取新闻文章、分析其内容并为投资和交易决策生成有见地的报告。</p>
 <p>使用方法比较简单：</p>
-<pre><code class="language-python">from asset_sentiment_analyzer import SentimentAnalyzer
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">from</span> asset_sentiment_analyzer <span class="hljs-keyword">import</span> SentimentAnalyzer
 
-# INITIALIZE THE ANALYZER
-analyzer = SentimentAnalyzer(asset=&#39;Crude Oil&#39;, openai_key=&#39;your-openai-key&#39;)
+<span class="hljs-comment"># INITIALIZE THE ANALYZER</span>
+analyzer = SentimentAnalyzer(asset=<span class="hljs-string">&#x27;Crude Oil&#x27;</span>, openai_key=<span class="hljs-string">&#x27;your-openai-key&#x27;</span>)
 
-# GET SENTIMENT ANALYSIS AS STRING FOR TODAY OR ANY DATE IN THE PAST (RETURNS &quot;BULLISH&quot;, &quot;BEARISH&quot;, OR &quot;NEUTRAL&quot;)
-sentiment = analyzer.get_sentiment(date=&#39;06-02-2024&#39;)
-print(f&quot;The sentiment for the asset is: {sentiment}&quot;)
+<span class="hljs-comment"># GET SENTIMENT ANALYSIS AS STRING FOR TODAY OR ANY DATE IN THE PAST (RETURNS &quot;BULLISH&quot;, &quot;BEARISH&quot;, OR &quot;NEUTRAL&quot;)</span>
+sentiment = analyzer.get_sentiment(date=<span class="hljs-string">&#x27;06-02-2024&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;The sentiment for the asset is: <span class="hljs-subst">{sentiment}</span>&quot;</span>)
 
-# FETCH NEWS LINKS FOR ANY DATE WITH NEWS_DATE ARGUMENT IN MM-DD-YYYY FORMAT.
-news_links = analyzer.fetch_news_links(news_date=&#39;06-02-2024&#39;)
+<span class="hljs-comment"># FETCH NEWS LINKS FOR ANY DATE WITH NEWS_DATE ARGUMENT IN MM-DD-YYYY FORMAT.</span>
+news_links = analyzer.fetch_news_links(news_date=<span class="hljs-string">&#x27;06-02-2024&#x27;</span>)
 
-# DISPLAY NEWS CONTENT
-for url in news_links:
-    print(analyzer.show_news_content(url))
+<span class="hljs-comment"># DISPLAY NEWS CONTENT</span>
+<span class="hljs-keyword">for</span> url <span class="hljs-keyword">in</span> news_links:
+    <span class="hljs-built_in">print</span>(analyzer.show_news_content(url))
 
-# GENERATE A REPORT
-report = analyzer.produce_daily_report(date=&#39;06-02-2024&#39;, max_words=300)
-print(report)
-</code></pre>
+<span class="hljs-comment"># GENERATE A REPORT</span>
+report = analyzer.produce_daily_report(date=<span class="hljs-string">&#x27;06-02-2024&#x27;</span>, max_words=<span class="hljs-number">300</span>)
+<span class="hljs-built_in">print</span>(report)
+</span></code></pre>
 <hr>
 <h1 id="你们都是在哪儿下载论文的">你们都是在哪儿下载论文的？</h1>
 <p>上一期我们介绍了金融人最常看的顶刊。有同学问，要怎么订阅这些杂志。</p>

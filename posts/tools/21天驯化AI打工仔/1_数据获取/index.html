@@ -25,100 +25,98 @@
 <p>最后，确保 doubaocanvas 的格式正确，identifier 使用 “quant-data-redis-queue”，type 为 general_code，title 描述清楚。两个代码部分分别作为生产者和消费者的脚本，path 分别为 producer.py 和 consumer.py，description 准确。检查是否有未定义的变量，确保代码完整，可以独立运行，用户只需替换配置即可使用。</p>
 <p>我的007表示这很简单，瞬间根据我的要求，给了两份代码文件：<code>data_producer.py</code> 和 <code>data_consumer.py</code>。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/1_%E5%9B%9E%E7%AD%941.png" alt=""></p>
-<pre><code class="language-python">&quot;&quot;&quot;data_consumer.py&quot;&quot;&quot;
-import redis
-import json
-from typing import Dict
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;data_consumer.py&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Dict</span>
 
-# 配置参数（需与生产者保持一致）
-REDIS_HOST = &quot;localhost&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;tushare_data_queue&quot;
+<span class="hljs-comment"># 配置参数（需与生产者保持一致）</span>
+REDIS_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;tushare_data_queue&quot;</span>
 
-redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=<span class="hljs-literal">True</span>)
 
-def process_data(data_package: Dict):
-    &quot;&quot;&quot;数据处理逻辑（可扩展为实际业务处理）&quot;&quot;&quot;
-    print(f&quot;接收到数据时间: {data_package[&#39;timestamp&#39;]}&quot;)
-    print(f&quot;处理股票代码: {data_package[&#39;ts_code&#39;]}&quot;)
-    print(f&quot;OHLC数据条目数: {len(data_package[&#39;ohlc_data&#39;])}&quot;)
-    print(f&quot;复权因子条目数: {len(data_package[&#39;adj_factor&#39;])}&quot;)
-    # 此处可添加数据存储/计算/分发等实际业务逻辑
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">process_data</span>(<span class="hljs-params">data_package: <span class="hljs-type">Dict</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;数据处理逻辑（可扩展为实际业务处理）&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;接收到数据时间: <span class="hljs-subst">{data_package[<span class="hljs-string">&#x27;timestamp&#x27;</span>]}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;处理股票代码: <span class="hljs-subst">{data_package[<span class="hljs-string">&#x27;ts_code&#x27;</span>]}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;OHLC数据条目数: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(data_package[<span class="hljs-string">&#x27;ohlc_data&#x27;</span>])}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;复权因子条目数: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(data_package[<span class="hljs-string">&#x27;adj_factor&#x27;</span>])}</span>&quot;</span>)
+    <span class="hljs-comment"># 此处可添加数据存储/计算/分发等实际业务逻辑</span>
 
-def consume_data():
-    &quot;&quot;&quot;数据消费主函数（阻塞式获取）&quot;&quot;&quot;
-    print(&quot;启动数据消费者，等待队列数据...&quot;)
-    while True:
-        try:
-            # 阻塞式获取队列数据（超时时间30秒）
-            _, json_data = redis_client.brpop(REDIS_QUEUE_NAME, timeout=30)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_data</span>():
+    <span class="hljs-string">&quot;&quot;&quot;数据消费主函数（阻塞式获取）&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;启动数据消费者，等待队列数据...&quot;</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 阻塞式获取队列数据（超时时间30秒）</span>
+            _, json_data = redis_client.brpop(REDIS_QUEUE_NAME, timeout=<span class="hljs-number">30</span>)
             data_package = json.loads(json_data)
             process_data(data_package)
             
-        except Exception as e:
-            print(f&quot;数据处理异常: {str(e)}&quot;)
-            continue
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;数据处理异常: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
-if __name__ == &quot;__main__&quot;:
-    consume_data()
-</code></pre>
-<pre><code class="language-python">&quot;&quot;&quot;data_producer.py&quot;&quot;&quot;
-import redis
-import tushare as ts
-import json
-from datetime import datetime
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    consume_data()</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;data_producer.py&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
 
-# 配置参数
-TUSHARE_TOKEN = &quot;87a5a442931d15e749b4453b4f802c3b87794c3a5968b7b40a153edd&quot;  # 替换为你的Tushare token
-REDIS_HOST = &quot;localhost&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;tushare_data_queue&quot;
+<span class="hljs-comment"># 配置参数</span>
+TUSHARE_TOKEN = <span class="hljs-string">&quot;87a5a442931d15e749b4453b4f802c3b87794c3a5968b7b40a153edd&quot;</span>  <span class="hljs-comment"># 替换为你的Tushare token</span>
+REDIS_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;tushare_data_queue&quot;</span>
 
-# 初始化连接
+<span class="hljs-comment"># 初始化连接</span>
 pro = ts.pro_api(TUSHARE_TOKEN)
-redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=<span class="hljs-literal">True</span>)
 
-def fetch_ohlc_data(ts_code: str, start_date: str, end_date: str) -&gt; list:
-    &quot;&quot;&quot;获取OHLC数据&quot;&quot;&quot;
-    try:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_ohlc_data</span>(<span class="hljs-params">ts_code: <span class="hljs-built_in">str</span>, start_date: <span class="hljs-built_in">str</span>, end_date: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">list</span>:
+    <span class="hljs-string">&quot;&quot;&quot;获取OHLC数据&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">try</span>:
         df = pro.daily(ts_code=ts_code, start_date=start_date, end_date=end_date)
-        return df[[&#39;ts_code&#39;, &#39;trade_date&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;close&#39;, &#39;vol&#39;]].to_dict(&#39;records&#39;)
-    except Exception as e:
-        print(f&quot;OHLC数据获取失败: {str(e)}&quot;)
-        return []
+        <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&#x27;ts_code&#x27;</span>, <span class="hljs-string">&#x27;trade_date&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;high&#x27;</span>, <span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-string">&#x27;vol&#x27;</span>]].to_dict(<span class="hljs-string">&#x27;records&#x27;</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;OHLC数据获取失败: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+        <span class="hljs-keyword">return</span> []
 
-def fetch_adj_factor(ts_code: str, start_date: str, end_date: str) -&gt; list:
-    &quot;&quot;&quot;获取复权因子&quot;&quot;&quot;
-    try:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_adj_factor</span>(<span class="hljs-params">ts_code: <span class="hljs-built_in">str</span>, start_date: <span class="hljs-built_in">str</span>, end_date: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">list</span>:
+    <span class="hljs-string">&quot;&quot;&quot;获取复权因子&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">try</span>:
         df = pro.adj_factor(ts_code=ts_code, start_date=start_date, end_date=end_date)
-        return df[[&#39;ts_code&#39;, &#39;trade_date&#39;, &#39;adj_factor&#39;]].to_dict(&#39;records&#39;)
-    except Exception as e:
-        print(f&quot;复权因子获取失败: {str(e)}&quot;)
-        return []
+        <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&#x27;ts_code&#x27;</span>, <span class="hljs-string">&#x27;trade_date&#x27;</span>, <span class="hljs-string">&#x27;adj_factor&#x27;</span>]].to_dict(<span class="hljs-string">&#x27;records&#x27;</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;复权因子获取失败: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+        <span class="hljs-keyword">return</span> []
 
-def produce_data(ts_code_list: list, date_range: tuple):
-    &quot;&quot;&quot;数据生产主函数&quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">produce_data</span>(<span class="hljs-params">ts_code_list: <span class="hljs-built_in">list</span>, date_range: <span class="hljs-built_in">tuple</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;数据生产主函数&quot;&quot;&quot;</span>
     start_date, end_date = date_range
-    for ts_code in ts_code_list:
-        # 封装数据结构
+    <span class="hljs-keyword">for</span> ts_code <span class="hljs-keyword">in</span> ts_code_list:
+        <span class="hljs-comment"># 封装数据结构</span>
         data_package = {
-            &quot;timestamp&quot;: datetime.now().isoformat(),
-            &quot;ts_code&quot;: ts_code,
-            &quot;ohlc_data&quot;: fetch_ohlc_data(ts_code, start_date, end_date),
-            &quot;adj_factor&quot;: fetch_adj_factor(ts_code, start_date, end_date)
+            <span class="hljs-string">&quot;timestamp&quot;</span>: datetime.now().isoformat(),
+            <span class="hljs-string">&quot;ts_code&quot;</span>: ts_code,
+            <span class="hljs-string">&quot;ohlc_data&quot;</span>: fetch_ohlc_data(ts_code, start_date, end_date),
+            <span class="hljs-string">&quot;adj_factor&quot;</span>: fetch_adj_factor(ts_code, start_date, end_date)
         }
         
-        # 推入Redis队列
+        <span class="hljs-comment"># 推入Redis队列</span>
         redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data_package))
-        print(f&quot;已推送数据: {ts_code} - {start_date}至{end_date}&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;已推送数据: <span class="hljs-subst">{ts_code}</span> - <span class="hljs-subst">{start_date}</span>至<span class="hljs-subst">{end_date}</span>&quot;</span>)
 
-if __name__ == &quot;__main__&quot;:
-    # 示例参数
-    STOCK_CODES = [&quot;000001.SZ&quot;, &quot;600519.SH&quot;]  # 沪深300成分股示例
-    DATE_RANGE = (&quot;20230101&quot;, &quot;20231231&quot;)   # 年度数据范围
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    <span class="hljs-comment"># 示例参数</span>
+    STOCK_CODES = [<span class="hljs-string">&quot;000001.SZ&quot;</span>, <span class="hljs-string">&quot;600519.SH&quot;</span>]  <span class="hljs-comment"># 沪深300成分股示例</span>
+    DATE_RANGE = (<span class="hljs-string">&quot;20230101&quot;</span>, <span class="hljs-string">&quot;20231231&quot;</span>)   <span class="hljs-comment"># 年度数据范围</span>
     
-    produce_data(STOCK_CODES, DATE_RANGE)
-</code></pre>
+    produce_data(STOCK_CODES, DATE_RANGE)</span></code></pre>
 <p>运行了两个文件没有反应，原来是这个电脑还没有下载并启动 Redis 。然后，我快速手动下载并启动，并夸赞了 007 贴心给我写了一段检查 Redis 是否正常启动的代码。</p>
 <!--
 <div class="admonition admonition-note"><p class="admonition-title">note</p>

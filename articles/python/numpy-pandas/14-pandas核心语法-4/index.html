@@ -19,84 +19,78 @@
 <p>在 Pandas 中，DataFrame 的逻辑运算和比较是数据处理中常用的操作，主要用于筛选和过滤数据。以下是详细说明和实现方法：</p>
 <h3 id="11-dataframe-的逻辑运算">1.1. DataFrame 的逻辑运算</h3>
 <p>逻辑运算包括与（&amp;）、或（|）、非（~）和异或（^），通常与比较运算结合使用。示例代码：</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建示例 DataFrame
+<span class="hljs-comment"># 创建示例 DataFrame</span>
 df = pd.DataFrame({
-    &#39;A&#39;: [True, False, True],
-    &#39;B&#39;: [False, True, False]
+    <span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>],
+    <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-literal">False</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>]
 })
 
-# 与运算
-print(df[&#39;A&#39;] &amp; df[&#39;B&#39;])
+<span class="hljs-comment"># 与运算</span>
+<span class="hljs-built_in">print</span>(df[<span class="hljs-string">&#x27;A&#x27;</span>] &amp; df[<span class="hljs-string">&#x27;B&#x27;</span>])
 
-# 或运算
-print(df[&#39;A&#39;] | df[&#39;B&#39;])
+<span class="hljs-comment"># 或运算</span>
+<span class="hljs-built_in">print</span>(df[<span class="hljs-string">&#x27;A&#x27;</span>] | df[<span class="hljs-string">&#x27;B&#x27;</span>])
 
-# 非运算
-print(~df[&#39;A&#39;])
+<span class="hljs-comment"># 非运算</span>
+<span class="hljs-built_in">print</span>(~df[<span class="hljs-string">&#x27;A&#x27;</span>])
 
-# 异或运算
-print(df[&#39;A&#39;] ^ df[&#39;B&#39;])
-</code></pre>
+<span class="hljs-comment"># 异或运算</span>
+<span class="hljs-built_in">print</span>(df[<span class="hljs-string">&#x27;A&#x27;</span>] ^ df[<span class="hljs-string">&#x27;B&#x27;</span>])</span></code></pre>
 <hr>
 <p>输出结果：</p>
-<pre><code class="language-python">0    False
-1    False
-2    False
-dtype: bool
-0     True
-1     True
-2     True
-dtype: bool
-0    False
-1     True
-2    False
-dtype: bool
-0     True
-1     True
-2     True
-dtype: bool
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-number">0</span>    <span class="hljs-literal">False</span>
+<span class="hljs-number">1</span>    <span class="hljs-literal">False</span>
+<span class="hljs-number">2</span>    <span class="hljs-literal">False</span>
+dtype: <span class="hljs-built_in">bool</span>
+<span class="hljs-number">0</span>     <span class="hljs-literal">True</span>
+<span class="hljs-number">1</span>     <span class="hljs-literal">True</span>
+<span class="hljs-number">2</span>     <span class="hljs-literal">True</span>
+dtype: <span class="hljs-built_in">bool</span>
+<span class="hljs-number">0</span>    <span class="hljs-literal">False</span>
+<span class="hljs-number">1</span>     <span class="hljs-literal">True</span>
+<span class="hljs-number">2</span>    <span class="hljs-literal">False</span>
+dtype: <span class="hljs-built_in">bool</span>
+<span class="hljs-number">0</span>     <span class="hljs-literal">True</span>
+<span class="hljs-number">1</span>     <span class="hljs-literal">True</span>
+<span class="hljs-number">2</span>     <span class="hljs-literal">True</span>
+dtype: <span class="hljs-built_in">bool</span></span></code></pre>
 <h3 id="12-dataframe-的比较运算">1.2. DataFrame 的比较运算</h3>
 <p>比较运算包括 &gt;、&lt;、==、!=、&gt;=、&lt;=，返回布尔值组成的 DataFrame 或 Series。</p>
 <p>示例代码：</p>
-<pre><code class="language-python"># 创建示例 DataFrame
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 创建示例 DataFrame</span>
 df = pd.DataFrame({
-    &#39;A&#39;: [1, 2, 3],
-    &#39;B&#39;: [4, 5, 6]
-})
-</code></pre>
+    <span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+    <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]
+})</span></code></pre>
 <hr>
-<pre><code class="language-python"># 比较运算
-print(df[&#39;A&#39;] &gt; 1)  # 返回布尔 Series
-print(df &gt; 2)       # 返回布尔 DataFrame
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 比较运算</span>
+<span class="hljs-built_in">print</span>(df[<span class="hljs-string">&#x27;A&#x27;</span>] &gt; <span class="hljs-number">1</span>)  <span class="hljs-comment"># 返回布尔 Series</span>
+<span class="hljs-built_in">print</span>(df &gt; <span class="hljs-number">2</span>)       <span class="hljs-comment"># 返回布尔 DataFrame</span></span></code></pre>
 <p>输出结果：</p>
-<pre><code class="language-python">0    False
-1     True
-2     True
-Name: A, dtype: bool
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-number">0</span>    <span class="hljs-literal">False</span>
+<span class="hljs-number">1</span>     <span class="hljs-literal">True</span>
+<span class="hljs-number">2</span>     <span class="hljs-literal">True</span>
+Name: A, dtype: <span class="hljs-built_in">bool</span>
        A      B
-0  False   True
-1  False   True
-2   True   True
-</code></pre>
+<span class="hljs-number">0</span>  <span class="hljs-literal">False</span>   <span class="hljs-literal">True</span>
+<span class="hljs-number">1</span>  <span class="hljs-literal">False</span>   <span class="hljs-literal">True</span>
+<span class="hljs-number">2</span>   <span class="hljs-literal">True</span>   <span class="hljs-literal">True</span></span></code></pre>
 <p><strong>Dataframe中包含了我们提取的特征。要选取PE最大同时是PB最小的前30列，怎么做？</strong></p>
 <p>假设 DataFrame 中包含以下特征：</p>
 <ul>
 <li>PE：市盈率</li>
 <li>PB：市净率</li>
 </ul>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建示例 DataFrame
+<span class="hljs-comment"># 创建示例 DataFrame</span>
 data = {
-    &#39;PE&#39;: [10, 20, 30, 40, 50],
-    &#39;PB&#39;: [1.5, 1.2, 1.0, 0.8, 0.5]
+    <span class="hljs-string">&#x27;PE&#x27;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>],
+    <span class="hljs-string">&#x27;PB&#x27;</span>: [<span class="hljs-number">1.5</span>, <span class="hljs-number">1.2</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">0.8</span>, <span class="hljs-number">0.5</span>]
 }
-df = pd.DataFrame(data)
-</code></pre>
+df = pd.DataFrame(data)</span></code></pre>
 <hr>
 <p>选取 PE 最大且 PB 最小的前 30 列, 要实现这一需求，可以按照以下步骤操作：</p>
 <ol>
@@ -104,47 +98,42 @@ df = pd.DataFrame(data)
 <li>根据条件筛选数据。</li>
 <li>选取前 30 列。</li>
 </ol>
-<pre><code class="language-python"># 筛选 PE 最大且 PB 最小的行
-filtered_df = df[(df[&#39;PE&#39;] == df[&#39;PE&#39;].max()) &amp; (df[&#39;PB&#39;] == df[&#39;PB&#39;].min())]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 筛选 PE 最大且 PB 最小的行</span>
+filtered_df = df[(df[<span class="hljs-string">&#x27;PE&#x27;</span>] == df[<span class="hljs-string">&#x27;PE&#x27;</span>].<span class="hljs-built_in">max</span>()) &amp; (df[<span class="hljs-string">&#x27;PB&#x27;</span>] == df[<span class="hljs-string">&#x27;PB&#x27;</span>].<span class="hljs-built_in">min</span>())]
 
-# 选取前 30 列（假设列数足够）
-result = filtered_df.iloc[:, :30]
-print(result)
-</code></pre>
+<span class="hljs-comment"># 选取前 30 列（假设列数足够）</span>
+result = filtered_df.iloc[:, :<span class="hljs-number">30</span>]
+<span class="hljs-built_in">print</span>(result)</span></code></pre>
 <p>输出结果：</p>
-<pre><code class="language-python">   PE   PB
-4  50  0.5
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">   PE   PB
+<span class="hljs-number">4</span>  <span class="hljs-number">50</span>  <span class="hljs-number">0.5</span></span></code></pre>
 <h2 id="2-分组运算groupby">2. 分组运算（groupby）</h2>
 <!--_因子分析数据表包含了行业标签和各公司的PE值。如何选出每个行业PE最强的5支_-->
 <p>在 Pandas 中，groupby 是用于对 DataFrame 进行分组运算的核心方法。它遵循“拆分-应用-合并”的逻辑，即先将数据按指定条件分组，然后对每个分组执行操作，最后将结果合并。以下是详细说明和具体实现方法：</p>
 <h3 id="21-groupby-的基本语法">2.1. groupby 的基本语法</h3>
 <hr>
 <p>groupby 的基本语法为：</p>
-<pre><code class="language-python">df.groupby(by=分组键)[选择列].聚合函数
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.groupby(by=分组键)[选择列].聚合函数</span></code></pre>
 <ul>
 <li>​<strong>by</strong>：指定分组的列名或列名列表。</li>
 <li>​选择列：可选，指定需要操作的列。</li>
 <li>​聚合函数：如 sum()、mean()、max() 等。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">import pandas as pd
-# 创建示例 DataFrame
-data = {&#39;行业&#39;: [&#39;科技&#39;, &#39;科技&#39;, &#39;金融&#39;, &#39;金融&#39;, &#39;科技&#39;],
-        &#39;公司&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;],
-        &#39;PE&#39;: [30, 25, 15, 20, 35]}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-comment"># 创建示例 DataFrame</span>
+data = {<span class="hljs-string">&#x27;行业&#x27;</span>: [<span class="hljs-string">&#x27;科技&#x27;</span>, <span class="hljs-string">&#x27;科技&#x27;</span>, <span class="hljs-string">&#x27;金融&#x27;</span>, <span class="hljs-string">&#x27;金融&#x27;</span>, <span class="hljs-string">&#x27;科技&#x27;</span>],
+        <span class="hljs-string">&#x27;公司&#x27;</span>: [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>],
+        <span class="hljs-string">&#x27;PE&#x27;</span>: [<span class="hljs-number">30</span>, <span class="hljs-number">25</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>, <span class="hljs-number">35</span>]}
 df = pd.DataFrame(data)
-# 按行业分组并计算平均 PE
-result = df.groupby(&#39;行业&#39;)[&#39;PE&#39;].mean()
-print(result)
-</code></pre>
+<span class="hljs-comment"># 按行业分组并计算平均 PE</span>
+result = df.groupby(<span class="hljs-string">&#x27;行业&#x27;</span>)[<span class="hljs-string">&#x27;PE&#x27;</span>].mean()
+<span class="hljs-built_in">print</span>(result)</span></code></pre>
 <p>输出结果：</p>
-<pre><code class="language-python">行业
-科技    30.0
-金融    17.5
-Name: PE, dtype: float64
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">行业
+科技    <span class="hljs-number">30.0</span>
+金融    <span class="hljs-number">17.5</span>
+Name: PE, dtype: float64</span></code></pre>
 <hr>
 <h3 id="22-groupby-的应用">2.2. groupby 的应用</h3>
 <p>假设你的因子分析数据表包含以下列：</p>
@@ -153,34 +142,31 @@ Name: PE, dtype: float64
 <li>​PE值：表示公司的市盈率。</li>
 </ul>
 <p>示例数据：</p>
-<pre><code class="language-python">data = {&#39;行业&#39;: [&#39;科技&#39;, &#39;科技&#39;, &#39;金融&#39;, &#39;金融&#39;, &#39;科技&#39;, &#39;金融&#39;],
-        &#39;公司&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;],
-        &#39;PE&#39;: [30, 25, 15, 20, 35, 10]}
-df = pd.DataFrame(data)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">data = {<span class="hljs-string">&#x27;行业&#x27;</span>: [<span class="hljs-string">&#x27;科技&#x27;</span>, <span class="hljs-string">&#x27;科技&#x27;</span>, <span class="hljs-string">&#x27;金融&#x27;</span>, <span class="hljs-string">&#x27;金融&#x27;</span>, <span class="hljs-string">&#x27;科技&#x27;</span>, <span class="hljs-string">&#x27;金融&#x27;</span>],
+        <span class="hljs-string">&#x27;公司&#x27;</span>: [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-string">&#x27;F&#x27;</span>],
+        <span class="hljs-string">&#x27;PE&#x27;</span>: [<span class="hljs-number">30</span>, <span class="hljs-number">25</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>, <span class="hljs-number">35</span>, <span class="hljs-number">10</span>]}
+df = pd.DataFrame(data)</span></code></pre>
 <p>选出每个行业 PE 最强的 5 支, “PE 最强”可以理解为 PE 值最高的公司。以下是实现步骤：</p>
 <ol>
 <li>按行业分组。</li>
 <li>对每个分组按 PE 值降序排序。</li>
 <li>选取每个分组的前 5 行。</li>
 </ol>
-<pre><code class="language-python"># 按行业分组，并对每个分组按 PE 值降序排序
-grouped = df.groupby(&#39;行业&#39;, group_keys=False)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 按行业分组，并对每个分组按 PE 值降序排序</span>
+grouped = df.groupby(<span class="hljs-string">&#x27;行业&#x27;</span>, group_keys=<span class="hljs-literal">False</span>)
 
-# 选取每个行业 PE 值最高的 5 家公司
-result = grouped.apply(lambda x: x.nlargest(5, &#39;PE&#39;))
-print(result)
-</code></pre>
+<span class="hljs-comment"># 选取每个行业 PE 值最高的 5 家公司</span>
+result = grouped.apply(<span class="hljs-keyword">lambda</span> x: x.nlargest(<span class="hljs-number">5</span>, <span class="hljs-string">&#x27;PE&#x27;</span>))
+<span class="hljs-built_in">print</span>(result)</span></code></pre>
 <p>输出结果：</p>
 <hr>
-<pre><code class="language-python">   行业 公司  PE
-0  科技  A  30
-4  科技  E  35
-1  科技  B  25
-2  金融  C  15
-3  金融  D  20
-5  金融  F  10
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">   行业 公司  PE
+<span class="hljs-number">0</span>  科技  A  <span class="hljs-number">30</span>
+<span class="hljs-number">4</span>  科技  E  <span class="hljs-number">35</span>
+<span class="hljs-number">1</span>  科技  B  <span class="hljs-number">25</span>
+<span class="hljs-number">2</span>  金融  C  <span class="hljs-number">15</span>
+<span class="hljs-number">3</span>  金融  D  <span class="hljs-number">20</span>
+<span class="hljs-number">5</span>  金融  F  <span class="hljs-number">10</span></span></code></pre>
 <h2 id="3-多重索引和高级索引">3. 多重索引和高级索引</h2>
 <!--_这是pandas中比较难懂的内容之一_-->
 <p>在 Pandas 中，DataFrame 的多重索引（MultiIndex）和高级索引是处理复杂数据结构的重要工具。它们允许你在一个轴上创建多个层级的索引，从而更灵活地组织和访问数据。以下是详细说明：</p>
@@ -189,76 +175,63 @@ print(result)
 <h4>3.1.1. 创建多重索引</h4>
 <p>Pandas 提供了多种方法创建多重索引，以下是常见的方式：</p>
 <p>[​从数组创建]</p>
-<pre><code class="language-python">import pandas as pd
-arrays = [[&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;], [1, 2, 1, 2]]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+arrays = [[<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]]
 multi_index = pd.MultiIndex.from_arrays(arrays, 
-                names=(&#39;Letter&#39;, &#39;Number&#39;))
-</code></pre>
+                names=(<span class="hljs-string">&#x27;Letter&#x27;</span>, <span class="hljs-string">&#x27;Number&#x27;</span>))</span></code></pre>
 <hr>
-<pre><code class="language-python">df = pd.DataFrame({&#39;Value&#39;: [10, 20, 30, 40]}, index=multi_index)
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df = pd.DataFrame({<span class="hljs-string">&#x27;Value&#x27;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>]}, index=multi_index)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>[从元组创建]</p>
-<pre><code class="language-python">tuples = [(&#39;A&#39;, 1), (&#39;A&#39;, 2), (&#39;B&#39;, 1), (&#39;B&#39;, 2)]
-multi_index = pd.MultiIndex.from_tuples(tuples, names=(&#39;Letter&#39;, &#39;Number&#39;))
-df = pd.DataFrame({&#39;Value&#39;: [10, 20, 30, 40]}, index=multi_index)
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">tuples = [(<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-number">1</span>), (<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-number">2</span>), (<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-number">1</span>), (<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-number">2</span>)]
+multi_index = pd.MultiIndex.from_tuples(tuples, names=(<span class="hljs-string">&#x27;Letter&#x27;</span>, <span class="hljs-string">&#x27;Number&#x27;</span>))
+df = pd.DataFrame({<span class="hljs-string">&#x27;Value&#x27;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>]}, index=multi_index)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>[从笛卡尔积创建]</p>
-<pre><code class="language-python">letters = [&#39;A&#39;, &#39;B&#39;]
-numbers = [1, 2]
-multi_index = pd.MultiIndex.from_product([letters, numbers], names=(&#39;Letter&#39;, &#39;Number&#39;))
-df = pd.DataFrame({&#39;Value&#39;: [10, 20, 30, 40]}, index=multi_index)
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">letters = [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>]
+numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+multi_index = pd.MultiIndex.from_product([letters, numbers], names=(<span class="hljs-string">&#x27;Letter&#x27;</span>, <span class="hljs-string">&#x27;Number&#x27;</span>))
+df = pd.DataFrame({<span class="hljs-string">&#x27;Value&#x27;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>]}, index=multi_index)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <h4>3.1.2. ​访问多重索引数据</h4>
 <p>使用 loc 访问：</p>
-<pre><code class="language-python">print(df.loc[(&#39;A&#39;, 1)])  # 访问特定行
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(df.loc[(<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-number">1</span>)])  <span class="hljs-comment"># 访问特定行</span></span></code></pre>
 <p>​使用 xs 交叉选择：</p>
 <hr>
-<pre><code class="language-python">print(df.xs(1, level=&#39;Number&#39;))  # 获取第二层级索引为 1 的所有行
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(df.xs(<span class="hljs-number">1</span>, level=<span class="hljs-string">&#x27;Number&#x27;</span>))  <span class="hljs-comment"># 获取第二层级索引为 1 的所有行</span></span></code></pre>
 <p>​使用切片器：</p>
-<pre><code class="language-python">print(df.loc[pd.IndexSlice[:, 2], :])  # 获取第二层级索引为 2 的所有行
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(df.loc[pd.IndexSlice[:, <span class="hljs-number">2</span>], :])  <span class="hljs-comment"># 获取第二层级索引为 2 的所有行</span></span></code></pre>
 <h4>3.1.3 ​操作多重索引</h4>
 <p>​交换层级：</p>
-<pre><code class="language-python">df_swapped = df.swaplevel(0, 1)
-print(df_swapped)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df_swapped = df.swaplevel(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+<span class="hljs-built_in">print</span>(df_swapped)</span></code></pre>
 <p>​重排序层级：</p>
-<pre><code class="language-python">df_sorted = df.sort_index(level=&#39;Number&#39;)
-print(df_sorted)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df_sorted = df.sort_index(level=<span class="hljs-string">&#x27;Number&#x27;</span>)
+<span class="hljs-built_in">print</span>(df_sorted)</span></code></pre>
 <p>​重置索引：</p>
-<pre><code class="language-python">df_reset = df.reset_index()
-print(df_reset)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df_reset = df.reset_index()
+<span class="hljs-built_in">print</span>(df_reset)</span></code></pre>
 <h3 id="32-高级索引">3.2. ​高级索引</h3>
 <hr>
 <p>高级索引是指在多重索引的基础上，使用更灵活的方法选择和操作数据。</p>
 <h4>3.2.1. ​使用 reindex 重新索引</h4>
 <p>reindex 可以根据指定的索引重新排列数据，并填充缺失值：</p>
-<pre><code class="language-python">new_index = [(&#39;B&#39;, 2), (&#39;A&#39;, 1), (&#39;C&#39;, 3)]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">new_index = [(<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-number">2</span>), (<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-number">1</span>), (<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-number">3</span>)]
 df_reindexed = df.reindex(new_index)
-print(df_reindexed)
-</code></pre>
+<span class="hljs-built_in">print</span>(df_reindexed)</span></code></pre>
 <h4>3.2.2. ​使用 align 对齐索引</h4>
 <p>align 可以将两个具有不同索引的 DataFrame 对齐：</p>
-<pre><code class="language-python">df1 = pd.DataFrame({&#39;Value&#39;: [10, 20]}, index=[(&#39;A&#39;, 1), (&#39;B&#39;, 2)])
-df2 = pd.DataFrame({&#39;Value&#39;: [30, 40]}, index=[(&#39;B&#39;, 2), (&#39;C&#39;, 3)])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">df1 = pd.DataFrame({<span class="hljs-string">&#x27;Value&#x27;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>]}, index=[(<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-number">1</span>), (<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-number">2</span>)])
+df2 = pd.DataFrame({<span class="hljs-string">&#x27;Value&#x27;</span>: [<span class="hljs-number">30</span>, <span class="hljs-number">40</span>]}, index=[(<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-number">2</span>), (<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-number">3</span>)])
 aligned_df1, aligned_df2 = df1.align(df2)
-print(aligned_df1)
-print(aligned_df2)
-</code></pre>
+<span class="hljs-built_in">print</span>(aligned_df1)
+<span class="hljs-built_in">print</span>(aligned_df2)</span></code></pre>
 <div class="admonition admonition-Notes"><p class="admonition-title">Notes</p>
 - 多重索引：通过 MultiIndex 创建多层级索引，支持灵活的数据组织和访问。
 - ​高级索引：通过 reindex、align、groupby 等方法实现复杂的数据操作。
 </div>
 
-<pre><code>通过熟练掌握多重索引和高级索引，可以更高效地处理和分析复杂数据。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">通过熟练掌握多重索引和高级索引，可以更高效地处理和分析复杂数据。</span></code></pre>
 <hr>
 <h2 id="4-窗口函数">4. 窗口函数</h2>
 <!--_用以计算移动平均等具有滑动窗口的指标_-->
@@ -272,17 +245,15 @@ print(aligned_df2)
 </ul>
 <h3 id="42-滚动窗口rolling-window">4.2. ​滚动窗口（Rolling Window）​</h3>
 <p>滚动窗口用于在固定大小的窗口内对数据进行计算。例如，计算过去 5 天的平均值或最大值。</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建示例 DataFrame
-data = {&#39;value&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9]}
-df = pd.DataFrame(data)
-</code></pre>
+<span class="hljs-comment"># 创建示例 DataFrame</span>
+data = {<span class="hljs-string">&#x27;value&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]}
+df = pd.DataFrame(data)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 计算滚动平均值，窗口大小为 3
-df[&#39;rolling_mean&#39;] = df[&#39;value&#39;].rolling(window=3).mean()
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 计算滚动平均值，窗口大小为 3</span>
+df[<span class="hljs-string">&#x27;rolling_mean&#x27;</span>] = df[<span class="hljs-string">&#x27;value&#x27;</span>].rolling(window=<span class="hljs-number">3</span>).mean()
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li>​<strong>window</strong>：窗口大小。</li>
@@ -291,17 +262,15 @@ print(df)
 </ul>
 <h3 id="43-扩展窗口expanding-window">4.3. 扩展窗口（Expanding Window）​</h3>
 <p>扩展窗口从第一个数据点开始，逐步增加窗口大小，直到包含所有数据点。它通常用于计算累计和、累计平均等。</p>
-<pre><code class="language-python"># 计算累计和
-df[&#39;expanding_sum&#39;] = df[&#39;value&#39;].expanding().sum()
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 计算累计和</span>
+df[<span class="hljs-string">&#x27;expanding_sum&#x27;</span>] = df[<span class="hljs-string">&#x27;value&#x27;</span>].expanding().<span class="hljs-built_in">sum</span>()
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <h3 id="44-指数加权移动窗口exponentially-weighted-moving-window">4.4. 指数加权移动窗口（Exponentially Weighted Moving Window）​</h3>
 <p>指数加权移动窗口对较近的数据赋予更高的权重，较远的数据赋予较低的权重。它在金融数据分析中非常有用。</p>
 <hr>
-<pre><code class="language-python"># 计算指数加权移动平均
-df[&#39;ewm_mean&#39;] = df[&#39;value&#39;].ewm(span=3).mean()
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 计算指数加权移动平均</span>
+df[<span class="hljs-string">&#x27;ewm_mean&#x27;</span>] = df[<span class="hljs-string">&#x27;value&#x27;</span>].ewm(span=<span class="hljs-number">3</span>).mean()
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li>​<strong>span</strong>：指定衰减系数。</li>
@@ -320,32 +289,30 @@ print(df)
 <p>Pandas 支持对 DataFrame 进行基本的数学运算，包括加法、减法、乘法、除法等。这些运算可以逐元素进行，也可以对整列或整行进行操作。
 示例代码：</p>
 <hr>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建示例 DataFrame
-data = {&#39;A&#39;: [1, 2, 3], &#39;B&#39;: [4, 5, 6]}
+<span class="hljs-comment"># 创建示例 DataFrame</span>
+data = {<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]}
 df = pd.DataFrame(data)
 
-# 加法
-df[&#39;C&#39;] = df[&#39;A&#39;] + df[&#39;B&#39;]
+<span class="hljs-comment"># 加法</span>
+df[<span class="hljs-string">&#x27;C&#x27;</span>] = df[<span class="hljs-string">&#x27;A&#x27;</span>] + df[<span class="hljs-string">&#x27;B&#x27;</span>]
 
-# 减法
-df[&#39;D&#39;] = df[&#39;A&#39;] - df[&#39;B&#39;]
+<span class="hljs-comment"># 减法</span>
+df[<span class="hljs-string">&#x27;D&#x27;</span>] = df[<span class="hljs-string">&#x27;A&#x27;</span>] - df[<span class="hljs-string">&#x27;B&#x27;</span>]
 
-# 乘法
-df[&#39;E&#39;] = df[&#39;A&#39;] * df[&#39;B&#39;]
+<span class="hljs-comment"># 乘法</span>
+df[<span class="hljs-string">&#x27;E&#x27;</span>] = df[<span class="hljs-string">&#x27;A&#x27;</span>] * df[<span class="hljs-string">&#x27;B&#x27;</span>]
 
-# 除法
-df[&#39;F&#39;] = df[&#39;A&#39;] / df[&#39;B&#39;]
+<span class="hljs-comment"># 除法</span>
+df[<span class="hljs-string">&#x27;F&#x27;</span>] = df[<span class="hljs-string">&#x27;A&#x27;</span>] / df[<span class="hljs-string">&#x27;B&#x27;</span>]
 
-print(df)
-</code></pre>
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>输出结果：</p>
-<pre><code class="language-python">   A  B  C  D   E    F
-0  1  4  5 -3   4  0.25
-1  2  5  7 -3  10  0.40
-2  3  6  9 -3  18  0.50
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">   A  B  C  D   E    F
+<span class="hljs-number">0</span>  <span class="hljs-number">1</span>  <span class="hljs-number">4</span>  <span class="hljs-number">5</span> -<span class="hljs-number">3</span>   <span class="hljs-number">4</span>  <span class="hljs-number">0.25</span>
+<span class="hljs-number">1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">5</span>  <span class="hljs-number">7</span> -<span class="hljs-number">3</span>  <span class="hljs-number">10</span>  <span class="hljs-number">0.40</span>
+<span class="hljs-number">2</span>  <span class="hljs-number">3</span>  <span class="hljs-number">6</span>  <span class="hljs-number">9</span> -<span class="hljs-number">3</span>  <span class="hljs-number">18</span>  <span class="hljs-number">0.50</span></span></code></pre>
 <p>其他数学运算：</p>
 <ul>
 <li>​幂运算：df[&#39;A&#39;] ​** 2</li>
@@ -368,38 +335,35 @@ print(df)
 <li>​分位数：df.quantile(q=0.25)（计算 25% 分位数）</li>
 </ul>
 <p>示例代码：</p>
-<pre><code class="language-python"># 计算各列的和
-sum_result = df.sum()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 计算各列的和</span>
+sum_result = df.<span class="hljs-built_in">sum</span>()
 
-# 计算各列的平均值
+<span class="hljs-comment"># 计算各列的平均值</span>
 mean_result = df.mean()
 
-# 计算各列的最大值
-max_result = df.max()
+<span class="hljs-comment"># 计算各列的最大值</span>
+max_result = df.<span class="hljs-built_in">max</span>()
 
-# 计算各列的最小值
-min_result = df.min()
-</code></pre>
+<span class="hljs-comment"># 计算各列的最小值</span>
+min_result = df.<span class="hljs-built_in">min</span>()</span></code></pre>
 <hr>
-<pre><code class="language-python"># 计算各列的标准差
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># 计算各列的标准差</span>
 std_result = df.std()
 
-# 计算描述性统计信息
+<span class="hljs-comment"># 计算描述性统计信息</span>
 desc_stats = df.describe()
 
-print(desc_stats)
-</code></pre>
+<span class="hljs-built_in">print</span>(desc_stats)</span></code></pre>
 <p>输出结果：</p>
-<pre><code class="language-python">              A         B         C         D         E         F
-count  3.000000  3.000000  3.000000  3.000000  3.000000  3.000000
-mean   2.000000  5.000000  7.000000 -3.000000 10.666667  0.383333
-std    1.000000  1.000000  2.000000  0.000000  7.023796  0.125833
-min    1.000000  4.000000  5.000000 -3.000000  4.000000  0.250000
-25%    1.500000  4.500000  6.000000 -3.000000  7.000000  0.325000
-50%    2.000000  5.000000  7.000000 -3.000000 10.000000  0.400000
-75%    2.500000  5.500000  8.000000 -3.000000 14.000000  0.450000
-max    3.000000  6.000000  9.000000 -3.000000 18.000000  0.500000
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">              A         B         C         D         E         F
+count  <span class="hljs-number">3.000000</span>  <span class="hljs-number">3.000000</span>  <span class="hljs-number">3.000000</span>  <span class="hljs-number">3.000000</span>  <span class="hljs-number">3.000000</span>  <span class="hljs-number">3.000000</span>
+mean   <span class="hljs-number">2.000000</span>  <span class="hljs-number">5.000000</span>  <span class="hljs-number">7.000000</span> -<span class="hljs-number">3.000000</span> <span class="hljs-number">10.666667</span>  <span class="hljs-number">0.383333</span>
+std    <span class="hljs-number">1.000000</span>  <span class="hljs-number">1.000000</span>  <span class="hljs-number">2.000000</span>  <span class="hljs-number">0.000000</span>  <span class="hljs-number">7.023796</span>  <span class="hljs-number">0.125833</span>
+<span class="hljs-built_in">min</span>    <span class="hljs-number">1.000000</span>  <span class="hljs-number">4.000000</span>  <span class="hljs-number">5.000000</span> -<span class="hljs-number">3.000000</span>  <span class="hljs-number">4.000000</span>  <span class="hljs-number">0.250000</span>
+<span class="hljs-number">25</span>%    <span class="hljs-number">1.500000</span>  <span class="hljs-number">4.500000</span>  <span class="hljs-number">6.000000</span> -<span class="hljs-number">3.000000</span>  <span class="hljs-number">7.000000</span>  <span class="hljs-number">0.325000</span>
+<span class="hljs-number">50</span>%    <span class="hljs-number">2.000000</span>  <span class="hljs-number">5.000000</span>  <span class="hljs-number">7.000000</span> -<span class="hljs-number">3.000000</span> <span class="hljs-number">10.000000</span>  <span class="hljs-number">0.400000</span>
+<span class="hljs-number">75</span>%    <span class="hljs-number">2.500000</span>  <span class="hljs-number">5.500000</span>  <span class="hljs-number">8.000000</span> -<span class="hljs-number">3.000000</span> <span class="hljs-number">14.000000</span>  <span class="hljs-number">0.450000</span>
+<span class="hljs-built_in">max</span>    <span class="hljs-number">3.000000</span>  <span class="hljs-number">6.000000</span>  <span class="hljs-number">9.000000</span> -<span class="hljs-number">3.000000</span> <span class="hljs-number">18.000000</span>  <span class="hljs-number">0.500000</span></span></code></pre>
 <h3 id="53-高级统计功能">5.3. ​高级统计功能</h3>
 <p>Pandas 还支持更复杂的统计操作，例如：</p>
 <ul>
@@ -410,32 +374,29 @@ max    3.000000  6.000000  9.000000 -3.000000 18.000000  0.500000
 </ul>
 <p>示例代码：</p>
 <hr>
-<pre><code class="language-python"># 计算累计和
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-comment"># 计算累计和</span>
 cumsum_result = df.cumsum()
 
-# 计算相关系数矩阵
+<span class="hljs-comment"># 计算相关系数矩阵</span>
 corr_matrix = df.corr()
 
-# 计算协方差矩阵
+<span class="hljs-comment"># 计算协方差矩阵</span>
 cov_matrix = df.cov()
 
-print(corr_matrix)
-</code></pre>
+<span class="hljs-built_in">print</span>(corr_matrix)</span></code></pre>
 <h3 id="54-分组统计">5.4. ​分组统计</h3>
 <p>Pandas 的 groupby 方法可以对数据进行分组，然后对每个分组进行统计计算。示例代码：</p>
-<pre><code class="language-python"># 创建示例 DataFrame
-data = {&#39;Category&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;B&#39;, &#39;A&#39;], &#39;Value&#39;: [10, 20, 30, 40, 50]}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># 创建示例 DataFrame</span>
+data = {<span class="hljs-string">&#x27;Category&#x27;</span>: [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>], <span class="hljs-string">&#x27;Value&#x27;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>, <span class="hljs-number">50</span>]}
 df = pd.DataFrame(data)
 
-# 按 Category 分组并计算每组的平均值
-grouped_stats = df.groupby(&#39;Category&#39;).mean()
-print(grouped_stats)
-</code></pre>
-<pre><code class="language-python">          Value
+<span class="hljs-comment"># 按 Category 分组并计算每组的平均值</span>
+grouped_stats = df.groupby(<span class="hljs-string">&#x27;Category&#x27;</span>).mean()
+<span class="hljs-built_in">print</span>(grouped_stats)</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">          Value
 Category       
-A           30.0
-B           30.0
-</code></pre>
+A           <span class="hljs-number">30.0</span>
+B           <span class="hljs-number">30.0</span></span></code></pre>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/13-pandas核心语法-3/">← 上一篇：13 - Pandas核心语法[3]</a> <a class="series-next" href="/articles/python/numpy-pandas/15-pandas核心语法-5/">下一篇：15 - Pandas核心语法[5] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 36/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/13-pandas核心语法-3/">← 13 - Pandas核心语法[3]</a> <a href="/articles/python/numpy-pandas/15-pandas核心语法-5/">15 - Pandas核心语法[5] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/13-pandas核心语法-3/">13 - Pandas核心语法[3]</a> <p>“DataFrame 是 Pandas 的核心数据结构，支持多种数据类型和灵活的操作方式。无论是嵌套字典、NumPy 数组还是 CSV 文件，都可以轻松转换为 DataFrame，</p> </li><li> <a href="/articles/python/numpy-pandas/15-pandas核心语法-5/">15 - Pandas核心语法[5]</a> <p>“Pandas 提供了丰富的 IO 操作功能，支持从 CSV、SQL、Parquet 等多种文件格式中读取数据。通过优化参数如 chunksize、usecols 和 dtype，</p> </li><li> <a href="/articles/python/numpy-pandas/12-pandas核心语法-2/">12 - Pandas核心语法[2]</a> <p>Series 的基本功能 本节，我们将介绍Series的一些数据的基本操作方法。后续将会深入地挖掘pandas在数据分析和处理方面的功能。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-逻辑运算和比较" title="1. 逻辑运算和比较">1. 逻辑运算和比较</a> </li><li class="lv3"> <a href="#11-dataframe-的逻辑运算" title="1.1. DataFrame 的逻辑运算">1.1. DataFrame 的逻辑运算</a> </li><li class="lv3"> <a href="#12-dataframe-的比较运算" title="1.2. DataFrame 的比较运算">1.2. DataFrame 的比较运算</a> </li><li class> <a href="#2-分组运算groupby" title="2. 分组运算（groupby）">2. 分组运算（groupby）</a> </li><li class="lv3"> <a href="#21-groupby-的基本语法" title="2.1. groupby 的基本语法">2.1. groupby 的基本语法</a> </li><li class="lv3"> <a href="#22-groupby-的应用" title="2.2. groupby 的应用">2.2. groupby 的应用</a> </li><li class> <a href="#3-多重索引和高级索引" title="3. 多重索引和高级索引">3. 多重索引和高级索引</a> </li><li class="lv3"> <a href="#31-多重索引multiindex" title="3.1. ​多重索引（MultiIndex）​">3.1. ​多重索引（MultiIndex）​</a> </li><li class="lv3"> <a href="#32-高级索引" title="3.2. ​高级索引">3.2. ​高级索引</a> </li><li class> <a href="#4-窗口函数" title="4. 窗口函数">4. 窗口函数</a> </li><li class="lv3"> <a href="#41-窗口函数的基本概念" title="4.1. ​窗口函数的基本概念">4.1. ​窗口函数的基本概念</a> </li><li class="lv3"> <a href="#42-滚动窗口rolling-window" title="4.2. ​滚动窗口（Rolling Window）​">4.2. ​滚动窗口（Rolling Window）​</a> </li><li class="lv3"> <a href="#43-扩展窗口expanding-window" title="4.3. 扩展窗口（Expanding Window）​">4.3. 扩展窗口（Expanding Window）​</a> </li><li class="lv3"> <a href="#44-指数加权移动窗口exponentially-weighted-moving-window" title="4.4. 指数加权移动窗口（Exponentially Weighted Moving Window）​">4.4. 指数加权移动窗口（Exponentially Weighted Moving Window）​</a> </li><li class> <a href="#5-数学运算和统计" title="5. 数学运算和统计">5. 数学运算和统计</a> </li><li class="lv3"> <a href="#51-数学运算" title="5.1. ​数学运算">5.1. ​数学运算</a> </li><li class="lv3"> <a href="#52-统计计算" title="5.2. ​统计计算">5.2. ​统计计算</a> </li><li class="lv3"> <a href="#53-高级统计功能" title="5.3. ​高级统计功能">5.3. ​高级统计功能</a> </li><li class="lv3"> <a href="#54-分组统计" title="5.4. ​分组统计">5.4. ​分组统计</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）

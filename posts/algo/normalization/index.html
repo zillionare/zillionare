@@ -62,26 +62,24 @@ $$</p>
 <p>在量化策略中，好的归一化函数，首先要满足单调性原则，其次，要使得最常出现的数据点，有最好的响应灵敏度。此外，还涉及到分辨率问题。</p>
 <p>要注意的是，有一些函数，在数学上满足单调性，但在计算机实现中，由于浮点数误差问题，会导致实际上不满足单调性。</p>
 <p>比如 sigmoid(13) 和sigmoid(26)，哪个大？从数学上看，$26 &gt; 13$，因此， $sigmoid(26) &gt; sigmoid(13)$成立。但实际上，下面的代码将验证这两个数值是相等的：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-def sigmoid(x):
-    return 1/(1 + np.exp(-x))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">sigmoid</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/(<span class="hljs-number">1</span> + np.exp(-x))
 
-assert sigmoid(13) - sigmoid(26) &lt; 1e-7
-</code></pre>
+<span class="hljs-keyword">assert</span> sigmoid(<span class="hljs-number">13</span>) - sigmoid(<span class="hljs-number">26</span>) &lt; <span class="hljs-number">1e-7</span></span></code></pre>
 <p>1e-7是32位浮点数所能精确表示的最小精度。而我们在深度学习中，权重矩阵一般使用32 bit，现在16-bit的权重也很常见了。</p>
 <p>sigmoid(13)与sigmoid(26)相等！这意味着单调性原则被打破。</p>
 <p>另一个问题就是响应灵敏度。我们为什么要对数据进行z-score化?这是为了让出现频率最高的数据段，它们都映射到以0为中心附近的区域上来，在这一区段，响应灵敏度最高。</p>
 <p>从sigmoid与tanh的对比图可以看出，对sigmoid而言，在[-5，5]区间内的数值，它的们sigmoid值对x有较好的响应灵敏度，超过这个区间，则出现钝化。这种钝化意味着我们必须使用更小的学习率(learning-rate)才能进行较好的调校。</p>
 <p>所以，我们一般不直接使用sigmoid，而是使用它的一个变换版本：</p>
-<pre><code class="language-python">def scaled_sigmoid(x, start, end):
-    &quot;&quot;&quot;当`x`落在`[start,end]`区间时，函数值为[0,1]且在该区间有较好的响应灵敏度
-    &quot;&quot;&quot;
-    n = np.abs(start - end)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">scaled_sigmoid</span>(<span class="hljs-params">x, start, end</span>):
+    <span class="hljs-string">&quot;&quot;&quot;当`x`落在`[start,end]`区间时，函数值为[0,1]且在该区间有较好的响应灵敏度
+    &quot;&quot;&quot;</span>
+    n = np.<span class="hljs-built_in">abs</span>(start - end)
 
-    score = 2/(1 + np.exp(-np.log(40_000)*(x - start - n)/n + np.log(5e-3)))
-    return score/2
-</code></pre>
+    score = <span class="hljs-number">2</span>/(<span class="hljs-number">1</span> + np.exp(-np.log(<span class="hljs-number">40_000</span>)*(x - start - n)/n + np.log(<span class="hljs-number">5e-3</span>)))
+    <span class="hljs-keyword">return</span> score/<span class="hljs-number">2</span></span></code></pre>
 <p>下面的图，显示了当数据主要分布在不同的[start, end]区间时，变换后的sigmoid方法都能使得中心分布有最好的响应灵敏度 -- 这也是为什么我们要做z-score变换的原因。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png" alt=""></p>
 <p>在子图1中，我们让数据在[0,1]之间有最好的响应灵敏度。子图2中，如果数据经常落在50附近，正负50之间波动，也能得到最好的响应灵敏度。子图4则显示的是原始的sigmoid在[0,100]之间的取值情况。</p>

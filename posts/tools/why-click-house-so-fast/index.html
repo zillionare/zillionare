@@ -41,21 +41,20 @@
 <p>在这一块，确实用了很多大数据的技巧，比如使用了 bloomfilter 的索引。它还留了一些优化技巧给使用者，这也是我们这篇笔记将要介绍的：如何设计一个能存储上百亿条行情数据的数据库，并达到最佳性能。</p>
 <h2 id="实战先存一个小目标">实战！先存一个小目标</h2>
 <p>尽管在 clickhouse 中，我们可以把分钟线与日线存在一张表里，但是考虑到我们几乎不可能同时取两个不同周期的数据，所以，把它们分别按表存储显然更合理。所以，我们在举例时，就只以分钟线为例：</p>
-<pre><code class="language-sql">CREATE TABLE if not exists bars_1m
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">CREATE TABLE</span> if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> bars_1m
 (
     `frame` DateTime64 CODEC(Delta, ZSTD),
     `symbol` LowCardinality(String),
-    `open` Float32 DEFAULT -1 CODEC(Delta, ZSTD),
-    `high` Float32 DEFAULT -1 CODEC(Delta, ZSTD),
-    `low` Float32 DEFAULT -1 CODEC(Delta, ZSTD),
-    `close` Float32 DEFAULT -1 CODEC(Delta, ZSTD),
-    `volume` Float64 DEFAULT -1 ,
-    `money` Float64 DEFAULT -1 ,
-    `factor` Float64 DEFAULT -1 CODEC(Delta, ZSTD)
+    `<span class="hljs-keyword">open</span>` Float32 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> CODEC(Delta, ZSTD),
+    `high` Float32 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> CODEC(Delta, ZSTD),
+    `low` Float32 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> CODEC(Delta, ZSTD),
+    `<span class="hljs-keyword">close</span>` Float32 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> CODEC(Delta, ZSTD),
+    `volume` Float64 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> ,
+    `money` Float64 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> ,
+    `factor` Float64 <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">-1</span> CODEC(Delta, ZSTD)
 )
-ENGINE = MergeTree
-ORDER BY (frame, symbol)
-</code></pre>
+ENGINE <span class="hljs-operator">=</span> MergeTree
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> (frame, symbol)</span></code></pre>
 <hr>
 <p>这里我们看到使用 clickhouse 的第一个好处。它完全兼容了 sql 的核心语法。要知道在设计 zillionare 2.0 版时我们被 influxdb 折磨的不行 -- 天知道他们为什么抛弃了原先对 sql 的兼容，而独出心裁地设计了一种全新的查询语言！</p>
 <p>这意味着如果我们在团队内安装了 clickhouse -- 这常常是 IT 的活，分析师也就能直接上手 -- 因为做数据分析的人，你们都是懂 sql 的。</p>

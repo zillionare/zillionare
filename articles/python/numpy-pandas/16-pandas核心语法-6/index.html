@@ -17,22 +17,20 @@
 <h2 id="1-日期和时间">1. 日期和时间</h2>
 <h3 id="11-将字符串转换为日期时间格式">1.1. ​将字符串转换为日期时间格式</h3>
 <p>如果时间或日期数据是字符串格式，可以使用 <code>pd.to_datetime()</code> 函数将其转换为 Pandas 的 datetime 类型。</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 示例数据
-data = {&#39;date&#39;: [&#39;2023-01-01&#39;, &#39;2023-02-01&#39;, &#39;2023-03-01&#39;]}
+<span class="hljs-comment"># 示例数据</span>
+data = {<span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-string">&#x27;2023-01-01&#x27;</span>, <span class="hljs-string">&#x27;2023-02-01&#x27;</span>, <span class="hljs-string">&#x27;2023-03-01&#x27;</span>]}
 df = pd.DataFrame(data)
 
-# 将 &#39;date&#39; 列转换为 datetime 类型
-df[&#39;date&#39;] = pd.to_datetime(df[&#39;date&#39;])
-print(df)
-</code></pre>
+<span class="hljs-comment"># 将 &#x27;date&#x27; 列转换为 datetime 类型</span>
+df[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>])
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>输出：</p>
-<pre><code class="language-python">        date
-0 2023-01-01
-1 2023-02-01
-2 2023-03-01
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">        date
+<span class="hljs-number">0</span> <span class="hljs-number">2023</span>-01-01
+<span class="hljs-number">1</span> <span class="hljs-number">2023</span>-02-01
+<span class="hljs-number">2</span> <span class="hljs-number">2023</span>-03-01</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li>format：指定日期字符串的格式，例如 &#39;%Y-%m-%d&#39;。</li>
@@ -44,131 +42,109 @@ print(df)
 </ul>
 <h3 id="12-处理多种日期格式">1.2. ​处理多种日期格式</h3>
 <p>如果日期字符串有多种格式，可以通过 errors=&#39;coerce&#39; 参数忽略无法解析的日期，或者使用 format 参数指定格式。</p>
-<pre><code class="language-python">data = {&#39;date&#39;: [&#39;2023-01-01&#39;, &#39;01/02/2023&#39;, &#39;March 3, 2023&#39;]}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">data = {<span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-string">&#x27;2023-01-01&#x27;</span>, <span class="hljs-string">&#x27;01/02/2023&#x27;</span>, <span class="hljs-string">&#x27;March 3, 2023&#x27;</span>]}
 df = pd.DataFrame(data)
 
-# 处理多种日期格式
-df[&#39;date&#39;] = pd.to_datetime(df[&#39;date&#39;], errors=&#39;coerce&#39;)
-print(df)
-</code></pre>
+<span class="hljs-comment"># 处理多种日期格式</span>
+df[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>], errors=<span class="hljs-string">&#x27;coerce&#x27;</span>)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>输出：</p>
-<pre><code class="language-python">        date
-0 2023-01-01
-1 2023-01-02
-2 2023-03-03
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">        date
+<span class="hljs-number">0</span> <span class="hljs-number">2023</span>-01-01
+<span class="hljs-number">1</span> <span class="hljs-number">2023</span>-01-02
+<span class="hljs-number">2</span> <span class="hljs-number">2023</span>-03-03</span></code></pre>
 <h3 id="13-从时间戳转换">1.3. ​从时间戳转换</h3>
 <p>如果数据是时间戳（如 Unix 时间戳），可以使用 pd.to_datetime() 将其转换为 datetime 类型。</p>
 <hr>
 <p>示例：</p>
-<pre><code class="language-python">data = {&#39;timestamp&#39;: [1672531199, 1672617599, 1672703999]}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">data = {<span class="hljs-string">&#x27;timestamp&#x27;</span>: [<span class="hljs-number">1672531199</span>, <span class="hljs-number">1672617599</span>, <span class="hljs-number">1672703999</span>]}
 df = pd.DataFrame(data)
 
-# 将时间戳转换为 datetime
-df[&#39;date&#39;] = pd.to_datetime(df[&#39;timestamp&#39;], unit=&#39;s&#39;)
-print(df)
-</code></pre>
+<span class="hljs-comment"># 将时间戳转换为 datetime</span>
+df[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;timestamp&#x27;</span>], unit=<span class="hljs-string">&#x27;s&#x27;</span>)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>输出：</p>
-<pre><code class="language-python">   timestamp                date
-0  1672531199 2023-01-01 00:00:00
-1  1672617599 2023-01-02 00:00:00
-2  1672703999 2023-01-03 00:00:00
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">   timestamp                date
+<span class="hljs-number">0</span>  <span class="hljs-number">1672531199</span> <span class="hljs-number">2023</span>-01-01 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+<span class="hljs-number">1</span>  <span class="hljs-number">1672617599</span> <span class="hljs-number">2023</span>-01-02 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+<span class="hljs-number">2</span>  <span class="hljs-number">1672703999</span> <span class="hljs-number">2023</span>-01-03 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span></span></code></pre>
 <h3 id="14-提取日期时间信息">1.4. ​提取日期时间信息</h3>
 <p>转换后，可以使用 dt 访问器提取日期时间的各个部分，如年、月、日、小时等。</p>
 <p>示例：</p>
-<pre><code class="language-python">df[&#39;year&#39;] = df[&#39;date&#39;].dt.year
-df[&#39;month&#39;] = df[&#39;date&#39;].dt.month
-df[&#39;day&#39;] = df[&#39;date&#39;].dt.day
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;year&#x27;</span>] = df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.year
+df[<span class="hljs-string">&#x27;month&#x27;</span>] = df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.month
+df[<span class="hljs-string">&#x27;day&#x27;</span>] = df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.day
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <hr>
 <p>输出：</p>
-<pre><code class="language-python">                date  year  month  day
-0 2023-01-01 00:00:00  2023      1    1
-1 2023-01-02 00:00:00  2023      1    2
-2 2023-01-03 00:00:00  2023      1    3
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">                date  year  month  day
+<span class="hljs-number">0</span> <span class="hljs-number">2023</span>-01-01 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  <span class="hljs-number">2023</span>      <span class="hljs-number">1</span>    <span class="hljs-number">1</span>
+<span class="hljs-number">1</span> <span class="hljs-number">2023</span>-01-02 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  <span class="hljs-number">2023</span>      <span class="hljs-number">1</span>    <span class="hljs-number">2</span>
+<span class="hljs-number">2</span> <span class="hljs-number">2023</span>-01-03 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  <span class="hljs-number">2023</span>      <span class="hljs-number">1</span>    <span class="hljs-number">3</span></span></code></pre>
 <h3 id="15-处理时区信息">1.5. ​处理时区信息</h3>
 <p>如果数据包含时区信息，可以使用 tz_convert() 和 tz_localize() 进行时区转换。</p>
 <p>示例：</p>
-<pre><code class="language-python"># 添加时区信息
-df[&#39;date&#39;] = pd.to_datetime(df[&#39;date&#39;]).dt.tz_localize(&#39;UTC&#39;)
-# 转换为本地时区
-df[&#39;date&#39;] = df[&#39;date&#39;].dt.tz_convert(&#39;Asia/Shanghai&#39;)
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 添加时区信息</span>
+df[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>]).dt.tz_localize(<span class="hljs-string">&#x27;UTC&#x27;</span>)
+<span class="hljs-comment"># 转换为本地时区</span>
+df[<span class="hljs-string">&#x27;date&#x27;</span>] = df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.tz_convert(<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <h3 id="16-将日期时间转换为字符串">1.6. ​将日期时间转换为字符串</h3>
 <p>如果需要将 datetime 类型转换为特定格式的字符串，可以使用 dt.strftime()。</p>
 <p>示例：</p>
 <hr>
-<pre><code class="language-python">df[&#39;date_str&#39;] = df[&#39;date&#39;].dt.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)
-print(df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;date_str&#x27;</span>] = df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>输出：</p>
-<pre><code class="language-python">                date           date_str
-0 2023-01-01 08:00:00  2023-01-01 08:00:00
-1 2023-01-02 08:00:00  2023-01-02 08:00:00
-2 2023-01-03 08:00:00  2023-01-03 08:00:00
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">                date           date_str
+<span class="hljs-number">0</span> <span class="hljs-number">2023</span>-01-01 08:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  <span class="hljs-number">2023</span>-01-01 08:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+<span class="hljs-number">1</span> <span class="hljs-number">2023</span>-01-02 08:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  <span class="hljs-number">2023</span>-01-02 08:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+<span class="hljs-number">2</span> <span class="hljs-number">2023</span>-01-03 08:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  <span class="hljs-number">2023</span>-01-03 08:<span class="hljs-number">00</span>:<span class="hljs-number">00</span></span></code></pre>
 <h2 id="2-字符串操作">2. 字符串操作</h2>
 <h3 id="21-dataframe-的字符串操作">2.1. DataFrame 的字符串操作</h3>
 <p>在 Pandas 中，<code>DataFrame</code> 的字符串操作可以通过 <code>str</code> 访问器来实现。以下是一些常见的字符串操作方法：</p>
 <h4>2.1.1. 转换为大写或小写</h4>
-<pre><code class="language-python">df[&#39;column_name&#39;] = df[&#39;column_name&#39;].str.upper()  # 转换为大写
-df[&#39;column_name&#39;] = df[&#39;column_name&#39;].str.lower()  # 转换为小写
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;column_name&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.upper()  <span class="hljs-comment"># 转换为大写</span>
+df[<span class="hljs-string">&#x27;column_name&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.lower()  <span class="hljs-comment"># 转换为小写</span></span></code></pre>
 <h4>2.1.2. 替换子字符串</h4>
 <hr>
-<pre><code class="language-python">df[&#39;column_name&#39;] = df[&#39;column_name&#39;].str.replace(&#39;old&#39;, &#39;new&#39;)  # 替换子字符串
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;column_name&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">&#x27;old&#x27;</span>, <span class="hljs-string">&#x27;new&#x27;</span>)  <span class="hljs-comment"># 替换子字符串</span></span></code></pre>
 <h4>2.1.3. 提取子字符串</h4>
-<pre><code class="language-python">df[&#39;new_column&#39;] = df[&#39;column_name&#39;].str[:3]  # 提取前 3 个字符
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;new_column&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>[:<span class="hljs-number">3</span>]  <span class="hljs-comment"># 提取前 3 个字符</span></span></code></pre>
 <h4>2.1.4. 分割字符串</h4>
-<pre><code class="language-python">df[[&#39;part1&#39;, &#39;part2&#39;]] = df[&#39;column_name&#39;].str.split(&#39; &#39;, expand=True)  # 按空格分割
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[[<span class="hljs-string">&#x27;part1&#x27;</span>, <span class="hljs-string">&#x27;part2&#x27;</span>]] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.split(<span class="hljs-string">&#x27; &#x27;</span>, expand=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 按空格分割</span></span></code></pre>
 <h4>2.1.5. 检查是否包含子字符串</h4>
-<pre><code class="language-python">df[&#39;contains_substring&#39;] = df[&#39;column_name&#39;].str.contains(&#39;substring&#39;)  # 检查是否包含
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;contains_substring&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">&#x27;substring&#x27;</span>)  <span class="hljs-comment"># 检查是否包含</span></span></code></pre>
 <h4>2.1.6. 计算字符串长度</h4>
-<pre><code class="language-python">df[&#39;length&#39;] = df[&#39;column_name&#39;].str.len()  # 计算字符串长度
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;length&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.<span class="hljs-built_in">len</span>()  <span class="hljs-comment"># 计算字符串长度</span></span></code></pre>
 <h4>2.1.7. 去除空格</h4>
-<pre><code class="language-python">df[&#39;column_name&#39;] = df[&#39;column_name&#39;].str.strip()  # 去除两端空格
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;column_name&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.strip()  <span class="hljs-comment"># 去除两端空格</span></span></code></pre>
 <hr>
 <h4>2.1.8. 正则表达式匹配</h4>
-<pre><code class="language-python">df[&#39;matches&#39;] = df[&#39;column_name&#39;].str.contains(r&#39;\d&#39;)  # 检查是否包含数字
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df[<span class="hljs-string">&#x27;matches&#x27;</span>] = df[<span class="hljs-string">&#x27;column_name&#x27;</span>].<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">r&#x27;\d&#x27;</span>)  <span class="hljs-comment"># 检查是否包含数字</span></span></code></pre>
 <h3 id="22-排除科创板证券">2.2. 排除科创板证券</h3>
 <p>科创板证券的代码通常以 <code>688</code> 开头。假设 <code>DataFrame</code> 中有一列 <code>code</code> 存放证券代码，可以通过以下方法排除科创板证券：</p>
 <h4>方法 1：使用 ~ 和 str.startswith()</h4>
-<pre><code class="language-python">df_filtered = df[~df[&#39;code&#39;].str.startswith(&#39;688&#39;)]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df_filtered = df[~df[<span class="hljs-string">&#x27;code&#x27;</span>].<span class="hljs-built_in">str</span>.startswith(<span class="hljs-string">&#x27;688&#x27;</span>)]</span></code></pre>
 <h4>方法 2：使用 str.contains() 和正则表达式</h4>
-<pre><code class="language-python">df_filtered = df[~df[&#39;code&#39;].str.contains(r&#39;^688&#39;)]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df_filtered = df[~df[<span class="hljs-string">&#x27;code&#x27;</span>].<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">r&#x27;^688&#x27;</span>)]</span></code></pre>
 <h4>方法 3：使用 query() 方法</h4>
-<pre><code class="language-python">df_filtered = df.query(&quot;not code.str.startswith(&#39;688&#39;)&quot;, engine=&#39;python&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df_filtered = df.query(<span class="hljs-string">&quot;not code.str.startswith(&#x27;688&#x27;)&quot;</span>, engine=<span class="hljs-string">&#x27;python&#x27;</span>)</span></code></pre>
 <hr>
 <p>示例：</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 示例数据
-data = {&#39;code&#39;: [&#39;600001&#39;, &#39;688001&#39;, &#39;000001&#39;, &#39;688002&#39;], &#39;name&#39;: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;]}
+<span class="hljs-comment"># 示例数据</span>
+data = {<span class="hljs-string">&#x27;code&#x27;</span>: [<span class="hljs-string">&#x27;600001&#x27;</span>, <span class="hljs-string">&#x27;688001&#x27;</span>, <span class="hljs-string">&#x27;000001&#x27;</span>, <span class="hljs-string">&#x27;688002&#x27;</span>], <span class="hljs-string">&#x27;name&#x27;</span>: [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>]}
 df = pd.DataFrame(data)
 
-# 排除科创板
-df_filtered = df[~df[&#39;code&#39;].str.startswith(&#39;688&#39;)]
-print(df_filtered)
-</code></pre>
+<span class="hljs-comment"># 排除科创板</span>
+df_filtered = df[~df[<span class="hljs-string">&#x27;code&#x27;</span>].<span class="hljs-built_in">str</span>.startswith(<span class="hljs-string">&#x27;688&#x27;</span>)]
+<span class="hljs-built_in">print</span>(df_filtered)</span></code></pre>
 <p>输出：</p>
-<pre><code class="language-python">     code name
-0  600001    A
-2  000001    C
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">     code name
+<span class="hljs-number">0</span>  <span class="hljs-number">600001</span>    A
+<span class="hljs-number">2</span>  000001    C</span></code></pre>
 <div class="admonition admonition-Notes"><p class="admonition-title">Notes</p>
 总结
 - **字符串操作**：通过 str 访问器可以实现大小写转换、替换、提取、分割、检查等操作。

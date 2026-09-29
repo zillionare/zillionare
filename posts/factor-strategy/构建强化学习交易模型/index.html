@@ -63,8 +63,7 @@
 <p>对于那些可以『无限』（即不受限）访问 yfinance 及 alpaca_trade_api 的同学，我强烈推荐从 FinRL 这个开源库开始。它被誉为&quot;金融领域的 OpenAI Gym&quot;，极大地降低了入门门槛。</p>
 <h3 id="安装-finrl">安装 FinRL</h3>
 <p>首先，确保你有一个 Python 环境（推荐使用 Anaconda 或 venv 创建虚拟环境），然后通过 pip 安装 FinRL 及其依赖。</p>
-<pre><code class="language-bash">pip install finrl
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install finrl</span></code></pre>
 <p>但是，FinRL依赖于yfinance和alpaca_trade_api两个库，而我们的读者可能多数无法使用这两个库。这样，你可能就不得不使用 Gymnasium 库，自己做多一点工作。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 Gymnasium 是 OpenAI Gym 的继任者，是用于开发和比较强化学习算法的开源工具包。它提供了标准化的环境接口，让研究者和开发者能够更方便地测试算法性能。
@@ -82,188 +81,184 @@ Gymnasium 是 OpenAI Gym 的继任者，是用于开发和比较强化学习算�
 
 <p>SB3 即是 Stable-Baselines3，是强化学习领域的主流库之一，凭借其高效性、易用性和丰富的算法支持，成为学术研究和工业应用的首选工具。</p>
 <p>这两个库中，Gym 是接口，而 SB3 提供了各种算法。在我们的示例中，将使用它提供的 PPO 算法。下面是安装这两个库的指南。</p>
-<pre><code class="language-bash">pip install gymnasium
-pip install stable_baselines3
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">pip install gymnasium
+pip install stable_baselines3</span></code></pre>
 <p>接下来，需要获取数据。这部分没有啥营养，我们就不放代码出来了，以免占用太多你的阅读时间。你可以使用任何喜欢的数据源，最终需要得到一个以 data 和 asset 为双重索引的 DataFrame，并且列名至少包含：open,high,low,close,volume。</p>
 <!--PAID CONTENT START-->
 <p>在示例中，我们将使用缓存数据。如果你要在本地运行这个示例，你可以通过 tushare 来获取数据。</p>
-<pre><code class="language-python">def get_stock_data_tushare(asset_list, start_date, end_date):
-    &quot;&quot;&quot;使用 tushare 获取股票数据（兼容方法，返回与 load_bars 相同格式）&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_stock_data_tushare</span>(<span class="hljs-params">asset_list, start_date, end_date</span>):
+    <span class="hljs-string">&quot;&quot;&quot;使用 tushare 获取股票数据（兼容方法，返回与 load_bars 相同格式）&quot;&quot;&quot;</span>
     all_data = []
 
-    # 转换日期格式为字符串
-    start_str = start_date.strftime(&quot;%Y%m%d&quot;)
-    end_str = end_date.strftime(&quot;%Y%m%d&quot;)
+    <span class="hljs-comment"># 转换日期格式为字符串</span>
+    start_str = start_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+    end_str = end_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
 
-    for asset in asset_list:
-        try:
-            # 获取日线数据
+    <span class="hljs-keyword">for</span> asset <span class="hljs-keyword">in</span> asset_list:
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 获取日线数据</span>
             df_stock = pro.daily(ts_code=asset, start_date=start_str, end_date=end_str)
 
-            if not df_stock.empty:
-                # 重命名列以匹配 load_bars 格式
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> df_stock.empty:
+                <span class="hljs-comment"># 重命名列以匹配 load_bars 格式</span>
                 df_stock = df_stock.rename(
-                    columns={&quot;trade_date&quot;: &quot;date&quot;, &quot;vol&quot;: &quot;volume&quot;}
+                    columns={<span class="hljs-string">&quot;trade_date&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;vol&quot;</span>: <span class="hljs-string">&quot;volume&quot;</span>}
                 )
 
-                # 转换日期格式
-                df_stock[&quot;date&quot;] = pd.to_datetime(df_stock[&quot;date&quot;])
+                <span class="hljs-comment"># 转换日期格式</span>
+                df_stock[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(df_stock[<span class="hljs-string">&quot;date&quot;</span>])
 
-                # 添加 asset 列
-                df_stock[&quot;asset&quot;] = asset
+                <span class="hljs-comment"># 添加 asset 列</span>
+                df_stock[<span class="hljs-string">&quot;asset&quot;</span>] = asset
 
-                # 按日期排序（tushare 返回的数据是倒序的）
-                df_stock = df_stock.sort_values(&quot;date&quot;).reset_index(drop=True)
+                <span class="hljs-comment"># 按日期排序（tushare 返回的数据是倒序的）</span>
+                df_stock = df_stock.sort_values(<span class="hljs-string">&quot;date&quot;</span>).reset_index(drop=<span class="hljs-literal">True</span>)
 
-                # 选择需要的列
+                <span class="hljs-comment"># 选择需要的列</span>
                 df_stock = df_stock[
-                    [&quot;date&quot;, &quot;asset&quot;, &quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;, &quot;volume&quot;]
+                    [<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;volume&quot;</span>]
                 ]
 
                 all_data.append(df_stock)
-                print(f&quot;成功获取 {asset} 的数据，共 {len(df_stock)} 条记录&quot;)
-            else:
-                print(f&quot;警告：{asset} 没有数据&quot;)
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;成功获取 <span class="hljs-subst">{asset}</span> 的数据，共 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(df_stock)}</span> 条记录&quot;</span>)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;警告：<span class="hljs-subst">{asset}</span> 没有数据&quot;</span>)
 
-        except Exception as e:
-            print(f&quot;获取 {asset} 数据时出错：{e}&quot;)
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;获取 <span class="hljs-subst">{asset}</span> 数据时出错：<span class="hljs-subst">{e}</span>&quot;</span>)
 
-    if all_data:
-        # 合并所有股票数据
-        df_combined = pd.concat(all_data, ignore_index=True)
+    <span class="hljs-keyword">if</span> all_data:
+        <span class="hljs-comment"># 合并所有股票数据</span>
+        df_combined = pd.concat(all_data, ignore_index=<span class="hljs-literal">True</span>)
 
-        # 设置双重索引以匹配 load_bars 格式
-        df_combined = df_combined.set_index([&quot;date&quot;, &quot;asset&quot;]).sort_index()
+        <span class="hljs-comment"># 设置双重索引以匹配 load_bars 格式</span>
+        df_combined = df_combined.set_index([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>]).sort_index()
 
-        return df_combined
-    else:
-        return pd.DataFrame()
-</code></pre>
+        <span class="hljs-keyword">return</span> df_combined
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> pd.DataFrame()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>!!! question 如何获得本文代码？
     如果你不想写代码，可以报名我们的课程《因子挖掘与机器学习策略》，获取可运行的示例。本示例完全可以在本地运行。</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
-import talib
-import datetime
-import warnings
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> talib
+<span class="hljs-keyword">import</span> datetime
+<span class="hljs-keyword">import</span> warnings
 
-warnings.filterwarnings(&quot;ignore&quot;)
+warnings.filterwarnings(<span class="hljs-string">&quot;ignore&quot;</span>)
 
-# 参数设置
-N_STOCKS = 50  # 股票数量，可以调整进行多次随机测试
-DATA_START_DATE = datetime.date(2010, 1, 1)
-DATA_END_DATE = datetime.date(2021, 10, 31)
+<span class="hljs-comment"># 参数设置</span>
+N_STOCKS = <span class="hljs-number">50</span>  <span class="hljs-comment"># 股票数量，可以调整进行多次随机测试</span>
+DATA_START_DATE = datetime.date(<span class="hljs-number">2010</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+DATA_END_DATE = datetime.date(<span class="hljs-number">2021</span>, <span class="hljs-number">10</span>, <span class="hljs-number">31</span>)
 
-# 数据划分比例 (train:test)
-TRAIN_RATIO = 0.8
-</code></pre>
+<span class="hljs-comment"># 数据划分比例 (train:test)</span>
+TRAIN_RATIO = <span class="hljs-number">0.8</span></span></code></pre>
 <p>在量化交易中，我们从来没有见过端到端的人工智能模型能够成功的。基本上，我们总是从特征工程开始，然后才构建机器学习模型。因此，接下来，我们要创建一个 FeatureEngineer 类，用于处理特征工程。</p>
-<pre><code class="language-python">class FeatureEngineer:
-    def __init__(self, use_technical_indicator=True, tech_indicator_list=None):
-        self.use_technical_indicator = use_technical_indicator
-        self.tech_indicator_list = tech_indicator_list or [
-            &quot;macd&quot;,
-            &quot;rsi&quot;,
-            &quot;sma&quot;,
-            &quot;bbands&quot;,
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureEngineer</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, use_technical_indicator=<span class="hljs-literal">True</span>, tech_indicator_list=<span class="hljs-literal">None</span></span>):
+        <span class="hljs-variable language_">self</span>.use_technical_indicator = use_technical_indicator
+        <span class="hljs-variable language_">self</span>.tech_indicator_list = tech_indicator_list <span class="hljs-keyword">or</span> [
+            <span class="hljs-string">&quot;macd&quot;</span>,
+            <span class="hljs-string">&quot;rsi&quot;</span>,
+            <span class="hljs-string">&quot;sma&quot;</span>,
+            <span class="hljs-string">&quot;bbands&quot;</span>,
         ]
 
-    def preprocess_data(self, df):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_data</span>(<span class="hljs-params">self, df</span>):
         df_reset = df.reset_index()
 
         processed_stocks = []
 
-        for asset in df_reset[&quot;asset&quot;].unique():
-            stock_data = df_reset[df_reset[&quot;asset&quot;] == asset].copy().sort_values(&quot;date&quot;)
+        <span class="hljs-keyword">for</span> asset <span class="hljs-keyword">in</span> df_reset[<span class="hljs-string">&quot;asset&quot;</span>].unique():
+            stock_data = df_reset[df_reset[<span class="hljs-string">&quot;asset&quot;</span>] == asset].copy().sort_values(<span class="hljs-string">&quot;date&quot;</span>)
 
-            # 检查是否有足够的有效数据
-            if stock_data[&quot;close&quot;].dropna().empty:
-                print(f&quot;⚠️ 跳过股票 {asset}：没有有效的价格数据&quot;)
-                continue
+            <span class="hljs-comment"># 检查是否有足够的有效数据</span>
+            <span class="hljs-keyword">if</span> stock_data[<span class="hljs-string">&quot;close&quot;</span>].dropna().empty:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;⚠️ 跳过股票 <span class="hljs-subst">{asset}</span>：没有有效的价格数据&quot;</span>)
+                <span class="hljs-keyword">continue</span>
 
-            # 前向填充价格数据，处理停牌等情况
-            price_columns = [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;]
-            for col in price_columns:
-                if col in stock_data.columns:
-                    # 仅使用历史信息前向填充，避免后向填充引入未来价格
+            <span class="hljs-comment"># 前向填充价格数据，处理停牌等情况</span>
+            price_columns = [<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]
+            <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> price_columns:
+                <span class="hljs-keyword">if</span> col <span class="hljs-keyword">in</span> stock_data.columns:
+                    <span class="hljs-comment"># 仅使用历史信息前向填充，避免后向填充引入未来价格</span>
                     stock_data[col] = stock_data[col].ffill()
 
-            # 成交量用 0 填充（停牌时成交量为 0 是合理的）
-            if &quot;volume&quot; in stock_data.columns:
-                stock_data[&quot;volume&quot;] = stock_data[&quot;volume&quot;].fillna(0)
+            <span class="hljs-comment"># 成交量用 0 填充（停牌时成交量为 0 是合理的）</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;volume&quot;</span> <span class="hljs-keyword">in</span> stock_data.columns:
+                stock_data[<span class="hljs-string">&quot;volume&quot;</span>] = stock_data[<span class="hljs-string">&quot;volume&quot;</span>].fillna(<span class="hljs-number">0</span>)
 
-            close = stock_data[&quot;close&quot;].values.astype(float)
+            close = stock_data[<span class="hljs-string">&quot;close&quot;</span>].values.astype(<span class="hljs-built_in">float</span>)
 
-            if &quot;macd&quot; in self.tech_indicator_list:
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;macd&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.tech_indicator_list:
                 macd, macd_signal, macd_hist = talib.MACD(close)
-                stock_data[&quot;macd&quot;] = macd
-                stock_data[&quot;macd_signal&quot;] = macd_signal
-                stock_data[&quot;macd_hist&quot;] = macd_hist
+                stock_data[<span class="hljs-string">&quot;macd&quot;</span>] = macd
+                stock_data[<span class="hljs-string">&quot;macd_signal&quot;</span>] = macd_signal
+                stock_data[<span class="hljs-string">&quot;macd_hist&quot;</span>] = macd_hist
 
-            if &quot;rsi&quot; in self.tech_indicator_list:
-                stock_data[&quot;rsi_14&quot;] = talib.RSI(close, timeperiod=14)
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;rsi&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.tech_indicator_list:
+                stock_data[<span class="hljs-string">&quot;rsi_14&quot;</span>] = talib.RSI(close, timeperiod=<span class="hljs-number">14</span>)
 
-            if &quot;sma&quot; in self.tech_indicator_list:
-                stock_data[&quot;close_20_sma&quot;] = talib.SMA(close, timeperiod=20)
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;sma&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.tech_indicator_list:
+                stock_data[<span class="hljs-string">&quot;close_20_sma&quot;</span>] = talib.SMA(close, timeperiod=<span class="hljs-number">20</span>)
 
-            if &quot;bbands&quot; in self.tech_indicator_list:
-                bb_upper, bb_middle, bb_lower = talib.BBANDS(close, timeperiod=20)
-                stock_data[&quot;boll_ub&quot;] = bb_upper
-                stock_data[&quot;boll_lb&quot;] = bb_lower
-                stock_data[&quot;boll_middle&quot;] = bb_middle
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;bbands&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.tech_indicator_list:
+                bb_upper, bb_middle, bb_lower = talib.BBANDS(close, timeperiod=<span class="hljs-number">20</span>)
+                stock_data[<span class="hljs-string">&quot;boll_ub&quot;</span>] = bb_upper
+                stock_data[<span class="hljs-string">&quot;boll_lb&quot;</span>] = bb_lower
+                stock_data[<span class="hljs-string">&quot;boll_middle&quot;</span>] = bb_middle
 
-            # 添加基础指标
-            stock_data[&quot;returns&quot;] = stock_data[&quot;close&quot;].pct_change()
-            stock_data[&quot;log_volume&quot;] = np.log(stock_data[&quot;volume&quot;] + 1)
-            stock_data[&quot;prev_close&quot;] = stock_data[&quot;close&quot;].shift(1)
+            <span class="hljs-comment"># 添加基础指标</span>
+            stock_data[<span class="hljs-string">&quot;returns&quot;</span>] = stock_data[<span class="hljs-string">&quot;close&quot;</span>].pct_change()
+            stock_data[<span class="hljs-string">&quot;log_volume&quot;</span>] = np.log(stock_data[<span class="hljs-string">&quot;volume&quot;</span>] + <span class="hljs-number">1</span>)
+            stock_data[<span class="hljs-string">&quot;prev_close&quot;</span>] = stock_data[<span class="hljs-string">&quot;close&quot;</span>].shift(<span class="hljs-number">1</span>)
 
-            # 所有可交易特征整体滞后一期，避免在 t 日收盘后计算出的值被用于 t 日成交
+            <span class="hljs-comment"># 所有可交易特征整体滞后一期，避免在 t 日收盘后计算出的值被用于 t 日成交</span>
             feature_columns = [
-                &quot;macd&quot;,
-                &quot;macd_signal&quot;,
-                &quot;macd_hist&quot;,
-                &quot;rsi_14&quot;,
-                &quot;close_20_sma&quot;,
-                &quot;boll_ub&quot;,
-                &quot;boll_lb&quot;,
-                &quot;boll_middle&quot;,
-                &quot;returns&quot;,
-                &quot;log_volume&quot;,
+                <span class="hljs-string">&quot;macd&quot;</span>,
+                <span class="hljs-string">&quot;macd_signal&quot;</span>,
+                <span class="hljs-string">&quot;macd_hist&quot;</span>,
+                <span class="hljs-string">&quot;rsi_14&quot;</span>,
+                <span class="hljs-string">&quot;close_20_sma&quot;</span>,
+                <span class="hljs-string">&quot;boll_ub&quot;</span>,
+                <span class="hljs-string">&quot;boll_lb&quot;</span>,
+                <span class="hljs-string">&quot;boll_middle&quot;</span>,
+                <span class="hljs-string">&quot;returns&quot;</span>,
+                <span class="hljs-string">&quot;log_volume&quot;</span>,
             ]
             existing_feature_columns = [
-                col for col in feature_columns if col in stock_data.columns
+                col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> feature_columns <span class="hljs-keyword">if</span> col <span class="hljs-keyword">in</span> stock_data.columns
             ]
             stock_data[existing_feature_columns] = stock_data[
                 existing_feature_columns
-            ].shift(1)
+            ].shift(<span class="hljs-number">1</span>)
 
             processed_stocks.append(stock_data)
 
-        df_processed = pd.concat(processed_stocks, ignore_index=True)
+        df_processed = pd.concat(processed_stocks, ignore_index=<span class="hljs-literal">True</span>)
 
-        # 删除包含 NaN 的行
-        before_count = len(df_processed)
-        df_processed = df_processed.dropna().reset_index(drop=True)
-        after_count = len(df_processed)
+        <span class="hljs-comment"># 删除包含 NaN 的行</span>
+        before_count = <span class="hljs-built_in">len</span>(df_processed)
+        df_processed = df_processed.dropna().reset_index(drop=<span class="hljs-literal">True</span>)
+        after_count = <span class="hljs-built_in">len</span>(df_processed)
 
-        print(f&quot;✅ 技术指标计算完成：{before_count} -&gt; {after_count} 条记录&quot;)
-        print(f&quot;✅ 价格数据已进行前向填充处理&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ 技术指标计算完成：<span class="hljs-subst">{before_count}</span> -&gt; <span class="hljs-subst">{after_count}</span> 条记录&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;✅ 价格数据已进行前向填充处理&quot;</span>)
 
-        # 显示新增的列
+        <span class="hljs-comment"># 显示新增的列</span>
         original_cols = df.reset_index().columns
-        new_columns = [col for col in df_processed.columns if col not in original_cols]
-        print(f&quot;新增指标：{new_columns}&quot;)
+        new_columns = [col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> df_processed.columns <span class="hljs-keyword">if</span> col <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> original_cols]
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;新增指标：<span class="hljs-subst">{new_columns}</span>&quot;</span>)
 
-        df_processed = df_processed.set_index([&quot;date&quot;, &quot;asset&quot;]).sort_index()
+        df_processed = df_processed.set_index([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>]).sort_index()
 
-        return df_processed
-</code></pre>
+        <span class="hljs-keyword">return</span> df_processed</span></code></pre>
 <p>为了进行训练，我们需要对数据集进行 train/test 划分。在量化交易中，我们进行数据划分必须确保时间序列的连续性：</p>
-<pre><code class="language-python">def split_data_by_ratio(df, train_ratio=0.8, min_periods=512):
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">split_data_by_ratio</span>(<span class="hljs-params">df, train_ratio=<span class="hljs-number">0.8</span>, min_periods=<span class="hljs-number">512</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     按比例划分数据集为训练集和测试集，并完成缺失值的填充
     确保训练集和测试集包含完全相同的股票，且每个股票都有足够的有效记录
 
@@ -274,440 +269,437 @@ TRAIN_RATIO = 0.8
 
     Returns:
         tuple: (train_data, test_data)
-    &quot;&quot;&quot;
-    print(f&quot;📊 开始数据划分 (train_ratio={train_ratio}, min_periods={min_periods})&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;📊 开始数据划分 (train_ratio=<span class="hljs-subst">{train_ratio}</span>, min_periods=<span class="hljs-subst">{min_periods}</span>)&quot;</span>)
 
-    # 记录原始数据信息
-    original_assets = df.index.get_level_values(&quot;asset&quot;).unique()
-    original_records = len(df)
-    print(f&quot;原始数据: {original_records} 条记录, {len(original_assets)} 只股票&quot;)
+    <span class="hljs-comment"># 记录原始数据信息</span>
+    original_assets = df.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).unique()
+    original_records = <span class="hljs-built_in">len</span>(df)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;原始数据: <span class="hljs-subst">{original_records}</span> 条记录, <span class="hljs-subst">{<span class="hljs-built_in">len</span>(original_assets)}</span> 只股票&quot;</span>)
 
-    # 处理缺失值的情况，快速补齐
-    all_dates = df.index.get_level_values(&quot;date&quot;).unique()
-    all_assets = df.index.get_level_values(&quot;asset&quot;).unique()
+    <span class="hljs-comment"># 处理缺失值的情况，快速补齐</span>
+    all_dates = df.index.get_level_values(<span class="hljs-string">&quot;date&quot;</span>).unique()
+    all_assets = df.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).unique()
     full_index = pd.MultiIndex.from_product(
-        [all_dates, all_assets], names=[&quot;date&quot;, &quot;asset&quot;]
+        [all_dates, all_assets], names=[<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>]
     )
-    df = df.reindex(full_index).groupby(level=&quot;asset&quot;).ffill()
+    df = df.reindex(full_index).groupby(level=<span class="hljs-string">&quot;asset&quot;</span>).ffill()
 
-    print(f&quot;重新索引并前向填充后: {len(df)} 条记录&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;重新索引并前向填充后: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(df)}</span> 条记录&quot;</span>)
 
-    # 按资产检查有效记录数，删除不满足min_periods的资产
-    asset_counts = df.groupby(level=&quot;asset&quot;).apply(lambda x: x.dropna().shape[0])
+    <span class="hljs-comment"># 按资产检查有效记录数，删除不满足min_periods的资产</span>
+    asset_counts = df.groupby(level=<span class="hljs-string">&quot;asset&quot;</span>).apply(<span class="hljs-keyword">lambda</span> x: x.dropna().shape[<span class="hljs-number">0</span>])
     valid_assets = asset_counts[asset_counts &gt;= min_periods].index
     invalid_assets = asset_counts[asset_counts &lt; min_periods].index
 
-    print(f&quot;\n📈 资产筛选结果:&quot;)
-    print(f&quot;   满足最小记录数要求的资产: {len(valid_assets)} 只&quot;)
-    print(f&quot;   不满足要求的资产: {len(invalid_assets)} 只&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n📈 资产筛选结果:&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   满足最小记录数要求的资产: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(valid_assets)}</span> 只&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   不满足要求的资产: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(invalid_assets)}</span> 只&quot;</span>)
 
-    if len(invalid_assets) &gt; 0:
-        print(f&quot;   被删除的资产: {list(invalid_assets)}&quot;)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(invalid_assets) &gt; <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   被删除的资产: <span class="hljs-subst">{<span class="hljs-built_in">list</span>(invalid_assets)}</span>&quot;</span>)
 
-    # 只保留有效资产的数据
-    df = df.loc[df.index.get_level_values(&quot;asset&quot;).isin(valid_assets)]
+    <span class="hljs-comment"># 只保留有效资产的数据</span>
+    df = df.loc[df.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).isin(valid_assets)]
 
-    # 删除剩余的NaN记录
+    <span class="hljs-comment"># 删除剩余的NaN记录</span>
     df = df.dropna()
-    print(f&quot;   最终有效记录: {len(df)} 条&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   最终有效记录: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(df)}</span> 条&quot;</span>)
 
-    # 只保留所有资产都同时存在的公共日期，避免训练/测试集在时间上错位
-    common_date_counts = df.reset_index().groupby(&quot;date&quot;)[&quot;asset&quot;].nunique().sort_index()
+    <span class="hljs-comment"># 只保留所有资产都同时存在的公共日期，避免训练/测试集在时间上错位</span>
+    common_date_counts = df.reset_index().groupby(<span class="hljs-string">&quot;date&quot;</span>)[<span class="hljs-string">&quot;asset&quot;</span>].nunique().sort_index()
     common_dates = common_date_counts[
-        common_date_counts == len(valid_assets)
+        common_date_counts == <span class="hljs-built_in">len</span>(valid_assets)
     ].index.to_list()
 
-    if len(common_dates) &lt; min_periods:
-        raise ValueError(
-            f&quot;公共有效日期仅有 {len(common_dates)} 个，少于 min_periods={min_periods}&quot;
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(common_dates) &lt; min_periods:
+        <span class="hljs-keyword">raise</span> ValueError(
+            <span class="hljs-string">f&quot;公共有效日期仅有 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(common_dates)}</span> 个，少于 min_periods=<span class="hljs-subst">{min_periods}</span>&quot;</span>
         )
 
     selected_dates = common_dates[-min_periods:]
-    df = df.loc[df.index.get_level_values(&quot;date&quot;).isin(selected_dates)].sort_index()
+    df = df.loc[df.index.get_level_values(<span class="hljs-string">&quot;date&quot;</span>).isin(selected_dates)].sort_index()
 
-    final_records = len(df)
-    print(f&quot;   对齐公共日期后: {final_records} 条记录&quot;)
+    final_records = <span class="hljs-built_in">len</span>(df)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   对齐公共日期后: <span class="hljs-subst">{final_records}</span> 条记录&quot;</span>)
 
-    # 按比例划分训练集和测试集
-    train_size = int(min_periods * train_ratio)
+    <span class="hljs-comment"># 按比例划分训练集和测试集</span>
+    train_size = <span class="hljs-built_in">int</span>(min_periods * train_ratio)
     test_size = min_periods - train_size
 
     train_dates = selected_dates[:train_size]
     test_dates = selected_dates[train_size:]
 
-    train_data = df.loc[df.index.get_level_values(&quot;date&quot;).isin(train_dates)].sort_index()
-    test_data = df.loc[df.index.get_level_values(&quot;date&quot;).isin(test_dates)].sort_index()
+    train_data = df.loc[df.index.get_level_values(<span class="hljs-string">&quot;date&quot;</span>).isin(train_dates)].sort_index()
+    test_data = df.loc[df.index.get_level_values(<span class="hljs-string">&quot;date&quot;</span>).isin(test_dates)].sort_index()
 
-    # 最终统计
-    train_assets = set(train_data.index.get_level_values(&quot;asset&quot;).unique())
-    test_assets = set(test_data.index.get_level_values(&quot;asset&quot;).unique())
+    <span class="hljs-comment"># 最终统计</span>
+    train_assets = <span class="hljs-built_in">set</span>(train_data.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).unique())
+    test_assets = <span class="hljs-built_in">set</span>(test_data.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).unique())
 
-    print(f&quot;\n✅ 数据划分完成:&quot;)
-    print(f&quot;   训练集: {len(train_data)} 条记录, {len(train_assets)} 只股票&quot;)
-    print(f&quot;   测试集: {len(test_data)} 条记录, {len(test_assets)} 只股票&quot;)
-    print(f&quot;   每只股票训练记录: {train_size} 条&quot;)
-    print(f&quot;   每只股票测试记录: {test_size} 条&quot;)
-    print(f&quot;   实际划分比例: {train_size/min_periods:.1%}:{test_size/min_periods:.1%}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n✅ 数据划分完成:&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   训练集: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(train_data)}</span> 条记录, <span class="hljs-subst">{<span class="hljs-built_in">len</span>(train_assets)}</span> 只股票&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   测试集: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(test_data)}</span> 条记录, <span class="hljs-subst">{<span class="hljs-built_in">len</span>(test_assets)}</span> 只股票&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   每只股票训练记录: <span class="hljs-subst">{train_size}</span> 条&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   每只股票测试记录: <span class="hljs-subst">{test_size}</span> 条&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   实际划分比例: <span class="hljs-subst">{train_size/min_periods:<span class="hljs-number">.1</span>%}</span>:<span class="hljs-subst">{test_size/min_periods:<span class="hljs-number">.1</span>%}</span>&quot;</span>)
 
-    return train_data, test_data
+    <span class="hljs-keyword">return</span> train_data, test_data
 
 
-# 创建特征工程器
+<span class="hljs-comment"># 创建特征工程器</span>
 fe = FeatureEngineer(
-    use_technical_indicator=True, tech_indicator_list=[&quot;macd&quot;, &quot;rsi&quot;, &quot;sma&quot;, &quot;bbands&quot;]
+    use_technical_indicator=<span class="hljs-literal">True</span>, tech_indicator_list=[<span class="hljs-string">&quot;macd&quot;</span>, <span class="hljs-string">&quot;rsi&quot;</span>, <span class="hljs-string">&quot;sma&quot;</span>, <span class="hljs-string">&quot;bbands&quot;</span>]
 )
 
-# 获取数据并处理特征
+<span class="hljs-comment"># 获取数据并处理特征</span>
 raw_data = load_bars(DATA_START_DATE, DATA_END_DATE, N_STOCKS)
 processed_data = fe.preprocess_data(raw_data)
 
-# 验证处理后的数据
-if processed_data.empty:
-    raise ValueError(&quot;数据处理后为空，请检查技术指标计算&quot;)
+<span class="hljs-comment"># 验证处理后的数据</span>
+<span class="hljs-keyword">if</span> processed_data.empty:
+    <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;数据处理后为空，请检查技术指标计算&quot;</span>)
 
-# 按比例划分数据集
+<span class="hljs-comment"># 按比例划分数据集</span>
 train_data, test_data = split_data_by_ratio(
     processed_data,
     train_ratio=TRAIN_RATIO,
-    min_periods=512,  # 每只股票至少需要512条记录（约2年数据）
+    min_periods=<span class="hljs-number">512</span>,  <span class="hljs-comment"># 每只股票至少需要512条记录（约2年数据）</span>
 )
 
-# 显示处理后的数据样例
-print(&quot;\n 处理后的数据预览：&quot;)
-print(train_data.head())
-</code></pre>
+<span class="hljs-comment"># 显示处理后的数据样例</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n 处理后的数据预览：&quot;</span>)
+<span class="hljs-built_in">print</span>(train_data.head())</span></code></pre>
 <p>!!! tip 不要再用过时的经验！
     在监督学习中，我们一般会将数据集划分为 train, validation 和 test 三个部分。其中， train 和 validation 用于训练模型，在训练完成之后，我们使用 test 数据集来评估模型性能。这样可以确保训练过程中，完全看不到测试数据，避免过拟合。</p>
-<pre><code>在强化学习中，我们也同样要划分数据集，但是，根据算法的不同，有可能只需要划分出 train 和 test 两个部分。在这里我们使用的 PPO 算法就只需要划分 train 和 test 两个部分。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">在强化学习中，我们也同样要划分数据集，但是，根据算法的不同，有可能只需要划分出 train 和 <span class="hljs-built_in">test</span> 两个部分。在这里我们使用的 PPO 算法就只需要划分 train 和 <span class="hljs-built_in">test</span> 两个部分。</span></code></pre>
 <h3 id="定义环境">定义环境</h3>
 <p>通常来说，我们要定义环境和 Agent，但是，在使用 SB3 之后，我们可以直接使用 PPO 模型，从而无须定义 Agent，因为 PPO 本身就是 Agent，所以，Agent 的定义和模型训练是一体的。</p>
 <p>所以，我们先用 gym 来定义环境：</p>
-<pre><code class="language-python">import gymnasium as gym
-from gymnasium import spaces
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span><span class="cl">123</span><span class="cl">124</span><span class="cl">125</span><span class="cl">126</span><span class="cl">127</span><span class="cl">128</span><span class="cl">129</span><span class="cl">130</span><span class="cl">131</span><span class="cl">132</span><span class="cl">133</span><span class="cl">134</span><span class="cl">135</span><span class="cl">136</span><span class="cl">137</span><span class="cl">138</span><span class="cl">139</span><span class="cl">140</span><span class="cl">141</span><span class="cl">142</span><span class="cl">143</span><span class="cl">144</span><span class="cl">145</span><span class="cl">146</span><span class="cl">147</span><span class="cl">148</span><span class="cl">149</span><span class="cl">150</span><span class="cl">151</span><span class="cl">152</span><span class="cl">153</span><span class="cl">154</span><span class="cl">155</span><span class="cl">156</span><span class="cl">157</span><span class="cl">158</span><span class="cl">159</span><span class="cl">160</span><span class="cl">161</span><span class="cl">162</span><span class="cl">163</span><span class="cl">164</span><span class="cl">165</span><span class="cl">166</span><span class="cl">167</span><span class="cl">168</span><span class="cl">169</span><span class="cl">170</span><span class="cl">171</span><span class="cl">172</span><span class="cl">173</span><span class="cl">174</span><span class="cl">175</span><span class="cl">176</span><span class="cl">177</span><span class="cl">178</span><span class="cl">179</span><span class="cl">180</span><span class="cl">181</span><span class="cl">182</span><span class="cl">183</span><span class="cl">184</span><span class="cl">185</span><span class="cl">186</span><span class="cl">187</span><span class="cl">188</span><span class="cl">189</span><span class="cl">190</span><span class="cl">191</span><span class="cl">192</span><span class="cl">193</span><span class="cl">194</span><span class="cl">195</span><span class="cl">196</span><span class="cl">197</span><span class="cl">198</span><span class="cl">199</span><span class="cl">200</span><span class="cl">201</span><span class="cl">202</span><span class="cl">203</span><span class="cl">204</span><span class="cl">205</span><span class="cl">206</span><span class="cl">207</span><span class="cl">208</span><span class="cl">209</span><span class="cl">210</span><span class="cl">211</span><span class="cl">212</span><span class="cl">213</span><span class="cl">214</span><span class="cl">215</span><span class="cl">216</span><span class="cl">217</span><span class="cl">218</span><span class="cl">219</span><span class="cl">220</span><span class="cl">221</span><span class="cl">222</span><span class="cl">223</span><span class="cl">224</span><span class="cl">225</span><span class="cl">226</span><span class="cl">227</span><span class="cl">228</span><span class="cl">229</span><span class="cl">230</span><span class="cl">231</span><span class="cl">232</span><span class="cl">233</span><span class="cl">234</span><span class="cl">235</span><span class="cl">236</span><span class="cl">237</span><span class="cl">238</span><span class="cl">239</span><span class="cl">240</span><span class="cl">241</span><span class="cl">242</span><span class="cl">243</span><span class="cl">244</span><span class="cl">245</span><span class="cl">246</span><span class="cl">247</span><span class="cl">248</span><span class="cl">249</span><span class="cl">250</span><span class="cl">251</span><span class="cl">252</span><span class="cl">253</span><span class="cl">254</span><span class="cl">255</span><span class="cl">256</span><span class="cl">257</span><span class="cl">258</span><span class="cl">259</span><span class="cl">260</span><span class="cl">261</span><span class="cl">262</span><span class="cl">263</span><span class="cl">264</span><span class="cl">265</span><span class="cl">266</span><span class="cl">267</span><span class="cl">268</span><span class="cl">269</span><span class="cl">270</span><span class="cl">271</span><span class="cl">272</span><span class="cl">273</span><span class="cl">274</span><span class="cl">275</span><span class="cl">276</span><span class="cl">277</span><span class="cl">278</span><span class="cl">279</span><span class="cl">280</span><span class="cl">281</span><span class="cl">282</span><span class="cl">283</span><span class="cl">284</span><span class="cl">285</span><span class="cl">286</span><span class="cl">287</span><span class="cl">288</span><span class="cl">289</span><span class="cl">290</span><span class="cl">291</span><span class="cl">292</span><span class="cl">293</span><span class="cl">294</span><span class="cl">295</span><span class="cl">296</span><span class="cl">297</span><span class="cl">298</span><span class="cl">299</span><span class="cl">300</span><span class="cl">301</span><span class="cl">302</span><span class="cl">303</span><span class="cl">304</span><span class="cl">305</span><span class="cl">306</span><span class="cl">307</span><span class="cl">308</span><span class="cl">309</span><span class="cl">310</span><span class="cl">311</span><span class="cl">312</span><span class="cl">313</span><span class="cl">314</span><span class="cl">315</span><span class="cl">316</span><span class="cl">317</span><span class="cl">318</span><span class="cl">319</span><span class="cl">320</span><span class="cl">321</span><span class="cl">322</span><span class="cl">323</span><span class="cl">324</span></span><span class="cl-body"><span class="hljs-keyword">import</span> gymnasium <span class="hljs-keyword">as</span> gym
+<span class="hljs-keyword">from</span> gymnasium <span class="hljs-keyword">import</span> spaces
 
 
-class StockTradingEnv(gym.Env):
-    &quot;&quot;&quot;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">StockTradingEnv</span>(gym.Env):
+    <span class="hljs-string">&quot;&quot;&quot;
     基于 Gymnasium 的股票交易环境
 
     动作空间：连续动作，每只股票的买卖比例 [-1, 1]
     状态空间：[现金比例，持仓比例。.., 技术指标。..]
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
 
-    def __init__(self, data, initial_amount=100000, transaction_cost=0.001):
-        super().__init__()
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data, initial_amount=<span class="hljs-number">100000</span>, transaction_cost=<span class="hljs-number">0.001</span></span>):
+        <span class="hljs-built_in">super</span>().__init__()
 
-        self.data = data.copy()
-        self.initial_amount = initial_amount
-        self.transaction_cost = transaction_cost
+        <span class="hljs-variable language_">self</span>.data = data.copy()
+        <span class="hljs-variable language_">self</span>.initial_amount = initial_amount
+        <span class="hljs-variable language_">self</span>.transaction_cost = transaction_cost
 
-        # 获取股票列表和日期
-        self.stock_list = sorted(data.index.get_level_values(&quot;asset&quot;).unique())
-        self.dates = sorted(data.index.get_level_values(&quot;date&quot;).unique())
-        self.data_reset = data.reset_index()
+        <span class="hljs-comment"># 获取股票列表和日期</span>
+        <span class="hljs-variable language_">self</span>.stock_list = <span class="hljs-built_in">sorted</span>(data.index.get_level_values(<span class="hljs-string">&quot;asset&quot;</span>).unique())
+        <span class="hljs-variable language_">self</span>.dates = <span class="hljs-built_in">sorted</span>(data.index.get_level_values(<span class="hljs-string">&quot;date&quot;</span>).unique())
+        <span class="hljs-variable language_">self</span>.data_reset = data.reset_index()
 
-        self.stock_dim = len(self.stock_list)
+        <span class="hljs-variable language_">self</span>.stock_dim = <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.stock_list)
 
-        # 技术指标列表
-        self.tech_indicators = [&quot;macd&quot;, &quot;rsi_14&quot;, &quot;close_20_sma&quot;, &quot;boll_ub&quot;, &quot;boll_lb&quot;]
+        <span class="hljs-comment"># 技术指标列表</span>
+        <span class="hljs-variable language_">self</span>.tech_indicators = [<span class="hljs-string">&quot;macd&quot;</span>, <span class="hljs-string">&quot;rsi_14&quot;</span>, <span class="hljs-string">&quot;close_20_sma&quot;</span>, <span class="hljs-string">&quot;boll_ub&quot;</span>, <span class="hljs-string">&quot;boll_lb&quot;</span>]
 
-        # 定义动作和观察空间
-        # 动作：每只股票的买卖比例 [-1, 1]
-        self.action_space = spaces.Box(
-            low=-1, high=1, shape=(self.stock_dim,), dtype=np.float32
+        <span class="hljs-comment"># 定义动作和观察空间</span>
+        <span class="hljs-comment"># 动作：每只股票的买卖比例 [-1, 1]</span>
+        <span class="hljs-variable language_">self</span>.action_space = spaces.Box(
+            low=-<span class="hljs-number">1</span>, high=<span class="hljs-number">1</span>, shape=(<span class="hljs-variable language_">self</span>.stock_dim,), dtype=np.float32
         )
 
-        # 观察空间：[现金比例] + [持仓比例。..] + [技术指标。..]
-        obs_dim = 1 + self.stock_dim + len(self.tech_indicators) * self.stock_dim
-        self.observation_space = spaces.Box(
+        <span class="hljs-comment"># 观察空间：[现金比例] + [持仓比例。..] + [技术指标。..]</span>
+        obs_dim = <span class="hljs-number">1</span> + <span class="hljs-variable language_">self</span>.stock_dim + <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.tech_indicators) * <span class="hljs-variable language_">self</span>.stock_dim
+        <span class="hljs-variable language_">self</span>.observation_space = spaces.Box(
             low=-np.inf, high=np.inf, shape=(obs_dim,), dtype=np.float32
         )
 
-        # 预先创建价格和指标缓存，避免重复查询
-        self._create_market_cache()
+        <span class="hljs-comment"># 预先创建价格和指标缓存，避免重复查询</span>
+        <span class="hljs-variable language_">self</span>._create_market_cache()
 
-        print(f&quot;🏗️  环境初始化完成：&quot;)
-        print(f&quot;   股票数量：{self.stock_dim}&quot;)
-        print(f&quot;   交易日数：{len(self.dates)}&quot;)
-        print(f&quot;   动作维度：{self.action_space.shape}&quot;)
-        print(f&quot;   状态维度：{self.observation_space.shape}&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;🏗️  环境初始化完成：&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   股票数量：<span class="hljs-subst">{self.stock_dim}</span>&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   交易日数：<span class="hljs-subst">{<span class="hljs-built_in">len</span>(self.dates)}</span>&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   动作维度：<span class="hljs-subst">{self.action_space.shape}</span>&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;   状态维度：<span class="hljs-subst">{self.observation_space.shape}</span>&quot;</span>)
 
-        # 初始化状态变量
-        self.day = 0
-        self.cash = self.initial_amount
-        self.holdings = np.zeros(self.stock_dim)
-        self.portfolio_value = self.initial_amount
-        self.portfolio_history = [self.initial_amount]
+        <span class="hljs-comment"># 初始化状态变量</span>
+        <span class="hljs-variable language_">self</span>.day = <span class="hljs-number">0</span>
+        <span class="hljs-variable language_">self</span>.cash = <span class="hljs-variable language_">self</span>.initial_amount
+        <span class="hljs-variable language_">self</span>.holdings = np.zeros(<span class="hljs-variable language_">self</span>.stock_dim)
+        <span class="hljs-variable language_">self</span>.portfolio_value = <span class="hljs-variable language_">self</span>.initial_amount
+        <span class="hljs-variable language_">self</span>.portfolio_history = [<span class="hljs-variable language_">self</span>.initial_amount]
 
-    def _create_market_cache(self):
-        &quot;&quot;&quot;创建价格和指标缓存，使用前向填充策略&quot;&quot;&quot;
-        self.price_cache = {}
-        self.feature_price_cache = {}
-        self.tech_cache = {}
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_create_market_cache</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;创建价格和指标缓存，使用前向填充策略&quot;&quot;&quot;</span>
+        <span class="hljs-variable language_">self</span>.price_cache = {}
+        <span class="hljs-variable language_">self</span>.feature_price_cache = {}
+        <span class="hljs-variable language_">self</span>.tech_cache = {}
 
-        # 存储每只股票的最后有效值
+        <span class="hljs-comment"># 存储每只股票的最后有效值</span>
         last_valid_prices = {}
         last_valid_feature_prices = {}
         last_valid_tech = {
-            stock: [None] * len(self.tech_indicators) for stock in self.stock_list
+            stock: [<span class="hljs-literal">None</span>] * <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.tech_indicators) <span class="hljs-keyword">for</span> stock <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.stock_list
         }
 
-        for date in self.dates:
-            date_data = self.data_reset[self.data_reset[&quot;date&quot;] == date]
+        <span class="hljs-keyword">for</span> date <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.dates:
+            date_data = <span class="hljs-variable language_">self</span>.data_reset[<span class="hljs-variable language_">self</span>.data_reset[<span class="hljs-string">&quot;date&quot;</span>] == date]
             prices = []
             feature_prices = []
             tech_data = []
 
-            for stock in self.stock_list:
-                stock_data = date_data[date_data[&quot;asset&quot;] == stock]
+            <span class="hljs-keyword">for</span> stock <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.stock_list:
+                stock_data = date_data[date_data[<span class="hljs-string">&quot;asset&quot;</span>] == stock]
 
-                if stock_data.empty:
-                    # 使用最后有效价格和技术指标
+                <span class="hljs-keyword">if</span> stock_data.empty:
+                    <span class="hljs-comment"># 使用最后有效价格和技术指标</span>
                     price = last_valid_prices.get(stock)
-                    if price is None:
-                        raise ValueError(
-                            f&quot;股票 {stock} 在 {date} 无数据且无历史价格，数据预处理可能有问题&quot;
+                    <span class="hljs-keyword">if</span> price <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                        <span class="hljs-keyword">raise</span> ValueError(
+                            <span class="hljs-string">f&quot;股票 <span class="hljs-subst">{stock}</span> 在 <span class="hljs-subst">{date}</span> 无数据且无历史价格，数据预处理可能有问题&quot;</span>
                         )
                     feature_price = last_valid_feature_prices.get(stock, price)
                     prices.append(price)
                     feature_prices.append(feature_price)
                     tech_data.extend(last_valid_tech[stock])
-                    continue
+                    <span class="hljs-keyword">continue</span>
 
-                # 获取价格，使用前向填充
-                price = stock_data[&quot;close&quot;].iloc[0]
-                if np.isnan(price):
+                <span class="hljs-comment"># 获取价格，使用前向填充</span>
+                price = stock_data[<span class="hljs-string">&quot;close&quot;</span>].iloc[<span class="hljs-number">0</span>]
+                <span class="hljs-keyword">if</span> np.isnan(price):
                     price = last_valid_prices.get(stock)
-                    if price is None:
-                        raise ValueError(
-                            f&quot;股票 {stock} 在 {date} 价格为NaN且无历史价格，数据预处理可能有问题&quot;
+                    <span class="hljs-keyword">if</span> price <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                        <span class="hljs-keyword">raise</span> ValueError(
+                            <span class="hljs-string">f&quot;股票 <span class="hljs-subst">{stock}</span> 在 <span class="hljs-subst">{date}</span> 价格为NaN且无历史价格，数据预处理可能有问题&quot;</span>
                         )
-                else:
+                <span class="hljs-keyword">else</span>:
                     last_valid_prices[stock] = price
                 prices.append(price)
 
                 feature_price = (
-                    stock_data[&quot;prev_close&quot;].iloc[0]
-                    if &quot;prev_close&quot; in stock_data.columns
-                    else np.nan
+                    stock_data[<span class="hljs-string">&quot;prev_close&quot;</span>].iloc[<span class="hljs-number">0</span>]
+                    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;prev_close&quot;</span> <span class="hljs-keyword">in</span> stock_data.columns
+                    <span class="hljs-keyword">else</span> np.nan
                 )
-                if np.isnan(feature_price):
+                <span class="hljs-keyword">if</span> np.isnan(feature_price):
                     feature_price = last_valid_feature_prices.get(stock, price)
-                    if feature_price is None:
+                    <span class="hljs-keyword">if</span> feature_price <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
                         feature_price = price
-                else:
+                <span class="hljs-keyword">else</span>:
                     last_valid_feature_prices[stock] = feature_price
                 feature_prices.append(feature_price)
 
-                # 获取技术指标，使用前向填充
+                <span class="hljs-comment"># 获取技术指标，使用前向填充</span>
                 stock_tech = []
-                for i, indicator in enumerate(self.tech_indicators):
+                <span class="hljs-keyword">for</span> i, indicator <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-variable language_">self</span>.tech_indicators):
                     value = (
-                        stock_data[indicator].iloc[0]
-                        if indicator in stock_data.columns
-                        else np.nan
+                        stock_data[indicator].iloc[<span class="hljs-number">0</span>]
+                        <span class="hljs-keyword">if</span> indicator <span class="hljs-keyword">in</span> stock_data.columns
+                        <span class="hljs-keyword">else</span> np.nan
                     )
-                    if np.isnan(value):
-                        value = last_valid_tech[stock][i]  # 使用上一个有效值
-                        if value is None:
-                            raise ValueError(
-                                f&quot;股票 {stock} 指标 {indicator} 在 {date} 为NaN且无历史值，数据预处理可能有问题&quot;
+                    <span class="hljs-keyword">if</span> np.isnan(value):
+                        value = last_valid_tech[stock][i]  <span class="hljs-comment"># 使用上一个有效值</span>
+                        <span class="hljs-keyword">if</span> value <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                            <span class="hljs-keyword">raise</span> ValueError(
+                                <span class="hljs-string">f&quot;股票 <span class="hljs-subst">{stock}</span> 指标 <span class="hljs-subst">{indicator}</span> 在 <span class="hljs-subst">{date}</span> 为NaN且无历史值，数据预处理可能有问题&quot;</span>
                             )
-                    else:
-                        last_valid_tech[stock][i] = value  # 更新最后有效值
+                    <span class="hljs-keyword">else</span>:
+                        last_valid_tech[stock][i] = value  <span class="hljs-comment"># 更新最后有效值</span>
                     stock_tech.append(value)
 
                 tech_data.extend(stock_tech)
 
-            self.price_cache[date] = np.array(prices)
-            self.feature_price_cache[date] = np.array(feature_prices)
-            self.tech_cache[date] = np.array(tech_data)
+            <span class="hljs-variable language_">self</span>.price_cache[date] = np.array(prices)
+            <span class="hljs-variable language_">self</span>.feature_price_cache[date] = np.array(feature_prices)
+            <span class="hljs-variable language_">self</span>.tech_cache[date] = np.array(tech_data)
 
-    def reset(self, seed=None, options=None):
-        super().reset(seed=seed)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">reset</span>(<span class="hljs-params">self, seed=<span class="hljs-literal">None</span>, options=<span class="hljs-literal">None</span></span>):
+        <span class="hljs-built_in">super</span>().reset(seed=seed)
 
-        self.day = 0
-        self.cash = self.initial_amount
-        self.holdings = np.zeros(self.stock_dim)
-        self.portfolio_value = self.initial_amount
-        self.portfolio_history = [self.initial_amount]
+        <span class="hljs-variable language_">self</span>.day = <span class="hljs-number">0</span>
+        <span class="hljs-variable language_">self</span>.cash = <span class="hljs-variable language_">self</span>.initial_amount
+        <span class="hljs-variable language_">self</span>.holdings = np.zeros(<span class="hljs-variable language_">self</span>.stock_dim)
+        <span class="hljs-variable language_">self</span>.portfolio_value = <span class="hljs-variable language_">self</span>.initial_amount
+        <span class="hljs-variable language_">self</span>.portfolio_history = [<span class="hljs-variable language_">self</span>.initial_amount]
 
-        observation = self._get_observation()
+        observation = <span class="hljs-variable language_">self</span>._get_observation()
         info = {}
 
-        return observation, info
+        <span class="hljs-keyword">return</span> observation, info
 
-    def step(self, actions):
-        # 检查是否结束
-        if self.day &gt;= len(self.dates) - 1:
-            return self._get_observation(), 0, True, True, {}
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">step</span>(<span class="hljs-params">self, actions</span>):
+        <span class="hljs-comment"># 检查是否结束</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.day &gt;= <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.dates) - <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>._get_observation(), <span class="hljs-number">0</span>, <span class="hljs-literal">True</span>, <span class="hljs-literal">True</span>, {}
 
-        # 获取当前价格（使用缓存）
-        current_date = self.dates[self.day]
-        prices = self.price_cache.get(current_date, np.zeros(self.stock_dim))
+        <span class="hljs-comment"># 获取当前价格（使用缓存）</span>
+        current_date = <span class="hljs-variable language_">self</span>.dates[<span class="hljs-variable language_">self</span>.day]
+        prices = <span class="hljs-variable language_">self</span>.price_cache.get(current_date, np.zeros(<span class="hljs-variable language_">self</span>.stock_dim))
 
-        # 执行交易
-        self._execute_trades(actions, prices)
+        <span class="hljs-comment"># 执行交易</span>
+        <span class="hljs-variable language_">self</span>._execute_trades(actions, prices)
 
-        # 移动到下一天
-        self.day += 1
+        <span class="hljs-comment"># 移动到下一天</span>
+        <span class="hljs-variable language_">self</span>.day += <span class="hljs-number">1</span>
 
-        # 计算新的投资组合价值
+        <span class="hljs-comment"># 计算新的投资组合价值</span>
         valuation_date = current_date
-        if self.day &lt; len(self.dates):
-            next_date = self.dates[self.day]
-            next_prices = self.price_cache.get(next_date, prices)
-            new_portfolio_value = self.cash + np.sum(self.holdings * next_prices)
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.day &lt; <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.dates):
+            next_date = <span class="hljs-variable language_">self</span>.dates[<span class="hljs-variable language_">self</span>.day]
+            next_prices = <span class="hljs-variable language_">self</span>.price_cache.get(next_date, prices)
+            new_portfolio_value = <span class="hljs-variable language_">self</span>.cash + np.<span class="hljs-built_in">sum</span>(<span class="hljs-variable language_">self</span>.holdings * next_prices)
             valuation_date = next_date
-        else:
-            new_portfolio_value = self.cash + np.sum(self.holdings * prices)
+        <span class="hljs-keyword">else</span>:
+            new_portfolio_value = <span class="hljs-variable language_">self</span>.cash + np.<span class="hljs-built_in">sum</span>(<span class="hljs-variable language_">self</span>.holdings * prices)
 
-        # 计算奖励
+        <span class="hljs-comment"># 计算奖励</span>
         reward = (
-            (new_portfolio_value - self.portfolio_value) / self.portfolio_value
-            if self.portfolio_value &gt; 0
-            else 0
+            (new_portfolio_value - <span class="hljs-variable language_">self</span>.portfolio_value) / <span class="hljs-variable language_">self</span>.portfolio_value
+            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.portfolio_value &gt; <span class="hljs-number">0</span>
+            <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
         )
-        self.portfolio_value = new_portfolio_value
-        self.portfolio_history.append(self.portfolio_value)
+        <span class="hljs-variable language_">self</span>.portfolio_value = new_portfolio_value
+        <span class="hljs-variable language_">self</span>.portfolio_history.append(<span class="hljs-variable language_">self</span>.portfolio_value)
 
-        # 检查是否结束
-        terminated = self.day &gt;= len(self.dates) - 1
-        truncated = False
+        <span class="hljs-comment"># 检查是否结束</span>
+        terminated = <span class="hljs-variable language_">self</span>.day &gt;= <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.dates) - <span class="hljs-number">1</span>
+        truncated = <span class="hljs-literal">False</span>
 
         info = {
-            &quot;portfolio_value&quot;: self.portfolio_value,
-            &quot;cash&quot;: self.cash,
-            &quot;holdings&quot;: self.holdings.copy(),
-            &quot;valuation_date&quot;: valuation_date,
+            <span class="hljs-string">&quot;portfolio_value&quot;</span>: <span class="hljs-variable language_">self</span>.portfolio_value,
+            <span class="hljs-string">&quot;cash&quot;</span>: <span class="hljs-variable language_">self</span>.cash,
+            <span class="hljs-string">&quot;holdings&quot;</span>: <span class="hljs-variable language_">self</span>.holdings.copy(),
+            <span class="hljs-string">&quot;valuation_date&quot;</span>: valuation_date,
         }
 
-        return self._get_observation(), reward, terminated, truncated, info
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>._get_observation(), reward, terminated, truncated, info
 
-    def _execute_trades(self, actions, prices):
-        &quot;&quot;&quot;
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_execute_trades</span>(<span class="hljs-params">self, actions, prices</span>):
+        <span class="hljs-string">&quot;&quot;&quot;
         执行交易动作
-        &quot;&quot;&quot;
-        # 将动作映射为归一化后的目标权重，避免顺序依赖和总仓位超过 100%
-        valid_prices = prices &gt; 0
-        positive_actions = np.clip(actions, 0, None)
-        positive_actions[~valid_prices] = 0
-        positive_actions[positive_actions &lt; 0.01] = 0
+        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 将动作映射为归一化后的目标权重，避免顺序依赖和总仓位超过 100%</span>
+        valid_prices = prices &gt; <span class="hljs-number">0</span>
+        positive_actions = np.clip(actions, <span class="hljs-number">0</span>, <span class="hljs-literal">None</span>)
+        positive_actions[~valid_prices] = <span class="hljs-number">0</span>
+        positive_actions[positive_actions &lt; <span class="hljs-number">0.01</span>] = <span class="hljs-number">0</span>
 
-        if positive_actions.sum() == 0:
+        <span class="hljs-keyword">if</span> positive_actions.<span class="hljs-built_in">sum</span>() == <span class="hljs-number">0</span>:
             target_weights = np.zeros_like(positive_actions)
-        else:
-            target_weights = positive_actions / positive_actions.sum()
+        <span class="hljs-keyword">else</span>:
+            target_weights = positive_actions / positive_actions.<span class="hljs-built_in">sum</span>()
 
-        total_value = self.cash + np.sum(self.holdings * prices)
-        current_values = self.holdings * prices
+        total_value = <span class="hljs-variable language_">self</span>.cash + np.<span class="hljs-built_in">sum</span>(<span class="hljs-variable language_">self</span>.holdings * prices)
+        current_values = <span class="hljs-variable language_">self</span>.holdings * prices
         target_values = total_value * target_weights
 
-        # 先卖出，使调仓不依赖股票遍历顺序
-        sell_values = np.maximum(current_values - target_values, 0)
-        for i, sell_value in enumerate(sell_values):
-            if sell_value &lt;= 0 or prices[i] &lt;= 0:
-                continue
+        <span class="hljs-comment"># 先卖出，使调仓不依赖股票遍历顺序</span>
+        sell_values = np.maximum(current_values - target_values, <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">for</span> i, sell_value <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(sell_values):
+            <span class="hljs-keyword">if</span> sell_value &lt;= <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> prices[i] &lt;= <span class="hljs-number">0</span>:
+                <span class="hljs-keyword">continue</span>
 
-            shares_to_sell = min(self.holdings[i], sell_value / prices[i])
+            shares_to_sell = <span class="hljs-built_in">min</span>(<span class="hljs-variable language_">self</span>.holdings[i], sell_value / prices[i])
             actual_sell_value = shares_to_sell * prices[i]
-            self.holdings[i] -= shares_to_sell
-            self.cash += actual_sell_value * (1 - self.transaction_cost)
+            <span class="hljs-variable language_">self</span>.holdings[i] -= shares_to_sell
+            <span class="hljs-variable language_">self</span>.cash += actual_sell_value * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.transaction_cost)
 
-        # 再买入；若现金不足，则按比例缩放所有买单
-        current_values = self.holdings * prices
-        buy_values = np.maximum(target_values - current_values, 0)
-        total_buy_value = buy_values.sum()
-        available_cash = self.cash / (1 + self.transaction_cost)
+        <span class="hljs-comment"># 再买入；若现金不足，则按比例缩放所有买单</span>
+        current_values = <span class="hljs-variable language_">self</span>.holdings * prices
+        buy_values = np.maximum(target_values - current_values, <span class="hljs-number">0</span>)
+        total_buy_value = buy_values.<span class="hljs-built_in">sum</span>()
+        available_cash = <span class="hljs-variable language_">self</span>.cash / (<span class="hljs-number">1</span> + <span class="hljs-variable language_">self</span>.transaction_cost)
 
-        if total_buy_value &lt;= 0 or available_cash &lt;= 0:
-            return
+        <span class="hljs-keyword">if</span> total_buy_value &lt;= <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> available_cash &lt;= <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span>
 
-        buy_scale = min(1.0, available_cash / total_buy_value)
-        for i, buy_value in enumerate(buy_values):
-            if buy_value &lt;= 0 or prices[i] &lt;= 0:
-                continue
+        buy_scale = <span class="hljs-built_in">min</span>(<span class="hljs-number">1.0</span>, available_cash / total_buy_value)
+        <span class="hljs-keyword">for</span> i, buy_value <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(buy_values):
+            <span class="hljs-keyword">if</span> buy_value &lt;= <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> prices[i] &lt;= <span class="hljs-number">0</span>:
+                <span class="hljs-keyword">continue</span>
 
             actual_buy_value = buy_value * buy_scale
             shares_to_buy = actual_buy_value / prices[i]
-            self.holdings[i] += shares_to_buy
-            self.cash -= actual_buy_value * (1 + self.transaction_cost)
+            <span class="hljs-variable language_">self</span>.holdings[i] += shares_to_buy
+            <span class="hljs-variable language_">self</span>.cash -= actual_buy_value * (<span class="hljs-number">1</span> + <span class="hljs-variable language_">self</span>.transaction_cost)
 
-    def _get_observation(self):
-        &quot;&quot;&quot;
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_get_observation</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;
         获取当前状态观察（使用缓存数据，避免递归）
-        &quot;&quot;&quot;
-        # 确保 day 在有效范围内
-        current_day = min(self.day, len(self.dates) - 1)
-        current_date = self.dates[current_day]
+        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 确保 day 在有效范围内</span>
+        current_day = <span class="hljs-built_in">min</span>(<span class="hljs-variable language_">self</span>.day, <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.dates) - <span class="hljs-number">1</span>)
+        current_date = <span class="hljs-variable language_">self</span>.dates[current_day]
 
-        # 现金比例
-        cash_ratio = self.cash / self.portfolio_value if self.portfolio_value &gt; 0 else 0
+        <span class="hljs-comment"># 现金比例</span>
+        cash_ratio = <span class="hljs-variable language_">self</span>.cash / <span class="hljs-variable language_">self</span>.portfolio_value <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.portfolio_value &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
 
-        # 获取当前价格（使用缓存）
-        prices = self.price_cache.get(current_date, np.ones(self.stock_dim) * 100.0)
-        feature_prices = self.feature_price_cache.get(current_date, prices)
+        <span class="hljs-comment"># 获取当前价格（使用缓存）</span>
+        prices = <span class="hljs-variable language_">self</span>.price_cache.get(current_date, np.ones(<span class="hljs-variable language_">self</span>.stock_dim) * <span class="hljs-number">100.0</span>)
+        feature_prices = <span class="hljs-variable language_">self</span>.feature_price_cache.get(current_date, prices)
 
-        # 持仓比例
-        holdings_value = self.holdings * prices
+        <span class="hljs-comment"># 持仓比例</span>
+        holdings_value = <span class="hljs-variable language_">self</span>.holdings * prices
         holdings_ratio = (
-            holdings_value / self.portfolio_value
-            if self.portfolio_value &gt; 0
-            else np.zeros_like(holdings_value)
+            holdings_value / <span class="hljs-variable language_">self</span>.portfolio_value
+            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.portfolio_value &gt; <span class="hljs-number">0</span>
+            <span class="hljs-keyword">else</span> np.zeros_like(holdings_value)
         )
 
-        # 技术指标（使用缓存）
-        tech_values = self.tech_cache.get(
-            current_date, np.zeros(len(self.tech_indicators) * self.stock_dim)
+        <span class="hljs-comment"># 技术指标（使用缓存）</span>
+        tech_values = <span class="hljs-variable language_">self</span>.tech_cache.get(
+            current_date, np.zeros(<span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.tech_indicators) * <span class="hljs-variable language_">self</span>.stock_dim)
         )
 
-        # 标准化技术指标
+        <span class="hljs-comment"># 标准化技术指标</span>
         normalized_tech = []
-        for i, stock in enumerate(self.stock_list):
-            for j, indicator in enumerate(self.tech_indicators):
-                idx = i * len(self.tech_indicators) + j
-                if idx &lt; len(tech_values):
+        <span class="hljs-keyword">for</span> i, stock <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-variable language_">self</span>.stock_list):
+            <span class="hljs-keyword">for</span> j, indicator <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-variable language_">self</span>.tech_indicators):
+                idx = i * <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.tech_indicators) + j
+                <span class="hljs-keyword">if</span> idx &lt; <span class="hljs-built_in">len</span>(tech_values):
                     value = tech_values[idx]
-                    # 标准化技术指标
-                    if indicator == &quot;rsi_14&quot;:
-                        value = (value - 50) / 50  # RSI 标准化到 [-1, 1]
-                    elif &quot;macd&quot; in indicator:
-                        value = np.tanh(value / 100)  # MACD 使用 tanh 标准化
-                    else:
-                        base_price = feature_prices[i] if feature_prices[i] &gt; 0 else 1
+                    <span class="hljs-comment"># 标准化技术指标</span>
+                    <span class="hljs-keyword">if</span> indicator == <span class="hljs-string">&quot;rsi_14&quot;</span>:
+                        value = (value - <span class="hljs-number">50</span>) / <span class="hljs-number">50</span>  <span class="hljs-comment"># RSI 标准化到 [-1, 1]</span>
+                    <span class="hljs-keyword">elif</span> <span class="hljs-string">&quot;macd&quot;</span> <span class="hljs-keyword">in</span> indicator:
+                        value = np.tanh(value / <span class="hljs-number">100</span>)  <span class="hljs-comment"># MACD 使用 tanh 标准化</span>
+                    <span class="hljs-keyword">else</span>:
+                        base_price = feature_prices[i] <span class="hljs-keyword">if</span> feature_prices[i] &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>
                         value = np.tanh(value / base_price)
-                    normalized_tech.append(value if not np.isnan(value) else 0)
-                else:
-                    normalized_tech.append(0)
+                    normalized_tech.append(value <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> np.isnan(value) <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>)
+                <span class="hljs-keyword">else</span>:
+                    normalized_tech.append(<span class="hljs-number">0</span>)
 
-        # 组合观察向量
+        <span class="hljs-comment"># 组合观察向量</span>
         observation = np.concatenate([[cash_ratio], holdings_ratio, normalized_tech])
 
-        # 最终NaN检查和处理
-        if np.any(np.isnan(observation)):
-            print(f&quot;⚠️ 观察向量包含NaN，将替换为0&quot;)
-            observation = np.nan_to_num(observation, nan=0.0)
+        <span class="hljs-comment"># 最终NaN检查和处理</span>
+        <span class="hljs-keyword">if</span> np.<span class="hljs-built_in">any</span>(np.isnan(observation)):
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;⚠️ 观察向量包含NaN，将替换为0&quot;</span>)
+            observation = np.nan_to_num(observation, nan=<span class="hljs-number">0.0</span>)
 
-        return observation.astype(np.float32)
+        <span class="hljs-keyword">return</span> observation.astype(np.float32)
 
 
-# 创建环境
-print(&quot;\n🏗️  创建交易环境。..&quot;)
+<span class="hljs-comment"># 创建环境</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n🏗️  创建交易环境。..&quot;</span>)
 
-train_env = StockTradingEnv(train_data, initial_amount=100000)
-test_env = StockTradingEnv(test_data, initial_amount=100000)
+train_env = StockTradingEnv(train_data, initial_amount=<span class="hljs-number">100000</span>)
+test_env = StockTradingEnv(test_data, initial_amount=<span class="hljs-number">100000</span>)
 
-print(&quot;\n✅ 环境创建完成！&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n✅ 环境创建完成！&quot;</span>)
 
-# 测试环境重置
-print(&quot;\n🔄 测试环境重置。..&quot;)
+<span class="hljs-comment"># 测试环境重置</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n🔄 测试环境重置。..&quot;</span>)
 train_obs, _ = train_env.reset()
-print(f&quot;训练环境观察向量形状：{train_obs.shape}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;训练环境观察向量形状：<span class="hljs-subst">{train_obs.shape}</span>&quot;</span>)
 
 test_obs, _ = test_env.reset()
-print(f&quot;测试环境观察向量形状：{test_obs.shape}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;测试环境观察向量形状：<span class="hljs-subst">{test_obs.shape}</span>&quot;</span>)</span></code></pre>
 <p>首先，我们定义了一个名为 StockTradingEnv 的类，继承自 gym.Env。在强化学习中， Env （环境）就是智能体交互和学习的“世界”。</p>
 <p>动作空间是智能体可以执行的操作。这里是连续的，对于我们投资组合里的每一只股票，智能体都可以决定一个介于-1 到 1 之间的值，代表是卖出（-1 到 0）还是买入（0 到 1）这只股票的资金比例。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
@@ -725,32 +717,31 @@ print(f&quot;测试环境观察向量形状：{test_obs.shape}&quot;)
 <p>在这个框架里，执行交易也变得简单。因为在 step 方法中，传入的 actions 已经包含了目标仓位信息，所以，我们只需要根据现有持仓和目标仓位的数量进行计算，就可以知道如何调仓。</p>
 <p>下面，我们就来定义智能体--Agent。</p>
 <h2 id="定义-agent-及训练">定义 Agent 及训练</h2>
-<pre><code class="language-python">from stable_baselines3 import PPO
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">from</span> stable_baselines3 <span class="hljs-keyword">import</span> PPO
 
 model = PPO(
-    &quot;MlpPolicy&quot;,
+    <span class="hljs-string">&quot;MlpPolicy&quot;</span>,
     train_env,
-    verbose=1,
-    learning_rate=1e-4,
-    n_steps=1024,
-    batch_size=64,
-    n_epochs=10,
-    gamma=0.7,
-    gae_lambda=0.7,
-    clip_range=0.2,
-    ent_coef=0.01,
-    vf_coef=0.5,
-    max_grad_norm=0.5,
-    seed=42,
+    verbose=<span class="hljs-number">1</span>,
+    learning_rate=<span class="hljs-number">1e-4</span>,
+    n_steps=<span class="hljs-number">1024</span>,
+    batch_size=<span class="hljs-number">64</span>,
+    n_epochs=<span class="hljs-number">10</span>,
+    gamma=<span class="hljs-number">0.7</span>,
+    gae_lambda=<span class="hljs-number">0.7</span>,
+    clip_range=<span class="hljs-number">0.2</span>,
+    ent_coef=<span class="hljs-number">0.01</span>,
+    vf_coef=<span class="hljs-number">0.5</span>,
+    max_grad_norm=<span class="hljs-number">0.5</span>,
+    seed=<span class="hljs-number">42</span>,
 )
 
-print(&quot;🚀 开始训练。..&quot;)
-model.learn(total_timesteps=10000, progress_bar=True)
-print(&quot;✅ 训练完成！&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;🚀 开始训练。..&quot;</span>)
+model.learn(total_timesteps=<span class="hljs-number">10000</span>, progress_bar=<span class="hljs-literal">True</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;✅ 训练完成！&quot;</span>)
 
-# 保存模型
-# model.save(&quot;ppo_trading_model&quot;)
-</code></pre>
+<span class="hljs-comment"># 保存模型</span>
+<span class="hljs-comment"># model.save(&quot;ppo_trading_model&quot;)</span></span></code></pre>
 <p>这里我们定义了一个 PPO 类型的智能体，并且使用了多层感知机（Multi-Layer Perceptron）作为网络结构。对于基于数值向量（现金比例、持股比例、技术指标）的输入，MlpPolicy 是最直接和常见的选择。</p>
 <p>接下来我们按要求传入环境（这里是 train_env），时间步 (n_steps)、训练轮数（n_epochs）。这里的时间步是强化学习中的一个核心问题，在后面还有一个 total_timesteps 参数，我们结合到一起来讲解。</p>
 <p>想象一下我们的智能体是一个正在学习交易的学生。他不是每做一笔交易（一个 step ）就马上总结经验、调整策略，那样太短视了，容易<strong>被市场的短期随机波动所迷惑</strong>。相反，他会先连续地进行 n_steps 次模拟交易 ，把这一个完整周期（比如 2048 天）的全部经历——包括每天的市场状态、他采取的行动、以及因此获得的收益或亏损——都记录在一个“经验回放缓冲区”（Rollout Buffer）里。</p>
@@ -764,66 +755,64 @@ print(&quot;✅ 训练完成！&quot;)
 在示例中，n_steps = 2048，大约相当于 8 年。即每次『复盘』，智能体都经历了一个非常长的、足以包含牛市、熊市和震荡市的完整市场周期。这对于学习到一个鲁棒的、能够穿越牛熊的策略至关重要。
 </div>
 
-<pre><code>不过，尽管我们设置的 total_timesteps 是 10_000，但实际上数据只有约 2880 天，只够 Agent 进行一次大的复盘与学习更新。并且，余下的数据（约 832 天）因为不足以再进行一次完整的更新，这些数据没有被利用，造成了浪费。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-string">不过，尽管我们设置的</span> <span class="hljs-string">total_timesteps</span> <span class="hljs-string">是</span> <span class="hljs-string">10_000，但实际上数据只有约</span> <span class="hljs-number">2880</span> <span class="hljs-string">天，只够</span> <span class="hljs-string">Agent</span> <span class="hljs-string">进行一次大的复盘与学习更新。并且，余下的数据（约</span> <span class="hljs-number">832</span> <span class="hljs-string">天）因为不足以再进行一次完整的更新，这些数据没有被利用，造成了浪费。</span></span></code></pre>
 <h3 id="回测与结果">回测与结果</h3>
 <p>现在，我们开始回测，并使用 quantstats 生成标准化的投资组合分析报表。同时创建等权基准进行对比。</p>
-<pre><code class="language-python">import quantstats as qs
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span></span><span class="cl-body"><span class="hljs-keyword">import</span> quantstats <span class="hljs-keyword">as</span> qs
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 
-def create_equal_weight_benchmark(test_data):
-    &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">create_equal_weight_benchmark</span>(<span class="hljs-params">test_data</span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     创建等权基准组合
-    &quot;&quot;&quot;
-    prices = test_data[&quot;close&quot;].unstack(&quot;asset&quot;).sort_index()
-    equal_weight_returns = prices.pct_change().mean(axis=1).dropna()
-    return equal_weight_returns
+    &quot;&quot;&quot;</span>
+    prices = test_data[<span class="hljs-string">&quot;close&quot;</span>].unstack(<span class="hljs-string">&quot;asset&quot;</span>).sort_index()
+    equal_weight_returns = prices.pct_change().mean(axis=<span class="hljs-number">1</span>).dropna()
+    <span class="hljs-keyword">return</span> equal_weight_returns
 
 
 benchmark = create_equal_weight_benchmark(test_data)
 
-print(&quot;📊 开始强化学习模型回测。..&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;📊 开始强化学习模型回测。..&quot;</span>)
 obs, _ = test_env.reset()
-done = False
-total_reward = 0
-step_count = 0
+done = <span class="hljs-literal">False</span>
+total_reward = <span class="hljs-number">0</span>
+step_count = <span class="hljs-number">0</span>
 portfolio_values = []
 step_returns = []
 dates = []
 
-while not done:
-    action, _ = model.predict(obs, deterministic=True)
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> done:
+    action, _ = model.predict(obs, deterministic=<span class="hljs-literal">True</span>)
     obs, reward, terminated, truncated, info = test_env.step(action)
-    done = terminated or truncated
+    done = terminated <span class="hljs-keyword">or</span> truncated
     total_reward += reward
-    portfolio_values.append(info[&quot;portfolio_value&quot;])
+    portfolio_values.append(info[<span class="hljs-string">&quot;portfolio_value&quot;</span>])
     step_returns.append(reward)
-    dates.append(info[&quot;valuation_date&quot;])
+    dates.append(info[<span class="hljs-string">&quot;valuation_date&quot;</span>])
 
-    step_count += 1
+    step_count += <span class="hljs-number">1</span>
 
-    if step_count % 20 == 0:
-        print(f&quot;步骤 {step_count}: 投资组合价值 = ¥{info[&#39;portfolio_value&#39;]:,.2f}&quot;)
+    <span class="hljs-keyword">if</span> step_count % <span class="hljs-number">20</span> == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;步骤 <span class="hljs-subst">{step_count}</span>: 投资组合价值 = ¥<span class="hljs-subst">{info[<span class="hljs-string">&#x27;portfolio_value&#x27;</span>]:,<span class="hljs-number">.2</span>f}</span>&quot;</span>)
 
-print(f&quot;\n📈 强化学习模型回测完成！&quot;)
-print(f&quot;总步数：{step_count}&quot;)
-print(f&quot;总奖励：{total_reward:.4f}&quot;)
-print(f&quot;最终投资组合价值：¥{portfolio_values[-1]:,.2f}&quot;)
-print(f&quot;总收益率：{(portfolio_values[-1] / 100000 - 1) * 100:.2f}%&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n📈 强化学习模型回测完成！&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;总步数：<span class="hljs-subst">{step_count}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;总奖励：<span class="hljs-subst">{total_reward:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最终投资组合价值：¥<span class="hljs-subst">{portfolio_values[-<span class="hljs-number">1</span>]:,<span class="hljs-number">.2</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;总收益率：<span class="hljs-subst">{(portfolio_values[-<span class="hljs-number">1</span>] / <span class="hljs-number">100000</span> - <span class="hljs-number">1</span>) * <span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%&quot;</span>)
 
-# 创建投资组合收益率序列，并与基准按日期严格对齐
+<span class="hljs-comment"># 创建投资组合收益率序列，并与基准按日期严格对齐</span>
 portfolio_returns = pd.Series(step_returns, index=dates).sort_index()
 benchmark = benchmark.reindex(portfolio_returns.index).dropna()
 portfolio_returns = portfolio_returns.reindex(benchmark.index).dropna()
 
 qs.extend_pandas()
-qs.reports.metrics(portfolio_returns, benchmark=benchmark, display=True)
+qs.reports.metrics(portfolio_returns, benchmark=benchmark, display=<span class="hljs-literal">True</span>)
 
 
-# 生成关键绩效图表快照
-qs.plots.snapshot(portfolio_returns, benchmark=benchmark, figsize=(15, 10))
-</code></pre>
+<span class="hljs-comment"># 生成关键绩效图表快照</span>
+qs.plots.snapshot(portfolio_returns, benchmark=benchmark, figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">10</span>))</span></code></pre>
 <p>!!! attention &quot;quantstats reloaded!&quot;&quot;
     这里需要 quantstats，注意它在 python 3.12 下完全不能运行，你需要安装匡醍维护发布的 quanstats-reloaded 版本。</p>
 <!-- BEGIN IPYNB STRIPOUT -->

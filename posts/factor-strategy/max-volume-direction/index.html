@@ -56,71 +56,69 @@
 <p>主力才能决定方向，决定方向的力量也就是主力。因此，主力方向是可以建模的。</p>
 <!--PAID CONTENT START-->
 
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-def max_volume_direction(df, win=40):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">max_volume_direction</span>(<span class="hljs-params">df, win=<span class="hljs-number">40</span></span>):
     old_index = df.index.copy()
-    df = df.reset_index().set_index(np.arange(len(df)))
-    df[&quot;flag&quot;] = np.select([
-        df[&quot;close&quot;] &gt; df[&quot;open&quot;],
-        df[&quot;close&quot;] &lt; df[&quot;open&quot;]
-    ], [1, -1], 0)
+    df = df.reset_index().set_index(np.arange(<span class="hljs-built_in">len</span>(df)))
+    df[<span class="hljs-string">&quot;flag&quot;</span>] = np.select([
+        df[<span class="hljs-string">&quot;close&quot;</span>] &gt; df[<span class="hljs-string">&quot;open&quot;</span>],
+        df[<span class="hljs-string">&quot;close&quot;</span>] &lt; df[<span class="hljs-string">&quot;open&quot;</span>]
+    ], [<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>], <span class="hljs-number">0</span>)
 
-    df[&quot;move_vol_avg&quot;] = df[&quot;volume&quot;].rolling(window=win, min_periods=win).mean().shift(1)
-    df[&quot;argmax&quot;] = df[&#39;volume&#39;].rolling(win, min_periods=win).apply(lambda x: x.idxmax())
-    df.fillna(0, inplace=True)
-    df[&quot;move_vol_max&quot;] = df.apply(lambda row: df.loc[row[&#39;argmax&#39;], &#39;volume&#39;], axis=1)
-    df[&#39;vr&#39;] = df[&#39;volume&#39;] / df[&#39;move_vol_avg&#39;] * df[&quot;flag&quot;]
-    df[&quot;span&quot;] = df.index - df[&quot;argmax&quot;]
+    df[<span class="hljs-string">&quot;move_vol_avg&quot;</span>] = df[<span class="hljs-string">&quot;volume&quot;</span>].rolling(window=win, min_periods=win).mean().shift(<span class="hljs-number">1</span>)
+    df[<span class="hljs-string">&quot;argmax&quot;</span>] = df[<span class="hljs-string">&#x27;volume&#x27;</span>].rolling(win, min_periods=win).apply(<span class="hljs-keyword">lambda</span> x: x.idxmax())
+    df.fillna(<span class="hljs-number">0</span>, inplace=<span class="hljs-literal">True</span>)
+    df[<span class="hljs-string">&quot;move_vol_max&quot;</span>] = df.apply(<span class="hljs-keyword">lambda</span> row: df.loc[row[<span class="hljs-string">&#x27;argmax&#x27;</span>], <span class="hljs-string">&#x27;volume&#x27;</span>], axis=<span class="hljs-number">1</span>)
+    df[<span class="hljs-string">&#x27;vr&#x27;</span>] = df[<span class="hljs-string">&#x27;volume&#x27;</span>] / df[<span class="hljs-string">&#x27;move_vol_avg&#x27;</span>] * df[<span class="hljs-string">&quot;flag&quot;</span>]
+    df[<span class="hljs-string">&quot;span&quot;</span>] = df.index - df[<span class="hljs-string">&quot;argmax&quot;</span>]
 
-    def calc_rolling_net_balance(df):
-        pos = df[&quot;argmax&quot;].iloc[-1] + 1
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_rolling_net_balance</span>(<span class="hljs-params">df</span>):
+        pos = df[<span class="hljs-string">&quot;argmax&quot;</span>].iloc[-<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>
         sub = df.loc[pos:,]
-        return (sub[&quot;flag&quot;] * sub[&quot;volume&quot;]).sum() / df[&quot;move_vol_max&quot;].iloc[-1]
+        <span class="hljs-keyword">return</span> (sub[<span class="hljs-string">&quot;flag&quot;</span>] * sub[<span class="hljs-string">&quot;volume&quot;</span>]).<span class="hljs-built_in">sum</span>() / df[<span class="hljs-string">&quot;move_vol_max&quot;</span>].iloc[-<span class="hljs-number">1</span>]
 
     balances = []
-    for sub in df.rolling(win):
+    <span class="hljs-keyword">for</span> sub <span class="hljs-keyword">in</span> df.rolling(win):
         b = calc_rolling_net_balance(sub)
         balances.append(b)
 
-    df[&quot;move_balance&quot;] = balances
+    df[<span class="hljs-string">&quot;move_balance&quot;</span>] = balances
 
-    return df[[&quot;vr&quot;, &quot;move_balance&quot;, &quot;span&quot;]].set_index(old_index)
-</code></pre>
+    <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&quot;vr&quot;</span>, <span class="hljs-string">&quot;move_balance&quot;</span>, <span class="hljs-string">&quot;span&quot;</span>]].set_index(old_index)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>这段代码的逻辑是，如果某个bar的成交量相对于过去一段时间的平均成交量异常放大（用该bar的成交量除以平均成交量，记为vr），那么它就可能是主力的操作。我们认为，该根bar的方向，有较大概率是此后主力的运作方向。</p>
 <p>如果这根bar是阳线，它反应的是买入操作；如果这根bar是阴线，它反应的是卖出操作（记为flag）。</p>
 <p>主力为了测试对手盘和跟风盘，在试盘之后，有可能中断操作一段时间，借此观察盘面变化。因此，我们要考察该bar之后一段时间的交易情况，把这部分成交量换算成净余成交量（记为move_balance），再除以主力操作的那个bar的成交量（『归一化』）。如果净余成交量与主力bar是同向的，说明对手盘很小（或者没有成为对手的意愿）；如果净余成交量与主力bar相反且较大，则主力的意图有可能难以实现，主力可能暂时放弃操作。</p>
 <p>我们拿一个样本测试一下：</p>
-<pre><code class="language-python">import akshare as ak
-def test(bars, thresh=5):
-    bars.index = np.arange(len(bars))
-    df = max_volume_direction(bars, 40)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">bars, thresh=<span class="hljs-number">5</span></span>):
+    bars.index = np.arange(<span class="hljs-built_in">len</span>(bars))
+    df = max_volume_direction(bars, <span class="hljs-number">40</span>)
 
-    bars.rename(columns={&quot;day&quot;: &quot;date&quot;}, inplace=True)
-    cs = Candlestick(bars, height=750)
-    # add up markers
-    df[&quot;close&quot;] = bars[&quot;close&quot;]
+    bars.rename(columns={<span class="hljs-string">&quot;day&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>}, inplace=<span class="hljs-literal">True</span>)
+    cs = Candlestick(bars, height=<span class="hljs-number">750</span>)
+    <span class="hljs-comment"># add up markers</span>
+    df[<span class="hljs-string">&quot;close&quot;</span>] = bars[<span class="hljs-string">&quot;close&quot;</span>]
     x = df[np.isfinite(df.vr) &amp; (df.vr &gt; thresh)].index
-    y = df[np.isfinite(df.vr) &amp; (df.vr &gt; thresh)][&quot;close&quot;] * 1.05
-    cs.add_marks(x, y, name=&quot;up&quot;, marker=&quot;triangle-up&quot;)
+    y = df[np.isfinite(df.vr) &amp; (df.vr &gt; thresh)][<span class="hljs-string">&quot;close&quot;</span>] * <span class="hljs-number">1.05</span>
+    cs.add_marks(x, y, name=<span class="hljs-string">&quot;up&quot;</span>, marker=<span class="hljs-string">&quot;triangle-up&quot;</span>)
 
-    # add down markers
+    <span class="hljs-comment"># add down markers</span>
     x = df[np.isfinite(df.vr) &amp; (df.vr &lt; -thresh)].index
-    y = df[np.isfinite(df.vr) &amp; (df.vr &lt; -thresh)][&quot;close&quot;] * 0.95
-    cs.add_marks(x, y, name=&quot;down&quot;, marker=&quot;triangle-down&quot;, color=&quot;green&quot;)
+    y = df[np.isfinite(df.vr) &amp; (df.vr &lt; -thresh)][<span class="hljs-string">&quot;close&quot;</span>] * <span class="hljs-number">0.95</span>
+    cs.add_marks(x, y, name=<span class="hljs-string">&quot;down&quot;</span>, marker=<span class="hljs-string">&quot;triangle-down&quot;</span>, color=<span class="hljs-string">&quot;green&quot;</span>)
 
     cs.plot()
 
-code = &quot;sz002466&quot;
-bars = ak.stock_zh_a_minute(symbol=code, period=&quot;30&quot;, adjust=&quot;qfq&quot;)
-bars = bars[-150:].copy()
+code = <span class="hljs-string">&quot;sz002466&quot;</span>
+bars = ak.stock_zh_a_minute(symbol=code, period=<span class="hljs-string">&quot;30&quot;</span>, adjust=<span class="hljs-string">&quot;qfq&quot;</span>)
+bars = bars[-<span class="hljs-number">150</span>:].copy()
 
-bars[&quot;volume&quot;] = bars.volume.astype(int)
+bars[<span class="hljs-string">&quot;volume&quot;</span>] = bars.volume.astype(<span class="hljs-built_in">int</span>)
 
-test(bars)
-</code></pre>
+test(bars)</span></code></pre>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 由于akshare无法按时间段获取30分钟线，并且只能获取固定长度的30分钟线（更早的会丢弃）k线，所以，这段代码运行的结果将会与下图不同。
 </div>

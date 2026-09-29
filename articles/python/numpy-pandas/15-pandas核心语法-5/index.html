@@ -21,9 +21,8 @@ fillna, clip, winsorize,dropna-->
 <h3 id="11-fillna填充缺失值">1.1. fillna：填充缺失值</h3>
 <p>fillna 用于填充 DataFrame 或 Series 中的缺失值（NaN）。它支持多种填充方式，例如用固定值、前向填充、后向填充、均值填充等。</p>
 <p>语法：</p>
-<pre><code class="language-python">DataFrame.fillna(value=None, method=None, axis=None, inplace=False,
-                 limit=None, downcast=None)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">DataFrame.fillna(value=<span class="hljs-literal">None</span>, method=<span class="hljs-literal">None</span>, axis=<span class="hljs-literal">None</span>, inplace=<span class="hljs-literal">False</span>,
+                 limit=<span class="hljs-literal">None</span>, downcast=<span class="hljs-literal">None</span>)</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li>​<strong>value</strong>：用于填充缺失值的值，可以是标量、字典、Series 或 DataFrame。</li>
@@ -33,27 +32,24 @@ fillna, clip, winsorize,dropna-->
 <li>​<strong>limit</strong>：限制填充的最大连续缺失值数量。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 创建示例 DataFrame
-data = {&#39;A&#39;: [1, 2, np.nan], &#39;B&#39;: [np.nan, 5, 6]}
-df = pd.DataFrame(data)
-</code></pre>
+<span class="hljs-comment"># 创建示例 DataFrame</span>
+data = {<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, np.nan], <span class="hljs-string">&#x27;B&#x27;</span>: [np.nan, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]}
+df = pd.DataFrame(data)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 用 0 填充缺失值
-df_filled = df.fillna(0)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 用 0 填充缺失值</span>
+df_filled = df.fillna(<span class="hljs-number">0</span>)
 
-# 前向填充
-df_ffill = df.fillna(method=&#39;ffill&#39;)
+<span class="hljs-comment"># 前向填充</span>
+df_ffill = df.fillna(method=<span class="hljs-string">&#x27;ffill&#x27;</span>)
 
-# 用均值填充
-df_mean_filled = df.fillna(df.mean())
-</code></pre>
+<span class="hljs-comment"># 用均值填充</span>
+df_mean_filled = df.fillna(df.mean())</span></code></pre>
 <h3 id="12-clip修剪数据范围">1.2. ​clip：修剪数据范围</h3>
 <p>clip 用于将数据限制在指定的范围内，超出范围的值会被替换为边界值。</p>
-<pre><code class="language-python">DataFrame.clip(lower=None, upper=None, axis=None, inplace=False)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">DataFrame.clip(lower=<span class="hljs-literal">None</span>, upper=<span class="hljs-literal">None</span>, axis=<span class="hljs-literal">None</span>, inplace=<span class="hljs-literal">False</span>)</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li><strong>lower</strong>：下限值，低于此值的会被替换为下限。</li>
@@ -62,35 +58,30 @@ df_mean_filled = df.fillna(df.mean())
 <li>​<strong>inplace</strong>：是否原地修改数据。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python"># 将数据限制在 1 到 5 之间
-df_clipped = df.clip(lower=1, upper=5)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 将数据限制在 1 到 5 之间</span>
+df_clipped = df.clip(lower=<span class="hljs-number">1</span>, upper=<span class="hljs-number">5</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 对每列设置不同的上下限
-lower = pd.Series([1, 2])
-upper = pd.Series([4, 5])
-df_clipped_custom = df.clip(lower=lower, upper=upper, axis=1)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 对每列设置不同的上下限</span>
+lower = pd.Series([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>])
+upper = pd.Series([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+df_clipped_custom = df.clip(lower=lower, upper=upper, axis=<span class="hljs-number">1</span>)</span></code></pre>
 <h3 id="13-winsorize缩尾处理">1.3. ​winsorize：缩尾处理</h3>
 <p>winsorize 用于处理极端值，将超出指定分位数的值替换为分位数的值。它通常用于减少极端值对数据分析的影响。语法（通过 scipy.stats.mstats.winsorize）：</p>
-<pre><code class="language-python">from scipy.stats.mstats import winsorize
-winsorize(data, limits=[lower_limit, upper_limit])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.stats.mstats <span class="hljs-keyword">import</span> winsorize
+winsorize(data, limits=[lower_limit, upper_limit])</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li>​<strong>limits</strong>：指定上下分位数，例如 [0.05, 0.95] 表示将低于 5% 和高于 95% 的值替换为对应分位数的值。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">from scipy.stats.mstats import winsorize
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.stats.mstats <span class="hljs-keyword">import</span> winsorize
 
-# 对数据进行上下 5% 的缩尾处理
-df[&#39;A_winsorized&#39;] = winsorize(df[&#39;A&#39;], limits=[0.05, 0.95])
-</code></pre>
+<span class="hljs-comment"># 对数据进行上下 5% 的缩尾处理</span>
+df[<span class="hljs-string">&#x27;A_winsorized&#x27;</span>] = winsorize(df[<span class="hljs-string">&#x27;A&#x27;</span>], limits=[<span class="hljs-number">0.05</span>, <span class="hljs-number">0.95</span>])</span></code></pre>
 <hr>
 <h3 id="14-dropna删除缺失值">1.4. ​<strong>dropna：删除缺失值</strong></h3>
 <p>dropna 用于删除包含缺失值的行或列。</p>
-<pre><code class="language-python">DataFrame.dropna(axis=0, how=&#39;any&#39;, thresh=None, subset=None, inplace=False)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">DataFrame.dropna(axis=<span class="hljs-number">0</span>, how=<span class="hljs-string">&#x27;any&#x27;</span>, thresh=<span class="hljs-literal">None</span>, subset=<span class="hljs-literal">None</span>, inplace=<span class="hljs-literal">False</span>)</span></code></pre>
 <p>参数说明：</p>
 <ul>
 <li><strong>axis</strong>：删除的轴，0 表示删除行，1 表示删除列。</li>
@@ -100,15 +91,14 @@ df[&#39;A_winsorized&#39;] = winsorize(df[&#39;A&#39;], limits=[0.05, 0.95])
 <li>​<strong>inplace</strong>：是否原地修改数据。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python"># 删除包含缺失值的行
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 删除包含缺失值的行</span>
 df_dropped = df.dropna()
 
-# 删除包含缺失值的列
-df_dropped_cols = df.dropna(axis=1)
+<span class="hljs-comment"># 删除包含缺失值的列</span>
+df_dropped_cols = df.dropna(axis=<span class="hljs-number">1</span>)
 
-# 只删除指定列中包含缺失值的行
-df_dropped_subset = df.dropna(subset=[&#39;A&#39;])
-</code></pre>
+<span class="hljs-comment"># 只删除指定列中包含缺失值的行</span>
+df_dropped_subset = df.dropna(subset=[<span class="hljs-string">&#x27;A&#x27;</span>])</span></code></pre>
 <hr>
 <p>!!! 总结
     - ​<strong>fillna</strong>：用于填充缺失值，支持多种填充方式。
@@ -122,9 +112,8 @@ df_dropped_subset = df.dropna(subset=[&#39;A&#39;])
 <!--_除基本操作外，还将介绍读取 csv 时如何加速_-->
 <h4>2.1.1. 读取 csv</h4>
 <p>CSV 是最常用的文件格式之一，Pandas 提供了 <code>read_csv</code> 函数来读取 CSV 文件。</p>
-<pre><code class="language-python">import pandas as pd
-df = pd.read_csv(&#39;data.csv&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+df = pd.read_csv(<span class="hljs-string">&#x27;data.csv&#x27;</span>)</span></code></pre>
 <p>常用参数：</p>
 <ul>
 <li>sep：指定分隔符，默认为逗号 ,。</li>
@@ -137,62 +126,52 @@ df = pd.read_csv(&#39;data.csv&#39;)
 <li>na_values：指定哪些值应被视为缺失值。</li>
 </ul>
 <p>示例：</p>
-<pre><code class="language-python">df = pd.read_csv(&#39;data.csv&#39;, sep=&#39;;&#39;, header=0, index_col=&#39;ID&#39;, encoding=&#39;utf-8&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_csv(<span class="hljs-string">&#x27;data.csv&#x27;</span>, sep=<span class="hljs-string">&#x27;;&#x27;</span>, header=<span class="hljs-number">0</span>, index_col=<span class="hljs-string">&#x27;ID&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)</span></code></pre>
 <h4>2.1.2. 读取 csv 时如何加速</h4>
 <p>在读取大型 CSV 文件时，除了基本的 pd.read_csv 操作外，可以通过以下方法显著提升读取速度：</p>
 <p>[分块读取 (chunksize)]</p>
 <p>对于非常大的文件，一次性加载到内存可能会导致内存不足。可以使用 chunksize 参数分块读取数据，逐块处理。</p>
-<pre><code class="language-python">chunk_size = 10000  # 每次读取 10000 行
-for chunk in pd.read_csv(&#39;large_file.csv&#39;, chunksize=chunk_size):
-    process(chunk)  # 自定义处理函数
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">chunk_size = <span class="hljs-number">10000</span>  <span class="hljs-comment"># 每次读取 10000 行</span>
+<span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> pd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>, chunksize=chunk_size):
+    process(chunk)  <span class="hljs-comment"># 自定义处理函数</span></span></code></pre>
 <p>这种方法可以有效减少内存占用，并允许边读边处理。</p>
 <p>[指定列读取 (usecols)]</p>
 <p>如果只需要部分列的数据，可以使用 usecols 参数指定要读取的列，避免加载不必要的数据。</p>
 <hr>
-<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, usecols=[&#39;column1&#39;, &#39;column2&#39;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>, usecols=[<span class="hljs-string">&#x27;column1&#x27;</span>, <span class="hljs-string">&#x27;column2&#x27;</span>])</span></code></pre>
 <p>这样可以减少内存使用并加快读取速度。</p>
 <p>[优化数据类型 (dtype)]</p>
 <p>Pandas 默认会推断每列的数据类型，但这可能会导致内存浪费。通过显式指定 dtype，可以减少内存占用并提升性能。</p>
-<pre><code class="language-python">dtypes = {&#39;column1&#39;: &#39;int32&#39;, &#39;column2&#39;: &#39;float32&#39;}
-df = pd.read_csv(&#39;large_file.csv&#39;, dtype=dtypes)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">dtypes = {<span class="hljs-string">&#x27;column1&#x27;</span>: <span class="hljs-string">&#x27;int32&#x27;</span>, <span class="hljs-string">&#x27;column2&#x27;</span>: <span class="hljs-string">&#x27;float32&#x27;</span>}
+df = pd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>, dtype=dtypes)</span></code></pre>
 <p>例如，将 int64 改为 int32 可以节省内存。</p>
 <p>[使用更高效的解析器 (engine=&#39;pyarrow&#39;)]</p>
 <p>Pandas 1.4 版本引入了 pyarrow 作为 CSV 解析器，相比默认的解析器，速度更快。</p>
-<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, engine=&#39;pyarrow&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>, engine=<span class="hljs-string">&#x27;pyarrow&#x27;</span>)</span></code></pre>
 <p>pyarrow 支持并行解析，特别适合处理<strong>大文件</strong>。</p>
 <p>[​跳过无用数据 (skiprows, nrows)]</p>
 <p>如果文件中有不需要的行或数据，可以使用 skiprows 跳过指定行，或使用 nrows 只读取前几行。</p>
 <hr>
-<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, skiprows=[1, 2], nrows=1000)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>, skiprows=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], nrows=<span class="hljs-number">1000</span>)</span></code></pre>
 <p>这样可以减少数据处理量。</p>
 <p>[​并行处理 (Dask 或 Multiprocessing)]</p>
 <p>对于非常大的数据集，可以使用并行处理工具如 Dask 来加速读取和处理。</p>
-<pre><code class="language-python">import dask.dataframe as dd
-df = dd.read_csv(&#39;large_file.csv&#39;)
-result = df.groupby(&#39;column1&#39;).mean().compute()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> dask.dataframe <span class="hljs-keyword">as</span> dd
+df = dd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>)
+result = df.groupby(<span class="hljs-string">&#x27;column1&#x27;</span>).mean().compute()</span></code></pre>
 <p>Dask 会自动将文件分块并并行处理。</p>
 <p>[​使用更高效的文件格式 (如 Parquet)]</p>
 <p>如果可能，将 CSV 文件转换为 Parquet 格式，Parquet 是一种列式存储格式，读取速度更快。</p>
-<pre><code class="language-python">df = pd.read_parquet(&#39;large_file.parquet&#39;, engine=&#39;fastparquet&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_parquet(<span class="hljs-string">&#x27;large_file.parquet&#x27;</span>, engine=<span class="hljs-string">&#x27;fastparquet&#x27;</span>)</span></code></pre>
 <p>Parquet 文件不仅读取速度快，还能显著减少存储空间。</p>
 <p>[​内存映射文件 (memory_map)]</p>
 <hr>
 <p>对于特别大的文件，可以使用 memory_map 参数将文件映射到内存中，减少内存占用。</p>
-<pre><code class="language-python">df = pd.read_csv(&#39;large_file.csv&#39;, memory_map=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_csv(<span class="hljs-string">&#x27;large_file.csv&#x27;</span>, memory_map=<span class="hljs-literal">True</span>)</span></code></pre>
 <p>这种方法适合处理<strong>超大型文件</strong>。</p>
 <h4>2.1.3. 写入 csv</h4>
 <p>使用 to_csv 函数将数据写入 CSV 文件。</p>
-<pre><code class="language-python">df.to_csv(&#39;output.csv&#39;, index=False)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.to_csv(<span class="hljs-string">&#x27;output.csv&#x27;</span>, index=<span class="hljs-literal">False</span>)</span></code></pre>
 <p>常用参数：</p>
 <ul>
 <li>index：是否写入索引，默认为 True。</li>
@@ -204,42 +183,38 @@ result = df.groupby(&#39;column1&#39;).mean().compute()
 ​
 .pkl 文件是 Python 的序列化文件格式，通常用于保存和加载 Python 对象，包括 DataFrame。使用 <code>read_pickle</code> 方法从 .pkl 文件中加载 DataFrame，使用 <code>to_pickle</code> 方法将 DataFrame 保存为 .pkl 文件。</p>
 <hr>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 创建示例 DataFrame
-df = pd.DataFrame({&#39;A&#39;: [1, 2, 3], &#39;B&#39;: [4, 5, 6]})
+<span class="hljs-comment"># 创建示例 DataFrame</span>
+df = pd.DataFrame({<span class="hljs-string">&#x27;A&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-string">&#x27;B&#x27;</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]})
 
-# 保存为 .pkl 文件
-df.to_pickle(&#39;data.pkl&#39;)
+<span class="hljs-comment"># 保存为 .pkl 文件</span>
+df.to_pickle(<span class="hljs-string">&#x27;data.pkl&#x27;</span>)
 
-# 从 .pkl 文件加载 DataFrame
-df = pd.read_pickle(&#39;data.pkl&#39;)
-print(df)
-</code></pre>
+<span class="hljs-comment"># 从 .pkl 文件加载 DataFrame</span>
+df = pd.read_pickle(<span class="hljs-string">&#x27;data.pkl&#x27;</span>)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>.hdf5 是一种高效的存储格式，适合存储大规模数据。Pandas 提供了 HDFStore 和 to_hdf/read_hdf 方法来操作 .hdf5 文件。</p>
-<pre><code class="language-python"># 保存为 .hdf5 文件
-df.to_hdf(&#39;data.h5&#39;, key=&#39;df&#39;, mode=&#39;w&#39;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 保存为 .hdf5 文件</span>
+df.to_hdf(<span class="hljs-string">&#x27;data.h5&#x27;</span>, key=<span class="hljs-string">&#x27;df&#x27;</span>, mode=<span class="hljs-string">&#x27;w&#x27;</span>)
 
-# 从 .hdf5 文件加载 DataFrame
-df = pd.read_hdf(&#39;data.h5&#39;, key=&#39;df&#39;)
-print(df)
-</code></pre>
+<span class="hljs-comment"># 从 .hdf5 文件加载 DataFrame</span>
+df = pd.read_hdf(<span class="hljs-string">&#x27;data.h5&#x27;</span>, key=<span class="hljs-string">&#x27;df&#x27;</span>)
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <p>HDFStore 提供了更灵活的操作方式，支持多个数据集的存储和读取：</p>
-<pre><code class="language-python"># 创建 HDFStore 对象
-store = pd.HDFStore(&#39;data.h5&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 创建 HDFStore 对象</span>
+store = pd.HDFStore(<span class="hljs-string">&#x27;data.h5&#x27;</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 存储多个 DataFrame
-store.put(&#39;df1&#39;, df1)
-store.put(&#39;df2&#39;, df2)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-comment"># 存储多个 DataFrame</span>
+store.put(<span class="hljs-string">&#x27;df1&#x27;</span>, df1)
+store.put(<span class="hljs-string">&#x27;df2&#x27;</span>, df2)
 
-# 读取特定 DataFrame
-df1 = store[&#39;df1&#39;]
-df2 = store.get(&#39;df2&#39;)
+<span class="hljs-comment"># 读取特定 DataFrame</span>
+df1 = store[<span class="hljs-string">&#x27;df1&#x27;</span>]
+df2 = store.get(<span class="hljs-string">&#x27;df2&#x27;</span>)
 
-# 关闭 HDFStore
-store.close()
-</code></pre>
+<span class="hljs-comment"># 关闭 HDFStore</span>
+store.close()</span></code></pre>
 <div class="admonition admonition-Notes"><p class="admonition-title">Notes</p>
 总结：
 - **.pkl 文件**：适合保存和加载单个 DataFrame，操作简单。
@@ -248,9 +223,8 @@ store.close()
 
 <h3 id="23-parquet">2.3. parquet</h3>
 <p>Pandas 支持读取 Parquet 文件，使用 read_parquet 函数。</p>
-<pre><code class="language-python">import pandas as pd
-df = pd.read_parquet(&#39;data.parquet&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+df = pd.read_parquet(<span class="hljs-string">&#x27;data.parquet&#x27;</span>)</span></code></pre>
 <p>常用参数：</p>
 <ul>
 <li>engine：指定引擎，如 pyarrow 或 fastparquet。</li>
@@ -258,38 +232,34 @@ df = pd.read_parquet(&#39;data.parquet&#39;)
 </ul>
 <hr>
 <p>示例：</p>
-<pre><code class="language-python">df = pd.read_parquet(&#39;data.parquet&#39;, engine=&#39;pyarrow&#39;, columns=[&#39;col1&#39;, &#39;col2&#39;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_parquet(<span class="hljs-string">&#x27;data.parquet&#x27;</span>, engine=<span class="hljs-string">&#x27;pyarrow&#x27;</span>, columns=[<span class="hljs-string">&#x27;col1&#x27;</span>, <span class="hljs-string">&#x27;col2&#x27;</span>])</span></code></pre>
 <h3 id="24-html-和-md">2.4. html 和 md</h3>
 <!--换个思路，就是爬虫-->
 <p>Pandas 的 read_html 函数可以从网页中读取 HTML 表格数据。</p>
-<pre><code class="language-python">url = &#39;http://example.com/table.html&#39;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">url = <span class="hljs-string">&#x27;http://example.com/table.html&#x27;</span>
 tables = pd.read_html(url)
-df = tables[0]  # 获取第一个表格
-</code></pre>
+df = tables[<span class="hljs-number">0</span>]  <span class="hljs-comment"># 获取第一个表格</span></span></code></pre>
 <p>如果需要处理复杂的网页数据，可以结合 <code>requests</code> 和 <code>BeautifulSoup</code> 库：</p>
-<pre><code class="language-python">import requests
-from bs4 import BeautifulSoup
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup
 
 response = requests.get(url)
-soup = BeautifulSoup(response.text, &#39;html.parser&#39;)
-table = soup.find_all(&#39;table&#39;)[0]
-df = pd.read_html(str(table))[0]
-</code></pre>
+soup = BeautifulSoup(response.text, <span class="hljs-string">&#x27;html.parser&#x27;</span>)
+table = soup.find_all(<span class="hljs-string">&#x27;table&#x27;</span>)[<span class="hljs-number">0</span>]
+df = pd.read_html(<span class="hljs-built_in">str</span>(table))[<span class="hljs-number">0</span>]</span></code></pre>
 <hr>
 <h3 id="25-sql">2.5. sql</h3>
 <p>Pandas 支持从 SQL 数据库中读取数据，使用 read_sql 函数。</p>
-<pre><code class="language-python">import sqlite3
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">import</span> sqlite3
 
-# 连接到数据库
-conn = sqlite3.connect(&#39;database.db&#39;)
+<span class="hljs-comment"># 连接到数据库</span>
+conn = sqlite3.connect(<span class="hljs-string">&#x27;database.db&#x27;</span>)
 
-# 执行 SQL 查询并读取数据
-df = pd.read_sql(&#39;SELECT * FROM table_name&#39;, conn)
+<span class="hljs-comment"># 执行 SQL 查询并读取数据</span>
+df = pd.read_sql(<span class="hljs-string">&#x27;SELECT * FROM table_name&#x27;</span>, conn)
 
-# 关闭数据库连接
-conn.close()
-</code></pre>
+<span class="hljs-comment"># 关闭数据库连接</span>
+conn.close()</span></code></pre>
 <p>如果需要连接其他数据库（如 MySQL、PostgreSQL），可以使用相应的数据库驱动（如 pymysql、psycopg2）。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/14-pandas核心语法-4/">← 上一篇：14 - Pandas核心语法[4]</a> <a class="series-next" href="/articles/python/numpy-pandas/16-pandas核心语法-6/">下一篇：16 - Pandas核心语法[6] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 37/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/14-pandas核心语法-4/">← 14 - Pandas核心语法[4]</a> <a href="/articles/python/numpy-pandas/16-pandas核心语法-6/">16 - Pandas核心语法[6] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/14-pandas核心语法-4/">14 - Pandas核心语法[4]</a> <p>“在 Pandas 中，逻辑运算和比较运算是数据筛选的基础工具。通过与（&amp;）、或（|）等操作符，可以轻松实现复杂条件筛选，比如选出市盈率最大且市净率最小的股票。”</p> </li><li> <a href="/articles/python/numpy-pandas/16-pandas核心语法-6/">16 - Pandas核心语法[6]</a> <p>“Pandas 提供了强大的日期时间处理功能，从字符串到时间戳的转换、时区调整到格式化输出，都可以轻松实现。此外，字符串操作如替换、分割、过滤等，也能通过 str 访问器高效完成。</p> </li><li> <a href="/articles/python/numpy-pandas/19-pandas应用案例-2/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-数据预处理类" title="1. 数据预处理类">1. 数据预处理类</a> </li><li class="lv3"> <a href="#11-fillna填充缺失值" title="1.1. fillna：填充缺失值">1.1. fillna：填充缺失值</a> </li><li class="lv3"> <a href="#12-clip修剪数据范围" title="1.2. ​clip：修剪数据范围">1.2. ​clip：修剪数据范围</a> </li><li class="lv3"> <a href="#13-winsorize缩尾处理" title="1.3. ​winsorize：缩尾处理">1.3. ​winsorize：缩尾处理</a> </li><li class="lv3"> <a href="#14-dropna删除缺失值" title="1.4. ​dropna：删除缺失值">1.4. ​dropna：删除缺失值</a> </li><li class> <a href="#2-io-操作" title="2. IO 操作">2. IO 操作</a> </li><li class="lv3"> <a href="#21-csv" title="2.1. csv">2.1. csv</a> </li><li class="lv3"> <a href="#22-pkl-和-hdf5" title="2.2. pkl 和 hdf5">2.2. pkl 和 hdf5</a> </li><li class="lv3"> <a href="#23-parquet" title="2.3. parquet">2.3. parquet</a> </li><li class="lv3"> <a href="#24-html-和-md" title="2.4. html 和 md">2.4. html 和 md</a> </li><li class="lv3"> <a href="#25-sql" title="2.5. sql">2.5. sql</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

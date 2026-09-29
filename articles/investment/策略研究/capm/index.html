@@ -18,29 +18,27 @@
 <h3 id="risk-free-rate无风险利率">Risk-Free Rate（无风险利率）</h3>
 <p>当投资者决定买入股票等高风险资产时，他的目的是为了获得高于无风险资产的收益。一般认为，银行存款利率和国债收益率都是无风险的。不过，一般同期的国债收益率会高于同期银行存款，所以我们常把国债收益率当成无风险利率。不同期限的国债利率收益不同，一般对标时，使用与风险资产预期投资时间相同就好。比如，如果是流动性好的股票，也不打算长期持有，则我们可以使用一年期国债利率作为无风险利率。如果是不动产，则可以使用 5 年期国债利率作为对标的无风险利率。</p>
 <p>如何获取国债利率呢，我们可以通过 akshare:</p>
-<pre><code class="language-python">import akshare as ak
-import arrow
-import numpy as np
-import random
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
+<span class="hljs-keyword">import</span> arrow
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> random
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-random.seed(78)
+random.seed(<span class="hljs-number">78</span>)
 
 now = arrow.now()
-start = now.shift(years=-1)
-end = f&quot;{now.year}{now.month:02d}{now.day:02d}&quot;
-start = f&quot;{start.year}{start.month:02d}{start.day:02d}&quot;
+start = now.shift(years=-<span class="hljs-number">1</span>)
+end = <span class="hljs-string">f&quot;<span class="hljs-subst">{now.year}</span><span class="hljs-subst">{now.month:02d}</span><span class="hljs-subst">{now.day:02d}</span>&quot;</span>
+start = <span class="hljs-string">f&quot;<span class="hljs-subst">{start.year}</span><span class="hljs-subst">{start.month:02d}</span><span class="hljs-subst">{start.day:02d}</span>&quot;</span>
 
 bond = ak.bond_china_yield(start_date=start, end_date=end)
-bond.set_index(keys=&#39;曲线名称&#39;, inplace=True)
-bond
-</code></pre>
+bond.set_index(keys=<span class="hljs-string">&#x27;曲线名称&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
+bond</span></code></pre>
 <p>这样我们就得到了近一年的各种债券收益率。我们可以把“中债国债收益率曲线”一年期的平均值当作一年期国债收益：</p>
-<pre><code class="language-python">rf = bond[bond.index==&#39;中债国债收益率曲线&#39;][&#39;1年&#39;].mean()
-print(rf)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">rf = bond[bond.index==<span class="hljs-string">&#x27;中债国债收益率曲线&#x27;</span>][<span class="hljs-string">&#x27;1年&#x27;</span>].mean()
+<span class="hljs-built_in">print</span>(rf)
 
-rf = rf / 100
-</code></pre>
+rf = rf / <span class="hljs-number">100</span></span></code></pre>
 <p>输出是 2.06。这个值应该解读为 2.06%。</p>
 <h3 id="市场回报-rm">市场回报 $r_m$</h3>
 <p>市场回报率表示为$r_m$ ，包括市场上的所有证券。但一般我们只使用某些指数，比如上证 50，沪深 300。如果投资偏好成长股，则可以使用中证 1000。</p>
@@ -71,137 +69,129 @@ $$</p>
 <h3 id="获取数据">获取数据</h3>
 <p>为了确保所有人都能拿到数据，我们仍然使用 akshare。</p>
 <p>首先，我们通过 akshare 获取过去一年的沪深 300 的行情数据：</p>
-<pre><code class="language-python">import akshare as ak
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
 
-hs300 = ak.stock_zh_index_daily(symbol=&quot;sz399300&quot;)
-hs300.index = pd.to_datetime(hs300[&quot;date&quot;])
-print(hs300)
-</code></pre>
+hs300 = ak.stock_zh_index_daily(symbol=<span class="hljs-string">&quot;sz399300&quot;</span>)
+hs300.index = pd.to_datetime(hs300[<span class="hljs-string">&quot;date&quot;</span>])
+<span class="hljs-built_in">print</span>(hs300)</span></code></pre>
 <p>我们对过去一年的沪深 300 的收益情况进行速览：</p>
-<pre><code class="language-python">now = arrow.now()
-year_ago = now.shift(years = -1)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">now = arrow.now()
+year_ago = now.shift(years = -<span class="hljs-number">1</span>)
 
-year_ago = hs300[hs300.index &gt;= np.datetime64(year_ago)].index[0]
-# PRINT(YEAR_AGO)
+year_ago = hs300[hs300.index &gt;= np.datetime64(year_ago)].index[<span class="hljs-number">0</span>]
+<span class="hljs-comment"># PRINT(YEAR_AGO)</span>
 
-# 计算买入并持有的收益（最近一年）
-buy_price = hs300[hs300.index == year_ago].iloc[0][&quot;close&quot;]
-buy_and_hold = hs300[&quot;close&quot;][-1]/buy_price - 1
-print(f&quot;买入并持收益：{buy_and_hold:.2%}&quot;)
+<span class="hljs-comment"># 计算买入并持有的收益（最近一年）</span>
+buy_price = hs300[hs300.index == year_ago].iloc[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;close&quot;</span>]
+buy_and_hold = hs300[<span class="hljs-string">&quot;close&quot;</span>][-<span class="hljs-number">1</span>]/buy_price - <span class="hljs-number">1</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;买入并持收益：<span class="hljs-subst">{buy_and_hold:<span class="hljs-number">.2</span>%}</span>&quot;</span>)
 
-# 通过均值推算年化收益
-market_returns = hs300[&quot;close&quot;].pct_change().dropna()
-market_annual = (1 + market_returns[market_returns.index &gt;= year_ago].mean()) ** 242 - 1
-print(f&quot;年化收益：{market_annual:.2%}&quot;)
-</code></pre>
+<span class="hljs-comment"># 通过均值推算年化收益</span>
+market_returns = hs300[<span class="hljs-string">&quot;close&quot;</span>].pct_change().dropna()
+market_annual = (<span class="hljs-number">1</span> + market_returns[market_returns.index &gt;= year_ago].mean()) ** <span class="hljs-number">242</span> - <span class="hljs-number">1</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;年化收益：<span class="hljs-subst">{market_annual:<span class="hljs-number">.2</span>%}</span>&quot;</span>)</span></code></pre>
 <p>可以看出，过去一年里，以买入并持有法计，沪深300的收益是-4.22%；如果按每日收益取均值，再年化，则得到收益是-3.31%，两者相差不大。</p>
 <p>接下来，我们获取沪深 300 成份股，以便从中抽取个股进行检验：</p>
-<pre><code class="language-python">import akshare as ak
-index_stock_cons_df = ak.index_stock_cons(symbol=&quot;399300&quot;)
-print(index_stock_cons_df)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
+index_stock_cons_df = ak.index_stock_cons(symbol=<span class="hljs-string">&quot;399300&quot;</span>)
+<span class="hljs-built_in">print</span>(index_stock_cons_df)</span></code></pre>
 <p>接下来，我们随机取 10 支股票，获取行情，并计算每日收益率：</p>
-<pre><code class="language-python">np.random.seed(78)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span></span><span class="cl-body">np.random.seed(<span class="hljs-number">78</span>)
 
-stocks = random.sample(index_stock_cons_df[&#39;品种代码&#39;].to_list(), 10)
+stocks = random.sample(index_stock_cons_df[<span class="hljs-string">&#x27;品种代码&#x27;</span>].to_list(), <span class="hljs-number">10</span>)
 
 frames = {}
 
 now = arrow.now()
-start = now.shift(years = -1)
-end = now.format(&quot;YYYYMMDD&quot;)
-start = start.format(&quot;YYYYMMDD&quot;)
+start = now.shift(years = -<span class="hljs-number">1</span>)
+end = now.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;YYYYMMDD&quot;</span>)
+start = start.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;YYYYMMDD&quot;</span>)
 
-# 获取 10 支股票的行情数据
-for code in stocks:
-    bars = ak.stock_zh_a_hist(symbol=code, period=&quot;daily&quot;, start_date=start, end_date=end, adjust=&quot;qfq&quot;)
-    bars.index = pd.to_datetime(bars[&quot;日期&quot;])
-    frames[code] = bars[&quot;收盘&quot;]
+<span class="hljs-comment"># 获取 10 支股票的行情数据</span>
+<span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> stocks:
+    bars = ak.stock_zh_a_hist(symbol=code, period=<span class="hljs-string">&quot;daily&quot;</span>, start_date=start, end_date=end, adjust=<span class="hljs-string">&quot;qfq&quot;</span>)
+    bars.index = pd.to_datetime(bars[<span class="hljs-string">&quot;日期&quot;</span>])
+    frames[code] = bars[<span class="hljs-string">&quot;收盘&quot;</span>]
     
-# 与指数行情数据合并
-start = np.datetime64(now.shift(years = -1))
-frames[&quot;399300&quot;] = hs300[hs300.index &gt;= start][&quot;close&quot;]
+<span class="hljs-comment"># 与指数行情数据合并</span>
+start = np.datetime64(now.shift(years = -<span class="hljs-number">1</span>))
+frames[<span class="hljs-string">&quot;399300&quot;</span>] = hs300[hs300.index &gt;= start][<span class="hljs-string">&quot;close&quot;</span>]
 
 df = pd.DataFrame(frames)
 
-# 计算每日收益
+<span class="hljs-comment"># 计算每日收益</span>
 returns = df.pct_change()
 
-# 如果存在 NAN，则后面的回归法将无法聚合
-returns.dropna(how=&#39;any&#39;, inplace=True)
-returns.style.format(&#39;{:,.2%}&#39;)
-</code></pre>
+<span class="hljs-comment"># 如果存在 NAN，则后面的回归法将无法聚合</span>
+returns.dropna(how=<span class="hljs-string">&#x27;any&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
+returns.style.<span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;{:,.2%}&#x27;</span>)</span></code></pre>
 <h3 id="计算">计算𝛽</h3>
 <p>我们将通过两种方式来计算𝛽。一种是回归法，一种是协方差法。</p>
 <h4>回归法</h4>
 <p>在 numpy 中有一个 polyfit 函数，可以用来进行多项式拟合。当我们使用一次项拟合，那么得到的系数就是要求的𝛽。</p>
-<pre><code class="language-python">cols = df.columns
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">cols = df.columns
 betas = {}
-for name in cols:
-    beta, alpha = np.polyfit(returns[name], returns[&quot;399300&quot;], deg=1)
-    print(name, f&quot;{beta:.2%} {alpha:.2%}&quot;)
-    betas[name] = beta
-</code></pre>
+<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> cols:
+    beta, alpha = np.polyfit(returns[name], returns[<span class="hljs-string">&quot;399300&quot;</span>], deg=<span class="hljs-number">1</span>)
+    <span class="hljs-built_in">print</span>(name, <span class="hljs-string">f&quot;<span class="hljs-subst">{beta:<span class="hljs-number">.2</span>%}</span> <span class="hljs-subst">{alpha:<span class="hljs-number">.2</span>%}</span>&quot;</span>)
+    betas[name] = beta</span></code></pre>
 <p>从结果可以看出，有一支股票存在正的 alpha，同时还存在 10%以上的 beta 收益。</p>
 <p>现在，我们就来看看，如果买入这支股票，它们的预期收益应该是多少：</p>
 <p>这里要注意，我们使用的 risk_free 是年化收益，因此我们最终计算出来的预期收益，也应该是年化（或者都统一到日化）：</p>
-<pre><code class="language-python">code = &quot;002756&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">code = <span class="hljs-string">&quot;002756&quot;</span>
 beta = betas[code]
 
-# 回归法得到的预期收益
+<span class="hljs-comment"># 回归法得到的预期收益</span>
 expected_return = rf + beta * (market_annual - rf)
-print(f&quot;code beta: {beta:.2f}, Er: {expected_return:.2%}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;code beta: <span class="hljs-subst">{beta:<span class="hljs-number">.2</span>f}</span>, Er: <span class="hljs-subst">{expected_return:<span class="hljs-number">.2</span>%}</span>&quot;</span>)</span></code></pre>
 <p>最终我们得到 002756 的 beta 是 0.11，一年期的预期收益是 1.51%左右。</p>
 <h4>协方差法</h4>
-<pre><code class="language-python">params = {}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">params = {}
 
-for name in cols:
-    cov = np.cov(returns[&quot;399300&quot;], returns[name])
-    beta = cov[0,1]/cov[1,1]
+<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> cols:
+    cov = np.cov(returns[<span class="hljs-string">&quot;399300&quot;</span>], returns[name])
+    beta = cov[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]/cov[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]
     
     expected_return = rf + beta * (market_annual - rf)
-    print(f&quot;{name} beta: {beta:.2%}, Er: {expected_return:.2%}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{name}</span> beta: <span class="hljs-subst">{beta:<span class="hljs-number">.2</span>%}</span>, Er: <span class="hljs-subst">{expected_return:<span class="hljs-number">.2</span>%}</span>&quot;</span>)
     params[name] = beta
     
 beta = params[code]
 
-# 回归法得到的预期收益
+<span class="hljs-comment"># 回归法得到的预期收益</span>
 expected_return = rf + beta * (market_annual - rf)
-print(f&quot;code beta: {beta:.2f}, Er: {expected_return:.2%}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;code beta: <span class="hljs-subst">{beta:<span class="hljs-number">.2</span>f}</span>, Er: <span class="hljs-subst">{expected_return:<span class="hljs-number">.2</span>%}</span>&quot;</span>)</span></code></pre>
 <p>这样得到 002756 的 beta 是0.11，年化预期收益是1.51%。</p>
 <h2 id="可视化">可视化</h2>
 <p>我们可以用下面的方式，将个股与沪深300的涨跌相关性进行可视化，从而得到更直观的印象。</p>
-<pre><code class="language-python">import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">import</span> plotly.graph_objects <span class="hljs-keyword">as</span> go
+<span class="hljs-keyword">from</span> plotly.subplots <span class="hljs-keyword">import</span> make_subplots
 
 
-ci = sorted(set(returns[code].index).intersection(set(returns[&quot;399300&quot;].index)))
+ci = <span class="hljs-built_in">sorted</span>(<span class="hljs-built_in">set</span>(returns[code].index).intersection(<span class="hljs-built_in">set</span>(returns[<span class="hljs-string">&quot;399300&quot;</span>].index)))
 
 y = returns[code][ci]
-x = returns[&quot;399300&quot;][ci]
+x = returns[<span class="hljs-string">&quot;399300&quot;</span>][ci]
 
 df = pd.DataFrame({
-    &quot;沪深300&quot;: sorted(returns[&quot;399300&quot;][ci]),
-    &quot;标的&quot;: sorted(returns[code][ci])
+    <span class="hljs-string">&quot;沪深300&quot;</span>: <span class="hljs-built_in">sorted</span>(returns[<span class="hljs-string">&quot;399300&quot;</span>][ci]),
+    <span class="hljs-string">&quot;标的&quot;</span>: <span class="hljs-built_in">sorted</span>(returns[code][ci])
 })
 
 fig = make_subplots(
-    rows=1,
-    cols=2
+    rows=<span class="hljs-number">1</span>,
+    cols=<span class="hljs-number">2</span>
 )
 
-fig.add_trace(go.Scatter(x=df[&quot;沪深300&quot;], y=df[&quot;标的&quot;]))
+fig.add_trace(go.Scatter(x=df[<span class="hljs-string">&quot;沪深300&quot;</span>], y=df[<span class="hljs-string">&quot;标的&quot;</span>]))
 fig2 = px.line(df)
-fig.add_trace(fig2[&quot;data&quot;][0], row=1, col=2)
-fig.add_trace(fig2[&quot;data&quot;][1], row=1, col=2)
+fig.add_trace(fig2[<span class="hljs-string">&quot;data&quot;</span>][<span class="hljs-number">0</span>], row=<span class="hljs-number">1</span>, col=<span class="hljs-number">2</span>)
+fig.add_trace(fig2[<span class="hljs-string">&quot;data&quot;</span>][<span class="hljs-number">1</span>], row=<span class="hljs-number">1</span>, col=<span class="hljs-number">2</span>)
 
-fig[&#39;layout&#39;][&#39;xaxis&#39;][&#39;title&#39;]=&#39;沪深300&#39;
-fig[&#39;layout&#39;][&#39;yaxis&#39;][&#39;title&#39;]=&#39;标的&#39;
+fig[<span class="hljs-string">&#x27;layout&#x27;</span>][<span class="hljs-string">&#x27;xaxis&#x27;</span>][<span class="hljs-string">&#x27;title&#x27;</span>]=<span class="hljs-string">&#x27;沪深300&#x27;</span>
+fig[<span class="hljs-string">&#x27;layout&#x27;</span>][<span class="hljs-string">&#x27;yaxis&#x27;</span>][<span class="hljs-string">&#x27;title&#x27;</span>]=<span class="hljs-string">&#x27;标的&#x27;</span>
 
-fig.show()
-</code></pre>
+fig.show()</span></code></pre>
 <p>最终我们得到下图：</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <span></span> <a class="series-next" href="/articles/investment/策略研究/mpt-1/">下一篇：投资组合理论与实战(1) - 基本概念 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 59/80 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/顶底标注/">← 为了机器能学习，我标注了 2 万条行</a> <a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/">关于寻找顶和底的一些研究 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/mpt-1/">投资组合理论与实战(1) - 基本概念</a> <p>现代投资组合理论（MPT）是由马科维茨于 1952 年提出的，是现代金融 7 个基本理论之一。它用数学术语描述了多元化和风险管理等概念，为投资者提供了构建多元化投资组合的工具集，即</p> </li><li> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡洛方法</a> <p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p> </li><li> <a href="/articles/investment/策略研究/mpt-3/">投资组合理论与实战(3) - 优化算法</a> <p>寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：</p> </li><li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#基本概念" title="基本概念">基本概念</a> </li><li class="lv3"> <a href="#risk-free-rate无风险利率" title="Risk-Free Rate（无风险利率）">Risk-Free Rate（无风险利率）</a> </li><li class="lv3"> <a href="#市场回报-rm" title="市场回报 $rm$">市场回报 $rm$</a> </li><li class="lv3"> <a href="#贝塔" title="𝛽 贝塔">𝛽 贝塔</a> </li><li class> <a href="#capm-公式" title="CAPM 公式">CAPM 公式</a> </li><li class> <a href="#基于-python-的-capm-实现" title="基于 Python 的 CAPM 实现">基于 Python 的 CAPM 实现</a> </li><li class="lv3"> <a href="#获取数据" title="获取数据">获取数据</a> </li><li class="lv3"> <a href="#计算" title="计算𝛽">计算𝛽</a> </li><li class> <a href="#可视化" title="可视化">可视化</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

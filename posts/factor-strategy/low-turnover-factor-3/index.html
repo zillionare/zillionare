@@ -17,10 +17,9 @@
 <!--more-->
 
 <p>Alphalens 提供了alpha和beta分析。方法是factor_alpha_beta：</p>
-<pre><code class="language-python">from alphalens.performance import factor_alpha_beta
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> alphalens.performance <span class="hljs-keyword">import</span> factor_alpha_beta
 
-alpha, beta = factor_alpha_beta(factor_data)
-</code></pre>
+alpha, beta = factor_alpha_beta(factor_data)</span></code></pre>
 <p>我们将得到以下输出：</p>
 <hr>
 <p>看上去很完美。</p>
@@ -61,14 +60,13 @@ $$</p>
 <p>所以，我们在构造因子时，需要考虑将factor进行转换，使之与因子收益率呈正相关关系。</p>
 <p>现在看起来，这个结论似乎是那么显然易见，但是，alphalens并没有文档提示这一点，而且，我们在前面的其它分析中，由于使用了分层法，其分析结果并不受影响，所以这个问题，也就一直没有暴露。</p>
 <p>现在，我们改造一下factor，重新运行：</p>
-<pre><code class="language-python">from alphalens.utils import get_clean_factor_and_forward_returns
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">from</span> alphalens.utils <span class="hljs-keyword">import</span> get_clean_factor_and_forward_returns
 
-factor_data = get_clean_factor_and_forward_returns(factor, prices, bins=None, quantiles=10)
+factor_data = get_clean_factor_and_forward_returns(factor, prices, bins=<span class="hljs-literal">None</span>, quantiles=<span class="hljs-number">10</span>)
 
-# 我们将换手率因子取倒数，从而使得因子逆序
-factor_data.factor = 1 / factor_data.factor
-factor_alpha_beta(factor_data,demeaned=False)
-</code></pre>
+<span class="hljs-comment"># 我们将换手率因子取倒数，从而使得因子逆序</span>
+factor_data.factor = <span class="hljs-number">1</span> / factor_data.factor
+factor_alpha_beta(factor_data,demeaned=<span class="hljs-literal">False</span>)</span></code></pre>
 <p>这一次，我们得到的年化alpha是4.48%。市场暴露风险为80%，这也与我们在累积收益图中看到的相一致。</p>
 <p>现在，我们再做一次 mean_return_by_quantile 分析，看看有什么不同：</p>
 <hr>

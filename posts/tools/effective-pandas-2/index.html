@@ -17,123 +17,109 @@
 <p>在这篇文章里，我们将介绍多级索引的增删改查操作。</p>
 <h2 id="创建一个有多级索引的dataframe">创建一个有多级索引的DataFrame</h2>
 <p>让我们先从一个最普通的行情数据集开始。</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-dates = pd.date_range(&#39;2023-01-01&#39;, &#39;2023-01-05&#39;).repeat(2)
+dates = pd.date_range(<span class="hljs-string">&#x27;2023-01-01&#x27;</span>, <span class="hljs-string">&#x27;2023-01-05&#x27;</span>).repeat(<span class="hljs-number">2</span>)
 df = pd.DataFrame(
     {
-        &quot;date&quot;: dates,
-        &quot;asset&quot;: [&quot;000001&quot;, &quot;000002&quot;] * 5,
-        &quot;close&quot;: (1 + np.random.normal(0, scale=0.03,size=10)).cumprod() * 10,
-        &quot;open&quot;: (1 + np.random.normal(0, scale=0.03,size=10)).cumprod() * 10,
-        &quot;high&quot;: (1 + np.random.normal(0, scale=0.03,size=10)).cumprod() * 10,
-        &quot;low&quot;: (1 + np.random.normal(0, scale=0.03,size=10)).cumprod() * 10
+        <span class="hljs-string">&quot;date&quot;</span>: dates,
+        <span class="hljs-string">&quot;asset&quot;</span>: [<span class="hljs-string">&quot;000001&quot;</span>, <span class="hljs-string">&quot;000002&quot;</span>] * <span class="hljs-number">5</span>,
+        <span class="hljs-string">&quot;close&quot;</span>: (<span class="hljs-number">1</span> + np.random.normal(<span class="hljs-number">0</span>, scale=<span class="hljs-number">0.03</span>,size=<span class="hljs-number">10</span>)).cumprod() * <span class="hljs-number">10</span>,
+        <span class="hljs-string">&quot;open&quot;</span>: (<span class="hljs-number">1</span> + np.random.normal(<span class="hljs-number">0</span>, scale=<span class="hljs-number">0.03</span>,size=<span class="hljs-number">10</span>)).cumprod() * <span class="hljs-number">10</span>,
+        <span class="hljs-string">&quot;high&quot;</span>: (<span class="hljs-number">1</span> + np.random.normal(<span class="hljs-number">0</span>, scale=<span class="hljs-number">0.03</span>,size=<span class="hljs-number">10</span>)).cumprod() * <span class="hljs-number">10</span>,
+        <span class="hljs-string">&quot;low&quot;</span>: (<span class="hljs-number">1</span> + np.random.normal(<span class="hljs-number">0</span>, scale=<span class="hljs-number">0.03</span>,size=<span class="hljs-number">10</span>)).cumprod() * <span class="hljs-number">10</span>
     }
 )
-df.tail()
-</code></pre>
+df.tail()</span></code></pre>
 <p>生成的数据集如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/naive-dataframe.jpg" alt=""></p>
 <p>我们可以通过set_index方法来将索引设置为date:</p>
-<pre><code class="language-python">df1 = df.set_index(&#39;date&#39;)
-df1
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df1 = df.set_index(<span class="hljs-string">&#x27;date&#x27;</span>)
+df1</span></code></pre>
 <p>这样，我们就得到了一个只有date索引的DataFrame。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/simple-dataframe.jpg" alt=""></p>
 <p>如果我们在调用set_index时，指定一个数组，就会得到一个多级索引：</p>
-<pre><code class="language-python">df.set_index([&#39;date&#39;, &#39;asset&#39;])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.set_index([<span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;asset&#x27;</span>])</span></code></pre>
 <p>这样就生成了一个有两级索引的DataFrame。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/multilevel-dataframe.jpg" alt=""></p>
 <p>set_index语法非常灵活，可以用来设置全新的索引（之前的索引被删除），也可以增加列作为索引：</p>
-<pre><code class="language-python">df1.set_index(&#39;asset&#39;, append=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df1.set_index(<span class="hljs-string">&#x27;asset&#x27;</span>, append=<span class="hljs-literal">True</span>)</span></code></pre>
 <p>这样得到的结果会跟上图完全一样。但如果你觉得索引的顺序不对，比如，我们希望asset排在date前面，可以这样操作：</p>
-<pre><code class="language-python">df2 = df1.set_index(&#39;asset&#39;, append=True)
-df2.swaplevel(0,1)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df2 = df1.set_index(<span class="hljs-string">&#x27;asset&#x27;</span>, append=<span class="hljs-literal">True</span>)
+df2.swaplevel(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>)</span></code></pre>
 <p>我们通过swaplevel方法交换了索引的顺序。但如果我们的索引字段不止两个字段，那么， 我们就要使用reorder_levels()这个方法了。</p>
 <h2 id="重命名索引">重命名索引</h2>
 <p>当数据在不同的Python库之间传递时，往往就需要改变数据格式（列名、索引等），以适配不同的库。如果需要重命名索引，我们可以使用以下几种方法之一：</p>
-<pre><code class="language-python">from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = &quot;all&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">from</span> IPython.core.interactiveshell <span class="hljs-keyword">import</span> InteractiveShell
+InteractiveShell.ast_node_interactivity = <span class="hljs-string">&quot;all&quot;</span>
 
-df2.rename_axis(index={&quot;date&quot;:&quot;new_date&quot;}) # 使用列表，可部分传参
-df2.rename_axis([&quot;asset&quot;, &quot;date&quot;]) # 使用数组，一一对应
+df2.rename_axis(index={<span class="hljs-string">&quot;date&quot;</span>:<span class="hljs-string">&quot;new_date&quot;</span>}) <span class="hljs-comment"># 使用列表，可部分传参</span>
+df2.rename_axis([<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;date&quot;</span>]) <span class="hljs-comment"># 使用数组，一一对应</span>
 
-_ = df.index.rename(&#39;ord&#39;, inplace=True) # 单索引
+_ = df.index.rename(<span class="hljs-string">&#x27;ord&#x27;</span>, inplace=<span class="hljs-literal">True</span>) <span class="hljs-comment"># 单索引</span>
 df
 
-_ = df2.index.rename([&quot;new_date&quot;, &quot;new_asset&quot;], inplace=True)
-df2
-</code></pre>
+_ = df2.index.rename([<span class="hljs-string">&quot;new_date&quot;</span>, <span class="hljs-string">&quot;new_asset&quot;</span>], inplace=<span class="hljs-literal">True</span>)
+df2</span></code></pre>
 <p>与之区别的是，我们常常使用df.rename来给列重命名，而这个方法也有给索引重命名的选项，但是，含义却大不相同：</p>
-<pre><code class="language-python">df.rename(index={&quot;date&quot;: &quot;rename_date&quot;}) # 不生效
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.rename(index={<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;rename_date&quot;</span>}) <span class="hljs-comment"># 不生效</span></span></code></pre>
 <p>没有任何事情发生。这究竟是怎么一回事？为什么它没能将index重新命名呢？ 实际上它涉及到DataFrame的一个深层机制， Axes和axis。</p>
 <h2 id="axes-axis">axes, axis</h2>
 <p>你可能很少接触到这个概念，但是，你可以自己验证一下：</p>
-<pre><code class="language-python">df = pd.DataFrame([(0, 1, 2), (2, 3, 4)], columns=list(&quot;ABC&quot;))
-df.axes
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df = pd.DataFrame([(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>), (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)], columns=<span class="hljs-built_in">list</span>(<span class="hljs-string">&quot;ABC&quot;</span>))
+df.axes</span></code></pre>
 <p>我们会看到如下输出：</p>
-<pre><code>[
-    RangeIndex(start=0, stop=2, step=1), 
-    Index([&#39;A&#39;, &#39;B&#39;, &#39;C&#39;], dtype=&#39;object&#39;)
-]
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">[
+    RangeIndex(<span class="hljs-keyword">start</span><span class="hljs-operator">=</span><span class="hljs-number">0</span>, stop<span class="hljs-operator">=</span><span class="hljs-number">2</span>, step<span class="hljs-operator">=</span><span class="hljs-number">1</span>), 
+    Index([<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>], dtype<span class="hljs-operator">=</span><span class="hljs-string">&#x27;object&#x27;</span>)
+]</span></code></pre>
 <p>这两个元素都称为Axis，其中第一个是行索引，我们在调用 Pandas函数时，可能会用 axis = 0，或者axis = &#39;index&#39;来引用它；第二个是列索引，我们在调用Pandas函数时，可能会用axis = 1，或者axis = &#39;columns&#39;来引用它。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/pandas-axis-legend.jpg" alt=""></p>
 <p>到目前为止，这两个索引都只有一级（level=0），并且都没有名字。当我们说列A，列B并且给列改名字时，我们实际上是在改axis=1中的某些元素的值。</p>
 <p>现在，我们应该可以理解了，当我们调用df.rename({&quot;date&quot;: &quot;rename_date&quot;})时，它作用的对象并不是axis = 0本身，而是要作用于axis=0中的元素。然而，在index中并不存在&quot;date&quot;这个元素（df中的索引都是日期类型），因此，这个重命名就不起作用。</p>
 <p>现在，我们明白了，为什么给索引改名字，可以使用df.index.rename。同样地，我们就想到了，可以用df.columns.rename来改列名。</p>
-<pre><code class="language-python">df = pd.DataFrame([(0, 1, 2), (2, 3, 4)], columns=list(&quot;ABC&quot;))
-df.columns.rename(&quot;Fantastic Columns&quot;, inplace=True)
-df.index.rename(&quot;Fantastic Rows&quot;, inplace=True)
-df
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">df = pd.DataFrame([(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>), (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)], columns=<span class="hljs-built_in">list</span>(<span class="hljs-string">&quot;ABC&quot;</span>))
+df.columns.rename(<span class="hljs-string">&quot;Fantastic Columns&quot;</span>, inplace=<span class="hljs-literal">True</span>)
+df.index.rename(<span class="hljs-string">&quot;Fantastic Rows&quot;</span>, inplace=<span class="hljs-literal">True</span>)
+df</span></code></pre>
 <p>这样显示出来的DataFrame，会在左上角多出行索引和列索引的名字。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/index-name-vs-columns-name.jpg" alt=""></p>
 <p>同样地，我们也可以猜到，既然行存在多级索引，那么列也应该有多级索引。</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 创建多级列索引
+<span class="hljs-comment"># 创建多级列索引</span>
 columns = pd.MultiIndex.from_tuples([
-    (&#39;stock&#39;, &#39;price&#39;),
-    (&#39;stock&#39;, &#39;volume&#39;),
-    (&#39;bond&#39;, &#39;price&#39;),
-    (&#39;bond&#39;, &#39;volume&#39;)
+    (<span class="hljs-string">&#x27;stock&#x27;</span>, <span class="hljs-string">&#x27;price&#x27;</span>),
+    (<span class="hljs-string">&#x27;stock&#x27;</span>, <span class="hljs-string">&#x27;volume&#x27;</span>),
+    (<span class="hljs-string">&#x27;bond&#x27;</span>, <span class="hljs-string">&#x27;price&#x27;</span>),
+    (<span class="hljs-string">&#x27;bond&#x27;</span>, <span class="hljs-string">&#x27;volume&#x27;</span>)
 ])
 
 
-data = np.random.rand(5, 4) 
+data = np.random.rand(<span class="hljs-number">5</span>, <span class="hljs-number">4</span>) 
 df = pd.DataFrame(data, columns=columns)
 
-df
-</code></pre>
+df</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dataframe-with-multlevel-columns.jpg" alt=""></p>
 <p>左上角一片空白，因此，这个DataFrame的行索引和列索引都还没有命名（乍一看挺反直觉的，难道列索引不是stock, bond吗）！</p>
 <p>总之，如果我们要给行索引或者列索引命名，请使用&quot;正规&quot;方法，即rename_axis。我们绕了一大圈，就是为了说明为什么rename_axis才应该是用来重命名行索引和索引的正规方法。</p>
 <p>下面的例子显示了如何给多级索引的column索引重命名：</p>
-<pre><code class="language-python">df.rename_axis([&quot;type&quot;, &quot;column&quot;], axis=1)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.rename_axis([<span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-string">&quot;column&quot;</span>], axis=<span class="hljs-number">1</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/rename-multilevel-columns-dataframe.jpg" alt=""></p>
 <p>这非常像一个Excel工作表中，发生标题单元格合并的情况。</p>
 <h2 id="访问索引的值">访问索引的值</h2>
 <p>有时候我们需要查看索引的值，也许是为了troubleshooting，也许是为了传递给其它模块。比如，在因子检验中，我们可能特别想知道某一天筛选出来的表现最好的是哪些asset，而这个asset的值就在多级索引中。</p>
 <p>如果只有一级索引，我们就用index或者columns来引用它们的值。如果是多级索引呢？Pandas引入了level这个概念。我们仍以df2这个DataFrame为例。此时它应该是由new_date, new_asset为索引的DataFrame。</p>
 <p>此时，new_date是level=0的行索引，new_asset是level=1的行索引。要取这两个索引的值，我们可以用df.index.get_level_values方法：</p>
-<pre><code class="language-python">df2.index.get_level_values(0)
-df2.index.get_level_values(level=1)
-df2.index.get_level_values(level=&#39;new_asset&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">df2.index.get_level_values(<span class="hljs-number">0</span>)
+df2.index.get_level_values(level=<span class="hljs-number">1</span>)
+df2.index.get_level_values(level=<span class="hljs-string">&#x27;new_asset&#x27;</span>)</span></code></pre>
 <p>当索引没有命名时，我们就要使用整数来索引。否则，就可以像第三行那样，使用它的名字来索引。</p>
 <h2 id="按索引查找记录">按索引查找记录</h2>
 <p>当存在多级索引时，检索索引等于某个值的全部记录非常简单，要使用xs这个函数。让我们回到df2这个DataFrame上。此时它应该是由new_date, new_asset为索引的DataFrame。</p>
 <p>现在，我们要取asset等于000001的全部行情：</p>
-<pre><code class="language-python">df2.xs(&#39;000001&#39;, level=&#39;asset&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df2.xs(<span class="hljs-string">&#x27;000001&#x27;</span>, level=<span class="hljs-string">&#x27;asset&#x27;</span>)</span></code></pre>
 <p>我们将得到一个只有一级索引，包含了全部000001记录的DataFrame。</p>
 <!--
 非常好的一个教程！

@@ -23,31 +23,29 @@
 <h2 id="如何构建-connor39s-rsi">如何构建 Connor&#39;s RSI</h2>
 <p>Conners RSI 是在标准 RSI 的基础上，混合了另外两个指标得到的。</p>
 <p>第一个指标就是 Streaks。它是统计连续上涨或者下跌的周期数，将上涨与下跌的周期数之比来求得的 RSI。下面的代码演示了如何计算 Streaks 指标：</p>
-<pre><code class="language-python"># 本段代码使用了较强的 NUMPY 技巧，建议反复研读
-def streaks(close):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-comment"># 本段代码使用了较强的 NUMPY 技巧，建议反复研读</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">streaks</span>(<span class="hljs-params">close</span>):
     result = []
-    conds = [close[1:]&gt;close[:-1], close[1:]&lt;close[:-1]]
+    conds = [close[<span class="hljs-number">1</span>:]&gt;close[:-<span class="hljs-number">1</span>], close[<span class="hljs-number">1</span>:]&lt;close[:-<span class="hljs-number">1</span>]]
 
-    flags = np.select(conds, [1,-1], 0)
+    flags = np.select(conds, [<span class="hljs-number">1</span>,-<span class="hljs-number">1</span>], <span class="hljs-number">0</span>)
 
-    # FIND_RUNS 函数来自大富翁量化框架。它的作用是划分数组中
-    # 连续出现的相同值。是量化中非常基础的一个函数。
+    <span class="hljs-comment"># FIND_RUNS 函数来自大富翁量化框架。它的作用是划分数组中</span>
+    <span class="hljs-comment"># 连续出现的相同值。是量化中非常基础的一个函数。</span>
     v, _, l = find_runs(flags)
-    for i in range(len(v)):
-        if v[i] == 0:
-            result.extend([0] * l[i])
-        else:
-            result.extend([v[i] * x for x in range(1, (l[i] + 1))])
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(v)):
+        <span class="hljs-keyword">if</span> v[i] == <span class="hljs-number">0</span>:
+            result.extend([<span class="hljs-number">0</span>] * l[i])
+        <span class="hljs-keyword">else</span>:
+            result.extend([v[i] * x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, (l[i] + <span class="hljs-number">1</span>))])
             
-    return np.insert(result, 0, 0)
-</code></pre>
+    <span class="hljs-keyword">return</span> np.insert(result, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)</span></code></pre>
 <hr>
 <p>下图显示了每日收盘价，及由此计算的 streaks 指标：</p>
 <p>第二个指标就是当日的涨跌幅，在过去一段时间内的的涨跌幅中的排名。percent_rank 是一个常用的统计函数，在 pandas 中就有实现。这里我们给出它的 numpy 实现：</p>
-<pre><code class="language-python">def percent_rank(close):
-    roc = close[1:]/close[:-1] - 1
-    return np.array([sum(roc[i + 1 - self.prank:i + 1] &lt; roc[i]) / self.prank for i in range(len(roc))]) * 100
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">percent_rank</span>(<span class="hljs-params">close</span>):
+    roc = close[<span class="hljs-number">1</span>:]/close[:-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> np.array([<span class="hljs-built_in">sum</span>(roc[i + <span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.prank:i + <span class="hljs-number">1</span>] &lt; roc[i]) / <span class="hljs-variable language_">self</span>.prank <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(roc))]) * <span class="hljs-number">100</span></span></code></pre>
 <p>这两个指标加上经典 RSI，就合成了 Conners RSI:</p>
 <p>$$
 CRSI = [RSI(6) + RSI(Streak, 2) + PercentRank(20)] / 3

@@ -73,7 +73,9 @@
   --admon-warn-bd: #ffca28;
   --admon-quote-bg: #2c1540;
   --admon-quote-bd: #ab47bc;
-}
+
+  --code-window-bg: #1c2128;
+  --code-window-bar: #242a33;}
 
 /* ---- 骨架 ---- */
 * { box-sizing: border-box; }
@@ -299,9 +301,51 @@ details.admonition summary { cursor: pointer; }
   border-left-color: var(--admon-quote-bd, #6a1b9a);
   background: var(--admon-quote-bg, #f3e5f5);
 }
-.md-body pre { background: var(--code-bg); padding: 1rem; border-radius: 6px; overflow: auto; }
-.md-body code { background: var(--code-bg); padding: 0.1em 0.3em; border-radius: 3px; font-size: 0.92em; }
-.md-body pre code { background: none; padding: 0; }
+/* 代码块：苹果风（SF Mono + 圆角 + 顶部圆点条），高亮由 highlight.js 构建期生成 */
+.md-body code, .md-body tt {
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+.md-body :not(pre) > code {
+  background: var(--code-bg); padding: 0.15em 0.45em; border-radius: 6px;
+  font-size: 0.88em; border: 1px solid var(--border);
+}
+.md-body pre {
+  position: relative; background: var(--code-window-bg, #f5f5f7);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 2.6rem 1.1rem 1.1rem; overflow: auto;
+  font-size: 0.86rem; line-height: 1.65; margin: 1.4em 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.md-body pre::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2.1rem;
+  border-bottom: 1px solid var(--border); border-radius: 12px 12px 0 0;
+  background:
+    radial-gradient(circle 6px at 22px 50%, #ff5f57 5.5px, transparent 6px),
+    radial-gradient(circle 6px at 42px 50%, #febc2e 5.5px, transparent 6px),
+    radial-gradient(circle 6px at 62px 50%, #28c840 5.5px, transparent 6px),
+    var(--code-window-bar, #ececee);
+}
+.md-body pre code { background: none; padding: 0; border: none;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  display: grid; grid-template-columns: auto 1fr; gap: 0 1.1rem; }
+.md-body pre code.hljs { background: none; }
+/* 行号列：不参与水平滚动（跟随内容滚动），颜色淡化 */
+.md-body pre .ln { display: flex; flex-direction: column; text-align: right;
+  color: var(--muted); opacity: 0.5; user-select: none; min-width: 2ch; }
+.md-body pre .cl-body { display: block; white-space: pre; }
+
+/* highlight.js one-light 配色（浅色主题） */
+.hljs-comment, .hljs-quote { color: #a0a1a7; font-style: italic; }
+.hljs-doctag, .hljs-keyword, .hljs-formula { color: #a626a4; }
+.hljs-section, .hljs-name, .hljs-selector-tag, .hljs-deletion, .hljs-subst { color: #e45649; }
+.hljs-literal { color: #0184bb; }
+.hljs-string, .hljs-regexp, .hljs-addition, .hljs-attribute, .hljs-meta .hljs-string { color: #50a14f; }
+.hljs-attr, .hljs-variable, .hljs-template-variable, .hljs-type, .hljs-selector-class,
+.hljs-selector-attr, .hljs-selector-pseudo, .hljs-number { color: #986801; }
+.hljs-symbol, .hljs-bullet, .hljs-link, .hljs-meta, .hljs-selector-id, .hljs-title { color: #4078f2; }
+.hljs-built_in, .hljs-title.class_, .hljs-class .hljs-title { color: #c18401; }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: bold; }
 .md-body img { max-width: 100%; }
 /* 文章内嵌公众号 CTA */
 .article-cta {
@@ -375,3 +419,27 @@ details.admonition summary { cursor: pointer; }
 .hub-list { list-style: none; padding: 0; margin: 0; }
 .hub-list li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
 .hub-date { color: var(--text-light); font-size: 12px; white-space: nowrap; }
+
+/* dark 下的 one-dark 高亮覆盖 */
+[data-theme="dark"] .hljs-comment, [data-theme="dark"] .hljs-quote { color: #7d8590; font-style: italic; }
+[data-theme="dark"] .hljs-doctag, [data-theme="dark"] .hljs-keyword, [data-theme="dark"] .hljs-formula { color: #ff7b72; }
+[data-theme="dark"] .hljs-section, [data-theme="dark"] .hljs-name, [data-theme="dark"] .hljs-selector-tag,
+[data-theme="dark"] .hljs-deletion, [data-theme="dark"] .hljs-subst { color: #ffa198; }
+[data-theme="dark"] .hljs-literal { color: #79c0ff; }
+[data-theme="dark"] .hljs-string, [data-theme="dark"] .hljs-regexp, [data-theme="dark"] .hljs-addition,
+[data-theme="dark"] .hljs-attribute, [data-theme="dark"] .hljs-meta .hljs-string { color: #a5d6ff; }
+[data-theme="dark"] .hljs-attr, [data-theme="dark"] .hljs-variable, [data-theme="dark"] .hljs-template-variable,
+[data-theme="dark"] .hljs-type, [data-theme="dark"] .hljs-selector-class,
+[data-theme="dark"] .hljs-selector-attr, [data-theme="dark"] .hljs-selector-pseudo, [data-theme="dark"] .hljs-number { color: #ffa657; }
+[data-theme="dark"] .hljs-symbol, [data-theme="dark"] .hljs-bullet, [data-theme="dark"] .hljs-link,
+[data-theme="dark"] .hljs-meta, [data-theme="dark"] .hljs-selector-id, [data-theme="dark"] .hljs-title { color: #d2a8ff; }
+[data-theme="dark"] .hljs-built_in, [data-theme="dark"] .hljs-title.class_, [data-theme="dark"] .hljs-class .hljs-title { color: #ffa657; }
+
+/* 专题索引：段落式（标题=链接、介绍=纯文本、段间距大） */
+.topics-list .topic-section { margin: 1.9em 0; padding-bottom: 1.7em; border-bottom: 1px solid var(--border); }
+.topics-list .topic-section:last-child { border-bottom: none; }
+.topics-list .topic-title { font-size: 1.15rem; margin: 0 0 0.55em; display: flex; align-items: baseline; gap: 0.7em; }
+.topics-list .topic-title a { text-decoration: none; color: var(--link); }
+.topics-list .topic-title a:hover { text-decoration: underline; }
+.topics-list .topic-count { font-size: 0.8rem; font-weight: 400; color: var(--muted); white-space: nowrap; }
+.topics-list .topic-intro { margin: 0; line-height: 1.85; color: var(--fg); }

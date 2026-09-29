@@ -38,15 +38,14 @@
  
 <!--PAID CONTENT START-->
 <p>通过Quantide Research平台，运行下列代码可实现数据预下载：</p>
-<pre><code class="language-python">import pandas as pd
-import os
-start = datetime.date(2009, 1, 1)
-end = datetime.date(2023, 12, 29)
-universe = -1
-#获取所有股票
-df = load_bars(start, end,-1)
-df.to_parquet(&#39;daily_data.parquet&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> os
+start = datetime.date(<span class="hljs-number">2009</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">29</span>)
+universe = -<span class="hljs-number">1</span>
+<span class="hljs-comment">#获取所有股票</span>
+df = load_bars(start, end,-<span class="hljs-number">1</span>)
+df.to_parquet(<span class="hljs-string">&#x27;daily_data.parquet&#x27;</span>)</span></code></pre>
 <p>下载到的数据格式如下：</p>
 <p><img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761133555915-8c4c75cb-c569-4926-83bc-4c5280648436.png" alt=""></p>
 <p>从返回结果中我们能看到，研究平台数据非常齐全，每个股票的交易量、交易金额等指标均有记录，其他的日线策略回测我们也可以采取该数据。</p>
@@ -67,24 +66,23 @@ df.to_parquet(&#39;daily_data.parquet&#39;)
 
 <!--PAID CONTENT START-->
 <p>首先，我们需要先导入分析所需要的库</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import quantstats as qs
-import os
-from datetime import datetime
-import warnings
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> quantstats <span class="hljs-keyword">as</span> qs
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+<span class="hljs-keyword">import</span> warnings
 qs.extend_pandas()
-warnings.filterwarnings(&#39;ignore&#39;)
-plt.rcParams[&#39;font.family&#39;] = &#39;WenQuanYi Zen Hei&#39;
-import matplotlib as mpl
-plt.rcParams[&#39;font.sans-serif&#39;].insert(0, &#39;DejaVu Sans&#39;)  # 优先使用DejaVu Sans
-# 创建图表输出目录
-if not os.path.exists(str(get_jupyter_root_dir() / &quot;reports/ESG/&quot;)):
-    os.makedirs(str(get_jupyter_root_dir() / &quot;reports/ESG/&quot;))
+warnings.filterwarnings(<span class="hljs-string">&#x27;ignore&#x27;</span>)
+plt.rcParams[<span class="hljs-string">&#x27;font.family&#x27;</span>] = <span class="hljs-string">&#x27;WenQuanYi Zen Hei&#x27;</span>
+<span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mpl
+plt.rcParams[<span class="hljs-string">&#x27;font.sans-serif&#x27;</span>].insert(<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;DejaVu Sans&#x27;</span>)  <span class="hljs-comment"># 优先使用DejaVu Sans</span>
+<span class="hljs-comment"># 创建图表输出目录</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(<span class="hljs-built_in">str</span>(get_jupyter_root_dir() / <span class="hljs-string">&quot;reports/ESG/&quot;</span>)):
+    os.makedirs(<span class="hljs-built_in">str</span>(get_jupyter_root_dir() / <span class="hljs-string">&quot;reports/ESG/&quot;</span>))
 
-report_dir = str(get_jupyter_root_dir() / &quot;reports/ESG/&quot;)
-</code></pre>
+report_dir = <span class="hljs-built_in">str</span>(get_jupyter_root_dir() / <span class="hljs-string">&quot;reports/ESG/&quot;</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <h3 id="21数据清理">2.1数据清理</h3>
@@ -92,116 +90,114 @@ report_dir = str(get_jupyter_root_dir() / &quot;reports/ESG/&quot;)
 <li>读取华证和 Wind 的 ESG 数据以及全市场日线数据。</li>
 <li>剔除 ST 股票、异常日期和空值，保留必要字段（股票代码、日期、评分），按日期和股票排序。</li>
 </ul>
-<pre><code class="language-python">def preprocess_esg_data(esg_data, score_column, exclude_st=True):
-    &quot;&quot;&quot;预处理ESG数据，统一列名和格式，可选剔除ST股票&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess_esg_data</span>(<span class="hljs-params">esg_data, score_column, exclude_st=<span class="hljs-literal">True</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;预处理ESG数据，统一列名和格式，可选剔除ST股票&quot;&quot;&quot;</span>
     df = esg_data.copy()
     
-    # 统一重命名：使用列索引重命名（两个数据源格式已统一）
+    <span class="hljs-comment"># 统一重命名：使用列索引重命名（两个数据源格式已统一）</span>
     df = df.rename(columns={
-        df.columns[0]: &#39;stock_code&#39;,  # 证券代码
-        df.columns[1]: &#39;stock_name&#39;,  # 证券名称
-        df.columns[2]: &#39;date&#39;         # 日期（无论是&quot;评级日期&quot;还是&quot;交易日期&quot;）
+        df.columns[<span class="hljs-number">0</span>]: <span class="hljs-string">&#x27;stock_code&#x27;</span>,  <span class="hljs-comment"># 证券代码</span>
+        df.columns[<span class="hljs-number">1</span>]: <span class="hljs-string">&#x27;stock_name&#x27;</span>,  <span class="hljs-comment"># 证券名称</span>
+        df.columns[<span class="hljs-number">2</span>]: <span class="hljs-string">&#x27;date&#x27;</span>         <span class="hljs-comment"># 日期（无论是&quot;评级日期&quot;还是&quot;交易日期&quot;）</span>
     })
-    # 处理日期列，过滤无效日期
-    df[&#39;date&#39;] = pd.to_datetime(df[&#39;date&#39;], errors=&#39;coerce&#39;)
-    df = df.dropna(subset=[&#39;date&#39;])
-    # 剔除ST股票（如果启用）
-    if exclude_st and &#39;stock_name&#39; in df.columns:
-        st_mask = df[&#39;stock_name&#39;].str.contains(&#39;ST&#39;, na=False)
-        st_count = st_mask.sum()
-        if st_count &gt; 0:
+    <span class="hljs-comment"># 处理日期列，过滤无效日期</span>
+    df[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>], errors=<span class="hljs-string">&#x27;coerce&#x27;</span>)
+    df = df.dropna(subset=[<span class="hljs-string">&#x27;date&#x27;</span>])
+    <span class="hljs-comment"># 剔除ST股票（如果启用）</span>
+    <span class="hljs-keyword">if</span> exclude_st <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;stock_name&#x27;</span> <span class="hljs-keyword">in</span> df.columns:
+        st_mask = df[<span class="hljs-string">&#x27;stock_name&#x27;</span>].<span class="hljs-built_in">str</span>.contains(<span class="hljs-string">&#x27;ST&#x27;</span>, na=<span class="hljs-literal">False</span>)
+        st_count = st_mask.<span class="hljs-built_in">sum</span>()
+        <span class="hljs-keyword">if</span> st_count &gt; <span class="hljs-number">0</span>:
             df = df[~st_mask]
-            print(f&quot;[INFO] 剔除ST股票：{st_count:,} 条记录&quot;)
-    # 保留必要的列
-    keep_cols = [&#39;stock_code&#39;, &#39;date&#39;, score_column]
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[INFO] 剔除ST股票：<span class="hljs-subst">{st_count:,}</span> 条记录&quot;</span>)
+    <span class="hljs-comment"># 保留必要的列</span>
+    keep_cols = [<span class="hljs-string">&#x27;stock_code&#x27;</span>, <span class="hljs-string">&#x27;date&#x27;</span>, score_column]
     df = df[keep_cols]
     df = df.dropna(subset=[score_column])
-    df = df.sort_values([&#39;date&#39;, &#39;stock_code&#39;])
-    print(f&quot;[OK] 数据预处理完成，共 {len(df):,} 条记录&quot;)
-    print(f&quot;  日期范围：{df[&#39;date&#39;].min().strftime(&#39;%Y-%m-%d&#39;)} 至 {df[&#39;date&#39;].max().strftime(&#39;%Y-%m-%d&#39;)}&quot;)
-    print(f&quot;  股票数量：{df[&#39;stock_code&#39;].nunique():,}&quot;)
-    return df
+    df = df.sort_values([<span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;stock_code&#x27;</span>])
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] 数据预处理完成，共 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(df):,}</span> 条记录&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  日期范围：<span class="hljs-subst">{df[<span class="hljs-string">&#x27;date&#x27;</span>].<span class="hljs-built_in">min</span>().strftime(<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>)}</span> 至 <span class="hljs-subst">{df[<span class="hljs-string">&#x27;date&#x27;</span>].<span class="hljs-built_in">max</span>().strftime(<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>)}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  股票数量：<span class="hljs-subst">{df[<span class="hljs-string">&#x27;stock_code&#x27;</span>].nunique():,}</span>&quot;</span>)
+    <span class="hljs-keyword">return</span> df
 
 
-wind_esg_data = pd.read_parquet(&#39;wind_esg.parquet&#39;)
-esg_wind = preprocess_esg_data(wind_esg_data, score_column=&#39;WindESG评级&#39;)
-</code></pre>
+wind_esg_data = pd.read_parquet(<span class="hljs-string">&#x27;wind_esg.parquet&#x27;</span>)
+esg_wind = preprocess_esg_data(wind_esg_data, score_column=<span class="hljs-string">&#x27;WindESG评级&#x27;</span>)</span></code></pre>
 <h3 id="22评分分层">2.2评分分层</h3>
 <ul>
 <li>对每个披露日的 ESG 得分进行横截面排序并分层。</li>
 <li>层数可调（默认 10 层），第 1 层为最低评分的 10%，第 10 层为最高评分的 10%。</li>
 </ul>
 <p>该过程会分别对华证综合得分、E/S/G 子项得分以及 Wind ESG 评级独立执行。</p>
-<pre><code class="language-python">def classify_score_per_period(esg_df, score_column, n_layers=5, data_source=&#39;wind&#39;):
-    &quot;&quot;&quot;统一的评分分层函数（支持华政和Wind）&quot;&quot;&quot;
-    df = esg_df.copy().sort_values([&#39;date&#39;,&#39;stock_code&#39;])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">classify_score_per_period</span>(<span class="hljs-params">esg_df, score_column, n_layers=<span class="hljs-number">5</span>, data_source=<span class="hljs-string">&#x27;wind&#x27;</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;统一的评分分层函数（支持华政和Wind）&quot;&quot;&quot;</span>
+    df = esg_df.copy().sort_values([<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;stock_code&#x27;</span>])
     
-    def _cut_period(g):
-        # 对每个披露日期的截面数据分层（robust to ties）
-        try:
-            g[&#39;layer&#39;] = pd.qcut(
-                g[score_column].rank(method=&#39;first&#39;),
-                q=n_layers, labels=False, duplicates=&#39;drop&#39;
-            ) + 1
-        except Exception:
-            ranks = g[score_column].rank(method=&#39;first&#39;)
-            g[&#39;layer&#39;] = pd.cut(ranks, bins=n_layers, labels=False, include_lowest=True) + 1
-        return g
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_cut_period</span>(<span class="hljs-params">g</span>):
+        <span class="hljs-comment"># 对每个披露日期的截面数据分层（robust to ties）</span>
+        <span class="hljs-keyword">try</span>:
+            g[<span class="hljs-string">&#x27;layer&#x27;</span>] = pd.qcut(
+                g[score_column].rank(method=<span class="hljs-string">&#x27;first&#x27;</span>),
+                q=n_layers, labels=<span class="hljs-literal">False</span>, duplicates=<span class="hljs-string">&#x27;drop&#x27;</span>
+            ) + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">except</span> Exception:
+            ranks = g[score_column].rank(method=<span class="hljs-string">&#x27;first&#x27;</span>)
+            g[<span class="hljs-string">&#x27;layer&#x27;</span>] = pd.cut(ranks, bins=n_layers, labels=<span class="hljs-literal">False</span>, include_lowest=<span class="hljs-literal">True</span>) + <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> g
     
-    df = df.groupby(&#39;date&#39;, group_keys=False).apply(_cut_period)
+    df = df.groupby(<span class="hljs-string">&#x27;date&#x27;</span>, group_keys=<span class="hljs-literal">False</span>).apply(_cut_period)
     
-    print(f&quot;[OK] {data_source}评分分层完成（每个披露日截面分{n_layers}层）&quot;)
-    print(f&quot;各层总体分布：&quot;)
-    layer_dist = df.groupby(&#39;layer&#39;).size()
-    for layer, count in layer_dist.items():
-        print(f&quot;  Layer {layer}: {count:,} ({count/len(df)*100:.1f}%)&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] <span class="hljs-subst">{data_source}</span>评分分层完成（每个披露日截面分<span class="hljs-subst">{n_layers}</span>层）&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;各层总体分布：&quot;</span>)
+    layer_dist = df.groupby(<span class="hljs-string">&#x27;layer&#x27;</span>).size()
+    <span class="hljs-keyword">for</span> layer, count <span class="hljs-keyword">in</span> layer_dist.items():
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  Layer <span class="hljs-subst">{layer}</span>: <span class="hljs-subst">{count:,}</span> (<span class="hljs-subst">{count/<span class="hljs-built_in">len</span>(df)*<span class="hljs-number">100</span>:<span class="hljs-number">.1</span>f}</span>%)&quot;</span>)
     
-    return df[[&#39;stock_code&#39;,&#39;date&#39;,&#39;layer&#39;]]
+    <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;layer&#x27;</span>]]
 
-esg_wind_classified = classify_score_per_period(esg_wind, &#39;WindESG评级&#39;, n_layers=10, data_source=&#39;Wind&#39;)
-</code></pre>
+esg_wind_classified = classify_score_per_period(esg_wind, <span class="hljs-string">&#x27;WindESG评级&#x27;</span>, n_layers=<span class="hljs-number">10</span>, data_source=<span class="hljs-string">&#x27;Wind&#x27;</span>)</span></code></pre>
 <h3 id="23日度收益率计算">2.3日度收益率计算</h3>
 <p>从全市场日线行情中计算每只股票的日收益率，剔除异常值与极端涨跌（默认截尾 0.5% 分位）。确保样本干净，避免极端波动干扰层内均值。</p>
-<pre><code class="language-python">daily_data = pd.read_parquet(&#39;daily_data.parquet&#39;)
-def prepare_daily_returns(daily_df, price_col=&#39;close&#39;, min_price=0.01,winsor_p=0.005):
-    &quot;&quot;&quot;从日线数据中计算收益率（含清洗和去极值）&quot;&quot;&quot;
-    print(&quot;正在准备日线收益率数据...&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span></span><span class="cl-body">daily_data = pd.read_parquet(<span class="hljs-string">&#x27;daily_data.parquet&#x27;</span>)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">prepare_daily_returns</span>(<span class="hljs-params">daily_df, price_col=<span class="hljs-string">&#x27;close&#x27;</span>, min_price=<span class="hljs-number">0.01</span>,winsor_p=<span class="hljs-number">0.005</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;从日线数据中计算收益率（含清洗和去极值）&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;正在准备日线收益率数据...&quot;</span>)
     
-    df = daily_df.reset_index().rename(columns={&#39;asset&#39;: &#39;stock_code&#39;})
-    df[&#39;date&#39;] = pd.to_datetime(df[&#39;date&#39;])
-    df = df[[&#39;stock_code&#39;,&#39;date&#39;,price_col]].copy()
+    df = daily_df.reset_index().rename(columns={<span class="hljs-string">&#x27;asset&#x27;</span>: <span class="hljs-string">&#x27;stock_code&#x27;</span>})
+    df[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;date&#x27;</span>])
+    df = df[[<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>,price_col]].copy()
 
-    # 价格数值化与过滤：非正、极小值、缺失全滚粗
-    df[price_col] = pd.to_numeric(df[price_col], errors=&#39;coerce&#39;)
+    <span class="hljs-comment"># 价格数值化与过滤：非正、极小值、缺失全滚粗</span>
+    df[price_col] = pd.to_numeric(df[price_col], errors=<span class="hljs-string">&#x27;coerce&#x27;</span>)
     df = df.dropna(subset=[price_col])
     df = df[df[price_col] &gt; min_price]
 
-    df = df.sort_values([&#39;stock_code&#39;,&#39;date&#39;])
-    ret = df.groupby(&#39;stock_code&#39;)[price_col].pct_change()
+    df = df.sort_values([<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>])
+    ret = df.groupby(<span class="hljs-string">&#x27;stock_code&#x27;</span>)[price_col].pct_change()
 
-    # 干掉 inf/-inf、超大绝对值
+    <span class="hljs-comment"># 干掉 inf/-inf、超大绝对值</span>
     ret = ret.replace([np.inf, -np.inf], np.nan)
 
     lo = ret.quantile(winsor_p)
-    hi = ret.quantile(1 - winsor_p)
+    hi = ret.quantile(<span class="hljs-number">1</span> - winsor_p)
     ret = ret.clip(lo, hi)
 
-    df[&#39;return&#39;] = ret
-    df = df.dropna(subset=[&#39;return&#39;])
+    df[<span class="hljs-string">&#x27;return&#x27;</span>] = ret
+    df = df.dropna(subset=[<span class="hljs-string">&#x27;return&#x27;</span>])
 
-    # 可选：把 |r|&gt;30% 的样本数量打个日志
-    outlier_cnt = (df[&#39;return&#39;].abs() &gt; 0.3).sum()
-    if outlier_cnt &gt; 0:
-        print(f&quot;[WARN] |return|&gt;30% 样本: {outlier_cnt:,}&quot;)
+    <span class="hljs-comment"># 可选：把 |r|&gt;30% 的样本数量打个日志</span>
+    outlier_cnt = (df[<span class="hljs-string">&#x27;return&#x27;</span>].<span class="hljs-built_in">abs</span>() &gt; <span class="hljs-number">0.3</span>).<span class="hljs-built_in">sum</span>()
+    <span class="hljs-keyword">if</span> outlier_cnt &gt; <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[WARN] |return|&gt;30% 样本: <span class="hljs-subst">{outlier_cnt:,}</span>&quot;</span>)
 
-    print(f&quot;[OK] 日线数据处理完成，共 {len(df):,} 条记录&quot;)
-    print(f&quot;  股票数量：{df[&#39;stock_code&#39;].nunique():,}&quot;)
-    print(f&quot;  平均日收益率：{df[&#39;return&#39;].mean():.4%}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] 日线数据处理完成，共 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(df):,}</span> 条记录&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  股票数量：<span class="hljs-subst">{df[<span class="hljs-string">&#x27;stock_code&#x27;</span>].nunique():,}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  平均日收益率：<span class="hljs-subst">{df[<span class="hljs-string">&#x27;return&#x27;</span>].mean():<span class="hljs-number">.4</span>%}</span>&quot;</span>)
     
-    return df[[&#39;stock_code&#39;,&#39;date&#39;,&#39;return&#39;,price_col]]
+    <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;return&#x27;</span>,price_col]]
 daily_returns = prepare_daily_returns(daily_data)
 
-</code></pre>
+</span></code></pre>
 <h3 id="24将评级扩展到日线">2.4将评级扩展到日线</h3>
 <p>从季度到日度：三步法</p>
 <ol>
@@ -213,153 +209,152 @@ daily_returns = prepare_daily_returns(daily_data)
 </li>
 </ol>
 <p>将季度ESG 评级扩展到日度频率，并采用 T+1 生效机制（即评级在披露后一交易日才生效），保证信号和收益的时间顺序不被污染。即评级发布后第二天进行调仓。</p>
-<pre><code class="language-python">def expand_to_daily_with_t1(esg_layers, daily_df):
-    &quot;&quot;&quot;将季度ESG评级扩展到日线，并实施T+1延迟&quot;&quot;&quot;
-    print(&quot;正在将季度ESG数据扩展到日线（T+1延迟）...&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">expand_to_daily_with_t1</span>(<span class="hljs-params">esg_layers, daily_df</span>):
+    <span class="hljs-string">&quot;&quot;&quot;将季度ESG评级扩展到日线，并实施T+1延迟&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;正在将季度ESG数据扩展到日线（T+1延迟）...&quot;</span>)
     
-    # 统一股票代码格式
-    def convert_stock_code(code):
-        code = str(code)
-        if code.endswith(&#39;.SZ&#39;):
-            return code.replace(&#39;.SZ&#39;, &#39;.XSHE&#39;)
-        elif code.endswith(&#39;.SH&#39;):
-            return code.replace(&#39;.SH&#39;, &#39;.XSHG&#39;)
-        return code
+    <span class="hljs-comment"># 统一股票代码格式</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">convert_stock_code</span>(<span class="hljs-params">code</span>):
+        code = <span class="hljs-built_in">str</span>(code)
+        <span class="hljs-keyword">if</span> code.endswith(<span class="hljs-string">&#x27;.SZ&#x27;</span>):
+            <span class="hljs-keyword">return</span> code.replace(<span class="hljs-string">&#x27;.SZ&#x27;</span>, <span class="hljs-string">&#x27;.XSHE&#x27;</span>)
+        <span class="hljs-keyword">elif</span> code.endswith(<span class="hljs-string">&#x27;.SH&#x27;</span>):
+            <span class="hljs-keyword">return</span> code.replace(<span class="hljs-string">&#x27;.SH&#x27;</span>, <span class="hljs-string">&#x27;.XSHG&#x27;</span>)
+        <span class="hljs-keyword">return</span> code
     
-    esg = esg_layers[[&#39;stock_code&#39;,&#39;date&#39;,&#39;layer&#39;]].copy()
-    esg[&#39;stock_code&#39;] = esg[&#39;stock_code&#39;].apply(convert_stock_code)
-    esg[&#39;date&#39;] = pd.to_datetime(esg[&#39;date&#39;])
+    esg = esg_layers[[<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;layer&#x27;</span>]].copy()
+    esg[<span class="hljs-string">&#x27;stock_code&#x27;</span>] = esg[<span class="hljs-string">&#x27;stock_code&#x27;</span>].apply(convert_stock_code)
+    esg[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(esg[<span class="hljs-string">&#x27;date&#x27;</span>])
     
-    dly = daily_df[[&#39;stock_code&#39;,&#39;date&#39;,&#39;return&#39;]].copy()
-    dly[&#39;stock_code&#39;] = dly[&#39;stock_code&#39;].astype(str)
-    dly[&#39;date&#39;] = pd.to_datetime(dly[&#39;date&#39;])
+    dly = daily_df[[<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;return&#x27;</span>]].copy()
+    dly[<span class="hljs-string">&#x27;stock_code&#x27;</span>] = dly[<span class="hljs-string">&#x27;stock_code&#x27;</span>].astype(<span class="hljs-built_in">str</span>)
+    dly[<span class="hljs-string">&#x27;date&#x27;</span>] = pd.to_datetime(dly[<span class="hljs-string">&#x27;date&#x27;</span>])
     
-    # 合并
-    merged = dly.merge(esg, on=[&#39;stock_code&#39;,&#39;date&#39;], how=&#39;left&#39;)
-    merged = merged.sort_values([&#39;stock_code&#39;,&#39;date&#39;])
+    <span class="hljs-comment"># 合并</span>
+    merged = dly.merge(esg, on=[<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>], how=<span class="hljs-string">&#x27;left&#x27;</span>)
+    merged = merged.sort_values([<span class="hljs-string">&#x27;stock_code&#x27;</span>,<span class="hljs-string">&#x27;date&#x27;</span>])
     
-    # 前向填充最新的layer
-    merged[&#39;layer&#39;] = merged.groupby(&#39;stock_code&#39;)[&#39;layer&#39;].ffill()
+    <span class="hljs-comment"># 前向填充最新的layer</span>
+    merged[<span class="hljs-string">&#x27;layer&#x27;</span>] = merged.groupby(<span class="hljs-string">&#x27;stock_code&#x27;</span>)[<span class="hljs-string">&#x27;layer&#x27;</span>].ffill()
     
-    # T+1延迟：今天的收益使用昨天的layer
-    merged[&#39;layer&#39;] = merged.groupby(&#39;stock_code&#39;)[&#39;layer&#39;].shift(1)
+    <span class="hljs-comment"># T+1延迟：今天的收益使用昨天的layer</span>
+    merged[<span class="hljs-string">&#x27;layer&#x27;</span>] = merged.groupby(<span class="hljs-string">&#x27;stock_code&#x27;</span>)[<span class="hljs-string">&#x27;layer&#x27;</span>].shift(<span class="hljs-number">1</span>)
     
-    merged = merged.dropna(subset=[&#39;layer&#39;])
-    merged[&#39;layer&#39;] = merged[&#39;layer&#39;].astype(int)
+    merged = merged.dropna(subset=[<span class="hljs-string">&#x27;layer&#x27;</span>])
+    merged[<span class="hljs-string">&#x27;layer&#x27;</span>] = merged[<span class="hljs-string">&#x27;layer&#x27;</span>].astype(<span class="hljs-built_in">int</span>)
     
-    print(f&quot;[OK] 合并完成，共 {len(merged):,} 条记录（含T+1延迟）&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] 合并完成，共 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(merged):,}</span> 条记录（含T+1延迟）&quot;</span>)
     
-    return merged
+    <span class="hljs-keyword">return</span> merged
 
 daily_with_wind = expand_to_daily_with_t1(esg_wind_classified, daily_returns)    
-# 清洗
+<span class="hljs-comment"># 清洗</span>
 daily_with_wind = daily_with_wind.replace([np.inf, -np.inf], np.nan)
-daily_with_wind = daily_with_wind[daily_with_wind[&#39;return&#39;].between(-0.5, 0.5)]
-print(f&quot;[INFO] 清洗后Wind数据：{len(daily_with_wind):,} 条记录&quot;)
-</code></pre>
+daily_with_wind = daily_with_wind[daily_with_wind[<span class="hljs-string">&#x27;return&#x27;</span>].between(-<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)]
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[INFO] 清洗后Wind数据：<span class="hljs-subst">{<span class="hljs-built_in">len</span>(daily_with_wind):,}</span> 条记录&quot;</span>)
+</span></code></pre>
 <h3 id="25分层回测">2.5分层回测</h3>
 <ul>
 <li>对每个交易日、每一层分别计算等权平均收益，过滤掉成分过少的层（默认 ≥10 支股票）。</li>
 <li>利用<strong>QuantStats</strong>库快速计算各层与多空组合的主要绩效指标：年化收益、波动率、夏普比率、最大回撤、Calmar 比率、Sortino 比率、胜率等。</li>
 </ul>
-<pre><code class="language-python">def backtest_hold_between_events(dly_with_layer, min_names_per_layer_day=10):
-    &quot;&quot;&quot;执行分层回测（使用quantstats简化指标计算）&quot;&quot;&quot;
-    print(&quot;正在执行分层回测（使用quantstats）...&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">backtest_hold_between_events</span>(<span class="hljs-params">dly_with_layer, min_names_per_layer_day=<span class="hljs-number">10</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;执行分层回测（使用quantstats简化指标计算）&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;正在执行分层回测（使用quantstats）...&quot;</span>)
     
     df = dly_with_layer.copy()
     
-    # 诊断：层内日样本数分布
-    print(&quot;层内日样本数分布：&quot;)
-    print(df.groupby([&#39;layer&#39;])[&#39;date&#39;].nunique().describe())
-    print(&quot;单日层内成分数的分位：&quot;)
-    print(df.groupby([&#39;date&#39;,&#39;layer&#39;])[&#39;stock_code&#39;].nunique().quantile([.1,.25,.5,.75,.9]))
+    <span class="hljs-comment"># 诊断：层内日样本数分布</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;层内日样本数分布：&quot;</span>)
+    <span class="hljs-built_in">print</span>(df.groupby([<span class="hljs-string">&#x27;layer&#x27;</span>])[<span class="hljs-string">&#x27;date&#x27;</span>].nunique().describe())
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;单日层内成分数的分位：&quot;</span>)
+    <span class="hljs-built_in">print</span>(df.groupby([<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;layer&#x27;</span>])[<span class="hljs-string">&#x27;stock_code&#x27;</span>].nunique().quantile([<span class="hljs-number">.1</span>,<span class="hljs-number">.25</span>,<span class="hljs-number">.5</span>,<span class="hljs-number">.75</span>,<span class="hljs-number">.9</span>]))
     
-    # 先统计每天每层有多少只股票
-    counts = df.groupby([&#39;date&#39;,&#39;layer&#39;])[&#39;stock_code&#39;].nunique()
+    <span class="hljs-comment"># 先统计每天每层有多少只股票</span>
+    counts = df.groupby([<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;layer&#x27;</span>])[<span class="hljs-string">&#x27;stock_code&#x27;</span>].nunique()
     
-    # 仅保留成分数≥阈值的层日（避免&quot;一只妖股带飞全层&quot;）
+    <span class="hljs-comment"># 仅保留成分数≥阈值的层日（避免&quot;一只妖股带飞全层&quot;）</span>
     valid = counts[counts &gt;= min_names_per_layer_day].index
-    df = df.set_index([&#39;date&#39;,&#39;layer&#39;]).loc[valid].reset_index()
+    df = df.set_index([<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;layer&#x27;</span>]).loc[valid].reset_index()
     
-    print(f&quot;[INFO] 过滤后保留 {len(df):,} 条记录（每层日至少{min_names_per_layer_day}只股票）&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[INFO] 过滤后保留 <span class="hljs-subst">{<span class="hljs-built_in">len</span>(df):,}</span> 条记录（每层日至少<span class="hljs-subst">{min_names_per_layer_day}</span>只股票）&quot;</span>)
     
-    # 每日等权layer收益；空缺日留作NaN
-    layer_daily = df.groupby([&#39;date&#39;,&#39;layer&#39;])[&#39;return&#39;].mean().unstack()
+    <span class="hljs-comment"># 每日等权layer收益；空缺日留作NaN</span>
+    layer_daily = df.groupby([<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;layer&#x27;</span>])[<span class="hljs-string">&#x27;return&#x27;</span>].mean().unstack()
     
-    # 确保索引是DatetimeIndex
-    if not isinstance(layer_daily.index, pd.DatetimeIndex):
+    <span class="hljs-comment"># 确保索引是DatetimeIndex</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(layer_daily.index, pd.DatetimeIndex):
         layer_daily.index = pd.to_datetime(layer_daily.index)
     
-    # 对数收益率
-    def _cumprod_stable(s):
+    <span class="hljs-comment"># 对数收益率</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_cumprod_stable</span>(<span class="hljs-params">s</span>):
         r = s.dropna()
-        if len(r) == 0:
-            return pd.Series(index=s.index)
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(r) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> pd.Series(index=s.index)
         logcum = np.log1p(r).cumsum()
         cr = np.exp(logcum)
-        return cr.reindex(s.index).ffill()
+        <span class="hljs-keyword">return</span> cr.reindex(s.index).ffill()
     
     cum = layer_daily.apply(_cumprod_stable)
     
-    # ========== 使用quantstats计算各层统计指标（更简洁！）==========
+    <span class="hljs-comment"># ========== 使用quantstats计算各层统计指标（更简洁！）==========</span>
     stats = {}
-    for layer in layer_daily.columns:
+    <span class="hljs-keyword">for</span> layer <span class="hljs-keyword">in</span> layer_daily.columns:
         r = layer_daily[layer].dropna()
-        if len(r) == 0:
-            continue
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(r) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">continue</span>
         
-        stats[f&#39;Layer_{layer}&#39;] = {
-            &#39;Total_Return&#39;: qs.stats.comp(r),
-            &#39;Annualized_Return&#39;: qs.stats.cagr(r),
-            &#39;Volatility&#39;: qs.stats.volatility(r),
-            &#39;Sharpe_Ratio&#39;: qs.stats.sharpe(r),
-            &#39;Max_Drawdown&#39;: qs.stats.max_drawdown(r),
-            &#39;Calmar_Ratio&#39;: qs.stats.calmar(r),
-            &#39;Sortino_Ratio&#39;: qs.stats.sortino(r),
-            &#39;Win_Rate&#39;: qs.stats.win_rate(r),
+        stats[<span class="hljs-string">f&#x27;Layer_<span class="hljs-subst">{layer}</span>&#x27;</span>] = {
+            <span class="hljs-string">&#x27;Total_Return&#x27;</span>: qs.stats.comp(r),
+            <span class="hljs-string">&#x27;Annualized_Return&#x27;</span>: qs.stats.cagr(r),
+            <span class="hljs-string">&#x27;Volatility&#x27;</span>: qs.stats.volatility(r),
+            <span class="hljs-string">&#x27;Sharpe_Ratio&#x27;</span>: qs.stats.sharpe(r),
+            <span class="hljs-string">&#x27;Max_Drawdown&#x27;</span>: qs.stats.max_drawdown(r),
+            <span class="hljs-string">&#x27;Calmar_Ratio&#x27;</span>: qs.stats.calmar(r),
+            <span class="hljs-string">&#x27;Sortino_Ratio&#x27;</span>: qs.stats.sortino(r),
+            <span class="hljs-string">&#x27;Win_Rate&#x27;</span>: qs.stats.win_rate(r),
         }
     
-    # 计算多空策略
-    long_short_returns = None
-    long_short_cumulative = None
+    <span class="hljs-comment"># 计算多空策略</span>
+    long_short_returns = <span class="hljs-literal">None</span>
+    long_short_cumulative = <span class="hljs-literal">None</span>
     
-    if len(layer_daily.columns) &gt;= 2:
-        top = layer_daily.columns.max()
-        bot = layer_daily.columns.min()
-        # 只在两层都有数据的日期计算多空
-        r_ls = pd.concat([layer_daily[top], layer_daily[bot]], axis=1).dropna()
-        ls = r_ls.iloc[:,0] - r_ls.iloc[:,1]
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(layer_daily.columns) &gt;= <span class="hljs-number">2</span>:
+        top = layer_daily.columns.<span class="hljs-built_in">max</span>()
+        bot = layer_daily.columns.<span class="hljs-built_in">min</span>()
+        <span class="hljs-comment"># 只在两层都有数据的日期计算多空</span>
+        r_ls = pd.concat([layer_daily[top], layer_daily[bot]], axis=<span class="hljs-number">1</span>).dropna()
+        ls = r_ls.iloc[:,<span class="hljs-number">0</span>] - r_ls.iloc[:,<span class="hljs-number">1</span>]
         long_short_returns = ls
-        long_short_cumulative = (1 + ls).cumprod()
+        long_short_cumulative = (<span class="hljs-number">1</span> + ls).cumprod()
         
-        # 使用quantstats计算多空策略指标
-        stats[&#39;Long_Short&#39;] = {
-            &#39;Total_Return&#39;: qs.stats.comp(ls),
-            &#39;Annualized_Return&#39;: qs.stats.cagr(ls),
-            &#39;Volatility&#39;: qs.stats.volatility(ls),
-            &#39;Sharpe_Ratio&#39;: qs.stats.sharpe(ls),
-            &#39;Max_Drawdown&#39;: qs.stats.max_drawdown(ls),
-            &#39;Calmar_Ratio&#39;: qs.stats.calmar(ls),
-            &#39;Sortino_Ratio&#39;: qs.stats.sortino(ls),
-            &#39;Win_Rate&#39;: qs.stats.win_rate(ls),
+        <span class="hljs-comment"># 使用quantstats计算多空策略指标</span>
+        stats[<span class="hljs-string">&#x27;Long_Short&#x27;</span>] = {
+            <span class="hljs-string">&#x27;Total_Return&#x27;</span>: qs.stats.comp(ls),
+            <span class="hljs-string">&#x27;Annualized_Return&#x27;</span>: qs.stats.cagr(ls),
+            <span class="hljs-string">&#x27;Volatility&#x27;</span>: qs.stats.volatility(ls),
+            <span class="hljs-string">&#x27;Sharpe_Ratio&#x27;</span>: qs.stats.sharpe(ls),
+            <span class="hljs-string">&#x27;Max_Drawdown&#x27;</span>: qs.stats.max_drawdown(ls),
+            <span class="hljs-string">&#x27;Calmar_Ratio&#x27;</span>: qs.stats.calmar(ls),
+            <span class="hljs-string">&#x27;Sortino_Ratio&#x27;</span>: qs.stats.sortino(ls),
+            <span class="hljs-string">&#x27;Win_Rate&#x27;</span>: qs.stats.win_rate(ls),
         }
     
-    print(&quot;[OK] 回测完成！&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[OK] 回测完成！&quot;</span>)
     
-    return {
-        &#39;daily_returns&#39;: layer_daily,
-        &#39;cumulative_returns&#39;: cum,
-        &#39;statistics&#39;: stats,
-        &#39;long_short_returns&#39;: long_short_returns,
-        &#39;long_short_cumulative&#39;: long_short_cumulative
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-string">&#x27;daily_returns&#x27;</span>: layer_daily,
+        <span class="hljs-string">&#x27;cumulative_returns&#x27;</span>: cum,
+        <span class="hljs-string">&#x27;statistics&#x27;</span>: stats,
+        <span class="hljs-string">&#x27;long_short_returns&#x27;</span>: long_short_returns,
+        <span class="hljs-string">&#x27;long_short_cumulative&#x27;</span>: long_short_cumulative
     }
 
-#计算开始
-wind_results = backtest_hold_between_events(daily_with_wind, min_names_per_layer_day=10)
-print(&quot;\nWind评分回测结果：&quot;)
-print(pd.DataFrame(wind_results[&#39;statistics&#39;]).T.to_string())
-    
-</code></pre>
+<span class="hljs-comment">#计算开始</span>
+wind_results = backtest_hold_between_events(daily_with_wind, min_names_per_layer_day=<span class="hljs-number">10</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nWind评分回测结果：&quot;</span>)
+<span class="hljs-built_in">print</span>(pd.DataFrame(wind_results[<span class="hljs-string">&#x27;statistics&#x27;</span>]).T.to_string())
+    </span></code></pre>
 <h3 id="26-可视化与报告输出">2.6 可视化与报告输出</h3>
 <p>使用QuanStats生成四类图表：</p>
 <ul>
@@ -368,171 +363,170 @@ print(pd.DataFrame(wind_results[&#39;statistics&#39;]).T.to_string())
 <li>核心绩效指标对比</li>
 <li>指标汇总表格</li>
 </ul>
-<pre><code class="language-python"># 保存结果
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span><span class="cl">123</span><span class="cl">124</span><span class="cl">125</span><span class="cl">126</span><span class="cl">127</span><span class="cl">128</span><span class="cl">129</span><span class="cl">130</span><span class="cl">131</span></span><span class="cl-body"><span class="hljs-comment"># 保存结果</span>
 all_results = {}
-all_results[&#39;Wind评分&#39;] = wind_results
+all_results[<span class="hljs-string">&#x27;Wind评分&#x27;</span>] = wind_results
 
-def plot_backtest_results(results, title=&#39;ESG_Backtest&#39;, save_path=f&#39;{report_dir}&#39;):
-    &quot;&quot;&quot;增强的可视化回测结果（使用quantstats风格）&quot;&quot;&quot;
-    cumulative_returns = results[&#39;cumulative_returns&#39;]
-    statistics = results[&#39;statistics&#39;]
-    long_short_cumulative = results[&#39;long_short_cumulative&#39;]
-    long_short_returns = results[&#39;long_short_returns&#39;]
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">plot_backtest_results</span>(<span class="hljs-params">results, title=<span class="hljs-string">&#x27;ESG_Backtest&#x27;</span>, save_path=<span class="hljs-string">f&#x27;<span class="hljs-subst">{report_dir}</span>&#x27;</span></span>):
+    <span class="hljs-string">&quot;&quot;&quot;增强的可视化回测结果（使用quantstats风格）&quot;&quot;&quot;</span>
+    cumulative_returns = results[<span class="hljs-string">&#x27;cumulative_returns&#x27;</span>]
+    statistics = results[<span class="hljs-string">&#x27;statistics&#x27;</span>]
+    long_short_cumulative = results[<span class="hljs-string">&#x27;long_short_cumulative&#x27;</span>]
+    long_short_returns = results[<span class="hljs-string">&#x27;long_short_returns&#x27;</span>]
     
-    # 根据实际层数动态生成配色方案
-    n_layers = len(cumulative_returns.columns)
-    # 使用 tab20 配色方案支持更多层数，如果层数少用 Set2
-    if n_layers &lt;= 8:
-        colors = plt.cm.Set2(np.linspace(0, 1, n_layers))
-    else:
-        colors = plt.cm.tab20(np.linspace(0, 1, n_layers))
+    <span class="hljs-comment"># 根据实际层数动态生成配色方案</span>
+    n_layers = <span class="hljs-built_in">len</span>(cumulative_returns.columns)
+    <span class="hljs-comment"># 使用 tab20 配色方案支持更多层数，如果层数少用 Set2</span>
+    <span class="hljs-keyword">if</span> n_layers &lt;= <span class="hljs-number">8</span>:
+        colors = plt.cm.Set2(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, n_layers))
+    <span class="hljs-keyword">else</span>:
+        colors = plt.cm.tab20(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, n_layers))
     
-    fig, axes = plt.subplots(2, 2, figsize=(18, 12))
-    fig.patch.set_facecolor(&#39;white&#39;)
+    fig, axes = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, figsize=(<span class="hljs-number">18</span>, <span class="hljs-number">12</span>))
+    fig.patch.set_facecolor(<span class="hljs-string">&#x27;white&#x27;</span>)
     
-    # 1. 各层累计收益
-    ax1 = axes[0,0]
-    for i, layer in enumerate(cumulative_returns.columns):
+    <span class="hljs-comment"># 1. 各层累计收益</span>
+    ax1 = axes[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">for</span> i, layer <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(cumulative_returns.columns):
         ax1.plot(cumulative_returns.index, cumulative_returns[layer], 
-                label=f&#39;Layer {layer}&#39;, linewidth=2.5, color=colors[i], alpha=0.8)
-    ax1.axhline(y=1, color=&#39;black&#39;, linestyle=&#39;--&#39;, alpha=0.3, linewidth=1)
-    ax1.set_title(&#39;Cumulative Returns by Layer&#39;, fontsize=14, fontweight=&#39;bold&#39;, pad=15)
-    ax1.set_xlabel(&#39;Date&#39;, fontsize=11)
-    ax1.set_ylabel(&#39;Cumulative Return&#39;, fontsize=11)
-    ax1.legend(loc=&#39;best&#39;, framealpha=0.9, fontsize=10)
-    ax1.grid(True, alpha=0.3, linestyle=&#39;:&#39;, linewidth=0.5)
-    ax1.set_facecolor(&#39;#f7f7f7&#39;)
+                label=<span class="hljs-string">f&#x27;Layer <span class="hljs-subst">{layer}</span>&#x27;</span>, linewidth=<span class="hljs-number">2.5</span>, color=colors[i], alpha=<span class="hljs-number">0.8</span>)
+    ax1.axhline(y=<span class="hljs-number">1</span>, color=<span class="hljs-string">&#x27;black&#x27;</span>, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>, alpha=<span class="hljs-number">0.3</span>, linewidth=<span class="hljs-number">1</span>)
+    ax1.set_title(<span class="hljs-string">&#x27;Cumulative Returns by Layer&#x27;</span>, fontsize=<span class="hljs-number">14</span>, fontweight=<span class="hljs-string">&#x27;bold&#x27;</span>, pad=<span class="hljs-number">15</span>)
+    ax1.set_xlabel(<span class="hljs-string">&#x27;Date&#x27;</span>, fontsize=<span class="hljs-number">11</span>)
+    ax1.set_ylabel(<span class="hljs-string">&#x27;Cumulative Return&#x27;</span>, fontsize=<span class="hljs-number">11</span>)
+    ax1.legend(loc=<span class="hljs-string">&#x27;best&#x27;</span>, framealpha=<span class="hljs-number">0.9</span>, fontsize=<span class="hljs-number">10</span>)
+    ax1.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>, linestyle=<span class="hljs-string">&#x27;:&#x27;</span>, linewidth=<span class="hljs-number">0.5</span>)
+    ax1.set_facecolor(<span class="hljs-string">&#x27;#f7f7f7&#x27;</span>)
     
-    # 2. 多空策略 + 回撤
-    ax2 = axes[0,1]
-    if long_short_cumulative is not None and long_short_returns is not None:
-        # 绘制累计收益
+    <span class="hljs-comment"># 2. 多空策略 + 回撤</span>
+    ax2 = axes[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]
+    <span class="hljs-keyword">if</span> long_short_cumulative <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> long_short_returns <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-comment"># 绘制累计收益</span>
         ax2.plot(long_short_cumulative.index, long_short_cumulative, 
-                linewidth=3, color=&#39;#2E7D32&#39;, label=&#39;Long-Short&#39;, alpha=0.9)
-        ax2.axhline(y=1, color=&#39;black&#39;, linestyle=&#39;--&#39;, alpha=0.3, linewidth=1)
+                linewidth=<span class="hljs-number">3</span>, color=<span class="hljs-string">&#x27;#2E7D32&#x27;</span>, label=<span class="hljs-string">&#x27;Long-Short&#x27;</span>, alpha=<span class="hljs-number">0.9</span>)
+        ax2.axhline(y=<span class="hljs-number">1</span>, color=<span class="hljs-string">&#x27;black&#x27;</span>, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>, alpha=<span class="hljs-number">0.3</span>, linewidth=<span class="hljs-number">1</span>)
         
-        # 添加回撤阴影
+        <span class="hljs-comment"># 添加回撤阴影</span>
         drawdown = qs.stats.to_drawdown_series(long_short_returns)
         ax2_twin = ax2.twinx()
-        ax2_twin.fill_between(drawdown.index, drawdown * 100, 0, 
-                              color=&#39;#D32F2F&#39;, alpha=0.3, label=&#39;Drawdown&#39;)
-        ax2_twin.set_ylabel(&#39;Drawdown (%)&#39;, fontsize=10, color=&#39;#D32F2F&#39;)
-        ax2_twin.tick_params(axis=&#39;y&#39;, labelcolor=&#39;#D32F2F&#39;)
-        ax2_twin.legend(loc=&#39;lower right&#39;, framealpha=0.9, fontsize=9)
+        ax2_twin.fill_between(drawdown.index, drawdown * <span class="hljs-number">100</span>, <span class="hljs-number">0</span>, 
+                              color=<span class="hljs-string">&#x27;#D32F2F&#x27;</span>, alpha=<span class="hljs-number">0.3</span>, label=<span class="hljs-string">&#x27;Drawdown&#x27;</span>)
+        ax2_twin.set_ylabel(<span class="hljs-string">&#x27;Drawdown (%)&#x27;</span>, fontsize=<span class="hljs-number">10</span>, color=<span class="hljs-string">&#x27;#D32F2F&#x27;</span>)
+        ax2_twin.tick_params(axis=<span class="hljs-string">&#x27;y&#x27;</span>, labelcolor=<span class="hljs-string">&#x27;#D32F2F&#x27;</span>)
+        ax2_twin.legend(loc=<span class="hljs-string">&#x27;lower right&#x27;</span>, framealpha=<span class="hljs-number">0.9</span>, fontsize=<span class="hljs-number">9</span>)
         
-        ax2.set_title(&#39;Long-Short Strategy with Drawdown&#39;, fontsize=14, fontweight=&#39;bold&#39;, pad=15)
-        ax2.set_xlabel(&#39;Date&#39;, fontsize=11)
-        ax2.set_ylabel(&#39;Cumulative Return&#39;, fontsize=11)
-        ax2.legend(loc=&#39;upper left&#39;, framealpha=0.9, fontsize=10)
-        ax2.grid(True, alpha=0.3, linestyle=&#39;:&#39;, linewidth=0.5)
-        ax2.set_facecolor(&#39;#f7f7f7&#39;)
+        ax2.set_title(<span class="hljs-string">&#x27;Long-Short Strategy with Drawdown&#x27;</span>, fontsize=<span class="hljs-number">14</span>, fontweight=<span class="hljs-string">&#x27;bold&#x27;</span>, pad=<span class="hljs-number">15</span>)
+        ax2.set_xlabel(<span class="hljs-string">&#x27;Date&#x27;</span>, fontsize=<span class="hljs-number">11</span>)
+        ax2.set_ylabel(<span class="hljs-string">&#x27;Cumulative Return&#x27;</span>, fontsize=<span class="hljs-number">11</span>)
+        ax2.legend(loc=<span class="hljs-string">&#x27;upper left&#x27;</span>, framealpha=<span class="hljs-number">0.9</span>, fontsize=<span class="hljs-number">10</span>)
+        ax2.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>, linestyle=<span class="hljs-string">&#x27;:&#x27;</span>, linewidth=<span class="hljs-number">0.5</span>)
+        ax2.set_facecolor(<span class="hljs-string">&#x27;#f7f7f7&#x27;</span>)
     
-    # 3. 绩效指标对比
-    ax3 = axes[1,0]    
-    metrics       = [&#39;Total_Return&#39;, &#39;Sharpe_Ratio&#39;, &#39;Calmar_Ratio&#39;]   # 与标签/颜色一一对应
-    metric_labels = [&#39;Ann. Return&#39;, &#39;Sharpe Ratio&#39;, &#39;Calmar Ratio&#39;]
-    metric_colors = [&#39;#66C2A5&#39;, &#39;#FC8D62&#39;, &#39;#8DA0CB&#39;]
+    <span class="hljs-comment"># 3. 绩效指标对比</span>
+    ax3 = axes[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]    
+    metrics       = [<span class="hljs-string">&#x27;Total_Return&#x27;</span>, <span class="hljs-string">&#x27;Sharpe_Ratio&#x27;</span>, <span class="hljs-string">&#x27;Calmar_Ratio&#x27;</span>]   <span class="hljs-comment"># 与标签/颜色一一对应</span>
+    metric_labels = [<span class="hljs-string">&#x27;Ann. Return&#x27;</span>, <span class="hljs-string">&#x27;Sharpe Ratio&#x27;</span>, <span class="hljs-string">&#x27;Calmar Ratio&#x27;</span>]
+    metric_colors = [<span class="hljs-string">&#x27;#66C2A5&#x27;</span>, <span class="hljs-string">&#x27;#FC8D62&#x27;</span>, <span class="hljs-string">&#x27;#8DA0CB&#x27;</span>]
     
-    if not strat_keys:
-        ax3.axis(&#39;off&#39;)  # 没有可画的就关掉子图
-    else:
-        x = np.arange(len(strat_keys))
-        width = 0.25
-        for i, (metric, label, color) in enumerate(zip(metrics, metric_labels, metric_colors)):
-            vals = [statistics[k].get(metric, 0) for k in strat_keys]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> strat_keys:
+        ax3.axis(<span class="hljs-string">&#x27;off&#x27;</span>)  <span class="hljs-comment"># 没有可画的就关掉子图</span>
+    <span class="hljs-keyword">else</span>:
+        x = np.arange(<span class="hljs-built_in">len</span>(strat_keys))
+        width = <span class="hljs-number">0.25</span>
+        <span class="hljs-keyword">for</span> i, (metric, label, color) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-built_in">zip</span>(metrics, metric_labels, metric_colors)):
+            vals = [statistics[k].get(metric, <span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> strat_keys]
             ax3.bar(x + i*width, vals, width, label=label,
-                    color=color, alpha=0.8, edgecolor=&#39;white&#39;, linewidth=1.5)
+                    color=color, alpha=<span class="hljs-number">0.8</span>, edgecolor=<span class="hljs-string">&#x27;white&#x27;</span>, linewidth=<span class="hljs-number">1.5</span>)
     
-        ax3.set_title(&#39;Performance Metrics Comparison&#39;, fontsize=14, fontweight=&#39;bold&#39;, pad=15)
-        ax3.set_xlabel(&#39;Strategy&#39;, fontsize=11)
-        ax3.set_ylabel(&#39;Value&#39;, fontsize=11)
+        ax3.set_title(<span class="hljs-string">&#x27;Performance Metrics Comparison&#x27;</span>, fontsize=<span class="hljs-number">14</span>, fontweight=<span class="hljs-string">&#x27;bold&#x27;</span>, pad=<span class="hljs-number">15</span>)
+        ax3.set_xlabel(<span class="hljs-string">&#x27;Strategy&#x27;</span>, fontsize=<span class="hljs-number">11</span>)
+        ax3.set_ylabel(<span class="hljs-string">&#x27;Value&#x27;</span>, fontsize=<span class="hljs-number">11</span>)
         ax3.set_xticks(x + width)
-        ax3.set_xticklabels([str(k).replace(&#39;_&#39;, &#39; &#39;) for k in strat_keys],
-                            rotation=15, ha=&#39;right&#39;, fontsize=9)
-        ax3.legend(loc=&#39;best&#39;, framealpha=0.9, fontsize=10)
-        ax3.grid(True, alpha=0.3, axis=&#39;y&#39;, linestyle=&#39;:&#39;, linewidth=0.5)
-        ax3.set_facecolor(&#39;#f7f7f7&#39;)
+        ax3.set_xticklabels([<span class="hljs-built_in">str</span>(k).replace(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27; &#x27;</span>) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> strat_keys],
+                            rotation=<span class="hljs-number">15</span>, ha=<span class="hljs-string">&#x27;right&#x27;</span>, fontsize=<span class="hljs-number">9</span>)
+        ax3.legend(loc=<span class="hljs-string">&#x27;best&#x27;</span>, framealpha=<span class="hljs-number">0.9</span>, fontsize=<span class="hljs-number">10</span>)
+        ax3.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>, axis=<span class="hljs-string">&#x27;y&#x27;</span>, linestyle=<span class="hljs-string">&#x27;:&#x27;</span>, linewidth=<span class="hljs-number">0.5</span>)
+        ax3.set_facecolor(<span class="hljs-string">&#x27;#f7f7f7&#x27;</span>)
 
     
-    # 4. 统计表格（选择关键指标）
-    ax4 = axes[1,1]
-    ax4.axis(&#39;tight&#39;)
-    ax4.axis(&#39;off&#39;)
+    <span class="hljs-comment"># 4. 统计表格（选择关键指标）</span>
+    ax4 = axes[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]
+    ax4.axis(<span class="hljs-string">&#x27;tight&#x27;</span>)
+    ax4.axis(<span class="hljs-string">&#x27;off&#x27;</span>)
     
-    key_metrics = [&#39;Total_Return&#39;, &#39;Annualized_Return&#39;, &#39;Sharpe_Ratio&#39;, 
-                   &#39;Max_Drawdown&#39;,&#39;Volatility&#39;, &#39;Win_Rate&#39;]
-    stats_df = pd.DataFrame(statistics).T[key_metrics].round(2)
+    key_metrics = [<span class="hljs-string">&#x27;Total_Return&#x27;</span>, <span class="hljs-string">&#x27;Annualized_Return&#x27;</span>, <span class="hljs-string">&#x27;Sharpe_Ratio&#x27;</span>, 
+                   <span class="hljs-string">&#x27;Max_Drawdown&#x27;</span>,<span class="hljs-string">&#x27;Volatility&#x27;</span>, <span class="hljs-string">&#x27;Win_Rate&#x27;</span>]
+    stats_df = pd.DataFrame(statistics).T[key_metrics].<span class="hljs-built_in">round</span>(<span class="hljs-number">2</span>)
     
-    # 表格
+    <span class="hljs-comment"># 表格</span>
     table = ax4.table(cellText=stats_df.values,
                      rowLabels=stats_df.index,
-                     colLabels=[col.replace(&#39;_&#39;, &#39; &#39;) for col in stats_df.columns],
-                     cellLoc=&#39;center&#39;,
-                     loc=&#39;center&#39;,
-                     bbox=[0, 0, 1, 1])
+                     colLabels=[col.replace(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27; &#x27;</span>) <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> stats_df.columns],
+                     cellLoc=<span class="hljs-string">&#x27;center&#x27;</span>,
+                     loc=<span class="hljs-string">&#x27;center&#x27;</span>,
+                     bbox=[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
     
-    table.auto_set_font_size(False)
-    table.set_fontsize(9)
-    table.scale(1, 2.2)
+    table.auto_set_font_size(<span class="hljs-literal">False</span>)
+    table.set_fontsize(<span class="hljs-number">9</span>)
+    table.scale(<span class="hljs-number">1</span>, <span class="hljs-number">2.2</span>)
     
-    # 表头样式
-    for i in range(len(stats_df.columns)):
-        table[(0, i)].set_facecolor(&#39;#4CAF50&#39;)
-        table[(0, i)].set_text_props(weight=&#39;bold&#39;, color=&#39;white&#39;)
+    <span class="hljs-comment"># 表头样式</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(stats_df.columns)):
+        table[(<span class="hljs-number">0</span>, i)].set_facecolor(<span class="hljs-string">&#x27;#4CAF50&#x27;</span>)
+        table[(<span class="hljs-number">0</span>, i)].set_text_props(weight=<span class="hljs-string">&#x27;bold&#x27;</span>, color=<span class="hljs-string">&#x27;white&#x27;</span>)
     
-    # 行标签样式
-    for i in range(len(stats_df)):
-        table[(i+1, -1)].set_facecolor(&#39;#E8F5E9&#39;)
-        table[(i+1, -1)].set_text_props(weight=&#39;bold&#39;)
+    <span class="hljs-comment"># 行标签样式</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(stats_df)):
+        table[(i+<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)].set_facecolor(<span class="hljs-string">&#x27;#E8F5E9&#x27;</span>)
+        table[(i+<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)].set_text_props(weight=<span class="hljs-string">&#x27;bold&#x27;</span>)
     
-    ax4.set_title(&#39;Performance Statistics&#39;, fontsize=14, fontweight=&#39;bold&#39;, pad=15)
+    ax4.set_title(<span class="hljs-string">&#x27;Performance Statistics&#x27;</span>, fontsize=<span class="hljs-number">14</span>, fontweight=<span class="hljs-string">&#x27;bold&#x27;</span>, pad=<span class="hljs-number">15</span>)
     
-    plt.suptitle(title.replace(&#39;_&#39;, &#39; &#39;), fontsize=16, fontweight=&#39;bold&#39;, y=0.995)
+    plt.suptitle(title.replace(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27; &#x27;</span>), fontsize=<span class="hljs-number">16</span>, fontweight=<span class="hljs-string">&#x27;bold&#x27;</span>, y=<span class="hljs-number">0.995</span>)
     plt.tight_layout()
     
-    # 保存图表
-    filename = f&#39;{save_path}/{title}.png&#39;
-    plt.savefig(filename, dpi=300, bbox_inches=&#39;tight&#39;, facecolor=&#39;white&#39;)
-    print(f&quot;[OK] 图表已保存：{filename}&quot;)
+    <span class="hljs-comment"># 保存图表</span>
+    filename = <span class="hljs-string">f&#x27;<span class="hljs-subst">{save_path}</span>/<span class="hljs-subst">{title}</span>.png&#x27;</span>
+    plt.savefig(filename, dpi=<span class="hljs-number">300</span>, bbox_inches=<span class="hljs-string">&#x27;tight&#x27;</span>, facecolor=<span class="hljs-string">&#x27;white&#x27;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] 图表已保存：<span class="hljs-subst">{filename}</span>&quot;</span>)
     plt.close()
-    return fig
+    <span class="hljs-keyword">return</span> fig
     
-# 绘图
-plot_backtest_results(wind_results, title=&#39;Wind_ESG_Score&#39;)
-</code></pre>
+<span class="hljs-comment"># 绘图</span>
+plot_backtest_results(wind_results, title=<span class="hljs-string">&#x27;Wind_ESG_Score&#x27;</span>)
+</span></code></pre>
 <p>此外，还为每个策略自动输出 QuantStats HTML 报告。</p>
-<pre><code class="language-python">def generate_quantstats_report(returns, output_file, title=&#39;ESG Strategy Report&#39;):
-    print(f&quot;正在生成quantstats报告：{output_file}&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_quantstats_report</span>(<span class="hljs-params">returns, output_file, title=<span class="hljs-string">&#x27;ESG Strategy Report&#x27;</span></span>):
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;正在生成quantstats报告：<span class="hljs-subst">{output_file}</span>&quot;</span>)
 
-    # 1) 保证是 Series，索引为 DatetimeIndex
-    if isinstance(returns, pd.DataFrame):
-        returns = returns.iloc[:, 0]
-    returns = returns.dropna().astype(float)
-    if not isinstance(returns.index, pd.DatetimeIndex):
+    <span class="hljs-comment"># 1) 保证是 Series，索引为 DatetimeIndex</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(returns, pd.DataFrame):
+        returns = returns.iloc[:, <span class="hljs-number">0</span>]
+    returns = returns.dropna().astype(<span class="hljs-built_in">float</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(returns.index, pd.DatetimeIndex):
         returns.index = pd.to_datetime(returns.index)
-    if not returns.name:
-        returns.name = &#39;Strategy&#39;
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> returns.name:
+        returns.name = <span class="hljs-string">&#x27;Strategy&#x27;</span>
 
-    # 2) 构造零基准，长度与索引匹配
-    benchmark = pd.Series(0.0, index=returns.index, name=&#39;Zero&#39;)
+    <span class="hljs-comment"># 2) 构造零基准，长度与索引匹配</span>
+    benchmark = pd.Series(<span class="hljs-number">0.0</span>, index=returns.index, name=<span class="hljs-string">&#x27;Zero&#x27;</span>)
 
-    # 3) 生成报告
+    <span class="hljs-comment"># 3) 生成报告</span>
     qs.reports.html(
         returns,
         benchmark=benchmark,      
         title=title,
         output=output_file
     )
-    print(f&quot;[OK] Quantstats报告已保存&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] Quantstats报告已保存&quot;</span>)
 
-# 生成Wind多空策略的quantstats完整报告
-if wind_results[&#39;long_short_returns&#39;] is not None:
+<span class="hljs-comment"># 生成Wind多空策略的quantstats完整报告</span>
+<span class="hljs-keyword">if</span> wind_results[<span class="hljs-string">&#x27;long_short_returns&#x27;</span>] <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
     generate_quantstats_report(
-        wind_results[&#39;long_short_returns&#39;],
-        output_file = f&#39;{report_dir}/wind_longshort_report.html&#39;,
-         title=&#39;Wind评分多空策略报告&#39;
-    )
-</code></pre>
+        wind_results[<span class="hljs-string">&#x27;long_short_returns&#x27;</span>],
+        output_file = <span class="hljs-string">f&#x27;<span class="hljs-subst">{report_dir}</span>/wind_longshort_report.html&#x27;</span>,
+         title=<span class="hljs-string">&#x27;Wind评分多空策略报告&#x27;</span>
+    )</span></code></pre>
 <h2 id="3wind结果分析">3.wind结果分析</h2>
 <p>按照以上代码执行之后，我们便会得到wind的ESG投资结果，如下图所示：<!--补充：如下图所示-->：
 <img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png" alt="">
@@ -657,60 +651,59 @@ if wind_results[&#39;long_short_returns&#39;] is not None:
 <p>高ESG股票属于一个避风港的类型，它带来的收益不多但也不会亏损太多。</p>
 <h2 id="4华证数据多维分析">4.华证数据多维分析</h2>
 <p>接下来，我们通过调用上文已经编写好的函数，来对华证ESG数据的总分以及各个单项进行分层回测测试：</p>
-<pre><code class="language-python">huazheng_esg_data = pd.read_parquet(&#39;hz_esg.parquet&#39;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span></span><span class="cl-body">huazheng_esg_data = pd.read_parquet(<span class="hljs-string">&#x27;hz_esg.parquet&#x27;</span>)
 
-print(&quot;准备日线收益率数据&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;准备日线收益率数据&quot;</span>)
 daily_returns = prepare_daily_returns(daily_data)
 
-# 华政ESG 4个分层回测 
+<span class="hljs-comment"># 华政ESG 4个分层回测 </span>
 huazheng_scores = [
-    (&#39;综合得分&#39;, &#39;综合得分&#39;),
-    (&#39;E得分&#39;, &#39;E得分&#39;), 
-    (&#39;S得分&#39;, &#39;S得分&#39;),
-    (&#39;G得分&#39;, &#39;G得分&#39;)
+    (<span class="hljs-string">&#x27;综合得分&#x27;</span>, <span class="hljs-string">&#x27;综合得分&#x27;</span>),
+    (<span class="hljs-string">&#x27;E得分&#x27;</span>, <span class="hljs-string">&#x27;E得分&#x27;</span>), 
+    (<span class="hljs-string">&#x27;S得分&#x27;</span>, <span class="hljs-string">&#x27;S得分&#x27;</span>),
+    (<span class="hljs-string">&#x27;G得分&#x27;</span>, <span class="hljs-string">&#x27;G得分&#x27;</span>)
 ]
 
-for score_name, score_col in huazheng_scores:
-    print(f&quot;\n&quot; + &quot;=&quot;*80)
-    print(f&quot;华政{score_name}回测&quot;)
-    print(&quot;=&quot;*80)
+<span class="hljs-keyword">for</span> score_name, score_col <span class="hljs-keyword">in</span> huazheng_scores:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n&quot;</span> + <span class="hljs-string">&quot;=&quot;</span>*<span class="hljs-number">80</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;华政<span class="hljs-subst">{score_name}</span>回测&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=&quot;</span>*<span class="hljs-number">80</span>)
     
-    # 预处理数据
+    <span class="hljs-comment"># 预处理数据</span>
     esg_huazheng = preprocess_esg_data(huazheng_esg_data, score_column=score_col)
     
-    # 分层（使用统一函数）
+    <span class="hljs-comment"># 分层（使用统一函数）</span>
     esg_huazheng_classified = classify_score_per_period(esg_huazheng, score_col, 
-                                                        n_layers=10, data_source=f&#39;华政{score_name}&#39;)
+                                                        n_layers=<span class="hljs-number">10</span>, data_source=<span class="hljs-string">f&#x27;华政<span class="hljs-subst">{score_name}</span>&#x27;</span>)
     
-    # 扩展到日线
+    <span class="hljs-comment"># 扩展到日线</span>
     daily_with_huazheng = expand_to_daily_with_t1(esg_huazheng_classified, daily_returns)
     
-    # 清洗
+    <span class="hljs-comment"># 清洗</span>
     daily_with_huazheng = daily_with_huazheng.replace([np.inf, -np.inf], np.nan)
-    daily_with_huazheng = daily_with_huazheng[daily_with_huazheng[&#39;return&#39;].between(-0.5, 0.5)]
-    print(f&quot;[INFO] 清洗后华政{score_name}数据：{len(daily_with_huazheng):,} 条记录&quot;)
+    daily_with_huazheng = daily_with_huazheng[daily_with_huazheng[<span class="hljs-string">&#x27;return&#x27;</span>].between(-<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)]
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[INFO] 清洗后华政<span class="hljs-subst">{score_name}</span>数据：<span class="hljs-subst">{<span class="hljs-built_in">len</span>(daily_with_huazheng):,}</span> 条记录&quot;</span>)
     
-    # 回测
-    huazheng_results = backtest_hold_between_events(daily_with_huazheng, min_names_per_layer_day=10)
+    <span class="hljs-comment"># 回测</span>
+    huazheng_results = backtest_hold_between_events(daily_with_huazheng, min_names_per_layer_day=<span class="hljs-number">10</span>)
     
-    print(f&quot;\n华政{score_name}回测结果：&quot;)
-    print(pd.DataFrame(huazheng_results[&#39;statistics&#39;]).T.to_string())
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n华政<span class="hljs-subst">{score_name}</span>回测结果：&quot;</span>)
+    <span class="hljs-built_in">print</span>(pd.DataFrame(huazheng_results[<span class="hljs-string">&#x27;statistics&#x27;</span>]).T.to_string())
     
-    # 保存结果
-    all_results[f&#39;华政{score_name}&#39;] = huazheng_results
+    <span class="hljs-comment"># 保存结果</span>
+    all_results[<span class="hljs-string">f&#x27;华政<span class="hljs-subst">{score_name}</span>&#x27;</span>] = huazheng_results
     
-    # 绘图
-    plot_backtest_results(huazheng_results, title=f&#39;Huazheng_{score_name}&#39;)
+    <span class="hljs-comment"># 绘图</span>
+    plot_backtest_results(huazheng_results, title=<span class="hljs-string">f&#x27;Huazheng_<span class="hljs-subst">{score_name}</span>&#x27;</span>)
     
     
-    print(f&quot;[OK] 华政{score_name}多空策略报告已生成&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[OK] 华政<span class="hljs-subst">{score_name}</span>多空策略报告已生成&quot;</span>)
 
     generate_quantstats_report(
-        huazheng_results[&#39;long_short_returns&#39;],
-        output_file=f&#39;{report_dir}/huazheng_{score_name}_longshort_report.html&#39;,
-        title=f&#39;华政{score_name}多空策略报告&#39;
-    )
-</code></pre>
+        huazheng_results[<span class="hljs-string">&#x27;long_short_returns&#x27;</span>],
+        output_file=<span class="hljs-string">f&#x27;<span class="hljs-subst">{report_dir}</span>/huazheng_<span class="hljs-subst">{score_name}</span>_longshort_report.html&#x27;</span>,
+        title=<span class="hljs-string">f&#x27;华政<span class="hljs-subst">{score_name}</span>多空策略报告&#x27;</span>
+    )</span></code></pre>
 <p>华证提供了更多的评级数据，包括<strong>单独的E，S和G评分</strong>，因此我们可以绘制四幅分层收益分析图：</p>
 <h3 id="41华证综合得分">4.1华证综合得分</h3>
 <p><img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png" alt=""></p>

@@ -16,18 +16,16 @@
 <p>问题定义如下：</p>
 <p>假设我们分别在周一、周二，...，周五以收盘价买入，持有1, 2, 3, 4, 5天，并以收盘价卖出，求平均收益、累积收益和夏普率。我们选择更有代表性的中证1000指数作为标的。</p>
 <h2 id="获取行情数据">获取行情数据</h2>
-<pre><code class="language-python">df = pro.index_daily(**{
-    &quot;ts_code&quot;: &quot;000852.SH&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">df = pro.index_daily(**{
+    <span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;000852.SH&quot;</span>
 })
 
 df.index = pd.to_datetime(df.trade_date)
-df.sort_index(ascending=True, inplace=True)
-df.tail(10)
-</code></pre>
+df.sort_index(ascending=<span class="hljs-literal">True</span>, inplace=<span class="hljs-literal">True</span>)
+df.tail(<span class="hljs-number">10</span>)</span></code></pre>
 <p>我们得到的数据将会是从2005年1月4日，到最近的一个交易日为止。在2024年11月间，这将得到约4800条记录。</p>
 <p>我们先看一下它的总体走势：</p>
-<pre><code class="language-python">df.close.plot()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.close.plot()</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/%E4%B8%AD%E8%AF%811000-2005-2024.jpg" alt=""></p>
 <!-- END IPYNB STRIPOUT -->
@@ -36,20 +34,19 @@ df.tail(10)
 <h2 id="计算分组收益">计算分组收益</h2>
 <p>接下来我们计算不同日期买入并持有不同period的收益。这里实际上有一个简单的算法，就是我们先按持有期period计算每天的对应收益，然后再按weekday进行分组，就得到了结果。</p>
 <p>我们先给df增加分组标志：</p>
-<pre><code class="language-python"># 给df增加一列，作为分组标志
-df[&quot;weekday&quot;] = df.index.map(lambda x: x.weekday())
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-comment"># 给df增加一列，作为分组标志</span>
+df[<span class="hljs-string">&quot;weekday&quot;</span>] = df.index.<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: x.weekday())
 
-# 将数字转换为更易阅读的周几
-df[&quot;weekday&quot;] = df.weekday.map({
-    0: &quot;周一&quot;,
-    1: &quot;周二&quot;,
-    2: &quot;周三&quot;,
-    3: &quot;周四&quot;,
-    4: &quot;周五&quot;
+<span class="hljs-comment"># 将数字转换为更易阅读的周几</span>
+df[<span class="hljs-string">&quot;weekday&quot;</span>] = df.weekday.<span class="hljs-built_in">map</span>({
+    <span class="hljs-number">0</span>: <span class="hljs-string">&quot;周一&quot;</span>,
+    <span class="hljs-number">1</span>: <span class="hljs-string">&quot;周二&quot;</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">&quot;周三&quot;</span>,
+    <span class="hljs-number">3</span>: <span class="hljs-string">&quot;周四&quot;</span>,
+    <span class="hljs-number">4</span>: <span class="hljs-string">&quot;周五&quot;</span>
 })
-df = df[[&quot;close&quot;, &quot;weekday&quot;]]
-df.tail()
-</code></pre>
+df = df[[<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;weekday&quot;</span>]]
+df.tail()</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 
 <p>此时我们会得到：</p>
@@ -59,14 +56,13 @@ df.tail()
         vertical-align: middle;
     }
 
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-string">.dataframe</span> <span class="hljs-string">tbody</span> <span class="hljs-string">tr</span> <span class="hljs-string">th</span> {
+    <span class="hljs-attr">vertical-align:</span> <span class="hljs-string">top;</span>
 }
 
-.dataframe thead th {
-    text-align: right;
-}
-</code></pre>
+<span class="hljs-string">.dataframe</span> <span class="hljs-string">thead</span> <span class="hljs-string">th</span> {
+    <span class="hljs-attr">text-align:</span> <span class="hljs-string">right;</span>
+}</span></code></pre>
 <p></style></p>
 <table border="1" class="dataframe">
   <thead>
@@ -139,11 +135,10 @@ df.tail()
 <!-- END IPYNB STRIPOUT -->
 
 <p>接下来我们计算每期的收益。</p>
-<pre><code class="language-python">for period in range(1, 6):
-    df[f&quot;{period}D&quot;] = df.close.pct_change(period).shift(-period)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">for</span> period <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>):
+    df[<span class="hljs-string">f&quot;<span class="hljs-subst">{period}</span>D&quot;</span>] = df.close.pct_change(period).shift(-period)
 
-df.tail(10)
-</code></pre>
+df.tail(<span class="hljs-number">10</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>此时我们会得到：</p>
 <div>
@@ -152,14 +147,13 @@ df.tail(10)
         vertical-align: middle;
     }
 
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-string">.dataframe</span> <span class="hljs-string">tbody</span> <span class="hljs-string">tr</span> <span class="hljs-string">th</span> {
+    <span class="hljs-attr">vertical-align:</span> <span class="hljs-string">top;</span>
 }
 
-.dataframe thead th {
-    text-align: right;
-}
-</code></pre>
+<span class="hljs-string">.dataframe</span> <span class="hljs-string">thead</span> <span class="hljs-string">th</span> {
+    <span class="hljs-attr">text-align:</span> <span class="hljs-string">right;</span>
+}</span></code></pre>
 <p></style></p>
 <table border="1" class="dataframe">
   <thead>
@@ -291,27 +285,24 @@ df.tail(10)
 <!-- END IPYNB STRIPOUT -->
 
 <p>现在，我们来计算不同时间点买入时的累积收益率：</p>
-<pre><code class="language-python">def cum_weekday_returns(df, period):
-    return ((1 + df[f&quot;{period}D&quot;]).cumprod() - 1).reset_index(drop=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">cum_weekday_returns</span>(<span class="hljs-params">df, period</span>):
+    <span class="hljs-keyword">return</span> ((<span class="hljs-number">1</span> + df[<span class="hljs-string">f&quot;<span class="hljs-subst">{period}</span>D&quot;</span>]).cumprod() - <span class="hljs-number">1</span>).reset_index(drop=<span class="hljs-literal">True</span>)
 
-returns_1d = df.groupby(&#39;weekday&#39;).apply(lambda x: cum_weekday_returns(x, 1))
-returns_1d.swaplevel().unstack().plot()
-</code></pre>
+returns_1d = df.groupby(<span class="hljs-string">&#x27;weekday&#x27;</span>).apply(<span class="hljs-keyword">lambda</span> x: cum_weekday_returns(x, <span class="hljs-number">1</span>))
+returns_1d.swaplevel().unstack().plot()</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/week-day-factor-cum-returns-1.jpg" alt=""></p>
 <!-- END IPYNB STRIPOUT -->
 
 <p>从累积收益图中我们可以看到，周五买入的收益最高，约为5.47倍。看起来这个结果只比买入并持有略好一点，但实际上，资金占有率只有买入并持有的20%。因此，如果算年化Alpha的话，它要比买入并持有高许多。</p>
 <p>当然，我们有更好的指标来评估周五买入策略的效果，即夏普率。我们先来看每天交易的夏普率：</p>
-<pre><code class="language-python">from empyrical import sharpe_ratio
-sharpe_ratio(df.close.pct_change())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">from</span> empyrical <span class="hljs-keyword">import</span> sharpe_ratio
+sharpe_ratio(df.close.pct_change())</span></code></pre>
 <p>我们得到的结果是0.46。下面我们计算从周一到周五，不同时间点买入的夏普率：</p>
-<pre><code class="language-python">for tm in (&quot;周一&quot;, &quot;周二&quot;, &quot;周三&quot;, &quot;周四&quot;, &quot;周五&quot;):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">for</span> tm <span class="hljs-keyword">in</span> (<span class="hljs-string">&quot;周一&quot;</span>, <span class="hljs-string">&quot;周二&quot;</span>, <span class="hljs-string">&quot;周三&quot;</span>, <span class="hljs-string">&quot;周四&quot;</span>, <span class="hljs-string">&quot;周五&quot;</span>):
     returns = returns_1d.swaplevel().unstack()[tm]
 
-    print(tm, f&quot;{sharpe_ratio(returns):.1f}&quot;)
-</code></pre>
+    <span class="hljs-built_in">print</span>(tm, <span class="hljs-string">f&quot;<span class="hljs-subst">{sharpe_ratio(returns):<span class="hljs-number">.1</span>f}</span>&quot;</span>)</span></code></pre>
 <p>从结果中看，周二买入的夏普甚至更高。但周三和周四买入的夏普率都为负，这解释了为什么每日买入的夏普率不高的原因。</p>
 <h2 id="终极boss">终极boss</h2>
 <p>上面我们仅仅介绍了周五买入，持有一天的收益。考虑到周一、周二买入的夏普都很高，显然，如果周五买入，并持有多天，有可能收益会更高。具体应该持有几天会更好，收益会高多少呢？<strong>可能会超出你的想像</strong>！</p>
@@ -324,13 +315,12 @@ sharpe_ratio(df.close.pct_change())
 
 <!-- END IPYNB STRIPOUT -->
 
-<pre><code class="language-python">def cum_weekday_returns(df, period):
-    return ((1 + df[f&quot;{period}D&quot;]).cumprod() - 1).reset_index(drop=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">cum_weekday_returns</span>(<span class="hljs-params">df, period</span>):
+    <span class="hljs-keyword">return</span> ((<span class="hljs-number">1</span> + df[<span class="hljs-string">f&quot;<span class="hljs-subst">{period}</span>D&quot;</span>]).cumprod() - <span class="hljs-number">1</span>).reset_index(drop=<span class="hljs-literal">True</span>)
 
-for period in range(1, 6):
-    returns = df.groupby(&#39;weekday&#39;).apply(lambda x: cum_weekday_returns(x, period))
-    returns.swaplevel().unstack().plot(title=f&quot;持有{period}天&quot;)
-</code></pre>
+<span class="hljs-keyword">for</span> period <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>):
+    returns = df.groupby(<span class="hljs-string">&#x27;weekday&#x27;</span>).apply(<span class="hljs-keyword">lambda</span> x: cum_weekday_returns(x, period))
+    returns.swaplevel().unstack().plot(title=<span class="hljs-string">f&quot;持有<span class="hljs-subst">{period}</span>天&quot;</span>)</span></code></pre>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/factor-strategy/ultimate-oscillator/">← 上一篇：一门三杰 一年翻十倍的男人发明了 UO 指标</a> <a class="series-next" href="/posts/factor-strategy/word-count/">下一篇：WorldQuant? Word Count! →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 45/80 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/ultimate-oscillator/">← 一门三杰 一年翻十倍的男人发明了 U</a> <a href="/posts/factor-strategy/word-count/">WorldQuant? Word C →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/factor-ml/intro/">课程简介</a> <p>《因子分析与机器学习策略》简介 这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。</p> </li><li> <a href="/articles/coursea/24lectures/detail/">二十四课内容详情</a> <p>共 40 万字，461 段超过 7000 行代码（另有若干策略代码作为福利赠送，未计入），这门课用一句话介绍：涵盖了量化交易全流程、学完就能进入实战的课程。</p> </li><li> <a href="/articles/coursea/24lectures/how-the-course-are-composed/">大富翁量化24课编排说明</a> <p>课程内容 本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括： 如何获取数据 我们会介绍akshare, tusha</p> </li><li> <a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/">关于寻找顶和底的一些研究</a> <p>scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法：</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#获取行情数据" title="获取行情数据">获取行情数据</a> </li><li class> <a href="#计算分组收益" title="计算分组收益">计算分组收益</a> </li><li class> <a href="#终极boss" title="终极boss">终极boss</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）

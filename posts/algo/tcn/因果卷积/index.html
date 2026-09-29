@@ -49,7 +49,7 @@ $$ y_t = \sum_{i=0}^{k-1} w_i \cdot x_{t-i} $$
 <p>在标准的卷积公式 $y_t = \sum_{i=-k}^{k} w_i \cdot x_{t-i}$ 中，$i$ 为负数时代表提取了未来的数据。因果卷积强行将公式修改为：
 $$ y_t = \sum_{i=0}^{k-1} w_i \cdot x_{t-i} $$
 彻底切断了 $x_{t+1}, x_{t+2}$ 等未来信息的流入。</p>
-<pre><code class="language-text">时间:      t=1     t=2     t=3     t=4     t=5     t=6
+<pre><code class="hljs language-text"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">时间:      t=1     t=2     t=3     t=4     t=5     t=6
 │       │       │       │       │       │
 输入 x:   [x₁]    [x₂]    [x₃]    [x₄]    [x₅]    [x₆]
 │       │       │       │       │       │
@@ -57,26 +57,24 @@ $$ y_t = \sum_{i=0}^{k-1} w_i \cdot x_{t-i} $$
 卷积核:     │ [f₀,f₁,f₂] │       │       │       │
 │   └─┬─┬─┬─┘   │       │       │       │
 │     ↓↓↓       │       │       │       │
-输出 h:           h₃       h₄      h₅      h₆
-</code></pre>
+输出 h:           h₃       h₄      h₅      h₆</span></code></pre>
 <p>在代码实现上，这其实只是一层窗户纸。在 PyTorch 中，我们只需要在序列的左侧（过去）进行 Padding 填充，而在算完之后，把右侧多出来的部分裁掉：</p>
-<pre><code class="language-python">import torch.nn as nn
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
 
-class CausalConv1D(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, dilation=1):
-        super().__init__()
-        # 计算出需要补齐的历史长度
-        self.padding = (kernel_size - 1) * dilation
-        self.conv = nn.Conv1d(in_channels, out_channels, kernel_size, 
-                              padding=self.padding, dilation=dilation)
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">CausalConv1D</span>(nn.Module):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_channels, out_channels, kernel_size, dilation=<span class="hljs-number">1</span></span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        <span class="hljs-comment"># 计算出需要补齐的历史长度</span>
+        <span class="hljs-variable language_">self</span>.padding = (kernel_size - <span class="hljs-number">1</span>) * dilation
+        <span class="hljs-variable language_">self</span>.conv = nn.Conv1d(in_channels, out_channels, kernel_size, 
+                              padding=<span class="hljs-variable language_">self</span>.padding, dilation=dilation)
     
-    def forward(self, x):
-        x = self.conv(x)
-        # 裁剪掉右侧多余输出，严格防止未来函数
-        if self.padding &gt; 0:
-            x = x[:, :, :-self.padding]
-        return x
-</code></pre>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):
+        x = <span class="hljs-variable language_">self</span>.conv(x)
+        <span class="hljs-comment"># 裁剪掉右侧多余输出，严格防止未来函数</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.padding &gt; <span class="hljs-number">0</span>:
+            x = x[:, :, :-<span class="hljs-variable language_">self</span>.padding]
+        <span class="hljs-keyword">return</span> x</span></code></pre>
 <h2 id="感受野太小怎么办">感受野太小怎么办？</h2>
 <p>但只看最近几天是不够的，这就引出了 <strong>感受野（Receptive Field）</strong> 的问题。</p>
 <p>如果卷积核大小是 3，它就只能看到前 3 根 K 线。要看清过去一年的宏观趋势，难道要堆叠上百层网络吗？</p>

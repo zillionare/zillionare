@@ -16,52 +16,51 @@
 <p>matplotlib中的布局，主要涉及到GridSpec, layout以及相关的函数构成。</p>
 <p>在matplotlib中，除了像我们上一篇笔记指出的那样，直接通过<code>fig.add_axes</code>方法进行子图的定位外，一般采用网格定位。即通过subplots中的nrows/ncols方法指定有多少个等长（宽）的网格，或者通过gridspec指定网格的规格。</p>
 <p>指定等长网格的比较简单，我们看看如何通过gridspec来创建更复杂一些的网格：</p>
-<pre><code class="language-python">import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span></span><span class="cl-body"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> matplotlib.gridspec <span class="hljs-keyword">import</span> GridSpec
 
-def annotate_axes(fig):
-    for i, ax in enumerate(fig.axes):
-        ax.text(0.5, 0.5, &quot;ax%d&quot; % (i+1), va=&quot;center&quot;, ha=&quot;center&quot;)
-        ax.tick_params(labelbottom=False, labelleft=False)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">annotate_axes</span>(<span class="hljs-params">fig</span>):
+    <span class="hljs-keyword">for</span> i, ax <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(fig.axes):
+        ax.text(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;ax%d&quot;</span> % (i+<span class="hljs-number">1</span>), va=<span class="hljs-string">&quot;center&quot;</span>, ha=<span class="hljs-string">&quot;center&quot;</span>)
+        ax.tick_params(labelbottom=<span class="hljs-literal">False</span>, labelleft=<span class="hljs-literal">False</span>)
 
 
-fig = plt.figure(facecolor=&#39;0.8&#39;)
+fig = plt.figure(facecolor=<span class="hljs-string">&#x27;0.8&#x27;</span>)
 
-fig.suptitle(&quot;Controlling spacing around and between subplots&quot;)
+fig.suptitle(<span class="hljs-string">&quot;Controlling spacing around and between subplots&quot;</span>)
 
-gs1 = GridSpec(3, 3, left=0.3, right=0.48, wspace=0.05)
-ax1 = fig.add_subplot(gs1[:-1, :])
-ax2 = fig.add_subplot(gs1[-1, :-1])
-ax3 = fig.add_subplot(gs1[-1, -1])
+gs1 = GridSpec(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, left=<span class="hljs-number">0.3</span>, right=<span class="hljs-number">0.48</span>, wspace=<span class="hljs-number">0.05</span>)
+ax1 = fig.add_subplot(gs1[:-<span class="hljs-number">1</span>, :])
+ax2 = fig.add_subplot(gs1[-<span class="hljs-number">1</span>, :-<span class="hljs-number">1</span>])
+ax3 = fig.add_subplot(gs1[-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])
 
-gs2 = GridSpec(3, 3, left=0.55, right=0.98, hspace=0.05)
-print(&quot;gs2 is:&quot;, gs2[:, :-1])
+gs2 = GridSpec(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, left=<span class="hljs-number">0.55</span>, right=<span class="hljs-number">0.98</span>, hspace=<span class="hljs-number">0.05</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;gs2 is:&quot;</span>, gs2[:, :-<span class="hljs-number">1</span>])
 
-ax4 = fig.add_subplot(gs2[:, :-1])
-ax5 = fig.add_subplot(gs2[:-1, -1])
-ax6 = fig.add_subplot(gs2[-1, -1])
+ax4 = fig.add_subplot(gs2[:, :-<span class="hljs-number">1</span>])
+ax5 = fig.add_subplot(gs2[:-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])
+ax6 = fig.add_subplot(gs2[-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])
 
 annotate_axes(fig)
 
-def show_grid(gs, pos):
-    # Get the grid positions
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">show_grid</span>(<span class="hljs-params">gs, pos</span>):
+    <span class="hljs-comment"># Get the grid positions</span>
     bottoms, tops, lefts, rights = gs.get_grid_positions(plt.gcf())
 
-    ax = plt.axes([0,0,1,1], facecolor=(1,1,1,0))
+    ax = plt.axes([<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>], facecolor=(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>))
 
-    vlines = sorted([*lefts, *rights])
-    for x in vlines:
-        ax.axvline(x, ls=&#39;-&#39;, lw=1, ymin=min(bottoms), ymax=max(tops))
+    vlines = <span class="hljs-built_in">sorted</span>([*lefts, *rights])
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> vlines:
+        ax.axvline(x, ls=<span class="hljs-string">&#x27;-&#x27;</span>, lw=<span class="hljs-number">1</span>, ymin=<span class="hljs-built_in">min</span>(bottoms), ymax=<span class="hljs-built_in">max</span>(tops))
 
-    hlines = sorted([*bottoms, *tops])
-    for y in hlines:
-        ax.axhline(y, ls=&#39;-&#39;, lw=1, xmin=min(lefts), xmax=max(rights))
+    hlines = <span class="hljs-built_in">sorted</span>([*bottoms, *tops])
+    <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> hlines:
+        ax.axhline(y, ls=<span class="hljs-string">&#x27;-&#x27;</span>, lw=<span class="hljs-number">1</span>, xmin=<span class="hljs-built_in">min</span>(lefts), xmax=<span class="hljs-built_in">max</span>(rights))
 
-show_grid(gs1, [0.3, 0, 0.48, 1])
-show_grid(gs2, [0.55,0, 0.98, 1])
+show_grid(gs1, [<span class="hljs-number">0.3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.48</span>, <span class="hljs-number">1</span>])
+show_grid(gs2, [<span class="hljs-number">0.55</span>,<span class="hljs-number">0</span>, <span class="hljs-number">0.98</span>, <span class="hljs-number">1</span>])
 
-plt.show()
-</code></pre>
+plt.show()</span></code></pre>
 <p>这段代码中，我们先通过GridSpec创建了两个3*3的网格，一左一右，然后通过add_subplot创建了6个子图，在创建时，将gridspec传入。</p>
 <p>在创建子图，我们通过给子图绑定到不同的网格，实现了类似excel中的单元格合并的效果，从而实现了异形网格。</p>
 <p>)</p>
@@ -75,8 +74,7 @@ plt.show()
 <p>最后，ax3分到最后的单元格，gs1[-1,-1]。</p>
 <p>对gs2，逻辑类似。ax4得到了gs2[:,:-1]，这意味着所有行的前两列都分配给了ax4；ax5则是得到了最后一列的前两行；ax6得到了gs2[-1,-1]。</p>
 <p><strong>注意这里还有一个技巧</strong>，即在绘制网格线时，我们是通过新建的ax来进行绘制的。这是因为，我们的绘制应该发生成figure级别上（因为要跨越不同的axes），但是，figure并没有相应的绘制直线的方法（figure有哪些方法，在课程一开始有介绍），因此，我们必须增加一个与Figure同等大小的ax：</p>
-<pre><code class="language-python">ax = plt.axes([0,0,1,1], facecolor=(1,1,1,0))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">ax = plt.axes([<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>], facecolor=(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>))</span></code></pre>
 <p>通过它来绘制这些网格线。</p>
 <p>这里介绍的方法和原理都是比较偏底层的，属于matplotlib的高</p>
 <!--page-->

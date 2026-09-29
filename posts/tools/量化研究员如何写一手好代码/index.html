@@ -40,10 +40,9 @@
 <p>在第三方库遵循这个约定，进行了版本声明之后，我们就可以通过poetry来管理我们项目的依赖了：</p>
 <p>poetry是一个版本依赖管理工具。在使用poetry之前，你可能通过requirements.txt来管理过项目的依赖。它的问题是，并不会检查你加入的依赖，是否能与其它软件和睦相处，但Poetry可以。</p>
 <p>所以，今后我们开启新的策略研究时，我们应该先通过conda创建一个新的项目环境，然后通过poetry来增加项目依赖：</p>
-<pre><code class="language-bash">conda create -n new_project python=3.11
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">conda create -n new_project python=3.11
 poetry init
-poetry add pandas
-</code></pre>
+poetry add pandas</span></code></pre>
 <p>如此一来，在我们每次增加新的依赖时，poetry就会自动帮我们检查匹配的版本。如果找不到合适的版本，它就会报错，这样我们也有机会思考，是否有别的方案。</p>
 <h2 id="书写漂亮的代码">书写漂亮的代码</h2>
 <p>在写代码时，我们会有自己的风格。比如变量名如何使用大小写，单词之间如何分隔，如何使用空格和缩进等等。为了统一风格，2001年由Guido等人拟定了一份关于python代码风格的提案，被称为PEP8.</p>
@@ -58,116 +57,114 @@ poetry add pandas
 <h2 id="类型提示">类型提示</h2>
 <p>类型提示(type hint)可以帮助IDE实现代码自动完成，也可以帮助我们尽早发现错误。这是从python 3.4起开始导入，到python 3.8框架完成的一个功能。</p>
 <p>我们知道，python是一门动态语言。它是有类型的，但这个类型检查只在运行时才能执行：</p>
-<pre><code class="language-python">&gt;&gt;&gt; one = 1
-... if False:
-...     one + &quot;two&quot; # 这一行不会执行，所以不会抛出TypeError
-... else:
-...     one + 2
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-meta">&gt;&gt;&gt; </span>one = <span class="hljs-number">1</span>
+<span class="hljs-meta">... </span><span class="hljs-keyword">if</span> <span class="hljs-literal">False</span>:
+<span class="hljs-meta">... </span>    one + <span class="hljs-string">&quot;two&quot;</span> <span class="hljs-comment"># 这一行不会执行，所以不会抛出TypeError</span>
+<span class="hljs-meta">... </span><span class="hljs-keyword">else</span>:
+<span class="hljs-meta">... </span>    one + <span class="hljs-number">2</span>
 ...
-3
+<span class="hljs-number">3</span>
 
-&gt;&gt;&gt; one + &quot;two&quot;     # 运行到此处时，将进行类型检查，抛出TypeError
-TypeError: unsupported operand type(s) for +: &#39;int&#39; and &#39;str&#39;
-... one = &quot;one &quot;    # 变量可以通过赋值改变类型
-... one + &quot;two&quot;     # 现在类型检查没有问题
-one two
-</code></pre>
+<span class="hljs-meta">&gt;&gt;&gt; </span>one + <span class="hljs-string">&quot;two&quot;</span>     <span class="hljs-comment"># 运行到此处时，将进行类型检查，抛出TypeError</span>
+TypeError: unsupported operand <span class="hljs-built_in">type</span>(s) <span class="hljs-keyword">for</span> +: <span class="hljs-string">&#x27;int&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;str&#x27;</span>
+<span class="hljs-meta">... </span>one = <span class="hljs-string">&quot;one &quot;</span>    <span class="hljs-comment"># 变量可以通过赋值改变类型</span>
+<span class="hljs-meta">... </span>one + <span class="hljs-string">&quot;two&quot;</span>     <span class="hljs-comment"># 现在类型检查没有问题</span>
+one two</span></code></pre>
 <p>上面的代码演示了在编码阶段，python和IDE不会提示任何类型错误。所以，第一段代码永远不会抛出错误。但如果我们有机会执行 <code>1 + &quot;two&quot;</code>的话，就会得到一个TypeError错误，提示我们不能把int和str相加。这就是运行时检查。</p>
 <p>如果我们按照type hint的要求来书写代码，就可以在早期发现一些错误，比如下面的例子：</p>
-<pre><code class="language-python">def foo(name: str) -&gt; int:
-    score = 20
-    return score
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:
+    score = <span class="hljs-number">20</span>
+    <span class="hljs-keyword">return</span> score
 
-foo(10)
-</code></pre>
+foo(<span class="hljs-number">10</span>)</span></code></pre>
 <p>在这段代码中，如果我们在IDE（比如vscode）中，把光标移动到foo(10)的位置，就会出现如下的错误提示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230114102202.png" alt="50%"></p>
 <p>这样我们就能在运行前，发现调用foo方法时，传入了错误的参数。</p>
 <p>下面的代码演示了多数常见的type hint用法：</p>
-<pre><code class="language-python"># 声明变量的类型
-age: int = 1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span></span><span class="cl-body"><span class="hljs-comment"># 声明变量的类型</span>
+age: <span class="hljs-built_in">int</span> = <span class="hljs-number">1</span>
 
-# 声明变量类型时，并非一定要初始化它
-child: bool
+<span class="hljs-comment"># 声明变量类型时，并非一定要初始化它</span>
+child: <span class="hljs-built_in">bool</span>
 
-# 如果一个变量可以是任何类型，也最好声明它为Any。
-# zen of python: explicit is better than implicit
-dummy: Any = 1
-dummy = &quot;hello&quot;
+<span class="hljs-comment"># 如果一个变量可以是任何类型，也最好声明它为Any。</span>
+<span class="hljs-comment"># zen of python: explicit is better than implicit</span>
+dummy: <span class="hljs-type">Any</span> = <span class="hljs-number">1</span>
+dummy = <span class="hljs-string">&quot;hello&quot;</span>
 
-# 如果一个变量可以是多种类型，可以使用Union
-dx: Union[int, str]
-# 从python 3.10起，也可以使用下面的语法
-dx: int | str
+<span class="hljs-comment"># 如果一个变量可以是多种类型，可以使用Union</span>
+dx: <span class="hljs-type">Union</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>]
+<span class="hljs-comment"># 从python 3.10起，也可以使用下面的语法</span>
+dx: <span class="hljs-built_in">int</span> | <span class="hljs-built_in">str</span>
 
-# 如果一个变量可以为None,可以使用Optional
-dy: Optional[int]
+<span class="hljs-comment"># 如果一个变量可以为None,可以使用Optional</span>
+dy: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">int</span>]
 
-# 对python builtin类型，可以直接使用类型的名字，比如int, float, bool, str, bytes等。
-x: int = 1
-y: float = 1.0
-z: bytes = b&quot;test&quot;
+<span class="hljs-comment"># 对python builtin类型，可以直接使用类型的名字，比如int, float, bool, str, bytes等。</span>
+x: <span class="hljs-built_in">int</span> = <span class="hljs-number">1</span>
+y: <span class="hljs-built_in">float</span> = <span class="hljs-number">1.0</span>
+z: <span class="hljs-built_in">bytes</span> = <span class="hljs-string">b&quot;test&quot;</span>
 
-# 对collections类型，如果是python 3.9以上类型，仍然直接使用其名字：
-h: list[int] = [1]
-i: dict[str, int] = {&quot;a&quot;: 1}
-j: tuple[int, str] = (1, &quot;a&quot;)
-k: set[int] = {1}
+<span class="hljs-comment"># 对collections类型，如果是python 3.9以上类型，仍然直接使用其名字：</span>
+h: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">int</span>] = [<span class="hljs-number">1</span>]
+i: <span class="hljs-built_in">dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>] = {<span class="hljs-string">&quot;a&quot;</span>: <span class="hljs-number">1</span>}
+j: <span class="hljs-built_in">tuple</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>] = (<span class="hljs-number">1</span>, <span class="hljs-string">&quot;a&quot;</span>)
+k: <span class="hljs-built_in">set</span>[<span class="hljs-built_in">int</span>] = {<span class="hljs-number">1</span>}
 
-# 注意上面的list[], dict[]这样的表达方式。如果我们使用list()，则这将变成一个函数调用，而不是类型声明。
+<span class="hljs-comment"># 注意上面的list[], dict[]这样的表达方式。如果我们使用list()，则这将变成一个函数调用，而不是类型声明。</span>
 
-# 但如果是python 3.8及以下版本，需要使用typing模块中的类型：
-from typing import List, Set, Dict, Tuple
-h: List[int] = [1]
-i: Dict[str, int] = {&quot;a&quot;: 1}
-j: Tuple[int, str] = (1, &quot;a&quot;)
-k: Set[int] = {1}
+<span class="hljs-comment"># 但如果是python 3.8及以下版本，需要使用typing模块中的类型：</span>
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>, <span class="hljs-type">Set</span>, <span class="hljs-type">Dict</span>, <span class="hljs-type">Tuple</span>
+h: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>] = [<span class="hljs-number">1</span>]
+i: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>] = {<span class="hljs-string">&quot;a&quot;</span>: <span class="hljs-number">1</span>}
+j: <span class="hljs-type">Tuple</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>] = (<span class="hljs-number">1</span>, <span class="hljs-string">&quot;a&quot;</span>)
+k: <span class="hljs-type">Set</span>[<span class="hljs-built_in">int</span>] = {<span class="hljs-number">1</span>}
 
-# 如果你要写一些decorator，或者是公共库的作者，则可能会常用到下面这些类型
-from typing import Callable, Generator, Coroutine, Awaitable, AsyncIterable, AsyncIterator
+<span class="hljs-comment"># 如果你要写一些decorator，或者是公共库的作者，则可能会常用到下面这些类型</span>
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Callable</span>, Generator, <span class="hljs-type">Coroutine</span>, Awaitable, AsyncIterable, AsyncIterator
 
-def foo(x:int)-&gt;str:
-    return str(x)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">x:<span class="hljs-built_in">int</span></span>)-&gt;<span class="hljs-built_in">str</span>:
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(x)
 
-# Callable语法中，第一个参数为函数的参数类型，因此它是一个列表，第二个参数为函数的返回值类型
-f: Callable[[int], str] = foo
+<span class="hljs-comment"># Callable语法中，第一个参数为函数的参数类型，因此它是一个列表，第二个参数为函数的返回值类型</span>
+f: <span class="hljs-type">Callable</span>[[<span class="hljs-built_in">int</span>], <span class="hljs-built_in">str</span>] = foo
 
-def bar() -&gt; Generator[int, None, str]:
-    res = yield
-    while res:
-        res = yield round(res)
-    return &#39;OK&#39;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">bar</span>() -&gt; Generator[<span class="hljs-built_in">int</span>, <span class="hljs-literal">None</span>, <span class="hljs-built_in">str</span>]:
+    res = <span class="hljs-keyword">yield</span>
+    <span class="hljs-keyword">while</span> res:
+        res = <span class="hljs-keyword">yield</span> <span class="hljs-built_in">round</span>(res)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;OK&#x27;</span>
     
-g: Generator[int, None, str] = bar
+g: Generator[<span class="hljs-built_in">int</span>, <span class="hljs-literal">None</span>, <span class="hljs-built_in">str</span>] = bar
 
-# 我们也可以将上述函数返回值仅仅声明为Iterator:
-def bar() -&gt; Iterator[str]:
-    res = yield
-    while res:
-        res = yield round(res)
-    return &#39;OK&#39;
+<span class="hljs-comment"># 我们也可以将上述函数返回值仅仅声明为Iterator:</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">bar</span>() -&gt; Iterator[<span class="hljs-built_in">str</span>]:
+    res = <span class="hljs-keyword">yield</span>
+    <span class="hljs-keyword">while</span> res:
+        res = <span class="hljs-keyword">yield</span> <span class="hljs-built_in">round</span>(res)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;OK&#x27;</span>
 
-def op() -&gt; Awaitable[str]:
-    if cond:
-        return spam(42)
-    else:
-        return asyncio.Future(...)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">op</span>() -&gt; Awaitable[<span class="hljs-built_in">str</span>]:
+    <span class="hljs-keyword">if</span> cond:
+        <span class="hljs-keyword">return</span> spam(<span class="hljs-number">42</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> asyncio.Future(...)
 
-h: Awaitable[str] = op()
+h: Awaitable[<span class="hljs-built_in">str</span>] = op()
 
-# 上述针对变量的类型定义，也一样可以用在函数的参数及返回值类型声明上，比如：
-def stringify(num: int) -&gt; str:
-    return str(num)
+<span class="hljs-comment"># 上述针对变量的类型定义，也一样可以用在函数的参数及返回值类型声明上，比如：</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">stringify</span>(<span class="hljs-params">num: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">str</span>:
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(num)
 
-# 如果函数没有返回值，请声明为返回None
-def show(value: str) -&gt; None:
-    print(value)
+<span class="hljs-comment"># 如果函数没有返回值，请声明为返回None</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">value: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-built_in">print</span>(value)
 
-# 你可以给原有类型起一个别名
-Url = str
-def retry(url: Url, retry_count: int) -&gt;None:
-    pass
-</code></pre>
+<span class="hljs-comment"># 你可以给原有类型起一个别名</span>
+Url = <span class="hljs-built_in">str</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">retry</span>(<span class="hljs-params">url: Url, retry_count: <span class="hljs-built_in">int</span></span>) -&gt;<span class="hljs-literal">None</span>:
+    <span class="hljs-keyword">pass</span>
+</span></code></pre>
 <p>如果我们是在vscode中写代码，它自带一个pylance工具，将根据我们提供的type hint，来推断哪些代码在调用上，类型不对，这样可以尽早排除错误。</p>
 <p>如果我们习惯使用notebook进行策略研究，也可以在vscode中创建notebook，此时也可以得到pylance的帮助。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
@@ -178,35 +175,34 @@ vscode提供的Jupyter notebook除了在排版上可能不如原生的jupyter no
 <h2 id="单元测试-mock-it-till-you-make-it">单元测试: mock it till you make it!</h2>
 <p>在策略研发时，我们要多用单元测试。单元测试有几个用处，第一，我们可以用它来学习第三方库的一些用法。第二，确保我们自己写的可复用的功能模块得到充分测试。</p>
 <p>单元测试并不复杂，主要难点在于如何将待测试的代码与系统中的其它部分隔离开来。这里我们一般使用mock对象。</p>
-<pre><code class="language-python">
-# 通过mock.patch，我们把cfg4py.core.dispatch对象替换成mock对象
-@mock.patch(&quot;cfg4py.core.dispatch&quot;)
-def test_013_watch(self, mocked_handler):
-    # mock对象被调用后，我们可以通过call_count来检查它被调用多少次
-    self.assertTrue(mocked_handler.call_count &gt; 3)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body">
+<span class="hljs-comment"># 通过mock.patch，我们把cfg4py.core.dispatch对象替换成mock对象</span>
+<span class="hljs-meta">@mock.patch(<span class="hljs-params"><span class="hljs-string">&quot;cfg4py.core.dispatch&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_013_watch</span>(<span class="hljs-params">self, mocked_handler</span>):
+    <span class="hljs-comment"># mock对象被调用后，我们可以通过call_count来检查它被调用多少次</span>
+    <span class="hljs-variable language_">self</span>.assertTrue(mocked_handler.call_count &gt; <span class="hljs-number">3</span>)
 
-# 我们还可以通过mock来模拟调用时发生异常的情形
-with mock.patch(
-    &quot;sys.exit&quot;, lambda *args: early_jump(&quot;no files in folder&quot;)
+<span class="hljs-comment"># 我们还可以通过mock来模拟调用时发生异常的情形</span>
+<span class="hljs-keyword">with</span> mock.patch(
+    <span class="hljs-string">&quot;sys.exit&quot;</span>, <span class="hljs-keyword">lambda</span> *args: early_jump(<span class="hljs-string">&quot;no files in folder&quot;</span>)
 ):
 
-# 将对象的某个方法（这里是qfq）替换掉：
-with mock.patch.object(Stock, &quot;qfq&quot;) as mocked_qfq:
+<span class="hljs-comment"># 将对象的某个方法（这里是qfq）替换掉：</span>
+<span class="hljs-keyword">with</span> mock.patch.<span class="hljs-built_in">object</span>(Stock, <span class="hljs-string">&quot;qfq&quot;</span>) <span class="hljs-keyword">as</span> mocked_qfq:
     mocked_qfq.assert_called()
 
-# 如果我们要修改系统时间，请用freezegun的freeze_time方法
-# 下面的语句执行后，再调用 datetime.datetime.now()就会
-# 得到 2022-02-09 10:33:00，而不是真实的系统时间
-@freeze_time(&quot;2022-02-09 10:33:00&quot;)
-async def test_get_cached_bars_n(self):
-    pass
+<span class="hljs-comment"># 如果我们要修改系统时间，请用freezegun的freeze_time方法</span>
+<span class="hljs-comment"># 下面的语句执行后，再调用 datetime.datetime.now()就会</span>
+<span class="hljs-comment"># 得到 2022-02-09 10:33:00，而不是真实的系统时间</span>
+<span class="hljs-meta">@freeze_time(<span class="hljs-params"><span class="hljs-string">&quot;2022-02-09 10:33:00&quot;</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_get_cached_bars_n</span>(<span class="hljs-params">self</span>):
+    <span class="hljs-keyword">pass</span>
 
-# 如果我们的程序要接收用户输入，那么测试就无法自动化
-# 这种情况下，我们需要将builtins.input mock住，并且通过side_effect
-# 返回一个假的用户输入。
-with mock.path(&#39;builtins.input&#39;, side_effect=..):
-    pass
-</code></pre>
+<span class="hljs-comment"># 如果我们的程序要接收用户输入，那么测试就无法自动化</span>
+<span class="hljs-comment"># 这种情况下，我们需要将builtins.input mock住，并且通过side_effect</span>
+<span class="hljs-comment"># 返回一个假的用户输入。</span>
+<span class="hljs-keyword">with</span> mock.path(<span class="hljs-string">&#x27;builtins.input&#x27;</span>, side_effect=..):
+    <span class="hljs-keyword">pass</span></span></code></pre>
 <h2 id="更多">更多</h2>
 <p>更多关于Python编程最佳实践，请阅读<a href="https://blog.quantide.cn/articles/python/best-practice-python/chap01/">《Python能做大项目》</a>。</p>
 <p>这本书除涵盖上述内容（当然讲得更详细）之外，还介绍了如何进行代码版本管理（即使用git），如何进行持续集成（CI/CD）和如何撰写和生成技术文档。</p>

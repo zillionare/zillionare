@@ -30,8 +30,7 @@
 <p>当前有两个版本可用，即 v1 和 v2, 作者更推荐使用 v1。WSL v2 的体验更像一台真正的虚拟机，因此与 windows 集成性反而更差一些。</p>
 <h4>2.1.1. 安装 WSL</h4>
 <p>如果您的 windows 10 是 2004 及更高版本，或者是 Windows 11，则安装只需要一条命令即可完成：</p>
-<pre><code class="language-shell">wsl --install --set-defalut-version=1
-</code></pre>
+<pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">wsl --install --set-defalut-version=1</span></code></pre>
 <p>这将安装 WSL v1 版到您的机器上。如果是稍早一点的系统，则需要执行以下步骤：</p>
 <ol>
 <li>首先，启用“适用于 Linux 的 Windows 子系统”功能：</li>
@@ -49,13 +48,12 @@
 <p>我们需要写三个脚本，一个 start.vbs，一个 control.bat 和一个 commands.txt，并且增加一个开机自动执行的计划任务。当 Windows 开机后，这个计划任务自动执行，调用 start.vbs 来执行 control.bat, 而 control.bat 则会启动 WSL（及其依赖的 Windows 服务），并在 WSL 环境下执行定义在 commands.txt 中的那些命令--即将要在 WSL 中运行的服务，比如 ssh server。整个过程如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304153221.png" alt=""></p>
 <p>首先，我们在 commands.txt 文件中定义要在 WSL 中运行的后台服务：</p>
-<pre><code class="language-text">/etc/init.d/cron
-/etc/init.d/ssh
-</code></pre>
+<pre><code class="hljs language-text"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">/etc/init.d/cron
+/etc/init.d/ssh</span></code></pre>
 <p>然后，我们编写一个批处理脚本，用以启动 WSL，并执行上述命令：</p>
-<pre><code class="language-bat">REM control.bat
+<pre><code class="hljs language-bat"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span></span><span class="cl-body">REM control.bat
 REM 脚本来源于 https://github.com/troytse/wsl-autostart/
-@echo off
+@<span class="hljs-built_in">echo</span> off
 REM Goto the detect section.
 goto lxssDetect
 
@@ -69,39 +67,37 @@ goto lxssDetect
 
 :lxssDetect
     REM Detect the LxssManager service status
-    for /f &quot;skip=3 tokens=4&quot; %%i in (&#39;sc query LxssManager&#39;) do set &quot;state=%%i&quot; &amp;goto lxssStatus
+    <span class="hljs-keyword">for</span> /f <span class="hljs-string">&quot;skip=3 tokens=4&quot;</span> %%i <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;sc query LxssManager&#x27;</span>) <span class="hljs-keyword">do</span> <span class="hljs-built_in">set</span> <span class="hljs-string">&quot;state=%%i&quot;</span> &amp;goto lxssStatus
 
 :lxssStatus
     REM If the LxssManager service is stopped, start it.
-    if /i &quot;%state%&quot;==&quot;STOPPED&quot; (goto lxssStart)
-    REM If the LxssManager service is starting, wait for it to finish start.
-    if /i &quot;%state%&quot;==&quot;STARTING&quot; (goto lxssDetect)
+    <span class="hljs-keyword">if</span> /i <span class="hljs-string">&quot;%state%&quot;</span>==<span class="hljs-string">&quot;STOPPED&quot;</span> (goto lxssStart)
+    REM If the LxssManager service is starting, <span class="hljs-built_in">wait</span> <span class="hljs-keyword">for</span> it to finish start.
+    <span class="hljs-keyword">if</span> /i <span class="hljs-string">&quot;%state%&quot;</span>==<span class="hljs-string">&quot;STARTING&quot;</span> (goto lxssDetect)
     REM If the LxssManager service is running, start the linux service.
-    if /i &quot;%state%&quot;==&quot;RUNNING&quot; (goto next)
-    REM If the LxssManager service is stopping, nothing to do.
-    if /i &quot;%state%&quot;==&quot;STOPPING&quot; (goto end)
+    <span class="hljs-keyword">if</span> /i <span class="hljs-string">&quot;%state%&quot;</span>==<span class="hljs-string">&quot;RUNNING&quot;</span> (goto next)
+    REM If the LxssManager service is stopping, nothing to <span class="hljs-keyword">do</span>.
+    <span class="hljs-keyword">if</span> /i <span class="hljs-string">&quot;%state%&quot;</span>==<span class="hljs-string">&quot;STOPPING&quot;</span> (goto end)
 
 :next
     REM Check the LxssManager service is started correctly.
-    wsl echo OK &gt;nul 2&gt;nul
-    if not %errorlevel% == 0 (goto lxssRestart)
+    wsl <span class="hljs-built_in">echo</span> OK &gt;nul 2&gt;nul
+    <span class="hljs-keyword">if</span> not %errorlevel% == 0 (goto lxssRestart)
 
-    REM Start services in the WSL
-    REM Define the service commands in commands.txt.
-    for /f %%i in (%~dp0commands.txt) do (wsl sudo %%i %*)
+    REM Start services <span class="hljs-keyword">in</span> the WSL
+    REM Define the service commands <span class="hljs-keyword">in</span> commands.txt.
+    <span class="hljs-keyword">for</span> /f %%i <span class="hljs-keyword">in</span> (%~dp0commands.txt) <span class="hljs-keyword">do</span> (wsl <span class="hljs-built_in">sudo</span> %%i %*)
 
-:end
-</code></pre>
+:end</span></code></pre>
 <p>然后我们编写一个 start.vbs 脚本，来执行 control.bat：</p>
-<pre><code class="language-vb">&#39; start.vbs
-&#39; 脚本来源于 https://github.com/troytse/wsl-autostart/
-&#39; Start services
-Set UAC = CreateObject(&quot;Shell.Application&quot;)
-command = &quot;/c &quot;&quot;&quot; + CreateObject(&quot;Scripting.FileSystemObject&quot;).
-                GetParentFolderName(WScript.ScriptFullName) + &quot;\control.bat&quot;&quot; start&quot;
-UAC.ShellExecute &quot;C:\Windows\System32\cmd.exe&quot;, command, &quot;&quot;, &quot;runas&quot;, 0
-Set UAC = Nothing
-</code></pre>
+<pre><code class="hljs language-vb"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment">&#x27; start.vbs</span>
+<span class="hljs-comment">&#x27; 脚本来源于 https://github.com/troytse/wsl-autostart/</span>
+<span class="hljs-comment">&#x27; Start services</span>
+<span class="hljs-keyword">Set</span> UAC = CreateObject(<span class="hljs-string">&quot;Shell.Application&quot;</span>)
+command = <span class="hljs-string">&quot;/c &quot;&quot;&quot;</span> + CreateObject(<span class="hljs-string">&quot;Scripting.FileSystemObject&quot;</span>).
+                GetParentFolderName(WScript.ScriptFullName) + <span class="hljs-string">&quot;\control.bat&quot;&quot; start&quot;</span>
+UAC.ShellExecute <span class="hljs-string">&quot;C:\Windows\System32\cmd.exe&quot;</span>, command, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;runas&quot;</span>, <span class="hljs-number">0</span>
+<span class="hljs-keyword">Set</span> UAC = <span class="hljs-literal">Nothing</span></span></code></pre>
 <p>最后，我们向计划任务程序中添加一个新的开机启动任务：</p>
 <p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215338.png" alt=""></p>
 <p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215237.png" alt=""></p>
@@ -216,15 +212,13 @@ Set UAC = Nothing
 <li>gutter change，如下图所示：</li>
 </ol>
 <p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809160826.png" alt=""></p>
-<pre><code>gutter change 是指在上图中，在编辑区行号指示的右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你回滚变更、或者提交变更。这个功能实际上是 git 的 interactive staging 功能，只不过在命令行下使用这个功能时，它的易用性不太好。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">gutter change 是指在上图中，在编辑区行号指示的右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你回滚变更、或者提交变更。这个功能实际上是 git 的 <span class="hljs-built_in">interactive</span> staging 功能，只不过在命令行下使用这个功能时，它的易用性不太好。
 
-如果你在编辑文件之前没有做好规划，引入了本应该隶属于多个提交的修改，gutter change 是最好的补救方案。它允许你逐块、而不是按文件提交修改。因此，你可以将一个文件里的不同块分几次进行提交。
-</code></pre>
+如果你在编辑文件之前没有做好规划，引入了本应该隶属于多个提交的修改，gutter change 是最好的补救方案。它允许你逐块、而不是按文件提交修改。因此，你可以将一个文件里的不同块分几次进行提交。</span></code></pre>
 <ol start="4">
 <li>GitLens 在侧边栏提供了丰富的工具条，如下图所示：</li>
 </ol>
-<pre><code> ![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"> ![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108views-layout-gitlens.png)</span></code></pre>
 <p>通过这些工具条，你不再需要记忆太多的 git 命令，并且这些命令的结果也以可视化的方式展示，这也会比控制台界面效率高不少。在这些工具栏里，提供了提交视图、仓库视图、分支视图、文件历史视图、标签视图等。</p>
 <p>简单来说，GitLens 将几乎所有的 Git 功能进行了图形化展示和重构，提供了一个丰富的操作界面，让你可以更加方便地操作 Git 和理解代码变更。</p>
 <h4>3.2.4. 编辑提交信息的扩展</h4>
@@ -259,8 +253,7 @@ Set UAC = Nothing
 公司曾经有位女程序员。她妆容精致，长长的指甲上镌刻着一些美丽的图案，流光溢彩，敲起键盘来，指甲上的图案，就象蝴蝶一样翩翩起舞。我自己知道指甲刮蹭在键盘帽上的声音多让人难受，因此自己总是保持剪指甲的习惯，以保证键入时不受干扰，也因此会担心长指甲对键入速度的影响。但接触一段时间后，我发现她的工作效率一点也不低 — 尽管在键入速度上，可能还是会受到长指甲的影响。
 </div>
 
-<pre><code>尽管 Kite 的数据表明他们帮码农省去了 47%的键入时间，但从上面的例子可以看出，由此带来的效率的提升，可能并没有 Kite 想像的那么大。后面我们还会有机会回顾 Kite 这家公司的故事：如果努力的方向错了，那么再勤奋也是无济于事。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">尽管 Kite 的数据表明他们帮码农省去了 47%的键入时间，但从上面的例子可以看出，由此带来的效率的提升，可能并没有 Kite 想像的那么大。后面我们还会有机会回顾 Kite 这家公司的故事：如果努力的方向错了，那么再勤奋也是无济于事。</span></code></pre>
 <p>就象我们可以把自动驾驶按自动化程度定义为 5 个级别一样，代码辅助也可以分为好多个级别。</p>
 <p>最低级的级别，可能是普通文本编辑器所做到的那样，在单词级别上进行提示。只要你曾经输入过一个单词或者一个句子，那么下次当你输入这个单词或者句子的前面部分，IDE 就会自动提示这个单词或者句子。如果你常用 Excel，你就很容易明白这是一种什么样的辅助。但这种提示远远不够精确，很多时候，它不能提供我们真正想要的输入。</p>
 <p>对于程序开发来说，由于有语法规则可以借助，因此这种提示可以做得更精确一些。比如，你定义了一个类，那么下次如果你输入了一个类（或者类的一个实例变量）的名字，并且键入一个提示符（可能是&quot;.&quot;, 或者&quot;-&gt;&quot;, 依赖于程序语言），那么 IDE 就可以提示类的所有方法，或者属性，供我们选取。此外，如果导入了某个名字空间，IDE 也可以基于同样的逻辑，来提示空间中的所有变量、函数、类等。这些都是严格依赖于语法的，所以，对静态语言，IDE 的代码提示可以做得很棒。对于 Python 这样的动态语言，在没有使用类型标注时，要准确提示成员变量还是有一定困难的。</p>

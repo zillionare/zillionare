@@ -19,62 +19,61 @@
 <p>所以，我们先拿上影线标准差因子来试试。</p>
 <!--PAID CONTENT START-->
 
-<pre><code class="language-python">def calculate_shadow_ratio(bars):
-    &quot;&quot;&quot;计算上下影线因子（归一化）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_shadow_ratio</span>(<span class="hljs-params">bars</span>):
+    <span class="hljs-string">&quot;&quot;&quot;计算上下影线因子（归一化）
     
     按研报要求，标准化蜡烛上影线为当日上影线/过去 5 日上影线均值。标准化蜡烛下影线同。
-    &quot;&quot;&quot;
-    high = bars[&#39;high&#39;]
-    low = bars[&#39;low&#39;]
-    open_price = bars[&#39;open&#39;]
-    close = bars[&#39;close&#39;]
+    &quot;&quot;&quot;</span>
+    high = bars[<span class="hljs-string">&#x27;high&#x27;</span>]
+    low = bars[<span class="hljs-string">&#x27;low&#x27;</span>]
+    open_price = bars[<span class="hljs-string">&#x27;open&#x27;</span>]
+    close = bars[<span class="hljs-string">&#x27;close&#x27;</span>]
 
-    # 为避免除零错误，这里我们使用了一个技巧，即通过 mask 来排除可能除零的计算
-    # 无法计算时，设置为 0，表明无信号
-    up_shadow_ratio = pd.Series(0, index=bars.index)
-    down_shadow_ratio = pd.Series(0, index=bars.index)
+    <span class="hljs-comment"># 为避免除零错误，这里我们使用了一个技巧，即通过 mask 来排除可能除零的计算</span>
+    <span class="hljs-comment"># 无法计算时，设置为 0，表明无信号</span>
+    up_shadow_ratio = pd.Series(<span class="hljs-number">0</span>, index=bars.index)
+    down_shadow_ratio = pd.Series(<span class="hljs-number">0</span>, index=bars.index)
 
     up_shadow = high - np.maximum(open_price, close)
-    rolling_up_shadow = up_shadow.rolling(5).mean()
-    mask = rolling_up_shadow &gt; 1e-8
+    rolling_up_shadow = up_shadow.rolling(<span class="hljs-number">5</span>).mean()
+    mask = rolling_up_shadow &gt; <span class="hljs-number">1e-8</span>
     up_shadow_ratio[mask] = up_shadow[mask] / rolling_up_shadow[mask]
 
     down_shadow = np.minimum(open_price, close) - low
-    rolling_down_shadow = down_shadow.rolling(5).mean()
-    mask = rolling_down_shadow &gt; 1e-8
+    rolling_down_shadow = down_shadow.rolling(<span class="hljs-number">5</span>).mean()
+    mask = rolling_down_shadow &gt; <span class="hljs-number">1e-8</span>
     down_shadow_ratio[mask] = down_shadow[mask] / rolling_down_shadow[mask]
 
-    return up_shadow_ratio, down_shadow_ratio
+    <span class="hljs-keyword">return</span> up_shadow_ratio, down_shadow_ratio
 
-def calc_monthly(daily_factor, aggfunc, win=20):
-    dates = daily_factor.index.get_level_values(&#39;date&#39;).unique().sort_values()
-    month_ends = dates.to_frame(name = &quot;date&quot;).resample(&#39;BME&#39;).last().values
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_monthly</span>(<span class="hljs-params">daily_factor, aggfunc, win=<span class="hljs-number">20</span></span>):
+    dates = daily_factor.index.get_level_values(<span class="hljs-string">&#x27;date&#x27;</span>).unique().sort_values()
+    month_ends = dates.to_frame(name = <span class="hljs-string">&quot;date&quot;</span>).resample(<span class="hljs-string">&#x27;BME&#x27;</span>).last().values
 
     dfs = []
 
-    for date in month_ends:
+    <span class="hljs-keyword">for</span> date <span class="hljs-keyword">in</span> month_ends:
         date_ts = pd.Timestamp(date.item())
         iend = dates.get_loc(date_ts)
-        istart = max(0, iend - win + 1)
+        istart = <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, iend - win + <span class="hljs-number">1</span>)
         start_ = pd.Timestamp(dates[istart])
         end_ = date_ts
         window_data = daily_factor.loc[start_: end_]
 
-        df = (window_data.groupby(level=&quot;asset&quot;)
+        df = (window_data.groupby(level=<span class="hljs-string">&quot;asset&quot;</span>)
                         .agg(aggfunc)
-                        .to_frame(&quot;factor&quot;)
+                        .to_frame(<span class="hljs-string">&quot;factor&quot;</span>)
         )
-        df[&quot;date&quot;] = date_ts
+        df[<span class="hljs-string">&quot;date&quot;</span>] = date_ts
         dfs.append(df)
 
     df = pd.concat(dfs)
-    return df.set_index([&quot;date&quot;, df.index]).sort_index()
+    <span class="hljs-keyword">return</span> df.set_index([<span class="hljs-string">&quot;date&quot;</span>, df.index]).sort_index()
 
-def calc_candle_up_std_factor(barss, win = 20):
-    up_shadow = barss.groupby(&quot;asset&quot;, group_keys=False).apply(lambda x: calculate_shadow_ratio(x)[0]).sort_index()
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_candle_up_std_factor</span>(<span class="hljs-params">barss, win = <span class="hljs-number">20</span></span>):
+    up_shadow = barss.groupby(<span class="hljs-string">&quot;asset&quot;</span>, group_keys=<span class="hljs-literal">False</span>).apply(<span class="hljs-keyword">lambda</span> x: calculate_shadow_ratio(x)[<span class="hljs-number">0</span>]).sort_index()
 
-    return calc_monthly(up_shadow, &quot;std&quot;, win)
-</code></pre>
+    <span class="hljs-keyword">return</span> calc_monthly(up_shadow, <span class="hljs-string">&quot;std&quot;</span>, win)</span></code></pre>
 <p>这些都是上一期介绍过的代码。下面，我们就来调用 Alphalens 进行测试：</p>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 ```python
@@ -84,29 +83,27 @@ from alphalens.performance import factor_alpha_beta
     barss = load_bars(start, end, 50)
 </div>
 
-<pre><code>    up_std_factor = calc_candle_up_std_factor(barss, 20)
-    prices = barss[&quot;price&quot;].unstack(level = 1)
-    merged = get_clean_factor_and_forward_returns(up_std_factor, prices, quantiles=5)
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">    up_std_factor = <span class="hljs-title function_">calc_candle_up_std_factor</span>(barss, <span class="hljs-number">20</span>)
+    prices = barss[<span class="hljs-string">&quot;price&quot;</span>].<span class="hljs-title function_">unstack</span>(level = <span class="hljs-number">1</span>)
+    merged = <span class="hljs-title function_">get_clean_factor_and_forward_returns</span>(up_std_factor, prices, quantiles=<span class="hljs-number">5</span>)
 
-    alpha = factor_alpha_beta(merged)
+    alpha = <span class="hljs-title function_">factor_alpha_beta</span>(merged)
     alpha
-```
-</code></pre>
+<span class="hljs-string">``</span><span class="hljs-string">`</span></span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-<pre><code class="language-python">from alphalens.performance import factor_alpha_beta
-start = datetime.date(2009,1,1 )
-end = datetime.date(2020,4,30)
-barss = load_bars(start, end, 50)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">from</span> alphalens.performance <span class="hljs-keyword">import</span> factor_alpha_beta
+start = datetime.date(<span class="hljs-number">2009</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span> )
+end = datetime.date(<span class="hljs-number">2020</span>,<span class="hljs-number">4</span>,<span class="hljs-number">30</span>)
+barss = load_bars(start, end, <span class="hljs-number">50</span>)
 
-up_std_factor = calc_candle_up_std_factor(barss, 20)
-prices = barss[&quot;price&quot;].unstack(level = 1)
-merged = get_clean_factor_and_forward_returns(up_std_factor, prices, quantiles=5)
+up_std_factor = calc_candle_up_std_factor(barss, <span class="hljs-number">20</span>)
+prices = barss[<span class="hljs-string">&quot;price&quot;</span>].unstack(level = <span class="hljs-number">1</span>)
+merged = get_clean_factor_and_forward_returns(up_std_factor, prices, quantiles=<span class="hljs-number">5</span>)
 
 alpha = factor_alpha_beta(merged)
-alpha
-</code></pre>
+alpha</span></code></pre>
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -122,9 +119,8 @@ File ~/miniforge3/envs/zillionare/lib/python3.12/site-packages/pandas/core/array
     2165 ) from err
 </div>
 
-<pre><code>    ValueError: Inferred frequency None from passed values does not conform to passed frequency C
-```
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">    ValueError: Inferred frequency <span class="hljs-keyword">None</span> <span class="hljs-keyword">from</span> passed <span class="hljs-keyword">values</span> does <span class="hljs-keyword">not</span> conform <span class="hljs-keyword">to</span> passed frequency C
+```</span></code></pre>
 <p>calc_candle_up_std_factor 函数返回的数据，只包含每个月末的日期，Alphalens 无法从中推断出交易日历，因此抛出了异常。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 Alphalens 在进行因子收益分析时，需要先计算远期收益。远期收益由用户通过参数`periods`指定，默认为 [1, 5, 10]。periods 的单位默认是「Day」，因此它期待一个在日期上连续的索引。由于我们传入的数据只包含每个月末的日期，所以就得到了这样一个异常。
@@ -142,17 +138,17 @@ Alphalens 在进行因子收益分析时，需要先计算远期收益。远期�
 <!--PAID CONTENT START-->
 
 <p>代码有点长，核心逻辑都在下面这两个函数里面：</p>
-<pre><code class="language-python">def _monthly_factor_backtest(
-        factor_data: &quot;pd.Series[float]&quot;,
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_monthly_factor_backtest</span>(<span class="hljs-params">
+        factor_data: <span class="hljs-string">&quot;pd.Series[float]&quot;</span>,
         bars: pd.DataFrame,
-        quantiles: Optional[int] = 5,
-        bins: Optional[Union[int, List[float]]] = None,
-        factor_lag: int = 1,
-        weighting_method: str = &quot;equal_weight&quot;,
-    ) -&gt; Tuple[
-        pd.DataFrame, &quot;pd.Series[float]&quot;, &quot;pd.Series[float]&quot;, &quot;pd.Series[float]&quot;
+        quantiles: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">int</span>] = <span class="hljs-number">5</span>,
+        bins: <span class="hljs-type">Optional</span>[<span class="hljs-type">Union</span>[<span class="hljs-built_in">int</span>, <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]]] = <span class="hljs-literal">None</span>,
+        factor_lag: <span class="hljs-built_in">int</span> = <span class="hljs-number">1</span>,
+        weighting_method: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;equal_weight&quot;</span>,
+    </span>) -&gt; <span class="hljs-type">Tuple</span>[
+        pd.DataFrame, <span class="hljs-string">&quot;pd.Series[float]&quot;</span>, <span class="hljs-string">&quot;pd.Series[float]&quot;</span>, <span class="hljs-string">&quot;pd.Series[float]&quot;</span>
     ]:
-        &quot;&quot;&quot;
+        <span class="hljs-string">&quot;&quot;&quot;
         Monthly Factor Backtesting Framework
 
         策略逻辑：
@@ -168,35 +164,35 @@ Alphalens 在进行因子收益分析时，需要先计算远期收益。远期�
                    基准收益为所有股票等权重收益
                    纯多和多空组合收益根据 weighting_method 计算
                    IC 序列为每月因子值与收益率的相关系数
-        &quot;&quot;&quot;
-        # 重置索引便于操作
-        factor_df = factor_data.to_frame(name=&quot;factor&quot;).reset_index()
-        factor_col = &quot;factor&quot;
+        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 重置索引便于操作</span>
+        factor_df = factor_data.to_frame(name=<span class="hljs-string">&quot;factor&quot;</span>).reset_index()
+        factor_col = <span class="hljs-string">&quot;factor&quot;</span>
         bars_df = bars.reset_index()
 
-        # 转换日期列为 datetime 类型
-        factor_df[&quot;date&quot;] = pd.to_datetime(factor_df[&quot;date&quot;])
-        bars_df[&quot;date&quot;] = pd.to_datetime(bars_df[&quot;date&quot;])
+        <span class="hljs-comment"># 转换日期列为 datetime 类型</span>
+        factor_df[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(factor_df[<span class="hljs-string">&quot;date&quot;</span>])
+        bars_df[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(bars_df[<span class="hljs-string">&quot;date&quot;</span>])
 
-        # 构建交易日历
+        <span class="hljs-comment"># 构建交易日历</span>
         trading_calendar = _build_trading_calendar(bars_df)
 
-        # 为因子数据添加年月信息
-        factor_df[&quot;year_month&quot;] = factor_df[&quot;date&quot;].dt.to_period(&quot;M&quot;)
+        <span class="hljs-comment"># 为因子数据添加年月信息</span>
+        factor_df[<span class="hljs-string">&quot;year_month&quot;</span>] = factor_df[<span class="hljs-string">&quot;date&quot;</span>].dt.to_period(<span class="hljs-string">&quot;M&quot;</span>)
 
-        # 存储月度收益
+        <span class="hljs-comment"># 存储月度收益</span>
         monthly_returns = []
         benchmark_returns = []
         long_only_returns = []
         long_short_returns = []
         ic_values = []
 
-        # 遍历交易日历，执行回测
-        for i in range(factor_lag, len(trading_calendar)):
+        <span class="hljs-comment"># 遍历交易日历，执行回测</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(factor_lag, <span class="hljs-built_in">len</span>(trading_calendar)):
             current_trading_month = trading_calendar.iloc[i]
             factor_month = trading_calendar.iloc[i - factor_lag]
 
-            # 处理单个月的回测逻辑
+            <span class="hljs-comment"># 处理单个月的回测逻辑</span>
             result = _process_single_month(
                 current_trading_month=current_trading_month,
                 factor_month=factor_month,
@@ -208,7 +204,7 @@ Alphalens 在进行因子收益分析时，需要先计算远期收益。远期�
                 weighting_method=weighting_method,
             )
 
-            if result is not None:
+            <span class="hljs-keyword">if</span> result <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
                 (
                     group_returns,
                     benchmark_return,
@@ -222,151 +218,149 @@ Alphalens 在进行因子收益分析时，需要先计算远期收益。远期�
                 long_short_returns.append(long_short_return)
                 ic_values.append(ic_value)
 
-        # 合并所有月份的收益
-        if not monthly_returns:
-            return pd.DataFrame(), pd.Series(), pd.Series(), pd.Series(), pd.Series()
+        <span class="hljs-comment"># 合并所有月份的收益</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> monthly_returns:
+            <span class="hljs-keyword">return</span> pd.DataFrame(), pd.Series(), pd.Series(), pd.Series(), pd.Series()
 
-        # 策略收益
-        quantile_returns = pd.concat(monthly_returns, axis=1).T
+        <span class="hljs-comment"># 策略收益</span>
+        quantile_returns = pd.concat(monthly_returns, axis=<span class="hljs-number">1</span>).T
 
         quantile_returns.index = cast(
             pd.PeriodIndex, quantile_returns.index
-        ).to_timestamp(how=&quot;end&quot;, freq=&quot;D&quot;)
+        ).to_timestamp(how=<span class="hljs-string">&quot;end&quot;</span>, freq=<span class="hljs-string">&quot;D&quot;</span>)
 
-        # 重命名列
-        if quantiles is not None:
-            quantile_returns.columns = [f&quot;Q{i}&quot; for i in quantile_returns.columns]
-        else:
-            quantile_returns.columns = [f&quot;Bin{i}&quot; for i in quantile_returns.columns]
+        <span class="hljs-comment"># 重命名列</span>
+        <span class="hljs-keyword">if</span> quantiles <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            quantile_returns.columns = [<span class="hljs-string">f&quot;Q<span class="hljs-subst">{i}</span>&quot;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> quantile_returns.columns]
+        <span class="hljs-keyword">else</span>:
+            quantile_returns.columns = [<span class="hljs-string">f&quot;Bin<span class="hljs-subst">{i}</span>&quot;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> quantile_returns.columns]
 
-        # 基准收益
+        <span class="hljs-comment"># 基准收益</span>
         benchmark_series = pd.Series(
-            benchmark_returns, index=quantile_returns.index, name=&quot;Benchmark&quot;
+            benchmark_returns, index=quantile_returns.index, name=<span class="hljs-string">&quot;Benchmark&quot;</span>
         )
 
-        # long-only 收益
+        <span class="hljs-comment"># long-only 收益</span>
         long_only_series = pd.Series(
-            long_only_returns, index=quantile_returns.index, name=&quot;Long_Only&quot;
+            long_only_returns, index=quantile_returns.index, name=<span class="hljs-string">&quot;Long_Only&quot;</span>
         )
 
-        # 多空组合收益
+        <span class="hljs-comment"># 多空组合收益</span>
         long_short_series = pd.Series(
-            long_short_returns, index=quantile_returns.index, name=&quot;Long_Short&quot;
+            long_short_returns, index=quantile_returns.index, name=<span class="hljs-string">&quot;Long_Short&quot;</span>
         )
 
-        # IC 序列
-        ic_series = pd.Series(ic_values, index=quantile_returns.index, name=&quot;IC&quot;)
+        <span class="hljs-comment"># IC 序列</span>
+        ic_series = pd.Series(ic_values, index=quantile_returns.index, name=<span class="hljs-string">&quot;IC&quot;</span>)
 
-        return (
+        <span class="hljs-keyword">return</span> (
             quantile_returns,
             benchmark_series,
             long_only_series,
             long_short_series,
             ic_series,
-        )
-</code></pre>
+        )</span></code></pre>
 <p>其中单月回测函数_process_single_month 定义为：</p>
-<pre><code class="language-python">def _process_single_month(
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_process_single_month</span>(<span class="hljs-params">
         self,
-        current_trading_month: &quot;pd.Series[Any]&quot;,
-        factor_month: &quot;pd.Series[Any]&quot;,
+        current_trading_month: <span class="hljs-string">&quot;pd.Series[Any]&quot;</span>,
+        factor_month: <span class="hljs-string">&quot;pd.Series[Any]&quot;</span>,
         factor_df: pd.DataFrame,
         bars_df: pd.DataFrame,
-        factor_col: str,
-        quantiles: Optional[int] = None,
-        bins: Optional[Union[int, List[float]]] = None,
-        weighting_method: str = &quot;equal_weight&quot;,
-    ) -&gt; Optional[Tuple[&quot;pd.Series[float]&quot;, float, float, float, float]]:
-        &quot;&quot;&quot;
+        factor_col: <span class="hljs-built_in">str</span>,
+        quantiles: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">int</span>] = <span class="hljs-literal">None</span>,
+        bins: <span class="hljs-type">Optional</span>[<span class="hljs-type">Union</span>[<span class="hljs-built_in">int</span>, <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]]] = <span class="hljs-literal">None</span>,
+        weighting_method: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;equal_weight&quot;</span>,
+    </span>) -&gt; <span class="hljs-type">Optional</span>[<span class="hljs-type">Tuple</span>[<span class="hljs-string">&quot;pd.Series[float]&quot;</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">float</span>]]:
+        <span class="hljs-string">&quot;&quot;&quot;
         处理单个月的回测逻辑
-        &quot;&quot;&quot;
-        # 获取因子计算时点的数据（通常是月末）
-        factor_date = factor_month[&quot;month_end&quot;]
-        factor_month_data = factor_df[(factor_df[&quot;date&quot;] == factor_date)].copy()
+        &quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 获取因子计算时点的数据（通常是月末）</span>
+        factor_date = factor_month[<span class="hljs-string">&quot;month_end&quot;</span>]
+        factor_month_data = factor_df[(factor_df[<span class="hljs-string">&quot;date&quot;</span>] == factor_date)].copy()
 
-        if len(factor_month_data) == 0:
-            return None
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(factor_month_data) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-        # 买入价格（当月月初开盘价）
-        buy_date = current_trading_month[&quot;month_start&quot;]
-        buy_prices = bars_df[bars_df[&quot;date&quot;] == buy_date][[&quot;asset&quot;, &quot;open&quot;]].copy()
-        buy_prices.columns = [&quot;asset&quot;, &quot;price_buy&quot;]
+        <span class="hljs-comment"># 买入价格（当月月初开盘价）</span>
+        buy_date = current_trading_month[<span class="hljs-string">&quot;month_start&quot;</span>]
+        buy_prices = bars_df[bars_df[<span class="hljs-string">&quot;date&quot;</span>] == buy_date][[<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>]].copy()
+        buy_prices.columns = [<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;price_buy&quot;</span>]
 
-        # 卖出价格（当月月末收盘价）
-        sell_date = current_trading_month[&quot;month_end&quot;]
-        sell_prices = bars_df[bars_df[&quot;date&quot;] == sell_date][[&quot;asset&quot;, &quot;close&quot;]].copy()
-        sell_prices.columns = [&quot;asset&quot;, &quot;price_sell&quot;]
+        <span class="hljs-comment"># 卖出价格（当月月末收盘价）</span>
+        sell_date = current_trading_month[<span class="hljs-string">&quot;month_end&quot;</span>]
+        sell_prices = bars_df[bars_df[<span class="hljs-string">&quot;date&quot;</span>] == sell_date][[<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]].copy()
+        sell_prices.columns = [<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;price_sell&quot;</span>]
 
-        if len(buy_prices) == 0 or len(sell_prices) == 0:
-            return None
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(buy_prices) == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(sell_prices) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-        # 合并数据
-        month_data = factor_month_data.merge(buy_prices, on=&quot;asset&quot;, how=&quot;inner&quot;)
-        month_data = month_data.merge(sell_prices, on=&quot;asset&quot;, how=&quot;inner&quot;)
+        <span class="hljs-comment"># 合并数据</span>
+        month_data = factor_month_data.merge(buy_prices, on=<span class="hljs-string">&quot;asset&quot;</span>, how=<span class="hljs-string">&quot;inner&quot;</span>)
+        month_data = month_data.merge(sell_prices, on=<span class="hljs-string">&quot;asset&quot;</span>, how=<span class="hljs-string">&quot;inner&quot;</span>)
 
-        # 移除缺失数据的股票
-        month_data = month_data.dropna(subset=[factor_col, &quot;price_buy&quot;, &quot;price_sell&quot;])
+        <span class="hljs-comment"># 移除缺失数据的股票</span>
+        month_data = month_data.dropna(subset=[factor_col, <span class="hljs-string">&quot;price_buy&quot;</span>, <span class="hljs-string">&quot;price_sell&quot;</span>])
 
-        if len(month_data) == 0:
-            return None
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(month_data) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-        # 因子分组
-        try:
-            if quantiles is not None:
-                month_data[&quot;group&quot;] = (
+        <span class="hljs-comment"># 因子分组</span>
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-keyword">if</span> quantiles <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+                month_data[<span class="hljs-string">&quot;group&quot;</span>] = (
                     pd.qcut(
                         month_data[factor_col],
                         q=quantiles,
-                        labels=False,
-                        duplicates=&quot;drop&quot;,
+                        labels=<span class="hljs-literal">False</span>,
+                        duplicates=<span class="hljs-string">&quot;drop&quot;</span>,
                     )
-                    + 1
+                    + <span class="hljs-number">1</span>
                 )
-            else:
-                assert bins is not None, &quot;bins 不能为 None&quot;
-                month_data[&quot;group&quot;] = (
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">assert</span> bins <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>, <span class="hljs-string">&quot;bins 不能为 None&quot;</span>
+                month_data[<span class="hljs-string">&quot;group&quot;</span>] = (
                     pd.cut(
                         month_data[factor_col],
                         bins=bins,
-                        labels=False,
-                        include_lowest=True,
+                        labels=<span class="hljs-literal">False</span>,
+                        include_lowest=<span class="hljs-literal">True</span>,
                     )
-                    + 1
+                    + <span class="hljs-number">1</span>
                 )
-        except ValueError:
-            # 如果因子值相同导致无法分组，跳过该月
-            return None
+        <span class="hljs-keyword">except</span> ValueError:
+            <span class="hljs-comment"># 如果因子值相同导致无法分组，跳过该月</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-        # 计算个股收益率
-        month_data[&quot;return&quot;] = month_data[&quot;price_sell&quot;] / month_data[&quot;price_buy&quot;] - 1
+        <span class="hljs-comment"># 计算个股收益率</span>
+        month_data[<span class="hljs-string">&quot;return&quot;</span>] = month_data[<span class="hljs-string">&quot;price_sell&quot;</span>] / month_data[<span class="hljs-string">&quot;price_buy&quot;</span>] - <span class="hljs-number">1</span>
 
-        # 计算各组等权重收益率（保持原有逻辑）
-        group_returns = month_data.groupby(&quot;group&quot;)[&quot;return&quot;].mean()
+        <span class="hljs-comment"># 计算各组等权重收益率（保持原有逻辑）</span>
+        group_returns = month_data.groupby(<span class="hljs-string">&quot;group&quot;</span>)[<span class="hljs-string">&quot;return&quot;</span>].mean()
 
-        # 计算基准收益率（所有股票等权重）
-        benchmark_return = month_data[&quot;return&quot;].mean()
+        <span class="hljs-comment"># 计算基准收益率（所有股票等权重）</span>
+        benchmark_return = month_data[<span class="hljs-string">&quot;return&quot;</span>].mean()
 
-        # 计算 long-only 和多空组合收益率
-        long_only_return, long_short_return = self._calculate_portfolio_returns(
+        <span class="hljs-comment"># 计算 long-only 和多空组合收益率</span>
+        long_only_return, long_short_return = <span class="hljs-variable language_">self</span>._calculate_portfolio_returns(
             month_data, group_returns, factor_col, weighting_method
         )
 
-        # 计算 IC 值（因子值与收益率的相关系数）
-        ic_value = month_data[factor_col].corr(month_data[&quot;return&quot;])
-        if pd.isna(ic_value):
-            ic_value = 0.0
+        <span class="hljs-comment"># 计算 IC 值（因子值与收益率的相关系数）</span>
+        ic_value = month_data[factor_col].corr(month_data[<span class="hljs-string">&quot;return&quot;</span>])
+        <span class="hljs-keyword">if</span> pd.isna(ic_value):
+            ic_value = <span class="hljs-number">0.0</span>
 
-        # 添加月份信息
-        group_returns.name = current_trading_month[&quot;year_month&quot;]
+        <span class="hljs-comment"># 添加月份信息</span>
+        group_returns.name = current_trading_month[<span class="hljs-string">&quot;year_month&quot;</span>]
 
-        return (
+        <span class="hljs-keyword">return</span> (
             group_returns,
             benchmark_return,
             long_only_return,
             long_short_return,
             ic_value,
-        )
-</code></pre>
+        )</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>最核心的部分，是通过价格数据，重采样出月度日历（有月头和月尾日期），然后就可以遍历因子，对每一个 T0 月末因子，找到对应的下一个月月头，以开盘价买入，以下一个月月尾的收盘价卖出，这样得到的收益，就是 T0 期因子的月度收益。</p>
@@ -375,48 +369,47 @@ Alphalens 在进行因子收益分析时，需要先计算远期收益。远期�
 <!--PAID CONTENT START-->
 
 <p>我们先造一点数据，再来演示。</p>
-<pre><code class="language-python">def key_frames(bars, dates):
-    df = dates.to_frame(name = &quot;date&quot;)
-    month_starts = df.resample(&#39;MS&#39;)[&#39;date&#39;].first()
-    month_ends = df.resample(&#39;BME&#39;)[&#39;date&#39;].last()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">key_frames</span>(<span class="hljs-params">bars, dates</span>):
+    df = dates.to_frame(name = <span class="hljs-string">&quot;date&quot;</span>)
+    month_starts = df.resample(<span class="hljs-string">&#x27;MS&#x27;</span>)[<span class="hljs-string">&#x27;date&#x27;</span>].first()
+    month_ends = df.resample(<span class="hljs-string">&#x27;BME&#x27;</span>)[<span class="hljs-string">&#x27;date&#x27;</span>].last()
 
     key_frames = bars[
-        (bars.index.get_level_values(0).isin(month_ends) |
-        bars.index.get_level_values(0).isin(month_starts))
+        (bars.index.get_level_values(<span class="hljs-number">0</span>).isin(month_ends) |
+        bars.index.get_level_values(<span class="hljs-number">0</span>).isin(month_starts))
     ]
 
-    return key_frames
+    <span class="hljs-keyword">return</span> key_frames
 
 factor_data = [
-    (pd.Timestamp(&#39;2023-01-31&#39;), &quot;A&quot;, 1.0),
-    (pd.Timestamp(&#39;2023-01-31&#39;), &quot;B&quot;, 2.0)
+    (pd.Timestamp(<span class="hljs-string">&#x27;2023-01-31&#x27;</span>), <span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-number">1.0</span>),
+    (pd.Timestamp(<span class="hljs-string">&#x27;2023-01-31&#x27;</span>), <span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-number">2.0</span>)
 ]
 
 factor_df = pd.DataFrame(factor_data, 
-                         columns=[&quot;date&quot;, &quot;asset&quot;, &quot;factor&quot;]).set_index([&quot;date&quot;, &quot;asset&quot;])
+                         columns=[<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;factor&quot;</span>]).set_index([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>])
 
-dates = pd.date_range(&#39;2023-01-01&#39;, &#39;2023-02-28&#39;, freq=&#39;D&#39;)
-prices = [(&quot;A&quot;, 100, 110), (&quot;B&quot;, 100, 105)] * len(dates)
+dates = pd.date_range(<span class="hljs-string">&#x27;2023-01-01&#x27;</span>, <span class="hljs-string">&#x27;2023-02-28&#x27;</span>, freq=<span class="hljs-string">&#x27;D&#x27;</span>)
+prices = [(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-number">100</span>, <span class="hljs-number">110</span>), (<span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-number">100</span>, <span class="hljs-number">105</span>)] * <span class="hljs-built_in">len</span>(dates)
 
-bars = pd.DataFrame(prices, columns=[&quot;asset&quot;, &quot;open&quot;, &quot;close&quot;], 
-                    index=np.repeat(dates, 2))
-bars = bars.set_index([bars.index, &#39;asset&#39;])
-bars.index.names = [&quot;date&quot;, &quot;asset&quot;]
+bars = pd.DataFrame(prices, columns=[<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>], 
+                    index=np.repeat(dates, <span class="hljs-number">2</span>))
+bars = bars.set_index([bars.index, <span class="hljs-string">&#x27;asset&#x27;</span>])
+bars.index.names = [<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>]
 
 display(key_frames(bars, dates).unstack())
 
-print(&quot;Stock_A (因子=1.0): 收益率 = (110-100)/100 = 10%&quot;)
-print(&quot;Stock_B (因子=2.0): 收益率 = (105-100)/100 = 5%&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Stock_A (因子=1.0): 收益率 = (110-100)/100 = 10%&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Stock_B (因子=2.0): 收益率 = (105-100)/100 = 5%&quot;</span>)
 
-print(&quot;Q1组 (因子较小): Stock_A, 收益率 = 10%&quot;)
-print(&quot;Q2组 (因子较大): Stock_B, 收益率 = 5%&quot;)
-print(&quot;benchmark = (10% + 5%) / 2 = 7.5%&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Q1组 (因子较小): Stock_A, 收益率 = 10%&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Q2组 (因子较大): Stock_B, 收益率 = 5%&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;benchmark = (10% + 5%) / 2 = 7.5%&quot;</span>)
 
-expected = pd.DataFrame([[0.075, 0.05, -0.05, 0.1]], 
-                        columns=[&quot;benchmark&quot;, &quot;long-only&quot;, &quot;long-short&quot;, &quot;optimal&quot;], index=[&quot;2023-02-28&quot;])
-expected.style.background_gradient(cmap=&#39;RdYlGn&#39;)
-expected.style.format(&quot;{:.2%}&quot;)
-</code></pre>
+expected = pd.DataFrame([[<span class="hljs-number">0.075</span>, <span class="hljs-number">0.05</span>, -<span class="hljs-number">0.05</span>, <span class="hljs-number">0.1</span>]], 
+                        columns=[<span class="hljs-string">&quot;benchmark&quot;</span>, <span class="hljs-string">&quot;long-only&quot;</span>, <span class="hljs-string">&quot;long-short&quot;</span>, <span class="hljs-string">&quot;optimal&quot;</span>], index=[<span class="hljs-string">&quot;2023-02-28&quot;</span>])
+expected.style.background_gradient(cmap=<span class="hljs-string">&#x27;RdYlGn&#x27;</span>)
+expected.style.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;{:.2%}&quot;</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -427,20 +420,19 @@ expected.style.format(&quot;{:.2%}&quot;)
 <!-- END IPYNB STRIPOUT -->
 
 <p>回测和结果可视化只要三行代码：</p>
-<pre><code class="language-python">from moonshot import Moonshot
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">from</span> moonshot <span class="hljs-keyword">import</span> Moonshot
 moonshot = Moonshot()
 
-# 执行回测（使用2个分位数）
-moonshot.backtest(factor_df, bars, quantiles=2)
+<span class="hljs-comment"># 执行回测（使用2个分位数）</span>
+moonshot.backtest(factor_df, bars, quantiles=<span class="hljs-number">2</span>)
 
 actual = pd.DataFrame([moonshot.benchmark_returns, 
                       moonshot.long_only_returns, 
                       moonshot.long_short_returns, 
                       moonshot.optimal_returns]).T
 
-actual.columns = [&quot;benchmark&quot;, &quot;long-only&quot;, &quot;long-short&quot;, &quot;optimal&quot;]
-actual.style.format(&quot;{:.2%}&quot;)
-</code></pre>
+actual.columns = [<span class="hljs-string">&quot;benchmark&quot;</span>, <span class="hljs-string">&quot;long-only&quot;</span>, <span class="hljs-string">&quot;long-short&quot;</span>, <span class="hljs-string">&quot;optimal&quot;</span>]
+actual.style.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;{:.2%}&quot;</span>)</span></code></pre>
 <p>显然结果肯定跟期望是一致的。</p>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
@@ -454,15 +446,14 @@ actual.style.format(&quot;{:.2%}&quot;)
 <h3 id="蜡烛上影线标准差因子">蜡烛上影线标准差因子</h3>
 <p>我们先看看蜡烛上影线标准差因子：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">start = datetime.date(2009, 1, 1)
-end = datetime.date(2020, 4, 30)
-barss = load_bars(start, end, 50)
-factor = calc_candle_up_std_factor(barss, 20)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2009</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2020</span>, <span class="hljs-number">4</span>, <span class="hljs-number">30</span>)
+barss = load_bars(start, end, <span class="hljs-number">50</span>)
+factor = calc_candle_up_std_factor(barss, <span class="hljs-number">20</span>)
 
 ms = Moonshot()
 ms.backtest(factor, barss)
-ms.plot_cumulative_returns_by_quantiles()
-</code></pre>
+ms.plot_cumulative_returns_by_quantiles()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -485,50 +476,49 @@ ms.plot_cumulative_returns_by_quantiles()
 <h3 id="威廉下影线均线因子">威廉下影线均线因子</h3>
 <p>我们再看看威廉下均线因子的情况。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">from moonshot import Moonshot
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span></span><span class="cl-body"><span class="hljs-keyword">from</span> moonshot <span class="hljs-keyword">import</span> Moonshot
 
-def calculate_williams_r_ratio(bars):
-    &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_williams_r_ratio</span>(<span class="hljs-params">bars</span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     计算变种威廉指标
-    &quot;&quot;&quot;
-    high = bars[&#39;high&#39;]
-    low = bars[&#39;low&#39;]
-    close = bars[&#39;close&#39;]
+    &quot;&quot;&quot;</span>
+    high = bars[<span class="hljs-string">&#x27;high&#x27;</span>]
+    low = bars[<span class="hljs-string">&#x27;low&#x27;</span>]
+    close = bars[<span class="hljs-string">&#x27;close&#x27;</span>]
     
     wr_up = high - close
     wr_down = close - low
 
-    rolling_wr_up = wr_up.rolling(5).mean()
-    rolling_wr_down = wr_down.rolling(5).mean()
+    rolling_wr_up = wr_up.rolling(<span class="hljs-number">5</span>).mean()
+    rolling_wr_down = wr_down.rolling(<span class="hljs-number">5</span>).mean()
 
-    # 与蜡烛上下影线的默认值不同，0.5 更能表明无信号的含义
-    wr_up_ratio = pd.Series(0.5, index=bars.index)
-    wr_down_ratio = pd.Series(0.5, index=bars.index)
+    <span class="hljs-comment"># 与蜡烛上下影线的默认值不同，0.5 更能表明无信号的含义</span>
+    wr_up_ratio = pd.Series(<span class="hljs-number">0.5</span>, index=bars.index)
+    wr_down_ratio = pd.Series(<span class="hljs-number">0.5</span>, index=bars.index)
 
-    mask = rolling_wr_up &gt; 1e-8
+    mask = rolling_wr_up &gt; <span class="hljs-number">1e-8</span>
     wr_up_ratio[mask] = wr_up[mask] / rolling_wr_up[mask]
 
-    mask = rolling_wr_down &gt; 1e-8
+    mask = rolling_wr_down &gt; <span class="hljs-number">1e-8</span>
     wr_down_ratio[mask] = wr_down[mask] / rolling_wr_down[mask]
 
-    return wr_up_ratio, wr_down_ratio
+    <span class="hljs-keyword">return</span> wr_up_ratio, wr_down_ratio
 
-def calc_wr_down_factor(barss, win = 20):
-    wr_down = (barss.groupby(&quot;asset&quot;, group_keys=False)
-                    .apply(lambda x: calculate_williams_r_ratio(x)[1])
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_wr_down_factor</span>(<span class="hljs-params">barss, win = <span class="hljs-number">20</span></span>):
+    wr_down = (barss.groupby(<span class="hljs-string">&quot;asset&quot;</span>, group_keys=<span class="hljs-literal">False</span>)
+                    .apply(<span class="hljs-keyword">lambda</span> x: calculate_williams_r_ratio(x)[<span class="hljs-number">1</span>])
                     .sort_index())
 
-    return calc_monthly(wr_down, &quot;mean&quot;, win)
+    <span class="hljs-keyword">return</span> calc_monthly(wr_down, <span class="hljs-string">&quot;mean&quot;</span>, win)
 
-start = datetime.date(2009, 1, 1)
-end = datetime.date(2020, 4, 30)
-barss = load_bars(start, end, 50)
-factor = calc_wr_down_factor(barss, 20)
+start = datetime.date(<span class="hljs-number">2009</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2020</span>, <span class="hljs-number">4</span>, <span class="hljs-number">30</span>)
+barss = load_bars(start, end, <span class="hljs-number">50</span>)
+factor = calc_wr_down_factor(barss, <span class="hljs-number">20</span>)
 
 ms = Moonshot()
 ms.backtest(factor, barss)
-ms.plot_cumulative_returns_by_quantiles()
-</code></pre>
+ms.plot_cumulative_returns_by_quantiles()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -549,32 +539,31 @@ ms.plot_cumulative_returns_by_quantiles()
 <h3 id="ubl因子">UBL因子</h3>
 <p>那么研报将这两种因子进行组合的一，得到的因子，效果又将如何？</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">def calc_ubl_factor(barss, win=20):
-    from scipy.stats import zscore
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_ubl_factor</span>(<span class="hljs-params">barss, win=<span class="hljs-number">20</span></span>):
+    <span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> zscore
 
     up_std = calc_candle_up_std_factor(barss, win)
     wr_down = calc_wr_down_factor(barss, win)
 
-    # 截面 zscore
-    z_scored_up_std_factor = up_std.groupby(&quot;date&quot;).transform(
-        lambda x: zscore(x, nan_policy=&quot;omit&quot;)
+    <span class="hljs-comment"># 截面 zscore</span>
+    z_scored_up_std_factor = up_std.groupby(<span class="hljs-string">&quot;date&quot;</span>).transform(
+        <span class="hljs-keyword">lambda</span> x: zscore(x, nan_policy=<span class="hljs-string">&quot;omit&quot;</span>)
     )
-    z_scored_wr_down = wr_down.groupby(&quot;date&quot;).transform(
-        lambda x: zscore(x, nan_policy=&quot;omit&quot;)
+    z_scored_wr_down = wr_down.groupby(<span class="hljs-string">&quot;date&quot;</span>).transform(
+        <span class="hljs-keyword">lambda</span> x: zscore(x, nan_policy=<span class="hljs-string">&quot;omit&quot;</span>)
     )
 
-    return z_scored_up_std_factor + z_scored_wr_down
+    <span class="hljs-keyword">return</span> z_scored_up_std_factor + z_scored_wr_down
 
 
-start = datetime.date(2009, 1, 1)
-end = datetime.date(2020, 4, 30)
-barss = load_bars(start, end, universe=50)
-factor = calc_ubl_factor(barss, 20)
+start = datetime.date(<span class="hljs-number">2009</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2020</span>, <span class="hljs-number">4</span>, <span class="hljs-number">30</span>)
+barss = load_bars(start, end, universe=<span class="hljs-number">50</span>)
+factor = calc_ubl_factor(barss, <span class="hljs-number">20</span>)
 
 ms = Moonshot()
 ms.backtest(factor, barss)
-ms.plot_cumulative_returns_by_quantiles()
-</code></pre>
+ms.plot_cumulative_returns_by_quantiles()</span></code></pre>
 <p>将代码中的<code>universe = 50</code>改为 3000，我们得到的分组结果也差不多。</p>
 <!--PAID CONTENT END-->
 

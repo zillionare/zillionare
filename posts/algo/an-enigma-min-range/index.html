@@ -25,45 +25,40 @@
 <h2 id="无脑的双重循环">无脑的双重循环</h2>
 <p>我们以上面的数组为例，最简单的算法是使用循环：</p>
 <hr>
-<pre><code class="language-python">def min_range_loop(s):
-    minranges = [1]
-    for i in range(1, len(s)):
-        for j in range(i-1, -1, -1):
-            if s[j] &lt; s[i]:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">min_range_loop</span>(<span class="hljs-params">s</span>):
+    minranges = [<span class="hljs-number">1</span>]
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(s)):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):
+            <span class="hljs-keyword">if</span> s[j] &lt; s[i]:
                 minranges.append(i - j)
-                break
-        else:
-            minranges.append(i+1)
-    return minranges
+                <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">else</span>:
+            minranges.append(i+<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">return</span> minranges
 
-s = [1,2,2,1,3,0]
+s = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0</span>]
 
-min_range_loop(s)
-</code></pre>
+min_range_loop(s)</span></code></pre>
 <p>输出为：1, 1, 2, 1, 4, 5</p>
 <p>这个算法实现用了双重循环，应该比较耗时。我们生成10000个元素的数组跑一下，发现调用一次需要用时9.5ms。</p>
 <h2 id="它山之石mytt的实现">它山之石，myTT的实现</h2>
 <p>在myTT中有一个类似的函数实现：</p>
-<pre><code class="language-python">def LOWRANGE(S):                       
-    # LOWRANGE(LOW)表示当前最低价是近多少周期内最低价的最小值 by jqz1226
-    rt = np.zeros(len(S))
-    for i in range(1,len(S)):  rt[i] = np.argmin(np.flipud(S[:i]&gt;S[i]))
-    return rt.astype(&#39;int&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">LOWRANGE</span>(<span class="hljs-params">S</span>):                       
+    <span class="hljs-comment"># LOWRANGE(LOW)表示当前最低价是近多少周期内最低价的最小值 by jqz1226</span>
+    rt = np.zeros(<span class="hljs-built_in">len</span>(S))
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">len</span>(S)):  rt[i] = np.argmin(np.flipud(S[:i]&gt;S[i]))
+    <span class="hljs-keyword">return</span> rt.astype(<span class="hljs-string">&#x27;int&#x27;</span>)</span></code></pre>
 <hr>
 <p>它应该也是实现元素i是多少周期之前的最小值，只不过从注释上看，该函数多在计算最低价时使用。但实际上序列s是什么没有关系。</p>
 <p>这个函数用了一个循环，还使用了flipuid函数，比较有技巧。这个函数的用法演示如下：</p>
-<pre><code class="language-python">s = [1, 2, 2, 3, 2, 0]
-np.all(np.flipud(s) == s[::-1])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">s = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>]
+np.<span class="hljs-built_in">all</span>(np.flipud(s) == s[::-<span class="hljs-number">1</span>])</span></code></pre>
 <p>也就是它的作用实际上就是翻转数组。</p>
 <p>不过，LOWRANGE函数似乎没有实现它声明的功能，不知道是不是对它的功能理解上有错误。当我们用同一个数组进行测试时，得到的结果与双循环的并不一致。</p>
-<pre><code class="language-python">s = np.array([1, 2, 2, 3, 2, 0])
-LOWRANGE(s)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">s = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>])
+LOWRANGE(s)</span></code></pre>
 <p>得到的结果是：</p>
-<pre><code>array([0, 0, 0, 0, 1, 0])
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])</span></code></pre>
 <hr>
 <p>除此之外，如果同样拿10000个元素的数组进行性能测试，LOWRANGE执行时间要60ms，居然跑输给Python双循环。测试环境使用的Python是3.11版本，不得不说Python3.11的优化非常明显。</p>
 <p>如果我们要完全消除循环，应该怎么做呢？</p>
@@ -73,86 +68,79 @@ LOWRANGE(s)
 <p>然后实现一个函数，接收该矩阵输入，并能独立计算出每一行最后一列是多少个周期以来的最小值，这个问题就得到了求解。</p>
 <p>要实现这个功能，我们可以通过numpy的masked array和triu矩阵来实现。</p>
 <hr>
-<pre><code class="language-python">n = len(s)
-mask = np.triu(np.ones((n, n), dtype=bool), k=1)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">n = <span class="hljs-built_in">len</span>(s)
+mask = np.triu(np.ones((n, n), dtype=<span class="hljs-built_in">bool</span>), k=<span class="hljs-number">1</span>)
 masked = np.ma.array(m, mask=mask)
-masked
-</code></pre>
+masked</span></code></pre>
 <p>triu中的k参数决定了生成的三角矩阵中主对角线的位置。k=0,对角线取在主对角线上；k&lt;0，对角线取在主对角线之个k个单位；k&gt;0，对角线取在主对角线之上k个单位。</p>
 <p>我们将得到以下输出：</p>
-<pre><code>masked_array(
-  data=[[1.0, --, --, --, --, --],
-        [1.0, 2.0, --, --, --, --],
-        [1.0, 2.0, 2.0, --, --, --],
-        [1.0, 2.0, 2.0, 3.0, --, --],
-        [1.0, 2.0, 2.0, 3.0, 2.0, --],
-        [1.0, 2.0, 2.0, 3.0, 2.0, 0.0]],
-  mask=[[False,  True,  True,  True,  True,  True],
-        [False, False,  True,  True,  True,  True],
-        [False, False, False,  True,  True,  True],
-        [False, False, False, False,  True,  True],
-        [False, False, False, False, False,  True],
-        [False, False, False, False, False, False]],
-  fill_value=1e+20)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">masked_array(
+  data<span class="hljs-operator">=</span>[[<span class="hljs-number">1.0</span>, <span class="hljs-comment">--, --, --, --, --],</span>
+        [<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-comment">--, --, --, --],</span>
+        [<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-comment">--, --, --],</span>
+        [<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-comment">--, --],</span>
+        [<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-comment">--],</span>
+        [<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">0.0</span>]],
+  mask<span class="hljs-operator">=</span>[[<span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>],
+        [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>],
+        [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>],
+        [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>,  <span class="hljs-literal">True</span>],
+        [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>,  <span class="hljs-literal">True</span>],
+        [<span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>]],
+  fill_value<span class="hljs-operator">=</span><span class="hljs-number">1e+20</span>)</span></code></pre>
 <p>mask flag为True的部分将不会参与运算。如果我们把masked转给sympy，就可以验证这一点：</p>
 <hr>
-<pre><code class="language-python">from sympy import Matrix
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sympy <span class="hljs-keyword">import</span> Matrix
 
-n = len(s)
-mask = np.triu(np.ones((n, n), dtype=bool), k=1)
+n = <span class="hljs-built_in">len</span>(s)
+mask = np.triu(np.ones((n, n), dtype=<span class="hljs-built_in">bool</span>), k=<span class="hljs-number">1</span>)
 masked = np.ma.array(m, mask=mask)
-Matrix(masked)
-</code></pre>
+Matrix(masked)</span></code></pre>
 <p>我们得到了与期望中一样的展开矩阵。</p>
 <p>$\displaystyle \left[\begin{matrix}1.0 &amp; \text{NaN} &amp; \text{NaN} &amp; \text{NaN} &amp; \text{NaN} &amp; \text{NaN}\1.0 &amp; 2.0 &amp; \text{NaN} &amp; \text{NaN} &amp; \text{NaN} &amp; \text{NaN}\1.0 &amp; 2.0 &amp; 2.0 &amp; \text{NaN} &amp; \text{NaN} &amp; \text{NaN}\1.0 &amp; 2.0 &amp; 2.0 &amp; 3.0 &amp; \text{NaN} &amp; \text{NaN}\1.0 &amp; 2.0 &amp; 2.0 &amp; 3.0 &amp; 2.0 &amp; \text{NaN}\1.0 &amp; 2.0 &amp; 2.0 &amp; 3.0 &amp; 2.0 &amp; 0.0\end{matrix}\right]$</p>
 <p>现在，我们要求解的问题变成，每一行最后一个数是多少周期的最小值。我们进行一个变换：</p>
-<pre><code class="language-python">s = np.array([1, 2, 2, 3, 2, 0])
-diff = s[-1] - s
-rng = np.arange(len(diff))
-rng - np.argmax(np.ma.where(diff &gt; 0, rng, -1))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">s = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>])
+diff = s[-<span class="hljs-number">1</span>] - s
+rng = np.arange(<span class="hljs-built_in">len</span>(diff))
+rng - np.argmax(np.ma.where(diff &gt; <span class="hljs-number">0</span>, rng, -<span class="hljs-number">1</span>))</span></code></pre>
 <hr>
 <p>我们用最后一个元素减去数组，然后再比较元素是否大于零，如果大于零，我们就将值设置为索引(rng)，否则设置为-1，然后再通过argmax找到最后一个非零值。这样输出元素的最后一个值，就是最小周期数。在此例中是5。</p>
 <p>如果s = np.array([1, 2, 2, 3, 2]),那么计算出来的最后一个值是4。
 如果s = np.array([1, 2, 2, 3])，这样计算出来的最后一个值是1。
 依次类推。这刚好就是在masked array中，按axis = 1计算的结果。</p>
 <p>下面是完整的代码：</p>
-<pre><code class="language-python">def min_range(s):
-    &quot;&quot;&quot;计算序列s中，元素i是此前多少个周期以来的最小值&quot;&quot;&quot;
-    n = len(s)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">min_range</span>(<span class="hljs-params">s</span>):
+    <span class="hljs-string">&quot;&quot;&quot;计算序列s中，元素i是此前多少个周期以来的最小值&quot;&quot;&quot;</span>
+    n = <span class="hljs-built_in">len</span>(s)
 
-    diff = s[:,None] - s
-    mask = np.triu(np.ones((n, n), dtype=bool), k=1)
+    diff = s[:,<span class="hljs-literal">None</span>] - s
+    mask = np.triu(np.ones((n, n), dtype=<span class="hljs-built_in">bool</span>), k=<span class="hljs-number">1</span>)
     masked = np.ma.array(diff, mask=mask)
 
     rng = np.arange(n)
-    ret = rng - np.argmax(np.ma.where(masked &gt; 0, rng, -1), axis=1)
-    ret[0] = 1
-    if filled[1] &lt;= filled[0]:
-        ret[1] = 2
-    return ret
-</code></pre>
+    ret = rng - np.argmax(np.ma.where(masked &gt; <span class="hljs-number">0</span>, rng, -<span class="hljs-number">1</span>), axis=<span class="hljs-number">1</span>)
+    ret[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> filled[<span class="hljs-number">1</span>] &lt;= filled[<span class="hljs-number">0</span>]:
+        ret[<span class="hljs-number">1</span>] = <span class="hljs-number">2</span>
+    <span class="hljs-keyword">return</span> ret</span></code></pre>
 <hr>
 <p>我们来验证一下结果：</p>
-<pre><code class="language-python">s = np.array([1, 2, 2, 3, 2, 0])
-min_range(s)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">s = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>])
+min_range(s)</span></code></pre>
 <p>输出结果是1, 1, 2, 1, 4, 6</p>
 <p>在最后一个数字上，与loop略有差异。不过，如果是用来寻找地量条件，这个数值一般要比较大才生效，所以，有一点误差可以接受。</p>
 <p>消除了两个循环，性能应该有很大的提升吧？</p>
 <p>遗憾的是，在同样的测试条件下，这个函数需要822ms，比双循环慢了100倍。花了这么多功夫，还引入了一点小误差，许诺的性能提升不仅没有实现，反而更糟糕了。真是意外啊。</p>
 <h2 id="地量见地价">地量见地价？</h2>
 <p>最后，我们以上证为例，看看这个算法的实际作用。</p>
-<pre><code class="language-python">import akshare as ak
-df = ak.stock_zh_index_daily(symbol=&quot;sh000001&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
+df = ak.stock_zh_index_daily(symbol=<span class="hljs-string">&quot;sh000001&quot;</span>)
 
-df_one_year = df.tail(250)
-df_one_year[&quot;minrange&quot;] = min_range_loop(df_one_year[&quot;volume&quot;].to_numpy())
+df_one_year = df.tail(<span class="hljs-number">250</span>)
+df_one_year[<span class="hljs-string">&quot;minrange&quot;</span>] = min_range_loop(df_one_year[<span class="hljs-string">&quot;volume&quot;</span>].to_numpy())
 
-ax = df_one_year.plot(x=&#39;date&#39;, y=&#39;close&#39;, label=&#39;close&#39;, color=&#39;blue&#39;, secondary_y=False)
-df_one_year.plot(x=&#39;date&#39;, y=&#39;minrange&#39;, label=&#39;Min Range&#39;, color=&#39;red&#39;, secondary_y=True, ax=ax)
-</code></pre>
+ax = df_one_year.plot(x=<span class="hljs-string">&#x27;date&#x27;</span>, y=<span class="hljs-string">&#x27;close&#x27;</span>, label=<span class="hljs-string">&#x27;close&#x27;</span>, color=<span class="hljs-string">&#x27;blue&#x27;</span>, secondary_y=<span class="hljs-literal">False</span>)
+df_one_year.plot(x=<span class="hljs-string">&#x27;date&#x27;</span>, y=<span class="hljs-string">&#x27;minrange&#x27;</span>, label=<span class="hljs-string">&#x27;Min Range&#x27;</span>, color=<span class="hljs-string">&#x27;red&#x27;</span>, secondary_y=<span class="hljs-literal">True</span>, ax=ax)</span></code></pre>
 <p>这里我们使用了akshare数据源，所以，所有人都可以复现。</p>
 <p>我们得到的输出如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/min-range-and-sh.jpg" alt=""></p>

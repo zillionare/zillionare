@@ -60,21 +60,20 @@
 <p>FastHTML 的设计哲学是“显式优于隐式”，同时保持极致的简洁。你不需要配置路由表、不需要设置模板目录，甚至不需要手动启动服务器（如果你使用 <code>serve()</code>）。</p>
 <h3 id="1-hello-world">1. Hello, World!</h3>
 <p>让我们看一个最小的 FastHTML 应用：</p>
-<pre><code class="language-python">from fasthtml.common import *
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">from</span> fasthtml.common <span class="hljs-keyword">import</span> *
 
 app, rt = fast_app()
 
-@rt(&quot;/&quot;)
-def get():
-    return Titled(&quot;FastHTML Demo&quot;, 
+<span class="hljs-meta">@rt(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get</span>():
+    <span class="hljs-keyword">return</span> Titled(<span class="hljs-string">&quot;FastHTML Demo&quot;</span>, 
         Div(
-            H1(&quot;Hello, World!&quot;),
-            P(&quot;这是我的第一个 FastHTML 应用&quot;)
+            H1(<span class="hljs-string">&quot;Hello, World!&quot;</span>),
+            P(<span class="hljs-string">&quot;这是我的第一个 FastHTML 应用&quot;</span>)
         )
     )
 
-serve()
-</code></pre>
+serve()</span></code></pre>
 <p>运行这段代码，一个完整的 Web 服务器就启动了。这里有几个关键点：</p>
 <ul>
 <li><strong><code>fast_app()</code></strong>：初始化应用，返回 <code>app</code> 对象和路由装饰器 <code>rt</code>。</li>
@@ -82,34 +81,33 @@ serve()
 </ul>
 <h3 id="2-添加交互-htmx">2. 添加交互 (HTMX)</h3>
 <p>现在的页面是静态的。让我们加点“魔法”，做一个无需 JS 的计数器：</p>
-<pre><code class="language-python">from fasthtml.common import *
-count = 0
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">from</span> fasthtml.common <span class="hljs-keyword">import</span> *
+count = <span class="hljs-number">0</span>
 
 app, rt = fast_app()
-@rt(&quot;/&quot;)
-def get():
-    return Titled(&quot;计数器&quot;,
+<span class="hljs-meta">@rt(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get</span>():
+    <span class="hljs-keyword">return</span> Titled(<span class="hljs-string">&quot;计数器&quot;</span>,
         Div(
-            H1(f&quot;当前计数: {count}&quot;),
-            # 点击按钮时，向 /increment 发送 POST 请求
-            # 并将返回的内容替换掉 id 为 &#39;counter&#39; 的元素
-            Button(&quot;点我 +1&quot;, hx_post=&quot;/increment&quot;, hx_target=&quot;#counter&quot;, hx_swap=&quot;innerHTML&quot;),
-            id=&quot;counter&quot;
+            H1(<span class="hljs-string">f&quot;当前计数: <span class="hljs-subst">{count}</span>&quot;</span>),
+            <span class="hljs-comment"># 点击按钮时，向 /increment 发送 POST 请求</span>
+            <span class="hljs-comment"># 并将返回的内容替换掉 id 为 &#x27;counter&#x27; 的元素</span>
+            Button(<span class="hljs-string">&quot;点我 +1&quot;</span>, hx_post=<span class="hljs-string">&quot;/increment&quot;</span>, hx_target=<span class="hljs-string">&quot;#counter&quot;</span>, hx_swap=<span class="hljs-string">&quot;innerHTML&quot;</span>),
+            <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;counter&quot;</span>
         )
     )
 
-@rt(&quot;/increment&quot;)
-def post():
-    global count
-    count += 1
-    # 只返回更新后的部分 HTML
-    return Div(
-        H1(f&quot;当前计数: {count}&quot;),
-        Button(&quot;点我 +1&quot;, hx_post=&quot;/increment&quot;, hx_target=&quot;#counter&quot;, hx_swap=&quot;innerHTML&quot;)
+<span class="hljs-meta">@rt(<span class="hljs-params"><span class="hljs-string">&quot;/increment&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">post</span>():
+    <span class="hljs-keyword">global</span> count
+    count += <span class="hljs-number">1</span>
+    <span class="hljs-comment"># 只返回更新后的部分 HTML</span>
+    <span class="hljs-keyword">return</span> Div(
+        H1(<span class="hljs-string">f&quot;当前计数: <span class="hljs-subst">{count}</span>&quot;</span>),
+        Button(<span class="hljs-string">&quot;点我 +1&quot;</span>, hx_post=<span class="hljs-string">&quot;/increment&quot;</span>, hx_target=<span class="hljs-string">&quot;#counter&quot;</span>, hx_swap=<span class="hljs-string">&quot;innerHTML&quot;</span>)
     )
 
-serve()
-</code></pre>
+serve()</span></code></pre>
 <p>在这个例子中：</p>
 <ol>
 <li><code>hx_post=&quot;/increment&quot;</code>：告诉前端，点击按钮时向 <code>/increment</code> 发送 POST 请求。</li>

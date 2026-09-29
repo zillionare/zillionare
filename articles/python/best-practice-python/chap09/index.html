@@ -41,188 +41,186 @@
 <h3 id="22-工作流语法概述">2.2. 工作流语法概述</h3>
 <p>在了解了 Github Actions 的架构之后，我们通过一个例子，来讲解如何定义工作流。</p>
 <p>我们先看 ppw 生成的一个工作流文件：</p>
-<pre><code class="language-yaml">name: dev build CI
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span><span class="cl">123</span><span class="cl">124</span><span class="cl">125</span><span class="cl">126</span><span class="cl">127</span><span class="cl">128</span><span class="cl">129</span><span class="cl">130</span><span class="cl">131</span><span class="cl">132</span><span class="cl">133</span><span class="cl">134</span><span class="cl">135</span><span class="cl">136</span><span class="cl">137</span><span class="cl">138</span><span class="cl">139</span><span class="cl">140</span><span class="cl">141</span><span class="cl">142</span><span class="cl">143</span><span class="cl">144</span><span class="cl">145</span><span class="cl">146</span><span class="cl">147</span><span class="cl">148</span><span class="cl">149</span><span class="cl">150</span><span class="cl">151</span><span class="cl">152</span><span class="cl">153</span><span class="cl">154</span><span class="cl">155</span><span class="cl">156</span><span class="cl">157</span><span class="cl">158</span><span class="cl">159</span><span class="cl">160</span><span class="cl">161</span><span class="cl">162</span><span class="cl">163</span></span><span class="cl-body"><span class="hljs-attr">name:</span> <span class="hljs-string">dev</span> <span class="hljs-string">build</span> <span class="hljs-string">CI</span>
 
-# 定义哪些事件可以触发工作流，以及筛选条件
-on:
-  # 当存储库有 PUSH 或者 PULL_REQUEST 事件时触发
-  push:
-    branches:
-      - &#39;*&#39;
-  pull_request:
-    branches:
-      - &#39;*&#39;
+<span class="hljs-comment"># 定义哪些事件可以触发工作流，以及筛选条件</span>
+<span class="hljs-attr">on:</span>
+  <span class="hljs-comment"># 当存储库有 PUSH 或者 PULL_REQUEST 事件时触发</span>
+  <span class="hljs-attr">push:</span>
+    <span class="hljs-attr">branches:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;*&#x27;</span>
+  <span class="hljs-attr">pull_request:</span>
+    <span class="hljs-attr">branches:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;*&#x27;</span>
 
-# 定义作业集
-jobs:
-  # 工作流包含三个作业，分别是 TEST, PUBLISH_DEV_BUILD, NOTIFICATION
-  test:
-    # 定义作业的运行环境，这里使用了矩阵式定义
-    strategy:
-      matrix:
-        python-versions: [&#39;3.8&#39;, &#39;3.9&#39;, &#39;3.10&#39;]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    # 将步骤的输出提升为作业的输出，以便它们可以在作业之间共享
-    outputs:
-      package_version: ${{ steps.variables_step.outputs.package_version }}
-      package_name: ${{ steps.variables_step.outputs.package_name }}
-      repo_name: ${{ steps.variables_step.outputs.repo_name }}
-      repo_owner: ${{ steps.variables_step.outputs.repo_owner }}
+<span class="hljs-comment"># 定义作业集</span>
+<span class="hljs-attr">jobs:</span>
+  <span class="hljs-comment"># 工作流包含三个作业，分别是 TEST, PUBLISH_DEV_BUILD, NOTIFICATION</span>
+  <span class="hljs-attr">test:</span>
+    <span class="hljs-comment"># 定义作业的运行环境，这里使用了矩阵式定义</span>
+    <span class="hljs-attr">strategy:</span>
+      <span class="hljs-attr">matrix:</span>
+        <span class="hljs-attr">python-versions:</span> [<span class="hljs-string">&#x27;3.8&#x27;</span>, <span class="hljs-string">&#x27;3.9&#x27;</span>, <span class="hljs-string">&#x27;3.10&#x27;</span>]
+        <span class="hljs-attr">os:</span> [<span class="hljs-string">ubuntu-latest</span>, <span class="hljs-string">windows-latest</span>, <span class="hljs-string">macos-latest</span>]
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">${{</span> <span class="hljs-string">matrix.os</span> <span class="hljs-string">}}</span>
+    <span class="hljs-comment"># 将步骤的输出提升为作业的输出，以便它们可以在作业之间共享</span>
+    <span class="hljs-attr">outputs:</span>
+      <span class="hljs-attr">package_version:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.package_version</span> <span class="hljs-string">}}</span>
+      <span class="hljs-attr">package_name:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.package_name</span> <span class="hljs-string">}}</span>
+      <span class="hljs-attr">repo_name:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.repo_name</span> <span class="hljs-string">}}</span>
+      <span class="hljs-attr">repo_owner:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.repo_owner</span> <span class="hljs-string">}}</span>
 
-    # 这是启用外部服务的一个示例
-    # SERVICES:
-    #   REDIS:
-    #     IMAGE: REDIS
-    #     OPTIONS: &gt;-
-    #       --HEALTH-CMD &quot;REDIS-CLI PING&quot;
-    #       --HEALTH-INTERVAL 10S
-    #       --HEALTH-TIMEOUT 5S
-    #       --HEALTH-RETRIES 5
-    #     PORTS:
-    #       - 6379:6379
+    <span class="hljs-comment"># 这是启用外部服务的一个示例</span>
+    <span class="hljs-comment"># SERVICES:</span>
+    <span class="hljs-comment">#   REDIS:</span>
+    <span class="hljs-comment">#     IMAGE: REDIS</span>
+    <span class="hljs-comment">#     OPTIONS: &gt;-</span>
+    <span class="hljs-comment">#       --HEALTH-CMD &quot;REDIS-CLI PING&quot;</span>
+    <span class="hljs-comment">#       --HEALTH-INTERVAL 10S</span>
+    <span class="hljs-comment">#       --HEALTH-TIMEOUT 5S</span>
+    <span class="hljs-comment">#       --HEALTH-RETRIES 5</span>
+    <span class="hljs-comment">#     PORTS:</span>
+    <span class="hljs-comment">#       - 6379:6379</span>
 
-    # 步骤集代表了一系列的任务，这些任务将作为作业的一部分执行
-    steps:
-      # 作业是在容器里执行的，我们需要先将代码检出到这个干净的容器里
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-versions }}
+    <span class="hljs-comment"># 步骤集代表了一系列的任务，这些任务将作为作业的一部分执行</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-comment"># 作业是在容器里执行的，我们需要先将代码检出到这个干净的容器里</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-python@v2</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">python-version:</span> <span class="hljs-string">${{</span> <span class="hljs-string">matrix.python-versions</span> <span class="hljs-string">}}</span>
 
-      - name: Install dependencies
-        run: |
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">dependencies</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions poetry
-
-      # 这一步里，我们设置了一些变量，将其输出到控制台，从而可以在第 85 行提升为 JOB 的输出
-      - name: Declare variables for convenient use
-        id: variables_step
-        run: |
+</span>
+      <span class="hljs-comment"># 这一步里，我们设置了一些变量，将其输出到控制台，从而可以在第 85 行提升为 JOB 的输出</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Declare</span> <span class="hljs-string">variables</span> <span class="hljs-string">for</span> <span class="hljs-string">convenient</span> <span class="hljs-string">use</span>
+        <span class="hljs-attr">id:</span> <span class="hljs-string">variables_step</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           echo &quot;::set-output name=repo_owner::${GITHUB_REPOSITORY%/*}&quot;
           echo &quot;::set-output name=repo_name::${GITHUB_REPOSITORY#*/}&quot;
-          echo &quot;::set-output name=package_name::`poetry version | awk &#39;{print $1}&#39;`&quot;
+          echo &quot;::set-output name=package_name::`poetry version | awk &#x27;{print $1}&#x27;`&quot;
           echo &quot;::set-output name=package_version::`poetry version --short`&quot;
-        shell: bash
+</span>        <span class="hljs-attr">shell:</span> <span class="hljs-string">bash</span>
 
-      # 执行单元测试和代码检查。
-      - name: test with tox
-        run: tox
+      <span class="hljs-comment"># 执行单元测试和代码检查。</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">test</span> <span class="hljs-string">with</span> <span class="hljs-string">tox</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">tox</span>
 
-      # 通过 CODECOV 上传测试覆盖率。
-      - uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
+      <span class="hljs-comment"># 通过 CODECOV 上传测试覆盖率。</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">codecov/codecov-action@v3</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">fail_ci_if_error:</span> <span class="hljs-literal">true</span>
 
-  publish_dev_build:
-    # 只有 TEST 作业完成，我们才开始本作业
-    needs: test
-    # 指定本作业运行的操作系统环境。
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          # 这一步只需要在任意一个 PYTHON 版本上运行
-          python-version: &#39;3.9&#39;
+  <span class="hljs-attr">publish_dev_build:</span>
+    <span class="hljs-comment"># 只有 TEST 作业完成，我们才开始本作业</span>
+    <span class="hljs-attr">needs:</span> <span class="hljs-string">test</span>
+    <span class="hljs-comment"># 指定本作业运行的操作系统环境。</span>
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-python@v2</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-comment"># 这一步只需要在任意一个 PYTHON 版本上运行</span>
+          <span class="hljs-attr">python-version:</span> <span class="hljs-string">&#x27;3.9&#x27;</span>
 
-      - name: Install dependencies
-        run: |
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">dependencies</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           python -m pip install --upgrade pip
           pip install poetry tox tox-gh-actions
-
-      - name: build documentation
-        run: |
+</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">build</span> <span class="hljs-string">documentation</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           poetry install -E doc
           poetry run mkdocs build
           git config --global user.name Docs deploy
           git config --global user.email docs@dummy.bot.com
           poetry run mike deploy -p -f --ignore &quot;`poetry version --short`.dev&quot;
           poetry run mike set-default -p &quot;`poetry version --short`.dev&quot;
-
-      - name: Build wheels and source tarball
-        run: |
+</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">wheels</span> <span class="hljs-string">and</span> <span class="hljs-string">source</span> <span class="hljs-string">tarball</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           poetry version $(poetry version --short)-dev.$GITHUB_RUN_NUMBER
           poetry lock
           poetry build
+</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">publish</span> <span class="hljs-string">to</span> <span class="hljs-string">Test</span> <span class="hljs-string">PyPI</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">pypa/gh-action-pypi-publish@release/v1</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">user:</span> <span class="hljs-string">__token__</span>
+          <span class="hljs-attr">password:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.TEST_PYPI_API_TOKEN}}</span>
+          <span class="hljs-attr">repository_url:</span> <span class="hljs-string">https://test.pypi.org/legacy/</span>
+          <span class="hljs-attr">skip_existing:</span> <span class="hljs-literal">true</span>
 
-      - name: publish to Test PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.TEST_PYPI_API_TOKEN}}
-          repository_url: https://test.pypi.org/legacy/
-          skip_existing: true
+  <span class="hljs-attr">notification:</span>
+    <span class="hljs-attr">needs:</span> [<span class="hljs-string">test</span>,<span class="hljs-string">publish_dev_build</span>]
+    <span class="hljs-attr">if:</span> <span class="hljs-string">always()</span>
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">martialonline/workflow-status@v2</span>
+        <span class="hljs-attr">id:</span> <span class="hljs-string">check</span>
 
-  notification:
-    needs: [test,publish_dev_build]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: martialonline/workflow-status@v2
-        id: check
-
-      - name: build success notification via email
-        if: ${{ steps.check.outputs.status == &#39;success&#39; }}
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.BUILD_NOTIFY_MAIL_SERVER }}
-          server_port: ${{ secrets.BUILD_NOTIFY_MAIL_PORT }}
-          username: ${{ secrets.BUILD_NOTIFY_MAIL_FROM }}
-          password: ${{ secrets.BUILD_NOTIFY_MAIL_PASSWORD }}
-          from: build-bot
-          to: ${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}
-          subject: ${{ needs.test.outputs.package_name }}.${{ needs.test.outputs.package_version}} build successfully
-          convert_markdown: true
-          html_body: |
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">build</span> <span class="hljs-string">success</span> <span class="hljs-string">notification</span> <span class="hljs-string">via</span> <span class="hljs-string">email</span>
+        <span class="hljs-attr">if:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.check.outputs.status</span> <span class="hljs-string">==</span> <span class="hljs-string">&#x27;success&#x27;</span> <span class="hljs-string">}}</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">dawidd6/action-send-mail@v3</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">server_address:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_SERVER</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">server_port:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_PORT</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">username:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_FROM</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">password:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_PASSWORD</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">from:</span> <span class="hljs-string">build-bot</span>
+          <span class="hljs-attr">to:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_RCPT</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">subject:</span> <span class="hljs-string">${{</span> <span class="hljs-string">needs.test.outputs.package_name</span> <span class="hljs-string">}}.${{</span> <span class="hljs-string">needs.test.outputs.package_version}}</span> <span class="hljs-string">build</span> <span class="hljs-string">successfully</span>
+          <span class="hljs-attr">convert_markdown:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">html_body:</span> <span class="hljs-string">|
             ## Build Success
             ${{ needs.test.outputs.package_name }}.${{ needs.test.outputs.package_version }} is built and published to test pypi
+</span>
+            <span class="hljs-comment">## Change Details</span>
+            <span class="hljs-string">${{</span> <span class="hljs-string">github.event.head_commit.message</span> <span class="hljs-string">}}</span>
 
+            <span class="hljs-string">For</span> <span class="hljs-string">more</span> <span class="hljs-string">information,</span> <span class="hljs-string">please</span> <span class="hljs-string">check</span> <span class="hljs-string">change</span> <span class="hljs-string">history</span> <span class="hljs-string">at</span> <span class="hljs-string">https://${{</span> <span class="hljs-string">needs.test.outputs.repo_owner</span> <span class="hljs-string">}}.github.io/${{</span> <span class="hljs-string">needs.test.outputs.repo_name</span> <span class="hljs-string">}}/${{</span> <span class="hljs-string">needs.test.outputs.package_version</span> <span class="hljs-string">}}/history</span>
+
+            <span class="hljs-comment">## Package Download</span>
+            <span class="hljs-attr">The pacakge is available at:</span> <span class="hljs-string">https://test.pypi.org/project/${{</span> <span class="hljs-string">needs.test.outputs.package_name</span> <span class="hljs-string">}}/</span>
+
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">build</span> <span class="hljs-string">failure</span> <span class="hljs-string">notification</span> <span class="hljs-string">via</span> <span class="hljs-string">email</span>
+        <span class="hljs-attr">if:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.check.outputs.status</span> <span class="hljs-string">==</span> <span class="hljs-string">&#x27;failure&#x27;</span> <span class="hljs-string">}}</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">dawidd6/action-send-mail@v3</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">server_address:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_SERVER</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">server_port:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_PORT</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">username:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_FROM</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">password:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_PASSWORD</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">from:</span> <span class="hljs-string">build-bot</span>
+          <span class="hljs-attr">to:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.BUILD_NOTIFY_MAIL_RCPT</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">subject:</span> <span class="hljs-string">${{</span> <span class="hljs-string">needs.test.outputs.package_name</span> <span class="hljs-string">}}.${{</span> <span class="hljs-string">needs.test.outputs.package_version}}</span> <span class="hljs-string">build</span> <span class="hljs-string">failure</span>
+          <span class="hljs-attr">convert_markdown:</span> <span class="hljs-literal">true</span>
+          <span class="hljs-attr">html_body:</span> <span class="hljs-string">|
             ## Change Details
             ${{ github.event.head_commit.message }}
-
-            For more information, please check change history at https://${{ needs.test.outputs.repo_owner }}.github.io/${{ needs.test.outputs.repo_name }}/${{ needs.test.outputs.package_version }}/history
-
-            ## Package Download
-            The pacakge is available at: https://test.pypi.org/project/${{ needs.test.outputs.package_name }}/
-
-      - name: build failure notification via email
-        if: ${{ steps.check.outputs.status == &#39;failure&#39; }}
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.BUILD_NOTIFY_MAIL_SERVER }}
-          server_port: ${{ secrets.BUILD_NOTIFY_MAIL_PORT }}
-          username: ${{ secrets.BUILD_NOTIFY_MAIL_FROM }}
-          password: ${{ secrets.BUILD_NOTIFY_MAIL_PASSWORD }}
-          from: build-bot
-          to: ${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}
-          subject: ${{ needs.test.outputs.package_name }}.${{ needs.test.outputs.package_version}} build failure
-          convert_markdown: true
-          html_body: |
-            ## Change Details
-            ${{ github.event.head_commit.message }}
-
-            ## View Log
-            https://github.com/${{ needs.test.outputs.repo_owner }}/${{ needs.test.outputs.repo_name }}/actions
-</code></pre>
+</span>
+            <span class="hljs-comment">## View Log</span>
+            <span class="hljs-string">https://github.com/${{</span> <span class="hljs-string">needs.test.outputs.repo_owner</span> <span class="hljs-string">}}/${{</span> <span class="hljs-string">needs.test.outputs.repo_name</span> <span class="hljs-string">}}/actions</span></span></code></pre>
 <p>这是一个名为 dev build CI 的作业，它将在任一分支发生提交和 pull request 时触发。它包含三个作业，即 test（执行单元测试）、publish_dev_build（构建并发布开发版本到 test_pypi) 和 notification（在构建成功或失败时发送邮件通知）。三者之间有依赖关系，如果 test 作业失败，publish_dev_build 会取消；但是无论 test/publish_dev_build 作业是否成功，notification 作业都会执行，并根据前两个作业的状态发送内容不同的邮件通知。</p>
 <p>这是一个比较简单的作业，但也涉及了我们在 CI 中需要做的几乎所有事情。在代码中我们加入了较多的注释，建议读者结合下面的讲解，仔细阅读代码。</p>
 <h4>2.2.1. 定义触发条件</h4>
 <p>第 4 行到第 14 行配置了工作流的触发条件。触发条件一节由关键字**&#39;on&#39;**引起。在它的下一层，我们可以定义多个触发事件，并为每个触发事件，指定类型和过滤器。一个完整的触发条件配置如下：</p>
-<pre><code class="language-yaml">on:
-    push:
-        branches: 
-          - &#39;*&#39;
-        tags:
-          - v*
-    label:
-        branches:
-            - main
-        types:
-            - created
-    schedule:
-        - cron: &#39;30 5 * * 1,3&#39;
-</code></pre>
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-attr">on:</span>
+    <span class="hljs-attr">push:</span>
+        <span class="hljs-attr">branches:</span> 
+          <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;*&#x27;</span>
+        <span class="hljs-attr">tags:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-string">v*</span>
+    <span class="hljs-attr">label:</span>
+        <span class="hljs-attr">branches:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">main</span>
+        <span class="hljs-attr">types:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">created</span>
+    <span class="hljs-attr">schedule:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">cron:</span> <span class="hljs-string">&#x27;30 5 * * 1,3&#x27;</span></span></code></pre>
 <p>在上面的示例中，&#39;push&#39;, &#39;label&#39;, &#39;tags&#39;和&#39;schedule&#39;都是事件关键字。可用的事件关键字可参见 <a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a>。</p>
 <p>在事件的下一级，是定义活动类型和筛选器的地方。不是所有的事件都有活动类型，即使有，它们的活动类型也很可能不一样。比如，<code>push</code>事件就没有活动类型，而<code>label</code>事件有<code>created</code>, <code>edited</code>和<code>deleted</code>三种活动类型，而<code>issues</code>事件的活动类型则是<code>opened</code>和<code>labeled</code>等。要想知道事件有哪些活动类型，可以参考 <a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a>。</p>
 <p>筛选器有 branches 和 tags 两种，分别用于指定分支和标签。从上面的示例可以看出，筛选器的值支持 glob 模式，即我们可以使用*、**、 +、 ? 和！等通配符来匹配分支和标签名。除了示例中的正向匹配外，还可以使用 branches-ignore 或者 tags-ignore 来反向匹配。</p>
@@ -235,16 +233,14 @@ jobs:
 <p>比如，publish_dev_build 作业只需要在 ubuntu_latest 和 python 3.9 这个组合上运行，因为在任何一个组合上运行这个作业，它们的结果都应该是一样的。第 78 行和第 84 行都是指定单个执行环境的例子。但对测试任务，我们希望它在所有机器上都运行，并且还要运行在不同的 python 版本上。为了表达简洁起见，Github actions 引入了矩阵的概念。</p>
 <p>我们通过 strategy.matrix 来定义测试矩阵。在示例第 20~23 行定义的矩阵中，我们定义了 python 版本和操作系统列表。这个定义随后就被使用了，在第 24 行，我们通过{{matrix.os}}来引用了其中的操作系统定义。第 22 行的 python-versions 是一个特殊的关键字，它用来指示我们要使用的 python 版本。如果我们的开发语言不是 python，这里的指定将没有意义。</p>
 <p>接下来我们需要为作业定义具体执行哪些任务，它们被归类在步骤集 (steps) 中。步骤集是一个包含多个步骤的列表。而每一个步骤，要么是一个 shell 命令（或者一组 shell 命令），要么是一个 action。如果要运行 shell 命令，我们使用下面的语法：</p>
-<pre><code class="language-yaml">- name: &lt;step name&gt;
-  run: &lt;shell command&gt;
-</code></pre>
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&lt;step</span> <span class="hljs-string">name&gt;</span>
+  <span class="hljs-attr">run:</span> <span class="hljs-string">&lt;shell</span> <span class="hljs-string">command&gt;</span></span></code></pre>
 <p>如果要运行一组 shell 命令，我们使用：</p>
-<pre><code class="language-yaml">- name: &lt;step name&gt;
-  run: |
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&lt;step</span> <span class="hljs-string">name&gt;</span>
+  <span class="hljs-attr">run:</span> <span class="hljs-string">|
     &lt;shell command 1&gt;
     &lt;shell command 2&gt;
-    ...
-</code></pre>
+    ...</span></span></code></pre>
 <p>注意上述两组语法的不同之处，不能混淆。</p>
 <p>至于 action，我们前面已经讲过了，它是用于 GitHub Actions 平台的自定义应用程序。您可以自己编写 action，也可以在 Github 的应用市场上查找他人开发的应用。</p>
 <p>每一个步骤都可以指定 python 运行时。我们在第 48 行看到，这里<code>{{ matrix.python-versions }}</code>使用的是矩阵中定义的 python 版本。而在第 84 行，我们则直接指定了一个 python 的版本。这里还要注意，版本号是一个字符串，q 我们可以使用<code>&#39;3.10&#39;</code>，但不能使用<code>3.10</code>，后者将会被 yaml 解析为<code>3.1</code>，从而出现找不到 python 版本的问题。</p>
@@ -254,37 +250,35 @@ jobs:
 Github 中的变量分为两种，一种是系统变量，一种是作业变量。系统变量是 Github 平台提供的，作业变量是我们自己定义的。无论那一种变量，我们都通过<code>${{ }}</code>来引用。</p>
 <p>系统变量按级别可以定义在组织、存储库或者环境上。比如<code>secrets</code>就定义在存储库级别上，我们可以通过<code>${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}</code>来访问它的值，这需要我们在存储库里事先定义<code>BUILD_NOTIFY_MAIL_RCPT</code>这个变量。GitHub 提供了一些默认变量，比如<code>GITHUB_REPOSITORY</code>（此变量的值是仓库所有者及仓库名，比如，octocat/Hello-World，示例第 59 行使用了这一变量，并且演示了一个字符串提取技巧）等。</p>
 <p>下面的代码演示了作业变量的使用技巧（摘自示例第 122~132 行）：</p>
-<pre><code class="language-yaml">  notification:
-    needs: [test,publish_dev_build]
-    steps:
-      - name: build success notification via email
-        if: ${{ steps.check.outputs.status == &#39;success&#39; }}
-        uses: dawidd6/action-send-mail@v3
-        with:
-          subject: ${{ needs.test.outputs.package_name }}.
-</code></pre>
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">  <span class="hljs-attr">notification:</span>
+    <span class="hljs-attr">needs:</span> [<span class="hljs-string">test</span>,<span class="hljs-string">publish_dev_build</span>]
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">build</span> <span class="hljs-string">success</span> <span class="hljs-string">notification</span> <span class="hljs-string">via</span> <span class="hljs-string">email</span>
+        <span class="hljs-attr">if:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.check.outputs.status</span> <span class="hljs-string">==</span> <span class="hljs-string">&#x27;success&#x27;</span> <span class="hljs-string">}}</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">dawidd6/action-send-mail@v3</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">subject:</span> <span class="hljs-string">${{</span> <span class="hljs-string">needs.test.outputs.package_name</span> <span class="hljs-string">}}.</span></span></code></pre>
 <p>首先，在作业 test 中，将步骤 variable_step（第 57<del>63 行）的输出提升为作业的输出（第 24</del>28 行），也相当于声明了 package_name 等 4 个变量。然后，我们在上面的代码中，通过${{ needs.test.outputs.package_name }}来引用了这些 变量（比如 package_name）。变量是通过<code>{job_id}.outputs.{variable}</code>来引用的，这并没有什么奇怪的地方。但是要注意它还有一个<code>needs</code>作用域。这表明，如果我们使用变量的地方，其所属的作业如果没有声明依赖到<code>test</code>作业，那么这个变量是无法被引用的。</p>
 <p>示例中没有展示环境变量的用法，这里我们给一个示例，请读者结合注释自行研究：</p>
-<pre><code>env:
-  # 声明了一个全局上下文的环境变量
-  DAY_OF_WEEK: Monday
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-attr">env:</span>
+  <span class="hljs-comment"># 声明了一个全局上下文的环境变量</span>
+  <span class="hljs-attr">DAY_OF_WEEK:</span> <span class="hljs-string">Monday</span>
 
-jobs:
-  greeting_job:
-    runs-on: ubuntu-latest
-    env:
-      # 声明了一个作业上下文的环境变量
-      Greeting: Hello
-    steps:
-      - name: &quot;Say Hello Mona it&#39;s Monday&quot;
-        # 使用时我们在变量前加一个`ENV.`的约束
-        if: ${{ env.DAY_OF_WEEK == &#39;Monday&#39; }}
-        # 当使用的环境变量是在作业内声明时，我们可以省略`ENV.`的约束
-        run: echo &quot;$Greeting $First_Name. Today is $DAY_OF_WEEK!&quot;
-        env:
-          # 声明了步骤上下文的环境变量
-          First_Name: Mona
-</code></pre>
+<span class="hljs-attr">jobs:</span>
+  <span class="hljs-attr">greeting_job:</span>
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
+    <span class="hljs-attr">env:</span>
+      <span class="hljs-comment"># 声明了一个作业上下文的环境变量</span>
+      <span class="hljs-attr">Greeting:</span> <span class="hljs-string">Hello</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;Say Hello Mona it&#x27;s Monday&quot;</span>
+        <span class="hljs-comment"># 使用时我们在变量前加一个`ENV.`的约束</span>
+        <span class="hljs-attr">if:</span> <span class="hljs-string">${{</span> <span class="hljs-string">env.DAY_OF_WEEK</span> <span class="hljs-string">==</span> <span class="hljs-string">&#x27;Monday&#x27;</span> <span class="hljs-string">}}</span>
+        <span class="hljs-comment"># 当使用的环境变量是在作业内声明时，我们可以省略`ENV.`的约束</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">echo</span> <span class="hljs-string">&quot;$Greeting $First_Name. Today is $DAY_OF_WEEK!&quot;</span>
+        <span class="hljs-attr">env:</span>
+          <span class="hljs-comment"># 声明了步骤上下文的环境变量</span>
+          <span class="hljs-attr">First_Name:</span> <span class="hljs-string">Mona</span></span></code></pre>
 <h4>2.2.3. 连接其它服务</h4>
 <p>在示例的第 31 行到第 40 行，有一段被注释的代码，这是用来启用 redis 服务的。Github Actions 通过容器技术来提供这些服务。理论上，只要在 docker hub 上存在某个服务的 image（镜像），我们就可以在 Github Actions 中使用它。</p>
 <div class="admonition admonition-Attention"><p class="admonition-title">Attention</p>
@@ -308,28 +302,27 @@ jobs:
 
 <h3 id="31-github-pages-部署">3.1. Github pages 部署</h3>
 <p>这个 action 可以用来将静态网站部署到 Github Pages 上。在 ppw 生成的项目中，它与 mkdocs/mike 配合使用。其 ID 是 JamesIves/github-pages-deploy-action，使用示例如下：</p>
-<pre><code>name: Build and Deploy
-on: [push]
-permissions:
-  contents: write
-jobs:
-  build-and-deploy:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">and</span> <span class="hljs-string">Deploy</span>
+<span class="hljs-attr">on:</span> [<span class="hljs-string">push</span>]
+<span class="hljs-attr">permissions:</span>
+  <span class="hljs-attr">contents:</span> <span class="hljs-string">write</span>
+<span class="hljs-attr">jobs:</span>
+  <span class="hljs-attr">build-and-deploy:</span>
+    <span class="hljs-attr">concurrency:</span> <span class="hljs-string">ci-${{</span> <span class="hljs-string">github.ref</span> <span class="hljs-string">}}</span> <span class="hljs-comment"># Recommended if you intend to make multiple deployments in quick succession.</span>
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Checkout</span> <span class="hljs-string">🛎️</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v3</span>
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the &#39;build&#39; folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: |
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">and</span> <span class="hljs-string">Build</span> <span class="hljs-string">🔧</span> <span class="hljs-comment"># This example project is built using npm and outputs the result to the &#x27;build&#x27; folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           npm ci
           npm run build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build # The folder the action should deploy.
-</code></pre>
+</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">🚀</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">JamesIves/github-pages-deploy-action@v4</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">folder:</span> <span class="hljs-string">build</span> <span class="hljs-comment"># The folder the action should deploy.</span></span></code></pre>
 <h3 id="32-构建和发布-docker-镜像">3.2. 构建和发布 docker 镜像</h3>
 <p>显然，作为持续部署的一个步骤，docker 镜像的构建也应该通过 CI/CD 服务器来完成并发布。docker 官方提供了一个完成此功能的 action， id 是 docker/build-push-action。</p>
 <h3 id="33-github-release">3.3. Github Release</h3>
@@ -347,100 +340,99 @@ jobs:
 <h2 id="4-通过-github-ci-发布-python-库">4. 通过 Github CI 发布 Python 库</h2>
 <p>我们在前面看到的例子来自于<code>ppw</code>生成的项目下的.github\workflows\dev.yml 文件。这个文件定义的工作流适用于所有的分支，在每次 push 时都会触发。它的作用是进行集成测试，构建测试包并发布到 testpypi，并发布非正式文档到 Github Pages 上。</p>
 <p>正式的版本发布工作交给了 release.yml。这个工作流仅适用于 main 分支，并且只有当 main 分支上有打标签事件发生，并且标签是以&#39;v&#39;字线开头时，才会真正运行。下面是这个工作流的内容：</p>
-<pre><code class="language-yaml"># PUBLISH PACKAGE ON RELEASE BRANCH IF IT&#39;S TAGGED WITH &#39;V*&#39;
+<pre><code class="hljs language-yaml title="release.yml""><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span></span><span class="cl-body"><span class="hljs-comment"># PUBLISH PACKAGE ON RELEASE BRANCH IF IT&#x27;S TAGGED WITH &#x27;V*&#x27;</span>
 
-name: build &amp; release
+<span class="hljs-attr">name:</span> <span class="hljs-string">build</span> <span class="hljs-string">&amp;</span> <span class="hljs-string">release</span>
 
-# CONTROLS WHEN THE ACTION WILL RUN.
-on:
-  # TRIGGERS THE WORKFLOW ON PUSH OR PULL REQUEST EVENTS BUT ONLY FOR THE MASTER BRANCH
-  push:
-    branch: [main, master]
-    tags:
-      - &#39;v*&#39;
+<span class="hljs-comment"># CONTROLS WHEN THE ACTION WILL RUN.</span>
+<span class="hljs-attr">on:</span>
+  <span class="hljs-comment"># TRIGGERS THE WORKFLOW ON PUSH OR PULL REQUEST EVENTS BUT ONLY FOR THE MASTER BRANCH</span>
+  <span class="hljs-attr">push:</span>
+    <span class="hljs-attr">branch:</span> [<span class="hljs-string">main</span>, <span class="hljs-string">master</span>]
+    <span class="hljs-attr">tags:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;v*&#x27;</span>
 
-  # ALLOWS YOU TO RUN THIS WORKFLOW MANUALLY FROM THE ACTIONS TAB
-  workflow_dispatch:
+  <span class="hljs-comment"># ALLOWS YOU TO RUN THIS WORKFLOW MANUALLY FROM THE ACTIONS TAB</span>
+  <span class="hljs-attr">workflow_dispatch:</span>
 
-# A WORKFLOW RUN IS MADE UP OF ONE OR MORE JOBS THAT CAN RUN SEQUENTIALLY OR IN PARALLEL
-jobs:
-  release:
-    runs-on: ubuntu-latest
+<span class="hljs-comment"># A WORKFLOW RUN IS MADE UP OF ONE OR MORE JOBS THAT CAN RUN SEQUENTIALLY OR IN PARALLEL</span>
+<span class="hljs-attr">jobs:</span>
+  <span class="hljs-attr">release:</span>
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
 
-    strategy:
-      matrix:
-        python-versions: [&#39;3.9&#39;]
+    <span class="hljs-attr">strategy:</span>
+      <span class="hljs-attr">matrix:</span>
+        <span class="hljs-attr">python-versions:</span> [<span class="hljs-string">&#x27;3.9&#x27;</span>]
 
-    # MAP STEP OUTPUTS TO JOB OUTPUTS SO THEY CAN BE SHARE AMONG JOBS
-    outputs:
-      package_version: ${{ steps.variables_step.outputs.package_version }}
-      package_name: ${{ steps.variables_step.outputs.package_name }}
-      repo_name: ${{ steps.variables_step.outputs.repo_name }}
-      repo_owner: ${{ steps.variables_step.outputs.repo_owner }}
+    <span class="hljs-comment"># MAP STEP OUTPUTS TO JOB OUTPUTS SO THEY CAN BE SHARE AMONG JOBS</span>
+    <span class="hljs-attr">outputs:</span>
+      <span class="hljs-attr">package_version:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.package_version</span> <span class="hljs-string">}}</span>
+      <span class="hljs-attr">package_name:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.package_name</span> <span class="hljs-string">}}</span>
+      <span class="hljs-attr">repo_name:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.repo_name</span> <span class="hljs-string">}}</span>
+      <span class="hljs-attr">repo_owner:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.variables_step.outputs.repo_owner</span> <span class="hljs-string">}}</span>
 
-    # STEPS REPRESENT A SEQUENCE OF TASKS THAT WILL BE EXECUTED AS PART OF THE JOB
-    steps:
-      # CHECKS-OUT YOUR REPOSITORY UNDER $GITHUB_WORKSPACE, SO YOUR JOB CAN ACCESS IT
-      - uses: actions/checkout@v2
+    <span class="hljs-comment"># STEPS REPRESENT A SEQUENCE OF TASKS THAT WILL BE EXECUTED AS PART OF THE JOB</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-comment"># CHECKS-OUT YOUR REPOSITORY UNDER $GITHUB_WORKSPACE, SO YOUR JOB CAN ACCESS IT</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span>
 
-      - name: build change log
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v3.2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">build</span> <span class="hljs-string">change</span> <span class="hljs-string">log</span>
+        <span class="hljs-attr">id:</span> <span class="hljs-string">build_changelog</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">mikepenz/release-changelog-builder-action@v3.2.0</span>
+        <span class="hljs-attr">env:</span>
+          <span class="hljs-attr">GITHUB_TOKEN:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.GITHUB_TOKEN</span> <span class="hljs-string">}}</span>
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-versions }}
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-python@v2</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">python-version:</span> <span class="hljs-string">${{</span> <span class="hljs-string">matrix.python-versions</span> <span class="hljs-string">}}</span>
 
-      - name: Install dependencies
-        run: |
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">dependencies</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           python -m pip install --upgrade pip
           pip install tox-gh-actions poetry
-
-        # DECLARE PACKAGE_VERSION, REPO_OWNER, REPO_NAME, PACKAGE_NAME SO YOU MAY USE IT IN WEB HOOKS.
-      - name: Declare variables for convenient use
-        id: variables_step
-        run: |
+</span>
+        <span class="hljs-comment"># DECLARE PACKAGE_VERSION, REPO_OWNER, REPO_NAME, PACKAGE_NAME SO YOU MAY USE IT IN WEB HOOKS.</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Declare</span> <span class="hljs-string">variables</span> <span class="hljs-string">for</span> <span class="hljs-string">convenient</span> <span class="hljs-string">use</span>
+        <span class="hljs-attr">id:</span> <span class="hljs-string">variables_step</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           echo &quot;::set-output name=repo_owner::${GITHUB_REPOSITORY%/*}&quot;
           echo &quot;::set-output name=repo_name::${GITHUB_REPOSITORY#*/}&quot;
-          echo &quot;::set-output name=package_name::`poetry version | awk &#39;{print $1}&#39;`&quot;
+          echo &quot;::set-output name=package_name::`poetry version | awk &#x27;{print $1}&#x27;`&quot;
           echo &quot;::set-output name=package_version::`poetry version --short`&quot;
-        shell: bash
+</span>        <span class="hljs-attr">shell:</span> <span class="hljs-string">bash</span>
 
-      - name: publish documentation
-        run: |
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">publish</span> <span class="hljs-string">documentation</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           poetry install -E dev
           poetry run mkdocs build
           git config --global user.name Docs deploy
           git config --global user.email docs@dummy.bot.com
           poetry run mike deploy -p -f --ignore `poetry version --short`
           poetry run mike set-default -p `poetry version --short`
-
-      - name: Build wheels and source tarball
-        run: |
+</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">wheels</span> <span class="hljs-string">and</span> <span class="hljs-string">source</span> <span class="hljs-string">tarball</span>
+        <span class="hljs-attr">run:</span> <span class="hljs-string">|
           poetry lock
           poetry build
+</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Create</span> <span class="hljs-string">Release</span>
+        <span class="hljs-attr">id:</span> <span class="hljs-string">create_release</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/create-release@v1</span>
+        <span class="hljs-attr">env:</span>
+          <span class="hljs-attr">GITHUB_TOKEN:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.GITHUB_TOKEN</span> <span class="hljs-string">}}</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">tag_name:</span> <span class="hljs-string">${{</span> <span class="hljs-string">github.ref_name</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">release_name:</span> <span class="hljs-string">Release</span> <span class="hljs-string">${{</span> <span class="hljs-string">github.ref_name</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">body:</span> <span class="hljs-string">${{</span> <span class="hljs-string">steps.build_changelog.outputs.changelog</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">draft:</span> <span class="hljs-literal">false</span>
+          <span class="hljs-attr">prerelease:</span> <span class="hljs-literal">false</span>
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          body: ${{ steps.build_changelog.outputs.changelog }}
-          draft: false
-          prerelease: false
-
-      - name: publish to PYPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          skip_existing: true
-</code></pre>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">publish</span> <span class="hljs-string">to</span> <span class="hljs-string">PYPI</span>
+        <span class="hljs-attr">uses:</span> <span class="hljs-string">pypa/gh-action-pypi-publish@release/v1</span>
+        <span class="hljs-attr">with:</span>
+          <span class="hljs-attr">user:</span> <span class="hljs-string">__token__</span>
+          <span class="hljs-attr">password:</span> <span class="hljs-string">${{</span> <span class="hljs-string">secrets.PYPI_API_TOKEN</span> <span class="hljs-string">}}</span>
+          <span class="hljs-attr">skip_existing:</span> <span class="hljs-literal">true</span></span></code></pre>
 <p>这个工作流用到的语法特性前面已经讲过了。这里就不再解释。</p>
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">

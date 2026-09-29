@@ -26,47 +26,44 @@
 <hr>
 <h2 id="新开户人数因子">新开户人数因子</h2>
 <p>新开户人数可以通过 akshare 来获取：</p>
-<pre><code class="language-python">import akshare as ak
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
 
-# 得到每月新开户人数
+<span class="hljs-comment"># 得到每月新开户人数</span>
 accounts_df = ak.stock_account_statistics_em()
-accounts_df
-</code></pre>
+accounts_df</span></code></pre>
 <p>这样我们得到了 2015 年 4 月以来的投资者账户数据。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/investor-account.jpg" alt=""></p>
 <p>它的返回值中，有一列为数据日期，其格式形如&quot;2015-04&quot;，我们需要将其转换成为正规的日期格式。</p>
-<pre><code class="language-python"># 这里演示了如何取 DATAFRAME 的数据单元
-end = accounts_df.iloc[0][&quot;数据日期&quot;]
-start = accounts_df.iloc[-1][&quot;数据日期&quot;]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 这里演示了如何取 DATAFRAME 的数据单元</span>
+end = accounts_df.iloc[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;数据日期&quot;</span>]
+start = accounts_df.iloc[-<span class="hljs-number">1</span>][<span class="hljs-string">&quot;数据日期&quot;</span>]
 
-yr, month = end.split(&quot;-&quot;)
-end = datetime.date(int(yr), int(month) + 1, 1)
-</code></pre>
+yr, month = end.split(<span class="hljs-string">&quot;-&quot;</span>)
+end = datetime.date(<span class="hljs-built_in">int</span>(yr), <span class="hljs-built_in">int</span>(month) + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+</span></code></pre>
 <hr>
-<pre><code class="language-python"># tf.floor 是 OMICRON 的函数，它将日期对齐到上一个已结束的周期
-# 在 OMICRON 中，提供了大量时间运算函数，是量化中必备的
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># tf.floor 是 OMICRON 的函数，它将日期对齐到上一个已结束的周期</span>
+<span class="hljs-comment"># 在 OMICRON 中，提供了大量时间运算函数，是量化中必备的</span>
 end = tf.floor(end, FrameType.MONTH)
 
-yr, month = start.split(&quot;-&quot;)
-start = datetime.date(int(yr), int(month) + 1, 1)
-start = tf.floor(start, FrameType.MONTH)
-</code></pre>
+yr, month = start.split(<span class="hljs-string">&quot;-&quot;</span>)
+start = datetime.date(<span class="hljs-built_in">int</span>(yr), <span class="hljs-built_in">int</span>(month) + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+start = tf.floor(start, FrameType.MONTH)</span></code></pre>
 <p>我们得到了投资者账户数据中的起止时间，现在就可以取指数行情，并进行绘图。</p>
-<pre><code class="language-python">
-# 获取上证指数
-bars = await Stock.get_bars_in_range(&quot;000001.XSHG&quot;, 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">
+<span class="hljs-comment"># 获取上证指数</span>
+bars = <span class="hljs-keyword">await</span> Stock.get_bars_in_range(<span class="hljs-string">&quot;000001.XSHG&quot;</span>, 
                                     FrameType.MONTH, 
                                     start, end)
 
-# 将新增投资者人数与上证指数走势对应起来
-df = pd.DataFrame({&quot;xshg&quot;: bars[&quot;close&quot;][::-1] / 10, 
-                   &quot;investor&quot;: accounts_df[&quot;新增投资者-数量&quot;]})
-df.index = accounts_df[&quot;数据日期&quot;]
+<span class="hljs-comment"># 将新增投资者人数与上证指数走势对应起来</span>
+df = pd.DataFrame({<span class="hljs-string">&quot;xshg&quot;</span>: bars[<span class="hljs-string">&quot;close&quot;</span>][::-<span class="hljs-number">1</span>] / <span class="hljs-number">10</span>, 
+                   <span class="hljs-string">&quot;investor&quot;</span>: accounts_df[<span class="hljs-string">&quot;新增投资者-数量&quot;</span>]})
+df.index = accounts_df[<span class="hljs-string">&quot;数据日期&quot;</span>]
 
 fig = px.line(df)
-fig.update_layout(hovermode=&quot;x unified&quot;)
-fig.show()
-</code></pre>
+fig.update_layout(hovermode=<span class="hljs-string">&quot;x unified&quot;</span>)
+fig.show()</span></code></pre>
 <p>对应关系如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/20231227214221.png" alt="75%"></p>
 <hr>
@@ -76,10 +73,9 @@ fig.show()
 <h2 id="人气指数因子">人气指数因子</h2>
 <p>Akshare中有一个函数，它可以获取股吧里，某个标的的人气指数。显然，人气指数是一个典型的散户指数，毕竟，机构钱多，散户人多。</p>
 <p>这个方法是：</p>
-<pre><code class="language-python">import akshare
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare
 
-akshare.stock_hot_rank_detail_realtime_em(&quot;SZ000665&quot;)
-</code></pre>
+akshare.stock_hot_rank_detail_realtime_em(<span class="hljs-string">&quot;SZ000665&quot;</span>)</span></code></pre>
 <p>输出结果为：</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hot_rank_detail_realtime.jpg" alt="75%"></p>

@@ -35,12 +35,11 @@
 <li>盈余公积金数据。与 11 一起，用来计算留存收益资产比因子。<!-- pro.balancesheet_vip.surplus_rese --></li>
 </ol>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">import tushare as ts
-from helper import qfq_adjustment
-from fetchers import fetch_bars_ext, fetch_dv_ttm
-from store import ParquetUnifiedStorage, CalendarModel
-from moonshot import Moonshot
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
+<span class="hljs-keyword">from</span> helper <span class="hljs-keyword">import</span> qfq_adjustment
+<span class="hljs-keyword">from</span> fetchers <span class="hljs-keyword">import</span> fetch_bars_ext, fetch_dv_ttm
+<span class="hljs-keyword">from</span> store <span class="hljs-keyword">import</span> ParquetUnifiedStorage, CalendarModel
+<span class="hljs-keyword">from</span> moonshot <span class="hljs-keyword">import</span> Moonshot</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>在前面的分期文章中，我们已经获得了第 1~2 步的数据，并实现了按股息率进行票池筛选。回测表明，仅仅是通过股息率因子，我们就可以获得一定的年化超额，和更好的夏普比。</p>
@@ -53,36 +52,34 @@ from moonshot import Moonshot
 
 <p>在 tushare 中，我们要通过 dividend 接口来获取分红数据。回测发生在 2018 年到 2023 年之间，我们再一次遇到如何在 tushare 中，获取这么长跨度的数据的问题。根据我们之前的讨论，我们应该选择一次查询可以获得最多数据的接口（参数）。</p>
 <p>该接口签名如下：</p>
-<pre><code class="language-{code-block}">def dividend(ts_code: str|None = None, 
-             ann_date: str|None = None, 
-             record_date: str|None = None, 
-             ex_date: str|None = None, 
-             imp_ann_date: str|None = None):
-    pass
-</code></pre>
+<pre><code class="hljs language-{code-block} python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">dividend</span>(<span class="hljs-params">ts_code: <span class="hljs-built_in">str</span>|<span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>, 
+             ann_date: <span class="hljs-built_in">str</span>|<span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>, 
+             record_date: <span class="hljs-built_in">str</span>|<span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>, 
+             ex_date: <span class="hljs-built_in">str</span>|<span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>, 
+             imp_ann_date: <span class="hljs-built_in">str</span>|<span class="hljs-literal">None</span> = <span class="hljs-literal">None</span></span>):
+    <span class="hljs-keyword">pass</span></span></code></pre>
 <p>但是，如果按这些『<strong>列出来</strong>』的参数来进行查询，每次返回的数据量会很小，导致获取数据时间过长。这里我们又发现了一个<strong>隐藏参数</strong>，大家可以根据自己的情况来决定是否采用。这个参数就是 end_date。我们把使用各个参数进行查询所能得到的记录数比较一下：</p>
-<pre><code class="language-python">pro = ts.pro_api()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body">pro = ts.pro_api()
 
-df_ann = pro.dividend(ann_date=&quot;20250419&quot;)
-print(&quot;ann_date 一次返回数据：&quot;, len(df_ann))
+df_ann = pro.dividend(ann_date=<span class="hljs-string">&quot;20250419&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;ann_date 一次返回数据：&quot;</span>, <span class="hljs-built_in">len</span>(df_ann))
 
-df_end = pro.dividend(end_date=&quot;20241231&quot;, offse=0, limit=6000)
-print(&quot;end_date 一次返回数据：&quot;, len(df_end))
+df_end = pro.dividend(end_date=<span class="hljs-string">&quot;20241231&quot;</span>, offse=<span class="hljs-number">0</span>, limit=<span class="hljs-number">6000</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;end_date 一次返回数据：&quot;</span>, <span class="hljs-built_in">len</span>(df_end))
 
-df_ex = pro.dividend(ex_date=&quot;20250419&quot;)
-print(&quot;ex_date 一次返回数据：&quot;, len(df_ex))
+df_ex = pro.dividend(ex_date=<span class="hljs-string">&quot;20250419&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;ex_date 一次返回数据：&quot;</span>, <span class="hljs-built_in">len</span>(df_ex))
 
-df_record = pro.dividend(record_date=&quot;20250419&quot;)
-print(&quot;record_date 一次返回数据：&quot;, len(df_record))
+df_record = pro.dividend(record_date=<span class="hljs-string">&quot;20250419&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;record_date 一次返回数据：&quot;</span>, <span class="hljs-built_in">len</span>(df_record))
 
-df_imp = pro.dividend(imp_ann_date=&quot;20250419&quot;)
-print(&quot;imp_ann_date 一次返回数据：&quot;, len(df_imp))
-</code></pre>
+df_imp = pro.dividend(imp_ann_date=<span class="hljs-string">&quot;20250419&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;imp_ann_date 一次返回数据：&quot;</span>, <span class="hljs-built_in">len</span>(df_imp))</span></code></pre>
 <p>可以看到，使用 end_date 参数，可以获得的数据远远超过其它参数；但是，它的 limit 并不是我们常见的 6000，而是只能返回 2000。这些行为上的不一致，是我们要注意的。</p>
 <p>由于这里的 limit 只有 2000，而现在 A 股有 5000 多支个股，所以，我们在通过 end_date 获取数据时，还必须通过 offset/limit 多次调用，才能取全一天的数据。</p>
 <p>下面的代码演示了如何取区间 [start, end] 之间的数据：</p>
-<pre><code class="language-python">def fetch_dividend(start: datetime.date, end: datetime.date):
-    &quot;&quot;&quot;每年分红除权情况
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_dividend</span>(<span class="hljs-params">start: datetime.date, end: datetime.date</span>):
+    <span class="hljs-string">&quot;&quot;&quot;每年分红除权情况
 
     Args:
         start (datetime.date): 起始日期
@@ -90,30 +87,29 @@ print(&quot;imp_ann_date 一次返回数据：&quot;, len(df_imp))
 
     Returns:
         返回 dataframe, date 为公告日期，fiscal_year 为公告对应财年
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     dfs = []
-    limit = 2000
+    limit = <span class="hljs-number">2000</span>
     pro = ts.pro_api()
-    for yr in range(start.year, end.year + 1):
-        dt = f&quot;{yr}1231&quot;
-        # 对每一个交易日，都可能有超过 limit 条记录
-        for offset in range(0, 99):
+    <span class="hljs-keyword">for</span> yr <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start.year, end.year + <span class="hljs-number">1</span>):
+        dt = <span class="hljs-string">f&quot;<span class="hljs-subst">{yr}</span>1231&quot;</span>
+        <span class="hljs-comment"># 对每一个交易日，都可能有超过 limit 条记录</span>
+        <span class="hljs-keyword">for</span> offset <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">99</span>):
             df = pro.dividend(end_date=dt, offset=offset * limit, limit=limit)
             dfs.append(df)
-            if len(df) &lt; 2000:
-                break
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(df) &lt; <span class="hljs-number">2000</span>:
+                <span class="hljs-keyword">break</span>
 
-    # 如果取太快，会导致 tushare 拒绝访问
+    <span class="hljs-comment"># 如果取太快，会导致 tushare 拒绝访问</span>
     data = pd.concat(dfs)
-    data[&quot;date&quot;] = pd.to_datetime(data[&quot;ann_date&quot;]).dt.date
-    data[&quot;fiscal_year&quot;] = pd.to_datetime(data[&quot;end_date&quot;]).dt.year
+    data[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(data[<span class="hljs-string">&quot;ann_date&quot;</span>]).dt.date
+    data[<span class="hljs-string">&quot;fiscal_year&quot;</span>] = pd.to_datetime(data[<span class="hljs-string">&quot;end_date&quot;</span>]).dt.year
 
-    return (
-        data.rename(columns={&quot;ts_code&quot;: &quot;asset&quot;})
-        .drop([&quot;end_date&quot;, &quot;ann_date&quot;], axis=1)
-        .dropna(subset=[&quot;date&quot;])
-    )
-</code></pre>
+    <span class="hljs-keyword">return</span> (
+        data.rename(columns={<span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>})
+        .drop([<span class="hljs-string">&quot;end_date&quot;</span>, <span class="hljs-string">&quot;ann_date&quot;</span>], axis=<span class="hljs-number">1</span>)
+        .dropna(subset=[<span class="hljs-string">&quot;date&quot;</span>])
+    )</span></code></pre>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 在本系列前面的章节中，我们在计算 [start, end] 之间的日期列表时，一般使用 bdate_range。它将获取一个排除了周六、周日的日期列表（但显然它不懂黄金周）。使用它来获取交易数据是 OK 的。但是，基本面数据可能发表在任何一天，所以，在这里，我们必须遍历全部日历，才能确保不漏掉一条数据。你有没有犯过类似的错误，从而不得不为排错浪费掉一个周末呢？
 </div>
@@ -121,36 +117,34 @@ print(&quot;imp_ann_date 一次返回数据：&quot;, len(df_imp))
 <p>在最后，我们对数据进行了一些处理，使得返回的数据包含 asset, date 这两列，以便我们能像其它数据一样，自动化地利用缓存。</p>
 <p>现在，我们就用之前开发的缓存来保存这些数据：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-{code-block}"># 本段代码已在课程环境中运行，数据已缓存，请勿重复运行
-path = data_home / &quot;rw/dividend.parquet&quot;
-store = ParquetUnifiedStorage(path, calendar)
+<pre><code class="hljs language-{code-block} python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"># 本段代码已在课程环境中运行，数据已缓存，请勿重复运行
+path <span class="hljs-operator">=</span> data_home <span class="hljs-operator">/</span> &quot;rw/dividend.parquet&quot;
+store <span class="hljs-operator">=</span> ParquetUnifiedStorage(path, calendar)
 
-for yr in (2018, 2019, 2020, 2021, 2022, 2023):
-    start = datetime.date(yr, 1, 1)
-    end = datetime.date(yr, 12, 31)
+<span class="hljs-keyword">for</span> yr <span class="hljs-keyword">in</span> (<span class="hljs-number">2018</span>, <span class="hljs-number">2019</span>, <span class="hljs-number">2020</span>, <span class="hljs-number">2021</span>, <span class="hljs-number">2022</span>, <span class="hljs-number">2023</span>):
+    <span class="hljs-keyword">start</span> <span class="hljs-operator">=</span> datetime.date(yr, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">end</span> <span class="hljs-operator">=</span> datetime.date(yr, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
 
-    data = fetch_dividend(start, end)
-    store.append_data(data[data[&quot;div_proc&quot;] == &quot;实施&quot;])
+    data <span class="hljs-operator">=</span> fetch_dividend(<span class="hljs-keyword">start</span>, <span class="hljs-keyword">end</span>)
+    store.append_data(data[data[&quot;div_proc&quot;] <span class="hljs-operator">=</span><span class="hljs-operator">=</span> &quot;实施&quot;])
 
 print(store.start, store.end)
-store
-</code></pre>
+store</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-<pre><code class="language-python">path = data_home / &quot;rw/dividend.parquet&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">path = data_home / <span class="hljs-string">&quot;rw/dividend.parquet&quot;</span>
 store = ParquetUnifiedStorage(path, calendar)
 
-for yr in (2018, 2019, 2020, 2021, 2022, 2023):
-    start = datetime.date(yr, 1, 1)
-    end = datetime.date(yr, 12, 31)
+<span class="hljs-keyword">for</span> yr <span class="hljs-keyword">in</span> (<span class="hljs-number">2018</span>, <span class="hljs-number">2019</span>, <span class="hljs-number">2020</span>, <span class="hljs-number">2021</span>, <span class="hljs-number">2022</span>, <span class="hljs-number">2023</span>):
+    start = datetime.date(yr, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+    end = datetime.date(yr, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
 
     data = fetch_dividend(start, end)
-    store.append_data(data[data[&quot;div_proc&quot;] == &quot;实施&quot;])
+    store.append_data(data[data[<span class="hljs-string">&quot;div_proc&quot;</span>] == <span class="hljs-string">&quot;实施&quot;</span>])
 
-print(store.start, store.end)
-store
-</code></pre>
+<span class="hljs-built_in">print</span>(store.start, store.end)
+store</span></code></pre>
 <!-- END IPYNB STRIPOUT -->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -173,35 +167,34 @@ tushare 的记录中给出了税后分红 (cash_div)，但文档中并没有明�
 <p>判断『是否连续两年分红』的关键是，在每个月末，判断前两个年度（或者今年、去年）的分红方案是否已宣布。如果是，则我们可以标记该月为『满足连续分红条件』，记为 True；否则，记为 False。</p>
 <p>因此，我们实际上只需要关心数据中的 asset, end_date 和 ann_date 三列，并且，为了比较和查找方便，我们应该将后二者分别转换为 fiscal_year（整数，对应的财年）和 announc_ym （宣布分红的年月）。</p>
 <p>因此，我们要先进行以下转换：</p>
-<pre><code class="language-python">def pre_process(
-    store, start: datetime.date | None = None, end: datetime.date | None = None
-):
-    df = store.get_and_fetch(start or store.start, end or store.end, call_direct=True)
-    df[&quot;month&quot;] = pd.to_datetime(df[&quot;date&quot;]).dt.to_period(&quot;M&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">pre_process</span>(<span class="hljs-params">
+    store, start: datetime.date | <span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>, end: datetime.date | <span class="hljs-literal">None</span> = <span class="hljs-literal">None</span>
+</span>):
+    df = store.get_and_fetch(start <span class="hljs-keyword">or</span> store.start, end <span class="hljs-keyword">or</span> store.end, call_direct=<span class="hljs-literal">True</span>)
+    df[<span class="hljs-string">&quot;month&quot;</span>] = pd.to_datetime(df[<span class="hljs-string">&quot;date&quot;</span>]).dt.to_period(<span class="hljs-string">&quot;M&quot;</span>)
 
-    # 某些个股在一个财年，可能会有多次分红，我们取最早的一次
+    <span class="hljs-comment"># 某些个股在一个财年，可能会有多次分红，我们取最早的一次</span>
     (
-        df.sort_values([&quot;asset&quot;, &quot;fiscal_year&quot;, &quot;date&quot;])
-        .groupby([&quot;asset&quot;, &quot;fiscal_year&quot;], as_index=False)
+        df.sort_values([<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;fiscal_year&quot;</span>, <span class="hljs-string">&quot;date&quot;</span>])
+        .groupby([<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;fiscal_year&quot;</span>], as_index=<span class="hljs-literal">False</span>)
         .first()
     )
 
-    cols = [&quot;asset&quot;, &quot;month&quot;, &quot;fiscal_year&quot;]
-    return df[cols].set_index([&quot;asset&quot;, &quot;month&quot;])
+    cols = [<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;month&quot;</span>, <span class="hljs-string">&quot;fiscal_year&quot;</span>]
+    <span class="hljs-keyword">return</span> df[cols].set_index([<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;month&quot;</span>])
 
 
-calendar = CalendarModel(data_home / &quot;rw/calendar.parquet&quot;)
+calendar = CalendarModel(data_home / <span class="hljs-string">&quot;rw/calendar.parquet&quot;</span>)
 
-path = data_home / &quot;rw/dividend.parquet&quot;
+path = data_home / <span class="hljs-string">&quot;rw/dividend.parquet&quot;</span>
 store = ParquetUnifiedStorage(path, calendar, fetch_data_func=fetch_dividend)
 
-start = datetime.date(2018, 10, 30)
-end = datetime.date(2023, 11, 30)
+start = datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">11</span>, <span class="hljs-number">30</span>)
 df = pre_process(store, start, end)
 display(df.head())
 
-df.query(&quot;asset == &#39;000001.SZ&#39;&quot;)
-</code></pre>
+df.query(<span class="hljs-string">&quot;asset == &#x27;000001.SZ&#x27;&quot;</span>)</span></code></pre>
 <p>预处理的核心思想是把细粒度的时间数据转换成粗粒度的时间数据。这是月度回测中的核心技巧之一。在经过这样的转换之后，数据的查找、对齐和偏移计算就会易如反掌了。</p>
 <p>其它值得注意的地方是，有一些个股会在一个财年，多次分红。这种情况下，我们需要进行去重，只保留最早的分红信息，因为最早的这条分红信息就足以说明财年有分红了。</p>
 <p>这段示例的最后，我们截取了 PAYH 的一小段记录。从这段记录，我们可以推断，在 2022 年 3 月之后直到当年底，我们都可以认为 PAYH 在 2020 年的 2021 年是满足连续两年都分红的条件的。但是，在 2022 年 1 月到 2 月，过去两年的财政年度是 2020 和 2021 年，但 21 年可能仍然会分红，只是财报暂时还没批露。这种情况下，我们应该认为 PAYH 是满足连续两年都分红的条件，还是不满足？ To be or not to be，这还真是一个问题。而研报并没有给出答案。</p>
@@ -219,72 +212,69 @@ df.query(&quot;asset == &#39;000001.SZ&#39;&quot;)
 <p>现在，我们如何将这个逻辑代码化？</p>
 <p>首先，明确我们的目标，是要得到这样一个输出：对每一个 asset 的每一个 month，存在一个标记 (flag)，能指出该 asset 在该 month 时，是否满足连续两年分红的条件。</p>
 <p>我们来看看这个结果表格应该长什么样：</p>
-<pre><code class="language-python">all_assets = df.index.levels[0].unique()
-months = df.index.levels[1].unique()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">all_assets = df.index.levels[<span class="hljs-number">0</span>].unique()
+months = df.index.levels[<span class="hljs-number">1</span>].unique()
 
-all_months = pd.period_range(start=months.min(), end=months.max(), freq=&quot;M&quot;)
+all_months = pd.period_range(start=months.<span class="hljs-built_in">min</span>(), end=months.<span class="hljs-built_in">max</span>(), freq=<span class="hljs-string">&quot;M&quot;</span>)
 
-# 生成所有可能的（月份，股票）组合作为基础索引
-index = pd.MultiIndex.from_product([all_assets, all_months], names=[&quot;asset&quot;, &quot;month&quot;])
+<span class="hljs-comment"># 生成所有可能的（月份，股票）组合作为基础索引</span>
+index = pd.MultiIndex.from_product([all_assets, all_months], names=[<span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;month&quot;</span>])
 
-# result_df 目前是一个空表格
-result_df = pd.DataFrame(columns=[&quot;consective_div&quot;], index=index)
-result_df.tail()
-</code></pre>
+<span class="hljs-comment"># result_df 目前是一个空表格</span>
+result_df = pd.DataFrame(columns=[<span class="hljs-string">&quot;consective_div&quot;</span>], index=index)
+result_df.tail()</span></code></pre>
 <p>接下来，我们把前面得到的关于 fiscal_year 和 announce_ym 的表格展开到与上述 result_df 对齐。对齐之后，剩下的计算就会变成是从一个表格映射到另一个表格那样简单。</p>
-<pre><code class="language-python"># 按结果表格进行索引展开
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-comment"># 按结果表格进行索引展开</span>
 expanded = pd.merge(pd.DataFrame(index=index), 
-                  df, how=&quot;left&quot;, 
-                  left_index=True, 
-                  right_index=True
+                  df, how=<span class="hljs-string">&quot;left&quot;</span>, 
+                  left_index=<span class="hljs-literal">True</span>, 
+                  right_index=<span class="hljs-literal">True</span>
             )
 
-# 将 fiscal_year 前向填充
-expanded = expanded.groupby(level = &quot;asset&quot;).ffill()
-expanded.tail()
-</code></pre>
+<span class="hljs-comment"># 将 fiscal_year 前向填充</span>
+expanded = expanded.groupby(level = <span class="hljs-string">&quot;asset&quot;</span>).ffill()
+expanded.tail()</span></code></pre>
 <p>现在，我们只需要对上述展开后的 dataframe，按 asset 进行 groupby，然后在每个分组中，启用一个大小为 24 的滑动窗口，再判断索引 month 是否在滑动窗口的 fiscal_year 集合内即可。</p>
-<pre><code class="language-python"># example-consective-div
-def calc_asset_flag(group: pd.DataFrame):
-    df = group.droplevel(level=0)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span></span><span class="cl-body"><span class="hljs-comment"># example-consective-div</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_asset_flag</span>(<span class="hljs-params">group: pd.DataFrame</span>):
+    df = group.droplevel(level=<span class="hljs-number">0</span>)
 
-    df[&quot;month_num&quot;] = df.index.month
-    df[&quot;year&quot;] = df.index.year
+    df[<span class="hljs-string">&quot;month_num&quot;</span>] = df.index.month
+    df[<span class="hljs-string">&quot;year&quot;</span>] = df.index.year
 
-    # 这里无法使用 rolling，因为 rolling 后面要跟聚合函数，不能返回 set
-    df[&quot;prev_fiscal_set&quot;] = [
-        set(x) for x in df[&quot;fiscal_year&quot;].rolling(24)
+    <span class="hljs-comment"># 这里无法使用 rolling，因为 rolling 后面要跟聚合函数，不能返回 set</span>
+    df[<span class="hljs-string">&quot;prev_fiscal_set&quot;</span>] = [
+        <span class="hljs-built_in">set</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> df[<span class="hljs-string">&quot;fiscal_year&quot;</span>].rolling(<span class="hljs-number">24</span>)
     ]
 
-    def calc_row_flag(row):
-        prev_fiscal = row[&quot;prev_fiscal_set&quot;]
-        month_num = row[&quot;month_num&quot;]
-        year = row[&quot;year&quot;]
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_row_flag</span>(<span class="hljs-params">row</span>):
+        prev_fiscal = row[<span class="hljs-string">&quot;prev_fiscal_set&quot;</span>]
+        month_num = row[<span class="hljs-string">&quot;month_num&quot;</span>]
+        year = row[<span class="hljs-string">&quot;year&quot;</span>]
 
-        if month_num &gt; 4:  # 4 月之后，必须最近两年财年都有分红
-            flag = ((year - 1) in prev_fiscal) and ((year - 2) in prev_fiscal)
-            return flag
-        else:  # 4 月之前，最近两财年有分红，或者之前两个财年有分红。
-            flag = (((year - 1) in prev_fiscal) and ((year - 2) in prev_fiscal)) or (
-                ((year - 2) in prev_fiscal) and ((year - 3) in prev_fiscal)
+        <span class="hljs-keyword">if</span> month_num &gt; <span class="hljs-number">4</span>:  <span class="hljs-comment"># 4 月之后，必须最近两年财年都有分红</span>
+            flag = ((year - <span class="hljs-number">1</span>) <span class="hljs-keyword">in</span> prev_fiscal) <span class="hljs-keyword">and</span> ((year - <span class="hljs-number">2</span>) <span class="hljs-keyword">in</span> prev_fiscal)
+            <span class="hljs-keyword">return</span> flag
+        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 4 月之前，最近两财年有分红，或者之前两个财年有分红。</span>
+            flag = (((year - <span class="hljs-number">1</span>) <span class="hljs-keyword">in</span> prev_fiscal) <span class="hljs-keyword">and</span> ((year - <span class="hljs-number">2</span>) <span class="hljs-keyword">in</span> prev_fiscal)) <span class="hljs-keyword">or</span> (
+                ((year - <span class="hljs-number">2</span>) <span class="hljs-keyword">in</span> prev_fiscal) <span class="hljs-keyword">and</span> ((year - <span class="hljs-number">3</span>) <span class="hljs-keyword">in</span> prev_fiscal)
             )
-            return flag
+            <span class="hljs-keyword">return</span> flag
 
-    df[&quot;consective_div&quot;] = df.apply(calc_row_flag, axis=1)
+    df[<span class="hljs-string">&quot;consective_div&quot;</span>] = df.apply(calc_row_flag, axis=<span class="hljs-number">1</span>)
 
-    return df.drop(columns=[&quot;month_num&quot;, &quot;year&quot;, &quot;prev_fiscal_set&quot;])
+    <span class="hljs-keyword">return</span> df.drop(columns=[<span class="hljs-string">&quot;month_num&quot;</span>, <span class="hljs-string">&quot;year&quot;</span>, <span class="hljs-string">&quot;prev_fiscal_set&quot;</span>])
 
 
-consective_div = expanded.groupby(level=&quot;asset&quot;).apply(calc_asset_flag)
+consective_div = expanded.groupby(level=<span class="hljs-string">&quot;asset&quot;</span>).apply(calc_asset_flag)
 consective_div.tail()
-</code></pre>
+</span></code></pre>
 <p>这段代码中，值得注意的地方有两处。首先，当提到『滚动』求值时，我们很容易想到使用滑动窗口。但在第 7 行处，我们使用循环，而不是 rolling.apply 来找出对应行的前两年数值。因为 rolling.apply 一般应用于聚合操作，函数的返回值必须是数值型。</p>
 <p>第 2 点就是第 29 行，它实际上仍然是一个循环。考虑到 calc_row_flag 只是在行内进行比较操作，这里可以进一步优化，以启用并行机制。在我的电脑上，这段代码运行了 13 秒，速度还是有点慢的。</p>
 <p>如何验证这里的逻辑正确呢？对 PAYH，我们看到，从 2020 年 3 月起，每个月的 flag 都是 1；这是正确的，因为它每一年都有分红。我们还找了一个反面的例子， 920819，这是它的分红记录：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">df_ = ts.pro_api().dividend(ts_code = &quot;920819.BJ&quot;)
-df_[df_.div_proc == &#39;实施&#39;][[&quot;ts_code&quot;, &quot;end_date&quot;, &quot;ann_date&quot;]]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df_ = ts.pro_api().dividend(ts_code = <span class="hljs-string">&quot;920819.BJ&quot;</span>)
+df_[df_.div_proc == <span class="hljs-string">&#x27;实施&#x27;</span>][[<span class="hljs-string">&quot;ts_code&quot;</span>, <span class="hljs-string">&quot;end_date&quot;</span>, <span class="hljs-string">&quot;ann_date&quot;</span>]]</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -297,67 +287,66 @@ df_[df_.div_proc == &#39;实施&#39;][[&quot;ts_code&quot;, &quot;end_date&quot;
 <p>它在 2020， 2022， 2024 年都有分红，但在 2021 年没有分红（有预案，但没有通过）。所以，只有从 2024 年 1 月起，『连续两年分红』查询才显示它满足条件。</p>
 <p>这证明了我们的实现是正确的。</p>
 <h2 id="应用分红筛选">应用分红筛选</h2>
-<pre><code class="language-python">from IPython.display import clear_output
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span></span><span class="cl-body"><span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> clear_output
 
-def dividend_yield_screen(data: pd.DataFrame, n: int = 500) -&gt; pd.Series:
-    &quot;&quot;&quot;股息率筛选方法
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">dividend_yield_screen</span>(<span class="hljs-params">data: pd.DataFrame, n: <span class="hljs-built_in">int</span> = <span class="hljs-number">500</span></span>) -&gt; pd.Series:
+    <span class="hljs-string">&quot;&quot;&quot;股息率筛选方法
 
     对每个月的股息率进行排名，选择前n名股票，标记为1，
     与现有flag进行逻辑与运算
 
     Args:
         n: 每月选择的股票数量，默认500
-    &quot;&quot;&quot;
-    logger.info(&quot;开始进行股息率筛选...&quot;)
+    &quot;&quot;&quot;</span>
+    logger.info(<span class="hljs-string">&quot;开始进行股息率筛选...&quot;</span>)
 
-    if &quot;dv_ttm&quot; not in data.columns:
-        raise ValueError(&quot;数据中不存在 dv_ttm 列，无法应用筛选器&quot;)
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;dv_ttm&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> data.columns:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;数据中不存在 dv_ttm 列，无法应用筛选器&quot;</span>)
 
-    def rank_top_n(group):
-        # 计算每个股票在当月的排名（降序，股息率高的排名靠前）
-        ranks = group.rank(method=&quot;first&quot;, ascending=False)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">rank_top_n</span>(<span class="hljs-params">group</span>):
+        <span class="hljs-comment"># 计算每个股票在当月的排名（降序，股息率高的排名靠前）</span>
+        ranks = group.rank(method=<span class="hljs-string">&quot;first&quot;</span>, ascending=<span class="hljs-literal">False</span>)
 
-        return (ranks &lt;= n).astype(int)
+        <span class="hljs-keyword">return</span> (ranks &lt;= n).astype(<span class="hljs-built_in">int</span>)
 
-    # 按date分组，对 dividend_rate_ttm 进行排名筛选
-    dividend_flags = data.groupby(level=&quot;month&quot;)[&quot;dv_ttm&quot;].transform(rank_top_n)
+    <span class="hljs-comment"># 按date分组，对 dividend_rate_ttm 进行排名筛选</span>
+    dividend_flags = data.groupby(level=<span class="hljs-string">&quot;month&quot;</span>)[<span class="hljs-string">&quot;dv_ttm&quot;</span>].transform(rank_top_n)
 
-    logger.info(f&quot;已筛选出前{n}名股息率股&quot;)
-    return dividend_flags
+    logger.info(<span class="hljs-string">f&quot;已筛选出前<span class="hljs-subst">{n}</span>名股息率股&quot;</span>)
+    <span class="hljs-keyword">return</span> dividend_flags
 
-def consective_dividend_screen(data):
-    return data.consective_div
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consective_dividend_screen</span>(<span class="hljs-params">data</span>):
+    <span class="hljs-keyword">return</span> data.consective_div
 
 
-start = datetime.date(2018, 1, 1)
-end = datetime.date(2023, 12, 31)
+start = datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
 
-store_path = data_home / &quot;rw/bars.parquet&quot;
+store_path = data_home / <span class="hljs-string">&quot;rw/bars.parquet&quot;</span>
 bars_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_bars_ext)
 
 barss = bars_store.get_and_fetch(start, end)
 ms = Moonshot(barss)
 
-# consecative_div 示例 example-consective-div
-ms.append_factor(consective_div, &quot;consective_div&quot;)
+<span class="hljs-comment"># consecative_div 示例 example-consective-div</span>
+ms.append_factor(consective_div, <span class="hljs-string">&quot;consective_div&quot;</span>)
 
-# 我们把上一篇的股息率筛选也加上
-store_path = data_home / &quot;rw/dv_ttm.parquet&quot;
+<span class="hljs-comment"># 我们把上一篇的股息率筛选也加上</span>
+store_path = data_home / <span class="hljs-string">&quot;rw/dv_ttm.parquet&quot;</span>
 dv_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_dv_ttm)
 dv_ttm = dv_store.get_and_fetch(start, end)
-ms.append_factor(dv_ttm, &quot;dv_ttm&quot;, resample_method=&quot;last&quot;)
+ms.append_factor(dv_ttm, <span class="hljs-string">&quot;dv_ttm&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
 
-output = get_jupyter_root_dir() / &quot;reports/moonshot_v4.html&quot;
-# 筛选！ 回测！ 报告！
+output = get_jupyter_root_dir() / <span class="hljs-string">&quot;reports/moonshot_v4.html&quot;</span>
+<span class="hljs-comment"># 筛选！ 回测！ 报告！</span>
 (
-    ms.screen(dividend_yield_screen, data=ms.data, n=500)
+    ms.screen(dividend_yield_screen, data=ms.data, n=<span class="hljs-number">500</span>)
     .screen(consective_dividend_screen, data=ms.data)
-    .calculate_returns(True)
-    .report(kind=&quot;html&quot;, output=output, periods_per_year=12)
+    .calculate_returns(<span class="hljs-literal">True</span>)
+    .report(kind=<span class="hljs-string">&quot;html&quot;</span>, output=output, periods_per_year=<span class="hljs-number">12</span>)
 )
 
-clear_output()
-</code></pre>
+clear_output()</span></code></pre>
 <p>最终，我们得到以下报告：</p>
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908210330.png'>

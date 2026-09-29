@@ -32,56 +32,50 @@
 <p>如果说优雅迷人还有些主观的成分，毕竟每个人心中的女神可能不尽相同。但很少会有人不承认 Python 的简洁高效。“人生苦短，我用 Python”不仅是一句口号，也是 Python 程序开发高效率的一个真实写照。</p>
 <p>与其它开发语言相比，实现同样的功能，在不借助于函数库的前提下，Python 代码始终是最简单、最易读的。如果在 C、Java 和 Python 三者间进行比较的话，Java 是代码量最大的语言，要比 C 语言长 1.5 倍，而比 Python 要长 3~4 倍。我们以输出一个数组的元素为例来体验一下。</p>
 <p>这是 Python 的例子：</p>
-<pre><code class="language-python">arr = [&quot;Hello, World!&quot;, &quot;Hi there, Everyone!&quot;, 6]
-for i in arr:
-    print(i)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">arr = [<span class="hljs-string">&quot;Hello, World!&quot;</span>, <span class="hljs-string">&quot;Hi there, Everyone!&quot;</span>, <span class="hljs-number">6</span>]
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> arr:
+    <span class="hljs-built_in">print</span>(i)</span></code></pre>
 <p>这是 Java 的例子：</p>
-<pre><code class="language-Java">public class Test {
-    public static void main(String args[]) {
-        String array[] = {&quot;Hello, World&quot;, &quot;Hi there, Everyone&quot;, &quot;6&quot;};
-        for (String i : array) {
+<pre><code class="hljs language-Java"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">array</span>[] <span class="hljs-operator">=</span> {<span class="hljs-string">&quot;Hello, World&quot;</span>, <span class="hljs-string">&quot;Hi there, Everyone&quot;</span>, <span class="hljs-string">&quot;6&quot;</span>};
+        <span class="hljs-keyword">for</span> (String i : array) {
           System.out.println(i);
         }
     }
-}
-</code></pre>
+}</span></code></pre>
 <p>仅看定义和输出数组元素值的那部分。两种语言都需要三行代码，但是 Python 的代码明显更短，更不要说 Python 还有所谓的“pythonic&quot;的写法：</p>
-<pre><code class="language-python">[print(i) for i in [&quot;Hello, World!&quot;, &quot;Hi there, Everyone!&quot;, 6]]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">[<span class="hljs-built_in">print</span>(i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;Hello, World!&quot;</span>, <span class="hljs-string">&quot;Hi there, Everyone!&quot;</span>, <span class="hljs-number">6</span>]]</span></code></pre>
 <p>当然这么写还是有争议的，对一些人来说，它牺牲了可读性。</p>
 <p>我们再看一个变量交换的例子：</p>
-<pre><code class="language-c">// C program to swap two variables in single line
+<pre><code class="hljs language-c"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-comment">// C program to swap two variables in single line</span>
 #INCLUDE &lt;STDIO.H&gt;
-int main()
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>
 {
-	int x = 5, y = 10;
-	//(x ^= y), (y ^= x), (x ^= y);
-    int c;
+	<span class="hljs-type">int</span> x = <span class="hljs-number">5</span>, y = <span class="hljs-number">10</span>;
+	<span class="hljs-comment">//(x ^= y), (y ^= x), (x ^= y);</span>
+    <span class="hljs-type">int</span> c;
     c = y;
     y = x;
     x = c;
-	printf(&quot;After Swapping values of x and y are %d %d&quot;, x, y);
-	return 0;
-}
-</code></pre>
-<pre><code class="language-Java">class GFG {
-	public static void main(String[] args)
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;After Swapping values of x and y are %d %d&quot;</span>, x, y);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</span></code></pre>
+<pre><code class="hljs language-Java"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GFG</span> {
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>
 	{
-		int x = 5, y = 10;
-		//x = x ^ y ^ (y = x);
-        int c;
+		<span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>, y = <span class="hljs-number">10</span>;
+		<span class="hljs-comment">//x = x ^ y ^ (y = x);</span>
+        <span class="hljs-type">int</span> c;
         c = y;
         y = x;
         x = c;
-		System.out.println(&quot;After Swapping values&quot;+&quot; of x and y are &quot; + x + &quot; &quot; + y);
+		System.out.println(<span class="hljs-string">&quot;After Swapping values&quot;</span>+<span class="hljs-string">&quot; of x and y are &quot;</span> + x + <span class="hljs-string">&quot; &quot;</span> + y);
 	}
-}
-</code></pre>
-<pre><code class="language-python">x, y = 5, 10
+}</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x, y = <span class="hljs-number">5</span>, <span class="hljs-number">10</span>
 x, y = y, x
-print(&quot;After Swapping values of x and y are&quot;, x, y)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;After Swapping values of x and y are&quot;</span>, x, y)</span></code></pre>
 <p>Python 的语法显然更简单，它就像我们每天使用的自然语言一样，似乎不借助任何复杂的技巧、甚至不需要懂所谓的编程知识，就能够实现这些功能。C 和 Java 虽然也都能不借助第三个变量，实现一行代码完成变量的值交换，但这样的代码需要一定的技巧，因而容易出错。</p>
 <p>简洁（但不需要借助于复杂的技巧）的代码显然更加容易阅读和理解，从而大大加快了开发的速度。的确，在这个信息过载的时代，简洁越来越显示出强大的力量：json 取代 xml 成为更多人用来传递数据的工具；Markdown 则取代了 Html、reStructuredText 和 Word 成为我们的文档格式。</p>
 <p>删繁就简三秋树，标新立异二月花。繁琐、夸张的巴洛克艺术，无论其多么精致、多么吸引眼球，都无法在这个高度内卷的年代逃脱批判。我们需要那些能够成为我们直觉的工具、符号和思想，以便让我们能够快速响应这日益复杂的世界。</p>
@@ -92,7 +86,7 @@ print(&quot;After Swapping values of x and y are&quot;, x, y)
 <p>语言的简洁、优美在 Python 中的地位是如此重要，以至于它被写进了 Python“宪章” -- PEP20[^PEP20]： </p>
 <p>!!! Cite 
     &quot;Zen of Python -  by Tim Peters[^Tim_Peters]&quot;   </p>
-<pre><code>Beautiful is better than ugly.
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span></span><span class="cl-body">Beautiful is better than ugly.
 优美胜于丑陋
 
 Explicit is better than implicit.
@@ -113,7 +107,7 @@ Sparse is better than dense.
 Readability counts.
 可读性很重要！
 
-Special cases aren&#39;t special enough to break the rules.
+Special cases aren<span class="hljs-string">&#x27;t special enough to break the rules.
 特例亦不可违背原则
 
 Although practicality beats purity.
@@ -131,7 +125,7 @@ In the face of ambiguity, refuse the temptation to guess.
 There should be one -- and preferably only one -- obvious way to do it.
 永远都应该只有一种显而易见的解决之道
 
-Although that way may not be obvious at first unless you&#39;re Dutch.
+Although that way may not be obvious at first unless you&#x27;</span>re Dutch.
 即便解决之道起初看起来并不显而易见
 
 Now is better than never.
@@ -140,18 +134,16 @@ Now is better than never.
 Although never is often better than *right* now.
 然而不假思索还不如不做
 
-If the implementation is hard to explain, it&#39;s a bad idea.
+If the implementation is hard to explain, it<span class="hljs-string">&#x27;s a bad idea.
 难以名状的，必然是坏的
 
 If the implementation is easy to explain, it may be a good idea.
 易以言传的，可能是好的
 
-Namespaces are one honking great idea -- let&#39;s do more of those!
-名字空间是个绝妙的主意，请好好使用！
-</code></pre>
+Namespaces are one honking great idea -- let&#x27;</span>s <span class="hljs-keyword">do</span> more of those!
+名字空间是个绝妙的主意，请好好使用！</span></code></pre>
 <p>这段文字甚至还以彩蛋的方式出现。如果执行以下的命令：</p>
-<pre><code class="language-bash">python -c &#39;import this&#39;
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python -c <span class="hljs-string">&#x27;import this&#x27;</span></span></code></pre>
 <p>就会输出上面的文字。任何时候，如果我需要引用《Zen of Python》，我都会使用这个方法。</p>
 <p>PEP20 还藏着另一个彩蛋。我们说它应该有 20 条规则，但实际上我们只能看到 19 条，这是为什么呢？</p>
 <p>实际上，这第 20 条规则，是留给 Guido 的特权，多年来，社区一直在等待他来添加这一条规则。这也反映了社区对 Guido 的尊敬与热爱。不过，10 多年过去了，迄今为止，Guido 都没有使用这一特权，这第 20 条&quot;军规&quot;，也就一直空缺到现在。</p>
@@ -161,8 +153,7 @@ Namespaces are one honking great idea -- let&#39;s do more of those!
 <p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202105/20210522232747.png" alt="75%"></p>
 <p>如果你不喜欢使用 IPython 这种命令行式的接口，也可以安装一个 Jupyter Notebook 来编写和运行一些 Python 代码片段。关于 Jupyter Notebook，我们还会在介绍 IDE 时进一步介绍。此外，随手写一个 Unittest，通过 Unittest 来测试你刚写的方法也会比其它语言来得更容易。因此，使用 Python，你会发现学习和成长是如此容易！</p>
 <p>最后，Python 能成为一门高效开发语言，还得益于它庞大和活跃的社区。在 Python 世界里，你很容易发现一些造好的“轮子”，因此构建你的应用程序，就象搭积木一样简单。比如，有时候需要显示一些 Html 格式的文档，或者以 Web 的方式展现本地文件以供下载，我们就可以象下面一样简单地启动一个 HTTP 服务器：</p>
-<pre><code class="language-bash">python -m http.server
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python -m http.server</span></code></pre>
 <p>这样就启动了一个 web 服务器，它会列出命令启动时的文件夹目录，而你不需要安装和设置任何软件！</p>
 <p>名满天下，谤亦随之。作为一种适合所有人使用的编程语言，Python 在承载希望的同时，也承担了许多质疑。这些质疑中声量最大的，当属对 Python 性能和构建大型复杂应用程序能力的质疑。</p>
 <p>诚然，Python 与其它开发语言相比，在运行速度上确实要落后不少。某种程度上，这种落后甚至是有意为之，因为很长一段时间以来，Python 之父并不认为需要过多地关注 Python 的性能问题，它已经足够快了。确实，对 99%以上的任务来说，Python 的性能是足够的，快到足够支撑早期的 Google 和 Dropbox  — 这是很多程序员一生都难以遇到的应用场景。从那个时候起，Python 在性能上又有了长足的进步。2023 年 ChatGPT 的问世 – 它的高性能计算后台，正是由 Python 下的 Ray[^Ray] 这个库来实现的 – 不仅告诉我们人工智能的语言模型可以有多先进，而且还告诉我们，Python 也可以写出来高性能、高可扩展性的大型分布式计算平台  。目前，这个平台已经支撑了超过 1 亿月活跃用户，我们还不知道这个平台的瓶颈在哪里。因此，我们恐怕再也不能说，Python 不适合构建大型应用了吧？</p>

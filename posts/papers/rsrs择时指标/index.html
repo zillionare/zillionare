@@ -38,10 +38,9 @@
 3. 为了过滤噪声，一般取$T_1, T_2, ...T_n$间的最高价和最低价进行线性回归，此时得到的斜率$\beta$即为 RSRS 指标，在本质上与定义 2 相同，即有以下公式：<br>
 </div>
 
-<pre><code>$$
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">$$
 high = alpha + beta * low + epsilon, epsilon ~ N(0, sigma)
-$$
-</code></pre>
+$$</span></code></pre>
 <p>应该说策略的思想非常巧妙，也很符合我们的交易认知：<strong>如果市场投资者认为下面的支撑很强，就敢于向上试探更大的空间，因此最高价的涨幅就变大；如果市场投资者认为上方的压力很大，则更期望尽快脱手，从而导致最低价格的跌幅变大</strong>。</p>
 <p>研报作者还手绘了两幅图来说明这一思想：</p>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
@@ -51,21 +50,20 @@ $$
 
 <p>研报还展示了如何为交易思想建模的一个简单但常用的技巧，即线性回归。线性回归是从简。丁伯格等人开创计量经济学以来，在经济和金融领域广泛使用的一种技巧。在这里，线性回归的引入，让交易思想得到合理的抽象，成为有统计实证支持的一个模型。</p>
 <p>这个因子的计算方法如下：</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-def calc_rsrs_factor(df: pd.DataFrame, win: int = 18):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_rsrs_factor</span>(<span class="hljs-params">df: pd.DataFrame, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">18</span></span>):
     df = df.copy()
 
-    # 计算滑动窗口的协方差 Cov(low, high)
-    rolling_cov = df[&quot;low&quot;].rolling(window=win).cov(df[&quot;high&quot;])
+    <span class="hljs-comment"># 计算滑动窗口的协方差 Cov(low, high)</span>
+    rolling_cov = df[<span class="hljs-string">&quot;low&quot;</span>].rolling(window=win).cov(df[<span class="hljs-string">&quot;high&quot;</span>])
 
-    # 计算滑动窗口的方差 Var(low)
-    rolling_var = df[&quot;low&quot;].rolling(window=win).var()
+    <span class="hljs-comment"># 计算滑动窗口的方差 Var(low)</span>
+    rolling_var = df[<span class="hljs-string">&quot;low&quot;</span>].rolling(window=win).var()
 
-    df[&quot;RSRS&quot;] = rolling_cov / rolling_var
+    df[<span class="hljs-string">&quot;RSRS&quot;</span>] = rolling_cov / rolling_var
 
-    return df[&quot;RSRS&quot;]
-</code></pre>
+    <span class="hljs-keyword">return</span> df[<span class="hljs-string">&quot;RSRS&quot;</span>]</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 在这里我们使用了一个快速的向量化算法。如果你感到难以理解这个算法，那么，它对应的 vanilla 版本是这样：
 ```python
@@ -74,37 +72,34 @@ def calc_rsrs_vanilla(df, N):
         temp = [np.nan] * N
 </div>
 
-<pre><code>        for row in range(len(df) - N):
-            y = df[&#39;high&#39;][row : row + N]
-            x = df[&#39;low&#39;][row : row + N]
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">        <span class="hljs-keyword">for</span> <span class="hljs-type">row</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">range</span>(len(df) <span class="hljs-operator">-</span> N):
+            y <span class="hljs-operator">=</span> df[<span class="hljs-string">&#x27;high&#x27;</span>][<span class="hljs-type">row</span> : <span class="hljs-type">row</span> <span class="hljs-operator">+</span> N]
+            x <span class="hljs-operator">=</span> df[<span class="hljs-string">&#x27;low&#x27;</span>][<span class="hljs-type">row</span> : <span class="hljs-type">row</span> <span class="hljs-operator">+</span> N]
 
             # 确保 x 和 y 的长度都为 N，并且没有 NaN 值
-            if len(x) == N and len(y) == N and not x.isnull().any() and not y.isnull().any():
-                beta = np.polyfit(x, y, 1)[0]
+            if len(x) <span class="hljs-operator">=</span><span class="hljs-operator">=</span> N <span class="hljs-keyword">and</span> len(y) <span class="hljs-operator">=</span><span class="hljs-operator">=</span> N <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> x.isnull().<span class="hljs-keyword">any</span>() <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> y.isnull().<span class="hljs-keyword">any</span>():
+                beta <span class="hljs-operator">=</span> np.polyfit(x, y, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]
                 temp.append(beta)
-            else:
+            <span class="hljs-keyword">else</span>:
                 temp.append(np.nan)
 
-        df[&#39;rsrs&#39;] = temp
-        return df
-```
-</code></pre>
+        df[<span class="hljs-string">&#x27;rsrs&#x27;</span>] <span class="hljs-operator">=</span> temp
+        <span class="hljs-keyword">return</span> df
+```</span></code></pre>
 <p>在对比测试中，vanilla 版本的运行时间如果是 4.3ms 的话，那么向量化版本的运行时间则仅为 317us，快了 10 倍多。</p>
 <p>现在，我们通过 tushare 的数据，来看一下因子计算的结果。下面的代码展示了如何获取 hs300 指数数据：</p>
-<pre><code class="language-python">pro = ts.pro_api()
-hs300 = pro.index_daily(ts_code = &quot;000300.SH&quot;, start_date = &quot;20250101&quot;, end_date = &quot;20250601&quot;)
-hs300.index = pd.to_datetime(hs300[&quot;trade_date&quot;])
-hs300 = hs300.sort_index(ascending=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">pro = ts.pro_api()
+hs300 = pro.index_daily(ts_code = <span class="hljs-string">&quot;000300.SH&quot;</span>, start_date = <span class="hljs-string">&quot;20250101&quot;</span>, end_date = <span class="hljs-string">&quot;20250601&quot;</span>)
+hs300.index = pd.to_datetime(hs300[<span class="hljs-string">&quot;trade_date&quot;</span>])
+hs300 = hs300.sort_index(ascending=<span class="hljs-literal">True</span>)</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 在使用 tushare 的行情数据时，请务必按照这里的代码片段，先将 trade_date 设置为索引，然后进行排序，这样得到的数据的顺序，才会与大多数软件系统中的顺序一致。
 </div>
 
 
 <p>现在，我们就可以计算出 RSRS 因子了：</p>
-<pre><code class="language-python">hs300_factor = calc_rsrs_factor(hs300, 18)
-hs300_factor
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">hs300_factor = calc_rsrs_factor(hs300, <span class="hljs-number">18</span>)
+hs300_factor</span></code></pre>
 <p>我们看到，hs300_factor 是一个 pd.Series，它的索引是日期，其值是因子值。这样的格式有利于后面合并横截面数据。</p>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
@@ -122,30 +117,28 @@ hs300_factor
 
 
 <p>在我们的研究环境中，有从 2005 年到 2023 年所有个股的日线历史数据，可以允许我们进行较长周期的因子测试，并且已经有封装好的 alpha_test 方法可以调用。不过，我们还需要先获取沪深 300 成分股列表。</p>
-<pre><code class="language-python">df = pro.index_weight(
-    index_code=&#39;000300.SH&#39;,
-    start_date=&#39;20231201&#39;,
-    end_date=&#39;20231231&#39;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body">df = pro.index_weight(
+    index_code=<span class="hljs-string">&#x27;000300.SH&#x27;</span>,
+    start_date=<span class="hljs-string">&#x27;20231201&#x27;</span>,
+    end_date=<span class="hljs-string">&#x27;20231231&#x27;</span>
 )
 
-# 在研究环境中，我们使用的股票代码是以。XSHG 或者。XSHE 结尾的，所以，我们需要将股票代码转换一下。
-def convert_symbol(x: str):
-    if x.endswith(&quot;.SH&quot;):
-        return x.replace(&quot;.SH&quot;, &quot;.XSHG&quot;)
-    elif x.endswith(&quot;.SZ&quot;):
-        return x.replace(&quot;.SZ&quot;, &quot;.XSHE&quot;)
-    else:
-        raise ValueError(f&quot;{x}: not supported format&quot;)
+<span class="hljs-comment"># 在研究环境中，我们使用的股票代码是以。XSHG 或者。XSHE 结尾的，所以，我们需要将股票代码转换一下。</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">convert_symbol</span>(<span class="hljs-params">x: <span class="hljs-built_in">str</span></span>):
+    <span class="hljs-keyword">if</span> x.endswith(<span class="hljs-string">&quot;.SH&quot;</span>):
+        <span class="hljs-keyword">return</span> x.replace(<span class="hljs-string">&quot;.SH&quot;</span>, <span class="hljs-string">&quot;.XSHG&quot;</span>)
+    <span class="hljs-keyword">elif</span> x.endswith(<span class="hljs-string">&quot;.SZ&quot;</span>):
+        <span class="hljs-keyword">return</span> x.replace(<span class="hljs-string">&quot;.SZ&quot;</span>, <span class="hljs-string">&quot;.XSHE&quot;</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;<span class="hljs-subst">{x}</span>: not supported format&quot;</span>)
 
-universe = tuple(map(convert_symbol, df[&quot;con_code&quot;].unique()))
-universe[:5]
-</code></pre>
+universe = <span class="hljs-built_in">tuple</span>(<span class="hljs-built_in">map</span>(convert_symbol, df[<span class="hljs-string">&quot;con_code&quot;</span>].unique()))
+universe[:<span class="hljs-number">5</span>]</span></code></pre>
 <p>现在，我们就调用 alphatest 来进行因子测试：</p>
-<pre><code class="language-python">start = datetime.date(2018, 1, 1)
-end = datetime.date(2021, 12, 31)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2021</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
 
-_ = alphatest(universe, start, end, calc_rsrs_factor)
-</code></pre>
+_ = alphatest(universe, start, end, calc_rsrs_factor)</span></code></pre>
 <p>输出结果有点小意外，没有出现你期待的高收益，基至年化 Alpha 还是负的。不过，对 Alphalens 的输出我们需要辩证来看，这个简单的测试，已经说明了这个因子很可能是有 Alpha 存在的（它的 beta 接近于零），只是年化为负，这种情况下，我们只要修改因子的方向，即可得到正的年化收益。</p>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
@@ -160,55 +153,53 @@ _ = alphatest(universe, start, end, calc_rsrs_factor)
 Alphalens 默认的回测方式是横截面式的。尽管后期也加入了事件型回测，但支持的并不完善。也可能是考虑回测框架已经有了完善的事件回测机制，所以就没在这方面多下功夫？随着 Quantopian 的解散，今天我们已无从得知其中的缘由。
 </div>
 
-<pre><code>这里的 alphatest 是我们在《因子分析与机器学习策略》课程中开发的一个辅助函数，它在底层调用了 alphalens 的回测函数，但进行了一些简化，使得我们可以仅仅通过一行代码，就完成因子回测。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">这里的 alphatest 是我们在《因子分析与机器学习策略》课程中开发的一个辅助函数，它在底层调用了 alphalens 的回测函数，但进行了一些简化，使得我们可以仅仅通过一行代码，就完成因子回测。</span></code></pre>
 <p>另一个区别是，研报使用交易标的是沪深 300 指数，它是由各个标的按一定权重构建出来的价格序列；当我们使用 alphalens 进行回测时，我们相当于构建了一个等权沪深 300 指数。这两个指数之间本来就会有差异。</p>
 <p>现在，我们就回到研报的实现，对沪深 300 指数本身进行交易回测。</p>
 <p>事件型交易策略必须要能给出交易信号。根据前面的叙述，这个交易信号是均值的一个标准差。为此，我们需要先对过去 M 天的 RSRS 进行统计，并计算出均值和标准差，然后进行 zscore 化。</p>
 <p>不过，在开始之前，我们先对因子进行可视化，找一点点感觉。</p>
-<pre><code class="language-python">import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-import scipy.stats as st
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span></span><span class="cl-body"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> scipy.stats <span class="hljs-keyword">as</span> st
 
-def describe(df, col, title):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">describe</span>(<span class="hljs-params">df, col, title</span>):
     data = df[~df[col].isna()][col]
     
-    # 创建图形
-    fig, axes = plt.subplots(1, 2, figsize=(18, 9))
+    <span class="hljs-comment"># 创建图形</span>
+    fig, axes = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, figsize=(<span class="hljs-number">18</span>, <span class="hljs-number">9</span>))
     plt.suptitle(title)
     
-    # 基本统计量
+    <span class="hljs-comment"># 基本统计量</span>
     avg = data.mean()
     std = data.std()
     
-    # 左侧：直方图
-    sns.histplot(data, kde=False, stat=&#39;density&#39;, alpha=0.4, ax=axes[0])
-    for line, color, label in zip(
+    <span class="hljs-comment"># 左侧：直方图</span>
+    sns.histplot(data, kde=<span class="hljs-literal">False</span>, stat=<span class="hljs-string">&#x27;density&#x27;</span>, alpha=<span class="hljs-number">0.4</span>, ax=axes[<span class="hljs-number">0</span>])
+    <span class="hljs-keyword">for</span> line, color, label <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(
         [avg, avg-std, avg+std],
-        [&#39;red&#39;, &#39;blue&#39;, &#39;blue&#39;],
-        [&#39;Mean&#39;, &#39;-1 Standard Deviation&#39;, &#39;1 Standard Deviation&#39;]
+        [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>],
+        [<span class="hljs-string">&#x27;Mean&#x27;</span>, <span class="hljs-string">&#x27;-1 Standard Deviation&#x27;</span>, <span class="hljs-string">&#x27;1 Standard Deviation&#x27;</span>]
     ):
-        axes[0].axvline(x=line, color=color, linestyle=&#39;--&#39;, linewidth=0.8, label=label)
-    axes[0].set_ylabel(&#39;Percentage&#39;, fontsize=10)
-    axes[0].legend(fontsize=12)
+        axes[<span class="hljs-number">0</span>].axvline(x=line, color=color, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>, linewidth=<span class="hljs-number">0.8</span>, label=label)
+    axes[<span class="hljs-number">0</span>].set_ylabel(<span class="hljs-string">&#x27;Percentage&#x27;</span>, fontsize=<span class="hljs-number">10</span>)
+    axes[<span class="hljs-number">0</span>].legend(fontsize=<span class="hljs-number">12</span>)
     
-    # 右侧：KDE 和正态分布拟合
-    x = np.linspace(avg - 3*std, avg + 3*std, 100)
+    <span class="hljs-comment"># 右侧：KDE 和正态分布拟合</span>
+    x = np.linspace(avg - <span class="hljs-number">3</span>*std, avg + <span class="hljs-number">3</span>*std, <span class="hljs-number">100</span>)
     kde = st.gaussian_kde(data)
     y_norm = st.norm.pdf(x, avg, std)
     
-    axes[1].plot(x, kde(x), label=&#39;Kernel Density Estimation&#39;)
-    axes[1].plot(x, y_norm, color=&#39;black&#39;, linewidth=1, label=&#39;Normal Fit&#39;)
-    axes[1].axvline(x=avg, color=&#39;red&#39;, linestyle=&#39;--&#39;, linewidth=0.8, label=&#39;Mean&#39;)
-    axes[1].set_ylabel(&#39;Probability&#39;, fontsize=10)
-    axes[1].legend(fontsize=12)
+    axes[<span class="hljs-number">1</span>].plot(x, kde(x), label=<span class="hljs-string">&#x27;Kernel Density Estimation&#x27;</span>)
+    axes[<span class="hljs-number">1</span>].plot(x, y_norm, color=<span class="hljs-string">&#x27;black&#x27;</span>, linewidth=<span class="hljs-number">1</span>, label=<span class="hljs-string">&#x27;Normal Fit&#x27;</span>)
+    axes[<span class="hljs-number">1</span>].axvline(x=avg, color=<span class="hljs-string">&#x27;red&#x27;</span>, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>, linewidth=<span class="hljs-number">0.8</span>, label=<span class="hljs-string">&#x27;Mean&#x27;</span>)
+    axes[<span class="hljs-number">1</span>].set_ylabel(<span class="hljs-string">&#x27;Probability&#x27;</span>, fontsize=<span class="hljs-number">10</span>)
+    axes[<span class="hljs-number">1</span>].legend(fontsize=<span class="hljs-number">12</span>)
     
-    return plt.show()
+    <span class="hljs-keyword">return</span> plt.show()
 
-# 调用函数
-describe(hs300_factor.to_frame(), &#39;RSRS&#39;, &#39;2018-2025 斜率数据分布&#39;)
-</code></pre>
+<span class="hljs-comment"># 调用函数</span>
+describe(hs300_factor.to_frame(), <span class="hljs-string">&#x27;RSRS&#x27;</span>, <span class="hljs-string">&#x27;2018-2025 斜率数据分布&#x27;</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610152016.png'>
@@ -225,108 +216,105 @@ describe(hs300_factor.to_frame(), &#39;RSRS&#39;, &#39;2018-2025 斜率数据分
 
 
 <p>现在，我们按研报思想，对原始的 RSRS 因子进行滑动窗口处理。</p>
-<pre><code class="language-python">start = &quot;20180101&quot;
-end = &quot;20250601&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span></span><span class="cl-body">start = <span class="hljs-string">&quot;20180101&quot;</span>
+end = <span class="hljs-string">&quot;20250601&quot;</span>
 
-hs300 = pro.index_daily(ts_code = &quot;000300.SH&quot;, start_date = start, end_date = end)
-hs300.index = pd.to_datetime(hs300[&quot;trade_date&quot;])
-hs300 = hs300.sort_index(ascending=True)
+hs300 = pro.index_daily(ts_code = <span class="hljs-string">&quot;000300.SH&quot;</span>, start_date = start, end_date = end)
+hs300.index = pd.to_datetime(hs300[<span class="hljs-string">&quot;trade_date&quot;</span>])
+hs300 = hs300.sort_index(ascending=<span class="hljs-literal">True</span>)
 
-def calc_rsrs(df: pd.DataFrame, win: int = 18):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_rsrs</span>(<span class="hljs-params">df: pd.DataFrame, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">18</span></span>):
     df = df.copy()
 
-    # 计算滑动窗口的协方差 Cov(low, high)
-    rolling_cov = df[&quot;low&quot;].rolling(window=win).cov(df[&quot;high&quot;])
+    <span class="hljs-comment"># 计算滑动窗口的协方差 Cov(low, high)</span>
+    rolling_cov = df[<span class="hljs-string">&quot;low&quot;</span>].rolling(window=win).cov(df[<span class="hljs-string">&quot;high&quot;</span>])
 
-    # 计算滑动窗口的方差 Var(low)
-    rolling_var = df[&quot;low&quot;].rolling(window=win).var()
+    <span class="hljs-comment"># 计算滑动窗口的方差 Var(low)</span>
+    rolling_var = df[<span class="hljs-string">&quot;low&quot;</span>].rolling(window=win).var()
 
-    df[&quot;rsrs&quot;] = rolling_cov / rolling_var
+    df[<span class="hljs-string">&quot;rsrs&quot;</span>] = rolling_cov / rolling_var
 
-    return df
+    <span class="hljs-keyword">return</span> df
 
-def calc_rsrs_zscored(df: pd.DataFrame, n: int = 18, m: int = 600):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_rsrs_zscored</span>(<span class="hljs-params">df: pd.DataFrame, n: <span class="hljs-built_in">int</span> = <span class="hljs-number">18</span>, m: <span class="hljs-built_in">int</span> = <span class="hljs-number">600</span></span>):
     df = calc_rsrs(df, n)
-    df[&quot;rsrs_&quot;] = df[&quot;rsrs&quot;].fillna(0)
+    df[<span class="hljs-string">&quot;rsrs_&quot;</span>] = df[<span class="hljs-string">&quot;rsrs&quot;</span>].fillna(<span class="hljs-number">0</span>)
 
-    ZSCORE = (df[&#39;rsrs_&#39;] - df[&#39;rsrs_&#39;].rolling(m).mean()) / df[&#39;rsrs_&#39;].rolling(m).std()
-    df[&#39;rsrs_z&#39;] = ZSCORE
-    return df.drop(columns=&#39;rsrs_&#39;)
+    ZSCORE = (df[<span class="hljs-string">&#x27;rsrs_&#x27;</span>] - df[<span class="hljs-string">&#x27;rsrs_&#x27;</span>].rolling(m).mean()) / df[<span class="hljs-string">&#x27;rsrs_&#x27;</span>].rolling(m).std()
+    df[<span class="hljs-string">&#x27;rsrs_z&#x27;</span>] = ZSCORE
+    <span class="hljs-keyword">return</span> df.drop(columns=<span class="hljs-string">&#x27;rsrs_&#x27;</span>)
 
-rsrs_z = calc_rsrs_zscored(hs300, 18, 600)
-</code></pre>
+rsrs_z = calc_rsrs_zscored(hs300, <span class="hljs-number">18</span>, <span class="hljs-number">600</span>)</span></code></pre>
 <p>我们可以观察下 z-score 化后的因子：</p>
-<pre><code class="language-python">describe(rsrs_z, &#39;rsrs_z&#39;, &#39;2018-2025 Z-Score 化后的 RSRS 分布&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">describe(rsrs_z, <span class="hljs-string">&#x27;rsrs_z&#x27;</span>, <span class="hljs-string">&#x27;2018-2025 Z-Score 化后的 RSRS 分布&#x27;</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>结果与前图（斜率数据分布）差别不大，此处从略。</p>
 <!-- END IPYNB STRIPOUT -->
 
 <p>现在我们来构建一个简单的交易策略：</p>
-<pre><code class="language-python">import matplotlib.dates as mdate
-def RSRS_Strategy(start: datetime.date, end: datetime.date, n: int=18, m: int=600):
-    start_ = start.strftime(&quot;%Y%m%d&quot;)
-    end_ = end.strftime(&quot;%Y%m%d&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span></span><span class="cl-body"><span class="hljs-keyword">import</span> matplotlib.dates <span class="hljs-keyword">as</span> mdate
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">RSRS_Strategy</span>(<span class="hljs-params">start: datetime.date, end: datetime.date, n: <span class="hljs-built_in">int</span>=<span class="hljs-number">18</span>, m: <span class="hljs-built_in">int</span>=<span class="hljs-number">600</span></span>):
+    start_ = start.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+    end_ = end.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
 
-    data = pro.index_daily(ts_code = &quot;000300.SH&quot;, start_date = start_, end_date = end_)
-    data.index = pd.to_datetime(data[&quot;trade_date&quot;])
-    df = data.sort_index(ascending=True)
+    data = pro.index_daily(ts_code = <span class="hljs-string">&quot;000300.SH&quot;</span>, start_date = start_, end_date = end_)
+    data.index = pd.to_datetime(data[<span class="hljs-string">&quot;trade_date&quot;</span>])
+    df = data.sort_index(ascending=<span class="hljs-literal">True</span>)
 
-    rsrs_z = calc_rsrs_zscored(df, n, m)  # 计算标准分指标
+    rsrs_z = calc_rsrs_zscored(df, n, m)  <span class="hljs-comment"># 计算标准分指标</span>
     
-    # 需要扣除前期计算的 600 日
-    rsrs_z=rsrs_z[max(n, m):]
+    <span class="hljs-comment"># 需要扣除前期计算的 600 日</span>
+    rsrs_z=rsrs_z[<span class="hljs-built_in">max</span>(n, m):]
     
-    print(&#39;回测起始日：&#39;,min(rsrs_z.index))
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;回测起始日：&#x27;</span>,<span class="hljs-built_in">min</span>(rsrs_z.index))
 
     z_singal = []
-    threshold = 0.7
-    for row in range(len(rsrs_z)):
-        if rsrs_z[&#39;rsrs_z&#39;][row] &gt; threshold:
-            z_singal.append(1)
+    threshold = <span class="hljs-number">0.7</span>
+    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(rsrs_z)):
+        <span class="hljs-keyword">if</span> rsrs_z[<span class="hljs-string">&#x27;rsrs_z&#x27;</span>][row] &gt; threshold:
+            z_singal.append(<span class="hljs-number">1</span>)
 
-        else:
-            if row != 0:
-                if z_singal[-1] and rsrs_z[&#39;rsrs_z&#39;][row] &gt; -threshold:
-                    z_singal.append(1)
-                else:
-                    z_singal.append(0)
-            else:
-                z_singal.append(0)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> row != <span class="hljs-number">0</span>:
+                <span class="hljs-keyword">if</span> z_singal[-<span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> rsrs_z[<span class="hljs-string">&#x27;rsrs_z&#x27;</span>][row] &gt; -threshold:
+                    z_singal.append(<span class="hljs-number">1</span>)
+                <span class="hljs-keyword">else</span>:
+                    z_singal.append(<span class="hljs-number">0</span>)
+            <span class="hljs-keyword">else</span>:
+                z_singal.append(<span class="hljs-number">0</span>)
 
-    # 交易信号
-    rsrs_z[&#39;z_singal&#39;] = z_singal
+    <span class="hljs-comment"># 交易信号</span>
+    rsrs_z[<span class="hljs-string">&#x27;z_singal&#x27;</span>] = z_singal
     
-    # 每日收益
-    rsrs_z[&#39;ret&#39;] = rsrs_z[&#39;close&#39;].pct_change()
+    <span class="hljs-comment"># 每日收益</span>
+    rsrs_z[<span class="hljs-string">&#x27;ret&#x27;</span>] = rsrs_z[<span class="hljs-string">&#x27;close&#x27;</span>].pct_change()
 
-    # 累积净值
-    z_cum = (1+rsrs_z[&#39;z_singal&#39;]*rsrs_z[&#39;ret&#39;]).cumprod()
+    <span class="hljs-comment"># 累积净值</span>
+    z_cum = (<span class="hljs-number">1</span>+rsrs_z[<span class="hljs-string">&#x27;z_singal&#x27;</span>]*rsrs_z[<span class="hljs-string">&#x27;ret&#x27;</span>]).cumprod()
 
-    # 基准净值
-    benchmark = (1+rsrs_z[&#39;ret&#39;]).cumprod()
+    <span class="hljs-comment"># 基准净值</span>
+    benchmark = (<span class="hljs-number">1</span>+rsrs_z[<span class="hljs-string">&#x27;ret&#x27;</span>]).cumprod()
 
-    # 画图
+    <span class="hljs-comment"># 画图</span>
     plt.figure()
-    fig = plt.figure(figsize=(20, 10))
-    ax1 = fig.add_subplot(1, 1, 1)
+    fig = plt.figure(figsize=(<span class="hljs-number">20</span>, <span class="hljs-number">10</span>))
+    ax1 = fig.add_subplot(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
 
-    ax1.plot(z_cum, label=&#39;RSRS 策略&#39;)
-    ax1.plot(benchmark, label=&#39;沪深 300&#39;)
+    ax1.plot(z_cum, label=<span class="hljs-string">&#x27;RSRS 策略&#x27;</span>)
+    ax1.plot(benchmark, label=<span class="hljs-string">&#x27;沪深 300&#x27;</span>)
 
-    ax1.xaxis.set_major_formatter(mdate.DateFormatter(&#39;%Y-%m&#39;))
-    plt.legend(loc=&#39;best&#39;)
-    plt.xlabel(&#39;时间&#39;)
-    plt.ylabel(&#39;净值&#39;)
-    plt.title(&#39;RSRS 指标策略净值曲线&#39;)
+    ax1.xaxis.set_major_formatter(mdate.DateFormatter(<span class="hljs-string">&#x27;%Y-%m&#x27;</span>))
+    plt.legend(loc=<span class="hljs-string">&#x27;best&#x27;</span>)
+    plt.xlabel(<span class="hljs-string">&#x27;时间&#x27;</span>)
+    plt.ylabel(<span class="hljs-string">&#x27;净值&#x27;</span>)
+    plt.title(<span class="hljs-string">&#x27;RSRS 指标策略净值曲线&#x27;</span>)
     plt.show()
 
-    return z_cum, benchmark
+    <span class="hljs-keyword">return</span> z_cum, benchmark
     
 strategy, benchmark = RSRS_Strategy(
-    datetime.date(2005, 1, 1), datetime.date(2018, 1, 1), m=300
-)
-</code></pre>
+    datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), m=<span class="hljs-number">300</span>
+)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610170908.png'

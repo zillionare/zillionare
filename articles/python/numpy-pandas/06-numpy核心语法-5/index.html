@@ -26,131 +26,117 @@
 <p>关于时间，首先我们要了解有所谓的 timezone aware 时间和 timezone naive 时间。当我们说到晚上 8 时开会时，这个时间实际上默认地包含了时区的概念。如果这是一个跨国会议，但你在通知时不告诉与会方时区，就会导致其它人无法准时出席 -- 他们将会在自己时区的晚上 8 时上线。</p>
 <p>如果一个时间对象不包含时区，它就是 timezone naive 的；否则，它是 timezone aware 的。但这只是针对时间对象（比如，Python 中的 datetime.datetime）才有的意义；日期对象（比如，Python 中的 datetime.date）是没有时区的。</p>
 <hr>
-<pre><code class="language-python">import pytz
-import datetime
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pytz
+<span class="hljs-keyword">import</span> datetime
 
-# 通过 DATETIME.NOW() 获得的时间没有时区信息
-# 返回的是标准时间，即 UTC 时间，等同于调用 UTCNOW()
+<span class="hljs-comment"># 通过 DATETIME.NOW() 获得的时间没有时区信息</span>
+<span class="hljs-comment"># 返回的是标准时间，即 UTC 时间，等同于调用 UTCNOW()</span>
 now = datetime.datetime.now()
-print(f&quot;now() without param: {now}, 时区信息{now.tzinfo}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;now() without param: <span class="hljs-subst">{now}</span>, 时区信息<span class="hljs-subst">{now.tzinfo}</span>&quot;</span>)
 
 now = datetime.datetime.utcnow()
-print(f&quot;utcnow: {now}, 时区信息{now.tzinfo}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;utcnow: <span class="hljs-subst">{now}</span>, 时区信息<span class="hljs-subst">{now.tzinfo}</span>&quot;</span>)
 
-# 构造 TIMEZONE 对象
-cn_tz = pytz.timezone(&#39;Asia/Shanghai&#39;)
+<span class="hljs-comment"># 构造 TIMEZONE 对象</span>
+cn_tz = pytz.timezone(<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>)
 now = datetime.datetime.now(cn_tz)
-print(f&quot;现在时间{now}, 时区信息{now.tzinfo}&quot;)
-print(&quot;现在日期：&quot;, now.date())
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;现在时间<span class="hljs-subst">{now}</span>, 时区信息<span class="hljs-subst">{now.tzinfo}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;现在日期：&quot;</span>, now.date())
 
-try:
-    print(now.date().tzinfo)
-except AttributeError:
-    print(&quot;日期对象没有时区信息&quot;)
-</code></pre>
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-built_in">print</span>(now.date().tzinfo)
+<span class="hljs-keyword">except</span> AttributeError:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;日期对象没有时区信息&quot;</span>)</span></code></pre>
 <p>上述代码将依次输出：</p>
-<pre><code class="language-python">now() 不带参数：2024-05-19 11:03:41.550328, 时区信息 None
-utcnow: 2024-05-19 11:03:41.550595, 时区信息 None
-现在时间 2024-05-19 19:03:41.550865+08:00, 时区信息 Asia/Shanghai
-现在日期：2024-05-19
-日期对象没有时区信息
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">now() 不带参数：<span class="hljs-number">2024</span>-05-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:03:<span class="hljs-number">41.550328</span>, 时区信息 <span class="hljs-literal">None</span>
+utcnow: <span class="hljs-number">2024</span>-05-<span class="hljs-number">19</span> <span class="hljs-number">11</span>:03:<span class="hljs-number">41.550595</span>, 时区信息 <span class="hljs-literal">None</span>
+现在时间 <span class="hljs-number">2024</span>-05-<span class="hljs-number">19</span> <span class="hljs-number">19</span>:03:<span class="hljs-number">41.550865</span>+08:<span class="hljs-number">00</span>, 时区信息 Asia/Shanghai
+现在日期：<span class="hljs-number">2024</span>-05-<span class="hljs-number">19</span>
+日期对象没有时区信息</span></code></pre>
 <hr>
 <p>不过，限于篇幅，我们对时间问题的介绍只能浅尝辄止。在这里，我们主要关注在 Numpy 中，日期/时间如何表示，它们彼此之间如何比较、转换，以及如何与 Python 对象进行比较和转换。</p>
 <!--类似的问题，我们在 pandas 中也常常遇到-->
 
 <p>在 Numpy 中，日期/时间总是用一个 64 位整数（np.datetime64）来表示，此外，还关联了一个表示其单位（比如，纳秒、秒等）的元数据结构。<code>np.datetime64</code>是没有时区概念的。</p>
-<pre><code class="language-python">tm = np.datetime64(&#39;1970-01-01T00:00:00&#39;)
-print(tm)
-print(tm.dtype)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">tm = np.datetime64(<span class="hljs-string">&#x27;1970-01-01T00:00:00&#x27;</span>)
+<span class="hljs-built_in">print</span>(tm)
+<span class="hljs-built_in">print</span>(tm.dtype)</span></code></pre>
 <p>这将显示为：</p>
-<pre><code class="language-python">1970-01-01T00:00:00
-datetime64[s]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-number">1970</span>-01-01T00:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+datetime64[s]</span></code></pre>
 <p>这里的<code>[s]</code>就是我们前面所说的时间单位。其它常见单位还有<code>[ms]</code>、<code>[us]</code>、<code>[ns]</code>等等。</p>
 <!--我们也可以用 ISO 格式（1970-01-01T00:00:00+0800) 传入时间。但是，numpy 会给出警告，提示未来版本中，将不允许传入时区信息.-->
 <p>除了从字符串解释之外，我们还可以直接将 Python 对象转换成<code>np.datetime64</code>，反之亦然：</p>
-<pre><code class="language-python">tm = np.datetimet64(datetime.datetime.now())
-print(tm)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">tm = np.datetimet64(datetime.datetime.now())
+<span class="hljs-built_in">print</span>(tm)
 
-print(tm.item())
-print(tm.astype(datetime.datetime))
-</code></pre>
+<span class="hljs-built_in">print</span>(tm.item())
+<span class="hljs-built_in">print</span>(tm.astype(datetime.datetime))</span></code></pre>
 <hr>
 <p>下面我们来看看如何实现不同格式之间的批量转换。这在处理 akshare, tushare 或者 QMT 等第三方数据源提供的行情数据时，非常常见。</p>
 <p>首先我们构造一个时间数组。顺便提一句，这里我们将使用<code>np.timedelta64</code>这个时间差分类型：</p>
-<pre><code class="language-python">now = np.datetime64(datetime.datetime.now())
-arr = np.array([now + np.timedelta64(i, &#39;m&#39;) for i in range(3)])
-arr
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">now = np.datetime64(datetime.datetime.now())
+arr = np.array([now + np.timedelta64(i, <span class="hljs-string">&#x27;m&#x27;</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)])
+arr</span></code></pre>
 <p>输出结果如下：</p>
-<pre><code class="language-python">array([&#39;2024-05-19T12:57:47.349178&#39;, 
-       &#39;2024-05-19T12:58:47.349178&#39;,
-       &#39;2024-05-19T12:59:47.349178&#39;], 
-     dtype=&#39;datetime64[us]&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">array([<span class="hljs-string">&#x27;2024-05-19T12:57:47.349178&#x27;</span>, 
+       <span class="hljs-string">&#x27;2024-05-19T12:58:47.349178&#x27;</span>,
+       <span class="hljs-string">&#x27;2024-05-19T12:59:47.349178&#x27;</span>], 
+     dtype=<span class="hljs-string">&#x27;datetime64[us]&#x27;</span>)</span></code></pre>
 <!--这里我们给 timedelta64() 函数传入了参数'm'，表示以分钟为单位。-->
 
 <p>我们可以通过<code>np.datetime64.astype()</code>方法将时间数组转换为 Python 的时间对象：</p>
-<pre><code class="language-python">time_arr = arr.astype(datetime.datetime)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">time_arr = arr.astype(datetime.datetime)
 
-# 转换后的数组，每个元素都是 TIMEZONE NAIVE 的 DATETIME 对象
-print(type(time_arr[0]))
-</code></pre>
+<span class="hljs-comment"># 转换后的数组，每个元素都是 TIMEZONE NAIVE 的 DATETIME 对象</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(time_arr[<span class="hljs-number">0</span>]))</span></code></pre>
 <hr>
-<pre><code class="language-python"># !!! 技巧
-# 如何把 NP.DATETIME64 数组转换为 PYTHON DATETIME.DATE 数组？
-date_arr = arr.astype(&#39;datetime64[D]&#39;).astype(datetime.date)
-# 或者 -- 两者的容器不一样
-date_arr = arr.astype(&#39;datetime64[D]&#39;).tolist()
-print(type(date_arr[0]))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># !!! 技巧</span>
+<span class="hljs-comment"># 如何把 NP.DATETIME64 数组转换为 PYTHON DATETIME.DATE 数组？</span>
+date_arr = arr.astype(<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>).astype(datetime.date)
+<span class="hljs-comment"># 或者 -- 两者的容器不一样</span>
+date_arr = arr.astype(<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>).tolist()
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(date_arr[<span class="hljs-number">0</span>]))</span></code></pre>
 <!--第 8 行与第 10 行的区别，前者仍然是一个 numpy 数组，dtype 为'O'；后者则是 Python List-->
 
 <p>这里的关键是，我们之前生成的<code>arr</code>数组，其元素类型为<code>np.datetime64[us]</code>。它到 Python <code>datetime.date</code>的转换将损失精度，所以 Numpy 要求我们显式地指定转换类型。</p>
 <!--总结一下，转换 numpy 标量到 Python 对象时，我们可以用 item() 或者 astype 的方法。转换 numpy 数组到 Python 对象时，我们可以用 astype() 方法。-->
 
 <p>如何将以字符串表示的时间数组转换为 Numpy datetime64 对象数组呢？答案仍然是 astype() 方法。</p>
-<pre><code class="language-python"># 将时间数组转换为字符串数组
-str_arr_time = arr_time.astype(str)
-print(str_arr_time)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 将时间数组转换为字符串数组</span>
+str_arr_time = arr_time.astype(<span class="hljs-built_in">str</span>)
+<span class="hljs-built_in">print</span>(str_arr_time)
 
-# 再将字符串数组转换为 DATETIME64 数组，精度指定为 D
-str_arr_time.astype(&#39;datetime64[D]&#39;)
-</code></pre>
+<span class="hljs-comment"># 再将字符串数组转换为 DATETIME64 数组，精度指定为 D</span>
+str_arr_time.astype(<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)</span></code></pre>
 <p>显示结果为：</p>
-<pre><code class="language-python">array([&#39;2024-05-19T12:57:47.349178&#39;, 
-       &#39;2024-05-19T12:58:47.349178&#39;,
-       &#39;2024-05-19T12:59:47.349178&#39;], 
-       dtype=&#39;datetime64[us]&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">array([<span class="hljs-string">&#x27;2024-05-19T12:57:47.349178&#x27;</span>, 
+       <span class="hljs-string">&#x27;2024-05-19T12:58:47.349178&#x27;</span>,
+       <span class="hljs-string">&#x27;2024-05-19T12:59:47.349178&#x27;</span>], 
+       dtype=<span class="hljs-string">&#x27;datetime64[us]&#x27;</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python">array([
-    &#39;2024-05-19&#39;, 
-    &#39;2024-05-19&#39;],               
-    dtype=&#39;datetime64[D]&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">array([
+    <span class="hljs-string">&#x27;2024-05-19&#x27;</span>, 
+    <span class="hljs-string">&#x27;2024-05-19&#x27;</span>],               
+    dtype=<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)</span></code></pre>
 <p>最后，我们给一个 QMT 获取交易日历后的格式转换示例。在 QMT 中，我们通过<code>get_trading_dates</code>来获取交易日历，该函数返回的是一个整数数组，每个元素的数值，是从 unix epoch 以来的毫秒数。</p>
 <p>我们可以通过以下方法对其进行转换：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-days = get_trading_dates(&#39;SH&#39;, start_time=&#39;&#39;, end_time=&#39;&#39;, count=10)
-np.array(days, dtype=&#39;datetime64[ms]&#39;).astype(datetime.date)
-</code></pre>
+days = get_trading_dates(<span class="hljs-string">&#x27;SH&#x27;</span>, start_time=<span class="hljs-string">&#x27;&#x27;</span>, end_time=<span class="hljs-string">&#x27;&#x27;</span>, count=<span class="hljs-number">10</span>)
+np.array(days, dtype=<span class="hljs-string">&#x27;datetime64[ms]&#x27;</span>).astype(datetime.date)</span></code></pre>
 <p>QMT 官方没有直接给出交易日历转换方案，但给出åå了如何将 unix epoch 时间戳转换为 Python 时间对象（但仍以字符串表示）：</p>
-<pre><code class="language-python">import time
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> time
 
-def conv_time(ct):
-    # conv_time(1476374400000) --&gt; &#39;20161014000000.000&#39;
-    local_time = time.localtime(ct / 1000)
-    data_head = time.strftime(&#39;%Y%m%d%H%M%S&#39;, local_time)
-    data_secs = (ct - int(ct)) * 1000
-    time_stamp = &#39;%s.%03d&#39; % (data_head, data_secs)
-    return time_stamp
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">conv_time</span>(<span class="hljs-params">ct</span>):
+    <span class="hljs-comment"># conv_time(1476374400000) --&gt; &#x27;20161014000000.000&#x27;</span>
+    local_time = time.localtime(ct / <span class="hljs-number">1000</span>)
+    data_head = time.strftime(<span class="hljs-string">&#x27;%Y%m%d%H%M%S&#x27;</span>, local_time)
+    data_secs = (ct - <span class="hljs-built_in">int</span>(ct)) * <span class="hljs-number">1000</span>
+    time_stamp = <span class="hljs-string">&#x27;%s.%03d&#x27;</span> % (data_head, data_secs)
+    <span class="hljs-keyword">return</span> time_stamp
 
-conv_time(1693152000000)
-</code></pre>
+conv_time(<span class="hljs-number">1693152000000</span>)</span></code></pre>
 <p>我们需要对每一个数组元素使用上述解析方法。官方方案的优点是不依赖任何三方库。不过，没有量化程序能离开 Numpy 库，所以，我们的方案并未增加第三方库的依赖。</p>
 <hr>
 <h2 id="2-字符串操作">2. 字符串操作</h2>
@@ -164,21 +150,19 @@ conv_time(1693152000000)
 </ol>
 <p>Numpy 中的大多数字符串操作都封装在 numpy.char 这个包下面。它主要提供了一些用于格式化的操作（比如左右填充对齐、大小写转换等）、查找和替换操作。</p>
 <p>下面的代码展示了如何从证券列表中过滤创业板：</p>
-<pre><code class="language-python">
-import numpy as np
-import numpy.char as nc
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> numpy.char <span class="hljs-keyword">as</span> nc</span></code></pre>
 <hr>
-<pre><code class="language-python"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE
-arr = np.array([(&#39;600000.SH&#39;, &#39;中国平安&#39;, &#39;1997-08-19&#39;),
-                (&#39;000001.SZ&#39;, &#39;平安银行&#39;, &#39;1997-08-19&#39;),
-                (&#39;301301.SZ&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)
-                ], dtype=[(&#39;symbol&#39;, &#39;S10&#39;), (&#39;name&#39;, &#39;S10&#39;), (&#39;ipo_date&#39;, &#39;datetime64[D]&#39;)])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-comment"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE</span>
+arr = np.array([(<span class="hljs-string">&#x27;600000.SH&#x27;</span>, <span class="hljs-string">&#x27;中国平安&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;000001.SZ&#x27;</span>, <span class="hljs-string">&#x27;平安银行&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;301301.SZ&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)
+                ], dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;S10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;S10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)])
 
-def get_cyb(arr):
-    mask = np.char.startswith(arr[&quot;symbol&quot;], b&quot;30&quot;)
-    return arr[mask]
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_cyb</span>(<span class="hljs-params">arr</span>):
+    mask = np.char.startswith(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">b&quot;30&quot;</span>)
+    <span class="hljs-keyword">return</span> arr[mask]</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 我们在查找创业板股票时，使用的是 b"30"来进行匹配。为何要用 b"30"而不是"30"?
 </div>
@@ -187,30 +171,28 @@ def get_cyb(arr):
 
 <p>注意第 11 行，我们要通过<code>np.char.startswith()</code>来使用<code>startswith</code>函数。任何一个 numpy array 对象都没有这个方法。</p>
 <p>&quot;.SZ&quot;是我们的数据源给股票编制的交易所代码。不同的数据源，可能使用不同的交易所代码。比如，聚宽数据源会使用.XSHG 表示上交所，.XSHE 表示深交所。现在，如果我们要将上述代码转换为聚宽的格式，应该如何操作？</p>
-<pre><code class="language-python"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE
-arr = np.array([(&#39;600000.SH&#39;, &#39;中国平安&#39;, &#39;1997-08-19&#39;),
-                (&#39;000001.SZ&#39;, &#39;平安银行&#39;, &#39;1997-08-19&#39;),
-                (&#39;301301.SZ&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)
-                ], dtype=[(&#39;symbol&#39;, &#39;U10&#39;), (&#39;name&#39;, &#39;U10&#39;), (&#39;ipo_date&#39;, &#39;datetime64[D]&#39;)])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE</span>
+arr = np.array([(<span class="hljs-string">&#x27;600000.SH&#x27;</span>, <span class="hljs-string">&#x27;中国平安&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;000001.SZ&#x27;</span>, <span class="hljs-string">&#x27;平安银行&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;301301.SZ&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)
+                ], dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;U10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;U10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)])</span></code></pre>
 <hr>
-<pre><code class="language-python">def translate_exchange_code(arr):
-    symbols = np.char.replace(arr[&quot;symbol&quot;], &quot;.SH&quot;, &quot;.XSHG&quot;)
-    print(symbols)
-    symbols = np.char.replace(symbols, &quot;.SZ&quot;, &quot;.XSHE&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">translate_exchange_code</span>(<span class="hljs-params">arr</span>):
+    symbols = np.char.replace(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">&quot;.SH&quot;</span>, <span class="hljs-string">&quot;.XSHG&quot;</span>)
+    <span class="hljs-built_in">print</span>(symbols)
+    symbols = np.char.replace(symbols, <span class="hljs-string">&quot;.SZ&quot;</span>, <span class="hljs-string">&quot;.XSHE&quot;</span>)
 
-    arr[&quot;symbol&quot;] = symbols
-    return arr
+    arr[<span class="hljs-string">&quot;symbol&quot;</span>] = symbols
+    <span class="hljs-keyword">return</span> arr
 
-translate_exchange_code(arr)
-</code></pre>
+translate_exchange_code(arr)</span></code></pre>
 <p>这一次，我们把 symbol 和 name 的定义改为 Unicode 型，以避免我们查找时，要输入像 b&quot;30&quot;这样的字面量。</p>
 <p>但输出的结果可能让人意外，因为我们将得到这样的输出：</p>
-<pre><code class="language-python">array([(&#39;600000.XSH&#39;, &#39;中国平安&#39;, &#39;1997-08-19&#39;),
-       (&#39;000001.XSH&#39;, &#39;平安银行&#39;, &#39;1997-08-19&#39;),
-       (&#39;301301.XSH&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)],
-      dtype=[(&#39;symbol&#39;, &#39;&lt;U10&#39;), (&#39;name&#39;, &#39;&lt;U10&#39;), (&#39;ipo_date&#39;, &#39;&lt;M8[D]&#39;)])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">array([(<span class="hljs-string">&#x27;600000.XSH&#x27;</span>, <span class="hljs-string">&#x27;中国平安&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+       (<span class="hljs-string">&#x27;000001.XSH&#x27;</span>, <span class="hljs-string">&#x27;平安银行&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+       (<span class="hljs-string">&#x27;301301.XSH&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)],
+      dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;&lt;M8[D]&#x27;</span>)])
+</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 发生了什么？我们得到了一堆以".XSH"结尾的 symbol，它们本应该是"600000.XSHG"这样的字符串。错在哪里，又该如何修改？
 </div>
@@ -220,14 +202,12 @@ translate_exchange_code(arr)
 <p>在上面的示例中，如果我们把替换字符串改为空字符串，就实现了删除操作。这里就不演示了。</p>
 <p>char 模块还提供了字符串相等比较函数<code>equal</code>:</p>
 <hr>
-<pre><code class="language-python">arr = array([(&#39;301301.SZ&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)],
-      dtype=[(&#39;symbol&#39;, &#39;&lt;U10&#39;), (&#39;name&#39;, &#39;&lt;U10&#39;), (&#39;ipo_date&#39;, &#39;&lt;M8[D]&#39;)])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">arr = array([(<span class="hljs-string">&#x27;301301.SZ&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)],
+      dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;&lt;M8[D]&#x27;</span>)])
 
-arr[np.char.equal(arr[&quot;symbol&quot;], &quot;301301.SZ&quot;)]
-</code></pre>
+arr[np.char.equal(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">&quot;301301.SZ&quot;</span>)]</span></code></pre>
 <p>在这个特殊的场景下，我们也可以直接使用以下语法：</p>
-<pre><code class="language-python">arr[arr[&quot;symbol&quot;] == &quot;301301.SZ&quot;]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">arr[arr[<span class="hljs-string">&quot;symbol&quot;</span>] == <span class="hljs-string">&quot;301301.SZ&quot;</span>]</span></code></pre>
 <p>!!! tip 
     np.char 下的函数很多，如何记忆？实际上，这些函数多数是 Python 中 str 的方法。如果你熟悉 Pandas，就会发现 Pandas 中也有同样的用法。因此，像<code>upper</code>, <code>lower</code>, <code>strip</code>这样的<code>str</code>函数，你可以直接拿过来用。</p>
 <p>Numpy 中的字符串函数另一个比较常用的场景，就是执行格式化。你可以通过<code>ljust</code>, &#39;center&#39;, <code>rjust</code>在显示一个数组前，将它们的各列数据进行左右空格填充，这样，输出时就可以比较整齐。</p>

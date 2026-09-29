@@ -83,35 +83,33 @@
 <p>全部代码及数据购买本文后，私信留言，您将会收到一个在线网址和登录密码。这里有本文全部代码、A股2005年以来的行情数据（含分钟线）和回测引擎，支持在线运行和验证。</p>
 <hr>
 <p>上一期我们检视了斜率因子。本质上，斜率因子是一阶导动量因子。比如，以如下方式生成的数组，它的斜率和一阶导是相等的：</p>
-<pre><code class="language-python">from scipy.stats import linregress
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> linregress
 
-slope = 0.2
-x = np.arange(10)
-y = slope * x + 1
+slope = <span class="hljs-number">0.2</span>
+x = np.arange(<span class="hljs-number">10</span>)
+y = slope * x + <span class="hljs-number">1</span>
 
 d1 = np.diff(y).mean()
 
-# 如果我们通过线性回归来求斜率
+<span class="hljs-comment"># 如果我们通过线性回归来求斜率</span>
 alpha, beta, *_ = linregress(x, y)
 
-print(f&quot;slope is {slope:.1f}&quot;)
-print(f&quot;first derivative is {d1:.1f}&quot;)
-print(f&quot;slope by linear regression is {alpha:.1f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;slope is <span class="hljs-subst">{slope:<span class="hljs-number">.1</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;first derivative is <span class="hljs-subst">{d1:<span class="hljs-number">.1</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;slope by linear regression is <span class="hljs-subst">{alpha:<span class="hljs-number">.1</span>f}</span>&quot;</span>)</span></code></pre>
 <p>三项输出都是 0.2。如果我们对价格序列求<strong>二阶导</strong>作为因子，它会对未来趋势有预测作用吗？我们先看结果，再来讨论背后的原理。</p>
 <h2 id="二阶导动量因子检验">二阶导动量因子检验</h2>
-<pre><code class="language-python">def d2_factor(close: NDArray, win: int = 10) -&gt; NDArray:
-    n = len(close)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">d2_factor</span>(<span class="hljs-params">close: NDArray, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">10</span></span>) -&gt; NDArray:
+    n = <span class="hljs-built_in">len</span>(close)
 
-    d1 = close[1:]/close[:-1] - 1
-    d2 = d1[1:] - d1[:-1]
+    d1 = close[<span class="hljs-number">1</span>:]/close[:-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
+    d2 = d1[<span class="hljs-number">1</span>:] - d1[:-<span class="hljs-number">1</span>]
 
     factor = move_mean(d2, win)
-    # 进行左填充，使之与输入等长
-    factor = np.pad(factor, (n-len(factor), 0), ...)
+    <span class="hljs-comment"># 进行左填充，使之与输入等长</span>
+    factor = np.pad(factor, (n-<span class="hljs-built_in">len</span>(factor), <span class="hljs-number">0</span>), ...)
     
-    return factor
-</code></pre>
+    <span class="hljs-keyword">return</span> factor</span></code></pre>
 <hr>
 <p>上面这段代码可以生成一个二阶导动量因子。注意我们用<code>close[1:]/close[:-1]-1</code>代替了通常意义上的一阶导，以起到某种标准化的作用。如果我们不这样做，那么高价股的因子将永远大于低价股的因子，从而永远有更高的因子暴露。</p>
 <p>因子本身的参数是<code>win</code>，表示我们是在多长的时间段内计算的二阶导。</p>
@@ -133,8 +131,7 @@ print(f&quot;slope by linear regression is {alpha:.1f}&quot;)
 <p>第 2 步输出的是一个 DataFrame，它的格式如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg" alt=""></p>
 <p>所以，要 drop 掉第 10 层，可以这样做：</p>
-<pre><code class="language-python">factor_data = factor_data[factor_data.factor_quantile &lt;= 8]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">factor_data = factor_data[factor_data.factor_quantile &lt;= <span class="hljs-number">8</span>]</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 这是本文介绍的第一个技巧。在前面的课程中，为了让 Alphalens 按照我们的意愿，按指定的对空分层进行收益分析，我们使用的是改造因子本身的方法，比这个方法在阶段上更提前一些。两个方法都可以使用，但这里的方法更简单。
 </div>

@@ -64,8 +64,7 @@
 <p>登录之后，就可以看到他所报名的课程：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201222.png" alt=""></p>
 <p>用户点击粉红色的课程链接，就应该看到该课的内容。这个课程的链接是：</p>
-<pre><code class="language-bash">http://*/course/l24/quantide/lab/tree/courseware/01.ipynb
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">http://*/course/l24/quantide/lab/tree/courseware/01.ipynb</span></code></pre>
 <p>点击之后，本来应该能打开 01.ipynb 这个 notebook，但实际上返回了不能访问的错误。此时会进入到 jupyter lab 的 home 界面：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423211330.png" alt="home"></p>
 <p>此时清楚地看到所有的 notebook 都已经列出来了，但是当你点击它们时，仍然是不能访问。</p>
@@ -84,47 +83,37 @@ Augment 有三种模式，chat, agent 和 agent auto 模式。Chat 模式一样�
 在我们正在工作的项目中，存在这样一个问题。当我点击 academy > 我的课程面板 > 24 课的链接时出现无法访问；但 fa 课程的链接就可以访问。两者都是经过同一个 nginx 容器转发；nginx 后面的容器不一样，一个是 course_l24_quantide，一个是 course_fa_quantide.
 </div>
 
-<pre><code>我启用 agent 模式，不是让你进行改动，而是让你可以直接运行一些命令来查看文件和（包括容器）状态。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">我启用 agent 模式，不是让你进行改动，而是让你可以直接运行一些命令来查看文件和（包括容器）状态。
 
-现在，请着手调查这个问题。
-</code></pre>
+现在，请着手调查这个问题。</span></code></pre>
 <h2 id="aha-时刻">Aha 时刻</h2>
 <p>Agent 以常规的姿势开始，先是响应我的问题。但我的问题说得比较笼统，所以，它的响应也很简单：</p>
-<pre><code class="language-md">I&#39;ll help you investigate why the 24 课 links aren&#39;t working while the FA course links are working. Let&#39;s start by gathering information about the configuration and status of the relevant components.
-</code></pre>
+<pre><code class="hljs language-md"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">I&#x27;ll help you investigate why the 24 课 links aren&#x27;t working while the FA course links are working. Let&#x27;s start by gathering information about the configuration and status of the relevant components.</span></code></pre>
 <p>老实说，有点没太指望了。</p>
 <p>接下来，它阅读了 containers.yaml -- 这是用来创建容器的配置文件。</p>
 <p>然后它调用 docker ps 检查哪些容器正在运行。它了解到 nginx 容器很重要，于是，把 nginx 看了个底掉：</p>
-<pre><code class="language-bash">docker exec nginx ls -la /etc/nginx/
-docker exec nginx cat /etc/nginx/auth.conf
-docker exec nginx cat /var/log/nginx/error.log | tail -n 50
-docker exec nginx cat /var/log/nginx/access.log | tail -n 20
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">docker <span class="hljs-built_in">exec</span> nginx <span class="hljs-built_in">ls</span> -la /etc/nginx/
+docker <span class="hljs-built_in">exec</span> nginx <span class="hljs-built_in">cat</span> /etc/nginx/auth.conf
+docker <span class="hljs-built_in">exec</span> nginx <span class="hljs-built_in">cat</span> /var/log/nginx/error.log | <span class="hljs-built_in">tail</span> -n 50
+docker <span class="hljs-built_in">exec</span> nginx <span class="hljs-built_in">cat</span> /var/log/nginx/access.log | <span class="hljs-built_in">tail</span> -n 20</span></code></pre>
 <p>在调查阶段，它没有出任何结论，而是接着看另外两个容器：</p>
-<pre><code class="language-bash">docker exec course_l24_quantide ls -la /home/quantide/notebooks/courseware
-docker exec course_fa_quantide ls -la /home/quantide/notebooks/courseware
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">docker <span class="hljs-built_in">exec</span> course_l24_quantide <span class="hljs-built_in">ls</span> -la /home/quantide/notebooks/courseware
+docker <span class="hljs-built_in">exec</span> course_fa_quantide <span class="hljs-built_in">ls</span> -la /home/quantide/notebooks/courseware</span></code></pre>
 <p>它还调查了这几个容器是否都连接在同一个 course 网络：</p>
-<pre><code class="language-bash">docker network inspect course
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">docker network inspect course</span></code></pre>
 <p>然后再检查这两个容器中，jupyter 是否在运行（这个动作有点没有必要，如果是人工来做，这样做会累死驴）</p>
-<pre><code class="language-bash">docker exec course_l24_quantide ps aux | grep jupyter
-docker exec course_fa_quantide ps aux | grep jupyter
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">docker <span class="hljs-built_in">exec</span> course_l24_quantide ps aux | grep jupyter
+docker <span class="hljs-built_in">exec</span> course_fa_quantide ps aux | grep jupyter</span></code></pre>
 <p>然后它检查了 notebook 文件名：</p>
-<pre><code class="language-bash">docker exec course_l24_quantide find /home/quantide/notebooks/courseware -name &quot;*.ipynb&quot; | head -5
-docker exec course_fa_quantide find /home/quantide/notebooks/courseware -name &quot;*.ipynb&quot; | head -5
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">docker <span class="hljs-built_in">exec</span> course_l24_quantide find /home/quantide/notebooks/courseware -name <span class="hljs-string">&quot;*.ipynb&quot;</span> | <span class="hljs-built_in">head</span> -5
+docker <span class="hljs-built_in">exec</span> course_fa_quantide find /home/quantide/notebooks/courseware -name <span class="hljs-string">&quot;*.ipynb&quot;</span> | <span class="hljs-built_in">head</span> -5</span></code></pre>
 <p>这些都平平无奇。接下来就是比较智能的地方了，它开始怀疑 url 与文件名不匹配！</p>
-<pre><code class="language-bash">curl -s http://*/api/academy/home/1 | python -m json.tool
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">curl -s http://*/api/academy/home/1 | python -m json.tool</span></code></pre>
 <p>运行的这个命令我是有点看不懂了，果然是编程奇才。</p>
 <p>然后又看了一遍文件名：</p>
-<pre><code class="language-bash">docker exec course_l24_quantide find /home/quantide/notebooks/courseware -name &quot;01.ipynb&quot;
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">docker <span class="hljs-built_in">exec</span> course_l24_quantide find /home/quantide/notebooks/courseware -name <span class="hljs-string">&quot;01.ipynb&quot;</span></span></code></pre>
 <p>然后又回过头去，查看我们提供给用户的链接：</p>
-<pre><code class="language-bash">curl -s &quot;http://*/api/academy/home/1&quot; | grep -o &quot;http://*/course/l24/quantide/lab/tree/courseware/.*ipy
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">curl -s <span class="hljs-string">&quot;http://*/api/academy/home/1&quot;</span> | grep -o <span class="hljs-string">&quot;http://*/course/l24/quantide/lab/tree/courseware/.*ipy</span></span></code></pre>
 <p>把这么多信息匹配起来，显然是很费脑的事情，但 Augment 正是在人困马乏之际，发现了问题所在：</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 我们提供给用户的链接是 /courseware/01.ipynb，但 01.ipynb 在 24 课中并不存在；在 24 课中，存在的是 lesson01.ipynb。这是一个典型的部署问题。在因子课中，所有的文件名都只有序号，但在 24 课中，源文件画蛇添足地带上了 lesson 的前缀。

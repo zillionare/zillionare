@@ -32,14 +32,13 @@ What I cannot create, I do not understand。
 <p>当然大家对看到的任何收益曲线都要谨慎对待哈。并且，作者没没有公布他的模型。在代码中尽管使用了 lightgbm，但是特征工程和最终模型都是没有的。代码中明确给出的策略只有双均线策略和唐安奇通道策略。</p>
 <h2 id="2-如何让-llm-去搜索风险预警">2. 如何让 LLM 去搜索风险预警？</h2>
 <p>这个库中的News_Intelligence.py文件值得看下。它定义了几个经典的宏观风险框架，比如“信贷与房地产危机”、“通胀与联储政策冲击”、“地缘政治与供应链中断”以及“科技行业健康与集中度风险”。在每一个框架中，作者都定义了相应的提示词。这部分的功能还没来得及实现，不过，它使用的提示词可以参考。这里摘录一小段：</p>
-<pre><code class="language-md">Focus on signs of stress in credit markets and real estate. Look for:
-- News about rising corporate or consumer loan defaults.
-- Failures or significant distress in regional banks, especially related to 
+<pre><code class="hljs language-md"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">Focus on signs of stress in credit markets and real estate. Look for:
+<span class="hljs-bullet">-</span> News about rising corporate or consumer loan defaults.
+<span class="hljs-bullet">-</span> Failures or significant distress in regional banks, especially related to 
 Commercial Real Estate (CRE) loans.
-- Reports of falling commercial property values or rising office vacancies.
-- Warnings from credit rating agencies about specific sectors or companies.
-- A sudden freeze in the high-yield (&quot;junk&quot;) bond market.
-</code></pre>
+<span class="hljs-bullet">-</span> Reports of falling commercial property values or rising office vacancies.
+<span class="hljs-bullet">-</span> Warnings from credit rating agencies about specific sectors or companies.
+<span class="hljs-bullet">-</span> A sudden freeze in the high-yield (&quot;junk&quot;) bond market.</span></code></pre>
 <h2 id="3-canslim-模型">3. CANSLIM 模型</h2>
 <p>这个项目另一个有趣的地方，是它引入了 CANSLIM 投资模型。CANSLIM 是威廉.奥尼尔提出的一套经典成长股投资策略，核心是通过 7 个关键维度筛选具有高增长潜力、能持续跑赢市场的优质股票，本质是 “基本面 + 技术面” 结合的选股框架。</p>
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
@@ -48,33 +47,32 @@ Commercial Real Estate (CRE) loans.
 </div>
 
 <p>实现这个分析，它使用了以下提示词：</p>
-<pre><code class="language-md">You are a financial analyst specializing in the CANSLIM investment strategy. 
+<pre><code class="hljs language-md"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body">You are a financial analyst specializing in the CANSLIM investment strategy. 
 Analyze the provided data for {ticker}.
 
-**Ticker:** {ticker}
-**Company Information:** {company_info}
-**Recent News Snippets:** {company_news}
-**Overall Market Posture (SPY Trend):** {market_posture}
-**Competitive Landscape Summary:**
-{industry_analysis_summary}
-**CANSLIM Metrics Table:**
-{canslim_metrics_md}
+<span class="hljs-strong">**Ticker:**</span> {ticker}
+<span class="hljs-strong">**Company Information:**</span> {company<span class="hljs-emphasis">_info}
+<span class="hljs-strong">**Recent News Snippets:**</span> {company_</span>news}
+<span class="hljs-strong">**Overall Market Posture (SPY Trend):**</span> {market<span class="hljs-emphasis">_posture}
+<span class="hljs-strong">**Competitive Landscape Summary:**</span>
+{industry_</span>analysis<span class="hljs-emphasis">_summary}
+<span class="hljs-strong">**CANSLIM Metrics Table:**</span>
+{canslim_</span>metrics<span class="hljs-emphasis">_md}
 
-**Analysis Task:**
+<span class="hljs-strong">**Analysis Task:**</span>
 Provide a concise and confident analysis based on the data.
 
-1.  **CANSLIM Summary:** Briefly evaluate the stock against the key CANSLIM 
+1.  <span class="hljs-strong">**CANSLIM Summary:**</span> Briefly evaluate the stock against the key CANSLIM 
 criteria (Earnings, Financial Strength, Relative Strength, Volume).
-2.  **&quot;N&quot; Factor (New Things):** Discuss any new products, management 
+2.  <span class="hljs-strong">**&quot;N&quot; Factor (New Things):**</span> Discuss any new products, management 
 changes, or significant news that could act as a catalyst.
-3.  **Investment Thesis:** Conclude with a clear Bull vs. Bear thesis, 
+3.  <span class="hljs-strong">**Investment Thesis:**</span> Conclude with a clear Bull vs. Bear thesis, 
 considering its position within its industry. What are the primary reasons to
  be bullish or bearish on this stock right now?
 
-Present your analysis in a structured, easy-to-read format.
-</code></pre>
+Present your analysis in a structured, easy-to-read format.</span></span></code></pre>
 <p>这里只列举了一部分。在文件technical_analysis_tools.py 中，它还有一些关于技术指标分析的提示词：</p>
-<pre><code class="language-md">...
+<pre><code class="hljs language-md"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">...
 
 Analyze trends and signals across daily, weekly, and monthly timeframes. 
 Identify confirmations and divergences between timeframes.  Note instances
@@ -82,13 +80,12 @@ Identify confirmations and divergences between timeframes.  Note instances
 
 Indicators and Price Action Analysis:
 
-* Price trends, recent swing highs/lows, support/resistance levels, 
+<span class="hljs-bullet">*</span> Price trends, recent swing highs/lows, support/resistance levels, 
 breakouts/breakdowns.
-* SMA/EMA trends, moving average crossovers (e.g., 50-day crossing above 
+<span class="hljs-bullet">*</span> SMA/EMA trends, moving average crossovers (e.g., 50-day crossing above 
 200-day), price relative to SMA/EMA.
 
-...
-</code></pre>
+...</span></code></pre>
 <p>仍然只能展示一部分。但这一小段中，最动人的地方是它要求 LLM 进行多周期分析。这就展示了真正的投资技巧。</p>
 <h2 id="4-其它值得一提的事">4. 其它值得一提的事</h2>
 <p>最后，也是我认为该项目对个人开发者最有启发的一点，是它构建系统的方式。它展示了如何用最低的技术门槛，实现一个功能完整的投研工作台。整个项目几乎完全基于 Python 技术栈，尤其是前端的实现。</p>

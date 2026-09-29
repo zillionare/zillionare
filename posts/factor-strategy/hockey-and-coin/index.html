@@ -26,11 +26,10 @@
 <p>如何评判标的信息可知呢？Moskowitz 认为，可以依据公司是否发布了业绩预告：发布了业绩预告的公司，其 “可知性”就会提高，投资者对于其未来走势就有了清晰的判断。</p>
 <p>看到这里，有经验的投资者会立即与 A 股对上号：**这不就是 A 股的利好出尽是利空；利空出尽是利好，或者说利好见光死吗？**事实就是如此，只不过 Moskowitz 对此现象进行了理论总结。</p>
 <p>如何将其构建成因子以供投资呢？按照 Moskowitz 的原始定义来生成因子，需要提取业绩预告信息。我们可以利用免费的 akshare 来获取这部分信息。</p>
-<pre><code class="language-python">import akshare as ak
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
 
-stock_yjyg_em_df = ak.stock_yjyg_em(date=&quot;20230930&quot;)
-print(stock_yjyg_em_df[[&quot;股票简称&quot;,&quot;预测指标&quot;,&quot;业绩变动幅度&quot;]])
-</code></pre>
+stock_yjyg_em_df = ak.stock_yjyg_em(date=<span class="hljs-string">&quot;20230930&quot;</span>)
+<span class="hljs-built_in">print</span>(stock_yjyg_em_df[[<span class="hljs-string">&quot;股票简称&quot;</span>,<span class="hljs-string">&quot;预测指标&quot;</span>,<span class="hljs-string">&quot;业绩变动幅度&quot;</span>]])</span></code></pre>
 <p>这里要注意的是，日期参数是有规律的，你只能使用季度末的日期，即 0331，0630，0930 和 1231（前面加上年份）。如果输入其它日期，则将抛出异常。</p>
 <p>最后我们得到如下示例结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/akshare_yjyg.png" alt=""></p>

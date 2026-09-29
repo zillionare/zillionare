@@ -31,11 +31,10 @@ $$</p>
 </ol>
 <p>由此可以作为某种反转信号，即一旦z-score超过±2，将有97.7%的概率会回归到±2 以内，也就是股价会发生向均值方向的回归。</p>
 <p>在 scipy.stats 包中有 zscore 计算函数，但它是基于我们传入的全部数据的。在因子构建中，我们实际上要计算的是rolling-zscore。因此，我们借用 pandas 中的 rolling 方法来自行计算：</p>
-<pre><code class="language-python">def rolling_zscore(s, win=20):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">rolling_zscore</span>(<span class="hljs-params">s, win=<span class="hljs-number">20</span></span>):
     ma = s.rolling(window=win).mean()
     std = s.rolling(window=win).std()
-    return (s - ma)/std
-</code></pre>
+    <span class="hljs-keyword">return</span> (s - ma)/std</span></code></pre>
 <hr>
 <p>!!! info numpy vs pandas
     在 numpy 中没有 rolling 这个方法，它在 np.lib.stride_tricks 中，提供了一个 as_stride 方法来提供滑动窗口数据。但是出于性能的考虑，numpy 并不推荐使用这个方法。在 pandas 中，rolling 方法有其 cython 及 numba 的实现，速度上更占优势。<br>这一局， pandas 胜。</p>

@@ -55,29 +55,28 @@
 </div>
 
 <p>所谓直线拟合（或者线性回归），就是要在由(x,y)构成的点集中，找到一条直线，使得所有点到该直线的距离的平方和最小。在Numpy中，我们最常用的方法是通过<code>Polynomial.fit</code>来进行拟合:</p>
-<pre><code class="language-python">from numpy.polynomial import Polynomial
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numpy.polynomial <span class="hljs-keyword">import</span> Polynomial
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 
-x = np.linspace(0, 100, 100)
-</code></pre>
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>)
+</span></code></pre>
 <hr>
-<pre><code class="language-python">
-rng = np.random.default_rng(seed = 78)
-y = 0.05 * x + 2 + rng.normal(scale = 0.3, size=len(x))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">
+rng = np.random.default_rng(seed = <span class="hljs-number">78</span>)
+y = <span class="hljs-number">0.05</span> * x + <span class="hljs-number">2</span> + rng.normal(scale = <span class="hljs-number">0.3</span>, size=<span class="hljs-built_in">len</span>(x))
 
-# 绘制这些随机点
-plt.scatter(np.arange(100), y, s=5)
+<span class="hljs-comment"># 绘制这些随机点</span>
+plt.scatter(np.arange(<span class="hljs-number">100</span>), y, s=<span class="hljs-number">5</span>)
 
-# 最小二乘法拟合出趋势线
-fitted = Polynomial.fit(x, y, deg=1, domain=[])
+<span class="hljs-comment"># 最小二乘法拟合出趋势线</span>
+fitted = Polynomial.fit(x, y, deg=<span class="hljs-number">1</span>, domain=[])
 y_pred = fitted(x)
 plt.plot(y_pred)
 
-# 我们关注的斜率
+<span class="hljs-comment"># 我们关注的斜率</span>
 b, a = fitted.coef
-print(&quot;slope is {a:.3f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;slope is {a:.3f}&quot;</span>)</span></code></pre>
 <p>在很多教程上，我们看到在Numpy中进行多项式回归，使用的是<code>polyfit</code>。但实际上从1.4起，我们应该使用polynomial模块下的类和方法。<code>polyfit</code>被看成是过时的接口。要注意，尽管polynomial被设计为<code>polyfit</code>等函数的替代物，但在行为上有较大不同。</p>
 <!--Polynomial.fit是进行最小二乘法进行直线拟合的方法，它得到的是一个Polynomial对象，该对象具有__call__属性，传入x坐标就能得到对就的y-->
 
@@ -94,15 +93,14 @@ print(f"slope is {slope:.3f}")
 ```
 </div>
 
-<pre><code>或者：
-```python
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">或者：
+<span class="hljs-string">``</span><span class="hljs-string">`python
 fitted =  Polynomial.fit(x, y, deg=1)
 intercept, slope = fitted.convert().coef
 print(f&quot;slope is {slope:.3f}&quot;)
-```
+`</span><span class="hljs-string">``</span>
 
-convert是一个对domain和window进行平移和缩放的转换函数。
-</code></pre>
+convert是一个对domain和<span class="hljs-variable language_">window</span>进行平移和缩放的转换函数。</span></code></pre>
 <!--Polynomial.fit与polyfit在行为上有较大的不同。polyfit返回的是系数，残差等数据，Polynomial.fit返回的是一个对象，系数、残差等数据要通过这个对象的属性来进一步获取。二、系数的顺序不同。polyfit是降幂排列；Polynomial是升幂排列。三、系数不同。Polynomial.fit返回的对象，自动将作用域和窗口平移缩放到了[-1,1]区间-->
 
 
@@ -116,56 +114,53 @@ convert是一个对domain和window进行平移和缩放的转换函数。
 S_i = Slope(T_{[i-win+1, i-win+2, ..., i]})
 $$</p>
 <p>最简单直接的实现是通过一个循环：</p>
-<pre><code class="language-python">from numpy.polynomial import Polynomial
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numpy.polynomial <span class="hljs-keyword">import</span> Polynomial
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 
-x = np.linspace(0, 100, 100)
-y = np.sin(x/10) + x/10
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>)
+y = np.sin(x/<span class="hljs-number">10</span>) + x/<span class="hljs-number">10</span>
 
-# 曲线拐点
+<span class="hljs-comment"># 曲线拐点</span>
 flags = np.sign(np.diff(np.diff(y)))
-pivots = np.argwhere(flags[1:] != flags[:-1]).flatten()
+pivots = np.argwhere(flags[<span class="hljs-number">1</span>:] != flags[:-<span class="hljs-number">1</span>]).flatten()
 
 plt.plot(y)
 
-win = 10
-S = []
-</code></pre>
+win = <span class="hljs-number">10</span>
+S = []</span></code></pre>
 <hr>
-<pre><code class="language-python">for i in range(win, len(y)):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(win, <span class="hljs-built_in">len</span>(y)):
     xi = x[i-win:i]
     yi = y[i-win:i]
-    fitted = Polynomial.fit(xi, yi, deg=1, domain=[])
-    S.append(fitted.coef[1])
+    fitted = Polynomial.fit(xi, yi, deg=<span class="hljs-number">1</span>, domain=[])
+    S.append(fitted.coef[<span class="hljs-number">1</span>])
 
-    if i in pivots:
-        xj = x[i-win-10:i+10]
+    <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> pivots:
+        xj = x[i-win-<span class="hljs-number">10</span>:i+<span class="hljs-number">10</span>]
         y_pred = fitted(xj)
-        plt.plot(xj, y_pred, &#39;--&#39;)
+        plt.plot(xj, y_pred, <span class="hljs-string">&#x27;--&#x27;</span>)
 
-print(S)
-</code></pre>
+<span class="hljs-built_in">print</span>(S)</span></code></pre>
 <p>这段代码计算了从第10个周期起，过去10个点的拟合直线的斜率，并且在曲线的转折点上，我们绘制了它的切线。这些切线，正是通过拟合直线的参数来生成的。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg" alt=""></p>
 <hr>
 <p>在这里，我们生成曲线的方法是使用了方程<code>x + sin(x)</code>。你会发现，这样生成的曲线，有几分神似股价的波动。这并不奇怪，股价的波动本来就应该可以分解成为一个直流分量与许多正弦波的叠加。直流分量反映了公司的持续经营能力，正弦波则反映了各路短炒资金在该标的上操作留下的痕迹。</p>
 <p>回到我们的正题来。现在，我们去掉绘图功能，测试一下这段代码需要执行多长时间：</p>
-<pre><code class="language-python">x = np.linspace(0, 100, 100)
-y = np.sin(x/10) + x/10
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>)
+y = np.sin(x/<span class="hljs-number">10</span>) + x/<span class="hljs-number">10</span>
 
-def moving_lsq(ts, win: int):
-    x = np.arange(len(ts))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">moving_lsq</span>(<span class="hljs-params">ts, win: <span class="hljs-built_in">int</span></span>):
+    x = np.arange(<span class="hljs-built_in">len</span>(ts))
     S = []
-    for i in range(win, len(ts)):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(win, <span class="hljs-built_in">len</span>(ts)):
         xi = x[i-win:i]
         yi = ts[i-win:i]
-        fitted = Polynomial.fit(xi, yi, deg=1, domain=[])
-        S.append(fitted.coef[1])
-    return S
+        fitted = Polynomial.fit(xi, yi, deg=<span class="hljs-number">1</span>, domain=[])
+        S.append(fitted.coef[<span class="hljs-number">1</span>])
+    <span class="hljs-keyword">return</span> S
 
-%timeit moving_lsq(y, 10)
-</code></pre>
+%timeit moving_lsq(y, <span class="hljs-number">10</span>)</span></code></pre>
 <p>90次循环，总共用去25ms的时间。考虑到A股有超过5000支股票，因此全部计算一次，这将会超过2分钟。</p>
 <hr>
 <p>要加速这一求解过程，我们必须借助向量化。但是，这一次，再也没有魔法一样的API可以调用，我们必须挽起袖子，从理解底层的数学原理开始，做出自己的实现。</p>
@@ -183,18 +178,17 @@ $$</p>
 <hr>
 <p>关于公式推导，可以见<a href="https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter16.04-Least-Squares-Regression-in-Python.html">《Python programming and Numerical Methods - A Guide for Engineers and Scientists》</a></p>
 <p>我们可以手动来验证一下这个公式：</p>
-<pre><code class="language-python">x = np.linspace(0, 9, 10)
-y = x + np.sin(x/10)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>)
+y = x + np.sin(x/<span class="hljs-number">10</span>)
 
-win = 10
+win = <span class="hljs-number">10</span>
 
-A = np.arange(win).reshape((win,1))
+A = np.arange(win).reshape((win,<span class="hljs-number">1</span>))
 pinv = np.dot(np.linalg.inv(np.dot(A.T, A)), A.T)
 alpha_1 = np.dot(pinv, y[:, np.newaxis]).item()
-alpha_2 = Polynomial.fit(x, y, deg=1, domain=[]).coef[1]
+alpha_2 = Polynomial.fit(x, y, deg=<span class="hljs-number">1</span>, domain=[]).coef[<span class="hljs-number">1</span>]
 
-np.isclose(alpha_1, alpha_2, atol=1e-2)
-</code></pre>
+np.isclose(alpha_1, alpha_2, atol=<span class="hljs-number">1e-2</span>)</span></code></pre>
 <p>我们用两种方法分别求解了斜率，结果表明，在1e-2的绝对误差约束下，两者是相同的。</p>
 <p>注意在第7行中， 我们使用了<code>pinv</code>这个奇怪的变量名。这是因为，在numpy.linalg中存在一个同名函数，正好就是计算${(A^TA)}^{-1}A^T$的。</p>
 <p>不过，到现在为止，我们仅仅是完成了Polynomial.fit所做的事情。如果我们要一次性计算出所有滑动窗口下的拟合直线斜率，究竟要如何做呢？</p>
@@ -205,99 +199,90 @@ np.isclose(alpha_1, alpha_2, atol=1e-2)
 \begin{bmatrix}0&amp;1&amp;2\1&amp;2&amp;3\2&amp;3&amp;4\\end{bmatrix}
 $$</p>
 <p>要得到这个矩阵，我们可以使用fancy index:</p>
-<pre><code class="language-python">y[
-    [0, 1, 2],
-    [1, 2, 3],
-    [2, 3, 4]
-]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">y[
+    [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+    [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+    [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+]</span></code></pre>
 <p>因此，我们要实现滑动窗口下的y的矩阵，只需要构建出这个fancy index矩阵即可。好消息是，fancy index矩阵非常有规律：</p>
 <hr>
-<pre><code class="language-python">def extract_windows_vectorized(array, win:int):
-    start = 0
-    max = len(array) - win + 1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_windows_vectorized</span>(<span class="hljs-params">array, win:<span class="hljs-built_in">int</span></span>):
+    start = <span class="hljs-number">0</span>
+    <span class="hljs-built_in">max</span> = <span class="hljs-built_in">len</span>(array) - win + <span class="hljs-number">1</span>
     
     sub_windows = (
         start +
-        # expand_dims are used to convert a 1D array to 2D array.
-        np.expand_dims(np.arange(win), 0) +
-        np.expand_dims(np.arange(max), 0).T
+        <span class="hljs-comment"># expand_dims are used to convert a 1D array to 2D array.</span>
+        np.expand_dims(np.arange(win), <span class="hljs-number">0</span>) +
+        np.expand_dims(np.arange(<span class="hljs-built_in">max</span>), <span class="hljs-number">0</span>).T
     )
 
-    return array[sub_windows]
+    <span class="hljs-keyword">return</span> array[sub_windows]
 
-arr_1d = np.arange(10, 20)
+arr_1d = np.arange(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>)
 
-extract_windows_vectorized(arr_1d, 4)
-</code></pre>
+extract_windows_vectorized(arr_1d, <span class="hljs-number">4</span>)</span></code></pre>
 <p>如果你觉得这个方法难以理解的话，Numpy已经为我们提供了一个名为<code>as_strided</code>的函数，可以一步到位，实现我们要的功能，并且比上述方法更快（1倍）：</p>
-<pre><code class="language-python">from numpy.lib.stride_tricks import as_strided
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numpy.lib.stride_tricks <span class="hljs-keyword">import</span> as_strided
 
-y = np.arange(3, 10)
-stride = y.strdies[0]
+y = np.arange(<span class="hljs-number">3</span>, <span class="hljs-number">10</span>)
+stride = y.strdies[<span class="hljs-number">0</span>]
 
-win = 4
-shape = (len(y) - win + 1, win)
+win = <span class="hljs-number">4</span>
+shape = (<span class="hljs-built_in">len</span>(y) - win + <span class="hljs-number">1</span>, win)
 strides = (stride, stride)
-as_strided(y, shape, strides)
-</code></pre>
+as_strided(y, shape, strides)</span></code></pre>
 <p>矩阵<code>pinv</code>由x产生。如果时间序列y有100个周期长，那么x的值将会是从0到99。</p>
 <hr>
 <p>其中$[x0, x1, ..., x_{win-1}]$对应$[y0, y1, ..., y_{win-1}]$,
 $[x1, x2, ..., x_{win}]$对应$[y1, y2, ..., y_{win}]$，$[x_{-win}, x_{-win+1}, ... x_{-1}]$对应$[y_{-win}, y_{-win+1}, ..., y_{-1}]$。</p>
 <p>因此，我们需要构照的系数矩阵$A$即：</p>
-<pre><code class="language-python">A = as_strided(np.arange(len(y)), shape, strides)
-pinv = np.linalg.pinv(A)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">A = as_strided(np.arange(<span class="hljs-built_in">len</span>(y)), shape, strides)
+pinv = np.linalg.pinv(A)</span></code></pre>
 <p>接下来的回归运算跟之前一样：</p>
-<pre><code class="language-python">alpha = pinv.dot(y).sum(axis = 0)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">alpha = pinv.dot(y).<span class="hljs-built_in">sum</span>(axis = <span class="hljs-number">0</span>)</span></code></pre>
 <p>完整的代码如下：</p>
-<pre><code class="language-python">def moving_lsq_vector(ts, win:int):
-    stride = ts.strides[0]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">moving_lsq_vector</span>(<span class="hljs-params">ts, win:<span class="hljs-built_in">int</span></span>):
+    stride = ts.strides[<span class="hljs-number">0</span>]
 
     strides = (stride, stride)
-    shape = (win,len(ts)-win+1)
-    A = as_strided(np.arange(len(ts)), shape= shape, strides=strides)
+    shape = (win,<span class="hljs-built_in">len</span>(ts)-win+<span class="hljs-number">1</span>)
+    A = as_strided(np.arange(<span class="hljs-built_in">len</span>(ts)), shape= shape, strides=strides)
     pinv = np.linalg.pinv(A)
     y = as_strided(ts, shape=shape, strides = strides)
     
-    return pinv.dot(y).sum(axis=0)
-</code></pre>
+    <span class="hljs-keyword">return</span> pinv.dot(y).<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">0</span>)</span></code></pre>
 <p>这一版本，比之前使用Polynomial.fit加循环的快了100倍。你可能猜到了，这个100倍近似于我们循环的次数。这就是循环的代价。</p>
 <hr>
 <p>现在，运用这里的方法，我们还可以加速别的计算吗？答案是显然的。如果你要快速计算5000支股票过去10天的的5日平均，在获取这些股票最近14天的股价之后，组成了一个(5000, 14)的矩阵$A$。现在，我们要做的就是将这个矩阵转换成为3维矩阵，然后再与一个卷积核做乘法：</p>
-<pre><code class="language-python">from numpy.typing import NDArray
-def batch_move_mean(A: NDArray, win:int)-&gt;NDArray:
-    &quot;&quot;&quot;批量计算移动平均线
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numpy.typing <span class="hljs-keyword">import</span> NDArray
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_move_mean</span>(<span class="hljs-params">A: NDArray, win:<span class="hljs-built_in">int</span></span>)-&gt;NDArray:
+    <span class="hljs-string">&quot;&quot;&quot;批量计算移动平均线
 
     Args:
         A: (m*n)的价格矩阵。m为股票支数
         win: 移动平均窗口
     Returns:
         （m * (n-win+1))的矩阵.
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     kernel = np.ones(win)/win
     
     s0, s1 = prices.strides
     m, n = prices.shape
 
-    pm = as_strided(prices, shape=(m, n-win + 1, win), strides=(s0, s1, s1))
-    return np.dot(pm, kernel.T).squeeze()
-</code></pre>
+    pm = as_strided(prices, shape=(m, n-win + <span class="hljs-number">1</span>, win), strides=(s0, s1, s1))
+    <span class="hljs-keyword">return</span> np.dot(pm, kernel.T).squeeze()</span></code></pre>
 <p>我们通过下面的代码来测试它：</p>
-<pre><code class="language-python">prices = np.array([
-    np.arange(0, 14),
-    np.arange(10, 24)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">prices = np.array([
+    np.arange(<span class="hljs-number">0</span>, <span class="hljs-number">14</span>),
+    np.arange(<span class="hljs-number">10</span>, <span class="hljs-number">24</span>)
 ])
 
-batch_move_mean(prices, 5)
-</code></pre>
+batch_move_mean(prices, <span class="hljs-number">5</span>)</span></code></pre>
 <hr>
 <p>输出为:</p>
-<pre><code>array([[ 2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11.],
-       [12., 13., 14., 15., 16., 17., 18., 19., 20., 21.]])
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([[ <span class="hljs-number">2.</span>,  <span class="hljs-number">3.</span>,  <span class="hljs-number">4.</span>,  <span class="hljs-number">5.</span>,  <span class="hljs-number">6.</span>,  <span class="hljs-number">7.</span>,  <span class="hljs-number">8.</span>,  <span class="hljs-number">9.</span>, <span class="hljs-number">10.</span>, <span class="hljs-number">11.</span>],
+       [<span class="hljs-number">12.</span>, <span class="hljs-number">13.</span>, <span class="hljs-number">14.</span>, <span class="hljs-number">15.</span>, <span class="hljs-number">16.</span>, <span class="hljs-number">17.</span>, <span class="hljs-number">18.</span>, <span class="hljs-number">19.</span>, <span class="hljs-number">20.</span>, <span class="hljs-number">21.</span>]])</span></code></pre>
 <p>正如我们期待的一样。但快如闪电。</p>
 <h2 id="题外话">题外话</h2>
 <p>要不要使用拟合趋势线作为一种动量因子？这是一个值得深入讨论的话题。斜率因子最大的问题，不是所有的时间序列，都有明显的趋势。从数学上看，如果拟合残差较大，说明该时间序列还没有形成明显的趋势，那么斜率因子就不应该投入使用。另一个问题就是线性回归的老问题，即个别outlier对拟合的影响较大。拟合直线究竟是应该使得所有点到该直线的距离和最小，还是应该使得大多数点到该直线的距离和更小（小于前者）？</p>

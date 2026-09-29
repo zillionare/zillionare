@@ -40,22 +40,20 @@ E(R_i) = R_f + \beta_i(E(R_m)-R_f)
 $$</p>
 <p>上式即为William Sharpe提出的CAPM公式。他率先使用个股收益率相对于组合收益率的线性回归，得到了个股相对于组合的beta，后来被称为市场因子。此后，两个变量之间的线性回归就被广泛应用于量化研究。研报中RSRS指标的求法可能也正是从中得到到启发。</p>
 <p>如果我们要用代码来表达两个变量之间的线性回归，那么可以这样写：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-X = np.arange(10)
-y = X * 2 + np.random.randn(10)
+X = np.arange(<span class="hljs-number">10</span>)
+y = X * <span class="hljs-number">2</span> + np.random.randn(<span class="hljs-number">10</span>)
 
-(beta, alpha) = np.polyfit(X, y, 1)
-print(beta, alpha)
-</code></pre>
+(beta, alpha) = np.polyfit(X, y, <span class="hljs-number">1</span>)
+<span class="hljs-built_in">print</span>(beta, alpha)</span></code></pre>
 <p>当然，取决于用户的习惯和数据本身的格式，我们也以使用scipy和statsmodels中对应的方法。</p>
 <h2 id="标准分的代码实现">标准分的代码实现</h2>
 <p>尽管标准分的提法也是规范化的，但如果你是从软件、人工智能等专业转行过来的，可能更熟悉它的英文 Z-Score，而不是标准分这个提法。这是需要我们多读研报，从实践中掌握的。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250611212735.png" alt=""></p>
 <p>一旦理解了标准分即是z-score，那么我们就很容易由它的公式，转换出实现代码。在我们复现的研报中，我们不仅要将原始RSRS因子z-score化，还要高效率地实现滑动窗口下的z-score化。不过，这个实现难度比计算滑动窗口下的斜率要简单，因为可以通过 DataFrame的rolling方法及其广播机制来完成。</p>
-<pre><code class="language-python">ZSCORE = (df[&quot;rsrs_&quot;] - df[&quot;rsrs_&quot;].rolling(m).mean()) 
-        / df[&quot;rsrs_&quot;].rolling(m).std()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">ZSCORE = (df[<span class="hljs-string">&quot;rsrs_&quot;</span>] - df[<span class="hljs-string">&quot;rsrs_&quot;</span>].rolling(m).mean()) 
+        / df[<span class="hljs-string">&quot;rsrs_&quot;</span>].rolling(m).std()</span></code></pre>
 <p>Pandas的rolling方法返回的对象，很好地支持了多个滑动窗口对象之间的对齐，以及与标量相运算时的广播，因此，这行代码读起来就像是读数学公式本身一样。</p>
 <p>这些是我们需要在平时多加练习和积累的。我们在《因子分析与机器学习策略》中，对Alpha101因子进行了比较详细的解读，其中一部分就是讲解如何将它使用各种『算子』代码化。在那里，我们介绍了更多在学术论文中提到的操作『算子』如何代码化的技巧，其中也包括了zscore。</p>
 <h2 id="对各种metrics的代码化">对各种metrics的代码化</h2>

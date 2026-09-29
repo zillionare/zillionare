@@ -16,16 +16,14 @@
 <h2 id="一先看个生活中的例子">一、先看个生活中的例子</h2>
 <p>假设你要教一个小朋友炒股：</p>
 <p><strong>方法一：监督学习</strong></p>
-<pre><code>你给他1000张K线图
-每张图都标注了&quot;第二天涨&quot;或&quot;第二天跌&quot;
-让他记住：&quot;这种形态=涨&quot;、&quot;那种形态=跌&quot;
-然后考试：给新图，让他预测
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">你给他<span class="hljs-number">1000</span>张K线图
+每张图都标注了<span class="hljs-string">&quot;第二天涨&quot;</span>或<span class="hljs-string">&quot;第二天跌&quot;</span>
+让他记住：<span class="hljs-string">&quot;这种形态=涨&quot;</span>、<span class="hljs-string">&quot;那种形态=跌&quot;</span>
+然后考试：给新图，让他预测</span></code></pre>
 <p><strong>方法二：强化学习</strong></p>
-<pre><code>你给他100万虚拟资金
-说：&quot;你自己去炒，赚钱了我给你糖吃，亏钱了我打你手心&quot;
-他不记得具体形态，但慢慢学会了&quot;什么时候该买、什么时候该卖&quot;
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">你给他<span class="hljs-number">100</span>万虚拟资金
+说：<span class="hljs-string">&quot;你自己去炒，赚钱了我给你糖吃，亏钱了我打你手心&quot;</span>
+他不记得具体形态，但慢慢学会了<span class="hljs-string">&quot;什么时候该买、什么时候该卖&quot;</span></span></code></pre>
 <p>💡 <strong>这就是两者的本质区别</strong>。</p>
 <hr>
 <h2 id="二监督学习有标准答案的考试">二、监督学习：有标准答案的考试</h2>
@@ -58,24 +56,22 @@
 </tbody></table>
 <h3 id="22-在金融中的例子">2.2 在金融中的例子</h3>
 <p><strong>训练数据：</strong></p>
-<pre><code>┌─────────────────────────────────────┬──────────┐
-│ 输入特征（X）                        │ 标签（Y） │
-├─────────────────────────────────────┼──────────┤
-│ 过去20天涨幅: +15%                  │          │
-│ 成交量: 放大2倍                      │  上涨    │
-│ MACD: 金叉                          │   (+1)   │
-│ RSI: 65                            │          │
-├─────────────────────────────────────┼──────────┤
-│ 过去20天涨幅: -10%                  │          │
-│ 成交量: 萎缩                        │  下跌    │
-│ MACD: 死叉                          │   (-1)   │
-│ RSI: 30                            │          │
-└─────────────────────────────────────┴──────────┘
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-string">┌─────────────────────────────────────┬──────────┐</span>
+<span class="hljs-string">│</span> <span class="hljs-string">输入特征（X）</span>                        <span class="hljs-string">│</span> <span class="hljs-string">标签（Y）</span> <span class="hljs-string">│</span>
+<span class="hljs-string">├─────────────────────────────────────┼──────────┤</span>
+<span class="hljs-string">│</span> <span class="hljs-string">过去20天涨幅:</span> <span class="hljs-string">+15%</span>                  <span class="hljs-string">│</span>          <span class="hljs-string">│</span>
+<span class="hljs-string">│</span> <span class="hljs-string">成交量:</span> <span class="hljs-string">放大2倍</span>                      <span class="hljs-string">│</span>  <span class="hljs-string">上涨</span>    <span class="hljs-string">│</span>
+<span class="hljs-string">│</span> <span class="hljs-attr">MACD:</span> <span class="hljs-string">金叉</span>                          <span class="hljs-string">│</span>   <span class="hljs-string">(+1)</span>   <span class="hljs-string">│</span>
+<span class="hljs-string">│</span> <span class="hljs-attr">RSI:</span> <span class="hljs-number">65</span>                            <span class="hljs-string">│</span>          <span class="hljs-string">│</span>
+<span class="hljs-string">├─────────────────────────────────────┼──────────┤</span>
+<span class="hljs-string">│</span> <span class="hljs-string">过去20天涨幅:</span> <span class="hljs-number">-10</span><span class="hljs-string">%</span>                  <span class="hljs-string">│</span>          <span class="hljs-string">│</span>
+<span class="hljs-string">│</span> <span class="hljs-string">成交量:</span> <span class="hljs-string">萎缩</span>                        <span class="hljs-string">│</span>  <span class="hljs-string">下跌</span>    <span class="hljs-string">│</span>
+<span class="hljs-string">│</span> <span class="hljs-attr">MACD:</span> <span class="hljs-string">死叉</span>                          <span class="hljs-string">│</span>   <span class="hljs-string">(-1)</span>   <span class="hljs-string">│</span>
+<span class="hljs-string">│</span> <span class="hljs-attr">RSI:</span> <span class="hljs-number">30</span>                            <span class="hljs-string">│</span>          <span class="hljs-string">│</span>
+<span class="hljs-string">└─────────────────────────────────────┴──────────┘</span></span></code></pre>
 <p><strong>模型学到的：</strong></p>
-<pre><code>&quot;涨幅大+放量+MACD金叉 → 涨&quot;
-&quot;跌幅大+缩量+MACD死叉 → 跌&quot;
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-string">&quot;涨幅大+放量+MACD金叉 → 涨&quot;</span>
+<span class="hljs-string">&quot;跌幅大+缩量+MACD死叉 → 跌&quot;</span></span></code></pre>
 <h3 id="23-监督学习的优点">2.3 监督学习的优点</h3>
 <p>✅ <strong>简单直接</strong> — 有明确目标，容易训练<br>✅ <strong>可解释性强</strong> — 知道模型为什么预测涨/跌<br>✅ <strong>数据利用率高</strong> — 每张图都能用来训练<br>✅ <strong>成熟工具多</strong> — XGBoost、LightGBM、神经网络都很成熟</p>
 <h3 id="24-监督学习在金融中的问题">2.4 监督学习在金融中的问题</h3>
@@ -134,28 +130,24 @@
 </tbody></table>
 <h3 id="32-在金融中的例子">3.2 在金融中的例子</h3>
 <p><strong>回合1：</strong></p>
-<pre><code>状态：现金100万，茅台股价1800
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">状态：现金100万，茅台股价1800
 动作：买入50万
 结果：1周后股价涨到1900
-奖励：+2.7万 ✅
-</code></pre>
+奖励：+2.7万 ✅</span></code></pre>
 <p><strong>回合2：</strong></p>
-<pre><code>状态：现金50万，持仓50万
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">状态：现金50万，持仓50万
 动作：再买入30万
 结果：1周后股价跌到1700
-奖励：-5.3万 ❌
-</code></pre>
+奖励：-5.3万 ❌</span></code></pre>
 <p><strong>回合3：</strong></p>
-<pre><code>状态：现金20万，持仓80万
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">状态：现金20万，持仓80万
 动作：卖出40万
 结果：1周后股价跌到1600
-奖励：+4万 ✅（少亏了）
-</code></pre>
+奖励：+4万 ✅（少亏了）</span></code></pre>
 <p><strong>1000个回合后，模型学会了：</strong></p>
-<pre><code>&quot;涨多了要分批卖&quot;
-&quot;跌多了要观望，不急着抄底&quot;
-&quot;永远留现金，不满仓&quot;
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-string">&quot;涨多了要分批卖&quot;</span>
+<span class="hljs-string">&quot;跌多了要观望，不急着抄底&quot;</span>
+<span class="hljs-string">&quot;永远留现金，不满仓&quot;</span></span></code></pre>
 <h3 id="33-强化学习的优点">3.3 强化学习的优点</h3>
 <p>✅ <strong>延迟奖励</strong> — 不只看明天，看长期收益<br>✅ <strong>自适应</strong> — 市场变了，策略自动调整<br>✅ <strong>无需标签</strong> — 不需要人工标注涨/跌<br>✅ <strong>探索能力</strong> — 会尝试新策略，发现隐藏规律</p>
 <h3 id="34-强化学习在金融中的挑战">3.4 强化学习在金融中的挑战</h3>
@@ -226,16 +218,14 @@
 </tbody></table>
 <h3 id="42-用炒股的比喻">4.2 用炒股的比喻</h3>
 <p><strong>监督学习像什么？</strong></p>
-<pre><code>像背K线图
-&quot;这种形态历史上涨，我也买&quot;
-但不知道为什么要买
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">像背K线图
+<span class="hljs-string">&quot;这种形态历史上涨，我也买&quot;</span>
+但不知道为什么要买</span></code></pre>
 <p><strong>强化学习像什么？</strong></p>
-<pre><code>像实盘交易积累经验
-&quot;上次这时候买赚了，这次还买&quot;
-&quot;上次这时候买亏了，这次观望&quot;
-慢慢形成自己的交易纪律
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">像实盘交易积累经验
+<span class="hljs-string">&quot;上次这时候买赚了，这次还买&quot;</span>
+<span class="hljs-string">&quot;上次这时候买亏了，这次观望&quot;</span>
+慢慢形成自己的交易纪律</span></code></pre>
 <hr>
 <h2 id="五哪种更适合金融量化">五、哪种更适合金融量化？</h2>
 <h3 id="51-监督学习适合的场景">5.1 监督学习适合的场景</h3>
@@ -282,20 +272,17 @@
 </tbody></table>
 <h3 id="53-实际应用的建议">5.3 实际应用的建议</h3>
 <p><strong>新手建议：</strong></p>
-<pre><code>1. 先从监督学习开始（XGBoost、LSTM）
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">1. 先从监督学习开始（XGBoost、LSTM）
 2. 理解数据、特征、模型
-3. 知道监督学习的局限
-</code></pre>
+3. 知道监督学习的局限</span></code></pre>
 <p><strong>进阶建议：</strong></p>
-<pre><code>1. 尝试强化学习（DQN、PPO）
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">1. 尝试强化学习（DQN、PPO）
 2. 从简单场景开始（单股票、固定仓位）
-3. 慢慢增加复杂度
-</code></pre>
+3. 慢慢增加复杂度</span></code></pre>
 <p><strong>高手建议：</strong></p>
-<pre><code>1. 监督学习+强化学习结合
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">1. 监督学习+强化学习结合
 2. 监督学习做特征提取
-3. 强化学习做决策优化
-</code></pre>
+3. 强化学习做决策优化</span></code></pre>
 <hr>
 <h2 id="六总结">六、总结</h2>
 <h3 id="一句话记住">一句话记住</h3>
@@ -316,7 +303,7 @@
 </tr>
 </tbody></table>
 <h3 id="选择指南">选择指南</h3>
-<pre><code>┌─────────────────────────────────────────────┐
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">┌─────────────────────────────────────────────┐
 │                                             │
 │  你的场景是什么？                            │
 │                                             │
@@ -329,8 +316,7 @@
 │  3. 两者都要                                  │
 │     → 监督学习提取特征 + 强化学习做决策       │
 │                                             │
-└─────────────────────────────────────────────┘
-</code></pre>
+└─────────────────────────────────────────────┘</span></code></pre>
 <hr>
 <p>💡 <strong>看完这篇，你应该知道该选哪种方法了。</strong></p>
 <p><em>记住：没有最好的方法，只有最适合的方法。</em></p>

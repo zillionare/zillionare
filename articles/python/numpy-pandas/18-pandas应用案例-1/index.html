@@ -49,45 +49,40 @@
 <h3 id="11-hhvn周期内最高值">1.1. HHV（N周期内最高值）</h3>
 <hr>
 <p>通达信定义：HHV(X, N) 表示在最近 N 个周期内序列 X 的最高值。可以通过 pandas 实现：</p>
-<pre><code class="language-python">def HHV(s: pd.Series, n: int) -&gt; pd.Series:
-    return s.rolling(n).max()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">HHV</span>(<span class="hljs-params">s: pd.Series, n: <span class="hljs-built_in">int</span></span>) -&gt; pd.Series:
+    <span class="hljs-keyword">return</span> s.rolling(n).<span class="hljs-built_in">max</span>()</span></code></pre>
 <h3 id="12-llvn周期内最低值">1.2. LLV（N周期内最低值）</h3>
 <p>通达信定义：LLV(X, N) 表示在最近 N 个周期内序列 X 的最低值。</p>
-<pre><code class="language-python">def LLV(s: pd.Series, n: int) -&gt; pd.Series:
-    return s.rolling(n).min()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">LLV</span>(<span class="hljs-params">s: pd.Series, n: <span class="hljs-built_in">int</span></span>) -&gt; pd.Series:
+    <span class="hljs-keyword">return</span> s.rolling(n).<span class="hljs-built_in">min</span>()</span></code></pre>
 <h3 id="13-hhvbars最高值到当前周期的距离">1.3. HHVBARS（最高值到当前周期的距离）​</h3>
 <p>通达信定义：HHVBARS(X, N) 表示最近 N 个周期内，最高值所在位置到当前周期的距离（周期数）。</p>
-<pre><code class="language-python">def HHVBARS(s: pd.Series, n: int) -&gt; pd.Series:
-    def _find_idx(x):
-        return len(x) - np.argmax(x[::-1]) - 1 if not np.isnan(x).all() else np.nan
-    return s.rolling(n).apply(_find_idx, raw=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">HHVBARS</span>(<span class="hljs-params">s: pd.Series, n: <span class="hljs-built_in">int</span></span>) -&gt; pd.Series:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_find_idx</span>(<span class="hljs-params">x</span>):
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(x) - np.argmax(x[::-<span class="hljs-number">1</span>]) - <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> np.isnan(x).<span class="hljs-built_in">all</span>() <span class="hljs-keyword">else</span> np.nan
+    <span class="hljs-keyword">return</span> s.rolling(n).apply(_find_idx, raw=<span class="hljs-literal">True</span>)</span></code></pre>
 <hr>
 <h3 id="14-last条件连续满足的周期数">1.4. LAST（条件连续满足的周期数）​</h3>
 <p>通达信定义：LAST(X, A, B) 表示过去 B 个周期中，有至少 A 个周期满足条件 X。</p>
-<pre><code class="language-python">def LAST(condition: pd.Series, a: int, b: int) -&gt; pd.Series:
-    return condition.rolling(b).sum() &gt;= a
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">LAST</span>(<span class="hljs-params">condition: pd.Series, a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; pd.Series:
+    <span class="hljs-keyword">return</span> condition.rolling(b).<span class="hljs-built_in">sum</span>() &gt;= a</span></code></pre>
 <h3 id="15-示例">1.5. 示例</h3>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 导入数据
-start = datetime.date(2023, 1, 1)
-end = datetime.date(2023, 12, 31)
+<span class="hljs-comment"># 导入数据</span>
+start = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
 df = load_bars(start, end)
 df.tail()
 
-# 应用函数
-df[&#39;HHV_5&#39;] = HHV(df[&#39;high&#39;], 5)       # 5日最高价
-df[&#39;LLV_5&#39;] = LLV(df[&#39;low&#39;], 5)        # 5日最低价
-df[&#39;HHVBARS_5&#39;] = HHVBARS(df[&#39;high&#39;], 5)  # 最高价距离当前的天数
-df[&#39;LAST_UP_3_5&#39;] = LAST(df[&#39;close&#39;] &gt; df[&#39;close&#39;].shift(1), 3, 5)  # 5日内至少3日上涨
+<span class="hljs-comment"># 应用函数</span>
+df[<span class="hljs-string">&#x27;HHV_5&#x27;</span>] = HHV(df[<span class="hljs-string">&#x27;high&#x27;</span>], <span class="hljs-number">5</span>)       <span class="hljs-comment"># 5日最高价</span>
+df[<span class="hljs-string">&#x27;LLV_5&#x27;</span>] = LLV(df[<span class="hljs-string">&#x27;low&#x27;</span>], <span class="hljs-number">5</span>)        <span class="hljs-comment"># 5日最低价</span>
+df[<span class="hljs-string">&#x27;HHVBARS_5&#x27;</span>] = HHVBARS(df[<span class="hljs-string">&#x27;high&#x27;</span>], <span class="hljs-number">5</span>)  <span class="hljs-comment"># 最高价距离当前的天数</span>
+df[<span class="hljs-string">&#x27;LAST_UP_3_5&#x27;</span>] = LAST(df[<span class="hljs-string">&#x27;close&#x27;</span>] &gt; df[<span class="hljs-string">&#x27;close&#x27;</span>].shift(<span class="hljs-number">1</span>), <span class="hljs-number">3</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment"># 5日内至少3日上涨</span>
 
-print(df)
-</code></pre>
+<span class="hljs-built_in">print</span>(df)</span></code></pre>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/078.png" alt=""></p>
 <h2 id="2-补齐分钟线缺失的复权因子">2. 补齐分钟线缺失的复权因子</h2>
@@ -104,88 +99,82 @@ print(df)
 <h3 id="21-基础语法和示例">2.1. 基础语法和示例</h3>
 <h4>2.1.1. 基础语法</h4>
 <hr>
-<pre><code class="language-python">pd.merge_asof(
-    left,          # 左表（分钟线数据）
-    right,         # 右表（复权因子数据）
-    on=&#39;time&#39;,     # 时间列名（必须排序）
-    direction=&#39;backward&#39;,  # 匹配方向：向前/向后/最近
-    tolerance=pd.Timedelta(&#39;1min&#39;),  # 最大时间差
-    allow_exact_matches=True  # 是否允许精确匹配
-)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">pd.merge_asof(
+    left,          <span class="hljs-comment"># 左表（分钟线数据）</span>
+    right,         <span class="hljs-comment"># 右表（复权因子数据）</span>
+    on=<span class="hljs-string">&#x27;time&#x27;</span>,     <span class="hljs-comment"># 时间列名（必须排序）</span>
+    direction=<span class="hljs-string">&#x27;backward&#x27;</span>,  <span class="hljs-comment"># 匹配方向：向前/向后/最近</span>
+    tolerance=pd.Timedelta(<span class="hljs-string">&#x27;1min&#x27;</span>),  <span class="hljs-comment"># 最大时间差</span>
+    allow_exact_matches=<span class="hljs-literal">True</span>  <span class="hljs-comment"># 是否允许精确匹配</span>
+)</span></code></pre>
 <h4>2.1.2. 基础示例</h4>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 生成示例数据（假设复权因子在非整分钟时间点更新）
+<span class="hljs-comment"># 生成示例数据（假设复权因子在非整分钟时间点更新）</span>
 minute_data = {
-    &#39;time&#39;: [
-        &#39;2025-03-27 10:29:58&#39;,  # 完整日期+时间
-        &#39;2025-03-27 10:30:01&#39;, 
-        &#39;2025-03-27 10:30:03&#39;, 
-        &#39;2025-03-27 10:30:05&#39;, 
-        &#39;2025-03-27 10:30:08&#39;  # 确保所有时间包含日期
+    <span class="hljs-string">&#x27;time&#x27;</span>: [
+        <span class="hljs-string">&#x27;2025-03-27 10:29:58&#x27;</span>,  <span class="hljs-comment"># 完整日期+时间</span>
+        <span class="hljs-string">&#x27;2025-03-27 10:30:01&#x27;</span>, 
+        <span class="hljs-string">&#x27;2025-03-27 10:30:03&#x27;</span>, 
+        <span class="hljs-string">&#x27;2025-03-27 10:30:05&#x27;</span>, 
+        <span class="hljs-string">&#x27;2025-03-27 10:30:08&#x27;</span>  <span class="hljs-comment"># 确保所有时间包含日期</span>
     ],
-    &#39;price&#39;: [100.2, 101.5, 102.0, 101.8, 103.2]
+    <span class="hljs-string">&#x27;price&#x27;</span>: [<span class="hljs-number">100.2</span>, <span class="hljs-number">101.5</span>, <span class="hljs-number">102.0</span>, <span class="hljs-number">101.8</span>, <span class="hljs-number">103.2</span>]
 }
-df_trade = pd.DataFrame(minute_data).sort_values(&#39;time&#39;)
+df_trade = pd.DataFrame(minute_data).sort_values(<span class="hljs-string">&#x27;time&#x27;</span>)
 adjust_data = {
-    &#39;time&#39;: [
-        &#39;2025-03-27 10:29:55&#39;, 
-        &#39;2025-03-27 10:30:00&#39;, 
-        &#39;2025-03-27 10:30:06&#39;
-    ],
-</code></pre>
+    <span class="hljs-string">&#x27;time&#x27;</span>: [
+        <span class="hljs-string">&#x27;2025-03-27 10:29:55&#x27;</span>, 
+        <span class="hljs-string">&#x27;2025-03-27 10:30:00&#x27;</span>, 
+        <span class="hljs-string">&#x27;2025-03-27 10:30:06&#x27;</span>
+    ],</span></code></pre>
 <hr>
-<pre><code class="language-python">    &#39;adjust_factor&#39;: [1.0, 0.95, 1.02]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body">    <span class="hljs-string">&#x27;adjust_factor&#x27;</span>: [<span class="hljs-number">1.0</span>, <span class="hljs-number">0.95</span>, <span class="hljs-number">1.02</span>]
 }
-df_adjust = pd.DataFrame(adjust_data).sort_values(&#39;time&#39;)
-# 强制转换为 datetime 类型（处理混合格式）
-df_trade[&#39;time&#39;] = pd.to_datetime(
-    df_trade[&#39;time&#39;], 
-    format=&#39;%Y-%m-%d %H:%M:%S&#39;, 
-    errors=&#39;coerce&#39;
+df_adjust = pd.DataFrame(adjust_data).sort_values(<span class="hljs-string">&#x27;time&#x27;</span>)
+<span class="hljs-comment"># 强制转换为 datetime 类型（处理混合格式）</span>
+df_trade[<span class="hljs-string">&#x27;time&#x27;</span>] = pd.to_datetime(
+    df_trade[<span class="hljs-string">&#x27;time&#x27;</span>], 
+    <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>, 
+    errors=<span class="hljs-string">&#x27;coerce&#x27;</span>
 )
-df_adjust[&#39;time&#39;] = pd.to_datetime(
-    df_adjust[&#39;time&#39;], 
-    format=&#39;%Y-%m-%d %H:%M:%S&#39;, 
-    errors=&#39;coerce&#39;
+df_adjust[<span class="hljs-string">&#x27;time&#x27;</span>] = pd.to_datetime(
+    df_adjust[<span class="hljs-string">&#x27;time&#x27;</span>], 
+    <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>, 
+    errors=<span class="hljs-string">&#x27;coerce&#x27;</span>
 )
-assert df_trade[&#39;time&#39;].dtype == &#39;datetime64[ns]&#39;, &quot;交易数据时间列转换失败&quot;
-assert df_adjust[&#39;time&#39;].dtype == &#39;datetime64[ns]&#39;, &quot;复权因子时间列转换失败&quot;
-# 关键步骤：按时间向前匹配最近的复权因子
+<span class="hljs-keyword">assert</span> df_trade[<span class="hljs-string">&#x27;time&#x27;</span>].dtype == <span class="hljs-string">&#x27;datetime64[ns]&#x27;</span>, <span class="hljs-string">&quot;交易数据时间列转换失败&quot;</span>
+<span class="hljs-keyword">assert</span> df_adjust[<span class="hljs-string">&#x27;time&#x27;</span>].dtype == <span class="hljs-string">&#x27;datetime64[ns]&#x27;</span>, <span class="hljs-string">&quot;复权因子时间列转换失败&quot;</span>
+<span class="hljs-comment"># 关键步骤：按时间向前匹配最近的复权因子</span>
 merged = pd.merge_asof(
     df_trade,
     df_adjust,
-    on=&#39;time&#39;,
-    direction=&#39;backward&#39;,  # 取&lt;=当前时间的最近值
-    tolerance=pd.Timedelta(minutes=1)  # 最多允许1分钟间隔
+    on=<span class="hljs-string">&#x27;time&#x27;</span>,
+    direction=<span class="hljs-string">&#x27;backward&#x27;</span>,  <span class="hljs-comment"># 取&lt;=当前时间的最近值</span>
+    tolerance=pd.Timedelta(minutes=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 最多允许1分钟间隔</span>
 )
-merged
-</code></pre>
+merged</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/079.png" alt="50%"></p>
 <hr>
 <h3 id="22-进阶技巧">2.2. 进阶技巧</h3>
 <h4>2.2.1. 多标的匹配（股票代码分组）</h4>
-<pre><code class="language-python"># 假设数据包含多只股票
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 假设数据包含多只股票</span>
 merged = pd.merge_asof(
-    df_trade.sort_values(&#39;time&#39;),
-    df_adjust.sort_values(&#39;time&#39;),
-    on=&#39;time&#39;,
-    by=&#39;symbol&#39;,  # 按股票代码分组匹配
-    direction=&#39;backward&#39;
-)
-</code></pre>
+    df_trade.sort_values(<span class="hljs-string">&#x27;time&#x27;</span>),
+    df_adjust.sort_values(<span class="hljs-string">&#x27;time&#x27;</span>),
+    on=<span class="hljs-string">&#x27;time&#x27;</span>,
+    by=<span class="hljs-string">&#x27;symbol&#x27;</span>,  <span class="hljs-comment"># 按股票代码分组匹配</span>
+    direction=<span class="hljs-string">&#x27;backward&#x27;</span>
+)</span></code></pre>
 <h4>2.2.2. 动态调整因子生效时间</h4>
 <p>若复权因子生效时间需要提前或延后，可预处理右表时间：</p>
-<pre><code class="language-python">df_adjust[&#39;time&#39;] = df_adjust[&#39;time&#39;] + pd.Timedelta(seconds=30)  # 延后30秒生效
-df_adjust
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df_adjust[<span class="hljs-string">&#x27;time&#x27;</span>] = df_adjust[<span class="hljs-string">&#x27;time&#x27;</span>] + pd.Timedelta(seconds=<span class="hljs-number">30</span>)  <span class="hljs-comment"># 延后30秒生效</span>
+df_adjust</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/080.png" alt="50%"></p>
 <hr>
 <h4>2.2.3. 处理缺失值</h4>
-<pre><code class="language-python">merged[&#39;adjust_factor&#39;] = merged[&#39;adjust_factor&#39;].ffill()  # 前向填充缺失值
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">merged[<span class="hljs-string">&#x27;adjust_factor&#x27;</span>] = merged[<span class="hljs-string">&#x27;adjust_factor&#x27;</span>].ffill()  <span class="hljs-comment"># 前向填充缺失值</span></span></code></pre>
 <h3 id="23-与其他方法对比">2.3. 与其他方法对比</h3>
 <table>
 <thead>
@@ -222,121 +211,111 @@ df_adjust
 <hr>
 <h4>3.1.1. 因子数据格式</h4>
 <p>需构建<strong>双重索引</strong>的 Series，索引顺序为：<strong>日期 -&gt; 资产代码，值为因子数值</strong>：</p>
-<pre><code class="language-python"># 原始数据示例（含日期、股票代码、因子值）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-comment"># 原始数据示例（含日期、股票代码、因子值）</span>
 raw_factor = pd.DataFrame({
-    &#39;date&#39;: [&#39;2025-03-25&#39;, &#39;2025-03-25&#39;, &#39;2025-03-26&#39;, &#39;2025-03-26&#39;],
-    &#39;symbol&#39;: [&#39;AAPL&#39;, &#39;MSFT&#39;, &#39;AAPL&#39;, &#39;MSFT&#39;],
-    &#39;value&#39;: [0.5, -0.3, 0.7, 0.2]
+    <span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-string">&#x27;2025-03-25&#x27;</span>, <span class="hljs-string">&#x27;2025-03-25&#x27;</span>, <span class="hljs-string">&#x27;2025-03-26&#x27;</span>, <span class="hljs-string">&#x27;2025-03-26&#x27;</span>],
+    <span class="hljs-string">&#x27;symbol&#x27;</span>: [<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>, <span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>],
+    <span class="hljs-string">&#x27;value&#x27;</span>: [<span class="hljs-number">0.5</span>, -<span class="hljs-number">0.3</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">0.2</span>]
 })
 
-# 转换为Alphalens格式
-factor = raw_factor.set_index([&#39;date&#39;, &#39;symbol&#39;])[&#39;value&#39;]
+<span class="hljs-comment"># 转换为Alphalens格式</span>
+factor = raw_factor.set_index([<span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;symbol&#x27;</span>])[<span class="hljs-string">&#x27;value&#x27;</span>]
 factor.index = pd.MultiIndex.from_arrays(
-    # 确保日期为datetime类型
-    [pd.to_datetime(factor.index.get_level_values(&#39;date&#39;)),  
-     factor.index.get_level_values(&#39;symbol&#39;)]
+    <span class="hljs-comment"># 确保日期为datetime类型</span>
+    [pd.to_datetime(factor.index.get_level_values(<span class="hljs-string">&#x27;date&#x27;</span>)),  
+     factor.index.get_level_values(<span class="hljs-string">&#x27;symbol&#x27;</span>)]
 )
-factor
-</code></pre>
+factor</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png" alt="50%"></p>
 <h4>3.1.2. ​价格数据格式</h4>
 <hr>
 <p>需构建 ​<strong>日期为索引、资产代码为列名</strong> 的 DataFrame：</p>
-<pre><code class="language-python"># 原始数据示例（含日期、股票代码、收盘价）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-comment"># 原始数据示例（含日期、股票代码、收盘价）</span>
 raw_price = pd.DataFrame({
-    &#39;date&#39;: [&#39;2025-03-25&#39;, &#39;2025-03-25&#39;, &#39;2025-03-26&#39;, &#39;2025-03-26&#39;],
-    &#39;symbol&#39;: [&#39;AAPL&#39;, &#39;MSFT&#39;, &#39;AAPL&#39;, &#39;MSFT&#39;],
-    &#39;close&#39;: [150, 280, 152, 285]
+    <span class="hljs-string">&#x27;date&#x27;</span>: [<span class="hljs-string">&#x27;2025-03-25&#x27;</span>, <span class="hljs-string">&#x27;2025-03-25&#x27;</span>, <span class="hljs-string">&#x27;2025-03-26&#x27;</span>, <span class="hljs-string">&#x27;2025-03-26&#x27;</span>],
+    <span class="hljs-string">&#x27;symbol&#x27;</span>: [<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>, <span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>],
+    <span class="hljs-string">&#x27;close&#x27;</span>: [<span class="hljs-number">150</span>, <span class="hljs-number">280</span>, <span class="hljs-number">152</span>, <span class="hljs-number">285</span>]
 })
 
-# 转换为Alphalens格式
-prices = raw_price.pivot(index=&#39;date&#39;, columns=&#39;symbol&#39;, values=&#39;close&#39;)
-prices.index = pd.to_datetime(prices.index)  # 日期转换为datetime类型
-</code></pre>
+<span class="hljs-comment"># 转换为Alphalens格式</span>
+prices = raw_price.pivot(index=<span class="hljs-string">&#x27;date&#x27;</span>, columns=<span class="hljs-string">&#x27;symbol&#x27;</span>, values=<span class="hljs-string">&#x27;close&#x27;</span>)
+prices.index = pd.to_datetime(prices.index)  <span class="hljs-comment"># 日期转换为datetime类型</span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png" alt="50%"></p>
 <h3 id="32-关键预处理操作">3.2. 关键预处理操作</h3>
 <h4>3.2.1. 时间索引对齐</h4>
-<pre><code class="language-python"># 检查时间范围是否重叠
-print(&quot;因子时间范围:&quot;,factor.index.get_level_values(&#39;date&#39;).min()
-      , &quot;~&quot;, factor.index.get_level_values(&#39;date&#39;).max())
-print(&quot;价格时间范围:&quot;,prices.index.min(), &quot;~&quot;, prices.index.max())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 检查时间范围是否重叠</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;因子时间范围:&quot;</span>,factor.index.get_level_values(<span class="hljs-string">&#x27;date&#x27;</span>).<span class="hljs-built_in">min</span>()
+      , <span class="hljs-string">&quot;~&quot;</span>, factor.index.get_level_values(<span class="hljs-string">&#x27;date&#x27;</span>).<span class="hljs-built_in">max</span>())
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;价格时间范围:&quot;</span>,prices.index.<span class="hljs-built_in">min</span>(), <span class="hljs-string">&quot;~&quot;</span>, prices.index.<span class="hljs-built_in">max</span>())</span></code></pre>
 <hr>
-<pre><code class="language-python"># 若存在时间缺口，用前向填充（避免未来数据）
-prices = prices.ffill()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 若存在时间缺口，用前向填充（避免未来数据）</span>
+prices = prices.ffill()</span></code></pre>
 <h4>3.2.2. 异常值处理</h4>
-<pre><code class="language-python"># Winsorize去极值（保留98%数据）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># Winsorize去极值（保留98%数据）</span>
 factor_clipped = factor.clip(
-    lower=factor.quantile(0.01),
-    upper=factor.quantile(0.99)
+    lower=factor.quantile(<span class="hljs-number">0.01</span>),
+    upper=factor.quantile(<span class="hljs-number">0.99</span>)
 )
 
-# 标准化处理（Z-score）
-factor_normalized = (factor - factor.mean()) / factor.std()
-</code></pre>
+<span class="hljs-comment"># 标准化处理（Z-score）</span>
+factor_normalized = (factor - factor.mean()) / factor.std()</span></code></pre>
 <h4>3.2.3. 缺失值处理</h4>
-<pre><code class="language-python"># 删除缺失值超过50%的资产
-valid_symbols = factor.unstack().isnull().mean() &lt; 0.5
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 删除缺失值超过50%的资产</span>
+valid_symbols = factor.unstack().isnull().mean() &lt; <span class="hljs-number">0.5</span>
 factor = factor.loc[:, valid_symbols[valid_symbols].index.tolist()]
 
-# 前向填充剩余缺失值
-factor = factor.groupby(level=&#39;symbol&#39;).ffill()
-</code></pre>
+<span class="hljs-comment"># 前向填充剩余缺失值</span>
+factor = factor.groupby(level=<span class="hljs-string">&#x27;symbol&#x27;</span>).ffill()</span></code></pre>
 <h3 id="33-高级操作技巧">3.3. 高级操作技巧</h3>
 <h4>3.3.1. 多因子</h4>
 <hr>
-<pre><code class="language-python"># 假设存在动量因子和市值因子
-factor_mom = ...  # 动量因子数据
-factor_size = ... # 市值因子数据
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-comment"># 假设存在动量因子和市值因子</span>
+factor_mom = ...  <span class="hljs-comment"># 动量因子数据</span>
+factor_size = ... <span class="hljs-comment"># 市值因子数据</span>
 
-# 横向拼接为MultiIndex列
+<span class="hljs-comment"># 横向拼接为MultiIndex列</span>
 combined = pd.concat(
-    [factor_mom.rename(&#39;momentum&#39;), factor_size.rename(&#39;size&#39;)],
-    axis=1
+    [factor_mom.rename(<span class="hljs-string">&#x27;momentum&#x27;</span>), factor_size.rename(<span class="hljs-string">&#x27;size&#x27;</span>)],
+    axis=<span class="hljs-number">1</span>
 )
 
-# 转换为双层索引
-combined = combined.stack().swaplevel(0, 1).sort_index()
-</code></pre>
+<span class="hljs-comment"># 转换为双层索引</span>
+combined = combined.stack().swaplevel(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>).sort_index()</span></code></pre>
 <h4>3.3.2. ​行业中性化处理</h4>
-<pre><code class="language-python"># 假设有行业分类数据
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 假设有行业分类数据</span>
 industries = pd.Series({
-    &#39;AAPL&#39;: &#39;Technology&#39;,
-    &#39;MSFT&#39;: &#39;Technology&#39;,
-    &#39;XOM&#39;: &#39;Energy&#39;
-}, name=&#39;industry&#39;)
+    <span class="hljs-string">&#x27;AAPL&#x27;</span>: <span class="hljs-string">&#x27;Technology&#x27;</span>,
+    <span class="hljs-string">&#x27;MSFT&#x27;</span>: <span class="hljs-string">&#x27;Technology&#x27;</span>,
+    <span class="hljs-string">&#x27;XOM&#x27;</span>: <span class="hljs-string">&#x27;Energy&#x27;</span>
+}, name=<span class="hljs-string">&#x27;industry&#x27;</span>)
 
-# 按行业分组标准化
+<span class="hljs-comment"># 按行业分组标准化</span>
 factor_neutral = factor.groupby(
-    industries, group_keys=False
-).apply(lambda x: (x - x.mean()) / x.std())
-</code></pre>
+    industries, group_keys=<span class="hljs-literal">False</span>
+).apply(<span class="hljs-keyword">lambda</span> x: (x - x.mean()) / x.std())</span></code></pre>
 <h3 id="34-数据验证与接口对接">3.4. 数据验证与接口对接</h3>
 <h4>3.4.1. 格式验证</h4>
 <hr>
-<pre><code class="language-python"># 检查因子索引层级
-assert factor.index.names == [&#39;date&#39;, &#39;symbol&#39;], &quot;因子索引命名错误&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 检查因子索引层级</span>
+<span class="hljs-keyword">assert</span> factor.index.names == [<span class="hljs-string">&#x27;date&#x27;</span>, <span class="hljs-string">&#x27;symbol&#x27;</span>], <span class="hljs-string">&quot;因子索引命名错误&quot;</span>
 
-# 检查价格数据类型
-assert prices.columns.dtype == &#39;object&#39;, &quot;价格数据列名应为资产代码&quot;
-</code></pre>
+<span class="hljs-comment"># 检查价格数据类型</span>
+<span class="hljs-keyword">assert</span> prices.columns.dtype == <span class="hljs-string">&#x27;object&#x27;</span>, <span class="hljs-string">&quot;价格数据列名应为资产代码&quot;</span></span></code></pre>
 <h4>3.4.2. Alphalens 接口调用</h4>
-<pre><code class="language-python">from alphalens.utils import get_clean_factor_and_forward_returns
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">from</span> alphalens.utils <span class="hljs-keyword">import</span> get_clean_factor_and_forward_returns
 
-# 生成分析数据集
+<span class="hljs-comment"># 生成分析数据集</span>
 factor_data = get_clean_factor_and_forward_returns(
     factor=factor,
     prices=prices,
-    periods=(1, 5, 10),  # 1/5/10日收益率
-    quantiles=5,         # 分为5组
-    filter_zscore=3      # 剔除3倍标准差外的异常值
+    periods=(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>),  <span class="hljs-comment"># 1/5/10日收益率</span>
+    quantiles=<span class="hljs-number">5</span>,         <span class="hljs-comment"># 分为5组</span>
+    filter_zscore=<span class="hljs-number">3</span>      <span class="hljs-comment"># 剔除3倍标准差外的异常值</span>
 )
 
-# 生成完整分析报告
-import alphalens
-alphalens.tears.create_full_tear_sheet(factor_data)
-</code></pre>
+<span class="hljs-comment"># 生成完整分析报告</span>
+<span class="hljs-keyword">import</span> alphalens
+alphalens.tears.create_full_tear_sheet(factor_data)</span></code></pre>
 <hr>
 <h3 id="35-常见问题解决方案">3.5. 常见问题解决方案</h3>
 <table>

@@ -16,39 +16,38 @@
 前篇文章提到可以用HDBSCAN算法来来对资产进行聚类，在聚类完成之后，对聚类结果进行协整检验，通过计算对冲比，可以构造成平稳序列。我们知道一个平稳时间序列的均值、方差恒定并且有自协相关特性，那么，一旦它偏离了均值，迟早都会回归到均值上。利用这一点，可以生成交易信号。</p>
 <p>那怎样证明HDBSCN算法对寻到协整对的交易策略是有效的呢？下面我们来一步步分析。</p>
 <p>首先，从前面的文章我们知道了HDBSCN算法是一种基于密度的聚类算法，它通过计算每个样本的密度来确定样本的聚类类别。HDBSCN算法的优点是它可以自动确定聚类中心，并且可以处理高维数据。下面是用python代码来实现HDBSCN算法的关键代码，获取历史数据的时间是从2022年1月1日至2023年12月31日。</p>
-<pre><code class="language-python">start_date = datetime.date(2022, 1, 1)
-end_date = datetime.date(2023,12,31)
-barss = load_bars(start_date, end_date, 2000)   #获取历史资产数据,这里选取2000条数据
-closes = barss[&quot;close&quot;].unstack().ffill().dropna(axis=1, how=&#39;any&#39;) #处理缺失值，将close列的MultiIndex转换为DataFrame二维表格，并使用ffill()方法填充缺失值。
-clusterer = hdbscan.HDBSCAN(min_cluster_size=3, min_samples=2)# 使用 HDBSCAN 进行聚类，python可以直接安装hdbscan包
-cluster_labels = clusterer.fit_predict(closes.T)  #转置是因为要对资产（特征）聚类
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body">start_date = datetime.date(<span class="hljs-number">2022</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end_date = datetime.date(<span class="hljs-number">2023</span>,<span class="hljs-number">12</span>,<span class="hljs-number">31</span>)
+barss = load_bars(start_date, end_date, <span class="hljs-number">2000</span>)   <span class="hljs-comment">#获取历史资产数据,这里选取2000条数据</span>
+closes = barss[<span class="hljs-string">&quot;close&quot;</span>].unstack().ffill().dropna(axis=<span class="hljs-number">1</span>, how=<span class="hljs-string">&#x27;any&#x27;</span>) <span class="hljs-comment">#处理缺失值，将close列的MultiIndex转换为DataFrame二维表格，并使用ffill()方法填充缺失值。</span>
+clusterer = hdbscan.HDBSCAN(min_cluster_size=<span class="hljs-number">3</span>, min_samples=<span class="hljs-number">2</span>)<span class="hljs-comment"># 使用 HDBSCAN 进行聚类，python可以直接安装hdbscan包</span>
+cluster_labels = clusterer.fit_predict(closes.T)  <span class="hljs-comment">#转置是因为要对资产（特征）聚类</span>
 
 clustered = closes.T.copy()
-clustered[&#39;cluster&#39;] = cluster_labels# 将聚类结果添加到 DataFrame 中
+clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>] = cluster_labels<span class="hljs-comment"># 将聚类结果添加到 DataFrame 中</span>
 
-clustered = clustered[clustered[&#39;cluster&#39;] != -1] # 剔除类别为-1的点，这些是噪声，而不是一个类别
-clustered_close = clustered.drop(&quot;cluster&quot;, axis=1)
+clustered = clustered[clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>] != -<span class="hljs-number">1</span>] <span class="hljs-comment"># 剔除类别为-1的点，这些是噪声，而不是一个类别</span>
+clustered_close = clustered.drop(<span class="hljs-string">&quot;cluster&quot;</span>, axis=<span class="hljs-number">1</span>)
 
-unique_clusters = set(cluster_labels)
-num_clusters = len(unique_clusters) # 获取有效的簇数量
-print(f&quot;有效的簇数量为：{num_clusters}&quot;)  
+unique_clusters = <span class="hljs-built_in">set</span>(cluster_labels)
+num_clusters = <span class="hljs-built_in">len</span>(unique_clusters) <span class="hljs-comment"># 获取有效的簇数量</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;有效的簇数量为：<span class="hljs-subst">{num_clusters}</span>&quot;</span>)  
 
-tsne = TSNE(n_components=3, random_state=42)
-tsne_results = tsne.fit_transform(clustered_close)  # 使用t-SNE进行降维，便于后面的簇类可视化
-reduced_tsne = pd.DataFrame(data=tsne_results, columns=[&#39;tsne_1&#39;, &#39;tsne_2&#39;, &#39;tsne_3&#39;], index=clustered_close.index)# 将t-SNE结果添加到DataFrame中
-reduced_tsne[&#39;cluster&#39;] = clustered[&#39;cluster&#39;]
+tsne = TSNE(n_components=<span class="hljs-number">3</span>, random_state=<span class="hljs-number">42</span>)
+tsne_results = tsne.fit_transform(clustered_close)  <span class="hljs-comment"># 使用t-SNE进行降维，便于后面的簇类可视化</span>
+reduced_tsne = pd.DataFrame(data=tsne_results, columns=[<span class="hljs-string">&#x27;tsne_1&#x27;</span>, <span class="hljs-string">&#x27;tsne_2&#x27;</span>, <span class="hljs-string">&#x27;tsne_3&#x27;</span>], index=clustered_close.index)<span class="hljs-comment"># 将t-SNE结果添加到DataFrame中</span>
+reduced_tsne[<span class="hljs-string">&#x27;cluster&#x27;</span>] = clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>]
 
 fig_tsne = px.scatter_3d(
     reduced_tsne, 
-    x=&#39;tsne_1&#39;, y=&#39;tsne_2&#39;, z=&#39;tsne_3&#39;,
-    color=&#39;cluster&#39;, 
-    title=&#39;t-SNE Clustering of Stock Returns&#39;,
-    labels={&#39;tsne_1&#39;: &#39;t-SNE Component 1&#39;, &#39;tsne_2&#39;: &#39;t-SNE Component 2&#39;}
-)  #进行3D散点图可视化
-fig_tsne.layout.width = 1200
-fig_tsne.layout.height = 1100
-fig_tsne.show()
-</code></pre>
+    x=<span class="hljs-string">&#x27;tsne_1&#x27;</span>, y=<span class="hljs-string">&#x27;tsne_2&#x27;</span>, z=<span class="hljs-string">&#x27;tsne_3&#x27;</span>,
+    color=<span class="hljs-string">&#x27;cluster&#x27;</span>, 
+    title=<span class="hljs-string">&#x27;t-SNE Clustering of Stock Returns&#x27;</span>,
+    labels={<span class="hljs-string">&#x27;tsne_1&#x27;</span>: <span class="hljs-string">&#x27;t-SNE Component 1&#x27;</span>, <span class="hljs-string">&#x27;tsne_2&#x27;</span>: <span class="hljs-string">&#x27;t-SNE Component 2&#x27;</span>}
+)  <span class="hljs-comment">#进行3D散点图可视化</span>
+fig_tsne.layout.width = <span class="hljs-number">1200</span>
+fig_tsne.layout.height = <span class="hljs-number">1100</span>
+fig_tsne.show()</span></code></pre>
 <p>导入必要的库，运行后可以得到下面的3D图：
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112155220.png" alt=""></p>
 <p>3D图展示的是股票的3D空间分布，不同颜色代表不同的聚类类别，从图中可以观察到，这期间的2000支股票被分成了40多个类，除了一个包含420支股票的第39簇，其它簇都少于20支股票。下面分析第35簇，里面有3支股票，从2022年10月1日左右三支股票都是持续上升的。

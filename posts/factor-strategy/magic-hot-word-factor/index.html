@@ -27,51 +27,47 @@
     4. 获取板块后10天行情数据，按照1天、5天和10天周期，计算pnl。</p>
 <p> 我们略过如何获取涨停名单的过程。无论是使用akshare,还是jqdatasdkq都可以拿到历史涨停数据。</p>
 <p> 在寻找最热的词时，我们先是去掉”股份、科技和控股“这几个词。它们在名称中出现太过频繁，按照TF-IDF的理论，过于频繁出现的词是没有信息量的。</p>
-<pre><code class="language-python"># 使用的数据源在证券名称上，没有提供PIT数据。当前已退市的标的，
-# 其名字为None。我们要先滤掉这部分。注意这里已经引入了一个回测
-# 偏差
-text = &quot; &quot;.join(filter(lambda x: x, df[&quot;alias&quot;]))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># 使用的数据源在证券名称上，没有提供PIT数据。当前已退市的标的，</span>
+<span class="hljs-comment"># 其名字为None。我们要先滤掉这部分。注意这里已经引入了一个回测</span>
+<span class="hljs-comment"># 偏差</span>
+text = <span class="hljs-string">&quot; &quot;</span>.join(<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> x: x, df[<span class="hljs-string">&quot;alias&quot;</span>]))
 
-# 排除掉没有信息量的词
-cleaned = re.sub(r&quot;股份|科技|控股&quot;, &quot;&quot;, text)
-</code></pre>
+<span class="hljs-comment"># 排除掉没有信息量的词</span>
+cleaned = re.sub(<span class="hljs-string">r&quot;股份|科技|控股&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, text)</span></code></pre>
 <p>接下来我们处理热词。根据观察，热词可能是像”东方“这样的两个字的词，也可能是像”龙“、”兔“这样的单字词。所以我们要分两批处理，并且把两字词放在前面。</p>
-<pre><code class="language-python">    for word in jieba.cut(cleaned):
-        if word == &quot; &quot; and len(word) != 2:
-            continue
-        if word in two:
-            two[word] += 1
-        else:
-            two[word] = 1
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">    <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> jieba.cut(cleaned):
+        <span class="hljs-keyword">if</span> word == <span class="hljs-string">&quot; &quot;</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(word) != <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">if</span> word <span class="hljs-keyword">in</span> two:
+            two[word] += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>:
+            two[word] = <span class="hljs-number">1</span></span></code></pre>
 <p>这里我们使用了结巴分词(jieba)。我不太清楚现在的情况，但直到2021年，它一定是Python汉语分词的翘楚。它的作用是，将”东方通信“这样的词，分解为”东方“和”通信“这样两个词。如果”东方航空“也上榜的话，那么它会被分解为”东方“和”航空“，从而”东方“获得两分，通信和航空各获得1分。</p>
 <p>类似的方法处理单字词。我们得到的结果（像two)是一个集合。为了取计数最高的字（词），我们要对其进行排序：</p>
-<pre><code class="language-python">two = sorted(two, key = lambda x: x[1], reverse=True)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">two = <span class="hljs-built_in">sorted</span>(two, key = <span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">1</span>], reverse=<span class="hljs-literal">True</span>)</span></code></pre>
 <p>这是非常常用的语法了。</p>
 <p>构建板块并不难，但是我们得利用证券列表。这也是我们讲的，任何数据源，在你购买之前，必须要考察它是否具务的几个基本API。如果像证券列表这样的API没有的话，那么几乎无法编写任何策略。</p>
 <p>获得某日未涨停个股的清单后，我们就可以取该日及此后10天的行情数据，然后通过pandas的pct_change来计算1，5和10日持有收益。</p>
 <p>在因子分析中，这类函数通常叫forward_returns，所以，我们这里也将其命名为get_forward_returns，这样代码更容易阅读。</p>
-<pre><code class="language-python">async def get_forward_returns(dt: datetime.date, n=10):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_forward_returns</span>(<span class="hljs-params">dt: datetime.date, n=<span class="hljs-number">10</span></span>):
     ...
     end = tf.day_shift(dt, n)
     barss = {}
-    for sec in secs:
-        bars = await Stock.get_bars(sec, n+1, FrameType.DAY, end=end)
-        if len(bars) != n + 1:
-            continue
-        barss[sec] = bars[&quot;close&quot;]
+    <span class="hljs-keyword">for</span> sec <span class="hljs-keyword">in</span> secs:
+        bars = <span class="hljs-keyword">await</span> Stock.get_bars(sec, n+<span class="hljs-number">1</span>, FrameType.DAY, end=end)
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(bars) != n + <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">continue</span>
+        barss[sec] = bars[<span class="hljs-string">&quot;close&quot;</span>]
 
     df = pd.DataFrame.from_dict(barss)
     returns = []
-    for period in (1, 5, 10):
+    <span class="hljs-keyword">for</span> period <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>):
         returns.append(df.pct_change(period).mean())
 
-    df = pd.concat(returns, axis=1).rename(columns={0:&quot;1d&quot;, 1:&quot;5d&quot;, 2:&quot;10d&quot;})
+    df = pd.concat(returns, axis=<span class="hljs-number">1</span>).rename(columns={<span class="hljs-number">0</span>:<span class="hljs-string">&quot;1d&quot;</span>, <span class="hljs-number">1</span>:<span class="hljs-string">&quot;5d&quot;</span>, <span class="hljs-number">2</span>:<span class="hljs-string">&quot;10d&quot;</span>})
     mn = df.mean()
-    print(f&quot;{dt} {concept} 1D: {mn.iloc[0]:.2%} 5D: {mn.iloc[1]:.2%} 10D: {mn.iloc[2]:.2%}&quot;)
-    return df
-</code></pre>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{dt}</span> <span class="hljs-subst">{concept}</span> 1D: <span class="hljs-subst">{mn.iloc[<span class="hljs-number">0</span>]:<span class="hljs-number">.2</span>%}</span> 5D: <span class="hljs-subst">{mn.iloc[<span class="hljs-number">1</span>]:<span class="hljs-number">.2</span>%}</span> 10D: <span class="hljs-subst">{mn.iloc[<span class="hljs-number">2</span>]:<span class="hljs-number">.2</span>%}</span>&quot;</span>)
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <p>在处理过程中，我们就已经打印出了当日板块的1、5和10日未来收益（如果当天存在这种题材炒作的话），以便调试。另外，我们也返回这个收益结果，以方便进一步处理。</p>
 <p>最后，我们选择2019-2-10到2019-3-5这个区间运行了一下，结果是：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/magic-word-factor-forward-returns.jpg" alt="板块炒作热词因子未来收益曲线示例（2019年2月10日至3月5日）"></p>

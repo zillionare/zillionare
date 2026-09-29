@@ -20,30 +20,26 @@
 <h2 id="1-基本数据结构-1">1. 基本数据结构</h2>
 <p>前一种数组格式广为人知，我们将以它为例介绍多数 Numpy 操作。而后一种数据格式，在量化中也常常用到，比如，通过聚宽[1]的jqdatasdk获得的行情数据，就允许返回这种数据类型，与 DataFrame 相比，在存取上有不少简便之处。我们将在后面专门用一个章节来介绍。</p>
 <p>在使用 Numpy 之前，我们要先安装和导入 Numpy 库：</p>
-<pre><code class="language-bash"># 安装 NUMPY
-pip install numpy
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 安装 NUMPY</span>
+pip install numpy</span></code></pre>
 <p>一般地，我们通过别名<code>np</code>来导入和使用 numpy：</p>
-<pre><code class="language-python">import numpy as np
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span></code></pre>
 <p>为了在 Notebook 中运行这些示例时，能更加醒目地显示结果，我们首先定义一个 cprint 函数，它将原样输出提示信息，但对变量使用红色字体来输出，以示区别：</p>
 <hr>
-<pre><code class="language-python">from termcolor import colored
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">from</span> termcolor <span class="hljs-keyword">import</span> colored
 
-def cprint(formatter: str, *args):
-    colorful = [colored(f&quot;{item}&quot;, &#39;red&#39;) for item in args]
-    print(formatter.format(*colorful))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">cprint</span>(<span class="hljs-params">formatter: <span class="hljs-built_in">str</span>, *args</span>):
+    colorful = [colored(<span class="hljs-string">f&quot;<span class="hljs-subst">{item}</span>&quot;</span>, <span class="hljs-string">&#x27;red&#x27;</span>) <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> args]
+    <span class="hljs-built_in">print</span>(formatter.<span class="hljs-built_in">format</span>(*colorful))
 
-# 测试一下 CPRINT
-cprint(&quot;这是提示信息，后接红色字体输出的变量值：{}&quot;, &quot;hello!&quot;)
-</code></pre>
+<span class="hljs-comment"># 测试一下 CPRINT</span>
+cprint(<span class="hljs-string">&quot;这是提示信息，后接红色字体输出的变量值：{}&quot;</span>, <span class="hljs-string">&quot;hello!&quot;</span>)</span></code></pre>
 <p>接下来，我们将介绍基本的增删改查操作。</p>
 <h3 id="11-创建数组">1.1. 创建数组</h3>
 <h4>1.1.1. 通过 Python List 创建</h4>
 <p>我们可以通过<code>np.array</code>的语法来创建一个简单的数组,在这个语法中，我们可以提供 Python 列表，或者任何具有 Iterable 接口的对象，比如元组。</p>
-<pre><code class="language-python">arr = np.array([1, 2, 3])
-cprint(&quot;create a simple numpy array: {}&quot;, arr)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">arr = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+cprint(<span class="hljs-string">&quot;create a simple numpy array: {}&quot;</span>, arr)</span></code></pre>
 <h4>1.1.2. 预置特殊数组</h4>
 <p>很多时候，我们希望 Numpy 为我们创建一些具有特殊值的数组。Numpy 也的确提供了这样的支持，比如：</p>
 <hr>
@@ -97,19 +93,18 @@ cprint(&quot;create a simple numpy array: {}&quot;, arr)
 </tbody></table>
 <!--还有一些比较小众的预置函数，比如 np.indices-->
 
-<pre><code class="language-python"># 创建特殊类型的数组
-cprint(&quot;全 0 数组：\n{}&quot;, np.zeros(3))
-cprint(&quot;全 1 数组：\n{}&quot;, np.ones((2, 3)))
-cprint(&quot;单位矩阵：\n{}&quot;, np.eye(3))
-cprint(&quot;由数字 5 填充的矩阵：\n{}&quot;, np.full((3,2), 5))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-comment"># 创建特殊类型的数组</span>
+cprint(<span class="hljs-string">&quot;全 0 数组：\n{}&quot;</span>, np.zeros(<span class="hljs-number">3</span>))
+cprint(<span class="hljs-string">&quot;全 1 数组：\n{}&quot;</span>, np.ones((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)))
+cprint(<span class="hljs-string">&quot;单位矩阵：\n{}&quot;</span>, np.eye(<span class="hljs-number">3</span>))
+cprint(<span class="hljs-string">&quot;由数字 5 填充的矩阵：\n{}&quot;</span>, np.full((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>), <span class="hljs-number">5</span>))
 
-cprint(&quot;空矩阵：\n{}&quot;, np.empty((2, 3)))
-cprint(&quot;随机矩阵：\n{}&quot;,np.random.random(10))
-cprint(&quot;正态分布的数组：\n{}&quot;,np.random.normal(10))
-cprint(&quot;狄利克雷分布的数组：\n{}&quot;,np.random.dirichlet(np.ones(10)))
-cprint(&quot;顺序增长的数组：\n{}&quot;, np.arange(10))
-cprint(&quot;线性增长数组：\n{}&quot;, np.linspace(0, 2, 9))
-</code></pre>
+cprint(<span class="hljs-string">&quot;空矩阵：\n{}&quot;</span>, np.empty((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)))
+cprint(<span class="hljs-string">&quot;随机矩阵：\n{}&quot;</span>,np.random.random(<span class="hljs-number">10</span>))
+cprint(<span class="hljs-string">&quot;正态分布的数组：\n{}&quot;</span>,np.random.normal(<span class="hljs-number">10</span>))
+cprint(<span class="hljs-string">&quot;狄利克雷分布的数组：\n{}&quot;</span>,np.random.dirichlet(np.ones(<span class="hljs-number">10</span>)))
+cprint(<span class="hljs-string">&quot;顺序增长的数组：\n{}&quot;</span>, np.arange(<span class="hljs-number">10</span>))
+cprint(<span class="hljs-string">&quot;线性增长数组：\n{}&quot;</span>, np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">9</span>))</span></code></pre>
 <hr>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 尽管 empty 函数的名字暗示它应该生成一个空数组，但实际上生成的数组，每个元素都是有值的，只不过这些值既不是 np.nan，也不是 None，而是随机值。我们在使用 empty 生成的数组之前，一定要对它进行初始化，处理掉这些随机值。
@@ -120,20 +115,18 @@ cprint(&quot;线性增长数组：\n{}&quot;, np.linspace(0, 2, 9))
 
 <p>生成正态分布数组很有用。我们在做一些研究时，常常需要生成满足某种条件的价格序列，再进一步研究和比较它的特性。</p>
 <p>比如，如果我们想研究上升趋势和下降趋势下的某些指标，就需要有能力先构建出符合趋势的价格序列。下面的例子就演示了如何生成这样的序列，并且绘制图形：</p>
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span></code></pre>
 <hr>
-<pre><code class="language-python">returns = np.random.normal(0, 0.02, size=100)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">returns = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.02</span>, size=<span class="hljs-number">100</span>)
 
-fig, axes = plt.subplots(1, 3, figsize=(12,4))
-c0 = np.random.randint(5, 50)
+fig, axes = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, figsize=(<span class="hljs-number">12</span>,<span class="hljs-number">4</span>))
+c0 = np.random.randint(<span class="hljs-number">5</span>, <span class="hljs-number">50</span>)
 
-for i, alpha in enumerate((-0.01, 0, 0.01)):
+<span class="hljs-keyword">for</span> i, alpha <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>((-<span class="hljs-number">0.01</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>)):
     r = returns + alpha
-    close = np.cumprod(1 + r) * c0
-    axes[i].plot(close)
-</code></pre>
+    close = np.cumprod(<span class="hljs-number">1</span> + r) * c0
+    axes[i].plot(close)</span></code></pre>
 <p>绘制的图形如下：</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg" alt=""></p>
@@ -174,29 +167,27 @@ arange 数组类似 range 语法，将生成一个整数数组，而 linspace �
 -->
 <h4>1.1.3. 通过已有数组转换</h4>
 <p>我们还可以从已有的数组中，通过复制、切片、重复等方法，创建新的数组：</p>
-<pre><code class="language-python"># 复制一个数组
-cprint(&quot;通过 np.copy 创建：{}&quot;, np.copy(np.arange(5)))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 复制一个数组</span>
+cprint(<span class="hljs-string">&quot;通过 np.copy 创建：{}&quot;</span>, np.copy(np.arange(<span class="hljs-number">5</span>)))
 
-# 复制数组的另一种方法
-cprint(&quot;通过 arr.copy: {}&quot;, np.arange(5).copy())
+<span class="hljs-comment"># 复制数组的另一种方法</span>
+cprint(<span class="hljs-string">&quot;通过 arr.copy: {}&quot;</span>, np.arange(<span class="hljs-number">5</span>).copy())
 
-# 使用切片，提取原数组的一部分
-cprint(&quot;通过切片：{}&quot;, np.arange(5)[:2])
-</code></pre>
+<span class="hljs-comment"># 使用切片，提取原数组的一部分</span>
+cprint(<span class="hljs-string">&quot;通过切片：{}&quot;</span>, np.arange(<span class="hljs-number">5</span>)[:<span class="hljs-number">2</span>])</span></code></pre>
 <hr>
-<pre><code class="language-python"># 合并两个数组
-arr = np.concatenate((np.arange(3), np.arange(2)))
-cprint(&quot;通过 concatenate 合并：{}&quot;, arr)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-comment"># 合并两个数组</span>
+arr = np.concatenate((np.arange(<span class="hljs-number">3</span>), np.arange(<span class="hljs-number">2</span>)))
+cprint(<span class="hljs-string">&quot;通过 concatenate 合并：{}&quot;</span>, arr)
 
-# 重复一个数组
-arr = np.repeat(np.arange(3), 2)
-cprint(&quot;通过 repeat 重复原数组：{}&quot;, arr)
+<span class="hljs-comment"># 重复一个数组</span>
+arr = np.repeat(np.arange(<span class="hljs-number">3</span>), <span class="hljs-number">2</span>)
+cprint(<span class="hljs-string">&quot;通过 repeat 重复原数组：{}&quot;</span>, arr)
 
-# 重复一个数组，注意与 NP.REPEAT 的差异
-# NP.TILE 的语义类似于 PYTHON 的 LIST 乘法
-arr = np.tile(np.arange(3), 2)
-cprint(&quot;通过 tile 重复原数组：{}&quot;, arr)
-</code></pre>
+<span class="hljs-comment"># 重复一个数组，注意与 NP.REPEAT 的差异</span>
+<span class="hljs-comment"># NP.TILE 的语义类似于 PYTHON 的 LIST 乘法</span>
+arr = np.tile(np.arange(<span class="hljs-number">3</span>), <span class="hljs-number">2</span>)
+cprint(<span class="hljs-string">&quot;通过 tile 重复原数组：{}&quot;</span>, arr)</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 np.copy 与 arr.copy 有何不同？在 Numpy 中还有哪些类似函数对，有何规律？
 </div>
@@ -206,13 +197,12 @@ np.copy 与 arr.copy 有何不同？在 Numpy 中还有哪些类似函数对，�
 -->
 <hr>
 <p>注意在 concatenate 函数中，axis 的作用：</p>
-<pre><code class="language-python">arr = np.arange(6).reshape((3,2))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
 
-# 在 ROW 方向上拼接，相当于增加行，默认行为
-cprint(&quot;按 axis=0 拼接：\n{}&quot;, np.concatenate((arr, arr), axis=0))
-# 在 COL 方向上拼接，相当于扩展列
-cprint(&quot;按 axis=1 拼接：\n{}&quot;, np.concatenate((arr, arr), axis=1))
-</code></pre>
+<span class="hljs-comment"># 在 ROW 方向上拼接，相当于增加行，默认行为</span>
+cprint(<span class="hljs-string">&quot;按 axis=0 拼接：\n{}&quot;</span>, np.concatenate((arr, arr), axis=<span class="hljs-number">0</span>))
+<span class="hljs-comment"># 在 COL 方向上拼接，相当于扩展列</span>
+cprint(<span class="hljs-string">&quot;按 axis=1 拼接：\n{}&quot;</span>, np.concatenate((arr, arr), axis=<span class="hljs-number">1</span>))</span></code></pre>
 <h3 id="12-增加删除和修改元素">1.2. 增加/删除和修改元素</h3>
 <p>Numpy 数组是固定大小的，一般我们不推荐频繁地往数组中增加或者删除元素。</p>
 <hr>
@@ -242,22 +232,20 @@ cprint(&quot;按 axis=1 拼接：\n{}&quot;, np.concatenate((arr, arr), axis=1))
 </tr>
 </tbody></table>
 <p>示例如下：</p>
-<pre><code class="language-python">arr = np.arange(6).reshape((3,2))
-np.append(arr, [[7,8]], axis=0)
-cprint(&quot;指定在行的方向上操作、n{}&quot;, arr)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+np.append(arr, [[<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]], axis=<span class="hljs-number">0</span>)
+cprint(<span class="hljs-string">&quot;指定在行的方向上操作、n{}&quot;</span>, arr)</span></code></pre>
 <hr>
-<pre><code class="language-python">arr = np.arange(6).reshape((3,2))
-arr = np.insert(arr.reshape((3,2)), 1, -10)
-cprint(&quot;不指定 axis，数组被扁平化：\n{}&quot;, arr)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+arr = np.insert(arr.reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>)), <span class="hljs-number">1</span>, -<span class="hljs-number">10</span>)
+cprint(<span class="hljs-string">&quot;不指定 axis，数组被扁平化：\n{}&quot;</span>, arr)
 
-arr = np.arange(6).reshape((3,2))
-arr = np.insert(arr, 1, (-10, -10), axis=0)
-cprint(&quot;np.insert:\n{}&quot;, arr)
+arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+arr = np.insert(arr, <span class="hljs-number">1</span>, (-<span class="hljs-number">10</span>, -<span class="hljs-number">10</span>), axis=<span class="hljs-number">0</span>)
+cprint(<span class="hljs-string">&quot;np.insert:\n{}&quot;</span>, arr)
 
-arr = np.delete(arr, [1], axis=1)
-cprint(&quot;deleting col 1:\n{}&quot;, arr)
-</code></pre>
+arr = np.delete(arr, [<span class="hljs-number">1</span>], axis=<span class="hljs-number">1</span>)
+cprint(<span class="hljs-string">&quot;deleting col 1:\n{}&quot;</span>, arr)</span></code></pre>
 <!--
 append 默认就是在行的方向上进行操作，这里的 axis=0 可以省略
 -->
@@ -279,10 +267,9 @@ append 默认就是在行的方向上进行操作，这里的 axis=0 可以省�
 
 <p>有时候我们需要修改个别元素的值，应该这样操作：</p>
 <hr>
-<pre><code class="language-python">arr = np.arange(6).reshape(2,3)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>).reshape(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
 
-arr[0,2] = 3
-</code></pre>
+arr[<span class="hljs-number">0</span>,<span class="hljs-number">2</span>] = <span class="hljs-number">3</span></span></code></pre>
 <p>这里涉及到如何定位一个数组元素的问题，也正是我们下一节的内容。</p>
 <!--
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
@@ -304,23 +291,22 @@ arr[0,2] = 3
 <h3 id="13-定位读取和搜索">1.3. 定位、读取和搜索</h3>
 <h4>1.3.1. 索引和切片</h4>
 <p>Numpy 中索引和切片语法大致类似于 Python，主要区别在于对多维数组的支持：</p>
-<pre><code class="language-python">arr = np.arange(6).reshape((3,2))
-cprint(&quot;原始数组：\n{}&quot;, arr)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+cprint(<span class="hljs-string">&quot;原始数组：\n{}&quot;</span>, arr)
 
-# 切片语法
-cprint(&quot;按行切片：{}&quot;, arr[1, :])
-cprint(&quot;按列切片：{}&quot;, arr[:, -1])
-cprint(&quot;逆排数组：\n {}&quot;, arr[: : -1])
+<span class="hljs-comment"># 切片语法</span>
+cprint(<span class="hljs-string">&quot;按行切片：{}&quot;</span>, arr[<span class="hljs-number">1</span>, :])
+cprint(<span class="hljs-string">&quot;按列切片：{}&quot;</span>, arr[:, -<span class="hljs-number">1</span>])
+cprint(<span class="hljs-string">&quot;逆排数组：\n {}&quot;</span>, arr[: : -<span class="hljs-number">1</span>])
 
-# FANCY INDEXING
-cprint(&quot;fancy index: 使用下标数组：\n {}&quot;, arr[[2, 1, 0]])
-</code></pre>
+<span class="hljs-comment"># FANCY INDEXING</span>
+cprint(<span class="hljs-string">&quot;fancy index: 使用下标数组：\n {}&quot;</span>, arr[[<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
+</span></code></pre>
 <p>上述切片语法在 Python 中也存在，但只能支持到一维，因此，对下面的 Python 数组，类似操作会出错：</p>
 <hr>
-<pre><code class="language-python">arr = np.arange(6).reshape((3,2)).tolist()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>)).tolist()
 
-arr[1, :]
-</code></pre>
+arr[<span class="hljs-number">1</span>, :]</span></code></pre>
 <p>提示 list indices must be integers or slices, not tuple。</p>
 <!--
 在上面的代码中，我们还通过 tolist() 将 numpy 数组转换成为 Python list。在 Numpy 对象与 Python 对象之间的转换会经常发生，特别是时间对象之间的转换，需要熟练掌握。
@@ -360,39 +346,37 @@ arr[1, :]
 <td>返回数组中最大元素的索引</td>
 </tr>
 </tbody></table>
-<pre><code class="language-python"># 查找
-arr = [0, 2, 2, 2, 3]
-pos = np.searchsorted(arr, 2, &#39;right&#39;)
-cprint(&quot;在数组 {} 中寻找等于 2 的位置，返回 {}, 数值是 {}&quot;, 
-        arr, pos, arr[pos - 1])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 查找</span>
+arr = [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+pos = np.searchsorted(arr, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;right&#x27;</span>)
+cprint(<span class="hljs-string">&quot;在数组 {} 中寻找等于 2 的位置，返回 {}, 数值是 {}&quot;</span>, 
+        arr, pos, arr[pos - <span class="hljs-number">1</span>])
 
-arr = np.arange(6).reshape((2, 3))
-cprint(&quot;arr[arr &gt; 1]: {}&quot;, arr[arr &gt; 1])
+arr = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>))
+cprint(<span class="hljs-string">&quot;arr[arr &gt; 1]: {}&quot;</span>, arr[arr &gt; <span class="hljs-number">1</span>])
 
-# NONZERO 的用法
-mask = np.nonzero(arr &gt; 1)
-</code></pre>
+<span class="hljs-comment"># NONZERO 的用法</span>
+mask = np.nonzero(arr &gt; <span class="hljs-number">1</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python">cprint(&quot;nonzero 返回结果是：{}&quot;, mask)
-cprint(&quot;筛选后的数组是：{}&quot;, arr[mask])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body">cprint(<span class="hljs-string">&quot;nonzero 返回结果是：{}&quot;</span>, mask)
+cprint(<span class="hljs-string">&quot;筛选后的数组是：{}&quot;</span>, arr[mask])
 
-# ARGWHERE 的用法
-mask = np.argwhere(arr &gt; 1)
-cprint(&quot;argwere 返回的结果是：{}&quot;, mask)
+<span class="hljs-comment"># ARGWHERE 的用法</span>
+mask = np.argwhere(arr &gt; <span class="hljs-number">1</span>)
+cprint(<span class="hljs-string">&quot;argwere 返回的结果是：{}&quot;</span>, mask)
 
-# 多维数组不能直接使用 ARGWHERE 结果来筛选
-# 下面的语句不能得到正确结果，一般会出现 INDEXERROR
+<span class="hljs-comment"># 多维数组不能直接使用 ARGWHERE 结果来筛选</span>
+<span class="hljs-comment"># 下面的语句不能得到正确结果，一般会出现 INDEXERROR</span>
 arr[mask]
 
-# 但对一维数组筛选我们可以用：
-arr = np.arange(6)
-mask = np.argwhere(arr &gt; 1)
-arr[mask.flatten()[0]]
+<span class="hljs-comment"># 但对一维数组筛选我们可以用：</span>
+arr = np.arange(<span class="hljs-number">6</span>)
+mask = np.argwhere(arr &gt; <span class="hljs-number">1</span>)
+arr[mask.flatten()[<span class="hljs-number">0</span>]]
 
-# 寻找最大值的索引
-arr = [1, 2, 2, 1, 0]
-cprint(&quot;最大值索引是：{}&quot;, np.argmax(arr))
-</code></pre>
+<span class="hljs-comment"># 寻找最大值的索引</span>
+arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
+cprint(<span class="hljs-string">&quot;最大值索引是：{}&quot;</span>, np.argmax(arr))</span></code></pre>
 <p>使用 searchsorted 要注意，数组本身一定是有序的，不然不会得出正确结果。</p>
 <!--
 为什么我们要讲这个函数？在熟悉了 Numpy 之后，大家可能会想把所有的数据都使用 numpy 数组来表示。我们通过这个例子提醒大家，numpy 中的搜索，由于没有索引，实际上会比较慢。只有在数据已经有序的情况下，它才能加快。因此，我们也不能把所有数据都用 Numpy 来表示。
@@ -429,35 +413,33 @@ print("Ranks:", ranks)
 <!--单就这一功能而言，还有更高效地实现方式-->
 
 <p>下面的例子显示了如何使用 np.select 来计算上影线：</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
 bars = pd.DataFrame({
-    &quot;open&quot;: [10, 10.2, 10.1],
-    &quot;high&quot;: [11, 10.5, 9.3],
-    &quot;low&quot;: [9.8, 9.8, 9.25],
-    &quot;close&quot;: [10.1, 10.2, 10.05]
+    <span class="hljs-string">&quot;open&quot;</span>: [<span class="hljs-number">10</span>, <span class="hljs-number">10.2</span>, <span class="hljs-number">10.1</span>],
+    <span class="hljs-string">&quot;high&quot;</span>: [<span class="hljs-number">11</span>, <span class="hljs-number">10.5</span>, <span class="hljs-number">9.3</span>],
+    <span class="hljs-string">&quot;low&quot;</span>: [<span class="hljs-number">9.8</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">9.25</span>],
+    <span class="hljs-string">&quot;close&quot;</span>: [<span class="hljs-number">10.1</span>, <span class="hljs-number">10.2</span>, <span class="hljs-number">10.05</span>]
 })
 
-max_oc = np.select([bars.close &gt; bars.open, 
-                    bars.close &lt;= bars.open], 
-                    [bars.close, bars.open])
-print(max_oc)
+max_oc = np.select([bars.close &gt; bars.<span class="hljs-built_in">open</span>, 
+                    bars.close &lt;= bars.<span class="hljs-built_in">open</span>], 
+                    [bars.close, bars.<span class="hljs-built_in">open</span>])
+<span class="hljs-built_in">print</span>(max_oc)
 
 shadow = (bars.high - max_oc)/(bars.high - bars.low)
-print(shadow)
-</code></pre>
+<span class="hljs-built_in">print</span>(shadow)
+</span></code></pre>
 <p>np.where 是与 np.select 相近的一个函数，不过它只接受一个条件。</p>
-<pre><code class="language-python">arr = np.arange(6)
-cprint(&quot;np.where: {}&quot;, np.where(arr &gt; 3, 3, arr))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>)
+cprint(<span class="hljs-string">&quot;np.where: {}&quot;</span>, np.where(arr &gt; <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, arr))</span></code></pre>
 <p>这段代码实现了将 3 以上的数字截断为 3 的功能。</p>
 <hr>
 <p>这种功能被称为 clip，在因子预处理中是非常常用的一个技巧，用来处理异常值 (outlier)。</p>
 <p>但它没有办法实现两端截断。此时，但 np.select 能做到，这是 np.where 与 np.select 的主要区别：</p>
-<pre><code class="language-python">arr = np.arange(6)
-cprint(&quot;np.select: {}&quot;, np.select([arr&lt;2, arr&gt;4], [2, 4], arr))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">arr = np.arange(<span class="hljs-number">6</span>)
+cprint(<span class="hljs-string">&quot;np.select: {}&quot;</span>, np.select([arr&lt;<span class="hljs-number">2</span>, arr&gt;<span class="hljs-number">4</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>], arr))</span></code></pre>
 <p>其结果是，生成的数组，小于 2 的被替换成 2，大于 4 的被替换成 4，其它的保持不变。</p>
 <!--
 还有一种筛选，是从一个集合中随机筛选出若干样本，我们将在随机数一节中讲到。
@@ -515,27 +497,25 @@ cprint("视图的base属性{}", x[1:2].base)
 
 <p>当我们调用其它人的库时，往往需要与它们交换数据。这时就可能出现数据格式不兼容的问题。为了有能力进行查错，我们必须掌握查看 Numpy 数组特性的一些方法。</p>
 <p>我们先如下生成一个简单的数组，再查看它的各种特性：</p>
-<pre><code class="language-python">
-arr = np.ones((3,2))
-cprint(&quot;dtype is: {}&quot;, arr.dtype)
-cprint(&quot;shape is: {}&quot;, arr.shape)
-cprint(&quot;ndim is: {}&quot;, arr.ndim)
-cprint(&quot;size is: {}&quot;, arr.size)
-cprint(&quot;&#39;len&#39; is also available: {}&quot;, len(arr))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">
+arr = np.ones((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+cprint(<span class="hljs-string">&quot;dtype is: {}&quot;</span>, arr.dtype)
+cprint(<span class="hljs-string">&quot;shape is: {}&quot;</span>, arr.shape)
+cprint(<span class="hljs-string">&quot;ndim is: {}&quot;</span>, arr.ndim)
+cprint(<span class="hljs-string">&quot;size is: {}&quot;</span>, arr.size)
+cprint(<span class="hljs-string">&quot;&#x27;len&#x27; is also available: {}&quot;</span>, <span class="hljs-built_in">len</span>(arr))
 
-# DTYPE
-dt = np.dtype(&#39;&gt;i4&#39;)
-cprint(&quot;byteorder is: {}&quot;, dt.byteorder)
-cprint(&quot;name of the type is: {}&quot;, dt.name)
-cprint(&#39;is &quot;&gt;i4&quot; a np.int32?: {}&#39;, dt.type is np.int32)
-</code></pre>
+<span class="hljs-comment"># DTYPE</span>
+dt = np.dtype(<span class="hljs-string">&#x27;&gt;i4&#x27;</span>)
+cprint(<span class="hljs-string">&quot;byteorder is: {}&quot;</span>, dt.byteorder)
+cprint(<span class="hljs-string">&quot;name of the type is: {}&quot;</span>, dt.name)
+cprint(<span class="hljs-string">&#x27;is &quot;&gt;i4&quot; a np.int32?: {}&#x27;</span>, dt.<span class="hljs-built_in">type</span> <span class="hljs-keyword">is</span> np.int32)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 复杂的 DTYPE
-complex = np.dtype([(&#39;name&#39;, &#39;U8&#39;), (&#39;score&#39;, &#39;f4&#39;)])
-arr = np.array([(&#39;Aaron&#39;, 85), (&#39;Zoe&#39;, 90)], dtype=complex)
-cprint(&quot;A structured Array: {}&quot;, arr)
-cprint(&quot;Dtype of structured array: {}&quot;, arr.dtype)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 复杂的 DTYPE</span>
+<span class="hljs-built_in">complex</span> = np.dtype([(<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;U8&#x27;</span>), (<span class="hljs-string">&#x27;score&#x27;</span>, <span class="hljs-string">&#x27;f4&#x27;</span>)])
+arr = np.array([(<span class="hljs-string">&#x27;Aaron&#x27;</span>, <span class="hljs-number">85</span>), (<span class="hljs-string">&#x27;Zoe&#x27;</span>, <span class="hljs-number">90</span>)], dtype=<span class="hljs-built_in">complex</span>)
+cprint(<span class="hljs-string">&quot;A structured Array: {}&quot;</span>, arr)
+cprint(<span class="hljs-string">&quot;Dtype of structured array: {}&quot;</span>, arr.dtype)</span></code></pre>
 <p>正如 Python 对象都有自己的数据类型一样，Numpy 数组也有自己的数据类型。我们可以通过<code>arr.dtype</code>来查看数组的数据类型。</p>
 <!--
 这里我们是通过 np.ones 生成的数组，数组的各元素都是 1。注意我们得到的 dtype 是 np.float64，这也是 Numpy 中最常见的数据类型。
@@ -551,55 +531,51 @@ cprint(&quot;Dtype of structured array: {}&quot;, arr.dtype)
 <h3 id="21-升维">2.1. 升维</h3>
 <p>我们可以通过 reshape, hstack, vstack 来改变数组的维度：</p>
 <hr>
-<pre><code class="language-python">
-cprint(&quot;increase ndim with reshape:\n{}&quot;, 
-        np.arange(6).reshape((3,2)))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">
+cprint(<span class="hljs-string">&quot;increase ndim with reshape:\n{}&quot;</span>, 
+        np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>)))
 
-# 将两个一维数组，堆叠为 2*3 的二维数组
-cprint(&quot;createing from stack: {}&quot;, 
-        np.vstack((np.arange(3), np.arange(4,7))))
+<span class="hljs-comment"># 将两个一维数组，堆叠为 2*3 的二维数组</span>
+cprint(<span class="hljs-string">&quot;createing from stack: {}&quot;</span>, 
+        np.vstack((np.arange(<span class="hljs-number">3</span>), np.arange(<span class="hljs-number">4</span>,<span class="hljs-number">7</span>))))
 
-# 将两个 （3，1）数组，堆叠为（3，2）数组
-np.hstack((np.array([[1],[2],[3]]), np.array([[4], [5], [6]])))
-</code></pre>
+<span class="hljs-comment"># 将两个 （3，1）数组，堆叠为（3，2）数组</span>
+np.hstack((np.array([[<span class="hljs-number">1</span>],[<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>]]), np.array([[<span class="hljs-number">4</span>], [<span class="hljs-number">5</span>], [<span class="hljs-number">6</span>]])))</span></code></pre>
 <h3 id="22-降维">2.2. 降维</h3>
 <p>通过 ravel, flatten, reshape, *split 等操作对数组进行降维。</p>
 <!--很多操作，比如像 argwhere，会返回升维的结果，此时我们可能需要在使用前，对其降维-->
 
 
-<pre><code class="language-python">
-cprint(&quot;ravel: {}&quot;, arr.ravel())
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">
+cprint(<span class="hljs-string">&quot;ravel: {}&quot;</span>, arr.ravel())
 
-cprint(&quot;flatten: {}&quot;, arr.flatten())
+cprint(<span class="hljs-string">&quot;flatten: {}&quot;</span>, arr.flatten())
 
-# RESHAPE 也可以用做扁平化
-cprint(&quot;flatten by reshape: {}&quot;, arr.reshape(-1,))
+<span class="hljs-comment"># RESHAPE 也可以用做扁平化</span>
+cprint(<span class="hljs-string">&quot;flatten by reshape: {}&quot;</span>, arr.reshape(-<span class="hljs-number">1</span>,))
 
-# 使用 HSPLIT, VSPLIT 进行降维
-x = np.arange(6).reshape((3, 2))
-cprint(&quot;split:\n{}&quot;, np.hsplit(x, 2))
+<span class="hljs-comment"># 使用 HSPLIT, VSPLIT 进行降维</span>
+x = np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>, <span class="hljs-number">2</span>))
+cprint(<span class="hljs-string">&quot;split:\n{}&quot;</span>, np.hsplit(x, <span class="hljs-number">2</span>))
 
-# RAVEL 与 FLATTEN 的区别：RAVEL 可以操作 PYTHON 的 LIST
-np.ravel([[1,2,3],[4, 5, 6]])
-</code></pre>
+<span class="hljs-comment"># RAVEL 与 FLATTEN 的区别：RAVEL 可以操作 PYTHON 的 LIST</span>
+np.ravel([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])</span></code></pre>
 <p>这里一共介绍了 4 种方法。ravel 与 flatten 用法比较接近。ravel 的行为与 flatten 类似，只不过 ravel 是 np 的一个函数，可作用于 ArrayLike 的数组。</p>
 <hr>
 <p>通过 reshape 来进行扁平化也是常用操作。此外，还介绍了 vsplit, hsplit 函数，它们的作用刚好与 vstack，hstack 相反。</p>
 <h3 id="23-转置">2.3. 转置</h3>
 <p>此外，对数组进行转置也是此类例子中的一个。比如，在前面我们提到，np.argwhere 的结果，实际上是 np.nonzero 的转置，我们来验证一下：</p>
-<pre><code class="language-python">x = np.arange(6).reshape(2,3)
-cprint(&quot;argwhere: {}&quot;, np.argwhere(x &gt; 1))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">x = np.arange(<span class="hljs-number">6</span>).reshape(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
+cprint(<span class="hljs-string">&quot;argwhere: {}&quot;</span>, np.argwhere(x &gt; <span class="hljs-number">1</span>))
 
-# 我们再来看 NP.NONZERO 的转置
-cprint(&quot;nonzero: {}&quot;, np.array(np.nonzero(x &gt; 1)).T)
-</code></pre>
+<span class="hljs-comment"># 我们再来看 NP.NONZERO 的转置</span>
+cprint(<span class="hljs-string">&quot;nonzero: {}&quot;</span>, np.array(np.nonzero(x &gt; <span class="hljs-number">1</span>)).T)</span></code></pre>
 <p>两次输出结果完全一样。在这里，我们是通过<code>.T</code>来实现的转置，它是一个语法糖，正式的函数是<code>transpose</code>。</p>
 <hr>
 <p>当然，由于 reshape 函数极其强大，我们也可以使用它来完成转置：</p>
-<pre><code class="language-python">cprint(&quot;transposing array from \n{} to \n{}&quot;, 
-    np.arange(6).reshape((2,3)),
-    np.arange(6).reshape((3,2)))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">cprint(<span class="hljs-string">&quot;transposing array from \n{} to \n{}&quot;</span>, 
+    np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)),
+    np.arange(<span class="hljs-number">6</span>).reshape((<span class="hljs-number">3</span>,<span class="hljs-number">2</span>)))</span></code></pre>
 <hr>
 
 <p>狄利克雷，德国数学家。他对数论、傅里叶级数理论和其他数学分析学领域有杰出贡献，并被认为是最早给出现代函数定义的数学家之一和解析数论创始人之一。Dirichlet 数组可作为 MPT 求解中的初始值。</p>

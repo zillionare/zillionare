@@ -27,17 +27,16 @@
 <li>周期性行业，往往是高PE值（甚至为负数时）是买入时机，因为往后公司盈利会好转，筹码后面才有派发的机会；低PE值时则是卖出时机，因为往后公司盈利会下降，坏消息不断，这时筹码派发就只能降价派发。</li>
 </ol>
 <p>不过，眼见为实。我们还是拿它来回测一下。在回测时，我们要使用PE_TTM指标而不是PE，PE_TTM是滚动市盈利。PE是以年为单位发布的，这使得它的数据响应不够及时。PE_TTM在时间周期上，它虽然仍是以一年为单位进行计算，但是它是在 4 个季度的滑动窗口上计算和发布的，所以，更能及时反映公司的盈利变化。</p>
-<pre><code class="language-python">start = datetime.date(2018, 1, 1)
-end = datetime.date(2023, 12, 31)
-universe = get_stock_list(start, code_only=True)
-barss = load_bars(start, end, tuple(universe))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+universe = get_stock_list(start, code_only=<span class="hljs-literal">True</span>)
+barss = load_bars(start, end, <span class="hljs-built_in">tuple</span>(universe))
 
-pe = get_daily_basic([&quot;pe_ttm&quot;], start, end, universe) * -1
-prices = barss.price.unstack(level=&quot;asset&quot;)
+pe = get_daily_basic([<span class="hljs-string">&quot;pe_ttm&quot;</span>], start, end, universe) * -<span class="hljs-number">1</span>
+prices = barss.price.unstack(level=<span class="hljs-string">&quot;asset&quot;</span>)
 
 merged = get_clean_factor_and_forward_returns(pe, prices)
-create_returns_tear_sheet(merged)
-</code></pre>
+create_returns_tear_sheet(merged)</span></code></pre>
 <p>这里的get_daily_basic是我们封装的tushare函数，对应着tushare的daily_basic函数，但它可以一次把某个指标的数据取全。</p>
 <p>注意第6行，我们给PE乘上了-1。如果你不明白这是为什么，也许可以考虑学习《因子分析与机器学习策略》这门课。</p>
 <p>这是回测的年化Alpha。在我们的公众号上，曾出现过好多次年化Alpha超过15%的因子 -- 它们都是从无数次失败中选出来的 -- 实际上很多因子都跟PE一样：</p>
@@ -55,29 +54,28 @@ create_returns_tear_sheet(merged)
 <p>所以，我们下面来给PE去噪声。去噪声的方法就是将PE除以收盘价。这样得到的实际上是每股收益的倒数。</p>
 <p>生猪行业是一个强周期的行业。我们选其中一个看看：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">def deepinsight_fundamental(ticker: str, field, start, end, inverse = False):
-    df = get_daily_basic([field, &quot;close&quot;], start, end, (ticker,))
-    df = df.xs(ticker, level=&quot;asset&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">deepinsight_fundamental</span>(<span class="hljs-params">ticker: <span class="hljs-built_in">str</span>, field, start, end, inverse = <span class="hljs-literal">False</span></span>):
+    df = get_daily_basic([field, <span class="hljs-string">&quot;close&quot;</span>], start, end, (ticker,))
+    df = df.xs(ticker, level=<span class="hljs-string">&quot;asset&quot;</span>)
 
-    if inverse:
-        df[field] = df[&quot;close&quot;] / df[field]
-    else:
-        df[field] = df[field] / df[&quot;close&quot;]
+    <span class="hljs-keyword">if</span> inverse:
+        df[field] = df[<span class="hljs-string">&quot;close&quot;</span>] / df[field]
+    <span class="hljs-keyword">else</span>:
+        df[field] = df[field] / df[<span class="hljs-string">&quot;close&quot;</span>]
 
-    df[&quot;d1&quot;] = df[field].diff()
-    df.ffill(inplace=True)
-    _, ax = plt.subplots(figsize=(15, 5))
-    ax.plot(df.index, df[&quot;d1&quot;], label=f&quot;{field}_denoise&quot;)
+    df[<span class="hljs-string">&quot;d1&quot;</span>] = df[field].diff()
+    df.ffill(inplace=<span class="hljs-literal">True</span>)
+    _, ax = plt.subplots(figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">5</span>))
+    ax.plot(df.index, df[<span class="hljs-string">&quot;d1&quot;</span>], label=<span class="hljs-string">f&quot;<span class="hljs-subst">{field}</span>_denoise&quot;</span>)
     ax2 = ax.twinx()
-    ax2.plot(df.index, df[&quot;close&quot;], label=&quot;close&quot;, color=&quot;r&quot;)
-    ax.legend(loc=2)
-    ax2.legend(loc=1)
+    ax2.plot(df.index, df[<span class="hljs-string">&quot;close&quot;</span>], label=<span class="hljs-string">&quot;close&quot;</span>, color=<span class="hljs-string">&quot;r&quot;</span>)
+    ax.legend(loc=<span class="hljs-number">2</span>)
+    ax2.legend(loc=<span class="hljs-number">1</span>)
     plt.show()
 
-start = datetime.date(2005, 1, 1)
-end = datetime.date(2014, 10,31)
-deepinsight_fundamental(&quot;002714.XSHE&quot;, &quot;pe_ttm&quot;, start, end)
-</code></pre>
+start = datetime.date(<span class="hljs-number">2005</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2014</span>, <span class="hljs-number">10</span>,<span class="hljs-number">31</span>)
+deepinsight_fundamental(<span class="hljs-string">&quot;002714.XSHE&quot;</span>, <span class="hljs-string">&quot;pe_ttm&quot;</span>, start, end)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -89,10 +87,9 @@ deepinsight_fundamental(&quot;002714.XSHE&quot;, &quot;pe_ttm&quot;, start, end)
 
 <p>这是2005年到2014年间的结果。我们看到，大约在2014年4月前后，出现一个明显的信号，随后该资产价格上涨了60%（由于tushare数据在此处未复权，实际上涨更多）。</p>
 <p>我们再来看2015到2022年的结果：</p>
-<pre><code class="language-python">start = datetime.date(2014, 1, 1)
-end = datetime.date(2022, 12, 31)
-deepinsight_fundamental(&quot;002714.XSHE&quot;, &quot;pe_ttm&quot;, start, end)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2014</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2022</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+deepinsight_fundamental(<span class="hljs-string">&quot;002714.XSHE&quot;</span>, <span class="hljs-string">&quot;pe_ttm&quot;</span>, start, end)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/mygf-pe-diff-2018.jpg'>
@@ -109,24 +106,22 @@ deepinsight_fundamental(&quot;002714.XSHE&quot;, &quot;pe_ttm&quot;, start, end)
 <p>我们已经揭示了非常有趣的一个谜底。现在，我们来回答第一个问题，沪指上涨到3450之后，现在的市盈率是高还是低？</p>
 <h2 id="3450点现在沪指高了吗">3450点，现在沪指高了吗？</h2>
 <p>我们总是通过数据来说话。先取沪指数据：</p>
-<pre><code class="language-python">import akshare as ak
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
 
-pe = ak.stock_market_pe_lg(symbol=&quot;上证&quot;)
-pe.set_index(&quot;日期&quot;, inplace=True)
-pe.index.name = &quot;date&quot;
-pe.rename(columns={&quot;平均市盈率&quot;: &quot;pe&quot;, &quot;指数&quot;: &quot;price&quot;}, inplace=True)
-pe.tail(15)
-</code></pre>
+pe = ak.stock_market_pe_lg(symbol=<span class="hljs-string">&quot;上证&quot;</span>)
+pe.set_index(<span class="hljs-string">&quot;日期&quot;</span>, inplace=<span class="hljs-literal">True</span>)
+pe.index.name = <span class="hljs-string">&quot;date&quot;</span>
+pe.rename(columns={<span class="hljs-string">&quot;平均市盈率&quot;</span>: <span class="hljs-string">&quot;pe&quot;</span>, <span class="hljs-string">&quot;指数&quot;</span>: <span class="hljs-string">&quot;price&quot;</span>}, inplace=<span class="hljs-literal">True</span>)
+pe.tail(<span class="hljs-number">15</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pe-vs-index.jpg" alt="表1 市盈率与指数"></p>
 <!-- END IPYNB STRIPOUT -->
 
 <p>这样我们就得到了1999年以来沪指全部市盈率数据。我们用同样的方法来查看一下全市场的盈利能力。</p>
-<pre><code class="language-python">a = pe.copy()
-a[&quot;adj&quot;] = a.price/a.pe
-a = a[[&quot;price&quot;, &quot;adj&quot;]]
-a.plot(secondary_y=&#39;price&#39;, figsize=(15,5))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">a = pe.copy()
+a[<span class="hljs-string">&quot;adj&quot;</span>] = a.price/a.pe
+a = a[[<span class="hljs-string">&quot;price&quot;</span>, <span class="hljs-string">&quot;adj&quot;</span>]]
+a.plot(secondary_y=<span class="hljs-string">&#x27;price&#x27;</span>, figsize=(<span class="hljs-number">15</span>,<span class="hljs-number">5</span>))</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/ashare-adj-pe.jpg'>
@@ -138,36 +133,35 @@ a.plot(secondary_y=&#39;price&#39;, figsize=(15,5))
 <p>从2016年初到2024年初，这一指标上涨了25%，当时是2737点，上涨25%就是3421点左右。这是大的趋势来看，它不会很精确，只是一种猜想。</p>
 <p>最后，我们来回答3450点的沪指，现在处在2016年以来的哪个分位数上。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">start = datetime.date(2016, 1, 1)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2016</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
 pe2016 = pe.loc[start:]
 
-rank = pe2016.rank().loc[:, &quot;pe&quot;]
-percentile = rank / len(pe2016)
+rank = pe2016.rank().loc[:, <span class="hljs-string">&quot;pe&quot;</span>]
+percentile = rank / <span class="hljs-built_in">len</span>(pe2016)
 percentile.plot()
 
-p30 = 0.3
-p70 = 0.7
+p30 = <span class="hljs-number">0.3</span>
+p70 = <span class="hljs-number">0.7</span>
 
-# 30和70分位
-plt.axhline(y=p30, color=&#39;green&#39;, linestyle=&#39;--&#39;, label=&#39;30th Percentile&#39;)
-plt.axhline(y=p70, color=&#39;red&#39;, linestyle=&#39;--&#39;, label=&#39;70th Percentile&#39;)
+<span class="hljs-comment"># 30和70分位</span>
+plt.axhline(y=p30, color=<span class="hljs-string">&#x27;green&#x27;</span>, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>, label=<span class="hljs-string">&#x27;30th Percentile&#x27;</span>)
+plt.axhline(y=p70, color=<span class="hljs-string">&#x27;red&#x27;</span>, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>, label=<span class="hljs-string">&#x27;70th Percentile&#x27;</span>)
 
-# 获取最后一期的PE值及其日期
-last_pe = pe2016[&#39;pe&#39;].iloc[-1]
-last_date = pe2016.index[-1]
+<span class="hljs-comment"># 获取最后一期的PE值及其日期</span>
+last_pe = pe2016[<span class="hljs-string">&#x27;pe&#x27;</span>].iloc[-<span class="hljs-number">1</span>]
+last_date = pe2016.index[-<span class="hljs-number">1</span>]
 
-# 在图上标注最后一期的PE值
-plt.annotate(f&#39;PE/分位: {last_pe:.2f}/{percentile.iloc[-1]:.1%}&#39;, 
-             xy=(last_date, percentile.iloc[-1]), 
-             xytext=(last_date, percentile.iloc[-1] + 0.05), 
-             arrowprops=dict(facecolor=&#39;red&#39;, shrink=0.05))
+<span class="hljs-comment"># 在图上标注最后一期的PE值</span>
+plt.annotate(<span class="hljs-string">f&#x27;PE/分位: <span class="hljs-subst">{last_pe:<span class="hljs-number">.2</span>f}</span>/<span class="hljs-subst">{percentile.iloc[-<span class="hljs-number">1</span>]:<span class="hljs-number">.1</span>%}</span>&#x27;</span>, 
+             xy=(last_date, percentile.iloc[-<span class="hljs-number">1</span>]), 
+             xytext=(last_date, percentile.iloc[-<span class="hljs-number">1</span>] + <span class="hljs-number">0.05</span>), 
+             arrowprops=<span class="hljs-built_in">dict</span>(facecolor=<span class="hljs-string">&#x27;red&#x27;</span>, shrink=<span class="hljs-number">0.05</span>))
 
-# 添加图例
+<span class="hljs-comment"># 添加图例</span>
 plt.legend()
 
-# 显示图形
-plt.show()
-</code></pre>
+<span class="hljs-comment"># 显示图形</span>
+plt.show()</span></code></pre>
 <!--PAID CONTENT END-->
 
 

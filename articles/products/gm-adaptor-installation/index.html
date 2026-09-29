@@ -49,12 +49,10 @@
 <li><p>在windows机器上安装<a href="https://emt.eastmoneysec.com/down">https://emt.eastmoneysec.com/down</a>，下载并安装第二个软件：</p>
 </li>
 <li><p>在同一台机器上安装conda，推荐安装miniconda，并创建虚拟运行环境（python版本3.8）：</p>
-<pre><code>conda create -n gmclient python=3.8
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">conda <span class="hljs-keyword">create</span> <span class="hljs-operator">-</span>n gmclient python<span class="hljs-operator">=</span><span class="hljs-number">3.8</span></span></code></pre>
 </li>
 <li><p>安装gmadaptor:</p>
-<pre><code>pip install gmadaptor-1.1.3-py3-none-any.whl
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install gmadaptor-<span class="hljs-number">1.1</span><span class="hljs-number">.3</span>-py3-none-<span class="hljs-built_in">any</span>.whl</span></code></pre>
 </li>
 </ol>
 <h2 id="12-申请权限">1.2. 申请权限</h2>
@@ -72,30 +70,29 @@
 <p>以下步骤对实盘和模拟盘均有效。</p>
 <h4>1.3.1.1. gmadaptor的配置文件</h4>
 <p>需要将量化软件中的实盘账号配置到gmadaptor的配置文件中。在用户目录下，创建<code>gmadaptor/config</code>目录，放置以下文件：</p>
-<pre><code class="language-yaml"># defaults.yaml
-log_level: INFO
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-comment"># defaults.yaml</span>
+<span class="hljs-attr">log_level:</span> <span class="hljs-string">INFO</span>
 
-server_info:
-    port: 9000
-    # client 使用这一token来访问 gmadaptor 提供的服务
-    access_token : &quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;
+<span class="hljs-attr">server_info:</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">9000</span>
+    <span class="hljs-comment"># client 使用这一token来访问 gmadaptor 提供的服务</span>
+    <span class="hljs-attr">access_token :</span> <span class="hljs-string">&quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;</span>
 
-gm_info:
-    fake: false
-    # 文件单输出目录
-    gm_output: &quot;~/gmadaptor/FileOrders/out&quot;
-    trade_fees:
-        commission: 2.5
-        stamp_duty: 10.0
-        transfer_fee: 0.1
-        minimum_cost: 5.0
-    accounts:
-        # 账号名
-        - name: fileorder_s01
-          acct_id: 1a66e81c-ae5d-11ec-aef5-00163e0a4100
-          # 文件单输入目录。东财量化终端将从这里读取文件单
-          acct_input: &quot;~/gmadaptor/FileOrders/inputs/fileorder_s01&quot;
-</code></pre>
+<span class="hljs-attr">gm_info:</span>
+    <span class="hljs-attr">fake:</span> <span class="hljs-literal">false</span>
+    <span class="hljs-comment"># 文件单输出目录</span>
+    <span class="hljs-attr">gm_output:</span> <span class="hljs-string">&quot;~/gmadaptor/FileOrders/out&quot;</span>
+    <span class="hljs-attr">trade_fees:</span>
+        <span class="hljs-attr">commission:</span> <span class="hljs-number">2.5</span>
+        <span class="hljs-attr">stamp_duty:</span> <span class="hljs-number">10.0</span>
+        <span class="hljs-attr">transfer_fee:</span> <span class="hljs-number">0.1</span>
+        <span class="hljs-attr">minimum_cost:</span> <span class="hljs-number">5.0</span>
+    <span class="hljs-attr">accounts:</span>
+        <span class="hljs-comment"># 账号名</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">fileorder_s01</span>
+          <span class="hljs-attr">acct_id:</span> <span class="hljs-string">1a66e81c-ae5d-11ec-aef5-00163e0a4100</span>
+          <span class="hljs-comment"># 文件单输入目录。东财量化终端将从这里读取文件单</span>
+          <span class="hljs-attr">acct_input:</span> <span class="hljs-string">&quot;~/gmadaptor/FileOrders/inputs/fileorder_s01&quot;</span></span></code></pre>
 <p>上述配置中，access_token 可任意指定，任何要访问此服务的客户端，必须持有此 token。</p>
 <p>gm_output/acct_input 文件设置后，如果未创建，gmadaptor 将在启动时自动创建，请确保 gmadaptor 有权限读写这些文件夹。</p>
 <p>accounts &gt; name 中的值来自于在 EMC 终端中，您创建文件单输入时，指定的名称，见下图中的序号2：</p>
@@ -109,13 +106,11 @@ gm_info:
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/input.jpg?1" alt=""></p>
 <h3 id="132-模拟运行">1.3.2. 模拟运行</h3>
 <p>在前面生成的gmclient虚拟环境中，执行以下命令，以启动gmadaptor服务器：</p>
-<pre><code>python -m gmadaptor.server
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python -m gmadaptor.server</span></code></pre>
 <p>如果出现如下界面，表明服务器启动成功：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/started.jpg" alt=""></p>
 <p>此时我们另开一个<code>conda</code>窗口，同样使用<code>gmclient</code>的虚拟环境，通过以下命令进行测试:</p>
-<pre><code>python -m gmtest %account %token %server %port
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python -m gmtest %account %token %server %port</span></code></pre>
 <p>这里的account即 gmadaptor配置文件中的 gm_info &gt; accounts &gt; account_id, token 即server_info &gt; access_token</p>
 <p>这里的 server 即gmadaptor 所在的机器IP， port为端口。如果不提供，默认地，这两项分别为localhost和9000。</p>
 <p>如果配置正常，这将打印出初始账号资金，当前持仓，和一笔买、卖的信息。</p>
@@ -123,24 +118,22 @@ gm_info:
 <p>另外启动一个计划任务，在每天早上8:45左右启动EMC。</p>
 <h3 id="141-启动">1.4.1. 启动</h3>
 <p>使用下面的脚本来启动：</p>
-<pre><code>@echo off
-call C:\ProgramData\Anaconda3\Scripts\activate.bat C:\ProgramData\anaconda3
-call conda activate gmclient
-python -m gmadaptor.server
-pause
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-variable">@echo</span> off
+<span class="hljs-keyword">call</span> C:\ProgramData\Anaconda3\Scripts\activate.bat C:\ProgramData\anaconda3
+<span class="hljs-keyword">call</span> conda activate gmclient
+python <span class="hljs-operator">-</span>m gmadaptor.server
+pause</span></code></pre>
 <h3 id="142-每日维护">1.4.2. 每日维护</h3>
 <p>EMC量化终端有时候不稳定。我们可以通过定时重启来提高起稳定性。通过以下代码，在盘后退出EMC：</p>
-<pre><code>REM kill process
-TASKKILL /F /IM EMCTrade.exe
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">REM kill process
+TASKKILL <span class="hljs-operator">/</span><span class="hljs-built_in">F</span> <span class="hljs-operator">/</span>IM EMCTrade.exe
 
-REM sleep 5 seconds
-TIMEOUT  /T 5
+REM sleep <span class="hljs-number">5</span> seconds
+TIMEOUT  <span class="hljs-operator">/</span><span class="hljs-built_in">T</span> <span class="hljs-number">5</span>
 
-REM remove all file orders after process killed
+REM remove <span class="hljs-built_in">all</span> file orders after process killed
 
-DEL /Q C:\zillionare\FileOrders\real_input\*.csv
-</code></pre>
+DEL <span class="hljs-operator">/</span>Q C<span class="hljs-operator">:</span><span class="hljs-punctuation">\</span>zillionare<span class="hljs-punctuation">\</span>FileOrders<span class="hljs-punctuation">\</span>real_input<span class="hljs-punctuation">\</span><span class="hljs-operator">*</span>.csv</span></code></pre>
 <div class="admonition admonition-Warning"><p class="admonition-title">Warning</p>
 如果在输入输出目录中还有未归档的文件，则量化交易将无法自动启动。上述代码中最后一行的作用就是清理未归档文件。
 这也要求使用者自行对委托进行核验，确保这些文件可以被自动删除。
@@ -152,170 +145,159 @@ DEL /Q C:\zillionare\FileOrders\real_input\*.csv
 <p>在所有的操作中，股票代码都必须以简码+交易所后缀方式出现，其中上交所为.XSHG，深交所为.XSHE。在仿真测试时，对股票进行操作时，都有特定的响应（比如对某支股票，进行买入时，无论给的参数是多少，返回都会是部分成交；对另一支股票，则永远返回限制买入等等），具体响应文档请在东财量化Q群中，找管理员要文档。</p>
 <p>在一些会改变状态的请求中（比如买入操作），往往会需要<code>cid</code>参数和<code>timeout</code>参数，其作用是，调用会在指定的timeout期间等待EMC处理请求，并返回结果；但EMC也可能无法在指定的timeout期间返回结果，比如委买单报价过低，一直不能成交，此时将无法产生回报结果。在这种情况下，调用会在timeout之后返回。之后的委买结果查询，就需要依赖<code>cid</code>参数。注意<code>cid</code>是必选参数，<code>timeout</code>是可选参数。</p>
 <p><code>cid</code>参数（即client entrust id）由客户端自行产生，建议使用以下代码：</p>
-<pre><code class="language-python">import uuid
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> uuid
 
-cid = str(uuid.uuid4())
-</code></pre>
+cid = <span class="hljs-built_in">str</span>(uuid.uuid4())</span></code></pre>
 <p><code>cid</code>产生之后，请在客户端保存，直到事务结束，不再需要为止。</p>
 <p>为简练起见，以下示例中，可能删除了这些代码：</p>
-<pre><code class="language-python">import httpx
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">import</span> httpx
 headers = {
-    &quot;Authorization&quot;: &quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;,
-    &quot;Account-ID&quot;: &quot;780dc4fda3d0af8a2d3ab0279bfa48c9&quot;
+    <span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">&quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;</span>,
+    <span class="hljs-string">&quot;Account-ID&quot;</span>: <span class="hljs-string">&quot;780dc4fda3d0af8a2d3ab0279bfa48c9&quot;</span>
 }
 
-_url_prefix = &quot;http://192.168.100.100:9000/&quot;
+_url_prefix = <span class="hljs-string">&quot;http://192.168.100.100:9000/&quot;</span>
 
-buy_entrust_no = None
-sell_entrust_no = None
-</code></pre>
+buy_entrust_no = <span class="hljs-literal">None</span>
+sell_entrust_no = <span class="hljs-literal">None</span></span></code></pre>
 <h2 id="22-返回结果">2.2. 返回结果</h2>
 <p>返回错误可能发生在三个层面。一是http层（包括 bad request 或者 Internal server error); 二是 gmadaptor层，三是 emc可能返回错误。</p>
 <p>第一层的错误，我们通过 http status code来检查。比如，如果我们使用的客户端是httpx，则可以检查 <code>response.status_code</code>是否为200。</p>
 <p>gmadaptor始终通过<code>json</code>来返回响应，响应包括三个字段，即：</p>
-<pre><code>status: int,如果为零，则表明在此层没有发生错误，即gmadaptor已经将请求正确上报
-msg: str, human readable message
-data: dict 如果一切顺利，则返回数据在此项中
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">status: <span class="hljs-built_in">int</span>,如果为零，则表明在此层没有发生错误，即gmadaptor已经将请求正确上报
+msg: <span class="hljs-built_in">str</span>, human readable message
+data: <span class="hljs-built_in">dict</span> 如果一切顺利，则返回数据在此项中</span></code></pre>
 <p>第三层的错误由 emc trader给出。即使gmadaptor正确上报的请求，也可能emc trader无法执行，此时它也会通过<code>status</code>和<code>reason</code>来给出错误信息。</p>
 <p>下面的示例给出了一个<code>response.json()</code>的输出：</p>
-<pre><code class="language-json">{
-    &quot;status&quot;: 0,
-    &quot;msg&quot;: &quot;OK&quot;,
-    &quot;data&quot;: {
-        &quot;code&quot;: &quot;000001.XSHE&quot;,
-        &quot;price&quot;: 0.0,
-        &quot;volume&quot;: 100,
-        &quot;order_side&quot;: 1,
-        &quot;bid_type&quot;: 2,
-        &quot;time&quot;: &quot;2023-04-04 15:27:38.921555&quot;,
-        &quot;entrust_no&quot;: &quot;0d23bb4e-d81e-4ef2-ab21-c58e0fe6814f&quot;,
-        &quot;status&quot;: -1,
-        &quot;average_price&quot;: 0.0,
-        &quot;filled&quot;: 0,
-        &quot;filled_amount&quot;: 0,
-        &quot;eid&quot;: &quot;&quot;,
-        &quot;trade_fees&quot;: 0,
-        &quot;reason&quot;: &quot;[Counter] [EMC_PC]不支持该下单类型&quot;,
-        &quot;recv_at&quot;: &quot;2023-04-04 15:27:38.924565&quot;
-    }
-}
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;OK&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;000001.XSHE&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;volume&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;order_side&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;bid_type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;time&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-04-04 15:27:38.921555&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;entrust_no&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0d23bb4e-d81e-4ef2-ab21-c58e0fe6814f&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-1</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;average_price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;filled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;filled_amount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;eid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;trade_fees&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;reason&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;[Counter] [EMC_PC]不支持该下单类型&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;recv_at&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-04-04 15:27:38.924565&quot;</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></span></code></pre>
 <p>因此，即使在gmadator层面给出的状态是成功，也并不意味着该笔委托成功。另一个例子是，以过低的价格委买，只要参数合法且被EMC接收，gmadaptor都会返回成功，但该委托是否真正成交，还得通过entrust_no来查询。</p>
 <h2 id="23-资产表">2.3. 资产表</h2>
-<pre><code class="language-python"># 请求资金信息
-import httpx
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-comment"># 请求资金信息</span>
+<span class="hljs-keyword">import</span> httpx
 headers = {
-    &quot;Authorization&quot;: &quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;,
-    &quot;Account-ID&quot;: &quot;780dc4fda3d0af8a2d3ab0279bfa48c9&quot;
+    <span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">&quot;84ae0899-7a8d-44ff-9983-4fa7cbbc424b&quot;</span>,
+    <span class="hljs-string">&quot;Account-ID&quot;</span>: <span class="hljs-string">&quot;780dc4fda3d0af8a2d3ab0279bfa48c9&quot;</span>
 }
 
-_url_prefix = &quot;http://192.168.100.100:9000/&quot;
+_url_prefix = <span class="hljs-string">&quot;http://192.168.100.100:9000/&quot;</span>
 
-def get_balance():
-    r = httpx.post(_url_prefix + &quot;balance&quot;, headers=headers)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_balance</span>():
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;balance&quot;</span>, headers=headers)
     resp = r.json()
-    if r.status_code == 200 and resp[&#39;status&#39;] == 0:
-        print(&quot;\n------ 账户资金信息 ------&quot;)
-        print(resp[&quot;data&quot;])
-</code></pre>
+    <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span> <span class="hljs-keyword">and</span> resp[<span class="hljs-string">&#x27;status&#x27;</span>] == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n------ 账户资金信息 ------&quot;</span>)
+        <span class="hljs-built_in">print</span>(resp[<span class="hljs-string">&quot;data&quot;</span>])</span></code></pre>
 <h2 id="24-持仓表">2.4. 持仓表</h2>
-<pre><code class="language-python">def get_positions():
-    r = httpx.post(_url_prefix + &quot;positions&quot;, headers=headers)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_positions</span>():
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;positions&quot;</span>, headers=headers)
     
     resp = r.json()
-    if r.status_code == 200 and resp[&#39;status&#39;] == 0:
-        print(&quot;\n----- 持仓信息 ------&quot;)
-        print(resp[&quot;data&quot;])
-</code></pre>
+    <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span> <span class="hljs-keyword">and</span> resp[<span class="hljs-string">&#x27;status&#x27;</span>] == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n----- 持仓信息 ------&quot;</span>)
+        <span class="hljs-built_in">print</span>(resp[<span class="hljs-string">&quot;data&quot;</span>])</span></code></pre>
 <h2 id="25-限价买入">2.5. 限价买入</h2>
-<pre><code class="language-python">    r = httpx.post(_url_prefix + &quot;buy&quot;, headers=headers, json={
-        &quot;security&quot;: &quot;000001.XSHE&quot;,
-        &quot;price&quot;: 13,
-        &quot;volume&quot;: 100,
-        &quot;cid&quot;: str(uuid.uuid4()),
-        &quot;timeout&quot;: 1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;buy&quot;</span>, headers=headers, json={
+        <span class="hljs-string">&quot;security&quot;</span>: <span class="hljs-string">&quot;000001.XSHE&quot;</span>,
+        <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">13</span>,
+        <span class="hljs-string">&quot;volume&quot;</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-string">&quot;cid&quot;</span>: <span class="hljs-built_in">str</span>(uuid.uuid4()),
+        <span class="hljs-string">&quot;timeout&quot;</span>: <span class="hljs-number">1</span>
     })
 
-    print(r.json())
-</code></pre>
+    <span class="hljs-built_in">print</span>(r.json())</span></code></pre>
 <h2 id="26-市价买入">2.6. 市价买入</h2>
-<pre><code class="language-python">def market_buy():
-    global buy_entrust_no
-    r = httpx.post(_url_prefix + &quot;market_buy&quot;, headers=headers, json={
-        &quot;security&quot;: &quot;000001.XSHE&quot;,
-        &quot;volume&quot;: 100,
-        &quot;cid&quot;: cid,
-        &quot;timeout&quot;: 1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">market_buy</span>():
+    <span class="hljs-keyword">global</span> buy_entrust_no
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;market_buy&quot;</span>, headers=headers, json={
+        <span class="hljs-string">&quot;security&quot;</span>: <span class="hljs-string">&quot;000001.XSHE&quot;</span>,
+        <span class="hljs-string">&quot;volume&quot;</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-string">&quot;cid&quot;</span>: cid,
+        <span class="hljs-string">&quot;timeout&quot;</span>: <span class="hljs-number">1</span>
     })
 
     resp = r.json()
-    if r.status_code == 200 and resp[&quot;status&quot;] == 0:
-        print(&quot;\n ------ 委买成功 ------&quot;)
-        print(resp[&quot;status&quot;], resp[&quot;msg&quot;], resp[&quot;data&quot;])
-        buy_entrust_no = resp[&quot;data&quot;][&quot;entrust_no&quot;]
-    else:
-        print(&quot;委买失败:&quot;, r.status_code, resp)
-</code></pre>
+    <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span> <span class="hljs-keyword">and</span> resp[<span class="hljs-string">&quot;status&quot;</span>] == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n ------ 委买成功 ------&quot;</span>)
+        <span class="hljs-built_in">print</span>(resp[<span class="hljs-string">&quot;status&quot;</span>], resp[<span class="hljs-string">&quot;msg&quot;</span>], resp[<span class="hljs-string">&quot;data&quot;</span>])
+        buy_entrust_no = resp[<span class="hljs-string">&quot;data&quot;</span>][<span class="hljs-string">&quot;entrust_no&quot;</span>]
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;委买失败:&quot;</span>, r.status_code, resp)</span></code></pre>
 <h2 id="27-限价卖出">2.7. 限价卖出</h2>
-<pre><code class="language-python">def sell():
-    global sell_entrust_no
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">sell</span>():
+    <span class="hljs-keyword">global</span> sell_entrust_no
 
-    r = httpx.post(_url_prefix + &quot;sell&quot;, headers=headers, json={
-        &quot;security&quot;: &quot;000001.XSHE&quot;,
-        &quot;price&quot;: 10,
-        &quot;volume&quot;: 100,
-        &quot;cid&quot;: cid,
-        &quot;timeout&quot;: 1
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;sell&quot;</span>, headers=headers, json={
+        <span class="hljs-string">&quot;security&quot;</span>: <span class="hljs-string">&quot;000001.XSHE&quot;</span>,
+        <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">10</span>,
+        <span class="hljs-string">&quot;volume&quot;</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-string">&quot;cid&quot;</span>: cid,
+        <span class="hljs-string">&quot;timeout&quot;</span>: <span class="hljs-number">1</span>
     })
 
     resp = r.json()
-    if r.status_code == 200 and resp[&quot;status&quot;] == 0:
-        print(&quot;\n ------ 限价委卖成功 ------&quot;)
-        data = resp[&quot;data&quot;]
-        print(data)
-        sell_entrust_no = data[&quot;entrust_no&quot;]
-    else:
-        print(&quot;卖出失败:&quot;, r.status_code, resp)
-</code></pre>
+    <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span> <span class="hljs-keyword">and</span> resp[<span class="hljs-string">&quot;status&quot;</span>] == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n ------ 限价委卖成功 ------&quot;</span>)
+        data = resp[<span class="hljs-string">&quot;data&quot;</span>]
+        <span class="hljs-built_in">print</span>(data)
+        sell_entrust_no = data[<span class="hljs-string">&quot;entrust_no&quot;</span>]
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;卖出失败:&quot;</span>, r.status_code, resp)</span></code></pre>
 <h2 id="28-市价卖出">2.8. 市价卖出</h2>
-<pre><code class="language-python">def market_sell():
-    r = httpx.post(_url_prefix + &quot;market_sell&quot;, headers=headers, json = {
-        &quot;security&quot;: &quot;000001.XSHE&quot;,
-        &quot;volume&quot;: 100,
-        &quot;cid&quot;: cid
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">market_sell</span>():
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;market_sell&quot;</span>, headers=headers, json = {
+        <span class="hljs-string">&quot;security&quot;</span>: <span class="hljs-string">&quot;000001.XSHE&quot;</span>,
+        <span class="hljs-string">&quot;volume&quot;</span>: <span class="hljs-number">100</span>,
+        <span class="hljs-string">&quot;cid&quot;</span>: cid
     })
 
     resp = r.json()
-    if r.status_code == 200 and resp[&quot;status&quot;] == 0:
-        print(&quot;\n ------ 市价委卖成功 ------&quot;)
-        print(resp[&quot;data&quot;])
-    else:
-        print(resp)
-</code></pre>
+    <span class="hljs-keyword">if</span> r.status_code == <span class="hljs-number">200</span> <span class="hljs-keyword">and</span> resp[<span class="hljs-string">&quot;status&quot;</span>] == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n ------ 市价委卖成功 ------&quot;</span>)
+        <span class="hljs-built_in">print</span>(resp[<span class="hljs-string">&quot;data&quot;</span>])
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(resp)</span></code></pre>
 <h2 id="29-取消委托">2.9. 取消委托</h2>
-<pre><code class="language-python">def cancel_entrust():
-    global buy_entrust_no
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">cancel_entrust</span>():
+    <span class="hljs-keyword">global</span> buy_entrust_no
 
-    r = httpx.post(_url_prefix + &quot;cancel_entrust&quot;, headers=headers, json = {
-        &quot;entrust_no&quot;: buy_entrust_no,
-        &quot;timeout&quot;: 1
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;cancel_entrust&quot;</span>, headers=headers, json = {
+        <span class="hljs-string">&quot;entrust_no&quot;</span>: buy_entrust_no,
+        <span class="hljs-string">&quot;timeout&quot;</span>: <span class="hljs-number">1</span>
     })
 
     resp = r.json()
-    print(resp[&quot;status&quot;], resp[&quot;msg&quot;], resp[&quot;data&quot;])
-</code></pre>
+    <span class="hljs-built_in">print</span>(resp[<span class="hljs-string">&quot;status&quot;</span>], resp[<span class="hljs-string">&quot;msg&quot;</span>], resp[<span class="hljs-string">&quot;data&quot;</span>])
+</span></code></pre>
 <h2 id="210-查询当日委托">2.10. 查询当日委托</h2>
-<pre><code class="language-python">def today_entrusts():
-    r = httpx.post(_url_prefix + &quot;today_entrusts&quot;, headers=headers, json = {
-        # 此处可以传入记录的委托号。传入空数组时，表明取当天所有委托。
-        &quot;entrust_no&quot;: [],
-        &quot;timeout&quot;: 1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">today_entrusts</span>():
+    r = httpx.post(_url_prefix + <span class="hljs-string">&quot;today_entrusts&quot;</span>, headers=headers, json = {
+        <span class="hljs-comment"># 此处可以传入记录的委托号。传入空数组时，表明取当天所有委托。</span>
+        <span class="hljs-string">&quot;entrust_no&quot;</span>: [],
+        <span class="hljs-string">&quot;timeout&quot;</span>: <span class="hljs-number">1</span>
     })
 
     resp = r.json()
-    print(resp[&quot;status&quot;], resp[&quot;msg&quot;], resp[&quot;data&quot;])
-</code></pre>
+    <span class="hljs-built_in">print</span>(resp[<span class="hljs-string">&quot;status&quot;</span>], resp[<span class="hljs-string">&quot;msg&quot;</span>], resp[<span class="hljs-string">&quot;data&quot;</span>])</span></code></pre>
 <h1 id="3-故障排除与帮助">3. 故障排除与帮助</h1>
 <p>关于东财文件单，请参考：<a href="https://emquant.18.cn/file-help/?doc=file_order">https://emquant.18.cn/file-help/?doc=file_order</a>
 东财量化Q群：971584613</p>
@@ -327,31 +309,30 @@ def get_balance():
 <h2 id="撮合配置规则">撮合配置规则</h2>
 <p>在仿真交易测试中，EMTrader对每个品种，都指定了对应的响应。比如，对000572这个品种，买入一定会全部成交，对000010这个品种，则一定会拒绝。这是为了方便测试的需要。东财提供了名为《撮合配置规则》的文件，该文件可能随时更新，所以，需要在测试前，加他们技术人员QQ领取。</p>
 <p>该文件2023年3月份部分内容如下：</p>
-<pre><code>[全部成交]
-000572	full
-000725	full
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body">[全部成交]
+<span class="hljs-number">000572</span>	<span class="hljs-keyword">full</span>
+<span class="hljs-number">000725</span>	<span class="hljs-keyword">full</span>
 
 [分笔成交] 
 分成两笔：
-000002	lot      	2
+<span class="hljs-number">000002</span>	lot      	<span class="hljs-number">2</span>
 
 [部分成交] 成交一半
-000001	part
-000004	part
+<span class="hljs-number">000001</span>	part
+<span class="hljs-number">000004</span>	part
 ...
 [挂单]	只有响应，没有成交
-018014	pending
-020417	pending
+<span class="hljs-number">018014</span>	pending
+<span class="hljs-number">020417</span>	pending
 ...
 
 [拒单]	
-000010	reject
-010609	reject
+<span class="hljs-number">000010</span>	reject
+<span class="hljs-number">010609</span>	reject
 
 [拒绝撤单] 部分成交，不可撤单
-000008	cancel_reject
-000151	cancel_reject
-</code></pre>
+<span class="hljs-number">000008</span>	cancel_reject
+<span class="hljs-number">000151</span>	cancel_reject</span></code></pre>
 <h2 id="联系方式">联系方式</h2>
 <p>如果您在使用本模块中需要帮助，或者需要参加<a href="https://github.com/zillionare">《大富翁量化编程实战课》</a>学习，请添加 宽粉 的微信：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.jpg" alt=""></p>

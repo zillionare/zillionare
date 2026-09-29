@@ -34,7 +34,7 @@
 <h2 id="1-技术文档的组成">1. 技术文档的组成</h2>
 <p>一份技术文档通常有两个来源：一是我们在写代码的过程中按照一定风格进行注释，通过工具将其提取出来形成的所谓 API 文档，这部分文档深入到细节之中；二是在此之外，我们特别撰写的帮助文档，相比 API 文档，它们更加宏观概要，涵盖了 API 文档中不适合提及的部分，比如整个软件的设计理念与原则、安装指南、License 信息、版本历史、涵盖全局的示例等等。</p>
 <p>时至今日，在 Python 世界里，大致有两种流行的技术文档构建技术栈，即 sphinx 和 mkdocs。下面是基于 sphinx 技术栈构建的一份文件清单：</p>
-<pre><code>.
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">.
 ├── AUTHORS.rst
 ├── CONTRIBUTING.rst
 ├── HISTORY.rst
@@ -45,8 +45,7 @@
 │   ├── Makefile
 │   ├── make.bat
 │   └── index.rst
-└── Makefile
-</code></pre>
+└── Makefile</span></code></pre>
 <p>这个布局是《<a href="https://docs.python-guide.org/writing/structure/">Python 最佳实践指南</a>》一书中推荐的，它的最初出处是 <a href="https://kennethreitz.org/essays/repository-structure-and-python">Knnedth Reitz</a> 在 2013 年推荐的一个 Python 项目布局的最佳实践，为适应开源项目的需要，我在这里增加了 CONTRIBUTING.rst 和 AUTHORS.rst 两个文件。其特点是，文档的类型是 rst 文件，文档目录下包含了一个 conf.py 的 python 文件和一份 Makefile 文件。</p>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 Knnedth Reitz 是一名软件架构师，著名的 Python 库 requests 的作者，他的 Python ORM 库 records，以及虚拟环境管理工具 PipEnv 也同样广受欢迎。他致力于设计高度抽象、降低认知负担和易于使用的软件。
@@ -54,7 +53,7 @@ Knnedth Reitz 是一名软件架构师，著名的 Python 库 requests 的作者
 
 <p>如果你使用 <a href="https://github.com/audreyr/cookiecutter-pypackage">Cookiecutter-pypackage</a> 来生成项目的框架，你会发现它生成的项目正好就包括了这些文件。</p>
 <p>另一条技术路线则是 mkdocs。这也正是 ppw 所采用的技术路线。尽管第 4 章已经给出了一个完整的文件清单，但为了便于读者理解，在这里我们还是给出一个经过精简的、仅与文档构建相关的清单如下：</p>
-<pre><code class="language-txt">.
+<pre><code class="hljs language-txt"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">.
 ├── AUTHORS.md
 ├── CONTRIBUTING.md
 ├── HISTORY.md
@@ -68,8 +67,7 @@ Knnedth Reitz 是一名软件架构师，著名的 Python 库 requests 的作者
 │   ├── index.md
 │   ├── installation.md
 │   └── usage.md
-└── mkdocs.yml
-</code></pre>
+└── mkdocs.yml</span></code></pre>
 <p>这条技术路线使用 markdown 的文件格式，由 mkdocs.yml 提供主控文档和配置，除此之外，并不需要别的配置。</p>
 <p>首先，我们来介绍下 rst 和 markdown 两种文档格式。</p>
 <h2 id="2-两种主要的文档格式">2. 两种主要的文档格式</h2>
@@ -78,37 +76,36 @@ Knnedth Reitz 是一名软件架构师，著名的 Python 库 requests 的作者
 <p>这一节我们简要地介绍 reStructured Text（以下简称为 rst）的常用语法。如果读者有兴趣全面了解 rst 的语法，可以参考 <a href="https://docutils.sourceforge.io/docs/user/rst/quickref.html">reStructuredText 官方文档</a>。</p>
 <h3 id="31-章节标题-section">3.1. 章节标题 (section)</h3>
 <p>在 rst 中，章节标题是通过文本加上等数量的下缀标点（限#=-~:&#39;&quot;^_*+&lt;&gt;`) 来构成的。示例如下：</p>
-<pre><code class="language-rst">一级标题
+<pre><code class="hljs language-rst"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body">一级标题
 ####
 
 restructured text example
 
-1. 二级标题
-=====
+<span class="hljs-number">1.</span> 二级标题
+<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>
 
-1.1 三级标题
--------
+<span class="hljs-number">1.1</span> 三级标题
+<span class="hljs-comment">-------</span>
 
-1.1.1 四级标题
-^^^^^^^^^
+<span class="hljs-number">1.1</span><span class="hljs-number">.1</span> 四级标题
+<span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span>
 
-1.1.2 四级标题
-^^^^^^^^^
-1.1.1.2.1 五级标题
-+++++++++++++
+<span class="hljs-number">1.1</span><span class="hljs-number">.2</span> 四级标题
+<span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span><span class="hljs-operator">^</span>
+<span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span><span class="hljs-number">.1</span> 五级标题
+<span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span><span class="hljs-operator">+</span>
 
-1.1.1.2.1.1 六级标题
-***************
-1.2 三级标题
--------
-</code></pre>
+<span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> 六级标题
+<span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span>
+<span class="hljs-number">1.2</span> 三级标题
+<span class="hljs-comment">-------</span></span></code></pre>
 <p>上述文本将渲染为以下格式：</p>
 <p>{width=&quot;50%&quot;}</p>
 <p>这种语法的烦琐和难用之处在于，标题字符数与下面的标点符号数必须匹配。如果使用了非等宽字符（比如使用了中文标题），匹配将十分困难，您可以自行寻找一个支持 rst 的编辑器（比如在 vscode 中，安装&quot;RST Preview&quot;扩展），手动键入上面的例子，验证这一点。</p>
 <p>除了在输入上不够简洁外，标题的级别与符号无关，而只与符号出现的顺序有关，也是容易出错的地方。使用者必须记住每个符号与标题级别的对应关系，否则生成的文档就会出现标题级别错误。</p>
 <h3 id="32-列表-list">3.2. 列表 (list)</h3>
 <p>在 rst 中，使用*,-,+做项目符号构成无序列表；有序列表则以数字、字母、罗马数字加上&#39;.&#39;或者括号来构成。请见以下示例：</p>
-<pre><code>*   无序 1
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body">*   无序 1
 *   无序 2
 
 -   无序 1
@@ -132,13 +129,12 @@ II.  有序 贰
 III.  有序 叁
 
 c.  有序 three
-d.  有序 four
-</code></pre>
+d.  有序 four</span></code></pre>
 <p>示例中，有序列表可以使用右括号，或者完全包围的括号，但不能只使用左括号。上述示例显示如下：</p>
 <p><img src="assets/img/chap10/rst_list.png" alt="">{width=&quot;50%&quot;}</p>
 <h3 id="33-表格">3.3. 表格</h3>
 <p>rst 核心语法支持两种表格表示方法，即网格表格和简单表格。网格表格就是使用一些符号来构成表格，如下所示：</p>
-<pre><code class="language-txt">+------------------------+------------+----------+----------+
+<pre><code class="hljs language-txt"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">+------------------------+------------+----------+----------+
 | Header row, column 1   | Header 2   | Header 3 | Header 4 |
 | (header rows optional) |            |          |          |
 +========================+============+==========+==========+
@@ -149,42 +145,37 @@ d.  有序 four
 | body row 3             | Cells may  | - Table cells       |
 +------------------------+ span rows. | - contain           |
 | body row 4             |            | - body elements.    |
-+------------------------+------------+---------------------+
-</code></pre>
++------------------------+------------+---------------------+</span></code></pre>
 <p>这样制表显然十分烦琐，不易维护。简单表格在此基础上做了一些简化，不再要求列之间插入竖线进行分割，但是功能又受到限制。于是 rst 通过指令语法，扩展出来 csv 表格和 list 表格。下面是 csv 表格一例：</p>
-<pre><code>.. csv-table:: 物理内存需求表
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">.. csv<span class="hljs-operator">-</span><span class="hljs-keyword">table</span>:: 物理内存需求表
     :header: &quot;行情数据&quot;,&quot;记录数（每品种）&quot;,&quot;时长（年）&quot;,&quot;物理内存（GB）&quot;
-    :widths: 12, 15, 10, 15
+    :widths: <span class="hljs-number">12</span>, <span class="hljs-number">15</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>
 
-    日线，1000,4,0.75
-</code></pre>
+    日线，<span class="hljs-number">1000</span>,<span class="hljs-number">4</span>,<span class="hljs-number">0.75</span></span></code></pre>
 <p>这里 1-3 行是指令，第 5 行则是 csv 数据。上面的语法将生成下面的表格：</p>
 <p><img src="assets/img/chap10/rst_csv_to_table.png" alt="">{width=&quot;50%&quot;}</p>
 <p>相比较而言，这种语法在输入大量数据的情况下，会简单不少。</p>
 <h3 id="34-图片">3.4. 图片</h3>
 <p>在文档中插入图片要使用指令语法，例如：</p>
-<pre><code>.. image:: img/p0.jpg
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">.. image:: img/p0.jpg
     :height: 400px
     :width: 600px
     :scale: 50%
     :align: center
-    :target: https://docutils.sourceforge.io/docs/ref/rst/directives.html#image
-</code></pre>
+    :target: https://docutils.sourceforge.io/docs/ref/rst/directives.html#image</span></code></pre>
 <p>示例在文档中插入了 img 目录下的 p0.jpg 图片，并且显示为 400px 高，600px 宽，缩放比例为 50%，图片居中对齐，点击图片会跳转到指定的链接。</p>
 <h3 id="35-代码块">3.5. 代码块</h3>
 <p>在文档中插入代码块要使用指令语法，例如：</p>
-<pre><code>.. code:: python
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">.. code:: python
 
-  def my_function():
-      &quot;just a test&quot;
-      print 8/2
-</code></pre>
+  <span class="hljs-keyword">def</span> <span class="hljs-title function_">my_function</span>():
+      <span class="hljs-string">&quot;just a test&quot;</span>
+      <span class="hljs-built_in">print</span> <span class="hljs-number">8</span>/<span class="hljs-number">2</span></span></code></pre>
 <h3 id="36-警示文本">3.6. 警示文本</h3>
 <p>警示文本通常用于强调一些重要的信息，比如提示错误 (error)、重要 (important)、小贴士 (tip)、警告 (warning)、注释 (note) 等。</p>
 <p>同样我们用指令语法来显示警示文本，例如：</p>
-<pre><code>.. DANGER::
-   Beware killer rabbits!
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-string">..</span> <span class="hljs-attr">DANGER::</span>
+   <span class="hljs-string">Beware</span> <span class="hljs-string">killer</span> <span class="hljs-string">rabbits!</span></span></code></pre>
 <p>显示如下：</p>
 <p><img src="assets/img/chap10/rst_admonition.png" alt="" title="警示文本">{width=&quot;50%&quot;}</p>
 <p>此外还有一些常用的语法，比如对字体加粗、斜体显示，显示数学公式、上下标、脚注、引用和超链接等。要介绍完全部 rst 的语法，已经远远超出了本书的范围，感兴趣的读者可以参考 <a href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html">官方文档</a>。关于 rst，我们要记住的是，尽管语法繁琐，但它提供了非常强大的排版功能，不仅可以用来写在线文档，还可以直接付梓成书，这一点，目前仅有 latex 可以媲美。</p>
@@ -195,8 +186,7 @@ d.  有序 four
 象 Github, Reddit 这样的大玩家染指 Markdown 之后，Markdown 的标准化问题就出现了。2014 年，加州大学的哲学教授 John MacFarlane， Discourse 的联合创始人 Jeff Atwood，以及 Reddit, Github， Stackoverflow 的代表共同组成了一个工作组，开始了 Markdown 的标准化工作。出人意料的是，Markdown 的创始人 John Gruber 反对 Markdown 的标准化工作，并禁止他们使用 Markdown 这个名字，最终，这个标准化的结果就变成了 [commonmark](https://commonmark.org)，被认为是一个事实上的标准。
 </div>
 
-<pre><code>John Gruber 反对 Markdown 的标准化工作，并且不允许工作组使用 Markdown 这个名字，不能不说令人遗憾。不知道这能不能算是屠龙少年终成龙的另一个实例。不过，在技术界这也并非孤例。一些人也认为，解决 Python 性能问题的最大阻碍，其实就来自于创建者 Guido，因为他认为 Python 的性能已经够好：如果有人认为 Python 性能不够好，那么他应该改用别的语言。提升 Python 语言的性能的过程中，决不允许出现版本 2 到版本 3 升级时的那种不兼容现象。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">John Gruber 反对 Markdown 的标准化工作，并且不允许工作组使用 Markdown 这个名字，不能不说令人遗憾。不知道这能不能算是屠龙少年终成龙的另一个实例。不过，在技术界这也并非孤例。一些人也认为，解决 Python 性能问题的最大阻碍，其实就来自于创建者 Guido，因为他认为 Python 的性能已经够好：如果有人认为 Python 性能不够好，那么他应该改用别的语言。提升 Python 语言的性能的过程中，决不允许出现版本 2 到版本 3 升级时的那种不兼容现象。</span></code></pre>
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
@@ -210,27 +200,24 @@ d.  有序 four
 <p>下面，我们就结合例子来看看 Markdown 的语法。注意，这里我们没有严格区分哪些是核心语法，哪些是 commonmark 扩展的语法，因为到目前为止，commonmark 的扩展已经为大多数编辑器所支持了。</p>
 <h3 id="41-章节标题">4.1. 章节标题</h3>
 <p>Markdown 的章节标题使用&#39;#&#39;来引起，‘#’的个数表示标题的级别，例如：</p>
-<pre><code class="language-txt"># 1. 这是一级标题
+<pre><code class="hljs language-txt"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"># 1. 这是一级标题
 ## 1.1 这是二级标题
 ### 1.1.1 这是三级标题
 ### 1.1.2 另一个三级标题
-## 1.2 另一个二级标题
-</code></pre>
+## 1.2 另一个二级标题</span></code></pre>
 <p>可以看出，这比 rst 要直观、易记忆和简洁。在示例中，我们给标题进行了手工编号。这不是必须的，许多 Markdown 渲染工具都可以通过 css 来自动给标题加上编号。另外，很多 Markdown 编辑器也具有给标题自动插入和更新编号的能力。</p>
 <h3 id="42-列表">4.2. 列表</h3>
 <p>Markdown 的列表与 rst 差不多，无序列表使用&#39;-&#39;或者&#39;*&#39;引起，例如：</p>
-<pre><code class="language-{linenums=&quot;0&quot;}">- 无序列表 1
-- 无序列表 2
-</code></pre>
+<pre><code class="hljs language-{linenums="0"}"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">- 无序列表 1
+- 无序列表 2</span></code></pre>
 <p>最终渲染的效果如下所示：</p>
 <ul>
 <li>无序列表 1</li>
 <li>无序列表 2</li>
 </ul>
 <p>有序列表使用数字加&#39;.&#39;引起，例如：</p>
-<pre><code>1. 有序列表 1
-3. 有序列表 2
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">1. 有序列表 1
+3. 有序列表 2</span></code></pre>
 <p>最终渲染的效果如下所示：</p>
 <ol>
 <li>有序列表 1</li>
@@ -239,11 +226,10 @@ d.  有序 four
 <p>注意，在上面的示例中，我们给有序列表的序号并不是连续的。在 markdown 语法中，并不在意我们给出的数字是多少，markdown 的渲染工具最终都会自动帮我们调整正确。这是一个非常好的功能。</p>
 <h3 id="43-表格">4.3. 表格</h3>
 <p>与 rst 相比，markdown 的表格语法还是稍嫌复杂：</p>
-<pre><code>| Header1 | Header2 | Header3 |
-| :------ | :-----: | ------: |
-| data1   |  data2  |   data3 |
-| data11  | data12  |  data13 |
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-operator">|</span> Header1 <span class="hljs-operator">|</span> Header2 <span class="hljs-operator">|</span> Header3 <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> :<span class="hljs-comment">------ | :-----: | ------: |</span>
+<span class="hljs-operator">|</span> data1   <span class="hljs-operator">|</span>  data2  <span class="hljs-operator">|</span>   data3 <span class="hljs-operator">|</span>
+<span class="hljs-operator">|</span> data11  <span class="hljs-operator">|</span> data12  <span class="hljs-operator">|</span>  data13 <span class="hljs-operator">|</span></span></code></pre>
 <p>语法的特点是，表格的每一行都是以&#39;|&#39;开头和结尾的，每一列的数据之间用&#39;|&#39;分隔，表头和表格的分隔线使用&#39;-&#39;表示。表头和表格的分隔线的数量可以不一致，但是必须大于等于表格的列数。表格的渲染效果如下：</p>
 <table>
 <thead>
@@ -283,42 +269,35 @@ vscode 中有扩展可以实现这一功能。
 不同的是，图片链接必须由一个感叹号引起。'[]'中的文字此时成为图像的替代文本，屏幕阅读工具用它来向视觉障碍读者描述图像。'()'中的文字则是图像的 URL，可以是相对路径，也可以是绝对路径。最后，还可以加上一个双引号，其中的文字则是图像的标题，鼠标悬停在图像上时会显示出来。
 
 <p>下面是一个示例：</p>
-<pre><code>![这是一段警示文本](img/markdown.png)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">![这是一段警示文本](img/markdown.png)</span></code></pre>
 <p>生成效果如下：</p>
 <p> <img src="assets/img/chap10/markdown_logo.png" alt="" title="警示文本示例">{width=&quot;50%&quot;}</p>
 <p> markdown 核心语法不能象 rst 那样支持指定宽度和高度、对齐方式等。如果我们有这些需要，一般有两种方式可以解决。一是我们可以使用 html 语法来实现，例如：</p>
-<pre><code>&lt;img src=&quot;img/markdown.png&quot; width=&quot;30%&quot;&gt;
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">&lt;img src=<span class="hljs-string">&quot;img/markdown.png&quot;</span> width=<span class="hljs-string">&quot;30%&quot;</span>&gt;</span></code></pre>
 <p> 效果如下图所示：
 <img src="assets/img/chap10/markdown.png" alt="">{width=&quot;30%&quot;}</p>
 <p>二是可能您使用的 markdown 编辑器支持扩展语法。本文撰写时，就使用了 Mkdocs-Material 中的相关扩展功能，下面的例子是它的用法举例：</p>
-<pre><code> ![](assets/img/chap10/markdown_logo.png &quot;警示文本示例&quot;){width=&quot;30%&quot;}
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"> ![](assets/img/chap10/markdown_logo.png <span class="hljs-string">&quot;警示文本示例&quot;</span>){width=<span class="hljs-string">&quot;30%&quot;</span>}</span></code></pre>
 <h3 id="46-代码块">4.6. 代码块</h3>
 <p>我们使用三个反引号&#39;`&#39;来定义代码块，例如：</p>
-<pre><code>    ```python
-        def foo():
-            print(&#39;hello world&#39;)
-    ```
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">    ```python
+        <span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>():
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;hello world&#x27;</span>)
+    ```</span></code></pre>
 <p>起头的反引号之后，可以加上语言定义。如此以来，代码块就可以获得语法高亮了。上面的代码块，我们使用了&#39;python&#39;作为语言定义，这样代码块就会获得 python 的语法高亮，如下所示：</p>
-<pre><code class="language-python">    def foo() -&gt; None:
-        print(&#39;hello world&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>() -&gt; <span class="hljs-literal">None</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;hello world&#x27;</span>)</span></code></pre>
 <h3 id="47-警示文本">4.7. 警示文本</h3>
 <p>在 markdown 中，我们可以用三个感叹号来引起警示文本，语法如下：</p>
-<pre><code>&lt;div class=&quot;admonition admonition-type&quot;&gt;&lt;p class=&quot;admonition-title&quot;&gt;双引号定义标题&lt;/p&gt;
-Any number of other indented markdown elements.
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">&lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;admonition admonition-type&quot;</span>&gt;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;admonition-title&quot;</span>&gt;</span>双引号定义标题<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+<span class="hljs-title class_">Any</span> number <span class="hljs-keyword">of</span> other indented markdown elements.
 &lt;/div&gt;
 
-    This is the second paragraph.
-</code></pre>
+    <span class="hljs-title class_">This</span> is the second paragraph.</span></code></pre>
 <p>这是 commonmark 的扩展语法。感叹号后面的英文单词是警示文本的类型，commonmark 并没有限定有哪些类型。在实现上，这些类型都是 css 的一个 class，因此具体显示效果如何实现，取决于渲染器的决定。比如，本书的网页版使用了 mkdocs-material 主题，material 支持的类型有 note, abstract, info, tip, success, question, warning, example, quote 等。如果使用了不在上述列表之中的类型，mkdocs-material 就会使用默认的样式来显示这段警示文本。</p>
 <p>比如，下面是引用它人文字的一例：</p>
-<pre><code>    !!! quote &quot;罗曼. 罗兰&quot;
-        世上只有一种英雄主义，就是认清生活的真相之后依然热爱生活。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">    !!! quote <span class="hljs-string">&quot;罗曼. 罗兰&quot;</span>
+        世上只有一种英雄主义，就是认清生活的真相之后依然热爱生活。</span></code></pre>
 <p>其效果如下：</p>
 <div class="admonition admonition-quote"><p class="admonition-title">罗曼. 罗兰</p>
 世上只有一种英雄主义，就是认清生活的真相之后依然热爱生活。
@@ -342,39 +321,37 @@ Any number of other indented markdown elements.
 <h2 id="6-使用-sphinx-构建文档">6. 使用 Sphinx 构建文档</h2>
 <h3 id="61-初始化文档结构">6.1. 初始化文档结构</h3>
 <p>在安装 sphinx 之后，通过下面的命令来初始化文档：</p>
-<pre><code class="language-bash">$ pip install sphinx 
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">$ pip install sphinx 
 
-# 此命令必须在项目根目录下执行！
+<span class="hljs-comment"># 此命令必须在项目根目录下执行！</span>
 $ shpinx-quickstart
-</code></pre>
+</span></code></pre>
 <p>Sphinx 会提示你输入项目名称、作者、版本等信息，最终生成 docs 目录及以下文件：</p>
-<pre><code>docs/
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">docs/
 docs/conf.py
 docs/index.rst
 docs/Makefile
 docs/make.bat
 docs/_build
 docs/_static
-docs/_templates
-</code></pre>
+docs/_templates</span></code></pre>
 <p>如果文档中使用了图像文件，应该放在_static 目录下。</p>
 <p>现在运行 <code>make html</code>就可以生成一份文档。你可以通过浏览器打开<code>_build/index.html</code>来阅读，也可以通过<code>python -m http.server -d _build/index</code>，然后再通过浏览器来访问阅读。</p>
 <h3 id="62-文件重定向">6.2. 文件重定向</h3>
 <p>我们一般把 README.rst, AUTHOR.rst, HISTORY.rst 放在项目的根目录下，即与 Sphinx 的文档根目录同级，这是 Python 项目管理的需求，也是像 Github 这样的托管平台的惯例。而按 Sphinx 的要求，文档又必须放置在 docs 目录下。我们当然不想同样的文件，在两个目录下各放置一份拷贝。为解决这个问题，我们一般使用<code>include</code>语法，来将父目录中的同名文件包含进来。比如上述 index.rst 中的 history 文件：</p>
-<pre><code># CONTENT OF DOCS/HISTORY.RST
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># CONTENT OF DOCS/HISTORY.RST</span>
 
-.. include:: ../HISTORY.rst
-</code></pre>
+<span class="hljs-string">..</span> <span class="hljs-attr">include::</span> <span class="hljs-string">../HISTORY.rst</span></span></code></pre>
 <p>这样就避免了同一份文件，出现多个拷贝的情况。</p>
 <h3 id="63-主控文档和工具链">6.3. 主控文档和工具链</h3>
 <p>如果您是通过 Sphinx-quickstart 来进行初始化的，它的向导会引领您进行一些工具链的配置，比如象配置 autodoc（用于生成 API 文档）。为了完备起见，我们还是再提一下这个话题。</p>
 <p>Sphinx 在构建文档时，需要一个主控文档，一般是 index.rst:</p>
-<pre><code>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body">
 文档 Title
-==========
+<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: <span class="hljs-number">2</span>
 
    deployment
    usage
@@ -383,32 +360,30 @@ docs/_templates
    authors
    history
 
-Indices and tables
-==================
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-</code></pre>
+Indices <span class="hljs-keyword">and</span> tables
+<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>
+<span class="hljs-operator">*</span> :<span class="hljs-keyword">ref</span>:`genindex`
+<span class="hljs-operator">*</span> :<span class="hljs-keyword">ref</span>:`modindex`
+<span class="hljs-operator">*</span> :<span class="hljs-keyword">ref</span>:`<span class="hljs-keyword">search</span>`</span></code></pre>
 <p>Sphinx 通过主控文档，把单个文档串联起来。 上面的 toctree 中的每一个入口（比如 deployment)，都对应到一篇文档（比如 deployment.rst)。此外，还包含了索引和搜索入口。</p>
 <p>象 deployment, usage 这样的文档，我们依照 rst 的语法来撰写就好，这部分我们已经介绍过了。这里我们需要特别介绍的是 api 文档，它是通过 autodoc 来生成的，有自己特殊的语法要求。</p>
 <h3 id="64-生成-api-文档">6.4. 生成 API 文档</h3>
 <p>要自动生成 API 文档，我们需要配置 autodoc 扩展。我们需要在 Sphinx 的配置文档 docs/conf.py 中，特别加入下面的第 2 行和第 5~9 行：</p>
-<pre><code class="language-python"># 要实现 AUTODOC 的功能，你的模块必须能够导入，因此先声明导入路径
-sys.path.insert(0, os.path.abspath(&#39;../src&#39;))
+<pre><code class="hljs language-python title="docs/conf.py""><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-comment"># 要实现 AUTODOC 的功能，你的模块必须能够导入，因此先声明导入路径</span>
+sys.path.insert(<span class="hljs-number">0</span>, os.path.abspath(<span class="hljs-string">&#x27;../src&#x27;</span>))
 
-# 声明 AUTODOC 扩展
+<span class="hljs-comment"># 声明 AUTODOC 扩展</span>
 extensions = [
-  &#39;sphinx.ext.intersphinx&#39;,
-  &#39;sphinx.ext.autodoc&#39;,
-  &#39;sphinx.ext.doctest&#39;
-]
-</code></pre>
+  <span class="hljs-string">&#x27;sphinx.ext.intersphinx&#x27;</span>,
+  <span class="hljs-string">&#x27;sphinx.ext.autodoc&#x27;</span>,
+  <span class="hljs-string">&#x27;sphinx.ext.doctest&#x27;</span>
+]</span></code></pre>
 <p>我们还要按 Autodoc 的要求，编写 api.rst 文档，并在 index.rst 中引用这个文档。api.rst 文档的作用是用作 autodoc 的文档入口。下图是 api.rst 的一个示例：</p>
-<pre><code class="language-python">Crawler Python API
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body">Crawler Python API
 ==================
 
-Getting started with Crawler is easy.
-The main class you need to care about is :class:`~crawler.main.Crawler`
+Getting started <span class="hljs-keyword">with</span> Crawler <span class="hljs-keyword">is</span> easy.
+The main <span class="hljs-keyword">class</span> <span class="hljs-title class_">you</span> need to care about <span class="hljs-keyword">is</span> :<span class="hljs-keyword">class</span>:`~crawler.main.Crawler`
 
 crawler.main
 ------------
@@ -421,15 +396,14 @@ crawler.utils
 
 .. testsetup:: *
 
-   from crawler.utils import should_ignore, log
+   <span class="hljs-keyword">from</span> crawler.utils <span class="hljs-keyword">import</span> should_ignore, log
 
 .. automethod:: crawler.utils.should_ignore
 
 .. doctest::
 
-	&gt;&gt;&gt; should_ignore([&#39;blog/$&#39;], &#39;http://example.com/blog/&#39;)
-	True
-</code></pre>
+	&gt;&gt;&gt; should_ignore([<span class="hljs-string">&#x27;blog/$&#x27;</span>], <span class="hljs-string">&#x27;http://example.com/blog/&#x27;</span>)
+	<span class="hljs-literal">True</span></span></code></pre>
 <p>这里虚构了一个名为 Crawler 的程序，它共有<code>main</code>和<code>util</code>两个模块。</p>
 <p>在一篇文档里，普通 rst 语法、autodoc 指令和 doctest 指令是可以相互混用的，在上面的文档里，我们看到了一些已经熟悉的 rst 语法，比如一级标题&quot;Crawler Python API&quot;和二级标题&quot;crawler.main&quot;等。此外，我们还看到了 autodoc 的一些指令和 doctest 的指令。</p>
 <p>我们通过扩展指令 automodule（第 10 行）将 crawler.main 模块引入，这样 autodoc 就会自动提取该模块的 docstring。注意这里的 :members: 语法：我们可以在其后跟上 crawler.main 中的子模块名字，表明只为这些模块生成 API 文档。如果其后为空白，则表明我们将递归生成 crawler.main 下所有模块的 API 文档。我们还可以通过 :undoc-members: 来排除那些不需要生成 API 文档的成员。</p>
@@ -442,8 +416,8 @@ crawler.utils
 <h3 id="65-docstring-的样式">6.5. docstring 的样式</h3>
 <p>显然，为了使得 API 文档能够从代码注释中自动提取出来，代码注释必须满足一定的格式要求。</p>
 <p>如果不做任何配置，Sphinx 会使用 rst 的 docstring 样式。下面是 rst 风格的 docstring 示例：</p>
-<pre><code class="language-python">def abc(a: int, c = [1,2]):
-    &quot;&quot;&quot;_summary_
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">abc</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, c = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]</span>):
+    <span class="hljs-string">&quot;&quot;&quot;_summary_
 
     :param a: _description_
     :type a: int
@@ -452,16 +426,15 @@ crawler.utils
     :raises AssertionError: _description_
     :return: _description_
     :rtype: _type_
-    &quot;&quot;&quot;
-    if a &gt; 10:
-        raise AssertionError(&quot;a is more than 10&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> a &gt; <span class="hljs-number">10</span>:
+        <span class="hljs-keyword">raise</span> AssertionError(<span class="hljs-string">&quot;a is more than 10&quot;</span>)
 
-    return c
-</code></pre>
+    <span class="hljs-keyword">return</span> c</span></code></pre>
 <p>rst 风格的 docstring 稍显冗长。为简洁起见，我们一般使用 google style（最简洁），或者 numpy style。</p>
 <p>下面是 google style 的 docstring 示例：</p>
-<pre><code class="language-python">def abc(a: int, c = [1,2]):
-    &quot;&quot;&quot;_summary_
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">abc</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, c = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]</span>):
+    <span class="hljs-string">&quot;&quot;&quot;_summary_
 
     Args:
         a (int): _description_
@@ -472,16 +445,15 @@ crawler.utils
 
     Returns:
         _type_: _description_
-    &quot;&quot;&quot;
-    if a &gt; 10:
-        raise AssertionError(&quot;a is more than 10&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> a &gt; <span class="hljs-number">10</span>:
+        <span class="hljs-keyword">raise</span> AssertionError(<span class="hljs-string">&quot;a is more than 10&quot;</span>)
 
-    return c
-</code></pre>
+    <span class="hljs-keyword">return</span> c</span></code></pre>
 <p>显然，google style 使用的字数更少，视觉上更简洁。google style 也是可罕学院（khan academy）[^khan] 的官方推荐风格。</p>
 <p>我们再来看看 numpy 风格的 docstring:</p>
-<pre><code class="language-python">def abc(a: int, c = [1,2]):
-    &quot;&quot;&quot;_summary_
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">abc</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, c = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]</span>):
+    <span class="hljs-string">&quot;&quot;&quot;_summary_
 
     Parameters
     ----------
@@ -499,12 +471,11 @@ crawler.utils
     ------
     AssertionError
         _description_
-    &quot;&quot;&quot;
-    if a &gt; 10:
-        raise AssertionError(&quot;a is more than 10&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> a &gt; <span class="hljs-number">10</span>:
+        <span class="hljs-keyword">raise</span> AssertionError(<span class="hljs-string">&quot;a is more than 10&quot;</span>)
 
-    return c
-</code></pre>
+    <span class="hljs-keyword">return</span> c</span></code></pre>
 <p>这种风格也比 google style 要繁复许多。</p>
 <p>要在文档中使用这两种样式的 docstring，你需要启用 <a href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html">Napolen</a> 扩展。关于这两种样式的示例，最好的例子来自于 <a href="https://mkapi.daizutabi.net/examples/google_style/">MkApi 的文档</a>，这里不再赘述。</p>
 <p>注意在 Sphinx 3.0 以后，如果你使用了 Type Hint，则在书写 docstring 时，不必在参数和返回值上声明类型。扩展将自动为你加上类型声明。</p>
@@ -519,15 +490,14 @@ crawler.utils
 <p><img src="assets/img/chap10/mkdocs_features.png" alt="">{width=&quot;40%&quot;}</p>
 <p><a href="https://www.mkdocs.org">mkdocs</a> 提供了两种开箱即用的主题，readthedocs 和 mkdocs。我们也可以在社区里寻找更多的主题 。在众多主题之中，<a href="https://squidfunk.github.io/mkdocs-material/">material</a> 是当前最受欢迎的一个主题。它支持 responsive 设计，所以文档无论在 pc 端、还是手机和平板上打开，都有相当不错的体验。此外，它自带了 SEO 优化，该主题的官方网站也被他们自己优化到超过了 Mkdocs 的排名。 <a href="https://www.mkdocs.org/user-guide/writing-your-docs/">这篇文章</a> 给出了一个不错的教程。</p>
 <p>首先，我们介绍如何安装。</p>
-<pre><code>$ pip install --upgrade pip
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">$ pip install --upgrade pip
 $ pip install mkdocs
-# 安装 MATERIAL 主题。如果忽略，将使用 READTHEDOCS 默认主题。
+<span class="hljs-comment"># 安装 MATERIAL 主题。如果忽略，将使用 READTHEDOCS 默认主题。</span>
 $ pip install mkdocs-material 
 
-# 创建文档结构，在项目根目录下执行
+<span class="hljs-comment"># 创建文档结构，在项目根目录下执行</span>
 $ mkdocs new PROJECT_NAME
-$ cd PROJECT_NAME
-</code></pre>
+$ <span class="hljs-built_in">cd</span> PROJECT_NAME</span></code></pre>
 <p>现在，在项目根目录下应该多了一个 docs 目录，和一个名为 mkdocs.yaml 的文件。docs 目录下还有一个名为 index.md 的文件。如果此时运行<code>mkdocs serve -a 0.0.0.0:8000</code>, 在浏览器中打开，你会看到如下图所示界面：</p>
 <p><img src="assets/img/chap10/mkdocs_new.png" alt="">{width=&quot;70%&quot;}</p>
 <div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>
@@ -536,67 +506,65 @@ $ cd PROJECT_NAME
 
 <h3 id="71-配置-mkdocs">7.1. 配置 Mkdocs</h3>
 <p>下面，我们通过<code>ppw</code>生成的 mkdocs.yml 文件的例子来看看 mkdocs 的配置文件语法。</p>
-<pre><code class="language-yaml">site_name: sample
-site_url: https://blog.quantide.cn/
-repo_url: https://github.com/zillionare/sample
-repo_name: sample
-site_description: A great mkdocs sample site
-site_author: name of the author
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span></span><span class="cl-body"><span class="hljs-attr">site_name:</span> <span class="hljs-string">sample</span>
+<span class="hljs-attr">site_url:</span> <span class="hljs-string">https://blog.quantide.cn/</span>
+<span class="hljs-attr">repo_url:</span> <span class="hljs-string">https://github.com/zillionare/sample</span>
+<span class="hljs-attr">repo_name:</span> <span class="hljs-string">sample</span>
+<span class="hljs-attr">site_description:</span> <span class="hljs-string">A</span> <span class="hljs-string">great</span> <span class="hljs-string">mkdocs</span> <span class="hljs-string">sample</span> <span class="hljs-string">site</span>
+<span class="hljs-attr">site_author:</span> <span class="hljs-string">name</span> <span class="hljs-string">of</span> <span class="hljs-string">the</span> <span class="hljs-string">author</span>
 
-nav:
-  - home: index.md
-  - usage: usage.md
-  - modules: api.md
-theme:
-  name: material
-  language: en
-  logo: assets/logo.png
-markdown_extensions:
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.critic
-  - pymdownx.caret
-  - pymdownx.mark
-  - pymdownx.tilde
-  - pymdownx.tabbed
-  - attr_list
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.highlight:
-      linenums: true
-  - pymdownx.superfences
-  - pymdownx.details
-  - admonition
-  - toc:
-      baselevel: &#39;2-4&#39;
-      permalink: true
-      slugify: !!python/name:pymdownx.slugs.uslugify
-  - meta
-plugins:
-  - include-markdown
-  - search:
-      lang: en
-  - mkdocstrings:
-      watch:
-        - sample
-extra:
-  version:
-    provider: mike
-</code></pre>
+<span class="hljs-attr">nav:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">home:</span> <span class="hljs-string">index.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">usage:</span> <span class="hljs-string">usage.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">modules:</span> <span class="hljs-string">api.md</span>
+<span class="hljs-attr">theme:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">material</span>
+  <span class="hljs-attr">language:</span> <span class="hljs-string">en</span>
+  <span class="hljs-attr">logo:</span> <span class="hljs-string">assets/logo.png</span>
+<span class="hljs-attr">markdown_extensions:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">pymdownx.emoji:</span>
+      <span class="hljs-attr">emoji_index:</span> <span class="hljs-type">!!python/name:materialx.emoji.twemoji</span>
+      <span class="hljs-attr">emoji_generator:</span> <span class="hljs-type">!!python/name:materialx.emoji.to_svg</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.critic</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.caret</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.mark</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.tilde</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.tabbed</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">attr_list</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">pymdownx.arithmatex:</span>
+      <span class="hljs-attr">generic:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">pymdownx.highlight:</span>
+      <span class="hljs-attr">linenums:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.superfences</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">pymdownx.details</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">admonition</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">toc:</span>
+      <span class="hljs-attr">baselevel:</span> <span class="hljs-string">&#x27;2-4&#x27;</span>
+      <span class="hljs-attr">permalink:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">slugify:</span> <span class="hljs-type">!!python/name:pymdownx.slugs.uslugify</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">meta</span>
+<span class="hljs-attr">plugins:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">include-markdown</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">search:</span>
+      <span class="hljs-attr">lang:</span> <span class="hljs-string">en</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">mkdocstrings:</span>
+      <span class="hljs-attr">watch:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">sample</span>
+<span class="hljs-attr">extra:</span>
+  <span class="hljs-attr">version:</span>
+    <span class="hljs-attr">provider:</span> <span class="hljs-string">mike</span></span></code></pre>
 <p>mkdocs.yml 的配置大致可以分为站点设置、文档布局、主题设置、构建工具设置和附加信息这么几项。</p>
 <p>文档布局以关键字<code>nav</code>引起，后面跟随一个 yaml 的列表，定义了全局站点导航菜单及子菜单结构。列表中的每一项都是一个文档的标题和对应的文件名。这里的文件名是相对于 docs 目录的。例如，上面的例子中，<code>home</code>对应的文件是<code>docs/index.md</code>，<code>usage</code>对应的文件是<code>docs/usage.md</code>，等等。</p>
 <p>注意这里的 toc 配置项中的 baselevel。默认值为<code>2-4</code>。在 HTML5 规范中，只能存在一个 H1 标签（或者 Article 标签），所以，Toc 列表中的层级，只能从第 2 级开始列。不止在这里，您在任何地方撰写 Markdown 文档时，都应该遵循这个约定。</p>
 <p>文档布局支持多级嵌套，比如：</p>
-<pre><code>nav:
-    - Home: &#39;index.md&#39;
-    - &#39;User Guide&#39;:
-        - &#39;Writing your docs&#39;: &#39;writing-your-docs.md&#39;
-        - &#39;Styling your docs&#39;: &#39;styling-your-docs.md&#39;
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">nav:
+    - Home: <span class="hljs-string">&#x27;index.md&#x27;</span>
+    - <span class="hljs-string">&#x27;User Guide&#x27;</span>:
+        - <span class="hljs-string">&#x27;Writing your docs&#x27;</span>: <span class="hljs-string">&#x27;writing-your-docs.md&#x27;</span>
+        - <span class="hljs-string">&#x27;Styling your docs&#x27;</span>: <span class="hljs-string">&#x27;styling-your-docs.md&#x27;</span>
     - About:
-        - &#39;License&#39;: &#39;license.md&#39;
-        - &#39;Release Notes&#39;: &#39;release-notes.md&#39;
-</code></pre>
+        - <span class="hljs-string">&#x27;License&#x27;</span>: <span class="hljs-string">&#x27;license.md&#x27;</span>
+        - <span class="hljs-string">&#x27;Release Notes&#x27;</span>: <span class="hljs-string">&#x27;release-notes.md&#x27;</span></span></code></pre>
 <p>上述配置定义了三个顶级菜单，分别是 Home、User Guide 和 About。User Guide 和 About 又分别包含两个子菜单。当然，最终如何展示这些内容，由你选择的主题来决定。</p>
 <p>示例中的主题配置由关键字&#39;theme&#39;引起，一般包括了主题名、语言、站点 logo 和图标等通用选项，也有一些主题自定义的配置项。</p>
 <p>构建工具设置主要是启用 markdown 扩展的一些特性和插件。</p>
@@ -622,16 +590,14 @@ extra:
 </div>
 
 <p>要更换主题为 Material，首先我们得安装 mkdocs-material 包，再在 mkdocs.yaml 中指定主题为 material:</p>
-<pre><code>pip install mkdocs-material
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install mkdocs-material</span></code></pre>
 <p>然后我们需要在 mkdocs.yml 中指定主题为 material:</p>
-<pre><code>site_name: An amazing site!
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-attr">site_name:</span> <span class="hljs-string">An</span> <span class="hljs-string">amazing</span> <span class="hljs-string">site!</span>
 
-nav: 
-  - Home: index.md
-  - 安装：installation.md
-theme: material
-</code></pre>
+<span class="hljs-attr">nav:</span> 
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">Home:</span> <span class="hljs-string">index.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">安装：installation.md</span>
+<span class="hljs-attr">theme:</span> <span class="hljs-string">material</span></span></code></pre>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 如果您是使用`ppw`创建的工程，则默认主题已经是 material，并且依赖都已安装好了。
 </div>
@@ -641,78 +607,68 @@ theme: material
 <h3 id="73-文件重定向">7.3. 文件重定向</h3>
 <p>在 Sphinx 那一节，我们已经面临过同样的问题： READEME, HISTORY, AUTHORS, LICENSE 等几个文件，通常必须放在项目根目录下，而 sphinx 在构建文档时，又只读取 docs 目录下的文件。</p>
 <p>Mkdocs 也存在同样的问题，不过好在有一个好用的插件，<a href="https://github.com/mondeja/mkdocs-include-markdown-plugin">mkdocs-include-mkdown-plugin</a>，在安装好之后，修改 docs/index.md 文件，使之指向父目录的 README:</p>
-<pre><code>{%
-    include-markdown &quot;../README.md&quot;
-% }
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">{%
+    include-markdown <span class="hljs-string">&quot;../README.md&quot;</span>
+% }</span></code></pre>
 <p>修改 mkdocs.yaml，加载 include-markdown 插件：</p>
-<pre><code class="language-yaml">site_name: Omicron
+<pre><code class="hljs language-yaml"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-attr">site_name:</span> <span class="hljs-string">Omicron</span>
 
-nav: 
-  - Home: index.md
-  - 安装：installation.md
-  - History: history.md
+<span class="hljs-attr">nav:</span> 
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">Home:</span> <span class="hljs-string">index.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">安装：installation.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">History:</span> <span class="hljs-string">history.md</span>
 
-theme: readthedocs
+<span class="hljs-attr">theme:</span> <span class="hljs-string">readthedocs</span>
 
-plugins:
-  - include-markdown
-</code></pre>
+<span class="hljs-attr">plugins:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">include-markdown</span></span></code></pre>
 <p>Mkdocs 会将 docs/index.md 转换成网站的首页。我们让 index.md 指向 README.md，从而使得 README.md 的内容成为网站的首页。</p>
 <h3 id="74-页面引用">7.4. 页面引用</h3>
 <p>在介绍 Markdown 语法时，我们介绍了超链接语法。有时候，我们需要在文档中引用其他页面，甚至是页面内的标题，这时候就需要用到内部链接。内部链接的语法是：</p>
-<pre><code>[页面标题](页面路径#标题锚点)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">[页面标题](页面路径<span class="hljs-comment">#标题锚点)</span></span></code></pre>
 <p>要使用标题锚点，必须在配置中启用 toc 的配置。如下所示：</p>
-<pre><code>markdown_extensions:
-  - toc:
-      permalink: true
-      toc_depth: 5
-      baselevel: 2-4
-      slugify: !!python/name:pymdownx.slugs.uslugify
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-attr">markdown_extensions:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">toc:</span>
+      <span class="hljs-attr">permalink:</span> <span class="hljs-literal">true</span>
+      <span class="hljs-attr">toc_depth:</span> <span class="hljs-number">5</span>
+      <span class="hljs-attr">baselevel:</span> <span class="hljs-number">2</span><span class="hljs-number">-4</span>
+      <span class="hljs-attr">slugify:</span> <span class="hljs-type">!!python/name:pymdownx.slugs.uslugify</span></span></code></pre>
 <p>注意在上面的示例中 slugify 项的配置。这个配置的作用是允许在锚点中使用非英文字符。现在，我们可以这样引用第 4 章 ppw 生成的文件列表：</p>
-<pre><code>[ppw 生成的文件列表](chap04.md#ppw 生成的文件列表)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">[ppw 生成的文件列表](chap04.md<span class="hljs-comment">#ppw 生成的文件列表)</span></span></code></pre>
 <p>这将生成一个 [链接](chap04.md#ppw 生成的文件列表)。点击这个链接，将跳转到第 4 章的 ppw 生成的文件列表的标题处。</p>
 <h3 id="75-api-文档和-mkdocstrings">7.5. API 文档和 mkdocstrings</h3>
 <p>前面已经提到过 <a href="https://mkapi.daizutabi.net/">MkApi</a> 这个扩展，它可以用来生成 API 文档。另一个能实现同样功能的扩展叫 <a href="https://github.com/pawamoy/mkdocstrings">mkdocstrings</a>。在我们的测试中，Mkdocstrings 的稳定性更好，社区活跃度也更高一些。因此这里我们仅介绍 mkdocstrings。</p>
 <p>Mkdocstrings 只支持 google style 的 docstring, 在样式上支持了 Material, Readthedocs 和 mkdocs 三种主题。要使用 mkdocstrings，需要先安装这个扩展：</p>
-<pre><code>poetry add mkdocstrings
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">poetry <span class="hljs-keyword">add</span> mkdocstrings</span></code></pre>
 <p>再在 mkdocs.yaml 中配置：</p>
-<pre><code>plugins:
-  - mkdocstrings:
-      watch:
-        - sample
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-attr">plugins:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">mkdocstrings:</span>
+      <span class="hljs-attr">watch:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">sample</span></span></code></pre>
 <p>mkdocstrings 有以下功能特性：</p>
 <h4>7.5.1. 交叉引用</h4>
 <p>我们在 <a href="chap10.md#%E9%A1%B5%E9%9D%A2%E5%BC%95%E7%94%A8">页面引用</a>那一节里讲到的那些引用，在 mkdocstrings 中也是支持的。不过，我们需要在 mkdocs.yml 配置文件中，启用一个名为 autorefs 的插件：</p>
-<pre><code>plugins:
-    - search
-    - autorefs
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">plugins:
+    <span class="hljs-operator">-</span> <span class="hljs-keyword">search</span>
+    <span class="hljs-operator">-</span> autorefs</span></code></pre>
 <p>autorefs 并不需要安装，它会随 mkdocstrings 的安装而安装。</p>
 <p>接下来主要讲解一下，如何引用到函数、类、模块对应的文档。在 mkdocstrings 中，此类引用类似使用 markdown 的引用语法的风格，但略有不同。举例如下：</p>
-<pre><code>With a custom title:
-[`Object 1`][full.path.object1]
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-title class_">With</span> a custom <span class="hljs-attr">title</span>:
+[<span class="hljs-string">`Object 1`</span>][full.<span class="hljs-property">path</span>.<span class="hljs-property">object1</span>]
 
-With the identifier as title:
-[full.path.object2][]
-</code></pre>
+<span class="hljs-title class_">With</span> the identifier <span class="hljs-keyword">as</span> <span class="hljs-attr">title</span>:
+[full.<span class="hljs-property">path</span>.<span class="hljs-property">object2</span>][]</span></code></pre>
 <p>可以看出，此类引用是由两对方括号，而不是由一对方括号加一对圆括号组成。其中第一对方括号里面是标题，第二对方括号里面是引用的对象的路径。也可以像第 60 行一样，只使用默认的链接文字，即对象字面名。</p>
 <p>我们再来解释一下，引用对象的路径的含义。假设我们有一个库，名为 foo，下面有一个模块 bar, 在 bar 模块中又定义了类 Baz，而类 Baz 又包含了方法 bark。如果我们要在某个方法（比如 dog_bark）中引用 bark 方法的文档，则 dog_bark 的文档应该如下（第 5 行）：</p>
-<pre><code class="language-python">def dog_bark(msg: str) -&gt; None:
-    &quot;&quot;&quot; Bark like a dog
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">dog_bark</span>(<span class="hljs-params">msg: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot; Bark like a dog
 
         See Also:
             [Baz.bark][foo.bar.Baz.bark]
         Args:
             msg: The message to bark
-    &quot;&quot;&quot;
-    ...
-</code></pre>
+    &quot;&quot;&quot;</span>
+    ...</span></code></pre>
 <p>这里各层级对象之间的连接符都是&quot;.&quot;。这既简化了记忆量，也符合 Python 的动态类型特征 -- 在 Python 中，一切都是对象。</p>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 如果 foo.bar.Baz.bark 这个函数并没有文档，那么将产生一个无效链接。
@@ -722,47 +678,42 @@ With the identifier as title:
 <p>在 mkdocstrings 0.14 之后，跳转到某个函数文档内部的子标题的能力也具备了。在 0.16 之后，它又有了类似 intersphinx 那样跨工程引用的能力。具体如何使用，请参考官方文档。</p>
 <h4>7.5.2. 与主控文档建立关联</h4>
 <p>一般地，我们要在 docs 目录下生成一个名为 api.md 的文档（文件名可以任意取），并在 mkdocs.yml 中<code>nav</code>一节中配置进来（见第 5 行）：</p>
-<pre><code>nav:
-  - home: index.md
-  - installation: installation.md
-  - usage: usage.md
-  - modules: api.md
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-attr">nav:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">home:</span> <span class="hljs-string">index.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">installation:</span> <span class="hljs-string">installation.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">usage:</span> <span class="hljs-string">usage.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">modules:</span> <span class="hljs-string">api.md</span></span></code></pre>
 <p>根据 mkdocs 的语法，这里的 home, usage, modules 等，将成为导航菜单上的一项，它们的链接将指向冒号后面的文档。然后，在 api.md 中，我们引入需要生成文档的各个模块：</p>
-<pre><code>::: my_package.my_module.MyClass
-    handler: python
-    options:
-      members:
-        - method_a
-        - method_b
-      show_root_heading: false
-      show_source: false
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-string">:::</span> <span class="hljs-string">my_package.my_module.MyClass</span>
+    <span class="hljs-attr">handler:</span> <span class="hljs-string">python</span>
+    <span class="hljs-attr">options:</span>
+      <span class="hljs-attr">members:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">method_a</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">method_b</span>
+      <span class="hljs-attr">show_root_heading:</span> <span class="hljs-literal">false</span>
+      <span class="hljs-attr">show_source:</span> <span class="hljs-literal">false</span></span></code></pre>
 <p>上面的示例是一个配置项比较完全的例子。一般地，我们也可以象这样配置：</p>
-<pre><code>::: sample.models.security
-    rendering:
-        heading_level: 1
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-string">:::</span> <span class="hljs-string">sample.models.security</span>
+    <span class="hljs-attr">rendering:</span>
+        <span class="hljs-attr">heading_level:</span> <span class="hljs-number">1</span></span></code></pre>
 <p>这样在模块 sample.models.security 下的所有类和函数都会被生成文档。</p>
 <p>对于大型工程，我们倾向于将 API 文档拆成多个部分，再通过 mkdocs.yml 关联起来，比如下面的例子：</p>
-<pre><code># MKDOCS.YML
-nav:
-  - 简介：index.md
-  - 安装：installation.md
-  - 教程：usage.md
-  - API 文档：
-    - timeframe: api/timeframe.md
-    - triggers: api/triggers.md
-    - security: api/security.md
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-comment"># MKDOCS.YML</span>
+<span class="hljs-attr">nav:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">简介：index.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">安装：installation.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">教程：usage.md</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">API</span> <span class="hljs-string">文档：</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">timeframe:</span> <span class="hljs-string">api/timeframe.md</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">triggers:</span> <span class="hljs-string">api/triggers.md</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">security:</span> <span class="hljs-string">api/security.md</span></span></code></pre>
 <p>对应地，我们在 docs/api 目录下生成了 security.md 等几个文档，每个文档中都只引入了自己关心的模块。</p>
 <h3 id="76-多版本发布">7.6. 多版本发布</h3>
 <p>我们的软件始终在不断地迭代，总有一些用户可能并不会随着我们的步伐升级。在这种情况下，我们必须要提供多个版本的文档，以便用户能够根据自己的需要选择合适的版本。在 mkdocs 中，这一功能是由 <a href="https://github.com/jimporter/mike">Mike</a> 来实现的。
 如果我们使用 mkdocs-material 主题，则只需要在 mkdocs.yml 中进行配置即可：</p>
-<pre><code>extra:
-  version:
-    provider: mike
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-attr">extra:</span>
+  <span class="hljs-attr">version:</span>
+    <span class="hljs-attr">provider:</span> <span class="hljs-string">mike</span></span></code></pre>
 <p>这会使得在文档的 header 区域出现一个版本选择器，如下图所示：</p>
 <p><img src="assets/img/chap10/mike_versioning.png" alt="">{width=&quot;50%&quot;}</p>
 <h2 id="8-在线托管文档">8. 在线托管文档</h2>
@@ -782,12 +733,10 @@ nav:
 <p>在 github 上设置 git pages：</p>
 <p><img src="assets/img/chap10/github_pages.png" alt="">{width=&quot;70%&quot;}</p>
 <p>当使用了 mkdocs 之后，如果我们要从本地发布文档，可以执行：</p>
-<pre><code class="language-bash">mkdocs gh-deploy
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">mkdocs gh-deploy</span></code></pre>
 <p>如果你使用 mike 进行多版本发布，则我们不应该使用 mkdocs 来进行本地发布，而是应该使用 mike:</p>
-<pre><code>mike deploy [version] [alias] --push
-mike set-default [version-or-alias]
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">mike deploy [version] [alias] <span class="hljs-comment">--push</span>
+mike <span class="hljs-keyword">set</span><span class="hljs-operator">-</span><span class="hljs-keyword">default</span> [version<span class="hljs-operator">-</span><span class="hljs-keyword">or</span><span class="hljs-operator">-</span>alias]</span></code></pre>
 <p>第 1 行中，我们不仅指定了版本号，还给它指定了一个别名。别名有着非常实用的功能。在启用多版本部署之后，链接都会带上版本号，比如，http://.../myproject/0.1.0/topic。新版本发布后，引用这些链接的地方必须要全部更改，否则就会指向过时的文档（当然个别情况下，我们也确实需要指向旧的版本号，但大多数情况下，都需要指向最新的版本）。这时，我们就可以使用叫 latest 的别名来解决这个问题，从一开始，链接就是 https://.../myproject/latest/topic，随着新版本发布，它总是指向最新的那个版本。</p>
 <p>第 2 行中，我们指定了默认版本。在多版本部署下，如果不指定默认版本，则用户必须指定明确的版本号才能访问文档。但用户可能事先并不知道最新的版本是哪一个。这就是默认版本的作用。</p>
 <h2 id="9-结论">9. 结论</h2>

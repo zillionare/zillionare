@@ -16,38 +16,37 @@
 <p>这是一种自底向上的方法，即由小的网格生成大的网格。</p>
 <p>这篇笔记我们将介绍另一种自顶向下的方法，即先生成大的网格，再通过 subgridspec，在这些网格中，进一步切分出小的网格。</p>
 <h2 id="自顶向下---subgridspec">自顶向下 - subgridspec</h2>
-<pre><code class="language-python">import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-def my_text(name):
-    exec(
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">my_text</span>(<span class="hljs-params">name</span>):
+    <span class="hljs-built_in">exec</span>(
         name
-        + &quot;.text(0.5, 0.5, name, ha=&#39;center&#39;, &quot;\
-        &quot;va=&#39;center&#39;, fontsize=16, color=&#39;darkgrey&#39;)&quot;
+        + <span class="hljs-string">&quot;.text(0.5, 0.5, name, ha=&#x27;center&#x27;, &quot;</span>\
+        <span class="hljs-string">&quot;va=&#x27;center&#x27;, fontsize=16, color=&#x27;darkgrey&#x27;)&quot;</span>
     )
 
-fig = plt.figure(constrained_layout=True)
+fig = plt.figure(constrained_layout=<span class="hljs-literal">True</span>)
 
-# 生成一行两列的等面积网格
-gs = fig.add_gridspec(1, 2)
+<span class="hljs-comment"># 生成一行两列的等面积网格</span>
+gs = fig.add_gridspec(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
 
-# 将第一个网格再划分成 2 * 2 的单元格
-gs_left = gs[0].subgridspec(2, 2)
+<span class="hljs-comment"># 将第一个网格再划分成 2 * 2 的单元格</span>
+gs_left = gs[<span class="hljs-number">0</span>].subgridspec(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
 
-# 将第二个网格再划分成 3 * 1 的单元格
-gs_right = gs[1].subgridspec(3, 1)
+<span class="hljs-comment"># 将第二个网格再划分成 3 * 1 的单元格</span>
+gs_right = gs[<span class="hljs-number">1</span>].subgridspec(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)
 
-for a in range(2):
-    for b in range(2):
-        exec(f&quot;ax{a}{b} = fig.add_subplot(gs_left[{a},{b}])&quot;)
-        my_text(f&quot;ax{a}{b}&quot;)
+<span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>):
+    <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>):
+        <span class="hljs-built_in">exec</span>(<span class="hljs-string">f&quot;ax<span class="hljs-subst">{a}</span><span class="hljs-subst">{b}</span> = fig.add_subplot(gs_left[<span class="hljs-subst">{a}</span>,<span class="hljs-subst">{b}</span>])&quot;</span>)
+        my_text(<span class="hljs-string">f&quot;ax<span class="hljs-subst">{a}</span><span class="hljs-subst">{b}</span>&quot;</span>)
 
-for a in range(3):
-    exec(f&quot;ax{a} = fig.add_subplot(gs_right[{a}])&quot;)
-    my_text(f&quot;ax{a}&quot;)
+<span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+    <span class="hljs-built_in">exec</span>(<span class="hljs-string">f&quot;ax<span class="hljs-subst">{a}</span> = fig.add_subplot(gs_right[<span class="hljs-subst">{a}</span>])&quot;</span>)
+    my_text(<span class="hljs-string">f&quot;ax<span class="hljs-subst">{a}</span>&quot;</span>)
 
-# 增加 FIGURE-LEVEL 的标题
-_ = fig.suptitle(&quot;nested gridspecs&quot;)
-</code></pre>
+<span class="hljs-comment"># 增加 FIGURE-LEVEL 的标题</span>
+_ = fig.suptitle(<span class="hljs-string">&quot;nested gridspecs&quot;</span>)</span></code></pre>
 <p>这种方法较之上一篇中使用的方法，似乎更为优雅和符合直觉。</p>
 <h2 id="神奇的-mosaic">神奇的 Mosaic</h2>
 <p>对于密集、均匀的网格，我们有 Figure.subplots；对于更复杂的布局，我们可以使用 Gridspec + 单元格合并，或者本篇讲的 subgridspec 方法来创建网格。</p>
@@ -55,99 +54,92 @@ _ = fig.suptitle(&quot;nested gridspecs&quot;)
 <p>subplot_mosaic 提供了一个直观地、语义化布局和命名 Axes 的方法。这种方法作为 Grid 布局中的一种，正在 R，Web 等多个地方流行。</p>
 <p>subplot_mosaic 函数提供了一种优雅且可读的方式来创建复杂的子图排列。我们不用从数字角度考虑子图网格，而是根据布局模式来考虑它们。我们提供一个表示为字符串列表列表的可视化布局，其中每个字符串代表一个子图。每个唯一的字符串对应一个唯一的子图，而布局中重复的字符串将创建跨越重复位置的更大的子图。</p>
 <p>我们通过一个例子来理解它：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 用来标识子图对象 (AXES)
-def identify_axes(ax_dict, fontsize=48):
-    kw = dict(ha=&quot;center&quot;, va=&quot;center&quot;, fontsize=fontsize, color=&quot;darkgrey&quot;)
-    for k, ax in ax_dict.items():
-        ax.text(0.5, 0.5, k, transform=ax.transAxes, **kw)
+<span class="hljs-comment"># 用来标识子图对象 (AXES)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">identify_axes</span>(<span class="hljs-params">ax_dict, fontsize=<span class="hljs-number">48</span></span>):
+    kw = <span class="hljs-built_in">dict</span>(ha=<span class="hljs-string">&quot;center&quot;</span>, va=<span class="hljs-string">&quot;center&quot;</span>, fontsize=fontsize, color=<span class="hljs-string">&quot;darkgrey&quot;</span>)
+    <span class="hljs-keyword">for</span> k, ax <span class="hljs-keyword">in</span> ax_dict.items():
+        ax.text(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, k, transform=ax.transAxes, **kw)
 
-fig = plt.figure(layout=&quot;constrained&quot;)
-np.random.seed(19680801)
-hist_data = np.random.randn(1_500)
+fig = plt.figure(layout=<span class="hljs-string">&quot;constrained&quot;</span>)
+np.random.seed(<span class="hljs-number">19680801</span>)
+hist_data = np.random.randn(<span class="hljs-number">1_500</span>)
 ax_dict = fig.subplot_mosaic(
     [
-        [&quot;bar&quot;, &quot;plot&quot;],
-        [&quot;hist&quot;, &quot;image&quot;],
+        [<span class="hljs-string">&quot;bar&quot;</span>, <span class="hljs-string">&quot;plot&quot;</span>],
+        [<span class="hljs-string">&quot;hist&quot;</span>, <span class="hljs-string">&quot;image&quot;</span>],
     ],
 )
-ax_dict[&quot;bar&quot;].bar([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;], [5, 7, 9])
-ax_dict[&quot;plot&quot;].plot([1, 2, 3])
-ax_dict[&quot;hist&quot;].hist(hist_data)
-ax_dict[&quot;image&quot;].imshow([[1, 2], [2, 1]])
+ax_dict[<span class="hljs-string">&quot;bar&quot;</span>].bar([<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>])
+ax_dict[<span class="hljs-string">&quot;plot&quot;</span>].plot([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+ax_dict[<span class="hljs-string">&quot;hist&quot;</span>].hist(hist_data)
+ax_dict[<span class="hljs-string">&quot;image&quot;</span>].imshow([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])
 
-# 把 AXES 名字标记在子图上
-identify_axes(ax_dict)
-</code></pre>
+<span class="hljs-comment"># 把 AXES 名字标记在子图上</span>
+identify_axes(ax_dict)</span></code></pre>
 <p>这个方法的优美之处在于，我们在创建每个子图时，就给了它们一个名字，后面绘图（第 12 到第 15 行）时，可以直接使用名字来引用这些子图。</p>
 <p>在定义网格时，我们使用了一个 2<em>2 的字符串数组来表示要生成一个 2</em>2 的网格，这也很符合直觉。</p>
 <p>更有趣的是，我们甚至可以嫌弃数组定义过于繁复：</p>
-<pre><code class="language-python">mosaic = &quot;AB;CD&quot;
-fig = plt.figure(layout=&quot;constrained&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">mosaic = <span class="hljs-string">&quot;AB;CD&quot;</span>
+fig = plt.figure(layout=<span class="hljs-string">&quot;constrained&quot;</span>)
 ax_dict = fig.subplot_mosaic(mosaic)
 
-identify_axes(ax_dict)
-</code></pre>
+identify_axes(ax_dict)</span></code></pre>
 <p>这里我们定义 ABCD 4 个子图，仅仅是通过 mosaic = &quot;AB;CD&quot;就完成了指定。</p>
 <p>![50%]](<a href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abcd.png">https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abcd.png</a>)</p>
 <p>如果我们把 mosaic 指定为这样：</p>
-<pre><code>&quot;&quot;&quot;
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;
 ABD
 CCD
-&quot;&quot;&quot;
-</code></pre>
+&quot;&quot;&quot;</span></span></code></pre>
 <p>应该很容易猜到这将生成什么样的网格布局。我们通过代码演示一下：</p>
-<pre><code class="language-python">axd = plt.figure(layout=&quot;constrained&quot;).subplot_mosaic(
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">axd = plt.figure(layout=<span class="hljs-string">&quot;constrained&quot;</span>).subplot_mosaic(
+    <span class="hljs-string">&quot;&quot;&quot;
     ABD
     CCD
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
 )
 
-axd[&quot;A&quot;].bar([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;], [5, 7, 9])
-axd[&quot;C&quot;].plot([1,2,3])
-identify_axes(axd)
-</code></pre>
+axd[<span class="hljs-string">&quot;A&quot;</span>].bar([<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>])
+axd[<span class="hljs-string">&quot;C&quot;</span>].plot([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])
+identify_axes(axd)</span></code></pre>
 <p>对 Axes 的引用非常直观，我们直接使用 axd[&quot;A&quot;] 或者 axd[&quot;C&quot;] 即可。</p>
 <p>![50%]](<a href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abdccd.png">https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abdccd.png</a>)</p>
 <p>如果我们需要一些更怪异的布局，比如，在某个位置上，我们想留空：</p>
-<pre><code>    A.C
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">    A.C
     BBB
     .D.
-    &quot;&quot;&quot;
-</code></pre>
+    <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span></span></code></pre>
 <p>使用&quot;.&quot;的地方将会留空。这将生成下图：</p>
 <p>![50%]](<a href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-4.png">https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-4.png</a>)</p>
 <p>上面我们生成的都是均匀长度的子图（在合并之前）。subplot_mosaic 接受 gridspec_kw 参数：</p>
-<pre><code class="language-python">axd = fig.subplot_mosaic(
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">axd = fig.subplot_mosaic(
     mosaic,
     gridspec_kw={
-        &quot;bottom&quot;: 0.05,
-        &quot;top&quot;: 0.75,
-        &quot;left&quot;: 0.6,
-        &quot;right&quot;: 0.95,
-        &quot;wspace&quot;: 0.5,
-        &quot;hspace&quot;: 0.5,
+        <span class="hljs-string">&quot;bottom&quot;</span>: <span class="hljs-number">0.05</span>,
+        <span class="hljs-string">&quot;top&quot;</span>: <span class="hljs-number">0.75</span>,
+        <span class="hljs-string">&quot;left&quot;</span>: <span class="hljs-number">0.6</span>,
+        <span class="hljs-string">&quot;right&quot;</span>: <span class="hljs-number">0.95</span>,
+        <span class="hljs-string">&quot;wspace&quot;</span>: <span class="hljs-number">0.5</span>,
+        <span class="hljs-string">&quot;hspace&quot;</span>: <span class="hljs-number">0.5</span>,
     },
-)
-</code></pre>
+)</span></code></pre>
 <p>也许我们还怀念 subgridspec 那种自顶向下的创建方式--没问题，subplot_mosaic 支持嵌套：</p>
-<pre><code class="language-python">inner = [
-    [&quot;inner A&quot;],
-    [&quot;inner B&quot;],
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">inner = [
+    [<span class="hljs-string">&quot;inner A&quot;</span>],
+    [<span class="hljs-string">&quot;inner B&quot;</span>],
 ]
 
-# 在这里我们把 INNER 网格嵌套进来了
+<span class="hljs-comment"># 在这里我们把 INNER 网格嵌套进来了</span>
 outer_nested_mosaic = [
-    [&quot;main&quot;, inner],
-    [&quot;bottom&quot;, &quot;bottom&quot;],
+    [<span class="hljs-string">&quot;main&quot;</span>, inner],
+    [<span class="hljs-string">&quot;bottom&quot;</span>, <span class="hljs-string">&quot;bottom&quot;</span>],
 ]
-axd = plt.figure(layout=&quot;constrained&quot;).subplot_mosaic(
-    outer_nested_mosaic, empty_sentinel=None
+axd = plt.figure(layout=<span class="hljs-string">&quot;constrained&quot;</span>).subplot_mosaic(
+    outer_nested_mosaic, empty_sentinel=<span class="hljs-literal">None</span>
 )
-identify_axes(axd, fontsize=36)
-</code></pre>
+identify_axes(axd, fontsize=<span class="hljs-number">36</span>)</span></code></pre>
 <p>![50%]](<a href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-2-5.png">https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-2-5.png</a>)</p>
 <p>好，看完这一期文章，你应该完全精通 matplotlib 的布局了！</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/visualize/matplotlib-1/">← 上一篇：matplotlib的布局问题（1）</a> <a class="series-next" href="/articles/python/visualize/qq-plot/">下一篇：为什么Q-Q图可用来进行统计推断 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 48/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/visualize/matplotlib-1/">← matplotlib的布局问题（1）</a> <a href="/articles/python/visualize/qq-plot/">为什么Q-Q图可用来进行统计推断 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/numpy-pandas/intro/">课程简介</a> <p>正如死亡和税收不可避免，Numpy和Pandas对量化人而言，也具有同样的地位 -- 每个量化人都不可避免地要与这两个库打交道。</p> </li><li> <a href="/articles/coursea/24lectures/how-the-course-are-composed/">大富翁量化24课编排说明</a> <p>课程内容 本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括： 如何获取数据 我们会介绍akshare, tusha</p> </li><li> <a href="/articles/coursea/24lectures/detail/">二十四课内容详情</a> <p>共 40 万字，461 段超过 7000 行代码（另有若干策略代码作为福利赠送，未计入），这门课用一句话介绍：涵盖了量化交易全流程、学完就能进入实战的课程。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#自顶向下---subgridspec" title="自顶向下 - subgridspec">自顶向下 - subgridspec</a> </li><li class> <a href="#神奇的-mosaic" title="神奇的 Mosaic">神奇的 Mosaic</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

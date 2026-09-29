@@ -24,12 +24,11 @@
 <li><p>如果任意坐标位$i$上的$X_i$和$Y_i$都近似相等，我们将得到分布在这条直线两侧不远处的散点图。</p>
 </li>
 </ol>
-<pre><code class="language-python">X = stats.norm.rvs(size=1000)
-Y = stats.norm.rvs(size=1000)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">X = stats.norm.rvs(size=<span class="hljs-number">1000</span>)
+Y = stats.norm.rvs(size=<span class="hljs-number">1000</span>)
 
-plt.scatter(sorted(X), sorted(Y), s=1)
-plt.plot(X, X, color=&#39;orange&#39;)
-</code></pre>
+plt.scatter(<span class="hljs-built_in">sorted</span>(X), <span class="hljs-built_in">sorted</span>(Y), s=<span class="hljs-number">1</span>)
+plt.plot(X, X, color=<span class="hljs-string">&#x27;orange&#x27;</span>)</span></code></pre>
 <p>上面的例子中，我们从标准正态分布中抽样分别抽样两次，得到$X$和$Y$，对它们进行排序后进行绘图，就得到了一个分布在 45 度直线两侧的散点图。</p>
 <p>实际上，上面的例子已经给了我们一个判别某个分布是否属于标准正态分布的一个算法。这里我们需要解释一下，为什么对属于同一分布的$X$和$Y$，进行排序后，对应位置的元素应该大致相等。这就需要引入分位数的概念。</p>
 <p>如果我们有随机变量 X，假设它服从标准正态分布，那么在 50%分位处，X 的采样点$x_1$应该非常接近于 0（由于是随机变量，所以也很难完全相等），因为标准正态分布，在 50%分位处的取值就是 0；推广到 25%分位处，75%分位处，$X$在这些分位数上的取值，也应该与标准正态分布取值非常接近；或者进一步推广，在任意分位数处，两者的采样值都应该非常接近。</p>
@@ -37,59 +36,56 @@ plt.plot(X, X, color=&#39;orange&#39;)
 <p>在实际绘图中，我们会简化上述算法，不去进行分位数计算，而是以排序进替代。将 X 与 Y 排序后，如果样本总数是 N，那么排序后的第$n$个元素，就被认为是第 $n/N$分位数处的随机变量取值；如果第$n$个元素处的$X_n$与$Y_n$非常接近，那么点$[X_n, Y_n]$将落在直线 $Y = X$ 附近，也就是 45 度角的直线上。</p>
 <p>这种简化，在 n 值较大时，是完全生效的；在 n 值较小时，有可能出现较大偏差。</p>
 <p>下面的代码演示了当 n 从 10 开始，依次倍增到 1280 时的绘图：</p>
-<pre><code class="language-python">fig, axes = plt.subplots(nrows=2, ncols=4, figsize=(16,8))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">fig, axes = plt.subplots(nrows=<span class="hljs-number">2</span>, ncols=<span class="hljs-number">4</span>, figsize=(<span class="hljs-number">16</span>,<span class="hljs-number">8</span>))
 axes = axes.flatten()
 
-for i, n in enumerate((10, 20, 40, 80, 160, 320, 640, 1280)):
+<span class="hljs-keyword">for</span> i, n <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>((<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">40</span>, <span class="hljs-number">80</span>, <span class="hljs-number">160</span>, <span class="hljs-number">320</span>, <span class="hljs-number">640</span>, <span class="hljs-number">1280</span>)):
     X = stats.norm.rvs(size=n)
     Y = stats.norm.rvs(size=n)
     
     ax = axes[i]
-    ax.scatter(sorted(stats.zscore(X)), sorted(Y), s=3)
-    ax.plot(X, X, &#39;--&#39;, color=&#39;grey&#39;)
-</code></pre>
+    ax.scatter(<span class="hljs-built_in">sorted</span>(stats.zscore(X)), <span class="hljs-built_in">sorted</span>(Y), s=<span class="hljs-number">3</span>)
+    ax.plot(X, X, <span class="hljs-string">&#x27;--&#x27;</span>, color=<span class="hljs-string">&#x27;grey&#x27;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-4.png" alt="样本量 n 从 10 倍增到 1280 时的 Q-Q 图矩阵：n 越大散点越贴近对角线"></p>
 <p>从图中可以看出，当 n 大于等于 320 时，大多数点都落在直线两侧附近。</p>
 <h2 id="任意正态分布检验">任意正态分布检验</h2>
 <p>如果$X$是一个 norm(loc, scale) 的正态分布，那么，如果我们仍以 [$X, $Y] 绘图，我们会得到一个分布在直线$Y = (X - loc)/scale $两侧的散点图。</p>
-<pre><code class="language-python">np.random.seed(78)
-loc = 5
-scale = 3
-X = stats.norm.rvs(loc=loc, scale = scale, size=1000)
-Y = stats.norm.rvs(size=1000)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body">np.random.seed(<span class="hljs-number">78</span>)
+loc = <span class="hljs-number">5</span>
+scale = <span class="hljs-number">3</span>
+X = stats.norm.rvs(loc=loc, scale = scale, size=<span class="hljs-number">1000</span>)
+Y = stats.norm.rvs(size=<span class="hljs-number">1000</span>)
 
-plt.scatter(sorted(X), sorted(Y), s=1)
-plt.plot(X, X, color=&#39;orange&#39;)
+plt.scatter(<span class="hljs-built_in">sorted</span>(X), <span class="hljs-built_in">sorted</span>(Y), s=<span class="hljs-number">1</span>)
+plt.plot(X, X, color=<span class="hljs-string">&#x27;orange&#x27;</span>)
 
-x2 = np.linspace(min(X), max(X), len(X))
+x2 = np.linspace(<span class="hljs-built_in">min</span>(X), <span class="hljs-built_in">max</span>(X), <span class="hljs-built_in">len</span>(X))
 y2 = x2 / scale - loc / scale
-plt.plot(x2, y2, color=&#39;cyan&#39;)
+plt.plot(x2, y2, color=<span class="hljs-string">&#x27;cyan&#x27;</span>)
 
-plt.text(5, 5, &quot;[X,X]&quot;)
-plt.text(10, 2, &quot;[X,Y]&quot;, color=&#39;blue&#39;)
-plt.text(10, 3.5, &quot;[X, (X-loc)/scale]&quot;, color=&#39;red&#39;)
-</code></pre>
+plt.text(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-string">&quot;[X,X]&quot;</span>)
+plt.text(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;[X,Y]&quot;</span>, color=<span class="hljs-string">&#x27;blue&#x27;</span>)
+plt.text(<span class="hljs-number">10</span>, <span class="hljs-number">3.5</span>, <span class="hljs-string">&quot;[X, (X-loc)/scale]&quot;</span>, color=<span class="hljs-string">&#x27;red&#x27;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-3.png" alt="norm(5,3) 正态样本与标准正态样本的 Q-Q 图，含三条参考直线对比"></p>
 <p>我们也可以考虑先将$X$进行 zscore 化，这样再与标准正态分布的采样进行绘图。如果$X$服从正态分布，此时得到的图形，仍然是多数点分布在$y=x$直线两侧的散点图。</p>
 <h2 id="能绘制-q-q-图的库">能绘制 Q-Q 图的库</h2>
 <p>上面的代码已经给出了绘制方法，但主要是帮助我们了解其原理。实际运用中，我们可以借助 scipy.stats 中的 probplot 方法：</p>
-<pre><code class="language-python">import numpy as np
-import scipy.stats as stats
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> scipy.stats <span class="hljs-keyword">as</span> stats
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-# GENERATE A RANDOM DATASET FOLLOWING A NORMAL DISTRIBUTION
-np.random.seed(0)
-data = np.random.normal(loc=5, scale=2, size=100)
+<span class="hljs-comment"># GENERATE A RANDOM DATASET FOLLOWING A NORMAL DISTRIBUTION</span>
+np.random.seed(<span class="hljs-number">0</span>)
+data = np.random.normal(loc=<span class="hljs-number">5</span>, scale=<span class="hljs-number">2</span>, size=<span class="hljs-number">100</span>)
 
-# GENERATE A Q-Q PLOT
-plt.figure(figsize=(8, 8))
-stats.probplot(data, dist=&quot;norm&quot;, plot=plt)
-plt.title(&#39;Q-Q plot&#39;)
-plt.ylabel(&#39;Sample quantiles （样本分位数）&#39;)
-plt.xlabel(&#39;Theoretical quantiles （理论分位数）&#39;)
-plt.grid(True)
-plt.show()
-</code></pre>
+<span class="hljs-comment"># GENERATE A Q-Q PLOT</span>
+plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))
+stats.probplot(data, dist=<span class="hljs-string">&quot;norm&quot;</span>, plot=plt)
+plt.title(<span class="hljs-string">&#x27;Q-Q plot&#x27;</span>)
+plt.ylabel(<span class="hljs-string">&#x27;Sample quantiles （样本分位数）&#x27;</span>)
+plt.xlabel(<span class="hljs-string">&#x27;Theoretical quantiles （理论分位数）&#x27;</span>)
+plt.grid(<span class="hljs-literal">True</span>)
+plt.show()</span></code></pre>
 <p>当然现在我们明白，probplot 方法只不过是按照我们提供的 dist 参数，在内部生成了同样长度的理论分布采样数据，对待检验分布和理论分布都进行排序，然后绘制回归直线与散点图而已。</p>
 <p>上述代码将绘制出这个图形：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-5.png" alt="scipy.stats.probplot 绘制的正态分布 Q-Q 检验图，含拟合回归直线"></p>

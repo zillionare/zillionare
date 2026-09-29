@@ -33,33 +33,32 @@ UBL 因子实现过程比较简单，非常适合初学者用来熟悉将研报�
 
 <h3 id="上下影线">上下影线</h3>
 <p>以下是计算上下影线的代码：</p>
-<pre><code class="language-python">def calculate_shadow_ratio(bars):
-    &quot;&quot;&quot;计算上下影线因子（归一化）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_shadow_ratio</span>(<span class="hljs-params">bars</span>):
+    <span class="hljs-string">&quot;&quot;&quot;计算上下影线因子（归一化）
     
     按研报要求，标准化蜡烛上影线为当日上影线/过去 5 日上影线均值。标准化蜡烛下影线同。
-    &quot;&quot;&quot;
-    high = bars[&#39;high&#39;]
-    low = bars[&#39;low&#39;]
-    open_price = bars[&#39;open&#39;]
-    close = bars[&#39;close&#39;]
+    &quot;&quot;&quot;</span>
+    high = bars[<span class="hljs-string">&#x27;high&#x27;</span>]
+    low = bars[<span class="hljs-string">&#x27;low&#x27;</span>]
+    open_price = bars[<span class="hljs-string">&#x27;open&#x27;</span>]
+    close = bars[<span class="hljs-string">&#x27;close&#x27;</span>]
 
-    # 为避免除零错误，这里我们使用了一个技巧，即通过 mask 来排除可能除零的计算
-    # 无法计算时，设置为 0，表明无信号
-    up_shadow_ratio = pd.Series(0, index=bars.index)
-    down_shadow_ratio = pd.Series(0, index=bars.index)
+    <span class="hljs-comment"># 为避免除零错误，这里我们使用了一个技巧，即通过 mask 来排除可能除零的计算</span>
+    <span class="hljs-comment"># 无法计算时，设置为 0，表明无信号</span>
+    up_shadow_ratio = pd.Series(<span class="hljs-number">0</span>, index=bars.index)
+    down_shadow_ratio = pd.Series(<span class="hljs-number">0</span>, index=bars.index)
 
     up_shadow = high - np.maximum(open_price, close)
-    rolling_up_shadow = up_shadow.rolling(5).mean()
-    mask = rolling_up_shadow &gt; 1e-8
+    rolling_up_shadow = up_shadow.rolling(<span class="hljs-number">5</span>).mean()
+    mask = rolling_up_shadow &gt; <span class="hljs-number">1e-8</span>
     up_shadow_ratio[mask] = up_shadow[mask] / rolling_up_shadow[mask]
 
     down_shadow = np.minimum(open_price, close) - low
-    rolling_down_shadow = down_shadow.rolling(5).mean()
-    mask = rolling_down_shadow &gt; 1e-8
+    rolling_down_shadow = down_shadow.rolling(<span class="hljs-number">5</span>).mean()
+    mask = rolling_down_shadow &gt; <span class="hljs-number">1e-8</span>
     down_shadow_ratio[mask] = down_shadow[mask] / rolling_down_shadow[mask]
 
-    return up_shadow_ratio, down_shadow_ratio
-</code></pre>
+    <span class="hljs-keyword">return</span> up_shadow_ratio, down_shadow_ratio</span></code></pre>
 <p>计算上下影线就是一句话的事儿。不过，按照研报要求，重要的是对它进行『标准化』：通过除以 5 日内影线的均值，以去掉不同资产之间的量纲差异。</p>
 <p>从计算公式来看，我们必然面临一个除零的问题 -- 如果过去 5 天，该个股一直没有任何影线，那么，影线的 5 日均值就会是零。此时我们要如何避免除零的问题呢？</p>
 <p>除零问题在量化建模时经常遇到，不同的场景下，解决方案都不一样。这里我们用了一点小技巧，值得一提。</p>
@@ -70,68 +69,65 @@ UBL 因子实现过程比较简单，非常适合初学者用来熟悉将研报�
 <h3 id="威廉指标变种">威廉指标变种</h3>
 <p>研报作者认为，威廉指标的变种，即当日收盘价与最高价、最低价的差值（标准化后），也反映了卖压和买气，因此具有信号意义。</p>
 <p>它的计算方法是：</p>
-<pre><code class="language-python">def calculate_williams_r_ratio(bars):
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_williams_r_ratio</span>(<span class="hljs-params">bars</span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     计算变种威廉指标
-    &quot;&quot;&quot;
-    high = bars[&#39;high&#39;]
-    low = bars[&#39;low&#39;]
-    close = bars[&#39;close&#39;]
+    &quot;&quot;&quot;</span>
+    high = bars[<span class="hljs-string">&#x27;high&#x27;</span>]
+    low = bars[<span class="hljs-string">&#x27;low&#x27;</span>]
+    close = bars[<span class="hljs-string">&#x27;close&#x27;</span>]
     
     wr_up = high - close
     wr_down = close - low
 
-    rolling_wr_up = wr_up.rolling(5).mean()
-    rolling_wr_down = wr_down.rolling(5).mean()
+    rolling_wr_up = wr_up.rolling(<span class="hljs-number">5</span>).mean()
+    rolling_wr_down = wr_down.rolling(<span class="hljs-number">5</span>).mean()
 
-    # 与蜡烛上下影线的默认值不同，0.5 更能表明无信号的含义
-    wr_up_ratio = pd.Series(0.5, index=bars.index)
-    wr_down_ratio = pd.Series(0.5, index=bars.index)
+    <span class="hljs-comment"># 与蜡烛上下影线的默认值不同，0.5 更能表明无信号的含义</span>
+    wr_up_ratio = pd.Series(<span class="hljs-number">0.5</span>, index=bars.index)
+    wr_down_ratio = pd.Series(<span class="hljs-number">0.5</span>, index=bars.index)
 
-    mask = rolling_wr_up &gt; 1e-8
+    mask = rolling_wr_up &gt; <span class="hljs-number">1e-8</span>
     wr_up_ratio[mask] = wr_up[mask] / rolling_wr_up[mask]
 
-    mask = rolling_wr_down &gt; 1e-8
+    mask = rolling_wr_down &gt; <span class="hljs-number">1e-8</span>
     wr_down_ratio[mask] = wr_down[mask] / rolling_wr_down[mask]
 
-    return wr_up_ratio, wr_down_ratio
-</code></pre>
+    <span class="hljs-keyword">return</span> wr_up_ratio, wr_down_ratio</span></code></pre>
 <h3 id="月度因子计算">月度因子计算</h3>
 <p>研报在因子上做了多重变换。到目前为止，我们还仅仅是进行了第一重变换：『标准化』。但真正的因子是在每个月末时计算出的均值或者标准差。</p>
 <p>这部分操作有通用性，我们将它提取为一个函数。这当中运用了不少 pandas 的操作技巧。</p>
-<pre><code class="language-python">def calc_monthly(daily_factor, aggfunc, win=20):
-    dates = daily_factor.index.get_level_values(&#39;date&#39;).unique().sort_values()
-    month_ends = dates.to_frame(name = &quot;date&quot;).resample(&#39;BME&#39;).last().values
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_monthly</span>(<span class="hljs-params">daily_factor, aggfunc, win=<span class="hljs-number">20</span></span>):
+    dates = daily_factor.index.get_level_values(<span class="hljs-string">&#x27;date&#x27;</span>).unique().sort_values()
+    month_ends = dates.to_frame(name = <span class="hljs-string">&quot;date&quot;</span>).resample(<span class="hljs-string">&#x27;BME&#x27;</span>).last().values
 
     dfs = []
 
-    for date in month_ends:
+    <span class="hljs-keyword">for</span> date <span class="hljs-keyword">in</span> month_ends:
         date_ts = pd.Timestamp(date.item())
         iend = dates.get_loc(date_ts)
-        istart = max(0, iend - win + 1)
+        istart = <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, iend - win + <span class="hljs-number">1</span>)
         start_ = pd.Timestamp(dates[istart])
         end_ = date_ts
         window_data = daily_factor.loc[start_: end_]
 
-        df = (window_data.groupby(level=&quot;asset&quot;)
+        df = (window_data.groupby(level=<span class="hljs-string">&quot;asset&quot;</span>)
                         .agg(aggfunc)
-                        .to_frame(&quot;factor&quot;)
+                        .to_frame(<span class="hljs-string">&quot;factor&quot;</span>)
         )
-        df[&quot;date&quot;] = date_ts
+        df[<span class="hljs-string">&quot;date&quot;</span>] = date_ts
         dfs.append(df)
 
     df = pd.concat(dfs)
-    return df.set_index([&quot;date&quot;, df.index]).sort_index()
-</code></pre>
+    <span class="hljs-keyword">return</span> df.set_index([<span class="hljs-string">&quot;date&quot;</span>, df.index]).sort_index()</span></code></pre>
 <p>在这一步中，我们实现了在每个月末，以 win 为数据窗口，计算一次月度因子。研报中，使用的均值和标准差都是一种聚合函数，为了允许探索更多的因子，我们在这里允许把聚合函数作为参数传入。</p>
 <p>有了这个函数，我们就可以立即计算出研报开头提出来的蜡烛上_mean, 蜡烛上_std 等因子：</p>
-<pre><code class="language-python">def calc_candle_up_std_factor(barss, win = 20):
-    up_shadow = (barss.groupby(&quot;asset&quot;, group_keys=False)
-                      .apply(lambda x: calculate_shadow_ratio(x)[0])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_candle_up_std_factor</span>(<span class="hljs-params">barss, win = <span class="hljs-number">20</span></span>):
+    up_shadow = (barss.groupby(<span class="hljs-string">&quot;asset&quot;</span>, group_keys=<span class="hljs-literal">False</span>)
+                      .apply(<span class="hljs-keyword">lambda</span> x: calculate_shadow_ratio(x)[<span class="hljs-number">0</span>])
                       .sort_index())
 
-    return calc_monthly(up_shadow, &quot;std&quot;, win)
-</code></pre>
+    <span class="hljs-keyword">return</span> calc_monthly(up_shadow, <span class="hljs-string">&quot;std&quot;</span>, win)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>现在我们得到的因子数据大致是：</p>
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
@@ -141,13 +137,12 @@ UBL 因子实现过程比较简单，非常适合初学者用来熟悉将研报�
 <!-- END IPYNB STRIPOUT -->
 
 <p>同样，我们可以计算出威廉下_mean 因子：</p>
-<pre><code class="language-python">def calc_wr_down_factor(barss, win = 20):
-    wr_down = (barss.groupby(&quot;asset&quot;, group_keys=False)
-                    .apply(lambda x: calculate_williams_r_ratio(x)[1])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_wr_down_factor</span>(<span class="hljs-params">barss, win = <span class="hljs-number">20</span></span>):
+    wr_down = (barss.groupby(<span class="hljs-string">&quot;asset&quot;</span>, group_keys=<span class="hljs-literal">False</span>)
+                    .apply(<span class="hljs-keyword">lambda</span> x: calculate_williams_r_ratio(x)[<span class="hljs-number">1</span>])
                     .sort_index())
 
-    return calc_monthly(wr_down, &quot;mean&quot;, win)
-</code></pre>
+    <span class="hljs-keyword">return</span> calc_monthly(wr_down, <span class="hljs-string">&quot;mean&quot;</span>, win)</span></code></pre>
 <h3 id="ubl-因子">UBL 因子</h3>
 <p>根据研报，计算 UBL 因子需要在上述月度因子的基础上，进行市值中性化，再将两个因子，分别按横截面进行标准化，再求和。</p>
 <p>这里我们省略掉市值中性化的步骤，直接进行截面 zscore 化。</p>
@@ -156,34 +151,32 @@ UBL 因子实现过程比较简单，非常适合初学者用来熟悉将研报�
 </div>
 
 
-<pre><code class="language-python">def calc_ubl_factor(barss, win = 20):
-    from scipy.stats import zscore
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_ubl_factor</span>(<span class="hljs-params">barss, win = <span class="hljs-number">20</span></span>):
+    <span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> zscore
 
     up_std = calc_candle_up_std_factor(barss, win)
     wr_down = calc_wr_down_factor(barss, win)
 
-    # 截面 zscore
-    z_scored_up_std_factor = up_std.groupby(&quot;date&quot;).transform(zscore)
-    z_scored_wr_down = wr_down.groupby(&quot;date&quot;).transform(zscore)
+    <span class="hljs-comment"># 截面 zscore</span>
+    z_scored_up_std_factor = up_std.groupby(<span class="hljs-string">&quot;date&quot;</span>).transform(zscore)
+    z_scored_wr_down = wr_down.groupby(<span class="hljs-string">&quot;date&quot;</span>).transform(zscore)
 
-    return z_scored_up_std_factor + z_scored_wr_down
-</code></pre>
+    <span class="hljs-keyword">return</span> z_scored_up_std_factor + z_scored_wr_down</span></code></pre>
 <p>我们可以通过以下数据来检验因子计算过程的正确性。</p>
-<pre><code class="language-python">dates = pd.bdate_range(&#39;2019-01-01&#39;, &#39;2019-01-31&#39;)
-cols = [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;]
-df1 = pd.DataFrame([(2, 3, 1, 2)] * len(dates), index=dates, columns=cols)
-df1[&quot;asset&quot;] = &quot;A&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">dates = pd.bdate_range(<span class="hljs-string">&#x27;2019-01-01&#x27;</span>, <span class="hljs-string">&#x27;2019-01-31&#x27;</span>)
+cols = [<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]
+df1 = pd.DataFrame([(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)] * <span class="hljs-built_in">len</span>(dates), index=dates, columns=cols)
+df1[<span class="hljs-string">&quot;asset&quot;</span>] = <span class="hljs-string">&quot;A&quot;</span>
 
-df2 = pd.DataFrame([(2, 3, 0, 0)] * len(dates), index=dates, columns=cols)
-df2[&quot;asset&quot;] = &quot;B&quot;
+df2 = pd.DataFrame([(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)] * <span class="hljs-built_in">len</span>(dates), index=dates, columns=cols)
+df2[<span class="hljs-string">&quot;asset&quot;</span>] = <span class="hljs-string">&quot;B&quot;</span>
 
-barss = pd.concat([df1, df2]).set_index(&quot;asset&quot;, append=True)
-barss.index.set_names([&quot;date&quot;, &quot;asset&quot;], inplace=True)
-barss.sort_index(inplace=True)
+barss = pd.concat([df1, df2]).set_index(<span class="hljs-string">&quot;asset&quot;</span>, append=<span class="hljs-literal">True</span>)
+barss.index.set_names([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>], inplace=<span class="hljs-literal">True</span>)
+barss.sort_index(inplace=<span class="hljs-literal">True</span>)
 
-display(calc_candle_up_std_factor(barss, 20))
-display(calc_wr_down_factor(barss, 20))
-</code></pre>
+display(calc_candle_up_std_factor(barss, <span class="hljs-number">20</span>))
+display(calc_wr_down_factor(barss, <span class="hljs-number">20</span>))</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>

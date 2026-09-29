@@ -25,14 +25,11 @@
 <hr>
 <p>我们的建议是，就与 QMT 安装在同一台 Windows 机器上，但要先创建虚拟环境。</p>
 <p>创建虚拟环境的方式是通过 Conda（假定虚拟环境名为 myquant)</p>
-<pre><code class="language-bash">conda create -n myquant python=3.10
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">conda create -n myquant python=3.10</span></code></pre>
 <p>创建好虚拟环境之后，运行以下命令，找到 site-packages 目录：</p>
-<pre><code class="language-bash">conda run -n myquant python -m site
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">conda run -n myquant python -m site</span></code></pre>
 <p>如果你要进一步学习 Conda 命令，可以阅读 <a href="https://blog.quantide.cn/articles/python/best-practice-python/chap01/">《Python 能做大项目》</a> 这本书。上面的命令将输出：</p>
-<pre><code class="language-bash">D:\\conda\\envs\\myquant\\lib\\site-packages
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">D:\\conda\\envs\\myquant\\lib\\site-packages</span></code></pre>
 <p>现在，把解压缩后的包拷贝到 site-packages 目录下，安装就完成了。注意目录名为 xtquant，该目录下应该有一个名为__init__.py 的文件。如果不是这样，那么你解压缩时做错了。</p>
 <h2 id="xtquant-的工作原理">XtQuant 的工作原理</h2>
 <p>仅仅从迅投官网下载 XtQuant 并安装，是无法让 XtQuant 正常工作的。</p>

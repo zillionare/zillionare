@@ -76,19 +76,17 @@
 <p>数据的下载我们借助<strong>Akshare</strong>来实现，目前Tushare平台不提供ESG数据。</p>
 <h3 id="21-新浪财经esg数据">2.1. 新浪财经ESG数据</h3>
 <p>运行下列代码，我们就可以获取新浪上所有的ESG数据:</p>
-<pre><code class="language-python">import akshare as ak
-import pandas as pd
-#新浪数据下载
-stock_esg_rate_sina_df = ak.stock_esg_rate_sina()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-comment">#新浪数据下载</span>
+stock_esg_rate_sina_df = ak.stock_esg_rate_sina()</span></code></pre>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">sina = data_home / &quot;sina_esg_data.xlsx&quot;
-# 保存为Excel文件
-stock_esg_rate_sina_df.to_excel(sina, index=False)
-# 输出保存成功的消息
-print(f&quot;File saved at: {sina}&quot;)
-stock_esg_rate_sina_df
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">sina = data_home / <span class="hljs-string">&quot;sina_esg_data.xlsx&quot;</span>
+<span class="hljs-comment"># 保存为Excel文件</span>
+stock_esg_rate_sina_df.to_excel(sina, index=<span class="hljs-literal">False</span>)
+<span class="hljs-comment"># 输出保存成功的消息</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;File saved at: <span class="hljs-subst">{sina}</span>&quot;</span>)
+stock_esg_rate_sina_df</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -102,29 +100,27 @@ stock_esg_rate_sina_df
 <li>根据<strong>单只股票</strong>查询各个评级机构的不同评价。</li>
 </ol>
 <p>我们以中国国新为例：</p>
-<pre><code class="language-python">rating_agencies = df[&#39;评级机构&#39;].unique()
-# 字典装机构
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">rating_agencies = df[<span class="hljs-string">&#x27;评级机构&#x27;</span>].unique()
+<span class="hljs-comment"># 字典装机构</span>
 df_institution = {}
-# 按评级机构分割数据
-for agency in rating_agencies:
-    df_institution[agency] = df[df[&#39;评级机构&#39;] == agency]
-df_zhongxin = df_institution.get(&#39;中国国新&#39;) 
-</code></pre>
+<span class="hljs-comment"># 按评级机构分割数据</span>
+<span class="hljs-keyword">for</span> agency <span class="hljs-keyword">in</span> rating_agencies:
+    df_institution[agency] = df[df[<span class="hljs-string">&#x27;评级机构&#x27;</span>] == agency]
+df_zhongxin = df_institution.get(<span class="hljs-string">&#x27;中国国新&#x27;</span>) </span></code></pre>
 <p>数据样例如下：</p>
 <p><img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959013313-27e7ad9f-4726-448a-8026-a0a885a6748b.png" alt=""></p>
 <p>这样我们便能直观地看到中国国新对各个上市公司的评级</p>
 <p>那如果我们想要看看一个公司的所有评级情况呢？同样可以实现：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">stock_lists = df[&#39;成分股代码&#39;].unique()
-# 字典装机构
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">stock_lists = df[<span class="hljs-string">&#x27;成分股代码&#x27;</span>].unique()
+<span class="hljs-comment"># 字典装机构</span>
 df_stocks = {}
-# 按评级机构分割数据
-for stocks in stock_lists:
-    df_stocks[stocks] = df[df[&#39;成分股代码&#39;] == stocks]
+<span class="hljs-comment"># 按评级机构分割数据</span>
+<span class="hljs-keyword">for</span> stocks <span class="hljs-keyword">in</span> stock_lists:
+    df_stocks[stocks] = df[df[<span class="hljs-string">&#x27;成分股代码&#x27;</span>] == stocks]
 
-df_s = df_stocks.get(&#39;SZ300072&#39;) 
-df_s
-</code></pre>
+df_s = df_stocks.get(<span class="hljs-string">&#x27;SZ300072&#x27;</span>) 
+df_s</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -136,12 +132,11 @@ df_s
 <h3 id="22-msci-esg数据">2.2. msci ESG数据</h3>
 <!--PAID CONTENT START-->
 <p>通过以下代码片段来获取msci的ESG数据：</p>
-<pre><code class="language-python">stock_esg_msci_sina_df = ak.stock_esg_msci_sina() #msci
-msci = data_home / &quot;msci_esg_data.xlsx&quot;
-stock_esg_msci_sina_df.to_excel(msci, index=False)
-print(f&quot;File saved at: {msci}&quot;)
-stock_esg_msci_sina_df
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">stock_esg_msci_sina_df = ak.stock_esg_msci_sina() <span class="hljs-comment">#msci</span>
+msci = data_home / <span class="hljs-string">&quot;msci_esg_data.xlsx&quot;</span>
+stock_esg_msci_sina_df.to_excel(msci, index=<span class="hljs-literal">False</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;File saved at: <span class="hljs-subst">{msci}</span>&quot;</span>)
+stock_esg_msci_sina_df</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -154,12 +149,11 @@ stock_esg_msci_sina_df
 <h3 id="23-路孚特esg数据">2.3. 路孚特ESG数据</h3>
 <!--PAID CONTENT START-->
 <p>通过以下代码片段来获取路孚特的ESG数据：</p>
-<pre><code class="language-python">stock_esg_rft_sina_df = ak.stock_esg_rft_sina() #路孚特
-rft = data_home / &quot;rft_esg_data.xlsx&quot;
-stock_esg_rft_sina_df.to_excel(rft, index=False)
-print(f&quot;File saved at: {rft}&quot;)
-stock_esg_rft_sina_df
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">stock_esg_rft_sina_df = ak.stock_esg_rft_sina() <span class="hljs-comment">#路孚特</span>
+rft = data_home / <span class="hljs-string">&quot;rft_esg_data.xlsx&quot;</span>
+stock_esg_rft_sina_df.to_excel(rft, index=<span class="hljs-literal">False</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;File saved at: <span class="hljs-subst">{rft}</span>&quot;</span>)
+stock_esg_rft_sina_df</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -169,12 +163,11 @@ stock_esg_rft_sina_df
 <p>路孚特采取了<strong>评级和评分共同披露</strong>的形式，但也是信息有限，一共只有100只股票的截面信息，大部分也是境外股票，同样不适合后续研究。</p>
 <h3 id="24-华证esg数据">2.4. 华证ESG数据</h3>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">stock_esg_zd_sina_df = ak.stock_esg_zd_sina() #秩鼎
-zd = data_home / &quot;zd_esg_data.xlsx&quot;
-stock_esg_zd_sina_df.to_excel(rft, index=False)
-print(f&quot;File saved at: {zd}&quot;)
-stock_esg_zd_sina_df
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">stock_esg_zd_sina_df = ak.stock_esg_zd_sina() <span class="hljs-comment">#秩鼎</span>
+zd = data_home / <span class="hljs-string">&quot;zd_esg_data.xlsx&quot;</span>
+stock_esg_zd_sina_df.to_excel(rft, index=<span class="hljs-literal">False</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;File saved at: <span class="hljs-subst">{zd}</span>&quot;</span>)
+stock_esg_zd_sina_df</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -216,10 +209,9 @@ stock_esg_zd_sina_df
 <p>所以我们从第三方渠道单独下载了完整的华证评级数据，在Quantide Research平台上读者可以看到这些文件。</p>
 <p>接下来我们以华夏大盘精选混合A（000011.OF）开始对基金ESG进行评级估算：</p>
 <p>评级的主要思路是<strong>按照权重</strong>，对基金的成分股进行加权计算，所以第一步我们需要知道<strong>基金持有了哪些股票</strong>，用tushare实现：</p>
-<pre><code class="language-python">pro = ts.pro_api()
-df_hold = pro.fund_portfolio(ts_code=&#39;000011.OF&#39;)
-df_hold
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">pro = ts.pro_api()
+df_hold = pro.fund_portfolio(ts_code=<span class="hljs-string">&#x27;000011.OF&#x27;</span>)
+df_hold</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>持仓信息样例如下所示：</p>
 <p><img src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938421730-33df0549-1610-4392-a6d2-78fc99446abd.png" alt=""></p>
@@ -227,112 +219,110 @@ df_hold
 
 <p>有了持仓信息之后，我们与ESG数据进行匹配，然后按照持仓市值加权运算，就可以算出基金ESG在不同时期的分数了。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
 
-# ================= 0) 清洗函数 =================
-def to_datetime_safe(s):
-    # 统一成字符串，去掉空白，把&#39;--&#39;、空串、&#39;nan&#39;统统变 NaT，再混合解析
-    s = s.astype(str).str.strip().replace({&quot;--&quot;: None, &quot;&quot;: None, &quot;nan&quot;: None, &quot;NaN&quot;: None})
-    return pd.to_datetime(s, errors=&quot;coerce&quot;, format=&quot;mixed&quot;)
+<span class="hljs-comment"># ================= 0) 清洗函数 =================</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">to_datetime_safe</span>(<span class="hljs-params">s</span>):
+    <span class="hljs-comment"># 统一成字符串，去掉空白，把&#x27;--&#x27;、空串、&#x27;nan&#x27;统统变 NaT，再混合解析</span>
+    s = s.astype(<span class="hljs-built_in">str</span>).<span class="hljs-built_in">str</span>.strip().replace({<span class="hljs-string">&quot;--&quot;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&quot;&quot;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&quot;nan&quot;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&quot;NaN&quot;</span>: <span class="hljs-literal">None</span>})
+    <span class="hljs-keyword">return</span> pd.to_datetime(s, errors=<span class="hljs-string">&quot;coerce&quot;</span>, <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;mixed&quot;</span>)
 
-def to_quarter_end(dt_series):
-    # 转成季度末日期（Timestamp，00:00时间）
-    q_end = dt_series.dt.to_period(&quot;Q&quot;).dt.to_timestamp(how=&quot;end&quot;)
-    return q_end.dt.normalize()
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">to_quarter_end</span>(<span class="hljs-params">dt_series</span>):
+    <span class="hljs-comment"># 转成季度末日期（Timestamp，00:00时间）</span>
+    q_end = dt_series.dt.to_period(<span class="hljs-string">&quot;Q&quot;</span>).dt.to_timestamp(how=<span class="hljs-string">&quot;end&quot;</span>)
+    <span class="hljs-keyword">return</span> q_end.dt.normalize()
 
-# ================= 1) 持仓（df_hold）日期与季度 =================
+<span class="hljs-comment"># ================= 1) 持仓（df_hold）日期与季度 =================</span>
 df_hold = df_hold.copy()
-df_hold[&#39;end_date&#39;] = to_datetime_safe(df_hold[&#39;end_date&#39;])
-df_hold[&#39;quarter&#39;]  = to_quarter_end(df_hold[&#39;end_date&#39;])
+df_hold[<span class="hljs-string">&#x27;end_date&#x27;</span>] = to_datetime_safe(df_hold[<span class="hljs-string">&#x27;end_date&#x27;</span>])
+df_hold[<span class="hljs-string">&#x27;quarter&#x27;</span>]  = to_quarter_end(df_hold[<span class="hljs-string">&#x27;end_date&#x27;</span>])
 
-# 仅保留需要列并汇总权重（市值）
+<span class="hljs-comment"># 仅保留需要列并汇总权重（市值）</span>
 hold_q = (df_hold
-          .dropna(subset=[&#39;symbol&#39;])
-          [[&#39;ts_code&#39;,&#39;symbol&#39;,&#39;quarter&#39;,&#39;mkv&#39;]]
-          .groupby([&#39;ts_code&#39;,&#39;symbol&#39;,&#39;quarter&#39;], as_index=False)[&#39;mkv&#39;].sum())
+          .dropna(subset=[<span class="hljs-string">&#x27;symbol&#x27;</span>])
+          [[<span class="hljs-string">&#x27;ts_code&#x27;</span>,<span class="hljs-string">&#x27;symbol&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>,<span class="hljs-string">&#x27;mkv&#x27;</span>]]
+          .groupby([<span class="hljs-string">&#x27;ts_code&#x27;</span>,<span class="hljs-string">&#x27;symbol&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>], as_index=<span class="hljs-literal">False</span>)[<span class="hljs-string">&#x27;mkv&#x27;</span>].<span class="hljs-built_in">sum</span>())
 
-# ================= 2) ESG（df_esg）日期与季度 =================
+<span class="hljs-comment"># ================= 2) ESG（df_esg）日期与季度 =================</span>
 df_esg = df_esg.copy()
 
-# 标准化常见列名（你的表可能叫“证券代码”“评级日期”“综合评级”“综合得分”等）
+<span class="hljs-comment"># 标准化常见列名（你的表可能叫“证券代码”“评级日期”“综合评级”“综合得分”等）</span>
 rename_map = {
-    &#39;证券代码&#39;:&#39;股票代码&#39;,
-    &#39;评级日期&#39;:&#39;评级日期&#39;,
-    &#39;综合评级&#39;:&#39;华政评级&#39;,
-    &#39;综合得分&#39;:&#39;综合得分&#39;,
-    &#39;E得分&#39;:&#39;E得分&#39;, &#39;S得分&#39;:&#39;S得分&#39;, &#39;G得分&#39;:&#39;G得分&#39;
+    <span class="hljs-string">&#x27;证券代码&#x27;</span>:<span class="hljs-string">&#x27;股票代码&#x27;</span>,
+    <span class="hljs-string">&#x27;评级日期&#x27;</span>:<span class="hljs-string">&#x27;评级日期&#x27;</span>,
+    <span class="hljs-string">&#x27;综合评级&#x27;</span>:<span class="hljs-string">&#x27;华政评级&#x27;</span>,
+    <span class="hljs-string">&#x27;综合得分&#x27;</span>:<span class="hljs-string">&#x27;综合得分&#x27;</span>,
+    <span class="hljs-string">&#x27;E得分&#x27;</span>:<span class="hljs-string">&#x27;E得分&#x27;</span>, <span class="hljs-string">&#x27;S得分&#x27;</span>:<span class="hljs-string">&#x27;S得分&#x27;</span>, <span class="hljs-string">&#x27;G得分&#x27;</span>:<span class="hljs-string">&#x27;G得分&#x27;</span>
 }
-df_esg.rename(columns={k:v for k,v in rename_map.items() if k in df_esg.columns}, inplace=True)
+df_esg.rename(columns={k:v <span class="hljs-keyword">for</span> k,v <span class="hljs-keyword">in</span> rename_map.items() <span class="hljs-keyword">if</span> k <span class="hljs-keyword">in</span> df_esg.columns}, inplace=<span class="hljs-literal">True</span>)
 
-# 日期安全解析
-df_esg[&#39;评级日期&#39;] = to_datetime_safe(df_esg[&#39;评级日期&#39;])
-df_esg[&#39;quarter&#39;]  = to_quarter_end(df_esg[&#39;评级日期&#39;])
+<span class="hljs-comment"># 日期安全解析</span>
+df_esg[<span class="hljs-string">&#x27;评级日期&#x27;</span>] = to_datetime_safe(df_esg[<span class="hljs-string">&#x27;评级日期&#x27;</span>])
+df_esg[<span class="hljs-string">&#x27;quarter&#x27;</span>]  = to_quarter_end(df_esg[<span class="hljs-string">&#x27;评级日期&#x27;</span>])
 
-# 只保留每股票每季度“最后一条”（按评级日期排序）
-df_esg_sorted = df_esg.sort_values([&#39;股票代码&#39;,&#39;quarter&#39;,&#39;评级日期&#39;])
-# 选出可用的得分列：优先综合得分，其次 E/S/G 平均；再不行才用字母评级映射
-score_cols = [c for c in [&#39;综合得分&#39;,&#39;E得分&#39;,&#39;S得分&#39;,&#39;G得分&#39;] if c in df_esg_sorted.columns]
+<span class="hljs-comment"># 只保留每股票每季度“最后一条”（按评级日期排序）</span>
+df_esg_sorted = df_esg.sort_values([<span class="hljs-string">&#x27;股票代码&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>,<span class="hljs-string">&#x27;评级日期&#x27;</span>])
+<span class="hljs-comment"># 选出可用的得分列：优先综合得分，其次 E/S/G 平均；再不行才用字母评级映射</span>
+score_cols = [c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;综合得分&#x27;</span>,<span class="hljs-string">&#x27;E得分&#x27;</span>,<span class="hljs-string">&#x27;S得分&#x27;</span>,<span class="hljs-string">&#x27;G得分&#x27;</span>] <span class="hljs-keyword">if</span> c <span class="hljs-keyword">in</span> df_esg_sorted.columns]
 
-# 构造最终 esg_score
+<span class="hljs-comment"># 构造最终 esg_score</span>
 
-df_esg_sorted[&#39;esg_score&#39;] = pd.to_numeric(df_esg_sorted[&#39;综合得分&#39;], errors=&#39;coerce&#39;)
+df_esg_sorted[<span class="hljs-string">&#x27;esg_score&#x27;</span>] = pd.to_numeric(df_esg_sorted[<span class="hljs-string">&#x27;综合得分&#x27;</span>], errors=<span class="hljs-string">&#x27;coerce&#x27;</span>)
 
 
 
-# 每股票每季度仅留最后一条
+<span class="hljs-comment"># 每股票每季度仅留最后一条</span>
 df_esg_q = (df_esg_sorted
-            .drop_duplicates([&#39;股票代码&#39;,&#39;quarter&#39;], keep=&#39;last&#39;)
-            [[&#39;股票代码&#39;,&#39;quarter&#39;,&#39;esg_score&#39;]])
+            .drop_duplicates([<span class="hljs-string">&#x27;股票代码&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>], keep=<span class="hljs-string">&#x27;last&#x27;</span>)
+            [[<span class="hljs-string">&#x27;股票代码&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>,<span class="hljs-string">&#x27;esg_score&#x27;</span>]])
 
-# ================= 3) 合并并按持仓权重加权 =================
-merged = hold_q.merge(df_esg_q.rename(columns={&#39;股票代码&#39;:&#39;symbol&#39;}),
-                      on=[&#39;symbol&#39;,&#39;quarter&#39;], how=&#39;left&#39;)
+<span class="hljs-comment"># ================= 3) 合并并按持仓权重加权 =================</span>
+merged = hold_q.merge(df_esg_q.rename(columns={<span class="hljs-string">&#x27;股票代码&#x27;</span>:<span class="hljs-string">&#x27;symbol&#x27;</span>}),
+                      on=[<span class="hljs-string">&#x27;symbol&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>], how=<span class="hljs-string">&#x27;left&#x27;</span>)
 
-def _weighted_score(g):
-    g_valid = g.dropna(subset=[&#39;esg_score&#39;]).copy()
-    if len(g_valid) == 0:
-        return pd.Series({&#39;fund_esg_score&#39;: np.nan,
-                          &#39;coverage_weight&#39;: 0.0,
-                          &#39;n_positions&#39;: len(g),
-                          &#39;n_rated&#39;: 0})
-    w = g_valid[&#39;mkv&#39;].values
-    w = w / w.sum()
-    s = float(np.dot(w, g_valid[&#39;esg_score&#39;].values))
-    coverage = float(g_valid[&#39;mkv&#39;].sum() / g[&#39;mkv&#39;].sum())
-    return pd.Series({&#39;fund_esg_score&#39;: s,
-                      &#39;coverage_weight&#39;: coverage,
-                      &#39;n_positions&#39;: len(g),
-                      &#39;n_rated&#39;: len(g_valid)})
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_weighted_score</span>(<span class="hljs-params">g</span>):
+    g_valid = g.dropna(subset=[<span class="hljs-string">&#x27;esg_score&#x27;</span>]).copy()
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(g_valid) == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> pd.Series({<span class="hljs-string">&#x27;fund_esg_score&#x27;</span>: np.nan,
+                          <span class="hljs-string">&#x27;coverage_weight&#x27;</span>: <span class="hljs-number">0.0</span>,
+                          <span class="hljs-string">&#x27;n_positions&#x27;</span>: <span class="hljs-built_in">len</span>(g),
+                          <span class="hljs-string">&#x27;n_rated&#x27;</span>: <span class="hljs-number">0</span>})
+    w = g_valid[<span class="hljs-string">&#x27;mkv&#x27;</span>].values
+    w = w / w.<span class="hljs-built_in">sum</span>()
+    s = <span class="hljs-built_in">float</span>(np.dot(w, g_valid[<span class="hljs-string">&#x27;esg_score&#x27;</span>].values))
+    coverage = <span class="hljs-built_in">float</span>(g_valid[<span class="hljs-string">&#x27;mkv&#x27;</span>].<span class="hljs-built_in">sum</span>() / g[<span class="hljs-string">&#x27;mkv&#x27;</span>].<span class="hljs-built_in">sum</span>())
+    <span class="hljs-keyword">return</span> pd.Series({<span class="hljs-string">&#x27;fund_esg_score&#x27;</span>: s,
+                      <span class="hljs-string">&#x27;coverage_weight&#x27;</span>: coverage,
+                      <span class="hljs-string">&#x27;n_positions&#x27;</span>: <span class="hljs-built_in">len</span>(g),
+                      <span class="hljs-string">&#x27;n_rated&#x27;</span>: <span class="hljs-built_in">len</span>(g_valid)})
 
 fund_quarter_esg = (merged
-    .groupby([&#39;ts_code&#39;,&#39;quarter&#39;])
+    .groupby([<span class="hljs-string">&#x27;ts_code&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>])
     .apply(_weighted_score)
     .reset_index()
-    .sort_values([&#39;ts_code&#39;,&#39;quarter&#39;])
+    .sort_values([<span class="hljs-string">&#x27;ts_code&#x27;</span>,<span class="hljs-string">&#x27;quarter&#x27;</span>])
 )
 
-fund_quarter_esg
-</code></pre>
+fund_quarter_esg</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>最后，我们可以把该基金历年的 ESG 得分走势画出来：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">x = pd.to_datetime(fund_quarter_esg[&#39;quarter&#39;])
-y = fund_quarter_esg[&#39;fund_esg_score&#39;]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">x = pd.to_datetime(fund_quarter_esg[<span class="hljs-string">&#x27;quarter&#x27;</span>])
+y = fund_quarter_esg[<span class="hljs-string">&#x27;fund_esg_score&#x27;</span>]
 
-# 3. 画图
-plt.figure(figsize=(8,5))
-plt.plot(x, y, marker=&#39;o&#39;)
-plt.title(&#39;Fund_ESG_Score&#39;, fontsize=14)
-plt.xlabel(&#39;quarter&#39;)
-plt.ylabel(&#39;ESG_Score&#39;)
-plt.grid(True, ls=&#39;--&#39;, alpha=0.4)
-plt.xticks(rotation=45)
+<span class="hljs-comment"># 3. 画图</span>
+plt.figure(figsize=(<span class="hljs-number">8</span>,<span class="hljs-number">5</span>))
+plt.plot(x, y, marker=<span class="hljs-string">&#x27;o&#x27;</span>)
+plt.title(<span class="hljs-string">&#x27;Fund_ESG_Score&#x27;</span>, fontsize=<span class="hljs-number">14</span>)
+plt.xlabel(<span class="hljs-string">&#x27;quarter&#x27;</span>)
+plt.ylabel(<span class="hljs-string">&#x27;ESG_Score&#x27;</span>)
+plt.grid(<span class="hljs-literal">True</span>, ls=<span class="hljs-string">&#x27;--&#x27;</span>, alpha=<span class="hljs-number">0.4</span>)
+plt.xticks(rotation=<span class="hljs-number">45</span>)
 plt.tight_layout()
-plt.show()
-</code></pre>
+plt.show()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->

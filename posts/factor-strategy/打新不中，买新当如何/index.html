@@ -41,75 +41,74 @@
 </div>
 
 
-<pre><code class="language-python">def get_ipo_data(max_pages=None):
-    url = &quot;https://datacenter-web.eastmoney.com/api/data/v1/get&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_ipo_data</span>(<span class="hljs-params">max_pages=<span class="hljs-literal">None</span></span>):
+    url = <span class="hljs-string">&quot;https://datacenter-web.eastmoney.com/api/data/v1/get&quot;</span>
     
-    # Base params
+    <span class="hljs-comment"># Base params</span>
     params = {
-        &quot;reportName&quot;: &quot;RPTA_APP_IPOAPPLY&quot;,
-        &quot;columns&quot;: &quot;ALL&quot;,
-        &quot;sortColumns&quot;: &quot;APPLY_DATE&quot;,
-        &quot;sortTypes&quot;: &quot;-1&quot;,
-        &quot;pageSize&quot;: &quot;50&quot;,
-        &quot;filter&quot;: &quot;&quot;,
-        &quot;source&quot;: &quot;WEB&quot;,
-        &quot;client&quot;: &quot;WEB&quot;
+        <span class="hljs-string">&quot;reportName&quot;</span>: <span class="hljs-string">&quot;RPTA_APP_IPOAPPLY&quot;</span>,
+        <span class="hljs-string">&quot;columns&quot;</span>: <span class="hljs-string">&quot;ALL&quot;</span>,
+        <span class="hljs-string">&quot;sortColumns&quot;</span>: <span class="hljs-string">&quot;APPLY_DATE&quot;</span>,
+        <span class="hljs-string">&quot;sortTypes&quot;</span>: <span class="hljs-string">&quot;-1&quot;</span>,
+        <span class="hljs-string">&quot;pageSize&quot;</span>: <span class="hljs-string">&quot;50&quot;</span>,
+        <span class="hljs-string">&quot;filter&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+        <span class="hljs-string">&quot;source&quot;</span>: <span class="hljs-string">&quot;WEB&quot;</span>,
+        <span class="hljs-string">&quot;client&quot;</span>: <span class="hljs-string">&quot;WEB&quot;</span>
     }
     
     all_data = []
-    page_num = 1
+    page_num = <span class="hljs-number">1</span>
     
-    while True:
-        print(f&quot;Fetching page {page_num}...&quot;)
-        params[&quot;pageNumber&quot;] = str(page_num)
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Fetching page <span class="hljs-subst">{page_num}</span>...&quot;</span>)
+        params[<span class="hljs-string">&quot;pageNumber&quot;</span>] = <span class="hljs-built_in">str</span>(page_num)
         
-        try:
+        <span class="hljs-keyword">try</span>:
             response = httpx.get(url, params=params)
             response.raise_for_status()
             data = response.json()
             
-            if data.get(&quot;success&quot;) and data.get(&quot;result&quot;):
-                items = data[&quot;result&quot;][&quot;data&quot;]
-                if not items:
-                    print(&quot;No more data found.&quot;)
-                    break
+            <span class="hljs-keyword">if</span> data.get(<span class="hljs-string">&quot;success&quot;</span>) <span class="hljs-keyword">and</span> data.get(<span class="hljs-string">&quot;result&quot;</span>):
+                items = data[<span class="hljs-string">&quot;result&quot;</span>][<span class="hljs-string">&quot;data&quot;</span>]
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> items:
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No more data found.&quot;</span>)
+                    <span class="hljs-keyword">break</span>
                     
                 all_data.extend(items)
                 
-                total_pages = data[&quot;result&quot;][&quot;pages&quot;]
-                print(f&quot;Page {page_num} fetched. Total pages: {total_pages}&quot;)
+                total_pages = data[<span class="hljs-string">&quot;result&quot;</span>][<span class="hljs-string">&quot;pages&quot;</span>]
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Page <span class="hljs-subst">{page_num}</span> fetched. Total pages: <span class="hljs-subst">{total_pages}</span>&quot;</span>)
                 
-                # Check exit conditions
-                if page_num &gt;= total_pages:
-                    break
+                <span class="hljs-comment"># Check exit conditions</span>
+                <span class="hljs-keyword">if</span> page_num &gt;= total_pages:
+                    <span class="hljs-keyword">break</span>
                     
-                if max_pages and page_num &gt;= max_pages:
-                    print(f&quot;Reached max pages limit ({max_pages}). Stopping.&quot;)
-                    break
+                <span class="hljs-keyword">if</span> max_pages <span class="hljs-keyword">and</span> page_num &gt;= max_pages:
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Reached max pages limit (<span class="hljs-subst">{max_pages}</span>). Stopping.&quot;</span>)
+                    <span class="hljs-keyword">break</span>
                 
-                # Prepare for next page
-                page_num += 1
+                <span class="hljs-comment"># Prepare for next page</span>
+                page_num += <span class="hljs-number">1</span>
                 
-                # Random delay between 5 to 10 seconds
-                delay = random.uniform(5, 10)
-                print(f&quot;Waiting for {delay:.2f} seconds...&quot;)
+                <span class="hljs-comment"># Random delay between 5 to 10 seconds</span>
+                delay = random.uniform(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>)
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Waiting for <span class="hljs-subst">{delay:<span class="hljs-number">.2</span>f}</span> seconds...&quot;</span>)
                 time.sleep(delay)
                 
-            else:
-                print(f&quot;Error or no result on page {page_num}: {data.get(&#39;message&#39;)}&quot;)
-                break
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error or no result on page <span class="hljs-subst">{page_num}</span>: <span class="hljs-subst">{data.get(<span class="hljs-string">&#x27;message&#x27;</span>)}</span>&quot;</span>)
+                <span class="hljs-keyword">break</span>
                 
-        except Exception as e:
-            print(f&quot;An error occurred on page {page_num}: {e}&quot;)
-            break
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;An error occurred on page <span class="hljs-subst">{page_num}</span>: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-keyword">break</span>
             
-    if not all_data:
-        return None
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> all_data:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
         
     df = pd.DataFrame(all_data)
     
-    return df
-</code></pre>
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <p>如果你不太懂编程，那么可以请 AI 来生成上述代码。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/12/20251218004418.png" alt=""></p>
 <p>由于它抓取的是 json 版本，所以，返回的字段都是英文。这当然方便编程，但是，我们也要理解数据的含义，以便选择作为训练特征的列。</p>
@@ -274,119 +273,117 @@ A股市场有极强的 板块轮动 和 赛道炒作 特征。处于热门赛道
 <p>ok, 现在请构建基于 lightgbm的回归模型。其中股票代码、股票简称、上市日期不作为特征。其它均作为特征。上市板块、所属行业等特征需要预处理为 categorical 的吗？lightgbm 不会进行处理吧？</p>
 </blockquote>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/12/20251218004453.png" alt=""></p>
-<pre><code class="language-python">def train_model():
-    # 1. 加载数据
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">train_model</span>():
+    <span class="hljs-comment"># 1. 加载数据</span>
     df = pd.read_csv(file_path)
 
-    # 2. lightgbm 可以接受 features 为 nan，但不允许 target/label 为 nan
-    # 所以，我们要去掉 target 为nan 的行
-    df = df.dropna(subset=[&#39;上市10日后最高涨幅&#39;])
+    <span class="hljs-comment"># 2. lightgbm 可以接受 features 为 nan，但不允许 target/label 为 nan</span>
+    <span class="hljs-comment"># 所以，我们要去掉 target 为nan 的行</span>
+    df = df.dropna(subset=[<span class="hljs-string">&#x27;上市10日后最高涨幅&#x27;</span>])
 
-    # 3. 当我们从 csv 中加载数据时，pandas 可能搞错数据类型。我们需要确保数字型列不被
-    # 当成字符串 -- 这样会被当成 categorical 来处理
+    <span class="hljs-comment"># 3. 当我们从 csv 中加载数据时，pandas 可能搞错数据类型。我们需要确保数字型列不被</span>
+    <span class="hljs-comment"># 当成字符串 -- 这样会被当成 categorical 来处理</span>
     numeric_cols_raw = [
-        &#39;发行总数&#39;, &#39;网上发行股数&#39;, &#39;总股本&#39;, &#39;顶格申购需配市值&#39;, &#39;申购上限&#39;, 
-        &#39;发行价格&#39;, &#39;行业市盈率&#39;, &#39;净利润&#39;, &#39;净资产&#39;,
-        &#39;网上有效申购倍数&#39;, &#39;询价累计报价倍数&#39;, &#39;配售对象报价家数&#39;
+        <span class="hljs-string">&#x27;发行总数&#x27;</span>, <span class="hljs-string">&#x27;网上发行股数&#x27;</span>, <span class="hljs-string">&#x27;总股本&#x27;</span>, <span class="hljs-string">&#x27;顶格申购需配市值&#x27;</span>, <span class="hljs-string">&#x27;申购上限&#x27;</span>, 
+        <span class="hljs-string">&#x27;发行价格&#x27;</span>, <span class="hljs-string">&#x27;行业市盈率&#x27;</span>, <span class="hljs-string">&#x27;净利润&#x27;</span>, <span class="hljs-string">&#x27;净资产&#x27;</span>,
+        <span class="hljs-string">&#x27;网上有效申购倍数&#x27;</span>, <span class="hljs-string">&#x27;询价累计报价倍数&#x27;</span>, <span class="hljs-string">&#x27;配售对象报价家数&#x27;</span>
     ]
     
-    ... # 处理方法略
+    ... <span class="hljs-comment"># 处理方法略</span>
 
-    # 4. 偏态处理：对这些列，我们需要进行对数处理，因为它们的分布通常是非常偏斜的
+    <span class="hljs-comment"># 4. 偏态处理：对这些列，我们需要进行对数处理，因为它们的分布通常是非常偏斜的</span>
     log_candidates = [
-        &#39;发行总数&#39;, &#39;网上发行股数&#39;, &#39;总股本&#39;, &#39;顶格申购需配市值&#39;, &#39;申购上限&#39;, 
-        &#39;发行价格&#39;, &#39;行业市盈率&#39;, &#39;发行市盈率&#39;, 
-        &#39;网上有效申购倍数&#39;, &#39;询价累计报价倍数&#39;, &#39;配售对象报价家数&#39;
+        <span class="hljs-string">&#x27;发行总数&#x27;</span>, <span class="hljs-string">&#x27;网上发行股数&#x27;</span>, <span class="hljs-string">&#x27;总股本&#x27;</span>, <span class="hljs-string">&#x27;顶格申购需配市值&#x27;</span>, <span class="hljs-string">&#x27;申购上限&#x27;</span>, 
+        <span class="hljs-string">&#x27;发行价格&#x27;</span>, <span class="hljs-string">&#x27;行业市盈率&#x27;</span>, <span class="hljs-string">&#x27;发行市盈率&#x27;</span>, 
+        <span class="hljs-string">&#x27;网上有效申购倍数&#x27;</span>, <span class="hljs-string">&#x27;询价累计报价倍数&#x27;</span>, <span class="hljs-string">&#x27;配售对象报价家数&#x27;</span>
     ]
 
-    ... # 处理方法略
+    ... <span class="hljs-comment"># 处理方法略</span>
 
-    # 5. 对这些列，我们需要转换为类别变量
-    ... # 处理方法略
+    <span class="hljs-comment"># 5. 对这些列，我们需要转换为类别变量</span>
+    ... <span class="hljs-comment"># 处理方法略</span>
     
-    # 6. 构建特征矩阵 X 和标签向量 y
+    <span class="hljs-comment"># 6. 构建特征矩阵 X 和标签向量 y</span>
     X = df[feature_cols]
-    y = df[&#39;上市10日后最高涨幅&#39;]
+    y = df[<span class="hljs-string">&#x27;上市10日后最高涨幅&#x27;</span>]
     
-    print(f&quot;Training with {len(feature_cols)} features.&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Training with <span class="hljs-subst">{<span class="hljs-built_in">len</span>(feature_cols)}</span> features.&quot;</span>)
     
-    # 7. 划分训练集和测试集
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    <span class="hljs-comment"># 7. 划分训练集和测试集</span>
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>)
 
-    # 8. 训练
-    lgbm = lgb.LGBMRegressor(random_state=42, verbose=-1)
+    <span class="hljs-comment"># 8. 训练</span>
+    lgbm = lgb.LGBMRegressor(random_state=<span class="hljs-number">42</span>, verbose=-<span class="hljs-number">1</span>)
     lgbm.fit(X_train, y_train)
 
-    # 9. 模型评估
+    <span class="hljs-comment"># 9. 模型评估</span>
     y_pred = best_model.predict(X_test)
 
     mae = mean_absolute_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     
-    print(&quot;-&quot; * 30)
-    print(f&quot;Test MAE: {mae:.4f}&quot;)
-    print(f&quot;Test R2: {r2:.4f}&quot;)
-    print(&quot;-&quot; * 30)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-&quot;</span> * <span class="hljs-number">30</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Test MAE: <span class="hljs-subst">{mae:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Test R2: <span class="hljs-subst">{r2:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-&quot;</span> * <span class="hljs-number">30</span>)
 
-    # 10. 感性展示
-    print(&quot;\nTop 5 Test Cases (Actual vs Predicted):&quot;)
-    # Let&#39;s take first 5 from the test set
-    sample_indices = y_test.index[:5]
+    <span class="hljs-comment"># 10. 感性展示</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nTop 5 Test Cases (Actual vs Predicted):&quot;</span>)
+    <span class="hljs-comment"># Let&#x27;s take first 5 from the test set</span>
+    sample_indices = y_test.index[:<span class="hljs-number">5</span>]
     
-    for idx in sample_indices:
+    <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> sample_indices:
         actual = y_test.loc[idx]
-        # Predict expects a DataFrame
-        predicted = best_model.predict(X.loc[[idx]])[0]
+        <span class="hljs-comment"># Predict expects a DataFrame</span>
+        predicted = best_model.predict(X.loc[[idx]])[<span class="hljs-number">0</span>]
         
-        stock_code = df.loc[idx, &#39;股票代码&#39;]
-        stock_name = df.loc[idx, &#39;股票简称&#39;]
+        stock_code = df.loc[idx, <span class="hljs-string">&#x27;股票代码&#x27;</span>]
+        stock_name = df.loc[idx, <span class="hljs-string">&#x27;股票简称&#x27;</span>]
         
-        print(f&quot;Code: {stock_code}, Name: {stock_name}&quot;)
-        print(f&quot;  Actual: {actual:.4f} ({actual*100:.2f}%)&quot;)
-        print(f&quot;  Pred  : {predicted:.4f} ({predicted*100:.2f}%)&quot;)
-        print(f&quot;  Diff  : {predicted-actual:.4f}&quot;)
-        print(&quot;-&quot; * 20)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Code: <span class="hljs-subst">{stock_code}</span>, Name: <span class="hljs-subst">{stock_name}</span>&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  Actual: <span class="hljs-subst">{actual:<span class="hljs-number">.4</span>f}</span> (<span class="hljs-subst">{actual*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%)&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  Pred  : <span class="hljs-subst">{predicted:<span class="hljs-number">.4</span>f}</span> (<span class="hljs-subst">{predicted*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%)&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  Diff  : <span class="hljs-subst">{predicted-actual:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-&quot;</span> * <span class="hljs-number">20</span>)
 
-    # 11. 显示特征的可解释性
-    print(&quot;\nTop 20 Feature Importances:&quot;)
+    <span class="hljs-comment"># 11. 显示特征的可解释性</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nTop 20 Feature Importances:&quot;</span>)
     importances = pd.DataFrame({
-        &#39;feature&#39;: feature_cols,
-        &#39;importance&#39;: best_model.feature_importances_
-    }).sort_values(&#39;importance&#39;, ascending=False)
-    print(importances.head(20))
-</code></pre>
+        <span class="hljs-string">&#x27;feature&#x27;</span>: feature_cols,
+        <span class="hljs-string">&#x27;importance&#x27;</span>: best_model.feature_importances_
+    }).sort_values(<span class="hljs-string">&#x27;importance&#x27;</span>, ascending=<span class="hljs-literal">False</span>)
+    <span class="hljs-built_in">print</span>(importances.head(<span class="hljs-number">20</span>))</span></code></pre>
 <p>训练的结果如下：</p>
-<pre><code>Test MAE: 0.4096
-Test R2: 0.4749
-------------------------------
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-attr">Test MAE:</span> <span class="hljs-number">0.4096</span>
+<span class="hljs-attr">Test R2:</span> <span class="hljs-number">0.4749</span>
+<span class="hljs-string">------------------------------</span>
 
-Top 5 Test Cases (Actual vs Predicted):
-Code: 2715, Name: 登云股份
-  Actual: 1.8061 (180.61%)
-  Pred  : 0.6291 (62.91%)
-  Diff  : -1.1770
---------------------
-Code: 688036, Name: 传音控股
-  Actual: 0.9630 (96.30%)
-  Pred  : 1.2864 (128.64%)
-  Diff  : 0.3234
---------------------
-Code: 688662, Name: 富信科技
-  Actual: 1.7514 (175.14%)
-  Pred  : 1.6342 (163.42%)
-  Diff  : -0.1173
---------------------
-Code: 603025, Name: 大豪科技
-  Actual: 2.2560 (225.60%)
-  Pred  : 2.2314 (223.14%)
-  Diff  : -0.0246
---------------------
-Code: 600082, Name: 海泰发展
-  Actual: 1.1409 (114.09%)
-  Pred  : 1.2363 (123.63%)
-  Diff  : 0.0954
---------------------
-</code></pre>
+<span class="hljs-attr">Top 5 Test Cases (Actual vs Predicted):</span>
+<span class="hljs-attr">Code:</span> <span class="hljs-number">2715</span><span class="hljs-string">,</span> <span class="hljs-attr">Name:</span> <span class="hljs-string">登云股份</span>
+  <span class="hljs-attr">Actual:</span> <span class="hljs-number">1.8061</span> <span class="hljs-string">(180.61%)</span>
+  <span class="hljs-attr">Pred  :</span> <span class="hljs-number">0.6291</span> <span class="hljs-string">(62.91%)</span>
+  <span class="hljs-attr">Diff  :</span> <span class="hljs-number">-1.1770</span>
+<span class="hljs-string">--------------------</span>
+<span class="hljs-attr">Code:</span> <span class="hljs-number">688036</span><span class="hljs-string">,</span> <span class="hljs-attr">Name:</span> <span class="hljs-string">传音控股</span>
+  <span class="hljs-attr">Actual:</span> <span class="hljs-number">0.9630</span> <span class="hljs-string">(96.30%)</span>
+  <span class="hljs-attr">Pred  :</span> <span class="hljs-number">1.2864</span> <span class="hljs-string">(128.64%)</span>
+  <span class="hljs-attr">Diff  :</span> <span class="hljs-number">0.3234</span>
+<span class="hljs-string">--------------------</span>
+<span class="hljs-attr">Code:</span> <span class="hljs-number">688662</span><span class="hljs-string">,</span> <span class="hljs-attr">Name:</span> <span class="hljs-string">富信科技</span>
+  <span class="hljs-attr">Actual:</span> <span class="hljs-number">1.7514</span> <span class="hljs-string">(175.14%)</span>
+  <span class="hljs-attr">Pred  :</span> <span class="hljs-number">1.6342</span> <span class="hljs-string">(163.42%)</span>
+  <span class="hljs-attr">Diff  :</span> <span class="hljs-number">-0.1173</span>
+<span class="hljs-string">--------------------</span>
+<span class="hljs-attr">Code:</span> <span class="hljs-number">603025</span><span class="hljs-string">,</span> <span class="hljs-attr">Name:</span> <span class="hljs-string">大豪科技</span>
+  <span class="hljs-attr">Actual:</span> <span class="hljs-number">2.2560</span> <span class="hljs-string">(225.60%)</span>
+  <span class="hljs-attr">Pred  :</span> <span class="hljs-number">2.2314</span> <span class="hljs-string">(223.14%)</span>
+  <span class="hljs-attr">Diff  :</span> <span class="hljs-number">-0.0246</span>
+<span class="hljs-string">--------------------</span>
+<span class="hljs-attr">Code:</span> <span class="hljs-number">600082</span><span class="hljs-string">,</span> <span class="hljs-attr">Name:</span> <span class="hljs-string">海泰发展</span>
+  <span class="hljs-attr">Actual:</span> <span class="hljs-number">1.1409</span> <span class="hljs-string">(114.09%)</span>
+  <span class="hljs-attr">Pred  :</span> <span class="hljs-number">1.2363</span> <span class="hljs-string">(123.63%)</span>
+  <span class="hljs-attr">Diff  :</span> <span class="hljs-number">0.0954</span>
+<span class="hljs-string">--------------------</span></span></code></pre>
 <p>R2只有0.4749，说明这个模型效果并不是很好。它的平均绝对误差（MAE）为0.4096，意味着预测的涨幅与实际涨幅之间的差距平均为40%。因此据此投资，有可能引起较大亏损。</p>
 <p>不过，从随机抽取的几个样本来看，准确度却是相当的好。</p>
 <h2 id="结果调优">结果调优</h2>

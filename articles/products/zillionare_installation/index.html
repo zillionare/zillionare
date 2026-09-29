@@ -88,10 +88,9 @@ Zillionare 2.0基于docker容器技术构建，理论上可以运行于任何支
 如果您打算正式使用，建议硬件规格：
 </div>
 
-<pre><code>1. 8核CPU以上
-2. 32GB内存以上（大家的课件环境是集群，单机96GB）
-3. 硬盘1T以上（很占空间）
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-number">1.</span> <span class="hljs-number">8</span>核CPU以上
+<span class="hljs-number">2.</span> <span class="hljs-number">32</span>GB内存以上（大家的课件环境是集群，单机<span class="hljs-number">96</span>GB）
+<span class="hljs-number">3.</span> 硬盘<span class="hljs-number">1</span><span class="hljs-built_in">T</span>以上（很占空间）</span></code></pre>
 <ol>
 <li><p>先安装docker和docker-compose工具。如果只有windows机器，建议先安装 wsl2，再在wsl2下的ubunut环境中，安装docker/docker-compose</p>
 </li>
@@ -123,27 +122,23 @@ Zillionare 2.0基于docker容器技术构建，理论上可以运行于任何支
 <p>安装和配置详情，请见<a href="docs/products/gm-adapter-installation.md">东财实盘交易部署指南</a></p>
 <h2 id="配置">配置</h2>
 <h3 id="聚宽账号">聚宽账号</h3>
-<pre><code>JQ_ACCOUNT=notset
-JQ_PASSWORD=passwd
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">JQ_ACCOUNT=notset
+JQ_PASSWORD=passwd</span></code></pre>
 <h3 id="邮件通知">邮件通知</h3>
 <p>配置邮件通知后，系统自带的一些报警消息会通过邮件发送出来。你可以将邮件配置成邮件列表，以便运维人员可以收到通知。配置后，您也可以在策略中，使用<code>omicron.notify</code>里的方法，发出邮件通知。<a href="https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail">文档</a></p>
-<pre><code>MAIL_FROM=user@example.com
-MAIL_TO=user@example.com
-MAIL_PASSWORD=passwd
-MAIL_SERVER=127.0.0.1
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">MAIL_FROM<span class="hljs-operator">=</span><span class="hljs-keyword">user</span><span class="hljs-variable">@example</span>.com
+MAIL_TO<span class="hljs-operator">=</span><span class="hljs-keyword">user</span><span class="hljs-variable">@example</span>.com
+MAIL_PASSWORD<span class="hljs-operator">=</span>passwd
+MAIL_SERVER<span class="hljs-operator">=</span><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></span></code></pre>
 <h3 id="钉钉通知">钉钉通知</h3>
 <p>邮件通知的实时性不太强，如果对实时性有要求，可以创建钉钉群，在群里配置机器人，然后将token和secret设置在下面的配置中：</p>
-<pre><code>DINGTALK_TOKEN=notset
-DINGTALK_SECRET=notset
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">DINGTALK_TOKEN=notset
+DINGTALK_SECRET=notset</span></code></pre>
 <p>同样地，该方法也存在于<code>omicron.notify</code>下。<a href="https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail">文档</a></p>
 <h3 id="研究界面">研究界面</h3>
 <p>如果需要更改研究界面地址的前缀，请更改LAB_USER。如果要变更密码，请更改LAB_PASSWORD。</p>
-<pre><code>LAB_PASSWORD=1234
-LAB_USER=zillionare
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">LAB_PASSWORD=1234
+LAB_USER=zillionare</span></code></pre>
 <h3 id="配置获取板块数据任务">配置获取板块数据任务</h3>
 <p>Zillionare的板块数据来自同花顺，使用的是爬虫技术。这些爬虫通过单独的进程运行，它们由crontab来启动。</p>
 <p>在我们容器打包时，未能实现给docker容器自动增加任务，因此，要获取同花顺板块数据，必须按以下步骤增加任务：</p>
@@ -151,13 +146,12 @@ LAB_USER=zillionare
 <li>通过<code>docer exec -it zillionare-omega /bin/bash</code>进行容器的命令行模式</li>
 <li>通过<code>crontab -e</code>来增加以下任务：</li>
 </ol>
-<pre><code>    # fetch members
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">    <span class="hljs-comment"># fetch members</span>
     35 11 * * * /root/zillionare/cronjobs/fetch_industry_list.sh
     12 12 * * * /root/zillionare/cronjobs/fetch_concept_list.sh
-    # fetch bars 
+    <span class="hljs-comment"># fetch bars </span>
     15 18 * * * /root/zillionare/cronjobs/fetch_concept_bars.sh
-    50 18 * * * /root/zillionare/cronjobs/fetch_industry_bars.sh
-</code></pre>
+    50 18 * * * /root/zillionare/cronjobs/fetch_industry_bars.sh</span></code></pre>
 <h3 id="配置实时价格爬虫">配置实时价格爬虫</h3>
 <p>尽管Zillionare要求使用聚宽的行情服务，但聚宽并不能提供实时行情。因此，Zillionare借助akshare来实时爬取实时价格。在Zillionare安装后，这个服务应该已经启动了。为了放心起见，请按以下步骤进行检查：</p>
 <ol>
@@ -166,11 +160,10 @@ LAB_USER=zillionare
 <li>检查python app.py是否已经运行，如果已经运行，检查logs/server.log是否正常</li>
 <li>上述步骤有任何异常，kill删掉该进程，然后执行下面的命令启动</li>
 </ol>
-<pre><code>    conda activate akshare
-    nohup python app.py &amp;
-    #或者
-    nohup /home/app/minissh conda3/envs/akshare/bin/python app.py &amp;
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">    conda activate akshare
+    <span class="hljs-built_in">nohup</span> python app.py &amp;
+    <span class="hljs-comment">#或者</span>
+    <span class="hljs-built_in">nohup</span> /home/app/minissh conda3/envs/akshare/bin/python app.py &amp;</span></code></pre>
 <ol start="5">
 <li>检查日志，确定程序正常启动</li>
 </ol>
@@ -180,35 +173,33 @@ Akshare不能提供历史的板块数据。如果需要历史板块数据，可�
 from omicron.models.board import Board, BoardType
 </div>
 
-<pre><code>Board.init(&quot;omega&quot;)
-concepts = await Board.board_list()
-concepts[:10]
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-title class_">Board</span>.<span class="hljs-title function_">init</span>(<span class="hljs-string">&quot;omega&quot;</span>)
+concepts = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Board</span>.<span class="hljs-title function_">board_list</span>()
+concepts[:<span class="hljs-number">10</span>]
 
---- raise TypeError ---
-TypeError: unhashable type: &#39;slice&#39;
-```
-</code></pre>
+--- raise <span class="hljs-title class_">TypeError</span> ---
+<span class="hljs-title class_">TypeError</span>: unhashable <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;slice&#x27;</span>
+<span class="hljs-string">``</span><span class="hljs-string">`</span></span></code></pre>
 <p>板块数据存放在omega容器的/data/zillionare/omega/boards.zarr目录下。如果同步任务正常运行，则会存在以下文件夹：</p>
 <p><img src="ths-board-dir.png" alt="Alt text"></p>
 <h2 id="验证安装">验证安装</h2>
 <p>运行<code>docker-compose up</code>之后，正常情况下应该输出：</p>
-<pre><code>zillionare-lab | [I 2024-02-23 05:55:30.463 ServerApp] Skipped non-installed server(s):...
-zillionare-backtesting | 2024-02-23 05:55:30,693 I 6 pyemit.emit:_listen:135 | listening on &lt;aioredis.client.PubSub object at 0x7fab65abbd00&gt;
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">zillionare<span class="hljs-operator">-</span>lab <span class="hljs-operator">|</span> [I <span class="hljs-number">2024</span><span class="hljs-number">-02</span><span class="hljs-number">-23</span> <span class="hljs-number">05</span>:<span class="hljs-number">55</span>:<span class="hljs-number">30.463</span> ServerApp] Skipped non<span class="hljs-operator">-</span>installed server(s):...
+zillionare<span class="hljs-operator">-</span>backtesting <span class="hljs-operator">|</span> <span class="hljs-number">2024</span><span class="hljs-number">-02</span><span class="hljs-number">-23</span> <span class="hljs-number">05</span>:<span class="hljs-number">55</span>:<span class="hljs-number">30</span>,<span class="hljs-number">693</span> I <span class="hljs-number">6</span> pyemit.emit:_listen:<span class="hljs-number">135</span> <span class="hljs-operator">|</span> listening <span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span>aioredis.client.PubSub object <span class="hljs-keyword">at</span> <span class="hljs-number">0x7fab65abbd00</span><span class="hljs-operator">&gt;</span>
 ...
-zillionare-omega | waiting for influxdb start...
-zillionare-omega |   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> waiting <span class="hljs-keyword">for</span> influxdb start...
+zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span>   <span class="hljs-operator">%</span> Total    <span class="hljs-operator">%</span> Received <span class="hljs-operator">%</span> Xferd  Average Speed   <span class="hljs-type">Time</span>    <span class="hljs-type">Time</span>     <span class="hljs-type">Time</span>  <span class="hljs-keyword">Current</span>
 ...
-zillionare-omega | 正在初始化系统数据...
-zillionare-omega | 系统数据初始化完毕...
-zillionare-omega | prepare to start Omega real price process for stock ...
-zillionare-omega | Omega stock price process started ...
-...
-</code></pre>
+zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> 正在初始化系统数据...
+zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> 系统数据初始化完毕...
+zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> <span class="hljs-keyword">prepare</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">start</span> Omega <span class="hljs-type">real</span> price process <span class="hljs-keyword">for</span> stock ...
+zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> Omega stock price process started ...
+...</span></code></pre>
 <h2 id="检查运行日志">检查运行日志</h2>
 <p>zillionare-omega的日志在/data/zillionare/omega/logs（宿主机）目录下。如果聚宽账号配置正确，经过了至少一个交易日的午夜，则应该可以看到以下日志：</p>
-<pre><code>2024-02-23 01:15:31,082 I 209 omega.master.tasks.calibration_task:sync_daily_bars_day:179 | daily_bars_sync_1d(2024-02-22 15:00:00)同步完成,参数为{&#39;timeout&#39;: 600, &#39;name&#39;: &#39;daily_bars_sync_1d&#39;, &#39;frame_type&#39;: [&lt;FrameType.DAY: &#39;1d&#39;&gt;], &#39;end&#39;: datetime.datetime(2024, 2, 22, 15, 0), &#39;n_bars&#39;: None, &#39;state&#39;: &#39;master.task.daily_bars_sync_1d.state&#39;, &#39;scope&#39;: [&#39;master.task.daily_bars_sync_1d.scope.stock.1d&#39;, &#39;master.task.daily_bars_sync_1d.scope.index.1d&#39;]}
-2024-02-23 01:15:31,084 I 209 omega.master.tasks.calibration_task:get_sync_date:63 | 所有数据已同步完毕
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-number">2024</span>-02-<span class="hljs-number">23</span> 01:<span class="hljs-number">15</span>:<span class="hljs-number">31</span>,082 I <span class="hljs-number">209</span> omega.master.tasks.calibration_task:sync_daily_bars_day:<span class="hljs-number">179</span> | daily_bars_sync_1d(<span class="hljs-number">2024</span>-02-<span class="hljs-number">22</span> <span class="hljs-number">15</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>)同步完成,参数为{<span class="hljs-string">&#x27;timeout&#x27;</span>: <span class="hljs-number">600</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;daily_bars_sync_1d&#x27;</span>, <span class="hljs-string">&#x27;frame_type&#x27;</span>: [&lt;FrameType.DAY: <span class="hljs-string">&#x27;1d&#x27;</span>&gt;], <span class="hljs-string">&#x27;end&#x27;</span>: datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">22</span>, <span class="hljs-number">15</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&#x27;n_bars&#x27;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&#x27;state&#x27;</span>: <span class="hljs-string">&#x27;master.task.daily_bars_sync_1d.state&#x27;</span>, <span class="hljs-string">&#x27;scope&#x27;</span>: [<span class="hljs-string">&#x27;master.task.daily_bars_sync_1d.scope.stock.1d&#x27;</span>, <span class="hljs-string">&#x27;master.task.daily_bars_sync_1d.scope.index.1d&#x27;</span>]}
+<span class="hljs-number">2024</span>-02-<span class="hljs-number">23</span> 01:<span class="hljs-number">15</span>:<span class="hljs-number">31</span>,084 I <span class="hljs-number">209</span> omega.master.tasks.calibration_task:get_sync_date:<span class="hljs-number">63</span> | 所有数据已同步完毕
+</span></code></pre>
 <p>这表明数据同步服务正常工作。</p>
 <h2 id="从这里开始">从这里开始！</h2>
 <p>可以在研究界面下新建一个notebook，上传以下<a href="/assets/getting-started.ipynb">notebook</a>，开始运行。</p>

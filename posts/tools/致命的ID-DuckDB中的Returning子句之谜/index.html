@@ -17,27 +17,26 @@
 <p>『福尔摩斯，我承认数据库对我而言如同迷宫。』我诚实地回答，我正在记录福尔摩斯最新的冒险。</p>
 <p>『今天早晨，一位焦虑的开发者前来求助，他遇到了一个令人费解的谜题。』福尔摩斯从桌上拿起那张写满 SQL 代码的纸条，『他的程序在执行一条看似无害的 UPDATE 语句时，突然抛出了外键约束错误。』</p>
 <p>这是建表语句，这里有两张表，resources 和 resource_whitelist。resource_whitelist 表有一个外键引用 resources 表的 id 字段。</p>
-<pre><code class="language-sql">CREATE SEQUENCE if not exists seq_resource_id START WITH 1 INCREMENT BY 1;
-CREATE TABLE if not exists resources (
-    id INTEGER PRIMARY KEY DEFAULT nextval(&#39;seq_resource_id&#39;),
-    course VARCHAR NOT NULL,
-    resource VARCHAR NOT NULL,
-    seq INTEGER NOT NULL,
-    title VARCHAR NOT NULL,
-    UNIQUE (course, rel_path)
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body"><span class="hljs-keyword">CREATE</span> SEQUENCE if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> seq_resource_id <span class="hljs-keyword">START</span> <span class="hljs-keyword">WITH</span> <span class="hljs-number">1</span> INCREMENT <span class="hljs-keyword">BY</span> <span class="hljs-number">1</span>;
+<span class="hljs-keyword">CREATE TABLE</span> if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> resources (
+    id <span class="hljs-type">INTEGER</span> <span class="hljs-keyword">PRIMARY KEY</span> <span class="hljs-keyword">DEFAULT</span> nextval(<span class="hljs-string">&#x27;seq_resource_id&#x27;</span>),
+    course <span class="hljs-type">VARCHAR</span> <span class="hljs-keyword">NOT NULL</span>,
+    resource <span class="hljs-type">VARCHAR</span> <span class="hljs-keyword">NOT NULL</span>,
+    seq <span class="hljs-type">INTEGER</span> <span class="hljs-keyword">NOT NULL</span>,
+    title <span class="hljs-type">VARCHAR</span> <span class="hljs-keyword">NOT NULL</span>,
+    <span class="hljs-keyword">UNIQUE</span> (course, rel_path)
 );
 
-CREATE SEQUENCE if not exists seq_resource_whitelist_id START WITH 1 INCREMENT BY 1;
-CREATE TABLE if not exists resource_whitelist (
-    id INTEGER PRIMARY KEY DEFAULT nextval(&#39;seq_resource_whitelist_id&#39;),
-    resource_id INTEGER NOT NULL,
-    course VARCHAR NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES customers(id),
-    FOREIGN KEY (resource_id) REFERENCES resources(id),
-    UNIQUE (customer_id, resource_id)
-);
-</code></pre>
+<span class="hljs-keyword">CREATE</span> SEQUENCE if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> seq_resource_whitelist_id <span class="hljs-keyword">START</span> <span class="hljs-keyword">WITH</span> <span class="hljs-number">1</span> INCREMENT <span class="hljs-keyword">BY</span> <span class="hljs-number">1</span>;
+<span class="hljs-keyword">CREATE TABLE</span> if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> resource_whitelist (
+    id <span class="hljs-type">INTEGER</span> <span class="hljs-keyword">PRIMARY KEY</span> <span class="hljs-keyword">DEFAULT</span> nextval(<span class="hljs-string">&#x27;seq_resource_whitelist_id&#x27;</span>),
+    resource_id <span class="hljs-type">INTEGER</span> <span class="hljs-keyword">NOT NULL</span>,
+    course <span class="hljs-type">VARCHAR</span> <span class="hljs-keyword">NOT NULL</span>,
+    <span class="hljs-type">timestamp</span> <span class="hljs-type">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>,
+    <span class="hljs-keyword">FOREIGN KEY</span> (customer_id) <span class="hljs-keyword">REFERENCES</span> customers(id),
+    <span class="hljs-keyword">FOREIGN KEY</span> (resource_id) <span class="hljs-keyword">REFERENCES</span> resources(id),
+    <span class="hljs-keyword">UNIQUE</span> (customer_id, resource_id)
+);</span></code></pre>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 这是修改语句：
 ```sql
@@ -62,67 +61,66 @@ UPDATE resources
 <p>『你有什么理论吗，福尔摩斯？』</p>
 <p>『我设计了一个实验，华生。』福尔摩斯拿出一张写满代码的纸，三个简单的测试案例，足以揭示真相。』</p>
 <p>我凑近看了看那些 Python 代码，『看起来很复杂。』</p>
-<pre><code class="language-python">import duckdb
-import logging
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span></span><span class="cl-body"><span class="hljs-keyword">import</span> duckdb
+<span class="hljs-keyword">import</span> logging
 
-# 设置日志
+<span class="hljs-comment"># 设置日志</span>
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# 创建测试数据库
-conn = duckdb.connect(&#39;:memory:&#39;)
+<span class="hljs-comment"># 创建测试数据库</span>
+conn = duckdb.connect(<span class="hljs-string">&#x27;:memory:&#x27;</span>)
 
-# 创建测试表结构
+<span class="hljs-comment"># 创建测试表结构</span>
 conn.execute(『『『
 CREATE TABLE parent (
-    id INTEGER PRIMARY KEY,
+    <span class="hljs-built_in">id</span> INTEGER PRIMARY KEY,
     name VARCHAR
 );
 
 CREATE TABLE child (
-    id INTEGER PRIMARY KEY,
+    <span class="hljs-built_in">id</span> INTEGER PRIMARY KEY,
     parent_id INTEGER,
     data VARCHAR,
-    FOREIGN KEY (parent_id) REFERENCES parent(id)
+    FOREIGN KEY (parent_id) REFERENCES parent(<span class="hljs-built_in">id</span>)
 );
 『『『)
 
-# 插入测试数据
-conn.execute(『INSERT INTO parent VALUES (1, &#39;Parent 1&#39;), (2, &#39;Parent 2&#39;)『)
-conn.execute(『INSERT INTO child VALUES (101, 1, &#39;Child 1&#39;), (102, 2, &#39;Child 2&#39;)『)
+<span class="hljs-comment"># 插入测试数据</span>
+conn.execute(『INSERT INTO parent VALUES (<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Parent 1&#x27;</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Parent 2&#x27;</span>)『)
+conn.execute(『INSERT INTO child VALUES (<span class="hljs-number">101</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Child 1&#x27;</span>), (<span class="hljs-number">102</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;Child 2&#x27;</span>)『)
 
-# 测试 1: 正常更新非键字段
-try:
-    logger.info(『测试 1: 更新 parent 表的非键字段『)
-    conn.execute(『UPDATE parent SET name = &#39;Updated Parent 1&#39; WHERE id = 1『)
-    logger.info(『测试 1 成功：可以更新非键字段『)
-except Exception as e:
-    logger.error(f『测试 1 失败：{e}『)
+<span class="hljs-comment"># 测试 1: 正常更新非键字段</span>
+<span class="hljs-keyword">try</span>:
+    logger.info(『测试 <span class="hljs-number">1</span>: 更新 parent 表的非键字段『)
+    conn.execute(『UPDATE parent SET name = <span class="hljs-string">&#x27;Updated Parent 1&#x27;</span> WHERE <span class="hljs-built_in">id</span> = <span class="hljs-number">1</span>『)
+    logger.info(『测试 <span class="hljs-number">1</span> 成功：可以更新非键字段『)
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    logger.error(f『测试 <span class="hljs-number">1</span> 失败：{e}『)
 
-# 测试 2: 使用 RETURNING 子句更新
-try:
-    logger.info(『测试 2: 使用 RETURNING 子句更新『)
-    result = conn.execute(『UPDATE parent SET name = &#39;Updated Again&#39; WHERE id = 1 RETURNING id『).fetchall()
-    logger.info(f『测试 2 成功：RETURNING 子句返回：{result}『)
-except Exception as e:
-    logger.error(f『测试 2 失败：{e}『)
+<span class="hljs-comment"># 测试 2: 使用 RETURNING 子句更新</span>
+<span class="hljs-keyword">try</span>:
+    logger.info(『测试 <span class="hljs-number">2</span>: 使用 RETURNING 子句更新『)
+    result = conn.execute(『UPDATE parent SET name = <span class="hljs-string">&#x27;Updated Again&#x27;</span> WHERE <span class="hljs-built_in">id</span> = <span class="hljs-number">1</span> RETURNING <span class="hljs-built_in">id</span>『).fetchall()
+    logger.info(f『测试 <span class="hljs-number">2</span> 成功：RETURNING 子句返回：{result}『)
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    logger.error(f『测试 <span class="hljs-number">2</span> 失败：{e}『)
 
-# 测试 3: 尝试更新被引用的主键
-try:
-    logger.info(『测试 4: 尝试更新被引用的主键『)
-    conn.execute(『UPDATE parent SET id = 3 WHERE id = 1『)
-    logger.info(『测试 4 成功：可以更新被引用的主键『)
-except Exception as e:
-    logger.error(f『测试 4 失败：{e}『)
-    if 『foreign key『 in str(e).lower():
+<span class="hljs-comment"># 测试 3: 尝试更新被引用的主键</span>
+<span class="hljs-keyword">try</span>:
+    logger.info(『测试 <span class="hljs-number">4</span>: 尝试更新被引用的主键『)
+    conn.execute(『UPDATE parent SET <span class="hljs-built_in">id</span> = <span class="hljs-number">3</span> WHERE <span class="hljs-built_in">id</span> = <span class="hljs-number">1</span>『)
+    logger.info(『测试 <span class="hljs-number">4</span> 成功：可以更新被引用的主键『)
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    logger.error(f『测试 <span class="hljs-number">4</span> 失败：{e}『)
+    <span class="hljs-keyword">if</span> 『foreign key『 <span class="hljs-keyword">in</span> <span class="hljs-built_in">str</span>(e).lower():
         logger.info(『确认：更新被引用的主键会触发外键约束错误『)
 
-# 显示最终数据
+<span class="hljs-comment"># 显示最终数据</span>
 parent_data = conn.execute(『SELECT * FROM parent『).fetchall()
 child_data = conn.execute(『SELECT * FROM child『).fetchall()
 logger.info(f『最终 parent 表数据：{parent_data}『)
-logger.info(f『最终 child 表数据：{child_data}『)
-</code></pre>
+logger.info(f『最终 child 表数据：{child_data}『)</span></code></pre>
 <p>『表面上看是如此。但真相往往隐藏在细节之中。』福尔摩斯微笑道，『第一个测试是普通的 UPDATE 操作，没有任何特殊子句。第二个测试添加了一个 RETURNING 子句。第三个测试则直接尝试更新被引用的主键。』</p>
 <p>『结果如何？』</p>
 <p>『啊，华生，结果令人着迷！『福尔摩斯的眼睛闪烁着兴奋的光芒，『第一个测试完美通过，证明普通的 UPDATE 操作可以正常工作。第三个测试如预期般失败，因为它确实违反了外键约束。』</p>

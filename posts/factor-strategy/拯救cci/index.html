@@ -29,76 +29,70 @@ $$</p>
 MACD, PPO, CCI 和 BIAS 是一组非常相似的指标，它们的区别主要在于选择的价格序列不同，是否进行了归一化。在本章我们不会介绍 BIAS 指标，这里就顺带提一下。它的公式是：
 </div>
 
-<pre><code>$$
-\text{Bias} = \frac{\text{当前价格} - \text{N 日移动平均线}}{\text{N 日移动平均线}} \times 100
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">$$
+\text{Bias} = \frac{\text{当前价格} - \text{N 日移动平均线}}{\text{N 日移动平均线}} \<span class="hljs-built_in">times</span> 100
 $$
 
-这个对比给我们提示了创新因子的一个思路。
-</code></pre>
+这个对比给我们提示了创新因子的一个思路。</span></code></pre>
 <p>CCI 使用<strong>最高价、最低价和收盘价的平均值作为价格序列</strong>的想法，在很多地方都很常见。本质上，<strong>它是对 vwap 的一种近似</strong>。因此，在有 vwap 数据可用的前提下，直接使用 vwap 数据有可能更好，后者的博弈含义更明确。</p>
 <p>CCI 公式当中有一个魔术数字：0.15. 它的作用是为了使 CCI 的值标准化到一个合理的范围，并且能在-100和100边界处有信号意义。起初，公式的设计者 lambert 认为，当 CCI 在[-100,100]区间内时，意味着价格在随机波动，是不值得交易的。而只有当 CCI 绝对值超过了 100 时，才认为有趋势出现，即当 CCI 上穿 100 时买入，下穿-100 时卖出。</p>
 <p>我们先用一个简单的双轴图观察一下这个指标。</p>
-<pre><code class="language-python">df = PAYH.copy()
-df[&#39;cci&#39;] = ta.CCI(df.high, df.low, df.close, 14)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">df = PAYH.copy()
+df[<span class="hljs-string">&#x27;cci&#x27;</span>] = ta.CCI(df.high, df.low, df.close, <span class="hljs-number">14</span>)
 
-axes = df[[&#39;close&#39;, &#39;cci&#39;]].plot(figsize=(14, 7), 
-                            subplots=True, 
-                            title=[&#39;PAYH&#39;, &#39;cci&#39;])
-axes[1].set_xlabel(&#39;&#39;)
+axes = df[[<span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-string">&#x27;cci&#x27;</span>]].plot(figsize=(<span class="hljs-number">14</span>, <span class="hljs-number">7</span>), 
+                            subplots=<span class="hljs-literal">True</span>, 
+                            title=[<span class="hljs-string">&#x27;PAYH&#x27;</span>, <span class="hljs-string">&#x27;cci&#x27;</span>])
+axes[<span class="hljs-number">1</span>].set_xlabel(<span class="hljs-string">&#x27;&#x27;</span>)
 sns.despine()
-plt.tight_layout()
-</code></pre>
+plt.tight_layout()</span></code></pre>
 <p>这是输出结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-payh.jpg" alt=""></p>
 <p>输出结果中，我在两处CCI穿越 $\pm 100$ 的位置上标注了交易信号，以说明CCI的信号作用。这只是单个资产、某小段时间上的观察结果，说明不了问题。</p>
 <p>现在我们运行因子检验来测试一下：</p>
-<pre><code>_ = alphatest(2000, start, end, 
-              calc_factor = lambda x: ta.CCI(x.high, 
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">_ <span class="hljs-operator">=</span> alphatest(<span class="hljs-number">2000</span>, <span class="hljs-keyword">start</span>, <span class="hljs-keyword">end</span>, 
+              calc_factor <span class="hljs-operator">=</span> lambda x: ta.CCI(x.high, 
                                              x.low, 
                                              x.close, 
-                                             14))
-</code></pre>
+                                             <span class="hljs-number">14</span>))</span></code></pre>
 <p>看起来因子测试的结果不是很好。</p>
 <p>但是，只要对 CCI 的原理略加分析，我们就很容易明白，它不适合直接当成因子来使用。因为CCI的交易信号是，当CCI穿越$\pm 100$ 时，就发出交易信号。它是一种事件信号，并不是我们通常意义上的因子。</p>
 <p>下面，我们从因子分布的角度来讲一下为什么。</p>
-<pre><code class="language-python">cci = barss.groupby(level=&quot;asset&quot;)
-            .apply(lambda x: ta.CCI(x.high, 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">cci = barss.groupby(level=<span class="hljs-string">&quot;asset&quot;</span>)
+            .apply(<span class="hljs-keyword">lambda</span> x: ta.CCI(x.high, 
                                     x.low, 
                                     x.close, 
-                                    timeperiod=14
+                                    timeperiod=<span class="hljs-number">14</span>
                                     )
                 )
 
-with sns.axes_style(&#39;white&#39;):
+<span class="hljs-keyword">with</span> sns.axes_style(<span class="hljs-string">&#x27;white&#x27;</span>):
     sns.distplot(cci)
-    sns.despine()
-</code></pre>
+    sns.despine()</span></code></pre>
 <p>从密度分布图来看，因子分布出现了双峰。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pdf.jpg" alt=""></p>
 <p>我们在课程中讲过，如果因子的分布出现双峰，这个因子往往包含了多种因素，它是不纯粹的。现在，我们面临的正是这种情况。在这种情况下，进行因子分析，我们需要先对因子进行“纯化”。</p>
-<pre><code class="language-python">cci = barss.groupby(level=&quot;asset&quot;)
-            .apply(lambda x: ta.CCI(x.high, 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">cci = barss.groupby(level=<span class="hljs-string">&quot;asset&quot;</span>)
+            .apply(<span class="hljs-keyword">lambda</span> x: ta.CCI(x.high, 
                                     x.low, 
                                     x.close, 
-                                    timeperiod=14))
-with sns.axes_style(&#39;white&#39;):
-    sns.distplot(cci[cci&gt; 0])
-    sns.despine()
-</code></pre>
+                                    timeperiod=<span class="hljs-number">14</span>))
+<span class="hljs-keyword">with</span> sns.axes_style(<span class="hljs-string">&#x27;white&#x27;</span>):
+    sns.distplot(cci[cci&gt; <span class="hljs-number">0</span>])
+    sns.despine()</span></code></pre>
 <p>输出结果如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pdf-pured.jpg" alt=""></p>
 <p>现在，我们看到的 cci 的分布就是单峰的了。然后我们对它进行因子检验，看看结果如何：</p>
-<pre><code class="language-python">def calc_cci(df, n):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_cci</span>(<span class="hljs-params">df, n</span>):
     cci = ta.CCI(df.high, df.low, df.close, n)
-    cci[cci &lt; 0] = np.nan
-    return cci * -1
+    cci[cci &lt; <span class="hljs-number">0</span>] = np.nan
+    <span class="hljs-keyword">return</span> cci * -<span class="hljs-number">1</span>
     
-alphatest(2000, 
+alphatest(<span class="hljs-number">2000</span>, 
          start, 
          end, 
-         calc_factor= calc_cci, args=(14,), 
-         max_loss=0.55, long_short=False)
-</code></pre>
+         calc_factor= calc_cci, args=(<span class="hljs-number">14</span>,), 
+         max_loss=<span class="hljs-number">0.55</span>, long_short=<span class="hljs-literal">False</span>)</span></code></pre>
 <p>注意，这段代码的第三行，我们对返回前的CCI 进行了修正，使其负值部分被置为nan，从而它们将会在因子检验中被抛弃掉。这是之前讲Alphalens框架时讲过的内容。</p>
 <p>也正是因为丢弃了一半的因子，所以，在调用Alphalens时，我们需要将<code>max_loss</code>参数设置为大于0.5（具体看maxlosserror报告）。</p>
 <!-- rb：如何优化 CCI -->

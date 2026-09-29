@@ -23,16 +23,14 @@
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m.jpg" alt=""></p>
 <hr>
 <p>这里无论是1月还是2月，两个个股的收盘日期都不一致。最简单的方案是使用<code>index.to_period</code>函数，将日期对齐到月份。</p>
-<pre><code class="language-python">df.index = df.index.to_period(freq=&#39;M&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.index = df.index.to_period(freq=<span class="hljs-string">&#x27;M&#x27;</span>)</span></code></pre>
 <p>经过转换，就会生成下面的结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m-result.jpg" alt=""></p>
 <p>这样的转换尽管实现了对齐，但会丢失具体的日期信息。我们也可以使用groupby来实现同样的功能：</p>
-<pre><code class="language-python">(df
-    .groupby([&#39;asset&#39;, pd.Grouper(freq=&#39;M&#39;)])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">(df
+    .groupby([<span class="hljs-string">&#x27;asset&#x27;</span>, pd.Grouper(freq=<span class="hljs-string">&#x27;M&#x27;</span>)])
     .last()
-    .reset_index(&quot;asset&quot;)
-</code></pre>
+    .reset_index(<span class="hljs-string">&quot;asset&quot;</span>)</span></code></pre>
 <hr>
 <p>结果是：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/padas-group-by-m.jpg" alt="50%"></p>
@@ -43,47 +41,44 @@
 <p>这实际上是一个DataFrame分组，再取头部n条记录的问题。</p>
 <hr>
 <p>假设数据是：</p>
-<pre><code class="language-python">df = pd.DataFrame(
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">df = pd.DataFrame(
     [
-        (datetime.datetime(2024, 1, 31), &quot;000001&quot;, 9.86),
-        (datetime.datetime(2024, 1, 31), &quot;000002&quot;, 10.2),
-        (datetime.datetime(2024, 1, 31), &quot;000003&quot;, 9.84),
-        (datetime.datetime(2024, 1, 31), &quot;000004&quot;, 11.2),
-        (datetime.datetime(2024, 2, 29), &quot;000001&quot;, 10.2),
-        (datetime.datetime(2024, 2, 29), &quot;000002&quot;, 11.2),
-        (datetime.datetime(2024, 2, 29), &quot;000003&quot;, 9.83),
-        (datetime.datetime(2024, 2, 29), &quot;000004&quot;, 11),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">1</span>, <span class="hljs-number">31</span>), <span class="hljs-string">&quot;000001&quot;</span>, <span class="hljs-number">9.86</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">1</span>, <span class="hljs-number">31</span>), <span class="hljs-string">&quot;000002&quot;</span>, <span class="hljs-number">10.2</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">1</span>, <span class="hljs-number">31</span>), <span class="hljs-string">&quot;000003&quot;</span>, <span class="hljs-number">9.84</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">1</span>, <span class="hljs-number">31</span>), <span class="hljs-string">&quot;000004&quot;</span>, <span class="hljs-number">11.2</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">29</span>), <span class="hljs-string">&quot;000001&quot;</span>, <span class="hljs-number">10.2</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">29</span>), <span class="hljs-string">&quot;000002&quot;</span>, <span class="hljs-number">11.2</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">29</span>), <span class="hljs-string">&quot;000003&quot;</span>, <span class="hljs-number">9.83</span>),
+        (datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">29</span>), <span class="hljs-string">&quot;000004&quot;</span>, <span class="hljs-number">11</span>),
     ],
-    columns=[&quot;date&quot;, &quot;asset&quot;, &quot;factor&quot;]
-)
-</code></pre>
+    columns=[<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>, <span class="hljs-string">&quot;factor&quot;</span>]
+)</span></code></pre>
 <p>我们要取每个月factor最大的前n个，并且生成一个dict，key为每月日期，values为对应的asset数组。</p>
-<pre><code class="language-python">top_n_assets = (df
-      .groupby(level=0)
-      .apply(lambda x: x.nlargest(2, &#39;factor&#39;)[&#39;asset&#39;])
-      .reset_index(level = 1, drop = True)
-      .groupby(level=0)
-      .apply(list)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">top_n_assets = (df
+      .groupby(level=<span class="hljs-number">0</span>)
+      .apply(<span class="hljs-keyword">lambda</span> x: x.nlargest(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;factor&#x27;</span>)[<span class="hljs-string">&#x27;asset&#x27;</span>])
+      .reset_index(level = <span class="hljs-number">1</span>, drop = <span class="hljs-literal">True</span>)
+      .groupby(level=<span class="hljs-number">0</span>)
+      .apply(<span class="hljs-built_in">list</span>)
      ).todict()
 
-top_n_assets
-</code></pre>
+top_n_assets</span></code></pre>
 <hr>
 <p>输出结果是：</p>
-<pre><code class="language-python">date
-2024-01-31    [000004, 000002]
-2024-02-29    [000002, 000004]
-Name: asset, dtype: object
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">date
+<span class="hljs-number">2024</span>-01-<span class="hljs-number">31</span>    [000004, 000002]
+<span class="hljs-number">2024</span>-02-<span class="hljs-number">29</span>    [000002, 000004]
+Name: asset, dtype: <span class="hljs-built_in">object</span>
+</span></code></pre>
 <p>这里的技巧是，当我们要按索引进行分组时，我们要使用<code>grouby(level=?)</code>的语法。Pandas支持多级索引，第一级索引一般使用level=0来引用，第二级索引使用level=1来引用。</p>
 <p>在使用groupby之后，生成的DataFrame就有了两级索引，这个中间结果显示如下：</p>
-<pre><code class="language-python">date        date      
-2024-01-31  2024-01-31    000004
-            2024-01-31    000002
-2024-02-29  2024-02-29    000002
-            2024-02-29    000004
-Name: asset, dtype: object
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">date        date      
+<span class="hljs-number">2024</span>-01-<span class="hljs-number">31</span>  <span class="hljs-number">2024</span>-01-<span class="hljs-number">31</span>    000004
+            <span class="hljs-number">2024</span>-01-<span class="hljs-number">31</span>    000002
+<span class="hljs-number">2024</span>-02-<span class="hljs-number">29</span>  <span class="hljs-number">2024</span>-02-<span class="hljs-number">29</span>    000002
+            <span class="hljs-number">2024</span>-02-<span class="hljs-number">29</span>    000004
+Name: asset, dtype: <span class="hljs-built_in">object</span></span></code></pre>
 <p>我们通过第4行的reset_index来删除掉第二级索引。注意在Pandas中，删除索引也是通过调用reset_index来实现的。到此为止，我们实际上已经实现了提取分组的前n条记录的任务。</p>
 <hr>
 <p>第5~6行是将提取结果扁平化，即将按多行排列的asset，压缩成一个list，结果仍然是一个DataFrame，但每个日期只有一行，其值包含了当期前n个asset。</p>

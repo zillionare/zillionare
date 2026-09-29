@@ -38,8 +38,8 @@ X_i = [A_{i-n}, ..., A_{i-1}, B_{i-n}, ..., B_{i-1}, ..., L_{i-n}, ..., L_{i-1}]
 $$</p>
 <p>下面的Python代码实现了这个转换过程：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">def expand_data(df: pd.DataFrame, n: int) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">expand_data</span>(<span class="hljs-params">df: pd.DataFrame, n: <span class="hljs-built_in">int</span></span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     Expands a time-series dataframe into a feature matrix with n lag features.
     
     Args:
@@ -49,40 +49,39 @@ $$</p>
     Returns:
         A new dataframe where each row contains the original data plus
         lagged features from the past n steps.
-    &quot;&quot;&quot;
-    if n &lt;= 0:
-        base_cols = [c for c in [&#39;start&#39;, &#39;y&#39;] if c in df.columns]
-        return df[base_cols].copy()
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">0</span>:
+        base_cols = [c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;start&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>] <span class="hljs-keyword">if</span> c <span class="hljs-keyword">in</span> df.columns]
+        <span class="hljs-keyword">return</span> df[base_cols].copy()
 
-    # Identify feature columns (assumed to be uppercase letters)
-    cols = list(df.columns)
-    if &#39;A&#39; in cols:
-        start_idx = cols.index(&#39;A&#39;)
+    <span class="hljs-comment"># Identify feature columns (assumed to be uppercase letters)</span>
+    cols = <span class="hljs-built_in">list</span>(df.columns)
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;A&#x27;</span> <span class="hljs-keyword">in</span> cols:
+        start_idx = cols.index(<span class="hljs-string">&#x27;A&#x27;</span>)
         feat_cols = cols[start_idx:]
-    else:
-        feat_candidates = {c for c in cols if c.isalpha() and c.upper() == c}
-        feat_cols = [c for c in cols if c in feat_candidates]
+    <span class="hljs-keyword">else</span>:
+        feat_candidates = {c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> cols <span class="hljs-keyword">if</span> c.isalpha() <span class="hljs-keyword">and</span> c.upper() == c}
+        feat_cols = [c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> cols <span class="hljs-keyword">if</span> c <span class="hljs-keyword">in</span> feat_candidates]
 
-    base_cols = [c for c in [&#39;start&#39;, &#39;y&#39;] if c in df.columns]
+    base_cols = [c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;start&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>] <span class="hljs-keyword">if</span> c <span class="hljs-keyword">in</span> df.columns]
 
-    # Build lag features using vectorized shift for efficiency
+    <span class="hljs-comment"># Build lag features using vectorized shift for efficiency</span>
     out = {}
-    for col in feat_cols:
+    <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> feat_cols:
         s = df[col]
-        for k in range(1, n + 1):
-            out[f&#39;{col}_{k}&#39;] = s.shift(k)
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, n + <span class="hljs-number">1</span>):
+            out[<span class="hljs-string">f&#x27;<span class="hljs-subst">{col}</span>_<span class="hljs-subst">{k}</span>&#x27;</span>] = s.shift(k)
 
     features = pd.DataFrame(out, index=df.index)
-    res = pd.concat([df[base_cols], features], axis=1)
+    res = pd.concat([df[base_cols], features], axis=<span class="hljs-number">1</span>)
 
-    # Trim rows with NaN values resulting from the shift operation
-    trimmed = res.iloc[n:].reset_index(drop=True)
-    return trimmed
+    <span class="hljs-comment"># Trim rows with NaN values resulting from the shift operation</span>
+    trimmed = res.iloc[n:].reset_index(drop=<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">return</span> trimmed
 
-df = pd.read_csv(data_home/&quot;ro/drama.csv&quot;)
-expanded_df = expand_data(df, 5)
-expanded_df.head()
-</code></pre>
+df = pd.read_csv(data_home/<span class="hljs-string">&quot;ro/drama.csv&quot;</span>)
+expanded_df = expand_data(df, <span class="hljs-number">5</span>)
+expanded_df.head()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>以<code>n=3</code>为例，转换后的数据形态如下，每一行都包含了当天（<code>y</code>）以及过去3天所有指标（<code>A_1</code>到<code>L_3</code>）的信息：</p>
@@ -94,18 +93,18 @@ expanded_df.head()
 <h2 id="训练请xgboost出马">训练：请XGBoost出马</h2>
 <p>数据准备就绪后，我们就可以请出主角——XGBoost。训练过程本身非常直接。我们使用<code>XGBClassifier</code>，并选择适合二分类问题的目标函数（如<code>binary:logistic</code>）和评估指标（如<code>logloss</code>）。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">import numpy as np
-import pandas as pd
-from xgboost import XGBClassifier
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> xgboost <span class="hljs-keyword">import</span> XGBClassifier
 
-def train_xgb_and_rank_features(
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">train_xgb_and_rank_features</span>(<span class="hljs-params">
     df: pd.DataFrame,
-    n_estimators: int = 400,
-    max_depth: int = 5,
-    learning_rate: float = 0.05,
+    n_estimators: <span class="hljs-built_in">int</span> = <span class="hljs-number">400</span>,
+    max_depth: <span class="hljs-built_in">int</span> = <span class="hljs-number">5</span>,
+    learning_rate: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.05</span>,
     **kwargs
-):
-    &quot;&quot;&quot;
+</span>):
+    <span class="hljs-string">&quot;&quot;&quot;
     Trains an XGBoost classifier on the given dataframe.
     
     Args:
@@ -114,67 +113,64 @@ def train_xgb_and_rank_features(
         
     Returns:
         A trained XGBoost classifier instance.
-    &quot;&quot;&quot;
-    # 1. Separate features (X) and target (y)
-    feat_cols = list(set(df.columns) - set([&quot;y&quot;, &quot;start&quot;]))
-    X = df[feat_cols].apply(pd.to_numeric, errors=&quot;coerce&quot;)
-    y = pd.to_numeric(df[&quot;y&quot;], errors=&quot;ignore&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-comment"># 1. Separate features (X) and target (y)</span>
+    feat_cols = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">set</span>(df.columns) - <span class="hljs-built_in">set</span>([<span class="hljs-string">&quot;y&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]))
+    X = df[feat_cols].apply(pd.to_numeric, errors=<span class="hljs-string">&quot;coerce&quot;</span>)
+    y = pd.to_numeric(df[<span class="hljs-string">&quot;y&quot;</span>], errors=<span class="hljs-string">&quot;ignore&quot;</span>)
 
-    # 2. Clean data by dropping rows with any NaN values
-    mask = X.notna().all(axis=1) &amp; pd.notna(y)
+    <span class="hljs-comment"># 2. Clean data by dropping rows with any NaN values</span>
+    mask = X.notna().<span class="hljs-built_in">all</span>(axis=<span class="hljs-number">1</span>) &amp; pd.notna(y)
     X, y = X.loc[mask], y.loc[mask]
 
-    # 3. Set up XGBoost parameters
-    params = dict(
+    <span class="hljs-comment"># 3. Set up XGBoost parameters</span>
+    params = <span class="hljs-built_in">dict</span>(
         n_estimators=n_estimators,
         max_depth=max_depth,
         learning_rate=learning_rate,
-        objective=&quot;binary:logistic&quot;,
-        eval_metric=&quot;logloss&quot;,
-        n_jobs=0,
-        tree_method=&quot;hist&quot;,
-        random_state=42,
+        objective=<span class="hljs-string">&quot;binary:logistic&quot;</span>,
+        eval_metric=<span class="hljs-string">&quot;logloss&quot;</span>,
+        n_jobs=<span class="hljs-number">0</span>,
+        tree_method=<span class="hljs-string">&quot;hist&quot;</span>,
+        random_state=<span class="hljs-number">42</span>,
         **kwargs
     )
 
     clf = XGBClassifier(**params)
     clf.fit(X, y)
 
-    return clf
+    <span class="hljs-keyword">return</span> clf
 
 clf = train_xgb_and_rank_features(expanded_df)
-clf
-</code></pre>
+clf</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>训练完成后，模型就学习到了各个特征与“宕机”之间的复杂关系。接下来，就是揭开谜底的时刻。</p>
 <h2 id="归因分析全局与局部">归因分析：全局与局部</h2>
 <h3 id="全局重要性谁是关键嫌疑人">全局重要性：谁是关键嫌疑人？</h3>
 <p>首先，我们可以通过模型的<code>get_booster().get_score()</code>方法，查看每个特征的全局重要性（<code>gain</code>）。这告诉我们，在模型看来，哪些特征对区分“正常”与“宕机”的贡献最大。</p>
-<pre><code class="language-python">def get_feature_importance(clf, df):
-    &quot;&quot;&quot;Extracts and sorts feature importance from a trained XGBoost model.&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_feature_importance</span>(<span class="hljs-params">clf, df</span>):
+    <span class="hljs-string">&quot;&quot;&quot;Extracts and sorts feature importance from a trained XGBoost model.&quot;&quot;&quot;</span>
     booster = clf.get_booster()
-    score = booster.get_score(importance_type=&quot;gain&quot;)  
+    score = booster.get_score(importance_type=<span class="hljs-string">&quot;gain&quot;</span>)  
 
-    feat_columns = list(set(df.columns) - set([&quot;y&quot;, &quot;start&quot;]))
+    feat_columns = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">set</span>(df.columns) - <span class="hljs-built_in">set</span>([<span class="hljs-string">&quot;y&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]))
 
-    imp_df = pd.DataFrame([(name, score.get(name, 0.0)) for name in feat_columns],
-                                columns=[&quot;feature&quot;, &quot;importance&quot;])
-    imp_df = imp_df.sort_values(&quot;importance&quot;, ascending=False).reset_index(drop=True)
+    imp_df = pd.DataFrame([(name, score.get(name, <span class="hljs-number">0.0</span>)) <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> feat_columns],
+                                columns=[<span class="hljs-string">&quot;feature&quot;</span>, <span class="hljs-string">&quot;importance&quot;</span>])
+    imp_df = imp_df.sort_values(<span class="hljs-string">&quot;importance&quot;</span>, ascending=<span class="hljs-literal">False</span>).reset_index(drop=<span class="hljs-literal">True</span>)
 
-    return imp_df
+    <span class="hljs-keyword">return</span> imp_df
 
-get_feature_importance(clf, expanded_df).head()
-</code></pre>
+get_feature_importance(clf, expanded_df).head()</span></code></pre>
 <p>在我们的案例中，结果可能显示<code>K_2</code>（即两天前的K指标）的重要性远超其他特征，成为头号“嫌疑人”。同时，它还展示了<code>K_1</code>（即一天前的K指标）也会对此有所贡献。</p>
 <p>为了进一步验证它的“罪行”，我们可以使用<strong>部分依赖图</strong>（Partial Dependence Plot, PDP）进行一次“思想实验”。PDP的逻辑是：假设我们能控制变量，当其他所有特征保持不变时，仅仅改变特征<code>K_1</code>的取值（从0到1），观察模型的平均预测概率会如何变化。这能帮助我们隔离并理解单个特征对最终结果的纯粹影响。</p>
-<pre><code class="language-python">from sklearn.inspection import partial_dependence
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.inspection <span class="hljs-keyword">import</span> partial_dependence
 
-feat_columns = list(set(expanded_df.columns) - set([&quot;y&quot;, &quot;start&quot;]))
+feat_columns = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">set</span>(expanded_df.columns) - <span class="hljs-built_in">set</span>([<span class="hljs-string">&quot;y&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]))
 X = expanded_df[feat_columns]
-pd_results = partial_dependence(clf, X, features=[&quot;K_1&quot;, &quot;K_2&quot;])
-pd_results
-</code></pre>
+pd_results = partial_dependence(clf, X, features=[<span class="hljs-string">&quot;K_1&quot;</span>, <span class="hljs-string">&quot;K_2&quot;</span>])
+pd_results</span></code></pre>
 <p>我们将这个结果绘制成为热力图，再来讨论：</p>
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/20250919203656.png'>
@@ -200,33 +196,33 @@ pd_results
 <p>全局分析告诉我们<code>K_2</code>很重要，<code>K_1</code>也有一定的贡献，但这还不够。要进行“事件归因”，我们更关心的是：在8月31日基站挂掉<strong>那一天</strong>，各个因素到底扮演了什么角色？是哪个或哪些特征的取值，最终导致了“死亡”？</p>
 <p>这就是<strong>局部可解释性</strong>（Local Explainability）要解决的问题，而 SHAP (SHapley Additive exPlanations) 是解决这个问题的最佳工具。它可以清晰地展示出对于<strong>单次预测</strong>，每个特征值是“推手”还是“拉手”，以及各自贡献了多少。</p>
 <p>让我们聚焦到“案发”当天的样本，用 SHAP 来进行一次“法医鉴定”。</p>
-<pre><code class="language-python">import shap
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-keyword">import</span> shap
 
-def explain(clf, Xi):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">explain</span>(<span class="hljs-params">clf, Xi</span>):
     shap.initjs()
 
-    # 1. 创建解释器
-    # TreeExplainer是针对树模型（如XGBoost）优化过的高效解释器
+    <span class="hljs-comment"># 1. 创建解释器</span>
+    <span class="hljs-comment"># TreeExplainer是针对树模型（如XGBoost）优化过的高效解释器</span>
     explainer = shap.TreeExplainer(clf)
 
-    # 2. 计算SHAP值
+    <span class="hljs-comment"># 2. 计算SHAP值</span>
     shap_values = explainer.shap_values(Xi)
 
-    # 3. 可视化局部归因 - Waterfall图
+    <span class="hljs-comment"># 3. 可视化局部归因 - Waterfall图</span>
     shap.waterfall_plot(
         shap.Explanation(
-            values=shap_values[0],
+            values=shap_values[<span class="hljs-number">0</span>],
             base_values=explainer.expected_value,
-            data=Xi.iloc[0],
+            data=Xi.iloc[<span class="hljs-number">0</span>],
             feature_names=X.columns.tolist(),
         )
     )
 
 
-# 倒数第二天，基站挂了
-Xi = expanded_df[feat_columns][-2:-1]
+<span class="hljs-comment"># 倒数第二天，基站挂了</span>
+Xi = expanded_df[feat_columns][-<span class="hljs-number">2</span>:-<span class="hljs-number">1</span>]
 explain(clf, Xi)
-</code></pre>
+</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/drama-shap.png'>

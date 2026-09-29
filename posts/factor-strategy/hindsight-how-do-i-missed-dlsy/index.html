@@ -41,25 +41,24 @@
 $$</p>
 <p>这样定义的相关系数称作皮尔逊相关系数。一般我们可以通过numpy中的<code>corrcoef</code>，或者<code>scipy.stats.pearsonr</code>来计算。</p>
 <p>下面的代码演示了正相关、负相关和不相关的例子：</p>
-<pre><code class="language-python"># x0与x1正相关， 与x2负相关， 与x3分别为不同的随机变量
-x0 = np.random.normal(size=100)
-x1 = 10* x0 + 1
-x2 = -10 * x0 + 1
-x3 = np.random.normal(size=100)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-comment"># x0与x1正相关， 与x2负相关， 与x3分别为不同的随机变量</span>
+x0 = np.random.normal(size=<span class="hljs-number">100</span>)
+x1 = <span class="hljs-number">10</span>* x0 + <span class="hljs-number">1</span>
+x2 = -<span class="hljs-number">10</span> * x0 + <span class="hljs-number">1</span>
+x3 = np.random.normal(size=<span class="hljs-number">100</span>)
 
 x = np.vstack((x0, x1, x2, x3))
 rho = np.corrcoef(x)
 
-fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(12, 3))
+fig, ax = plt.subplots(nrows=<span class="hljs-number">1</span>, ncols=<span class="hljs-number">3</span>, figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">3</span>))
 
-for i in [0,1,2]:
-    ax[i].scatter(x[0,],x[1+i,])
-    desc = &quot;Pearson: {:.2f}&quot;.format(rho[0,i+1])
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]:
+    ax[i].scatter(x[<span class="hljs-number">0</span>,],x[<span class="hljs-number">1</span>+i,])
+    desc = <span class="hljs-string">&quot;Pearson: {:.2f}&quot;</span>.<span class="hljs-built_in">format</span>(rho[<span class="hljs-number">0</span>,i+<span class="hljs-number">1</span>])
     ax[i].title.set_text(desc)
-    ax[i].set(xlabel=&#39;x&#39;,ylabel=&#39;y&#39;)
+    ax[i].<span class="hljs-built_in">set</span>(xlabel=<span class="hljs-string">&#x27;x&#x27;</span>,ylabel=<span class="hljs-string">&#x27;y&#x27;</span>)
 
-plt.show()
-</code></pre>
+plt.show()</span></code></pre>
 <p>绘图时，我们以$x_0$为x轴，以$x_i$为y轴，如果$x_0$与$x_1$完全正相关，那么将绘制出一条$45^。$向上的直线。这其实就是QQ-Plot的原理。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/correlation-three.jpg" alt=""></p>
 <p>从左图过渡到右图，只需要在$x_0$中不断掺入噪声即可。读者可以自己尝试一下。</p>
@@ -77,28 +76,27 @@ plt.show()
 <h2 id="发现强相关个股">发现强相关个股</h2>
 <p>假设我们已经拿到了概念板块的个股名单。现在，我们两两计算它们与龙头个股之间的相关性，如果相关系数在0.75以上，我们就认为是强相关，纳入备选池。</p>
 <p><strong>相关系数是一个无量纲的数，取值在[-1,1]之间。因此，可以把0.75看成具有75分位的含义</strong></p>
-<pre><code class="language-python">async def qqplot(x, y, n=60, end):
-    xbars = await Stock.get_bars(x, n, FrameType.DAY, end=end )
-    ybars = await Stock.get_bars(y, n, FrameType.DAY, end=end)
-    xclose = xbars[&quot;close&quot;]
-    yclose = ybars[&quot;close&quot;]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">qqplot</span>(<span class="hljs-params">x, y, n=<span class="hljs-number">60</span>, end</span>):
+    xbars = <span class="hljs-keyword">await</span> Stock.get_bars(x, n, FrameType.DAY, end=end )
+    ybars = <span class="hljs-keyword">await</span> Stock.get_bars(y, n, FrameType.DAY, end=end)
+    xclose = xbars[<span class="hljs-string">&quot;close&quot;</span>]
+    yclose = ybars[<span class="hljs-string">&quot;close&quot;</span>]
 
-    pearson = scipy.stats.pearsonr(xclose, yclose)[0]
+    pearson = scipy.stats.pearsonr(xclose, yclose)[<span class="hljs-number">0</span>]
     spearman = scipy.stats.spearmanr(xclose, yclose).statistic
 
-    if pearson &lt; 0.75:
-        return
+    <span class="hljs-keyword">if</span> pearson &lt; <span class="hljs-number">0.75</span>:
+        <span class="hljs-keyword">return</span>
 
-    a, b = np.polyfit(xclose, yclose, 1)
-    ax = plt.subplot(1,1,1)
+    a, b = np.polyfit(xclose, yclose, <span class="hljs-number">1</span>)
+    ax = plt.subplot(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)
     ax.scatter(xclose, yclose)
     ax.plot(xclose, a * xclose + b)
 
-    namex = await Security.alias(x)
-    namey = await Security.alias(y)
-    ax.title.set_text(f&#39;{namex} &lt;=&gt; {namey} pearson: {pearson:.2f} spearman: {spearman:.2f}&#39;)
-    plt.show()
-</code></pre>
+    namex = <span class="hljs-keyword">await</span> Security.alias(x)
+    namey = <span class="hljs-keyword">await</span> Security.alias(y)
+    ax.title.set_text(<span class="hljs-string">f&#x27;<span class="hljs-subst">{namex}</span> &lt;=&gt; <span class="hljs-subst">{namey}</span> pearson: <span class="hljs-subst">{pearson:<span class="hljs-number">.2</span>f}</span> spearman: <span class="hljs-subst">{spearman:<span class="hljs-number">.2</span>f}</span>&#x27;</span>)
+    plt.show()</span></code></pre>
 <hr>
 <p>假设现在是1月2日的下午2时，已经能确认标的A不会开板。现在，我们就拿它与板块内的其它个股逐一计算相关性，排除掉弱相关的个股，因为，既然是弱相关，那么它们就不会跟涨，也不怎么跟跌（在我A，跟跌是必须的）。</p>
 <p>当我们使用 pearson &gt; 0.75的判断条件时，在该板块的22支个股中，筛选出5支个股。如果使用spearman &gt; 0.75来判断，则只会选出4支，并且这4支都在pearson筛选出的范围内。这里为排版美观起见，只给出共同的4支：</p>

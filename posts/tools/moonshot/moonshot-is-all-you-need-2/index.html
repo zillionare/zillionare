@@ -42,8 +42,8 @@
 <p>在 tushare 中，我们可以用 daily 或者 pro_bar 来获取行情数据。两者的区别是，在实现上，pro_bar 是一个集成接口，它在内部会（根据需要）调用 daily, adj_factor, daily_basic 等方法来获取数据，再进行合并对齐。</p>
 <p>这里我们推荐掌握 daily 和 adj_factor 等基础 API 的用法。原因是，通过这两个 API，我们可以将历史数据存储到本地，然后以追加的方式完成行情数据的更新。一旦历史数据得到缓存，此后的更新就会比较快。这是 pro_bar 方法难以做到的。</p>
 <p>下面是获取日线行情数据的方法，注意返回的数据中，已附带了复权因子。随后我们可以根据自己的需要，对任何时间段，自由进行前后复权。</p>
-<pre><code class="language-python">def fetch_bars(start: datetime.date, end: datetime.date) -&gt; pd.DataFrame | None:
-    &quot;&quot;&quot;通过 tushare 接口，获取日线行情数据
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_bars</span>(<span class="hljs-params">start: datetime.date, end: datetime.date</span>) -&gt; pd.DataFrame | <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;通过 tushare 接口，获取日线行情数据
 
     返回数据未复权，但包含了复权因子，因此可以增量获取叠加。返回数据为升序。
 
@@ -53,70 +53,69 @@
 
     Returns:
         DataFrame: 包含date, asset, open,high,low,close,volume,amount,adj_factor
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     all_data = []
 
     pro = ts.pro_api()
 
-    for date in pd.bdate_range(start, end):
-        try:
-            str_date = date.strftime(&quot;%Y%m%d&quot;)
+    <span class="hljs-keyword">for</span> date <span class="hljs-keyword">in</span> pd.bdate_range(start, end):
+        <span class="hljs-keyword">try</span>:
+            str_date = date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
             df = pro.daily(trade_date=str_date)
-            if df.empty:
-                continue
+            <span class="hljs-keyword">if</span> df.empty:
+                <span class="hljs-keyword">continue</span>
 
-            try:
-                adj_factor = pro.adj_factor(ts_code=&quot;&quot;, trade_date=str_date)
-                if adj_factor.empty:
-                    continue
-            except Exception:
-                continue
+            <span class="hljs-keyword">try</span>:
+                adj_factor = pro.adj_factor(ts_code=<span class="hljs-string">&quot;&quot;</span>, trade_date=str_date)
+                <span class="hljs-keyword">if</span> adj_factor.empty:
+                    <span class="hljs-keyword">continue</span>
+            <span class="hljs-keyword">except</span> Exception:
+                <span class="hljs-keyword">continue</span>
 
-            df = pd.merge(df, adj_factor, on=[&quot;ts_code&quot;, &quot;trade_date&quot;], how=&quot;inner&quot;)
+            df = pd.merge(df, adj_factor, on=[<span class="hljs-string">&quot;ts_code&quot;</span>, <span class="hljs-string">&quot;trade_date&quot;</span>], how=<span class="hljs-string">&quot;inner&quot;</span>)
 
-            # 重命名列并转换数据类型
+            <span class="hljs-comment"># 重命名列并转换数据类型</span>
             df = df.rename(
-                columns={&quot;trade_date&quot;: &quot;date&quot;, &quot;vol&quot;: &quot;volume&quot;, &quot;ts_code&quot;: &quot;asset&quot;}
+                columns={<span class="hljs-string">&quot;trade_date&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;vol&quot;</span>: <span class="hljs-string">&quot;volume&quot;</span>, <span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>}
             )
 
-            # tushare返回的是字符串格式的日期，如&#39;20231229&#39;
-            df[&quot;date&quot;] = pd.to_datetime(df[&quot;date&quot;], format=&quot;%Y%m%d&quot;)
+            <span class="hljs-comment"># tushare返回的是字符串格式的日期，如&#x27;20231229&#x27;</span>
+            df[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(df[<span class="hljs-string">&quot;date&quot;</span>], <span class="hljs-built_in">format</span>=<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
 
             all_data.append(df)
 
-        except Exception as e:
-            print(f&quot;Error loading data for {date}: {e}&quot;)
-            continue
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error loading data for <span class="hljs-subst">{date}</span>: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
-    if not all_data:
-        return None
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> all_data:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-    # 合并所有数据。由获取数据逻辑知此时数据已为有序
-    result = pd.concat(all_data, ignore_index=True)
+    <span class="hljs-comment"># 合并所有数据。由获取数据逻辑知此时数据已为有序</span>
+    result = pd.concat(all_data, ignore_index=<span class="hljs-literal">True</span>)
 
     result = result[
         [
-            &quot;date&quot;,
-            &quot;asset&quot;,
-            &quot;open&quot;,
-            &quot;high&quot;,
-            &quot;low&quot;,
-            &quot;close&quot;,
-            &quot;volume&quot;,
-            &quot;amount&quot;,
-            &quot;adj_factor&quot;,
+            <span class="hljs-string">&quot;date&quot;</span>,
+            <span class="hljs-string">&quot;asset&quot;</span>,
+            <span class="hljs-string">&quot;open&quot;</span>,
+            <span class="hljs-string">&quot;high&quot;</span>,
+            <span class="hljs-string">&quot;low&quot;</span>,
+            <span class="hljs-string">&quot;close&quot;</span>,
+            <span class="hljs-string">&quot;volume&quot;</span>,
+            <span class="hljs-string">&quot;amount&quot;</span>,
+            <span class="hljs-string">&quot;adj_factor&quot;</span>,
         ]
     ]
 
-    return result
-</code></pre>
+    <span class="hljs-keyword">return</span> result</span></code></pre>
 <p>通过此方法获得三个月的日线数据，大约需要165秒。如果是以增量的方式（即事先预存了全部历史数据，此后每日运行一次获取当日新增数据），则运行一次只需要2.7秒左右。</p>
 <h2 id="复权">复权</h2>
 <p>前一节返回的日线数据是没有复权的。我们把复权函数独立出来。首先是前复权。</p>
-<pre><code class="language-python">def qfq_adjustment(
-    df: pd.DataFrame, adj_factor_col: str = &quot;adj_factor&quot;
-) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">qfq_adjustment</span>(<span class="hljs-params">
+    df: pd.DataFrame, adj_factor_col: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;adj_factor&quot;</span>
+</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     前复权算法 (qfq - 前复权)
     以最新价格为基准，调整历史价格
     成交量需要反向调整，因为拆分后成交量增加
@@ -127,54 +126,53 @@
 
     Returns:
         复权后的pandas DataFrame
-    &quot;&quot;&quot;
-    lf = pl.from_pandas(df).lazy()
+    &quot;&quot;&quot;</span>
+    lf = pl.from_pandas(df).<span class="hljs-keyword">lazy</span>()
 
-    # 按asset分组，计算每个股票的最新复权因子
+    <span class="hljs-comment"># 按asset分组，计算每个股票的最新复权因子</span>
     result = (
         lf.with_columns(
-            [pl.col(adj_factor_col).last().over(&quot;asset&quot;).alias(&quot;latest_adj_factor&quot;)]
+            [pl.col(adj_factor_col).last().over(<span class="hljs-string">&quot;asset&quot;</span>).alias(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)]
         )
         .with_columns(
             [
-                # 前复权价格计算：price * adj_factor / latest_adj_factor
+                <span class="hljs-comment"># 前复权价格计算：price * adj_factor / latest_adj_factor</span>
                 (
-                    pl.col(&quot;open&quot;)
+                    pl.col(<span class="hljs-string">&quot;open&quot;</span>)
                     * pl.col(adj_factor_col)
-                    / pl.col(&quot;latest_adj_factor&quot;)
-                ).alias(&quot;open&quot;),
+                    / pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
+                ).alias(<span class="hljs-string">&quot;open&quot;</span>),
                 (
-                    pl.col(&quot;high&quot;)
+                    pl.col(<span class="hljs-string">&quot;high&quot;</span>)
                     * pl.col(adj_factor_col)
-                    / pl.col(&quot;latest_adj_factor&quot;)
-                ).alias(&quot;high&quot;),
+                    / pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
+                ).alias(<span class="hljs-string">&quot;high&quot;</span>),
                 (
-                    pl.col(&quot;low&quot;) * pl.col(adj_factor_col) / pl.col(&quot;latest_adj_factor&quot;)
-                ).alias(&quot;low&quot;),
+                    pl.col(<span class="hljs-string">&quot;low&quot;</span>) * pl.col(adj_factor_col) / pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
+                ).alias(<span class="hljs-string">&quot;low&quot;</span>),
                 (
-                    pl.col(&quot;close&quot;)
+                    pl.col(<span class="hljs-string">&quot;close&quot;</span>)
                     * pl.col(adj_factor_col)
-                    / pl.col(&quot;latest_adj_factor&quot;)
-                ).alias(&quot;close&quot;),
-                # 前复权成交量计算：volume * latest_adj_factor / adj_factor（反向调整）
+                    / pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
+                ).alias(<span class="hljs-string">&quot;close&quot;</span>),
+                <span class="hljs-comment"># 前复权成交量计算：volume * latest_adj_factor / adj_factor（反向调整）</span>
                 (
-                    pl.col(&quot;volume&quot;)
-                    * pl.col(&quot;latest_adj_factor&quot;)
+                    pl.col(<span class="hljs-string">&quot;volume&quot;</span>)
+                    * pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
                     / pl.col(adj_factor_col)
-                ).alias(&quot;volume&quot;),
+                ).alias(<span class="hljs-string">&quot;volume&quot;</span>),
             ]
         )
-        .drop(&quot;latest_adj_factor&quot;)
-        .collect()  # 执行lazy计算
+        .drop(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
+        .collect()  <span class="hljs-comment"># 执行lazy计算</span>
     )
 
-    return result.to_pandas()
-</code></pre>
+    <span class="hljs-keyword">return</span> result.to_pandas()</span></code></pre>
 <p>这是执行后复权的代码：</p>
-<pre><code class="language-python">def hfq_adjustment(
-    df: pd.DataFrame, adj_factor_col: str = &quot;adj_factor&quot;
-) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">hfq_adjustment</span>(<span class="hljs-params">
+    df: pd.DataFrame, adj_factor_col: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;adj_factor&quot;</span>
+</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     后复权算法 (hfq - 后复权)
     以历史价格为基准，调整后续价格
     成交量不调整，保持原始值
@@ -185,45 +183,44 @@
 
     Returns:
         复权后的pandas DataFrame
-    &quot;&quot;&quot;
-    lf = pl.from_pandas(df).lazy()
+    &quot;&quot;&quot;</span>
+    lf = pl.from_pandas(df).<span class="hljs-keyword">lazy</span>()
 
     result = (
         lf.with_columns(
-            [pl.col(adj_factor_col).last().over(&quot;asset&quot;).alias(&quot;latest_adj_factor&quot;)]
+            [pl.col(adj_factor_col).last().over(<span class="hljs-string">&quot;asset&quot;</span>).alias(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)]
         )
         .with_columns(
             [
-                # 后复权价格计算：price * latest_adj_factor / adj_factor
+                <span class="hljs-comment"># 后复权价格计算：price * latest_adj_factor / adj_factor</span>
                 (
-                    pl.col(&quot;open&quot;)
-                    * pl.col(&quot;latest_adj_factor&quot;)
+                    pl.col(<span class="hljs-string">&quot;open&quot;</span>)
+                    * pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
                     / pl.col(adj_factor_col)
-                ).alias(&quot;open&quot;),
+                ).alias(<span class="hljs-string">&quot;open&quot;</span>),
                 (
-                    pl.col(&quot;high&quot;)
-                    * pl.col(&quot;latest_adj_factor&quot;)
+                    pl.col(<span class="hljs-string">&quot;high&quot;</span>)
+                    * pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
                     / pl.col(adj_factor_col)
-                ).alias(&quot;high&quot;),
+                ).alias(<span class="hljs-string">&quot;high&quot;</span>),
                 (
-                    pl.col(&quot;low&quot;) * pl.col(&quot;latest_adj_factor&quot;) / pl.col(adj_factor_col)
-                ).alias(&quot;low&quot;),
+                    pl.col(<span class="hljs-string">&quot;low&quot;</span>) * pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>) / pl.col(adj_factor_col)
+                ).alias(<span class="hljs-string">&quot;low&quot;</span>),
                 (
-                    pl.col(&quot;close&quot;)
-                    * pl.col(&quot;latest_adj_factor&quot;)
+                    pl.col(<span class="hljs-string">&quot;close&quot;</span>)
+                    * pl.col(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
                     / pl.col(adj_factor_col)
-                ).alias(&quot;close&quot;),
-                # 后复权成交量：不调整，保持原始值
-                pl.col(&quot;volume&quot;).alias(&quot;volume&quot;),
+                ).alias(<span class="hljs-string">&quot;close&quot;</span>),
+                <span class="hljs-comment"># 后复权成交量：不调整，保持原始值</span>
+                pl.col(<span class="hljs-string">&quot;volume&quot;</span>).alias(<span class="hljs-string">&quot;volume&quot;</span>),
             ]
         )
-        .drop(&quot;latest_adj_factor&quot;)
-        .collect()  # 执行lazy计算
+        .drop(<span class="hljs-string">&quot;latest_adj_factor&quot;</span>)
+        .collect()  <span class="hljs-comment"># 执行lazy计算</span>
     )
 
-    # 转换回pandas DataFrame
-    return result.to_pandas()
-</code></pre>
+    <span class="hljs-comment"># 转换回pandas DataFrame</span>
+    <span class="hljs-keyword">return</span> result.to_pandas()</span></code></pre>
 <p>要注意前后复权中，除了复权因子的应用方法不一样之外，对成交量的处理有重大不同：对前复权，我们一般要进行成交量复权；但对于后复权，我们一般保持原始值。</p>
 <p>!!! info 为何在前后复权中，对成交量的处理不一样？
     在前复权中，对成交量也进行复权，是为了确保量价关系在逻辑上一致，避免因价格调整导致量能分析失真；按此逻辑，后复权中，似乎也应该进行成交量复权；但是，对成交量进行后复权之后，会破坏原始交易规模，影响回测中的成交撮合判断。因此，是否对成交量进行复权，实际上是看多数情况下，我们将如何使用数据来确定的。在有合理的使用场景时，对成交量进行后复权也是允许的。</p>
@@ -234,110 +231,109 @@
 <h2 id="题外话-本地缓存">题外话: 本地缓存</h2>
 <p>即使仅仅是为了复现本研报，我们也最好将从 tushare 获得的各项数据缓存下来。因为我们的复现步骤不太可能一次成功。使用缓存的数据，将大大加快我们的效率。</p>
 <p>如果是为了长期研究，我们就更有必要这么做了 -- 并且要坚持更新。下面的极简框架演示了如何高效实现这一点：</p>
-<pre><code class="language-python">import polars as pl
-from pathlib import Path
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span></span><span class="cl-body"><span class="hljs-keyword">import</span> polars <span class="hljs-keyword">as</span> pl
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
 
 
-class ParquetUnifiedStorage:
-    def __init__(self, file_path: str):
-        self.file_path = file_path
-        self._start_date = None
-        self._end_date = None
-        self._load_date_range()
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ParquetUnifiedStorage</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, file_path: <span class="hljs-built_in">str</span></span>):
+        <span class="hljs-variable language_">self</span>.file_path = file_path
+        <span class="hljs-variable language_">self</span>._start_date = <span class="hljs-literal">None</span>
+        <span class="hljs-variable language_">self</span>._end_date = <span class="hljs-literal">None</span>
+        <span class="hljs-variable language_">self</span>._load_date_range()
 
-    def _load_date_range(self):
-        &quot;&quot;&quot;从文件中加载日期范围并缓存&quot;&quot;&quot;
-        if not Path(self.file_path).exists():
-            self._start_date = None
-            self._end_date = None
-            return
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_load_date_range</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;从文件中加载日期范围并缓存&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> Path(<span class="hljs-variable language_">self</span>.file_path).exists():
+            <span class="hljs-variable language_">self</span>._start_date = <span class="hljs-literal">None</span>
+            <span class="hljs-variable language_">self</span>._end_date = <span class="hljs-literal">None</span>
+            <span class="hljs-keyword">return</span>
 
-        # 使用LazyFrame提高大文件处理效率
-        lazy_df = pl.scan_parquet(self.file_path)
+        <span class="hljs-comment"># 使用LazyFrame提高大文件处理效率</span>
+        lazy_df = pl.scan_parquet(<span class="hljs-variable language_">self</span>.file_path)
 
-        # 获取最小和最大日期
+        <span class="hljs-comment"># 获取最小和最大日期</span>
         date_range = lazy_df.select(
-            [pl.min(&quot;date&quot;).alias(&quot;start_date&quot;), pl.max(&quot;date&quot;).alias(&quot;end_date&quot;)]
+            [pl.<span class="hljs-built_in">min</span>(<span class="hljs-string">&quot;date&quot;</span>).alias(<span class="hljs-string">&quot;start_date&quot;</span>), pl.<span class="hljs-built_in">max</span>(<span class="hljs-string">&quot;date&quot;</span>).alias(<span class="hljs-string">&quot;end_date&quot;</span>)]
         ).collect()
 
-        # 缓存结果
-        self._start_date = date_range[0, &quot;start_date&quot;]
-        self._end_date = date_range[0, &quot;end_date&quot;]
+        <span class="hljs-comment"># 缓存结果</span>
+        <span class="hljs-variable language_">self</span>._start_date = date_range[<span class="hljs-number">0</span>, <span class="hljs-string">&quot;start_date&quot;</span>]
+        <span class="hljs-variable language_">self</span>._end_date = date_range[<span class="hljs-number">0</span>, <span class="hljs-string">&quot;end_date&quot;</span>]
 
-    def _update_date_range(self, df: pl.DataFrame):
-        &quot;&quot;&quot;根据新数据更新日期范围缓存&quot;&quot;&quot;
-        if df.is_empty():
-            return
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_update_date_range</span>(<span class="hljs-params">self, df: pl.DataFrame</span>):
+        <span class="hljs-string">&quot;&quot;&quot;根据新数据更新日期范围缓存&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> df.is_empty():
+            <span class="hljs-keyword">return</span>
 
-        # 获取新数据的日期范围
+        <span class="hljs-comment"># 获取新数据的日期范围</span>
         new_dates = df.select(
-            [pl.min(&quot;date&quot;).alias(&quot;min_date&quot;), pl.max(&quot;date&quot;).alias(&quot;max_date&quot;)]
+            [pl.<span class="hljs-built_in">min</span>(<span class="hljs-string">&quot;date&quot;</span>).alias(<span class="hljs-string">&quot;min_date&quot;</span>), pl.<span class="hljs-built_in">max</span>(<span class="hljs-string">&quot;date&quot;</span>).alias(<span class="hljs-string">&quot;max_date&quot;</span>)]
         )
 
-        new_min = new_dates[0, &quot;min_date&quot;]
-        new_max = new_dates[0, &quot;max_date&quot;]
+        new_min = new_dates[<span class="hljs-number">0</span>, <span class="hljs-string">&quot;min_date&quot;</span>]
+        new_max = new_dates[<span class="hljs-number">0</span>, <span class="hljs-string">&quot;max_date&quot;</span>]
 
-        # 更新缓存的日期范围
-        if self._start_date is None or new_min &lt; self._start_date:
-            self._start_date = new_min
-        if self._end_date is None or new_max &gt; self._end_date:
-            self._end_date = new_max
+        <span class="hljs-comment"># 更新缓存的日期范围</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>._start_date <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> new_min &lt; <span class="hljs-variable language_">self</span>._start_date:
+            <span class="hljs-variable language_">self</span>._start_date = new_min
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>._end_date <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> new_max &gt; <span class="hljs-variable language_">self</span>._end_date:
+            <span class="hljs-variable language_">self</span>._end_date = new_max
 
-    @property
-    def start(self):
-        &quot;&quot;&quot;获取数据起始日期&quot;&quot;&quot;
-        return self._start_date
+<span class="hljs-meta">    @property</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;获取数据起始日期&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>._start_date
 
-    @property
-    def end(self):
-        &quot;&quot;&quot;获取数据终止日期&quot;&quot;&quot;
-        return self._end_date
+<span class="hljs-meta">    @property</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">end</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;获取数据终止日期&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>._end_date
 
-    def append_data(self, df: pl.DataFrame | pd.DataFrame):
-        &quot;&quot;&quot;追加数据到Parquet文件&quot;&quot;&quot;
-        if isinstance(df, pd.DataFrame):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">append_data</span>(<span class="hljs-params">self, df: pl.DataFrame | pd.DataFrame</span>):
+        <span class="hljs-string">&quot;&quot;&quot;追加数据到Parquet文件&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(df, pd.DataFrame):
             df = pl.from_pandas(df)
 
-        if Path(self.file_path).exists():
-            # 读取现有数据
-            existing_df = pl.read_parquet(self.file_path)
-            # 合并并去重
-            combined_df = pl.concat([existing_df, df]).unique([&quot;date&quot;, &quot;asset&quot;])
-        else:
+        <span class="hljs-keyword">if</span> Path(<span class="hljs-variable language_">self</span>.file_path).exists():
+            <span class="hljs-comment"># 读取现有数据</span>
+            existing_df = pl.read_parquet(<span class="hljs-variable language_">self</span>.file_path)
+            <span class="hljs-comment"># 合并并去重</span>
+            combined_df = pl.concat([existing_df, df]).unique([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>])
+        <span class="hljs-keyword">else</span>:
             combined_df = df
 
-        # 按 date 和 asset 排序以优化查询
-        combined_df = combined_df.sort([&quot;date&quot;, &quot;asset&quot;])
+        <span class="hljs-comment"># 按 date 和 asset 排序以优化查询</span>
+        combined_df = combined_df.sort([<span class="hljs-string">&quot;date&quot;</span>, <span class="hljs-string">&quot;asset&quot;</span>])
 
-        # 写入文件（自动压缩）
-        combined_df.write_parquet(self.file_path, compression=&quot;snappy&quot;)
+        <span class="hljs-comment"># 写入文件（自动压缩）</span>
+        combined_df.write_parquet(<span class="hljs-variable language_">self</span>.file_path, compression=<span class="hljs-string">&quot;snappy&quot;</span>)
 
-        # 更新日期范围缓存
-        self._update_date_range(df)
+        <span class="hljs-comment"># 更新日期范围缓存</span>
+        <span class="hljs-variable language_">self</span>._update_date_range(df)
 
-    def query_stock_bars(
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">query_stock_bars</span>(<span class="hljs-params">
         self,
-        asset: str,
-        start_date: datetime.date = None,
-        end_date: datetime.date = None,
-    ):
-        &quot;&quot;&quot;查询个股数据&quot;&quot;&quot;
-        lazy_df = pl.scan_parquet(self.file_path)
+        asset: <span class="hljs-built_in">str</span>,
+        start_date: datetime.date = <span class="hljs-literal">None</span>,
+        end_date: datetime.date = <span class="hljs-literal">None</span>,
+    </span>):
+        <span class="hljs-string">&quot;&quot;&quot;查询个股数据&quot;&quot;&quot;</span>
+        lazy_df = pl.scan_parquet(<span class="hljs-variable language_">self</span>.file_path)
 
-        # 构建过滤条件
-        filters = [pl.col(&quot;asset&quot;) == asset]
+        <span class="hljs-comment"># 构建过滤条件</span>
+        filters = [pl.col(<span class="hljs-string">&quot;asset&quot;</span>) == asset]
 
-        if start_date:
-            filters.append(pl.col(&quot;date&quot;) &gt;= start_date)
-        if end_date:
-            filters.append(pl.col(&quot;date&quot;) &lt;= end_date)
+        <span class="hljs-keyword">if</span> start_date:
+            filters.append(pl.col(<span class="hljs-string">&quot;date&quot;</span>) &gt;= start_date)
+        <span class="hljs-keyword">if</span> end_date:
+            filters.append(pl.col(<span class="hljs-string">&quot;date&quot;</span>) &lt;= end_date)
 
-        return lazy_df.filter(pl.all_horizontal(filters)).collect()
+        <span class="hljs-keyword">return</span> lazy_df.<span class="hljs-built_in">filter</span>(pl.all_horizontal(filters)).collect()
 
-    def query_cross_section(self, date: datetime.date):
-        &quot;&quot;&quot;查询截面数据&quot;&quot;&quot;
-        return pl.scan_parquet(self.file_path).filter(pl.col(&quot;date&quot;) == date).collect()
-</code></pre>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">query_cross_section</span>(<span class="hljs-params">self, date: datetime.date</span>):
+        <span class="hljs-string">&quot;&quot;&quot;查询截面数据&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> pl.scan_parquet(<span class="hljs-variable language_">self</span>.file_path).<span class="hljs-built_in">filter</span>(pl.col(<span class="hljs-string">&quot;date&quot;</span>) == date).collect()</span></code></pre>
 <p>框架的核心 API 是：</p>
 <ol>
 <li>append_data，用来向本地存储追加数据（向前和向后都允许）</li>
@@ -346,29 +342,28 @@ class ParquetUnifiedStorage:
 <li>start 和 end 两个属性，帮助我们确定本地缓存的行情数据的起止日期。</li>
 </ol>
 <p>下面的代码演示了它的用法：</p>
-<pre><code class="language-python"># 本地文件，可以存在，也可以不存在
-store = ParquetUnifiedStorage(&quot;/tmp/bars.parquet&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-comment"># 本地文件，可以存在，也可以不存在</span>
+store = ParquetUnifiedStorage(<span class="hljs-string">&quot;/tmp/bars.parquet&quot;</span>)
 
-# 获取历史行情数据
-start = datetime.date(2019, 10, 8)
-end = datetime.date(2019, 10, 12)
+<span class="hljs-comment"># 获取历史行情数据</span>
+start = datetime.date(<span class="hljs-number">2019</span>, <span class="hljs-number">10</span>, <span class="hljs-number">8</span>)
+end = datetime.date(<span class="hljs-number">2019</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span>)
 bars = fetch_bars(start, end)
 
-# 存入本地
+<span class="hljs-comment"># 存入本地</span>
 store.append_data(bars)
 
-# 查询起止日期
-print(store.start, store.end)
+<span class="hljs-comment"># 查询起止日期</span>
+<span class="hljs-built_in">print</span>(store.start, store.end)
 
-# 追加新数据
-dt = datetime.date(2019, 10, 14)
+<span class="hljs-comment"># 追加新数据</span>
+dt = datetime.date(<span class="hljs-number">2019</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>)
 bars = fetch_bars(dt, dt)
 store.append_data(bars)
 
-# 查询
-print(store.end)
-store.query_stock_bars(&quot;000001.SZ&quot;)
-</code></pre>
+<span class="hljs-comment"># 查询</span>
+<span class="hljs-built_in">print</span>(store.end)
+store.query_stock_bars(<span class="hljs-string">&quot;000001.SZ&quot;</span>)</span></code></pre>
 <p>现在，你就有了一个最简单的本地数据缓存框架，并且获得了日线行情数据。在下一期文章里，我们将介绍如何获取股息率数据，并且调用 moonshot，实现按股息率进行筛选股票，并验证筛选的效果。</p>
 <p>现在，你就有了一个最简单的本地数据缓存框架，并且获得了日线行情数据。在下一期文章里，我们将介绍如何获取股息率数据，并且调用 moonshot，实现按股息率进行筛选股票，并验证筛选的效果。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/tools/moonshot/moonshot-is-all-you-need-1/">← 上一篇：『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架</a> <a class="series-next" href="/posts/tools/moonshot/moonshot-is-all-you-need-3/">下一篇：涨时重势，跌时重质，Moonshot首测股息率因子给出结论 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「数据与存储」路径第 22/24 篇</span> <span class="reading-path-links"> <a href="/posts/tools/all-about-openbb-as-a-newhand/">← OpenBB 实战！轻松获取海外市场</a> <a href="/posts/tools/moonshot/moonshot-is-all-you-need-3/">涨时重势，跌时重质，Moonshot →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/tags/#topic-data"><strong>👉 数据存储选型：HDF5 / Parquet / DuckDB</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/量化库/数据持久化/数据持久化/">量化数据的持久化方案</a> <p>回测需要较长周期的数据。无论我们使用哪一家数据源，都不可能让我们跨网络、反复多次传输大量数据，还要保证低延时。此外，我们在量化研究的过程中，也会逐步积累自己的因子库。这些因子数据，</p> </li><li> <a href="/articles/coursea/24lectures/how-the-course-are-composed/">大富翁量化24课编排说明</a> <p>课程内容 本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括： 如何获取数据 我们会介绍akshare, tusha</p> </li><li> <a href="/articles/products/1.0/">zillionare 1.0简介</a> <p>Zillionare（大富翁）是一个分布式高速量化交易框架。它基于Python 3.8以上版本构建，使用了异步IO和微服务技术，其目标是：</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#数据总览" title="数据总览">数据总览</a> </li><li class> <a href="#日线行情数据及复权" title="日线行情数据及复权">日线行情数据及复权</a> </li><li class> <a href="#复权" title="复权">复权</a> </li><li class> <a href="#题外话-本地缓存" title="题外话: 本地缓存">题外话: 本地缓存</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

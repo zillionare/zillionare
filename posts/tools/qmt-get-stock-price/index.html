@@ -29,25 +29,23 @@
 <p>XtQuant 中，数据获取一般分两个阶段，首先是缓存阶段，然后是读取阶段。</p>
 <p>缓存阶段的 API 一般以 download_开头。</p>
 <p>因此，我们要获取历史行情数据，首先要进行缓存。使用的 API 是：</p>
-<pre><code class="language-python">def download_history_data(stock_code: str=&#39;&#39;, 
-                      period: str=&#39;&#39;, 
-                      start_time: str=&#39;&#39;, 
-                      end_time: str=&#39;&#39;, 
-                      incrementally: Optional[bool]=None
-                      )
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">download_history_data</span>(<span class="hljs-params">stock_code: <span class="hljs-built_in">str</span>=<span class="hljs-string">&#x27;&#x27;</span>, 
+                      period: <span class="hljs-built_in">str</span>=<span class="hljs-string">&#x27;&#x27;</span>, 
+                      start_time: <span class="hljs-built_in">str</span>=<span class="hljs-string">&#x27;&#x27;</span>, 
+                      end_time: <span class="hljs-built_in">str</span>=<span class="hljs-string">&#x27;&#x27;</span>, 
+                      incrementally: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">bool</span>]=<span class="hljs-literal">None</span>
+                      </span>)</span></code></pre>
 <p>如果我们要一次下载多支证券的行情数据，还可以使用<code>download_history_data2</code>这个 API。</p>
 <p>如果在 start_time 到 end_time 区间的数据被缓存后，我们就可以调用<code>get_market_data</code>来获取行情数据。</p>
-<pre><code class="language-python">def get_market_data(field_list = [], 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_market_data</span>(<span class="hljs-params">field_list = [], 
                     stock_list = [], 
-                    period = &#39;1d&#39;,
-                    start_time = &#39;&#39;, 
-                    end_time = &#39;&#39;, 
-                    count = -1,
-                    dividend_type = &#39;none&#39;, 
-                    fill_data = True
-)
-</code></pre>
+                    period = <span class="hljs-string">&#x27;1d&#x27;</span>,
+                    start_time = <span class="hljs-string">&#x27;&#x27;</span>, 
+                    end_time = <span class="hljs-string">&#x27;&#x27;</span>, 
+                    count = -<span class="hljs-number">1</span>,
+                    dividend_type = <span class="hljs-string">&#x27;none&#x27;</span>, 
+                    fill_data = <span class="hljs-literal">True</span>
+</span>)</span></code></pre>
 <p>该方法可以获取&#39;1m&#39;, &#39;5m&#39;, &#39;15m&#39;, &#39;30m&#39;, &#39;1h&#39;, &#39;1d&#39;和分笔 (<code>tick</code>) 数据。不同的周期下，返回的字段有所不同。除分笔外，能返回的数据包括时间，OHLC，volume（成交手）和 amount（成交金额）。</p>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 `fill_data`建议都设置为 False。它的行为是使用前一条数据进行填充，类似于 pandas 的 fillna 中的`ffil`。但行情软件在计算技术指标时，都是跳过这些缺失数据，而不是使用的填充数据。因此，我们也应该将`fill_data`设置为 False, 以避免与其它人行为不一致。
@@ -55,38 +53,36 @@
 
 <p>注意该方法不能返回复权因子。因此，如果我们不是为了直接使用返回的数据，而是要将其转存到其它数据库的话，我们还需要调用<code>get_divid_factors</code>来获得复权因子，与这里获得的未复权数据一起保存。直接转存任何已经复权的数据是没有意义的。即使是后复权，也存在出错的可能。</p>
 <h2 id="示例">示例</h2>
-<pre><code class="language-python">from xtquant import xtdata
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body"><span class="hljs-keyword">from</span> xtquant <span class="hljs-keyword">import</span> xtdata
 
-stocks = [&#39;000001.SZ&#39;, &#39;600000.SH&#39;]
-xtdata.download_history_data(stocks[0], &#39;1d&#39;)
-xtdata.download_history_data(stocks[1], &#39;1d&#39;)
+stocks = [<span class="hljs-string">&#x27;000001.SZ&#x27;</span>, <span class="hljs-string">&#x27;600000.SH&#x27;</span>]
+xtdata.download_history_data(stocks[<span class="hljs-number">0</span>], <span class="hljs-string">&#x27;1d&#x27;</span>)
+xtdata.download_history_data(stocks[<span class="hljs-number">1</span>], <span class="hljs-string">&#x27;1d&#x27;</span>)
 
-# 或者
-# XTDATA.DOWNLOAD_HISTORY_DATA2(STOCKS, &#39;1D&#39;)
+<span class="hljs-comment"># 或者</span>
+<span class="hljs-comment"># XTDATA.DOWNLOAD_HISTORY_DATA2(STOCKS, &#x27;1D&#x27;)</span>
 
-end = &quot;20231220&quot;
+end = <span class="hljs-string">&quot;20231220&quot;</span>
 bars = xtdata.get_market_data(stock_list=stocks, 
-                              period=&#39;1d&#39;, 
+                              period=<span class="hljs-string">&#x27;1d&#x27;</span>, 
                               end_time=end, 
-                              count=-1, 
-                              dividend_type=&quot;front_ratio&quot;)
+                              count=-<span class="hljs-number">1</span>, 
+                              dividend_type=<span class="hljs-string">&quot;front_ratio&quot;</span>)
 
-end = &quot;20231220&quot;
-bars = xtdata.get_market_data(stock_list=stocks, period=&#39;1d&#39;, end_time=end, count=-1, dividend_type=&quot;front_ratio&quot;)
+end = <span class="hljs-string">&quot;20231220&quot;</span>
+bars = xtdata.get_market_data(stock_list=stocks, period=<span class="hljs-string">&#x27;1d&#x27;</span>, end_time=end, count=-<span class="hljs-number">1</span>, dividend_type=<span class="hljs-string">&quot;front_ratio&quot;</span>)
 
-display(bars[&#39;close&#39;].T.tail())
-</code></pre>
+display(bars[<span class="hljs-string">&#x27;close&#x27;</span>].T.tail())</span></code></pre>
 <p>get_market_data的返回结果是一个dict。它的key是行情字段，比如<code>time</code>, <code>open</code>, <code>close</code>等。其值则是以证券代码为索引，以时间为列的各个字段值。在上述示例的输出中，我们将其进行了转置，这也是我们正常情况下，使用它们的方式。</p>
 <p>最终输出如下：</p>
 <p>注意 xtquant 使用的日期格式，如果周期为 1d，则是&quot;YYYYMMDD&quot;。如果周期为分钟级，则为&quot;YYYYMMDDHHmmss&quot;。如果我们使用的时间是 datatime.datetime 的话，可以用以下方式来格式化：</p>
-<pre><code class="language-python">import datetime
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> datetime
 
 now = datetime.datetime.now()
-print(now.strftime(&quot;%Y%m%d%H%M%S&quot;))
+<span class="hljs-built_in">print</span>(now.strftime(<span class="hljs-string">&quot;%Y%m%d%H%M%S&quot;</span>))
 
-import arrow
-arrow.get(now).format(&quot;YYYYMMDDHHmmss&quot;)
-</code></pre>
+<span class="hljs-keyword">import</span> arrow
+arrow.get(now).<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;YYYYMMDDHHmmss&quot;</span>)</span></code></pre>
 <p><code>strftime</code>的格式串不容易记忆， arrow 时间库在这点上进行了改进，周期由大到小，表示形式也实现了递进，比较容易记忆。在不涉及到性能的情况下，我们可以先将其转换为 Arrow 对象，再进行格式化。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/tools/qmt-get-sector/">← 上一篇：xtquant 中的板块数据</a> <a class="series-next" href="/posts/tools/quantstats-2/">下一篇：算收益，用算术平均好还是几何平均好? →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「数据与存储」路径第 15/24 篇</span> <span class="reading-path-links"> <a href="/posts/tools/pyarrow-plus-parquet/">← 存了50TB！pyarrow + p</a> <a href="/posts/tools/why-click-house-so-fast/">ClickHouse: One ta →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/tags/#topic-data"><strong>👉 数据存储选型：HDF5 / Parquet / DuckDB</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/qmt/intro/">玩转XtQuant量化交易</a> <p>QMT是迅投公司推出的量化交易软件，它是券端采购软件，因此具有量化实盘接口。当前定制采购了QMT的券商约50家左右，开通量化权限的门槛从数万元到数十万元不等，开通量化权限除仍然能享</p> </li><li> <a href="/articles/investment/量化库/数据持久化/数据持久化/">量化数据的持久化方案</a> <p>回测需要较长周期的数据。无论我们使用哪一家数据源，都不可能让我们跨网络、反复多次传输大量数据，还要保证低延时。此外，我们在量化研究的过程中，也会逐步积累自己的因子库。这些因子数据，</p> </li><li> <a href="/articles/products/gm-adaptor-installation/">东财量化接口安装指南</a> <p>1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#qmt-和-xtquant-简介" title="QMT 和 XtQuant 简介">QMT 和 XtQuant 简介</a> </li><li class> <a href="#xtquant-获取行情数据" title="XtQuant 获取行情数据">XtQuant 获取行情数据</a> </li><li class> <a href="#示例" title="示例">示例</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

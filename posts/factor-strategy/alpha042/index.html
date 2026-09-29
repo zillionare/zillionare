@@ -26,34 +26,32 @@
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-cumulative-return.png" alt=""></p>
 <hr>
 <p>不过，驾驭Alpha101并不容易。不得不说，它的公式有点晦涩难懂，比如第29号因子，它的公式如下：</p>
-<pre><code class="language-python">(min(product(rank(rank(scale(log(sum(ts_min(rank(rank((-1 * rank(delta((close - 1),
-5))))), 2), 1))))), 1), 5) + ts_rank(delay((-1 * returns), 6), 5))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">(<span class="hljs-built_in">min</span>(product(rank(rank(scale(log(<span class="hljs-built_in">sum</span>(ts_min(rank(rank((-<span class="hljs-number">1</span> * rank(delta((close - <span class="hljs-number">1</span>),
+<span class="hljs-number">5</span>))))), <span class="hljs-number">2</span>), <span class="hljs-number">1</span>))))), <span class="hljs-number">1</span>), <span class="hljs-number">5</span>) + ts_rank(delay((-<span class="hljs-number">1</span> * returns), <span class="hljs-number">6</span>), <span class="hljs-number">5</span>))</span></code></pre>
 <p>这只是Alpha101中中等阅读难度的因子。如果我们把它展开，相当于：</p>
-<pre><code class="language-python">(
-    min(
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body">(
+    <span class="hljs-built_in">min</span>(
         product(
             rank(
                 rank(
                     scale(
                         log(
-                            sum(
+                            <span class="hljs-built_in">sum</span>(
                                 ts_min(
-                                    rank(rank((-1 * rank(delta((close - 1), 5))))), 2
+                                    rank(rank((-<span class="hljs-number">1</span> * rank(delta((close - <span class="hljs-number">1</span>), <span class="hljs-number">5</span>))))), <span class="hljs-number">2</span>
                                 ),
-                                1,
+                                <span class="hljs-number">1</span>,
                             )
                         )
                     )
                 )
             ),
-            1,
+            <span class="hljs-number">1</span>,
         ),
-        5,
+        <span class="hljs-number">5</span>,
     )
-    + ts_rank(delay((-1 * returns), 6), 5)
-)
-</code></pre>
+    + ts_rank(delay((-<span class="hljs-number">1</span> * returns), <span class="hljs-number">6</span>), <span class="hljs-number">5</span>)
+)</span></code></pre>
 <hr>
 <p>不仅是了解其含义非常困难，就是实现它也不是件容易的事。而且，Alpha101中还存在大量待优化的部分，以及少部分错误（对于一篇免费、公开的文章，仍然是相当宝贵的资源）。比如，对于42号因子，它仍然有改进空间。这是我们改进后的因子表现（同等条件下，源码仅对学员开放）：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactored-returns.png" alt=""></p>
@@ -63,10 +61,9 @@
 <p>累积收益图也很完美。A股2008年触顶6124之后，持续下跌数年，但这期间此因子的收益仍然保持上涨。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-culmulative-return.png" alt=""></p>
 <p>不过，Alpha101确实很难懂。比如公式001看起来并不复杂：</p>
-<pre><code class="language-python">(rank(Ts_ArgMax(SignedPower((
-    (returns &lt; 0) ? stddev(returns, 20) : close), 2.)
-    , 5)) -0.5)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">(rank(Ts_ArgMax(SignedPower((
+    (returns &lt; <span class="hljs-number">0</span>) ? stddev(returns, <span class="hljs-number">20</span>) : close), <span class="hljs-number">2.</span>)
+    , <span class="hljs-number">5</span>)) -<span class="hljs-number">0.5</span>)</span></code></pre>
 <p>但它却做了许多无用操作。它实际上是对现价对近期高点的距离排序，你看明白了吗？所以，这个因子到底有没有效呢？在什么情况下，它会出现出人意料的表现呢？</p>
 <p>还有，像这样的因子，从公式到代码，再到结合数据进行因子检验，又该如何操作呢？如果你感兴趣，快来加入我们一起学习吧！</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/factor-strategy/alligator/">← 上一篇：鳄鱼线，让趋势成为你的朋友</a> <a class="series-next" href="/posts/factor-strategy/connors-rsi/">下一篇：年终特稿：这个指标我愿称之为年度最强发现 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 16/80 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/alligator/">← 鳄鱼线，让趋势成为你的朋友</a> <a href="/posts/factor-strategy/connors-rsi/">年终特稿：这个指标我愿称之为年度最强 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/">来自世坤！寻找Alpha 构建交易策略的量化方法</a> <p>问：常常看到有人说Alpha seeking，这究竟是什么意思？</p> </li><li> <a href="/posts/uncategory/进化论/">普校逆袭天花板 进化论王一平：有逻辑的量化</a> <p>想要从主观投资转向量化？看看进化论资产创始人王一平的硬核路径。从江西财大到管理百亿规模，他坚持“手写因子”，拒绝机器学习的“黑箱”。在小微盘股波动的极端行情下，他是如何靠“逻辑类因</p> </li><li> <a href="/posts/uncategory/量化黑话/">量化投资黑话：深度解析“因子”及其核心逻辑</a> <p>一部现代量化投资史，就是一部不断发现、定义和应用各种因子的历史。本文深度揭秘量化投资核心“黑话”：从因子的五大硬核标准，到解决比较难题的中性化技术，再到如何构建多空组合捕获纯粹收益</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

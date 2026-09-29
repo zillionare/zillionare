@@ -25,17 +25,16 @@
 
 <p>波动则由不同风格、不同资金管理周期（其倒数即为频率）的投资者驱动。这两类曲线合成了最终的走势，并且重大事件将改变周期规律。</p>
 <p>下面这个函数将生成一个震荡向上的价格序列。它由一条向上的直线和一个sine曲线合成。</p>
-<pre><code class="language-python">def gen_wave_price(size, waves, slope, amp = 0.3, phase=0):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">gen_wave_price</span>(<span class="hljs-params">size, waves, slope, amp = <span class="hljs-number">0.3</span>, phase=<span class="hljs-number">0</span></span>):
     time = np.arange(size)
     amp_factor = time * amp
-    freq = 2 * np.pi * waves / size
+    freq = <span class="hljs-number">2</span> * np.pi * waves / size
 
     y = amp_factor * np.sin(freq * time + phase) + time * slope
-    return y
+    <span class="hljs-keyword">return</span> y
 
-y = gen_wave_price(100, 3, 0.5, 0.25)
-plt.plot(np.arange(100), y)
-</code></pre>
+y = gen_wave_price(<span class="hljs-number">100</span>, <span class="hljs-number">3</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.25</span>)
+plt.plot(np.arange(<span class="hljs-number">100</span>), y)</span></code></pre>
 <p>这将生成以下图形：</p>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/advance-synthetic-wave.jpg'>
@@ -50,22 +49,20 @@ plt.plot(np.arange(100), y)
 
 <h2 id="合成双顶和头肩顶">合成双顶和头肩顶</h2>
 <p>关于双顶和头肩顶，我有很好的检测算法。不过，如果你对波更感兴趣的话，我可以用sine函数来捏一个。</p>
-<pre><code class="language-python">x = np.linspace(1, 10, 100)
-y = np.sin(x) + .33 * np.sin(3*x)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">x = np.linspace(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+y = np.sin(x) + <span class="hljs-number">.33</span> * np.sin(<span class="hljs-number">3</span>*x)
 
-plt.plot(x, y)
-</code></pre>
+plt.plot(x, y)</span></code></pre>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/m-top.jpg'>
 <span style='font-size:0.6rem'>图2 双头</span>
 </div>
 
 <p>头肩顶只需要再加一个sine波：</p>
-<pre><code class="language-python">x = np.linspace(1, 10, 100)
-y = np.sin(x) + .1* np.sin(3*x) + .2 * np.sin(5*x)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">x = np.linspace(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+y = np.sin(x) + <span class="hljs-number">.1</span>* np.sin(<span class="hljs-number">3</span>*x) + <span class="hljs-number">.2</span> * np.sin(<span class="hljs-number">5</span>*x)
 
-plt.plot(x, y)
-</code></pre>
+plt.plot(x, y)</span></code></pre>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/header-shoulders.jpg'>
 <span style='font-size:0.6rem'>图3 头肩顶</span>
@@ -73,22 +70,22 @@ plt.plot(x, y)
 
 <p>如果要检测股价序列中，是否存在双头，我们可以使用scipy中的curve_fit函数。既然$np.sin(x) + .33 * np.sin(3*x)$能拟合出双头，那么，如果我们能从价格序列中，通过curve_fit找出类似的函数，再判断参数和估计误差，就能判断是否存在双头。</p>
 <p>这个函数泛化后，应该表示为：</p>
-<pre><code class="language-python">from scipy.optimize import curve_fit, differential_evolution
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span></span><span class="cl-body"><span class="hljs-keyword">from</span> scipy.optimize <span class="hljs-keyword">import</span> curve_fit, differential_evolution
 
-# 待推断函数
-def model(x, a, b, c, d):
-    return a * np.sin(b * x) + c * np.sin(d * x)
+<span class="hljs-comment"># 待推断函数</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">model</span>(<span class="hljs-params">x, a, b, c, d</span>):
+    <span class="hljs-keyword">return</span> a * np.sin(b * x) + c * np.sin(d * x)
 
-# 目标函数
-def objective(params):
+<span class="hljs-comment"># 目标函数</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">objective</span>(<span class="hljs-params">params</span>):
     a, b, c, d = params
     y_fit = model(x, a, b, c, d)
-    error = np.sum((y - y_fit) ** 2)
-    return error
+    error = np.<span class="hljs-built_in">sum</span>((y - y_fit) ** <span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> error
 
-# 推断和绘图
-def inference_and_plot(x, y):
-    bounds = [(0, np.max(y)), (0, len(x)), (0, 1), (0, len(x))]
+<span class="hljs-comment"># 推断和绘图</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">inference_and_plot</span>(<span class="hljs-params">x, y</span>):
+    bounds = [(<span class="hljs-number">0</span>, np.<span class="hljs-built_in">max</span>(y)), (<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(x)), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(x))]
     result = differential_evolution(objective, bounds)
 
     initial_guess = result.x
@@ -96,18 +93,17 @@ def inference_and_plot(x, y):
 
     plt.plot(x, y)
     plt.plot(x, model(x, *params), 
-             label=&#39;拟合曲线&#39;, 
-             color=&#39;red&#39;, 
-             linewidth=2)
-    return params, params_covariance
+             label=<span class="hljs-string">&#x27;拟合曲线&#x27;</span>, 
+             color=<span class="hljs-string">&#x27;red&#x27;</span>, 
+             linewidth=<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> params, params_covariance
 
 
-# 增加一点噪声
-x = np.linspace(1, 10, 100)
-y = np.sin(x) + .33* np.sin(3*x)
-y += np.random.normal(0.05, 0.1, size=100)
-inference_and_plot(x[60:], y[60:])
-</code></pre>
+<span class="hljs-comment"># 增加一点噪声</span>
+x = np.linspace(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
+y = np.sin(x) + <span class="hljs-number">.33</span>* np.sin(<span class="hljs-number">3</span>*x)
+y += np.random.normal(<span class="hljs-number">0.05</span>, <span class="hljs-number">0.1</span>, size=<span class="hljs-number">100</span>)
+inference_and_plot(x[<span class="hljs-number">60</span>:], y[<span class="hljs-number">60</span>:])</span></code></pre>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/double-top-and-inference.jpg'>
 <span style='font-size:0.6rem'>图4 双头推断</span>
@@ -120,27 +116,26 @@ inference_and_plot(x[60:], y[60:])
 <p>正弦波有一个有意思的特性，就是它的导数是一个余弦波，即：</p>
 <p>$\frac{d}{dt}sin(\omega t)=(\frac{1}{\omega})\times cos(\omega t)$</p>
 <p>求导之后，变成频率相同的余弦波，而余弦波是相位提前的正弦波。我们来验证一下。</p>
-<pre><code class="language-python">t = np.linspace(1, 10, 100)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body">t = np.linspace(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)
 
-# 原函数
+<span class="hljs-comment"># 原函数</span>
 y = np.sin(t)
 
-# 导函数
+<span class="hljs-comment"># 导函数</span>
 dy = np.diff(y)
-dy = np.insert(dy, 0, np.nan)
+dy = np.insert(dy, <span class="hljs-number">0</span>, np.nan)
 
-fig, ax = plt.subplots(figsize=(10,5))
-line1, = ax.plot(y, label=&quot;原函数&quot;)
+fig, ax = plt.subplots(figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">5</span>))
+line1, = ax.plot(y, label=<span class="hljs-string">&quot;原函数&quot;</span>)
 
 ax2 = ax.twinx()
-ax2.grid(False)
-line2, = ax2.plot(dy, &#39;-&#39;, color=&#39;orange&#39;, label=&quot;导数&quot;)
+ax2.grid(<span class="hljs-literal">False</span>)
+line2, = ax2.plot(dy, <span class="hljs-string">&#x27;-&#x27;</span>, color=<span class="hljs-string">&#x27;orange&#x27;</span>, label=<span class="hljs-string">&quot;导数&quot;</span>)
 
 lines = [line1, line2]
-labels = [line.get_label() for line in lines]
-plt.legend(lines, labels, loc=&quot;upper right&quot;)
-plt.show()
-</code></pre>
+labels = [line.get_label() <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines]
+plt.legend(lines, labels, loc=<span class="hljs-string">&quot;upper right&quot;</span>)
+plt.show()</span></code></pre>
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/derivative-sine.jpg'>
 <span style='font-size:0.6rem'>图5 导函数与原函数关系</span>
@@ -293,8 +288,7 @@ plt.legend(lines, labels, loc="upper left")
 
 <p>非常有意思。</p>
 <p>第一点，橙色的线是去掉直流分量后的序列（的实部）。它与原序列之间的差值是一个常数，这个常数竟然是原序列的均值！</p>
-<pre><code class="language-python">assert np.mean(y) == np.abs(y - y2)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">assert</span> np.mean(y) == np.<span class="hljs-built_in">abs</span>(y - y2)</span></code></pre>
 <p>这就是直流分量的真实含义。从数学上讲是一个均值，从交易上讲，它是公司的定价，一切波动都在围绕它发生。</p>
 <p>第二点，y与y2的模的差分有上下界。当股价上涨到一定程度之后，一部分能量被浪费在虚部的方向上，该方向是与实部正交的方向，从而导致这个差分有上下界。这似乎是图8中，John Ehler要揭示的信息。</p>
 <p>如果一个函数有上下界，它对交易的帮助就太大了。</p>

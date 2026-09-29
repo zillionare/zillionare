@@ -49,11 +49,10 @@ np.nan 是 numpy 中的一个特殊值，表示“Not a Number”，即“不是
 <hr>
 <h3 id="11-包含-npnan-和-npinf-的数组运算">1.1. 包含 np.nan 和 np.inf 的数组运算</h3>
 <p>在 numpy 中，提供了对带 np.nan 的数组进行运算的支持。比如有以下数组：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-x = np.array([1, 2, 3, np.nan, 4, 5])
-print(x.mean())
-</code></pre>
+x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, np.nan, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+<span class="hljs-built_in">print</span>(x.mean())</span></code></pre>
 <p>我们将得到一个 nan。实际上，多数情况下，我们希望忽略掉 nan，只对有效数据进行运算，此时得到的结果，我们往往仍然认为是有意义的。</p>
 <p>因此，Numpy 提供了许多能处理包含 nan 数据的数组输入的运算函数。下面是一个完整的列表：</p>
 <p><em>在这里，我们以输入 np.array([1, 2, 3, np.nan, np.inf, 4, 5]) 为例</em></p>
@@ -129,15 +128,13 @@ print(x.mean())
 </tbody></table>
 <hr>
 <p>对 np.nan 的处理中，主要是三类，一类是传递，其结果导致最终结果也是 nan，比如，在计算方差和标准差时；一类是忽略，比如在找最小值时，忽略掉 np.nan，在余下的元素中进行运算；但在计算 cumsum 和 cumprod 时，&quot;忽略&quot;意味着在该元素的位置上，使用前值来填充。我们看一个不包含 np.inf 的示例：</p>
-<pre><code class="language-python">x = np.array([1, 2, 3, np.nan, 4, 5])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, np.nan, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
 np.nancumprod(x)
-np.nancumsum(x)
-</code></pre>
+np.nancumsum(x)</span></code></pre>
 <p>输出结果是：</p>
-<pre><code>array([  1.,   2.,   6.,   6.,  24., 120.])
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([  <span class="hljs-number">1.</span>,   <span class="hljs-number">2.</span>,   <span class="hljs-number">6.</span>,   <span class="hljs-number">6.</span>,  <span class="hljs-number">24.</span>, <span class="hljs-number">120.</span>])
 
-array([ 1.,  3.,  6.,  6., 10., 15.])
-</code></pre>
+<span class="hljs-keyword">array</span>([ <span class="hljs-number">1.</span>,  <span class="hljs-number">3.</span>,  <span class="hljs-number">6.</span>,  <span class="hljs-number">6.</span>, <span class="hljs-number">10.</span>, <span class="hljs-number">15.</span>])</span></code></pre>
 <p>结果中的第 4 个元素都是由第 3 个元素复制而来的。</p>
 <p>如果一个数组中包含 inf，则在任何涉及到排序的操作（比如 max, median, quantile）中，这些元素总是被置于数组的最右侧；如果是代数运算，则结果会被传导为 inf。这些地方，Numpy 的处理方式与我们的直觉是一致的。</p>
 <p>除了上述函数，np.isnan 和 np.isinf 函数，也能处理包含 np.nan/np.inf 元素的数组。它们的作用是判断数组中的元素是否为 nan/inf，返回值是一个 bool 数组。</p>
@@ -145,23 +142,21 @@ array([ 1.,  3.,  6.,  6., 10., 15.])
 <p>在上一节中，我们介绍的函数能够处理包含 np.nan 和 np.inf 的数组。但是，在 Python 中，None 是任何类型的一个特殊值，如果一个数组包含 None 元素，我们常常仍然会期望能对它进行 sum, mean, max 等运算。但是，Numpy 并没有专门为此准备对应的函数。</p>
 <hr>
 <p>但是，我们可以通过 astype 将数组转换为 float 类型，在此过程中，所有的 None 元素都转换为 np.nan，然后就可以进行运算了。</p>
-<pre><code class="language-python">x = np.array([3,4,None,55])
-x.astype(np.float64)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">x = np.array([<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-literal">None</span>,<span class="hljs-number">55</span>])
+x.astype(np.float64)</span></code></pre>
 <p>输出为：<code>array([3., 4., nan, 55.])</code></p>
 <h3 id="13-性能提升">1.3. 性能提升</h3>
 <p>当我们调用 np.nan *函数时，它的性能会比普通的函数慢很多。因此，如果性能是我们关注的问题，我们可以使用 bottleneck 这个库中的同名函数。</p>
-<pre><code class="language-python">from bottleneck import nanstd
-import numpy as np
-import random
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">from</span> bottleneck <span class="hljs-keyword">import</span> nanstd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> random
 
-x = np.random.normal(size = 1_000_000)
-pos = random.sample(np.arange(1_000_000).tolist(), 5)
+x = np.random.normal(size = <span class="hljs-number">1_000_000</span>)
+pos = random.sample(np.arange(<span class="hljs-number">1_000_000</span>).tolist(), <span class="hljs-number">5</span>)
 x[pos] = np.nan
 
 %timeit nanstd(x)
-%timeit np.nanstd(x)
-</code></pre>
+%timeit np.nanstd(x)</span></code></pre>
 <p>我们担心数组中 np.nan 元素个数会影响到性能，所以，在上面的示例中，在随机生成数组时，我们只生成了 5 个元素。在随后的一次测试中，我们把 nan 元素的个数增加了 10 倍。实验证明，nan 元素的个数对性能没有什么影响。在所有的测试中，bottlenect 的性能比 Numpy 都要快一倍。</p>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 根据 bottleneck 的文档，它的许多函数，要比 Numpy 中的同名函数快 10 倍左右。
@@ -175,22 +170,22 @@ x[pos] = np.nan
 </div>
 
 <p>我们通过一个例子来说明夏普与股价走势之间的关系：</p>
-<pre><code class="language-python">import numpy as np
-from empyrical import sharpe_ratio
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> empyrical <span class="hljs-keyword">import</span> sharpe_ratio
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-returns_ = np.random.normal(0, 0.02, size=100)
+returns_ = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.02</span>, size=<span class="hljs-number">100</span>)
 legend = []
-for alpha in (-0.01, 0, 0.01):
+<span class="hljs-keyword">for</span> alpha <span class="hljs-keyword">in</span> (-<span class="hljs-number">0.01</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.01</span>):
     returns = returns_ + alpha
-    prices = np.cumprod(returns + 1)
+    prices = np.cumprod(returns + <span class="hljs-number">1</span>)
     sharpe = sharpe_ratio(returns)
     _ = plt.plot(prices)
-    legend.append(f&quot;{sharpe:.1f}&quot;)
+    legend.append(<span class="hljs-string">f&quot;<span class="hljs-subst">{sharpe:<span class="hljs-number">.1</span>f}</span>&quot;</span>)
 
 lines = plt.gca().lines
 plt.legend(lines, legend)
-</code></pre>
+</span></code></pre>
 <hr>
 <p>从绘制的图形可以看出，当 alpha 为 1%时，夏普率可达 8.2。国内优秀的基金经理可以在一年内，做到 2~3 左右的夏普率。大家可以调整 alpha 这个参数，看看 alpha 与夏普率的关系。</p>
 <h3 id="21-the-legacy-nprandom-module">2.1. The legacy: np.random module</h3>
@@ -274,9 +269,8 @@ plt.bar(x=value[1:],height=count)
 <p>我们在上一节介绍了一些随机数生成函数，但没有介绍它的原理。Numpy 生成的随机数是伪随机数，它们是使用一个随机数生成器（RNG）来生成的。RNG 的输出是随机的，但是相同的输入总是会生成相同的输出。我们调用的每一个方法，实际上是在这个序列上的一个抽取动作（根据输入的 size/shape）。</p>
 <p>在 numpy.random 模块中，存在一个全局的 RNG。在我们调用具体的随机函数时，实际上是通过这个全局的 RNG 来产生随机数的。而这个全局的 RNG，总会有人在它之上调用 seed 方法来初始化。这会产生一些问题，因为你不清楚何时、在何地、以哪个参数被人重置了 seed。</p>
 <p>由于这个原因，现在已经不推荐直接使用 numpy.random 模块中的这些方法了。更好的方法是，为每一个具体地应用创建一个独立的 RNG，然后在这个对象上，调用相应的方法：</p>
-<pre><code class="language-python">rng = np.random.default_rng(seed=123)
-rng.random(size=10)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">rng = np.random.default_rng(seed=<span class="hljs-number">123</span>)
+rng.random(size=<span class="hljs-number">10</span>)</span></code></pre>
 <p>rng 是一个 Random Generator 对象，在初始化时，我们需要给它传入一个种子。如果省略，那么 Numpy 会使用系统时间作为种子。</p>
 <p>rng 拥有大多数前一节中提到的方法，比如 normal, f, gamma 等；但从 matlab 中移植过来的方法不再出现在这个对象上。</p>
 <hr>
@@ -290,43 +284,40 @@ rng.random(size=10)
 <p>我们已经介绍了 choice 的功能，现在我们来举一个例子，如何使用 choice 来平衡数据集。</p>
 <p>在监督学习中，我们常常遇到数据不平衡的问题，比如，我们希望训练一个分类器，但是训练集的类别分布不均衡。我们可以通过 choice 方法对数据集进行 under sampling 或者 over sampling 来解决这个问题。</p>
 <p>为了便于理解，我们先生成一个不平衡的训练数据集。这个数据集共有 3 列，其中前两列是特征（你可以想像成因子特征），第三列则是标签。</p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-rng = np.random.default_rng(seed=42)
-x = rng.random((10,3))
-x[:,-1] = rng.choice([0,1], len(x), p=[0.2, 0.8])
-</code></pre>
+rng = np.random.default_rng(seed=<span class="hljs-number">42</span>)
+x = rng.random((<span class="hljs-number">10</span>,<span class="hljs-number">3</span>))
+x[:,-<span class="hljs-number">1</span>] = rng.choice([<span class="hljs-number">0</span>,<span class="hljs-number">1</span>], <span class="hljs-built_in">len</span>(x), p=[<span class="hljs-number">0.2</span>, <span class="hljs-number">0.8</span>])</span></code></pre>
 <hr>
 <p>我们通过下面的方法对这个数据集进行可视化，以验证它确实是一个不平衡的数据集。</p>
-<pre><code class="language-python">df = pd.DataFrame(x, columns=[&#39;factor1&#39;, &#39;factor2&#39;, &#39;label&#39;])
-df.label.value_counts().plot(kind=&#39;bar&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">df = pd.DataFrame(x, columns=[<span class="hljs-string">&#x27;factor1&#x27;</span>, <span class="hljs-string">&#x27;factor2&#x27;</span>, <span class="hljs-string">&#x27;label&#x27;</span>])
+df.label.value_counts().plot(kind=<span class="hljs-string">&#x27;bar&#x27;</span>)</span></code></pre>
 <p>运行结果为：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg" alt=""></p>
 <p>要在此基础上，得到一个新的平衡数据集，我们有两种思路，一种是 under sampling，即从多数类的数据中抽取部分数据，使得它与最小分类的数目相等；另一种是 over sampling，即从少数类的数据中复制部分数据，使得它与最大的类的数目相等。</p>
 <p>下面的例子演示了如何进行 under sampling:</p>
 <hr>
-<pre><code class="language-python">labels, counts = np.unique(x[:,-1], return_counts=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body">labels, counts = np.unique(x[:,-<span class="hljs-number">1</span>], return_counts=<span class="hljs-literal">True</span>)
 
-# 最小分类的标签
+<span class="hljs-comment"># 最小分类的标签</span>
 min_label = labels[np.argmin(counts)]
 
-# 最小分类样本的数量，作为 UNDER SAMPLING 的样本数量
-min_label_count = np.min(counts)
+<span class="hljs-comment"># 最小分类样本的数量，作为 UNDER SAMPLING 的样本数量</span>
+min_label_count = np.<span class="hljs-built_in">min</span>(counts)
 
-# 最小分类无须抽取，全部提取
+<span class="hljs-comment"># 最小分类无须抽取，全部提取</span>
 results = [
-    x[x[:,-1] == min_label]
+    x[x[:,-<span class="hljs-number">1</span>] == min_label]
 ]
 
-# 对其它分类标签进行遍历，需要先剔除最小分类
-for label in np.delete(labels, np.argmin(counts)):
-    sampled = rng.choice(x[x[:,-1]== label], min_label_count)
+<span class="hljs-comment"># 对其它分类标签进行遍历，需要先剔除最小分类</span>
+<span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> np.delete(labels, np.argmin(counts)):
+    sampled = rng.choice(x[x[:,-<span class="hljs-number">1</span>]== label], min_label_count)
     results.append(sampled)
 
-np.concatenate(results)
-</code></pre>
+np.concatenate(results)</span></code></pre>
 <!--
 
 这里我们使用 np.unique 来获取标签，并且通过 return_counts 参数，来获得每个分类的数量，从而可以得知最小分类的数量。
@@ -373,62 +364,55 @@ np.concatenate(results)
 <!--genfromtxt 比 loadtxt，是一个更高级的 API，它可以处理缺失值、跳过尾部行、指定列名、处理注释、自动发现数据类型等。-->
 
 <p>我们通过下面的示例简单演示一下各自的用法：</p>
-<pre><code class="language-python">import io
-import numpy 
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> io
+<span class="hljs-keyword">import</span> numpy 
 
-buffer = io.StringIO(&quot;&quot;&quot;1,2&quot;&quot;&quot;)
+buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;1,2&quot;&quot;&quot;</span>)
 
-# 默认情况下，LOADTXT 只能读取浮点数
-numpy.loadtxt(buffer, delimiter=&quot;,&quot;)
-</code></pre>
+<span class="hljs-comment"># 默认情况下，LOADTXT 只能读取浮点数</span>
+numpy.loadtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>)</span></code></pre>
 <p>这会输出数组<code>array([1., 2.])</code>。</p>
 <!--loadtxt 的第一个参数是文件对象，这里我们使用 io.StringIO 来模拟一个文件对象。-->
 
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;1,2,hello&quot;&quot;&quot;</span>)
 
-# 通过指定 DTYPE 参数，可以读取其它类型
-numpy.loadtxt(buffer, delimiter=&quot;,&quot;, dtype=[(&quot;age&quot;, &quot;i4&quot;), (&quot;score&quot;, &quot;f4&quot;), (&quot;name&quot;, &quot;U8&quot;)])
-</code></pre>
+<span class="hljs-comment"># 通过指定 DTYPE 参数，可以读取其它类型</span>
+numpy.loadtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>, dtype=[(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;i4&quot;</span>), (<span class="hljs-string">&quot;score&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>), (<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;U8&quot;</span>)])</span></code></pre>
 <p>这样我们将得到一个 Structured Array，其中第三列为字符串类型。如果我们不指定 dtype 参数，那么 loadtxt 将会解析失败。</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;
 1,2,hello
-&quot;&quot;&quot;)
-numpy.genfromtxt(buffer, delimiter=&quot;,&quot;)
-</code></pre>
+&quot;&quot;&quot;</span>)
+numpy.genfromtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>)</span></code></pre>
 <p>这一次我们使用了 genfromtxt 来加载数据，但没有指定 dtype 参数，genfromtxt 会将非数字列解析为 nan。因此，这段代码将输出：`array([1., 2.,  nan])</p>
 <p>现在，我们也给 genfromtxt 加上 dtype 参数：</p>
 <hr>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;
 1,2,hello
-&quot;&quot;&quot;)
+&quot;&quot;&quot;</span>)
 
-numpy.genfromtxt(buffer, delimiter=&quot;,&quot;, dtype=[(&quot;age&quot;, &quot;i4&quot;), (&quot;score&quot;, &quot;f4&quot;), (&quot;name&quot;, &quot;U8&quot;)])
-</code></pre>
+numpy.genfromtxt(buffer, delimiter=<span class="hljs-string">&quot;,&quot;</span>, dtype=[(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;i4&quot;</span>), (<span class="hljs-string">&quot;score&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>), (<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;U8&quot;</span>)])</span></code></pre>
 <p>此时我们得到的结果是：<code>array((1, 2., &#39;hello&#39;), dtype=[(&#39;age&#39;, &#39;&lt;i4&#39;), (&#39;score&#39;, &#39;&lt;f4&#39;), (&#39;name&#39;, &#39;&lt;U8&#39;)])</code>。注意它是 Structured Array。</p>
 <p>recfromtxt 则不需要 dtype, 会自动推断数据类型。</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;
 1,2,hello
-&quot;&quot;&quot;)
+&quot;&quot;&quot;</span>)
 
-numpy.recfromtxt(buffer,delimiter=&quot;,&quot;)
-</code></pre>
+numpy.recfromtxt(buffer,delimiter=<span class="hljs-string">&quot;,&quot;</span>)</span></code></pre>
 <p>这段代码输出为<code>rec.array((1, 2, b&#39;hello&#39;), dtype=[(&#39;f0&#39;, &#39;&lt;i8&#39;), (&#39;f1&#39;, &#39;&lt;i8&#39;), (&#39;f2&#39;, &#39;S5&#39;)])</code>。如果推断不准确，我们也可以自己加上 dtype 参数。</p>
 <p>如果我们使用 recfromcsv，则连 delimiter 参数都可以省掉。</p>
-<pre><code class="language-python">buffer = io.StringIO(&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">buffer = io.StringIO(<span class="hljs-string">&quot;&quot;&quot;
 age,score,name
 1,2,hello
-&quot;&quot;&quot;)
-numpy.recfromcsv(buffer)
-</code></pre>
+&quot;&quot;&quot;</span>)
+numpy.recfromcsv(buffer)</span></code></pre>
 <p>输出跟上一例的结果一样。</p>
 <p>出于速度考虑，我们还可以使用其它库来解析 CSV 文件，再转换成为 numpy 数组。比如：</p>
 <hr>
-<pre><code class="language-python"># 利用 CSV.READER() 来解析，比 NUMPY 快 8 倍
-np.asarray(list(csv.reader()))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 利用 CSV.READER() 来解析，比 NUMPY 快 8 倍</span>
+np.asarray(<span class="hljs-built_in">list</span>(csv.reader()))
 
-# 利用 PANDAS 来解析，比 NUMPY 快 22 倍
-pd.read_csv(buffer).to_records()
-</code></pre>
+<span class="hljs-comment"># 利用 PANDAS 来解析，比 NUMPY 快 22 倍</span>
+pd.read_csv(buffer).to_records()</span></code></pre>
 <h3 id="32-读写二进制文件">3.2. 读写二进制文件</h3>
 <p>如果我们不需要与外界交换数据，数据都是自产自销型的，也可以使用二进制文件来保存数据。</p>
 <p>使用 numpy.save 函数来将单个数组保存数据为二进制文件，使用 numpy.load 函数来读取 numpy.save 保存的数据。这样保存的文件，文件扩展名为.npy。</p>
@@ -442,138 +426,124 @@ pd.read_csv(buffer).to_records()
 很少有程序员/研究员了解这一点：日期和时间并不是一个数学上或者物理上的一个客观概念。时区的划分、夏令时本身就是一个政治和法律上的概念；一些地方曾经使用过夏令时，后来又取消了这种做法。其次，关于闰秒 [^闰秒] 的决定，也并不是有章可循的，它是由一个委员会开会来临时决定的。这种决定每年做一次。
 </div>
 
-<pre><code>所有这些决定了我们无法通过一个简单的数学公式来计算时间及其变化，特别是在时区之间的转换。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">所有这些决定了我们无法通过一个简单的数学公式来计算时间及其变化，特别是在时区之间的转换。</span></code></pre>
 <!--直到 Python 3.9，Python 还在为实现日期和时间努力。Zoneinfo 就是在这一版加入到 Python 中的。-->
 
 <p>关于时间，首先我们要了解有所谓的 timezone aware 时间和 timezone naive 时间。当我们说到晚上 8 时开会时，这个时间实际上默认地包含了时区的概念。如果这是一个跨国会议，但你在通知时不告诉与会方时区，就会导致其它人无法准时出席 -- 他们将会在自己时区的晚上 8 时上线。</p>
 <p>如果一个时间对象不包含时区，它就是 timezone naive 的；否则，它是 timezone aware 的。但这只是针对时间对象（比如，Python 中的 datetime.datetime）才有的意义；日期对象（比如，Python 中的 datetime.date）是没有时区的。</p>
-<pre><code class="language-python">import pytz
-import datetime
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pytz
+<span class="hljs-keyword">import</span> datetime
 
-# 通过 DATETIME.NOW() 获得的时间没有时区信息
-# 返回的是标准时间，即 UTC 时间，等同于调用 UTCNOW()
+<span class="hljs-comment"># 通过 DATETIME.NOW() 获得的时间没有时区信息</span>
+<span class="hljs-comment"># 返回的是标准时间，即 UTC 时间，等同于调用 UTCNOW()</span>
 now = datetime.datetime.now()
-print(f&quot;now() without param: {now}, 时区信息{now.tzinfo}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;now() without param: <span class="hljs-subst">{now}</span>, 时区信息<span class="hljs-subst">{now.tzinfo}</span>&quot;</span>)
 
 now = datetime.datetime.utcnow()
-print(f&quot;utcnow: {now}, 时区信息{now.tzinfo}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;utcnow: <span class="hljs-subst">{now}</span>, 时区信息<span class="hljs-subst">{now.tzinfo}</span>&quot;</span>)
 
-# 构造 TIMEZONE 对象
-cn_tz = pytz.timezone(&#39;Asia/Shanghai&#39;)
+<span class="hljs-comment"># 构造 TIMEZONE 对象</span>
+cn_tz = pytz.timezone(<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>)
 now = datetime.datetime.now(cn_tz)
-print(f&quot;现在时间{now}, 时区信息{now.tzinfo}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;现在时间<span class="hljs-subst">{now}</span>, 时区信息<span class="hljs-subst">{now.tzinfo}</span>&quot;</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python">print(&quot;现在日期：&quot;, now.date())
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;现在日期：&quot;</span>, now.date())
 
-try:
-    print(now.date().tzinfo)
-except AttributeError:
-    print(&quot;日期对象没有时区信息&quot;)
-</code></pre>
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-built_in">print</span>(now.date().tzinfo)
+<span class="hljs-keyword">except</span> AttributeError:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;日期对象没有时区信息&quot;</span>)</span></code></pre>
 <p>上述代码将依次输出：</p>
-<pre><code>now() 不带参数：2024-05-19 11:03:41.550328, 时区信息 None
-utcnow: 2024-05-19 11:03:41.550595, 时区信息 None
-现在时间 2024-05-19 19:03:41.550865+08:00, 时区信息 Asia/Shanghai
-现在日期：2024-05-19
-日期对象没有时区信息
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-string">now()</span> <span class="hljs-string">不带参数：2024-05-19</span> <span class="hljs-number">11</span><span class="hljs-string">:03:41.550328,</span> <span class="hljs-string">时区信息</span> <span class="hljs-string">None</span>
+<span class="hljs-attr">utcnow:</span> <span class="hljs-number">2024-05-19 11:03:41.550595</span><span class="hljs-string">,</span> <span class="hljs-string">时区信息</span> <span class="hljs-string">None</span>
+<span class="hljs-string">现在时间</span> <span class="hljs-number">2024-05-19 19:03:41.550865+08:00</span><span class="hljs-string">,</span> <span class="hljs-string">时区信息</span> <span class="hljs-string">Asia/Shanghai</span>
+<span class="hljs-string">现在日期：2024-05-19</span>
+<span class="hljs-string">日期对象没有时区信息</span></span></code></pre>
 <p>不过，限于篇幅，我们对时间问题的介绍只能浅尝辄止。在这里，我们主要关注在 Numpy 中，日期/时间如何表示，它们彼此之间如何比较、转换，以及如何与 Python 对象进行比较和转换。</p>
 <!--类似的问题，我们在 pandas 中也常常遇到-->
 
 <p>在 Numpy 中，日期/时间总是用一个 64 位整数（np.datetime64）来表示，此外，还关联了一个表示其单位（比如，纳秒、秒等）的元数据结构。<code>np.datetime64</code>是没有时区概念的。</p>
-<pre><code class="language-python">tm = np.datetime64(&#39;1970-01-01T00:00:00&#39;)
-print(tm)
-print(tm.dtype)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">tm = np.datetime64(<span class="hljs-string">&#x27;1970-01-01T00:00:00&#x27;</span>)
+<span class="hljs-built_in">print</span>(tm)
+<span class="hljs-built_in">print</span>(tm.dtype)</span></code></pre>
 <p>这将显示为：</p>
-<pre><code>1970-01-01T00:00:00
-datetime64[s]
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-number">1970-01-01T00:00:00</span>
+<span class="hljs-string">datetime64[s]</span></span></code></pre>
 <p>这里的<code>[s]</code>就是我们前面所说的时间单位。其它常见单位还有<code>[ms]</code>、<code>[us]</code>、<code>[ns]</code>等等。</p>
 <!--我们也可以用 ISO 格式（1970-01-01T00:00:00+0800) 传入时间。但是，numpy 会给出警告，提示未来版本中，将不允许传入时区信息.-->
 <p>除了从字符串解释之外，我们还可以直接将 Python 对象转换成<code>np.datetime64</code>，反之亦然：</p>
 <hr>
-<pre><code class="language-python">tm = np.datetimet64(datetime.datetime.now())
-print(tm)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">tm = np.datetimet64(datetime.datetime.now())
+<span class="hljs-built_in">print</span>(tm)
 
-print(tm.item())
-print(tm.astype(datetime.datetime))
-</code></pre>
+<span class="hljs-built_in">print</span>(tm.item())
+<span class="hljs-built_in">print</span>(tm.astype(datetime.datetime))</span></code></pre>
 <p>下面我们来看看如何实现不同格式之间的批量转换。这在处理 akshare, tushare 或者 QMT 等第三方数据源提供的行情数据时，非常常见。</p>
 <p>首先我们构造一个时间数组。顺便提一句，这里我们将使用<code>np.timedelta64</code>这个时间差分类型：</p>
-<pre><code class="language-python">now = np.datetime64(datetime.datetime.now())
-arr = np.array([now + np.timedelta64(i, &#39;m&#39;) for i in range(3)])
-arr
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">now = np.datetime64(datetime.datetime.now())
+arr = np.array([now + np.timedelta64(i, <span class="hljs-string">&#x27;m&#x27;</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)])
+arr</span></code></pre>
 <p>输出结果如下：</p>
-<pre><code>array([&#39;2024-05-19T12:57:47.349178&#39;, 
-       &#39;2024-05-19T12:58:47.349178&#39;,
-       &#39;2024-05-19T12:59:47.349178&#39;], 
-     dtype=&#39;datetime64[us]&#39;)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([<span class="hljs-string">&#x27;2024-05-19T12:57:47.349178&#x27;</span>, 
+       <span class="hljs-string">&#x27;2024-05-19T12:58:47.349178&#x27;</span>,
+       <span class="hljs-string">&#x27;2024-05-19T12:59:47.349178&#x27;</span>], 
+     dtype<span class="hljs-operator">=</span><span class="hljs-string">&#x27;datetime64[us]&#x27;</span>)</span></code></pre>
 <!--这里我们给 timedelta64() 函数传入了参数'm'，表示以分钟为单位。-->
 
 <p>我们可以通过<code>np.datetime64.astype()</code>方法将时间数组转换为 Python 的时间对象：</p>
-<pre><code class="language-python">time_arr = arr.astype(datetime.datetime)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">time_arr = arr.astype(datetime.datetime)
 
-# 转换后的数组，每个元素都是 TIMEZONE NAIVE 的 DATETIME 对象
-print(type(time_arr[0]))
+<span class="hljs-comment"># 转换后的数组，每个元素都是 TIMEZONE NAIVE 的 DATETIME 对象</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(time_arr[<span class="hljs-number">0</span>]))
 
-# !!! 技巧
-# 如何把 NP.DATETIME64 数组转换为 PYTHON DATETIME.DATE 数组？
-date_arr = arr.astype(&#39;datetime64[D]&#39;).astype(datetime.date)
-# 或者 -- 两者的容器不一样
-date_arr = arr.astype(&#39;datetime64[D]&#39;).tolist()
-print(type(date_arr[0]))
-</code></pre>
+<span class="hljs-comment"># !!! 技巧</span>
+<span class="hljs-comment"># 如何把 NP.DATETIME64 数组转换为 PYTHON DATETIME.DATE 数组？</span>
+date_arr = arr.astype(<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>).astype(datetime.date)
+<span class="hljs-comment"># 或者 -- 两者的容器不一样</span>
+date_arr = arr.astype(<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>).tolist()
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(date_arr[<span class="hljs-number">0</span>]))</span></code></pre>
 <!--第 8 行与第 10 行的区别，前者仍然是一个 numpy 数组，dtype 为'O'；后者则是 Python List-->
 <hr>
 <p>这里的关键是，我们之前生成的<code>arr</code>数组，其元素类型为<code>np.datetime64[us]</code>。它到 Python <code>datetime.date</code>的转换将损失精度，所以 Numpy 要求我们显式地指定转换类型。</p>
 <!--总结一下，转换 numpy 标量到 Python 对象时，我们可以用 item() 或者 astype 的方法。转换 numpy 数组到 Python 对象时，我们可以用 astype() 方法。-->
 
 <p>如何将以字符串表示的时间数组转换为 Numpy datetime64 对象数组呢？答案仍然是 astype() 方法。</p>
-<pre><code class="language-python"># 将时间数组转换为字符串数组
-str_arr_time = arr_time.astype(str)
-print(str_arr_time)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-comment"># 将时间数组转换为字符串数组</span>
+str_arr_time = arr_time.astype(<span class="hljs-built_in">str</span>)
+<span class="hljs-built_in">print</span>(str_arr_time)
 
-# 再将字符串数组转换为 DATETIME64 数组，精度指定为 D
-str_arr_time.astype(&#39;datetime64[D]&#39;)
-</code></pre>
+<span class="hljs-comment"># 再将字符串数组转换为 DATETIME64 数组，精度指定为 D</span>
+str_arr_time.astype(<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)</span></code></pre>
 <p>显示结果为：</p>
-<pre><code>array([&#39;2024-05-19T12:57:47.349178&#39;, 
-       &#39;2024-05-19T12:58:47.349178&#39;,
-       &#39;2024-05-19T12:59:47.349178&#39;], 
-       dtype=&#39;datetime64[us]&#39;)
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([<span class="hljs-string">&#x27;2024-05-19T12:57:47.349178&#x27;</span>, 
+       <span class="hljs-string">&#x27;2024-05-19T12:58:47.349178&#x27;</span>,
+       <span class="hljs-string">&#x27;2024-05-19T12:59:47.349178&#x27;</span>], 
+       dtype<span class="hljs-operator">=</span><span class="hljs-string">&#x27;datetime64[us]&#x27;</span>)
 
-array([
-    &#39;2024-05-19&#39;, 
-    &#39;2024-05-19&#39;],               
-    dtype=&#39;datetime64[D]&#39;)
-</code></pre>
+<span class="hljs-keyword">array</span>([
+    <span class="hljs-string">&#x27;2024-05-19&#x27;</span>, 
+    <span class="hljs-string">&#x27;2024-05-19&#x27;</span>],               
+    dtype<span class="hljs-operator">=</span><span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)</span></code></pre>
 <p>最后，我们给一个 QMT 获取交易日历后的格式转换示例。在 QMT 中，我们通过<code>get_trading_dates</code>来获取交易日历，该函数返回的是一个整数数组，每个元素的数值，是从 unix epoch 以来的毫秒数。</p>
 <p>我们可以通过以下方法对其进行转换：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-days = get_trading_dates(&#39;SH&#39;, start_time=&#39;&#39;, end_time=&#39;&#39;, count=10)
-np.array(days, dtype=&#39;datetime64[ms]&#39;).astype(datetime.date)
-</code></pre>
+days = get_trading_dates(<span class="hljs-string">&#x27;SH&#x27;</span>, start_time=<span class="hljs-string">&#x27;&#x27;</span>, end_time=<span class="hljs-string">&#x27;&#x27;</span>, count=<span class="hljs-number">10</span>)
+np.array(days, dtype=<span class="hljs-string">&#x27;datetime64[ms]&#x27;</span>).astype(datetime.date)</span></code></pre>
 <hr>
 <p>QMT 官方没有直接给出交易日历转换方案，但给出了如何将 unix epoch 时间戳转换为 Python 时间对象（但仍以字符串表示）：</p>
-<pre><code class="language-python">import time
-def conv_time(ct):
-    &#39;&#39;&#39;
-    conv_time(1476374400000) --&gt; &#39;20161014000000.000&#39;
-    &#39;&#39;&#39;
-    local_time = time.localtime(ct / 1000)
-    data_head = time.strftime(&#39;%Y%m%d%H%M%S&#39;, local_time)
-    data_secs = (ct - int(ct)) * 1000
-    time_stamp = &#39;%s.%03d&#39; % (data_head, data_secs)
-    return time_stamp
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">conv_time</span>(<span class="hljs-params">ct</span>):
+    <span class="hljs-string">&#x27;&#x27;&#x27;
+    conv_time(1476374400000) --&gt; &#x27;20161014000000.000&#x27;
+    &#x27;&#x27;&#x27;</span>
+    local_time = time.localtime(ct / <span class="hljs-number">1000</span>)
+    data_head = time.strftime(<span class="hljs-string">&#x27;%Y%m%d%H%M%S&#x27;</span>, local_time)
+    data_secs = (ct - <span class="hljs-built_in">int</span>(ct)) * <span class="hljs-number">1000</span>
+    time_stamp = <span class="hljs-string">&#x27;%s.%03d&#x27;</span> % (data_head, data_secs)
+    <span class="hljs-keyword">return</span> time_stamp
 
-conv_time(1693152000000)
-</code></pre>
+conv_time(<span class="hljs-number">1693152000000</span>)</span></code></pre>
 <p>我们需要对每一个数组元素使用上述解析方法。官方方案的优点是不依赖任何三方库。不过，没有量化程序能离开 Numpy 库，所以，我们的方案并未增加第三方库的依赖。</p>
 <h2 id="字符串操作">字符串操作</h2>
 <p>你的数据源、或者本地存储方案很可能使用 Numpy Structured Array 或者 Rec Array 返回证券列表。很显然，证券列表中一定会包括字符串，因为它一定会存在证券代码列和证券名称列。有一些还会返回证券的地域属性和其它属性，这也往往是字符串。</p>
@@ -589,20 +559,19 @@ conv_time(1693152000000)
 </ol>
 <p>Numpy 中的大多数字符串操作都封装在 numpy.char 这个包下面。它主要提供了一些用于格式化的操作（比如左右填充对齐、大小写转换等）、查找和替换操作。</p>
 <p>下面的代码展示了如何从证券列表中过滤创业板：</p>
-<pre><code class="language-python">
-import numpy as np
-import numpy.char as nc
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> numpy.char <span class="hljs-keyword">as</span> nc
 
-# 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE
-arr = np.array([(&#39;600000.SH&#39;, &#39;中国平安&#39;, &#39;1997-08-19&#39;),
-                (&#39;000001.SZ&#39;, &#39;平安银行&#39;, &#39;1997-08-19&#39;),
-                (&#39;301301.SZ&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)
-                ], dtype=[(&#39;symbol&#39;, &#39;S10&#39;), (&#39;name&#39;, &#39;S10&#39;), (&#39;ipo_date&#39;, &#39;datetime64[D]&#39;)])
+<span class="hljs-comment"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE</span>
+arr = np.array([(<span class="hljs-string">&#x27;600000.SH&#x27;</span>, <span class="hljs-string">&#x27;中国平安&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;000001.SZ&#x27;</span>, <span class="hljs-string">&#x27;平安银行&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;301301.SZ&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)
+                ], dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;S10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;S10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)])
 
-def get_cyb(arr):
-    mask = np.char.startswith(arr[&quot;symbol&quot;], b&quot;30&quot;)
-    return arr[mask]
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_cyb</span>(<span class="hljs-params">arr</span>):
+    mask = np.char.startswith(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">b&quot;30&quot;</span>)
+    <span class="hljs-keyword">return</span> arr[mask]</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 我们在查找创业板股票时，使用的是 b"30"来进行匹配。为何要用 b"30"而不是"30"?
 </div>
@@ -612,29 +581,28 @@ def get_cyb(arr):
 <p>注意第 11 行，我们要通过<code>np.char.startswith()</code>来使用<code>startswith</code>函数。任何一个 numpy array 对象都没有这个方法。</p>
 <p>&quot;.SZ&quot;是我们的数据源给股票编制的交易所代码。不同的数据源，可能使用不同的交易所代码。比如，聚宽数据源会使用.XSHG 表示上交所，.XSHE 表示深交所。现在，如果我们要将上述代码转换为聚宽的格式，应该如何操作？</p>
 <hr>
-<pre><code class="language-python"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE
-arr = np.array([(&#39;600000.SH&#39;, &#39;中国平安&#39;, &#39;1997-08-19&#39;),
-                (&#39;000001.SZ&#39;, &#39;平安银行&#39;, &#39;1997-08-19&#39;),
-                (&#39;301301.SZ&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)
-                ], dtype=[(&#39;symbol&#39;, &#39;U10&#39;), (&#39;name&#39;, &#39;U10&#39;), (&#39;ipo_date&#39;, &#39;datetime64[D]&#39;)])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-comment"># 生成 STRUCTURED ARRAY, 字段有 SYMBOL, NAME, IPO DATE</span>
+arr = np.array([(<span class="hljs-string">&#x27;600000.SH&#x27;</span>, <span class="hljs-string">&#x27;中国平安&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;000001.SZ&#x27;</span>, <span class="hljs-string">&#x27;平安银行&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+                (<span class="hljs-string">&#x27;301301.SZ&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)
+                ], dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;U10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;U10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;datetime64[D]&#x27;</span>)])
 
-def translate_exchange_code(arr):
-    symbols = np.char.replace(arr[&quot;symbol&quot;], &quot;.SH&quot;, &quot;.XSHG&quot;)
-    print(symbols)
-    symbols = np.char.replace(symbols, &quot;.SZ&quot;, &quot;.XSHE&quot;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">translate_exchange_code</span>(<span class="hljs-params">arr</span>):
+    symbols = np.char.replace(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">&quot;.SH&quot;</span>, <span class="hljs-string">&quot;.XSHG&quot;</span>)
+    <span class="hljs-built_in">print</span>(symbols)
+    symbols = np.char.replace(symbols, <span class="hljs-string">&quot;.SZ&quot;</span>, <span class="hljs-string">&quot;.XSHE&quot;</span>)
 
-    arr[&quot;symbol&quot;] = symbols
-    return arr
+    arr[<span class="hljs-string">&quot;symbol&quot;</span>] = symbols
+    <span class="hljs-keyword">return</span> arr
 
-translate_exchange_code(arr)
-</code></pre>
+translate_exchange_code(arr)</span></code></pre>
 <p>这一次，我们把 symbol 和 name 的定义改为 Unicode 型，以避免我们查找时，要输入像 b&quot;30&quot;这样的字面量。</p>
 <p>但输出的结果可能让人意外，因为我们将得到这样的输出：</p>
-<pre><code>array([(&#39;600000.XSH&#39;, &#39;中国平安&#39;, &#39;1997-08-19&#39;),
-       (&#39;000001.XSH&#39;, &#39;平安银行&#39;, &#39;1997-08-19&#39;),
-       (&#39;301301.XSH&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)],
-      dtype=[(&#39;symbol&#39;, &#39;&lt;U10&#39;), (&#39;name&#39;, &#39;&lt;U10&#39;), (&#39;ipo_date&#39;, &#39;&lt;M8[D]&#39;)])
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([(<span class="hljs-string">&#x27;600000.XSH&#x27;</span>, <span class="hljs-string">&#x27;中国平安&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+       (<span class="hljs-string">&#x27;000001.XSH&#x27;</span>, <span class="hljs-string">&#x27;平安银行&#x27;</span>, <span class="hljs-string">&#x27;1997-08-19&#x27;</span>),
+       (<span class="hljs-string">&#x27;301301.XSH&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)],
+      dtype<span class="hljs-operator">=</span>[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;&lt;M8[D]&#x27;</span>)])
+</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 发生了什么？我们得到了一堆以".XSH"结尾的 symbol，它们本应该是"600000.XSHG"这样的字符串。错在哪里，又该如何修改？
 </div>
@@ -643,15 +611,13 @@ translate_exchange_code(arr)
 
 <p>在上面的示例中，如果我们把替换字符串改为空字符串，就实现了删除操作。这里就不演示了。</p>
 <p>char 模块还提供了字符串相等比较函数<code>equal</code>:</p>
-<pre><code class="language-python">arr = array([(&#39;301301.SZ&#39;, &#39;川宁生物&#39;, &#39;2012-01-01&#39;)],
-      dtype=[(&#39;symbol&#39;, &#39;&lt;U10&#39;), (&#39;name&#39;, &#39;&lt;U10&#39;), (&#39;ipo_date&#39;, &#39;&lt;M8[D]&#39;)])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">arr = array([(<span class="hljs-string">&#x27;301301.SZ&#x27;</span>, <span class="hljs-string">&#x27;川宁生物&#x27;</span>, <span class="hljs-string">&#x27;2012-01-01&#x27;</span>)],
+      dtype=[(<span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;&lt;U10&#x27;</span>), (<span class="hljs-string">&#x27;ipo_date&#x27;</span>, <span class="hljs-string">&#x27;&lt;M8[D]&#x27;</span>)])
 
-arr[np.char.equal(arr[&quot;symbol&quot;], &quot;301301.SZ&quot;)]
-</code></pre>
+arr[np.char.equal(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">&quot;301301.SZ&quot;</span>)]</span></code></pre>
 <hr>
 <p>在这个特殊的场景下，我们也可以直接使用以下语法：</p>
-<pre><code class="language-python">arr[arr[&quot;symbol&quot;] == &quot;301301.SZ&quot;]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">arr[arr[<span class="hljs-string">&quot;symbol&quot;</span>] == <span class="hljs-string">&quot;301301.SZ&quot;</span>]</span></code></pre>
 <p>!!! tip 
     np.char 下的函数很多，如何记忆？实际上，这些函数多数是 Python 中 str 的方法。如果你熟悉 Pandas，就会发现 Pandas 中也有同样的用法。因此，像<code>upper</code>, <code>lower</code>, <code>strip</code>这样的<code>str</code>函数，你可以直接拿过来用。</p>
 <p>Numpy 中的字符串函数另一个比较常用的场景，就是执行格式化。你可以通过<code>ljust</code>, &#39;center&#39;, <code>rjust</code>在显示一个数组前，将它们的各列数据进行左右空格填充，这样，输出时就可以比较整齐。</p>
@@ -668,79 +634,73 @@ arr[np.char.equal(arr[&quot;symbol&quot;], &quot;301301.SZ&quot;)]
 </div>
 
 <p>很显然，我们无法直接对这些数据进行运算。请看下面的例子：</p>
-<pre><code class="language-python">x = np.array([1, 2, 3, np.inf, np.nan, None])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, np.inf, np.nan, <span class="hljs-literal">None</span>])
 np.mean(x)
-np.nanmean(x)
-</code></pre>
+np.nanmean(x)</span></code></pre>
 <p>只要数据中包含 np.nan, np.inf 或者 None，numpy 的函数就无法处理它们。即使数据在语法上合法，但在语义上无效，Numpy 强行进行计算，结果也是错误的。</p>
 <p>这里有一个量化中可能遇到的真实场景，某公司有一年的年利润为零，这样使得它的 YoY 利润增长在次年变得无法计算。如果我们需要利用 YoY 数据进一步进行运算，我们就需要屏蔽这一年的无效值。否则，我们会连 YoY 利润的均值都无法计算出来。</p>
 <p>这里有一个补救的方法，就是将原数据拷贝一份，并且将无效值替换为 np.nan。此后多数运算，都可以用<code>np.nan*</code>来计算。这个方法我们已经介绍过了。但是，如果你是原始数据的收集者，显然你应该照原样发布数据，任何修改都是不合适的；如果你是数据的应用者，当然应该对数据进行预处理后，才开始运算。但是，你又很可能缺少了对数据进行预处理所必须的信息 -- 你怎么能想到像-1, 0 这样看起来人畜无害的小可爱们，竟然是隐藏着的错误呢？</p>
 <hr>
 <p>为了解决这个问题，Numpy 就提供了 Masked Array。但是我们不打算在 Masked Array 上过多着墨。关于 Masked Array，我们可以借用这样一句话，<strong>很多人不需要知道 Masked Array，知道 Masked Array 的人则已经精通它了。</strong></p>
 <p>有一点需要注意的是，仅在需要时，使用 Masked Array。因为可能与您相像的相反，Masked Array 不会提高性能，反而，它大大降低了性能：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# NUMPY VERSION 1.24.4
-g = np.random.random((5000,5000))
-indx = np.random.randint(0,4999,(500,2))
+<span class="hljs-comment"># NUMPY VERSION 1.24.4</span>
+g = np.random.random((<span class="hljs-number">5000</span>,<span class="hljs-number">5000</span>))
+indx = np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">4999</span>,(<span class="hljs-number">500</span>,<span class="hljs-number">2</span>))
 g_nan = g.copy()
 g_nan[indx] = np.nan
-mask =  np.full((5000,5000),False,dtype=bool)
-mask[indx] = True
+mask =  np.full((<span class="hljs-number">5000</span>,<span class="hljs-number">5000</span>),<span class="hljs-literal">False</span>,dtype=<span class="hljs-built_in">bool</span>)
+mask[indx] = <span class="hljs-literal">True</span>
 g_mask = np.ma.array(g,mask=mask)
 
-%timeit (g_mask + g_mask)**2
-# 901 MS ± 52.3 MS PER LOOP ...
-%timeit (g_nan + g_nan)**2
-# 109 MS ± 72.2 ΜS PER LOOP ...
-</code></pre>
+%timeit (g_mask + g_mask)**<span class="hljs-number">2</span>
+<span class="hljs-comment"># 901 MS ± 52.3 MS PER LOOP ...</span>
+%timeit (g_nan + g_nan)**<span class="hljs-number">2</span>
+<span class="hljs-comment"># 109 MS ± 72.2 ΜS PER LOOP ...</span></span></code></pre>
 <p>可以看出，Masked Array 的性能慢了接近 9 倍。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 如果你不得不对含有 np.nan 的数组进行运算，那么可以尝试使用 bottleneck 库中的 nan *函数。由于并不存在 nansquare 函数，但是考虑到求方差的运算中必然包含乘方运算，因此我们可以考虑通过 nanvar 函数来评测 numpy 与 bottleneck 的性能差异。
 </div>
 
-<pre><code>```python
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">```python
     %timeit np.var(g_mask)
-    # 587 MS ± 37.9 MS PER LOOP ...
+    <span class="hljs-comment"># 587 MS ± 37.9 MS PER LOOP ...</span>
     %timeit np.nanvar(g_nan)
-    # 281 MS ± 1.46 MS PER ...
+    <span class="hljs-comment"># 281 MS ± 1.46 MS PER ...</span>
     %timeit nanvar(g_nan)
-    # 61 MS ± 362 ΜS PER LOOP ...
-```
-</code></pre>
+    <span class="hljs-comment"># 61 MS ± 362 ΜS PER LOOP ...</span>
+```</span></code></pre>
 <hr>
-<pre><code>bottleneck 要比 numpy 快接近 5 倍。如果你使用的 numpy 版本较旧，那么 bottleneck 还会快得更多。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">bottleneck 要比 numpy 快接近 5 倍。如果你使用的 numpy 版本较旧，那么 bottleneck 还会快得更多。</span></code></pre>
 <h2 id="ufunc">ufunc</h2>
 <p>ufunc 是 Numpy 中的重要概念，它对两个输入数组同时进行逐元素的操作（比如，相加，比较大小等）。在 Numpy 中大约定义了 61 个左右的 ufunc。这些操作都是由底层的 C 语言实现的，并且支持向量化，因此，它们往往具有更快的速度。</p>
 <p>比如，在 numpy 中，求数组中的最大值，有两个相似的函数， <code>np.max</code>和<code>np.maximum</code>可以达成这一目标。后者是 ufunc，前者不是，两者除了用法上有所区别之外，后者的速度也要快一些。</p>
-<pre><code class="language-python">arr = np.random.normal(size=(1_000_000,))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">arr = np.random.normal(size=(<span class="hljs-number">1_000_000</span>,))
 
-%timeit np.max(arr)
-# 801 MS ± 54.7 MS PER LOOP ...
+%timeit np.<span class="hljs-built_in">max</span>(arr)
+<span class="hljs-comment"># 801 MS ± 54.7 MS PER LOOP ...</span>
 %timeit np.maximum.reduce(arr)
-# 775 MS ± 12.1 MS PER LOOP ...
-</code></pre>
+<span class="hljs-comment"># 775 MS ± 12.1 MS PER LOOP ...</span></span></code></pre>
 <p><code>np.maximum</code>作为 ufunc，它本来是要接收两个参数的，并不能用来求一维数组的最大值。这种情况下，我们要使用<code>reduce</code>操作才能得到想要的结果。</p>
 <p>这里<code>np.maximum</code>是一个 ufunc，则<code>reduce</code>是 unfunc 对象（在 Python 中，一切都是对象，包括函数）的属性之一。<code>ufunc</code>的其它属性还有<code>accumulate</code>、<code>outer</code>、<code>reduceat</code>等。</p>
 <p><code>accumulate</code>是 ufunc 中的另一个常用属性，可能你之前已经有所接触。比如，在求最大回撤时，我们就会用到它：</p>
 <hr>
-<pre><code class="language-python"># 模拟一个股价序列
-n = 1000
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-comment"># 模拟一个股价序列</span>
+n = <span class="hljs-number">1000</span>
 xs = np.random.randn(n).cumsum()
 
-# 最大回撤结束期
+<span class="hljs-comment"># 最大回撤结束期</span>
 i = np.argmax(np.maximum.accumulate(xs) - xs) 
 
-# 最大回撤开始期
+<span class="hljs-comment"># 最大回撤开始期</span>
 j = np.argmax(xs[:i]) 
 
-# 最大回撤
+<span class="hljs-comment"># 最大回撤</span>
 mdd = (xs[j] - xs[i])/xs[j]
 
 plt.plot(xs)
-plt.plot([i, j], [xs[i], xs[j]], &#39;o&#39;, color=&#39;Red&#39;, markersize=10)
-</code></pre>
+plt.plot([i, j], [xs[i], xs[j]], <span class="hljs-string">&#x27;o&#x27;</span>, color=<span class="hljs-string">&#x27;Red&#x27;</span>, markersize=<span class="hljs-number">10</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg" alt=""></p>
 <p><strong>简洁就是美</strong>。在使用了<code>accumulate</code>之后，我们发现，计算最大回撤竟简单到只有两三行代码即可实现。</p>
 <p>ufunc 如此好用，你可能要问，为何我用到的却不多？实际上，你很可能每天都在使用<code>ufunc</code>。许多二元数学操作，它们都是对 ufunc 的封装。</p>
@@ -761,18 +721,17 @@ $$</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg" alt=""></p>
 <p>如果 $$upper_shadow &gt; threshold$$，则可认为出现了长上影线（当然，需要对 upper_shadow 进行归一化）。检测单日的上影线很简单，我们下面的代码将演示如何向量化地求解：</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-rng = np.random.default_rng(seed=78)
-matrix = rng.uniform(0.98, 1.02, (4, 30)).cumprod(axis=1)
-opn = matrix[0]
-close = matrix[-1]
-high = np.max(matrix, axis=0)
+rng = np.random.default_rng(seed=<span class="hljs-number">78</span>)
+matrix = rng.uniform(<span class="hljs-number">0.98</span>, <span class="hljs-number">1.02</span>, (<span class="hljs-number">4</span>, <span class="hljs-number">30</span>)).cumprod(axis=<span class="hljs-number">1</span>)
+opn = matrix[<span class="hljs-number">0</span>]
+close = matrix[-<span class="hljs-number">1</span>]
+high = np.<span class="hljs-built_in">max</span>(matrix, axis=<span class="hljs-number">0</span>)
 
 upper_shadow = (high - np.maximum(opn, close))/close
-np.round(upper_shadow, 2)
-</code></pre>
+np.<span class="hljs-built_in">round</span>(upper_shadow, <span class="hljs-number">2</span>)</span></code></pre>
 <!--这里我们使用了 randomstate-->
 <!--uniform 是生成均匀分布-->
 

@@ -52,73 +52,68 @@
 
 <p>如果开启了 wal 模式，sqlite 处理单笔交易耗时可以远小于 0.1ms，这意味着，sqlite 可以处理每秒至少 1 万笔交易，因此，sqlite 是完全胜任交易数据库的。甚至，由于它不需要经过网络接口，它的延时可能比网络数据库更低。</p>
 <p>要允许多个进程中同时读写同一个 sqlite 数据库，你需要这样启用 wal 模式：</p>
-<pre><code class="language-python">import sqlite3
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> sqlite3
 
 conn = sqlite3.connect(path/to/sqlite.db)
-conn.execute(&quot;PRAGMA journal_mode = WAL;&quot;)
-</code></pre>
+conn.execute(<span class="hljs-string">&quot;PRAGMA journal_mode = WAL;&quot;</span>)</span></code></pre>
 <hr>
 <p>显然，这非常不 pythonic。如果我们使用 sqlite-utils，就可以直接这样启用 wal 模式：</p>
-<pre><code class="language-python">import sqlite_utils as su
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> sqlite_utils <span class="hljs-keyword">as</span> su
 
 db = su.Database(path/to/sqlite.db)
 db.enable_wal()
-db.journal_mode # 显示为 &#39;wal&#39;
-</code></pre>
+db.journal_mode <span class="hljs-comment"># 显示为 &#x27;wal&#x27;</span></span></code></pre>
 <p>再回到之前的多线程读写问题。sqlite 在开启 wal 模式后，就可以支持并发读写了。但是，如果你跨线程共享 connection 对象，还是需要加锁互斥才行。在这种情况下，我们可以引入一个线程本地封装：</p>
-<pre><code class="language-python">import threading
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">import</span> threading
 
-@singleton
-class TradeDB:
-    def __init__(self):
-        # 每个线程都有自己的数据库连接
-        self._thread_local = threading.local()
-        self.db_path: str = &quot;&quot;
-        self._initialized = False
+<span class="hljs-meta">@singleton</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TradeDB</span>:
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-comment"># 每个线程都有自己的数据库连接</span>
+        <span class="hljs-variable language_">self</span>._thread_local = threading.local()
+        <span class="hljs-variable language_">self</span>.db_path: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-variable language_">self</span>._initialized = <span class="hljs-literal">False</span>
     
-    def init(self, db_path: str):
-        if self._initialized:
-            return
-</code></pre>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">init</span>(<span class="hljs-params">self, db_path: <span class="hljs-built_in">str</span></span>):
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>._initialized:
+            <span class="hljs-keyword">return</span></span></code></pre>
 <hr>
-<pre><code class="language-python">    def init(self, db_path: str):
-        if self._initialized:
-            return
-        # 初始化数据库连接
-        self.db_path = db_path
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">init</span>(<span class="hljs-params">self, db_path: <span class="hljs-built_in">str</span></span>):
+        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>._initialized:
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-comment"># 初始化数据库连接</span>
+        <span class="hljs-variable language_">self</span>.db_path = db_path
 
         conn = sqlite3.connect(db_path)
         db = su.Database(conn)
         
-        # 启用 WAL 模式提高并发读性能
-        if db_path != &quot;:memory:&quot;:
+        <span class="hljs-comment"># 启用 WAL 模式提高并发读性能</span>
+        <span class="hljs-keyword">if</span> db_path != <span class="hljs-string">&quot;:memory:&quot;</span>:
             db.enable_wal()
         
-        # 初始化表结构
-        self._init_tables(db)
+        <span class="hljs-comment"># 初始化表结构</span>
+        <span class="hljs-variable language_">self</span>._init_tables(db)
         conn.close()
-        self._initialized = True
+        <span class="hljs-variable language_">self</span>._initialized = <span class="hljs-literal">True</span>
 
-    @property
-    def db(self)-&gt;su.Database:
-        &quot;&quot;&quot;获取当前线程的数据库连接&quot;&quot;&quot;
-        if not hasattr(self._thread_local, &quot;conn&quot;):
-            conn = sqlite3.connect(self.db_path, check_same_thread=True)
+<span class="hljs-meta">    @property</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">db</span>(<span class="hljs-params">self</span>)-&gt;su.Database:
+        <span class="hljs-string">&quot;&quot;&quot;获取当前线程的数据库连接&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(<span class="hljs-variable language_">self</span>._thread_local, <span class="hljs-string">&quot;conn&quot;</span>):
+            conn = sqlite3.connect(<span class="hljs-variable language_">self</span>.db_path, check_same_thread=<span class="hljs-literal">True</span>)
 
-            self._thread_local.conn = conn
-            self._thread_local.db = su.Database(conn)
+            <span class="hljs-variable language_">self</span>._thread_local.conn = conn
+            <span class="hljs-variable language_">self</span>._thread_local.db = su.Database(conn)
 
-        return self._thread_local.db
-</code></pre>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>._thread_local.db</span></code></pre>
 <hr>
-<pre><code class="language-python">    def __getitem__(self, table_name) -&gt; su.db.Table:
-        &quot;&quot;&quot;代理获取表对象&quot;&quot;&quot;
-        return self.db[table_name]  # type: ignore
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, table_name</span>) -&gt; su.db.Table:
+        <span class="hljs-string">&quot;&quot;&quot;代理获取表对象&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.db[table_name]  <span class="hljs-comment"># type: ignore</span>
 
 db = TradeDB()
 db.init(path/to/sqlite.db)
-db[&quot;users&quot;].insert({&quot;id&quot;: 1, &quot;name&quot;: &quot;Quantide&quot;})
-</code></pre>
+db[<span class="hljs-string">&quot;users&quot;</span>].insert({<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Quantide&quot;</span>})</span></code></pre>
 <p>通过这个封装，我们暴露了一个全局、惟一的 db 对象，并且允许它在多个线程中，不加锁即可使用。原因是，我们利用线程本地存储（Thread Local Storage, TLS），为每个线程维护了一个独立的数据库连接。</p>
 <p>然后，我们通过改写__getitem__方法，把对表的访问，代理到当前线程的数据库连接上，从而你可以使用 与 sqlite-utils 文档中记录的完全一致的方法来进行数据库操作。</p>
 <h2 id="semi-orm">Semi-ORM</h2>
@@ -136,42 +131,39 @@ db[&quot;users&quot;].insert({&quot;id&quot;: 1, &quot;name&quot;: &quot;Quantid
 
 <p>在 sqlalchemy 中，要拿到数据，你必须先学会如何定义 schema：</p>
 <hr>
-<pre><code class="language-python"># 1. 定义引擎
-engine = create_engine(&#39;sqlite:///data.db&#39;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-comment"># 1. 定义引擎</span>
+engine = create_engine(<span class="hljs-string">&#x27;sqlite:///data.db&#x27;</span>)
 Base = declarative_base()
 
-# 2. 定义模型
-class Tick(Base):
-    __tablename__ = &#39;ticks&#39;
-    id = Column(Integer, primary_key=True)
+<span class="hljs-comment"># 2. 定义模型</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Tick</span>(<span class="hljs-title class_ inherited__">Base</span>):
+    __tablename__ = <span class="hljs-string">&#x27;ticks&#x27;</span>
+    <span class="hljs-built_in">id</span> = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
     symbol = Column(String)
     price = Column(Float)
-    # 如果明天多了个 &#39;volume&#39; 字段，你得改代码，还得做数据库迁移 (Alembic)
+    <span class="hljs-comment"># 如果明天多了个 &#x27;volume&#x27; 字段，你得改代码，还得做数据库迁移 (Alembic)</span>
 
-# 3. 建表
+<span class="hljs-comment"># 3. 建表</span>
 Base.metadata.create_all(engine)
 
-# 4. 插入
-session.add(Tick(symbol=&#39;AAPL&#39;, price=100.0))
-session.commit()
-</code></pre>
+<span class="hljs-comment"># 4. 插入</span>
+session.add(Tick(symbol=<span class="hljs-string">&#x27;AAPL&#x27;</span>, price=<span class="hljs-number">100.0</span>))
+session.commit()</span></code></pre>
 <p>这里引入了 Base, Column, String, Float, Interger 等类型，以及，你还得知道魔术字__tablename__的用法。</p>
 <p>但在 sqlite-utils 中，这一切则是如此简单：</p>
-<pre><code class="language-python">import sqlite_utils as su
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> sqlite_utils <span class="hljs-keyword">as</span> su
 
-db = su.Database(&quot;:memory:&quot;) # ❶
-</code></pre>
+db = su.Database(<span class="hljs-string">&quot;:memory:&quot;</span>) <span class="hljs-comment"># ❶</span></span></code></pre>
 <hr>
-<pre><code class="language-python">import sqlite_utils as su
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">import</span> sqlite_utils <span class="hljs-keyword">as</span> su
 
-db = su.Database(&quot;:memory:&quot;) # ❶
-db[&quot;users&quot;].insert_all([{&quot;id&quot;: 1, &quot;name&quot;: &quot;Fred&quot;}, 
-                        {&quot;id&quot;: 2, &quot;name&quot;: &quot;Wilma&quot;}
-                        ]) # ❷
-print(db.tables) # ❸
-print(db[&quot;users&quot;].columns) # ❹
-list(db[&quot;users&quot;].rows) # ❺
-</code></pre>
+db = su.Database(<span class="hljs-string">&quot;:memory:&quot;</span>) <span class="hljs-comment"># ❶</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].insert_all([{<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Fred&quot;</span>}, 
+                        {<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Wilma&quot;</span>}
+                        ]) <span class="hljs-comment"># ❷</span>
+<span class="hljs-built_in">print</span>(db.tables) <span class="hljs-comment"># ❸</span>
+<span class="hljs-built_in">print</span>(db[<span class="hljs-string">&quot;users&quot;</span>].columns) <span class="hljs-comment"># ❹</span>
+<span class="hljs-built_in">list</span>(db[<span class="hljs-string">&quot;users&quot;</span>].rows) <span class="hljs-comment"># ❺</span></span></code></pre>
 <p>简直不可思议！<strong>你无须定义表结构</strong>，就可以直接插入数据！</p>
 <p>第一行，我们创建了一个内存数据库，并且建立了连接。如果传入文件名，则是创建了一个磁盘文件数据库。</p>
 <p>第二行，我们通过 db[&quot;users&quot;] 来引用了现在还不存在的表 -- users，然后直接插入了两条数据。</p>
@@ -190,90 +182,87 @@ list(db[&quot;users&quot;].rows) # ❺
 <h2 id="用-dataclass-定义实体关系映射">用 dataclass 定义实体关系映射</h2>
 <p>刚刚演示的 sqlite-utils 示例，我们展示了如何直接从数据库中读取数据，而无需定义表结构。这在探索性的数据分析中非常方便。</p>
 <p>但在实际应用中，我们更倾向于显式地定义表结构，并且增加数据类型校验和转换的能力，这样上层调用者的代码才会更简单一致。这就是 dataclass 派上用场的地方。</p>
-<pre><code class="language-python">from dataclasses import dataclass, asdict, fields
-import types
-import sqlite_utils as su
-from enum import IntEnum
-import datetime
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> dataclasses <span class="hljs-keyword">import</span> dataclass, asdict, fields
+<span class="hljs-keyword">import</span> types
+<span class="hljs-keyword">import</span> sqlite_utils <span class="hljs-keyword">as</span> su
+<span class="hljs-keyword">from</span> enum <span class="hljs-keyword">import</span> IntEnum
+<span class="hljs-keyword">import</span> datetime</span></code></pre>
 <hr>
-<pre><code class="language-python">def _dataclass_to_schema(model) -&gt; dict:
-    &quot;&quot;&quot;类方法：解析当前 dataclass 为 sqlite-utils 兼容的 schema 字典&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_dataclass_to_schema</span>(<span class="hljs-params">model</span>) -&gt; <span class="hljs-built_in">dict</span>:
+    <span class="hljs-string">&quot;&quot;&quot;类方法：解析当前 dataclass 为 sqlite-utils 兼容的 schema 字典&quot;&quot;&quot;</span>
     schema = {}
 
-    for f in fields(model):
-        if f.type in (str, int, float, bool):
-            schema[f.name] = f.type
-        # 处理所有联合类型（Union[A, B] 和 A | B 语法）
-        elif (
-            hasattr(f.type, &quot;__origin__&quot;) and f.type.__origin__ is Union
-        ) or isinstance(f.type, types.UnionType):
-            # 提取非 None 的类型
-            non_none_types = [t for t in f.type.__args__ if t is not type(None)]
-            if non_none_types:
-                base_type = non_none_types[0]
+    <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> fields(model):
+        <span class="hljs-keyword">if</span> f.<span class="hljs-built_in">type</span> <span class="hljs-keyword">in</span> (<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">bool</span>):
+            schema[f.name] = f.<span class="hljs-built_in">type</span>
+        <span class="hljs-comment"># 处理所有联合类型（Union[A, B] 和 A | B 语法）</span>
+        <span class="hljs-keyword">elif</span> (
+            <span class="hljs-built_in">hasattr</span>(f.<span class="hljs-built_in">type</span>, <span class="hljs-string">&quot;__origin__&quot;</span>) <span class="hljs-keyword">and</span> f.<span class="hljs-built_in">type</span>.__origin__ <span class="hljs-keyword">is</span> <span class="hljs-type">Union</span>
+        ) <span class="hljs-keyword">or</span> <span class="hljs-built_in">isinstance</span>(f.<span class="hljs-built_in">type</span>, types.UnionType):
+            <span class="hljs-comment"># 提取非 None 的类型</span>
+            non_none_types = [t <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> f.<span class="hljs-built_in">type</span>.__args__ <span class="hljs-keyword">if</span> t <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">type</span>(<span class="hljs-literal">None</span>)]
+            <span class="hljs-keyword">if</span> non_none_types:
+                base_type = non_none_types[<span class="hljs-number">0</span>]
                 schema[f.name] = (
-                    base_type if base_type in (str, int, float, bool) else str
+                    base_type <span class="hljs-keyword">if</span> base_type <span class="hljs-keyword">in</span> (<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>, <span class="hljs-built_in">float</span>, <span class="hljs-built_in">bool</span>) <span class="hljs-keyword">else</span> <span class="hljs-built_in">str</span>
                 )
-            else:
-                schema[f.name] = str
-        elif isinstance(f.type, type) and issubclass(f.type, IntEnum):
-            schema[f.name] = int
-        else:
-            schema[f.name] = str
-    return schema
-</code></pre>
+            <span class="hljs-keyword">else</span>:
+                schema[f.name] = <span class="hljs-built_in">str</span>
+        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(f.<span class="hljs-built_in">type</span>, <span class="hljs-built_in">type</span>) <span class="hljs-keyword">and</span> <span class="hljs-built_in">issubclass</span>(f.<span class="hljs-built_in">type</span>, IntEnum):
+            schema[f.name] = <span class="hljs-built_in">int</span>
+        <span class="hljs-keyword">else</span>:
+            schema[f.name] = <span class="hljs-built_in">str</span>
+    <span class="hljs-keyword">return</span> schema</span></code></pre>
 <hr>
-<pre><code class="language-python">def create_tables(db: su.Database, model):
-    &quot;&quot;&quot;初始化表结构
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_tables</span>(<span class="hljs-params">db: su.Database, model</span>):
+    <span class="hljs-string">&quot;&quot;&quot;初始化表结构
     
     在 sqlite_utils 中，创建表结构并非必须；但会导致 sqlite-utils 无法准确判断类型。
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     table = model.__table__
     pk = model.__pk__
 
-    t: su.db.Table = db[table] # type: ignore
+    t: su.db.Table = db[table] <span class="hljs-comment"># type: ignore</span>
     t.create(_dataclass_to_schema(model), pk=pk)
 
-    if model.__indices__ is not None:
+    <span class="hljs-keyword">if</span> model.__indices__ <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         indexes, is_unique = model.__indices__
         t.create_index(indexes, unique=is_unique)
 
-class Gender(IntEnum):
-    MALE = 1
-    FEMALE = 2
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Gender</span>(<span class="hljs-title class_ inherited__">IntEnum</span>):
+    MALE = <span class="hljs-number">1</span>
+    FEMALE = <span class="hljs-number">2</span>
 
-@dataclass
-class User:
-    # ❶ 通过魔术字段，为后面创建表提供元数据
-    __table__ = &quot;users&quot;
-    __pk__ = &quot;id&quot;
-    __indices__ = ([&quot;name&quot;], False)
+<span class="hljs-meta">@dataclass</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>:
+    <span class="hljs-comment"># ❶ 通过魔术字段，为后面创建表提供元数据</span>
+    __table__ = <span class="hljs-string">&quot;users&quot;</span>
+    __pk__ = <span class="hljs-string">&quot;id&quot;</span>
+    __indices__ = ([<span class="hljs-string">&quot;name&quot;</span>], <span class="hljs-literal">False</span>)
 
-    id: int
-    name: str
+    <span class="hljs-built_in">id</span>: <span class="hljs-built_in">int</span>
+    name: <span class="hljs-built_in">str</span>
     birth: datetime.date
     gender: Gender
-</code></pre>
+</span></code></pre>
 <hr>
-<pre><code class="language-python">    def __post_init__(self):
-        # ❷ sqlite 没有时间类型，时间一般使用字符串存储。
-        if isinstance(self.birth, str):
-            self.birth = datetime.date.fromisoformat(self.birth)
-        # ❸ sqlite 没有枚举类型，整数型枚举一般存为整数，其它枚举类型存为字符串。
-        if isinstance(self.gender, int):
-            self.gender = Gender(self.gender)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__post_init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-comment"># ❷ sqlite 没有时间类型，时间一般使用字符串存储。</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(<span class="hljs-variable language_">self</span>.birth, <span class="hljs-built_in">str</span>):
+            <span class="hljs-variable language_">self</span>.birth = datetime.date.fromisoformat(<span class="hljs-variable language_">self</span>.birth)
+        <span class="hljs-comment"># ❸ sqlite 没有枚举类型，整数型枚举一般存为整数，其它枚举类型存为字符串。</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(<span class="hljs-variable language_">self</span>.gender, <span class="hljs-built_in">int</span>):
+            <span class="hljs-variable language_">self</span>.gender = Gender(<span class="hljs-variable language_">self</span>.gender)
 
-user = User(id=1, name=&quot;Alice&quot;, birth=datetime.date(2020, 1, 1), gender=Gender.FEMALE)
-db = su.Database(memory=True)
+user = User(<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>, name=<span class="hljs-string">&quot;Alice&quot;</span>, birth=datetime.date(<span class="hljs-number">2020</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), gender=Gender.FEMALE)
+db = su.Database(memory=<span class="hljs-literal">True</span>)
 
-create_tables(db, User) # ❹ 显式创建表格--声明主键、索引等
-db[&quot;users&quot;].insert(asdict(user))
+create_tables(db, User) <span class="hljs-comment"># ❹ 显式创建表格--声明主键、索引等</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].insert(asdict(user))
 
-# 显示刚刚插入的记录 ❺
-user_from_db = User(**list(db[&quot;users&quot;].rows)[0])
-user_from_db
-</code></pre>
+<span class="hljs-comment"># 显示刚刚插入的记录 ❺</span>
+user_from_db = User(**<span class="hljs-built_in">list</span>(db[<span class="hljs-string">&quot;users&quot;</span>].rows)[<span class="hljs-number">0</span>])
+user_from_db</span></code></pre>
 <p>在这里有几个小技巧。</p>
 <p>第一，我们把类型声明转换为数据库字段（而不是像 sqlalchemy 那样需要显示声明），这非常 pythonic。在_dataclass_to_schema 方法中，我们提取了 User 类的所有字段（不含魔术字段）的类型，如果它是联合类型，就找到第一个非 None 类型作为字段类型；然后，将它们映射为数据库字段类型。当然，由于数据库字段类型有限，多数数据类型被映射为了 TEXT。</p>
 <hr>
@@ -292,78 +281,77 @@ user_from_db
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231194006.png" alt=""></p>
 <h2 id="sqlite-utils-增删改查">sqlite-utils 增删改查</h2>
 <p>这部分比较简单，我们通过以下代码示例进行说明：</p>
-<pre><code class="language-python">db = su.Database(memory=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span></span><span class="cl-body">db = su.Database(memory=<span class="hljs-literal">True</span>)
 
-user = User(id=1, 
-            name=&quot;Alice&quot;, 
-            birth=datetime.date(2020, 1, 1), 
+user = User(<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>, 
+            name=<span class="hljs-string">&quot;Alice&quot;</span>, 
+            birth=datetime.date(<span class="hljs-number">2020</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), 
             gender=Gender.FEMALE)
 
-# 增加一条记录：insert
-db[&quot;users&quot;].insert(asdict(user))
+<span class="hljs-comment"># 增加一条记录：insert</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].insert(asdict(user))
 
-# 增加记录，如果存在，则进行更新：upsert
-db[&quot;users&quot;].upsert(asdict(user), pk=&quot;id&quot;)
+<span class="hljs-comment"># 增加记录，如果存在，则进行更新：upsert</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].upsert(asdict(user), pk=<span class="hljs-string">&quot;id&quot;</span>)
 
-# 上述语句相当于：update
-db[&quot;users&quot;].update(1, {&quot;birth&quot;: datetime.date(2020, 1, 20)})
+<span class="hljs-comment"># 上述语句相当于：update</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].update(<span class="hljs-number">1</span>, {<span class="hljs-string">&quot;birth&quot;</span>: datetime.date(<span class="hljs-number">2020</span>, <span class="hljs-number">1</span>, <span class="hljs-number">20</span>)})
 
-# 通过主键查询刚修改的记录 (get)，生日将变为 2020-01-20
-db[&quot;users&quot;].get(1)
+<span class="hljs-comment"># 通过主键查询刚修改的记录 (get)，生日将变为 2020-01-20</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].get(<span class="hljs-number">1</span>)
 
-# 返回所有记录：rows
-list(db[&quot;users&quot;].rows)
+<span class="hljs-comment"># 返回所有记录：rows</span>
+<span class="hljs-built_in">list</span>(db[<span class="hljs-string">&quot;users&quot;</span>].rows)
 
-# 返回所有记录，转换为 DataFrame。这里 pandas/polars 都支持
-pd.DataFrame(db[&quot;users&quot;].rows) # ❶
+<span class="hljs-comment"># 返回所有记录，转换为 DataFrame。这里 pandas/polars 都支持</span>
+pd.DataFrame(db[<span class="hljs-string">&quot;users&quot;</span>].rows) <span class="hljs-comment"># ❶</span>
 
-# 按条件查询，使用 rows_where 方法
-list(db[&quot;users&quot;].rows_where(&quot;gender = ?&quot;, (Gender.FEMALE,)))
+<span class="hljs-comment"># 按条件查询，使用 rows_where 方法</span>
+<span class="hljs-built_in">list</span>(db[<span class="hljs-string">&quot;users&quot;</span>].rows_where(<span class="hljs-string">&quot;gender = ?&quot;</span>, (Gender.FEMALE,)))
 
-# 当然，我们也可以使用 db.query 方法，显然不如上一种方法简洁
-list(db.query(&quot;SELECT * FROM users WHERE gender = ?&quot;, (Gender.FEMALE,)))
+<span class="hljs-comment"># 当然，我们也可以使用 db.query 方法，显然不如上一种方法简洁</span>
+<span class="hljs-built_in">list</span>(db.query(<span class="hljs-string">&quot;SELECT * FROM users WHERE gender = ?&quot;</span>, (Gender.FEMALE,)))
 
-# 按条件删除记录，使用 delete_where 方法
-db[&quot;users&quot;].delete_where(&quot;id = ?&quot;, (10,))
+<span class="hljs-comment"># 按条件删除记录，使用 delete_where 方法</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].delete_where(<span class="hljs-string">&quot;id = ?&quot;</span>, (<span class="hljs-number">10</span>,))
 
-# 按 id 删除，使用 delete 方法
-db[&quot;users&quot;].delete(1)
+<span class="hljs-comment"># 按 id 删除，使用 delete 方法</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].delete(<span class="hljs-number">1</span>)
 
-# 查询数据库中的记录数，此时应该为 0
-db[&quot;users&quot;].count
+<span class="hljs-comment"># 查询数据库中的记录数，此时应该为 0</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].count
 
-# 删除 user 表，使用 drop 方法
-db[&quot;users&quot;].drop()
+<span class="hljs-comment"># 删除 user 表，使用 drop 方法</span>
+db[<span class="hljs-string">&quot;users&quot;</span>].drop()
 
-# 确认表已删除，使用 tables 属性。此时应该返回空列表
+<span class="hljs-comment"># 确认表已删除，使用 tables 属性。此时应该返回空列表</span>
 db.tables
-</code></pre>
+</span></code></pre>
 <p>数据库操作从未如此简单，不是吗？而且加上我们前面实作的廖廖数行 ORM 机制之后，我们可以存储对象、让查询返回对象。</p>
 <p>另外，不知道你注意到没有，注释❶中，我们将查询结果转换为了 DataFrame，这里也可以转换成为 polars 的 DataFrame。</p>
 <h2 id="将偷懒进行到底">将偷懒进行到底</h2>
 <p>优秀的程序员都是懒惰的。他们不喜欢重复劳动，也不喜欢写重复的代码。他们喜欢用简单的方法来解决复杂的问题。如果你也是这一类，那么很可能还在寻求进一步的封装。</p>
 <p>为此，Jeremy 教授为你带来了 fastlite -- fast 系列中的新成员。它在 sqlite-utils 之上，引入了 dataclass （就像我们这里所做的一样），另外，它拓展了查询语法：</p>
-<pre><code class="language-python">from fastlite import *
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body"><span class="hljs-keyword">from</span> fastlite <span class="hljs-keyword">import</span> *
 
 db = database(path/to/db)
 
-# 所有表格的集合
+<span class="hljs-comment"># 所有表格的集合</span>
 dt = db.t
 
-# 获得表对象 album
+<span class="hljs-comment"># 获得表对象 album</span>
 album = dt.Album
 
-# 通过 dataclass，将表记录转换为对象
+<span class="hljs-comment"># 通过 dataclass，将表记录转换为对象</span>
 album_dc = album.dataclass()
 
-album_obj = album_dc(**acca_dacca[0])
+album_obj = album_dc(**acca_dacca[<span class="hljs-number">0</span>])
 album_obj
 
-# 表格对象支持以下查询
-album(limit = 2) # 返回前两条记录
-album(with_pk = 1, limit=2) # 返回前两条记录（对象），并且同时返回主键
-album(5) # 返回第 5 条记录（对象）
-</code></pre>
+<span class="hljs-comment"># 表格对象支持以下查询</span>
+album(limit = <span class="hljs-number">2</span>) <span class="hljs-comment"># 返回前两条记录</span>
+album(with_pk = <span class="hljs-number">1</span>, limit=<span class="hljs-number">2</span>) <span class="hljs-comment"># 返回前两条记录（对象），并且同时返回主键</span>
+album(<span class="hljs-number">5</span>) <span class="hljs-comment"># 返回第 5 条记录（对象）</span></span></code></pre>
 <p>当然，尽管 fastlite 非常直观，学习成本很低，不过在使用之前，你也可以思考一下，是否真的需要它。毕竟，sqlite-utils 已经提供了足够简洁和丰富的功能。</p>
 <h2 id="写在-2025-年封底">写在 2025 年封底</h2>
 <p>敲下这段文字时，2025 年的沙漏只剩下最后 4 小时。2025 的这本书，也写到了最后一页。</p>

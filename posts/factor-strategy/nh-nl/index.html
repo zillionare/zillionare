@@ -31,12 +31,11 @@ $$</p>
 从因子定义可以看出，它不是在[-1,1]区间均匀分布的。在机器学习中使用这一方案，会有轻微的梯度优化困难。虽然我们也可以仿RSI的思路，将其改造为：
 </div>
 
-<pre><code>$$
-    (NHNL)\% = (count(HHV) - count(LLV))/(count(HHV) + count(LLV))
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">$$
+    (NHNL)\<span class="hljs-operator">%</span> <span class="hljs-operator">=</span> (<span class="hljs-built_in">count</span>(HHV) <span class="hljs-operator">-</span> <span class="hljs-built_in">count</span>(LLV))<span class="hljs-operator">/</span>(<span class="hljs-built_in">count</span>(HHV) <span class="hljs-operator">+</span> <span class="hljs-built_in">count</span>(LLV))
 $$
 
-但这样做显然没有对应的逻辑存在。这是我们在做因子分析时要注意的点。不要刻舟求剑。
-</code></pre>
+但这样做显然没有对应的逻辑存在。这是我们在做因子分析时要注意的点。不要刻舟求剑。</span></code></pre>
 <h2 id="因子背后的逻辑">因子背后的逻辑</h2>
 <p>该因子的主要金融原理是<red>锚定效应</red>。行为金融学告诉我们，绝大多数投资者都有很强的锚定效应。投资者始终会以自己买入股票/基金时的价格（即<red>锚定成本</red>）为基准，视自己的账户是处于浮盈还是浮亏状态，来确定自己的操作。</p>
 <p>创年度新高的个股，其股票持有者均为浮盈状态，即使其计划卖出，也希望等行情再上涨一段时间，因此其抛压相对较小；而创年度新低的个股，因其股票持有者均为浮亏状态，因此只要行情反弹便有投资者卖出，抛压反而较大。这样就出现了熊市不言底，牛市不言顶的规律，或者说新高之后还有新高，新低之后还有新低的股谚。</p>
@@ -62,34 +61,32 @@ $$</p>
 <h2 id="代码">代码</h2>
 <p>代码的关键是要获取行业指数及成份股行情，因为计算一年内的新高和新低非常容易。</p>
 <p>我们以XtQuant为例进行演示。XtQuant是迅投研发的行情数据及实盘接口，开通量化权限的话，可以免费获得行情数据，因此它是又一个优秀的免费数据源。我们在第24课有详细介绍它的使用。</p>
-<pre><code class="language-python">sectors = set()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">sectors = <span class="hljs-built_in">set</span>()
 
-for item in get_sector_list():
-    for i in range(6, 1, -1):
+<span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> get_sector_list():
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">6</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):
         key = item[:i]
 
-        if key.startswith(&quot;SW1&quot;):
+        <span class="hljs-keyword">if</span> key.startswith(<span class="hljs-string">&quot;SW1&quot;</span>):
             sectors.add(key)
-            break
-print(sectors)
+            <span class="hljs-keyword">break</span>
+<span class="hljs-built_in">print</span>(sectors)
 
-# 显示：
-&#39;SW1煤炭&#39;, &#39;SW1交通运&#39;, &#39;SW1综合&#39;, &#39;SW1通信&#39; ...
-</code></pre>
+<span class="hljs-comment"># 显示：</span>
+<span class="hljs-string">&#x27;SW1煤炭&#x27;</span>, <span class="hljs-string">&#x27;SW1交通运&#x27;</span>, <span class="hljs-string">&#x27;SW1综合&#x27;</span>, <span class="hljs-string">&#x27;SW1通信&#x27;</span> ...</span></code></pre>
 <p>我们大约拿到40个申万一级板块名。接下来我们就需要获取板块内的每支成分股的证券代码:</p>
-<pre><code class="language-python">xt.get_stock_list_in_sector(&quot;SW1煤炭&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">xt.get_stock_list_in_sector(<span class="hljs-string">&quot;SW1煤炭&quot;</span>)
 
-# 显示：
+<span class="hljs-comment"># 显示：</span>
 
-[&#39;600121.SH&#39;,
- &#39;600123.SH&#39;,
- &#39;600157.SH&#39;,
- &#39;600188.SH&#39;,
- &#39;600348.SH&#39;,
- &#39;600395.SH&#39;,
+[<span class="hljs-string">&#x27;600121.SH&#x27;</span>,
+ <span class="hljs-string">&#x27;600123.SH&#x27;</span>,
+ <span class="hljs-string">&#x27;600157.SH&#x27;</span>,
+ <span class="hljs-string">&#x27;600188.SH&#x27;</span>,
+ <span class="hljs-string">&#x27;600348.SH&#x27;</span>,
+ <span class="hljs-string">&#x27;600395.SH&#x27;</span>,
  ...
-]
-</code></pre>
+]</span></code></pre>
 <p>获取个股行情数据的方法在最近的笔记中有详细介绍，这里不再重复。</p>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 掌握获取证券列表、再遍历之以获得行情数据，是一个基本方法。也是我们掌握一个数据源时，必须首先掌握的API。这是我们第一课起，就跟大家介绍过的。

@@ -39,83 +39,76 @@
 <p><strong>群组象字典一样工作，而数据集则像 Numpy 数组一样工作。</strong></p>
 <p>h5py 的 API 比较基础，用法并不复杂。但作为行情和因子数据库，我们需要自己构建一些功能。下面的代码，将演示我们如何存储行情数据，并实现每日更新：</p>
 <hr>
-<pre><code class="language-python">codes = [&quot;000001.XSHE&quot;, &quot;600000.XSHG&quot;]
-h5file = &quot;/tmp/bars.h5&quot;
-h5 = h5py.File(h5file, &quot;a&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">codes = [<span class="hljs-string">&quot;000001.XSHE&quot;</span>, <span class="hljs-string">&quot;600000.XSHG&quot;</span>]
+h5file = <span class="hljs-string">&quot;/tmp/bars.h5&quot;</span>
+h5 = h5py.File(h5file, <span class="hljs-string">&quot;a&quot;</span>)
 
-for name in (&quot;1m&quot;, &quot;5m&quot;, &quot;10m&quot;, &quot;30m&quot;, &quot;1d&quot;):
-    if name not in h5.keys():
-        h5.create_group(f&quot;/{name}&quot;)
-</code></pre>
+<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> (<span class="hljs-string">&quot;1m&quot;</span>, <span class="hljs-string">&quot;5m&quot;</span>, <span class="hljs-string">&quot;10m&quot;</span>, <span class="hljs-string">&quot;30m&quot;</span>, <span class="hljs-string">&quot;1d&quot;</span>):
+    <span class="hljs-keyword">if</span> name <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> h5.keys():
+        h5.create_group(<span class="hljs-string">f&quot;/<span class="hljs-subst">{name}</span>&quot;</span>)</span></code></pre>
 <p>在上述代码中，我们按行情的周期频率，分别创建了若干个 group。接下来的行情数据
 就会以证券代码为 name，存储在这些 group 中。</p>
-<pre><code class="language-python">def convert_frame(bars):
-    # H5 不能处理 NP.DATETIME64，转换成整数
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">convert_frame</span>(<span class="hljs-params">bars</span>):
+    <span class="hljs-comment"># H5 不能处理 NP.DATETIME64，转换成整数</span>
     dtype = bars.dtype.descr
-    dtype[0] = (&#39;frame&#39;, &#39;i8&#39;)
+    dtype[<span class="hljs-number">0</span>] = (<span class="hljs-string">&#x27;frame&#x27;</span>, <span class="hljs-string">&#x27;i8&#x27;</span>)
     
-    return bars.astype(dtype)
-</code></pre>
+    <span class="hljs-keyword">return</span> bars.astype(dtype)</span></code></pre>
 <p>我们使用 omicron 来获取行情数据。它返回的行情数据中，有一个 frame 字段，数据类型为 np.datetime64，是 h5py 不能处理的，因此我们将它转换为 epoch 时间来保存。h5py 也允许我们直接保存时间类型（以不透明的方式），但这样一来，就不再支持一些查询操作了。</p>
 <p>我们使用下述方法来把新的数据追加到之前的数据集中：</p>
 <hr>
-<pre><code class="language-python">def append_ds(name: str, bars):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">append_ds</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span>, bars</span>):
     ds = h5.get(name)
-    if ds is None:
-        ds = h5.create_dataset(name, data = bars, chunks=True, maxshape=(None,))
-    else:
-        nold = ds.shape[0]
-        nnew = len(bars)
-        ds.resize(nold + nnew, axis=0)
+    <span class="hljs-keyword">if</span> ds <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        ds = h5.create_dataset(name, data = bars, chunks=<span class="hljs-literal">True</span>, maxshape=(<span class="hljs-literal">None</span>,))
+    <span class="hljs-keyword">else</span>:
+        nold = ds.shape[<span class="hljs-number">0</span>]
+        nnew = <span class="hljs-built_in">len</span>(bars)
+        ds.resize(nold + nnew, axis=<span class="hljs-number">0</span>)
         ds[-nnew:] = bars
         
-    return ds
-</code></pre>
+    <span class="hljs-keyword">return</span> ds</span></code></pre>
 <p>这里还展示了获取数据集的方法 get，创建数据集的方法 create_dataset 和 resize 方法。为了支持 resize，我们在创建数据集时，还必须声明 chunks = True 以及 amxshape=(None,)。</p>
 <p>添加新的数据是以切片语法来完成的。现在，我们来实现每日追加数据的功能：</p>
-<pre><code class="language-python"># 每日增加行情数据
-async def save_bars(codes:List[str], ft: FrameType):    
-    for code in codes:
-        bars = await Stock.get_bars(code, 240, ft)
-        append_ds(f&quot;/{ft.value}/{code}&quot;, convert_frame(bars))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 每日增加行情数据</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">save_bars</span>(<span class="hljs-params">codes:<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>], ft: FrameType</span>):    
+    <span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> codes:
+        bars = <span class="hljs-keyword">await</span> Stock.get_bars(code, <span class="hljs-number">240</span>, ft)
+        append_ds(<span class="hljs-string">f&quot;/<span class="hljs-subst">{ft.value}</span>/<span class="hljs-subst">{code}</span>&quot;</span>, convert_frame(bars))</span></code></pre>
 <p>最后，我们写一个显示其数据结构的函数：</p>
 <hr>
-<pre><code class="language-python"># 显示 H5 文件结构
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-comment"># 显示 H5 文件结构</span>
 
-def h5_tree(val, pre=&#39;&#39;):
-    items = len(val)
-    for key, val in val.items():
-        items -= 1
-        if items == 0:
-            # THE LAST ITEM
-            if type(val) == h5py._hl.group.Group:
-                print(pre + &#39;└── &#39; + key)
-                h5_tree(val, pre+&#39;    &#39;)
-            else:
-                print(pre + &#39;└── &#39; + key + &#39; (%d)&#39; % len(val))
-        else:
-            if type(val) == h5py._hl.group.Group:
-                print(pre + &#39;├── &#39; + key)
-                h5_tree(val, pre+&#39;│   &#39;)
-            else:
-                print(pre + &#39;├── &#39; + key + &#39; (%d)&#39; % len(val))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">h5_tree</span>(<span class="hljs-params">val, pre=<span class="hljs-string">&#x27;&#x27;</span></span>):
+    items = <span class="hljs-built_in">len</span>(val)
+    <span class="hljs-keyword">for</span> key, val <span class="hljs-keyword">in</span> val.items():
+        items -= <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> items == <span class="hljs-number">0</span>:
+            <span class="hljs-comment"># THE LAST ITEM</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(val) == h5py._hl.group.Group:
+                <span class="hljs-built_in">print</span>(pre + <span class="hljs-string">&#x27;└── &#x27;</span> + key)
+                h5_tree(val, pre+<span class="hljs-string">&#x27;    &#x27;</span>)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-built_in">print</span>(pre + <span class="hljs-string">&#x27;└── &#x27;</span> + key + <span class="hljs-string">&#x27; (%d)&#x27;</span> % <span class="hljs-built_in">len</span>(val))
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(val) == h5py._hl.group.Group:
+                <span class="hljs-built_in">print</span>(pre + <span class="hljs-string">&#x27;├── &#x27;</span> + key)
+                h5_tree(val, pre+<span class="hljs-string">&#x27;│   &#x27;</span>)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-built_in">print</span>(pre + <span class="hljs-string">&#x27;├── &#x27;</span> + key + <span class="hljs-string">&#x27; (%d)&#x27;</span> % <span class="hljs-built_in">len</span>(val))
                 
-h5_tree(h5)
-</code></pre>
+h5_tree(h5)</span></code></pre>
 <p>我们将得到类似下面的输出：</p>
-<pre><code>├── 1d
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">├── 1d
 │   ├── 000001.XSHE (240)
 │   └── 600000.XSHG (240)
 └── 1m
     ├── 000001.XSHE (1200)
-    └── 600000.XSHG (1200)
-</code></pre>
+    └── 600000.XSHG (1200)</span></code></pre>
 <p>这样，使用 hdf5 来存储行情数据的基本结构就完成了。我们可以用下面的方法进行查询：</p>
 <hr>
-<pre><code class="language-python">filter = mbars[&quot;close&quot;] &gt; 14.77
-mbars[filter]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-built_in">filter</span> = mbars[<span class="hljs-string">&quot;close&quot;</span>] &gt; <span class="hljs-number">14.77</span>
+mbars[<span class="hljs-built_in">filter</span>]</span></code></pre>
 <p>我们模拟了一个 40 年分钟线的数据集，在进行上述查询时，需要执行 0.2 秒。</p>
 <p>上述存储结构有一个不利之处，就是在查询横截面数据（比如，要查询某个时间点上所有个股的收盘价）时，速度会比较慢，因为循环难以避免。hdf5 提供了 virtual dataset 这一功能，但它并不适合可变长的数据集。</p>
 <p>办法之一是，在存储行情数据时，把个股的代码也存储进来。当然，为了加快查询速度，我们需要将以字符串表示的证券代码，事先转换成为整数格式。比如，象 000001.XSHE 这样的代码，我们可以转换成为 100001，600000.XSHG 转换为 2600000：即使用 7 位数证券代码，第 1 位非零，为交易所编码。</p>
@@ -123,22 +116,21 @@ mbars[filter]
 <h2 id="need-for-speed">Need for speed!</h2>
 <p>觉得 h5py 还不够快？！那么，你可以考虑使用 Parallel HDF5。这是在 ubuntu 上安装它的步骤：</p>
 <hr>
-<pre><code>sudo apt update
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-built_in">sudo</span> apt update
 
-# 安装支持并行运算的 HDF5 原生库
-sudo apt install libhdf5-mpi-dev
+<span class="hljs-comment"># 安装支持并行运算的 HDF5 原生库</span>
+<span class="hljs-built_in">sudo</span> apt install libhdf5-mpi-dev
 
-# 检查 HDF5 并行运算是否开启
+<span class="hljs-comment"># 检查 HDF5 并行运算是否开启</span>
 h5pcc
 
-# 需要这一步以下载 H5PY
-sudo apt install -y pkg-config
+<span class="hljs-comment"># 需要这一步以下载 H5PY</span>
+<span class="hljs-built_in">sudo</span> apt install -y pkg-config
 
-# 安装支持并行运算的 H5PY
-export CC=mpicc
-export HDF5_MPI=&quot;ON&quot;
-pip install --no-binary=h5py h5py
-</code></pre>
+<span class="hljs-comment"># 安装支持并行运算的 H5PY</span>
+<span class="hljs-built_in">export</span> CC=mpicc
+<span class="hljs-built_in">export</span> HDF5_MPI=<span class="hljs-string">&quot;ON&quot;</span>
+pip install --no-binary=h5py h5py</span></code></pre>
 <p>最后一步，在 pip install 时指定 <strong>--no-binary=h5py</strong> 要划重点。通过这里的指定，我们将下载 h5py 的源码，在本地执行编译，再安装 h5py，而不是直接安装 wheel 格式的 h5py。如果是从 wheel 格式进行安装，我们将无法得到并行计算的 hdf5 功能。</p>
 <p>关于并行版本的 h5py 的使用，可以参考这个<a href="https://www.nersc.gov/assets/Uploads/H5py-2017-Feb23.pdf">链接</a>。无法查看外链的，可以 google 大富翁量化，在官网上查看同名文章和示例代码。</p>
 <h2 id="need-even-more-speed">Need even more speed!</h2>

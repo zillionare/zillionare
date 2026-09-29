@@ -25,74 +25,72 @@
 <p>这是我们这次改进中，使用连续阴线的区间跌幅的原因。但实际上两种定义各有优劣，你可以使用机器学习模型来决定何时使用哪一个。</p>
 <h2 id="代码实现">代码实现</h2>
 <p>既然模型定义清楚，现在我们就开始实现。这段代码需要用到发现连续阴阳线的一个函数，我们把它定义为find_runs:</p>
-<pre><code class="language-python">def find_runs(x):
-    &quot;&quot;&quot;Find runs of consecutive items in an array.
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_runs</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-string">&quot;&quot;&quot;Find runs of consecutive items in an array.
+    &quot;&quot;&quot;</span>
 
-    # ensure array
+    <span class="hljs-comment"># ensure array</span>
     x = np.asanyarray(x)
-    if x.ndim != 1:
-        raise ValueError(&quot;only 1D array supported&quot;)
-    n = x.shape[0]
+    <span class="hljs-keyword">if</span> x.ndim != <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;only 1D array supported&quot;</span>)
+    n = x.shape[<span class="hljs-number">0</span>]
 
-    # handle empty array
-    if n == 0:
-        return np.array([]), np.array([]), np.array([])
+    <span class="hljs-comment"># handle empty array</span>
+    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> np.array([]), np.array([]), np.array([])
 
-    else:
-        # find run starts
-        loc_run_start = np.empty(n, dtype=bool)
-        loc_run_start[0] = True
-        np.not_equal(x[:-1], x[1:], out=loc_run_start[1:])
-        run_starts = np.nonzero(loc_run_start)[0]
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-comment"># find run starts</span>
+        loc_run_start = np.empty(n, dtype=<span class="hljs-built_in">bool</span>)
+        loc_run_start[<span class="hljs-number">0</span>] = <span class="hljs-literal">True</span>
+        np.not_equal(x[:-<span class="hljs-number">1</span>], x[<span class="hljs-number">1</span>:], out=loc_run_start[<span class="hljs-number">1</span>:])
+        run_starts = np.nonzero(loc_run_start)[<span class="hljs-number">0</span>]
 
-        # find run values
+        <span class="hljs-comment"># find run values</span>
         run_values = x[loc_run_start]
 
-        # find run lengths
+        <span class="hljs-comment"># find run lengths</span>
         run_lengths = np.diff(np.append(run_starts, n))
 
-        return run_values, run_starts, run_lengths
-</code></pre>
+        <span class="hljs-keyword">return</span> run_values, run_starts, run_lengths</span></code></pre>
 <p>为了让大家都能复现代码，我们使用了akshare来提供数据。这是一个免费、开源的行情数据源。</p>
-<pre><code class="language-python">import akshare as ak
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span></span><span class="cl-body"><span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
 now = datetime.datetime.now().date()
-start = now - datetime.timedelta(days=365*4)
+start = now - datetime.timedelta(days=<span class="hljs-number">365</span>*<span class="hljs-number">4</span>)
 
-start_date = start.strftime(&quot;%Y%m%d&quot;)
-end_date = now.strftime(&quot;%Y%m%d&quot;)
+start_date = start.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+end_date = now.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
 
-# 通过akshare获取中证1000日线数据（近1000天）
-bars = ak.index_zh_a_hist(symbol=&quot;000852&quot;, start_date=start_date, end_date=end_date)
+<span class="hljs-comment"># 通过akshare获取中证1000日线数据（近1000天）</span>
+bars = ak.index_zh_a_hist(symbol=<span class="hljs-string">&quot;000852&quot;</span>, start_date=start_date, end_date=end_date)
 
 bars.rename(columns = {
-    &quot;日期&quot;: &quot;date&quot;,
-    &quot;开盘&quot;: &quot;open&quot;,
-    &quot;最高&quot;: &quot;high&quot;,
-    &quot;最低&quot;: &quot;low&quot;,
-    &quot;收盘&quot;: &quot;close&quot;,
-    &quot;成交量&quot;:&quot;volume&quot;
-}, inplace=True)
+    <span class="hljs-string">&quot;日期&quot;</span>: <span class="hljs-string">&quot;date&quot;</span>,
+    <span class="hljs-string">&quot;开盘&quot;</span>: <span class="hljs-string">&quot;open&quot;</span>,
+    <span class="hljs-string">&quot;最高&quot;</span>: <span class="hljs-string">&quot;high&quot;</span>,
+    <span class="hljs-string">&quot;最低&quot;</span>: <span class="hljs-string">&quot;low&quot;</span>,
+    <span class="hljs-string">&quot;收盘&quot;</span>: <span class="hljs-string">&quot;close&quot;</span>,
+    <span class="hljs-string">&quot;成交量&quot;</span>:<span class="hljs-string">&quot;volume&quot;</span>
+}, inplace=<span class="hljs-literal">True</span>)
 
-bars[&quot;date&quot;] = pd.to_datetime(bars[&quot;date&quot;])
-bars.set_index(&quot;date&quot;, inplace=True)
+bars[<span class="hljs-string">&quot;date&quot;</span>] = pd.to_datetime(bars[<span class="hljs-string">&quot;date&quot;</span>])
+bars.set_index(<span class="hljs-string">&quot;date&quot;</span>, inplace=<span class="hljs-literal">True</span>)
 
-bars[&quot;flag&quot;] = np.select([bars[&quot;close&quot;] &gt; bars[&quot;open&quot;], 
-                          bars[&quot;close&quot;] &lt; bars[&quot;open&quot;]], 
-                          [1, -1], 
-                          0)
-v, s, l = find_runs(bars[&quot;flag&quot;] == -1)
+bars[<span class="hljs-string">&quot;flag&quot;</span>] = np.select([bars[<span class="hljs-string">&quot;close&quot;</span>] &gt; bars[<span class="hljs-string">&quot;open&quot;</span>], 
+                          bars[<span class="hljs-string">&quot;close&quot;</span>] &lt; bars[<span class="hljs-string">&quot;open&quot;</span>]], 
+                          [<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>], 
+                          <span class="hljs-number">0</span>)
+v, s, l = find_runs(bars[<span class="hljs-string">&quot;flag&quot;</span>] == -<span class="hljs-number">1</span>)
 
 cum_neg_returns = []
-for vi, si, li in zip(v, s, l):
-    if vi and li &gt; 1:
+<span class="hljs-keyword">for</span> vi, si, li <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(v, s, l):
+    <span class="hljs-keyword">if</span> vi <span class="hljs-keyword">and</span> li &gt; <span class="hljs-number">1</span>:
         cum_neg_returns.append((bars.index[si], 
-                                bars.index[si + li-1], 
-                                bars.close[si + li -1 ]/bars.open[si] - 1))
+                                bars.index[si + li-<span class="hljs-number">1</span>], 
+                                bars.close[si + li -<span class="hljs-number">1</span> ]/bars.<span class="hljs-built_in">open</span>[si] - <span class="hljs-number">1</span>))
         
-r = pd.DataFrame(cum_neg_returns, columns=[&quot;start&quot;, &quot;end&quot;, &quot;cnr&quot;])
-r.cnr.hist()
-</code></pre>
+r = pd.DataFrame(cum_neg_returns, columns=[<span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;end&quot;</span>, <span class="hljs-string">&quot;cnr&quot;</span>])
+r.cnr.hist()</span></code></pre>
 <p>从生成的直方图来看，连续跌幅达到7.5%以后的次数就很少了，也就是，连续下跌超过7.5%，还能继续下跌是小概率事件。</p>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
@@ -102,8 +100,7 @@ r.cnr.hist()
 <!-- END IPYNB STRIPOUT -->
 
 <p>我们看一下连续下跌最厉害的10次，分别是什么情况：</p>
-<pre><code class="language-python">r.nsmallest(10, &quot;cnr&quot;).sort_values(&quot;end&quot;, ascending=False)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">r.nsmallest(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;cnr&quot;</span>).sort_values(<span class="hljs-string">&quot;end&quot;</span>, ascending=<span class="hljs-literal">False</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div>
 <table border="1" class="dataframe">
@@ -186,20 +183,18 @@ r.cnr.hist()
 <h2 id="底该怎么抄">底该怎么抄？</h2>
 <p>在11月8日收盘时，阴线连续下跌幅度为7.54%，盘中跌幅更大，所以，在盘中就出现了连续跌幅达到7.54%的情况。如果此时你决定抄底，成功的概率有多大？</p>
 <p>有一个奇怪的pandas函数可以帮我们计算出来：</p>
-<pre><code class="language-python">decline_ratio = -0.075433
-r.cnr.le(decline_ratio).mean()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">decline_ratio = -<span class="hljs-number">0.075433</span>
+r.cnr.le(decline_ratio).mean()</span></code></pre>
 <p>它的奇妙之处在于，le用来找出小于等于decline_ratio的数据，把它们标记为true,其它的标记为false,然后mean用在bool变量上，会求出真值的比例，也就是我们要找的概率！</p>
 <p>这个概率是4.63%。如果你在此时抄底，那么还有4.63%的概率，你需要忍受继续下跌，这就是发生在10月9日的情况。按照概率的提示，你大概会在10月9日的盘中杀进来，然后要忍受此后两天的继续下跌，这个跌幅跟你之前看到的差不多（也是7.5%左右）。</p>
 <p>不过，好消息是，如果你在10月9日杀进来，你有在10月10日选择小幅盈利出局的权利。如果你在这一天选择出局，把筹码倒给了新入场的人，他们还可以再抗7.5%的跌幅！这就是为什么股谚说多头不死，下跌不止。</p>
 <p>如果你不会编程，可以通过下面的表格速查抄底成功概率：</p>
-<pre><code class="language-python">data = []
-for loss in np.linspace(-0.06, -0.076, 15):
-    data.append((loss, 1- r.cnr.le(loss).mean()))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">data = []
+<span class="hljs-keyword">for</span> loss <span class="hljs-keyword">in</span> np.linspace(-<span class="hljs-number">0.06</span>, -<span class="hljs-number">0.076</span>, <span class="hljs-number">15</span>):
+    data.append((loss, <span class="hljs-number">1</span>- r.cnr.le(loss).mean()))
 
-df = pd.DataFrame(data, columns=[&#39;最大亏损&#39;, &#39;抄底胜率&#39;])
-df.style.format(&quot;{:.1%}&quot;)
-</code></pre>
+df = pd.DataFrame(data, columns=[<span class="hljs-string">&#x27;最大亏损&#x27;</span>, <span class="hljs-string">&#x27;抄底胜率&#x27;</span>])
+df.style.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;{:.1%}&quot;</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <style type="text/css">
 </style>

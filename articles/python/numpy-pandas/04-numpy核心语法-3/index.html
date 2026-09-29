@@ -18,50 +18,45 @@
 <h2 id="1-类型转换和-typing">1. 类型转换和 Typing</h2>
 <h3 id="11-numpy-内部类型转换">1.1. Numpy 内部类型转换</h3>
 <p>Numpy 内部类型转换，我们只需要使用 astype </p>
-<pre><code class="language-python">x = np.array ([&#39;2023-04-01&#39;, &#39;2023-04-02&#39;, &#39;2023-04-03&#39;])
-print (x.astype (dtype=&#39;datetime64[D]&#39;))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">x = np.array ([<span class="hljs-string">&#x27;2023-04-01&#x27;</span>, <span class="hljs-string">&#x27;2023-04-02&#x27;</span>, <span class="hljs-string">&#x27;2023-04-03&#x27;</span>])
+<span class="hljs-built_in">print</span> (x.astype (dtype=<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>))
 
-x = np.array ([&#39;2014&#39;, &#39;2015&#39;])
-print (x.astype (np.int32))
+x = np.array ([<span class="hljs-string">&#x27;2014&#x27;</span>, <span class="hljs-string">&#x27;2015&#x27;</span>])
+<span class="hljs-built_in">print</span> (x.astype (np.int32))
 
-x = np.array ([2014, 2015])
-print (x.astype (np.str_))
-</code></pre>
+x = np.array ([<span class="hljs-number">2014</span>, <span class="hljs-number">2015</span>])
+<span class="hljs-built_in">print</span> (x.astype (np.str_))</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 如何将 boolean array 转换成整数类型，特别是，将 True 转为 1，False 转为 - 1？
 在涉及到阴阳线的相关计算中，我们常常需要将 open > close 这样的条件转换为符号 1 和 - 1，以方便后续计算。这个转换可以用：
 </div>
 
-<pre><code>```python
-&gt;&gt;&gt; x = np.array ([True, False])
-&gt;&gt;&gt; x * 2 - 1
-... array ([ 1, -1])
-```
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">```python
+<span class="hljs-meta">&gt;&gt;&gt; </span>x = np.array ([<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>x * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>
+<span class="hljs-meta">... </span>array ([ <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])
+```</span></code></pre>
 <hr>
 <h3 id="12-numpy-类型与-python-内置类型转换">1.2. Numpy 类型与 Python 内置类型转换</h3>
 <p>如果我们要将 Numpy 数组转换成 Python 数组，可以使用 tolist 函数。</p>
-<pre><code class="language-python">x = np.array ([1, 2, 3])
-print (x.tolist ())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">x = np.array ([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+<span class="hljs-built_in">print</span> (x.tolist ())</span></code></pre>
 <p>我们通过 item () 函数，将 Numpy 数组中的元素转换成 Python 内置类型。</p>
-<pre><code class="language-python">x = np.array ([&#39;2023-04-01&#39;, &#39;2023-04-02&#39;])
-y = x.astype (&#39;M8[s]&#39;)
-y [0].item ()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x = np.array ([<span class="hljs-string">&#x27;2023-04-01&#x27;</span>, <span class="hljs-string">&#x27;2023-04-02&#x27;</span>])
+y = x.astype (<span class="hljs-string">&#x27;M8[s]&#x27;</span>)
+y [<span class="hljs-number">0</span>].item ()</span></code></pre>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 一个容易忽略的事实是，当我们从 Numpy 数组中取出一个标量时，我们都应该把它转换成为 Python 对象后再使用。否则，会发生一些隐藏的错误，比如下面的例子：
 </div>
 
-<pre><code>```python
-import json
-x = np.arange (5)
-print (json.dumps ([0]))
-print (x [0])
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">```python
+<span class="hljs-keyword">import</span> json
+x = np.arange (<span class="hljs-number">5</span>)
+<span class="hljs-built_in">print</span> (json.dumps ([<span class="hljs-number">0</span>]))
+<span class="hljs-built_in">print</span> (x [<span class="hljs-number">0</span>])
 
-json.dumps ([x [0]])
-```
-</code></pre>
+json.dumps ([x [<span class="hljs-number">0</span>]])
+```</span></code></pre>
 <hr>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 这里最后一行会出错。提示 type int64 is not JSON serializable。把最后一行换成 `json.dumps ([x [0].item ()])` 则可以正常执行。
@@ -70,30 +65,27 @@ json.dumps ([x [0]])
 
 <h3 id="13-typing">1.3. Typing</h3>
 <p>从 Python 3.1 起，就开始引入类型注解 (type annotation)，到 Python 3.8，基本上形成了完整的类型注解体系。我们经常看到函数的参数类型注解，比如，下面的代码:</p>
-<pre><code class="language-python">from typing import List
-def add (a: List [int], b: int) -&gt; List [int]:
-    return [i + b for i in a]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span> (a: <span class="hljs-type">List</span> [<span class="hljs-built_in">int</span>], b: <span class="hljs-built_in">int</span>) -&gt; <span class="hljs-type">List</span> [<span class="hljs-built_in">int</span>]:
+    <span class="hljs-keyword">return</span> [i + b <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a]</span></code></pre>
 <p>从此，Python 代码也就有了静态类型检查支持。</p>
 <p>NumPy 的 Typing 模块提供了一系列类型别名（type aliases）和协议（protocols），使得开发者能够在类型注解中更精确地表达 NumPy 数组的类型信息。这有助于静态分析工具、IDE 以及类型检查器提供更准确的代码补全、类型检查和错误提示。</p>
 <p>这个模块提供的主要类型是 ArrayLike, NDArray 和 DType。</p>
-<pre><code class="language-python">import numpy
-from numpy.typing import ArrayLike, NDArray, DTypeLike
-import numpy as np
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy
+<span class="hljs-keyword">from</span> numpy.typing <span class="hljs-keyword">import</span> ArrayLike, NDArray, DTypeLike
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span></code></pre>
 <hr>
-<pre><code class="language-python">def calculate_mean (data: ArrayLike) -&gt; float:
-    &quot;&quot;&quot;计算输入数据的平均值，数据可以是任何 ArrayLike 类型&quot;&quot;&quot;
-    return np.mean (data)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_mean</span> (data: ArrayLike) -&gt; <span class="hljs-built_in">float</span>:
+    <span class="hljs-string">&quot;&quot;&quot;计算输入数据的平均值，数据可以是任何 ArrayLike 类型&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> np.mean (data)
 
-def add_one_to_array (arr: NDArray [np.float64]) -&gt; NDArray [np.float64]:
-    &quot;&quot;&quot;向一个浮点数数组的每个元素加 1，要求输入和输出都是 np.float64 类型的数组&quot;&quot;&quot;
-    return arr + 1
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add_one_to_array</span> (arr: NDArray [np.float64]) -&gt; NDArray [np.float64]:
+    <span class="hljs-string">&quot;&quot;&quot;向一个浮点数数组的每个元素加 1，要求输入和输出都是 np.float64 类型的数组&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> arr + <span class="hljs-number">1</span>
 
-def convert_to_int (arr: NDArray, dtype: DTypeLike) -&gt; NDArray:
-    &quot;&quot;&quot;将数组转换为指定的数据类型&quot;&quot;&quot;
-    return arr.astype (dtype)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">convert_to_int</span> (arr: NDArray, dtype: DTypeLike) -&gt; NDArray:
+    <span class="hljs-string">&quot;&quot;&quot;将数组转换为指定的数据类型&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> arr.astype (dtype)</span></code></pre>
 <p>如果你是在像 vscode 这样的 IDE 中使用上述函数，你就可以看到函数的类型提示。如果传入的参数类型不对，还能在编辑期间，就得到错误提示。</p>
 <h2 id="2-拓展阅读">2. 拓展阅读</h2>
 <h3 id="21-numpy-的数据类型">2.1. Numpy 的数据类型</h3>
@@ -188,11 +180,10 @@ np.nan 是 numpy 中的一个特殊值，表示“Not a Number”，即“不是
 <p>但是，如果我们要对返回的数组进行统计，比如求均值、最大值、排序，对包含 np.nan 或者 None 的数组，应该如何处理？</p>
 <h3 id="31-包含-npnan-和-npinf-的数组运算">3.1. 包含 np.nan 和 np.inf 的数组运算</h3>
 <p>在 numpy 中，提供了对带 np.nan 的数组进行运算的支持。比如有以下数组：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-x = np.array([1, 2, 3, np.nan, 4, 5])
-print(x.mean())
-</code></pre>
+x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, np.nan, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+<span class="hljs-built_in">print</span>(x.mean())</span></code></pre>
 <hr>
 <p>我们将得到一个 nan。实际上，多数情况下，我们希望忽略掉 nan，只对有效数据进行运算，此时得到的结果，我们往往仍然认为是有意义的。</p>
 <p>因此，Numpy 提供了许多能处理包含 nan 数据的数组输入的运算函数。下面是一个完整的列表：</p>
@@ -269,15 +260,13 @@ print(x.mean())
 </tbody></table>
 <p>对 np.nan 的处理中，主要是三类，一类是传递，其结果导致最终结果也是 nan，比如，在计算方差和标准差时；一类是忽略，比如在找最小值时，忽略掉 np.nan，在余下的元素中进行运算；但在计算 cumsum 和 cumprod 时，&quot;忽略&quot;意味着在该元素的位置上，使用前值来填充。我们看一个不包含 np.inf 的示例：</p>
 <hr>
-<pre><code class="language-python">x = np.array([1, 2, 3, np.nan, 4, 5])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, np.nan, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
 np.nancumprod(x)
-np.nancumsum(x)
-</code></pre>
+np.nancumsum(x)</span></code></pre>
 <p>输出结果是：</p>
-<pre><code>array([  1.,   2.,   6.,   6.,  24., 120.])
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">array</span>([  <span class="hljs-number">1.</span>,   <span class="hljs-number">2.</span>,   <span class="hljs-number">6.</span>,   <span class="hljs-number">6.</span>,  <span class="hljs-number">24.</span>, <span class="hljs-number">120.</span>])
 
-array([ 1.,  3.,  6.,  6., 10., 15.])
-</code></pre>
+<span class="hljs-keyword">array</span>([ <span class="hljs-number">1.</span>,  <span class="hljs-number">3.</span>,  <span class="hljs-number">6.</span>,  <span class="hljs-number">6.</span>, <span class="hljs-number">10.</span>, <span class="hljs-number">15.</span>])</span></code></pre>
 <p>结果中的第 4 个元素都是由第 3 个元素复制而来的。</p>
 <p>如果一个数组中包含 inf，则在任何涉及到排序的操作（比如 max, median, quantile）中，这些元素总是被置于数组的最右侧；如果是代数运算，则结果会被传导为 inf。这些地方，Numpy 的处理方式与我们的直觉是一致的。</p>
 <p>除了上述函数，np.isnan 和 np.isinf 函数，也能处理包含 np.nan/np.inf 元素的数组。它们的作用是判断数组中的元素是否为 nan/inf，返回值是一个 bool 数组。</p>
@@ -285,23 +274,21 @@ array([ 1.,  3.,  6.,  6., 10., 15.])
 <p>在上一节中，我们介绍的函数能够处理包含 np.nan 和 np.inf 的数组。但是，在 Python 中，None 是任何类型的一个特殊值，如果一个数组包含 None 元素，我们常常仍然会期望能对它进行 sum, mean, max 等运算。但是，Numpy 并没有专门为此准备对应的函数。</p>
 <hr>
 <p>但是，我们可以通过 astype 将数组转换为 float 类型，在此过程中，所有的 None 元素都转换为 np.nan，然后就可以进行运算了。</p>
-<pre><code class="language-python">x = np.array([3,4,None,55])
-x.astype(np.float64)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">x = np.array([<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-literal">None</span>,<span class="hljs-number">55</span>])
+x.astype(np.float64)</span></code></pre>
 <p>输出为：<code>array([3., 4., nan, 55.])</code></p>
 <h3 id="33-性能提升">3.3. 性能提升</h3>
 <p>当我们调用 np.nan *函数时，它的性能会比普通的函数慢很多。因此，如果性能是我们关注的问题，我们可以使用 bottleneck 这个库中的同名函数。</p>
-<pre><code class="language-python">from bottleneck import nanstd
-import numpy as np
-import random
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">from</span> bottleneck <span class="hljs-keyword">import</span> nanstd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> random
 
-x = np.random.normal(size = 1_000_000)
-pos = random.sample(np.arange(1_000_000).tolist(), 5)
+x = np.random.normal(size = <span class="hljs-number">1_000_000</span>)
+pos = random.sample(np.arange(<span class="hljs-number">1_000_000</span>).tolist(), <span class="hljs-number">5</span>)
 x[pos] = np.nan
 
 %timeit nanstd(x)
-%timeit np.nanstd(x)
-</code></pre>
+%timeit np.nanstd(x)</span></code></pre>
 <hr>
 <p>我们担心数组中 np.nan 元素个数会影响到性能，所以，在上面的示例中，在随机生成数组时，我们只生成了 5 个元素。在随后的一次测试中，我们把 nan 元素的个数增加了 10 倍。实验证明，nan 元素的个数对性能没有什么影响。在所有的测试中，bottlenect 的性能比 Numpy 都要快一倍。</p>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>

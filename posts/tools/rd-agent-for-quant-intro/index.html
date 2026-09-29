@@ -20,8 +20,7 @@
 <h2 id="二rd-agent-是什么">二、RD-Agent 是什么</h2>
 <p>从本质上讲，RD-Agent 是一个**&quot;用 AI 驱动数据驱动型 AI&quot;**的自动化研发框架。它不做&quot;端到端黑盒交易&quot;，而是聚焦于量化投研中最耗人力的环节——<strong>因子挖掘、模型优化、代码实现</strong>——并通过多智能体协作将这些环节自动化。</p>
 <p>项目完全开源（MIT 协议），基于 Python 开发，深度集成了微软自家的 AI 量化平台 QLib。你可以在 GitHub（microsoft/RD-Agent）上找到完整代码，也可以通过 PyPI 一键安装：</p>
-<pre><code class="language-bash">pip install rdagent
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install rdagent</span></code></pre>
 <h2 id="三四大智能体协同工作">三、四大智能体协同工作</h2>
 <p>RD-Agent(Q) 的核心是一支由四个 LLM 智能体组成的&quot;虚拟投研团队&quot;，每个 Agent 各司其职，又通过闭环反馈持续迭代：</p>
 <table>
@@ -76,16 +75,13 @@
 <h2 id="六三大应用场景">六、三大应用场景</h2>
 <p>RD-Agent(Q) 目前主要支持以下三大量化投研场景：</p>
 <p><strong>场景一：因子自动挖掘与迭代</strong></p>
-<pre><code class="language-bash">rdagent fin_factor
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">rdagent fin_factor</span></code></pre>
 <p>系统自动在历史数据上提出新因子假设，结合回测验证，通过强化学习筛选高收益因子，持续迭代优化。</p>
 <p><strong>场景二：从研报/财报中自动提取因子</strong></p>
-<pre><code class="language-bash">rdagent fin_factor_report --report-folder=&lt;你的财报目录&gt;
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">rdagent fin_factor_report --report-folder=&lt;你的财报目录&gt;</span></code></pre>
 <p>自动解析非结构化文本（如金融研报、公司财报），提取关键信息并转化为可计算的结构化因子。这对于事件驱动型策略尤为有价值。</p>
 <p><strong>场景三：因子-模型联合进化</strong></p>
-<pre><code class="language-bash">rdagent fin_quant
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">rdagent fin_quant</span></code></pre>
 <p>这是 RD-Agent(Q) 的王牌功能。系统通过调度 Agent 动态决策当前应优先优化因子还是模型，实现&quot;因子-模型&quot;的协同进化。实验表明，这种联合优化策略比单独优化因子或模型效果更好。</p>
 <h2 id="七与-qlib-的深度协同">七、与 QLib 的深度协同</h2>
 <p>RD-Agent(Q) 并非从零开始构建所有基础设施，而是站在巨人的肩膀上——微软另一明星开源项目 <strong>QLib</strong>。</p>
@@ -102,28 +98,27 @@
 </ul>
 <p>首次运行会自动拉取并构建 QLib 的 Docker 镜像（基于 PyTorch CUDA runtime），在无镜像加速的环境下可能需要 10-20 分钟，请耐心等待。</p>
 <h3 id="安装步骤">安装步骤</h3>
-<pre><code class="language-bash"># 1. 环境准备（Python 3.10 或 3.11）
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-comment"># 1. 环境准备（Python 3.10 或 3.11）</span>
 conda create -n rdagent python=3.10
 conda activate rdagent
 pip install rdagent
 
-# 2. 配置 LLM 后端
-# RD-Agent 通过 LiteLLM 支持多种 LLM 提供商。以 OpenAI 为例：
-cat &lt;&lt; EOF &gt; .env
+<span class="hljs-comment"># 2. 配置 LLM 后端</span>
+<span class="hljs-comment"># RD-Agent 通过 LiteLLM 支持多种 LLM 提供商。以 OpenAI 为例：</span>
+<span class="hljs-built_in">cat</span> &lt;&lt; <span class="hljs-string">EOF &gt; .env
 CHAT_MODEL=gpt-4o
 EMBEDDING_MODEL=text-embedding-3-small
 OPENAI_API_KEY=&lt;你的 API Key&gt;
-EOF
+EOF</span>
 
-# 也支持 Azure OpenAI、DeepSeek、SiliconFlow 等多种后端。
-# 注意：系统需要 ChatCompletion + json_mode + embedding query 三种能力同时可用。
+<span class="hljs-comment"># 也支持 Azure OpenAI、DeepSeek、SiliconFlow 等多种后端。</span>
+<span class="hljs-comment"># 注意：系统需要 ChatCompletion + json_mode + embedding query 三种能力同时可用。</span>
 
-# 3. 健康检查
-rdagent health_check
-</code></pre>
+<span class="hljs-comment"># 3. 健康检查</span>
+rdagent health_check</span></code></pre>
 <p><strong>关于 LiteLLM：</strong> RD-Agent 默认通过 LiteLLM 调用大模型，但 LiteLLM 已经作为依赖自动安装（<code>pip install rdagent</code> 时会一并安装），<strong>你不需要单独学习或配置 LiteLLM</strong>。LiteLLM 的作用是在内部帮你适配不同厂商的 API 格式，对外你只需要填写模型名和 API 密钥即可。</p>
 <p>如果你有单一的 OpenAI 兼容 API，上面那段配置已经足够。如果聊天模型和嵌入模型使用不同的 API 端点，可以分开配置：</p>
-<pre><code class="language-bash">cat &lt;&lt; EOF &gt; .env
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-built_in">cat</span> &lt;&lt; <span class="hljs-string">EOF &gt; .env
 CHAT_MODEL=gpt-4o
 CHAT_OPENAI_API_KEY=sk-xxx
 CHAT_OPENAI_BASE_URL=https://chat-api.example.com/v1
@@ -131,29 +126,26 @@ CHAT_OPENAI_BASE_URL=https://chat-api.example.com/v1
 EMBEDDING_MODEL=text-embedding-3-small
 EMBEDDING_OPENAI_API_KEY=sk-yyy
 EMBEDDING_OPENAI_BASE_URL=https://embedding-api.example.com/v1
-EOF
-</code></pre>
+EOF</span></span></code></pre>
 <p>如果你的模型包含思维链（如 DeepSeek-R1 的 <code>&lt;think&gt;</code> 标签），记得加上 <code>REASONING_THINK_RM=True</code>。</p>
 <h3 id="数据来源永远是问题">数据来源永远是问题</h3>
 <p><strong>这是最容易踩坑的地方。</strong> RD-Agent 的量化回测建立在 QLib 数据之上，但 QLib 的<strong>官方数据集因数据安全政策已被临时禁用</strong>。项目文档对此的说明并不够显眼（社区 issue #1335 也反映了这个问题）。</p>
 <p>目前需要使用<strong>社区维护的数据源</strong>：</p>
-<pre><code class="language-bash"># 下载社区版 A 股日频数据（由 chenditc 维护）
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 下载社区版 A 股日频数据（由 chenditc 维护）</span>
 wget https://github.com/chenditc/investment_data/releases/latest/download/qlib_bin.tar.gz
-tar -xzf qlib_bin.tar.gz -C ~/.qlib/qlib_data/
-</code></pre>
+tar -xzf qlib_bin.tar.gz -C ~/.qlib/qlib_data/</span></code></pre>
 <p>原始数据来源于 Yahoo Finance，质量并不完美，仅供实验和研究使用。如果你有更高质量的数据源（如 Wind、聚宽、Tushare Pro），可以自行导入 QLib 的数据格式。对于机构用户来说，用自己内部的清洗数据替换默认数据源，是更合理的做法。</p>
 <p>所以，如果，对于没有编程和量化基础的同学，这并不是一个无脑入的项目。</p>
 <h3 id="运行量化场景">运行量化场景</h3>
 <p>数据就绪后，即可启动 Agent：</p>
-<pre><code class="language-bash"># 因子自动迭代
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 因子自动迭代</span>
 rdagent fin_factor
 
-# 因子-模型联合进化
+<span class="hljs-comment"># 因子-模型联合进化</span>
 rdagent fin_quant
 
-# 从研报提取因子
-rdagent fin_factor_report --report-folder=./reports
-</code></pre>
+<span class="hljs-comment"># 从研报提取因子</span>
+rdagent fin_factor_report --report-folder=./reports</span></code></pre>
 <p>运行过程中，系统会自动生成可视化报告，包括因子有效性热力图、回测收益曲线等，方便人工复核。此外，项目还提供了 Web UI（<code>rdagent server_ui</code>），可以实时查看 Agent 的运行状态和迭代轨迹。</p>
 <h3 id="其他重要注意事项">其他重要注意事项</h3>
 <p><strong>数据泄露与过拟合风险。</strong> 社区已有用户提出质疑（issue #1387）：系统使用回测结果作为下一轮迭代的反馈依据，是否会导致对测试集的隐式过拟合？这是一个值得警惕的问题。建议将 RD-Agent 产出的因子先在样本外时段做独立验证，再纳入实盘考虑。</p>

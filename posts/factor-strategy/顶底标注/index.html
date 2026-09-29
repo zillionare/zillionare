@@ -54,81 +54,74 @@
 </div>
 
 <p>为了在 notebook 中使用界面元素，我们需要先导入相关的控件：</p>
-<pre><code class="language-python">from ipywidgets import Button, HBox, VBox, Textarea, Layout,Output, Box
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> ipywidgets <span class="hljs-keyword">import</span> Button, HBox, VBox, Textarea, Layout,Output, Box
 
-from IPython.display import display
-</code></pre>
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> display</span></code></pre>
 <p>在一个单元格中，如果最后的输出是一个对象，那么 notebook 将会直接显示这个对象。如果我们要在一个单元格中显示多个对象，或者，在中间的代码中要显示一些对象，就需要用到 display 这个方法。这是我们上面代码引入 display 的原因。</p>
 <p>这里我们引入了 HBox, VBox 和 Box 三个容器类控件，Button, TextArea 这样的功能性控件。</p>
 <hr>
 <p>Layout 用来指定控件的样式，比如要指定一个峰值时刻输入框的宽度和高度：</p>
-<pre><code class="language-python">peaks_box = Textarea(
-    value=&#39;&#39;,
-    placeholder=&#39;请输入峰值时间，每行一个&#39;,
-    description=&#39;峰值时间&#39;,
-    layout=Layout(width=&#39;40%&#39;,height=&#39;100px&#39;)
-)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">peaks_box = Textarea(
+    value=<span class="hljs-string">&#x27;&#x27;</span>,
+    placeholder=<span class="hljs-string">&#x27;请输入峰值时间，每行一个&#x27;</span>,
+    description=<span class="hljs-string">&#x27;峰值时间&#x27;</span>,
+    layout=Layout(width=<span class="hljs-string">&#x27;40%&#x27;</span>,height=<span class="hljs-string">&#x27;100px&#x27;</span>)
+)</span></code></pre>
 <p>按钮类控件一般需要指定点击时执行的动作，我们通过 on_click 方法，将点击事件和一个事件处理方法相绑定：</p>
-<pre><code class="language-python">save_button = Button(
-    description=&#39;存盘&#39;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">save_button = Button(
+    description=<span class="hljs-string">&#x27;存盘&#x27;</span>
 )
 save_button.on_click(save)
 
-def save(c):
-    # SAVE DATA TO DISK
-    pass
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">save</span>(<span class="hljs-params">c</span>):
+    <span class="hljs-comment"># SAVE DATA TO DISK</span>
+    <span class="hljs-keyword">pass</span></span></code></pre>
 <p>这里要注意的是，事件响应函数（比如这里的 save），在函数签名上一定要带一个参数。否则，当按钮被点击时，事件就无法传导到这个函数中来，并且不会有任何错误提示。</p>
 <p>HBox, VBox 用来将子控件按行、列进行排列。比如：</p>
-<pre><code class="language-python"># K 线图的父容器
-figbox = Box(layout=Layout(width=&quot;100%&quot;))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># K 线图的父容器</span>
+figbox = Box(layout=Layout(width=<span class="hljs-string">&quot;100%&quot;</span>))
 inputs = HBox((peaks_box, valleys_box))
 buttons = HBox((backward_button, keep_button, save_button, info))
-display(VBox((buttons, inputs, figbox)))
-</code></pre>
+display(VBox((buttons, inputs, figbox)))</span></code></pre>
 <hr>
 <p>Output 控件是比较特殊的一个控件。如果我们在事件响应函数中进行了打印，这些打印是无法像其它单元格中的打印那样，直接输出在单元格下方的。我们必须定义一个 Output 控制，打印的消息将会捕获，并显示在 Output 控件的显示区域中。</p>
-<pre><code class="language-python">info = Output(layout=Layout(width=&quot;40%&quot;))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">info = Output(layout=Layout(width=<span class="hljs-string">&quot;40%&quot;</span>))
 
-def save(c):
-    global info
-    # DO THE SAVE JOB
-    with info:
-        print(&quot;数据已保存到磁盘！&quot;)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">save</span>(<span class="hljs-params">c</span>):
+    <span class="hljs-keyword">global</span> info
+    <span class="hljs-comment"># DO THE SAVE JOB</span>
+    <span class="hljs-keyword">with</span> info:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;数据已保存到磁盘！&quot;</span>)</span></code></pre>
 <p>与此类似，plotly 绘制的 k 线图，也不能直接显示。我们要通过 go.FigureWidget 来显示 k 线图。</p>
-<pre><code class="language-python">import plotly.graph_objects as go
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> plotly.graph_objects <span class="hljs-keyword">as</span> go
 
-figure = ... # draw the candlestick with bars
+figure = ... <span class="hljs-comment"># draw the candlestick with bars</span>
 fig = go.FigureWidget(figure)
-figbox.children = (fig, )
-</code></pre>
+figbox.children = (fig, )</span></code></pre>
 <p>我们特别给出这段代码，是要展示更换 k 线图的方法。在初始化时，我们就必须把 figbox 与其它控件一起安排好，但如何更新 figbox 的内容呢？</p>
 <p>答案是，让 figbox 成为一个容器，而 go.FigureWidget 成为它的一个子控件。每次要更新 k 线图时，我们生成一个新的 fig 对象，通过<code>figbox.children = (fig, )</code>来替换它。</p>
 <hr>
 <p>最后，谈一点 troubleshooting 的方法。所有通过 on_click 方法绑定的事件函数，即使在运行中出了错，也不会有任何提示。因此，我们需要自己捕获错误，再通过 Output 控件来显示错误堆栈：</p>
-<pre><code class="language-python">def log(msg):
-    global info
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">msg</span>):
+    <span class="hljs-keyword">global</span> info
 
     info.clear_output()
-    with info:
-        if isinstance(msg, Exception):
+    <span class="hljs-keyword">with</span> info:
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(msg, Exception):
             traceback.print_exc(msg)
-        else:
-            print(msg)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-built_in">print</span>(msg)
 
-def on_save(b):
-    try:
-        # DO SOMETHING MAY CAUSE CHAOS
-        raise ValueError()
-    except Exception as e:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">on_save</span>(<span class="hljs-params">b</span>):
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-comment"># DO SOMETHING MAY CAUSE CHAOS</span>
+        <span class="hljs-keyword">raise</span> ValueError()
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
         log(e)
 
 info = Output(layout = Layout(...))
 save_button = Button()
-save_button.on_click(on_save)
-</code></pre>
+save_button.on_click(on_save)</span></code></pre>
 <p>利用这款工具，大概花了两小时，最终我得到了2万条数据，其中顶底标签约1600个。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/factor-strategy/跟着国会山股神去炒股/">← 上一篇：Political Alpha，跟着国会山股神去炒股</a> <span></span> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 13/96 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/lof套利怎么做/">← LOF套利怎么做：场内外溢价套利定价</a> <a href="/posts/python/awesome-code/">只廖廖数行，但很惊艳的代码 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/factor-ml/intro/">课程简介</a> <p>《因子分析与机器学习策略》简介 这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。</p> </li><li> <a href="/articles/investment/量化库/数据持久化/数据持久化/">量化数据的持久化方案</a> <p>回测需要较长周期的数据。无论我们使用哪一家数据源，都不可能让我们跨网络、反复多次传输大量数据，还要保证低延时。此外，我们在量化研究的过程中，也会逐步积累自己的因子库。这些因子数据，</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#应该如何标注数据" title="应该如何标注数据">应该如何标注数据</a> </li><li class> <a href="#顶底数据的标注" title="顶底数据的标注">顶底数据的标注</a> </li><li class> <a href="#标注工具构建方法" title="标注工具构建方法">标注工具构建方法</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

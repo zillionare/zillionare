@@ -23,70 +23,62 @@
 <p>几乎每一个使用过Jupyter Notebook的人，都会注意到它的魔法(magic)功能。具体来说，它是一些适用于整个单元格、或者某一行的魔术指令。</p>
 <p>比如，我们常常会好奇，究竟是pandas的刀快，还是numpy的剑更利。在量化中，我们常常需要寻找一组数据的某个分位数。在numpy中，有percentile方法，quantile则是她的pandas堂姊妹。要不，我们就让这俩姐妹比一比身手好了。有一个叫timeit的魔法，就能完成这任务。</p>
 <p>不过，我们先得确定她们是否真有可比性。</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-array = np.random.normal(size=1_000_000)
+array = np.random.normal(size=<span class="hljs-number">1_000_000</span>)
 series = pd.Series(array)
 
-print(np.percentile(array, 95))
-series.quantile(0.95)
-</code></pre>
+<span class="hljs-built_in">print</span>(np.percentile(array, <span class="hljs-number">95</span>))
+series.quantile(<span class="hljs-number">0.95</span>)</span></code></pre>
 <p>两次输出的结果都是一样，说明这两个函数确实是有可比性的。</p>
 <p>在上面的示例中，要显示两个对象的值，我们只对前一个使用了print函数，后一个则省略掉了。这是notebook的一个功能，它会默认地显示单元格最后输出的对象值。这个功能很不错，要是把这个语法扩展到所有的行就更好了。</p>
 <hr>
 <p>不用对神灯许愿，这个功能已经有了！只要进行下面的设置：</p>
-<pre><code class="language-python">from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = &quot;all&quot;
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">from</span> IPython.core.interactiveshell <span class="hljs-keyword">import</span> InteractiveShell
+InteractiveShell.ast_node_interactivity = <span class="hljs-string">&quot;all&quot;</span></span></code></pre>
 <p>在一个单独的单元格里，运行上面的代码，之后，我们就可以省掉print:</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-array = np.random.normal(size=1_000_000)
+array = np.random.normal(size=<span class="hljs-number">1_000_000</span>)
 series = pd.Series(array)
 
-# 这一行会输出一个浮点数
-np.percentile(array, 95)
+<span class="hljs-comment"># 这一行会输出一个浮点数</span>
+np.percentile(array, <span class="hljs-number">95</span>)
 
-# 这一行也会输出一个浮点数
-series.quantile(0.95)
-</code></pre>
+<span class="hljs-comment"># 这一行也会输出一个浮点数</span>
+series.quantile(<span class="hljs-number">0.95</span>)</span></code></pre>
 <p>这将显示出两行一样的数值。这是今天的第一个魔法。</p>
 <p>现在，我们就来看看，在百万数据中探囊取物，谁的身手更快一点？</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-array = np.random.normal(size=1_000_000)
+array = np.random.normal(size=<span class="hljs-number">1_000_000</span>)
 series = pd.Series(array)
 
-%timeit np.percentile(array, 95)
-%timeit series.quantile(0.95)
-</code></pre>
+%timeit np.percentile(array, <span class="hljs-number">95</span>)
+%timeit series.quantile(<span class="hljs-number">0.95</span>)</span></code></pre>
 <hr>
 <p>我们使用%timeit来测量函数的运行时间。其输出结果是：</p>
-<pre><code>26.7 ms ± 5.67 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
-21.6 ms ± 837 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-number">26.7</span> ms ± <span class="hljs-number">5.67</span> ms <span class="hljs-keyword">per</span> loop (mean ± std. dev. <span class="hljs-keyword">of</span> <span class="hljs-number">7</span> runs, <span class="hljs-number">10</span> loops <span class="hljs-keyword">each</span>)
+<span class="hljs-number">21.6</span> ms ± <span class="hljs-number">837</span> µs <span class="hljs-keyword">per</span> loop (mean ± std. dev. <span class="hljs-keyword">of</span> <span class="hljs-number">7</span> runs, <span class="hljs-number">10</span> loops <span class="hljs-keyword">each</span>)</span></code></pre>
 <p>看起来pandas更快啊。而且它的性能表现上更稳定，标准差只有numpy的1/7。mean±std什么的，量化人最熟悉是什么意思了。</p>
 <p>这里的timeit，就是jupyter支持的魔法函数之一。又比如，在上面打印出来的分位数，有16位小数之多，真是看不过来啊。能不能只显示3位呢？当然有很多种方法做到这一点，比如，我们可以用f-str语法：</p>
-<pre><code class="language-python">f&quot;{np.percentile(array, 95):.3f}&quot;
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-string">f&quot;<span class="hljs-subst">{np.percentile(array, <span class="hljs-number">95</span>):<span class="hljs-number">.3</span>f}</span>&quot;</span></span></code></pre>
 <p>啰哩啰嗦的，说好要Pythonic的呢?不如试试这个魔法吧：</p>
-<pre><code class="language-python">%precision 3
-np.percentile(array, 95)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">%precision <span class="hljs-number">3</span>
+np.percentile(array, <span class="hljs-number">95</span>)</span></code></pre>
 <p>之后每一次输出浮点数，都只有3位小数了，是不是很赞？</p>
 <p>如果我们在使用一个第三方的库，看了文档，觉得它还没说明白，想看它的源码，怎么办?可以用psource魔法：</p>
-<pre><code class="language-python">from omicron import tf
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> omicron <span class="hljs-keyword">import</span> tf
 
-%psource tf.int2time
-</code></pre>
+%psource tf.int2time</span></code></pre>
 <p>这会显示tf.int2time函数的源代码：</p>
 <hr>
-<pre><code class="language-python">    @classmethod
-    def int2time(cls, tm: int) -&gt; datetime.datetime:
-        &quot;&quot;&quot;将整数表示的时间转换为`datetime`类型表示
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-meta">    @classmethod</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">int2time</span>(<span class="hljs-params">cls, tm: <span class="hljs-built_in">int</span></span>) -&gt; datetime.datetime:
+        <span class="hljs-string">&quot;&quot;&quot;将整数表示的时间转换为`datetime`类型表示
 
         examples:
             &gt;&gt;&gt; TimeFrame.int2time(202005011500)
@@ -97,35 +89,32 @@ np.percentile(array, 95)
 
         Returns:
             转换后的时间
-        &quot;&quot;&quot;
-        s = str(tm)
-        # its 8 times faster than arrow.get()
-        return datetime.datetime(
-            int(s[:4]), int(s[4:6]), int(s[6:8]), int(s[8:10]), int(s[10:12])
-        )
-</code></pre>
+        &quot;&quot;&quot;</span>
+        s = <span class="hljs-built_in">str</span>(tm)
+        <span class="hljs-comment"># its 8 times faster than arrow.get()</span>
+        <span class="hljs-keyword">return</span> datetime.datetime(
+            <span class="hljs-built_in">int</span>(s[:<span class="hljs-number">4</span>]), <span class="hljs-built_in">int</span>(s[<span class="hljs-number">4</span>:<span class="hljs-number">6</span>]), <span class="hljs-built_in">int</span>(s[<span class="hljs-number">6</span>:<span class="hljs-number">8</span>]), <span class="hljs-built_in">int</span>(s[<span class="hljs-number">8</span>:<span class="hljs-number">10</span>]), <span class="hljs-built_in">int</span>(s[<span class="hljs-number">10</span>:<span class="hljs-number">12</span>])
+        )</span></code></pre>
 <p>看起来Zillionare-omicron的代码，文档还是写得很不错的。能和numpy一样，在代码中包括示例，并且示例能通过doctest的量化库，应该不多。</p>
 <p>Jupyter的魔法很多，记不住怎么办？这里有两个魔法可以用。一是%lsmagic：</p>
-<pre><code class="language-python">%lsmagic
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">%lsmagic</span></code></pre>
 <p>这会显示为：</p>
 <hr>
 <p>确实太多魔法了！不过，很多命令是操作系统命令的一部分。另一个同样性质的魔法指令是%quickref，它的输出大致如下：</p>
-<pre><code class="language-text">IPython -- An enhanced Interactive Python - Quick Reference Card
+<pre><code class="hljs language-text"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">IPython -- An enhanced Interactive Python - Quick Reference Card
 ================================================================
 
 obj?, obj??      : Get help, or more help for object (also works as
                    ?obj, ??obj).
-?foo.*abc*       : List names in &#39;foo&#39; containing &#39;abc&#39; in them.
-%magic           : Information about IPython&#39;s &#39;magic&#39; % functions.
+?foo.*abc*       : List names in &#x27;foo&#x27; containing &#x27;abc&#x27; in them.
+%magic           : Information about IPython&#x27;s &#x27;magic&#x27; % functions.
 
 Magic functions are prefixed by % or %%, and typically take their arguments
 without parentheses, quotes or even commas for convenience.  Line magics take a
 single % and cell magics are prefixed with two %%.
 
 Example magic function calls:
-...
-</code></pre>
+...</span></code></pre>
 <hr>
 <p>输出内容大约有几百行，一点也不quick!</p>
 <h2 id="2-在vscode中使用jupyter">2. 在vscode中使用jupyter</h2>

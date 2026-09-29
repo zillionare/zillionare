@@ -46,29 +46,28 @@
 <p>由于本策略使用的数据品种过多，数据清理过程复杂，要变换时间区间进行回测，最好有完善的数据获取框架支持。在这篇文章里，我们暂时就不进一步拓展了。</p>
 <p>按照 Moonshot 回测框架的思路，我们要先获取行情数据，构建 Moonshot 实例:</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">import sys
-sys.path.append(str(Path(&quot;.&quot;).parent))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">import</span> sys
+sys.path.append(<span class="hljs-built_in">str</span>(Path(<span class="hljs-string">&quot;.&quot;</span>).parent))
 
-import tushare as ts
-from helper import qfq_adjustment
-from fetchers import fetch_bars
-from store import ParquetUnifiedStorage, CalendarModel
-from moonshot import Moonshot
+<span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
+<span class="hljs-keyword">from</span> helper <span class="hljs-keyword">import</span> qfq_adjustment
+<span class="hljs-keyword">from</span> fetchers <span class="hljs-keyword">import</span> fetch_bars
+<span class="hljs-keyword">from</span> store <span class="hljs-keyword">import</span> ParquetUnifiedStorage, CalendarModel
+<span class="hljs-keyword">from</span> moonshot <span class="hljs-keyword">import</span> Moonshot
 
-# get candles data
-start = datetime.date(2018, 11, 30)
-end = datetime.date(2023, 11, 30)
+<span class="hljs-comment"># get candles data</span>
+start = datetime.date(<span class="hljs-number">2018</span>, <span class="hljs-number">11</span>, <span class="hljs-number">30</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">11</span>, <span class="hljs-number">30</span>)
 
-calendar= CalendarModel(data_home/&quot;rw/calendar.parquet&quot;)
+calendar= CalendarModel(data_home/<span class="hljs-string">&quot;rw/calendar.parquet&quot;</span>)
 
-store_path = data_home / &quot;rw/bars.parquet&quot;
+store_path = data_home / <span class="hljs-string">&quot;rw/bars.parquet&quot;</span>
 
 bars_store = ParquetUnifiedStorage(store_path, calendar, fetch_data_func=fetch_bars)
 barss = bars_store.get_and_fetch(start, end)
 
-barss = qfq_adjustment(barss, &quot;adj_factor&quot;)
-barss.tail()
-</code></pre>
+barss = qfq_adjustment(barss, <span class="hljs-string">&quot;adj_factor&quot;</span>)
+barss.tail()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -76,82 +75,81 @@ barss.tail()
 <!-- END IPYNB STRIPOUT -->
 
 <p>接下来，我们就实例化 Moonshot 并且加入因子：</p>
-<pre><code class="language-python">ms = Moonshot(barss)
-# ADD FACTORS
-daily_basic_after = pd.read_parquet(data_home / &quot;rw/moonshot/daily_after.parquet&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span></span><span class="cl-body">ms = Moonshot(barss)
+<span class="hljs-comment"># ADD FACTORS</span>
+daily_basic_after = pd.read_parquet(data_home / <span class="hljs-string">&quot;rw/moonshot/daily_after.parquet&quot;</span>)
 ms.append_factor(
-    daily_basic_after, &quot;total_mv&quot;, resample_method=&quot;last&quot;
+    daily_basic_after, <span class="hljs-string">&quot;total_mv&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>
 )
 ms.append_factor(
-    daily_basic_after, &quot;dv_ttm&quot;, resample_method=&quot;last&quot;
-)
-ms.append_factor(
-    daily_basic_after,
-    &quot;dividend_yield_2y_avg&quot;,
-    resample_method=&quot;last&quot;,
+    daily_basic_after, <span class="hljs-string">&quot;dv_ttm&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>
 )
 ms.append_factor(
     daily_basic_after,
-    &quot;dividend_yield_2y_avg_noffill&quot;,
-    resample_method=&quot;last&quot;,
+    <span class="hljs-string">&quot;dividend_yield_2y_avg&quot;</span>,
+    resample_method=<span class="hljs-string">&quot;last&quot;</span>,
+)
+ms.append_factor(
+    daily_basic_after,
+    <span class="hljs-string">&quot;dividend_yield_2y_avg_noffill&quot;</span>,
+    resample_method=<span class="hljs-string">&quot;last&quot;</span>,
 )
 
 ms.append_factor(
-    daily_basic_after, &quot;DPR&quot;, resample_method=&quot;last&quot;
+    daily_basic_after, <span class="hljs-string">&quot;DPR&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>
 )
 ms.append_factor(
     daily_basic_after,
-    &quot;turnover_rate_f_std&quot;,
-    resample_method=&quot;last&quot;,
+    <span class="hljs-string">&quot;turnover_rate_f_std&quot;</span>,
+    resample_method=<span class="hljs-string">&quot;last&quot;</span>,
 )
 ms.append_factor(
     daily_basic_after,
-    &quot;inv_pe_ttm_zscore_5y&quot;,
-    resample_method=&quot;last&quot;,
+    <span class="hljs-string">&quot;inv_pe_ttm_zscore_5y&quot;</span>,
+    resample_method=<span class="hljs-string">&quot;last&quot;</span>,
 )
 ms.append_factor(
     daily_basic_after,
-    &quot;dividend_ttm_increase_1M&quot;,
-    resample_method=&quot;last&quot;,
+    <span class="hljs-string">&quot;dividend_ttm_increase_1M&quot;</span>,
+    resample_method=<span class="hljs-string">&quot;last&quot;</span>,
 )
 
-# ADD HOLDERS
-holder = pd.read_parquet(data_home / &quot;rw/moonshot/holder_zscore_4y.parquet&quot;)
-holder.rename(columns={&quot;ts_code&quot;: &quot;asset&quot;}, inplace=True)
-ms.append_factor(holder, &quot;holder_z_score&quot;, resample_method=&quot;last&quot;)
+<span class="hljs-comment"># ADD HOLDERS</span>
+holder = pd.read_parquet(data_home / <span class="hljs-string">&quot;rw/moonshot/holder_zscore_4y.parquet&quot;</span>)
+holder.rename(columns={<span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>}, inplace=<span class="hljs-literal">True</span>)
+ms.append_factor(holder, <span class="hljs-string">&quot;holder_z_score&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
 
-# ADD AUDIT
-final_audit_df = pd.read_parquet(data_home / &quot;rw/moonshot/audit_reserve.parquet&quot;)
-final_audit_df.rename(columns={&quot;ts_code&quot;: &quot;asset&quot;}, inplace=True)
-ms.append_factor(final_audit_df, &quot;has_audit_reserve&quot;, resample_method=&quot;last&quot;)
+<span class="hljs-comment"># ADD AUDIT</span>
+final_audit_df = pd.read_parquet(data_home / <span class="hljs-string">&quot;rw/moonshot/audit_reserve.parquet&quot;</span>)
+final_audit_df.rename(columns={<span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>}, inplace=<span class="hljs-literal">True</span>)
+ms.append_factor(final_audit_df, <span class="hljs-string">&quot;has_audit_reserve&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
 
-# ADD CASHFLOW, INCOME, BALANCE SHEET
-n_cashflow_act = pd.read_parquet(data_home / &quot;rw/moonshot/n_cashflow_act.parquet&quot;)
-ms.append_factor(n_cashflow_act, &quot;n_cashflow_act&quot;, resample_method=&quot;last&quot;)
-income_8q_zscore = pd.read_parquet(data_home / &quot;rw/moonshot/income_8q_zscore.parquet&quot;)
-income_8q_zscore.rename(columns={&quot;ts_code&quot;: &quot;asset&quot;}, inplace=True)
-ms.append_factor(income_8q_zscore, &quot;profit_z_score&quot;, resample_method=&quot;last&quot;)
+<span class="hljs-comment"># ADD CASHFLOW, INCOME, BALANCE SHEET</span>
+n_cashflow_act = pd.read_parquet(data_home / <span class="hljs-string">&quot;rw/moonshot/n_cashflow_act.parquet&quot;</span>)
+ms.append_factor(n_cashflow_act, <span class="hljs-string">&quot;n_cashflow_act&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
+income_8q_zscore = pd.read_parquet(data_home / <span class="hljs-string">&quot;rw/moonshot/income_8q_zscore.parquet&quot;</span>)
+income_8q_zscore.rename(columns={<span class="hljs-string">&quot;ts_code&quot;</span>: <span class="hljs-string">&quot;asset&quot;</span>}, inplace=<span class="hljs-literal">True</span>)
+ms.append_factor(income_8q_zscore, <span class="hljs-string">&quot;profit_z_score&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
 balancesheet_asset_profit = pd.read_parquet(
-    data_home / &quot;rw/moonshot/assets_undistr_profit.parquet&quot;
+    data_home / <span class="hljs-string">&quot;rw/moonshot/assets_undistr_profit.parquet&quot;</span>
 )
-ms.append_factor(balancesheet_asset_profit, &quot;undistr_porfit&quot;, resample_method=&quot;last&quot;)
-ms.append_factor(balancesheet_asset_profit, &quot;total_assets&quot;, resample_method=&quot;last&quot;)
-</code></pre>
+ms.append_factor(balancesheet_asset_profit, <span class="hljs-string">&quot;undistr_porfit&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
+ms.append_factor(balancesheet_asset_profit, <span class="hljs-string">&quot;total_assets&quot;</span>, resample_method=<span class="hljs-string">&quot;last&quot;</span>)
+</span></code></pre>
 <p>上述过程中，会引入空值，或者本来就存在空值。在回测之前，我们还要进行数据填充：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">ms.data.sort_index(level=[&#39;month&#39;, &#39;asset&#39;], inplace=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body">ms.data.sort_index(level=[<span class="hljs-string">&#x27;month&#x27;</span>, <span class="hljs-string">&#x27;asset&#x27;</span>], inplace=<span class="hljs-literal">True</span>)
 
-cols_to_ffill = [&#39;total_mv&#39;, &#39;dv_ttm&#39;, &#39;dividend_yield_2y_avg&#39;, &#39;DPR&#39;, &#39;turnover_rate_f_std&#39;,
-       &#39;inv_pe_ttm_zscore_5y&#39;, &#39;dividend_ttm_increase_1M&#39;, &#39;holder_z_score&#39;,
-       &#39;has_audit_reserve&#39;, &#39;n_cashflow_act&#39;, &#39;profit_z_score&#39;,
-       &#39;undistr_porfit&#39;, &#39;total_assets&#39;]
+cols_to_ffill = [<span class="hljs-string">&#x27;total_mv&#x27;</span>, <span class="hljs-string">&#x27;dv_ttm&#x27;</span>, <span class="hljs-string">&#x27;dividend_yield_2y_avg&#x27;</span>, <span class="hljs-string">&#x27;DPR&#x27;</span>, <span class="hljs-string">&#x27;turnover_rate_f_std&#x27;</span>,
+       <span class="hljs-string">&#x27;inv_pe_ttm_zscore_5y&#x27;</span>, <span class="hljs-string">&#x27;dividend_ttm_increase_1M&#x27;</span>, <span class="hljs-string">&#x27;holder_z_score&#x27;</span>,
+       <span class="hljs-string">&#x27;has_audit_reserve&#x27;</span>, <span class="hljs-string">&#x27;n_cashflow_act&#x27;</span>, <span class="hljs-string">&#x27;profit_z_score&#x27;</span>,
+       <span class="hljs-string">&#x27;undistr_porfit&#x27;</span>, <span class="hljs-string">&#x27;total_assets&#x27;</span>]
 
-# 在每个 asset 内按时间（month）前向填充
+<span class="hljs-comment"># 在每个 asset 内按时间（month）前向填充</span>
 ms.data[cols_to_ffill] = (
-    ms.data.groupby(level=&#39;asset&#39;)[cols_to_ffill]
+    ms.data.groupby(level=<span class="hljs-string">&#x27;asset&#x27;</span>)[cols_to_ffill]
            .ffill()
-)
-</code></pre>
+)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>接下来，我们按策略要求，先构建股票池，一共有4个条件：</p>
@@ -161,20 +159,19 @@ ms.data[cols_to_ffill] = (
 <li>过去十年没有审计意见。</li>
 <li>市值大于50亿。</li>
 </ol>
-<pre><code class="language-python">def stock_pool_filter(data: pd.DataFrame) -&gt; pd.Series:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">stock_pool_filter</span>(<span class="hljs-params">data: pd.DataFrame</span>) -&gt; pd.Series:
    
     df = data.copy()
     
-    # 股息率前 500 名
-    dv_rank = df.groupby(level=&quot;month&quot;)[&#39;dv_ttm&#39;].transform(lambda x: x.rank(method=&#39;first&#39;, ascending=False))
-    cond1 = dv_rank &lt;= 500
-    cond2 = df[&#39;dividend_yield_2y_avg_noffill&#39;] &gt; 0 # 连续两年有分红
-    cond3 = df[&#39;has_audit_reserve&#39;] == False # 无审计保留意见
-    cond4 = df[&#39;total_mv&#39;] &gt;= 500000 # 总市值 &gt; 50亿，总市值单位是 （万元）
+    <span class="hljs-comment"># 股息率前 500 名</span>
+    dv_rank = df.groupby(level=<span class="hljs-string">&quot;month&quot;</span>)[<span class="hljs-string">&#x27;dv_ttm&#x27;</span>].transform(<span class="hljs-keyword">lambda</span> x: x.rank(method=<span class="hljs-string">&#x27;first&#x27;</span>, ascending=<span class="hljs-literal">False</span>))
+    cond1 = dv_rank &lt;= <span class="hljs-number">500</span>
+    cond2 = df[<span class="hljs-string">&#x27;dividend_yield_2y_avg_noffill&#x27;</span>] &gt; <span class="hljs-number">0</span> <span class="hljs-comment"># 连续两年有分红</span>
+    cond3 = df[<span class="hljs-string">&#x27;has_audit_reserve&#x27;</span>] == <span class="hljs-literal">False</span> <span class="hljs-comment"># 无审计保留意见</span>
+    cond4 = df[<span class="hljs-string">&#x27;total_mv&#x27;</span>] &gt;= <span class="hljs-number">500000</span> <span class="hljs-comment"># 总市值 &gt; 50亿，总市值单位是 （万元）</span>
     
     flag =  cond1 &amp; cond2 &amp; cond3 &amp; cond4
-    return flag.astype(int)
-</code></pre>
+    <span class="hljs-keyword">return</span> flag.astype(<span class="hljs-built_in">int</span>)</span></code></pre>
 <p>函数factor_screen描述核心的选股因子。按照研报的理解，对于在红利股票池有效性显著的指标，将使用指标的标准分；对于有效性偏低的股票，则构建阈值信号描述相关信息。</p>
 <p>具体来说包括 4个标准分 和 6个信号事件</p>
 <ol>
@@ -200,118 +197,115 @@ ms.data[cols_to_ffill] = (
 </li>
 </ol>
 <p>我们把这个过程封装成函数：</p>
-<pre><code class="language-python">def factor_screen(data: pd.DataFrame, top_n: int = 30) -&gt; pd.Series:
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">factor_screen</span>(<span class="hljs-params">data: pd.DataFrame, top_n: <span class="hljs-built_in">int</span> = <span class="hljs-number">30</span></span>) -&gt; pd.Series:
     df = data.copy()
 
-    # 只对上一层筛选通过的股票打分
-    if &#39;flag&#39; in df.columns:
-        df = df[df[&#39;flag&#39;] == 1].copy()
+    <span class="hljs-comment"># 只对上一层筛选通过的股票打分</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;flag&#x27;</span> <span class="hljs-keyword">in</span> df.columns:
+        df = df[df[<span class="hljs-string">&#x27;flag&#x27;</span>] == <span class="hljs-number">1</span>].copy()
 
     factor_rank_info = {
-        &#39;dividend_yield_2y_avg&#39;: True,
-        &#39;profit_z_score&#39;: True,
-        &#39;holder_z_score&#39;: False,          # 越小越好
-        &#39;turnover_rate_f_std&#39;: False,     # 越小越好
+        <span class="hljs-string">&#x27;dividend_yield_2y_avg&#x27;</span>: <span class="hljs-literal">True</span>,
+        <span class="hljs-string">&#x27;profit_z_score&#x27;</span>: <span class="hljs-literal">True</span>,
+        <span class="hljs-string">&#x27;holder_z_score&#x27;</span>: <span class="hljs-literal">False</span>,          <span class="hljs-comment"># 越小越好</span>
+        <span class="hljs-string">&#x27;turnover_rate_f_std&#x27;</span>: <span class="hljs-literal">False</span>,     <span class="hljs-comment"># 越小越好</span>
     }
 
-    def zscore_func(s, is_positive):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">zscore_func</span>(<span class="hljs-params">s, is_positive</span>):
         s = s.copy()
-        if not is_positive:
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> is_positive:
             s = -s
-        mean = s.mean(skipna=True)
-        std = s.std(skipna=True)
-        if pd.isna(std) or std == 0:
-            return pd.Series(0, index=s.index)
+        mean = s.mean(skipna=<span class="hljs-literal">True</span>)
+        std = s.std(skipna=<span class="hljs-literal">True</span>)
+        <span class="hljs-keyword">if</span> pd.isna(std) <span class="hljs-keyword">or</span> std == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> pd.Series(<span class="hljs-number">0</span>, index=s.index)
         z = (s - mean) / std
-        return z.fillna(0)
+        <span class="hljs-keyword">return</span> z.fillna(<span class="hljs-number">0</span>)
 
-    # 计算财务比率
-    df[&#39;undistr_ratio&#39;] = np.where(df[&#39;total_assets&#39;] == 0, np.nan, df[&#39;undistr_porfit&#39;] / df[&#39;total_assets&#39;])
-    df[&#39;cf_ratio&#39;] = np.where(df[&#39;total_assets&#39;] == 0, np.nan, df[&#39;n_cashflow_act&#39;] / df[&#39;total_assets&#39;])
+    <span class="hljs-comment"># 计算财务比率</span>
+    df[<span class="hljs-string">&#x27;undistr_ratio&#x27;</span>] = np.where(df[<span class="hljs-string">&#x27;total_assets&#x27;</span>] == <span class="hljs-number">0</span>, np.nan, df[<span class="hljs-string">&#x27;undistr_porfit&#x27;</span>] / df[<span class="hljs-string">&#x27;total_assets&#x27;</span>])
+    df[<span class="hljs-string">&#x27;cf_ratio&#x27;</span>] = np.where(df[<span class="hljs-string">&#x27;total_assets&#x27;</span>] == <span class="hljs-number">0</span>, np.nan, df[<span class="hljs-string">&#x27;n_cashflow_act&#x27;</span>] / df[<span class="hljs-string">&#x27;total_assets&#x27;</span>])
 
-    # 派息率前5分之一+1   派息率后5分之一	-1， DPR
-    df[&#39;score_dpr&#39;] = df.groupby(&#39;month&#39;)[&#39;DPR&#39;].transform(
-        lambda s: (
-            (s &gt;= s.quantile(0.8)).astype(int) -   # 前 20% → +1
-            (s &lt;= s.quantile(0.2)).astype(int)     # 后 20% → -1
-        ).fillna(0)
+    <span class="hljs-comment"># 派息率前5分之一+1   派息率后5分之一	-1， DPR</span>
+    df[<span class="hljs-string">&#x27;score_dpr&#x27;</span>] = df.groupby(<span class="hljs-string">&#x27;month&#x27;</span>)[<span class="hljs-string">&#x27;DPR&#x27;</span>].transform(
+        <span class="hljs-keyword">lambda</span> s: (
+            (s &gt;= s.quantile(<span class="hljs-number">0.8</span>)).astype(<span class="hljs-built_in">int</span>) -   <span class="hljs-comment"># 前 20% → +1</span>
+            (s &lt;= s.quantile(<span class="hljs-number">0.2</span>)).astype(<span class="hljs-built_in">int</span>)     <span class="hljs-comment"># 后 20% → -1</span>
+        ).fillna(<span class="hljs-number">0</span>)
     )
 
-    # EP 前5分之一+1 EP 后5分之一-1 inv_pe_ttm_zscore_5y
-    df[&#39;score_ep&#39;] = df.groupby(&#39;month&#39;)[&#39;inv_pe_ttm_zscore_5y&#39;].transform(
-        lambda s: ((s &gt;= s.quantile(0.8)).astype(int) - (s &lt;= s.quantile(0.2)).astype(int)).fillna(0)
+    <span class="hljs-comment"># EP 前5分之一+1 EP 后5分之一-1 inv_pe_ttm_zscore_5y</span>
+    df[<span class="hljs-string">&#x27;score_ep&#x27;</span>] = df.groupby(<span class="hljs-string">&#x27;month&#x27;</span>)[<span class="hljs-string">&#x27;inv_pe_ttm_zscore_5y&#x27;</span>].transform(
+        <span class="hljs-keyword">lambda</span> s: ((s &gt;= s.quantile(<span class="hljs-number">0.8</span>)).astype(<span class="hljs-built_in">int</span>) - (s &lt;= s.quantile(<span class="hljs-number">0.2</span>)).astype(<span class="hljs-built_in">int</span>)).fillna(<span class="hljs-number">0</span>)
     )
 
 
-    # 经营现金流资产比后5分之一	n_cashflow_act / total_assets	-1
-    df[&#39;score_cf&#39;] = df.groupby(&#39;month&#39;)[&#39;cf_ratio&#39;].transform(
-        lambda s: (-1 * (s &lt;= s.quantile(0.2))).fillna(0).astype(int)
+    <span class="hljs-comment"># 经营现金流资产比后5分之一	n_cashflow_act / total_assets	-1</span>
+    df[<span class="hljs-string">&#x27;score_cf&#x27;</span>] = df.groupby(<span class="hljs-string">&#x27;month&#x27;</span>)[<span class="hljs-string">&#x27;cf_ratio&#x27;</span>].transform(
+        <span class="hljs-keyword">lambda</span> s: (-<span class="hljs-number">1</span> * (s &lt;= s.quantile(<span class="hljs-number">0.2</span>))).fillna(<span class="hljs-number">0</span>).astype(<span class="hljs-built_in">int</span>)
     )
 
-    # 留存收益/资产比后5分之一 -1	undistr_porfit / total_assets
-    df[&#39;score_undistr&#39;] = df.groupby(&#39;month&#39;)[&#39;undistr_ratio&#39;].transform(
-        lambda s: (-1 * (s &lt;= s.quantile(0.2))).fillna(0).astype(int)
+    <span class="hljs-comment"># 留存收益/资产比后5分之一 -1	undistr_porfit / total_assets</span>
+    df[<span class="hljs-string">&#x27;score_undistr&#x27;</span>] = df.groupby(<span class="hljs-string">&#x27;month&#x27;</span>)[<span class="hljs-string">&#x27;undistr_ratio&#x27;</span>].transform(
+        <span class="hljs-keyword">lambda</span> s: (-<span class="hljs-number">1</span> * (s &lt;= s.quantile(<span class="hljs-number">0.2</span>))).fillna(<span class="hljs-number">0</span>).astype(<span class="hljs-built_in">int</span>)
     )
 
-    # score_dividend_increase
-    df[&#39;score_dividend_increase&#39;] = df[&#39;dividend_ttm_increase_1M&#39;].fillna(False).astype(int)
+    <span class="hljs-comment"># score_dividend_increase</span>
+    df[<span class="hljs-string">&#x27;score_dividend_increase&#x27;</span>] = df[<span class="hljs-string">&#x27;dividend_ttm_increase_1M&#x27;</span>].fillna(<span class="hljs-literal">False</span>).astype(<span class="hljs-built_in">int</span>)
 
     
-    for fac, is_positive in factor_rank_info.items():
-        df[f&quot;{fac}_score&quot;] = df.groupby(&#39;month&#39;)[fac].transform(lambda s: zscore_func(s, is_positive))
+    <span class="hljs-keyword">for</span> fac, is_positive <span class="hljs-keyword">in</span> factor_rank_info.items():
+        df[<span class="hljs-string">f&quot;<span class="hljs-subst">{fac}</span>_score&quot;</span>] = df.groupby(<span class="hljs-string">&#x27;month&#x27;</span>)[fac].transform(<span class="hljs-keyword">lambda</span> s: zscore_func(s, is_positive))
 
-    # 总分
-    score_cols = [f&quot;{fac}_score&quot; for fac in factor_rank_info] + [
-        &#39;score_dpr&#39;, &#39;score_cf&#39;, &#39;score_undistr&#39;,
-        &#39;score_ep&#39;, &#39;score_dividend_increase&#39;]
+    <span class="hljs-comment"># 总分</span>
+    score_cols = [<span class="hljs-string">f&quot;<span class="hljs-subst">{fac}</span>_score&quot;</span> <span class="hljs-keyword">for</span> fac <span class="hljs-keyword">in</span> factor_rank_info] + [
+        <span class="hljs-string">&#x27;score_dpr&#x27;</span>, <span class="hljs-string">&#x27;score_cf&#x27;</span>, <span class="hljs-string">&#x27;score_undistr&#x27;</span>,
+        <span class="hljs-string">&#x27;score_ep&#x27;</span>, <span class="hljs-string">&#x27;score_dividend_increase&#x27;</span>]
     
-    df[&#39;total_score&#39;] = df[score_cols].sum(axis=1)
+    df[<span class="hljs-string">&#x27;total_score&#x27;</span>] = df[score_cols].<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>)
 
-    # Top-N flag
-    flag = df.groupby(&#39;month&#39;)[&#39;total_score&#39;].transform(
-        lambda s: (s.rank(method=&#39;first&#39;, ascending=False) &lt;= top_n).astype(int)
+    <span class="hljs-comment"># Top-N flag</span>
+    flag = df.groupby(<span class="hljs-string">&#x27;month&#x27;</span>)[<span class="hljs-string">&#x27;total_score&#x27;</span>].transform(
+        <span class="hljs-keyword">lambda</span> s: (s.rank(method=<span class="hljs-string">&#x27;first&#x27;</span>, ascending=<span class="hljs-literal">False</span>) &lt;= top_n).astype(<span class="hljs-built_in">int</span>)
     )
 
-    # 对齐回原索引（未筛选股票置 0）
-    flag = flag.reindex(data.index).fillna(0).astype(int)
+    <span class="hljs-comment"># 对齐回原索引（未筛选股票置 0）</span>
+    flag = flag.reindex(data.index).fillna(<span class="hljs-number">0</span>).astype(<span class="hljs-built_in">int</span>)
 
-    return flag
-</code></pre>
+    <span class="hljs-keyword">return</span> flag</span></code></pre>
 <p>接下来，我们就进行筛选和回测：</p>
-<pre><code class="language-python">from IPython.display import clear_output
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> clear_output
 
 ms.screen(stock_pool_filter, data=ms.data)
-ms.screen(factor_screen, data=ms.data, top_n=30)
-ms.calculate_returns(True)
+ms.screen(factor_screen, data=ms.data, top_n=<span class="hljs-number">30</span>)
+ms.calculate_returns(<span class="hljs-literal">True</span>)
 
-# 沪深300
+<span class="hljs-comment"># 沪深300</span>
 pro = ts.pro_api()
-hs300 = pro.index_daily(ts_code=&#39;000300.SH&#39;, 
-                        start_date=start.strftime(&quot;%Y%m%d&quot;), 
-                        end_date=end.strftime(&quot;%Y%m%d&quot;))
-hs300.index = pd.to_datetime(hs300[&quot;trade_date&quot;])            
-benchmark = hs300[&quot;close&quot;].resample(&#39;M&#39;).last().pct_change()
+hs300 = pro.index_daily(ts_code=<span class="hljs-string">&#x27;000300.SH&#x27;</span>, 
+                        start_date=start.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>), 
+                        end_date=end.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>))
+hs300.index = pd.to_datetime(hs300[<span class="hljs-string">&quot;trade_date&quot;</span>])            
+benchmark = hs300[<span class="hljs-string">&quot;close&quot;</span>].resample(<span class="hljs-string">&#x27;M&#x27;</span>).last().pct_change()
 
-output = get_jupyter_root_dir() / &quot;reports/moonshot-5.html&quot;
-ms.report(&quot;html&quot;, benchmark = benchmark, output=output, periods_per_year=12)
+output = get_jupyter_root_dir() / <span class="hljs-string">&quot;reports/moonshot-5.html&quot;</span>
+ms.report(<span class="hljs-string">&quot;html&quot;</span>, benchmark = benchmark, output=output, periods_per_year=<span class="hljs-number">12</span>)
 
-clear_output()
-</code></pre>
+clear_output()</span></code></pre>
 <p>你可以找到 strategy.html 以查看完整的回测报告。与沪深300对照，红利策略显示出巨大的优势。这是两者的累积收益对照图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251109220008.png" alt=""></p>
 <p>这是一些重要的策略评估指标对照：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251110185908.png" alt=""></p>
 <p>5年来，红利策略的累计收益是112.65%，而沪深300只有9.2%。红利策略的年化达到了16%；同期沪深300只有1.84%。</p>
 <p>这个策略对标中证红利指数，表现又当如何？</p>
-<pre><code class="language-python">dividend_index = pro.index_daily(ts_code=&#39;000922.CSI&#39;, 
-                        start_date=start.strftime(&quot;%Y%m%d&quot;), 
-                        end_date=end.strftime(&quot;%Y%m%d&quot;))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">dividend_index = pro.index_daily(ts_code=<span class="hljs-string">&#x27;000922.CSI&#x27;</span>, 
+                        start_date=start.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>), 
+                        end_date=end.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>))
 
-dividend_index.index = pd.to_datetime(dividend_index[&quot;trade_date&quot;])            
-benchmark = dividend_index[&quot;close&quot;].resample(&#39;M&#39;).last().pct_change()
+dividend_index.index = pd.to_datetime(dividend_index[<span class="hljs-string">&quot;trade_date&quot;</span>])            
+benchmark = dividend_index[<span class="hljs-string">&quot;close&quot;</span>].resample(<span class="hljs-string">&#x27;M&#x27;</span>).last().pct_change()
 
-ms.report(&quot;metrics&quot;, benchmark = benchmark, periods_per_year=12)
-</code></pre>
+ms.report(<span class="hljs-string">&quot;metrics&quot;</span>, benchmark = benchmark, periods_per_year=<span class="hljs-number">12</span>)</span></code></pre>
 <p>可以看到，本策略在所有指标上的表现都远远超过了中证红利指数。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/tools/moonshot/moonshot-is-all-you-need-4/">← 上一篇：研报复现之如何正确筛选『连续两年分红』股票（附代码）</a> <span></span> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 61/80 篇</span> <span class="reading-path-links"> <a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/">← 关于寻找顶和底的一些研究</a> <a href="/posts/tools/quantstats-2/">算收益，用算术平均好还是几何平均好? →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/factor-ml/intro/">课程简介</a> <p>《因子分析与机器学习策略》简介 这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。</p> </li><li> <a href="/articles/coursea/24lectures/how-the-course-are-composed/">大富翁量化24课编排说明</a> <p>课程内容 本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括： 如何获取数据 我们会介绍akshare, tusha</p> </li><li> <a href="/articles/coursea/24lectures/detail/">二十四课内容详情</a> <p>共 40 万字，461 段超过 7000 行代码（另有若干策略代码作为福利赠送，未计入），这门课用一句话介绍：涵盖了量化交易全流程、学完就能进入实战的课程。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#因子构建方式" title="因子构建方式">因子构建方式</a> </li><li class="lv3"> <a href="#每期股息率排名前500dp-以及-2年平均股息率的因子标准分dp2" title="每期股息率排名前500（DP） 以及 2年平均股息率的因子标准分（DP2）">每期股息率排名前500（DP） 以及 2年平均股息率的因子标准分（DP2）</a> </li><li class="lv3"> <a href="#派息率dpr" title="派息率（DPR）">派息率（DPR）</a> </li><li class="lv3"> <a href="#市值筛选总市值-gt-50-亿元" title="市值筛选（总市值 &#38;gt; 50 亿元）">市值筛选（总市值 &amp;gt; 50 亿元）</a> </li><li class="lv3"> <a href="#换手波动率" title="换手波动率">换手波动率</a> </li><li class="lv3"> <a href="#ep-标准分" title="EP 标准分">EP 标准分</a> </li><li class="lv3"> <a href="#较上一个月分红金额ttm增长" title="较上一个月分红金额TTM增长">较上一个月分红金额TTM增长</a> </li><li class="lv3"> <a href="#股东数量标准分" title="股东数量标准分">股东数量标准分</a> </li><li class="lv3"> <a href="#审计意见剔除非标准无保留" title="审计意见（剔除非标准无保留）">审计意见（剔除非标准无保留）</a> </li><li class="lv3"> <a href="#经营现金流资产比operating-cash-flow-total-assets" title="经营现金流资产比（Operating Cash Flow / Total Assets）">经营现金流资产比（Operating Cash Flow / Total Assets）</a> </li><li class="lv3"> <a href="#留存收益资产比retained-earnings-total-assets" title="留存收益资产比（Retained Earnings / Total Assets）">留存收益资产比（Retained Earnings / Total Assets）</a> </li><li class="lv3"> <a href="#净利润业绩稳健npstd" title="净利润业绩稳健（npstd）">净利润业绩稳健（npstd）</a> </li><li class> <a href="#数据准备" title="数据准备">数据准备</a> </li><li class> <a href="#回测" title="回测">回测</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

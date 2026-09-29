@@ -90,26 +90,24 @@
 <p>这件事为什么重要？因为它把门槛压得非常低。很多人不是不想用自动化工具，而是听到“部署”“服务器”“定时任务”“环境变量”就放弃了。这个项目很清楚地知道，<strong>能不能让普通人先跑起来，本身就是产品能力的一部分。</strong></p>
 <p>当然，README 也不是只给了 GitHub Actions 这一条路。它还提供了第二种方式：本地运行 / Docker 部署。</p>
 <p>最基础的本地运行流程就是四步：</p>
-<pre><code class="language-bash"># 克隆项目
-git clone https://github.com/ZhuLinsen/daily_stock_analysis.git &amp;&amp; cd daily_stock_analysis
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 克隆项目</span>
+git <span class="hljs-built_in">clone</span> https://github.com/ZhuLinsen/daily_stock_analysis.git &amp;&amp; <span class="hljs-built_in">cd</span> daily_stock_analysis
 
-# 安装依赖
+<span class="hljs-comment"># 安装依赖</span>
 pip install -r requirements.txt
 
-# 配置环境变量
-cp .env.example .env &amp;&amp; vim .env
+<span class="hljs-comment"># 配置环境变量</span>
+<span class="hljs-built_in">cp</span> .env.example .<span class="hljs-built_in">env</span> &amp;&amp; vim .<span class="hljs-built_in">env</span>
 
-# 运行分析
-python main.py
-</code></pre>
+<span class="hljs-comment"># 运行分析</span>
+python main.py</span></code></pre>
 <p>如果你不用 Web，README 还专门给了一套更直接的模型渠道写法，建议直接在 <code>.env</code> 里按条配置：</p>
-<pre><code class="language-env">LLM_CHANNELS=primary
+<pre><code class="hljs language-env"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">LLM_CHANNELS=primary
 LLM_PRIMARY_PROTOCOL=openai
 LLM_PRIMARY_BASE_URL=https://api.deepseek.com/v1
 LLM_PRIMARY_API_KEY=sk-xxxxxxxx
 LLM_PRIMARY_MODELS=deepseek-chat
-LITELLM_MODEL=openai/deepseek-chat
-</code></pre>
+LITELLM_MODEL=openai/deepseek-chat</span></code></pre>
 <p>这样写的好处是简单、直接，不需要额外再维护一套配置文件。保存之后，如果你后面又切回 Web，也可以在 Web 设置页继续编辑同一组字段，两边是打通的。</p>
 <p>README 这里还补了一句很重要的话：如果你同时启用了高级模型路由 YAML，也就是 <code>LITELLM_CONFIG</code>，那么 YAML 主要负责定义可用模型和路由规则，也就是 <code>model_list</code>；但真正运行时的主模型、备选模型、Vision、Temperature，还是由这些字段决定：</p>
 <ul>

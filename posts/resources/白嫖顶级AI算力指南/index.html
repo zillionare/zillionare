@@ -105,14 +105,13 @@ OpenRouter 的免费模式始于去年3季度。大模型以免费方式提供�
 <p>如果是使用 OpenRouter 的服务，这里就要选择 OpenRouter。图中最后一项。接下来是填写 Base URL（如果是 OpenRouter，则无此步聚）、填写 Api Key和 Model ID，如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0fef218f3a20348f6bc9fac514ea7489.png" alt="小龙虾配置界面截图 2"></p>
 <p>你可以直接参考下面的 Python 验证代码来对应填入 URL、API-Key 和 Model 模型：</p>
-<pre><code class="language-python"># 小龙虾接入参数参考（对应代码中的关键行）
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-comment"># 小龙虾接入参数参考（对应代码中的关键行）</span>
 client = OpenAI(
-    base_url=&quot;https://integrate.api.nvidia.com/v1&quot;, # &lt;--- 填入小龙虾的 URL/Base URL
-    api_key=&quot;YOUR_NVAPI_KEY&quot;                       # &lt;--- 填入小龙虾的 API-Key
+    base_url=<span class="hljs-string">&quot;https://integrate.api.nvidia.com/v1&quot;</span>, <span class="hljs-comment"># &lt;--- 填入小龙虾的 URL/Base URL</span>
+    api_key=<span class="hljs-string">&quot;YOUR_NVAPI_KEY&quot;</span>                       <span class="hljs-comment"># &lt;--- 填入小龙虾的 API-Key</span>
 )
 
-model=&quot;z-ai/glm5&quot;                                  # &lt;--- 填入小龙虾的 Model/模型名称
-</code></pre>
+model=<span class="hljs-string">&quot;z-ai/glm5&quot;</span>                                  <span class="hljs-comment"># &lt;--- 填入小龙虾的 Model/模型名称</span></span></code></pre>
 <ul>
 <li><strong>URL (Base URL)</strong>：填入 <code>https://integrate.api.nvidia.com/v1</code></li>
 <li><strong>API-Key</strong>：填入你刚刚保存的英伟达 Key。</li>
@@ -120,28 +119,27 @@ model=&quot;z-ai/glm5&quot;                                  # &lt;--- 填入小
 </ul>
 <h2 id="04-参数验证">04 参数验证</h2>
 <p>如果配置不成功，你还可以运行下面完整的 Python 程序来最终确认相关信息是否正确：</p>
-<pre><code class="language-python">import os
-from openai import OpenAI
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">from</span> openai <span class="hljs-keyword">import</span> OpenAI
 
-# 初始化客户端
+<span class="hljs-comment"># 初始化客户端</span>
 client = OpenAI(
-    base_url=&quot;https://integrate.api.nvidia.com/v1&quot;,
-    api_key=&quot;YOUR_NVAPI_KEY&quot; # 替换成你生成的 Key
+    base_url=<span class="hljs-string">&quot;https://integrate.api.nvidia.com/v1&quot;</span>,
+    api_key=<span class="hljs-string">&quot;YOUR_NVAPI_KEY&quot;</span> <span class="hljs-comment"># 替换成你生成的 Key</span>
 )
 
-# 调用 GLM-5 模型
+<span class="hljs-comment"># 调用 GLM-5 模型</span>
 response = client.chat.completions.create(
-    model=&quot;z-ai/glm5&quot;,
+    model=<span class="hljs-string">&quot;z-ai/glm5&quot;</span>,
     messages=[
-        {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;你是世界顶流人工智能！&quot;},
-        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;你好，GLM-5模型！&quot;}
+        {<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你是世界顶流人工智能！&quot;</span>},
+        {<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好，GLM-5模型！&quot;</span>}
     ],
-    temperature=0.7,
-    max_tokens=1000
+    temperature=<span class="hljs-number">0.7</span>,
+    max_tokens=<span class="hljs-number">1000</span>
 )
 
-print(response.choices[0].message.content)
-</code></pre>
+<span class="hljs-built_in">print</span>(response.choices[<span class="hljs-number">0</span>].message.content)</span></code></pre>
 <h2 id="后记">后记</h2>
 <p>在一天烧掉了7500万 token 之后，我深深地被 OpenClaw的无限可能所折服。</p>
 <p>每个人都应该养几支小龙虾。智能代码拓展了我们的大脑，拓宽了我们的工作空间，也提升了我们的工作效率。所有这一切，都是为了构建更强大的自己。</p>

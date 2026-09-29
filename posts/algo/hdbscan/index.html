@@ -42,48 +42,47 @@
 <p>检验一个时间序列是否平稳，一般使用 Dickey-Fuller 检验。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/dickey-and-fuller.png" alt=""></p>
 <p>对量化人来说，资产价格序列和收益率是常见的两种时间序列。我们可以通过 Dickey-Fuller 检验来判断它们是否是平稳的：</p>
-<pre><code class="language-python">import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import adfuller
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> statsmodels.tsa.stattools <span class="hljs-keyword">import</span> adfuller
 
-start = datetime.date(2023, 1, 1)
-end = datetime.date(2023, 12, 30)
-barss = load_bars(start, end, (&#39;000001.XSHE&#39;,))
+start = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">30</span>)
+barss = load_bars(start, end, (<span class="hljs-string">&#x27;000001.XSHE&#x27;</span>,))
 
-close = barss.xs(&quot;000001.XSHE&quot;, level=1).close
+close = barss.xs(<span class="hljs-string">&quot;000001.XSHE&quot;</span>, level=<span class="hljs-number">1</span>).close
 returns = close.diff().dropna()
 
-# 绘制平稳时间序列
-plt.figure(figsize=(12, 6))
+<span class="hljs-comment"># 绘制平稳时间序列</span>
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">6</span>))
 ax1 = plt.gca()
-ax1.plot(close, label=&#39;Price&#39;)
-ax1.grid(False)
+ax1.plot(close, label=<span class="hljs-string">&#x27;Price&#x27;</span>)
+ax1.grid(<span class="hljs-literal">False</span>)
 
 ax2 = ax1.twinx()
-ax2.plot(returns, label=&quot;Returns&quot;, color=&#39;orange&#39;)
-ax2.grid(False)
+ax2.plot(returns, label=<span class="hljs-string">&quot;Returns&quot;</span>, color=<span class="hljs-string">&#x27;orange&#x27;</span>)
+ax2.grid(<span class="hljs-literal">False</span>)
 
 lines, labels = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines + lines2, labels + labels2, loc=&#39;best&#39;)
+ax1.legend(lines + lines2, labels + labels2, loc=<span class="hljs-string">&#x27;best&#x27;</span>)
 
 plt.show()
 
-# 进行 ADF 检验
+<span class="hljs-comment"># 进行 ADF 检验</span>
 result1 = adfuller(close)
 result2 = adfuller(returns)
 
 df = pd.DataFrame({
-    &quot;ADF Stat&quot;: (result1[0], result2[0]),
-    &quot;P-Value&quot;: (result1[1], result2[1]),
-    &quot;Critical Values 1%&quot;: (result1[4][&quot;1%&quot;], result2[4][&quot;1%&quot;]),
-    &quot;Critical Values 5%&quot;: (result1[4][&quot;5%&quot;], result2[4][&quot;5%&quot;]),
-    &quot;Critical Values 10%&quot;: (result1[4][&quot;10%&quot;], result2[4][&quot;10%&quot;]),
-     }, index=[&quot;close&quot;, &quot;returns&quot;])
+    <span class="hljs-string">&quot;ADF Stat&quot;</span>: (result1[<span class="hljs-number">0</span>], result2[<span class="hljs-number">0</span>]),
+    <span class="hljs-string">&quot;P-Value&quot;</span>: (result1[<span class="hljs-number">1</span>], result2[<span class="hljs-number">1</span>]),
+    <span class="hljs-string">&quot;Critical Values 1%&quot;</span>: (result1[<span class="hljs-number">4</span>][<span class="hljs-string">&quot;1%&quot;</span>], result2[<span class="hljs-number">4</span>][<span class="hljs-string">&quot;1%&quot;</span>]),
+    <span class="hljs-string">&quot;Critical Values 5%&quot;</span>: (result1[<span class="hljs-number">4</span>][<span class="hljs-string">&quot;5%&quot;</span>], result2[<span class="hljs-number">4</span>][<span class="hljs-string">&quot;5%&quot;</span>]),
+    <span class="hljs-string">&quot;Critical Values 10%&quot;</span>: (result1[<span class="hljs-number">4</span>][<span class="hljs-string">&quot;10%&quot;</span>], result2[<span class="hljs-number">4</span>][<span class="hljs-string">&quot;10%&quot;</span>]),
+     }, index=[<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;returns&quot;</span>])
 
-df.T
-</code></pre>
+df.T</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
 <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
@@ -95,41 +94,39 @@ df.T
 <!-- END IPYNB STRIPOUT -->
 
 <p>平稳性检验是协整检验的第二步。第一步则是对相关联的两个时间序列进行回归，构建残差序列。</p>
-<pre><code class="language-python">import statsmodels.api as sm
-from statsmodels.tsa.stattools import adfuller
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">import</span> statsmodels.api <span class="hljs-keyword">as</span> sm
+<span class="hljs-keyword">from</span> statsmodels.tsa.stattools <span class="hljs-keyword">import</span> adfuller
 
-start = datetime.date(2021, 1, 1)
-end = datetime.date(2023, 12, 30)
+start = datetime.date(<span class="hljs-number">2021</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">30</span>)
 
-gsyh = &quot;601398.XSHG&quot;
-jsyh = &quot;601939.XSHG&quot;
+gsyh = <span class="hljs-string">&quot;601398.XSHG&quot;</span>
+jsyh = <span class="hljs-string">&quot;601939.XSHG&quot;</span>
 
 barss = load_bars(start, end, (gsyh, jsyh))
 
-pair1 = barss.xs(gsyh, level=1).close
-pair2 = barss.xs(jsyh, level=1).close
+pair1 = barss.xs(gsyh, level=<span class="hljs-number">1</span>).close
+pair2 = barss.xs(jsyh, level=<span class="hljs-number">1</span>).close
 
-def hedge_ratio(price1: NDArray, price2: NDArray) -&gt; float:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">hedge_ratio</span>(<span class="hljs-params">price1: NDArray, price2: NDArray</span>) -&gt; <span class="hljs-built_in">float</span>:
     X = sm.add_constant(price1)
     model = sm.OLS(price2, X).fit()
-    return model.params[1]
+    <span class="hljs-keyword">return</span> model.params[<span class="hljs-number">1</span>]
 
 hr = hedge_ratio(pair1, pair2)
-print(f&quot;hedge_ratio 为：{hr:.2f}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;hedge_ratio 为：<span class="hljs-subst">{hr:<span class="hljs-number">.2</span>f}</span>&quot;</span>)
 spreads = pair2 - pair1 * hr
 result = adfuller(spreads)
-if result[1] &lt; 0.05:
-    print(f&quot;p-value: {result[1]:.2f} &lt; 0.05, 协整关系成立&quot;)
-else:
-    print(f&quot;p-value: {result[1]:.2f} &gt; 0.05 协整关系不成立&quot;)
-</code></pre>
+<span class="hljs-keyword">if</span> result[<span class="hljs-number">1</span>] &lt; <span class="hljs-number">0.05</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;p-value: <span class="hljs-subst">{result[<span class="hljs-number">1</span>]:<span class="hljs-number">.2</span>f}</span> &lt; 0.05, 协整关系成立&quot;</span>)
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;p-value: <span class="hljs-subst">{result[<span class="hljs-number">1</span>]:<span class="hljs-number">.2</span>f}</span> &gt; 0.05 协整关系不成立&quot;</span>)</span></code></pre>
 <p>这段代码就完整地完成了一个协整检验。不仅如此，它还计算出了两个价格序列之间的对冲比（hedge ratio），正是通过 hedge ratio，我们才能构建出具有平稳性的价差序列。</p>
 <p>不过，了解原理之后，一般情况下，我们并不会使用上面的方法来进行协整检验，因为 statsmodels 已经帮我们完成了所有这些工作：</p>
-<pre><code class="language-python">from statsmodels.tsa.stattools import coint
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> statsmodels.tsa.stattools <span class="hljs-keyword">import</span> coint
 
 result = coint(pair1, pair2)
-t, p_value, *_ = result
-</code></pre>
+t, p_value, *_ = result</span></code></pre>
 <p>只要 p 值小于 0.05，我们就可以认为这两个时间序列是协整的。</p>
 <h2 id="性能问题">性能问题</h2>
 <p>既然协整检验这么容易，那么，寻找配对交易的过程岂不是易如反掌？然而并不！</p>
@@ -148,59 +145,57 @@ t, p_value, *_ = result
 <p>DBSCAN 不能找出比指定的核密度更稀疏的簇；k-means 会把噪声也归划分到距离最近的簇中，并且你得告诉它这个数据集中有多少个簇；hdbscan 的表现几近完美。</p>
 <p>接下来，我们就运用 hdbscan 来对资产进行聚类。在聚类完成之后，我们还将对它进行协整检验，并将最终结果可视化展示出来。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">import hdbscan
-import pandas as pd
-from sklearn.manifold import TSNE
-import plotly.express as px
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">import</span> hdbscan
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> sklearn.manifold <span class="hljs-keyword">import</span> TSNE
+<span class="hljs-keyword">import</span> plotly.express <span class="hljs-keyword">as</span> px
 
-start = datetime.date(2022, 1, 1)
-end = datetime.date(2023,12,31)
+start = datetime.date(<span class="hljs-number">2022</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>,<span class="hljs-number">12</span>,<span class="hljs-number">31</span>)
 
-barss = load_bars(start, end, 2000)
+barss = load_bars(start, end, <span class="hljs-number">2000</span>)
 
-closes = (barss[&quot;close&quot;].unstack().
+closes = (barss[<span class="hljs-string">&quot;close&quot;</span>].unstack().
                         ffill().
-                        dropna(axis=1, how=&#39;any&#39;))
-</code></pre>
+                        dropna(axis=<span class="hljs-number">1</span>, how=<span class="hljs-string">&#x27;any&#x27;</span>))</span></code></pre>
 <!--PAID CONTENT END-->
 
-<pre><code class="language-python"># 使用 HDBSCAN 进行聚类
-clusterer = hdbscan.HDBSCAN(min_cluster_size=3, min_samples=2)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span></span><span class="cl-body"><span class="hljs-comment"># 使用 HDBSCAN 进行聚类</span>
+clusterer = hdbscan.HDBSCAN(min_cluster_size=<span class="hljs-number">3</span>, min_samples=<span class="hljs-number">2</span>)
 cluster_labels = clusterer.fit_predict(closes.T)
 
-# 将聚类结果添加到 DataFrame 中
+<span class="hljs-comment"># 将聚类结果添加到 DataFrame 中</span>
 clustered = closes.T.copy()
-clustered[&#39;cluster&#39;] = cluster_labels
+clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>] = cluster_labels
 
-# 剔除类别为-1 的点，这些是噪声，而不是一个类别
-clustered = clustered[clustered[&#39;cluster&#39;] != -1]
-clustered_close = clustered.drop(&quot;cluster&quot;, axis=1)
+<span class="hljs-comment"># 剔除类别为-1 的点，这些是噪声，而不是一个类别</span>
+clustered = clustered[clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>] != -<span class="hljs-number">1</span>]
+clustered_close = clustered.drop(<span class="hljs-string">&quot;cluster&quot;</span>, axis=<span class="hljs-number">1</span>)
 
-# 使用 t-SNE 进行降维
-tsne = TSNE(n_components=3, random_state=42)
+<span class="hljs-comment"># 使用 t-SNE 进行降维</span>
+tsne = TSNE(n_components=<span class="hljs-number">3</span>, random_state=<span class="hljs-number">42</span>)
 tsne_results = tsne.fit_transform(clustered_close)
 
-# 将 t-SNE 结果添加到 DataFrame 中
+<span class="hljs-comment"># 将 t-SNE 结果添加到 DataFrame 中</span>
 reduced_tsne = pd.DataFrame(data=tsne_results, 
-                            columns=[&#39;tsne_1&#39;, &#39;tsne_2&#39;, &#39;tsne_3&#39;],
+                            columns=[<span class="hljs-string">&#x27;tsne_1&#x27;</span>, <span class="hljs-string">&#x27;tsne_2&#x27;</span>, <span class="hljs-string">&#x27;tsne_3&#x27;</span>],
                             index=clustered_close.index)
 
-reduced_tsne[&#39;cluster&#39;] = clustered[&#39;cluster&#39;]
+reduced_tsne[<span class="hljs-string">&#x27;cluster&#x27;</span>] = clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>]
 
 fig_tsne = px.scatter_3d(
     reduced_tsne, 
-    x=&#39;tsne_1&#39;, y=&#39;tsne_2&#39;, z=&#39;tsne_3&#39;,
-    color=&#39;cluster&#39;, 
-    title=&#39;t-SNE Clustering of Stock Returns&#39;,
-    labels={&#39;tsne_1&#39;: &#39;t-SNE Component 1&#39;, 
-            &#39;tsne_2&#39;: &#39;t-SNE Component 2&#39;}
+    x=<span class="hljs-string">&#x27;tsne_1&#x27;</span>, y=<span class="hljs-string">&#x27;tsne_2&#x27;</span>, z=<span class="hljs-string">&#x27;tsne_3&#x27;</span>,
+    color=<span class="hljs-string">&#x27;cluster&#x27;</span>, 
+    title=<span class="hljs-string">&#x27;t-SNE Clustering of Stock Returns&#x27;</span>,
+    labels={<span class="hljs-string">&#x27;tsne_1&#x27;</span>: <span class="hljs-string">&#x27;t-SNE Component 1&#x27;</span>, 
+            <span class="hljs-string">&#x27;tsne_2&#x27;</span>: <span class="hljs-string">&#x27;t-SNE Component 2&#x27;</span>}
 )
 
-fig_tsne.layout.width = 1200
-fig_tsne.layout.height = 1100
+fig_tsne.layout.width = <span class="hljs-number">1200</span>
+fig_tsne.layout.height = <span class="hljs-number">1100</span>
 
-fig_tsne.show()
-</code></pre>
+fig_tsne.show()</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p>我们将得到一个三维的 t-SNE 图，其中颜色表示每个点的聚类。在我们的研究平台上，你可以运行代码并生成这个三维图，然后拖拽它以变换观察视角。</p>
 <div class='abs' v-motion
@@ -214,79 +209,77 @@ fig_tsne.show()
 
 <p>hdbscan 的聚类效果如何？我们能否在它划分的类别中，寻找到协整对呢？我们通过下面的代码来可视化簇类的样本走势，并执行协整检验。这是随机抽取的第 12 簇的情况：</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">from statsmodels.tsa.stattools import coint
-import hdbscan
-import pandas as pd
-from sklearn.manifold import TSNE
-import plotly.express as px
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">from</span> statsmodels.tsa.stattools <span class="hljs-keyword">import</span> coint
+<span class="hljs-keyword">import</span> hdbscan
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> sklearn.manifold <span class="hljs-keyword">import</span> TSNE
+<span class="hljs-keyword">import</span> plotly.express <span class="hljs-keyword">as</span> px
 
-start = datetime.date(2022, 1, 1)
-end = datetime.date(2023,12,31)
+start = datetime.date(<span class="hljs-number">2022</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>,<span class="hljs-number">12</span>,<span class="hljs-number">31</span>)
 
-barss = load_bars(start, end, 2000)
+barss = load_bars(start, end, <span class="hljs-number">2000</span>)
 
-closes = barss[&quot;close&quot;].unstack().ffill().dropna(axis=1, how=&#39;any&#39;)
+closes = barss[<span class="hljs-string">&quot;close&quot;</span>].unstack().ffill().dropna(axis=<span class="hljs-number">1</span>, how=<span class="hljs-string">&#x27;any&#x27;</span>)
 
-# 使用 HDBSCAN 进行聚类
-clusterer = hdbscan.HDBSCAN(min_cluster_size=3, min_samples=2)
+<span class="hljs-comment"># 使用 HDBSCAN 进行聚类</span>
+clusterer = hdbscan.HDBSCAN(min_cluster_size=<span class="hljs-number">3</span>, min_samples=<span class="hljs-number">2</span>)
 cluster_labels = clusterer.fit_predict(closes.T)
 clustered = closes.T.copy()
-clustered[&#39;cluster&#39;] = cluster_labels
+clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>] = cluster_labels
 
-# 剔除类别为-1 的点，这些是噪声，而不是一个类别
-clustered = clustered[clustered[&#39;cluster&#39;] != -1]
-clustered_close = clustered.drop(&quot;cluster&quot;, axis=1)
+<span class="hljs-comment"># 剔除类别为-1 的点，这些是噪声，而不是一个类别</span>
+clustered = clustered[clustered[<span class="hljs-string">&#x27;cluster&#x27;</span>] != -<span class="hljs-number">1</span>]
+clustered_close = clustered.drop(<span class="hljs-string">&quot;cluster&quot;</span>, axis=<span class="hljs-number">1</span>)
 
-plt.figure(figsize=(12,10))
-cluster_12 = clustered.query(&quot;cluster == 12&quot;).index.tolist()
-for code in cluster_12:
-    bars = barss.xs(code, level=1)[&quot;close&quot;]
+plt.figure(figsize=(<span class="hljs-number">12</span>,<span class="hljs-number">10</span>))
+cluster_12 = clustered.query(<span class="hljs-string">&quot;cluster == 12&quot;</span>).index.tolist()
+<span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> cluster_12:
+    bars = barss.xs(code, level=<span class="hljs-number">1</span>)[<span class="hljs-string">&quot;close&quot;</span>]
     plt.plot(bars)
 
-pairs = []
-</code></pre>
+pairs = []</span></code></pre>
 <!--PAID CONTENT END-->
 
-<pre><code class="language-python">for i in range(len(cluster_12)):
-    for j in range(i + 1, len(cluster_12)):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span></span><span class="cl-body"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(cluster_12)):
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i + <span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(cluster_12)):
         pair1 = cluster_12[i]
         pair2 = cluster_12[j]
-        price1 = barss.xs(pair1, level=1)[&quot;close&quot;].ffill().dropna()
-        price2 = barss.xs(pair2, level=1)[&quot;close&quot;].ffill().dropna()
-        minlen = min(len(price1), len(price2))
+        price1 = barss.xs(pair1, level=<span class="hljs-number">1</span>)[<span class="hljs-string">&quot;close&quot;</span>].ffill().dropna()
+        price2 = barss.xs(pair2, level=<span class="hljs-number">1</span>)[<span class="hljs-string">&quot;close&quot;</span>].ffill().dropna()
+        minlen = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">len</span>(price1), <span class="hljs-built_in">len</span>(price2))
         t, p, *_ = coint(price1[-minlen:], price2[-minlen:])
-        if p &lt; 0.05:
+        <span class="hljs-keyword">if</span> p &lt; <span class="hljs-number">0.05</span>:
             pairs.append((pair1, pair2))
 
-row = max(1, len(pairs) // 3)
-col = len(pairs) // row
+row = <span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(pairs) // <span class="hljs-number">3</span>)
+col = <span class="hljs-built_in">len</span>(pairs) // row
 
-if row * col &lt; len(pairs):
-    row += 1
+<span class="hljs-keyword">if</span> row * col &lt; <span class="hljs-built_in">len</span>(pairs):
+    row += <span class="hljs-number">1</span>
 
 cells = row * col
 
-fig, axes = plt.subplots(row, col, figsize=(col * 3,row * 3))
+fig, axes = plt.subplots(row, col, figsize=(col * <span class="hljs-number">3</span>,row * <span class="hljs-number">3</span>))
 axes = np.array(axes).flatten()
-fig.suptitle(&#39;Cointegrated Pairs&#39;)
+fig.suptitle(<span class="hljs-string">&#x27;Cointegrated Pairs&#x27;</span>)
 
-plot_index = 0
-for pair1, pair2 in pairs:
+plot_index = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> pair1, pair2 <span class="hljs-keyword">in</span> pairs:
     ax = axes[plot_index]
     
-    price1 = barss.xs(pair1, level=1)[&quot;close&quot;]
-    price2 = barss.xs(pair2, level=1)[&quot;close&quot;]
+    price1 = barss.xs(pair1, level=<span class="hljs-number">1</span>)[<span class="hljs-string">&quot;close&quot;</span>]
+    price2 = barss.xs(pair2, level=<span class="hljs-number">1</span>)[<span class="hljs-string">&quot;close&quot;</span>]
     
     ax.plot(price1, label=pair1)
     ax.plot(price2, label=pair2)
-    ax.set_title(f&#39;{pair1[:-5]} &amp; {pair2[:-5]}&#39;)
+    ax.set_title(<span class="hljs-string">f&#x27;<span class="hljs-subst">{pair1[:-<span class="hljs-number">5</span>]}</span> &amp; <span class="hljs-subst">{pair2[:-<span class="hljs-number">5</span>]}</span>&#x27;</span>)
     ax.set_xticks([])
-    plot_index += 1
+    plot_index += <span class="hljs-number">1</span>
 
 plt.tight_layout()
 plt.show()
-print(len(pairs)/(len(cluster_12) * (len(cluster_12) - 1)) * 2)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(pairs)/(<span class="hljs-built_in">len</span>(cluster_12) * (<span class="hljs-built_in">len</span>(cluster_12) - <span class="hljs-number">1</span>)) * <span class="hljs-number">2</span>)</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/cluster-12-all.jpg" alt=""></p>
 <!-- END IPYNB STRIPOUT -->

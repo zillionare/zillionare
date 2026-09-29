@@ -24,117 +24,115 @@
 <p>然后，我需要针对这个数据表，对 <code>data_producer.py</code> 和 <code>data_consumer.py</code> 进行修改。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/3_02.png" alt=""></p>
 <p>007 回答我的完整代码如下：</p>
-<pre><code class="language-python">&quot;&quot;&quot;data_producer.py&quot;&quot;&quot;
-import redis
-import tushare as ts
-import json
-from datetime import datetime
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;data_producer.py&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
 
-# Tushare和Redis配置
-TUSHARE_TOKEN = &quot;YOUR TOKEN&quot;
-REDIS_HOST = &quot;localhost&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;tushare_data_queue&quot;
+<span class="hljs-comment"># Tushare和Redis配置</span>
+TUSHARE_TOKEN = <span class="hljs-string">&quot;YOUR TOKEN&quot;</span>
+REDIS_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;tushare_data_queue&quot;</span>
 
-# 初始化连接
+<span class="hljs-comment"># 初始化连接</span>
 pro = ts.pro_api(TUSHARE_TOKEN)
-redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=<span class="hljs-literal">True</span>)
 
-def fetch_ohlc_daily_data(ts_code: str, start_date: str, end_date: str) -&gt; list:
-    try:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_ohlc_daily_data</span>(<span class="hljs-params">ts_code: <span class="hljs-built_in">str</span>, start_date: <span class="hljs-built_in">str</span>, end_date: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">list</span>:
+    <span class="hljs-keyword">try</span>:
         df = pro.daily(ts_code=ts_code, start_date=start_date, end_date=end_date)
-        return df[[&#39;ts_code&#39;, &#39;trade_date&#39;, &#39;open&#39;, &#39;high&#39;, &#39;low&#39;, &#39;close&#39;, &#39;vol&#39;]].to_dict(&#39;records&#39;)
-    except Exception as e:
-        print(f&quot;OHLC数据获取失败: {str(e)}&quot;)
-        return []
+        <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&#x27;ts_code&#x27;</span>, <span class="hljs-string">&#x27;trade_date&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;high&#x27;</span>, <span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-string">&#x27;vol&#x27;</span>]].to_dict(<span class="hljs-string">&#x27;records&#x27;</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;OHLC数据获取失败: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+        <span class="hljs-keyword">return</span> []
 
-def fetch_adj_factor(ts_code: str, start_date: str, end_date: str) -&gt; list:
-    try:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_adj_factor</span>(<span class="hljs-params">ts_code: <span class="hljs-built_in">str</span>, start_date: <span class="hljs-built_in">str</span>, end_date: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">list</span>:
+    <span class="hljs-keyword">try</span>:
         df = pro.adj_factor(ts_code=ts_code, start_date=start_date, end_date=end_date)
-        return df[[&#39;ts_code&#39;, &#39;trade_date&#39;, &#39;adj_factor&#39;]].to_dict(&#39;records&#39;)
-    except Exception as e:
-        print(f&quot;复权因子获取失败: {str(e)}&quot;)
-        return []
-def produce_data(ts_code_list: list, date_range: tuple):
+        <span class="hljs-keyword">return</span> df[[<span class="hljs-string">&#x27;ts_code&#x27;</span>, <span class="hljs-string">&#x27;trade_date&#x27;</span>, <span class="hljs-string">&#x27;adj_factor&#x27;</span>]].to_dict(<span class="hljs-string">&#x27;records&#x27;</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;复权因子获取失败: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+        <span class="hljs-keyword">return</span> []
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">produce_data</span>(<span class="hljs-params">ts_code_list: <span class="hljs-built_in">list</span>, date_range: <span class="hljs-built_in">tuple</span></span>):
     start_date, end_date = date_range
-    for ts_code in ts_code_list:
+    <span class="hljs-keyword">for</span> ts_code <span class="hljs-keyword">in</span> ts_code_list:
         data_package = {
-            &quot;timestamp&quot;: datetime.now().isoformat(),
-            &quot;ts_code&quot;: ts_code,
-            &quot;ohlc_data&quot;: fetch_ohlc_daily_data(ts_code, start_date, end_date),
-            &quot;adj_factor&quot;: fetch_adj_factor(ts_code, start_date, end_date)
+            <span class="hljs-string">&quot;timestamp&quot;</span>: datetime.now().isoformat(),
+            <span class="hljs-string">&quot;ts_code&quot;</span>: ts_code,
+            <span class="hljs-string">&quot;ohlc_data&quot;</span>: fetch_ohlc_daily_data(ts_code, start_date, end_date),
+            <span class="hljs-string">&quot;adj_factor&quot;</span>: fetch_adj_factor(ts_code, start_date, end_date)
         }
         redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data_package))
-        print(f&quot;已推送数据: {ts_code} - {start_date}至{end_date}&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;已推送数据: <span class="hljs-subst">{ts_code}</span> - <span class="hljs-subst">{start_date}</span>至<span class="hljs-subst">{end_date}</span>&quot;</span>)
 
-if __name__ == &quot;__main__&quot;:
-    STOCK_CODES = [&quot;000001.SZ&quot;, &quot;600519.SH&quot;]
-    DATE_RANGE = (&quot;20230101&quot;, &quot;20231231&quot;)
-    produce_data(STOCK_CODES, DATE_RANGE)
-</code></pre>
-<pre><code class="language-python">&quot;&quot;&quot;data_consumer.py&quot;&quot;&quot;
-import redis
-import json
-from clickhouse_driver import Client
-from datetime import datetime
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    STOCK_CODES = [<span class="hljs-string">&quot;000001.SZ&quot;</span>, <span class="hljs-string">&quot;600519.SH&quot;</span>]
+    DATE_RANGE = (<span class="hljs-string">&quot;20230101&quot;</span>, <span class="hljs-string">&quot;20231231&quot;</span>)
+    produce_data(STOCK_CODES, DATE_RANGE)</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span></span><span class="cl-body"><span class="hljs-string">&quot;&quot;&quot;data_consumer.py&quot;&quot;&quot;</span>
+<span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> clickhouse_driver <span class="hljs-keyword">import</span> Client
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
 
-# 配置参数
-REDIS_HOST = &quot;localhost&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;tushare_data_queue&quot;
+<span class="hljs-comment"># 配置参数</span>
+REDIS_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;tushare_data_queue&quot;</span>
 
-CLICKHOUSE_HOST = &quot;localhost&quot;
-CLICKHOUSE_PORT = 9000
-CLICKHOUSE_DB = &quot;default&quot;
+CLICKHOUSE_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+CLICKHOUSE_PORT = <span class="hljs-number">9000</span>
+CLICKHOUSE_DB = <span class="hljs-string">&quot;default&quot;</span>
 
-# 初始化 Redis 和 ClickHouse 客户端
-redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+<span class="hljs-comment"># 初始化 Redis 和 ClickHouse 客户端</span>
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=<span class="hljs-literal">True</span>)
 clickhouse_client = Client(host=CLICKHOUSE_HOST, port=CLICKHOUSE_PORT, database=CLICKHOUSE_DB)
 
-def insert_to_clickhouse(data):
-    &quot;&quot;&quot;将数据插入到 ClickHouse&quot;&quot;&quot;
-    query = &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">insert_to_clickhouse</span>(<span class="hljs-params">data</span>):
+    <span class="hljs-string">&quot;&quot;&quot;将数据插入到 ClickHouse&quot;&quot;&quot;</span>
+    query = <span class="hljs-string">&quot;&quot;&quot;
     INSERT INTO daily_data (ts_code, trade_date, open, high, low, close, vol, adj_factor)
     VALUES
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     values = []
-    for record in data[&quot;ohlc_data&quot;]:
-        adj_factor_record = next((adj for adj in data[&quot;adj_factor&quot;] if adj[&quot;trade_date&quot;] == record[&quot;trade_date&quot;]), None)
-        adj_factor = adj_factor_record[&quot;adj_factor&quot;] if adj_factor_record else None
+    <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> data[<span class="hljs-string">&quot;ohlc_data&quot;</span>]:
+        adj_factor_record = <span class="hljs-built_in">next</span>((adj <span class="hljs-keyword">for</span> adj <span class="hljs-keyword">in</span> data[<span class="hljs-string">&quot;adj_factor&quot;</span>] <span class="hljs-keyword">if</span> adj[<span class="hljs-string">&quot;trade_date&quot;</span>] == record[<span class="hljs-string">&quot;trade_date&quot;</span>]), <span class="hljs-literal">None</span>)
+        adj_factor = adj_factor_record[<span class="hljs-string">&quot;adj_factor&quot;</span>] <span class="hljs-keyword">if</span> adj_factor_record <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span>
         values.append((
-            record[&quot;ts_code&quot;],
-            datetime.strptime(record[&quot;trade_date&quot;], &quot;%Y%m%d&quot;).date(),
-            record[&quot;open&quot;],
-            record[&quot;high&quot;],
-            record[&quot;low&quot;],
-            record[&quot;close&quot;],
-            record[&quot;vol&quot;],
+            record[<span class="hljs-string">&quot;ts_code&quot;</span>],
+            datetime.strptime(record[<span class="hljs-string">&quot;trade_date&quot;</span>], <span class="hljs-string">&quot;%Y%m%d&quot;</span>).date(),
+            record[<span class="hljs-string">&quot;open&quot;</span>],
+            record[<span class="hljs-string">&quot;high&quot;</span>],
+            record[<span class="hljs-string">&quot;low&quot;</span>],
+            record[<span class="hljs-string">&quot;close&quot;</span>],
+            record[<span class="hljs-string">&quot;vol&quot;</span>],
             adj_factor
         ))
     clickhouse_client.execute(query, values)
 
-def consume_data():
-    &quot;&quot;&quot;数据消费主函数&quot;&quot;&quot;
-    print(&quot;启动数据消费者，等待队列数据...&quot;)
-    while True:
-        try:
-            # 阻塞式获取队列数据
-            result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=1)
-            if result is None:
-                # 如果没有获取到数据，说明队列为空，退出循环
-                print(&quot;Redis 队列为空，停止消费数据。&quot;)
-                break
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_data</span>():
+    <span class="hljs-string">&quot;&quot;&quot;数据消费主函数&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;启动数据消费者，等待队列数据...&quot;</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 阻塞式获取队列数据</span>
+            result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">if</span> result <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                <span class="hljs-comment"># 如果没有获取到数据，说明队列为空，退出循环</span>
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Redis 队列为空，停止消费数据。&quot;</span>)
+                <span class="hljs-keyword">break</span>
             _, json_data = result
             data_package = json.loads(json_data)
             insert_to_clickhouse(data_package)
-            print(f&quot;成功插入数据: {len(data_package[&#39;ohlc_data&#39;])} 条&quot;)
-        except Exception as e:
-            print(f&quot;数据处理异常: {str(e)}&quot;)
-            continue
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;成功插入数据: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(data_package[<span class="hljs-string">&#x27;ohlc_data&#x27;</span>])}</span> 条&quot;</span>)
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;数据处理异常: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
-if __name__ == &quot;__main__&quot;:
-    consume_data()
-</code></pre>
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    consume_data()</span></code></pre>
 <h2 id="2-获取分钟线数据">2. 获取分钟线数据</h2>
 <p>同上述步骤，我需要获取分钟线数据，并添加到数据表中。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/3_03.png" alt=""></p>
@@ -150,18 +148,17 @@ if __name__ == &quot;__main__&quot;:
     这里的分钟线数据表是不含因子的！-->
 
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/3_04.png" alt=""></p>
-<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS minute_data (
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">CREATE TABLE</span> IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> minute_data (
     ts_code String,
     trade_time DateTime,
-    open Float32,
+    <span class="hljs-keyword">open</span> Float32,
     high Float32,
     low Float32,
-    close Float32,
+    <span class="hljs-keyword">close</span> Float32,
     vol Float32,
     amount Float32
-) ENGINE = MergeTree()
-ORDER BY (ts_code, trade_time);
-</code></pre>
+) ENGINE <span class="hljs-operator">=</span> MergeTree()
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> (ts_code, trade_time);</span></code></pre>
 <h2 id="22-修改生产者代码添加分钟线数据获取功能">2.2. 修改生产者代码，添加分钟线数据获取功能</h2>
 <p>007 还是采用 tushare 来获取分钟线数据，并添加到数据表中。但是，这里获取分钟线数据我并不打算用 tushare 作为数据源，而是打算采用 qmt 提供的 API 接口来获取分钟级的数据。</p>
 <!--
@@ -189,10 +186,10 @@ ORDER BY (ts_code, trade_time);
 <p>依据 007 的好建议，我完成了以下代码。</p>
 <h3 id="223-windows-的数据生产者代码">2.2.3. windows 的数据生产者代码</h3>
 <p>007 原先的代码如下：</p>
-<pre><code class="language-python">import redis
-import json
-from datetime import datetime
-from xtquant.xtdata import (
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span></span><span class="cl-body"><span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+<span class="hljs-keyword">from</span> xtquant.xtdata <span class="hljs-keyword">import</span> (
     init,
     download_history_data,
     get_local_data,
@@ -200,171 +197,168 @@ from xtquant.xtdata import (
     close
 )
 
-# Redis配置 - 使用Mac的IP地址
-REDIS_HOST = &quot;替换为Mac的IP地址&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;qmt_minute_queue&quot;
-REDIS_PASSWORD = None  # 如果有密码，请设置
+<span class="hljs-comment"># Redis配置 - 使用Mac的IP地址</span>
+REDIS_HOST = <span class="hljs-string">&quot;替换为Mac的IP地址&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;qmt_minute_queue&quot;</span>
+REDIS_PASSWORD = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 如果有密码，请设置</span>
 
-def setup_redis_client():
-    &quot;&quot;&quot;初始化Redis客户端&quot;&quot;&quot;
-    return redis.StrictRedis(
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">setup_redis_client</span>():
+    <span class="hljs-string">&quot;&quot;&quot;初始化Redis客户端&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> redis.StrictRedis(
         host=REDIS_HOST, 
         port=REDIS_PORT, 
         password=REDIS_PASSWORD,
-        decode_responses=True
+        decode_responses=<span class="hljs-literal">True</span>
     )
 
-def fetch_minute_data(stock_code, date_str):
-    &quot;&quot;&quot;获取指定日期的分钟线数据&quot;&quot;&quot;
-    try:
-        # 获取分钟线数据
-        df = get_local_data(stock_code, &#39;min1&#39;, date_str, date_str)
-        if df is None or len(df) == 0:
-            return []
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_minute_data</span>(<span class="hljs-params">stock_code, date_str</span>):
+    <span class="hljs-string">&quot;&quot;&quot;获取指定日期的分钟线数据&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-comment"># 获取分钟线数据</span>
+        df = get_local_data(stock_code, <span class="hljs-string">&#x27;min1&#x27;</span>, date_str, date_str)
+        <span class="hljs-keyword">if</span> df <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(df) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">return</span> []
         
-        # 转换数据格式
+        <span class="hljs-comment"># 转换数据格式</span>
         records = []
-        for time, row in df.iterrows():
+        <span class="hljs-keyword">for</span> time, row <span class="hljs-keyword">in</span> df.iterrows():
             records.append({
-                &quot;ts_code&quot;: stock_code,
-                &quot;trade_time&quot;: time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;),
-                &quot;open&quot;: float(row[&#39;open&#39;]),
-                &quot;high&quot;: float(row[&#39;high&#39;]),
-                &quot;low&quot;: float(row[&#39;low&#39;]),
-                &quot;close&quot;: float(row[&#39;close&#39;]),
-                &quot;vol&quot;: float(row[&#39;volume&#39;]),
-                &quot;amount&quot;: float(row[&#39;amount&#39;])
+                <span class="hljs-string">&quot;ts_code&quot;</span>: stock_code,
+                <span class="hljs-string">&quot;trade_time&quot;</span>: time.strftime(<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>),
+                <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-built_in">float</span>(row[<span class="hljs-string">&#x27;open&#x27;</span>]),
+                <span class="hljs-string">&quot;high&quot;</span>: <span class="hljs-built_in">float</span>(row[<span class="hljs-string">&#x27;high&#x27;</span>]),
+                <span class="hljs-string">&quot;low&quot;</span>: <span class="hljs-built_in">float</span>(row[<span class="hljs-string">&#x27;low&#x27;</span>]),
+                <span class="hljs-string">&quot;close&quot;</span>: <span class="hljs-built_in">float</span>(row[<span class="hljs-string">&#x27;close&#x27;</span>]),
+                <span class="hljs-string">&quot;vol&quot;</span>: <span class="hljs-built_in">float</span>(row[<span class="hljs-string">&#x27;volume&#x27;</span>]),
+                <span class="hljs-string">&quot;amount&quot;</span>: <span class="hljs-built_in">float</span>(row[<span class="hljs-string">&#x27;amount&#x27;</span>])
             })
-        return records
-    except Exception as e:
-        print(f&quot;获取分钟线数据失败 {stock_code} {date_str}: {str(e)}&quot;)
-        return []
+        <span class="hljs-keyword">return</span> records
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;获取分钟线数据失败 <span class="hljs-subst">{stock_code}</span> <span class="hljs-subst">{date_str}</span>: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+        <span class="hljs-keyword">return</span> []
 
-def main():
-    &quot;&quot;&quot;主函数&quot;&quot;&quot;
-    # 初始化QMT接口
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-string">&quot;&quot;&quot;主函数&quot;&quot;&quot;</span>
+    <span class="hljs-comment"># 初始化QMT接口</span>
     init()
         
-    # 初始化Redis客户端
+    <span class="hljs-comment"># 初始化Redis客户端</span>
     redis_client = setup_redis_client()
         
-    try:
-        # 配置参数
-        stock_list = [&quot;000001.SZ&quot;, &quot;600519.SH&quot;]
-        start_date = &quot;20230101&quot;
-        end_date = &quot;20230131&quot;
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-comment"># 配置参数</span>
+        stock_list = [<span class="hljs-string">&quot;000001.SZ&quot;</span>, <span class="hljs-string">&quot;600519.SH&quot;</span>]
+        start_date = <span class="hljs-string">&quot;20230101&quot;</span>
+        end_date = <span class="hljs-string">&quot;20230131&quot;</span>
             
-        # 下载历史数据
-        print(f&quot;开始下载历史数据: {start_date} 至 {end_date}&quot;)
-        download_history_data(stock_list, &#39;min1&#39;, start_date, end_date)
-        print(&quot;历史数据下载完成&quot;)
+        <span class="hljs-comment"># 下载历史数据</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;开始下载历史数据: <span class="hljs-subst">{start_date}</span> 至 <span class="hljs-subst">{end_date}</span>&quot;</span>)
+        download_history_data(stock_list, <span class="hljs-string">&#x27;min1&#x27;</span>, start_date, end_date)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;历史数据下载完成&quot;</span>)
             
-        # 获取交易日列表
+        <span class="hljs-comment"># 获取交易日列表</span>
         trading_dates = get_trading_dates(start_date, end_date)
             
-        # 按日期和股票代码获取分钟线数据并发送到Redis
-        for trade_date in trading_dates:
-            date_str = trade_date.strftime(&quot;%Y%m%d&quot;)
-            print(f&quot;处理日期: {date_str}&quot;)
+        <span class="hljs-comment"># 按日期和股票代码获取分钟线数据并发送到Redis</span>
+        <span class="hljs-keyword">for</span> trade_date <span class="hljs-keyword">in</span> trading_dates:
+            date_str = trade_date.strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;处理日期: <span class="hljs-subst">{date_str}</span>&quot;</span>)
                 
-            for stock_code in stock_list:
+            <span class="hljs-keyword">for</span> stock_code <span class="hljs-keyword">in</span> stock_list:
                 minute_data = fetch_minute_data(stock_code, date_str)
                 
-                if minute_data:
-                    # 封装数据
+                <span class="hljs-keyword">if</span> minute_data:
+                    <span class="hljs-comment"># 封装数据</span>
                     data_package = {
-                        &quot;timestamp&quot;: datetime.now().isoformat(),
-                        &quot;ts_code&quot;: stock_code,
-                        &quot;trade_date&quot;: date_str,
-                        &quot;minute_data&quot;: minute_data
+                        <span class="hljs-string">&quot;timestamp&quot;</span>: datetime.now().isoformat(),
+                        <span class="hljs-string">&quot;ts_code&quot;</span>: stock_code,
+                        <span class="hljs-string">&quot;trade_date&quot;</span>: date_str,
+                        <span class="hljs-string">&quot;minute_data&quot;</span>: minute_data
                     }
                         
-                    # 发送到Redis
+                    <span class="hljs-comment"># 发送到Redis</span>
                     redis_client.lpush(REDIS_QUEUE_NAME, json.dump(data_package))
-                    print(f&quot;已推送分钟线数据: {stock_code} - {date_str} ({len(minute_data)}条)&quot;)
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;已推送分钟线数据: <span class="hljs-subst">{stock_code}</span> - <span class="hljs-subst">{date_str}</span> (<span class="hljs-subst">{<span class="hljs-built_in">len</span>(minute_data)}</span>条)&quot;</span>)
         
-    except Exception as e:
-        print(f&quot;程序执行异常: {str(e)}&quot;)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;程序执行异常: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
         
-    finally:
-        # 关闭QMT接口
+    <span class="hljs-keyword">finally</span>:
+        <span class="hljs-comment"># 关闭QMT接口</span>
         close()
-        print(&quot;程序执行完毕&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;程序执行完毕&quot;</span>)
 
-if __name__ == &quot;__main__&quot;:
-    main()
-</code></pre>
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    main()</span></code></pre>
 <p>但是这个代码是不可以运行的，因为 qmt 库的版本可能发生了改变，有一些模块是被移除或修改的。而且我们想从 Windows 机器连接到 Mac 上运行的 Redis 服务器。这涉及到网络连接、防火墙设置、Redis 配置以及可能的权限问题。</p>
 <p>针对 Redis 的有关问题，我打算继续用 007 的“贴心代码”进行 Redis 连接的测试。</p>
-<pre><code class="language-python"># Redis配置 - 使用Mac的IP地址
-REDIS_HOST = &quot;替换为Mac的IP地址&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;qmt_minute_queue&quot;
-REDIS_PASSWORD = None  # 如果有密码，请设置
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span></span><span class="cl-body"><span class="hljs-comment"># Redis配置 - 使用Mac的IP地址</span>
+REDIS_HOST = <span class="hljs-string">&quot;替换为Mac的IP地址&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;qmt_minute_queue&quot;</span>
+REDIS_PASSWORD = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 如果有密码，请设置</span>
 
 
-# 测试Redis连接
-import redis
-import time
+<span class="hljs-comment"># 测试Redis连接</span>
+<span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> time
 
-try:
-    # 创建Redis客户端
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-comment"># 创建Redis客户端</span>
     redis_client = redis.Redis(
         host=REDIS_HOST,
         port=REDIS_PORT,
         password=REDIS_PASSWORD,
-        socket_timeout=5,
-        decode_responses=True
+        socket_timeout=<span class="hljs-number">5</span>,
+        decode_responses=<span class="hljs-literal">True</span>
     )
     
-    # 测试连接 - PING命令
+    <span class="hljs-comment"># 测试连接 - PING命令</span>
     response = redis_client.ping()
-    print(f&quot;Redis连接测试 (PING): {&#39;成功&#39; if response else &#39;失败&#39;}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Redis连接测试 (PING): <span class="hljs-subst">{<span class="hljs-string">&#x27;成功&#x27;</span> <span class="hljs-keyword">if</span> response <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;失败&#x27;</span>}</span>&quot;</span>)
     
-    # 测试基本操作 - 写入和读取
-    test_key = &quot;test_connection_key&quot;
-    test_value = f&quot;test_value_{time.time()}&quot;
+    <span class="hljs-comment"># 测试基本操作 - 写入和读取</span>
+    test_key = <span class="hljs-string">&quot;test_connection_key&quot;</span>
+    test_value = <span class="hljs-string">f&quot;test_value_<span class="hljs-subst">{time.time()}</span>&quot;</span>
     
-    # 写入测试
-    redis_client.set(test_key, test_value)
-    print(f&quot;Redis写入测试: 成功写入键 &#39;{test_key}&#39;&quot;)
+    <span class="hljs-comment"># 写入测试</span>
+    redis_client.<span class="hljs-built_in">set</span>(test_key, test_value)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Redis写入测试: 成功写入键 &#x27;<span class="hljs-subst">{test_key}</span>&#x27;&quot;</span>)
     
-    # 读取测试
+    <span class="hljs-comment"># 读取测试</span>
     read_value = redis_client.get(test_key)
-    print(f&quot;Redis读取测试: {&#39;成功&#39; if read_value == test_value else &#39;失败&#39;}&quot;)
-    print(f&quot;写入值: {test_value}&quot;)
-    print(f&quot;读取值: {read_value}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Redis读取测试: <span class="hljs-subst">{<span class="hljs-string">&#x27;成功&#x27;</span> <span class="hljs-keyword">if</span> read_value == test_value <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;失败&#x27;</span>}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;写入值: <span class="hljs-subst">{test_value}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;读取值: <span class="hljs-subst">{read_value}</span>&quot;</span>)
     
-    # 测试队列操作
-    redis_client.lpush(REDIS_QUEUE_NAME, &quot;测试消息&quot;)
+    <span class="hljs-comment"># 测试队列操作</span>
+    redis_client.lpush(REDIS_QUEUE_NAME, <span class="hljs-string">&quot;测试消息&quot;</span>)
     queue_length = redis_client.llen(REDIS_QUEUE_NAME)
-    print(f&quot;Redis队列测试: 成功写入队列 &#39;{REDIS_QUEUE_NAME}&#39;，当前队列长度: {queue_length}&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Redis队列测试: 成功写入队列 &#x27;<span class="hljs-subst">{REDIS_QUEUE_NAME}</span>&#x27;，当前队列长度: <span class="hljs-subst">{queue_length}</span>&quot;</span>)
     
-    # 清理测试数据
+    <span class="hljs-comment"># 清理测试数据</span>
     redis_client.delete(test_key)
     
-    print(&quot;Redis连接和基本操作测试完成，连接正常&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Redis连接和基本操作测试完成，连接正常&quot;</span>)
     
-except redis.exceptions.ConnectionError as e:
-    print(f&quot;Redis连接错误: {str(e)}&quot;)
-    print(&quot;请检查以下问题:&quot;)
-    print(&quot;1. Redis服务器是否在运行&quot;)
-    print(&quot;2. IP地址是否正确&quot;)
-    print(&quot;3. 端口是否正确&quot;)
-    print(&quot;4. 防火墙是否允许连接&quot;)
-    print(&quot;5. Redis是否配置为允许远程连接&quot;)
+<span class="hljs-keyword">except</span> redis.exceptions.ConnectionError <span class="hljs-keyword">as</span> e:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Redis连接错误: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请检查以下问题:&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;1. Redis服务器是否在运行&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;2. IP地址是否正确&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;3. 端口是否正确&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;4. 防火墙是否允许连接&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;5. Redis是否配置为允许远程连接&quot;</span>)
     
-except Exception as e:
-    print(f&quot;Redis测试过程中出现其他错误: {str(e)}&quot;)
-</code></pre>
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Redis测试过程中出现其他错误: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)</span></code></pre>
 <p>有了测试代码，我们还需要考虑 Redis 的默认配置。默认情况下，Redis 只允许本地连接，绑定到 127.0.0.1。因此，要允许远程连接，必须修改 Redis 的配置文件，将绑定地址改为 0.0.0.0 或者 Mac 的局域网 IP 地址。这一步可能需要用户编辑 Redis 的配置文件，比如 redis.conf，找到 bind 参数并修改。</p>
 <ol>
 <li><p>修改 Redis 配置文件
  默认情况下，Redis 仅监听本地 IP（127.0.0.1），需调整为允许远程连接：</p>
 <ul>
-<li>打开配置文件<pre><code class="language-bash">sudo nano /usr/local/etc/redis.conf
-</code></pre>
+<li>打开配置文件<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">sudo</span> nano /usr/local/etc/redis.conf</span></code></pre>
 </li>
 <li>修改以下参数：<ul>
 <li><p>绑定 IP：将 bind 127.0.0.1 改为 bind 0.0.0.0（允许所有 IP 访问）或替换为 Mac 的局域网 IP（如 192.168.1.100）。
@@ -374,8 +368,7 @@ except Exception as e:
 <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/3_08.png" alt=""></p>
 </li>
 <li><p>设置密码（可选但推荐）：取消注释 requirepass 并设置密码：</p>
-<pre><code class="language-bash">requirepass your_password
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">requirepass your_password</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/3_09.png" alt=""></p>
 </li>
 </ul>
@@ -384,9 +377,8 @@ except Exception as e:
 </ul>
 </li>
 <li><p>重启 Redis 服务（二选一即可）</p>
-<pre><code class="language-bash">brew services restart redis  # 适用于Homebrew安装
-redis-server /usr/local/etc/redis.conf  # 手动重启
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">brew services restart redis  <span class="hljs-comment"># 适用于Homebrew安装</span>
+redis-server /usr/local/etc/redis.conf  <span class="hljs-comment"># 手动重启</span></span></code></pre>
 </li>
 <li><p>开放 Mac 防火墙端口</p>
 <ul>
@@ -398,9 +390,8 @@ redis-server /usr/local/etc/redis.conf  # 手动重启
 </li>
 <li>命令行操作（需管理员权限）：</li>
 </ul>
-<pre><code class="language-bash">sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/bin/redis-server
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/bin/redis-server
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-built_in">sudo</span> /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/bin/redis-server
+<span class="hljs-built_in">sudo</span> /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/bin/redis-server</span></code></pre>
 </li>
 </ol>
 <p>完成上述步骤之后，我们对 Windows 端进行配置（下载 Redis 客户端）</p>
@@ -415,52 +406,49 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/local/bin
 <ul>
 <li>命令格式：</li>
 </ul>
-<pre><code class="language-bash">redis-cli -h &lt;Mac的局域网IP&gt; -p 6379 -a &lt;密码&gt;
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">redis-cli -h &lt;Mac的局域网IP&gt; -p 6379 -a &lt;密码&gt;</span></code></pre>
 <ul>
-<li>示例（假设 Mac IP 为 192.168.1.100，密码为 your_redis_password）：<pre><code class="language-bash">redis-cli -h 192.168.1.100 -p 6379 -a your_redis_password
-</code></pre>
+<li>示例（假设 Mac IP 为 192.168.1.100，密码为 your_redis_password）：<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">redis-cli -h 192.168.1.100 -p 6379 -a your_redis_password</span></code></pre>
 </li>
-<li>验证连接：<pre><code class="language-bash">192.168.1.100:6379&gt; PING
-PONG  # 连接成功
-</code></pre>
+<li>验证连接：<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">192.168.1.100:6379&gt; PING
+PONG  <span class="hljs-comment"># 连接成功</span></span></code></pre>
 </li>
 </ul>
 </li>
 </ol>
 <p>上面的步骤依旧不能确保 Redis 服务器在 Windows 上可以接受来自 Mac 的连接。（这里我们先留一个坑如果朋友们有想法也可以在评论区留下你们的解决方案）</p>
 <h3 id="224-macos-的数据消费者代码">2.2.4. macos 的数据消费者代码</h3>
-<pre><code class="language-python"> import redis
- import json
- from clickhouse_driver import Client
- from datetime import datetime
- import time
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span></span><span class="cl-body"> <span class="hljs-keyword">import</span> redis
+ <span class="hljs-keyword">import</span> json
+ <span class="hljs-keyword">from</span> clickhouse_driver <span class="hljs-keyword">import</span> Client
+ <span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+ <span class="hljs-keyword">import</span> time
 
- # Redis配置
- REDIS_HOST = &quot;localhost&quot;  # 本地Redis或Windows的IP
- REDIS_PORT = 6379
- REDIS_QUEUE_NAME = &quot;qmt_minute_queue&quot;
- REDIS_PASSWORD = None  # 如果有密码，请设置
+ <span class="hljs-comment"># Redis配置</span>
+ REDIS_HOST = <span class="hljs-string">&quot;localhost&quot;</span>  <span class="hljs-comment"># 本地Redis或Windows的IP</span>
+ REDIS_PORT = <span class="hljs-number">6379</span>
+ REDIS_QUEUE_NAME = <span class="hljs-string">&quot;qmt_minute_queue&quot;</span>
+ REDIS_PASSWORD = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 如果有密码，请设置</span>
 
- # ClickHouse配置
- CLICKHOUSE_HOST = &quot;localhost&quot;
- CLICKHOUSE_PORT = 9000
- CLICKHOUSE_DB = &quot;default&quot;
- CLICKHOUSE_USER = &quot;default&quot;
- CLICKHOUSE_PASSWORD = &quot;&quot;
+ <span class="hljs-comment"># ClickHouse配置</span>
+ CLICKHOUSE_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+ CLICKHOUSE_PORT = <span class="hljs-number">9000</span>
+ CLICKHOUSE_DB = <span class="hljs-string">&quot;default&quot;</span>
+ CLICKHOUSE_USER = <span class="hljs-string">&quot;default&quot;</span>
+ CLICKHOUSE_PASSWORD = <span class="hljs-string">&quot;&quot;</span>
 
- def setup_redis_client():
-     &quot;&quot;&quot;初始化Redis客户端&quot;&quot;&quot;
-     return redis.StrictRedis(
+ <span class="hljs-keyword">def</span> <span class="hljs-title function_">setup_redis_client</span>():
+     <span class="hljs-string">&quot;&quot;&quot;初始化Redis客户端&quot;&quot;&quot;</span>
+     <span class="hljs-keyword">return</span> redis.StrictRedis(
          host=REDIS_HOST, 
          port=REDIS_PORT, 
          password=REDIS_PASSWORD,
-         decode_responses=True
+         decode_responses=<span class="hljs-literal">True</span>
      )
 
- def setup_clickhouse_client():
-     &quot;&quot;&quot;初始化ClickHouse客户端&quot;&quot;&quot;
-     return Client(
+ <span class="hljs-keyword">def</span> <span class="hljs-title function_">setup_clickhouse_client</span>():
+     <span class="hljs-string">&quot;&quot;&quot;初始化ClickHouse客户端&quot;&quot;&quot;</span>
+     <span class="hljs-keyword">return</span> Client(
          host=CLICKHOUSE_HOST,
          port=CLICKHOUSE_PORT,
          database=CLICKHOUSE_DB,
@@ -468,114 +456,112 @@ PONG  # 连接成功
          password=CLICKHOUSE_PASSWORD
      )
 
- def insert_to_clickhouse(client, data):
-     &quot;&quot;&quot;将分钟线数据插入到ClickHouse&quot;&quot;&quot;
-     if not data[&quot;minute_data&quot;]:
-         print(&quot;没有数据需要插入&quot;)
-         return 0
+ <span class="hljs-keyword">def</span> <span class="hljs-title function_">insert_to_clickhouse</span>(<span class="hljs-params">client, data</span>):
+     <span class="hljs-string">&quot;&quot;&quot;将分钟线数据插入到ClickHouse&quot;&quot;&quot;</span>
+     <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data[<span class="hljs-string">&quot;minute_data&quot;</span>]:
+         <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;没有数据需要插入&quot;</span>)
+         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
      
-     query = &quot;&quot;&quot;
+     query = <span class="hljs-string">&quot;&quot;&quot;
      INSERT INTO minute_data 
      (ts_code, trade_time, open, high, low, close, vol, amount)
      VALUES
-     &quot;&quot;&quot;
+     &quot;&quot;&quot;</span>
      
      values = []
-     for record in data[&quot;minute_data&quot;]:
+     <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> data[<span class="hljs-string">&quot;minute_data&quot;</span>]:
          values.append((
-             record[&quot;ts_code&quot;],
-             datetime.strptime(record[&quot;trade_time&quot;], &quot;%Y-%m-%d %H:%M:%S&quot;),
-             record[&quot;open&quot;],
-             record[&quot;high&quot;],
-             record[&quot;low&quot;],
-             record[&quot;close&quot;],
-             record[&quot;vol&quot;],
-             record[&quot;amount&quot;]
+             record[<span class="hljs-string">&quot;ts_code&quot;</span>],
+             datetime.strptime(record[<span class="hljs-string">&quot;trade_time&quot;</span>], <span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>),
+             record[<span class="hljs-string">&quot;open&quot;</span>],
+             record[<span class="hljs-string">&quot;high&quot;</span>],
+             record[<span class="hljs-string">&quot;low&quot;</span>],
+             record[<span class="hljs-string">&quot;close&quot;</span>],
+             record[<span class="hljs-string">&quot;vol&quot;</span>],
+             record[<span class="hljs-string">&quot;amount&quot;</span>]
          ))
      
-     if values:
+     <span class="hljs-keyword">if</span> values:
          client.execute(query, values)
-         return len(values)
-     return 0
+         <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(values)
+     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
 
- def main():
-     &quot;&quot;&quot;主函数&quot;&quot;&quot;
-     # 初始化客户端
+ <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+     <span class="hljs-string">&quot;&quot;&quot;主函数&quot;&quot;&quot;</span>
+     <span class="hljs-comment"># 初始化客户端</span>
      redis_client = setup_redis_client()
      clickhouse_client = setup_clickhouse_client()
      
-     print(&quot;启动分钟线数据消费者，等待队列数据...&quot;)
+     <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;启动分钟线数据消费者，等待队列数据...&quot;</span>)
      
-     try:
-         while True:
-             # 尝试从Redis获取数据
-             result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=1)
+     <span class="hljs-keyword">try</span>:
+         <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+             <span class="hljs-comment"># 尝试从Redis获取数据</span>
+             result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=<span class="hljs-number">1</span>)
              
-             if result is None:
-                 print(&quot;Redis队列为空，等待新数据...&quot;)
-                 time.sleep(5)  # 等待5秒再次尝试
-                 continue
+             <span class="hljs-keyword">if</span> result <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                 <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Redis队列为空，等待新数据...&quot;</span>)
+                 time.sleep(<span class="hljs-number">5</span>)  <span class="hljs-comment"># 等待5秒再次尝试</span>
+                 <span class="hljs-keyword">continue</span>
              
-             # 解析数据
+             <span class="hljs-comment"># 解析数据</span>
              _, json_data = result
              data_package = json.loads(json_data)
              
-             # 插入ClickHouse
+             <span class="hljs-comment"># 插入ClickHouse</span>
              inserted_count = insert_to_clickhouse(clickhouse_client, data_package)
-             print(f&quot;成功插入分钟线数据: {data_package[&#39;ts_code&#39;]} - {data_package[&#39;trade_date&#39;]} ({inserted_count}条)&quot;)
+             <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;成功插入分钟线数据: <span class="hljs-subst">{data_package[<span class="hljs-string">&#x27;ts_code&#x27;</span>]}</span> - <span class="hljs-subst">{data_package[<span class="hljs-string">&#x27;trade_date&#x27;</span>]}</span> (<span class="hljs-subst">{inserted_count}</span>条)&quot;</span>)
      
-     except KeyboardInterrupt:
-         print(&quot;程序被手动中断&quot;)
+     <span class="hljs-keyword">except</span> KeyboardInterrupt:
+         <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;程序被手动中断&quot;</span>)
      
-     except Exception as e:
-         print(f&quot;程序执行异常: {str(e)}&quot;)
+     <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+         <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;程序执行异常: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
      
-     finally:
-         print(&quot;程序执行完毕&quot;)
+     <span class="hljs-keyword">finally</span>:
+         <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;程序执行完毕&quot;</span>)
 
- if __name__ == &quot;__main__&quot;:
-     main()
-</code></pre>
+ <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+     main()</span></code></pre>
 <p>由于windows和mac之间的redis连接问题还尚未解决，我打算先把从 qmt 去到的分钟线数据存入 <code>000001.SH_data.csv</code> 和 <code>300750.SZ_data.csv</code>，将其中的数据存入Clickhouse数据库中，并使用Python进行数据处理。</p>
-<pre><code class="language-python">from xtquant import xtdata
-import os
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span></span><span class="cl-body"><span class="hljs-keyword">from</span> xtquant <span class="hljs-keyword">import</span> xtdata
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-code_list = [&#39;000001.SH&#39;, &#39;300750.SZ&#39;]
-period = &#39;1h&#39;
-start_time = &#39;20250101093000&#39;
-end_time = &#39;20250201093000&#39;
+code_list = [<span class="hljs-string">&#x27;000001.SH&#x27;</span>, <span class="hljs-string">&#x27;300750.SZ&#x27;</span>]
+period = <span class="hljs-string">&#x27;1h&#x27;</span>
+start_time = <span class="hljs-string">&#x27;20250101093000&#x27;</span>
+end_time = <span class="hljs-string">&#x27;20250201093000&#x27;</span>
 
-def on_data(datas):
-    if datas:
-        print(datas)
-    else:
-        print(&quot;数据下载失败或为空&quot;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">on_data</span>(<span class="hljs-params">datas</span>):
+    <span class="hljs-keyword">if</span> datas:
+        <span class="hljs-built_in">print</span>(datas)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;数据下载失败或为空&quot;</span>)
 
 xtdata.download_history_data2(code_list, period, start_time, end_time, on_data)
 
-# 创建目录（如果不存在）
-save_dir = &#39;C:\\wbq&#39;
-os.makedirs(save_dir, exist_ok=True)
+<span class="hljs-comment"># 创建目录（如果不存在）</span>
+save_dir = <span class="hljs-string">&#x27;C:\\wbq&#x27;</span>
+os.makedirs(save_dir, exist_ok=<span class="hljs-literal">True</span>)
 
-for code in code_list:
+<span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> code_list:
     data = xtdata.get_market_data_ex([], [code], period, start_time, end_time)
-    if code in data and not data[code].empty:
-        # 为每个股票创建单独的文件
-        file_path = os.path.join(save_dir, f&#39;{code}_data.csv&#39;)
-        # 确保数据是DataFrame格式
+    <span class="hljs-keyword">if</span> code <span class="hljs-keyword">in</span> data <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> data[code].empty:
+        <span class="hljs-comment"># 为每个股票创建单独的文件</span>
+        file_path = os.path.join(save_dir, <span class="hljs-string">f&#x27;<span class="hljs-subst">{code}</span>_data.csv&#x27;</span>)
+        <span class="hljs-comment"># 确保数据是DataFrame格式</span>
         df = data[code]
-        # 保存数据，添加错误处理
-        try:
+        <span class="hljs-comment"># 保存数据，添加错误处理</span>
+        <span class="hljs-keyword">try</span>:
             df.to_csv(file_path)
-            print(f&#39;{code}数据保存到本地: {file_path}&#39;)
-        except Exception as e:
-            print(f&#39;保存{code}数据时出错: {str(e)}&#39;)
-    else:
-        print(f&#39;{code}没有获取到数据&#39;)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;<span class="hljs-subst">{code}</span>数据保存到本地: <span class="hljs-subst">{file_path}</span>&#x27;</span>)
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;保存<span class="hljs-subst">{code}</span>数据时出错: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&#x27;</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;<span class="hljs-subst">{code}</span>没有获取到数据&#x27;</span>)
 
-print(&quot;运行结束&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;运行结束&quot;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/quantide.png" alt=""></p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/">← 上一篇：21天驯化AI打工仔 - 开发量化交易系统</a> <a class="series-next" href="/posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试/">下一篇：21天驯化AI打工仔 - 如何存储10亿个Symbol? →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 6/96 篇</span> <span class="reading-path-links"> <a href="/posts/tools/21天驯化AI打工仔/2_ClickHouse数据库/">← 21天驯化AI打工仔 - 开发量化交</a> <a href="/posts/tools/hermes/">2026实测Hermes Agent →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/量化库/数据持久化/数据持久化/">量化数据的持久化方案</a> <p>回测需要较长周期的数据。无论我们使用哪一家数据源，都不可能让我们跨网络、反复多次传输大量数据，还要保证低延时。此外，我们在量化研究的过程中，也会逐步积累自己的因子库。这些因子数据，</p> </li><li> <a href="/articles/products/zillionare-maintain/">Zillionare 2.0维护指南</a> <p>在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下：</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-获取日线的复权因子" title="1. 获取日线的复权因子">1. 获取日线的复权因子</a> </li><li class> <a href="#2-获取分钟线数据" title="2. 获取分钟线数据">2. 获取分钟线数据</a> </li><li class="lv3"> <a href="#21-创建分钟线数据表" title="2.1. 创建分钟线数据表">2.1. 创建分钟线数据表</a> </li><li class> <a href="#22-修改生产者代码添加分钟线数据获取功能" title="2.2. 修改生产者代码，添加分钟线数据获取功能">2.2. 修改生产者代码，添加分钟线数据获取功能</a> </li><li class="lv3"> <a href="#223-windows-的数据生产者代码" title="2.2.3. windows 的数据生产者代码">2.2.3. windows 的数据生产者代码</a> </li><li class="lv3"> <a href="#224-macos-的数据消费者代码" title="2.2.4. macos 的数据消费者代码">2.2.4. macos 的数据消费者代码</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

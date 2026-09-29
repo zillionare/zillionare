@@ -57,18 +57,16 @@
 </ul>
 <p>官方在 3.0 RC 中特别强调，<code>string</code> 类型将默认映射到 <code>string[pyarrow]</code>。这意味着你不再需要手动转换，系统会自动为你选择性能最优的后端。</p>
 <p>除此之外，后端的替换也意味着对 csv 的读取速度的提升。在 Pandas 3.0 之前，读取一个 csv 时：</p>
-<pre><code class="language-python">df = pd.read_csv(&#39;large_data.csv&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df = pd.read_csv(<span class="hljs-string">&#x27;large_data.csv&#x27;</span>)</span></code></pre>
 <p>如果你不喜欢读文档，你可能不知道它有一个 engine=&#39;pyarrow&#39;的参数，这将大大提升性能。而在 Pandas 3.0 中，你不用记忆这个参数，一切已经是最好的安排。</p>
 <h2 id="copy-on-write-cow">Copy-on-Write (CoW)</h2>
 <p>如果你查看最新的 <a href="https://pandas.pydata.org/docs/dev/whatsnew/v3.0.0.html">pandas 3.0.0 Whatsnew</a>，你会发现 <strong>Copy-on-Write</strong> 是绝对的主角。这不仅仅是为了性能，更是为了消除语义上的歧义。</p>
 <hr>
 <p>在旧版本中，视图（View）和副本（Copy）的规则极其模糊。这导致了臭名昭著的 <code>SettingWithCopyWarning</code>。</p>
-<pre><code class="language-python"># 旧版中的陷阱
-df = pd.DataFrame({&quot;a&quot;: [1, 2], &quot;b&quot;: [3, 4]})
-subset = df.iloc[0:1]
-subset.iloc[0, 0] = 100  # 到底 df 变了吗？
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 旧版中的陷阱</span>
+df = pd.DataFrame({<span class="hljs-string">&quot;a&quot;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-string">&quot;b&quot;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]})
+subset = df.iloc[<span class="hljs-number">0</span>:<span class="hljs-number">1</span>]
+subset.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">100</span>  <span class="hljs-comment"># 到底 df 变了吗？</span></span></code></pre>
 <p>在第三行赋值时，无论它是否改变原来的 df 数据，我们都能接受；我们不能接受的是，df 可能变了，也可能没变--这就引入了一个薛定谔式的猫一样的笑话：只有在打开盒子的时候，我们才能确定猫是否还活着。</p>
 <p>在旧版中，这取决于 <code>df</code> 内部是单一块（Single Block）还是多块（Multi Block）管理。这种不确定性是策略 Bug 的温床。</p>
 <p>我们当然不喜欢这种模棱两可的状态。<strong>我们之所以做量化，要的就是确定性--哪怕他是基于概率上的确定</strong>。</p>
@@ -76,20 +74,18 @@ subset.iloc[0, 0] = 100  # 到底 df 变了吗？
 <p>所以，你在一些底层量化框架（比如 alphalens）中，可以看到无处不在的 df.copy：这都是消除了引用的不确定性，但带来了性能上的损失。</p>
 <h3 id="30-中的确定性与安全感">3.0 中的确定性与安全感</h3>
 <p>在 3.0 中，默认开启 CoW 后，规则变得异常清晰：<strong>Dataframe 的任何切片或筛选操作在修改前都是“引用”，而在修改时会自动触发“副本”创建。</strong></p>
-<pre><code class="language-python"># 3.0 后的行为示例
-df = pd.DataFrame({&quot;a&quot;: [1, 2], &quot;b&quot;: [3, 4]})
-df2 = df[&quot;a&quot;]  # 这在内存中只是一个轻量级引用，开销几乎为零
-df2.iloc[0] = 100  # 只有在这一行，pandas 才会真正执行 Copy 操作
-# 结果：df 依然是 [1, 2], df2 变成了 [100, 2]。逻辑完全符合直觉。
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 3.0 后的行为示例</span>
+df = pd.DataFrame({<span class="hljs-string">&quot;a&quot;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-string">&quot;b&quot;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]})
+df2 = df[<span class="hljs-string">&quot;a&quot;</span>]  <span class="hljs-comment"># 这在内存中只是一个轻量级引用，开销几乎为零</span>
+df2.iloc[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>  <span class="hljs-comment"># 只有在这一行，pandas 才会真正执行 Copy 操作</span>
+<span class="hljs-comment"># 结果：df 依然是 [1, 2], df2 变成了 [100, 2]。逻辑完全符合直觉。</span></span></code></pre>
 <p>换句话说，当你使用一个引用变量并修改它的值时，你永远不会改变原始数据。在你尝试改变引用变量的数据时，引用变量会自动拷贝一个副本出来。这是操作系统在几十年前就使用了的内存共享技术。</p>
 <hr>
 <p>你再也不需要 <code>df.copy()</code>！</p>
 <h2 id="向声明式迈进">向声明式迈进</h2>
 <p>在 3.0 RC 中，pandas 引入了一个致敬 spark 和 polars 的新特性：<code>pd.col()</code>。</p>
-<pre><code class="language-python"># 3.0 RC 中的新语法尝试
-df.select(pd.col(&quot;price&quot;) * pd.col(&quot;volume&quot;))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 3.0 RC 中的新语法尝试</span>
+df.select(pd.col(<span class="hljs-string">&quot;price&quot;</span>) * pd.col(<span class="hljs-string">&quot;volume&quot;</span>))</span></code></pre>
 <p>这种语法允许开发者在不直接操作 Dataframe 对象的情况下构建计算逻辑。这对于构建复杂的因子计算流（Factor Pipelines）非常有用，因为它减少了中间变量的创建，并让代码更具可读性。虽然目前仍处于起步阶段，但它揭示了 pandas 未来的演进方向：从“过程式”向“声明式”演进。</p>
 <h2 id="幕后推手patrick-hoefler-与-cow-的执着">幕后推手：Patrick Hoefler 与 CoW 的执着</h2>
 <p>如果说 pandas 3.0 有一个灵魂人物，那么 <strong>Patrick Hoefler</strong>（GitHub ID: phofl）绝对是其中之一。</p>

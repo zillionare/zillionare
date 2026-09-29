@@ -33,32 +33,31 @@
 <li>​有序分类：如评分等级（“高/中/低”）或时间段（“早/中/晚”），可指定顺序提升分析效率。</li>
 </ul>
 <p><strong>操作方法</strong></p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 模拟金融数据：10万条交易记录
-dates = pd.date_range(&#39;2025-01-01&#39;, periods=100000, freq=&#39;T&#39;)  # 分钟级交易
+<span class="hljs-comment"># 模拟金融数据：10万条交易记录</span>
+dates = pd.date_range(<span class="hljs-string">&#x27;2025-01-01&#x27;</span>, periods=<span class="hljs-number">100000</span>, freq=<span class="hljs-string">&#x27;T&#x27;</span>)  <span class="hljs-comment"># 分钟级交易</span>
 
 df = pd.DataFrame({
-    &#39;trade_type&#39;: np.random.choice([&#39;buy&#39;, &#39;sell&#39;, &#39;cancel&#39;], 
-    size=100000),  # 交易类型
-    &#39;symbol&#39;: np.random.choice([&#39;AAPL&#39;, &#39;MSFT&#39;, &#39;GOOGL&#39;, &#39;TSLA&#39;], 
-    size=100000),  # 股票代码
-    &#39;client_type&#39;: np.random.choice([&#39;retail&#39;, &#39;institution&#39;, &#39;vip&#39;], 
-    size=100000),  # 客户类型
-    &#39;amount&#39;: np.random.uniform(1000, 1e6, size=100000)#交易金额
+    <span class="hljs-string">&#x27;trade_type&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;buy&#x27;</span>, <span class="hljs-string">&#x27;sell&#x27;</span>, <span class="hljs-string">&#x27;cancel&#x27;</span>], 
+    size=<span class="hljs-number">100000</span>),  <span class="hljs-comment"># 交易类型</span>
+    <span class="hljs-string">&#x27;symbol&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>, <span class="hljs-string">&#x27;GOOGL&#x27;</span>, <span class="hljs-string">&#x27;TSLA&#x27;</span>], 
+    size=<span class="hljs-number">100000</span>),  <span class="hljs-comment"># 股票代码</span>
+    <span class="hljs-string">&#x27;client_type&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;retail&#x27;</span>, <span class="hljs-string">&#x27;institution&#x27;</span>, <span class="hljs-string">&#x27;vip&#x27;</span>], 
+    size=<span class="hljs-number">100000</span>),  <span class="hljs-comment"># 客户类型</span>
+    <span class="hljs-string">&#x27;amount&#x27;</span>: np.random.uniform(<span class="hljs-number">1000</span>, <span class="hljs-number">1e6</span>, size=<span class="hljs-number">100000</span>)<span class="hljs-comment">#交易金额</span>
 }, index=dates)
 
-# 优化前内存占用
-print(&quot;优化前内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
+<span class="hljs-comment"># 优化前内存占用</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化前内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)
 
-# 转换为Category类型
-cat_cols = [&#39;trade_type&#39;, &#39;symbol&#39;, &#39;client_type&#39;]
-df[cat_cols] = df[cat_cols].astype(&#39;category&#39;)
+<span class="hljs-comment"># 转换为Category类型</span>
+cat_cols = [<span class="hljs-string">&#x27;trade_type&#x27;</span>, <span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;client_type&#x27;</span>]
+df[cat_cols] = df[cat_cols].astype(<span class="hljs-string">&#x27;category&#x27;</span>)
 
-# 优化后内存对比
-print(&quot;优化后内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
-</code></pre>
+<span class="hljs-comment"># 优化后内存对比</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化后内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)</span></code></pre>
 <p>优化前内存： 19.291857719421387 MB</p>
 <p>优化后内存： 1.8129425048828125 MB <strong>（减少了90.6%）</strong></p>
 <hr>
@@ -78,17 +77,15 @@ print(&quot;优化后内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2
 <h4>1.1.2. 紧凑数据类型：精准狙击内存浪费</h4>
 <p><strong>​数值类型优化</strong></p>
 <ul>
-<li>​整数类型：根据数值范围选择最小子类型：<pre><code class="language-python"># 检查范围后转换
-df[&#39;age&#39;] = df[&#39;age&#39;].astype(&#39;uint8&#39;)  # 0-255 范围
-</code></pre>
+<li>​整数类型：根据数值范围选择最小子类型：<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 检查范围后转换</span>
+df[<span class="hljs-string">&#x27;age&#x27;</span>] = df[<span class="hljs-string">&#x27;age&#x27;</span>].astype(<span class="hljs-string">&#x27;uint8&#x27;</span>)  <span class="hljs-comment"># 0-255 范围</span></span></code></pre>
 </li>
 <li>浮点类型：优先使用 float32（精度足够时），内存减少 ​50%​ .</li>
 </ul>
 <hr>
 <p><strong>​布尔类型优化</strong>
 将仅有 True/False 的列转换为 bool 类型：</p>
-<pre><code class="language-python">    df[&#39;is_active&#39;] = df[&#39;is_active&#39;].astype(&#39;bool&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">    df[<span class="hljs-string">&#x27;is_active&#x27;</span>] = df[<span class="hljs-string">&#x27;is_active&#x27;</span>].astype(<span class="hljs-string">&#x27;bool&#x27;</span>)</span></code></pre>
 <p><strong>​时间类型优化</strong>
 使用 <code>datetime64[ns]</code> 而非 <code>object</code> 存储日期，内存减少 ​75%​ 且支持时间序列运算。</p>
 <p>金融数据常包含以下高优化价值字段：</p>
@@ -97,39 +94,37 @@ df[&#39;age&#39;] = df[&#39;age&#39;].astype(&#39;uint8&#39;)  # 0-255 范围
 <li>​数值型字段：交易金额（float64）、持仓量（int64）、时间戳（object）</li>
 <li>​状态标识字段：是否盘后交易（True/False）、风险标记（high/medium/low）</li>
 </ul>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 生成10万条模拟交易数据
-dates = pd.date_range(&#39;2025-01-01&#39;, periods=100000, freq=&#39;T&#39;)  # 分钟级时间戳
+<span class="hljs-comment"># 生成10万条模拟交易数据</span>
+dates = pd.date_range(<span class="hljs-string">&#x27;2025-01-01&#x27;</span>, periods=<span class="hljs-number">100000</span>, freq=<span class="hljs-string">&#x27;T&#x27;</span>)  <span class="hljs-comment"># 分钟级时间戳</span>
 df = pd.DataFrame({
-    &#39;trade_type&#39;: np.random.choice([&#39;buy&#39;, &#39;sell&#39;, &#39;cancel&#39;], size=100000),
-    &#39;symbol&#39;: np.random.choice([&#39;AAPL&#39;, &#39;MSFT&#39;, &#39;GOOGL&#39;, &#39;TSLA&#39;], size=100000),
-    &#39;client_level&#39;: np.random.choice([&#39;VIP&#39;, &#39;普通&#39;, &#39;机构&#39;], size=100000),
-    &#39;amount&#39;: np.random.uniform(1000, 1e6, size=100000),
-    &#39;position&#39;: np.random.randint(1, 10000, size=100000)
+    <span class="hljs-string">&#x27;trade_type&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;buy&#x27;</span>, <span class="hljs-string">&#x27;sell&#x27;</span>, <span class="hljs-string">&#x27;cancel&#x27;</span>], size=<span class="hljs-number">100000</span>),
+    <span class="hljs-string">&#x27;symbol&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>, <span class="hljs-string">&#x27;GOOGL&#x27;</span>, <span class="hljs-string">&#x27;TSLA&#x27;</span>], size=<span class="hljs-number">100000</span>),
+    <span class="hljs-string">&#x27;client_level&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;VIP&#x27;</span>, <span class="hljs-string">&#x27;普通&#x27;</span>, <span class="hljs-string">&#x27;机构&#x27;</span>], size=<span class="hljs-number">100000</span>),
+    <span class="hljs-string">&#x27;amount&#x27;</span>: np.random.uniform(<span class="hljs-number">1000</span>, <span class="hljs-number">1e6</span>, size=<span class="hljs-number">100000</span>),
+    <span class="hljs-string">&#x27;position&#x27;</span>: np.random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">10000</span>, size=<span class="hljs-number">100000</span>)
 }, index=dates)
 
-print(&quot;优化前内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化前内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 转换分类类型
-cat_cols = [&#39;trade_type&#39;, &#39;symbol&#39;, &#39;client_level&#39;]
-df[cat_cols] = df[cat_cols].astype(&#39;category&#39;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-comment"># 转换分类类型</span>
+cat_cols = [<span class="hljs-string">&#x27;trade_type&#x27;</span>, <span class="hljs-string">&#x27;symbol&#x27;</span>, <span class="hljs-string">&#x27;client_level&#x27;</span>]
+df[cat_cols] = df[cat_cols].astype(<span class="hljs-string">&#x27;category&#x27;</span>)
 
-# 查看内存优化效果
-print(&quot;优化后内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
+<span class="hljs-comment"># 查看内存优化效果</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化后内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)
 
-# 压缩数值类型
-df[&#39;amount&#39;] = df[&#39;amount&#39;].astype(&#39;float32&#39;)  # 金额压缩为32位浮点
-df[&#39;position&#39;] = df[&#39;position&#39;].astype(&#39;int16&#39;)  # 持仓量压缩为16位整数
+<span class="hljs-comment"># 压缩数值类型</span>
+df[<span class="hljs-string">&#x27;amount&#x27;</span>] = df[<span class="hljs-string">&#x27;amount&#x27;</span>].astype(<span class="hljs-string">&#x27;float32&#x27;</span>)  <span class="hljs-comment"># 金额压缩为32位浮点</span>
+df[<span class="hljs-string">&#x27;position&#x27;</span>] = df[<span class="hljs-string">&#x27;position&#x27;</span>].astype(<span class="hljs-string">&#x27;int16&#x27;</span>)  <span class="hljs-comment"># 持仓量压缩为16位整数</span>
 
-# 时间戳优化（假设原始数据为字符串）
-df[&#39;trade_time&#39;] = pd.to_datetime(df.index)  # 转为datetime64[ns]
+<span class="hljs-comment"># 时间戳优化（假设原始数据为字符串）</span>
+df[<span class="hljs-string">&#x27;trade_time&#x27;</span>] = pd.to_datetime(df.index)  <span class="hljs-comment"># 转为datetime64[ns]</span>
 
-# 最终内存对比
-print(&quot;最终内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
-</code></pre>
+<span class="hljs-comment"># 最终内存对比</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;最终内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)</span></code></pre>
 <p>优化前内存： 21.358366012573242 MB</p>
 <p>优化后内存： 2.575934410095215 MB</p>
 <p>最终内存： 2.385199546813965 MB</p>
@@ -137,52 +132,47 @@ print(&quot;最终内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &
 <ol>
 <li><strong>​分块读取+类型预定义</strong></li>
 </ol>
-<pre><code class="language-python"># 读取1GB级交易日志时预定义类型
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 读取1GB级交易日志时预定义类型</span>
 dtypes = {
-    &#39;symbol&#39;: &#39;category&#39;,
-    &#39;amount&#39;: &#39;float32&#39;,
-    &#39;position&#39;: &#39;int16&#39;,
-</code></pre>
+    <span class="hljs-string">&#x27;symbol&#x27;</span>: <span class="hljs-string">&#x27;category&#x27;</span>,
+    <span class="hljs-string">&#x27;amount&#x27;</span>: <span class="hljs-string">&#x27;float32&#x27;</span>,
+    <span class="hljs-string">&#x27;position&#x27;</span>: <span class="hljs-string">&#x27;int16&#x27;</span>,</span></code></pre>
 <hr>
-<pre><code class="language-python">&#39;trade_type&#39;: &#39;category&#39;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-string">&#x27;trade_type&#x27;</span>: <span class="hljs-string">&#x27;category&#x27;</span>
 }
-chunks = pd.read_csv(&#39;trade_log.csv&#39;, chunksize=100000, dtype=dtypes)
-processed_chunks = [chunk.groupby(&#39;symbol&#39;)[&#39;amount&#39;].sum() 
-for chunk in chunks]
-final_result = pd.concat(processed_chunks)
-</code></pre>
+chunks = pd.read_csv(<span class="hljs-string">&#x27;trade_log.csv&#x27;</span>, chunksize=<span class="hljs-number">100000</span>, dtype=dtypes)
+processed_chunks = [chunk.groupby(<span class="hljs-string">&#x27;symbol&#x27;</span>)[<span class="hljs-string">&#x27;amount&#x27;</span>].<span class="hljs-built_in">sum</span>() 
+<span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> chunks]
+final_result = pd.concat(processed_chunks)</span></code></pre>
 <ol start="2">
 <li><strong>​分组统计加速</strong></li>
 </ol>
-<pre><code class="language-python"># 按证券代码统计交易量（提速5倍）
-df[&#39;symbol&#39;] = df[&#39;symbol&#39;].cat.add_categories([&#39;UNKNOWN&#39;])  # 处理新增代码
-trade_volume = df.groupby(&#39;symbol&#39;, observed=True)[&#39;position&#39;].sum()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 按证券代码统计交易量（提速5倍）</span>
+df[<span class="hljs-string">&#x27;symbol&#x27;</span>] = df[<span class="hljs-string">&#x27;symbol&#x27;</span>].cat.add_categories([<span class="hljs-string">&#x27;UNKNOWN&#x27;</span>])  <span class="hljs-comment"># 处理新增代码</span>
+trade_volume = df.groupby(<span class="hljs-string">&#x27;symbol&#x27;</span>, observed=<span class="hljs-literal">True</span>)[<span class="hljs-string">&#x27;position&#x27;</span>].<span class="hljs-built_in">sum</span>()</span></code></pre>
 <h4>1.1.4. 进阶技巧</h4>
 <ol>
 <li><strong>​有序分类（风险等级分析）​</strong></li>
 </ol>
-<pre><code class="language-python">from pandas.api.types import CategoricalDtype
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pandas.api.types <span class="hljs-keyword">import</span> CategoricalDtype
 
-# 定义有序风险等级[5](@ref)
+<span class="hljs-comment"># 定义有序风险等级[5](@ref)</span>
 risk_order = CategoricalDtype(
-    categories=[&#39;low&#39;, &#39;medium&#39;, &#39;high&#39;], 
-    ordered=True
+    categories=[<span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;medium&#x27;</span>, <span class="hljs-string">&#x27;high&#x27;</span>], 
+    ordered=<span class="hljs-literal">True</span>
 )
-df[&#39;risk_level&#39;] = df[&#39;risk_level&#39;].astype(risk_order)
+df[<span class="hljs-string">&#x27;risk_level&#x27;</span>] = df[<span class="hljs-string">&#x27;risk_level&#x27;</span>].astype(risk_order)
 
-# 筛选高风险交易（提速10倍）
-   high_risk_trades = df[df[&#39;risk_level&#39;] &gt; &#39;medium&#39;]
-</code></pre>
+<span class="hljs-comment"># 筛选高风险交易（提速10倍）</span>
+   high_risk_trades = df[df[<span class="hljs-string">&#x27;risk_level&#x27;</span>] &gt; <span class="hljs-string">&#x27;medium&#x27;</span>]</span></code></pre>
 <ol start="2">
 <li><strong>布尔类型压缩（盘后交易标记）​</strong></li>
 </ol>
 <hr>
-<pre><code class="language-python"># 生成盘后交易标记（内存减少87%）[4](@ref)
-df[&#39;is_after_hours&#39;] = df[&#39;trade_time&#39;].apply(
-    lambda x: x.hour &lt; 9 or x.hour &gt; 16
-).astype(&#39;bool&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 生成盘后交易标记（内存减少87%）[4](@ref)</span>
+df[<span class="hljs-string">&#x27;is_after_hours&#x27;</span>] = df[<span class="hljs-string">&#x27;trade_time&#x27;</span>].apply(
+    <span class="hljs-keyword">lambda</span> x: x.hour &lt; <span class="hljs-number">9</span> <span class="hljs-keyword">or</span> x.hour &gt; <span class="hljs-number">16</span>
+).astype(<span class="hljs-string">&#x27;bool&#x27;</span>)</span></code></pre>
 <div class="admonition admonition-Warning"><p class="admonition-title">Warning</p>
 - ​动态类别管理：新增证券代码时需调用 df['symbol'].cat.add_categories(['NVDA'])
 - 数值溢出风险：持仓量若超过 int16 范围（-32768~32767），需改用 int32
@@ -237,108 +227,101 @@ df[&#39;is_after_hours&#39;] = df[&#39;trade_time&#39;].apply(
 <ol start="2">
 <li><strong>​apply 函数的优化机制</strong></li>
 </ol>
-<pre><code class="language-python"># 示例：计算股票交易费用（佣金率分档）
-def calc_fee(row):
-    if row[&#39;volume&#39;] &gt; 10000:
-        return row[&#39;amount&#39;] * 0.0002
-    elif row[&#39;volume&#39;] &gt; 5000:
-        return row[&#39;amount&#39;] * 0.0003
-    else:
-        return row[&#39;amount&#39;] * 0.0005
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 示例：计算股票交易费用（佣金率分档）</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_fee</span>(<span class="hljs-params">row</span>):
+    <span class="hljs-keyword">if</span> row[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">10000</span>:
+        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;amount&#x27;</span>] * <span class="hljs-number">0.0002</span>
+    <span class="hljs-keyword">elif</span> row[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">5000</span>:
+        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;amount&#x27;</span>] * <span class="hljs-number">0.0003</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;amount&#x27;</span>] * <span class="hljs-number">0.0005</span>
 
-# 优化点：使用 axis=1 按行应用
-df[&#39;fee&#39;] = df.apply(calc_fee, axis=1)  # 比循环快3倍
-</code></pre>
+<span class="hljs-comment"># 优化点：使用 axis=1 按行应用</span>
+df[<span class="hljs-string">&#x27;fee&#x27;</span>] = df.apply(calc_fee, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 比循环快3倍</span></span></code></pre>
 <h4>1.2.2. 金融数据综合优化案例</h4>
 <ol>
 <li>​<strong>生成模拟高频交易数据</strong></li>
 </ol>
-<pre><code class="language-python"># 生成100万条股票交易记录（含时间戳、代码、价格、成交量）
-dates = pd.date_range(&#39;2025-03-28 09:30&#39;, periods=1_000_000, freq=&#39;S&#39;)
-symbols = [&#39;AAPL&#39;, &#39;MSFT&#39;, &#39;GOOG&#39;, &#39;AMZN&#39;, &#39;TSLA&#39;]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 生成100万条股票交易记录（含时间戳、代码、价格、成交量）</span>
+dates = pd.date_range(<span class="hljs-string">&#x27;2025-03-28 09:30&#x27;</span>, periods=<span class="hljs-number">1_000_000</span>, freq=<span class="hljs-string">&#x27;S&#x27;</span>)
+symbols = [<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>, <span class="hljs-string">&#x27;GOOG&#x27;</span>, <span class="hljs-string">&#x27;AMZN&#x27;</span>, <span class="hljs-string">&#x27;TSLA&#x27;</span>]</span></code></pre>
 <hr>
-<pre><code class="language-python">df = pd.DataFrame({
-    &#39;symbol&#39;: np.random.choice(symbols, 1_000_000),
-    &#39;price&#39;: np.random.uniform(50, 500, 1_000_000).round(2),
-    &#39;volume&#39;: np.random.randint(100, 50_000, 1_000_000),
-    &#39;trade_type&#39;: np.random.choice([&#39;buy&#39;, &#39;sell&#39;], 1_000_000)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body">df = pd.DataFrame({
+    <span class="hljs-string">&#x27;symbol&#x27;</span>: np.random.choice(symbols, <span class="hljs-number">1_000_000</span>),
+    <span class="hljs-string">&#x27;price&#x27;</span>: np.random.uniform(<span class="hljs-number">50</span>, <span class="hljs-number">500</span>, <span class="hljs-number">1_000_000</span>).<span class="hljs-built_in">round</span>(<span class="hljs-number">2</span>),
+    <span class="hljs-string">&#x27;volume&#x27;</span>: np.random.randint(<span class="hljs-number">100</span>, <span class="hljs-number">50_000</span>, <span class="hljs-number">1_000_000</span>),
+    <span class="hljs-string">&#x27;trade_type&#x27;</span>: np.random.choice([<span class="hljs-string">&#x27;buy&#x27;</span>, <span class="hljs-string">&#x27;sell&#x27;</span>], <span class="hljs-number">1_000_000</span>)
 }, index=dates)
 
-print(&quot;优化前内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化前内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)
 
-# 内存优化：分类列转换
-df[&#39;symbol&#39;] = df[&#39;symbol&#39;].astype(&#39;category&#39;)  # 内存减少85%
-df[&#39;trade_type&#39;] = df[&#39;trade_type&#39;].astype(&#39;category&#39;)
+<span class="hljs-comment"># 内存优化：分类列转换</span>
+df[<span class="hljs-string">&#x27;symbol&#x27;</span>] = df[<span class="hljs-string">&#x27;symbol&#x27;</span>].astype(<span class="hljs-string">&#x27;category&#x27;</span>)  <span class="hljs-comment"># 内存减少85%</span>
+df[<span class="hljs-string">&#x27;trade_type&#x27;</span>] = df[<span class="hljs-string">&#x27;trade_type&#x27;</span>].astype(<span class="hljs-string">&#x27;category&#x27;</span>)
 
-print(&quot;优化后内存：&quot;, df.memory_usage(deep=True).sum() / 1024**2, &quot;MB&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化后内存：&quot;</span>, df.memory_usage(deep=<span class="hljs-literal">True</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-number">1024</span>**<span class="hljs-number">2</span>, <span class="hljs-string">&quot;MB&quot;</span>)</span></code></pre>
 <p>优化前内存： 138.75994682312012 MB</p>
 <p>优化后内存： 24.796205520629883 MB</p>
 <ol start="2">
 <li>itertuples 实战：计算交易金额</li>
 </ol>
-<pre><code class="language-python"># 传统 iterrows 写法（避免使用！）
-import time
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-comment"># 传统 iterrows 写法（避免使用！）</span>
+<span class="hljs-keyword">import</span> time
 t1 = time.time()
-total_amount = 0
-for idx, row in df.iterrows():  # 预估耗时85秒
-    total_amount += row[&#39;price&#39;] * row[&#39;volume&#39;]
+total_amount = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> idx, row <span class="hljs-keyword">in</span> df.iterrows():  <span class="hljs-comment"># 预估耗时85秒</span>
+    total_amount += row[<span class="hljs-string">&#x27;price&#x27;</span>] * row[<span class="hljs-string">&#x27;volume&#x27;</span>]
 t2 = time.time()
-print(&quot;传统 iterrows 写法：&quot;,t2-t1,&quot;s&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;传统 iterrows 写法：&quot;</span>,t2-t1,<span class="hljs-string">&quot;s&quot;</span>)</span></code></pre>
 <hr>
-<pre><code class="language-python"># 优化后 itertuples 写法
-total_amount = 0
-for row in df.itertuples():  # 耗时约7秒
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 优化后 itertuples 写法</span>
+total_amount = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> df.itertuples():  <span class="hljs-comment"># 耗时约7秒</span>
     total_amount += row.price * row.volume
 t3 = time.time()
-print(&quot;优化后 itertuples 写法：&quot;,t3-t2,&quot;s&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;优化后 itertuples 写法：&quot;</span>,t3-t2,<span class="hljs-string">&quot;s&quot;</span>)
 
-# 终极优化：向量化计算（推荐！）
-df[&#39;amount&#39;] = df[&#39;price&#39;] * df[&#39;volume&#39;]  # 耗时0.03秒
+<span class="hljs-comment"># 终极优化：向量化计算（推荐！）</span>
+df[<span class="hljs-string">&#x27;amount&#x27;</span>] = df[<span class="hljs-string">&#x27;price&#x27;</span>] * df[<span class="hljs-string">&#x27;volume&#x27;</span>]  <span class="hljs-comment"># 耗时0.03秒</span>
 t4 = time.time()
-print(&quot;终极优化：向量化计算：&quot;,t4-t3,&quot;s&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;终极优化：向量化计算：&quot;</span>,t4-t3,<span class="hljs-string">&quot;s&quot;</span>)</span></code></pre>
 <p>传统 iterrows 写法： 85.93825674057007 s</p>
 <p>优化后 itertuples 写法： 7.655602216720581 s</p>
 <p>终极优化：向量化计算： 0.032360076904296875 s</p>
 <ol start="3">
 <li><strong>​apply 实战：计算波动率因子</strong></li>
 </ol>
-<pre><code class="language-python">def volatility_factor(row):  # 定义波动率计算函数
-    if row[&#39;volume&#39;] &gt; 20000:
-        return row[&#39;price&#39;] * 0.015
-    elif (row[&#39;volume&#39;] &gt; 10000) &amp; (row[&#39;trade_type&#39;] == &#39;buy&#39;):
-        return row[&#39;price&#39;] * 0.010
-    else:
-        return row[&#39;price&#39;] * 0.005
-# 应用优化
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">volatility_factor</span>(<span class="hljs-params">row</span>):  <span class="hljs-comment"># 定义波动率计算函数</span>
+    <span class="hljs-keyword">if</span> row[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">20000</span>:
+        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;price&#x27;</span>] * <span class="hljs-number">0.015</span>
+    <span class="hljs-keyword">elif</span> (row[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">10000</span>) &amp; (row[<span class="hljs-string">&#x27;trade_type&#x27;</span>] == <span class="hljs-string">&#x27;buy&#x27;</span>):
+        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;price&#x27;</span>] * <span class="hljs-number">0.010</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;price&#x27;</span>] * <span class="hljs-number">0.005</span>
+<span class="hljs-comment"># 应用优化</span>
 t5 = time.time()
-df[&#39;vol_factor&#39;] = df.apply(volatility_factor, axis=1)  # 耗时约3秒
+df[<span class="hljs-string">&#x27;vol_factor&#x27;</span>] = df.apply(volatility_factor, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 耗时约3秒</span>
 t6 = time.time()
-print(&quot;定义波动率计算函数：&quot;,t6-t5,&quot;s&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;定义波动率计算函数：&quot;</span>,t6-t5,<span class="hljs-string">&quot;s&quot;</span>)</span></code></pre>
 <p>定义波动率计算函数： 24.482948064804077 s</p>
 <hr>
 <ol start="4">
 <li><strong>先筛选再计算策略</strong></li>
 </ol>
-<pre><code class="language-python"># 非交易时段数据过滤（先筛选）
-market_hours = df.between_time(&#39;09:30&#39;, &#39;16:00&#39;)  # 减少30%数据量
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-comment"># 非交易时段数据过滤（先筛选）</span>
+market_hours = df.between_time(<span class="hljs-string">&#x27;09:30&#x27;</span>, <span class="hljs-string">&#x27;16:00&#x27;</span>)  <span class="hljs-comment"># 减少30%数据量</span>
 
-# 仅处理大额交易（金额&gt;100万）
-large_trades = market_hours[market_hours[&#39;amount&#39;] &gt; 1_000_000]
+<span class="hljs-comment"># 仅处理大额交易（金额&gt;100万）</span>
+large_trades = market_hours[market_hours[<span class="hljs-string">&#x27;amount&#x27;</span>] &gt; <span class="hljs-number">1_000_000</span>]
 
-# 分块处理（内存优化）
+<span class="hljs-comment"># 分块处理（内存优化）</span>
 t7 = time.time()
-chunks = (large_trades.groupby(&#39;symbol&#39;)
-                    .apply(lambda x: x[&#39;amount&#39;].mean())
-                    .reset_index(name=&#39;avg_large_trade&#39;))
+chunks = (large_trades.groupby(<span class="hljs-string">&#x27;symbol&#x27;</span>)
+                    .apply(<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">&#x27;amount&#x27;</span>].mean())
+                    .reset_index(name=<span class="hljs-string">&#x27;avg_large_trade&#x27;</span>))
 t8 = time.time()
 
-print(&quot;先筛选再计算策略：&quot;,t8-t7,&quot;s&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;先筛选再计算策略：&quot;</span>,t8-t7,<span class="hljs-string">&quot;s&quot;</span>)</span></code></pre>
 <p>先筛选再计算策略： 0.044037818908691406 s</p>
 <p>apply可以利用内部优化，比循环更快，但不如矢量化操作。</p>
 <h4>1.2.3. 性能对比与最佳实践</h4>
@@ -364,12 +347,11 @@ print(&quot;先筛选再计算策略：&quot;,t8-t7,&quot;s&quot;)
 <li><p>​<strong>避免链式索引</strong></p>
 </li>
 </ol>
-<pre><code class="language-python"># 错误写法（触发警告）
-df[df[&#39;symbol&#39;] == &#39;AAPL&#39;][&#39;price&#39;] = 200  
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-comment"># 错误写法（触发警告）</span>
+df[df[<span class="hljs-string">&#x27;symbol&#x27;</span>] == <span class="hljs-string">&#x27;AAPL&#x27;</span>][<span class="hljs-string">&#x27;price&#x27;</span>] = <span class="hljs-number">200</span>  
 
-# 正确写法
-df.loc[df[&#39;symbol&#39;] == &#39;AAPL&#39;, &#39;price&#39;] = 200  # 效率提升30%
-</code></pre>
+<span class="hljs-comment"># 正确写法</span>
+df.loc[df[<span class="hljs-string">&#x27;symbol&#x27;</span>] == <span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;price&#x27;</span>] = <span class="hljs-number">200</span>  <span class="hljs-comment"># 效率提升30%</span></span></code></pre>
 <ol start="3">
 <li><strong>​内存管理</strong><ul>
 <li>分块读取：
@@ -393,72 +375,68 @@ df.loc[df[&#39;symbol&#39;] == &#39;AAPL&#39;, &#39;price&#39;] = 200  # 效率�
 <ol>
 <li><strong>​计算股票收益率波动率（Numba加速）​</strong></li>
 </ol>
-<pre><code class="language-python">import numpy as np
-from numba import jit
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> numba <span class="hljs-keyword">import</span> jit
 
-# 生成金融数据：100万条股票价格序列
-np.random.seed(42)
-prices = np.random.normal(100, 5, 1_000_000).cumsum()
+<span class="hljs-comment"># 生成金融数据：100万条股票价格序列</span>
+np.random.seed(<span class="hljs-number">42</span>)
+prices = np.random.normal(<span class="hljs-number">100</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1_000_000</span>).cumsum()
 
-# 传统Python实现
-def calc_volatility(prices):
-    returns = np.zeros(len(prices)-1)
-    for i in range(len(prices)-1):
-        returns[i] = (prices[i+1] - prices[i]) / prices[i]
-    return np.std(returns) * np.sqrt(252)
+<span class="hljs-comment"># 传统Python实现</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_volatility</span>(<span class="hljs-params">prices</span>):
+    returns = np.zeros(<span class="hljs-built_in">len</span>(prices)-<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(prices)-<span class="hljs-number">1</span>):
+        returns[i] = (prices[i+<span class="hljs-number">1</span>] - prices[i]) / prices[i]
+    <span class="hljs-keyword">return</span> np.std(returns) * np.sqrt(<span class="hljs-number">252</span>)
 
-# Numba优化实现
-@jit(nopython=True)
-def calc_volatility_numba(prices):
-    returns = np.zeros(len(prices)-1)
-    for i in range(len(prices)-1):
-        returns[i] = (prices[i+1] - prices[i]) / prices[i]
-    return np.std(returns) * np.sqrt(252)
+<span class="hljs-comment"># Numba优化实现</span>
+<span class="hljs-meta">@jit(<span class="hljs-params">nopython=<span class="hljs-literal">True</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_volatility_numba</span>(<span class="hljs-params">prices</span>):
+    returns = np.zeros(<span class="hljs-built_in">len</span>(prices)-<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(prices)-<span class="hljs-number">1</span>):
+        returns[i] = (prices[i+<span class="hljs-number">1</span>] - prices[i]) / prices[i]
+    <span class="hljs-keyword">return</span> np.std(returns) * np.sqrt(<span class="hljs-number">252</span>)
 
-# 性能对比
-%timeit calc_volatility(prices)    # 约 920 ms
-%timeit calc_volatility_numba(prices)  # 约 7.3 ms
-</code></pre>
+<span class="hljs-comment"># 性能对比</span>
+%timeit calc_volatility(prices)    <span class="hljs-comment"># 约 920 ms</span>
+%timeit calc_volatility_numba(prices)  <span class="hljs-comment"># 约 7.3 ms</span></span></code></pre>
 <hr>
 <p>921 ms ± 87 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)</p>
 <p>7.27 ms ± 183 μs per loop (mean ± std. dev. of 7 runs, 1 loop each)</p>
 <ol start="2">
 <li><strong>蒙特卡洛期权定价（并行计算）​</strong></li>
 </ol>
-<pre><code class="language-python">from numba import njit, prange
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numba <span class="hljs-keyword">import</span> njit, prange
 
-@njit(parallel=True)
-def monte_carlo_pricing(S0, K, r, sigma, T, n_simulations):
+<span class="hljs-meta">@njit(<span class="hljs-params">parallel=<span class="hljs-literal">True</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">monte_carlo_pricing</span>(<span class="hljs-params">S0, K, r, sigma, T, n_simulations</span>):
     payoffs = np.zeros(n_simulations)
-    for i in prange(n_simulations):
-        ST = S0 * np.exp((r - 0.5*sigma**2)*T + sigma*np.sqrt(T)*np.random.normal())
-        payoffs[i] = max(ST - K, 0)
-    return np.exp(-r*T) * np.mean(payoffs)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> prange(n_simulations):
+        ST = S0 * np.exp((r - <span class="hljs-number">0.5</span>*sigma**<span class="hljs-number">2</span>)*T + sigma*np.sqrt(T)*np.random.normal())
+        payoffs[i] = <span class="hljs-built_in">max</span>(ST - K, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span> np.exp(-r*T) * np.mean(payoffs)
 
-# 参数设置
-params = (100, 105, 0.05, 0.2, 1, 1_000_000)
-result = monte_carlo_pricing(*params)  # 约 320 ms（比纯Python快35倍）
-</code></pre>
+<span class="hljs-comment"># 参数设置</span>
+params = (<span class="hljs-number">100</span>, <span class="hljs-number">105</span>, <span class="hljs-number">0.05</span>, <span class="hljs-number">0.2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1_000_000</span>)
+result = monte_carlo_pricing(*params)  <span class="hljs-comment"># 约 320 ms（比纯Python快35倍）</span></span></code></pre>
 <h4>1.3.3. 关键优化策略</h4>
 <ol>
 <li><strong>数据类型特化</strong>
 强制指定输入类型避免动态检查：</li>
 </ol>
-<pre><code class="language-python">@jit(nopython=True, fastmath=True)
-def vec_dot(a: np.ndarray, b: np.ndarray) -&gt; float:
-    return np.dot(a, b)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta">@jit(<span class="hljs-params">nopython=<span class="hljs-literal">True</span>, fastmath=<span class="hljs-literal">True</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">vec_dot</span>(<span class="hljs-params">a: np.ndarray, b: np.ndarray</span>) -&gt; <span class="hljs-built_in">float</span>:
+    <span class="hljs-keyword">return</span> np.dot(a, b)</span></code></pre>
 <hr>
 <ol start="2">
 <li><strong>内存预分配</strong></li>
 </ol>
-<pre><code class="language-python">@jit(nopython=True)
-def moving_average(data, window):
-    ma = np.empty(len(data) - window + 1)
-    for i in range(len(ma)):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-meta">@jit(<span class="hljs-params">nopython=<span class="hljs-literal">True</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">moving_average</span>(<span class="hljs-params">data, window</span>):
+    ma = np.empty(<span class="hljs-built_in">len</span>(data) - window + <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(ma)):
         ma[i] = np.mean(data[i:i+window])
-    return ma
-</code></pre>
+    <span class="hljs-keyword">return</span> ma</span></code></pre>
 <ol start="3">
 <li><strong>​避免Python对象</strong>
 在 Numba 函数中禁用 Python 对象（nopython=True），确保全程机器码执行。</li>
@@ -475,25 +453,23 @@ def moving_average(data, window):
 <ol>
 <li><strong>与Pandas结合</strong></li>
 </ol>
-<pre><code class="language-python">@jit
-def pandas_apply_optimized(df: pd.DataFrame):
-    return df[&#39;price&#39;].values * df[&#39;volume&#39;].values  # 直接操作Numpy数组
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta">@jit</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">pandas_apply_optimized</span>(<span class="hljs-params">df: pd.DataFrame</span>):
+    <span class="hljs-keyword">return</span> df[<span class="hljs-string">&#x27;price&#x27;</span>].values * df[<span class="hljs-string">&#x27;volume&#x27;</span>].values  <span class="hljs-comment"># 直接操作Numpy数组</span></span></code></pre>
 <hr>
 <ol start="2">
 <li>GPU加速（CUDA）​</li>
 </ol>
-<pre><code class="language-python">from numba import cuda
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numba <span class="hljs-keyword">import</span> cuda
 
-@cuda.jit
-def cuda_matmul(A, B, C):
-    i, j = cuda.grid(2)
-    if i &lt; C.shape[0] and j &lt; C.shape[1]:
-        tmp = 0.0
-        for k in range(A.shape[1]):
+<span class="hljs-meta">@cuda.jit</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">cuda_matmul</span>(<span class="hljs-params">A, B, C</span>):
+    i, j = cuda.grid(<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">if</span> i &lt; C.shape[<span class="hljs-number">0</span>] <span class="hljs-keyword">and</span> j &lt; C.shape[<span class="hljs-number">1</span>]:
+        tmp = <span class="hljs-number">0.0</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(A.shape[<span class="hljs-number">1</span>]):
             tmp += A[i, k] * B[k, j]
-        C[i, j] = tmp
-</code></pre>
+        C[i, j] = tmp</span></code></pre>
 <div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>
 注意事项：
 - ​编译开销：首次运行 JIT 函数会有编译耗时，后续调用直接使用缓存

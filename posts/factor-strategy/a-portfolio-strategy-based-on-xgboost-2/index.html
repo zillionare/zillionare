@@ -64,19 +64,18 @@ $$</p>
 <p>\text{SMAPE} = \frac{100}{n} \sum_{t=1}^n \frac{\left|F_t-A_t\right|}{(|A_t|+|F_t|)/2}
 $$</p>
 <p>到目前为止，sklearn还没有提供这个函数，但我们可以自己实现，并通过sklearn的make_scorer方法接入到sklearn系统中：</p>
-<pre><code class="language-python">from sklearn.metrics import make_scorer
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> make_scorer
 
-def smape(y_true, y_pred):
-    return np.mean(2.0 * np.abs(y_pred - y_true) / 
-           (np.abs(y_true) + np.abs(y_pred)))
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">smape</span>(<span class="hljs-params">y_true, y_pred</span>):
+    <span class="hljs-keyword">return</span> np.mean(<span class="hljs-number">2.0</span> * np.<span class="hljs-built_in">abs</span>(y_pred - y_true) / 
+           (np.<span class="hljs-built_in">abs</span>(y_true) + np.<span class="hljs-built_in">abs</span>(y_pred)))
 
-smape_scorer = make_scorer(smape, greater_is_better=False)
+smape_scorer = make_scorer(smape, greater_is_better=<span class="hljs-literal">False</span>)
 
-# 使用举例：在GridSearchCV中使用
+<span class="hljs-comment"># 使用举例：在GridSearchCV中使用</span>
 grid_search = GridSearchCV(estimator=model, 
                            param_grid=params, 
-                           scoring=smape_scorer)
-</code></pre>
+                           scoring=smape_scorer)</span></code></pre>
 <p><strong>Question</strong>: 既然训练中不能使用MAPE，那么论文在测试中，又为何要使用MAPE呢？</p>
 <p>答案其实很简单，是为了便于在多个模型之间进行比较。在论文作者的算法中，每支股票都必须有自己的模型。由于每支股票的绝对价格不一样，因此，它们的RSME是不一样的，而MAPE相当于一个归一化的指标，从而可以在不同的模型之间进行比较，最终选择出误差最小的模型对应的股票，纳入策略股池。</p>
 <p>但我们前面也提到过，论文作者的这个模型没有意义，改用分类模型会好一些。如果改用分类模型的话，损失函数也不再是RSME了，度量函数也不能是MAPE了。</p>

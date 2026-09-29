@@ -46,11 +46,10 @@ $$</p>
 <p>考虑到股价波动的周期性，也许类似的方法也应该在量化中找到运用。</p>
 <p>但是，使用sigmoid函数来进行归一化也存在一些问题。比如在地量那个例子中，13个周期以来的地量，与120天以来的地量相比，显然两者具有完全不同的信号含义：一支个股很容易出现13个周期以内的地量，而很难出现120个周期以内的地量。一旦出现，很容易出现一定幅度的反弹。</p>
 <p>然而，如果我们对其进行sigmoid归一化的话，它们的取值将会是一样的：</p>
-<pre><code class="language-python">def sigmoid(x):
-    return 1/(1 + np.exp(-x))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">sigmoid</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/(<span class="hljs-number">1</span> + np.exp(-x))
 
-print(&quot;sigmoid(12) == sigmoid(13)?&quot;, np.isclose(sigmoid(12), sigmoid(13)))
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;sigmoid(12) == sigmoid(13)?&quot;</span>, np.isclose(sigmoid(<span class="hljs-number">12</span>), sigmoid(<span class="hljs-number">13</span>)))</span></code></pre>
 <p>从上例可以看出，实际上，当$x &gt; 12$时，在计算中我们就已经无法区分函数值之间的差异了。</p>
 <p>因此，在使用中，我们一般要对sigmoid进行一些修改，使之在某个区间内，具有较高的响应灵敏度。公式如下：</p>
 <p>$$
@@ -60,35 +59,34 @@ $$</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/scaled_sigmoid_b_15.png" alt="50%"></p>
 <p>该分布区间为[-1, 1]，x取值在[0,b]之间时分布密度较高。</p>
 <p>在非机器学习型的量化打分策略中，我们可能倾向于函数值域落在[0,1]之间（想想看，RSI和WR都在这个区间内，而不是[-1,1]）。所以，我们对上述公式略加修改，代码实现如下：</p>
-<pre><code class="language-python">import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-def scaled_sigmoid(x, start, end):
-    &quot;&quot;&quot;当`x`落在`[start,end]`区间时，函数值为[0,1]且在该区间有较好的响应灵敏度
-    &quot;&quot;&quot;
-    n = np.abs(start - end)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scaled_sigmoid</span>(<span class="hljs-params">x, start, end</span>):
+    <span class="hljs-string">&quot;&quot;&quot;当`x`落在`[start,end]`区间时，函数值为[0,1]且在该区间有较好的响应灵敏度
+    &quot;&quot;&quot;</span>
+    n = np.<span class="hljs-built_in">abs</span>(start - end)
 
-    score = 2/(1 + np.exp(-np.log(40_000)*(x - start - n)/n + np.log(5e-3)))
-    return score/2
+    score = <span class="hljs-number">2</span>/(<span class="hljs-number">1</span> + np.exp(-np.log(<span class="hljs-number">40_000</span>)*(x - start - n)/n + np.log(<span class="hljs-number">5e-3</span>)))
+    <span class="hljs-keyword">return</span> score/<span class="hljs-number">2</span>
 
 
-fig, (ax1, ax2, ax3,ax4) = plt.subplots(nrows = 1, ncols = 4, figsize=(12,3))
+fig, (ax1, ax2, ax3,ax4) = plt.subplots(nrows = <span class="hljs-number">1</span>, ncols = <span class="hljs-number">4</span>, figsize=(<span class="hljs-number">12</span>,<span class="hljs-number">3</span>))
 
-x = np.linspace(0, 1)
-ax1.plot(x, [scaled_sigmoid(i, x[0], x[-1]) for i in x])
-ax1.set_title(&quot;fit (0,1)&quot;)
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+ax1.plot(x, [scaled_sigmoid(i, x[<span class="hljs-number">0</span>], x[-<span class="hljs-number">1</span>]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> x])
+ax1.set_title(<span class="hljs-string">&quot;fit (0,1)&quot;</span>)
 
-x = np.linspace(0, 100)
-ax2.plot(x, [scaled_sigmoid(i, x[0], x[-1]) for i in x])
-ax2.set_title(&quot;fit (0, 100)&quot;)
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>)
+ax2.plot(x, [scaled_sigmoid(i, x[<span class="hljs-number">0</span>], x[-<span class="hljs-number">1</span>]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> x])
+ax2.set_title(<span class="hljs-string">&quot;fit (0, 100)&quot;</span>)
 
-x = np.linspace(18, 38)
-ax3.plot(x, [scaled_sigmoid(i, x[0], x[-1]) for i in x])
-ax3.set_title(&quot;fit (18, 38)&quot;)
+x = np.linspace(<span class="hljs-number">18</span>, <span class="hljs-number">38</span>)
+ax3.plot(x, [scaled_sigmoid(i, x[<span class="hljs-number">0</span>], x[-<span class="hljs-number">1</span>]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> x])
+ax3.set_title(<span class="hljs-string">&quot;fit (18, 38)&quot;</span>)
 
-x = np.linspace(0, 100)
-ax4.plot(x, [sigmoid(i) for i in x])
-ax4.set_title(&quot;fit (0,100) with original&quot;)
-</code></pre>
+x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>)
+ax4.plot(x, [sigmoid(i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> x])
+ax4.set_title(<span class="hljs-string">&quot;fit (0,100) with original&quot;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png" alt=""></p>
 <p>从上图可以看出，与原来的sigmoid相比，新的scaled_sigmoid函数在[start, end]区间有很好的响应灵敏度，此区域内的分布密度最高。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/visualize/dash/">← 上一篇：Dash-用Python也能做网页</a> <a class="series-next" href="/articles/python/visualize/matplotlib-1/">下一篇：matplotlib的布局问题（1） →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 46/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/visualize/dash/">← Dash-用Python也能做网页</a> <a href="/articles/python/visualize/matplotlib-1/">matplotlib的布局问题（1） →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/numpy-pandas/intro/">课程简介</a> <p>正如死亡和税收不可避免，Numpy和Pandas对量化人而言，也具有同样的地位 -- 每个量化人都不可避免地要与这两个库打交道。</p> </li><li> <a href="/articles/coursea/factor-ml/intro/">课程简介</a> <p>《因子分析与机器学习策略》简介 这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。</p> </li><li> <a href="/articles/coursea/24lectures/how-the-course-are-composed/">大富翁量化24课编排说明</a> <p>课程内容 本课程涵盖了从获得数据，到数据预处理、因子提取与分析、回测、可视化到实盘的全流程，介绍了众多量化必备库的用法，包括： 如何获取数据 我们会介绍akshare, tusha</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

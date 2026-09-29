@@ -22,8 +22,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/zigzag-label-sample-0.png" alt=""></p>
 <p>构建特征数据（因子）时，可以用<strong>RSI、均线拐头、上下影线、成交量放大、整数位等支撑、压力指标、压力线、支撑线</strong>等等。</p>
 <p>数据标注使用zigzag包里的peak_and_valley_pivots函数。这个包可以通过以下命令进行安装：</p>
-<pre><code class="language-bash">pip install zigzag
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install zigzag</span></code></pre>
 <p>peak_valley_pivots接受三个参数，第一个是要检测峰谷的时间序列，第二个参数用来设置下跌的幅度、第三个参数用来设置上涨的幅度。</p>
 <p>也就是说，在序列$[t_0, t_1, t_2]$中，如果$th_1$是下跌阈值，$th_2$是上涨阈值，则当 $t_1 &gt;= t_0 \times (1 + th_2)$ 并且 $t_2 &lt;= t_1 \times (1 + th_1)$时，$t_1$就会被标记为波峰，如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/peak_valley_pivots_rational.jpg" alt=""></p>

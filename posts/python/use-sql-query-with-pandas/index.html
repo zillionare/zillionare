@@ -24,25 +24,18 @@
 <h2 id="dataframe方法-vs-sql">dataframe方法 vs SQL</h2>
 <p>dataframe是一个数据表格。pandas提供了很多方法来实现对dataframe的查询，这些查询往往可以与sql查询对应起来，比如：</p>
 <ol>
-<li>选择表中的几列。对应的SQL语句是：<pre><code class="language-SQL">SELECT total_bill, tip, smoker time from tips;
-</code></pre>
-在pandas中，这个语法更简洁一些：<pre><code class="language-python">tips[[&quot;total_bill&quot;, &quot;tip&quot;, &quot;smoker&quot;, &quot;time&quot;]]
-</code></pre>
+<li>选择表中的几列。对应的SQL语句是：<pre><code class="hljs language-SQL"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">SELECT</span> total_bill, tip, smoker <span class="hljs-type">time</span> <span class="hljs-keyword">from</span> tips;</span></code></pre>
+在pandas中，这个语法更简洁一些：<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">tips[[<span class="hljs-string">&quot;total_bill&quot;</span>, <span class="hljs-string">&quot;tip&quot;</span>, <span class="hljs-string">&quot;smoker&quot;</span>, <span class="hljs-string">&quot;time&quot;</span>]]</span></code></pre>
 </li>
-<li>按条件查询。在条件较多，或者需要模糊匹配时，就不如sql简洁了<pre><code class="language-SQL">select * from tips where time like &#39;Dinner%&#39; and tip &gt; 5;
-</code></pre>
-sql语法有自然语言之感。在pandas中，需要这样查询：<pre><code class="language-python">tips[(tips[&quot;time&quot;].str.find(&quot;Dinner&quot;) == 0) &amp; (tips[&quot;tip&quot;] &gt; 5)]
-</code></pre>
-对字符串的操作语法或许更强大，但没sql直观。多个条件的逻辑运算符也不如 and这样易懂。对空值的查询，在SQL中是<pre><code class="language-SQL">select * from frame where col2 is NULL;
-</code></pre>
+<li>按条件查询。在条件较多，或者需要模糊匹配时，就不如sql简洁了<pre><code class="hljs language-SQL"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> tips <span class="hljs-keyword">where</span> <span class="hljs-type">time</span> <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;Dinner%&#x27;</span> <span class="hljs-keyword">and</span> tip <span class="hljs-operator">&gt;</span> <span class="hljs-number">5</span>;</span></code></pre>
+sql语法有自然语言之感。在pandas中，需要这样查询：<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">tips[(tips[<span class="hljs-string">&quot;time&quot;</span>].<span class="hljs-built_in">str</span>.find(<span class="hljs-string">&quot;Dinner&quot;</span>) == <span class="hljs-number">0</span>) &amp; (tips[<span class="hljs-string">&quot;tip&quot;</span>] &gt; <span class="hljs-number">5</span>)]</span></code></pre>
+对字符串的操作语法或许更强大，但没sql直观。多个条件的逻辑运算符也不如 and这样易懂。对空值的查询，在SQL中是<pre><code class="hljs language-SQL"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> frame <span class="hljs-keyword">where</span> col2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">NULL</span>;</span></code></pre>
 在pandas中，需要使用isna()或者notna()。</li>
 </ol>
 <hr>
 <ol start="3">
-<li>聚合运算也是数据处理中的常态。<pre><code class="language-SQL">select smoker, day, count(*), avg(tip) from tips group by smoker, day;
-</code></pre>
-在pandas中，需要这样查询：<pre><code class="language-python">tips.groupby(&quot;day&quot;).agg({&quot;tip&quot;: &quot;mean&quot;, &quot;day&quot;: &quot;size&quot;})
-</code></pre>
+<li>聚合运算也是数据处理中的常态。<pre><code class="hljs language-SQL"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-keyword">select</span> smoker, <span class="hljs-keyword">day</span>, <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>), <span class="hljs-built_in">avg</span>(tip) <span class="hljs-keyword">from</span> tips <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> smoker, <span class="hljs-keyword">day</span>;</span></code></pre>
+在pandas中，需要这样查询：<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">tips.groupby(<span class="hljs-string">&quot;day&quot;</span>).agg({<span class="hljs-string">&quot;tip&quot;</span>: <span class="hljs-string">&quot;mean&quot;</span>, <span class="hljs-string">&quot;day&quot;</span>: <span class="hljs-string">&quot;size&quot;</span>})</span></code></pre>
 尽管语法不太直观，但书写上倒也简洁。</li>
 <li>连接表。SQL有强大的join和union语法。在pandas中，提供了join, merge和concat三个函数来实现相关功能。其中join默认是按列进行左连接，merge则是按列内连接,concat则是按行进行外连接。设计了多个API来做类似的事，这是pandas给人增加学习和记忆难度的地方。join与merge的区别是，join可以一次处理多个表，但只支持按index进行操作。merge一次只能处理两个表，但可以按任意列进行操作。concat默认是按行进行操作，只按index进行内连接和全连接（默认），可一次操作多个dataframe。</li>
 </ol>
@@ -56,42 +49,36 @@ sql语法有自然语言之感。在pandas中，需要这样查询：<pre><code 
 <h2 id="内置的query方法">内置的query方法</h2>
 <p>令人吃惊的是，pandas已经内置了一个query方法，可以让我们就<strong>像执行sql一样</strong>进行pandas的查询。</p>
 <p>这个函数的签名是:</p>
-<pre><code class="language-python">DataFrame.query(expr, *, inplace=False, **kwargs)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">DataFrame.query(expr, *, inplace=<span class="hljs-literal">False</span>, **kwargs)
 
-# 最简单的查询。这将返回满足列A大于列B的所有行
-# 类似于df[df.A &gt; df.B]
-df.query(&#39;A &gt; B&#39;)
-</code></pre>
+<span class="hljs-comment"># 最简单的查询。这将返回满足列A大于列B的所有行</span>
+<span class="hljs-comment"># 类似于df[df.A &gt; df.B]</span>
+df.query(<span class="hljs-string">&#x27;A &gt; B&#x27;</span>)</span></code></pre>
 <p>通过这个query方法，我们可以简化查询。我们先来生成一个数据集：</p>
-<pre><code class="language-python">import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-from pandas.util.testing import makeMixedDataFrame
+<span class="hljs-keyword">from</span> pandas.util.testing <span class="hljs-keyword">import</span> makeMixedDataFrame
 df = makeMixedDataFrame()
-df.head()
-</code></pre>
+df.head()</span></code></pre>
 <p>这里我们利用了testing包中的makeMixedDataFrame方法来生成测试用的dataframe。makeMixedDataFrame会生成一个包含各种数据类型的dataframe，除了None。如果要生成带缺失值的测试用dataframe，可以用makeMissingDataframe。</p>
 <p>我们得到的dataframe类似于下图：</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-mixed-data.jpg" alt=""></p>
 <p>现在，我们来执行一个查询:</p>
-<pre><code class="language-python">df.query(&quot;A&gt;3 and B &lt;= 1.0&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.query(<span class="hljs-string">&quot;A&gt;3 and B &lt;= 1.0&quot;</span>)</span></code></pre>
 <p>这将返回原数据集中的第4条记录。</p>
 <p>要注意的是，query表达式只是看起来象sql，但它并不是sql语法。它的第一个参数，即expr参数，是<strong>一个Python表达式，而非sql语句</strong>。在上面的示例数据中，如果我们要查找C列包含&#39;foo&#39;的数据，我们不能使用sql的like关键字，而是要使用以下方法：</p>
-<pre><code class="language-python">df.query(&quot;A&gt;3 and C.str.find(&#39;foo&#39;)!=-1&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">df.query(<span class="hljs-string">&quot;A&gt;3 and C.str.find(&#x27;foo&#x27;)!=-1&quot;</span>)</span></code></pre>
 <p>这样实际上差不多退回到了dataframe中的查询操作，只不过这里允许我们使用<code>AND</code>作为逻辑运算符。我们使用query最主要的目的是为了获得更快的速度。如果环境中已经安装了numexpr这个库，那么query将默认使用numexpr来加速计算，在dataframe超过100万行时，会比DataFrame的各种filter方法要快不少。</p>
 <hr>
 <h2 id="pandasql">pandasql</h2>
 <p>最先尝试为pandas提供sql查询功能的是pandasql。</p>
-<pre><code class="language-bash">! pip install pandasql
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">! pip install pandasql</span></code></pre>
 <p>现在，我们就可以使用完整sql语法来进行查询了：</p>
-<pre><code class="language-python">from pandasql import sqldf
-pysqldf = lambda q: sqldf(q, globals())
-pysqldf(&quot;select A, C, count(*) as count 
-        from df group by B limit 2;&quot;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> pandasql <span class="hljs-keyword">import</span> sqldf
+pysqldf = <span class="hljs-keyword">lambda</span> q: sqldf(q, <span class="hljs-built_in">globals</span>())
+pysqldf(<span class="hljs-string">&quot;select A, C, count(*) as count 
+        from df group by B limit 2;&quot;</span>)</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-pandasql-example.jpg" alt=""></p>
 <p>分组统计、限制返回记录和更改字段名一气喝成，这个例子中，充分体现了使用sql的优越性。</p>
 <p>但是使用pandasql有一个比较重要的问题，就是它已经很长一段时间没有更新过了。在我的书《Python能做大项目中》提到过SQLAlchemy的版本管理问题，在这里也出现了。当我们现在安装pandasql时，它会安装SQLAlchemy的2.0版本。这个版本会导致以下错误：</p>
@@ -115,15 +102,14 @@ pip install duckdb
 </div>
 
 <p>我们先看一个最简单的例子:</p>
-<pre><code class="language-python">import duckdb
-import pandas
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body"><span class="hljs-keyword">import</span> duckdb
+<span class="hljs-keyword">import</span> pandas
 
-# Create a Pandas dataframe
-my_df = pandas.DataFrame.from_dict({&#39;a&#39;: [42]})
+<span class="hljs-comment"># Create a Pandas dataframe</span>
+my_df = pandas.DataFrame.from_dict({<span class="hljs-string">&#x27;a&#x27;</span>: [<span class="hljs-number">42</span>]})
 
-# query the Pandas DataFrame &quot;my_df&quot;
-results = duckdb.sql(&quot;SELECT * FROM my_df&quot;).df()
-</code></pre>
+<span class="hljs-comment"># query the Pandas DataFrame &quot;my_df&quot;</span>
+results = duckdb.sql(<span class="hljs-string">&quot;SELECT * FROM my_df&quot;</span>).df()</span></code></pre>
 <p>它甚至比pandasql还要简洁。我们不需要给duckdb绑定当前环境下的全局变量，duckdb能通自动查找到my_df！</p>
 <p>关于duckdb，教学会非常简单。因为只要你熟悉sql，那么就已经几乎掌握了全部功能。这正是它的魔力之处。</p>
 <hr>
@@ -137,33 +123,31 @@ results = duckdb.sql(&quot;SELECT * FROM my_df&quot;).df()
 <p>duckdb实现了一个称为Asof Join的功能，来解决查找特定时间点的变化中的属性的值。Asof这个说法来自于下面的提问：</p>
 <p>Give me the value of the adjust factor <strong>as of</strong> this time.</p>
 <p>如果使用了duckdb，这个功能的实现会变得非常简单。为了演示真实的场景，我们使用量化24课环境下的数据源：</p>
-<pre><code class="language-python">from coursea import *
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> coursea <span class="hljs-keyword">import</span> *
 
-await init()
+<span class="hljs-keyword">await</span> init()
 
-code = &quot;000001.XSHE&quot;
-</code></pre>
+code = <span class="hljs-string">&quot;000001.XSHE&quot;</span>
+</span></code></pre>
 <hr>
-<pre><code class="language-python">end_day = datetime.date(2023, 6, 14)
-end_time = datetime.datetime(2023, 6, 14, 15)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body">end_day = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">6</span>, <span class="hljs-number">14</span>)
+end_time = datetime.datetime(<span class="hljs-number">2023</span>, <span class="hljs-number">6</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>)
 
-# 获取2天的日线并转换成DataFrame
-day_bars = await Stock.get_bars(code, 2, FrameType.DAY, end=end_day)
+<span class="hljs-comment"># 获取2天的日线并转换成DataFrame</span>
+day_bars = <span class="hljs-keyword">await</span> Stock.get_bars(code, <span class="hljs-number">2</span>, FrameType.DAY, end=end_day)
 day_bars = pd.DataFrame(day_bars)
 
-# 获取对应日期下的60分钟线，并转换为DataFrame
-min_bars = await Stock.get_bars(code, 8, FrameType.MIN60, end=end_time)
-min_bars = pd.DataFrame(min_bars)
-</code></pre>
+<span class="hljs-comment"># 获取对应日期下的60分钟线，并转换为DataFrame</span>
+min_bars = <span class="hljs-keyword">await</span> Stock.get_bars(code, <span class="hljs-number">8</span>, FrameType.MIN60, end=end_time)
+min_bars = pd.DataFrame(min_bars)</span></code></pre>
 <p>当然，通过zillionare-omicron获取到的分钟线，已经为我们做好复权处理了。为了演示，在这里我们通过duckdb的asof join功能来重新合成一次，并与zillionare的结果进行对照：</p>
-<pre><code class="language-python">import duckdb
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">import</span> duckdb
 
-sql = &quot;&quot;&quot;SELECT m.frame, m.close, d.factor
+sql = <span class="hljs-string">&quot;&quot;&quot;SELECT m.frame, m.close, d.factor
 FROM min_bars m ASOF left JOIN day_bars d
- on m.frame &gt;= d.frame;&quot;&quot;&quot;
+ on m.frame &gt;= d.frame;&quot;&quot;&quot;</span>
 
-duckdb.sql(sql)
-</code></pre>
+duckdb.sql(sql)</span></code></pre>
 <p>输出结果是DataFrame格式，结果如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-duckdb-left-join.jpg" alt="66%"></p>
 <hr>

@@ -265,948 +265,942 @@ $$</p>
 
 <h2 id="10-代码">10. 代码</h2>
 <h3 id="101-因子计算">10.1. 因子计算</h3>
-<pre><code class="language-python">from typing import List, Optional
-from pathlib import Path
-import tushare as ts
-import pandas as pd
-import os
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span></span><span class="cl-body"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>, <span class="hljs-type">Optional</span>
+<span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path
+<span class="hljs-keyword">import</span> tushare <span class="hljs-keyword">as</span> ts
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> os
 pro = ts.pro_api()
 
-data_dir = str(data_home / &quot;rw/alligator/data&quot;)
-factor_dir = str(data_home / &quot;rw/alligator/factor&quot;)
-signal_dir = str(data_home / &quot;rw/alligator/signal&quot;)
-report_dir = str(get_jupyter_root_dir() / &quot;reports/alligator/&quot;)
-universe = [&#39;000300.SH&#39;,&quot;000001.SH&quot;,&quot;000852.SH&quot;,&quot;000905.SH&quot;,&quot;000985.CSI&quot;,&quot;CBA00101.CS&quot;]
+data_dir = <span class="hljs-built_in">str</span>(data_home / <span class="hljs-string">&quot;rw/alligator/data&quot;</span>)
+factor_dir = <span class="hljs-built_in">str</span>(data_home / <span class="hljs-string">&quot;rw/alligator/factor&quot;</span>)
+signal_dir = <span class="hljs-built_in">str</span>(data_home / <span class="hljs-string">&quot;rw/alligator/signal&quot;</span>)
+report_dir = <span class="hljs-built_in">str</span>(get_jupyter_root_dir() / <span class="hljs-string">&quot;reports/alligator/&quot;</span>)
+universe = [<span class="hljs-string">&#x27;000300.SH&#x27;</span>,<span class="hljs-string">&quot;000001.SH&quot;</span>,<span class="hljs-string">&quot;000852.SH&quot;</span>,<span class="hljs-string">&quot;000905.SH&quot;</span>,<span class="hljs-string">&quot;000985.CSI&quot;</span>,<span class="hljs-string">&quot;CBA00101.CS&quot;</span>]
 
-def _prepare_df(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;确保 trade_date 升序、关键列为数值。&quot;&quot;&quot;
-    if &quot;trade_date&quot; not in df.columns:
-        raise ValueError(&quot;缺少 trade_date 列&quot;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_prepare_df</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;确保 trade_date 升序、关键列为数值。&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;trade_date&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> df.columns:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;缺少 trade_date 列&quot;</span>)
 
     df = df.copy()
-    df[&quot;trade_date&quot;] = pd.to_datetime(df[&quot;trade_date&quot;].astype(str), errors=&quot;coerce&quot;)
-    df = df.dropna(subset=[&quot;trade_date&quot;]).sort_values(&quot;trade_date&quot;).reset_index(drop=True)
+    df[<span class="hljs-string">&quot;trade_date&quot;</span>] = pd.to_datetime(df[<span class="hljs-string">&quot;trade_date&quot;</span>].astype(<span class="hljs-built_in">str</span>), errors=<span class="hljs-string">&quot;coerce&quot;</span>)
+    df = df.dropna(subset=[<span class="hljs-string">&quot;trade_date&quot;</span>]).sort_values(<span class="hljs-string">&quot;trade_date&quot;</span>).reset_index(drop=<span class="hljs-literal">True</span>)
 
-    # 转数值
-    for c in [&quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;]:
-        if c in df.columns:
-            df[c] = pd.to_numeric(df[c], errors=&quot;coerce&quot;)
+    <span class="hljs-comment"># 转数值</span>
+    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>]:
+        <span class="hljs-keyword">if</span> c <span class="hljs-keyword">in</span> df.columns:
+            df[c] = pd.to_numeric(df[c], errors=<span class="hljs-string">&quot;coerce&quot;</span>)
 
-    return df
+    <span class="hljs-keyword">return</span> df
 
-def get_index_daily_data(ts_codes: List[str],
-                          start_date: Optional[str] = None,
-                          end_date: Optional[str] = None,
-                          save_path: str = data_dir) -&gt; None:
-     os.makedirs(save_path, exist_ok=True)
-     for ts_code in ts_codes:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_index_daily_data</span>(<span class="hljs-params">ts_codes: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>],
+                          start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+                          end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+                          save_path: <span class="hljs-built_in">str</span> = data_dir</span>) -&gt; <span class="hljs-literal">None</span>:
+     os.makedirs(save_path, exist_ok=<span class="hljs-literal">True</span>)
+     <span class="hljs-keyword">for</span> ts_code <span class="hljs-keyword">in</span> ts_codes:
          df = pro.index_daily(ts_code=ts_code, start_date=start_date, end_date=end_date)
-         if df is None or df.empty:
-             print(f&quot;[warn] 无数据: {ts_code}&quot;)
-             continue
+         <span class="hljs-keyword">if</span> df <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> df.empty:
+             <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] 无数据: <span class="hljs-subst">{ts_code}</span>&quot;</span>)
+             <span class="hljs-keyword">continue</span>
          df = _prepare_df(df)
-         out = os.path.join(save_path, f&quot;{ts_code}.parquet&quot;)
-         df.to_parquet(out, index=False)
-         print(f&quot;[ok] 保存: {out}&quot;)
+         out = os.path.join(save_path, <span class="hljs-string">f&quot;<span class="hljs-subst">{ts_code}</span>.parquet&quot;</span>)
+         df.to_parquet(out, index=<span class="hljs-literal">False</span>)
+         <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[ok] 保存: <span class="hljs-subst">{out}</span>&quot;</span>)
 
 get_index_daily_data(
          ts_codes=universe,
-         start_date=&quot;20040630&quot;,
-         end_date=&quot;20250901&quot;
-     )
-</code></pre>
-<pre><code class="language-python">def _clip_by_date(
+         start_date=<span class="hljs-string">&quot;20040630&quot;</span>,
+         end_date=<span class="hljs-string">&quot;20250901&quot;</span>
+     )</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_clip_by_date</span>(<span class="hljs-params">
     df: pd.DataFrame,
-    start: Optional[pd.Timestamp | str],
-    end: Optional[pd.Timestamp | str],
-) -&gt; pd.DataFrame:
-    if start is not None:
+    start: <span class="hljs-type">Optional</span>[pd.Timestamp | <span class="hljs-built_in">str</span>],
+    end: <span class="hljs-type">Optional</span>[pd.Timestamp | <span class="hljs-built_in">str</span>],
+</span>) -&gt; pd.DataFrame:
+    <span class="hljs-keyword">if</span> start <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         start = pd.to_datetime(start)
-        df = df[df[&quot;trade_date&quot;] &gt;= start]
-    if end is not None:
+        df = df[df[<span class="hljs-string">&quot;trade_date&quot;</span>] &gt;= start]
+    <span class="hljs-keyword">if</span> end <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         end = pd.to_datetime(end)
-        df = df[df[&quot;trade_date&quot;] &lt;= end]
-    return df
-</code></pre>
+        df = df[df[<span class="hljs-string">&quot;trade_date&quot;</span>] &lt;= end]
+    <span class="hljs-keyword">return</span> df
+</span></code></pre>
 <h4>10.1.1. Alligator</h4>
-<pre><code class="language-python"># ============== 指标计算 ==============
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span></span><span class="cl-body"><span class="hljs-comment"># ============== 指标计算 ==============</span>
 
-def calculate_alligator(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_alligator</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     Alligator（SMA）并右移：
     Jaw=13 shift(8), Teeth=8 shift(5), Lips=5 shift(3)
     状态：
       bull: lips &gt; teeth &gt; jaw
       bear: lips &lt; teeth &lt; jaw
       否则 neutral
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = _prepare_df(df)
-    close = df[&quot;close&quot;]
+    close = df[<span class="hljs-string">&quot;close&quot;</span>]
 
-    df[&quot;alligator_jaw&quot;]   = close.rolling(13).mean().shift(8)
-    df[&quot;alligator_teeth&quot;] = close.rolling(8).mean().shift(5)
-    df[&quot;alligator_lips&quot;]  = close.rolling(5).mean().shift(3)
+    df[<span class="hljs-string">&quot;alligator_jaw&quot;</span>]   = close.rolling(<span class="hljs-number">13</span>).mean().shift(<span class="hljs-number">8</span>)
+    df[<span class="hljs-string">&quot;alligator_teeth&quot;</span>] = close.rolling(<span class="hljs-number">8</span>).mean().shift(<span class="hljs-number">5</span>)
+    df[<span class="hljs-string">&quot;alligator_lips&quot;</span>]  = close.rolling(<span class="hljs-number">5</span>).mean().shift(<span class="hljs-number">3</span>)
 
-    bull = (df[&quot;alligator_lips&quot;] &gt; df[&quot;alligator_teeth&quot;]) &amp; (df[&quot;alligator_teeth&quot;] &gt; df[&quot;alligator_jaw&quot;])
-    bear = (df[&quot;alligator_lips&quot;] &lt; df[&quot;alligator_teeth&quot;]) &amp; (df[&quot;alligator_teeth&quot;] &lt; df[&quot;alligator_jaw&quot;])
+    bull = (df[<span class="hljs-string">&quot;alligator_lips&quot;</span>] &gt; df[<span class="hljs-string">&quot;alligator_teeth&quot;</span>]) &amp; (df[<span class="hljs-string">&quot;alligator_teeth&quot;</span>] &gt; df[<span class="hljs-string">&quot;alligator_jaw&quot;</span>])
+    bear = (df[<span class="hljs-string">&quot;alligator_lips&quot;</span>] &lt; df[<span class="hljs-string">&quot;alligator_teeth&quot;</span>]) &amp; (df[<span class="hljs-string">&quot;alligator_teeth&quot;</span>] &lt; df[<span class="hljs-string">&quot;alligator_jaw&quot;</span>])
 
-    df[&quot;alligator_state&quot;] = &quot;neutral&quot;
-    df.loc[bull, &quot;alligator_state&quot;] = &quot;bull&quot;
-    df.loc[bear, &quot;alligator_state&quot;] = &quot;bear&quot;
-    return df
-</code></pre>
+    df[<span class="hljs-string">&quot;alligator_state&quot;</span>] = <span class="hljs-string">&quot;neutral&quot;</span>
+    df.loc[bull, <span class="hljs-string">&quot;alligator_state&quot;</span>] = <span class="hljs-string">&quot;bull&quot;</span>
+    df.loc[bear, <span class="hljs-string">&quot;alligator_state&quot;</span>] = <span class="hljs-string">&quot;bear&quot;</span>
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <h4>10.1.2. Awesome Oscillator</h4>
-<pre><code class="language-python">def calculate_ao(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_ao</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     AO = SMA(median,5) - SMA(median,34)
     连涨3天：AO_t &gt; AO_{t-1} &gt; AO_{t-2}
     连跌3天：AO_t &lt; AO_{t-1} &lt; AO_{t-2}
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = _prepare_df(df)
-    if not {&quot;high&quot;, &quot;low&quot;}.issubset(df.columns):
-        # 缺列则给空占位
-        df[&quot;ao&quot;] = pd.NA
-        df[&quot;ao_rising3&quot;] = False
-        df[&quot;ao_falling3&quot;] = False
-        return df
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> {<span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>}.issubset(df.columns):
+        <span class="hljs-comment"># 缺列则给空占位</span>
+        df[<span class="hljs-string">&quot;ao&quot;</span>] = pd.NA
+        df[<span class="hljs-string">&quot;ao_rising3&quot;</span>] = <span class="hljs-literal">False</span>
+        df[<span class="hljs-string">&quot;ao_falling3&quot;</span>] = <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">return</span> df
 
-    median_price = (df[&quot;high&quot;] + df[&quot;low&quot;]) / 2.0
-    ao_short = median_price.rolling(5).mean()
-    ao_long = median_price.rolling(34).mean()
-    df[&quot;ao&quot;] = ao_short - ao_long
+    median_price = (df[<span class="hljs-string">&quot;high&quot;</span>] + df[<span class="hljs-string">&quot;low&quot;</span>]) / <span class="hljs-number">2.0</span>
+    ao_short = median_price.rolling(<span class="hljs-number">5</span>).mean()
+    ao_long = median_price.rolling(<span class="hljs-number">34</span>).mean()
+    df[<span class="hljs-string">&quot;ao&quot;</span>] = ao_short - ao_long
 
-    ao = df[&quot;ao&quot;]
-    df[&quot;ao_rising3&quot;] = (ao &gt; ao.shift(1)) &amp; (ao.shift(1) &gt; ao.shift(2))
-    df[&quot;ao_falling3&quot;] = (ao &lt; ao.shift(1)) &amp; (ao.shift(1) &lt; ao.shift(2))
-    return df
-</code></pre>
+    ao = df[<span class="hljs-string">&quot;ao&quot;</span>]
+    df[<span class="hljs-string">&quot;ao_rising3&quot;</span>] = (ao &gt; ao.shift(<span class="hljs-number">1</span>)) &amp; (ao.shift(<span class="hljs-number">1</span>) &gt; ao.shift(<span class="hljs-number">2</span>))
+    df[<span class="hljs-string">&quot;ao_falling3&quot;</span>] = (ao &lt; ao.shift(<span class="hljs-number">1</span>)) &amp; (ao.shift(<span class="hljs-number">1</span>) &lt; ao.shift(<span class="hljs-number">2</span>))
+    <span class="hljs-keyword">return</span> df</span></code></pre>
 <h4>10.1.3. Fractals</h4>
-<pre><code class="language-python">
-def calculate_fractals(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body">
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_fractals</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     分形允许等号，t±2 检测；整体 shift(+2) 发布，再 ffill 维持最近分形。
     输出: fractal_up, fractal_dn, fractal_up_recent, fractal_dn_recent
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = _prepare_df(df)
-    if not {&quot;high&quot;, &quot;low&quot;}.issubset(df.columns):
-        for c in [&quot;fractal_up&quot;, &quot;fractal_dn&quot;, &quot;fractal_up_recent&quot;, &quot;fractal_dn_recent&quot;]:
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> {<span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>}.issubset(df.columns):
+        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;fractal_up&quot;</span>, <span class="hljs-string">&quot;fractal_dn&quot;</span>, <span class="hljs-string">&quot;fractal_up_recent&quot;</span>, <span class="hljs-string">&quot;fractal_dn_recent&quot;</span>]:
             df[c] = pd.NA
-        return df
+        <span class="hljs-keyword">return</span> df
 
-    highs, lows = df[&quot;high&quot;], df[&quot;low&quot;]
+    highs, lows = df[<span class="hljs-string">&quot;high&quot;</span>], df[<span class="hljs-string">&quot;low&quot;</span>]
 
-    up = (highs.shift(2) &lt;= highs.shift(1)) &amp; (highs.shift(1) &lt;= highs) &amp; \
-         (highs.shift(-1) &lt;= highs) &amp; (highs.shift(-2) &lt;= highs)
-    dn = (lows.shift(2)  &gt;= lows.shift(1))  &amp; (lows.shift(1)  &gt;= lows)  &amp; \
-         (lows.shift(-1)  &gt;= lows)          &amp; (lows.shift(-2)  &gt;= lows)
+    up = (highs.shift(<span class="hljs-number">2</span>) &lt;= highs.shift(<span class="hljs-number">1</span>)) &amp; (highs.shift(<span class="hljs-number">1</span>) &lt;= highs) &amp; \
+         (highs.shift(-<span class="hljs-number">1</span>) &lt;= highs) &amp; (highs.shift(-<span class="hljs-number">2</span>) &lt;= highs)
+    dn = (lows.shift(<span class="hljs-number">2</span>)  &gt;= lows.shift(<span class="hljs-number">1</span>))  &amp; (lows.shift(<span class="hljs-number">1</span>)  &gt;= lows)  &amp; \
+         (lows.shift(-<span class="hljs-number">1</span>)  &gt;= lows)          &amp; (lows.shift(-<span class="hljs-number">2</span>)  &gt;= lows)
 
-    # 检测点放在 t，然后整体滞后发布到 t+2
+    <span class="hljs-comment"># 检测点放在 t，然后整体滞后发布到 t+2</span>
     fr_up = pd.Series(pd.NA, index=df.index)
     fr_dn = pd.Series(pd.NA, index=df.index)
     fr_up[up] = highs[up]
     fr_dn[dn] = lows[dn]
 
-    df[&quot;fractal_up&quot;] = fr_up.shift(2)
-    df[&quot;fractal_dn&quot;] = fr_dn.shift(2)
+    df[<span class="hljs-string">&quot;fractal_up&quot;</span>] = fr_up.shift(<span class="hljs-number">2</span>)
+    df[<span class="hljs-string">&quot;fractal_dn&quot;</span>] = fr_dn.shift(<span class="hljs-number">2</span>)
 
-    df[&quot;fractal_up_recent&quot;] = df[&quot;fractal_up&quot;].ffill()
-    df[&quot;fractal_dn_recent&quot;] = df[&quot;fractal_dn&quot;].ffill()
-    return df
-</code></pre>
+    df[<span class="hljs-string">&quot;fractal_up_recent&quot;</span>] = df[<span class="hljs-string">&quot;fractal_up&quot;</span>].ffill()
+    df[<span class="hljs-string">&quot;fractal_dn_recent&quot;</span>] = df[<span class="hljs-string">&quot;fractal_dn&quot;</span>].ffill()
+    <span class="hljs-keyword">return</span> df
+</span></code></pre>
 <h4>10.1.4. MACD</h4>
-<pre><code class="language-python">def calculate_macd(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_macd</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;
     MACD 固参：12/26/9
     金叉/死叉用 DIF 与 DEA 的穿越
     “水上/零轴/水下”按“交叉当日 DIF 的正负”分类，不用 diff==0
     输出：macd_diff, macd_dea, macd_hist, macd_long, macd_short
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = _prepare_df(df)
-    close = df[&quot;close&quot;]
+    close = df[<span class="hljs-string">&quot;close&quot;</span>]
 
-    ema12 = close.ewm(span=12, adjust=False).mean()  # 12日EMA
-    ema26 = close.ewm(span=26, adjust=False).mean()  # 26日EMA
-    diff = ema12 - ema26  # DIF线（快速线）
-    dea = diff.ewm(span=9, adjust=False).mean()  # DEA线（慢速线）
-    hist = 2 * (diff - dea)  # MACD直方图
+    ema12 = close.ewm(span=<span class="hljs-number">12</span>, adjust=<span class="hljs-literal">False</span>).mean()  <span class="hljs-comment"># 12日EMA</span>
+    ema26 = close.ewm(span=<span class="hljs-number">26</span>, adjust=<span class="hljs-literal">False</span>).mean()  <span class="hljs-comment"># 26日EMA</span>
+    diff = ema12 - ema26  <span class="hljs-comment"># DIF线（快速线）</span>
+    dea = diff.ewm(span=<span class="hljs-number">9</span>, adjust=<span class="hljs-literal">False</span>).mean()  <span class="hljs-comment"># DEA线（慢速线）</span>
+    hist = <span class="hljs-number">2</span> * (diff - dea)  <span class="hljs-comment"># MACD直方图</span>
 
-    df[&quot;macd_diff&quot;] = diff
-    df[&quot;macd_dea&quot;] = dea
-    df[&quot;macd_hist&quot;] = hist
+    df[<span class="hljs-string">&quot;macd_diff&quot;</span>] = diff
+    df[<span class="hljs-string">&quot;macd_dea&quot;</span>] = dea
+    df[<span class="hljs-string">&quot;macd_hist&quot;</span>] = hist
 
-    # 金叉和死叉判断
-    golden = (diff &gt; dea) &amp; (diff.shift(1) &lt;= dea.shift(1))  # DIF上穿DEA：金叉
-    dead = (diff &lt; dea) &amp; (diff.shift(1) &gt;= dea.shift(1))    # DIF下穿DEA：死叉
+    <span class="hljs-comment"># 金叉和死叉判断</span>
+    golden = (diff &gt; dea) &amp; (diff.shift(<span class="hljs-number">1</span>) &lt;= dea.shift(<span class="hljs-number">1</span>))  <span class="hljs-comment"># DIF上穿DEA：金叉</span>
+    dead = (diff &lt; dea) &amp; (diff.shift(<span class="hljs-number">1</span>) &gt;= dea.shift(<span class="hljs-number">1</span>))    <span class="hljs-comment"># DIF下穿DEA：死叉</span>
 
-    # 水上金叉和水下金叉
-    above_golden = golden &amp; (diff &gt; 0)  # DIF在零轴上金叉
-    zero_golden = golden &amp; (diff &lt;= 0)  # DIF在零轴下金叉
-    below_dead = dead &amp; (diff &lt; 0)     # DIF在零轴下死叉
-    zero_dead = dead &amp; (diff &gt;= 0)     # DIF在零轴上死叉
+    <span class="hljs-comment"># 水上金叉和水下金叉</span>
+    above_golden = golden &amp; (diff &gt; <span class="hljs-number">0</span>)  <span class="hljs-comment"># DIF在零轴上金叉</span>
+    zero_golden = golden &amp; (diff &lt;= <span class="hljs-number">0</span>)  <span class="hljs-comment"># DIF在零轴下金叉</span>
+    below_dead = dead &amp; (diff &lt; <span class="hljs-number">0</span>)     <span class="hljs-comment"># DIF在零轴下死叉</span>
+    zero_dead = dead &amp; (diff &gt;= <span class="hljs-number">0</span>)     <span class="hljs-comment"># DIF在零轴上死叉</span>
 
-    # 生成MACD的多空信号
-    df[&quot;macd_long&quot;] = above_golden | zero_golden
-    df[&quot;macd_short&quot;] = below_dead | zero_dead
+    <span class="hljs-comment"># 生成MACD的多空信号</span>
+    df[<span class="hljs-string">&quot;macd_long&quot;</span>] = above_golden | zero_golden
+    df[<span class="hljs-string">&quot;macd_short&quot;</span>] = below_dead | zero_dead
 
-    return df  # MACD四象限合成信号（由gen_factor计算）
-</code></pre>
+    <span class="hljs-keyword">return</span> df  <span class="hljs-comment"># MACD四象限合成信号（由gen_factor计算）</span>
+</span></code></pre>
 <h4>10.1.5. IO 管线</h4>
-<pre><code class="language-python">def read_parquet_files(
-    data_folder: str = data_dir
-) -&gt; Dict[str, pd.DataFrame]:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_parquet_files</span>(<span class="hljs-params">
+    data_folder: <span class="hljs-built_in">str</span> = data_dir
+</span>) -&gt; <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, pd.DataFrame]:
+    <span class="hljs-string">&quot;&quot;&quot;
     读取 data_folder 下所有 .parquet，返回 {ts_code: df}
     要求文件名即 ts_code，如 000001.SH.parquet
-    &quot;&quot;&quot;
-    data: Dict[str, pd.DataFrame] = {}
-    if not os.path.exists(data_folder):
-        raise FileNotFoundError(f&quot;数据目录不存在: {data_folder}&quot;)
+    &quot;&quot;&quot;</span>
+    data: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, pd.DataFrame] = {}
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(data_folder):
+        <span class="hljs-keyword">raise</span> FileNotFoundError(<span class="hljs-string">f&quot;数据目录不存在: <span class="hljs-subst">{data_folder}</span>&quot;</span>)
 
-    files = [f for f in os.listdir(data_folder) if f.endswith(&quot;.parquet&quot;)]
-    if not files:
-        print(f&quot;[warn] 目录无 parquet 文件: {data_folder}&quot;)
+    files = [f <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> os.listdir(data_folder) <span class="hljs-keyword">if</span> f.endswith(<span class="hljs-string">&quot;.parquet&quot;</span>)]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> files:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] 目录无 parquet 文件: <span class="hljs-subst">{data_folder}</span>&quot;</span>)
 
-    for file in files:
-        ts_code = file.replace(&quot;.parquet&quot;, &quot;&quot;)
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files:
+        ts_code = file.replace(<span class="hljs-string">&quot;.parquet&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)
         path = os.path.join(data_folder, file)
         df = pd.read_parquet(path)
         df = _prepare_df(df)
         data[ts_code] = df
-    return data
-</code></pre>
-<pre><code class="language-python">def _compute_all_factors(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;在单个 df 上依次计算所有指标（保持列齐全）。&quot;&quot;&quot;
+    <span class="hljs-keyword">return</span> data
+</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_compute_all_factors</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;在单个 df 上依次计算所有指标（保持列齐全）。&quot;&quot;&quot;</span>
     df1 = calculate_alligator(df)
     df2 = calculate_ao(df1)
     df3 = calculate_fractals(df2)
     df4 = calculate_macd(df3)
-    return df4
-</code></pre>
-<pre><code class="language-python">def save_alligator_to_parquet(
-    data: Dict[str, pd.DataFrame],
+    <span class="hljs-keyword">return</span> df4
+</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">save_alligator_to_parquet</span>(<span class="hljs-params">
+    data: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, pd.DataFrame],
     factor_folder: Path = factor_dir,
-    factor_start_date: Optional[str] = None,
-    factor_end_date: Optional[str] = None,
-) -&gt; None:
-    &quot;&quot;&quot;
+    factor_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    factor_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+</span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;
     计算指标并保存为 parquet：{factor_folder}/{ts_code}_alligator.parquet
     可在因子阶段用 factor_start_date / factor_end_date 裁剪
-    &quot;&quot;&quot;
-    os.makedirs(factor_folder, exist_ok=True)
+    &quot;&quot;&quot;</span>
+    os.makedirs(factor_folder, exist_ok=<span class="hljs-literal">True</span>)
 
-    for ts_code, df in data.items():
-        # 裁剪窗口仅作用于“因子计算阶段”，后续策略/回测再自行设窗口
+    <span class="hljs-keyword">for</span> ts_code, df <span class="hljs-keyword">in</span> data.items():
+        <span class="hljs-comment"># 裁剪窗口仅作用于“因子计算阶段”，后续策略/回测再自行设窗口</span>
         df_clip = _clip_by_date(df, factor_start_date, factor_end_date)
-        if df_clip.empty:
-            print(f&quot;[warn] {ts_code} 在所选时间窗无数据，跳过&quot;)
-            continue
+        <span class="hljs-keyword">if</span> df_clip.empty:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] <span class="hljs-subst">{ts_code}</span> 在所选时间窗无数据，跳过&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
         out_df = _compute_all_factors(df_clip)
-        out_path = os.path.join(factor_folder, f&quot;{ts_code}_alligator.parquet&quot;)
-        out_df.to_parquet(out_path, index=False)
-        print(f&quot;[ok] {ts_code} 因子保存 -&gt; {out_path}&quot;)
-</code></pre>
-<pre><code class="language-python">def process_alligator_from_data(
-    data_folder: str = data_dir,
-    factor_folder: str = factor_dir,
-    factor_start_date: Optional[str] = None,
-    factor_end_date: Optional[str] = None,
-) -&gt; None:
-    &quot;&quot;&quot;
+        out_path = os.path.join(factor_folder, <span class="hljs-string">f&quot;<span class="hljs-subst">{ts_code}</span>_alligator.parquet&quot;</span>)
+        out_df.to_parquet(out_path, index=<span class="hljs-literal">False</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[ok] <span class="hljs-subst">{ts_code}</span> 因子保存 -&gt; <span class="hljs-subst">{out_path}</span>&quot;</span>)
+</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_alligator_from_data</span>(<span class="hljs-params">
+    data_folder: <span class="hljs-built_in">str</span> = data_dir,
+    factor_folder: <span class="hljs-built_in">str</span> = factor_dir,
+    factor_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    factor_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+</span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;
     从 data_folder 读取行情，计算因子，保存至 factor_folder
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     data = read_parquet_files(data_folder=data_folder)
     save_alligator_to_parquet(
         data,
         factor_folder=factor_folder,
         factor_start_date=factor_start_date,
         factor_end_date=factor_end_date,
-    )
-</code></pre>
+    )</span></code></pre>
 <h4>10.1.6. 入口函数</h4>
-<pre><code class="language-python">
-def run_all(
-    data_folder: str = data_dir,
-    factor_folder: str = factor_dir,
-    factor_start_date: Optional[str] = None,
-    factor_end_date: Optional[str] = None,
-) -&gt; None:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body">
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">run_all</span>(<span class="hljs-params">
+    data_folder: <span class="hljs-built_in">str</span> = data_dir,
+    factor_folder: <span class="hljs-built_in">str</span> = factor_dir,
+    factor_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    factor_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+</span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;
     一键执行因子生成。默认不下载，直接读取本地 parquet。
     你可以在这里指定因子计算的时间窗；后续 strategy/backtest 再指定自己的交易窗。
-    &quot;&quot;&quot;
-    print(&quot;[start] factor generation&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[start] factor generation&quot;</span>)
     process_alligator_from_data(
         data_folder=data_folder,
         factor_folder=factor_folder,
         factor_start_date=factor_start_date,
         factor_end_date=factor_end_date,
     )
-    print(&quot;[done] factor generation&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[done] factor generation&quot;</span>)
 
 run_all(
-    factor_start_date=&quot;2004-06-30&quot;,
-    factor_end_date=&quot;2025-09-01&quot;,
-)
-</code></pre>
+    factor_start_date=<span class="hljs-string">&quot;2004-06-30&quot;</span>,
+    factor_end_date=<span class="hljs-string">&quot;2025-09-01&quot;</span>,
+)</span></code></pre>
 <h3 id="102-信号生成">10.2. 信号生成</h3>
-<pre><code class="language-python"># ============== 策略信号生成 ==============
-from __future__ import annotations
-import os
-from typing import Optional, Dict, List
-import pandas as pd
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span><span class="cl">123</span><span class="cl">124</span><span class="cl">125</span><span class="cl">126</span><span class="cl">127</span><span class="cl">128</span><span class="cl">129</span><span class="cl">130</span><span class="cl">131</span><span class="cl">132</span><span class="cl">133</span><span class="cl">134</span><span class="cl">135</span><span class="cl">136</span><span class="cl">137</span><span class="cl">138</span><span class="cl">139</span><span class="cl">140</span><span class="cl">141</span><span class="cl">142</span><span class="cl">143</span><span class="cl">144</span><span class="cl">145</span><span class="cl">146</span><span class="cl">147</span><span class="cl">148</span><span class="cl">149</span><span class="cl">150</span><span class="cl">151</span><span class="cl">152</span><span class="cl">153</span><span class="cl">154</span><span class="cl">155</span><span class="cl">156</span><span class="cl">157</span><span class="cl">158</span><span class="cl">159</span><span class="cl">160</span><span class="cl">161</span><span class="cl">162</span><span class="cl">163</span><span class="cl">164</span><span class="cl">165</span><span class="cl">166</span><span class="cl">167</span><span class="cl">168</span><span class="cl">169</span><span class="cl">170</span><span class="cl">171</span><span class="cl">172</span><span class="cl">173</span><span class="cl">174</span><span class="cl">175</span><span class="cl">176</span><span class="cl">177</span><span class="cl">178</span><span class="cl">179</span><span class="cl">180</span><span class="cl">181</span><span class="cl">182</span><span class="cl">183</span><span class="cl">184</span><span class="cl">185</span><span class="cl">186</span><span class="cl">187</span><span class="cl">188</span><span class="cl">189</span><span class="cl">190</span><span class="cl">191</span><span class="cl">192</span><span class="cl">193</span><span class="cl">194</span><span class="cl">195</span><span class="cl">196</span><span class="cl">197</span><span class="cl">198</span><span class="cl">199</span><span class="cl">200</span><span class="cl">201</span><span class="cl">202</span><span class="cl">203</span><span class="cl">204</span><span class="cl">205</span><span class="cl">206</span><span class="cl">207</span><span class="cl">208</span><span class="cl">209</span></span><span class="cl-body"><span class="hljs-comment"># ============== 策略信号生成 ==============</span>
+<span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> annotations
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Optional</span>, <span class="hljs-type">Dict</span>, <span class="hljs-type">List</span>
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
-# 需要的列名（由 gen_factor 生成）
+<span class="hljs-comment"># 需要的列名（由 gen_factor 生成）</span>
 REQ_COLS = [
-    &quot;trade_date&quot;, &quot;open&quot;, &quot;high&quot;, &quot;low&quot;, &quot;close&quot;,
-    &quot;alligator_jaw&quot;, &quot;alligator_teeth&quot;, &quot;alligator_lips&quot;, &quot;alligator_state&quot;,
-    &quot;ao&quot;, &quot;ao_rising3&quot;, &quot;ao_falling3&quot;,
-    &quot;fractal_up&quot;, &quot;fractal_dn&quot;, &quot;fractal_up_recent&quot;, &quot;fractal_dn_recent&quot;,
-    &quot;macd_diff&quot;, &quot;macd_dea&quot;, &quot;macd_hist&quot;, &quot;macd_long&quot;, &quot;macd_short&quot;,
+    <span class="hljs-string">&quot;trade_date&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>,
+    <span class="hljs-string">&quot;alligator_jaw&quot;</span>, <span class="hljs-string">&quot;alligator_teeth&quot;</span>, <span class="hljs-string">&quot;alligator_lips&quot;</span>, <span class="hljs-string">&quot;alligator_state&quot;</span>,
+    <span class="hljs-string">&quot;ao&quot;</span>, <span class="hljs-string">&quot;ao_rising3&quot;</span>, <span class="hljs-string">&quot;ao_falling3&quot;</span>,
+    <span class="hljs-string">&quot;fractal_up&quot;</span>, <span class="hljs-string">&quot;fractal_dn&quot;</span>, <span class="hljs-string">&quot;fractal_up_recent&quot;</span>, <span class="hljs-string">&quot;fractal_dn_recent&quot;</span>,
+    <span class="hljs-string">&quot;macd_diff&quot;</span>, <span class="hljs-string">&quot;macd_dea&quot;</span>, <span class="hljs-string">&quot;macd_hist&quot;</span>, <span class="hljs-string">&quot;macd_long&quot;</span>, <span class="hljs-string">&quot;macd_short&quot;</span>,
 ]
 
 
-def _ensure_dt_index(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;确保 trade_date 为升序 DatetimeIndex。&quot;&quot;&quot;
-    if &quot;trade_date&quot; not in df.columns:
-        raise ValueError(&quot;缺少 trade_date 列；请先用 gen_factor 生成标准因子文件后再运行 strategy&quot;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_ensure_dt_index</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;确保 trade_date 为升序 DatetimeIndex。&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;trade_date&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> df.columns:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;缺少 trade_date 列；请先用 gen_factor 生成标准因子文件后再运行 strategy&quot;</span>)
     df = df.copy()
-    df[&quot;trade_date&quot;] = pd.to_datetime(df[&quot;trade_date&quot;].astype(str), errors=&quot;coerce&quot;)
-    df = df.dropna(subset=[&quot;trade_date&quot;]).set_index(&quot;trade_date&quot;).sort_index()
-    df.index.name = &quot;trade_date&quot;
-    return df
+    df[<span class="hljs-string">&quot;trade_date&quot;</span>] = pd.to_datetime(df[<span class="hljs-string">&quot;trade_date&quot;</span>].astype(<span class="hljs-built_in">str</span>), errors=<span class="hljs-string">&quot;coerce&quot;</span>)
+    df = df.dropna(subset=[<span class="hljs-string">&quot;trade_date&quot;</span>]).set_index(<span class="hljs-string">&quot;trade_date&quot;</span>).sort_index()
+    df.index.name = <span class="hljs-string">&quot;trade_date&quot;</span>
+    <span class="hljs-keyword">return</span> df
 
 
-def _clip_window(df: pd.DataFrame,
-                 start: Optional[str | pd.Timestamp],
-                 end: Optional[str | pd.Timestamp]) -&gt; pd.DataFrame:
-    if start is not None:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_clip_window</span>(<span class="hljs-params">df: pd.DataFrame,
+                 start: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span> | pd.Timestamp],
+                 end: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span> | pd.Timestamp]</span>) -&gt; pd.DataFrame:
+    <span class="hljs-keyword">if</span> start <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         df = df[df.index &gt;= pd.to_datetime(start)]
-    if end is not None:
+    <span class="hljs-keyword">if</span> end <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         df = df[df.index &lt;= pd.to_datetime(end)]
-    return df
+    <span class="hljs-keyword">return</span> df
 
 
-def generate_trade_signals_alligator_only(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;基于 alligator_state 生成 position 与 trade_signal（A 层辅助）。&quot;&quot;&quot;
-    if &quot;alligator_state&quot; not in df.columns:
-        return df
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_trade_signals_alligator_only</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;基于 alligator_state 生成 position 与 trade_signal（A 层辅助）。&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;alligator_state&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> df.columns:
+        <span class="hljs-keyword">return</span> df
     pos = []
-    cur = 0
-    vals = df[&quot;alligator_state&quot;].astype(&quot;string&quot;)
-    for s in vals:
-        if pd.notna(s):
-            if s == &quot;bull&quot;:
-                cur = 1
-            elif s == &quot;bear&quot;:
-                cur = 0
+    cur = <span class="hljs-number">0</span>
+    vals = df[<span class="hljs-string">&quot;alligator_state&quot;</span>].astype(<span class="hljs-string">&quot;string&quot;</span>)
+    <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> vals:
+        <span class="hljs-keyword">if</span> pd.notna(s):
+            <span class="hljs-keyword">if</span> s == <span class="hljs-string">&quot;bull&quot;</span>:
+                cur = <span class="hljs-number">1</span>
+            <span class="hljs-keyword">elif</span> s == <span class="hljs-string">&quot;bear&quot;</span>:
+                cur = <span class="hljs-number">0</span>
         pos.append(cur)
-    df[&quot;position&quot;] = pd.Series(pos, index=df.index, dtype=&quot;int64&quot;)
-    prev = df[&quot;position&quot;].shift(1).fillna(0).astype(int)
-    # trade_signal 表示 T 日收盘后的状态变化：1 从 0-&gt;1，-1 从 1-&gt;0
-    delta = df[&quot;position&quot;] - prev
-    df[&quot;trade_signal&quot;] = delta.where(delta.isin([1, -1]), 0).astype(int)
-    return df
+    df[<span class="hljs-string">&quot;position&quot;</span>] = pd.Series(pos, index=df.index, dtype=<span class="hljs-string">&quot;int64&quot;</span>)
+    prev = df[<span class="hljs-string">&quot;position&quot;</span>].shift(<span class="hljs-number">1</span>).fillna(<span class="hljs-number">0</span>).astype(<span class="hljs-built_in">int</span>)
+    <span class="hljs-comment"># trade_signal 表示 T 日收盘后的状态变化：1 从 0-&gt;1，-1 从 1-&gt;0</span>
+    delta = df[<span class="hljs-string">&quot;position&quot;</span>] - prev
+    df[<span class="hljs-string">&quot;trade_signal&quot;</span>] = delta.where(delta.isin([<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>]), <span class="hljs-number">0</span>).astype(<span class="hljs-built_in">int</span>)
+    <span class="hljs-keyword">return</span> df
 
 
-def _build_fractal_breakouts(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;生成 fractal_long / fractal_short（T 日判定）。
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_build_fractal_breakouts</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;生成 fractal_long / fractal_short（T 日判定）。
     要求 gen_factor 已经把 fractal_up/dn 用 shift(+2) 发布，并用 ffill 形成 *_recent。
     突破规则：
       long:  close_t &gt; up_recent_{t-1}
       short: close_t &lt; dn_recent_{t-1}
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = df.copy()
-    if {&quot;close&quot;, &quot;fractal_up_recent&quot;, &quot;fractal_dn_recent&quot;}.issubset(df.columns):
-        up_recent_shifted = df[&quot;fractal_up_recent&quot;].shift(1)
-        dn_recent_shifted = df[&quot;fractal_dn_recent&quot;].shift(1)
-        valid_long = df[&quot;close&quot;].notna() &amp; up_recent_shifted.notna()
-        valid_short = df[&quot;close&quot;].notna() &amp; dn_recent_shifted.notna()
-        df[&quot;fractal_long&quot;] = False
-        df[&quot;fractal_short&quot;] = False
-        df.loc[valid_long, &quot;fractal_long&quot;] = (df.loc[valid_long, &quot;close&quot;] &gt; up_recent_shifted.loc[valid_long])
-        df.loc[valid_short, &quot;fractal_short&quot;] = (df.loc[valid_short, &quot;close&quot;] &lt; dn_recent_shifted.loc[valid_short])
-    else:
-        df[&quot;fractal_long&quot;], df[&quot;fractal_short&quot;] = False, False
-    return df
+    <span class="hljs-keyword">if</span> {<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;fractal_up_recent&quot;</span>, <span class="hljs-string">&quot;fractal_dn_recent&quot;</span>}.issubset(df.columns):
+        up_recent_shifted = df[<span class="hljs-string">&quot;fractal_up_recent&quot;</span>].shift(<span class="hljs-number">1</span>)
+        dn_recent_shifted = df[<span class="hljs-string">&quot;fractal_dn_recent&quot;</span>].shift(<span class="hljs-number">1</span>)
+        valid_long = df[<span class="hljs-string">&quot;close&quot;</span>].notna() &amp; up_recent_shifted.notna()
+        valid_short = df[<span class="hljs-string">&quot;close&quot;</span>].notna() &amp; dn_recent_shifted.notna()
+        df[<span class="hljs-string">&quot;fractal_long&quot;</span>] = <span class="hljs-literal">False</span>
+        df[<span class="hljs-string">&quot;fractal_short&quot;</span>] = <span class="hljs-literal">False</span>
+        df.loc[valid_long, <span class="hljs-string">&quot;fractal_long&quot;</span>] = (df.loc[valid_long, <span class="hljs-string">&quot;close&quot;</span>] &gt; up_recent_shifted.loc[valid_long])
+        df.loc[valid_short, <span class="hljs-string">&quot;fractal_short&quot;</span>] = (df.loc[valid_short, <span class="hljs-string">&quot;close&quot;</span>] &lt; dn_recent_shifted.loc[valid_short])
+    <span class="hljs-keyword">else</span>:
+        df[<span class="hljs-string">&quot;fractal_long&quot;</span>], df[<span class="hljs-string">&quot;fractal_short&quot;</span>] = <span class="hljs-literal">False</span>, <span class="hljs-literal">False</span>
+    <span class="hljs-keyword">return</span> df
 
 
-def build_stage_signals(df: pd.DataFrame) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;产出分层信号列：
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">build_stage_signals</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;产出分层信号列：
     - sig_alligator_long/short
     - sig_ao_long/short
     - sig_fractal_long/short
     - sig_macd_long/short
     - sig_combo_long/short (最终组合)
     并提供每层 entries/exits（T 日信号，用于 T+1 执行）。
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     df = df.copy()
 
-    # A: Alligator
-    df[&quot;sig_alligator_long&quot;] = (df.get(&quot;alligator_state&quot;).astype(&quot;string&quot;) == &quot;bull&quot;)
-    df[&quot;sig_alligator_short&quot;] = (df.get(&quot;alligator_state&quot;).astype(&quot;string&quot;) == &quot;bear&quot;)
+    <span class="hljs-comment"># A: Alligator</span>
+    df[<span class="hljs-string">&quot;sig_alligator_long&quot;</span>] = (df.get(<span class="hljs-string">&quot;alligator_state&quot;</span>).astype(<span class="hljs-string">&quot;string&quot;</span>) == <span class="hljs-string">&quot;bull&quot;</span>)
+    df[<span class="hljs-string">&quot;sig_alligator_short&quot;</span>] = (df.get(<span class="hljs-string">&quot;alligator_state&quot;</span>).astype(<span class="hljs-string">&quot;string&quot;</span>) == <span class="hljs-string">&quot;bear&quot;</span>)
 
-    # AO 连涨/连跌信号（由 gen_factor 计算）
-    df[&quot;sig_ao_long&quot;] = df.get(&quot;ao_rising3&quot;, False).fillna(False)
-    df[&quot;sig_ao_short&quot;] = df.get(&quot;ao_falling3&quot;, False).fillna(False)
+    <span class="hljs-comment"># AO 连涨/连跌信号（由 gen_factor 计算）</span>
+    df[<span class="hljs-string">&quot;sig_ao_long&quot;</span>] = df.get(<span class="hljs-string">&quot;ao_rising3&quot;</span>, <span class="hljs-literal">False</span>).fillna(<span class="hljs-literal">False</span>)
+    df[<span class="hljs-string">&quot;sig_ao_short&quot;</span>] = df.get(<span class="hljs-string">&quot;ao_falling3&quot;</span>, <span class="hljs-literal">False</span>).fillna(<span class="hljs-literal">False</span>)
 
-    # Fractal 突破
+    <span class="hljs-comment"># Fractal 突破</span>
     df = _build_fractal_breakouts(df)
-    df[&quot;sig_fractal_long&quot;] = df[&quot;fractal_long&quot;].fillna(False)
-    df[&quot;sig_fractal_short&quot;] = df[&quot;fractal_short&quot;].fillna(False)
+    df[<span class="hljs-string">&quot;sig_fractal_long&quot;</span>] = df[<span class="hljs-string">&quot;fractal_long&quot;</span>].fillna(<span class="hljs-literal">False</span>)
+    df[<span class="hljs-string">&quot;sig_fractal_short&quot;</span>] = df[<span class="hljs-string">&quot;fractal_short&quot;</span>].fillna(<span class="hljs-literal">False</span>)
 
-    # MACD 四象限合成信号（由 gen_factor 计算）
-    df[&quot;sig_macd_long&quot;] = df.get(&quot;macd_long&quot;, False).fillna(False)
-    df[&quot;sig_macd_short&quot;] = df.get(&quot;macd_short&quot;, False).fillna(False)
+    <span class="hljs-comment"># MACD 四象限合成信号（由 gen_factor 计算）</span>
+    df[<span class="hljs-string">&quot;sig_macd_long&quot;</span>] = df.get(<span class="hljs-string">&quot;macd_long&quot;</span>, <span class="hljs-literal">False</span>).fillna(<span class="hljs-literal">False</span>)
+    df[<span class="hljs-string">&quot;sig_macd_short&quot;</span>] = df.get(<span class="hljs-string">&quot;macd_short&quot;</span>, <span class="hljs-literal">False</span>).fillna(<span class="hljs-literal">False</span>)
 
-    # D: 最终组合
-    df[&quot;sig_combo_long&quot;] = df[&quot;sig_alligator_long&quot;] &amp; (df[&quot;sig_fractal_long&quot;] | df[&quot;sig_macd_long&quot;])  # 多头不强制 AO
-    df[&quot;sig_combo_short&quot;] = (
-        df[&quot;sig_alligator_short&quot;] | df[&quot;sig_ao_short&quot;] | df[&quot;sig_fractal_short&quot;] | df[&quot;sig_macd_short&quot;]
+    <span class="hljs-comment"># D: 最终组合</span>
+    df[<span class="hljs-string">&quot;sig_combo_long&quot;</span>] = df[<span class="hljs-string">&quot;sig_alligator_long&quot;</span>] &amp; (df[<span class="hljs-string">&quot;sig_fractal_long&quot;</span>] | df[<span class="hljs-string">&quot;sig_macd_long&quot;</span>])  <span class="hljs-comment"># 多头不强制 AO</span>
+    df[<span class="hljs-string">&quot;sig_combo_short&quot;</span>] = (
+        df[<span class="hljs-string">&quot;sig_alligator_short&quot;</span>] | df[<span class="hljs-string">&quot;sig_ao_short&quot;</span>] | df[<span class="hljs-string">&quot;sig_fractal_short&quot;</span>] | df[<span class="hljs-string">&quot;sig_macd_short&quot;</span>]
     )
 
-    # 为回测方便，派生每层 entries/exits（等价于 sig_*）
-    df[&quot;entries_A&quot;], df[&quot;exits_A&quot;] = df[&quot;sig_alligator_long&quot;], df[&quot;sig_alligator_short&quot;]
-    df[&quot;entries_B&quot;], df[&quot;exits_B&quot;] = (df[&quot;sig_alligator_long&quot;] &amp; df[&quot;sig_ao_long&quot;]), (df[&quot;sig_alligator_short&quot;] | df[&quot;sig_ao_short&quot;])
-    df[&quot;entries_C&quot;], df[&quot;exits_C&quot;] = (df[&quot;sig_alligator_long&quot;] &amp; df[&quot;sig_fractal_long&quot;]), (df[&quot;sig_alligator_short&quot;] | df[&quot;sig_fractal_short&quot;])
-    df[&quot;entries_D&quot;], df[&quot;exits_D&quot;] = df[&quot;sig_combo_long&quot;], df[&quot;sig_combo_short&quot;]
+    <span class="hljs-comment"># 为回测方便，派生每层 entries/exits（等价于 sig_*）</span>
+    df[<span class="hljs-string">&quot;entries_A&quot;</span>], df[<span class="hljs-string">&quot;exits_A&quot;</span>] = df[<span class="hljs-string">&quot;sig_alligator_long&quot;</span>], df[<span class="hljs-string">&quot;sig_alligator_short&quot;</span>]
+    df[<span class="hljs-string">&quot;entries_B&quot;</span>], df[<span class="hljs-string">&quot;exits_B&quot;</span>] = (df[<span class="hljs-string">&quot;sig_alligator_long&quot;</span>] &amp; df[<span class="hljs-string">&quot;sig_ao_long&quot;</span>]), (df[<span class="hljs-string">&quot;sig_alligator_short&quot;</span>] | df[<span class="hljs-string">&quot;sig_ao_short&quot;</span>])
+    df[<span class="hljs-string">&quot;entries_C&quot;</span>], df[<span class="hljs-string">&quot;exits_C&quot;</span>] = (df[<span class="hljs-string">&quot;sig_alligator_long&quot;</span>] &amp; df[<span class="hljs-string">&quot;sig_fractal_long&quot;</span>]), (df[<span class="hljs-string">&quot;sig_alligator_short&quot;</span>] | df[<span class="hljs-string">&quot;sig_fractal_short&quot;</span>])
+    df[<span class="hljs-string">&quot;entries_D&quot;</span>], df[<span class="hljs-string">&quot;exits_D&quot;</span>] = df[<span class="hljs-string">&quot;sig_combo_long&quot;</span>], df[<span class="hljs-string">&quot;sig_combo_short&quot;</span>]
 
-    # 保证布尔类型
-    bool_cols = [c for c in df.columns if c.startswith(&quot;sig_&quot;) or c.startswith(&quot;entries_&quot;) or c.startswith(&quot;exits_&quot;)]
-    for c in bool_cols:
-        df[c] = df[c].astype(bool)
-    return df
+    <span class="hljs-comment"># 保证布尔类型</span>
+    bool_cols = [c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> df.columns <span class="hljs-keyword">if</span> c.startswith(<span class="hljs-string">&quot;sig_&quot;</span>) <span class="hljs-keyword">or</span> c.startswith(<span class="hljs-string">&quot;entries_&quot;</span>) <span class="hljs-keyword">or</span> c.startswith(<span class="hljs-string">&quot;exits_&quot;</span>)]
+    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> bool_cols:
+        df[c] = df[c].astype(<span class="hljs-built_in">bool</span>)
+    <span class="hljs-keyword">return</span> df
 
 
-def process_alligator_signals(
-    factor_folder: str = &quot;factor&quot;,
-    output_folder: str = &quot;signals&quot;,
-    strategy_start_date: Optional[str] = None,
-    strategy_end_date: Optional[str] = None,
-) -&gt; None:
-    &quot;&quot;&quot;读取因子 parquet，按独立交易时间窗生成信号并写回 parquet。&quot;&quot;&quot;
-    os.makedirs(output_folder, exist_ok=True)
-    files = [f for f in os.listdir(factor_folder) if f.endswith(&quot;.parquet&quot;)]
-    if not files:
-        print(f&quot;[warn] 未在 {factor_folder} 找到 parquet 文件&quot;)
-        return
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">process_alligator_signals</span>(<span class="hljs-params">
+    factor_folder: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;factor&quot;</span>,
+    output_folder: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;signals&quot;</span>,
+    strategy_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    strategy_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+</span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;读取因子 parquet，按独立交易时间窗生成信号并写回 parquet。&quot;&quot;&quot;</span>
+    os.makedirs(output_folder, exist_ok=<span class="hljs-literal">True</span>)
+    files = [f <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> os.listdir(factor_folder) <span class="hljs-keyword">if</span> f.endswith(<span class="hljs-string">&quot;.parquet&quot;</span>)]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> files:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] 未在 <span class="hljs-subst">{factor_folder}</span> 找到 parquet 文件&quot;</span>)
+        <span class="hljs-keyword">return</span>
 
-    for fn in files:
+    <span class="hljs-keyword">for</span> fn <span class="hljs-keyword">in</span> files:
         path = os.path.join(factor_folder, fn)
-        ts_code = fn.replace(&quot;.parquet&quot;, &quot;&quot;)
-        try:
+        ts_code = fn.replace(<span class="hljs-string">&quot;.parquet&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)
+        <span class="hljs-keyword">try</span>:
             df = pd.read_parquet(path)
-        except Exception as e:
-            print(f&quot;[warn] 读取失败 {path}: {e}&quot;)
-            continue
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] 读取失败 <span class="hljs-subst">{path}</span>: <span class="hljs-subst">{e}</span>&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
-        # 基础检查与窗口裁剪
+        <span class="hljs-comment"># 基础检查与窗口裁剪</span>
         df = _ensure_dt_index(df)
-        # 缺列直接跳过（不强制全部 REQ_COLS，只要生成信号用到的在即可）
-        missing = [c for c in [&quot;close&quot;, &quot;alligator_state&quot;] if c not in df.columns]
-        if missing:
-            print(f&quot;[warn] {ts_code} 缺列 {missing}，跳过&quot;)
-            continue
+        <span class="hljs-comment"># 缺列直接跳过（不强制全部 REQ_COLS，只要生成信号用到的在即可）</span>
+        missing = [c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;alligator_state&quot;</span>] <span class="hljs-keyword">if</span> c <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> df.columns]
+        <span class="hljs-keyword">if</span> missing:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] <span class="hljs-subst">{ts_code}</span> 缺列 <span class="hljs-subst">{missing}</span>，跳过&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
         df_clip = _clip_window(df, strategy_start_date, strategy_end_date)
-        if df_clip.empty:
-            print(f&quot;[warn] {ts_code} 在策略窗内无数据，跳过&quot;)
-            continue
+        <span class="hljs-keyword">if</span> df_clip.empty:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[warn] <span class="hljs-subst">{ts_code}</span> 在策略窗内无数据，跳过&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
-        # 生成信号
+        <span class="hljs-comment"># 生成信号</span>
         df_sig = generate_trade_signals_alligator_only(df_clip)
         df_sig = build_stage_signals(df_sig)
 
-        # 输出 1：完整信号
-        out1 = os.path.join(output_folder, f&quot;{ts_code}_trade_signals.parquet&quot;)
-        df_sig.reset_index().to_parquet(out1, index=False)
+        <span class="hljs-comment"># 输出 1：完整信号</span>
+        out1 = os.path.join(output_folder, <span class="hljs-string">f&quot;<span class="hljs-subst">{ts_code}</span>_trade_signals.parquet&quot;</span>)
+        df_sig.reset_index().to_parquet(out1, index=<span class="hljs-literal">False</span>)
 
-        # 输出 2：拆分信号（便于回测脚本直接带入）
+        <span class="hljs-comment"># 输出 2：拆分信号（便于回测脚本直接带入）</span>
         split_cols = [
-            &quot;sig_alligator_long&quot;, &quot;sig_alligator_short&quot;,
-            &quot;sig_ao_long&quot;, &quot;sig_ao_short&quot;,
-            &quot;sig_fractal_long&quot;, &quot;sig_fractal_short&quot;,
-            &quot;sig_macd_long&quot;, &quot;sig_macd_short&quot;,
-            &quot;sig_combo_long&quot;, &quot;sig_combo_short&quot;,
-            &quot;entries_A&quot;, &quot;exits_A&quot;,
-            &quot;entries_B&quot;, &quot;exits_B&quot;,
-            &quot;entries_C&quot;, &quot;exits_C&quot;,
-            &quot;entries_D&quot;, &quot;exits_D&quot;,
-            &quot;position&quot;, &quot;trade_signal&quot;,
+            <span class="hljs-string">&quot;sig_alligator_long&quot;</span>, <span class="hljs-string">&quot;sig_alligator_short&quot;</span>,
+            <span class="hljs-string">&quot;sig_ao_long&quot;</span>, <span class="hljs-string">&quot;sig_ao_short&quot;</span>,
+            <span class="hljs-string">&quot;sig_fractal_long&quot;</span>, <span class="hljs-string">&quot;sig_fractal_short&quot;</span>,
+            <span class="hljs-string">&quot;sig_macd_long&quot;</span>, <span class="hljs-string">&quot;sig_macd_short&quot;</span>,
+            <span class="hljs-string">&quot;sig_combo_long&quot;</span>, <span class="hljs-string">&quot;sig_combo_short&quot;</span>,
+            <span class="hljs-string">&quot;entries_A&quot;</span>, <span class="hljs-string">&quot;exits_A&quot;</span>,
+            <span class="hljs-string">&quot;entries_B&quot;</span>, <span class="hljs-string">&quot;exits_B&quot;</span>,
+            <span class="hljs-string">&quot;entries_C&quot;</span>, <span class="hljs-string">&quot;exits_C&quot;</span>,
+            <span class="hljs-string">&quot;entries_D&quot;</span>, <span class="hljs-string">&quot;exits_D&quot;</span>,
+            <span class="hljs-string">&quot;position&quot;</span>, <span class="hljs-string">&quot;trade_signal&quot;</span>,
         ]
-        out2 = os.path.join(output_folder, f&quot;{ts_code}_signals_split.parquet&quot;)
-        df_sig[split_cols].reset_index().to_parquet(out2, index=False)
+        out2 = os.path.join(output_folder, <span class="hljs-string">f&quot;<span class="hljs-subst">{ts_code}</span>_signals_split.parquet&quot;</span>)
+        df_sig[split_cols].reset_index().to_parquet(out2, index=<span class="hljs-literal">False</span>)
 
-        print(f&quot;[ok] {ts_code} -&gt; {out1}; {out2}&quot;)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[ok] <span class="hljs-subst">{ts_code}</span> -&gt; <span class="hljs-subst">{out1}</span>; <span class="hljs-subst">{out2}</span>&quot;</span>)
 
 
-def run_all(
-    factor_folder: str = factor_dir,
-    output_folder: str = signal_dir,
-    strategy_start_date: Optional[str] = None,
-    strategy_end_date: Optional[str] = None,
-) -&gt; None:
-    print(&quot;[start] strategy signal generation&quot;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">run_all</span>(<span class="hljs-params">
+    factor_folder: <span class="hljs-built_in">str</span> = factor_dir,
+    output_folder: <span class="hljs-built_in">str</span> = signal_dir,
+    strategy_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+    strategy_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+</span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[start] strategy signal generation&quot;</span>)
     process_alligator_signals(
         factor_folder=factor_folder,
         output_folder=output_folder,
         strategy_start_date=strategy_start_date,
         strategy_end_date=strategy_end_date,
     )
-    print(&quot;[done] strategy signal generation&quot;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[done] strategy signal generation&quot;</span>)
 
 run_all(
-    strategy_start_date=&quot;2005-01-04&quot;, 
-    strategy_end_date=&quot;2024-01-04&quot;,  
-)
-</code></pre>
+    strategy_start_date=<span class="hljs-string">&quot;2005-01-04&quot;</span>, 
+    strategy_end_date=<span class="hljs-string">&quot;2024-01-04&quot;</span>,  
+)</span></code></pre>
 <h3 id="103-回测分析">10.3. 回测分析</h3>
-<pre><code class="language-python">from matplotlib.ticker import PercentFormatter
-import matplotlib.patches as mpatches
-import quantstats as qs
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span><span class="cl">56</span><span class="cl">57</span><span class="cl">58</span><span class="cl">59</span><span class="cl">60</span><span class="cl">61</span><span class="cl">62</span><span class="cl">63</span><span class="cl">64</span><span class="cl">65</span><span class="cl">66</span><span class="cl">67</span><span class="cl">68</span><span class="cl">69</span><span class="cl">70</span><span class="cl">71</span><span class="cl">72</span><span class="cl">73</span><span class="cl">74</span><span class="cl">75</span><span class="cl">76</span><span class="cl">77</span><span class="cl">78</span><span class="cl">79</span><span class="cl">80</span><span class="cl">81</span><span class="cl">82</span><span class="cl">83</span><span class="cl">84</span><span class="cl">85</span><span class="cl">86</span><span class="cl">87</span><span class="cl">88</span><span class="cl">89</span><span class="cl">90</span><span class="cl">91</span><span class="cl">92</span><span class="cl">93</span><span class="cl">94</span><span class="cl">95</span><span class="cl">96</span><span class="cl">97</span><span class="cl">98</span><span class="cl">99</span><span class="cl">100</span><span class="cl">101</span><span class="cl">102</span><span class="cl">103</span><span class="cl">104</span><span class="cl">105</span><span class="cl">106</span><span class="cl">107</span><span class="cl">108</span><span class="cl">109</span><span class="cl">110</span><span class="cl">111</span><span class="cl">112</span><span class="cl">113</span><span class="cl">114</span><span class="cl">115</span><span class="cl">116</span><span class="cl">117</span><span class="cl">118</span><span class="cl">119</span><span class="cl">120</span><span class="cl">121</span><span class="cl">122</span><span class="cl">123</span><span class="cl">124</span><span class="cl">125</span><span class="cl">126</span><span class="cl">127</span><span class="cl">128</span><span class="cl">129</span><span class="cl">130</span><span class="cl">131</span><span class="cl">132</span><span class="cl">133</span><span class="cl">134</span><span class="cl">135</span><span class="cl">136</span><span class="cl">137</span><span class="cl">138</span><span class="cl">139</span><span class="cl">140</span><span class="cl">141</span><span class="cl">142</span><span class="cl">143</span><span class="cl">144</span><span class="cl">145</span><span class="cl">146</span><span class="cl">147</span><span class="cl">148</span><span class="cl">149</span><span class="cl">150</span><span class="cl">151</span><span class="cl">152</span><span class="cl">153</span><span class="cl">154</span><span class="cl">155</span><span class="cl">156</span><span class="cl">157</span><span class="cl">158</span><span class="cl">159</span><span class="cl">160</span><span class="cl">161</span><span class="cl">162</span><span class="cl">163</span><span class="cl">164</span><span class="cl">165</span><span class="cl">166</span><span class="cl">167</span><span class="cl">168</span><span class="cl">169</span><span class="cl">170</span><span class="cl">171</span><span class="cl">172</span><span class="cl">173</span><span class="cl">174</span><span class="cl">175</span><span class="cl">176</span><span class="cl">177</span><span class="cl">178</span><span class="cl">179</span><span class="cl">180</span><span class="cl">181</span><span class="cl">182</span><span class="cl">183</span><span class="cl">184</span><span class="cl">185</span><span class="cl">186</span><span class="cl">187</span><span class="cl">188</span><span class="cl">189</span><span class="cl">190</span><span class="cl">191</span><span class="cl">192</span><span class="cl">193</span><span class="cl">194</span><span class="cl">195</span><span class="cl">196</span><span class="cl">197</span><span class="cl">198</span><span class="cl">199</span><span class="cl">200</span><span class="cl">201</span><span class="cl">202</span><span class="cl">203</span><span class="cl">204</span><span class="cl">205</span><span class="cl">206</span><span class="cl">207</span><span class="cl">208</span><span class="cl">209</span><span class="cl">210</span><span class="cl">211</span><span class="cl">212</span><span class="cl">213</span><span class="cl">214</span><span class="cl">215</span><span class="cl">216</span><span class="cl">217</span><span class="cl">218</span><span class="cl">219</span><span class="cl">220</span><span class="cl">221</span><span class="cl">222</span><span class="cl">223</span><span class="cl">224</span><span class="cl">225</span><span class="cl">226</span><span class="cl">227</span><span class="cl">228</span><span class="cl">229</span><span class="cl">230</span><span class="cl">231</span><span class="cl">232</span><span class="cl">233</span><span class="cl">234</span><span class="cl">235</span><span class="cl">236</span><span class="cl">237</span><span class="cl">238</span><span class="cl">239</span><span class="cl">240</span><span class="cl">241</span><span class="cl">242</span><span class="cl">243</span><span class="cl">244</span><span class="cl">245</span><span class="cl">246</span><span class="cl">247</span><span class="cl">248</span><span class="cl">249</span><span class="cl">250</span><span class="cl">251</span><span class="cl">252</span><span class="cl">253</span><span class="cl">254</span><span class="cl">255</span><span class="cl">256</span><span class="cl">257</span><span class="cl">258</span><span class="cl">259</span><span class="cl">260</span><span class="cl">261</span><span class="cl">262</span><span class="cl">263</span><span class="cl">264</span><span class="cl">265</span><span class="cl">266</span><span class="cl">267</span><span class="cl">268</span><span class="cl">269</span><span class="cl">270</span><span class="cl">271</span><span class="cl">272</span><span class="cl">273</span><span class="cl">274</span><span class="cl">275</span><span class="cl">276</span><span class="cl">277</span><span class="cl">278</span><span class="cl">279</span><span class="cl">280</span><span class="cl">281</span><span class="cl">282</span><span class="cl">283</span><span class="cl">284</span><span class="cl">285</span><span class="cl">286</span><span class="cl">287</span><span class="cl">288</span><span class="cl">289</span><span class="cl">290</span><span class="cl">291</span><span class="cl">292</span><span class="cl">293</span><span class="cl">294</span><span class="cl">295</span><span class="cl">296</span><span class="cl">297</span><span class="cl">298</span><span class="cl">299</span><span class="cl">300</span><span class="cl">301</span><span class="cl">302</span><span class="cl">303</span><span class="cl">304</span><span class="cl">305</span><span class="cl">306</span><span class="cl">307</span><span class="cl">308</span><span class="cl">309</span><span class="cl">310</span><span class="cl">311</span><span class="cl">312</span><span class="cl">313</span><span class="cl">314</span><span class="cl">315</span><span class="cl">316</span><span class="cl">317</span><span class="cl">318</span><span class="cl">319</span><span class="cl">320</span><span class="cl">321</span><span class="cl">322</span><span class="cl">323</span><span class="cl">324</span><span class="cl">325</span><span class="cl">326</span><span class="cl">327</span><span class="cl">328</span><span class="cl">329</span><span class="cl">330</span><span class="cl">331</span><span class="cl">332</span><span class="cl">333</span><span class="cl">334</span><span class="cl">335</span><span class="cl">336</span><span class="cl">337</span><span class="cl">338</span><span class="cl">339</span><span class="cl">340</span><span class="cl">341</span><span class="cl">342</span><span class="cl">343</span><span class="cl">344</span><span class="cl">345</span><span class="cl">346</span><span class="cl">347</span><span class="cl">348</span><span class="cl">349</span><span class="cl">350</span><span class="cl">351</span><span class="cl">352</span><span class="cl">353</span><span class="cl">354</span><span class="cl">355</span><span class="cl">356</span><span class="cl">357</span><span class="cl">358</span><span class="cl">359</span><span class="cl">360</span><span class="cl">361</span><span class="cl">362</span><span class="cl">363</span><span class="cl">364</span><span class="cl">365</span><span class="cl">366</span><span class="cl">367</span><span class="cl">368</span><span class="cl">369</span><span class="cl">370</span><span class="cl">371</span><span class="cl">372</span><span class="cl">373</span><span class="cl">374</span><span class="cl">375</span><span class="cl">376</span><span class="cl">377</span><span class="cl">378</span><span class="cl">379</span><span class="cl">380</span><span class="cl">381</span><span class="cl">382</span><span class="cl">383</span><span class="cl">384</span><span class="cl">385</span><span class="cl">386</span><span class="cl">387</span><span class="cl">388</span><span class="cl">389</span><span class="cl">390</span><span class="cl">391</span><span class="cl">392</span><span class="cl">393</span><span class="cl">394</span><span class="cl">395</span><span class="cl">396</span><span class="cl">397</span><span class="cl">398</span><span class="cl">399</span><span class="cl">400</span><span class="cl">401</span><span class="cl">402</span><span class="cl">403</span><span class="cl">404</span><span class="cl">405</span><span class="cl">406</span><span class="cl">407</span><span class="cl">408</span><span class="cl">409</span><span class="cl">410</span><span class="cl">411</span><span class="cl">412</span><span class="cl">413</span><span class="cl">414</span><span class="cl">415</span><span class="cl">416</span><span class="cl">417</span><span class="cl">418</span><span class="cl">419</span><span class="cl">420</span><span class="cl">421</span><span class="cl">422</span><span class="cl">423</span><span class="cl">424</span><span class="cl">425</span><span class="cl">426</span><span class="cl">427</span><span class="cl">428</span><span class="cl">429</span><span class="cl">430</span><span class="cl">431</span><span class="cl">432</span><span class="cl">433</span><span class="cl">434</span><span class="cl">435</span><span class="cl">436</span><span class="cl">437</span><span class="cl">438</span><span class="cl">439</span><span class="cl">440</span><span class="cl">441</span><span class="cl">442</span><span class="cl">443</span><span class="cl">444</span><span class="cl">445</span><span class="cl">446</span><span class="cl">447</span><span class="cl">448</span><span class="cl">449</span><span class="cl">450</span><span class="cl">451</span><span class="cl">452</span><span class="cl">453</span><span class="cl">454</span><span class="cl">455</span><span class="cl">456</span><span class="cl">457</span><span class="cl">458</span><span class="cl">459</span><span class="cl">460</span></span><span class="cl-body"><span class="hljs-keyword">from</span> matplotlib.ticker <span class="hljs-keyword">import</span> PercentFormatter
+<span class="hljs-keyword">import</span> matplotlib.patches <span class="hljs-keyword">as</span> mpatches
+<span class="hljs-keyword">import</span> quantstats <span class="hljs-keyword">as</span> qs
 
-def _to_dt_index(df: pd.DataFrame) -&gt; pd.DataFrame:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_to_dt_index</span>(<span class="hljs-params">df: pd.DataFrame</span>) -&gt; pd.DataFrame:
     df = df.copy()
-    if &#39;trade_date&#39; not in df.columns:
-        raise ValueError(&#39;missing trade_date column&#39;)
-    df[&#39;trade_date&#39;] = pd.to_datetime(df[&#39;trade_date&#39;].astype(str), errors=&#39;coerce&#39;)
-    df = df.dropna(subset=[&#39;trade_date&#39;]).set_index(&#39;trade_date&#39;).sort_index()
-    df.index.name = &#39;trade_date&#39;
-    return df
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;trade_date&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> df.columns:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&#x27;missing trade_date column&#x27;</span>)
+    df[<span class="hljs-string">&#x27;trade_date&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;trade_date&#x27;</span>].astype(<span class="hljs-built_in">str</span>), errors=<span class="hljs-string">&#x27;coerce&#x27;</span>)
+    df = df.dropna(subset=[<span class="hljs-string">&#x27;trade_date&#x27;</span>]).set_index(<span class="hljs-string">&#x27;trade_date&#x27;</span>).sort_index()
+    df.index.name = <span class="hljs-string">&#x27;trade_date&#x27;</span>
+    <span class="hljs-keyword">return</span> df
 
 
-def read_split_signals(folder: str, ts_code: str) -&gt; Optional[pd.DataFrame]:
-    p1 = os.path.join(folder, f&#39;{ts_code}_signals_split.parquet&#39;)
-    p2 = os.path.join(folder, f&#39;{ts_code}_alligator_signals_split.parquet&#39;)
-    path = p1 if os.path.exists(p1) else p2
-    if not os.path.exists(path):
-        return None
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">read_split_signals</span>(<span class="hljs-params">folder: <span class="hljs-built_in">str</span>, ts_code: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-type">Optional</span>[pd.DataFrame]:
+    p1 = os.path.join(folder, <span class="hljs-string">f&#x27;<span class="hljs-subst">{ts_code}</span>_signals_split.parquet&#x27;</span>)
+    p2 = os.path.join(folder, <span class="hljs-string">f&#x27;<span class="hljs-subst">{ts_code}</span>_alligator_signals_split.parquet&#x27;</span>)
+    path = p1 <span class="hljs-keyword">if</span> os.path.exists(p1) <span class="hljs-keyword">else</span> p2
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(path):
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
     df = pd.read_parquet(path)
-    if &#39;trade_date&#39; in df.columns:
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;trade_date&#x27;</span> <span class="hljs-keyword">in</span> df.columns:
         df = _to_dt_index(df)
-    elif &#39;index&#39; in df.columns:
-        df[&#39;index&#39;] = pd.to_datetime(df[&#39;index&#39;].astype(str), errors=&#39;coerce&#39;)
-        df = df.dropna(subset=[&#39;index&#39;]).set_index(&#39;index&#39;).sort_index()
-    return df
+    <span class="hljs-keyword">elif</span> <span class="hljs-string">&#x27;index&#x27;</span> <span class="hljs-keyword">in</span> df.columns:
+        df[<span class="hljs-string">&#x27;index&#x27;</span>] = pd.to_datetime(df[<span class="hljs-string">&#x27;index&#x27;</span>].astype(<span class="hljs-built_in">str</span>), errors=<span class="hljs-string">&#x27;coerce&#x27;</span>)
+        df = df.dropna(subset=[<span class="hljs-string">&#x27;index&#x27;</span>]).set_index(<span class="hljs-string">&#x27;index&#x27;</span>).sort_index()
+    <span class="hljs-keyword">return</span> df
 
 
-def read_price_series(data_folder: str, ts_code: str, col: str) -&gt; pd.Series:
-    path = os.path.join(data_folder, f&#39;{ts_code}.parquet&#39;)
-    if not os.path.exists(path):
-        raise FileNotFoundError(f&#39;missing price file: {path}&#39;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">read_price_series</span>(<span class="hljs-params">data_folder: <span class="hljs-built_in">str</span>, ts_code: <span class="hljs-built_in">str</span>, col: <span class="hljs-built_in">str</span></span>) -&gt; pd.Series:
+    path = os.path.join(data_folder, <span class="hljs-string">f&#x27;<span class="hljs-subst">{ts_code}</span>.parquet&#x27;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(path):
+        <span class="hljs-keyword">raise</span> FileNotFoundError(<span class="hljs-string">f&#x27;missing price file: <span class="hljs-subst">{path}</span>&#x27;</span>)
     df = pd.read_parquet(path)
     df = _to_dt_index(df)
-    if col not in df.columns:
-        raise ValueError(f&#39;{path} missing column: {col}&#39;)
-    return df[col]
+    <span class="hljs-keyword">if</span> col <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> df.columns:
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&#x27;<span class="hljs-subst">{path}</span> missing column: <span class="hljs-subst">{col}</span>&#x27;</span>)
+    <span class="hljs-keyword">return</span> df[col]
 
-# ============================ Backtest engine ============================
+<span class="hljs-comment"># ============================ Backtest engine ============================</span>
 
-def backtest_strategy(entries: pd.Series,
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">backtest_strategy</span>(<span class="hljs-params">entries: pd.Series,
                       exits: pd.Series,
                       open_price: pd.Series,
-                      init_cash: float = 1e8,
-                      size_granularity: int = 100,
-                      fees: float = 0.00015,
-                      report_mode: bool = True) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;T-day signal, T+1 open execution; sell first then buy; flat-to-full.
+                      init_cash: <span class="hljs-built_in">float</span> = <span class="hljs-number">1e8</span>,
+                      size_granularity: <span class="hljs-built_in">int</span> = <span class="hljs-number">100</span>,
+                      fees: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.00015</span>,
+                      report_mode: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">True</span></span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;T-day signal, T+1 open execution; sell first then buy; flat-to-full.
     report_mode=True disables fees and lot size.
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     idx = open_price.index.intersection(entries.index).intersection(exits.index)
-    if len(idx) &lt; 2:
-        return pd.DataFrame()
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(idx) &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> pd.DataFrame()
     px = open_price.loc[idx]
-    ent = entries.loc[idx].fillna(False)
-    ex  = exits.loc[idx].fillna(False)
+    ent = entries.loc[idx].fillna(<span class="hljs-literal">False</span>)
+    ex  = exits.loc[idx].fillna(<span class="hljs-literal">False</span>)
 
-    if report_mode:
-        fees = 0.0
-        size_granularity = 1
+    <span class="hljs-keyword">if</span> report_mode:
+        fees = <span class="hljs-number">0.0</span>
+        size_granularity = <span class="hljs-number">1</span>
 
     cash_before = init_cash
     cash_after  = init_cash
-    position = 0.0
+    position = <span class="hljs-number">0.0</span>
 
     rows = []
-    for i in range(1, len(idx)):
-        p = float(px.iloc[i])
-        e_prev = bool(ent.iloc[i-1])
-        x_prev = bool(ex.iloc[i-1])
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(idx)):
+        p = <span class="hljs-built_in">float</span>(px.iloc[i])
+        e_prev = <span class="hljs-built_in">bool</span>(ent.iloc[i-<span class="hljs-number">1</span>])
+        x_prev = <span class="hljs-built_in">bool</span>(ex.iloc[i-<span class="hljs-number">1</span>])
 
-        # close first
-        if x_prev and position &gt; 0:
-            cash_after += position * p * (1 - fees)
+        <span class="hljs-comment"># close first</span>
+        <span class="hljs-keyword">if</span> x_prev <span class="hljs-keyword">and</span> position &gt; <span class="hljs-number">0</span>:
+            cash_after += position * p * (<span class="hljs-number">1</span> - fees)
             cash_before += position * p
-            position = 0.0
+            position = <span class="hljs-number">0.0</span>
 
-        # open after closing
-        if e_prev and position == 0:
-            if report_mode:
+        <span class="hljs-comment"># open after closing</span>
+        <span class="hljs-keyword">if</span> e_prev <span class="hljs-keyword">and</span> position == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">if</span> report_mode:
                 shares = cash_after / p
-            else:
-                max_shares = int(cash_after // (p * (1 + fees)))
+            <span class="hljs-keyword">else</span>:
+                max_shares = <span class="hljs-built_in">int</span>(cash_after // (p * (<span class="hljs-number">1</span> + fees)))
                 shares = (max_shares // size_granularity) * size_granularity
-            if shares &gt; 0:
-                position = float(shares)
-                cash_after -= shares * p * (1 + fees)
+            <span class="hljs-keyword">if</span> shares &gt; <span class="hljs-number">0</span>:
+                position = <span class="hljs-built_in">float</span>(shares)
+                cash_after -= shares * p * (<span class="hljs-number">1</span> + fees)
                 cash_before -= shares * p
 
         pv_b = cash_before + position * p
         pv_a = cash_after  + position * p
         rows.append((idx[i], pv_b, pv_a, cash_before, cash_after, position))
 
-    res = pd.DataFrame(rows, columns=[&#39;date&#39;,&#39;portfolio_value_before_fees&#39;,&#39;portfolio_value_after_fees&#39;,&#39;cash_before&#39;,&#39;cash_after&#39;,&#39;position&#39;]).set_index(&#39;date&#39;)
-    if len(res):
-        res[&#39;daily_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;].pct_change()
-        res[&#39;daily_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;].pct_change()
-        res[&#39;total_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;] / res[&#39;portfolio_value_before_fees&#39;].iloc[0] - 1
-        res[&#39;total_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;]  / res[&#39;portfolio_value_after_fees&#39;].iloc[0]  - 1
-    return res
+    res = pd.DataFrame(rows, columns=[<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>,<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>,<span class="hljs-string">&#x27;cash_before&#x27;</span>,<span class="hljs-string">&#x27;cash_after&#x27;</span>,<span class="hljs-string">&#x27;position&#x27;</span>]).set_index(<span class="hljs-string">&#x27;date&#x27;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(res):
+        res[<span class="hljs-string">&#x27;daily_return_before_fees&#x27;</span>] = res[<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>].pct_change()
+        res[<span class="hljs-string">&#x27;daily_return_after_fees&#x27;</span>]  = res[<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>].pct_change()
+        res[<span class="hljs-string">&#x27;total_return_before_fees&#x27;</span>] = res[<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>] / res[<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>].iloc[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>
+        res[<span class="hljs-string">&#x27;total_return_after_fees&#x27;</span>]  = res[<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>]  / res[<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>].iloc[<span class="hljs-number">0</span>]  - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> res
 
 
-def backtest_bond_rotation(entries: pd.Series,
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">backtest_bond_rotation</span>(<span class="hljs-params">entries: pd.Series,
                            exits: pd.Series,
                            stock_open: pd.Series,
                            bond_open: pd.Series,
-                           init_cash: float = 1e8,
-                           size_granularity: int = 100,
-                           fees: float = 0.00015,
-                           report_mode: bool = True) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;Equity–Bond rotation: if prev-day wants equity (entry True and not exit) hold equity; else hold bond.&quot;&quot;&quot;
+                           init_cash: <span class="hljs-built_in">float</span> = <span class="hljs-number">1e8</span>,
+                           size_granularity: <span class="hljs-built_in">int</span> = <span class="hljs-number">100</span>,
+                           fees: <span class="hljs-built_in">float</span> = <span class="hljs-number">0.00015</span>,
+                           report_mode: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">True</span></span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;Equity–Bond rotation: if prev-day wants equity (entry True and not exit) hold equity; else hold bond.&quot;&quot;&quot;</span>
     idx = stock_open.index.intersection(bond_open.index).intersection(entries.index).intersection(exits.index)
-    if len(idx) &lt; 2:
-        return pd.DataFrame()
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(idx) &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> pd.DataFrame()
     s_px = stock_open.loc[idx]
     b_px = bond_open.loc[idx]
-    ent  = entries.loc[idx].fillna(False)
-    ex   = exits.loc[idx].fillna(False)
+    ent  = entries.loc[idx].fillna(<span class="hljs-literal">False</span>)
+    ex   = exits.loc[idx].fillna(<span class="hljs-literal">False</span>)
 
-    if report_mode:
-        fees = 0.0
-        size_granularity = 1
+    <span class="hljs-keyword">if</span> report_mode:
+        fees = <span class="hljs-number">0.0</span>
+        size_granularity = <span class="hljs-number">1</span>
 
     cash_before = init_cash
     cash_after  = init_cash
-    pos_s = 0.0
-    pos_b = 0.0
+    pos_s = <span class="hljs-number">0.0</span>
+    pos_b = <span class="hljs-number">0.0</span>
 
     rows = []
-    for i in range(1, len(idx)):
-        ps = float(s_px.iloc[i])
-        pb = float(b_px.iloc[i])
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(idx)):
+        ps = <span class="hljs-built_in">float</span>(s_px.iloc[i])
+        pb = <span class="hljs-built_in">float</span>(b_px.iloc[i])
 
-        # liquidate existing
-        if pos_s &gt; 0:
-            cash_after += pos_s * ps * (1 - fees)
+        <span class="hljs-comment"># liquidate existing</span>
+        <span class="hljs-keyword">if</span> pos_s &gt; <span class="hljs-number">0</span>:
+            cash_after += pos_s * ps * (<span class="hljs-number">1</span> - fees)
             cash_before += pos_s * ps
-            pos_s = 0.0
-        if pos_b &gt; 0:
-            cash_after += pos_b * pb * (1 - fees)
+            pos_s = <span class="hljs-number">0.0</span>
+        <span class="hljs-keyword">if</span> pos_b &gt; <span class="hljs-number">0</span>:
+            cash_after += pos_b * pb * (<span class="hljs-number">1</span> - fees)
             cash_before += pos_b * pb
-            pos_b = 0.0
+            pos_b = <span class="hljs-number">0.0</span>
 
-        want_equity = bool(ent.iloc[i-1]) and not bool(ex.iloc[i-1])
-        if want_equity:
-            if report_mode:
+        want_equity = <span class="hljs-built_in">bool</span>(ent.iloc[i-<span class="hljs-number">1</span>]) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">bool</span>(ex.iloc[i-<span class="hljs-number">1</span>])
+        <span class="hljs-keyword">if</span> want_equity:
+            <span class="hljs-keyword">if</span> report_mode:
                 shares = cash_after / ps
-            else:
-                max_shares = int(cash_after // (ps * (1 + fees)))
+            <span class="hljs-keyword">else</span>:
+                max_shares = <span class="hljs-built_in">int</span>(cash_after // (ps * (<span class="hljs-number">1</span> + fees)))
                 shares = (max_shares // size_granularity) * size_granularity
-            if shares &gt; 0:
-                pos_s = float(shares)
-                cash_after -= shares * ps * (1 + fees)
+            <span class="hljs-keyword">if</span> shares &gt; <span class="hljs-number">0</span>:
+                pos_s = <span class="hljs-built_in">float</span>(shares)
+                cash_after -= shares * ps * (<span class="hljs-number">1</span> + fees)
                 cash_before -= shares * ps
-        else:
-            if report_mode:
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">if</span> report_mode:
                 shares = cash_after / pb
-            else:
-                max_shares = int(cash_after // (pb * (1 + fees)))
+            <span class="hljs-keyword">else</span>:
+                max_shares = <span class="hljs-built_in">int</span>(cash_after // (pb * (<span class="hljs-number">1</span> + fees)))
                 shares = (max_shares // size_granularity) * size_granularity
-            if shares &gt; 0:
-                pos_b = float(shares)
-                cash_after -= shares * pb * (1 + fees)
+            <span class="hljs-keyword">if</span> shares &gt; <span class="hljs-number">0</span>:
+                pos_b = <span class="hljs-built_in">float</span>(shares)
+                cash_after -= shares * pb * (<span class="hljs-number">1</span> + fees)
                 cash_before -= shares * pb
 
         pv_b = cash_before + pos_s * ps + pos_b * pb
         pv_a = cash_after  + pos_s * ps + pos_b * pb
-        rows.append((idx[i], pv_b, pv_a, cash_before, cash_after, 1 if pos_s &gt; 0 else 0))
+        rows.append((idx[i], pv_b, pv_a, cash_before, cash_after, <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> pos_s &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>))
 
-    res = pd.DataFrame(rows, columns=[&#39;date&#39;,&#39;portfolio_value_before_fees&#39;,&#39;portfolio_value_after_fees&#39;,&#39;cash_before&#39;,&#39;cash_after&#39;,&#39;position&#39;]).set_index(&#39;date&#39;)
-    if len(res):
-        res[&#39;daily_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;].pct_change()
-        res[&#39;daily_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;].pct_change()
-        res[&#39;total_return_before_fees&#39;] = res[&#39;portfolio_value_before_fees&#39;] / res[&#39;portfolio_value_before_fees&#39;].iloc[0] - 1
-        res[&#39;total_return_after_fees&#39;]  = res[&#39;portfolio_value_after_fees&#39;]  / res[&#39;portfolio_value_after_fees&#39;].iloc[0]  - 1
-    return res
+    res = pd.DataFrame(rows, columns=[<span class="hljs-string">&#x27;date&#x27;</span>,<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>,<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>,<span class="hljs-string">&#x27;cash_before&#x27;</span>,<span class="hljs-string">&#x27;cash_after&#x27;</span>,<span class="hljs-string">&#x27;position&#x27;</span>]).set_index(<span class="hljs-string">&#x27;date&#x27;</span>)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(res):
+        res[<span class="hljs-string">&#x27;daily_return_before_fees&#x27;</span>] = res[<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>].pct_change()
+        res[<span class="hljs-string">&#x27;daily_return_after_fees&#x27;</span>]  = res[<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>].pct_change()
+        res[<span class="hljs-string">&#x27;total_return_before_fees&#x27;</span>] = res[<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>] / res[<span class="hljs-string">&#x27;portfolio_value_before_fees&#x27;</span>].iloc[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>
+        res[<span class="hljs-string">&#x27;total_return_after_fees&#x27;</span>]  = res[<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>]  / res[<span class="hljs-string">&#x27;portfolio_value_after_fees&#x27;</span>].iloc[<span class="hljs-number">0</span>]  - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> res
 
-# ============================ Metrics ============================
+<span class="hljs-comment"># ============================ Metrics ============================</span>
 
-def calculate_metrics(result_df: pd.DataFrame) -&gt; Dict[str, float]:
-    &quot;&quot;&quot;计算策略指标：quantstats 标准指标 + 自定义仓位指标&quot;&quot;&quot;
-    if result_df is None or len(result_df) == 0:
-        return {}
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_metrics</span>(<span class="hljs-params">result_df: pd.DataFrame</span>) -&gt; <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">float</span>]:
+    <span class="hljs-string">&quot;&quot;&quot;计算策略指标：quantstats 标准指标 + 自定义仓位指标&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> result_df <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(result_df) == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> {}
     
-    returns = result_df[&#39;daily_return_after_fees&#39;].dropna()
-    if len(returns) == 0:
-        return {}
+    returns = result_df[<span class="hljs-string">&#x27;daily_return_after_fees&#x27;</span>].dropna()
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(returns) == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> {}
     
-    # ===== quantstats 标准指标（直接调用，不重复计算）=====
+    <span class="hljs-comment"># ===== quantstats 标准指标（直接调用，不重复计算）=====</span>
     metrics = {
-        &#39;annual_return&#39;: float(qs.stats.cagr(returns)),
-        &#39;max_drawdown&#39;: float(qs.stats.max_drawdown(returns)),
-        &#39;sharpe&#39;: float(qs.stats.sharpe(returns)),
-        &#39;calmar&#39;: float(qs.stats.calmar(returns)),
-        &#39;daily_win_rate&#39;: float(qs.stats.win_rate(returns)),
+        <span class="hljs-string">&#x27;annual_return&#x27;</span>: <span class="hljs-built_in">float</span>(qs.stats.cagr(returns)),
+        <span class="hljs-string">&#x27;max_drawdown&#x27;</span>: <span class="hljs-built_in">float</span>(qs.stats.max_drawdown(returns)),
+        <span class="hljs-string">&#x27;sharpe&#x27;</span>: <span class="hljs-built_in">float</span>(qs.stats.sharpe(returns)),
+        <span class="hljs-string">&#x27;calmar&#x27;</span>: <span class="hljs-built_in">float</span>(qs.stats.calmar(returns)),
+        <span class="hljs-string">&#x27;daily_win_rate&#x27;</span>: <span class="hljs-built_in">float</span>(qs.stats.win_rate(returns)),
     }
     
-    # ===== 自定义指标（quantstats 没有的）=====
-    # 盈亏比
-    positive_returns = returns[returns &gt; 0]
-    negative_returns = returns[returns &lt; 0]
-    metrics[&#39;daily_profit_loss_ratio&#39;] = float(
-        positive_returns.mean() / abs(negative_returns.mean())
-    ) if len(negative_returns) &gt; 0 and negative_returns.mean() != 0 else 0.0
+    <span class="hljs-comment"># ===== 自定义指标（quantstats 没有的）=====</span>
+    <span class="hljs-comment"># 盈亏比</span>
+    positive_returns = returns[returns &gt; <span class="hljs-number">0</span>]
+    negative_returns = returns[returns &lt; <span class="hljs-number">0</span>]
+    metrics[<span class="hljs-string">&#x27;daily_profit_loss_ratio&#x27;</span>] = <span class="hljs-built_in">float</span>(
+        positive_returns.mean() / <span class="hljs-built_in">abs</span>(negative_returns.mean())
+    ) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(negative_returns) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> negative_returns.mean() != <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
     
-    # 仓位相关指标
-    position_data = result_df.get(&#39;position&#39;, pd.Series(0, index=result_df.index))
-    full_position_returns = returns[position_data &gt; 0]
-    empty_position_returns = returns[position_data == 0]
+    <span class="hljs-comment"># 仓位相关指标</span>
+    position_data = result_df.get(<span class="hljs-string">&#x27;position&#x27;</span>, pd.Series(<span class="hljs-number">0</span>, index=result_df.index))
+    full_position_returns = returns[position_data &gt; <span class="hljs-number">0</span>]
+    empty_position_returns = returns[position_data == <span class="hljs-number">0</span>]
     
-    metrics[&#39;full_position_win_rate&#39;] = float((full_position_returns &gt; 0).mean()) if len(full_position_returns) &gt; 0 else 0.0
-    metrics[&#39;empty_position_win_rate&#39;] = float((empty_position_returns &gt; 0).mean()) if len(empty_position_returns) &gt; 0 else 0.0
-    metrics[&#39;empty_position_ratio&#39;] = float((position_data == 0).sum() / len(position_data)) if len(position_data) &gt; 0 else 0.0
+    metrics[<span class="hljs-string">&#x27;full_position_win_rate&#x27;</span>] = <span class="hljs-built_in">float</span>((full_position_returns &gt; <span class="hljs-number">0</span>).mean()) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(full_position_returns) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    metrics[<span class="hljs-string">&#x27;empty_position_win_rate&#x27;</span>] = <span class="hljs-built_in">float</span>((empty_position_returns &gt; <span class="hljs-number">0</span>).mean()) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(empty_position_returns) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    metrics[<span class="hljs-string">&#x27;empty_position_ratio&#x27;</span>] = <span class="hljs-built_in">float</span>((position_data == <span class="hljs-number">0</span>).<span class="hljs-built_in">sum</span>() / <span class="hljs-built_in">len</span>(position_data)) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(position_data) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
     
-    # 交易次数和换手率
-    trade_signals = result_df.get(&#39;trade_signal&#39;, pd.Series(0, index=result_df.index))
-    total_trades = (trade_signals != 0).sum()
-    total_days = len(result_df)
+    <span class="hljs-comment"># 交易次数和换手率</span>
+    trade_signals = result_df.get(<span class="hljs-string">&#x27;trade_signal&#x27;</span>, pd.Series(<span class="hljs-number">0</span>, index=result_df.index))
+    total_trades = (trade_signals != <span class="hljs-number">0</span>).<span class="hljs-built_in">sum</span>()
+    total_days = <span class="hljs-built_in">len</span>(result_df)
     
-    metrics[&#39;total_trades&#39;] = int(total_trades)
-    metrics[&#39;annual_turnover&#39;] = float(total_trades / (total_days / 365.25)) if total_days &gt; 0 else 0.0
-    metrics[&#39;monthly_turnover&#39;] = float(total_trades / (total_days / 30.44)) if total_days &gt; 0 else 0.0
-    metrics[&#39;avg_holding_days&#39;] = float(total_days / total_trades) if total_trades &gt; 0 else 0.0
+    metrics[<span class="hljs-string">&#x27;total_trades&#x27;</span>] = <span class="hljs-built_in">int</span>(total_trades)
+    metrics[<span class="hljs-string">&#x27;annual_turnover&#x27;</span>] = <span class="hljs-built_in">float</span>(total_trades / (total_days / <span class="hljs-number">365.25</span>)) <span class="hljs-keyword">if</span> total_days &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    metrics[<span class="hljs-string">&#x27;monthly_turnover&#x27;</span>] = <span class="hljs-built_in">float</span>(total_trades / (total_days / <span class="hljs-number">30.44</span>)) <span class="hljs-keyword">if</span> total_days &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+    metrics[<span class="hljs-string">&#x27;avg_holding_days&#x27;</span>] = <span class="hljs-built_in">float</span>(total_days / total_trades) <span class="hljs-keyword">if</span> total_trades &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
     
-    return metrics
+    <span class="hljs-keyword">return</span> metrics
 
-# ============================ Report-style plotting ============================
+<span class="hljs-comment"># ============================ Report-style plotting ============================</span>
 
-def _plot_report(returns: pd.Series, benchmark_returns: pd.Series, title: str, outpath: str) -&gt; None:
-    &quot;&quot;&quot;策略对比图表：净值曲线 + 从上往下的半透明绿色回撤区域&quot;&quot;&quot;
-    if returns is None or len(returns) &lt; 2:
-        return
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">_plot_report</span>(<span class="hljs-params">returns: pd.Series, benchmark_returns: pd.Series, title: <span class="hljs-built_in">str</span>, outpath: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;策略对比图表：净值曲线 + 从上往下的半透明绿色回撤区域&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> returns <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(returns) &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span>
     
-    os.makedirs(os.path.dirname(outpath) or &#39;.&#39;, exist_ok=True)
+    os.makedirs(os.path.dirname(outpath) <span class="hljs-keyword">or</span> <span class="hljs-string">&#x27;.&#x27;</span>, exist_ok=<span class="hljs-literal">True</span>)
     
-    # 计算累积收益
-    cum = (1 + returns).cumprod()
-    bench = benchmark_returns if benchmark_returns is not None and len(benchmark_returns) &gt; 0 else None
+    <span class="hljs-comment"># 计算累积收益</span>
+    cum = (<span class="hljs-number">1</span> + returns).cumprod()
+    bench = benchmark_returns <span class="hljs-keyword">if</span> benchmark_returns <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(benchmark_returns) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span>
     
-    # 回撤负值 -&gt; 幅度正数
-    dd = qs.stats.to_drawdown_series(returns).fillna(0)
-    dd_mag = (-dd).clip(lower=0)  # 正数
+    <span class="hljs-comment"># 回撤负值 -&gt; 幅度正数</span>
+    dd = qs.stats.to_drawdown_series(returns).fillna(<span class="hljs-number">0</span>)
+    dd_mag = (-dd).clip(lower=<span class="hljs-number">0</span>)  <span class="hljs-comment"># 正数</span>
     
-    # 创建图表
-    fig, ax1 = plt.subplots(figsize=(16, 8))
+    <span class="hljs-comment"># 创建图表</span>
+    fig, ax1 = plt.subplots(figsize=(<span class="hljs-number">16</span>, <span class="hljs-number">8</span>))
     
-    # 先画累计收益线（黑色）
-    ax1.plot(cum.index, cum.values, linewidth=2.0, color=&#39;#FF0000&#39;, label=&#39;Strategy&#39;, zorder=3)
+    <span class="hljs-comment"># 先画累计收益线（黑色）</span>
+    ax1.plot(cum.index, cum.values, linewidth=<span class="hljs-number">2.0</span>, color=<span class="hljs-string">&#x27;#FF0000&#x27;</span>, label=<span class="hljs-string">&#x27;Strategy&#x27;</span>, zorder=<span class="hljs-number">3</span>)
     
-    # 基准可选（深灰）
-    if bench is not None:
-        cum_bench = (1 + bench).cumprod()
-        ax1.plot(cum_bench.index, cum_bench.values, linewidth=1.4, color=&#39;#777777&#39;, label=&#39;Benchmark&#39;, zorder=2)
+    <span class="hljs-comment"># 基准可选（深灰）</span>
+    <span class="hljs-keyword">if</span> bench <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        cum_bench = (<span class="hljs-number">1</span> + bench).cumprod()
+        ax1.plot(cum_bench.index, cum_bench.values, linewidth=<span class="hljs-number">1.4</span>, color=<span class="hljs-string">&#x27;#777777&#x27;</span>, label=<span class="hljs-string">&#x27;Benchmark&#x27;</span>, zorder=<span class="hljs-number">2</span>)
     
-    ax1.set_ylabel(&#39;Net Asset Value&#39;, fontsize=12)
-    ax1.set_xlabel(&#39;Date&#39;, fontsize=12)
-    ax1.grid(True, alpha=0.3, zorder=0)
+    ax1.set_ylabel(<span class="hljs-string">&#x27;Net Asset Value&#x27;</span>, fontsize=<span class="hljs-number">12</span>)
+    ax1.set_xlabel(<span class="hljs-string">&#x27;Date&#x27;</span>, fontsize=<span class="hljs-number">12</span>)
+    ax1.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>, zorder=<span class="hljs-number">0</span>)
     
-    # 右轴：回撤用半透明绿色
+    <span class="hljs-comment"># 右轴：回撤用半透明绿色</span>
     ax2 = ax1.twinx()
-    ax1.set_zorder(ax2.get_zorder() + 1)
-    ax1.patch.set_visible(False)
+    ax1.set_zorder(ax2.get_zorder() + <span class="hljs-number">1</span>)
+    ax1.patch.set_visible(<span class="hljs-literal">False</span>)
     
-    # 关键：绿色 + 透明度
+    <span class="hljs-comment"># 关键：绿色 + 透明度</span>
     ax2.fill_between(
-        dd_mag.index, 0, dd_mag.values * 100,
-        facecolor=(0.0, 0.55, 0.0, 0.35),  # 深绿，35%透明
-        edgecolor=&#39;none&#39;,
-        zorder=1
+        dd_mag.index, <span class="hljs-number">0</span>, dd_mag.values * <span class="hljs-number">100</span>,
+        facecolor=(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.55</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.35</span>),  <span class="hljs-comment"># 深绿，35%透明</span>
+        edgecolor=<span class="hljs-string">&#x27;none&#x27;</span>,
+        zorder=<span class="hljs-number">1</span>
     )
     
-    # 让回撤从上往下灌
-    hi = dd_mag.max() * 100
-    ax2.set_ylim(hi * 1.05, 0)
-    ax2.set_ylabel(&#39;Drawdown (%)&#39;, fontsize=12)
-    ax2.yaxis.set_major_formatter(PercentFormatter(xmax=100))
+    <span class="hljs-comment"># 让回撤从上往下灌</span>
+    hi = dd_mag.<span class="hljs-built_in">max</span>() * <span class="hljs-number">100</span>
+    ax2.set_ylim(hi * <span class="hljs-number">1.05</span>, <span class="hljs-number">0</span>)
+    ax2.set_ylabel(<span class="hljs-string">&#x27;Drawdown (%)&#x27;</span>, fontsize=<span class="hljs-number">12</span>)
+    ax2.yaxis.set_major_formatter(PercentFormatter(xmax=<span class="hljs-number">100</span>))
     
-    # 标题
-    ax1.set_title(title, fontsize=16, pad=20)
+    <span class="hljs-comment"># 标题</span>
+    ax1.set_title(title, fontsize=<span class="hljs-number">16</span>, pad=<span class="hljs-number">20</span>)
     
-    # 图例：给回撤补一个绿色块
+    <span class="hljs-comment"># 图例：给回撤补一个绿色块</span>
     handles, labels = ax1.get_legend_handles_labels()
-    handles.append(mpatches.Patch(facecolor=(0.0, 0.55, 0.0, 0.35), edgecolor=&#39;none&#39;, label=&#39;Drawdown&#39;))
-    ax1.legend(handles=handles, loc=&#39;upper left&#39;, frameon=False, fontsize=11)
+    handles.append(mpatches.Patch(facecolor=(<span class="hljs-number">0.0</span>, <span class="hljs-number">0.55</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">0.35</span>), edgecolor=<span class="hljs-string">&#x27;none&#x27;</span>, label=<span class="hljs-string">&#x27;Drawdown&#x27;</span>))
+    ax1.legend(handles=handles, loc=<span class="hljs-string">&#x27;upper left&#x27;</span>, frameon=<span class="hljs-literal">False</span>, fontsize=<span class="hljs-number">11</span>)
     
     plt.tight_layout()
-    plt.savefig(outpath, dpi=100, bbox_inches=&#39;tight&#39;)
+    plt.savefig(outpath, dpi=<span class="hljs-number">100</span>, bbox_inches=<span class="hljs-string">&#x27;tight&#x27;</span>)
     plt.close()
 
 
-def plot_reports_for_results(results: Dict[str, dict], bench_close: pd.Series, ts_code: str, out_dir: str) -&gt; Dict[str, str]:
-    &quot;&quot;&quot;为每个策略生成对比报告图表&quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">plot_reports_for_results</span>(<span class="hljs-params">results: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">dict</span>], bench_close: pd.Series, ts_code: <span class="hljs-built_in">str</span>, out_dir: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">str</span>]:
+    <span class="hljs-string">&quot;&quot;&quot;为每个策略生成对比报告图表&quot;&quot;&quot;</span>
     out = {}
     order = [
-        (&#39;1_Alligator&#39;,                    &#39;1. Alligator&#39;),
-        (&#39;B_Alligator_AO&#39;,                 &#39;2. Alligator + AO&#39;),
-        (&#39;C_Alligator_Fractal&#39;,            &#39;3. Alligator + Fractal&#39;),
-        (&#39;D_Alligator_AO_Fractal&#39;,         &#39;4. Alligator + AO + Fractal&#39;),
-        (&#39;E_Alligator_AO_Fractal_MACD&#39;,     &#39;5. Alligator + AO + Fractal + MACD&#39;),
-        (&#39;E_Bond_Rotation&#39;,                &#39;6. Equity–Bond Rotation&#39;),
+        (<span class="hljs-string">&#x27;1_Alligator&#x27;</span>,                    <span class="hljs-string">&#x27;1. Alligator&#x27;</span>),
+        (<span class="hljs-string">&#x27;B_Alligator_AO&#x27;</span>,                 <span class="hljs-string">&#x27;2. Alligator + AO&#x27;</span>),
+        (<span class="hljs-string">&#x27;C_Alligator_Fractal&#x27;</span>,            <span class="hljs-string">&#x27;3. Alligator + Fractal&#x27;</span>),
+        (<span class="hljs-string">&#x27;D_Alligator_AO_Fractal&#x27;</span>,         <span class="hljs-string">&#x27;4. Alligator + AO + Fractal&#x27;</span>),
+        (<span class="hljs-string">&#x27;E_Alligator_AO_Fractal_MACD&#x27;</span>,     <span class="hljs-string">&#x27;5. Alligator + AO + Fractal + MACD&#x27;</span>),
+        (<span class="hljs-string">&#x27;E_Bond_Rotation&#x27;</span>,                <span class="hljs-string">&#x27;6. Equity–Bond Rotation&#x27;</span>),
     ]
     
-    # 计算基准收益率
+    <span class="hljs-comment"># 计算基准收益率</span>
     bench_returns = bench_close.pct_change().dropna()
     
-    for key, ttl in order:
-        if key not in results or &#39;result_df&#39; not in results[key] or results[key][&#39;result_df&#39;] is None or len(results[key][&#39;result_df&#39;]) == 0:
-            continue
+    <span class="hljs-keyword">for</span> key, ttl <span class="hljs-keyword">in</span> order:
+        <span class="hljs-keyword">if</span> key <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> results <span class="hljs-keyword">or</span> <span class="hljs-string">&#x27;result_df&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> results[key] <span class="hljs-keyword">or</span> results[key][<span class="hljs-string">&#x27;result_df&#x27;</span>] <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(results[key][<span class="hljs-string">&#x27;result_df&#x27;</span>]) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">continue</span>
         
-        res_df = results[key][&#39;result_df&#39;]
-        strategy_returns = res_df[&#39;daily_return_after_fees&#39;].dropna()
+        res_df = results[key][<span class="hljs-string">&#x27;result_df&#x27;</span>]
+        strategy_returns = res_df[<span class="hljs-string">&#x27;daily_return_after_fees&#x27;</span>].dropna()
         
-        if len(strategy_returns) &lt; 2:
-            continue
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(strategy_returns) &lt; <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">continue</span>
         
-        # 对齐基准收益率
-        aligned_bench_returns = bench_returns.reindex(strategy_returns.index).fillna(0)
+        <span class="hljs-comment"># 对齐基准收益率</span>
+        aligned_bench_returns = bench_returns.reindex(strategy_returns.index).fillna(<span class="hljs-number">0</span>)
         
-        # 将图表保存到各自的资产文件夹中
-        f = f&#39;{out_dir}/{ts_code}/report_{key}.png&#39;
+        <span class="hljs-comment"># 将图表保存到各自的资产文件夹中</span>
+        f = <span class="hljs-string">f&#x27;<span class="hljs-subst">{out_dir}</span>/<span class="hljs-subst">{ts_code}</span>/report_<span class="hljs-subst">{key}</span>.png&#x27;</span>
         
-        _plot_report(strategy_returns, aligned_bench_returns, f&#39;{ts_code} — {ttl}&#39;, f)
+        _plot_report(strategy_returns, aligned_bench_returns, <span class="hljs-string">f&#x27;<span class="hljs-subst">{ts_code}</span> — <span class="hljs-subst">{ttl}</span>&#x27;</span>, f)
         out[key] = f
     
-    return out
+    <span class="hljs-keyword">return</span> out
 
-# ============================ Orchestrator ============================
+<span class="hljs-comment"># ============================ Orchestrator ============================</span>
 
 
-def run_staged_backtest(ts_code: str = &#39;000300.SH&#39;,
-                        signal_folder: str = signal_dir,
-                        factor_folder: str = factor_dir,
-                        data_folder: str = data_dir,
-                        report_mode: bool = True,
-                        report_folder: str = report_dir,
-                        backtest_start_date: Optional[str] = None,
-                        backtest_end_date: Optional[str] = None,
-                        bond_code: str = &#39;CBA00101.CS&#39;) -&gt; Dict[str, dict]:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">run_staged_backtest</span>(<span class="hljs-params">ts_code: <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;000300.SH&#x27;</span>,
+                        signal_folder: <span class="hljs-built_in">str</span> = signal_dir,
+                        factor_folder: <span class="hljs-built_in">str</span> = factor_dir,
+                        data_folder: <span class="hljs-built_in">str</span> = data_dir,
+                        report_mode: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">True</span>,
+                        report_folder: <span class="hljs-built_in">str</span> = report_dir,
+                        backtest_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+                        backtest_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+                        bond_code: <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;CBA00101.CS&#x27;</span></span>) -&gt; <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">dict</span>]:
     sig = read_split_signals(signal_dir, ts_code)
-    if sig is None:
-        raise FileNotFoundError(&#39;missing split signals; run strategy.py first&#39;)
+    <span class="hljs-keyword">if</span> sig <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">raise</span> FileNotFoundError(<span class="hljs-string">&#x27;missing split signals; run strategy.py first&#x27;</span>)
 
-    open_px  = read_price_series(data_folder, ts_code, col=&#39;open&#39;)
-    close_px = read_price_series(data_folder, ts_code, col=&#39;close&#39;)
+    open_px  = read_price_series(data_folder, ts_code, col=<span class="hljs-string">&#x27;open&#x27;</span>)
+    close_px = read_price_series(data_folder, ts_code, col=<span class="hljs-string">&#x27;close&#x27;</span>)
 
-    # clip window
-    if backtest_start_date is not None:
+    <span class="hljs-comment"># clip window</span>
+    <span class="hljs-keyword">if</span> backtest_start_date <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         dt0 = pd.to_datetime(backtest_start_date)
         open_px  = open_px[open_px.index   &gt;= dt0]
         close_px = close_px[close_px.index &gt;= dt0]
         sig      = sig[sig.index           &gt;= dt0]
-    if backtest_end_date is not None:
+    <span class="hljs-keyword">if</span> backtest_end_date <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
         dt1 = pd.to_datetime(backtest_end_date)
         open_px  = open_px[open_px.index   &lt;= dt1]
         close_px = close_px[close_px.index &lt;= dt1]
         sig      = sig[sig.index           &lt;= dt1]
 
     idx = open_px.index.intersection(sig.index)
-    if len(idx) &lt; 2:
-        raise RuntimeError(&#39;not enough overlapping dates for backtest&#39;)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(idx) &lt; <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&#x27;not enough overlapping dates for backtest&#x27;</span>)
     px  = open_px.loc[idx]
-    sig = sig.loc[idx].fillna(False)
+    sig = sig.loc[idx].fillna(<span class="hljs-literal">False</span>)
 
-    # 策略配置：避免重复代码
+    <span class="hljs-comment"># 策略配置：避免重复代码</span>
     strategies = [
-        (&#39;1_Alligator&#39;, sig[&#39;sig_alligator_long&#39;], sig[&#39;sig_alligator_short&#39;]),
-        (&#39;B_Alligator_AO&#39;, sig[&#39;sig_alligator_long&#39;] &amp; sig[&#39;sig_ao_long&#39;], sig[&#39;sig_alligator_short&#39;] | sig[&#39;sig_ao_short&#39;]),
-        (&#39;C_Alligator_Fractal&#39;, sig[&#39;sig_alligator_long&#39;] &amp; sig[&#39;sig_fractal_long&#39;], sig[&#39;sig_alligator_short&#39;] | sig[&#39;sig_fractal_short&#39;]),
-        (&#39;D_Alligator_AO_Fractal&#39;, sig[&#39;sig_alligator_long&#39;] &amp; sig[&#39;sig_ao_long&#39;] &amp; sig[&#39;sig_fractal_long&#39;], sig[&#39;sig_alligator_short&#39;] | sig[&#39;sig_ao_short&#39;] | sig[&#39;sig_fractal_short&#39;]),
-        (&#39;E_Alligator_AO_Fractal_MACD&#39;, sig[&#39;sig_combo_long&#39;], sig[&#39;sig_combo_short&#39;]),
+        (<span class="hljs-string">&#x27;1_Alligator&#x27;</span>, sig[<span class="hljs-string">&#x27;sig_alligator_long&#x27;</span>], sig[<span class="hljs-string">&#x27;sig_alligator_short&#x27;</span>]),
+        (<span class="hljs-string">&#x27;B_Alligator_AO&#x27;</span>, sig[<span class="hljs-string">&#x27;sig_alligator_long&#x27;</span>] &amp; sig[<span class="hljs-string">&#x27;sig_ao_long&#x27;</span>], sig[<span class="hljs-string">&#x27;sig_alligator_short&#x27;</span>] | sig[<span class="hljs-string">&#x27;sig_ao_short&#x27;</span>]),
+        (<span class="hljs-string">&#x27;C_Alligator_Fractal&#x27;</span>, sig[<span class="hljs-string">&#x27;sig_alligator_long&#x27;</span>] &amp; sig[<span class="hljs-string">&#x27;sig_fractal_long&#x27;</span>], sig[<span class="hljs-string">&#x27;sig_alligator_short&#x27;</span>] | sig[<span class="hljs-string">&#x27;sig_fractal_short&#x27;</span>]),
+        (<span class="hljs-string">&#x27;D_Alligator_AO_Fractal&#x27;</span>, sig[<span class="hljs-string">&#x27;sig_alligator_long&#x27;</span>] &amp; sig[<span class="hljs-string">&#x27;sig_ao_long&#x27;</span>] &amp; sig[<span class="hljs-string">&#x27;sig_fractal_long&#x27;</span>], sig[<span class="hljs-string">&#x27;sig_alligator_short&#x27;</span>] | sig[<span class="hljs-string">&#x27;sig_ao_short&#x27;</span>] | sig[<span class="hljs-string">&#x27;sig_fractal_short&#x27;</span>]),
+        (<span class="hljs-string">&#x27;E_Alligator_AO_Fractal_MACD&#x27;</span>, sig[<span class="hljs-string">&#x27;sig_combo_long&#x27;</span>], sig[<span class="hljs-string">&#x27;sig_combo_short&#x27;</span>]),
     ]
     
-    results: Dict[str, dict] = {}
+    results: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">dict</span>] = {}
     
-    for key, entries, exits in strategies:
-        res = backtest_strategy(entries.astype(bool), exits.astype(bool), px, report_mode=report_mode)
-        if &#39;trade_signal&#39; in sig.columns and &#39;position&#39; in sig.columns:
-            res[&#39;trade_signal&#39;] = sig[&#39;trade_signal&#39;]
-            res[&#39;position&#39;] = sig[&#39;position&#39;]
-        results[key] = {&#39;result_df&#39;: res}
+    <span class="hljs-keyword">for</span> key, entries, exits <span class="hljs-keyword">in</span> strategies:
+        res = backtest_strategy(entries.astype(<span class="hljs-built_in">bool</span>), exits.astype(<span class="hljs-built_in">bool</span>), px, report_mode=report_mode)
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;trade_signal&#x27;</span> <span class="hljs-keyword">in</span> sig.columns <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;position&#x27;</span> <span class="hljs-keyword">in</span> sig.columns:
+            res[<span class="hljs-string">&#x27;trade_signal&#x27;</span>] = sig[<span class="hljs-string">&#x27;trade_signal&#x27;</span>]
+            res[<span class="hljs-string">&#x27;position&#x27;</span>] = sig[<span class="hljs-string">&#x27;position&#x27;</span>]
+        results[key] = {<span class="hljs-string">&#x27;result_df&#x27;</span>: res}
 
-    # Bond rotation strategy (Equity–Bond)
-    try:
-        bond_open = read_price_series(data_folder, bond_code, col=&#39;open&#39;)
-        if bond_open.isna().all():
-            bond_open = read_price_series(data_folder, bond_code, col=&#39;close&#39;)
+    <span class="hljs-comment"># Bond rotation strategy (Equity–Bond)</span>
+    <span class="hljs-keyword">try</span>:
+        bond_open = read_price_series(data_folder, bond_code, col=<span class="hljs-string">&#x27;open&#x27;</span>)
+        <span class="hljs-keyword">if</span> bond_open.isna().<span class="hljs-built_in">all</span>():
+            bond_open = read_price_series(data_folder, bond_code, col=<span class="hljs-string">&#x27;close&#x27;</span>)
         
         idx2 = px.index.intersection(bond_open.index)
-        if len(idx2) &gt;= 2:
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(idx2) &gt;= <span class="hljs-number">2</span>:
             rot = backtest_bond_rotation(
-                sig[&#39;sig_combo_long&#39;].reindex(idx2).fillna(False),
-                sig[&#39;sig_combo_short&#39;].reindex(idx2).fillna(False),
+                sig[<span class="hljs-string">&#x27;sig_combo_long&#x27;</span>].reindex(idx2).fillna(<span class="hljs-literal">False</span>),
+                sig[<span class="hljs-string">&#x27;sig_combo_short&#x27;</span>].reindex(idx2).fillna(<span class="hljs-literal">False</span>),
                 px.reindex(idx2),
                 bond_open.reindex(idx2),
                 report_mode=report_mode
             )
-            if &#39;trade_signal&#39; in sig.columns and &#39;position&#39; in sig.columns:
-                rot[&#39;trade_signal&#39;] = sig[&#39;trade_signal&#39;].reindex(idx2)
-                rot[&#39;position&#39;] = sig[&#39;position&#39;].reindex(idx2)
-            results[&#39;E_Bond_Rotation&#39;] = {&#39;result_df&#39;: rot}
-    except Exception as e:
-        print(f&#39;[warn] Bond rotation skipped: {e}&#39;)
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;trade_signal&#x27;</span> <span class="hljs-keyword">in</span> sig.columns <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;position&#x27;</span> <span class="hljs-keyword">in</span> sig.columns:
+                rot[<span class="hljs-string">&#x27;trade_signal&#x27;</span>] = sig[<span class="hljs-string">&#x27;trade_signal&#x27;</span>].reindex(idx2)
+                rot[<span class="hljs-string">&#x27;position&#x27;</span>] = sig[<span class="hljs-string">&#x27;position&#x27;</span>].reindex(idx2)
+            results[<span class="hljs-string">&#x27;E_Bond_Rotation&#x27;</span>] = {<span class="hljs-string">&#x27;result_df&#x27;</span>: rot}
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;[warn] Bond rotation skipped: <span class="hljs-subst">{e}</span>&#x27;</span>)
 
-    # plot report-only charts
+    <span class="hljs-comment"># plot report-only charts</span>
     plot_reports_for_results(results, bench_close=close_px, ts_code=ts_code, out_dir = report_folder)
 
-    return results
+    <span class="hljs-keyword">return</span> results
 
-def save_results_to_csv(results: Dict[str, dict], ts_code: str, output_folder: str = report_dir) -&gt; pd.DataFrame:
-    &quot;&quot;&quot;保存策略对比结果到CSV文件&quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">save_results_to_csv</span>(<span class="hljs-params">results: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">dict</span>], ts_code: <span class="hljs-built_in">str</span>, output_folder: <span class="hljs-built_in">str</span> = report_dir</span>) -&gt; pd.DataFrame:
+    <span class="hljs-string">&quot;&quot;&quot;保存策略对比结果到CSV文件&quot;&quot;&quot;</span>
     name_map = {
-        &#39;1_Alligator&#39;: &#39;1. Alligator&#39;,
-        &#39;B_Alligator_AO&#39;: &#39;2. Alligator + AO&#39;,
-        &#39;C_Alligator_Fractal&#39;: &#39;3. Alligator + Fractal&#39;,
-        &#39;D_Alligator_AO_Fractal&#39;: &#39;4. Alligator + AO + Fractal&#39;,
-        &#39;E_Alligator_AO_Fractal_MACD&#39;: &#39;5. Alligator + AO + Fractal + MACD&#39;,
-        &#39;E_Bond_Rotation&#39;: &#39;6. Equity–Bond Rotation&#39;,
+        <span class="hljs-string">&#x27;1_Alligator&#x27;</span>: <span class="hljs-string">&#x27;1. Alligator&#x27;</span>,
+        <span class="hljs-string">&#x27;B_Alligator_AO&#x27;</span>: <span class="hljs-string">&#x27;2. Alligator + AO&#x27;</span>,
+        <span class="hljs-string">&#x27;C_Alligator_Fractal&#x27;</span>: <span class="hljs-string">&#x27;3. Alligator + Fractal&#x27;</span>,
+        <span class="hljs-string">&#x27;D_Alligator_AO_Fractal&#x27;</span>: <span class="hljs-string">&#x27;4. Alligator + AO + Fractal&#x27;</span>,
+        <span class="hljs-string">&#x27;E_Alligator_AO_Fractal_MACD&#x27;</span>: <span class="hljs-string">&#x27;5. Alligator + AO + Fractal + MACD&#x27;</span>,
+        <span class="hljs-string">&#x27;E_Bond_Rotation&#x27;</span>: <span class="hljs-string">&#x27;6. Equity–Bond Rotation&#x27;</span>,
     }
     
-    # 计算所有策略的指标
+    <span class="hljs-comment"># 计算所有策略的指标</span>
     data = {}
-    for k, v in results.items():
-        if &#39;result_df&#39; in v and v[&#39;result_df&#39;] is not None and len(v[&#39;result_df&#39;]) &gt; 0:
-            data[name_map.get(k, k)] = calculate_metrics(v[&#39;result_df&#39;])
+    <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> results.items():
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;result_df&#x27;</span> <span class="hljs-keyword">in</span> v <span class="hljs-keyword">and</span> v[<span class="hljs-string">&#x27;result_df&#x27;</span>] <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(v[<span class="hljs-string">&#x27;result_df&#x27;</span>]) &gt; <span class="hljs-number">0</span>:
+            data[name_map.get(k, k)] = calculate_metrics(v[<span class="hljs-string">&#x27;result_df&#x27;</span>])
     
     df = pd.DataFrame(data).T
     
-    # 保存到文件
+    <span class="hljs-comment"># 保存到文件</span>
     asset_folder = os.path.join(output_folder, ts_code)
-    os.makedirs(asset_folder, exist_ok=True)
-    out = os.path.join(asset_folder, f&#39;{ts_code}_strategies_comparison.csv&#39;)
+    os.makedirs(asset_folder, exist_ok=<span class="hljs-literal">True</span>)
+    out = os.path.join(asset_folder, <span class="hljs-string">f&#x27;<span class="hljs-subst">{ts_code}</span>_strategies_comparison.csv&#x27;</span>)
     df.to_csv(out)
-    print(f&#39;Metrics saved: {out}&#39;)
-    return df
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Metrics saved: <span class="hljs-subst">{out}</span>&#x27;</span>)
+    <span class="hljs-keyword">return</span> df
 
 
-def run_all(ts_codes: list[str],
-            report_mode: bool = True,
-            strategy_start_date: Optional[str] = None,
-            strategy_end_date: Optional[str] = None,
-            bond_code: str = &#39;CBA00101.CS&#39;) -&gt; None:
-    &quot;&quot;&quot;运行所有标的的回测分析&quot;&quot;&quot;
-    print(&#39;Starting staged backtests with quantstats...&#39;)
-    for code in ts_codes:
-        print(f&#39;\nSymbol: {code}&#39;)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">run_all</span>(<span class="hljs-params">ts_codes: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>],
+            report_mode: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">True</span>,
+            strategy_start_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+            strategy_end_date: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,
+            bond_code: <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;CBA00101.CS&#x27;</span></span>) -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;运行所有标的的回测分析&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Starting staged backtests with quantstats...&#x27;</span>)
+    <span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> ts_codes:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;\nSymbol: <span class="hljs-subst">{code}</span>&#x27;</span>)
         res = run_staged_backtest(
             ts_code=code,
             report_mode=report_mode,
@@ -1214,14 +1208,13 @@ def run_all(ts_codes: list[str],
             backtest_end_date=strategy_end_date,
             bond_code=bond_code
         )
-        if res:
+        <span class="hljs-keyword">if</span> res:
             save_results_to_csv(res, ts_code=code)
-    print(&#39;\nDone.&#39;)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;\nDone.&#x27;</span>)
 
 
 
-run_all(report_mode=True, ts_codes = universe)
-</code></pre>
+run_all(report_mode=<span class="hljs-literal">True</span>, ts_codes = universe)</span></code></pre>
 <div class="admonition admonition-attention"><p class="admonition-title">attention</p>
 请在 /reports/alligator 目录下查看回测结果。
 </div>

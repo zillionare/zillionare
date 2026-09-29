@@ -29,64 +29,56 @@
 <p>要解决这个问题所需要的知识，我们在前面的课程中已经做好了所有的知识铺垫。这里面最重要的方法，是在第9课介绍的find_runs。</p>
 <p>它的作用是，将数组划分为若干个具有相同连续值的分组，返回这些分组的值、起点和长度。</p>
 <p>有了这个方法，我们就可以根据每日收益率，找出每个连续下跌区间的端点，并计算该区间的pnl:</p>
-<pre><code class="language-python">returns = bars.close.pct_change()
-v, s, l = find_runs(returns &lt;= 0)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">returns = bars.close.pct_change()
+v, s, l = find_runs(returns &lt;= <span class="hljs-number">0</span>)</span></code></pre>
 <p>returns数组是每日收益率。通过<code>returns &lt;= 0</code>表达式，我们将获得一个二值数组，元素为True的部分，意味着当天没有上涨（下跌或者平盘）。</p>
 <p>我们将得到如下结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/find_runs_of_returns.jpeg" alt=""></p>
 <p>结果将是一个三元组的数组，每一个元素由(v, s, l)组成，分别代表当前分组的值、起始位置和长度。</p>
 <p>接下来，我们遍历这个数组，根据s和l找到区间的起始点和结束点，再用两个端点的收盘价就可以计算出区间的涨跌。下面的代码中，我们只计算了下跌区间：</p>
-<pre><code class="language-python">close = bars.close
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">close = bars.close
 cum_neg_returns = []
-for vi, si, li in zip(v, s, l):
-    if vi and li &gt; 1:
-        cum_neg_returns.append((bars.frame[si-1], bars.frame[si + li - 1], close[si + li - 1]/close[si-1] - 1))
+<span class="hljs-keyword">for</span> vi, si, li <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(v, s, l):
+    <span class="hljs-keyword">if</span> vi <span class="hljs-keyword">and</span> li &gt; <span class="hljs-number">1</span>:
+        cum_neg_returns.append((bars.frame[si-<span class="hljs-number">1</span>], bars.frame[si + li - <span class="hljs-number">1</span>], close[si + li - <span class="hljs-number">1</span>]/close[si-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>))
         
-r = pd.DataFrame(cum_neg_returns, columns=[&quot;start&quot;, &quot;end&quot;, &quot;cnr&quot;])
-r
-</code></pre>
+r = pd.DataFrame(cum_neg_returns, columns=[<span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;end&quot;</span>, <span class="hljs-string">&quot;cnr&quot;</span>])
+r</span></code></pre>
 <p>我们得到了116个结果：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/cnr.jpeg" alt="50%"></p>
 <p>在3月27日收盘时，我们所处的位置对应上表中的第114行，也就是从3月20日起到27日，中证1000发生连续下跌，幅度为6.94%。</p>
 <p>那么，继续下跌的概率是多少呢？它相当于<code>(s &lt; x).sum()/len(s)</code>，我们换一个方法：</p>
-<pre><code>p_decline = r.cnr.le(-0.06943).mean()
-p_decline
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">p_decline = r.cnr.le(-0.06943).mean()
+p_decline</span></code></pre>
 <p>输出结果将是0.0862，也就是从过去4年的统计数据来看，连续下跌超（含）2天的共有116次。在这116次中，如果收盘跌幅达到6.943%，则继续下跌的概率为8.62%，也就是将有91.38%的概率反弹。</p>
 <p>如果不反弹，我们就要蒙受抄底的损失。这个损失的期望是多少呢？我们统计一下，下跌6.94%后，继续下跌的情形是：</p>
-<pre><code class="language-python">r[r.cnv &lt; -0.0694]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">r[r.cnv &lt; -<span class="hljs-number">0.0694</span>]</span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/declined-below-694.jpeg" alt="50%"></p>
 <p>其预期是：</p>
-<pre><code class="language-python"># 抄底失败的亏损预期
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 抄底失败的亏损预期</span>
 
-exp_lose = (r[r.cnr&lt;-0.06943].mean() - (-0.0694))
-exp_lose
-</code></pre>
+exp_lose = (r[r.cnr&lt;-<span class="hljs-number">0.06943</span>].mean() - (-<span class="hljs-number">0.0694</span>))
+exp_lose</span></code></pre>
 <p>抄底失败，也就是继续下跌的情形共有10次，平均损失是-10%左右，考虑到我们是在-6.94%时才抄的底，因此，我们将蒙受3.48%左右的损失。请记住，发生这种情况的概率只有8.62%。</p>
 <p>如果反弹，我们将得到多少收益呢？这个计算略困难一点。在3月27日之后，反弹达到了5.5%。我们只有这样一个采样数据，但不能保证每次都会有这么大的反弹。</p>
 <p>我们考虑一个保守一点的情况，即把下跌[-5%, -6.943%]间的所有反弹都当成下跌-6.943%以后的反弹。显然，在快速下跌中，下跌越多，反弹就越强，我们这样估算，肯定要比每次下跌-6.94%之后的反弹要低估了。不过，这样也使得我们的模型具有了额外的安全边际。</p>
-<pre><code class="language-python"># 抄底时间为bounced
-bounced = [f.date() for f in (r[(r.cnr &gt;= -0.0695) &amp; (r.cnr&lt;-0.05)][&quot;end&quot;])]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-comment"># 抄底时间为bounced</span>
+bounced = [f.date() <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> (r[(r.cnr &gt;= -<span class="hljs-number">0.0695</span>) &amp; (r.cnr&lt;-<span class="hljs-number">0.05</span>)][<span class="hljs-string">&quot;end&quot;</span>])]
 
-# 抄底收益为bounced之后，连接上涨的收益
+<span class="hljs-comment"># 抄底收益为bounced之后，连接上涨的收益</span>
 
 cum_pos_returns = []
-for vi, si, li in zip(v, s, l):
-    end = tf.day_shift(bars.frame[si], -1)
-    if end in bounced:
-        cum_pos_returns.append((bars.frame[si-1], bars.frame[si + li - 1], close[si + li - 1]/close[si-1] - 1))
-</code></pre>
-<pre><code class="language-python">profit = pd.DataFrame(cum_pos_returns, columns=[&quot;start&quot;, &quot;end&quot;, &quot;profit&quot;])
-profit
-</code></pre>
+<span class="hljs-keyword">for</span> vi, si, li <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(v, s, l):
+    end = tf.day_shift(bars.frame[si], -<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">if</span> end <span class="hljs-keyword">in</span> bounced:
+        cum_pos_returns.append((bars.frame[si-<span class="hljs-number">1</span>], bars.frame[si + li - <span class="hljs-number">1</span>], close[si + li - <span class="hljs-number">1</span>]/close[si-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>))</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">profit = pd.DataFrame(cum_pos_returns, columns=[<span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;end&quot;</span>, <span class="hljs-string">&quot;profit&quot;</span>])
+profit</span></code></pre>
 <p>上述代码先找出反弹的时间，然后遍历之前得到的三元组，如果起始点的前一天是某个连续下跌区间的结束日，我们就计算这一组的收益。最终我们得到的收益预期是：</p>
-<pre><code class="language-python"># 抄底的收益期望是
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-comment"># 抄底的收益期望是</span>
 
 exp_win = profit.profit.mean()
-exp_win
-</code></pre>
+exp_win</span></code></pre>
 <p>这个预期是3.299%。看上去与抄底失败的预期损失差不多，但是，计算赔率时，我们要加上实现概率：</p>
 <p>$$
 exp_win * 91.38% / (exp_lose * 8.62%) = 10.03%

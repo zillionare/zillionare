@@ -26,63 +26,60 @@
 </ol>
 <!--PAID CONTENT START-->
 <p>这些因子的实现如下：</p>
-<pre><code class="language-python">def d2_factor(df, win: int = 2)-&gt;pd.Series:
-    close = df.close/df.close[0]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">d2_factor</span>(<span class="hljs-params">df, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">2</span></span>)-&gt;pd.Series:
+    close = df.close/df.close[<span class="hljs-number">0</span>]
     d1 = close.diff()
     d2 = d1.diff()
     factor = d2.rolling(win).mean()
     
-    return factor
+    <span class="hljs-keyword">return</span> factor
 
-def rsi_factor(df, win: int = 6)-&gt;pd.Series:
-    return ta.RSI(df.close, win)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">rsi_factor</span>(<span class="hljs-params">df, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">6</span></span>)-&gt;pd.Series:
+    <span class="hljs-keyword">return</span> ta.RSI(df.close, win)
 
 
-def d1_factor(df, win: int = 20)-&gt;pd.Series:
-    df[&quot;log&quot;] = np.log(df.close)
-    df[&quot;diff&quot;] = df[&quot;log&quot;].diff()
-    return df[&quot;diff&quot;].rolling(win).mean() * -1
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">d1_factor</span>(<span class="hljs-params">df, win: <span class="hljs-built_in">int</span> = <span class="hljs-number">20</span></span>)-&gt;pd.Series:
+    df[<span class="hljs-string">&quot;log&quot;</span>] = np.log(df.close)
+    df[<span class="hljs-string">&quot;diff&quot;</span>] = df[<span class="hljs-string">&quot;log&quot;</span>].diff()
+    <span class="hljs-keyword">return</span> df[<span class="hljs-string">&quot;diff&quot;</span>].rolling(win).mean() * -<span class="hljs-number">1</span>
 
-def week_day(dt: pd.DatetimeIndex)-&gt;pd.Series:
-    return dt.weekday
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">week_day</span>(<span class="hljs-params">dt: pd.DatetimeIndex</span>)-&gt;pd.Series:
+    <span class="hljs-keyword">return</span> dt.weekday</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>训练数据使用了2018年以来，到2023年底，共6年的数据，随机抽取2000支个股作为样本池。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">start = datetime.date(2023, 1, 1)
-end = datetime.date(2023, 12, 29)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">start = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+end = datetime.date(<span class="hljs-number">2023</span>, <span class="hljs-number">12</span>, <span class="hljs-number">29</span>)
 
-np.random.seed(78)
-barss = load_bars(start, end, 2000)
-</code></pre>
+np.random.seed(<span class="hljs-number">78</span>)
+barss = load_bars(start, end, <span class="hljs-number">2000</span>)</span></code></pre>
 <!--PAID CONTENT END-->
 
 <p>上述因子中，前三个因子都是时序因子。但我们挖掘这些因子时，都是通过alphalens进行挖掘的，alphalens通过分层对其进行了排序，所以，我们还要对上述因子按横截面进行排序，这样得到一些rank_*因子。这个方法相法于进行特征增广（Feature Augmentation）。</p>
 <!--PAID CONTENT START-->
-<pre><code class="language-python">features = {
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body">features = {
 }
 
-def rank_feature(feature):
-    return feature.groupby(level=0).rank(pct=True)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">rank_feature</span>(<span class="hljs-params">feature</span>):
+    <span class="hljs-keyword">return</span> feature.groupby(level=<span class="hljs-number">0</span>).rank(pct=<span class="hljs-literal">True</span>)
 
-for name, func in [(&quot;d2&quot;, d2_factor),
-                   (&quot;rsi&quot;, rsi_factor),
-                   (&quot;d1&quot;, d1_factor)]:
-    feature = barss.groupby(level=1).apply(d2_factor).droplevel(0)
+<span class="hljs-keyword">for</span> name, func <span class="hljs-keyword">in</span> [(<span class="hljs-string">&quot;d2&quot;</span>, d2_factor),
+                   (<span class="hljs-string">&quot;rsi&quot;</span>, rsi_factor),
+                   (<span class="hljs-string">&quot;d1&quot;</span>, d1_factor)]:
+    feature = barss.groupby(level=<span class="hljs-number">1</span>).apply(d2_factor).droplevel(<span class="hljs-number">0</span>)
     features[name] = feature
-    features[f&quot;rank_{name}&quot;] = rank_feature(feature)
+    features[<span class="hljs-string">f&quot;rank_<span class="hljs-subst">{name}</span>&quot;</span>] = rank_feature(feature)
 
-# 计算rank
+<span class="hljs-comment"># 计算rank</span>
 features = pd.DataFrame(features)
-features[&#39;weekday&#39;] = week_day(features.index.get_level_values(0))
+features[<span class="hljs-string">&#x27;weekday&#x27;</span>] = week_day(features.index.get_level_values(<span class="hljs-number">0</span>))
 
-for win in (1, 5, 10):
-    features[f&quot;ret_{win}&quot;] = barss.groupby(level=1)[&quot;price&quot;].pct_change(win)
+<span class="hljs-keyword">for</span> win <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>):
+    features[<span class="hljs-string">f&quot;ret_<span class="hljs-subst">{win}</span>&quot;</span>] = barss.groupby(level=<span class="hljs-number">1</span>)[<span class="hljs-string">&quot;price&quot;</span>].pct_change(win)
     
-features.dropna(how=&#39;any&#39;, inplace=True)
-features.tail()
-</code></pre>
+features.dropna(how=<span class="hljs-string">&#x27;any&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
+features.tail()</span></code></pre>
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
@@ -103,29 +100,27 @@ features.tail()
 </div>
 
 <p>按分类模型进行训练之前，我们还要把ret_1转换成分类标签。转换方法如下：</p>
-<pre><code class="language-python">from sklearn.model_selection import train_test_split
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
 
-X = features.filter(regex=&#39;^(?!ret_).*$&#39;)
-y = np.select((features[&quot;ret_1&quot;] &gt; 0.01, 
-               features[&quot;ret_1&quot;] &lt; -0.01), 
-              (1, 2), default=0)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-</code></pre>
+X = features.<span class="hljs-built_in">filter</span>(regex=<span class="hljs-string">&#x27;^(?!ret_).*$&#x27;</span>)
+y = np.select((features[<span class="hljs-string">&quot;ret_1&quot;</span>] &gt; <span class="hljs-number">0.01</span>, 
+               features[<span class="hljs-string">&quot;ret_1&quot;</span>] &lt; -<span class="hljs-number">0.01</span>), 
+              (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), default=<span class="hljs-number">0</span>)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>)</span></code></pre>
 <p>我们把涨幅大于1%的标注为类别『1』，跌幅大于1%的标为类别『2』，其余的打上标签『0』。标签0也可以认为是无法归类。</p>
 <p>通过下面的代码进行训练：</p>
-<pre><code class="language-python">from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, classification_report
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, classification_report
 
-# 初始化并训练模型
-clf = DecisionTreeClassifier(random_state=42)
+<span class="hljs-comment"># 初始化并训练模型</span>
+clf = DecisionTreeClassifier(random_state=<span class="hljs-number">42</span>)
 clf.fit(X_train, y_train)
 
-# 预测并评估模型
+<span class="hljs-comment"># 预测并评估模型</span>
 y_pred = clf.predict(X_test)
 
-print(&quot;Accuracy:&quot;, accuracy_score(y_test, y_pred))
-print(&quot;Classification Report:\n&quot;, classification_report(y_test, y_pred))
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy:&quot;</span>, accuracy_score(y_test, y_pred))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Classification Report:\n&quot;</span>, classification_report(y_test, y_pred))</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-1.jpg" alt=""></p>
 <!-- END IPYNB STRIPOUT -->
@@ -135,25 +130,24 @@ print(&quot;Classification Report:\n&quot;, classification_report(y_test, y_pred
 <h2 id="再平衡欠采样后报告会不会很难看">再平衡！欠采样后，报告会不会很难看？</h2>
 <p>让我们先解决这个问题。我们可以采用一种名为欠采样(undersampling)的方法，分别抽取三类样本数中最小个数的样本数进行训练，这样一来，模型看到的训练数据就相对平衡了。</p>
 <p>尽管undersampling实现起来很简单，不过，我们还有更简单的方法，就是使用imbalance库：</p>
-<pre><code class="language-python">from imblearn.under_sampling import RandomUnderSampler
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body"><span class="hljs-keyword">from</span> imblearn.under_sampling <span class="hljs-keyword">import</span> RandomUnderSampler
 
-rus = RandomUnderSampler(random_state=42)
+rus = RandomUnderSampler(random_state=<span class="hljs-number">42</span>)
 X_resampled, y_resampled = rus.fit_resample(X, y)
 
 X_train_resampled, X_test_resampled, y_train_resampled, y_test_resampled = train_test_split(
-    X_resampled, y_resampled, test_size=0.2, random_state=42
+    X_resampled, y_resampled, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>
 )
 
-# 训练模型
-clf_resampled = DecisionTreeClassifier(random_state=42)
+<span class="hljs-comment"># 训练模型</span>
+clf_resampled = DecisionTreeClassifier(random_state=<span class="hljs-number">42</span>)
 clf_resampled.fit(X_train_resampled, y_train_resampled)
 
-# 预测并评估模型
+<span class="hljs-comment"># 预测并评估模型</span>
 y_pred_resampled = clf_resampled.predict(X_test_resampled)
 
-print(&quot;Resampled Accuracy:&quot;, accuracy_score(y_test_resampled, y_pred_resampled))
-print(&quot;Resampled Classification Report:\n&quot;, classification_report(y_test_resampled, y_pred_resampled))
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Resampled Accuracy:&quot;</span>, accuracy_score(y_test_resampled, y_pred_resampled))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Resampled Classification Report:\n&quot;</span>, classification_report(y_test_resampled, y_pred_resampled))</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-2.jpg" alt=""></p>
 <!-- END IPYNB STRIPOUT -->
@@ -167,16 +161,15 @@ imblearn还提供另一种平衡数据的方法，称为SMOTE（Synthetic Minori
 <p>我们刚刚得到的结果无疑是超出预期的优秀！</p>
 <p>在欠采样平衡的版本中，如果<strong>模型预测次日买入会盈利，它的精确率是54%，也即在100次预测为盈利的情况下，有54次是正确的；而在余下的不正确的46次中，也只有18次是亏损，剩下的则是涨跌在1%以内的情况</strong>。</p>
 <p>这个分析数据可以通过confusion matrix得到：</p>
-<pre><code class="language-python">from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> confusion_matrix, ConfusionMatrixDisplay
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 cm = confusion_matrix(y_test_resampled, y_pred_resampled)
 
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf_resampled.classes_)
 disp.plot(cmap=plt.cm.Blues)
-plt.title(&#39;Confusion Matrix&#39;)
-plt.show()
-</code></pre>
+plt.title(<span class="hljs-string">&#x27;Confusion Matrix&#x27;</span>)
+plt.show()</span></code></pre>
 <!-- BEGIN IPYNB STRIPOUT -->
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-3.jpg" alt=""></p>
 <!-- END IPYNB STRIPOUT -->
@@ -207,34 +200,33 @@ plt.show()
 </div>
 
 
-<pre><code class="language-python">from sklearn.tree import DecisionTreeClassifier
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
 
-X = features.filter(regex=&#39;^(?!ret_).*$&#39;)
-y = np.select((features[&quot;ret_1&quot;] &gt; 0.01, 
-               features[&quot;ret_1&quot;] &lt; -0.01), 
-              (1, 2), default=0)
+X = features.<span class="hljs-built_in">filter</span>(regex=<span class="hljs-string">&#x27;^(?!ret_).*$&#x27;</span>)
+y = np.select((features[<span class="hljs-string">&quot;ret_1&quot;</span>] &gt; <span class="hljs-number">0.01</span>, 
+               features[<span class="hljs-string">&quot;ret_1&quot;</span>] &lt; -<span class="hljs-number">0.01</span>), 
+              (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), default=<span class="hljs-number">0</span>)
 
-n = len(X)
-X_train = X_train[:int(n*0.7)]
-y_train = y_train[:int(n*0.7)]
+n = <span class="hljs-built_in">len</span>(X)
+X_train = X_train[:<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.7</span>)]
+y_train = y_train[:<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.7</span>)]
 
-X_validation = X[int(n*0.7):int(n*0.9)]
-y_validation = y[int(n*0.7):int(n*0.9)]
+X_validation = X[<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.7</span>):<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.9</span>)]
+y_validation = y[<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.7</span>):<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.9</span>)]
 
-X_test = X[int(n*0.9):]
-y_test = y[int(n*0.9):]
+X_test = X[<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.9</span>):]
+y_test = y[<span class="hljs-built_in">int</span>(n*<span class="hljs-number">0.9</span>):]
 
 
-clf = DecisionTreeClassifier(random_state=42)
+clf = DecisionTreeClassifier(random_state=<span class="hljs-number">42</span>)
 clf.fit(X_train, y_train)
 
 y_pred = clf.predict(X_validation)
 
-from sklearn.metrics import accuracy_score, classification_report
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, classification_report
 
-print(&quot;Accuracy:&quot;, accuracy_score(y_validation, y_pred))
-print(&quot;Classification Report:\n&quot;, classification_report(y_validation, y_pred))
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy:&quot;</span>, accuracy_score(y_validation, y_pred))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Classification Report:\n&quot;</span>, classification_report(y_validation, y_pred))</span></code></pre>
 <!--027 6788 0230-->
 
 <!-- BEGIN IPYNB STRIPOUT -->

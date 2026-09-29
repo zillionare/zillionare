@@ -22,10 +22,9 @@
 _No code is the best way to write secure and reliable applications. Write nothing; deploy nowhere._
 </div>
 
-<pre><code>不写代码，就不会产生 bug，这真是极高的佛家智慧：菩提本无树，明镜亦非台，本来无一物，何处惹尘埃？不过，就是这样一个项目，还是被人提交了超过 3k 的 issues（当我们认为项目中存在 bug，或者有新的功能需求，就可以提出一个 issue），远超平均水平，这也算是程序员的幽默吧？
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">不写代码，就不会产生 bug，这真是极高的佛家智慧：菩提本无树，明镜亦非台，本来无一物，何处惹尘埃？不过，就是这样一个项目，还是被人提交了超过 3k 的 issues（当我们认为项目中存在 bug，或者有新的功能需求，就可以提出一个 issue），远超平均水平，这也算是程序员的幽默吧？
 
-&lt;div style=&quot;text-align:right&quot;&gt; - 摘自《Python能做大项目》&lt;/div&gt;
-</code></pre>
+&lt;div style=<span class="hljs-string">&quot;text-align:right&quot;</span>&gt; - 摘自《Python能做大项目》&lt;/div&gt;</span></code></pre>
 <p>要评论这样的项目，也必须儒释道兼修之：</p>
 <div class="admonition admonition-quote"><p class="admonition-title">quote</p>
 空即是色 色即是空
@@ -41,56 +40,50 @@ _No code is the best way to write secure and reliable applications. Write nothin
 <p>这个函数一般人不大用得到，但在游戏中做光影跟踪是必备。具体来说，大家还是看图吧：</p>
 <p>我也不想多解释了。看着这图，不像是做游戏，这简直就是程序员的头发。再研究多了，头发就更少了。</p>
 <p>总之，这行牛x的代码是这样的：</p>
-<pre><code class="language-c">i  = 0x5f3759df - ( i &gt;&gt; 1 );
-</code></pre>
+<pre><code class="hljs language-c"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">i  = <span class="hljs-number">0x5f3759df</span> - ( i &gt;&gt; <span class="hljs-number">1</span> );</span></code></pre>
 <p>代码作者是约翰.卡马克。它的牛x之处，在于作者以近科拉马努金似的直觉，发现了 0x5f3759df 这个常数。这个算法后来还被chatGPT抄走了。</p>
 <p>不过，既然咱们是讲量化的号，我们也讲一个量化中会用到的一行代码的例子。这个例子，在我们讲MPT那部分时提过。</p>
 <h2 id="1行狄利克雷分布">1行：狄利克雷分布</h2>
 <p>在使用蒙特卡洛方法求解MPT的有效前沿时，我们需要生成无数权重向量。如果有n个资产，我们需要这样生成：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-weights = np.array(np.random.random(len(stocks)))
-weights = weights/np.sum(weights)  
-</code></pre>
+weights = np.array(np.random.random(<span class="hljs-built_in">len</span>(stocks)))
+weights = weights/np.<span class="hljs-built_in">sum</span>(weights)  </span></code></pre>
 <p>第2行是必须的，因为我们要确保各项资产权重之和加起来为1。但我们可以使用狄利克雷分布一行代码搞定：</p>
-<pre><code class="language-python">from numpy.random import dirichlet
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> numpy.random <span class="hljs-keyword">import</span> dirichlet
 
-w = dirichlet(np.ones(n), n)
-</code></pre>
+w = dirichlet(np.ones(n), n)</span></code></pre>
 <h2 id="2行-shuffle">2行： shuffle</h2>
 <p>对于给定的 n 个元素，生成一个排列，使得每一个元素都能等概率地出现在每一个位置。这就是shuffle算法的魔力。</p>
-<pre><code class="language-java">for(int i = n - 1; i &gt;= 0 ; i -- )
-    // rand(0, i) 生成 [0, i] 之间的随机整数
-    swap(arr[i], arr[rand(0, i)]) 
-</code></pre>
+<pre><code class="hljs language-java"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> ; i -- )
+    <span class="hljs-comment">// rand(0, i) 生成 [0, i] 之间的随机整数</span>
+    swap(arr[i], arr[rand(<span class="hljs-number">0</span>, i)]) </span></code></pre>
 <p>不过，相对于0和1行而言，这个算法朴素太多了。随机数生成、抽样在量化中使用得非常普遍。这里我们举一个偏应用一点的例子，</p>
 <p>两行代码求出maxdrawdown的区间：</p>
-<pre><code class="language-python">import numpy as np
-# close是收盘价序列
-# 最大回撤结束的位置 最低的那个位置
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-comment"># close是收盘价序列</span>
+<span class="hljs-comment"># 最大回撤结束的位置 最低的那个位置</span>
 i = np.argmax((np.maximum.accumulate(close) - close))
-# 回撤开始的位置 最高的那个点
-j = np.argmax(data[&#39;close&#39;][:i])  
-</code></pre>
+<span class="hljs-comment"># 回撤开始的位置 最高的那个点</span>
+j = np.argmax(data[<span class="hljs-string">&#x27;close&#x27;</span>][:i])  </span></code></pre>
 <h2 id="4行"><del>4行</del></h2>
 <p>发挥空间太大了，我们就不讲例子了。不过，这里给一个量化中常用的时间算法。我们在做特征提取、回测时常常要指定周期。在提取行情数据时，又需要知道起始时间，那么，在知道结束日期，要算出n个周期以前是哪个时间，怎么计算？</p>
 <p>如果要求计算的是日线，这个计算不算复杂，但你必须有交易日历，这样才能排除掉休市日。</p>
 <p>如果要求计算的是分钟线别的线，比如30分钟线，这个计算就比较复杂。我们不仅要考虑到休市日，还要考虑到跨天的情况。zillionare量化框架提供了一个空间换时间的算法。它先根据周期n，将30分钟的tick展开，并与日期合并，这样计算就变成了线性的：</p>
-<pre><code class="language-python">tm = moment.hour * 60 + moment.minute
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">tm = moment.hour * <span class="hljs-number">60</span> + moment.minute
 
 new_tick_pos = cls.ticks[frame_type].index(tm) + n
-days = new_tick_pos // len(cls.ticks[frame_type])
-min_part = new_tick_pos % len(cls.ticks[frame_type])
-</code></pre>
+days = new_tick_pos // <span class="hljs-built_in">len</span>(cls.ticks[frame_type])
+min_part = new_tick_pos % <span class="hljs-built_in">len</span>(cls.ticks[frame_type])
+</span></code></pre>
 <hr>
 <hr>
-<pre><code class="language-python">date_part = cls.day_shift(moment.date(), days)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">date_part = cls.day_shift(moment.date(), days)
 minutes = cls.ticks[frame_type][min_part]
-h, m = minutes // 60, minutes % 60
-</code></pre>
+h, m = minutes // <span class="hljs-number">60</span>, minutes % <span class="hljs-number">60</span>
+</span></code></pre>
 <p>代码使用的ticks数组，在30分钟级别是这样的：</p>
-<pre><code>ticks = [600, 630, ..., 900]
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">ticks = [600, 630, ..., 900]</span></code></pre>
 <p>600即早上10点。这里用了一个day_shift函数，它就是简单地使用交易日历进行搜索。最终我们还做了一个优化，通过求模运算代替了实际上的ticks数组展开，从而把空间也省了下来。这在<code>n</code>比较大的时候，还是非常有用的。</p>
 <p>做量化会有不少底层工具函数要写，如果自己没时间，也可以参考zillionare量化框架的代码。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <span></span> <a class="series-next" href="/posts/python/duckdb-2/">下一篇：为什么量化人应该使用duckdb？ →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 14/96 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/顶底标注/">← 为了机器能学习，我标注了 2 万条行</a> <a href="/articles/python/best-practice-python/chap01/">01 为什么要学 Python →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/关于寻找顶和底的一些思考/">关于寻找顶和底的一些研究</a> <p>scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法：</p> </li><li> <a href="/articles/python/best-practice-python/chap04/">04 项目布局和项目生成向导</a> <p>通过前三章的学习，我们了解了如何构建开发环境，并且也完成了一个最简单的 python 程序 —— Hello World。</p> </li><li> <a href="/articles/python/best-practice-python/chap06/">06 10 倍速！高效编码</a> <p>传统上，IDE 的重要功能之一，就是代码自动完成、语法高亮、文档提示、错误诊断等等。随着人类进入深度学习时代，AI 辅助编码则让程序员如虎添翼。</p> </li><li> <a href="/articles/python/best-practice-python/chap07/">07 代码单元测试</a> <p>!!! quote Testing leads to failure. Failure leads to understanding.</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#0行-no-code" title="0行: No Code">0行: No Code</a> </li><li class> <a href="#1行雷神之锤" title="1行：雷神之锤">1行：雷神之锤</a> </li><li class> <a href="#1行狄利克雷分布" title="1行：狄利克雷分布">1行：狄利克雷分布</a> </li><li class> <a href="#2行-shuffle" title="2行： shuffle">2行： shuffle</a> </li><li class> <a href="#4行" title="4行">4行</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

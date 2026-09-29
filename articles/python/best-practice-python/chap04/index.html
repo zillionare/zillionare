@@ -24,8 +24,7 @@
 _No code is the best way to write secure and reliable applications. Write nothing; deploy nowhere._
 </div>
 
-<pre><code>不写代码，就不会产生 bug，这真是极高的佛家智慧：菩提本无树，明镜亦非台，本来无一物，何处惹尘埃？不过，就是这样一个项目，还是被人提交了超过 3k 的 issues（当我们认为项目中存在 bug，或者有新的功能需求，就可以提出一个 issue），远超平均水平，这也算是程序员的幽默吧？
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">不写代码，就不会产生 bug，这真是极高的佛家智慧：菩提本无树，明镜亦非台，本来无一物，何处惹尘埃？不过，就是这样一个项目，还是被人提交了超过 3k 的 issues（当我们认为项目中存在 bug，或者有新的功能需求，就可以提出一个 issue），远超平均水平，这也算是程序员的幽默吧？</span></code></pre>
 <p>还有很多很多。一个完整的项目，除了提供最核心的程序功能之外，还必然涉及产品质量控制（包括单元测试、代码风格控制等）、版权、发布历史、制作分发包等杂务，从而也就在实现功能的源代码之外，引入了许多其它文件。这些文件应该如何组织？有没有基本的命名规范？是否有工程模板可以套用，或者可以通过工具来生成？这一章将为您解答这些问题。</p>
 <p>这一章将介绍规范的项目布局应该具有什么样的目录视图，并在最后介绍了一个遵循社区最新规范的、生成 Python 工程框架的向导工具。</p>
 <p>项目文件布局必须遵循一定的规范。这有两方面的考虑，一是项目文件布局是项目给人的第一印象，一个布局混乱的项目，会吓跑潜在的用户和贡献者；遵循规范的项目文件布局，可以让他人更容易上手；二来，构建工具、测试工具等工具也依赖于一定的文件结构。如果文件结构没有一定的规范，则必然要对每个工具进行一定的配置，才能使其工作。过多的配置项往往会引起错误，增加学习成本。</p>
@@ -37,7 +36,7 @@ _No code is the best way to write secure and reliable applications. Write nothin
 <h2 id="1-标准项目布局">1. 标准项目布局</h2>
 <p>首先，我们介绍一个经典的 Python 项目布局，由 Kenneth Reitz[^kenneth] 推荐。他是著名的 Python http 库<code>request</code>和<code>pipenv</code>的作者。</p>
 <p>这个布局如下面所示：</p>
-<pre><code class="language-text">├── sample
+<pre><code class="hljs language-text"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span></span><span class="cl-body">├── sample
 │   ├── AUTHORS.rst
 │   ├── docs
 |   |   ├── conf.py
@@ -53,8 +52,7 @@ _No code is the best way to write secure and reliable applications. Write nothin
 │   │   └── helper.py
 |   ├── setup.cfg
 |   ├── setup.py
-│   └── tests
-</code></pre>
+│   └── tests</span></code></pre>
 <p>下面我们来逐一解释。</p>
 <h3 id="11-一般性文档">1.1. 一般性文档</h3>
 <h4>1.1.1. 项目说明文档</h4>
@@ -85,17 +83,15 @@ _No code is the best way to write secure and reliable applications. Write nothin
 </div>
 
 <p>按照上面的目录视图制作出来的发行包，包名字会是 sample。当我们要使用 sample 中模块的功能时，可以这样导入：</p>
-<pre><code class="language-python"># 注意， `IMPORT *`一般来说是一种不好的语法，这里这样使用，是为了方便示例。
-from sample.helper import *
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment"># 注意， `IMPORT *`一般来说是一种不好的语法，这里这样使用，是为了方便示例。</span>
+<span class="hljs-keyword">from</span> sample.helper <span class="hljs-keyword">import</span> *</span></code></pre>
 <div class="admonition admonition-readmore"><p class="admonition-title">readmore</p>
 Pypa 在 [sampleproject](https://github.com/pypa/sampleproject) 中给出了另一种文件结构，在这里`sample`放在 src 目录下。
 </div>
 
-<pre><code>我们在上一章中提到过，pypa 就是 pypi 的开发者，python 分发包事实上的标准。因此他们的趣向也会影响到其它开发者。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">我们在上一章中提到过，pypa 就是 pypi 的开发者，python 分发包事实上的标准。因此他们的趣向也会影响到其它开发者。
 
-可以肯定的是，无论如何，代码目录名必须是 package 名字，而不能为其它。至于要不要在其上再加一层 src/目录，目前还存在一些争议。但是，一旦您的工程确定了目录结构，此后就不要修改，否则，会涉及到大量文件需要修改，因为这跟导入密切相关。
-</code></pre>
+可以肯定的是，无论如何，代码目录名必须是 package 名字，而不能为其它。至于要不要在其上再加一层 src/目录，目前还存在一些争议。但是，一旦您的工程确定了目录结构，此后就不要修改，否则，会涉及到大量文件需要修改，因为这跟导入密切相关。</span></code></pre>
 <h3 id="15-单元测试文件目录">1.5. 单元测试文件目录</h3>
 <p>单元测试文件的目录名一般为 tests。这也是许多测试框架和工具默认的文件夹位置。</p>
 <h3 id="16-makefile">1.6. Makefile</h3>
@@ -117,8 +113,7 @@ Pypa 在 [sampleproject](https://github.com/pypa/sampleproject) 中给出了另�
 
 </div>
 
-<pre><code>一些工具的默认配置可能会相互冲突，这也是很常见的现象。因为大家对什么是最优的技术路线都有自己的理解。比如 flake8 与 black 之间，对什么是正确的代码格式，有一些地方看法就不一致，从而导致有时候 black 格式化的代码，总是通不过 flake8 的检查。因此，如何使得工具之间相互协调，也是新建项目时比较费时费力的事。
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">一些工具的默认配置可能会相互冲突，这也是很常见的现象。因为大家对什么是最优的技术路线都有自己的理解。比如 flake8 与 black 之间，对什么是正确的代码格式，有一些地方看法就不一致，从而导致有时候 black 格式化的代码，总是通不过 flake8 的检查。因此，如何使得工具之间相互协调，也是新建项目时比较费时费力的事。</span></code></pre>
 <p>下面，我们就结合项目生成向导，来介绍更多的配置文件。</p>
 <h2 id="2-项目生成向导---python-project-wizard">2. 项目生成向导 - Python Project Wizard</h2>
 <p>如果您有其它语言的开发经验，您会发现像 visual studio， 或者 IntelliJ 这样的开发工具有较好的向导，您只需要点击一些按钮，填写一些信息，就能立刻生成一个能编译的项目。在 Python 世界中，很遗憾还没有任何一个开发工具（无论是 vscode 还是 pycharm) 提供这样的功能。</p>
@@ -152,26 +147,22 @@ Click 是 Pallets[^Pallets] 项目组开源的一款命令行工具。Pallets �
 这里提到了很多概念，很可能有一些您还是第一次接触。我们先介绍一小部分。
 </div>
 
-<pre><code>什么是构建物 (artifact) 测试？当您发布构建好的程序库到 PyPI 时，有可能因为格式问题被拒绝，这将会导致持续集成流程失败。一个名为 Twine 工具可以对 artifact 进行检查，提前发现这种错误。
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">什么是构建物 (artifact) 测试？当您发布构建好的程序库到 PyPI 时，有可能因为格式问题被拒绝，这将会导致持续集成流程失败。一个名为 Twine 工具可以对 artifact 进行检查，提前发现这种错误。
 
 Python安装工具支持将命令行工具console scripts添加到发布包中。如此一来，在我们开发的Python库安装之后，就可以直接从命令行调用，就像原生的shell命令一样。
 
-为什么要通过 CI 来进行版本发布？从开发机器上进行发布有很大的随意性，难以确保发布包的质量。当您的代码签入到 main/master 分支，通过测试后，您给分支打上 tag，这时就会触发自动发布。这样发布的包可以确保质量，并且每一次发布，都确保了源代码、版本号与发布的构建物完全一致，可以追溯。
-</code></pre>
+为什么要通过 CI 来进行版本发布？从开发机器上进行发布有很大的随意性，难以确保发布包的质量。当您的代码签入到 main/master 分支，通过测试后，您给分支打上 tag，这时就会触发自动发布。这样发布的包可以确保质量，并且每一次发布，都确保了源代码、版本号与发布的构建物完全一致，可以追溯。</span></code></pre>
 <p>从上面的功能介绍可以看出，Python Project Wizard 不仅仅帮助我们生成项目的初始布局，它还是一系列规范和流程的倡导者，并通过工具配置和自动化，使得这些规范和流程在开发过程中被严格遵循。如果您不遵循这些规范，那么，您的代码将不会被签入代码仓库，也永远不能自动发布到 pypi 上面。</p>
 <p>这个向导工具的文档在 <a href="https://zillionare.github.io/python-project-wizard/">这里</a>。</p>
 <h2 id="3-如何使用项目生成向导">3. 如何使用项目生成向导</h2>
 <h3 id="31-安装-python-project-wizard-ppw">3.1. 安装 python project wizard (ppw)</h3>
 <p>首先，为我们的新工程创建一个虚拟环境，就叫 sample 好了：</p>
-<pre><code class="language-bash">conda create -n sample python=3.10
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">conda create -n sample python=3.10</span></code></pre>
 <p>然后，在 sample 虚拟环境下，运行下面的命令：</p>
-<pre><code>pip install ppw
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install ppw</span></code></pre>
 <h3 id="32-生成项目框架">3.2. 生成项目框架</h3>
 <p>现在，我们可以使用<code>ppw</code>来创建一个项目。</p>
-<pre><code>ppw
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">ppw</span></code></pre>
 <p>这里会提示输入一些信息。</p>
 <p>注意 project_slug 是 github repo 的名字，默认也是您的程序库的名字。这个名字中间不能有空格和&quot;-&quot;。</p>
 <p>最后，ppw 提示你，是否要创建开发环境，默认是&#39;yes&#39;。它将为您安装 pre-commit hooks, 安装 poetry 和项目依赖。如果您不清楚这意味着什么，别担心，我们将在稍后的章节中进行讲解。</p>
@@ -183,24 +174,22 @@ Python安装工具支持将命令行工具console scripts添加到发布包中�
 <p>如果您在 ppw 生成命令时，选择了 init_dev_env 的话，同 pre-commit hooks 一样，这一步也自动运行过了。</p>
 <p>我们在前面介绍过依赖冲突问题。解决办法之一就是为每一个项目创建一个单独的运行环境。尽管如此，对一些大型项目，即使您掌控一切，但冲突仍然可能发生。有一些冲突，是由于我们开发过程中引入的各种工具包造成的，这些工具包并不需要发布到最终用户那里，因此，我们可以采用依赖分组，只在开发或者测试环境下安装这些可能导致冲突的工具包。</p>
 <p>Python project wizard 创建的模板正是这样做的。它使用了 Poetry 来进行项目管理，并将项目的开发依赖分成 dev, test, doc 等三个组，这样依赖的粒度更小一些。作为开发者，应该同时安装这三组依赖。</p>
-<pre><code>pip install poetry
-poetry install -E doc -E test -E dev
-tox
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">pip install poetry
+poetry install -E doc -E <span class="hljs-built_in">test</span> -E dev
+tox</span></code></pre>
 <p>在安装好开发依赖之后，我们立即运行了<code>tox</code>命令，对新生成的框架程序进行测试。命令最后会给出一个测试报告和 lint report。不出意外，这里不应该有任何错误（但可能会有重新格式化的警告）。</p>
 <h3 id="35-创建-github-repo">3.5. 创建 Github Repo</h3>
 <p>现在，我们已经有了一个结构良好的框架程序，您可以立刻基于它进行功能开发。但是，一个完整的开发流程，还至少包括代码管理、CI 和发布。我们接下来看看应该如何处理这一部分。</p>
 <p>我们使用 github 作为代码仓库。您也可以使用 gitlab 或者其它的代码仓库。但是，github 是一个免费的服务，人人都能使用，也无须安装设置。因此，在本书中，我们都尽可能地使用这些免费服务。</p>
 <p>登录到 github, 创建一个名为 sample 的 repo（sample 即为 project_slug)。然后在本机进入 sample 目录，执行以下操作：</p>
-<pre><code>cd sample
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">cd sample
 
 # GIT INIT
-git add .
-git commit -m &quot;Initial skeleton.&quot;
-git branch -M main
-git remote add origin git@github.com:myusername/sample.git
-git push -u origin main
-</code></pre>
+git <span class="hljs-keyword">add</span> .
+git <span class="hljs-keyword">commit</span> <span class="hljs-operator">-</span>m &quot;Initial skeleton.&quot;
+git branch <span class="hljs-operator">-</span>M main
+git remote <span class="hljs-keyword">add</span> origin git<span class="hljs-variable">@github</span>.com:myusername<span class="hljs-operator">/</span>sample.git
+git push <span class="hljs-operator">-</span>u origin main</span></code></pre>
 <h3 id="36-进行发布测试">3.6. 进行发布测试</h3>
 <p>现在，您可以通过向 testpypi 进行发布来测试构建过程。当然，您也可以暂时忽略这一步</p>
 <p>关于这一步，请参见 <a href="https://zillionare.github.io/python-project-wizard/tutorial/">文档</a></p>
@@ -220,35 +209,34 @@ git push -u origin main
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221225094224.png" alt=""></p>
 <h3 id="310-github-自动化脚本">3.10. Github 自动化脚本</h3>
 <p>对初次使用 github 的人来说，从创建 git 仓库开始的一些操作可能会比较困难；即使是对熟练使用 github 的人，这些步骤也会比较繁琐易错。因此，在 python project wizard 创建的项目中，都会存在一个 repo.sh 脚本：</p>
-<pre><code class="language-bash">#!/bin/bash
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span></span><span class="cl-body"><span class="hljs-meta">#!/bin/bash</span>
 
-# !!!NOTICE!!
-# Personal token with full access rights is required to run this scripts
-# Once you got persona token, set enviroment variable GH_TOKEN with it
+<span class="hljs-comment"># !!!NOTICE!!</span>
+<span class="hljs-comment"># Personal token with full access rights is required to run this scripts</span>
+<span class="hljs-comment"># Once you got persona token, set enviroment variable GH_TOKEN with it</span>
 
-# Create repo and push code to github
+<span class="hljs-comment"># Create repo and push code to github</span>
 gh repo create {{cookiecutter.project_slug}} --public
 git remote add origin git@github.com:{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}.git
 git add .
 pre-commit run --all-files
 git add .
-git commit -m &quot;Initial commit by ppw&quot;
+git commit -m <span class="hljs-string">&quot;Initial commit by ppw&quot;</span>
 git branch -M main
 
-# Config github secret used by github workflow. 
-gh secret set PERSONAL_TOKEN --body $GH_TOKEN
-gh secret set PYPI_API_TOKEN --body $PYPI_API_TOKEN
-gh secret set TEST_PYPI_API_TOKEN --body $TEST_PYPI_API_TOKEN
+<span class="hljs-comment"># Config github secret used by github workflow. </span>
+gh secret <span class="hljs-built_in">set</span> PERSONAL_TOKEN --body <span class="hljs-variable">$GH_TOKEN</span>
+gh secret <span class="hljs-built_in">set</span> PYPI_API_TOKEN --body <span class="hljs-variable">$PYPI_API_TOKEN</span>
+gh secret <span class="hljs-built_in">set</span> TEST_PYPI_API_TOKEN --body <span class="hljs-variable">$TEST_PYPI_API_TOKEN</span>
 
-# uncomment the following if you need to setup email notification
-# gh secret set BUILD_NOTIFY_MAIL_SERVER --body $BUILD_NOTIFY_MAIL_SERVER
-# gh secret set BUILD_NOTIFY_MAIL_PORT --body $BUILD_NOTIFY_MAIL_PORT
-# gh secret set BUILD_NOTIFY_MAIL_FROM --body $BUILD_NOTIFY_MAIL_FROM
-# gh secret set BUILD_NOTIFY_MAIL_PASSWORD --body $BUILD_NOTIFY_MAIL_PASSWORD
-# gh secret set BUILD_NOTIFY_MAIL_RCPT --body $BUILD_NOTIFY_MAIL_RCPT
+<span class="hljs-comment"># uncomment the following if you need to setup email notification</span>
+<span class="hljs-comment"># gh secret set BUILD_NOTIFY_MAIL_SERVER --body $BUILD_NOTIFY_MAIL_SERVER</span>
+<span class="hljs-comment"># gh secret set BUILD_NOTIFY_MAIL_PORT --body $BUILD_NOTIFY_MAIL_PORT</span>
+<span class="hljs-comment"># gh secret set BUILD_NOTIFY_MAIL_FROM --body $BUILD_NOTIFY_MAIL_FROM</span>
+<span class="hljs-comment"># gh secret set BUILD_NOTIFY_MAIL_PASSWORD --body $BUILD_NOTIFY_MAIL_PASSWORD</span>
+<span class="hljs-comment"># gh secret set BUILD_NOTIFY_MAIL_RCPT --body $BUILD_NOTIFY_MAIL_RCPT</span>
 
-git push -u origin main
-</code></pre>
+git push -u origin main</span></code></pre>
 <p>这个脚本帮助我们完成这些任务：</p>
 <ol>
 <li><p>创建github仓库，并将代码推送到github。</p>
@@ -268,7 +256,7 @@ git push -u origin main
 <p>一旦设置了这个token，您可以把它加入到自己开发机器上的环境变量中，然后在上面的脚本中引用它。此后，当您创建新的项目时，就可以不再打开github.com网页，而是直接通过上述脚本来完成创建新repo的工作。</p>
 <h3 id="311-ppw-生成的文件列表">3.11. ppw 生成的文件列表</h3>
 <p>现在，一个规范的新项目就已经创建好，您已经拥有了很多酷炫的功能，比如 CI，codecov, git pages，poetry，基于 markdown 的文档等等。这个新生成的项目，应该看起来象这样：</p>
-<pre><code class="language-text">.
+<pre><code class="hljs language-text"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span></span><span class="cl-body">.
 ├── .coveragerc
 ├── .docstring.tpl
 ├── .editorconfig
@@ -311,8 +299,7 @@ git push -u origin main
 ├── tests
 │   ├── __init__.py
 │   └── test_app.py
-└── tox.ini
-</code></pre>
+└── tox.ini</span></code></pre>
 <p>接下来，我们将带领您深入这些工具，了解为什么在众多工具中，选择了这一种，它们又应该如何配置，如何使用等等。</p>
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">

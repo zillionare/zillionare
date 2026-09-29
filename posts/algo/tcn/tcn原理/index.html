@@ -89,29 +89,28 @@ $$ \tilde{\mathbf{h}} = \mathbf{m} \odot \mathbf{h}, \quad m_i \sim \text{Bernou
 <p>Dropout 做的事，就是逼着模型不要依赖单一路径，而是去寻找在不同样本里都能重复出现的结构。</p>
 <p>你也可以把它理解成一种非常粗暴的模型集成：每次训练都在不同的子网络上进行，最后能稳定保留下来的，往往不是最花哨的信号，而是最不容易失真的那一类信号。</p>
 <p>说白了，TCN 不是比因果卷积“更高级”一点而已。它是在因果卷积的基础上，继续把两个问题补齐了：一个是怎么把更远的历史纳入进来，一个是网络变深以后怎么别把信号学坏。</p>
-<pre><code class="language-python">class TemporalResidualBlock(nn.Module):
-    def __init__(self, in_ch, out_ch, k, d, dropout=0.2):
-        super().__init__()
-        self.conv1 = CausalConv1D(in_ch, out_ch, k, d)
-        self.conv1.conv = nn.utils.weight_norm(self.conv1.conv)
-        self.relu1 = nn.ReLU()
-        self.drop1 = nn.Dropout(dropout)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TemporalResidualBlock</span>(nn.Module):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_ch, out_ch, k, d, dropout=<span class="hljs-number">0.2</span></span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        <span class="hljs-variable language_">self</span>.conv1 = CausalConv1D(in_ch, out_ch, k, d)
+        <span class="hljs-variable language_">self</span>.conv1.conv = nn.utils.weight_norm(<span class="hljs-variable language_">self</span>.conv1.conv)
+        <span class="hljs-variable language_">self</span>.relu1 = nn.ReLU()
+        <span class="hljs-variable language_">self</span>.drop1 = nn.Dropout(dropout)
         
-        self.conv2 = CausalConv1D(out_ch, out_ch, k, d)
-        self.conv2.conv = nn.utils.weight_norm(self.conv2.conv)
-        self.relu2 = nn.ReLU()
-        self.drop2 = nn.Dropout(dropout)
+        <span class="hljs-variable language_">self</span>.conv2 = CausalConv1D(out_ch, out_ch, k, d)
+        <span class="hljs-variable language_">self</span>.conv2.conv = nn.utils.weight_norm(<span class="hljs-variable language_">self</span>.conv2.conv)
+        <span class="hljs-variable language_">self</span>.relu2 = nn.ReLU()
+        <span class="hljs-variable language_">self</span>.drop2 = nn.Dropout(dropout)
         
-        self.res = nn.Conv1d(in_ch, out_ch, 1) if in_ch != out_ch else nn.Identity()
+        <span class="hljs-variable language_">self</span>.res = nn.Conv1d(in_ch, out_ch, <span class="hljs-number">1</span>) <span class="hljs-keyword">if</span> in_ch != out_ch <span class="hljs-keyword">else</span> nn.Identity()
 
-    def forward(self, x):
-        out = self.relu1(self.conv1(x))
-        out = self.drop1(out)
-        out = self.relu2(self.conv2(out))
-        out = self.drop2(out)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):
+        out = <span class="hljs-variable language_">self</span>.relu1(<span class="hljs-variable language_">self</span>.conv1(x))
+        out = <span class="hljs-variable language_">self</span>.drop1(out)
+        out = <span class="hljs-variable language_">self</span>.relu2(<span class="hljs-variable language_">self</span>.conv2(out))
+        out = <span class="hljs-variable language_">self</span>.drop2(out)
         
-        return nn.ReLU()(out + self.res(x))
-</code></pre>
+        <span class="hljs-keyword">return</span> nn.ReLU()(out + <span class="hljs-variable language_">self</span>.res(x))</span></code></pre>
 <p>回头看，TCN 真正打动我的地方，并不是它比 LSTM 多新潮，也不是它在某个数据集上多赢几个点，而是它把时间序列建模里几个最麻烦的问题拆得很清楚：</p>
 <p>先守住因果，再扩大视野，最后保证深度不会把原始信号毁掉。</p>
 <p>这也是为什么我后来越来越把它当成一个特征提取框架，而不是一个包治百病的预测神器。</p>

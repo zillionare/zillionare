@@ -33,30 +33,28 @@
 <p>说到子进程，subprocess 现在会更多地使用 posix_spawn 函数创建子进程，这将带来一些性能上的提升。</p>
 <h2 id="弃用版本管理">弃用版本管理</h2>
 <p>在 Python 中，弃用版本管理一直是通过第三方库来实现的。现在，这一特性终于被内置了：</p>
-<pre><code class="language-python">from warnings import deprecated
-from typing import overload
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">from</span> warnings <span class="hljs-keyword">import</span> deprecated
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> overload
 
-@deprecated(&quot;Use B instead&quot;)
-class A:
-    pass
+<span class="hljs-meta">@deprecated(<span class="hljs-params"><span class="hljs-string">&quot;Use B instead&quot;</span></span>)</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>:
+    <span class="hljs-keyword">pass</span>
 
-@deprecated(&quot;Use g instead&quot;)
-def f():
-    pass
+<span class="hljs-meta">@deprecated(<span class="hljs-params"><span class="hljs-string">&quot;Use g instead&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>():
+    <span class="hljs-keyword">pass</span>
 
-@overload
-@deprecated(&quot;int support is deprecated&quot;)
-def g(x: int) -&gt; int: ...
-@overload
-def g(x: str) -&gt; int: ...
-</code></pre>
+<span class="hljs-meta">@overload</span>
+<span class="hljs-meta">@deprecated(<span class="hljs-params"><span class="hljs-string">&quot;int support is deprecated&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">g</span>(<span class="hljs-params">x: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>: ...
+<span class="hljs-meta">@overload</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">g</span>(<span class="hljs-params">x: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>: ...</span></code></pre>
 <p>不过，第三方库 deprecation 似乎仍然在功能上更胜一筹。这是 deprecation 的用法：</p>
-<pre><code class="language-python">from deprecation import deprecated
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">from</span> deprecation <span class="hljs-keyword">import</span> deprecated
 
-@deprecated(&quot;2.0.0&quot;, details=&quot;use function `bar` instead&quot;)
-def foo(*args):
-    pass
-</code></pre>
+<span class="hljs-meta">@deprecated(<span class="hljs-params"><span class="hljs-string">&quot;2.0.0&quot;</span>, details=<span class="hljs-string">&quot;use function `bar` instead&quot;</span></span>)</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">*args</span>):
+    <span class="hljs-keyword">pass</span></span></code></pre>
 <h2 id="你就是列文虎克">你就是列文。虎克！</h2>
 <p>这是网上的一个梗，说的是有些人看图特别仔细，拿着显微镜找 bug。列文。虎克就是发明显微镜的人。10月24日也是他的生日。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/abstract-raindrop.jpg" alt=""></p>

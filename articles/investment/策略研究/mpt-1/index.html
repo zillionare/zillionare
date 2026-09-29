@@ -55,86 +55,82 @@ $$</p>
 <li>如何计算夏普率、波动率等指标。</li>
 </ol>
 <p>假定我们的资产组合是：</p>
-<pre><code>600519 贵州茅台
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">600519 贵州茅台
 300750 宁德时代
 300059 东方财富
-601398 工商银行
-</code></pre>
+601398 工商银行</span></code></pre>
 <p>我们通过下面的代码获得它们近一年的收益，保存在 returns dataframe 中：</p>
-<pre><code class="language-python">import arrow
-import akshare as ak
-import pandas as pd
-import numpy as np
-from IPython.display import display
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body"><span class="hljs-keyword">import</span> arrow
+<span class="hljs-keyword">import</span> akshare <span class="hljs-keyword">as</span> ak
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> display
 
 
-stocks = [&quot;600519&quot;, &quot;300750&quot;, &quot;300059&quot;, &quot;601398&quot;]
+stocks = [<span class="hljs-string">&quot;600519&quot;</span>, <span class="hljs-string">&quot;300750&quot;</span>, <span class="hljs-string">&quot;300059&quot;</span>, <span class="hljs-string">&quot;601398&quot;</span>]
 
 frames = {}
 
 now = arrow.now()
-start = now.shift(years = -1)
-end = now.format(&quot;YYYYMMDD&quot;)
-start = start.format(&quot;YYYYMMDD&quot;)
+start = now.shift(years = -<span class="hljs-number">1</span>)
+end = now.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;YYYYMMDD&quot;</span>)
+start = start.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;YYYYMMDD&quot;</span>)
 
-for code in stocks:
+<span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> stocks:
     bars = ak.stock_zh_a_hist(symbol=code, 
-                              period=&quot;daily&quot;, 
+                              period=<span class="hljs-string">&quot;daily&quot;</span>, 
                               start_date=start, 
                               end_date=end, 
-                              adjust=&quot;qfq&quot;)
+                              adjust=<span class="hljs-string">&quot;qfq&quot;</span>)
     
-    bars.index = pd.to_datetime(bars[&quot;日期&quot;])
-    frames[code] = bars[&quot;收盘&quot;]
+    bars.index = pd.to_datetime(bars[<span class="hljs-string">&quot;日期&quot;</span>])
+    frames[code] = bars[<span class="hljs-string">&quot;收盘&quot;</span>]
 
 prices = pd.DataFrame(frames)
 returns = prices.pct_change()
 
-returns.dropna(how=&#39;any&#39;, inplace=True)
-display(returns.head().style.format(&#39;{:,.2%}&#39;))
-</code></pre>
+returns.dropna(how=<span class="hljs-string">&#x27;any&#x27;</span>, inplace=<span class="hljs-literal">True</span>)
+display(returns.head().style.<span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;{:,.2%}&#x27;</span>))</span></code></pre>
 <p>这段代码我们在前一篇文章讲 CAPM 时已经见过了。</p>
 <p>接下来，我们先随机分配一个权重（这是蒙特卡洛方法的第一步），计算出它的夏普率：</p>
-<pre><code class="language-python">import numpy as np
-from empyrical import sharpe_ratio
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> empyrical <span class="hljs-keyword">import</span> sharpe_ratio
 
-weights = np.array(np.random.random(4))
-print(&#39;Random Weights:&#39;)
-print(weights)
+weights = np.array(np.random.random(<span class="hljs-number">4</span>))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Random Weights:&#x27;</span>)
+<span class="hljs-built_in">print</span>(weights)
 
-print(&#39;\nRebalance&#39;)
-weights = weights/np.sum(weights)
-print(weights)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;\nRebalance&#x27;</span>)
+weights = weights/np.<span class="hljs-built_in">sum</span>(weights)
+<span class="hljs-built_in">print</span>(weights)
 
-# 生成每日每个标的对组合的贡献
+<span class="hljs-comment"># 生成每日每个标的对组合的贡献</span>
 weighted_returns = weights * returns
 weighted_returns.head()
 
-# 把每一行按列加总，就得到了每日资产收益
-port_returns = weighted_returns.sum(axis=1)
+<span class="hljs-comment"># 把每一行按列加总，就得到了每日资产收益</span>
+port_returns = weighted_returns.<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>)
 
-# 然后计算组合资产的波动
+<span class="hljs-comment"># 然后计算组合资产的波动</span>
 cov = np.cov(port_returns.T)
-port_vol = np.sqrt(np.dot(np.dot(weights, cov), weights.T)) # 0.01
+port_vol = np.sqrt(np.dot(np.dot(weights, cov), weights.T)) <span class="hljs-comment"># 0.01</span>
 
-# 使用 sharpe_ratio来计算夏普率
-sr = sharpe_ratio(port_returns) # 0.18
+<span class="hljs-comment"># 使用 sharpe_ratio来计算夏普率</span>
+sr = sharpe_ratio(port_returns) <span class="hljs-comment"># 0.18</span>
 
-print(&quot;Sharpe Ratio and Vol&quot;)
-print(f&quot;{sr:.2f} {port_vol:.2f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Sharpe Ratio and Vol&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{sr:<span class="hljs-number">.2</span>f}</span> <span class="hljs-subst">{port_vol:<span class="hljs-number">.2</span>f}</span>&quot;</span>)</span></code></pre>
 <p>在代码中，我们先是随机生成了一个权重矩阵，然后对它进行了归一化（权重矩阵各项之和必须为 1）。</p>
 <p>一些文章会使用对数收益率。但是，在计算方差时，多数人倾向于几何方差是没有意义的（从 google 搜索结果看）。</p>
 <p>我们使用了 empyrical 中的 sharpe_ratio 方法来计算夏普率，为简单起见，我们将 risk_free 利率设置为 0。 empyrical 是用来计算策略各项指标，如夏普率、sortino、maxdrawdown 等指标的工具，由 quantpian 开发并开源。像这样的常用量化库，在<strong>大富翁量代交易课程</strong>中都有介绍。</p>
 <p>最终，我们得到以下结果：</p>
-<pre><code>Random Weights:
-[0.48349071 0.32903015 0.85308562 0.64038565]
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-attr">Random Weights:</span>
+[<span class="hljs-number">0.48349071</span> <span class="hljs-number">0.32903015</span> <span class="hljs-number">0.85308562</span> <span class="hljs-number">0.64038565</span>]
 
-Rebalance
-[0.20966711 0.14268485 0.36994299 0.27770505]
-Sharpe Ratio and Vol
-0.72 0.01
-</code></pre>
+<span class="hljs-string">Rebalance</span>
+[<span class="hljs-number">0.20966711</span> <span class="hljs-number">0.14268485</span> <span class="hljs-number">0.36994299</span> <span class="hljs-number">0.27770505</span>]
+<span class="hljs-string">Sharpe</span> <span class="hljs-string">Ratio</span> <span class="hljs-string">and</span> <span class="hljs-string">Vol</span>
+<span class="hljs-number">0.72</span> <span class="hljs-number">0.01</span></span></code></pre>
 <p>最终我们得到了该资产组合的夏普率为 0.72。一般认为，如果我们投资的是指数或者权重股，那么夏普超过 1 是可以接受的投资；对其它高风险权益类投资，一般要超过 1.8，但很少有资产能超过 3。在<strong>大富翁量化交易课程</strong>里，我们通过蒙特卡洛方法讨论了夏普率与最大回撤之间的关系，即夏普率为 1 时，对应的最大回撤为多少是可能出现的；夏普率为 2 时，对应的最大回撤为多少是可能出现的，等等。</p>
 <p>一切准备工作都已就绪，接下来我们将介绍如何使用蒙特卡洛方法来求得上述资产组合的最优配置。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/investment/策略研究/capm/">← 上一篇：资本资产定价模型</a> <a class="series-next" href="/articles/investment/策略研究/mpt-2/">下一篇：投资组合理论与实战(2) - 蒙特卡洛方法 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 77/80 篇</span> <span class="reading-path-links"> <a href="/posts/factor-strategy/perf-of-momentum-10/">← 7月斜率动量因子复盘：10天回归斜率</a> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/策略研究/mpt-2/">投资组合理论与实战(2) - 蒙特卡洛方法</a> <p>所谓蒙特卡洛模拟，就是随机产生大量的资产分配方案，然后再计算各种分配方案下，所得到的波动率、夏普率，再根据最优的夏普率，反查资产分配方案。</p> </li><li> <a href="/articles/investment/策略研究/mpt-3/">投资组合理论与实战(3) - 优化算法</a> <p>寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：</p> </li><li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li><li> <a href="/articles/investment/策略研究/capm/">资本资产定价模型</a> <p>资本资产定价模型（CAPM）描述了资产的预期回报与市场系统风险之间的关系。它由威廉. 夏普等人在 1960 年代提出。威廉. 夏普获得了 1990 年的诺贝尔经济学奖。CAPM 被</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#基本概念" title="基本概念">基本概念</a> </li><li class="lv3"> <a href="#收益率夏普和波动率计算" title="收益率、夏普和波动率计算">收益率、夏普和波动率计算</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>

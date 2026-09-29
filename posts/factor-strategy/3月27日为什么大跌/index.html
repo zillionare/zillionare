@@ -45,8 +45,7 @@ body:
 </div>
 
 <p>核心是要使用calendar这个库。我们可以通过它的monthcalendar来构建每月的日历：</p>
-<pre><code class="language-python">calendar.monthcalendar(2024, 2)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">calendar.monthcalendar(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>)</span></code></pre>
 <!--源码在cheese-course/24lectures/exercise/answers/lesson4.ipynb中-->
 <p>这会得到以下结果：</p>
 <!--
@@ -71,17 +70,16 @@ body:
 <p>其次是对RSI的分析。本轮日线RSI的高点在2月23日打出，随后分别在3月5日、3月11日和3月18日形成顶背离。这期间在30分钟级别上，RSI得到多次调整，但在3月21日上午10点，30分钟的RSI也再次形成顶背离。在课程中，我们介绍RSI超过前期高点，是一个值得注意的见顶信号，如果此时均线是走平或者向下的，则基本可以确认。</p>
 <p>如何寻找RSI的前期高点呢？我们介绍的方法是，通过zigzag库，寻找5日均线的上一个最高点，则它对应的RSI也就是前期的高点。下一次当RSI在数值上逼近或者超过前高时，也往往就是局部的高点。为什么不用zigzag来寻找本次的最高点？这是因为zigzag寻找高低点需要延时几个周期才能找到。如果我们使用移动平均线的话，还要再多几个周期的延时，这样等zigzag确认最近的高点已经出现时，往往已错过了最好的交易时机。改用RSI是否逼近前期高点，我们可以立即发出信号，并且在下一周期，就可以根据k线走势来确认这个信号是否得到市场认可。</p>
 <p>通过zigzag来寻找局部最高点的方法如下：</p>
-<pre><code class="language-python">from zigzag import peak_valley_pivots
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">from</span> zigzag <span class="hljs-keyword">import</span> peak_valley_pivots
 close = ...
-ma = moving_average(close, 5)
+ma = moving_average(close, <span class="hljs-number">5</span>)
 
-pct_change = ma[1:]/ma[:-1] - 1
+pct_change = ma[<span class="hljs-number">1</span>:]/ma[:-<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>
 std = np.std(pct_change)
 
-up_thresh, down_thresh = 2*std, -2*std
+up_thresh, down_thresh = <span class="hljs-number">2</span>*std, -<span class="hljs-number">2</span>*std
 
-peak_valley_pivots(ma, up_thresh, down_thresh)
-</code></pre>
+peak_valley_pivots(ma, up_thresh, down_thresh)</span></code></pre>
 <p>peak_valley_pivots需要我们传入两个threshold参数，以帮助它来确认一个局部极值是否可以作为峰谷。只有当该点大于左右侧up_thresh,down_thresh以上时，一个点才会被确认为峰。对谷的确认也是一样。</p>
 <p>这里我们用了一点小小的统计技巧，即使用近期涨跌幅的2倍标准差来作为阈值。</p>
 <p>如果一个点高于平均值的两倍标准差，也确实可以看作是一个离群值 -- 从几何意义上来讲，可以当成一个峰值或者谷值。这种处理方法，我们在布林带、或者seaborn的包络图中已经见识过了。</p>

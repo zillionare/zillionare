@@ -41,7 +41,7 @@
 <h2 id="系统架构设计三端分离的智能架构">🏗️ 系统架构设计：三端分离的智能架构</h2>
 <p>&quot;我们需要设计一个真正智能的三端分离架构。&quot;007 开始了架构设计。</p>
 <h3 id="整体架构图">整体架构图</h3>
-<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span></span><span class="cl-body">┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Windows端     │    │    远程Redis     │    │    Mac端        │
 │   数据生产者     │───▶│   消息队列+缓存   │───▶│   数据消费者     │
 │                 │    │                 │    │                 │
@@ -58,8 +58,7 @@
                        │ • Web查询界面   │
                        │ • 智能数据路由   │
                        │ • 24小时制时间   │
-                       └─────────────────┘
-</code></pre>
+                       └─────────────────┘</span></code></pre>
 <h3 id="数据流设计">数据流设计</h3>
 <p>&quot;数据流的设计是整个系统的核心。&quot;我对 007 强调道。</p>
 <p><strong>数据流向：</strong></p>
@@ -73,112 +72,109 @@
 <p>&quot;Windows 端是整个系统的心脏，负责数据的实时合成。&quot;007 开始了 Windows 端的设计。</p>
 <h3 id="分笔数据如何合成分钟线数据">分笔数据如何合成分钟线数据？</h3>
 <p>007 设计了一个精巧的数据合成引擎：</p>
-<pre><code class="language-python">class BarDataSynthesizer:
-    &quot;&quot;&quot;分钟线数据合成器&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BarDataSynthesizer</span>:
+    <span class="hljs-string">&quot;&quot;&quot;分钟线数据合成器&quot;&quot;&quot;</span>
 
-    def __init__(self):
-        # 存储各个股票的分笔数据缓存
-        self.tick_cache: Dict[str, List[TickData]] = defaultdict(list)
-        # 存储各个周期的分钟线缓存
-        self.bar_cache: Dict[int, Dict[str, List[BarData]]] = {
-            1: defaultdict(list),
-            5: defaultdict(list),
-            15: defaultdict(list),
-            30: defaultdict(list)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-comment"># 存储各个股票的分笔数据缓存</span>
+        <span class="hljs-variable language_">self</span>.tick_cache: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">List</span>[TickData]] = defaultdict(<span class="hljs-built_in">list</span>)
+        <span class="hljs-comment"># 存储各个周期的分钟线缓存</span>
+        <span class="hljs-variable language_">self</span>.bar_cache: <span class="hljs-type">Dict</span>[<span class="hljs-built_in">int</span>, <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">List</span>[BarData]]] = {
+            <span class="hljs-number">1</span>: defaultdict(<span class="hljs-built_in">list</span>),
+            <span class="hljs-number">5</span>: defaultdict(<span class="hljs-built_in">list</span>),
+            <span class="hljs-number">15</span>: defaultdict(<span class="hljs-built_in">list</span>),
+            <span class="hljs-number">30</span>: defaultdict(<span class="hljs-built_in">list</span>)
         }
-        # 交易时间验证器
-        self.trading_validator = TradingTimeValidator()
+        <span class="hljs-comment"># 交易时间验证器</span>
+        <span class="hljs-variable language_">self</span>.trading_validator = TradingTimeValidator()
 
-    def add_tick_data(self, tick_data: TickData):
-        &quot;&quot;&quot;添加分笔数据并触发合成&quot;&quot;&quot;
-        # 验证交易时间
-        if not self.trading_validator.validate_tick_data(tick_dict):
-            return
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add_tick_data</span>(<span class="hljs-params">self, tick_data: TickData</span>):
+        <span class="hljs-string">&quot;&quot;&quot;添加分笔数据并触发合成&quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 验证交易时间</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.trading_validator.validate_tick_data(tick_dict):
+            <span class="hljs-keyword">return</span>
 
-        # 缓存分笔数据
-        self.tick_cache[tick_data.symbol].append(tick_data)
+        <span class="hljs-comment"># 缓存分笔数据</span>
+        <span class="hljs-variable language_">self</span>.tick_cache[tick_data.symbol].append(tick_data)
 
-        # 合成1分钟线
-        bar_1min = self._synthesize_1min_bar(tick_data.symbol)
-        if bar_1min:
-            self.bar_cache[1][tick_data.symbol].append(bar_1min)
+        <span class="hljs-comment"># 合成1分钟线</span>
+        bar_1min = <span class="hljs-variable language_">self</span>._synthesize_1min_bar(tick_data.symbol)
+        <span class="hljs-keyword">if</span> bar_1min:
+            <span class="hljs-variable language_">self</span>.bar_cache[<span class="hljs-number">1</span>][tick_data.symbol].append(bar_1min)
 
-            # 基于1分钟线合成其他周期
-            for period in [5, 15, 30]:
-                bar = self._synthesize_multi_min_bar(tick_data.symbol, period)
-                if bar:
-                    self.bar_cache[period][tick_data.symbol].append(bar)
-</code></pre>
+            <span class="hljs-comment"># 基于1分钟线合成其他周期</span>
+            <span class="hljs-keyword">for</span> period <span class="hljs-keyword">in</span> [<span class="hljs-number">5</span>, <span class="hljs-number">15</span>, <span class="hljs-number">30</span>]:
+                bar = <span class="hljs-variable language_">self</span>._synthesize_multi_min_bar(tick_data.symbol, period)
+                <span class="hljs-keyword">if</span> bar:
+                    <span class="hljs-variable language_">self</span>.bar_cache[period][tick_data.symbol].append(bar)</span></code></pre>
 <p><strong>1分钟线合成：</strong></p>
-<pre><code class="language-python">def _synthesize_1min_bar(self, symbol: str) -&gt; BarData:
-    &quot;&quot;&quot;合成1分钟线&quot;&quot;&quot;
-    ticks = self.tick_cache[symbol]
-    if not ticks:
-        return None
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_synthesize_1min_bar</span>(<span class="hljs-params">self, symbol: <span class="hljs-built_in">str</span></span>) -&gt; BarData:
+    <span class="hljs-string">&quot;&quot;&quot;合成1分钟线&quot;&quot;&quot;</span>
+    ticks = <span class="hljs-variable language_">self</span>.tick_cache[symbol]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ticks:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-    # 获取当前分钟的开始时间
-    current_time = ticks[-1].time
-    minute_start = current_time.replace(second=0, microsecond=0)
-    minute_end = minute_start + timedelta(minutes=1)
+    <span class="hljs-comment"># 获取当前分钟的开始时间</span>
+    current_time = ticks[-<span class="hljs-number">1</span>].time
+    minute_start = current_time.replace(second=<span class="hljs-number">0</span>, microsecond=<span class="hljs-number">0</span>)
+    minute_end = minute_start + timedelta(minutes=<span class="hljs-number">1</span>)
 
-    # 筛选当前分钟的分笔数据
+    <span class="hljs-comment"># 筛选当前分钟的分笔数据</span>
     minute_ticks = [
-        tick for tick in ticks
-        if minute_start &lt;= tick.time &lt; minute_end
+        tick <span class="hljs-keyword">for</span> tick <span class="hljs-keyword">in</span> ticks
+        <span class="hljs-keyword">if</span> minute_start &lt;= tick.time &lt; minute_end
     ]
 
-    if not minute_ticks:
-        return None
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> minute_ticks:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-    # 计算OHLCV
-    prices = [tick.price for tick in minute_ticks]
-    volumes = [tick.volume for tick in minute_ticks]
-    amounts = [tick.amount for tick in minute_ticks]
+    <span class="hljs-comment"># 计算OHLCV</span>
+    prices = [tick.price <span class="hljs-keyword">for</span> tick <span class="hljs-keyword">in</span> minute_ticks]
+    volumes = [tick.volume <span class="hljs-keyword">for</span> tick <span class="hljs-keyword">in</span> minute_ticks]
+    amounts = [tick.amount <span class="hljs-keyword">for</span> tick <span class="hljs-keyword">in</span> minute_ticks]
 
-    return BarData(
+    <span class="hljs-keyword">return</span> BarData(
         symbol=symbol,
         frame=minute_start,
-        open=prices[0],
-        high=max(prices),
-        low=min(prices),
-        close=prices[-1],
-        vol=sum(volumes),
-        amount=sum(amounts)
-    )
-</code></pre>
+        <span class="hljs-built_in">open</span>=prices[<span class="hljs-number">0</span>],
+        high=<span class="hljs-built_in">max</span>(prices),
+        low=<span class="hljs-built_in">min</span>(prices),
+        close=prices[-<span class="hljs-number">1</span>],
+        vol=<span class="hljs-built_in">sum</span>(volumes),
+        amount=<span class="hljs-built_in">sum</span>(amounts)
+    )</span></code></pre>
 <p><strong>多周期合成：</strong></p>
-<pre><code class="language-python">def _synthesize_multi_min_bar(self, symbol: str, period: int) -&gt; BarData:
-    &quot;&quot;&quot;合成多分钟线（5分钟、15分钟、30分钟）&quot;&quot;&quot;
-    bars_1min = self.bar_cache[1][symbol]
-    if not bars_1min:
-        return None
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_synthesize_multi_min_bar</span>(<span class="hljs-params">self, symbol: <span class="hljs-built_in">str</span>, period: <span class="hljs-built_in">int</span></span>) -&gt; BarData:
+    <span class="hljs-string">&quot;&quot;&quot;合成多分钟线（5分钟、15分钟、30分钟）&quot;&quot;&quot;</span>
+    bars_1min = <span class="hljs-variable language_">self</span>.bar_cache[<span class="hljs-number">1</span>][symbol]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> bars_1min:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-    # 获取当前周期的开始时间
-    current_time = bars_1min[-1].frame
-    period_start = self._get_period_start(current_time, period)
+    <span class="hljs-comment"># 获取当前周期的开始时间</span>
+    current_time = bars_1min[-<span class="hljs-number">1</span>].frame
+    period_start = <span class="hljs-variable language_">self</span>._get_period_start(current_time, period)
     period_end = period_start + timedelta(minutes=period)
 
-    # 筛选当前周期的1分钟线数据
+    <span class="hljs-comment"># 筛选当前周期的1分钟线数据</span>
     period_bars = [
-        bar for bar in bars_1min
-        if period_start &lt;= bar.frame &lt; period_end
+        bar <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> bars_1min
+        <span class="hljs-keyword">if</span> period_start &lt;= bar.frame &lt; period_end
     ]
 
-    if len(period_bars) == 0:
-        return None
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(period_bars) == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
 
-    # 合成多分钟线
-    return BarData(
+    <span class="hljs-comment"># 合成多分钟线</span>
+    <span class="hljs-keyword">return</span> BarData(
         symbol=symbol,
         frame=period_start,
-        open=period_bars[0].open,
-        high=max(bar.high for bar in period_bars),
-        low=min(bar.low for bar in period_bars),
-        close=period_bars[-1].close,
-        vol=sum(bar.vol for bar in period_bars),
-        amount=sum(bar.amount for bar in period_bars)
-    )
-</code></pre>
+        <span class="hljs-built_in">open</span>=period_bars[<span class="hljs-number">0</span>].<span class="hljs-built_in">open</span>,
+        high=<span class="hljs-built_in">max</span>(bar.high <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> period_bars),
+        low=<span class="hljs-built_in">min</span>(bar.low <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> period_bars),
+        close=period_bars[-<span class="hljs-number">1</span>].close,
+        vol=<span class="hljs-built_in">sum</span>(bar.vol <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> period_bars),
+        amount=<span class="hljs-built_in">sum</span>(bar.amount <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> period_bars)
+    )</span></code></pre>
 <p>我们的合成方法是：先合成1分钟线，再基于1分钟线合成其他周期，确保了数据的一致性。</p>
 <h3 id="windows-端监控页面">Windows 端监控页面</h3>
 <p><img src="https://fastly.jsdelivr.net/gh/bucketio/img13@main/2025/06/12/1749714849593-db73da45-d171-4961-9231-ba394dee4eeb.png" alt=""></p>
@@ -190,56 +186,54 @@
 <h2 id="mac-端的实现">🍎 Mac 端的实现</h2>
 <h3 id="数据消费与存储">数据消费与存储</h3>
 <p>Mac 端的核心职责是将 Redis 中的历史数据转移到 ClickHouse：</p>
-<pre><code class="language-python">class MacDataService:
-    &quot;&quot;&quot;Mac端数据服务&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MacDataService</span>:
+    <span class="hljs-string">&quot;&quot;&quot;Mac端数据服务&quot;&quot;&quot;</span>
 
-    def __init__(self):
-        self.redis_manager = RedisManager()
-        self.clickhouse_manager = ClickHouseManager()
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-variable language_">self</span>.redis_manager = RedisManager()
+        <span class="hljs-variable language_">self</span>.clickhouse_manager = ClickHouseManager()
 
-    def consume_historical_data(self):
-        &quot;&quot;&quot;消费历史数据&quot;&quot;&quot;
-        while self.is_running:
-            try:
-                # 从Redis获取历史分钟线数据
-                for period in [1, 5, 15, 30]:
-                    queue_name = f&quot;historical_bar_data_{period}min&quot;
-                    data = self.redis_manager.client.brpop(queue_name, timeout=1)
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_historical_data</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">&quot;&quot;&quot;消费历史数据&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">while</span> <span class="hljs-variable language_">self</span>.is_running:
+            <span class="hljs-keyword">try</span>:
+                <span class="hljs-comment"># 从Redis获取历史分钟线数据</span>
+                <span class="hljs-keyword">for</span> period <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">15</span>, <span class="hljs-number">30</span>]:
+                    queue_name = <span class="hljs-string">f&quot;historical_bar_data_<span class="hljs-subst">{period}</span>min&quot;</span>
+                    data = <span class="hljs-variable language_">self</span>.redis_manager.client.brpop(queue_name, timeout=<span class="hljs-number">1</span>)
 
-                    if data:
-                        bar_data = BarData(**json.loads(data[1]))
+                    <span class="hljs-keyword">if</span> data:
+                        bar_data = BarData(**json.loads(data[<span class="hljs-number">1</span>]))
 
-                        # 检查是否已存在
-                        if not self.clickhouse_manager.data_exists(bar_data, period):
-                            # 插入ClickHouse
-                            self.clickhouse_manager.insert_bar_data(bar_data, period)
-                        else:
-                            # 数据已存在，直接删除Redis中的数据
-                            self.logger.info(f&quot;数据已存在，跳过: {bar_data.symbol} {bar_data.frame}&quot;)
+                        <span class="hljs-comment"># 检查是否已存在</span>
+                        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.clickhouse_manager.data_exists(bar_data, period):
+                            <span class="hljs-comment"># 插入ClickHouse</span>
+                            <span class="hljs-variable language_">self</span>.clickhouse_manager.insert_bar_data(bar_data, period)
+                        <span class="hljs-keyword">else</span>:
+                            <span class="hljs-comment"># 数据已存在，直接删除Redis中的数据</span>
+                            <span class="hljs-variable language_">self</span>.logger.info(<span class="hljs-string">f&quot;数据已存在，跳过: <span class="hljs-subst">{bar_data.symbol}</span> <span class="hljs-subst">{bar_data.frame}</span>&quot;</span>)
 
-            except Exception as e:
-                self.logger.error(f&quot;数据消费错误: {e}&quot;)
-                time.sleep(5)
-</code></pre>
+            <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+                <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;数据消费错误: <span class="hljs-subst">{e}</span>&quot;</span>)
+                time.sleep(<span class="hljs-number">5</span>)</span></code></pre>
 <h3 id="凌晨2点的特殊处理">凌晨2点的特殊处理</h3>
 <p>&quot;系统需要在凌晨2点进行特殊的数据清理。&quot;我对 007 说明了需求。</p>
-<pre><code class="language-python">def handle_cleanup_time(self):
-    &quot;&quot;&quot;处理凌晨2点的数据清理&quot;&quot;&quot;
-    try:
-        # 1. 处理前一天的历史数据
-        self.process_previous_day_data()
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">handle_cleanup_time</span>(<span class="hljs-params">self</span>):
+    <span class="hljs-string">&quot;&quot;&quot;处理凌晨2点的数据清理&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-comment"># 1. 处理前一天的历史数据</span>
+        <span class="hljs-variable language_">self</span>.process_previous_day_data()
 
-        # 2. 清理Redis的订阅消息队列
-        self.cleanup_redis_queues()
+        <span class="hljs-comment"># 2. 清理Redis的订阅消息队列</span>
+        <span class="hljs-variable language_">self</span>.cleanup_redis_queues()
 
-        # 3. 数据完整性检查
-        self.verify_data_integrity()
+        <span class="hljs-comment"># 3. 数据完整性检查</span>
+        <span class="hljs-variable language_">self</span>.verify_data_integrity()
 
-        self.logger.info(&quot;凌晨2点数据清理完成&quot;)
+        <span class="hljs-variable language_">self</span>.logger.info(<span class="hljs-string">&quot;凌晨2点数据清理完成&quot;</span>)
 
-    except Exception as e:
-        self.logger.error(f&quot;数据清理错误: {e}&quot;)
-</code></pre>
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-variable language_">self</span>.logger.error(<span class="hljs-string">f&quot;数据清理错误: <span class="hljs-subst">{e}</span>&quot;</span>)</span></code></pre>
 <h3 id="mac-端的监控页面">Mac 端的监控页面</h3>
 <p>为了检查Redis和Clickhouse之间的数据传送是正常的，并且能实时监控数据传输的速度和进度，我要求 007 设计一个 Mac 端端监控页面：</p>
 <p><img src="https://fastly.jsdelivr.net/gh/bucketio/img10@main/2025/06/12/1749715408878-86df1766-52e1-492f-829c-037625aebdef.png" alt=""></p>
@@ -248,72 +242,68 @@
 <p>但是，在 Client 端的开发过程中，我们遇到了一系列挑战...</p>
 <h3 id="第一次尝试复杂的调试系统">第一次尝试：复杂的调试系统</h3>
 <p>最初，007 为 Client 端设计了一个功能丰富的调试系统：</p>
-<pre><code class="language-python"># 复杂的调试逻辑
-def query_bar_data(self, symbol: str, start_time: datetime, end_time: datetime, period: int):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 复杂的调试逻辑</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">query_bar_data</span>(<span class="hljs-params">self, symbol: <span class="hljs-built_in">str</span>, start_time: datetime, end_time: datetime, period: <span class="hljs-built_in">int</span></span>):
     debug_info = []
-    debug_info.append(f&quot;查询参数: {symbol}, {period}分钟, {start_time} 到 {end_time}&quot;)
-    debug_info.append(f&quot;今天: {today}, 查询日期范围: {start_date} 到 {end_date}&quot;)
+    debug_info.append(<span class="hljs-string">f&quot;查询参数: <span class="hljs-subst">{symbol}</span>, <span class="hljs-subst">{period}</span>分钟, <span class="hljs-subst">{start_time}</span> 到 <span class="hljs-subst">{end_time}</span>&quot;</span>)
+    debug_info.append(<span class="hljs-string">f&quot;今天: <span class="hljs-subst">{today}</span>, 查询日期范围: <span class="hljs-subst">{start_date}</span> 到 <span class="hljs-subst">{end_date}</span>&quot;</span>)
 
-    # 大量的调试信息...
-    if len(all_redis_data) &gt; 0 and len(redis_data) == 0:
-        debug_info.append(f&quot;⚠️ 时间过滤导致数据为空&quot;)
-        debug_info.append(f&quot;数据样本时间: {sample_bar.frame}&quot;)
-        # 更多调试信息...
-</code></pre>
+    <span class="hljs-comment"># 大量的调试信息...</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(all_redis_data) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(redis_data) == <span class="hljs-number">0</span>:
+        debug_info.append(<span class="hljs-string">f&quot;⚠️ 时间过滤导致数据为空&quot;</span>)
+        debug_info.append(<span class="hljs-string">f&quot;数据样本时间: <span class="hljs-subst">{sample_bar.frame}</span>&quot;</span>)
+        <span class="hljs-comment"># 更多调试信息...</span></span></code></pre>
 <p>&quot;这个调试系统太复杂了！&quot;我看着满屏的调试代码，有些头疼。</p>
 <h3 id="第二次尝试时间格式的噩梦">第二次尝试：时间格式的噩梦</h3>
 <p>接着，我们遇到了时间格式的问题。用户抱怨 Web 界面显示的是 AM/PM 格式：</p>
 <p>&quot;我要24小时时间制查询，怎么前端还有AM和PM，我不要AM和PM，气死了！&quot;</p>
 <p>007 立刻进行了修复，将 <code>datetime-local</code> 输入框替换为分离的时间输入：</p>
-<pre><code class="language-html">&lt;!-- 24小时制时间输入 --&gt;
-&lt;div class=&quot;col-md-3&quot;&gt;
-    &lt;label for=&quot;start_time&quot; class=&quot;form-label&quot;&gt;开始时间 (24小时制)&lt;/label&gt;
-    &lt;div class=&quot;row g-1&quot;&gt;
-        &lt;div class=&quot;col-6&quot;&gt;
-            &lt;input type=&quot;date&quot; class=&quot;form-control&quot; id=&quot;start_date&quot; required&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;col-3&quot;&gt;
-            &lt;input type=&quot;number&quot; class=&quot;form-control&quot; id=&quot;start_hour&quot; min=&quot;0&quot; max=&quot;23&quot; placeholder=&quot;时&quot; required&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;col-3&quot;&gt;
-            &lt;input type=&quot;number&quot; class=&quot;form-control&quot; id=&quot;start_minute&quot; min=&quot;0&quot; max=&quot;59&quot; placeholder=&quot;分&quot; required&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+<pre><code class="hljs language-html"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-comment">&lt;!-- 24小时制时间输入 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-md-3&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;start_time&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-label&quot;</span>&gt;</span>开始时间 (24小时制)<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row g-1&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-6&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;date&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;start_date&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-3&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;start_hour&quot;</span> <span class="hljs-attr">min</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">max</span>=<span class="hljs-string">&quot;23&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;时&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-3&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;form-control&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;start_minute&quot;</span> <span class="hljs-attr">min</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">max</span>=<span class="hljs-string">&quot;59&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;分&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
 <h3 id="第三次尝试json序列化的陷阱">第三次尝试：JSON序列化的陷阱</h3>
 <p>然后，我们遇到了 JSON 序列化错误：</p>
-<pre><code>查询失败: 请求处理错误: Object of type datetime is not JSON serializable
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">查询失败: 请求处理错误: Object of <span class="hljs-built_in">type</span> datetime <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> JSON serializable</span></code></pre>
 <p>&quot;这个错误很常见，datetime 对象无法直接序列化。&quot;007 解释道。</p>
 <p>我们尝试了多种解决方案，最终采用了手动序列化：</p>
-<pre><code class="language-python"># 手动序列化，确保datetime正确转换
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-comment"># 手动序列化，确保datetime正确转换</span>
 data_list = []
-for bar in result.data:
+<span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> result.data:
     data_list.append({
-        &quot;symbol&quot;: bar.symbol,
-        &quot;frame&quot;: bar.frame.isoformat(),  # 手动转换datetime为字符串
-        &quot;open&quot;: float(bar.open),
-        &quot;high&quot;: float(bar.high),
-        &quot;low&quot;: float(bar.low),
-        &quot;close&quot;: float(bar.close),
-        &quot;vol&quot;: float(bar.vol),
-        &quot;amount&quot;: float(bar.amount)
-    })
-</code></pre>
+        <span class="hljs-string">&quot;symbol&quot;</span>: bar.symbol,
+        <span class="hljs-string">&quot;frame&quot;</span>: bar.frame.isoformat(),  <span class="hljs-comment"># 手动转换datetime为字符串</span>
+        <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-built_in">float</span>(bar.<span class="hljs-built_in">open</span>),
+        <span class="hljs-string">&quot;high&quot;</span>: <span class="hljs-built_in">float</span>(bar.high),
+        <span class="hljs-string">&quot;low&quot;</span>: <span class="hljs-built_in">float</span>(bar.low),
+        <span class="hljs-string">&quot;close&quot;</span>: <span class="hljs-built_in">float</span>(bar.close),
+        <span class="hljs-string">&quot;vol&quot;</span>: <span class="hljs-built_in">float</span>(bar.vol),
+        <span class="hljs-string">&quot;amount&quot;</span>: <span class="hljs-built_in">float</span>(bar.amount)
+    })</span></code></pre>
 <h3 id="最终重构简洁而强大">最终重构：简洁而强大</h3>
 <p>&quot;007！我觉得你把Client的查询代码改的乱七八糟的，你应该全部推翻，按照Windows和Mac的逻辑重新写查询。&quot;我终于忍不住了。</p>
 <p>007 立刻进行了彻底重构，按照系统架构的原始设计重新编写：</p>
-<pre><code class="language-python">def query_bar_data(self, symbol: str, start_time: datetime, end_time: datetime, period: int) -&gt; QueryResponse:
-    &quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">query_bar_data</span>(<span class="hljs-params">self, symbol: <span class="hljs-built_in">str</span>, start_time: datetime, end_time: datetime, period: <span class="hljs-built_in">int</span></span>) -&gt; QueryResponse:
+    <span class="hljs-string">&quot;&quot;&quot;
     查询分钟线数据
 
     按照系统架构：
     1. 如果查询的分钟线数据是当日的，则直接从Redis中读取合成的分钟线数据
     2. 如果查询的分钟线数据是历史的，则直接从ClickHouse中读取
     3. 如果查询的分钟线数据是既有当日的又有历史的，则合并数据返回给Client
-    &quot;&quot;&quot;
-    try:
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">try</span>:
         today = date.today()
         start_date = start_time.date()
         end_date = end_time.date()
@@ -321,102 +311,99 @@ for bar in result.data:
         redis_data = []
         clickhouse_data = []
 
-        # 1. 查询当日数据（从Redis读取）
-        if end_date &gt;= today:
-            redis_data = self.redis_manager.get_current_bar_data(period, symbol)
-            # 过滤时间范围
-            redis_data = [bar for bar in redis_data if start_time &lt;= bar.frame &lt;= end_time]
+        <span class="hljs-comment"># 1. 查询当日数据（从Redis读取）</span>
+        <span class="hljs-keyword">if</span> end_date &gt;= today:
+            redis_data = <span class="hljs-variable language_">self</span>.redis_manager.get_current_bar_data(period, symbol)
+            <span class="hljs-comment"># 过滤时间范围</span>
+            redis_data = [bar <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> redis_data <span class="hljs-keyword">if</span> start_time &lt;= bar.frame &lt;= end_time]
 
-        # 2. 查询历史数据（从ClickHouse读取）
-        if start_date &lt; today:
-            # 避免与当日数据重复，历史数据查询到今天之前
-            hist_end_time = min(end_time, datetime.combine(today, datetime.min.time()))
-            if start_time &lt; hist_end_time:
-                clickhouse_data = self.clickhouse_manager.query_bar_data(
+        <span class="hljs-comment"># 2. 查询历史数据（从ClickHouse读取）</span>
+        <span class="hljs-keyword">if</span> start_date &lt; today:
+            <span class="hljs-comment"># 避免与当日数据重复，历史数据查询到今天之前</span>
+            hist_end_time = <span class="hljs-built_in">min</span>(end_time, datetime.combine(today, datetime.<span class="hljs-built_in">min</span>.time()))
+            <span class="hljs-keyword">if</span> start_time &lt; hist_end_time:
+                clickhouse_data = <span class="hljs-variable language_">self</span>.clickhouse_manager.query_bar_data(
                     symbol, start_time, hist_end_time, period
                 )
 
-        # 3. 合并数据
-        merged_data = self.data_merger.merge_bar_data(redis_data, clickhouse_data)
+        <span class="hljs-comment"># 3. 合并数据</span>
+        merged_data = <span class="hljs-variable language_">self</span>.data_merger.merge_bar_data(redis_data, clickhouse_data)
 
-        return QueryResponse(
-            success=True,
-            message=f&quot;当日数据: {len(redis_data)} 条，历史数据: {len(clickhouse_data)} 条，合并后: {len(merged_data)} 条&quot;,
+        <span class="hljs-keyword">return</span> QueryResponse(
+            success=<span class="hljs-literal">True</span>,
+            message=<span class="hljs-string">f&quot;当日数据: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(redis_data)}</span> 条，历史数据: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(clickhouse_data)}</span> 条，合并后: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(merged_data)}</span> 条&quot;</span>,
             data=merged_data,
-            total_count=len(merged_data)
+            total_count=<span class="hljs-built_in">len</span>(merged_data)
         )
 
-    except Exception as e:
-        return QueryResponse(
-            success=False,
-            message=f&quot;查询失败: {str(e)}&quot;,
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        <span class="hljs-keyword">return</span> QueryResponse(
+            success=<span class="hljs-literal">False</span>,
+            message=<span class="hljs-string">f&quot;查询失败: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>,
             data=[],
-            total_count=0
-        )
-</code></pre>
+            total_count=<span class="hljs-number">0</span>
+        )</span></code></pre>
 <h3 id="client-端的查询页面">Client 端的查询页面</h3>
 <p>为了易于查询，且可视化查询结果，我让 007 给 Client 端设计了一个查询页面：</p>
 <p><img src="https://fastly.jsdelivr.net/gh/bucketio/img10@main/2025/06/12/1749715483781-6db01c3d-cbd2-4527-8ea7-f5c081810f1c.png" alt=""></p>
 <h2 id="请注意数据合并和交易时间验证">⚠️ 请注意：数据合并和交易时间验证</h2>
 <h3 id="数据合并确保查询结果的准确性">数据合并：确保查询结果的准确性</h3>
 <p>如果用户需要查询的日期既有历史分钟线数据又有当日分钟线数据，那么我们要对 Redis 和  Clickhouse 的数据进行合并。</p>
-<pre><code class="language-python">class DataMerger:
-    &quot;&quot;&quot;数据合并器 - 合并Redis当日数据和ClickHouse历史数据&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DataMerger</span>:
+    <span class="hljs-string">&quot;&quot;&quot;数据合并器 - 合并Redis当日数据和ClickHouse历史数据&quot;&quot;&quot;</span>
 
-    @staticmethod
-    def merge_bar_data(redis_data: List[BarData], clickhouse_data: List[BarData]) -&gt; List[BarData]:
-        &quot;&quot;&quot;合并分钟线数据&quot;&quot;&quot;
-        # 合并数据并按时间排序
+<span class="hljs-meta">    @staticmethod</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">merge_bar_data</span>(<span class="hljs-params">redis_data: <span class="hljs-type">List</span>[BarData], clickhouse_data: <span class="hljs-type">List</span>[BarData]</span>) -&gt; <span class="hljs-type">List</span>[BarData]:
+        <span class="hljs-string">&quot;&quot;&quot;合并分钟线数据&quot;&quot;&quot;</span>
+        <span class="hljs-comment"># 合并数据并按时间排序</span>
         all_data = redis_data + clickhouse_data
 
-        # 去重（以frame和symbol为键）
+        <span class="hljs-comment"># 去重（以frame和symbol为键）</span>
         unique_data = {}
-        for bar in all_data:
+        <span class="hljs-keyword">for</span> bar <span class="hljs-keyword">in</span> all_data:
             key = (bar.symbol, bar.frame)
             unique_data[key] = bar
 
-        # 按时间排序
-        merged_data = list(unique_data.values())
-        merged_data.sort(key=lambda x: x.frame)
+        <span class="hljs-comment"># 按时间排序</span>
+        merged_data = <span class="hljs-built_in">list</span>(unique_data.values())
+        merged_data.sort(key=<span class="hljs-keyword">lambda</span> x: x.frame)
 
-        return merged_data
-</code></pre>
+        <span class="hljs-keyword">return</span> merged_data</span></code></pre>
 <h3 id="交易时间验证确保数据质量">交易时间验证：确保数据质量</h3>
 <p>&quot;所有的分钟线数据都必须是交易时间内的数据，不然没有意义。&quot;我对 007 强调了数据质量的重要性。</p>
 <p>007 设计了一个专门的交易时间验证器：</p>
-<pre><code class="language-python">class TradingTimeValidator:
-    &quot;&quot;&quot;交易时间验证器&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TradingTimeValidator</span>:
+    <span class="hljs-string">&quot;&quot;&quot;交易时间验证器&quot;&quot;&quot;</span>
 
-    def __init__(self):
-        self.trading_hours = {
-            &#39;morning_start&#39;: &#39;09:30:00&#39;,
-            &#39;morning_end&#39;: &#39;11:30:00&#39;,
-            &#39;afternoon_start&#39;: &#39;13:00:00&#39;,
-            &#39;afternoon_end&#39;: &#39;15:00:00&#39;
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-variable language_">self</span>.trading_hours = {
+            <span class="hljs-string">&#x27;morning_start&#x27;</span>: <span class="hljs-string">&#x27;09:30:00&#x27;</span>,
+            <span class="hljs-string">&#x27;morning_end&#x27;</span>: <span class="hljs-string">&#x27;11:30:00&#x27;</span>,
+            <span class="hljs-string">&#x27;afternoon_start&#x27;</span>: <span class="hljs-string">&#x27;13:00:00&#x27;</span>,
+            <span class="hljs-string">&#x27;afternoon_end&#x27;</span>: <span class="hljs-string">&#x27;15:00:00&#x27;</span>
         }
 
-    def is_trading_time(self, dt: datetime) -&gt; bool:
-        &quot;&quot;&quot;检查是否为交易时间&quot;&quot;&quot;
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">is_trading_time</span>(<span class="hljs-params">self, dt: datetime</span>) -&gt; <span class="hljs-built_in">bool</span>:
+        <span class="hljs-string">&quot;&quot;&quot;检查是否为交易时间&quot;&quot;&quot;</span>
         time_obj = dt.time()
 
-        morning_start = dt_time.fromisoformat(self.trading_hours[&#39;morning_start&#39;])
-        morning_end = dt_time.fromisoformat(self.trading_hours[&#39;morning_end&#39;])
-        afternoon_start = dt_time.fromisoformat(self.trading_hours[&#39;afternoon_start&#39;])
-        afternoon_end = dt_time.fromisoformat(self.trading_hours[&#39;afternoon_end&#39;])
+        morning_start = dt_time.fromisoformat(<span class="hljs-variable language_">self</span>.trading_hours[<span class="hljs-string">&#x27;morning_start&#x27;</span>])
+        morning_end = dt_time.fromisoformat(<span class="hljs-variable language_">self</span>.trading_hours[<span class="hljs-string">&#x27;morning_end&#x27;</span>])
+        afternoon_start = dt_time.fromisoformat(<span class="hljs-variable language_">self</span>.trading_hours[<span class="hljs-string">&#x27;afternoon_start&#x27;</span>])
+        afternoon_end = dt_time.fromisoformat(<span class="hljs-variable language_">self</span>.trading_hours[<span class="hljs-string">&#x27;afternoon_end&#x27;</span>])
 
-        return (
-            (morning_start &lt;= time_obj &lt;= morning_end) or
+        <span class="hljs-keyword">return</span> (
+            (morning_start &lt;= time_obj &lt;= morning_end) <span class="hljs-keyword">or</span>
             (afternoon_start &lt;= time_obj &lt;= afternoon_end)
         )
 
-    def validate_tick_data(self, tick_dict: dict) -&gt; bool:
-        &quot;&quot;&quot;验证分笔数据&quot;&quot;&quot;
-        return self.is_trading_time(tick_dict[&#39;time&#39;])
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_tick_data</span>(<span class="hljs-params">self, tick_dict: <span class="hljs-built_in">dict</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+        <span class="hljs-string">&quot;&quot;&quot;验证分笔数据&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.is_trading_time(tick_dict[<span class="hljs-string">&#x27;time&#x27;</span>])
 
-    def validate_bar_data(self, bar_dict: dict) -&gt; bool:
-        &quot;&quot;&quot;验证分钟线数据&quot;&quot;&quot;
-        return self.is_trading_time(bar_dict[&#39;frame&#39;])
-</code></pre>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_bar_data</span>(<span class="hljs-params">self, bar_dict: <span class="hljs-built_in">dict</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+        <span class="hljs-string">&quot;&quot;&quot;验证分钟线数据&quot;&quot;&quot;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.is_trading_time(bar_dict[<span class="hljs-string">&#x27;frame&#x27;</span>])</span></code></pre>
 <h2 id="系统测试">🎯 系统测试</h2>
 <p>&quot;系统搭建完成，我们来测试一下效果。&quot;我满怀期待地说道。</p>
 <h3 id="历史分钟线数据的获取">历史分钟线数据的获取</h3>

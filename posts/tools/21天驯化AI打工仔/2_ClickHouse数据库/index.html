@@ -68,135 +68,130 @@
 <p><strong>我：007！给我一个 ClickHouse 表，用于存储 OHLC 数据。</strong></p>
 <p><strong>007：收到！在 DBeaver 中，执行以下 SQL 创建存储 OHLC 数据的表。</strong></p>
 </blockquote>
-<pre><code class="language-sql">CREATE TABLE ohlc_data (
+<pre><code class="hljs language-sql"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-keyword">CREATE TABLE</span> ohlc_data (
     ts_code String,
-    trade_date Date,
-    open Float32,
+    trade_date <span class="hljs-type">Date</span>,
+    <span class="hljs-keyword">open</span> Float32,
     high Float32,
     low Float32,
-    close Float32,
+    <span class="hljs-keyword">close</span> Float32,
     vol Float32
-) ENGINE = MergeTree()
-ORDER BY (ts_code, trade_date);
-</code></pre>
+) ENGINE <span class="hljs-operator">=</span> MergeTree()
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> (ts_code, trade_date);</span></code></pre>
 <p>按照 007 的指示，我创建了一个名为 <code>ohlc_data</code> 的表，用于存储 OHLC 数据。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_03.png" alt=""></p>
 <h2 id="3-修改-redis-消息队列代码以支持-clickhouse-存储">3. 修改 Redis 消息队列代码以支持 ClickHouse 存储</h2>
 <p>我现在安装好了所需要的数据库软件，在第一天到基础上，我需要更新 <code>data_consumer.py</code> 代码，将数据存储到 ClickHouse 数据库。007 听令！</p>
 <p>007 说这个任务它承包了，于是给了我第二版的<code>data_consumer.py</code> 代码。</p>
-<pre><code class="language-python">import redis
-import json
-from clickhouse_driver import Client
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span><span class="cl">51</span><span class="cl">52</span><span class="cl">53</span><span class="cl">54</span><span class="cl">55</span></span><span class="cl-body"><span class="hljs-keyword">import</span> redis
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">from</span> clickhouse_driver <span class="hljs-keyword">import</span> Client
 
-# 配置参数
-REDIS_HOST = &quot;localhost&quot;
-REDIS_PORT = 6379
-REDIS_QUEUE_NAME = &quot;tushare_data_queue&quot;
+<span class="hljs-comment"># 配置参数</span>
+REDIS_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+REDIS_PORT = <span class="hljs-number">6379</span>
+REDIS_QUEUE_NAME = <span class="hljs-string">&quot;tushare_data_queue&quot;</span>
 
-CLICKHOUSE_HOST = &quot;localhost&quot;
-CLICKHOUSE_PORT = 9000
-CLICKHOUSE_DB = &quot;default&quot;
+CLICKHOUSE_HOST = <span class="hljs-string">&quot;localhost&quot;</span>
+CLICKHOUSE_PORT = <span class="hljs-number">9000</span>
+CLICKHOUSE_DB = <span class="hljs-string">&quot;default&quot;</span>
 
-# 初始化 Redis 和 ClickHouse 客户端
-redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+<span class="hljs-comment"># 初始化 Redis 和 ClickHouse 客户端</span>
+redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=<span class="hljs-literal">True</span>)
 clickhouse_client = Client(host=CLICKHOUSE_HOST, port=CLICKHOUSE_PORT, database=CLICKHOUSE_DB)
 
-def insert_to_clickhouse(data):
-    &quot;&quot;&quot;将数据插入到 ClickHouse&quot;&quot;&quot;
-    query = &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">insert_to_clickhouse</span>(<span class="hljs-params">data</span>):
+    <span class="hljs-string">&quot;&quot;&quot;将数据插入到 ClickHouse&quot;&quot;&quot;</span>
+    query = <span class="hljs-string">&quot;&quot;&quot;
     INSERT INTO ohlc_data (ts_code, trade_date, open, high, low, close, vol)
     VALUES
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     values = [
         (
-            record[&quot;ts_code&quot;],
-            record[&quot;trade_date&quot;],
-            record[&quot;open&quot;],
-            record[&quot;high&quot;],
-            record[&quot;low&quot;],
-            record[&quot;close&quot;],
-            record[&quot;vol&quot;]
+            record[<span class="hljs-string">&quot;ts_code&quot;</span>],
+            record[<span class="hljs-string">&quot;trade_date&quot;</span>],
+            record[<span class="hljs-string">&quot;open&quot;</span>],
+            record[<span class="hljs-string">&quot;high&quot;</span>],
+            record[<span class="hljs-string">&quot;low&quot;</span>],
+            record[<span class="hljs-string">&quot;close&quot;</span>],
+            record[<span class="hljs-string">&quot;vol&quot;</span>]
         )
-        for record in data
+        <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> data
     ]
     clickhouse_client.execute(query, values)
 
-def consume_data():
-    &quot;&quot;&quot;数据消费主函数&quot;&quot;&quot;
-    print(&quot;启动数据消费者，等待队列数据...&quot;)
-    while True:
-        try:
-            # 阻塞式获取队列数据
-            _, json_data = redis_client.brpop(REDIS_QUEUE_NAME, timeout=30)
-            if json_data:
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_data</span>():
+    <span class="hljs-string">&quot;&quot;&quot;数据消费主函数&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;启动数据消费者，等待队列数据...&quot;</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 阻塞式获取队列数据</span>
+            _, json_data = redis_client.brpop(REDIS_QUEUE_NAME, timeout=<span class="hljs-number">30</span>)
+            <span class="hljs-keyword">if</span> json_data:
                 data_package = json.loads(json_data)
-                ohlc_data = data_package[&quot;ohlc_data&quot;]
+                ohlc_data = data_package[<span class="hljs-string">&quot;ohlc_data&quot;</span>]
                 insert_to_clickhouse(ohlc_data)
-                print(f&quot;成功插入数据: {len(ohlc_data)} 条&quot;)
-        except Exception as e:
-            print(f&quot;数据处理异常: {str(e)}&quot;)
-            continue
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;成功插入数据: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(ohlc_data)}</span> 条&quot;</span>)
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;数据处理异常: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+            <span class="hljs-keyword">continue</span>
 
-if __name__ == &quot;__main__&quot;:
-    consume_data()
-</code></pre>
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    consume_data()</span></code></pre>
 <p>我尝试运行 <code>data_consumer.py</code>，但程序报错如下：</p>
-<pre><code>(course) quantide@Mac note % python data_consumer.py 
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">(course) quantide@Mac note % python data_consumer.py 
 启动数据消费者，等待队列数据... 
-数据处理异常: &#39;str&#39; object has no attribute &#39;year&#39;
-数据处理异常: &#39;str&#39; object has no attribute &#39;year&#39;
-</code></pre>
+数据处理异常: <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-built_in">object</span> has no attribute <span class="hljs-string">&#x27;year&#x27;</span>
+数据处理异常: <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-built_in">object</span> has no attribute <span class="hljs-string">&#x27;year&#x27;</span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_04.png" alt=""></p>
 <p>007（委屈但诚恳）：根据错误信息 数据处理异常: <code>&#39;str&#39; object has no attribute &#39;year&#39;</code>，问题可能出在 <code>trade_date</code> 字段的处理上。<code>trade_date</code> 是一个字符串（例如 <code>&quot;20230101&quot;</code>），而 ClickHouse 需要 <code>Date</code> 类型的数据。在插入数据时，ClickHouse 的 <code>Date</code> 类型需要一个有效的日期格式（如 <code>YYYY-MM-DD</code>）。</p>
 <p>我们需要将 <code>trade_date</code> 从字符串格式转换为 <code>YYYY-MM-DD</code> 格式：</p>
-<pre><code class="language-python">from datetime import datetime
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span></span><span class="cl-body"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
 
-# ...  源代码见上一章节。
+<span class="hljs-comment"># ...  源代码见上一章节。</span>
 
-def insert_to_clickhouse(data):
-    &quot;&quot;&quot;将数据插入到 ClickHouse&quot;&quot;&quot;
-    query = &quot;&quot;&quot;
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">insert_to_clickhouse</span>(<span class="hljs-params">data</span>):
+    <span class="hljs-string">&quot;&quot;&quot;将数据插入到 ClickHouse&quot;&quot;&quot;</span>
+    query = <span class="hljs-string">&quot;&quot;&quot;
     INSERT INTO ohlc_data (ts_code, trade_date, open, high, low, close, vol)
     VALUES
-    &quot;&quot;&quot;
+    &quot;&quot;&quot;</span>
     values = [
         (
-            record[&quot;ts_code&quot;],
-            # 将 trade_date 字符串转换为日期类型
-            datetime.strptime(record[&quot;trade_date&quot;], &quot;%Y%m%d&quot;).date(),
-            record[&quot;open&quot;],
-            record[&quot;high&quot;],
-            record[&quot;low&quot;],
-            record[&quot;close&quot;],
-            record[&quot;vol&quot;]
+            record[<span class="hljs-string">&quot;ts_code&quot;</span>],
+            <span class="hljs-comment"># 将 trade_date 字符串转换为日期类型</span>
+            datetime.strptime(record[<span class="hljs-string">&quot;trade_date&quot;</span>], <span class="hljs-string">&quot;%Y%m%d&quot;</span>).date(),
+            record[<span class="hljs-string">&quot;open&quot;</span>],
+            record[<span class="hljs-string">&quot;high&quot;</span>],
+            record[<span class="hljs-string">&quot;low&quot;</span>],
+            record[<span class="hljs-string">&quot;close&quot;</span>],
+            record[<span class="hljs-string">&quot;vol&quot;</span>]
         )
-        for record in data
+        <span class="hljs-keyword">for</span> record <span class="hljs-keyword">in</span> data
     ]
-    clickhouse_client.execute(query, values)
-</code></pre>
+    clickhouse_client.execute(query, values)</span></code></pre>
 <p>在此基础上，我希望让 <code>data_consumer.py</code> 在将 <code>Redis</code> 里的数据传送到 ClickHouse 之后停止运行，可在 <code>Redis</code> 队列没有数据时，终止循环。</p>
-<pre><code class="language-python"># ...  源代码见上一章节。
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span></span><span class="cl-body"><span class="hljs-comment"># ...  源代码见上一章节。</span>
 
-def consume_data():
-    &quot;&quot;&quot;数据消费主函数&quot;&quot;&quot;
-    print(&quot;启动数据消费者，等待队列数据...&quot;)
-    while True:
-        try:
-            # 阻塞式获取队列数据
-            result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=1)
-            if result is None:
-                # 如果没有获取到数据，说明队列为空，退出循环
-                print(&quot;Redis 队列为空，停止消费数据。&quot;)
-                break
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">consume_data</span>():
+    <span class="hljs-string">&quot;&quot;&quot;数据消费主函数&quot;&quot;&quot;</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;启动数据消费者，等待队列数据...&quot;</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">try</span>:
+            <span class="hljs-comment"># 阻塞式获取队列数据</span>
+            result = redis_client.brpop(REDIS_QUEUE_NAME, timeout=<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">if</span> result <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+                <span class="hljs-comment"># 如果没有获取到数据，说明队列为空，退出循环</span>
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Redis 队列为空，停止消费数据。&quot;</span>)
+                <span class="hljs-keyword">break</span>
             _, json_data = result
             data_package = json.loads(json_data)
-            ohlc_data = data_package[&quot;ohlc_data&quot;]
+            ohlc_data = data_package[<span class="hljs-string">&quot;ohlc_data&quot;</span>]
             insert_to_clickhouse(ohlc_data)
-            print(f&quot;成功插入数据: {len(ohlc_data)} 条&quot;)
-        except Exception as e:
-            print(f&quot;数据处理异常: {str(e)}&quot;)
-            continue
-</code></pre>
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;成功插入数据: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(ohlc_data)}</span> 条&quot;</span>)
+        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;数据处理异常: <span class="hljs-subst">{<span class="hljs-built_in">str</span>(e)}</span>&quot;</span>)
+            <span class="hljs-keyword">continue</span></span></code></pre>
 <p>007 在修改后，还“贴心”地给出了代码解释：</p>
 <ul>
 <li><strong>brpop 函数的 timeout 参数</strong>：把 brpop 函数的 timeout 参数设定为 1 秒，这意味着如果在 1 秒内没有从队列中获取到数据，brpop 函数就会返回 None。</li>

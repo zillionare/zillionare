@@ -17,21 +17,20 @@
 <h2 id="fft---时频互转">FFT - 时频互转</h2>
 <p>（取数据部分略）。</p>
 <p>我们已经取得了过去一年来的沪指。显然，它是一个时间序列信号。傅里叶变换正好可以将时间序列信号转换为频域信号。换句话说，傅里叶变换能将沪指分解成若干个正弦波的组合。</p>
-<pre><code class="language-python"># 应用傅里叶变换
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span></span><span class="cl-body"><span class="hljs-comment"># 应用傅里叶变换</span>
 fft_result = np.fft.fft(close)
-freqs = np.fft.fftfreq(len(close))
+freqs = np.fft.fftfreq(<span class="hljs-built_in">len</span>(close))
 
-# 逆傅里叶变换
+<span class="hljs-comment"># 逆傅里叶变换</span>
 filtered = fft_result.copy()
-filtered[20:] = 0
+filtered[<span class="hljs-number">20</span>:] = <span class="hljs-number">0</span>
 inverse_fft = np.fft.ifft(filtered)
 
-# 绘制原始信号和分解后的信号
-plt.figure(figsize=(14, 7))
-plt.plot(close, label=&#39;Original Close&#39;)
-plt.plot(np.real(inverse_fft), label=&#39;Reconstructed from Sine Waves&#39;)
-plt.legend()
-</code></pre>
+<span class="hljs-comment"># 绘制原始信号和分解后的信号</span>
+plt.figure(figsize=(<span class="hljs-number">14</span>, <span class="hljs-number">7</span>))
+plt.plot(close, label=<span class="hljs-string">&#x27;Original Close&#x27;</span>)
+plt.plot(np.real(inverse_fft), label=<span class="hljs-string">&#x27;Reconstructed from Sine Waves&#x27;</span>)
+plt.legend()</span></code></pre>
 <p>我们得到的输出如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg" alt=""></p>
 <p>在数字信号处理的领域，时间序列被称为时域信号，经过傅里叶变换后，我们得到的是频域信号。时域信号与频域信号可以相互转换。Numpy 中的 fft 库提供了 fft 和 ifft 这两个函数帮我们实现这两种转换。</p>
@@ -50,33 +49,32 @@ plt.legend()
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg" alt=""></p>
 <p>所以，我们换一个思路，把分解后的频域信号中，能量最强的部分保留下来，看看它们长什么样。</p>
 <h2 id="过滤低能量信号">过滤低能量信号</h2>
-<pre><code class="language-python"># 保留能量最强的前 5 个信号
-amp_threshold = np.sort(np.abs(fft_result))[-11]
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span></span><span class="cl-body"><span class="hljs-comment"># 保留能量最强的前 5 个信号</span>
+amp_threshold = np.sort(np.<span class="hljs-built_in">abs</span>(fft_result))[-<span class="hljs-number">11</span>]
 
-# 绘制各个正弦波分量
-plt.figure(figsize=(14, 7))
+<span class="hljs-comment"># 绘制各个正弦波分量</span>
+plt.figure(figsize=(<span class="hljs-number">14</span>, <span class="hljs-number">7</span>))
 
 theforce = []
-for freq in freqs:
-    if freq == 0:  # 处理直流分量
-        continue
-    elif freq &lt; 0:
-        continue
-    else:
-        amp = np.abs(fft_result[np.where(freqs == freq)])
-        if amp &lt; amp_threshold:
-            continue
-        sine_wave = amp * np.sin(2 * np.pi * freq * np.arange(len(close)))
+<span class="hljs-keyword">for</span> freq <span class="hljs-keyword">in</span> freqs:
+    <span class="hljs-keyword">if</span> freq == <span class="hljs-number">0</span>:  <span class="hljs-comment"># 处理直流分量</span>
+        <span class="hljs-keyword">continue</span>
+    <span class="hljs-keyword">elif</span> freq &lt; <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">continue</span>
+    <span class="hljs-keyword">else</span>:
+        amp = np.<span class="hljs-built_in">abs</span>(fft_result[np.where(freqs == freq)])
+        <span class="hljs-keyword">if</span> amp &lt; amp_threshold:
+            <span class="hljs-keyword">continue</span>
+        sine_wave = amp * np.sin(<span class="hljs-number">2</span> * np.pi * freq * np.arange(<span class="hljs-built_in">len</span>(close)))
         theforce.append(sine_wave)
-        plt.plot(dates, sine_wave, label=f&#39;Frequency={freq:.2f}&#39;)
+        plt.plot(dates, sine_wave, label=<span class="hljs-string">f&#x27;Frequency=<span class="hljs-subst">{freq:<span class="hljs-number">.2</span>f}</span>&#x27;</span>)
 
 plt.legend()
-plt.title(&#39;Individual Sine Wave Components&#39;)
-ticks = np.arange(0, len(dates), 20)
-labels_to_show = [dates[i] for i in ticks]
-plt.xticks(ticks=ticks, labels=labels_to_show, rotation=45)
-plt.show()
-</code></pre>
+plt.title(<span class="hljs-string">&#x27;Individual Sine Wave Components&#x27;</span>)
+ticks = np.arange(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(dates), <span class="hljs-number">20</span>)
+labels_to_show = [dates[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> ticks]
+plt.xticks(ticks=ticks, labels=labels_to_show, rotation=<span class="hljs-number">45</span>)
+plt.show()</span></code></pre>
 <p>FFT 给出的频率总是一正一负，我们可以简单地认为，负的频率对我们没有意义，那是一种我们看不到、也无须关心的暗能量。所以，在代码中，我们就忽略了这一部分。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg" alt=""></p>
 <p>我们看到，对沪指走势影响最强的波（橙色）的周期是 7 个月左右：从峰到底要走 3 个半月，从底到峰也要走 3 个半月。由于它的能量几乎是其它波的一倍，所以它是主导整个叠加波的走势的：如果其它波与它同相，叠加的结果就会使得趋势加强；反之，则是趋势抵消。其它几个波的能量相仿，但频率不同。</p>

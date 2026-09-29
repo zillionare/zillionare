@@ -37,8 +37,7 @@
 让我们查看 DuckDB 是否支持在线备份：</p>
 </blockquote>
 <p>它查看duckdb文档的方式是通过这个命令：</p>
-<pre><code class="language-python">python -c &quot;import duckdb; print(dir(duckdb))&quot;
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">python -c <span class="hljs-string">&quot;import duckdb; print(dir(duckdb))&quot;</span></span></code></pre>
 <p>然后从一堆杂乱的输出中，找到了checkpoint方法，然后给出了实现方案：</p>
 <blockquote>
 <p>基于以上信息，我们可以设计一个在不停止服务的情况下备份数据库的解决方案。DuckDB 支持 checkpoint 操作，这可以确保所有的更改都被写入磁盘。然后我们可以使用文件系统级别的备份来复制数据库文件。
@@ -49,39 +48,38 @@
 在备份过程中使用 DuckDB 的 checkpoint 功能确保数据一致性</p>
 </blockquote>
 <p>最终的实现是：</p>
-<pre><code class="language-python">def backup_database() -&gt; None:
-    &quot;&quot;&quot;备份数据库
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">backup_database</span>() -&gt; <span class="hljs-literal">None</span>:
+    <span class="hljs-string">&quot;&quot;&quot;备份数据库
 
     在不停止服务的情况下备份数据库文件，使用DuckDB的checkpoint功能确保数据一致性
-    &quot;&quot;&quot;
-    try:
-        # 获取当前时间作为备份目录名
-        timestamp = datetime.datetime.now().strftime(&quot;%Y-%m-%d_%H%M%S&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-comment"># 获取当前时间作为备份目录名</span>
+        timestamp = datetime.datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d_%H%M%S&quot;</span>)
 
-        # 设置备份目录
+        <span class="hljs-comment"># 设置备份目录</span>
         ...
 
-        # 确保所有更改都写入磁盘
-        conn = duckdb.connect(str(db_path), read_only=False)
-        conn.execute(&quot;CHECKPOINT&quot;)
+        <span class="hljs-comment"># 确保所有更改都写入磁盘</span>
+        conn = duckdb.connect(<span class="hljs-built_in">str</span>(db_path), read_only=<span class="hljs-literal">False</span>)
+        conn.execute(<span class="hljs-string">&quot;CHECKPOINT&quot;</span>)
         conn.close()
 
-        # 备份数据库文件
-        backup_db_path = backup_dir / &quot;provision.db&quot;
+        <span class="hljs-comment"># 备份数据库文件</span>
+        backup_db_path = backup_dir / <span class="hljs-string">&quot;provision.db&quot;</span>
         shutil.copy2(db_path, backup_db_path)
 
-        # 保留最近的10个备份，删除旧的备份
-        all_backups = sorted(backup_base.glob(&quot;*&quot;), key=os.path.getmtime)
-        if len(all_backups) &gt; 10:
-            for old_backup in all_backups[:-10]:
-                if old_backup.is_dir():
+        <span class="hljs-comment"># 保留最近的10个备份，删除旧的备份</span>
+        all_backups = <span class="hljs-built_in">sorted</span>(backup_base.glob(<span class="hljs-string">&quot;*&quot;</span>), key=os.path.getmtime)
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(all_backups) &gt; <span class="hljs-number">10</span>:
+            <span class="hljs-keyword">for</span> old_backup <span class="hljs-keyword">in</span> all_backups[:-<span class="hljs-number">10</span>]:
+                <span class="hljs-keyword">if</span> old_backup.is_dir():
                     shutil.rmtree(old_backup)
-                    logger.info(f&quot;Removed old backup: {old_backup}&quot;)
+                    logger.info(<span class="hljs-string">f&quot;Removed old backup: <span class="hljs-subst">{old_backup}</span>&quot;</span>)
 
-        logger.info(f&quot;Database backup completed successfully: {backup_dir}&quot;)
-    except Exception as e:
-        logger.error(f&quot;Failed to backup database: {e}&quot;)
-</code></pre>
+        logger.info(<span class="hljs-string">f&quot;Database backup completed successfully: <span class="hljs-subst">{backup_dir}</span>&quot;</span>)
+    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+        logger.error(<span class="hljs-string">f&quot;Failed to backup database: <span class="hljs-subst">{e}</span>&quot;</span>)</span></code></pre>
 <p>Augment最后发挥了一下，只保留了最后10个备份。这相当于2个月前的备份会被删除。我并没有要求它这么做，但是，Augment的这份主动性很贴心。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/tools/alphasuite/">← 上一篇：不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的提示词</a> <a class="series-next" href="/posts/tools/auto-restart-miniqmt/">下一篇：如何免登录重启miniqmt? →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「数据与存储」路径第 11/24 篇</span> <span class="reading-path-links"> <a href="/posts/tools/21天驯化AI打工仔/9_系统逻辑优化与分钟线数据合成/">← 21 天驯化 AI 打工仔:系统逻辑</a> <a href="/posts/tools/duckdb-has-released-1.0/">里程碑！DuckDB 发布 1.0 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/tags/#topic-data"><strong>👉 数据存储选型：HDF5 / Parquet / DuckDB</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/investment/量化库/数据持久化/数据持久化/">量化数据的持久化方案</a> <p>回测需要较长周期的数据。无论我们使用哪一家数据源，都不可能让我们跨网络、反复多次传输大量数据，还要保证低延时。此外，我们在量化研究的过程中，也会逐步积累自己的因子库。这些因子数据，</p> </li><li> <a href="/articles/products/zillionare-maintain/">Zillionare 2.0维护指南</a> <p>在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下：</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul>  </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

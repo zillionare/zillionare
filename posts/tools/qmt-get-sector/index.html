@@ -27,100 +27,88 @@
 <hr>
 <h2 id="xtquant-中有哪些板块">Xtquant 中有哪些板块</h2>
 <p>xtquant 中的板块列表通过 get_sector_list 来获取。返回结果是一个字符串列表：</p>
-<pre><code class="language-python">from xtquant import xtdata
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">from</span> xtquant <span class="hljs-keyword">import</span> xtdata
 sectors = xtdata.get_sector_list()
-for i in range(0, len(sectors), 6):
-    print(&quot; &quot;.join(sectors[i:i+6]))
-</code></pre>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(sectors), <span class="hljs-number">6</span>):
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot; &quot;</span>.join(sectors[i:i+<span class="hljs-number">6</span>]))</span></code></pre>
 <p>我们将得到 5000 多个板块名称，摘录其中的部分显示如下：</p>
-<pre><code>上期所上证 A 股，上证 B 股，上证期权，上证转债，中金所
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">上期所上证 A 股，上证 B 股，上证期权，上证转债，中金所
 创业板，大商所，板块加权指数，板块指数，概念指数，沪市 ETF
 沪市债券，沪市基金，沪市指数，沪深 A 股，沪深 B 股，沪深 ETF
 迅投一级行业板块指数，迅投三级行业板块加权指数，迅投三级行业板块指数
 郑商所，香港联交所指数，香港联交所股票，ETF 主题指数，ETF 债券型，ETF 商品型
 ETF 股票型，ETF 行业指数，ETF 货币型，ETF 跨境型，TGN3D 打印，TGN5G
 TGNMicroLED 概念，TGNMiniLED,TGNMLOps 概念，TGNMR
-...
-</code></pre>
+...</span></code></pre>
 <p>板块比较多。下面我们介绍它的几个重要归类：</p>
 <h3 id="指数类">指数类</h3>
 <p>在名称中出现指数一词的，大约有 80 个。也就是说，这个板块是由指数的代码组成的：</p>
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-sector.jpg" alt=""></p>
 <p>我们看看沪深指数这个板块都由哪些指数组成：</p>
-<pre><code class="language-python">for sector in xtdata.get_stock_list_in_sector(&#39;沪深指数&#39;):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-keyword">for</span> sector <span class="hljs-keyword">in</span> xtdata.get_stock_list_in_sector(<span class="hljs-string">&#x27;沪深指数&#x27;</span>):
     detail = xtdata.get_instrument_detail(sector)
-    name = detail[&quot;InstrumentName&quot;]
-    print(sector, name)
-</code></pre>
+    name = detail[<span class="hljs-string">&quot;InstrumentName&quot;</span>]
+    <span class="hljs-built_in">print</span>(sector, name)</span></code></pre>
 <p>这里大约有 600 种指数，比如我们常用的上证指数 (000001.SH), 上证 50，上证 300 等都在这里面。如果你要获取中证 1000 的行情数据，但不知道它的代码是多少，就需要在这里查询：</p>
-<pre><code class="language-python">for sector in xtdata.get_stock_list_in_sector(&#39;沪深指数&#39;):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">for</span> sector <span class="hljs-keyword">in</span> xtdata.get_stock_list_in_sector(<span class="hljs-string">&#x27;沪深指数&#x27;</span>):
     detail = xtdata.get_instrument_detail(sector)
-    name = detail[&quot;InstrumentName&quot;]
-    if name == &quot;中证 1000&quot;:
-        print(sector)
-</code></pre>
+    name = detail[<span class="hljs-string">&quot;InstrumentName&quot;</span>]
+    <span class="hljs-keyword">if</span> name == <span class="hljs-string">&quot;中证 1000&quot;</span>:
+        <span class="hljs-built_in">print</span>(sector)</span></code></pre>
 <hr>
 <p>代码是&quot;000852.SH&quot;和&quot;399852.SZ&quot;，它们分别是中证 1000 在沪指和深指中的代码。接下来我们就可以通过上一篇笔记介绍的方法，来获取这个指数的行情：</p>
-<pre><code class="language-python">xtdata.download_history_data(&quot;399852.SZ&quot;, period=&quot;1d&quot;)
-xtdata.get_market_data(stock_list=[&quot;399852.SZ&quot;], period=&#39;1d&#39;, count=10)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">xtdata.download_history_data(<span class="hljs-string">&quot;399852.SZ&quot;</span>, period=<span class="hljs-string">&quot;1d&quot;</span>)
+xtdata.get_market_data(stock_list=[<span class="hljs-string">&quot;399852.SZ&quot;</span>], period=<span class="hljs-string">&#x27;1d&#x27;</span>, count=<span class="hljs-number">10</span>)</span></code></pre>
 <h2 id="概念和同花顺概念">概念和同花顺概念</h2>
 <p>注意“概念指数”这个板块，我们通过下面的代码来列出它包含的指数：</p>
-<pre><code class="language-python">for code in xtdata.get_stock_list_in_sector(&quot;概念指数&quot;):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> xtdata.get_stock_list_in_sector(<span class="hljs-string">&quot;概念指数&quot;</span>):
     detail = xtdata.get_instrument_detail(code)
-    name = detail[&quot;InstrumentName&quot;]
+    name = detail[<span class="hljs-string">&quot;InstrumentName&quot;</span>]
 
-    print(sector, name)
-</code></pre>
+    <span class="hljs-built_in">print</span>(sector, name)</span></code></pre>
 <p>部分输出如下：</p>
-<pre><code>102566.BKZS GNoled 材料
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">102566.BKZS GNoled 材料
 101285.BKZS GN 龙虎榜热门
 102109.BKZS GN 太阳能
 102512.BKZS GN 安邦系
 101602.BKZS GN 饲料
-101219.BKZS GN 室外经济
-</code></pre>
+101219.BKZS GN 室外经济</span></code></pre>
 <p>但是似乎拿不到这些板块的指数。我们将继续咨询官方，得到反馈后再向大家报告。如果您现在就需要这些板块的指数，那么可以<strong>手工计算一个等权指数</strong>出来。</p>
 <hr>
 <p>以 GNoled 材料为例，我们可以拿到它的成份股构成，进而得到所有成份股的行情：</p>
-<pre><code class="language-python">secs = xtdata.get_stock_list_in_sector(&#39;GNoled 材料&#39;)
-xtdata.download_history_data2(secs, period=&#39;1d&#39;, start_time=&quot;20231220&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">secs = xtdata.get_stock_list_in_sector(<span class="hljs-string">&#x27;GNoled 材料&#x27;</span>)
+xtdata.download_history_data2(secs, period=<span class="hljs-string">&#x27;1d&#x27;</span>, start_time=<span class="hljs-string">&quot;20231220&quot;</span>)
 
-barss = xtdata.get_market_data(stock_list=secs, count=10)
-barss
-</code></pre>
+barss = xtdata.get_market_data(stock_list=secs, count=<span class="hljs-number">10</span>)
+barss</span></code></pre>
 <p>此时我们得到输出如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-gn-bars.png" alt=""></p>
 <p>我们通过下面的方法求等权指数，注意这里的转置，以及求均值时，我们传入的 axis=1 的参数。</p>
-<pre><code class="language-python">barss[&quot;close&quot;].T.mean(axis=1)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">barss[<span class="hljs-string">&quot;close&quot;</span>].T.mean(axis=<span class="hljs-number">1</span>)</span></code></pre>
 <p>此时我们得到的输出如下：</p>
-<pre><code>20231220    19.030909
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">20231220    19.030909
 20231221    19.072121
 20231222    18.880909
-20231225    18.978485
-</code></pre>
+20231225    18.978485</span></code></pre>
 <hr>
 <p>我们看到板块名字中，好多以 T 开头的，比如 TGN，THY 等。官方文档中似乎没有关于它们的说明，猜测可能是<strong>同花顺概念、同花顺行业</strong>。</p>
 <h2 id="申万行业分类板块">申万行业分类板块</h2>
 <p>如果你希望得到按申万行业分类的板块，应该用以下代码进行查询：</p>
-<pre><code class="language-python">for code in xtdata.get_stock_list_in_sector(&quot;迅投一级行业板块指数&quot;):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">for</span> code <span class="hljs-keyword">in</span> xtdata.get_stock_list_in_sector(<span class="hljs-string">&quot;迅投一级行业板块指数&quot;</span>):
     detail = xtdata.get_instrument_detail(code)
-    name = detail[&quot;InstrumentName&quot;]
-    if name.startswith(&quot;SW&quot;):
-        print(code, name)
-</code></pre>
+    name = detail[<span class="hljs-string">&quot;InstrumentName&quot;</span>]
+    <span class="hljs-keyword">if</span> name.startswith(<span class="hljs-string">&quot;SW&quot;</span>):
+        <span class="hljs-built_in">print</span>(code, name)</span></code></pre>
 <p>这样得到的是申万一级行业板块。如果要查询二级、三级，应该分别使用迅投二级行业板块指数和迅投三级行业板块指数。但似乎也无法获取它们的指数。</p>
 <h2 id="可转债">可转债</h2>
 <p>我们通过以下代码查找所有的可转债，并得到它们的代码和名字：</p>
-<pre><code>for sector in xtdata.get_sector_list():
-    if sector.find(&quot;可转债&quot;) != -1:
-        print(sector)
-xtdata.get_stock_list_in_sector(&quot;沪深 A 股&quot;)
-xtdata.get_stock_list_in_sector(&quot;可转债等权&quot;)
-xtdata.get_instrument_detail(&quot;110047.SH&quot;)
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">for</span> sector <span class="hljs-keyword">in</span> xtdata.get_sector_list():
+    <span class="hljs-keyword">if</span> sector.find(<span class="hljs-string">&quot;可转债&quot;</span>) != -<span class="hljs-number">1</span>:
+        <span class="hljs-built_in">print</span>(sector)
+xtdata.get_stock_list_in_sector(<span class="hljs-string">&quot;沪深 A 股&quot;</span>)
+xtdata.get_stock_list_in_sector(<span class="hljs-string">&quot;可转债等权&quot;</span>)
+xtdata.get_instrument_detail(<span class="hljs-string">&quot;110047.SH&quot;</span>)</span></code></pre>
 <hr>
 <p>这将输出 110043SH 无锡转债。我们可以由它的代码，进一步得到它的行情数据。</p>
 <h2 id="小结">小结</h2>

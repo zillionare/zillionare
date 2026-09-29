@@ -16,62 +16,55 @@
 <!--more-->
 
 <p>方法之一是使用jupyterhub_config.py，将环境变量设置在这个文件中：</p>
-<pre><code class="language-python">c.Spawner.env_keep = [VAR1, VAR2, ...]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">c.Spawner.env_keep = [VAR1, VAR2, ...]</span></code></pre>
 <p>这样，在Jupyter hub启动notebook时，列表中的环境变量就会被带入到notebook中。但是，这仅限于jupyterhub的场景。</p>
 <p>另一个方法是使用 python-dotenv库，在每一个notebook的头部，通过cell magic语法加载环境变量：</p>
-<pre><code class="language-python">%load_ext dotenv
-%dotenv
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">%load_ext dotenv
+%dotenv</span></code></pre>
 <p>不过这样也用很繁琐。</p>
 <h2 id="使用kerneljson">使用kernel.json</h2>
 <p>有一种方法设置起来复杂一些。但一旦设置好，在使用上却是最简便。这就是通过修改kernel.json。</p>
 <p>这个文件的内容如下所示：</p>
-<pre><code class="language-json">{
- &quot;display_name&quot;: &quot;Python 2 with environment&quot;,
- &quot;language&quot;: &quot;python&quot;,
- &quot;argv&quot;: [
-  &quot;/usr/bin/python2&quot;,
-  &quot;-m&quot;,
-  &quot;ipykernel_launcher&quot;,
-  &quot;-f&quot;,
-  &quot;{connection_file}&quot;
- ],
- &quot;env&quot;: {&quot;LD_LIBRARY_PATH&quot;:&quot;&quot;}
-}
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-punctuation">{</span>
+ <span class="hljs-attr">&quot;display_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Python 2 with environment&quot;</span><span class="hljs-punctuation">,</span>
+ <span class="hljs-attr">&quot;language&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;python&quot;</span><span class="hljs-punctuation">,</span>
+ <span class="hljs-attr">&quot;argv&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+  <span class="hljs-string">&quot;/usr/bin/python2&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;-m&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;ipykernel_launcher&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;-f&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;{connection_file}&quot;</span>
+ <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+ <span class="hljs-attr">&quot;env&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;LD_LIBRARY_PATH&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></span></code></pre>
 <p>最后的&quot;env&quot;字段，显示了如何设置环境变量。如果我们在notebook中要使用tushare, 或者jqdatasdk的账号或者密码，就可以在这个文件中这样设置：</p>
-<pre><code class="language-json">
-{
- &quot;display_name&quot;: &quot;Python 2 with environment&quot;,
- &quot;language&quot;: &quot;python&quot;,
- &quot;argv&quot;: [
-  &quot;/usr/bin/python2&quot;,
-  &quot;-m&quot;,
-  &quot;ipykernel_launcher&quot;,
-  &quot;-f&quot;,
-  &quot;{connection_file}&quot;
- ],
- &quot;env&quot;: {&quot;jqdata_account&quot;:&quot;myaccount&quot;, &quot;jqdata_password&quot;: &quot;mypassword&quot;}
-}
-</code></pre>
+<pre><code class="hljs language-json"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body">
+<span class="hljs-punctuation">{</span>
+ <span class="hljs-attr">&quot;display_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Python 2 with environment&quot;</span><span class="hljs-punctuation">,</span>
+ <span class="hljs-attr">&quot;language&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;python&quot;</span><span class="hljs-punctuation">,</span>
+ <span class="hljs-attr">&quot;argv&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+  <span class="hljs-string">&quot;/usr/bin/python2&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;-m&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;ipykernel_launcher&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;-f&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-string">&quot;{connection_file}&quot;</span>
+ <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+ <span class="hljs-attr">&quot;env&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;jqdata_account&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;myaccount&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;jqdata_password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;mypassword&quot;</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 tushare和jqdatasdk是两个重要的A股证券数据源。
 </div>
 
 <p>设置后，重新打开notebook，现在就可以这样访问了：</p>
-<pre><code class="language-python">import os
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> os
 
-print(os.environ.get(&#39;jqdata_account&#39;))
-</code></pre>
+<span class="hljs-built_in">print</span>(os.environ.get(<span class="hljs-string">&#x27;jqdata_account&#x27;</span>))</span></code></pre>
 <h2 id="kerneljson的位置">kernel.json的位置</h2>
 <p>在单元格中，运行以下命令：</p>
-<pre><code class="language-bash">!jupyter kernelspec list
-</code></pre>
+<pre><code class="hljs language-bash"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">!jupyter kernelspec list</span></code></pre>
 <p>我们会得到类似如下的输出：</p>
-<pre><code>Available kernels:
-  python3    /usr/local/share/jupyter/kernels/python3
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">Available kernels:
+  python3    /usr/local/share/jupyter/kernels/python3</span></code></pre>
 <p>kernle.json就在这个目录里。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/python/duckdb-2/">← 上一篇：为什么量化人应该使用duckdb？</a> <a class="series-next" href="/posts/python/it-is-π-thon/">下一篇：π-thon以及他的朋友们 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 27/96 篇</span> <span class="reading-path-links"> <a href="/posts/python/duckdb-2/">← 为什么量化人应该使用duckdb？</a> <a href="/posts/python/it-is-π-thon/">π-thon以及他的朋友们 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/best-practice-python/chap02/">02 编程开发环境</a> <p>尽管条条道路通罗马，但毕竟有的路走得更平稳更快捷，更不要说有的人甚至就住在罗马。对于程序员而言，你的开发环境有多好用，你离罗马就有多近。因此，我们的旅程从这里开始。</p> </li><li> <a href="/articles/python/best-practice-python/chap03/">03 构建 Python 虚拟环境</a> <p>在上一章里，我们讨论了构建开发环境的基本步骤，如选择操作系统、选择集成开发环境等。现在我们可以着手编写代码了，但要能运行和调试程序，还需要指定 Python 运行时（或者称之为解释</p> </li><li> <a href="/articles/python/best-practice-python/chap05/">05 Poetry: 项目管理的诗和远方</a> <p>上一章里，我们通过 ppw 生成了一个规范的 python 项目，对初学者来说，许多闻所未闻、见所未见的概念和名词扑面而来，不免让人一时眼花缭乱，目不暇接。然而，如果我们不从头讲起</p> </li><li> <a href="/articles/python/best-practice-python/chap11/">11 发布应用</a> <p>我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#使用kerneljson" title="使用kernel.json">使用kernel.json</a> </li><li class> <a href="#kerneljson的位置" title="kernel.json的位置">kernel.json的位置</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

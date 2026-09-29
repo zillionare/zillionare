@@ -19,30 +19,28 @@
 <strong>quantstats.plots</strong>：用于性能、下降趋势、月度回报等绩效指标的可视化
 <strong>quantstats.reports</strong>：用于生成度量报告，可保存为html文件</p>
 <p>由于前段时间原作者长期未维护，导致新安装的 Quantstats，尤其是在 Python 3.12 及以上高版本中，几乎无法运行，因此，前段时间我们出手维护,带来了<strong>Quantstats Reloaded</strong>，欢迎大家安装使用!</p>
-<pre><code class="language-python">!pip install quantstats-reloaded
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">!pip install quantstats-reloaded</span></code></pre>
 <p>评价策略表现的具体量化依据为各类指标,例如: <span style="text-decoration: dashed underline #00A86B; text-decoration-thickness: 2px;">信息比率、夏普比率、最大回撤，以及 α 收益、β 收益</span> 等。需明确的是，这些指标的计算遵循客观、标准化的公式，具备严格的数理规则；但对指标结果的解读与评价则具有主观性，往往与使用者的风险偏好相关。</p>
 <p>!!! tip 
 因此，不存在绝对的 “好坏判定阈值”，关键在于深入理解各指标背后的经济逻辑与风险收益内涵，进而结合自身投资目标与风险承受能力形成独立判断。</p>
 <p>光是QuantStats中的Stats库下就有几十种计算指标。我们今天先来介绍Stats库中的<span style="text-decoration: dashed underline #00A86B; text-decoration-thickness: 2px;">compsum()、comp()、expected_return()</span> 这三个函数，看看这三个函数有什么用处？它们之间有着怎样的联系呢？</p>
 <h2 id="基础统计">基础统计</h2>
 <p><strong>1. compsum(): 将收益率序列转换为累积复合收益率序列（累积乘积）</strong></p>
-<pre><code class="language-python">函数: compsum(returns)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body">函数: compsum(returns)
 
-# 参数介绍
+<span class="hljs-comment"># 参数介绍</span>
 returns(pd.Series, 推荐)
 • 收益率序列,通常是日收益率数据
-格式: [0.01, -0.02, 0.03, ...] 
-• 表示1%, -2%, 3%
-• 计算公式: (1 + returns).cumprod() - 1
+格式: [<span class="hljs-number">0.01</span>, -<span class="hljs-number">0.02</span>, <span class="hljs-number">0.03</span>, ...] 
+• 表示<span class="hljs-number">1</span>%, -<span class="hljs-number">2</span>%, <span class="hljs-number">3</span>%
+• 计算公式: (<span class="hljs-number">1</span> + returns).cumprod() - <span class="hljs-number">1</span>
 
-# 示例用法
-returns = pd.Series([0.01, -0.02, 0.03, -0.01, 0.02])
+<span class="hljs-comment"># 示例用法</span>
+returns = pd.Series([<span class="hljs-number">0.01</span>, -<span class="hljs-number">0.02</span>, <span class="hljs-number">0.03</span>, -<span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>])
 cumulative = qs.stats.compsum(returns)
 
-# 输出结果
-[0.01, -0.0098, 0.0207, 0.0105, 0.0307]
-</code></pre>
+<span class="hljs-comment"># 输出结果</span>
+[<span class="hljs-number">0.01</span>, -<span class="hljs-number">0.0098</span>, <span class="hljs-number">0.0207</span>, <span class="hljs-number">0.0105</span>, <span class="hljs-number">0.0307</span>]</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 
 </div>
@@ -51,47 +49,45 @@ compsum函数返回的是「一串序列」，且长度与输入序列一致! !�
 
 <p><img src="https://fastly.jsdelivr.net/gh/bucketio/img14@main/images/2025/08/1754138614424-3c94d9d1-2058-4ef3-a5d4-e1f2a5c0fab6.png" alt=""></p>
 <p><strong>2. comp() : 计算总复合收益率（最终累积收益）- 整个期间的总收益率</strong></p>
-<pre><code class="language-python">函数: comp(returns)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body">函数: comp(returns)
 
-#参数介绍
+<span class="hljs-comment">#参数介绍</span>
 returns(pd.Series, 推荐)
 • 收益率序列
-计算公式: (1 + returns).prod() - 1
+计算公式: (<span class="hljs-number">1</span> + returns).prod() - <span class="hljs-number">1</span>
 • 等同于 compsum() 的最后一个值
 
-# 示例用法
-returns = pd.Series([0.01, -0.02, 0.03, -0.01, 0.02])
+<span class="hljs-comment"># 示例用法</span>
+returns = pd.Series([<span class="hljs-number">0.01</span>, -<span class="hljs-number">0.02</span>, <span class="hljs-number">0.03</span>, -<span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>])
 total_return = qs.stats.comp(returns)
-print(f&quot;总收益率: {total_return:.4f}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;总收益率: <span class="hljs-subst">{total_return:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
 
-# 等价计算方法
+<span class="hljs-comment"># 等价计算方法</span>
 cumulative = qs.stats.compsum(returns)
-print(f&quot;最后值: {cumulative.iloc[-1]:.4f}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;最后值: <span class="hljs-subst">{cumulative.iloc[-<span class="hljs-number">1</span>]:<span class="hljs-number">.4</span>f}</span>&quot;</span>)</span></code></pre>
 <p>!!! tip 
 与compsum函数相比,comp函数的区别是:它返回的是「一个数值」,而不是一串序列(体现在计算公式上)。并且这个数值是compsum函数返回序列的最后一个值!因此，comp返回的是某个期间的最终总收益率</p>
 <p> <strong>3. expected_return() : 计算期望收益率（几何平均数)</strong></p>
-<pre><code class="language-python">函数: expected_return(returns, aggregate=None, compounded=True, prepare_returns=True)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body">函数: expected_return(returns, aggregate=<span class="hljs-literal">None</span>, compounded=<span class="hljs-literal">True</span>, prepare_returns=<span class="hljs-literal">True</span>)
 
-#参数介绍
+<span class="hljs-comment">#参数介绍</span>
 returns(pd.Series, 推荐)
 •收益率序列
-aggregate(str, 可选)
-• 聚合周期: &#39;D&#39;(日), &#39;W&#39;(周), &#39;M&#39;(月), &#39;Q&#39;(季), &#39;Y&#39;(年)
-compounded(bool, 默认=True)
+aggregate(<span class="hljs-built_in">str</span>, 可选)
+• 聚合周期: <span class="hljs-string">&#x27;D&#x27;</span>(日), <span class="hljs-string">&#x27;W&#x27;</span>(周), <span class="hljs-string">&#x27;M&#x27;</span>(月), <span class="hljs-string">&#x27;Q&#x27;</span>(季), <span class="hljs-string">&#x27;Y&#x27;</span>(年)
+compounded(<span class="hljs-built_in">bool</span>, 默认=<span class="hljs-literal">True</span>)
 • 是否使用复合收益率计算
-prepare_returns(bool, 默认=True)
+prepare_returns(<span class="hljs-built_in">bool</span>, 默认=<span class="hljs-literal">True</span>)
 • 是否预处理数据（去除NaN等）
 
-# 示例用法
-returns = pd.Series([0.01, -0.02, 0.03, -0.01, 0.02])
-# 计算日度期望收益
+<span class="hljs-comment"># 示例用法</span>
+returns = pd.Series([<span class="hljs-number">0.01</span>, -<span class="hljs-number">0.02</span>, <span class="hljs-number">0.03</span>, -<span class="hljs-number">0.01</span>, <span class="hljs-number">0.02</span>])
+<span class="hljs-comment"># 计算日度期望收益</span>
 expected_ret = qs.stats.expected_return(returns)
-print(f&quot;日度期望收益: {expected_ret:.4f}&quot;)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;日度期望收益: <span class="hljs-subst">{expected_ret:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
 
-# 计算公式: (∏(1 + returns))^(1/n) - 1
-# 几何平均数，考虑复利效应
-</code></pre>
+<span class="hljs-comment"># 计算公式: (∏(1 + returns))^(1/n) - 1</span>
+<span class="hljs-comment"># 几何平均数，考虑复利效应</span></span></code></pre>
 <p><strong>假设有A、B两个策略，其中：</strong></p>
 <p>A策略：已运行30天，区间总计累积收益为30%<strong>（使用comp计算得到）</strong>
 B策略：已运行25天，区间总计累积收益为20%<strong>（使用comp计算得到）</strong>
@@ -101,26 +97,26 @@ Answer：因为「时间长度不一样」，所以不能直接用30%与20%做�
 <p>!!! question <strong>平均数的计算方式分为：「算术平均数」和「几何平均数」，用哪个更好？
 Answer：当然是「几何平均数」！</strong>(通过expected_return计算**)。因为它不仅考虑了「复利」的影响，还能精准还原最终的累计净值大小</p>
 <p>现在,我们通过下方代码生成一系列随机数，我们可以生成很多个上涨或下跌情况下的净值走势以及它们的算术平均数和几何平均数从起点到终点的变化路径</p>
-<pre><code class="language-python">dates = pd.date_range(&quot;2021-01-01&quot;, periods=100)
-# np.random.seed(78)
-ret = pd.Series(np.random.normal(0, 0.02, size = 100), index=dates) * -1
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body">dates = pd.date_range(<span class="hljs-string">&quot;2021-01-01&quot;</span>, periods=<span class="hljs-number">100</span>)
+<span class="hljs-comment"># np.random.seed(78)</span>
+ret = pd.Series(np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.02</span>, size = <span class="hljs-number">100</span>), index=dates) * -<span class="hljs-number">1</span>
 
 df_returns = pd.DataFrame({
-    &quot;original return&quot;: ret,
-    &quot;culmulative&quot;: compsum(ret).values,
-    &quot;mean by daily return&quot;: [np.mean(ret)]*100,
-    &quot;geometric return&quot;: [expected_return(ret)] * 100,
+    <span class="hljs-string">&quot;original return&quot;</span>: ret,
+    <span class="hljs-string">&quot;culmulative&quot;</span>: compsum(ret).values,
+    <span class="hljs-string">&quot;mean by daily return&quot;</span>: [np.mean(ret)]*<span class="hljs-number">100</span>,
+    <span class="hljs-string">&quot;geometric return&quot;</span>: [expected_return(ret)] * <span class="hljs-number">100</span>,
 
 }, index=dates)
 
 df_net_value = pd.DataFrame({
-    &quot;daily mean&quot;: (df_returns[&quot;mean by daily return&quot;] + 1).cumprod(),
-    &quot;geometric mean&quot;: (df_returns[&quot;geometric return&quot;] + 1).cumprod(),
-    &quot;cumulative original&quot;: (1 + df_returns[&quot;culmulative&quot;])
+    <span class="hljs-string">&quot;daily mean&quot;</span>: (df_returns[<span class="hljs-string">&quot;mean by daily return&quot;</span>] + <span class="hljs-number">1</span>).cumprod(),
+    <span class="hljs-string">&quot;geometric mean&quot;</span>: (df_returns[<span class="hljs-string">&quot;geometric return&quot;</span>] + <span class="hljs-number">1</span>).cumprod(),
+    <span class="hljs-string">&quot;cumulative original&quot;</span>: (<span class="hljs-number">1</span> + df_returns[<span class="hljs-string">&quot;culmulative&quot;</span>])
 })
 
 df_net_value.plot()
-</code></pre>
+</span></code></pre>
 <p><strong>我们发现，无论是上涨还是下跌，蓝线始终在红线上方</strong></p>
 <p><img src="https://fastly.jsdelivr.net/gh/bucketio/img1@main/images/2025/08/1754140954570-f3b2099a-7c1d-4f0d-a779-f72746745288.jpg" alt=""></p>
 <p><img src="https://fastly.jsdelivr.net/gh/bucketio/img3@main/images/2025/08/1754141671086-ea326a34-7b55-4d94-bacb-f7a20f4f1452.png" alt=""></p>

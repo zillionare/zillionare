@@ -37,21 +37,19 @@
 </ol>
 <h2 id="python遗传算法库">Python遗传算法库</h2>
 <p>我们可以通过 geneticalgorithm 这个python库，在量化策略中运用遗传算法。</p>
-<pre><code class="language-python">pip install geneticalgorithm
-</code></pre>
-<pre><code class="language-python">import numpy as np
-from geneticalgorithm import geneticalgorithm as ga
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">pip install geneticalgorithm</span></code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> geneticalgorithm <span class="hljs-keyword">import</span> geneticalgorithm <span class="hljs-keyword">as</span> ga
 
-def f(X):
-    # X为因子。在本方法中，根据因子寻找股票，计算收益率并返回
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">X</span>):
+    <span class="hljs-comment"># X为因子。在本方法中，根据因子寻找股票，计算收益率并返回</span>
 
-varbound=np.array([[0,10]]*3)
+varbound=np.array([[<span class="hljs-number">0</span>,<span class="hljs-number">10</span>]]*<span class="hljs-number">3</span>)
 
-model=ga(function=f,dimension=3,variable_type=&#39;real&#39;,
+model=ga(function=f,dimension=<span class="hljs-number">3</span>,variable_type=<span class="hljs-string">&#x27;real&#x27;</span>,
         variable_boundaries=varbound)
 
-model.run()
-</code></pre>
+model.run()</span></code></pre>
 <p>遗传算法也是优化算法的一种，对不明白的地方，可以对照优化算法的概念来理解。</p>
 </div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/posts/factor-strategy/first-level-derivation/">← 上一篇：当交易员用上火箭科学！波和导数检测出艾略特浪、双顶及及因子构建</a> <a class="series-next" href="/posts/factor-strategy/growing-star-market-weights/">下一篇：量化股票投资起手式&lt;br&gt;指数增强之&lt;br&gt;指数成份股信息挖掘 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 11/96 篇</span> <span class="reading-path-links"> <a href="/posts/algo/normalization/">← 基于深度学习的量化策略如何实现归一化</a> <a href="/posts/factor-strategy/lof套利怎么做/">LOF套利怎么做：场内外溢价套利定价 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/coursea/factor-ml/intro/">课程简介</a> <p>《因子分析与机器学习策略》简介 这门课面向的对象是专业的量化研究员、或者打算向这个方向转岗求职、或者尽管是其它职业，但决心以专业、严谨的态度探索量化研究的学习者。</p> </li><li> <a href="/articles/investment/策略研究/mpt-3/">投资组合理论与实战(3) - 优化算法</a> <p>寻找给定收益率下的最小波动率，或者给定波动率下的最大夏普率，这实际上是一类常见的优化问题，即：</p> </li><li> <a href="/articles/investment/策略研究/mpt-4/">投资组合理论与实战(4) - PyportfolioOpt工具库</a> <p>这里，我们就介绍一个比较重要的专门用于资产组合优化的工具库。注意，我们已经介绍了 scipy.optimize 库，除此之外，类似的库还有 cvxopt 和 cvxpy。但是，这些</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#什么是遗传算法" title="什么是遗传算法？">什么是遗传算法？</a> </li><li class> <a href="#遗传算法的实现步骤" title="遗传算法的实现步骤">遗传算法的实现步骤</a> </li><li class> <a href="#python遗传算法库" title="Python遗传算法库">Python遗传算法库</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；

@@ -73,45 +73,44 @@
 <p>XtQuant的示例中，已经提供了一个由上述信息，计算复权因子的示例。由于它是示例性质的，所以在代码逻辑上需要做到简单易懂，因此它在计算中，使用了循环，而不是向量化的运算方法。</p>
 <hr>
 <p>这是官方给出的示例代码:</p>
-<pre><code class="language-python">def gen_divid_ratio(bars, divid_datas):
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">gen_divid_ratio</span>(<span class="hljs-params">bars, divid_datas</span>):
     drl = []
-    dr = 1.0
-    qi = 0
-    qdl = len(bars)
-    di = 0
-    ddl = len(divid_datas)
-    while qi &lt; qdl and di &lt; ddl:
+    dr = <span class="hljs-number">1.0</span>
+    qi = <span class="hljs-number">0</span>
+    qdl = <span class="hljs-built_in">len</span>(bars)
+    di = <span class="hljs-number">0</span>
+    ddl = <span class="hljs-built_in">len</span>(divid_datas)
+    <span class="hljs-keyword">while</span> qi &lt; qdl <span class="hljs-keyword">and</span> di &lt; ddl:
         qd = bars.iloc[qi]
         dd = divid_datas.iloc[di]
-        if qd.name &gt;= dd.name:
-            dr *= dd[&#39;dr&#39;]
-            di += 1
-        if qd.name &lt;= dd.name:
+        <span class="hljs-keyword">if</span> qd.name &gt;= dd.name:
+            dr *= dd[<span class="hljs-string">&#x27;dr&#x27;</span>]
+            di += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">if</span> qd.name &lt;= dd.name:
             drl.append(dr)
-            qi += 1
-    while qi &lt; qdl:
+            qi += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> qi &lt; qdl:
         drl.append(dr)
-        qi += 1
-    return pd.DataFrame(drl, index = bars.index, 
+        qi += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> pd.DataFrame(drl, index = bars.index, 
                         columns = bars.columns)
 
-# 获取除权信息
-dd = xtdata.get_divid_factors(s, start_time=&quot;20050104&quot;)
+<span class="hljs-comment"># 获取除权信息</span>
+dd = xtdata.get_divid_factors(s, start_time=<span class="hljs-string">&quot;20050104&quot;</span>)
 
-# 获取未复权行情
-bars = xtdata.get_market_data(field_list, [&quot;000001.SZ&quot;], 
-                                &#39;1d&#39;, 
-                                dividend_type = &#39;none&#39;, 
-                                start_time=&#39;20050104&#39;, 
-                                end_time=&#39;20240308&#39;)
-%timeit gen_divid_ratio(bars[&quot;close&quot;].T， dd)
-</code></pre>
+<span class="hljs-comment"># 获取未复权行情</span>
+bars = xtdata.get_market_data(field_list, [<span class="hljs-string">&quot;000001.SZ&quot;</span>], 
+                                <span class="hljs-string">&#x27;1d&#x27;</span>, 
+                                dividend_type = <span class="hljs-string">&#x27;none&#x27;</span>, 
+                                start_time=<span class="hljs-string">&#x27;20050104&#x27;</span>, 
+                                end_time=<span class="hljs-string">&#x27;20240308&#x27;</span>)
+%timeit gen_divid_ratio(bars[<span class="hljs-string">&quot;close&quot;</span>].T， dd)</span></code></pre>
 <hr>
 <p>这段代码计算了000001.SZ从2005年1月4日以来的复权因子。如果当天没有发生除权，则当天因子从1开始，后面每发生一次除权除息，因子就在前一天的基础上增加<code>dr</code>倍。因此，这样算出来的复权因子，一般情况下是一个以1开始的递增序列。</p>
 <p>在notebook中运行时，上述代码的执行时间是407ms±14ms。</p>
 <p>下面，我们就介绍如何将其向量化，将速度提升100倍。</p>
-<pre><code class="language-python">def get_factor_ratio(symbol: str, start: datetime.date, end: datetime.date)-&gt;pd.Series:
-    &quot;&quot;&quot;获取`symbol`在`start`到`end`期间的复权因子
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_factor_ratio</span>(<span class="hljs-params">symbol: <span class="hljs-built_in">str</span>, start: datetime.date, end: datetime.date</span>)-&gt;pd.Series:
+    <span class="hljs-string">&quot;&quot;&quot;获取`symbol`在`start`到`end`期间的复权因子
     
     复权因子以EPOCH日为1，依次向后增加。返回值取整个复权因子区间
     中[start, end]这一段。
@@ -123,24 +122,23 @@ bars = xtdata.get_market_data(field_list, [&quot;000001.SZ&quot;],
 
     Returns:
         以日期为index的Series
-    &quot;&quot;&quot;
-    if start &lt; tf.int2date(EPOCH):
-        raise ValueError(f&quot;start date should not be earlier than {EPOCH}: {start}&quot;)
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> start &lt; tf.int2date(EPOCH):
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;start date should not be earlier than <span class="hljs-subst">{EPOCH}</span>: <span class="hljs-subst">{start}</span>&quot;</span>)
     
     start_ = tf.date2int(start)
     end_ = tf.date2int(end)
     df = xt.get_divid_factors(symbol, EPOCH)
-</code></pre>
+</span></code></pre>
 <hr>
-<pre><code class="language-python">    df.index = df.index.astype(int)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">    df.index = df.index.astype(<span class="hljs-built_in">int</span>)
     frames = pd.DataFrame([], index=tf.day_frames)
-    factor = pd.concat([frames, df[&quot;dr&quot;]], axis=1)
-    factor.sort_index(inplace=True)
-    factor.fillna(1, inplace=True)
+    factor = pd.concat([frames, df[<span class="hljs-string">&quot;dr&quot;</span>]], axis=<span class="hljs-number">1</span>)
+    factor.sort_index(inplace=<span class="hljs-literal">True</span>)
+    factor.fillna(<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
 
-    query = f&#39;index &gt;= {start_} and index &lt;= {end_}&#39;
-    return factor.cumprod().query(query)[&quot;dr&quot;]
-</code></pre>
+    query = <span class="hljs-string">f&#x27;index &gt;= <span class="hljs-subst">{start_}</span> and index &lt;= <span class="hljs-subst">{end_}</span>&#x27;</span>
+    <span class="hljs-keyword">return</span> factor.cumprod().query(query)[<span class="hljs-string">&quot;dr&quot;</span>]</span></code></pre>
 <p>我们设置的EPOCH时间是2005年1月4日。这一年是全流通股改启动之年。以此为界，上市公司在治理结构上发生了较大变化，因此，进行量化回测，似乎一般也没必要使用在此之前的数据。</p>
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 罗马不是一天建成的。股改也是这样。在此后相当长一段时间内，你还能看到一些股票的名字以S开头，意味着该股还未完成股权分置改革。不过，尽管如此，我们也只能以大多数为主。很多人以为量化是一个纯算法的活儿。但是，了解脏数据、处理脏数据，对收益的影响并不比算法少。

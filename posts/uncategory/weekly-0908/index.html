@@ -66,67 +66,61 @@
 <p>一开始，Numpy的数组只能存放同质的元素，即这些元素都必须有同样的数据类型。但对很多表格类数据，它们往往是由一条条记录组成的，而这些记录，又是由不同数据类型的数据组成的。比如，以最常见的行情数据来讲，它就必须至少包含时间、证券代码和OHLC等数据。</p>
 <p>为了满足这种需求，Numpy扩展出一种名为Structured Array的数据格式。它是一种<strong>一维数组</strong>，每一个元素都是一个命名元组。</p>
 <p>我们可以这样声明一个Structured Array:</p>
-<pre><code class="language-python">import numpy as np
-import datetime
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> datetime
 dtypes = [
-        (&quot;frame&quot;, &quot;O&quot;),
-        (&quot;code&quot;, &quot;O&quot;),
-        (&quot;open&quot;, &quot;f4&quot;),
-        (&quot;high&quot;, &quot;f4&quot;),
-        (&quot;low&quot;, &quot;f4&quot;),
-        (&quot;close&quot;, &quot;f4&quot;)
+        (<span class="hljs-string">&quot;frame&quot;</span>, <span class="hljs-string">&quot;O&quot;</span>),
+        (<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;O&quot;</span>),
+        (<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>),
+        (<span class="hljs-string">&quot;high&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>),
+        (<span class="hljs-string">&quot;low&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>),
+        (<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>)
     ]
 secs = np.array(
     [
-        (datetime.date(2024, 3, 18), &quot;600000&quot;, 8.9, 9.1, 8.8, 9),
-        (datetime.date(2024, 3, 19), &quot;600000&quot;, 8.9, 9.1, 8.8, 9),
+        (datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">3</span>, <span class="hljs-number">18</span>), <span class="hljs-string">&quot;600000&quot;</span>, <span class="hljs-number">8.9</span>, <span class="hljs-number">9.1</span>, <span class="hljs-number">8.8</span>, <span class="hljs-number">9</span>),
+        (datetime.date(<span class="hljs-number">2024</span>, <span class="hljs-number">3</span>, <span class="hljs-number">19</span>), <span class="hljs-string">&quot;600000&quot;</span>, <span class="hljs-number">8.9</span>, <span class="hljs-number">9.1</span>, <span class="hljs-number">8.8</span>, <span class="hljs-number">9</span>),
     ], dtype = dtypes
-)
-</code></pre>
+)</span></code></pre>
 <hr>
 <p>在这个数据结构中，共有6个字段，它们的名字和类型通过dtype来定义。这是一个List[Tuple]类型。在初始化数据部分，它也是一个List[Tuple]。</p>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 初学者很容易犯的一个错误，就是使用List[List]来初始化Numpy Structured Array，而不是List[Tuple]类型。这会导致Numpy在构造数组时，对应不到正确的数据类型，报出一些很奇怪的错误。<br>比如，下面的初始化是错误的：
 </div>
 
-<pre><code>```python
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-string">``</span><span class="hljs-string">`python
 secs = np.array([
     [datetime.date(2024, 3, 18), &quot;600000&quot;, 8.9, 9.1, 8.8, 9],
     [datetime.date(2024, 3, 19), &quot;600000&quot;, 8.9, 9.1, 8.8, 9]
 ], dtype=dtypes)
-```
-这段代码会报告一个难懂的&quot;Type Error: float() argument must be a string or ...&quot;
-</code></pre>
+`</span><span class="hljs-string">``</span>
+这段代码会报告一个难懂的<span class="hljs-string">&quot;Type Error: float() argument must be a string or ...&quot;</span></span></code></pre>
 <p>我们使用上一节学过的inspecting方法来查看secs数组的一些特性:</p>
-<pre><code class="language-python">print(f&quot;secs的维度是{secs.ndim}&quot;)
-print(f&quot;secs的shape是{secs.shape}&quot;)
-print(f&quot;secs的size是{secs.size}&quot;)
-print(f&quot;secs的length是{len(secs)}&quot;)
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs的维度是<span class="hljs-subst">{secs.ndim}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs的shape是<span class="hljs-subst">{secs.shape}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs的size是<span class="hljs-subst">{secs.size}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs的length是<span class="hljs-subst">{<span class="hljs-built_in">len</span>(secs)}</span>&quot;</span>)
 
-print(f&quot;secs[0]的类型是{type(secs[0])}&quot;)
-print(f&quot;secs[0]的维度是{secs[0].ndim}&quot;)
-print(f&quot;secs[0]的shape是{secs[0].shape}&quot;)
-print(f&quot;secs[0]的size是{secs[0].size}&quot;)
-print(f&quot;secs[0]的length是{len(secs[0])}&quot;)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs[0]的类型是<span class="hljs-subst">{<span class="hljs-built_in">type</span>(secs[<span class="hljs-number">0</span>])}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs[0]的维度是<span class="hljs-subst">{secs[<span class="hljs-number">0</span>].ndim}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs[0]的shape是<span class="hljs-subst">{secs[<span class="hljs-number">0</span>].shape}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs[0]的size是<span class="hljs-subst">{secs[<span class="hljs-number">0</span>].size}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;secs[0]的length是<span class="hljs-subst">{<span class="hljs-built_in">len</span>(secs[<span class="hljs-number">0</span>])}</span>&quot;</span>)</span></code></pre>
 <p>可以看出，secs数组是<strong>一维数组</strong>，它的shape (2,)也正是一维数组的shape的表示法。前一节还介绍过这几个属性的关系，大家可以自行验证下是否仍然得到满足。</p>
 <!--
 这里size仍然等于shape各元素的取值之积。注意对secs而言，它的size与length是相等的，但对secs[0]而言，它的size和length是不相等的。我们在开发大富翁时，遇到过由此产生的一个bug。
 -->
 <hr>
 <p>但secs的元素类型则是numpy.void，它在本质上是一个named tuple，所以，我们可以这样访问其中的任一字段：</p>
-<pre><code class="language-python">print(secs[0][&quot;frame&quot;])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(secs[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;frame&quot;</span>])
 
-# 不使用列名（字段名），使用其序号也是可以的
-print(secs[0][0])
-</code></pre>
+<span class="hljs-comment"># 不使用列名（字段名），使用其序号也是可以的</span>
+<span class="hljs-built_in">print</span>(secs[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])</span></code></pre>
 <p>我们还可以以列优先的顺序来访问其中的一个“单元格”：</p>
-<pre><code class="language-python">print(secs[&quot;frame&quot;][0])
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-built_in">print</span>(secs[<span class="hljs-string">&quot;frame&quot;</span>][<span class="hljs-number">0</span>])</span></code></pre>
 <p>对表格数据，遍历是很常见的操作，我们可以这样遍历：</p>
-<pre><code class="language-python">for (frame, code, opn, high, low, close) in secs:
-    print(frame, code, opn, high, low, close)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-keyword">for</span> (frame, code, opn, high, low, close) <span class="hljs-keyword">in</span> secs:
+    <span class="hljs-built_in">print</span>(frame, code, opn, high, low, close)</span></code></pre>
 <p>Numpy structured array在这部分的语法要比Pandas的DataFrame易用许多。我们在后面介绍Pandas时，还会提及这一点。</p>
 <!--易错：
 
@@ -201,26 +195,25 @@ print(secs[0][0])
 <td>测试对象是否为正无限大</td>
 </tr>
 </tbody></table>
-<pre><code class="language-python"># 开启多行输出模式
-from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = &quot;all&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-comment"># 开启多行输出模式</span>
+<span class="hljs-keyword">from</span> IPython.core.interactiveshell <span class="hljs-keyword">import</span> InteractiveShell
+InteractiveShell.ast_node_interactivity = <span class="hljs-string">&quot;all&quot;</span>
 
-np.random.seed(78)
-returns = np.random.normal(0, 0.03, size=4)
+np.random.seed(<span class="hljs-number">78</span>)
+returns = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.03</span>, size=<span class="hljs-number">4</span>)
 returns
-# 判断是否全下跌
-np.all(returns &lt;= 0)
-np.any(returns &lt;= 0)
+<span class="hljs-comment"># 判断是否全下跌</span>
+np.<span class="hljs-built_in">all</span>(returns &lt;= <span class="hljs-number">0</span>)
+np.<span class="hljs-built_in">any</span>(returns &lt;= <span class="hljs-number">0</span>)
 
-# 模拟一个起始价格为8元的价格序列
-prices = np.cumprod(1+returns) * 8
+<span class="hljs-comment"># 模拟一个起始价格为8元的价格序列</span>
+prices = np.cumprod(<span class="hljs-number">1</span>+returns) * <span class="hljs-number">8</span>
 
-# 对应的涨停价如下
-buy_limit_prices = [8.03, 8.1, 8.1, 8.3]
+<span class="hljs-comment"># 对应的涨停价如下</span>
+buy_limit_prices = [<span class="hljs-number">8.03</span>, <span class="hljs-number">8.1</span>, <span class="hljs-number">8.1</span>, <span class="hljs-number">8.3</span>]
 
-# 判断是否涨停
-np.isclose(prices, buy_limit_prices, atol=1e-2)
-</code></pre>
+<span class="hljs-comment"># 判断是否涨停</span>
+np.isclose(prices, buy_limit_prices, atol=<span class="hljs-number">1e-2</span>)</span></code></pre>
 <!--为什么需要存在判断近似相等的函数？这是因为，数字分为整型和浮点型。凡是带小数点的数字，都可以看成浮点型。浮点数由于不能精确表达，所以它们是不会相等的，只能比较两个浮点数的差值，如果差值的绝对值小于某个可以接受的小数，才能认为这两个数近似相等。
 
 因此，如果我们拿到了个股的收盘价和涨停价，要判断此时个股有没有涨停，就只能用isclose来进行比较，而不能使用equal。
@@ -230,9 +223,8 @@ np.isclose(prices, buy_limit_prices, atol=1e-2)
 
 <p>除了判断一个数组中的元素要么都为True，要么至少一个为True之外，有时候我们还希望进行模糊一点的判断，比如，如果过去20天中，超过60%的是收阳线，此时我们可以用np.count_nonzero，或者np.sum来统计数组中为真的情况：</p>
 <hr>
-<pre><code class="language-python">np.count_nonzero(returns &gt; 0)
-np.sum(returns &gt; 0)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">np.count_nonzero(returns &gt; <span class="hljs-number">0</span>)
+np.<span class="hljs-built_in">sum</span>(returns &gt; <span class="hljs-number">0</span>)</span></code></pre>
 <p>在上一节进行比较的示例中，我们都只使用了单个条件。如果我们要按多个条件的组合进行查找，就需要依靠逻辑运算来实现。</p>
 <p>在Numpy中，逻辑运算既可以通过函数、也可以通过运算符来完成：</p>
 <table>
@@ -310,20 +302,17 @@ np.sum(returns &gt; 0)
 </tr>
 </tbody></table>
 <p>上述表格可以用Numpy的Structured Array来表示为：</p>
-<pre><code>tickers = np.array([
-    (&quot;APPL&quot;, 30.5, 0.1),
-    (&quot;GOOG&quot;, 32.3, 0.3),
-    (&quot;TSLA&quot;, 900.1, 0.5),
-    (&quot;MSFT&quot;, 35.6, 0.05)
-], dtype=[(&quot;ticker&quot;, &quot;O&quot;), (&quot;pe&quot;, &quot;f4&quot;), (&quot;mom&quot;, &quot;f4&quot;)])
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body">tickers = np.array([
+    (<span class="hljs-string">&quot;APPL&quot;</span>, <span class="hljs-number">30.5</span>, <span class="hljs-number">0.1</span>),
+    (<span class="hljs-string">&quot;GOOG&quot;</span>, <span class="hljs-number">32.3</span>, <span class="hljs-number">0.3</span>),
+    (<span class="hljs-string">&quot;TSLA&quot;</span>, <span class="hljs-number">900.1</span>, <span class="hljs-number">0.5</span>),
+    (<span class="hljs-string">&quot;MSFT&quot;</span>, <span class="hljs-number">35.6</span>, <span class="hljs-number">0.05</span>)
+], dtype=[(<span class="hljs-string">&quot;ticker&quot;</span>, <span class="hljs-string">&quot;O&quot;</span>), (<span class="hljs-string">&quot;pe&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>), (<span class="hljs-string">&quot;mom&quot;</span>, <span class="hljs-string">&quot;f4&quot;</span>)])</span></code></pre>
 <p>现在，我们要找出求PE &lt; 35, 动量 (mom) &gt; 0.2的记录，那么我们可以这样构建条件表达式：</p>
 <hr>
-<pre><code class="language-python">(tickers[&quot;pe&quot;] &lt; 35) &amp; (tickers[&quot;mom&quot;] &gt; 0.2)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">(tickers[<span class="hljs-string">&quot;pe&quot;</span>] &lt; <span class="hljs-number">35</span>) &amp; (tickers[<span class="hljs-string">&quot;mom&quot;</span>] &gt; <span class="hljs-number">0.2</span>)</span></code></pre>
 <p>Numpy会把pe这一列的所有值跟35进行比较，然后再与mom与0.2比较的结果进行逻辑与运算，这相当于：</p>
-<pre><code class="language-python">np.array((1,1,0,0)) &amp; np.array((0, 1, 1, 0))
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">np.array((<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>)) &amp; np.array((<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>))</span></code></pre>
 <p>在Numpy中，True与1的值在做逻辑运算时是相等的；0与False也是。</p>
 <p>如果不借助于Numpy的逻辑操作，我们就要用Python的逻辑操作。很不幸，这必须使用循环。如果计算量大，这将会比较耗时间。</p>
 <!--
@@ -336,33 +325,30 @@ np.sum(returns &gt; 0)
 <h3 id="22-集合运算">2.2. 集合运算</h3>
 <p>在交易中，我们常常要执行调仓操作。做法一般是，选确定新的投资组合，然后与当前的投资组合进行比较，找出需要卖出的股票，以及需要买入的股票。这个操作，就是集合运算。在Python中，我们一般是通过set语法来实现。</p>
 <p>在Numpy中，我们可以使用通过以下方法来实现集合运算：</p>
-<pre><code class="language-python">import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-# 创建两个一维数组
-x = np.array([1, 2, 3, 4, 5])
-y = np.array([4, 5, 6, 7, 8])
+<span class="hljs-comment"># 创建两个一维数组</span>
+x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+y = np.array([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>])
 
-# 计算交集
+<span class="hljs-comment"># 计算交集</span>
 intersection = np.intersect1d(x, y)
-print(&quot;Intersection (交集):&quot;, intersection)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Intersection (交集):&quot;</span>, intersection)
 
-# 计算并集
+<span class="hljs-comment"># 计算并集</span>
 union = np.union1d(x, y)
-print(&quot;Union (并集):&quot;, union)
-</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Union (并集):&quot;</span>, union)</span></code></pre>
 <hr>
-<pre><code class="language-python">diff = np.setdiff1d(x, y)
-print(&quot;x - y:&quot;, diff)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">diff = np.setdiff1d(x, y)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;x - y:&quot;</span>, diff)</span></code></pre>
 <p>此外，我们还可能使用<code>in1d(a1, a2)</code>方法来判断a1 中的元素是否都在 a2 中存在。比如，在调仓换股中，如果当前持仓都在买入计划中，则不需要执行调仓。</p>
 <h3 id="23-数学运算和统计">2.3. 数学运算和统计</h3>
 <p>Numpy中数学相关的运算有线性代数运算（当然还有基本代数运算）、统计运算、金融指标运算等等。</p>
 <h4>2.3.1. 线性代数</h4>
 <p>线性代数在量化中有重要用途。比如，在现代资产组合理论（MPT）中，我们要计算资产组合收益率及协方差，都要使用矩阵乘法。大家可以参考<a href="https://blog.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/">投资组合理论与实战</a>系列文章，下面是其中的一段代码：</p>
-<pre><code class="language-python">...
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">...
 cov = np.cov(port_returns.T)
-port_vol = np.sqrt(np.dot(np.dot(weights, cov), weights.T))
-</code></pre>
+port_vol = np.sqrt(np.dot(np.dot(weights, cov), weights.T))</span></code></pre>
 <p>矩阵乘法是线性代数中的一个核心概念，它涉及到两个矩阵的特定元素按照规则相乘并求和，以生成一个新的矩阵。具体来说，如果有一个矩阵A 为 $m \times n$ 维，另一个矩阵B 为 $n \times p$ 维，那么它们的乘积 $C = AB$将会是一个$m \times p$维的矩阵。乘法的规则是A的每一行与B的每一列对应元素相乘后求和。</p>
 <p>下面通过一个具体的例子来说明矩阵乘法的过程：</p>
 <p>假设我们有两个矩阵A和B：</p>
@@ -396,11 +382,10 @@ $$</p>
 <p>在Numpy中，我们可以使用np.dot()函数来计算矩阵乘法。</p>
 <hr>
 <p>上述示例使用numpy来表示，即为：</p>
-<pre><code class="language-python">A = np.array([[2,3],[1,4]])
-B = np.array([[1,2],[3,1]])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">A = np.array([[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">4</span>]])
+B = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">1</span>]])
 
-np.dot(A, B)
-</code></pre>
+np.dot(A, B)</span></code></pre>
 <p>最终我们将得到与矩阵C相同的结果。</p>
 <p>除此之外，矩阵逆运算(np.linalg.inv)在计算最优投资组合权重时，用于求解方程组，特征值和特征向量(np.linalg.eig, np.linalg.svd)在分析资产回报率的主成分，进行风险分解时使用。</p>
 <h4>2.3.2. 统计运算</h4>
@@ -461,47 +446,45 @@ np.dot(A, B)
 <p>此外，我们也常用它来选择自适应参数。比如，在RSI的应用中，一般推荐是低于20（或者30）作为超卖，此时建议买入；推荐是高于80（或者70）作为超买，此时建议卖出。但稍微进行一些统计分析，你就会发现这些阈值并不是固定的。如果我们以过去一段时间的RSI作为统计，找出它的95%分位作为卖点，15%作为买点，往往能得到更好的结果。</p>
 <h4>2.3.3. 量化指标的计算</h4>
 <p>有一些常用的量化指标的计算，也可以使用Numpy来完成，比如，计算移动平均线，就可以使用Numpy提供的convolve函数。</p>
-<pre><code class="language-python">import numpy as np
-def moving_average(data, window_size):
-    return np.convolve(data, np.ones(window_size)/window_size, &#39;valid&#39;)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">moving_average</span>(<span class="hljs-params">data, window_size</span>):
+    <span class="hljs-keyword">return</span> np.convolve(data, np.ones(window_size)/window_size, <span class="hljs-string">&#x27;valid&#x27;</span>)</span></code></pre>
 <p>当然，很多人习惯使用talib，或者pandas的rolling函数来进行计算。convolve（卷积）是神经网络CNN的核心，正是这个原因，我们这里提一下。</p>
 <p>np.convolve的第二个参数，就是卷积核。这里我们是实现的是简单移动平均，所以，卷积核就是一个由相同的数值组成的数组，它们的长度就是窗口大小，它们的和为1。</p>
 <hr>
 <p>如果我们把卷积核替换成其它值，还可以实现WMA等指标。从信号处理的角度看，移动平均是信号平滑的一种，使用不同的卷积核，就可以实现不同的平滑效果。</p>
 <p>在量化中，还有一类计算，这里也提一下，就是多项式回归。比如，某两支股票近期都呈上升趋势，我们想知道哪一支涨得更好？这时候我们就可以进行多项式回归，将其拟合成一条直线，再比较它们的斜率。</p>
 <p>下面的代码演示了如何使用Numpy进行多项式回归。</p>
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
-returns = np.random.normal(0, 0.02, size=100)
-alpha = 0.01
-close = np.cumprod(1 + returns + alpha)
+returns = np.random.normal(<span class="hljs-number">0</span>, <span class="hljs-number">0.02</span>, size=<span class="hljs-number">100</span>)
+alpha = <span class="hljs-number">0.01</span>
+close = np.cumprod(<span class="hljs-number">1</span> + returns + alpha)
 
-a, b = np.polyfit(np.arange(100), close, deg=1)
+a, b = np.polyfit(np.arange(<span class="hljs-number">100</span>), close, deg=<span class="hljs-number">1</span>)
 
-# 继续之前的代码
+<span class="hljs-comment"># 继续之前的代码</span>
 
-# 使用a, b构建回归线的y值
-regression_line = a * np.arange(100) + b
+<span class="hljs-comment"># 使用a, b构建回归线的y值</span>
+regression_line = a * np.arange(<span class="hljs-number">100</span>) + b
 
-# 绘制原始的close曲线
-plt.figure(figsize=(10, 6))
-plt.plot(close, label=&#39;Close Price&#39;, color=&#39;blue&#39;)
+<span class="hljs-comment"># 绘制原始的close曲线</span>
+plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))
+plt.plot(close, label=<span class="hljs-string">&#x27;Close Price&#x27;</span>, color=<span class="hljs-string">&#x27;blue&#x27;</span>)
 
-# 绘制回归线
-plt.plot(regression_line, label=&#39;Regression Line&#39;, color=&#39;red&#39;, linestyle=&#39;--&#39;)
+<span class="hljs-comment"># 绘制回归线</span>
+plt.plot(regression_line, label=<span class="hljs-string">&#x27;Regression Line&#x27;</span>, color=<span class="hljs-string">&#x27;red&#x27;</span>, linestyle=<span class="hljs-string">&#x27;--&#x27;</span>)
 
-# 添加图例、标题和坐标轴标签
-plt.title(&#39;Stock Close Price vs Regression Line&#39;)
-plt.xlabel(&#39;Time Period&#39;)
-plt.ylabel(&#39;Price&#39;)
+<span class="hljs-comment"># 添加图例、标题和坐标轴标签</span>
+plt.title(<span class="hljs-string">&#x27;Stock Close Price vs Regression Line&#x27;</span>)
+plt.xlabel(<span class="hljs-string">&#x27;Time Period&#x27;</span>)
+plt.ylabel(<span class="hljs-string">&#x27;Price&#x27;</span>)
 plt.legend()
 
-# 显示图表
-plt.grid(True)
-plt.show()
-</code></pre>
+<span class="hljs-comment"># 显示图表</span>
+plt.grid(<span class="hljs-literal">True</span>)
+plt.show()</span></code></pre>
 <hr>
 <p>这将生成下图：</p>
 <h2 id="3-类型转换和typing">3. 类型转换和Typing</h2>
@@ -510,77 +493,70 @@ plt.show()
 <hr>
 <h3 id="31-numpy内部类型转换">3.1. Numpy内部类型转换</h3>
 <p>Numpy内部类型转换，我们只需要使用astype函数即可。</p>
-<pre><code class="language-python">x = np.array([&#39;2023-04-01&#39;, &#39;2023-04-02&#39;, &#39;2023-04-03&#39;])
-print(x.astype(dtype=&#39;datetime64[D]&#39;))
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">x = np.array([<span class="hljs-string">&#x27;2023-04-01&#x27;</span>, <span class="hljs-string">&#x27;2023-04-02&#x27;</span>, <span class="hljs-string">&#x27;2023-04-03&#x27;</span>])
+<span class="hljs-built_in">print</span>(x.astype(dtype=<span class="hljs-string">&#x27;datetime64[D]&#x27;</span>))
 
-x = np.array([&#39;2014&#39;, &#39;2015&#39;])
-print(x.astype(np.int32))
+x = np.array([<span class="hljs-string">&#x27;2014&#x27;</span>, <span class="hljs-string">&#x27;2015&#x27;</span>])
+<span class="hljs-built_in">print</span>(x.astype(np.int32))
 
-x = np.array([2014, 2015])
-print(x.astype(np.str_))
-</code></pre>
+x = np.array([<span class="hljs-number">2014</span>, <span class="hljs-number">2015</span>])
+<span class="hljs-built_in">print</span>(x.astype(np.str_))</span></code></pre>
 <div class="admonition admonition-tips"><p class="admonition-title">tips</p>
 如何将boolean array转换成整数类型，特别是，将True转为1，False转为-1？
 在涉及到阴阳线的相关计算中，我们常常需要将 open > close这样的条件转换为符号1和-1，以方便后续计算。这个转换可以用：
 </div>
 
-<pre><code>```python
-&gt;&gt;&gt; x = np.array([True, False])
-&gt;&gt;&gt; x * 2 - 1
-... array([ 1, -1])
-```
-</code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">```python
+<span class="hljs-meta">&gt;&gt;&gt; </span>x = np.array([<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>x * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>
+<span class="hljs-meta">... </span>array([ <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])
+```</span></code></pre>
 <h3 id="32-numpy类型与python内置类型转换">3.2. Numpy类型与Python内置类型转换</h3>
 <p>如果我们要将Numpy数组转换成Python数组，可以使用tolist函数。</p>
-<pre><code class="language-python">x = np.array([1, 2, 3])
-print(x.tolist())
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">x = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+<span class="hljs-built_in">print</span>(x.tolist())</span></code></pre>
 <p>我们通过item()函数，将Numpy数组中的元素转换成Python内置类型。</p>
-<pre><code class="language-python">x = np.array([&#39;2023-04-01&#39;, &#39;2023-04-02&#39;])
-y = x.astype(&#39;M8[s]&#39;)
-y[0].item()
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">x = np.array([<span class="hljs-string">&#x27;2023-04-01&#x27;</span>, <span class="hljs-string">&#x27;2023-04-02&#x27;</span>])
+y = x.astype(<span class="hljs-string">&#x27;M8[s]&#x27;</span>)
+y[<span class="hljs-number">0</span>].item()</span></code></pre>
 <hr>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 一个容易忽略的事实是，当我们从Numpy数组中取出一个标量时，我们都应该把它转换成为Python对象后再使用。否则，会发生一些隐藏的错误，比如下面的例子：
 </div>
 
-<pre><code>```python
-import json
-x = np.arange(5)
-print(json.dumps([0]))
-print(x[0])
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span></span><span class="cl-body">```python
+<span class="hljs-keyword">import</span> json
+x = np.arange(<span class="hljs-number">5</span>)
+<span class="hljs-built_in">print</span>(json.dumps([<span class="hljs-number">0</span>]))
+<span class="hljs-built_in">print</span>(x[<span class="hljs-number">0</span>])
 
-json.dumps([x[0]])
+json.dumps([x[<span class="hljs-number">0</span>]])
 ```
-这里最后一行会出错。提示type int64 is not JSON serializable。把最后一行换成json.dumps([x[0].item()])则可以正常执行。
-</code></pre>
+这里最后一行会出错。提示<span class="hljs-built_in">type</span> int64 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> JSON serializable。把最后一行换成json.dumps([x[<span class="hljs-number">0</span>].item()])则可以正常执行。</span></code></pre>
 <h3 id="33-typing">3.3. Typing</h3>
 <p>从Python 3.1起，就开始引入类型注解(type annotation)，到Python 3.8，基本上形成了完整的类型注解体系。我们经常看到函数的参数类型注解，比如，下面的代码:</p>
-<pre><code class="language-python">from typing import List
-def add(a: List[int], b: int) -&gt; List[int]:
-    return [i + b for i in a]
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:
+    <span class="hljs-keyword">return</span> [i + b <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a]</span></code></pre>
 <p>从此，Python代码也就有了静态类型检查支持。</p>
 <p>NumPy的Typing模块提供了一系列类型别名（type aliases）和协议（protocols），使得开发者能够在类型注解中更精确地表达NumPy数组的类型信息。这有助于静态分析工具、IDE以及类型检查器提供更准确的代码补全、类型检查和错误提示。</p>
 <p>这个模块提供的主要类型是ArrayLike, NDArray和DType。</p>
 <hr>
-<pre><code class="language-python">import numpy
-from numpy.typing import ArrayLike, NDArray, DTypeLike
-import numpy as np
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy
+<span class="hljs-keyword">from</span> numpy.typing <span class="hljs-keyword">import</span> ArrayLike, NDArray, DTypeLike
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-def calculate_mean(data: ArrayLike) -&gt; float:
-    &quot;&quot;&quot;计算输入数据的平均值，数据可以是任何ArrayLike类型&quot;&quot;&quot;
-    return np.mean(data)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_mean</span>(<span class="hljs-params">data: ArrayLike</span>) -&gt; <span class="hljs-built_in">float</span>:
+    <span class="hljs-string">&quot;&quot;&quot;计算输入数据的平均值，数据可以是任何ArrayLike类型&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> np.mean(data)
 
-def add_one_to_array(arr: NDArray[np.float64]) -&gt; NDArray[np.float64]:
-    &quot;&quot;&quot;向一个浮点数数组的每个元素加1，要求输入和输出都是np.float64类型的数组&quot;&quot;&quot;
-    return arr + 1
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add_one_to_array</span>(<span class="hljs-params">arr: NDArray[np.float64]</span>) -&gt; NDArray[np.float64]:
+    <span class="hljs-string">&quot;&quot;&quot;向一个浮点数数组的每个元素加1，要求输入和输出都是np.float64类型的数组&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> arr + <span class="hljs-number">1</span>
 
-def convert_to_int(arr: NDArray, dtype: DTypeLike) -&gt; NDArray:
-    &quot;&quot;&quot;将数组转换为指定的数据类型&quot;&quot;&quot;
-    return arr.astype(dtype)
-</code></pre>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">convert_to_int</span>(<span class="hljs-params">arr: NDArray, dtype: DTypeLike</span>) -&gt; NDArray:
+    <span class="hljs-string">&quot;&quot;&quot;将数组转换为指定的数据类型&quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> arr.astype(dtype)</span></code></pre>
 <p>如果你是在像vscode这样的IDE中使用上述函数，你就可以看到函数的类型提示。如果传入的参数类型不对，还能在编辑期间，就得到错误提示。</p>
 <h2 id="4-拓展阅读">4. 拓展阅读</h2>
 <h3 id="41-numpy的数据类型">4.1. Numpy的数据类型</h3>

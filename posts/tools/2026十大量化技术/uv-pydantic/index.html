@@ -69,99 +69,93 @@ FastHTML背后的男人是 Jeremy 教授。他开发了 FastAI, NBDev等一众�
 </ul>
 <p>但是，当我们从行情软件获取数据时，收到的 price 可能是字符串（比如 akshare），时间可能是一个 unix 时间戳，或者一个字符串，而且，这个 unix 时间戳可能是秒级的，也可能是毫秒级的。</p>
 <p>通过 Pydantic，我们既可以拒绝错误的数据，也可以抢救虽然不规范、但实际上能用的数据（毕竟如果全世界错了，你能做的，也只能是选择加入！）</p>
-<pre><code class="language-python">from datetime import datetime
-from typing import Literal
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Literal</span>
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, field_validator
+<span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel, ConfigDict, Field, StrictFloat, StrictInt, field_validator
 
-class Tick(BaseModel):
-    symbol: str
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Tick</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):
+    symbol: <span class="hljs-built_in">str</span>
     ts: datetime
-    price: StrictFloat = Field(gt=0)
-    volume: StrictInt = Field(ge=0)
+    price: StrictFloat = Field(gt=<span class="hljs-number">0</span>)
+    volume: StrictInt = Field(ge=<span class="hljs-number">0</span>)
 
-    @field_validator(&#39;ts&#39;, mode=&#39;before&#39;)
-    @classmethod
-    def parse_ts(cls, v):
-        if isinstance(v, int):
-            if v &gt; 10_000_000_000:
-                return datetime.fromtimestamp(v / 1000)
-            return datetime.fromtimestamp(v)
-        return v
-</code></pre>
+<span class="hljs-meta">    @field_validator(<span class="hljs-params"><span class="hljs-string">&#x27;ts&#x27;</span>, mode=<span class="hljs-string">&#x27;before&#x27;</span></span>)</span>
+<span class="hljs-meta">    @classmethod</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_ts</span>(<span class="hljs-params">cls, v</span>):
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(v, <span class="hljs-built_in">int</span>):
+            <span class="hljs-keyword">if</span> v &gt; <span class="hljs-number">10_000_000_000</span>:
+                <span class="hljs-keyword">return</span> datetime.fromtimestamp(v / <span class="hljs-number">1000</span>)
+            <span class="hljs-keyword">return</span> datetime.fromtimestamp(v)
+        <span class="hljs-keyword">return</span> v</span></code></pre>
 <p>这段代码要求传入的数据中，volumen必须为非负数， price 必须为正数（大于零）。 如果传入的 ts 是整数，它还能自动识别是秒级还是毫秒级。</p>
 <p>现在，<strong>当 Tick 进入系统的那一刻，你就把秒/毫秒/时区/字段多余这类风险一次性清掉了。</strong></p>
 <h3 id="32-别名和格式转换">3.2. 别名和格式转换</h3>
 <p>假设你要做一个交易系统，实盘 API 使用的是迅投的 QMT。你需要把迅投返回过来的  XtOrder 保存到数据库中。显然，你可以直接使用 XtOrder 的所有字段作为表字段、以及要求客户端下单时，传递过来的Order也正是 XtOrder 模型。</p>
 <p>这样没什么问题。但如果你突然想到，有一天你可能会换一家供应端，他们使用的 Order 定义就会有所不同，所以，你想自己定义一个更通用的 Order 模型，在系统中一直使用这个模型，直到定单提交到 xtquant (xtquant是 迅投的实盘 API sdk)，才将它转换为 XtOrder 模型。这就是 Pydantic 的另一个用武之地。</p>
 <p>假设我们自己的 Order 模型定义如下：</p>
-<pre><code class="language-python">from enum import IntEnum
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span></span><span class="cl-body"><span class="hljs-keyword">from</span> enum <span class="hljs-keyword">import</span> IntEnum
 
-class BidType(IntEnum):
-    FIXED = 1
-    LATEST = 2
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">BidType</span>(<span class="hljs-title class_ inherited__">IntEnum</span>):
+    FIXED = <span class="hljs-number">1</span>
+    LATEST = <span class="hljs-number">2</span>
 
-class Order:
-    oid: str                     # 本系统的订单号
-    asset: str                   # 股票代码
-    bid_type: BidType            # 委托类型
-    price: float                 # 订单价格
-    volume: int                  # 订单数量
-</code></pre>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Order</span>:
+    oid: <span class="hljs-built_in">str</span>                     <span class="hljs-comment"># 本系统的订单号</span>
+    asset: <span class="hljs-built_in">str</span>                   <span class="hljs-comment"># 股票代码</span>
+    bid_type: BidType            <span class="hljs-comment"># 委托类型</span>
+    price: <span class="hljs-built_in">float</span>                 <span class="hljs-comment"># 订单价格</span>
+    volume: <span class="hljs-built_in">int</span>                  <span class="hljs-comment"># 订单数量</span></span></code></pre>
 <p>迅投的交易 API 接受的参数如下：</p>
-<pre><code class="language-python">order_stock(account, stock_code, order_volume, price_type, price, ...)
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">order_stock(account, stock_code, order_volume, price_type, price, ...)</span></code></pre>
 <p>也就是它对应的报单类型是：</p>
-<pre><code class="language-python">class XtOrderType:
-    stock_code: str
-    price_type: int
-    order_volume: int
-    price: float
-    ...
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">XtOrderType</span>:
+    stock_code: <span class="hljs-built_in">str</span>
+    price_type: <span class="hljs-built_in">int</span>
+    order_volume: <span class="hljs-built_in">int</span>
+    price: <span class="hljs-built_in">float</span>
+    ...</span></code></pre>
 <p>当我们报单时，需要将 asset转换为 stock_code, volume 转换为 order_volume, bid_type 转换为 price_type，并且两边的值还需要转换。</p>
 <p>此外，xtquant 允许通过 order_remark 来传递一些信息，在订单状态改变，返回 XtOrder 时，也会包含这个信息。为了便于跟踪订单状态，我们就希望利用 order_remark 这个字段，把我们自己的 oid 传递给 xtquant。这样一来，当订单成功，xtquant 返回时，我们就可以找到自己系统中的订单。</p>
 <p>这些都可以通过 Pydantic 来完成。</p>
-<pre><code class="language-python">from enum import IntEnum
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span></span><span class="cl-body"><span class="hljs-keyword">from</span> enum <span class="hljs-keyword">import</span> IntEnum
+<span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel, ConfigDict, Field, field_validator
 
-class BidType(IntEnum):
-    FIXED = 1
-    LATEST = 2
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">BidType</span>(<span class="hljs-title class_ inherited__">IntEnum</span>):
+    FIXED = <span class="hljs-number">1</span>
+    LATEST = <span class="hljs-number">2</span>
 
-class Order(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)   # ①
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Order</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):
+    model_config = ConfigDict(populate_by_name=<span class="hljs-literal">True</span>)   <span class="hljs-comment"># ①</span>
 
-    oid: str = Field( # ②
-        default_factory=lambda: &quot;qtide-&quot; + uuid.uuid4().hex[:16], 
-        alias=&quot;order_remark&quot;
+    oid: <span class="hljs-built_in">str</span> = Field( <span class="hljs-comment"># ②</span>
+        default_factory=<span class="hljs-keyword">lambda</span>: <span class="hljs-string">&quot;qtide-&quot;</span> + uuid.uuid4().<span class="hljs-built_in">hex</span>[:<span class="hljs-number">16</span>], 
+        alias=<span class="hljs-string">&quot;order_remark&quot;</span>
     )
-    asset: str = Field(..., alias=&quot;stock_code&quot;)
-    bid_type: BidType = Field(..., alias=&quot;price_type&quot;)
-    price: float
-    volume: int = Field(..., alias=&quot;order_volume&quot;)
+    asset: <span class="hljs-built_in">str</span> = Field(..., alias=<span class="hljs-string">&quot;stock_code&quot;</span>)
+    bid_type: BidType = Field(..., alias=<span class="hljs-string">&quot;price_type&quot;</span>)
+    price: <span class="hljs-built_in">float</span>
+    volume: <span class="hljs-built_in">int</span> = Field(..., alias=<span class="hljs-string">&quot;order_volume&quot;</span>)
 
-class XtOrderType(BaseModel):    
-    stock_code: str
-    order_volume: int
-    price_type: int
-    price: float
-    order_remark: str
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">XtOrderType</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):    
+    stock_code: <span class="hljs-built_in">str</span>
+    order_volume: <span class="hljs-built_in">int</span>
+    price_type: <span class="hljs-built_in">int</span>
+    price: <span class="hljs-built_in">float</span>
+    order_remark: <span class="hljs-built_in">str</span>
 
-    @field_validator(&quot;price_type&quot;, mode=&#39;before&#39;)
-    @classmethod
-    def _(cls, v): # ③
-        mapping = {BidType.FIXED: 20, BidType.LATEST: 21}
-        return mapping.get(v, v)
-</code></pre>
+<span class="hljs-meta">    @field_validator(<span class="hljs-params"><span class="hljs-string">&quot;price_type&quot;</span>, mode=<span class="hljs-string">&#x27;before&#x27;</span></span>)</span>
+<span class="hljs-meta">    @classmethod</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_</span>(<span class="hljs-params">cls, v</span>): <span class="hljs-comment"># ③</span>
+        mapping = {BidType.FIXED: <span class="hljs-number">20</span>, BidType.LATEST: <span class="hljs-number">21</span>}
+        <span class="hljs-keyword">return</span> mapping.get(v, v)</span></code></pre>
 <p>在注释①中，我们让 Order 构建时，也可以通过原字段名来填充。你很快将在下面的注释④中看到它的作用。</p>
 <p>在注释②中，我们通过 default_factory 来设置默认值。这确保了，当我们创建 Order 实例时，如果没有显式传递 oid，它会自动生成一个唯一的字符串。</p>
 <p>在注释③中，我们通过一个 before 类型的 field_validator 来把bid_type 字段的值重新映射到 Xtquant 支持的值。</p>
 <p>在定义完成 Order, XtOrderType 之后，从我们系统的 Order 转换到 XtOrderType 的转换就变得易如反掌：</p>
-<pre><code class="language-python">order = Order(stock_code=&quot;000001.SZ&quot;, bid_type=BidType.FIXED, price=10, volume=101) # ④
-order_dict = order.model_dump(by_alias=True) #⑤
-xt_order = XtOrderType(**order_dict) # ⑥
-</code></pre>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">order = Order(stock_code=<span class="hljs-string">&quot;000001.SZ&quot;</span>, bid_type=BidType.FIXED, price=<span class="hljs-number">10</span>, volume=<span class="hljs-number">101</span>) <span class="hljs-comment"># ④</span>
+order_dict = order.model_dump(by_alias=<span class="hljs-literal">True</span>) <span class="hljs-comment">#⑤</span>
+xt_order = XtOrderType(**order_dict) <span class="hljs-comment"># ⑥</span></span></code></pre>
 <p>在注释④中，构造 Order 时，我们既使用了原来的字段名，比如 bid_type, volume，也使用了别名（即在 XtOrderType 中的字段名），比如 stock_code。通过指定<code>populate_by_name=True</code>，Pydantic 就会同时允许这种<em>混杂</em>模式。</p>
 <p>在注释⑤中，我们把 Order 实例转换为一个字典，这里传入参数 by_alias=True，表示转换后的字段名将使用别名，现在，我们已经得到了一个 xtquant 系统下的订单字典。</p>
 <p>在注释⑥中，我们通过 <code>**order_dict</code> 把这个字典展开，构造一个 XtOrderType 实例。在这里会触发注释3中的字段校验，从而将 bid_type 中的 Fixed 转换为 20（假定这是 xtquant 中定价单的常数）。</p>
@@ -170,64 +164,62 @@ xt_order = XtOrderType(**order_dict) # ⑥
 <p>如果你喜欢以 sqlalchemy 那种方式来管理数据库 schema，但并不想全盘使用 sqlalchemy（毕竟，把数据库从 sqlite 换到 oracle 这件事，可能一辈子都不会发生），那么你可以使用 sqlite_utils 和下面的方式，既简洁又可靠地处理数据schema。</p>
 <p>我们会在后面专门出一期讲述在2026年，为什么你要使用 sqlite_utils。在这里，我们只简单介绍下跟 Pydantic 有关的部分 -- 创建数据库表。</p>
 <p>我们已经定义了一个个数据模型。为什么不直接通过这些 Model，来创建数据库表呢？事实上 pydantic 已经考虑到了这一点，只需要很少的改动：</p>
-<pre><code class="language-python">class OrderModel(BaseModel):
-    oid: str = Field(
-        default_factory=lambda: &quot;qtide-&quot; + uuid.uuid4().hex[:16], 
-        json_schema_extra={&quot;pk&quot;: True, &quot;index&quot;: True}
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderModel</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):
+    oid: <span class="hljs-built_in">str</span> = Field(
+        default_factory=<span class="hljs-keyword">lambda</span>: <span class="hljs-string">&quot;qtide-&quot;</span> + uuid.uuid4().<span class="hljs-built_in">hex</span>[:<span class="hljs-number">16</span>], 
+        json_schema_extra={<span class="hljs-string">&quot;pk&quot;</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">&quot;index&quot;</span>: <span class="hljs-literal">True</span>}
     )
-    asset: str = Field(..., json_schema_extra={&quot;pk&quot;: True, &quot;index&quot;: True})                             
+    asset: <span class="hljs-built_in">str</span> = Field(..., json_schema_extra={<span class="hljs-string">&quot;pk&quot;</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">&quot;index&quot;</span>: <span class="hljs-literal">True</span>})                             
     tm: datetime.datetime
-    price: Union[None, float]
+    price: <span class="hljs-type">Union</span>[<span class="hljs-literal">None</span>, <span class="hljs-built_in">float</span>]
     side: OrderSide = Field(..., 
-                            json_schema_extra={&quot;sql_type&quot;: &quot;INTEGER&quot;}, # ⑥
-                            alias=&quot;order_type&quot;)
-</code></pre>
+                            json_schema_extra={<span class="hljs-string">&quot;sql_type&quot;</span>: <span class="hljs-string">&quot;INTEGER&quot;</span>}, <span class="hljs-comment"># ⑥</span>
+                            alias=<span class="hljs-string">&quot;order_type&quot;</span>)</span></code></pre>
 <p>正如你所见，我们只增加了 json_schema_extra 参数，它可以指定索引、主键和数据类型。在注释⑥中，我们特别指定了  side 字段的 sql_type 为 INTEGER，这是因为它是一个 Enum 类型，无法被数据库理解。</p>
 <p>然后，我们再定义一个辅助函数，从 model 中提取 schema，就可以用以创建表结构了：</p>
-<pre><code class="language-python">def get_sqlite_schema(model: type[BaseModel]):
-    &quot;&quot;&quot;将 Pydantic 模型转换为 sqlite-utils 兼容的列定义&quot;&quot;&quot;
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_sqlite_schema</span>(<span class="hljs-params">model: <span class="hljs-built_in">type</span>[BaseModel]</span>):
+    <span class="hljs-string">&quot;&quot;&quot;将 Pydantic 模型转换为 sqlite-utils 兼容的列定义&quot;&quot;&quot;</span>
     columns = {}
     indices = []
-    pk = None
+    pk = <span class="hljs-literal">None</span>
 
-    for name, field in model.model_fields.items():
-        extra = field.json_schema_extra or {}
-        # 提取主键信息
-        if extra.get(&quot;pk&quot;):
+    <span class="hljs-keyword">for</span> name, field <span class="hljs-keyword">in</span> model.model_fields.items():
+        extra = field.json_schema_extra <span class="hljs-keyword">or</span> {}
+        <span class="hljs-comment"># 提取主键信息</span>
+        <span class="hljs-keyword">if</span> extra.get(<span class="hljs-string">&quot;pk&quot;</span>):
             pk = name
             
-        # 提取索引信息
-        if extra.get(&quot;index&quot;):
+        <span class="hljs-comment"># 提取索引信息</span>
+        <span class="hljs-keyword">if</span> extra.get(<span class="hljs-string">&quot;index&quot;</span>):
             indices.append(name)
 
-        if &quot;sql_type&quot; in extra:
-            columns[name] = extra[&quot;sql_type&quot;]
-            break
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;sql_type&quot;</span> <span class="hljs-keyword">in</span> extra:
+            columns[name] = extra[<span class="hljs-string">&quot;sql_type&quot;</span>]
+            <span class="hljs-keyword">break</span>
 
-        # 如果用户没有通过 field 改写类型
+        <span class="hljs-comment"># 如果用户没有通过 field 改写类型</span>
         python_type = field.annotation
-        sql_type = &quot;TEXT&quot;
+        sql_type = <span class="hljs-string">&quot;TEXT&quot;</span>
 
-        if isinstance(python_type, type) and issubclass(python_type, enum.Enum): # ⑦
-            sql_type = &quot;INTEGER&quot; if issubclass(python_type, IntEnum) else &quot;TEXT&quot;
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(python_type, <span class="hljs-built_in">type</span>) <span class="hljs-keyword">and</span> <span class="hljs-built_in">issubclass</span>(python_type, enum.Enum): <span class="hljs-comment"># ⑦</span>
+            sql_type = <span class="hljs-string">&quot;INTEGER&quot;</span> <span class="hljs-keyword">if</span> <span class="hljs-built_in">issubclass</span>(python_type, IntEnum) <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;TEXT&quot;</span>
 
-        # 检查是否为联合类型（Union 或 A | B 语法）
-        elif hasattr(python_type, &quot;__origin__&quot;) and python_type.__origin__ is Union:
-            non_none_types = [arg for arg in python_type.__args__ if arg is not type(None)]
-            if non_none_types:
-                sql_type = non_none_types[0]
+        <span class="hljs-comment"># 检查是否为联合类型（Union 或 A | B 语法）</span>
+        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">hasattr</span>(python_type, <span class="hljs-string">&quot;__origin__&quot;</span>) <span class="hljs-keyword">and</span> python_type.__origin__ <span class="hljs-keyword">is</span> <span class="hljs-type">Union</span>:
+            non_none_types = [arg <span class="hljs-keyword">for</span> arg <span class="hljs-keyword">in</span> python_type.__args__ <span class="hljs-keyword">if</span> arg <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">type</span>(<span class="hljs-literal">None</span>)]
+            <span class="hljs-keyword">if</span> non_none_types:
+                sql_type = non_none_types[<span class="hljs-number">0</span>]
 
-        # 对于 A | B 语法（Python 3.10+），是 types.UnionType
-        elif isinstance(python_type, types.UnionType):
-            non_none_types = [arg for arg in python_type.__args__ if arg is not type(None)]
-            if non_none_types:
-                sql_type = non_none_types[0]
+        <span class="hljs-comment"># 对于 A | B 语法（Python 3.10+），是 types.UnionType</span>
+        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(python_type, types.UnionType):
+            non_none_types = [arg <span class="hljs-keyword">for</span> arg <span class="hljs-keyword">in</span> python_type.__args__ <span class="hljs-keyword">if</span> arg <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">type</span>(<span class="hljs-literal">None</span>)]
+            <span class="hljs-keyword">if</span> non_none_types:
+                sql_type = non_none_types[<span class="hljs-number">0</span>]
 
         
         columns[name] = sql_type
             
-    return columns, pk, indices
-</code></pre>
+    <span class="hljs-keyword">return</span> columns, pk, indices</span></code></pre>
 <p>注意注释⑦处的代码。有了这一行声明，实际上我们不需要特别为 side 字段再声明 sql_type 了。因为 OrderSide 是一个 IntEnum，因此会在这里被自动转换为 int。这样一来，我们的代码可以更简洁，基本上只需要指定主键和索引即可。</p>
 <p>我对 sqlalchemy 是又爱又狠。我很喜欢以纯 Python 的方式来与数据库交互，但是它确实有点臃肿，会引起性能下降，也有一定的学习曲线。如果你跟我有同样的想法，也许可以考虑使用 Pydantic、sqlite-utils以及这里的简单封装来构建你的数据库应用。</p>
 <p>再一次说明，我们将在后面的文章中介绍sqlite-utils。</p>
