@@ -1,5 +1,5 @@
 ---
-title: 一些和颜色相关的网站
+title: "一些和颜色相关的网站（网页设计师配色工具）"
 slug: a-palette-of-colorful-websites
 date: 2024-07-28
 category: arsenal
