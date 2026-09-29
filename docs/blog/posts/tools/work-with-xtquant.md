@@ -1,6 +1,6 @@
 ---
 date: 2023-12-22
-title: "QMT与XtQuant开发环境配置指南：2024年安装避坑及远程开发要点"
+title: "QMT/XtQuant开发环境配置：安装避坑与远程开发指南"
 slug: how-to-setup-xtquatn-development-env
 lunar: 冬至
 motto: 宜吃汤圆 必成双成对
