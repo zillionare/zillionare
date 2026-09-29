@@ -1,5 +1,5 @@
 ---
-title: 夏普大于4的策略有多恐怖？但它为什么好得不真实？
+title: "夏普大于4的策略有多恐怖？A股策略夏普比率与数据标准化避坑"
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg
 excerpt: 本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Point-in-Time方法进行正确归一化的重要性，以避免自我欺骗，获得真实收益。
 category: algo
