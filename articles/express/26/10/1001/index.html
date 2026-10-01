@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="material"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="匡醍量化（Quantide）技术博客：专注量化投资研究、Python 量化交易系统大富翁实战、量化课程与免费学习资料。"><link rel="icon" href="/assets/images/favicon.png"><title>Optiver 联合竞赛评估 AI 实时解读财报股价反应能力 | 匡醍量化</title><link rel="canonical" href="https://blog.quantide.cn/articles/express/26/10/1001/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="Optiver 联合竞赛评估 AI 实时解读财报股价反应能力 | 匡醍量化"><meta property="og:description" content="AKShare v1.19.1修复上期所仓单解析、广期所增减字段映射，明确大商所反爬报错，保障期货仓单日报稳定获取，库存量化策略必看。"><meta property="og:url" content="https://blog.quantide.cn/articles/express/26/10/1001/"><meta property="og:image" content="https://blog.quantide.cn/get/gee2bc3ce87dafa7d998f3378fe083b967a23140767bf8a4d56b7bbc2c733c88de26a95a686ba0fc8b6df825ed3ce13e3fd30ba17c6336f174a2e9f89a9d459ec_1280.jpg"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://blog.quantide.cn"}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://blog.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20260928b"><script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        var t = q || localStorage.getItem('blog-theme') || document.documentElement.dataset.theme || 'material';
+        document.documentElement.dataset.theme = t;
+        if (q) localStorage.setItem('blog-theme', q);
+      } catch (e) {}
+    })();
+  </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L3VJKHX7K1');
+  </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class="active" aria-current="page">资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class>博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/topics/" class>专题</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Optiver 联合竞赛评估 AI 实时解读财报股价反应能力","description":"AKShare v1.19.1修复上期所仓单解析、广期所增减字段映射，明确大商所反爬报错，保障期货仓单日报稳定获取，库存量化策略必看。","image":"https://pixabay.com/get/gee2bc3ce87dafa7d998f3378fe083b967a23140767bf8a4d56b7bbc2c733c88de26a95a686ba0fc8b6df825ed3ce13e3fd30ba17c6336f174a2e9f89a9d459ec_1280.jpg","datePublished":"2026-10-01","author":{"@type":"Organization","name":"匡醍量化","url":"https://blog.quantide.cn"},"publisher":{"@type":"Organization","name":"匡醍量化","logo":{"@type":"ImageObject","url":"https://blog.quantide.cn/img/logo.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.quantide.cn/articles/express/26/10/1001/"}}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://blog.quantide.cn/"},{"@type":"ListItem","position":2,"name":"Optiver 联合竞赛评估 AI 实时解读财报股价反应能力","item":"https://blog.quantide.cn/articles/express/26/10/1001/"}]}</script> <div class="doc-layout"> <aside class="doc-nav" aria-label="文档目录"> <div> <p class="nav-group">资讯目录</p> <details class="nav-tree" open> <summary class="nav-dir"><span class="nav-label">26-10</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/26/10/1001/" class="current" title="Optiver 联合竞赛评估 AI 实时解读财报股价反应能力">Optiver 联合竞赛评估 AI 实时解读财报股价反应能力</a></li> </ul> </details><details class="nav-tree"> <summary class="nav-dir"><span class="nav-label">26-09</span><span class="nav-toggle" aria-hidden="true"></span></summary> <ul> <li><a href="/articles/express/26/09/0930/" class title="从工科生到WorldQuant咨询顾问，">从工科生到WorldQuant咨询顾问，</a></li><li><a href="/articles/express/26/09/0929/" class title="段永平，又买茅台了">段永平，又买茅台了</a></li><li><a href="/articles/express/26/09/0928/" class title="量化波动率交易社区痛失Vance Har">量化波动率交易社区痛失Vance Har</a></li><li><a href="/articles/express/26/09/0927/" class title="美债破5%叠加AI失控，量化策略如何不输">美债破5%叠加AI失控，量化策略如何不输</a></li><li><a href="/articles/express/26/09/0926/" class title="Jev模型杀入量化界：A股56GB数据集">Jev模型杀入量化界：A股56GB数据集</a></li><li><a href="/articles/express/26/09/0921/" class title="Quantide Loop 2026-09-21">Quantide Loop 2026-09-21</a></li><li><a href="/articles/express/26/09/0920/" class title="Quantide Loop 2026-09-20">Quantide Loop 2026-09-20</a></li><li><a href="/articles/express/26/09/0918/" class title="Quantide Daily 2026-09-18">Quantide Daily 2026-09-18</a></li> </ul> </details> </div> </aside> <article class="doc-main"> <h1 data-pagefind-meta="title">Optiver 联合竞赛评估 AI 实时解读财报股价反应能力</h1> <p class="meta"> <span>📅 2026-10-01</span> <span class="topic-badges"> <a class="topic-badge" href="/topics/factor/">因子策略</a><a class="topic-badge" href="/topics/career/">量化职场</a><a class="topic-badge" href="/topics/news/">资讯</a> </span> <span class="level-badge" data-lv="实战">实战</span> <span>👁 本月阅读 <span data-page-pv>—</span></span> </p>  <div class="md-body" data-pagefind-body><h2 id="全网热搜">全网热搜</h2>
+<p><strong>AKShare修复期货仓单日报</strong></p>
+<p>2026年9月30日AKShare发布v1.19.1，修复上期所仓单日报网页解析适配，修正广期所增减字段映射，并对大商所反爬拦截抛出明确错误及超时设置。 <sup><a href="https://github.com/akfamily/akshare/releases/tag/release-v1.19.1">1</a></sup></p>
+<p><strong>上期所镍期货境外交割月移仓落地</strong></p>
+<p>近日上期所镍期货境外交割月移仓落地，打通国际化最后一公里。格林美借沪伦两市双锚定锁价避险，再生镍崛起叠加上海价格出海，助中国镍企提升全球话语权。 <sup><a href="https://www.shfe.com.cn/publicnotice/medium/202609/t20260924_833543.html">1</a></sup></p>
+<p><strong>避险资产？不必了</strong></p>
+<p>iShares 20+ Year Treasury Bond ETF (TLT) 昨日创下新低，并面临连续第八日下跌。作为传统避险资产，长期国债表现并不稳定。自2022年第一季度美联储开始加息以来，TLT已录得第六个季度跌幅至少10%。 <sup><a href="https://seekingalpha.com/article/4951215-safe-haven-no-thanks?source=feed_all_articles">2</a></sup></p>
+<h2 id="大厂动态">大厂动态</h2>
+<p><strong>Optiver 联合竞赛评估 AI 实时解读财报股价反应能力</strong></p>
+<p>如何让 AI 智能体在财报公告与电话会议发布的当下，同步给出对股价反应的可解释判断，是这一轮评测要回答的核心挑战。</p>
+<p>赛事定于 10 月 12 日启动，主办方与 Optiver 合作，向参赛者开放两个新增数据集，用于提升智能体的解释表现。评测口径强调实时性，与事后回溯式的财报文本分析形成区别；公告未披露基准成绩与误差指标，参赛者需基于新数据自行调优。 <sup><a href="https://x.com/rkoijen/status/2105290023079731452">15</a></sup></p>
+<h2 id="量化研究">量化研究</h2>
+<p><strong>微观结构解释短期趋势策略失效</strong></p>
+<p>2026年7月发表的研究指出，短期趋势跟踪策略在2008-2009年后失效，而长期策略依然有效。</p>
+<p>研究通过SG CTA指数及100种期货合约数据，发现该现象具有突发性、速度依赖性及资产异质性。研究排除了容量约束、电子化交易及CTA与订单流动态变化等因素，确认波动率标准化后的最小报价单位（Tick Size）是关键变量。</p>
+<p>小Tick合约在2008年后短期趋势收益归零，而大Tick合约表现稳定。其机制在于：趋势策略依赖自我强化的反馈循环，即方向性交易通过市场影响推动价格，从而强化信号。</p>
+<p>2008年后，高频交易（HFT）取代传统做市商，其扁平库存限制导致其不愿吸收大型方向性订单，撤出流动性。在小Tick合约中，订单簿稀疏，HFT撤资后缺乏足够深度供趋势交易者执行，导致反馈循环断裂，短期趋势策略失效。 <sup><a href="https://alphaarchitect.com/short-term-trend-following/">1</a></sup></p>
+<p><strong>机构说的、媒体传的、仓位做的：三声部市场里该跟谁</strong></p>
+<p>当机构表态与媒体转述被机器学习信号当作估值证据时，塑造叙事的一方是否正悄悄反向建仓？</p>
+<p>研究把市场中的三类可观察声音拆开：机构声明（Say）、媒体重复（Echo）与揭示性头寸（Do），并在一名知情机构的线性二次模型框架下刻画其最优交易与发声策略。</p>
+<p>结论显示，言论是否值得跟随取决于发声成本与头寸揭示程度：当媒体回声与机构实际仓位背离时，跟随文本信号的策略会系统性亏损，需转为反向操作。该框架把“说的”和“做的”分离定价，为文本因子提供了可检验的失效条件。 <sup><a href="https://arxiv.org/abs/2609.38545">4</a></sup></p>
+<p><strong>大模型可执行算法交易代码生成的两条专业化路径</strong></p>
+<p>通用语言模型写代码不弱，却很难把一句自然语言策略忠实翻译成专用交易框架里真正能跑起来的程序逻辑，并在历史数据上执行、产生成交，同时不偏离用户原意，这是算法交易代码生成最吃力的环节。</p>
+<p>围绕这一目标，工作比较了两种互补的模型专业化机制，让模型面向专用交易框架完成从策略规范到程序逻辑的映射，并把可执行性与语义忠实度一并纳入考察。</p>
+<p>结论指向一点：通用代码能力不足以覆盖该场景，能否在专用框架中实际运行并产出交易记录，才是区分专业化模型与通用模型的关键；由于原文摘要截断，具体的数据区间、模型规模与回测指标未予披露。同主题下，交易代码生成正从单轮生成转向带执行反馈的迭代验证。 <sup><a href="https://arxiv.org/abs/2609.39420">5</a></sup></p>
+<p><strong>收盘拍卖下的最优清算策略：DQN与投影DDPG对比</strong></p>
+<p>连续竞价结束后转入收盘拍卖，剩余库存该如何在限价订单簿与拍卖两个阶段之间分配卖出节奏？</p>
+<p>研究把交易员的动作拆成两步：先在限价订单簿中卖出，再向拍卖提交带符号的拍卖计划以调整剩余头寸，并用预估清算价信号与中间拍卖反馈把两个阶段连接起来；策略学习以深度Q网络为基准，与投影深度确定性策略梯度、双延迟深度确定性策略梯度（TD3）等连续动作方法对照。</p>
+<p>对照结果表明，连续动作的投影策略梯度方法更适合处理带符号拍卖计划的约束，而两阶段之间的清算价信号与拍卖反馈是影响执行效果的关键变量。 <sup><a href="https://arxiv.org/abs/2601.17247">6</a></sup></p>
+<p><strong>大型语言模型驱动的小盘股交易：整合金融新闻情绪、宏观经济指标与技术信号</strong></p>
+<p>该研究探讨利用大型语言模型从金融新闻中提取比固定情绪词典更丰富的信号，并探索将其纳入投资组合构建的方法。</p>
+<p>研究提出一种不确定性感知构建框架，将模型预测的风险分解为偶然性和认知性分量，直接输入到投资组合分配器的协方差矩阵中，而非将风险视为固定值或仅调整预期收益。 <sup><a href="https://arxiv.org/abs/2608.12283">9</a></sup></p>
+<h2 id="量化职场">量化职场</h2>
+<p><strong>实习生都是打杂的吗？看看简街实习生在干嘛</strong></p>
+<p>Jane Street最新一期博客介绍了简街实习生的工作。</p>
+<p>在 Jane Street，实习生一进来就被放到真实的业务问题上。多数人在短短一个夏天里完成了可落地或有研究价值的成果，覆盖五类岗位。</p>
+<p><strong>机器学习研究：快速试错的真研究</strong></p>
+<p>实习生的工作更像探索性科研，往往第一周就开始大规模训练。Kavish Kondap 用自回归扩散模型构建市场数据的事件级生成模型，借此探究市场数据到底有多连续。Monte Bohde 用发散解码、蒸馏、自然语言自编码器和提示工程，研究如何减轻大模型对历史结果的记忆。其他实习生则做了订单簿的逐单预测网络、KV 缓存蒸馏加速预填充，以及 Mamba 模型的量化感知训练探索。</p>
+<p> <strong>软件工程：直接改进生产系统</strong></p>
+<p>Arsh Koneru 设计了比 PyTorch 更优的激活检查点方案，在内存预算紧张时仍能完成训练。Theodor Totev 为消息框架 Aria 建立索引，让真实场景下的 CPU 占用降低 30%。Sai Konkimalla 用 OxCaml 开发了面向 CPU SIMD 指令的 DSL。还有人用 ILP/SAT 求解器改进行情应用的调度，或优化特征工程库。</p>
+<p><strong>Linux 工程与 IT：补上基础设施的短板</strong></p>
+<p>Jacob Root 做出了在磁盘或网络故障时仍能保留内核日志的上报工具。Kian Kasad 用 OCaml 写了 FUSE 服务器，读取速度达到 1.3 GiB/s。Max Ohm 则用集中式系统取代零散的 Windows 配置脚本，并通过新旧系统并行运行，发现了旧系统中潜伏已久的问题。</p>
+<p><strong>交易台运营与战略产品：贴近业务一线</strong></p>
+<p>TDOE 实习生参与了可转债交易分析、奇异期权现金流对账等工作，需要在系统稳健性和交易的紧迫需求之间取得平衡。战略与产品岗实习生则嵌入团队，由全职导师带领，做自动化 Linux 内核升级、贷款费用建模、特殊日期的风险限额管理等项目。</p>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside>  <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「因子策略」路径第 73/81 篇</span> <span class="reading-path-links"> <a href="/articles/express/26/09/0927/">← 美债破5%叠加AI失控，量化策略如何</a> <a href="/posts/factor-strategy/ESG策略初探-02/">ESG评分多空投资策略：买ESG评分 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/tags/#topic-career"><strong>👉 量化职场：求职与成长</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/posts/tools/earnings-preview-with-llms/">利好为何不涨？AI预测财报竞赛揭秘</a> <p>英伟达四连超预期股价却连跌？Optiver联手芝大发起AI预测财报行情竞赛，用R²实盘检验谁能真正破解利好不涨之谜。</p> </li><li> <a href="/posts/factor-strategy/time-will-tell/">时间会证明一切！抢头财（报）就是抢头彩？！</a> <p>题图：普渡大学 Engineering Fountain。普渡大学是印度安纳州的一所大学，距芝加哥 100 英里。QS 排名全球第 89 名。该校校训是 Every giant l</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#全网热搜" title="全网热搜">全网热搜</a> </li><li class> <a href="#大厂动态" title="大厂动态">大厂动态</a> </li><li class> <a href="#量化研究" title="量化研究">量化研究</a> </li><li class> <a href="#量化职场" title="量化职场">量化职场</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+    // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
+    // 失败回退构建期 site-stats.json（随发布更新）
+    (function () {
+      var KEY = 'cf-site-stats-v1';
+      var CDN = 'https://cdn.jsdelivr.net/gh/zillionare/images@main/stats/site-stats.json';
+      function render(d) {
+        if (!d) return;
+        document.querySelectorAll('[data-total-pv]').forEach((el) => { el.textContent = (d.total_pv || 0).toLocaleString(); });
+        document.querySelectorAll('[data-total-uv]').forEach((el) => { el.textContent = (d.total_uv || 0).toLocaleString(); });
+        if (d.updated_at) {
+          var t = new Date(typeof d.updated_at === 'number' ? d.updated_at * 1000 : d.updated_at).toLocaleDateString();
+          document.querySelectorAll('[data-updated]').forEach((el) => { el.textContent = `（${t} 更新）`; });
+        }
+        var pages = d.pages || {};
+        var pv = pages[location.pathname];
+        document.querySelectorAll('[data-page-pv]').forEach((el) => { el.textContent = pv != null ? Number(pv).toLocaleString() : '—'; });
+      }
+      function renderStatic() {
+        fetch('/site-stats.json').then((r) => r.json()).then(render).catch(() => {});
+      }
+      renderStatic();
+      try {
+        var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
+        var fresh = cached && (Date.now() - (cached.at || 0) < 24 * 3600 * 1000);
+        if (fresh) { render(cached.data); return; }
+      } catch (e) {}
+      fetch(CDN).then((r) => r.json()).then((d) => {
+        render(d);
+        try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), data: d })); } catch (e) {}
+      }).catch(() => {});
+    })();
+  </script> <script>
+    (function () {
+      try {
+        var cur = document.documentElement.dataset.theme;
+        document.querySelectorAll('[data-theme-link]').forEach(function (a) {
+          a.classList.toggle('active', a.dataset.themeLink === cur);
+          var u = new URL(a.href, location.origin);
+          u.searchParams.set('theme', a.dataset.themeLink);
+          a.href = u.pathname + u.search;
+        });
+      } catch (e) {}
+      // 轻量搜索：调 pagefind 预建索引（无索引时静默禁用）
+      // pagefind 1.x：m.init() 后直接用 m.debouncedSearch（旧 m.options() 已废弃）
+      var input = document.getElementById('blog-search');
+      var box = document.getElementById('blog-search-result');
+      if (!input) return;
+      var idxReady = false;
+      input.addEventListener('input', async function () {
+        var q = input.value.trim();
+        if (!q) { box.hidden = true; return; }
+        try {
+          if (!idxReady) {
+            var m = await import('/pagefind/pagefind.js');
+            await m.init();
+            idxReady = m;
+          }
+          var r = await idxReady.debouncedSearch(q);
+          var items = (r.results || []).slice(0, 8);
+          var html = '';
+          for (const item of items) {
+            const d = await item.data();
+            html += '<a href="' + d.url + '">' + ((d.meta && d.meta.title) || d.url) + '</a>';
+          }
+          box.innerHTML = html || '<span class="none">无结果</span>';
+          box.hidden = false;
+        } catch (e) { box.hidden = true; }
+      });
+      document.addEventListener('click', function (e) {
+        if (!box.hidden && !e.target.closest('.search-box')) box.hidden = true;
+      });
+      // 词云抖动：每词随机旋转 ±8°、上下错位 ±2px、透明度 0.75~1，
+      // 字号按 data-size（构建期按出现次数线性计算），颜色按 data-color；
+      // 每次访问重新随机，有重叠感；顺序打乱，热门词不总在最前
+      try {
+        document.querySelectorAll('[data-cloud]').forEach(function (cloud) {
+          var spans = Array.prototype.slice.call(cloud.querySelectorAll('.tag-name'));
+          // Fisher-Yates 洗牌（仅左栏窄云打乱，tags 页居中大云保持按次数排序）
+          if (!cloud.hasAttribute('data-center')) {
+            for (var i = spans.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              cloud.insertBefore(spans[j].closest('a'), spans[i].closest('a'));
+              var tmp = spans[i]; spans[i] = spans[j]; spans[j] = tmp;
+            }
+          }
+          spans.forEach(function (el) {
+            el.style.fontSize = el.dataset.size + 'rem';
+            el.style.color = el.dataset.color;
+            el.style.transform = 'rotate(' + (Math.random() * 16 - 8).toFixed(1) + 'deg)'
+              + ' translateY(' + (Math.random() * 4 - 2).toFixed(1) + 'px)';
+            el.style.opacity = (0.75 + Math.random() * 0.25).toFixed(2);
+          });
+        });
+      } catch (e) {}
+    })();
+  </script> </body> </html>
