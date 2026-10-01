@@ -6,10 +6,7 @@ date: 2024-06-08
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg
 category:
   - 职场
-tags:
-  - 职场
-  - 资源
-  - 公司
+tags: [职场, 资源, 公司]
 ---
 
 ---

@@ -3,11 +3,7 @@ title: "2026实测Hermes Agent：安装失败到Eureka，对比OpenClaw谁更胜
 excerpt: "量化投资者必看！深度体验Hermes Agent与OpenClaw，从安装失败到Eureka时刻。Hermes自包含依赖、零帧起手，但API Key校验缺失易踩坑；OpenClaw手动挡配置繁琐。两者快速迭代，究竟谁更适合量化策略自动化？一文拆解真实使用痛点与选型建议。"
 date: 2026-04-13
 category: tools
-tags: 
-  - tools
-  - OpenClaw
-  - "Hermes Agent"
-  - Agent
+tags: [tools, OpenClaw, Hermes Agent, Agent]
 ---
 
 

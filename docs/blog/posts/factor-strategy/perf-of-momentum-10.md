@@ -7,10 +7,7 @@ motto: Learning how to fall teaches you how to land, and learning to land gives 
 img: https://m.media-amazon.com/images/I/61YULEKe2uL._SL1360_.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - 因子策略
-    - momentum
-    - 因子评估
+tags: [因子策略, momentum, 因子评估]
 excerpt: "斜率动量因子源自Andreas F. Clenow，比卡哈特年度动量更灵敏。本文回顾7月表现，实测过去10天回归斜率在A股的信号效果，并与90天版本、经典动量做对比。短周期斜率能否捕捉A股快速轮动？附Python moving_slope实现思路与因子细节。"
 ---
 

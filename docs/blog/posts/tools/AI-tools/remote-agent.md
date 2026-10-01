@@ -4,10 +4,7 @@ date: 2025-06-10
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png
 categories:
   - tools
-tags:
-  - augment
-  - remote-agent
-  - AI-tools
+tags: [Augment, remote-agent, AI-tools]
 excerpt: "月 7 日，当我启动 Augment 准备继续编写策略时，弹出一条消息提示，大致是，我们刚刚发布了 Remote Agent，你要不要试一试？这个试用需要登录 github 账号，所以我的第一直觉就是，关掉它，我不需要它。"
 ---
 

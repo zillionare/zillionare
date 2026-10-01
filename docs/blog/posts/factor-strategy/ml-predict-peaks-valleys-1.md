@@ -6,9 +6,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/cmu.jpg
 category: strategy
 motto: Torture the data, and it will confess to anything
 lineNumbers: true
-tags: 
-    - 机器学习
-    - xgboost
+tags: [机器学习, xgboost]
 excerpt: "之前的文章中，我们对中证1000指数进行了顶和底的标注。这一篇我们将利用这份标注数据，实现机器学习预测顶和底，并探讨一些机器学习的原理。"
 ---
 

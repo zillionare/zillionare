@@ -2,10 +2,7 @@
 title: Dropout：给温室里的AI断水断粮，它才能在实盘中活下来
 date: 2026-03-25
 category: algo
-tags:
-  - machine-learning
-  - quant-trading
-  - dropout
+tags: [machine-learning, quant-trading, dropout]
 ---
 
 你有没有经历过这种绝望的时刻：模型在训练集上的胜率高达 98%，夏普比率漂亮得像是在印钞；你满怀激动地把它切到实盘，结果短短一个月，账户直接腰斩。

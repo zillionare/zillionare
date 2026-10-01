@@ -4,11 +4,7 @@ excerpt: 从安装失败到‘Eureka’时刻，Hermes Agent 和 OpenClaw 就像
 date: 2026-04-13
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/k-mitch-hodge--8qe1hJ7gnk-unsplash.jpg
 category: tools
-tags: 
-  - tools
-  - OpenClaw
-  - "Hermes Agent"
-  - Agent
+tags: [tools, OpenClaw, Hermes Agent, Agent]
 ---
 
 

@@ -4,10 +4,7 @@ date: 2025-05-17
 category: tools
 slug: augment-daily-dose-1
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/banner/IMG_20250510_112543.jpg
-tags:
-  - AI
-  - Augment
-  - duckdb
+tags: [AI, Augment, duckdb]
 excerpt: "Duckdb是一个年轻而迷人的数据库。它的备份可以简单到通过拷贝文件来完成 -- 但前提是，没有其它进程独占她。如果你的服务使用了duckdb，而且还在不停地读写她，你该怎么给她一个备份呢？"
 ---
 

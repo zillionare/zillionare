@@ -5,9 +5,7 @@ motto: 见天地 见众生 见自己<br>坚持学习 遇见更好的自己
 slug: arsenal
 lunar: 冬月十五
 category: arsenal
-tags:
-    - xtquant
-    - quantlib
+tags: [xtquant, quantlib]
 excerpt: "xtquant 中有哪些板块和板块分类？ 如何获取板块的成份股？ 如何获取指数的行情数据？"
 ---
 

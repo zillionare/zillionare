@@ -3,10 +3,7 @@ title: 只廖廖数行，但很惊艳的代码
 slug: awesome-code
 date: 2023-12-19
 category: arsenal
-tags:
-    - quant
-    - algorithm
-    - python
+tags: [quant, algorithm, python]
 excerpt: "既然c/java/python等语言的索引都从零开始，因此我们的盘点也从一行代码也没有的项目开始"
 ---
 

@@ -3,10 +3,7 @@ title: 量化交易中的遗传算法
 slug: genetic-algo
 date: 2023-12-20
 category: strategy
-tags:
-    - quant
-    - algorithm
-    - python
+tags: [quant, algorithm, python]
 excerpt: "遗传算法利用自然选择的概念来确定问题的最佳解决方案。 遗传算法通常用作优化器，调整参数使得目标最优 遗传算法可以独立 | 在人工神经网络的构建中使用。"
 ---
 

@@ -6,7 +6,7 @@ slug: quantide-weekly-1013
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
 stamp_width: 60%
 stamp_height: 60%
-tags: [others, weekly, numpy, pandas]
+tags: [others, weekly, Numpy, pandas]
 seq: 第 12 期
 fonts:
     sans: 'ZhuqueFangsong, sans-serif'

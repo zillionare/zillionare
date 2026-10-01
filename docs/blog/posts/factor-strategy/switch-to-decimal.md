@@ -5,9 +5,7 @@ date: 2024-01-26
 category: strategy
 motto: 那些杀不死我们的，使我们更强大
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/switch-to-decimal.jpg
-tags: 
-    - trade
-    - history
+tags: [trade, history]
 excerpt: "笔记左数效应、整数关口与光折射中引用了南加州大学Lawrence Harris的一篇论文中，哈理斯研究了交易价格的聚类效应。聚类效应对我们确定压力位、完善下单算法都有一定的影响。"
 ---
 

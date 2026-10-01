@@ -5,9 +5,7 @@ slug: factor-analysis-4
 date: 2024-06-14
 category:
   - 因子分析
-tags:
-  - 因子分析
-  - Alphalens
+tags: [因子分析, Alphalens]
 lineNumbers: true
 ---
 

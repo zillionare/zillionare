@@ -4,12 +4,7 @@ date: 2026-01-19
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg
 excerpt: 深度解析 pandas 3.0 在 2026 年量化技术栈中的核心地位，探讨从 NumPy 到 PyArrow 的架构转型、字符串处理革命、Copy-on-Write 机制以及开发者背后的故事。
 categories: tools
-tags:
-  - pandas
-  - Python
-  - 量化交易
-  - 大数据
-  - PyArrow
+tags: [pandas, python, 量化交易, 大数据, PyArrow]
 addons:
   - slidev_themes/addons/slidev-addon-quantide-layout
   - slidev_themes/addons/slidev-addon-mouse-trail-pen

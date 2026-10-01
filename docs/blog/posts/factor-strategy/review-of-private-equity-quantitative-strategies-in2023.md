@@ -4,9 +4,7 @@ slug: review-of-private-equity-quantitative-strategies-in-2024
 date: 2024-01-14
 category: strategy
 motto: 努力让自己发光 对的人才会迎光而来
-tags: 
-    - strategy
-    - review
+tags: [strategy, review]
 excerpt: "看了十几家私募路演报告，总结出2023年最有效的策略！"
 ---
 

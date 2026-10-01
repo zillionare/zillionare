@@ -3,9 +3,7 @@ title: 算收益，用算术平均好还是几何平均好?
 excerpt: "同样是 30% 收益，A 策略跑 30 天，B 策略跑 25 天，谁更牛？Ran Aroussi 的 QuantStats 库藏着答案！这个获 5.8k 星标的 Python 工具，能用 compsum、comp 等函数拆穿收益骗局，可为何几何均值总比算术均值 “矮一截”？"
 date: 2025-08-02
 categories: tools
-tags:
-    - quantstats
-    - 几何收益
+tags: [quantstats, 几何收益]
 ---
 
 假设我们已构建一套投资策略，并通过回测工具获取了该策略的每日历史回测收益数据。下一步的核心工作是对策略进行全面评估，包括其有效性、风险水平及收益表现，**QuantStats**的设计目标即在于此。

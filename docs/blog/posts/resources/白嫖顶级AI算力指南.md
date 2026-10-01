@@ -4,7 +4,7 @@ date: 2026-04-11
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg
 excerpt: OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的token.
 category: tools
-tags: [tools, openclaw, resources]
+tags: [tools, OpenClaw, resources]
 font: "阿里巴巴普惠体-Regular"
 addons:
   - quantide-admonition

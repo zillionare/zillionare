@@ -5,10 +5,7 @@ date: 2024-01-01
 category: arsenal
 motto:
 lunar:
-tags: 
-    - blog
-    - static-site
-    - tools
+tags: [blog, static-site, tools]
 excerpt: "几年前，我就推荐过用 Markdown 写作静态博客。静态博客几乎是零托管成本，比较适合个人博客起步。Markdown 便于本地搜索，也可当作是个人知识库方案。"
 ---
 

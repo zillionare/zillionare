@@ -3,9 +3,7 @@ title: Quantstats Reloaded
 date: 2025-06-16
 category: tools
 img: 
-tags: 
-    - python
-    - quantstats
+tags: [python, quantstats]
 excerpt: "Quantstats 是一款用于交易策略绩效分析的 Python 库，深受量化圈用户喜爱，在 Github 上获得了超过 5.8k 的 stars。但很遗憾，由于原作者长期未维护，现在新安装的 Quantstats，尤其是在 Python 3.12 及以上高版本中，几乎无法运行。"
 ---
 

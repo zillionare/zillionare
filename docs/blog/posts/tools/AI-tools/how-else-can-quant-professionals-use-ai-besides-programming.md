@@ -4,9 +4,7 @@ date: 2025-08-05
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/brooke-lark-8beTH4VkhLI-unsplash.jpg
 excerpt: 当量化人面临信息过载的困境时，AI悄然成为破局关键。从Grok的私人定制资讯，到豆包和NotebookLM将研报秒变播客，再到TradingAgents项目——一个能模拟真实交易团队、年化收益提升30%的神秘框架。这个由UC伯克利开发的多智能体系统，究竟如何让一个人拥有整个交易团队的决策能力？
 category: tools
-tags:
-    - tools
-    - AI
+tags: [tools, AI]
 ---
 
 知乎问题，除了编程，量化人还能怎么用 AI？

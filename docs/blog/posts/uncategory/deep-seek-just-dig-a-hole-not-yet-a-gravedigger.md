@@ -4,11 +4,7 @@ slug: deep-seek-just-dig-a-hole-not-yet-a-gravedigger
 date: 2025-02-10
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg
 category: others
-tags:
-  - others
-  - story
-  - AI
-  - DeepSeek
+tags: [others, story, AI, DeepSeek]
 excerpt: "在我们的《因子分析与机器学习策略》课程中，提供了从2005年到2023年，长达18年的日线数据（共1100多万条记录）供学员进行因子挖掘与验证。最初，我们是通过functools中的lrucache装饰器，将数据缓存到内存中的。这样一来，除了首次调用时时间会略长（比如，5秒左右）外，此后的调用都是毫秒级的。"
 ---
 

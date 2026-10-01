@@ -7,11 +7,7 @@ category:
 motto: Do what is right, not what is easy nor what is popular.
 lunar: 三九
 lineNumbers: true
-tags: 
-    - strategy
-    - factor
-    - Alphalens
-    - 因子分析
+tags: [strategy, factor, Alphalens, 因子分析]
 excerpt: "因子分析是量化研究的基本技能之一。通过因子分析，找出有效的因子，通过相关性去重后，就可以通过机器学习、线性回归等方法把因子组合起来，构成交易策略。"
 ---
 

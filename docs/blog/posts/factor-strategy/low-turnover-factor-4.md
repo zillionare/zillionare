@@ -6,10 +6,7 @@ category:
     - strategy
 motto: Be the change that you wish to see in the world
 lunar: 腊月初二
-tags: 
-    - 因子分析
-    - 因子
-    - Alphalens
+tags: [因子分析, 因子, Alphalens]
 excerpt: "在前面的笔记中，无论是回报分析，还是因子Alpha，它们都受到交易成本的影响。信息分析 (Information Analysis)则是一种不受这种影响的评估方法，主要研究方法就是信息系数(Information Coefficient)。"
 ---
 

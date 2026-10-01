@@ -4,9 +4,7 @@ slug: crowed-strike-postmoterm
 date: 2024-07-20
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/bsod.jpg
 category: others
-tags:
-  - others
-  - story
+tags: [others, story]
 lineNumbers: true
 excerpt: "昨天下午，微软给大家放了个假。Windows又双叒死机了。不过，这一次不是几台机器，而是全球大范围宕机。这一刻，大家都是“正蓝旗”。"
 ---

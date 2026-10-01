@@ -4,9 +4,7 @@ slug: ipv6-how-to
 date: 2024-11-23
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg
 category: others
-tags:
-  - network
-  - tools
+tags: [network, tools]
 lineNumbers: true  
 excerpt: "机器学习是人工智能的一个子集。人工智能是指使计算机系统能够执行通常需要人类智能才能完成的任务的技术和方法。人工智能涵盖了多种技术和子领域，如机器学习、深度学习、自然语言处理、计算机视觉、专家系统等。"
 ---

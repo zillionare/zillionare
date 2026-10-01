@@ -1,11 +1,11 @@
 ---
-title: 白银大涨引发的量化套利策略
+title: "LOF套利怎么做：场内外溢价套利定价与工程实践（附代码）"
 date: 2026-01-24
 img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/cover.jpg
 excerpt: 全球避险情绪与工业需求双重驱动下，白银价格一路狂飙。这种单边行情不仅让持有实物或期货的投资者获利丰厚，更在场内催生了一个低风险的“捡钱”机会——LOF 基金场内外溢价套利。
 img_copyright: samgoodgame@unsplash
 category: factor-strategy
-tags: [量化交易, 套利, LOF, 白银, Python]
+tags: [量化交易, 套利, LOF, 白银, python]
 addons:
   - slidev_themes/addons/slidev-addon-quantide-layout
   - slidev_themes/addons/slidev-addon-mouse-trail-pen

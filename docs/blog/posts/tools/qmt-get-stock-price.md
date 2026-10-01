@@ -6,10 +6,7 @@ date: 2023-12-21
 lunar: 11 月初九
 canvasWidth: 1200
 category: arsenal
-tags:
-    - 数据源
-    - xtquant
-    - quantlib
+tags: [数据源, xtquant, quantlib]
 excerpt: "!!! tip '学习要点' xtquant 提供了数据和交易接口 xtquant 可以独立于 QMT 之外运行 downloadhistorydata downloadhistorydata2 getmarketdata"
 ---
 

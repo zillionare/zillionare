@@ -5,11 +5,7 @@ slug: alphalens-and-low-turnover-factor-2
 category: strategy
 motto: 投资在自己成长上的钱，未来会十倍还给自己
 lunar: 冬月廿九
-tags: 
-    - strategy
-    - factor
-    - 因子分析
-    - Alphalens
+tags: [strategy, factor, 因子分析, Alphalens]
 excerpt: "上一篇笔记，我们已经为因子分析准备好了数据。这一篇笔记，我们就进行因子分析。分析过程在 Alphalens 中非常简单，核心是读懂它的报告。"
 ---
 

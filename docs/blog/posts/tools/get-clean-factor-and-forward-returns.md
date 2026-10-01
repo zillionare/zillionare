@@ -7,9 +7,7 @@ motto: Learning how to fall teaches you how to land.
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - 工具
-    - quantlib
+tags: [工具, quantlib]
 excerpt: "在Alphalens中，getcleanfactorandforwardreturns函数自动实现了收益计算、分层、缺失值处理和标准化，大大简化了因子分析的工作。"
 ---
 

@@ -5,10 +5,7 @@ date: 2024-01-11
 category: strategy
 motto: Pursue what catches your heart, not what catches your eyes.
 lunar: 腊月初一
-tags: 
-    - 因子分析
-    - 因子
-    - Alphalens
+tags: [因子分析, 因子, Alphalens]
 excerpt: "我们继续 Alphalens 因子分析报告的解读。在过去的两篇笔记中，我们都提到，运用 Alphalens 进行因子分析步骤很简单，但是如果不了解它背后的机制与逻辑，很容易得到似是而非的结论。"
 ---
 

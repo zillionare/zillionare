@@ -7,10 +7,7 @@ motto: 巴黎高等师范大学 每年只招200人 不发文凭 却出了13位�
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/psl.jpg
 stamp_width: 60%
 stamp_height: 60%
-tags: 
-    - 因子策略
-    - momentum
-    - 因子评估
+tags: [因子策略, momentum, 因子评估]
 excerpt: "这一期，我们将介绍一个二阶导因子。我们将演示二阶导因子的探索优化过程，进一步介绍因子分析的原理，包括："
 ---
 

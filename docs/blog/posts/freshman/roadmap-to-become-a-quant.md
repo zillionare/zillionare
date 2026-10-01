@@ -6,10 +6,7 @@ category: resources
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/simmons-hall.jpg
 imgCopyRight: wiki/public domain
 motto: 红云随步起 一箭中青霄 鹿行千里远 争知去路遥
-tags:
-  - freshman
-  - resources
-  - career
+tags: [freshman, resources, career]
 lineNumbers: true
 excerpt: "题图为 MIT 的 Simmons University。版权声明 wiki/public domain。"
 ---

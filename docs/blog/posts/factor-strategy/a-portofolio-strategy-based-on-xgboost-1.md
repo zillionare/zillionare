@@ -6,10 +6,7 @@ category: strategy
 motto: 伦敦学院图书馆
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/university-college-london-library.jpg
 stamp: factors
-tags: 
-    - strategy
-    - 机器学习
-    - Xgboost
+tags: [strategy, 机器学习, xgboost]
 excerpt: "!!! quote 人的放纵是本能，自律才是修行。短时间让你快乐的东西，一定能够让你感到痛苦。反之，那些让你痛苦的东西，最终一定会让你功成名就。记住，低级的快乐，放纵即可拥有，高级的快乐，只有克制才能获得。 -- 罗素"
 ---
 

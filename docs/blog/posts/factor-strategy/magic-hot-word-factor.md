@@ -6,9 +6,7 @@ img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/dragon-an
 category: strategy
 motto: 这世界是个草台班子 但你我不是
 lunar:
-tags: 
-    - strategy
-    - 涨停板
+tags: [strategy, 涨停板]
 excerpt: "作为量化人，我们敏锐地观察市场，不放过任何一个可能产生利润的机会。一旦发现这样的机会，我们决不会在乎其它人怎么看怎么想，书上有没有这么讲。但是，大胆假设，小心求证。"
 ---
 
