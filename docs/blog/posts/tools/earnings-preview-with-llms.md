@@ -2,6 +2,7 @@
 excerpt: "英伟达四连超预期股价却连跌？Optiver联手芝大发起AI预测财报行情竞赛，用R²实盘检验谁能真正破解利好不涨之谜。"
 title: "利好为何不涨？AI预测财报竞赛揭秘"
 tags: "[研报与论文, 机器学习与LLM]"
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg"
 ---
 
 今天（9月30日）的市场走得摇曳生姿，跌宕起伏。消息面上，前夜贴息政策重磅发布，理论上利好房地产板块。但相关板块却是低开下挫，一度大跌4.35%。好在先抑后扬，最终收涨0.91%。
