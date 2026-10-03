@@ -20,7 +20,6 @@
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 很少有程序员/研究员了解这一点：日期和时间并不是一个数学上或者物理上的一个客观概念。时区的划分、夏令时本身就是一个政治和法律上的概念；一些地方曾经使用过夏令时，后来又取消了这种做法。其次，关于闰秒 [^闰秒] 的决定，也并不是有章可循的，它是由一个委员会开会来临时决定的。这种决定每年做一次。所有这些决定了我们无法通过一个简单的数学公式来计算时间及其变化，特别是在时区之间的转换。
 </div>
-
 <!--直到 Python 3.9，Python 还在为实现日期和时间努力。Zoneinfo 就是在这一版加入到 Python 中的。-->
 
 <p>关于时间，首先我们要了解有所谓的 timezone aware 时间和 timezone naive 时间。当我们说到晚上 8 时开会时，这个时间实际上默认地包含了时区的概念。如果这是一个跨国会议，但你在通知时不告诉与会方时区，就会导致其它人无法准时出席 -- 他们将会在自己时区的晚上 8 时上线。</p>
@@ -166,7 +165,6 @@ arr = np.array([(<span class="hljs-string">&#x27;600000.SH&#x27;</span>, <span c
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 我们在查找创业板股票时，使用的是 b"30"来进行匹配。为何要用 b"30"而不是"30"?
 </div>
-
 <!--这是因为，我们定义数组时，symbol 字段的类型是 ascii 型的，也即 bypte 型，而不是 Unicode 型的。所以，回过头来，我们应该在定义时，就使用"U10"来定义-->
 
 <p>注意第 11 行，我们要通过<code>np.char.startswith()</code>来使用<code>startswith</code>函数。任何一个 numpy array 对象都没有这个方法。</p>
@@ -196,7 +194,6 @@ translate_exchange_code(arr)</span></code></pre>
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 发生了什么？我们得到了一堆以".XSH"结尾的 symbol，它们本应该是"600000.XSHG"这样的字符串。错在哪里，又该如何修改？
 </div>
-
 <!--原因是，我们定义的 symbol 只有 10 个字符，替换后，发生溢出了。-->
 
 <p>在上面的示例中，如果我们把替换字符串改为空字符串，就实现了删除操作。这里就不演示了。</p>
@@ -208,15 +205,16 @@ translate_exchange_code(arr)</span></code></pre>
 arr[np.char.equal(arr[<span class="hljs-string">&quot;symbol&quot;</span>], <span class="hljs-string">&quot;301301.SZ&quot;</span>)]</span></code></pre>
 <p>在这个特殊的场景下，我们也可以直接使用以下语法：</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">arr[arr[<span class="hljs-string">&quot;symbol&quot;</span>] == <span class="hljs-string">&quot;301301.SZ&quot;</span>]</span></code></pre>
-<p>!!! tip 
-    np.char 下的函数很多，如何记忆？实际上，这些函数多数是 Python 中 str 的方法。如果你熟悉 Pandas，就会发现 Pandas 中也有同样的用法。因此，像<code>upper</code>, <code>lower</code>, <code>strip</code>这样的<code>str</code>函数，你可以直接拿过来用。</p>
-<p>Numpy 中的字符串函数另一个比较常用的场景，就是执行格式化。你可以通过<code>ljust</code>, &#39;center&#39;, <code>rjust</code>在显示一个数组前，将它们的各列数据进行左右空格填充，这样，输出时就可以比较整齐。</p>
+<div class="admonition admonition-tip"><p class="admonition-title">tip</p>
+np.char 下的函数很多，如何记忆？实际上，这些函数多数是 Python 中 str 的方法。如果你熟悉 Pandas，就会发现 Pandas 中也有同样的用法。因此，像`upper`, `lower`, `strip`这样的`str`函数，你可以直接拿过来用。
+</div>
+Numpy 中的字符串函数另一个比较常用的场景，就是执行格式化。你可以通过`ljust`, 'center', `rjust`在显示一个数组前，将它们的各列数据进行左右空格填充，这样，输出时就可以比较整齐。
+
 <div class="admonition admonition-question"><p class="admonition-title">question</p>
 2024 年 5 月 10 日起，南京化纤走出 7 连板行情，短短 7 日，股价翻倍。市场上还有哪些名字中包含化纤的个股？它们的涨跌是否存在相关性或者跨周期相关性？
 </div>
-
-<hr>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/05-numpy核心语法-4/">← 上一篇：05 - Numpy核心语法[4]</a> <a class="series-next" href="/articles/python/numpy-pandas/07-numpy核心语法-6/">下一篇：07 - Numpy核心语法[6] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 31/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/05-numpy核心语法-4/">← 05 - Numpy核心语法[4]</a> <a href="/articles/python/numpy-pandas/07-numpy核心语法-6/">07 - Numpy核心语法[6] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/04-numpy核心语法-3/">04 - Numpy核心语法[3]</a> <p>在不同的库之间交换数据，常常会遇到格式问题。比如，我们从第三方数据源拿到的行情数据，它们用的时间字段常常会是字符串。有一些库在存储行情时，对 OHLC 这些字段进行了优化，使用了 </p> </li><li> <a href="/articles/python/numpy-pandas/16-pandas核心语法-6/">16 - Pandas核心语法[6]</a> <p>“Pandas 提供了强大的日期时间处理功能，从字符串到时间戳的转换、时区调整到格式化输出，都可以轻松实现。此外，字符串操作如替换、分割、过滤等，也能通过 str 访问器高效完成。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-日期和时间" title="1. 日期和时间">1. 日期和时间</a> </li><li class> <a href="#2-字符串操作" title="2. 字符串操作">2. 字符串操作</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+---
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/05-numpy核心语法-4/">← 上一篇：05 - Numpy核心语法[4]</a> <a class="series-next" href="/articles/python/numpy-pandas/07-numpy核心语法-6/">下一篇：07 - Numpy核心语法[6] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 31/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/05-numpy核心语法-4/">← 05 - Numpy核心语法[4]</a> <a href="/articles/python/numpy-pandas/07-numpy核心语法-6/">07 - Numpy核心语法[6] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li><li> <a href="/articles/python/numpy-pandas/19-pandas应用案例-2/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy-pandas/17-pandas核心语法-7/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-日期和时间" title="1. 日期和时间">1. 日期和时间</a> </li><li class> <a href="#2-字符串操作" title="2. 字符串操作">2. 字符串操作</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）
     (function () {

@@ -20,16 +20,20 @@
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 2023 年 12 月，微软把他们基于 chatGPT 的人工智能搜索引擎技术也称为 copilot，它是您在使用 bing 搜索引擎时，出现的一个对话机器人。Github 现在也是微软的资产。
 </div>
+比如，我们写一段注释如下：
+```python
+# CREATE A FIBONACCI SERIES UP TO NTH TERM
+```
+然后回车，copilot 就会写出下面的代码：
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+```
+这个函数还有一个尾递归版本，当然 copilot 也能提供。一般情况下，copilot 能提供 10 个以内的备选答案。
 
-<p>比如，我们写一段注释如下：</p>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-comment"># CREATE A FIBONACCI SERIES UP TO NTH TERM</span></span></code></pre>
-<p>然后回车，copilot 就会写出下面的代码：</p>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fibonacci</span>(<span class="hljs-params">n</span>):
-    <span class="hljs-keyword">if</span> n &lt;= <span class="hljs-number">1</span>:
-        <span class="hljs-keyword">return</span> n
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">return</span> fibonacci(n-<span class="hljs-number">1</span>) + fibonacci(n-<span class="hljs-number">2</span>)</span></code></pre>
-<p>这个函数还有一个尾递归版本，当然 copilot 也能提供。一般情况下，copilot 能提供 10 个以内的备选答案。</p>
 <p>我们再举一个例子，如果有以下注释：</p>
 <pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">设置 npm 中国加速镜像</span></code></pre>
 <p>你会立即得到以下代码：</p>
@@ -65,26 +69,25 @@
 <p>这是一些使用者的感言：</p>
 <div class="admonition admonition-quote"><p class="admonition-title">quote</p>
 我的一部分工作内容从编写代码转成了策划。作为一个人类可以观察并修正一些代码，不必亲自动手做每一件事。
+
+<p>我对冗余代码的容忍度变高了。让 AI 去做重复的工作，把代码写得更详细，可以提高可读性。</p>
+<p>我更愿意重构代码了。对于那些已经能用但写的不够理想的代码，Copilot 可以灵活的完成重构，比如把复杂函数拆分或对关键部分抽象化。</p>
 </div>
+所以，Don't fly solo（copilot 广告语）！如果有可能，当你在代码的世界里遨游时，还是让 copilot 来伴飞吧。当然，copilot 也有其不足，其中最重要的一点是，不能免费使用（学生除外），而且每个月 10 美金的费用对中国程序员来讲可能并不便宜。不仅如此，目前它只接受信用卡和 paypal 付款，因此在支付上也不够方便。
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">我对冗余代码的容忍度变高了。让 AI 去做重复的工作，把代码写得更详细，可以提高可读性。
-
-我更愿意重构代码了。对于那些已经能用但写的不够理想的代码，Copilot 可以灵活的完成重构，比如把复杂函数拆分或对关键部分抽象化。</span></code></pre>
-<p>所以，Don&#39;t fly solo（copilot 广告语）！如果有可能，当你在代码的世界里遨游时，还是让 copilot 来伴飞吧。当然，copilot 也有其不足，其中最重要的一点是，不能免费使用（学生除外），而且每个月 10 美金的费用对中国程序员来讲可能并不便宜。不仅如此，目前它只接受信用卡和 paypal 付款，因此在支付上也不够方便。</p>
 <h3 id="12-tabnine">1.2. tabnine</h3>
 <p>另一个选项是 <a href="https://www.tabnine.com/">tabnine</a>，与 copilot 一样，它也提供了从自然语言到代码的转换，以及整段函数的生成等功能。一些评论认为，它比 copilot 多出的一个功能是，它能基于语法规则在一行还未结束时就给出代码提示，而 copilot 只能在一行结束后给出整段代码，即 copilot 需要更多的上下文信息。</p>
 <p>tabnine 与 copilot 的值得一提的区别是它的付费模式。tabnine 提供了基础版和专业版两个版本，而 copilot 只能付费使用。tabnine 的专业版还有一个特色，就是你可以基于自己的代码训练自己的私有 AI 模型，从而得到更为个性化的代码完成服务。这个功能对于一些大型公司来说，可能是一个很好的选择。它的另一个优势就是，它在训练自己时只使用实行宽松开源许可证模式的代码，因此，你的代码不会因为使用了 tabnine 生成的代码，就必须开源出去。</p>
 <p><a href="https://github.com/CodedotAl/gpt-code-clippy/wiki">GPT code clippy</a> 是 Github copilot 的开源替代品，如果既不能用 copilot，也不能使用 tabnine，也可以试试这个。不过在我们成文的时候，它还没有提供一个发行版的 vscode 扩展，只能通过源码安装。</p>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 说到 AI 辅助编码，不能不提到这一行的先驱 - Kite。Kite 成立于 2014 年，致力于 AI 辅助编程，于 2021 年 11 月关闭。由于切入市场过早，kite 的技术路线也必然相对落后一些，其 AI 辅助功能主要是基于关键词联想代码片段的模式。等到 2020 年 github 的 copilot 横空出世时，基于大规模语料、超大规模的深度学习模型被证明才是最有希望的技术路线。而此时 kite 多年以来的投入和技术积累，不仅不再是有效资产，反而成为了历史包袱。切换到新的技术路线上的代价往往是巨大的 -- 用户体验的改变在所难免，而且新的模型所需要的钞能力，kite 也并不具备。
+
+<p>2021 年 11 月 16 日，创始人 Adam Smith 发表了一篇告别演说，对 kite 为什么没有成功进行了反思，指出尽管 Kite 每个月有超过 50 万月活跃用户，但这么多月活跃用户基本不付费，这最终压垮了 kite。当然，终端用户其实也没有错，毕竟 copilot 的付费模式能够行得通。人们不为 kite 付费，也确实是因为 kite 还不够好。</p>
+<p>属于 kite 的时代已经过去了，但正如 Adam Smith 所说，未来是光明的。AI 必将引发一场编程革命。kite 的试验失败了，但催生这场 AI 试验的所有人：投资人，开发团队以及最终用户，他们的勇气和贡献都值得被铭记。</p>
+<p>作为一个曾经使用过 kite，也欠 Kite 一个会员的使用者，我也在此道声感谢与珍重！</p>
 </div>
+尽管 AI 辅助编程的功能很好用，但仍然有一些场景，我们需要借助传统的工具，比如 pylance。pylance 是微软官方出品的扩展。vscode 本身只是一个通用的 IDE 框架，对具体某种语言的开发支持（编辑、语法高亮、语法检查、调试等），都是由该语言的扩展及语言服务器（对 python 而言，有 jedi 和 pylance 两个实现）来实现的，因此，pylance 是我们在 vscode 中开发 python 项目时，必须安装的一个扩展。
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-number">2021</span> <span class="hljs-string">年</span> <span class="hljs-number">11</span> <span class="hljs-string">月</span> <span class="hljs-number">16</span> <span class="hljs-string">日，创始人</span> <span class="hljs-string">Adam</span> <span class="hljs-string">Smith</span> <span class="hljs-string">发表了一篇告别演说，对</span> <span class="hljs-string">kite</span> <span class="hljs-string">为什么没有成功进行了反思，指出尽管</span> <span class="hljs-string">Kite</span> <span class="hljs-string">每个月有超过</span> <span class="hljs-number">50</span> <span class="hljs-string">万月活跃用户，但这么多月活跃用户基本不付费，这最终压垮了</span> <span class="hljs-string">kite。当然，终端用户其实也没有错，毕竟</span> <span class="hljs-string">copilot</span> <span class="hljs-string">的付费模式能够行得通。人们不为</span> <span class="hljs-string">kite</span> <span class="hljs-string">付费，也确实是因为</span> <span class="hljs-string">kite</span> <span class="hljs-string">还不够好。</span>
-
-<span class="hljs-string">属于</span> <span class="hljs-string">kite</span> <span class="hljs-string">的时代已经过去了，但正如</span> <span class="hljs-string">Adam</span> <span class="hljs-string">Smith</span> <span class="hljs-string">所说，未来是光明的。AI</span> <span class="hljs-string">必将引发一场编程革命。kite</span> <span class="hljs-string">的试验失败了，但催生这场</span> <span class="hljs-string">AI</span> <span class="hljs-string">试验的所有人：投资人，开发团队以及最终用户，他们的勇气和贡献都值得被铭记。</span>
-
-<span class="hljs-string">作为一个曾经使用过</span> <span class="hljs-string">kite，也欠</span> <span class="hljs-string">Kite</span> <span class="hljs-string">一个会员的使用者，我也在此道声感谢与珍重！</span></span></code></pre>
-<p>尽管 AI 辅助编程的功能很好用，但仍然有一些场景，我们需要借助传统的工具，比如 pylance。pylance 是微软官方出品的扩展。vscode 本身只是一个通用的 IDE 框架，对具体某种语言的开发支持（编辑、语法高亮、语法检查、调试等），都是由该语言的扩展及语言服务器（对 python 而言，有 jedi 和 pylance 两个实现）来实现的，因此，pylance 是我们在 vscode 中开发 python 项目时，必须安装的一个扩展。</p>
 <p>它可以随用户输入时，提示函数的签名、文档和进行参数的类型提示，如下图所示：</p>
 <p>Pylance 在上面提到的代码自动完成之外，还能实现依赖自动导入。此外，由于它脱胎于语法静态检查器，所以它还能提示代码中的错误并显示，这正是到目前为止，像 copilot 这样的人工智能还做不太好的地方。源码级的查错，使得我们可以尽早修正这些错误，这也正是很多使用静态语言的程序员认为诟病 Python 的地方 – 现在我们知道，这只是一种无知的偏见。</p>
 <p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202104/20210413172416.png" alt=""></p>
@@ -104,8 +107,8 @@ Pylance 安装后，需要进行配置。配置文件是 pyrightconfig.json，�
 ```
 这些配置项也可以在 vscode 中配置，但为了使开发成员使用一致的配置，建议都采用文件配置，并且使用 git 来管理。
 </div>
+## 2. Type Hint （Type Annotations）
 
-<h2 id="2-type-hint-type-annotations">2. Type Hint （Type Annotations）</h2>
 <p>很多人谈到 Python 时，会觉得它作为一种动态语言，是没有类型检查能力的。这种说法并不准确，Python 是弱类型语言，变量可以改变类型，但在运行时，仍然会有类型检查，类型检查失败，就会抛出 TypeError：</p>
 <p>下面的例子演示了 Python 中变量是如何改变类型的，以及类型检查只在运行时进行的这一特点：</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span></span><span class="cl-body"><span class="hljs-meta">&gt;&gt;&gt; </span>one = <span class="hljs-number">1</span>
@@ -130,29 +133,37 @@ one two</span></code></pre>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 PEP 526 从提出到被接受为正式标准不到 1 月的时间，可能是最快被接受的 PEP 之一。
 </div>
+PEP 563 (Postponed Evaluation of Annotations) 解决了循环引用的问题。在这个提案之后，我们可以这样写代码：
+```python
+from typing import Optional
 
-<p>PEP 563 (Postponed Evaluation of Annotations) 解决了循环引用的问题。在这个提案之后，我们可以这样写代码：</p>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Optional</span>
+<p>class Node:
+    #LEFT: OPTIONAL[NODE]  # 这会引起循环引用
+    left:   Optional[&quot;Node&quot;]
+    right:  Optional[&quot;Node&quot;]</p>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span></span><span class="cl-body">注意到我们在类型 Node 还没有完成其定义时，就要使用它（即要使用 Node 来定义自己的一个成员变量的类型），这将引起循环引用。PEP <span class="hljs-number">563</span> 通过在注解中使用字符串，而不是类型本身，解决了这个问题。
 
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>:
-    <span class="hljs-comment">#LEFT: OPTIONAL[NODE]  # 这会引起循环引用</span>
-    left:   <span class="hljs-type">Optional</span>[<span class="hljs-string">&quot;Node&quot;</span>]
-    right:  <span class="hljs-type">Optional</span>[<span class="hljs-string">&quot;Node&quot;</span>]</span></code></pre>
-<p>注意到我们在类型 Node 还没有完成其定义时，就要使用它（即要使用 Node 来定义自己的一个成员变量的类型），这将引起循环引用。PEP 563 通过在注解中使用字符串，而不是类型本身，解决了这个问题。</p>
-<p>在这几个重要的 PEP 之后，随着 Python 3.7 的正式发布，社区也开始围绕 Type Hint 去构建一套生态体系，一些非常流行的 python 库开始补齐类型注解，在类型检查工具方面，除了最早的 mypy 之外，一些大公司也跟进开发，比如微软推出了 pyright（现在是 pylance 的核心）来给 vscode 提供类型检查功能。google 推出了 pytype，facebook 则推出了 pyre。在类型注解的基础上，代码自动完成功能也因此变得更容易、准确，推断速度也更快了。代码重构也因此变得更加容易。</p>
-<p>类型检查功能将对 Python 的未来发展起到深远的影响，可能足够与 typescript 对 js 的影响类比。围绕类型检查，除了上面提到的几个最重要的 PEP 之外，还有：</p>
-<ol>
-<li>PEP 483（解释了 python 中类型系统的设计原理，非常值得一读）</li>
-<li>PEP 544 （定义了对结构类型系统的支持）</li>
-<li>PEP 591 （提出了 final 限定符）
-以及 PEP 561 等另外 18 个 PEP。此外，还有 PEP 692 等 5 个 PEP 目前还未被正式接受。</li>
-</ol>
-<p>Python 的类型检查可能最早由 Jukka Lehtosalo 推动，Guido，Łukasz Langa 和 Ivan Levkivskyi 也是最重要的几个贡献者之一。Jukka Lehtosalo 出生和成长于芬兰，当他在剑桥大学计算机攻读博士时，在博士论文中，提出了一种名为“类型注解”（Type Annotations）的语法，从而一统静态语言和动态语言。最初的实验是在一种名为 Alore 的语言上实现的，然后移植到 Python 上，开发了 mypy 的最初几个版本。不过很快，他的工作重心就完全转移到 Python 上面来，毕竟，只有 Python 庞大的用户群和开源库才能提供丰富的案例以供实践。</p>
-<p>2013 年，在圣克拉拉举行的 PyCon 会议上，他公布了这个项目，并且得到了与 Guido 交谈的机会。Guido 说服他放弃之前的自定义语法，完全遵循 Python 3 的语法，即 PEP 3107 提出的函数注解）。在随后他与 Guido 进行了大量的邮件讨论，并提出了通过注释来对变量进行注解的方案（不过后来的 PEP 526 提出了更好的方案）。</p>
-<p>Jukka Lehtosalo 从剑桥毕业后，就接受了 Guido 的邀请，加入了 Dropbox，领导了 mypy 的开发工作。</p>
-<p>这里也可以看出顶尖大学对待学术研究上的开放和不拘一格。大概在 2016 年前后，我看到斯坦福的网络公开课上还有讲授 ios 编程的课，当时也是同样的震撼。一是感叹他们选课之新，二是感叹这种应用型的课程，在国内的顶尖大学里，一般是不会开设的，因为大家会觉得顶尖的学术殿堂，不应该有这么“low”的东西。</p>
-<p>在有了类型注解之后，现在我们应该这样定义一个函数：</p>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:
+在这几个重要的 PEP 之后，随着 Python <span class="hljs-number">3.7</span> 的正式发布，社区也开始围绕 <span class="hljs-type">Type</span> Hint 去构建一套生态体系，一些非常流行的 python 库开始补齐类型注解，在类型检查工具方面，除了最早的 mypy 之外，一些大公司也跟进开发，比如微软推出了 pyright（现在是 pylance 的核心）来给 vscode 提供类型检查功能。google 推出了 pytype，facebook 则推出了 pyre。在类型注解的基础上，代码自动完成功能也因此变得更容易、准确，推断速度也更快了。代码重构也因此变得更加容易。
+
+类型检查功能将对 Python 的未来发展起到深远的影响，可能足够与 typescript 对 js 的影响类比。围绕类型检查，除了上面提到的几个最重要的 PEP 之外，还有：
+
+<span class="hljs-number">1.</span> PEP <span class="hljs-number">483</span>（解释了 python 中类型系统的设计原理，非常值得一读）
+<span class="hljs-number">2.</span> PEP <span class="hljs-number">544</span> （定义了对结构类型系统的支持）
+<span class="hljs-number">3.</span> PEP <span class="hljs-number">591</span> （提出了 final 限定符）
+以及 PEP <span class="hljs-number">561</span> 等另外 <span class="hljs-number">18</span> 个 PEP。此外，还有 PEP <span class="hljs-number">692</span> 等 <span class="hljs-number">5</span> 个 PEP 目前还未被正式接受。
+
+Python 的类型检查可能最早由 Jukka Lehtosalo 推动，Guido，Łukasz Langa 和 Ivan Levkivskyi 也是最重要的几个贡献者之一。Jukka Lehtosalo 出生和成长于芬兰，当他在剑桥大学计算机攻读博士时，在博士论文中，提出了一种名为“类型注解”（<span class="hljs-type">Type</span> Annotations）的语法，从而一统静态语言和动态语言。最初的实验是在一种名为 Alore 的语言上实现的，然后移植到 Python 上，开发了 mypy 的最初几个版本。不过很快，他的工作重心就完全转移到 Python 上面来，毕竟，只有 Python 庞大的用户群和开源库才能提供丰富的案例以供实践。
+   
+<span class="hljs-number">2013</span> 年，在圣克拉拉举行的 PyCon 会议上，他公布了这个项目，并且得到了与 Guido 交谈的机会。Guido 说服他放弃之前的自定义语法，完全遵循 Python <span class="hljs-number">3</span> 的语法，即 PEP <span class="hljs-number">3107</span> 提出的函数注解）。在随后他与 Guido 进行了大量的邮件讨论，并提出了通过注释来对变量进行注解的方案（不过后来的 PEP <span class="hljs-number">526</span> 提出了更好的方案）。
+
+Jukka Lehtosalo 从剑桥毕业后，就接受了 Guido 的邀请，加入了 Dropbox，领导了 mypy 的开发工作。
+
+这里也可以看出顶尖大学对待学术研究上的开放和不拘一格。大概在 <span class="hljs-number">2016</span> 年前后，我看到斯坦福的网络公开课上还有讲授 ios 编程的课，当时也是同样的震撼。一是感叹他们选课之新，二是感叹这种应用型的课程，在国内的顶尖大学里，一般是不会开设的，因为大家会觉得顶尖的学术殿堂，不应该有这么“low”的东西。
+
+在有了类型注解之后，现在我们应该这样定义一个函数：
+
+```python
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:
     score = <span class="hljs-number">20</span>
     <span class="hljs-keyword">return</span> score
 
@@ -324,10 +335,11 @@ exclude <span class="hljs-operator">=</span>
 <p>ppw 中已经集成了 mypy 模块，并会在 tox 运行时，自动进行类型检查。看上去，只要我们按照 PEP484 及几个关联的 PEP 来做好类型注解，然后简单地运行 mypy，似乎就应该万事大吉？然而，实践总是比理论要丰富得多，深刻得多。mypy 在运行检查时，常常会遇到第三方库还不支持类型注解的情况，或者因为配置错误，导致 mypy 得不到预期的结果。遇到这些问题时，就需要我们理解 mypy 的工作原理，并且对 mypy 进行一些配置，以便让它能够更好地工作。</p>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 为什么 ppw 选择了 mypy？如果你使用 vscode 编程，那么很可能已经使用了 pyright 作为类型检查器。因为 pylance 给出的类型检查错误，都来自于 pyright。那么 ppw 为什么还要推荐另一个类型检查器呢？
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">这是因为，pyright 并不是一个纯粹的 python 解决方案。要安装 pyright，还必须安装 node。在开发环境下，node 一般只需要安装一次，并且安装 vscode 时，node 也自动安装了。但在由 tox 驱动的矩阵测试环境中，任何非纯 python 的解决方案都可能带来额外的复杂性。</span></code></pre>
-<p>首先，让我们从<code>Any</code>这个特殊的类型说起。<code>Any</code>类型用来表明某个变量/值具有动态类型。在代码中，如果存在过多的<code>Any</code>类型，将降低 mypy 进行代码检查的有效性。</p>
+<p>这是因为，pyright 并不是一个纯粹的 python 解决方案。要安装 pyright，还必须安装 node。在开发环境下，node 一般只需要安装一次，并且安装 vscode 时，node 也自动安装了。但在由 tox 驱动的矩阵测试环境中，任何非纯 python 的解决方案都可能带来额外的复杂性。</p>
+</div>
+首先，让我们从`Any`这个特殊的类型说起。`Any`类型用来表明某个变量/值具有动态类型。在代码中，如果存在过多的`Any`类型，将降低 mypy 进行代码检查的有效性。
+
 <p>难点在于，<code>Any</code>类型的指定，并不一定来源于我们自己代码中的显式声明（对这一部分，我们可以自行修改，只在非常必要时才小心使用<code>Any</code>）。在 mypy 中，它还会自动获得和传播。mypy 的规则是，在函数体内的局部变量，如果它们没有被显式地声明为某种类型，无论它们是否被赋初值，mypy 都会将其推导为<code>Any</code>。而在函数体外的变量，mypy 则会依据其初值将其推导为某种类型。mypy 这样处理的原因，可能是因为它无法在检查时真正运行这个函数。</p>
 <p>我们先看函数体里的变量自动获得<code>Any</code>类型的例子：</p>
 <pre><code class="hljs language-python title="test.py""><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params">name</span>):
@@ -352,10 +364,11 @@ d = <span class="hljs-string">&#x27;x&#x27;</span>         <span class="hljs-com
 <p>其它获得<code>Any</code>类型的情况还包括导入错误。当 mypy 遇到 import 语句时，它将首先尝试在文件系统中定位该模块或者其类型桩 (type stub) 文件。然后 Mypy 将对导入的模块进行类型检查。但是，可能存在导入库不存在（比如名字错误、没有安装到 mypy 运行的环境中），或者该库没有类型注解信息等情况，这样，mypy 就会将导入的模块的类型推导为<code>Any</code>。</p>
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 注意到在第 4 章中，我们生成的样板工程中，在 sample\sample 目录下，存在一个名为 py.typed 的空文件。这个文件会在 poetry 打包过程中，被复制到打包后的包中。这个文件的作用是，告诉类型检查器 (type checker)，这个包中的模块都是具有类型注解的，可以进行类型检查。如果你的包中没有这个文件，那么类型检查器将不会对你的包进行类型检查。
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">py.typed 并不是 mypy 的发明，而是 PEP 561 的规定。所有类型检查器都应该遵循这个规定。</span></code></pre>
-<p>需要注意的是，mypy 寻找导入库的方式与 python 寻找导入库的方式并不完全相同。首先，mypy 有自己的搜索路径。这是根据以下条目计算得出的：</p>
+<p>py.typed 并不是 mypy 的发明，而是 PEP 561 的规定。所有类型检查器都应该遵循这个规定。</p>
+</div>
+需要注意的是，mypy 寻找导入库的方式与 python 寻找导入库的方式并不完全相同。首先，mypy 有自己的搜索路径。这是根据以下条目计算得出的：
+
 <ol>
 <li>MYPYPATH 环境变量（目录列表，在 UNIX 系统上以冒号分隔，在 Windows 上以分号分隔）。</li>
 <li>配置文件中的 mypy_path 配置项。</li>
@@ -496,8 +509,8 @@ profile = <span class="hljs-string">&quot;black&quot;</span></span></code></pre>
 <div class="admonition admonition-Tips"><p class="admonition-title">Tips</p>
 导入不熟悉的第三方库可能是危险的！一些库会在全局作用域加入一些可执行代码，因此当你导入这些库时，这些代码就会被执行。
 </div>
+## 6. pre-commit hooks
 
-<h2 id="6-pre-commit-hooks">6. pre-commit hooks</h2>
 <p>我们把 <a href="https://pre-commit.com">pre-commit hooks</a> 放在这一章里，是因为高效的编码也必须是正确的编码。有时候我们会觉得国内的公司不需要计划和文档，需求、设计和编码各方之间不需要反复协商和沟通，一个指令下来，就很快得到执行。这被认为是执行力强，是一大体制优势，但这些“执行力”强的公司，却往往又累得要死。方向不正确，累死又有何益？</p>
 <p>pre-commit 是一个 python 包，可以通过 pip 安装：</p>
 <pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body">$ pip install pre<span class="hljs-operator">-</span><span class="hljs-keyword">commit</span></span></code></pre>
@@ -571,7 +584,7 @@ profile = <span class="hljs-string">&quot;black&quot;</span></span></code></pre>
 </div>
 </div>
 
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/best-practice-python/chap05/">← 上一篇：05 Poetry: 项目管理的诗和远方</a> <a class="series-next" href="/articles/python/best-practice-python/chap07/">下一篇：07 代码单元测试 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 20/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/best-practice-python/chap05/">← 05 Poetry: 项目管理的诗和</a> <a href="/articles/python/best-practice-python/chap07/">07 代码单元测试 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/best-practice-python/chap02/">02 编程开发环境</a> <p>尽管条条道路通罗马，但毕竟有的路走得更平稳更快捷，更不要说有的人甚至就住在罗马。对于程序员而言，你的开发环境有多好用，你离罗马就有多近。因此，我们的旅程从这里开始。</p> </li><li> <a href="/articles/python/best-practice-python/chap05/">05 Poetry: 项目管理的诗和远方</a> <p>上一章里，我们通过 ppw 生成了一个规范的 python 项目，对初学者来说，许多闻所未闻、见所未见的概念和名词扑面而来，不免让人一时眼花缭乱，目不暇接。然而，如果我们不从头讲起</p> </li><li> <a href="/articles/python/best-practice-python/chap07/">07 代码单元测试</a> <p>!!! quote Testing leads to failure. Failure leads to understanding.</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-ai-赋能的代码编写" title="1. AI 赋能的代码编写">1. AI 赋能的代码编写</a> </li><li class="lv3"> <a href="#11-github-copilot" title="1.1. github copilot">1.1. github copilot</a> </li><li class="lv3"> <a href="#12-tabnine" title="1.2. tabnine">1.2. tabnine</a> </li><li class> <a href="#2-type-hint-type-annotations" title="2. Type Hint （Type Annotations）">2. Type Hint （Type Annotations）</a> </li><li class> <a href="#3-pep8---python-代码风格指南" title="3. PEP8 - python 代码风格指南">3. PEP8 - python 代码风格指南</a> </li><li class> <a href="#4-lint-工具" title="4. Lint 工具">4. Lint 工具</a> </li><li class="lv3"> <a href="#41-flake8" title="4.1. Flake8">4.1. Flake8</a> </li><li class="lv3"> <a href="#42-mypy" title="4.2. Mypy">4.2. Mypy</a> </li><li class> <a href="#5-formatter-工具" title="5. Formatter 工具">5. Formatter 工具</a> </li><li class> <a href="#6-pre-commit-hooks" title="6. pre-commit hooks">6. pre-commit hooks</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/best-practice-python/chap05/">← 上一篇：05 Poetry: 项目管理的诗和远方</a> <a class="series-next" href="/articles/python/best-practice-python/chap07/">下一篇：07 代码单元测试 →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 20/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/best-practice-python/chap05/">← 05 Poetry: 项目管理的诗和</a> <a href="/articles/python/best-practice-python/chap07/">07 代码单元测试 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/best-practice-python/chap05/">05 Poetry: 项目管理的诗和远方</a> <p>上一章里，我们通过 ppw 生成了一个规范的 python 项目，对初学者来说，许多闻所未闻、见所未见的概念和名词扑面而来，不免让人一时眼花缭乱，目不暇接。然而，如果我们不从头讲起</p> </li><li> <a href="/articles/python/best-practice-python/chap11/">11 发布应用</a> <p>我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。</p> </li><li> <a href="/articles/python/best-practice-python/chap10/">10 撰写技术文档</a> <p>所有好的产品都应该有一份简洁易读的使用说明书，除了苹果。苹果用户天生就知道如何使用他们的产品，因此完全不需要文档。这是真的，几乎所有的苹果产品，都没有用户说明书。</p> </li><li> <a href="/articles/python/best-practice-python/chap09/">09 持续集成</a> <p>当一组开发者共同开发一个项目时，各种冲突似乎不可避免。我们在第 8 章介绍了分支和 gitflow 工作流模型，从而解决了代码冲突的问题。但是，代码合并只能达到表面上的和谐。不同的</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-ai-赋能的代码编写" title="1. AI 赋能的代码编写">1. AI 赋能的代码编写</a> </li><li class="lv3"> <a href="#11-github-copilot" title="1.1. github copilot">1.1. github copilot</a> </li><li class="lv3"> <a href="#12-tabnine" title="1.2. tabnine">1.2. tabnine</a> </li><li class> <a href="#3-pep8---python-代码风格指南" title="3. PEP8 - python 代码风格指南">3. PEP8 - python 代码风格指南</a> </li><li class> <a href="#4-lint-工具" title="4. Lint 工具">4. Lint 工具</a> </li><li class="lv3"> <a href="#41-flake8" title="4.1. Flake8">4.1. Flake8</a> </li><li class="lv3"> <a href="#42-mypy" title="4.2. Mypy">4.2. Mypy</a> </li><li class> <a href="#5-formatter-工具" title="5. Formatter 工具">5. Formatter 工具</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）
     (function () {

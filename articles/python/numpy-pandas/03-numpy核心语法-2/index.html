@@ -38,16 +38,15 @@ secs = np.array (
 <hr>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 初学者很容易犯的一个错误，就是使用 List [List] 来初始化 Numpy Structured Array，而不是 List [Tuple] 类型。这会导致 Numpy 在构造数组时，对应不到正确的数据类型，报出一些很奇怪的错误。<br > 比如，下面的初始化是错误的：
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-string">``</span><span class="hljs-string">`python
-secs = np.array ([
-    [datetime.date (2024, 3, 18), &quot;600000&quot;, 8.9, 9.1, 8.8, 9],
-    [datetime.date (2024, 3, 19), &quot;600000&quot;, 8.9, 9.1, 8.8, 9]
-], dtype=dtypes)
-`</span><span class="hljs-string">``</span>
-这段代码会报告一个难懂的 <span class="hljs-string">&quot;Type Error: float () argument must be a string or ...&quot;</span></span></code></pre>
-<p>我们使用上一节学过的 inspecting 方法来查看 secs 数组的一些特性:</p>
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">secs = np.array ([
+    [datetime.date (<span class="hljs-number">2024</span>, <span class="hljs-number">3</span>, <span class="hljs-number">18</span>), <span class="hljs-string">&quot;600000&quot;</span>, <span class="hljs-number">8.9</span>, <span class="hljs-number">9.1</span>, <span class="hljs-number">8.8</span>, <span class="hljs-number">9</span>],
+    [datetime.date (<span class="hljs-number">2024</span>, <span class="hljs-number">3</span>, <span class="hljs-number">19</span>), <span class="hljs-string">&quot;600000&quot;</span>, <span class="hljs-number">8.9</span>, <span class="hljs-number">9.1</span>, <span class="hljs-number">8.8</span>, <span class="hljs-number">9</span>]
+], dtype=dtypes)</span></code></pre>
+<p>这段代码会报告一个难懂的 &quot;Type Error: float () argument must be a string or ...&quot;</p>
+</div>
+我们使用上一节学过的 inspecting 方法来查看 secs 数组的一些特性:
+
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span></span><span class="cl-body"><span class="hljs-built_in">print</span> (<span class="hljs-string">f&quot;secs 的维度是 <span class="hljs-subst">{secs.ndim}</span>&quot;</span>)
 <span class="hljs-built_in">print</span> (<span class="hljs-string">f&quot;secs 的 shape 是 <span class="hljs-subst">{secs.shape}</span>&quot;</span>)
 <span class="hljs-built_in">print</span> (<span class="hljs-string">f&quot;secs 的 size 是 <span class="hljs-subst">{secs.size}</span>&quot;</span>)
@@ -63,8 +62,8 @@ secs = np.array ([
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 这里 size 仍然等于 shape 各元素的取值之积。注意对 secs 而言，它的 size 与 length 是相等的，但对 secs [0] 而言，它的 size 和 length 是不相等的。我们在开发 Zillionare 量化框架时时，遇到过由此产生的一个 bug。
 </div>
+但 secs 的元素类型则是 numpy.void，它在本质上是一个 named tuple，所以，我们可以这样访问其中的任一字段：
 
-<p>但 secs 的元素类型则是 numpy.void，它在本质上是一个 named tuple，所以，我们可以这样访问其中的任一字段：</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body"><span class="hljs-built_in">print</span> (secs [<span class="hljs-number">0</span>][<span class="hljs-string">&quot;frame&quot;</span>])
 
 <span class="hljs-comment"># 不使用列名（字段名），使用其序号也是可以的</span>
@@ -81,105 +80,68 @@ secs = np.array ([
 ```python
     data = np.array ([("aaron", "label")], dtype=[("name", "O"), ("label", "O")])
     filter = data ["name"] == "aaron"
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">    new_label = <span class="hljs-string">&quot;blogger&quot;</span>
-    data [<span class="hljs-string">&quot;label&quot;</span>][<span class="hljs-built_in">filter</span>] = new_label
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">new_label = <span class="hljs-string">&quot;blogger&quot;</span>
+data [<span class="hljs-string">&quot;label&quot;</span>][<span class="hljs-built_in">filter</span>] = new_label
 
-    <span class="hljs-comment"># this won&#x27;t change</span>
-    data [<span class="hljs-built_in">filter</span>][<span class="hljs-string">&quot;label&quot;</span>] = new_label
-```
-这里的最后一行，并不会生效。</span></code></pre>
-<h2 id="2-运算类">2. 运算类</h2>
-<h3 id="21-比较和逻辑运算">2.1. 比较和逻辑运算</h3>
-<p>我们在上一节介绍定位、查找时，已经接触到了数据比较，比如:<code>arr &gt; 1</code>。它的结果将数组中的每一个元素都与 1 进行比较，并且返回一个布尔型的数组。</p>
-<p>现在，我们要扩充比较的指令：</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>all</td>
-<td>如果数组中的元素全为真，返回 True。可用以判断一组条件是否同时成立。</td>
-</tr>
-<tr>
-<td>any</td>
-<td>如果数组中至少有一个元素为真，则返回 True。用以判断一组条件是否至少有一个成立</td>
-</tr>
-<tr>
-<td>isclose</td>
-<td>判断两个数组中的元素是否一一近似相等，返回所有的比较结果</td>
-</tr>
-<tr>
-<td>allclose</td>
-<td>判断两个数组中的元素是否全部近似相等</td>
-</tr>
-</tbody></table>
-<hr>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>equal</td>
-<td>判断两个数组中的元素是否一一相等，返回所有的比较结果。</td>
-</tr>
-<tr>
-<td>not_equal</td>
-<td>一一判断两个数组中的元素是否不相等，返回所有的比较结果</td>
-</tr>
-<tr>
-<td>isfinite</td>
-<td>是否为数字且不为无限大</td>
-</tr>
-<tr>
-<td>isnan</td>
-<td>测试是否为非数字</td>
-</tr>
-<tr>
-<td>isnat</td>
-<td>测试对象是否不为时间类型</td>
-</tr>
-<tr>
-<td>isneginf</td>
-<td>测试对象是否为负无限大</td>
-</tr>
-<tr>
-<td>isposinf</td>
-<td>测试对象是否为正无限大</td>
-</tr>
-</tbody></table>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span></span><span class="cl-body"><span class="hljs-comment"># 开启多行输出模式</span>
-<span class="hljs-keyword">from</span> IPython.core.interactiveshell <span class="hljs-keyword">import</span> InteractiveShell
-InteractiveShell.ast_node_interactivity = <span class="hljs-string">&quot;all&quot;</span>
+<span class="hljs-comment"># this won&#x27;t change</span>
+data [<span class="hljs-built_in">filter</span>][<span class="hljs-string">&quot;label&quot;</span>] = new_label</span></code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span><span class="cl">17</span><span class="cl">18</span><span class="cl">19</span><span class="cl">20</span><span class="cl">21</span><span class="cl">22</span><span class="cl">23</span><span class="cl">24</span><span class="cl">25</span><span class="cl">26</span><span class="cl">27</span><span class="cl">28</span><span class="cl">29</span><span class="cl">30</span><span class="cl">31</span><span class="cl">32</span><span class="cl">33</span><span class="cl">34</span><span class="cl">35</span><span class="cl">36</span><span class="cl">37</span><span class="cl">38</span><span class="cl">39</span><span class="cl">40</span><span class="cl">41</span><span class="cl">42</span><span class="cl">43</span><span class="cl">44</span><span class="cl">45</span><span class="cl">46</span><span class="cl">47</span><span class="cl">48</span><span class="cl">49</span><span class="cl">50</span></span><span class="cl-body"><span class="hljs-string">这里的最后一行，并不会生效。</span>
+<span class="hljs-string">&lt;/div&gt;</span>
+<span class="hljs-comment">## 2. 运算类</span>
+<span class="hljs-comment">### 2.1. 比较和逻辑运算</span>
 
-np.random.seed (<span class="hljs-number">78</span>)
-returns = np.random.normal (<span class="hljs-number">0</span>, <span class="hljs-number">0.03</span>, size=<span class="hljs-number">4</span>)
-returns
+
+<span class="hljs-string">我们在上一节介绍定位、查找时，已经接触到了数据比较，比如:`arr</span> <span class="hljs-string">&gt;</span> <span class="hljs-number">1</span><span class="hljs-string">`。它的结果将数组中的每一个元素都与</span> <span class="hljs-number">1</span> <span class="hljs-string">进行比较，并且返回一个布尔型的数组。</span>
+
+<span class="hljs-string">现在，我们要扩充比较的指令：</span>
+
+<span class="hljs-string">|</span> <span class="hljs-string">函数</span>     <span class="hljs-string">|</span> <span class="hljs-string">描述</span>                                                                          <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">--------</span> <span class="hljs-string">|</span> <span class="hljs-string">-----------------------------------------------------------------------------</span> <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">all</span>      <span class="hljs-string">|</span> <span class="hljs-string">如果数组中的元素全为真，返回</span> <span class="hljs-literal">True</span><span class="hljs-string">。可用以判断一组条件是否同时成立。</span>           <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">any</span>      <span class="hljs-string">|</span> <span class="hljs-string">如果数组中至少有一个元素为真，则返回</span> <span class="hljs-literal">True</span><span class="hljs-string">。用以判断一组条件是否至少有一个成立</span> <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">isclose</span>  <span class="hljs-string">|</span> <span class="hljs-string">判断两个数组中的元素是否一一近似相等，返回所有的比较结果</span>                      <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">allclose</span> <span class="hljs-string">|</span> <span class="hljs-string">判断两个数组中的元素是否全部近似相等</span>                                          <span class="hljs-string">|</span>
+
+<span class="hljs-meta">---
+</span>
+<span class="hljs-string">|</span> <span class="hljs-string">函数</span>      <span class="hljs-string">|</span> <span class="hljs-string">描述</span>                                                   <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">---------</span> <span class="hljs-string">|</span> <span class="hljs-string">------------------------------------------------------</span> <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">equal</span>     <span class="hljs-string">|</span> <span class="hljs-string">判断两个数组中的元素是否一一相等，返回所有的比较结果。</span> <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">not_equal</span> <span class="hljs-string">|</span> <span class="hljs-string">一一判断两个数组中的元素是否不相等，返回所有的比较结果</span> <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">isfinite</span>  <span class="hljs-string">|</span> <span class="hljs-string">是否为数字且不为无限大</span>                                 <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">isnan</span>     <span class="hljs-string">|</span> <span class="hljs-string">测试是否为非数字</span>                                       <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">isnat</span>     <span class="hljs-string">|</span> <span class="hljs-string">测试对象是否不为时间类型</span>                               <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">isneginf</span>  <span class="hljs-string">|</span> <span class="hljs-string">测试对象是否为负无限大</span>                                 <span class="hljs-string">|</span>
+<span class="hljs-string">|</span> <span class="hljs-string">isposinf</span>  <span class="hljs-string">|</span> <span class="hljs-string">测试对象是否为正无限大</span>                                 <span class="hljs-string">|</span>
+
+
+<span class="hljs-string">```python</span>
+<span class="hljs-comment"># 开启多行输出模式</span>
+<span class="hljs-string">from</span> <span class="hljs-string">IPython.core.interactiveshell</span> <span class="hljs-string">import</span> <span class="hljs-string">InteractiveShell</span>
+<span class="hljs-string">InteractiveShell.ast_node_interactivity</span> <span class="hljs-string">=</span> <span class="hljs-string">&quot;all&quot;</span>
+
+<span class="hljs-string">np.random.seed</span> <span class="hljs-string">(78)</span>
+<span class="hljs-string">returns</span> <span class="hljs-string">=</span> <span class="hljs-string">np.random.normal</span> <span class="hljs-string">(0,</span> <span class="hljs-number">0.03</span><span class="hljs-string">,</span> <span class="hljs-string">size=4)</span>
+<span class="hljs-string">returns</span>
 <span class="hljs-comment"># 判断是否全下跌</span>
-np.<span class="hljs-built_in">all</span> (returns &lt;= <span class="hljs-number">0</span>)
-np.<span class="hljs-built_in">any</span> (returns &lt;= <span class="hljs-number">0</span>)
+<span class="hljs-string">np.all</span> <span class="hljs-string">(returns</span> <span class="hljs-string">&lt;=</span> <span class="hljs-number">0</span><span class="hljs-string">)</span>
+<span class="hljs-string">np.any</span> <span class="hljs-string">(returns</span> <span class="hljs-string">&lt;=</span> <span class="hljs-number">0</span><span class="hljs-string">)</span>
 
 <span class="hljs-comment"># 模拟一个起始价格为 8 元的价格序列</span>
-prices = np.cumprod (<span class="hljs-number">1</span>+returns) * <span class="hljs-number">8</span>
+<span class="hljs-string">prices</span> <span class="hljs-string">=</span> <span class="hljs-string">np.cumprod</span> <span class="hljs-string">(1+returns)</span> <span class="hljs-string">*</span> <span class="hljs-number">8</span>
 
 <span class="hljs-comment"># 对应的涨停价如下</span>
-buy_limit_prices = [<span class="hljs-number">8.03</span>, <span class="hljs-number">8.1</span>, <span class="hljs-number">8.1</span>, <span class="hljs-number">8.3</span>]
+<span class="hljs-string">buy_limit_prices</span> <span class="hljs-string">=</span> [<span class="hljs-number">8.03</span>, <span class="hljs-number">8.1</span>, <span class="hljs-number">8.1</span>, <span class="hljs-number">8.3</span>]
 
 <span class="hljs-comment"># 判断是否涨停</span>
-np.isclose (prices, buy_limit_prices, atol=<span class="hljs-number">1e-2</span>)</span></code></pre>
+<span class="hljs-string">np.isclose</span> <span class="hljs-string">(prices,</span> <span class="hljs-string">buy_limit_prices,</span> <span class="hljs-string">atol=1e-2)</span></span></code></pre>
 <hr>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 为什么需要存在判断近似相等的函数？这是因为，数字分为整型和浮点型。凡是带小数点的数字，都可以看成浮点型。许多浮点数不能精确表达，所以它们是不会相等的，只能比较两个浮点数的差值，如果差值的绝对值小于某个可以接受的小数，才能认为这两个数近似相等。
 </div>
+因此，如果我们拿到了个股的收盘价和涨停价，要判断此时个股有没有涨停，就只能用 isclose 来进行比较，而不能使用 equal。
 
-<p>因此，如果我们拿到了个股的收盘价和涨停价，要判断此时个股有没有涨停，就只能用 isclose 来进行比较，而不能使用 equal。</p>
 <p>参数 atol 表示绝对误差，表示两个浮点数之间的差值小于这个值，就可以认为这两个数近似相等。</p>
 <p>除了判断一个数组中的元素要么都为 True，要么至少一个为 True 之外，有时候我们还希望进行模糊一点的判断，比如，如果过去 20 天中，超过 60% 的是收阳线，此时我们可以用 np.count_nonzero，或者 np.sum 来统计数组中为真的情况：</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">np.count_nonzero (returns &gt; <span class="hljs-number">0</span>)
@@ -223,13 +185,14 @@ np.<span class="hljs-built_in">sum</span> (returns &gt; <span class="hljs-number
 </tbody></table>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 如果你对编程语言不是特别熟悉，就会难以理解这里的布尔运算，但它们在量化中运用非常广泛，并且在后面讲 pandas 时，我们还会遇到
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span></span><span class="cl-body">逻辑与 a&amp;b 的含义是， 只有当条件 a 与 b 都为真时，表达式才成立
+<p>逻辑与 a&amp;b 的含义是， 只有当条件 a 与 b 都为真时，表达式才成立
 逻辑或 a|b 的含义是，a 与 b 之中，任何一个为真即成立
 逻辑非～b 的含义是，如果 b 为真，则表达式不成立，反之则成立
-逻辑异或 a ^ b 的含义是，只有两个不同时才为真。</span></code></pre>
-<p>逻辑运算有什么用呢？比如我们在选股时，有以下表格数据：</p>
+逻辑异或 a ^ b 的含义是，只有两个不同时才为真。</p>
+</div>
+逻辑运算有什么用呢？比如我们在选股时，有以下表格数据：
+
 <table>
 <thead>
 <tr>
@@ -276,15 +239,14 @@ np.<span class="hljs-built_in">sum</span> (returns &gt; <span class="hljs-number
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 这里解释下异或操作。它比较拧巴。如果两个操作数取值一样，那么结果为 False；否则为 True，非常不团结。
 </div>
+在量化中使用异或操作的例子仍然最可能来自于选股。比如，如果我们要求两个选股条件，只能有一个成立时，才买入；否则不买入，就可以使用异或运算。
 
-<p>在量化中使用异或操作的例子仍然最可能来自于选股。比如，如果我们要求两个选股条件，只能有一个成立时，才买入；否则不买入，就可以使用异或运算。</p>
 <hr>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 在多个条件中，投资者为什么会想要只有一个条件成立？这可能是因为他们认为这两个条件可能互相冲突，或者他们想要在两种投资策略之间进行平衡。
 </div>
+### 2.2. 集合运算
 
-
-<h3 id="22-集合运算">2.2. 集合运算</h3>
 <p>在交易中，我们常常要执行调仓操作。做法一般是，选确定新的投资组合，然后与当前的投资组合进行比较，找出需要卖出的股票，以及需要买入的股票。这个操作，就是集合运算。在 Python 中，我们一般是通过 set 语法来实现。</p>
 <p>在 Numpy 中，我们可以使用通过以下方法来实现集合运算：</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span><span class="cl">12</span><span class="cl">13</span><span class="cl">14</span><span class="cl">15</span><span class="cl">16</span></span><span class="cl-body"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -403,9 +365,8 @@ np.dot (A, B)</span></code></pre>
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 在 pandas 中存在 quantile 函数，但没有 percentile 函数。
 </div>
+np.percentile（或者 np.quantile）的常见应用是计算 25%, 50% 和 75% 的分位数。用来绘制箱线图（Boxplot）。
 
-
-<p>np.percentile（或者 np.quantile）的常见应用是计算 25%, 50% 和 75% 的分位数。用来绘制箱线图（Boxplot）。</p>
 <p>此外，我们也常用它来选择自适应参数。比如，在 RSI 的应用中，一般推荐是低于 20（或者 30）作为超卖，此时建议买入；推荐是高于 80（或者 70）作为超买，此时建议卖出。但稍微进行一些统计分析，你就会发现这些阈值并不是固定的。<strong>如果我们以过去一段时间的 RSI 作为统计，找出它的 95% 分位作为卖点，15% 作为买点，往往能得到更好的结果。</strong></p>
 <h4>2.3.3. 量化指标的计算</h4>
 <p>有一些常用的量化指标的计算，也可以使用 Numpy 来完成，比如，计算移动平均线，就可以使用 Numpy 提供的 convolve 函数。</p>
@@ -458,7 +419,7 @@ plt.show ()</span></code></pre>
 
 <p>题图： Photo by Steve Harvey on Unsplash
       </p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/02-numpy核心语法-1/">← 上一篇：02 - Numpy核心语法[1]</a> <a class="series-next" href="/articles/python/numpy-pandas/04-numpy核心语法-3/">下一篇：04 - Numpy核心语法[3] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 3/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/02-numpy核心语法-1/">← 02 - Numpy核心语法[1]</a> <a href="/posts/tools/21天驯化AI打工仔/1_数据获取/">21天驯化AI打工仔 - 我如何获取 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/01-introduction/">01 - 这是你的量化母语</a> <p>&lt;!-- 课程简介 课程编排说明 什么是 Numpy 什么是 Pandas Pandas 生态环境 Numpy 与 Pandas 比较</p> </li><li> <a href="/articles/python/numpy-pandas/02-numpy核心语法-1/">02 - Numpy核心语法[1]</a> <p>NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个多维度、同质并且大小固定的数组对象。</p> </li><li> <a href="/articles/python/numpy-pandas/04-numpy核心语法-3/">04 - Numpy核心语法[3]</a> <p>在不同的库之间交换数据，常常会遇到格式问题。比如，我们从第三方数据源拿到的行情数据，它们用的时间字段常常会是字符串。有一些库在存储行情时，对 OHLC 这些字段进行了优化，使用了 </p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-structured-array" title="1. Structured Array">1. Structured Array</a> </li><li class> <a href="#2-运算类" title="2. 运算类">2. 运算类</a> </li><li class="lv3"> <a href="#21-比较和逻辑运算" title="2.1. 比较和逻辑运算">2.1. 比较和逻辑运算</a> </li><li class="lv3"> <a href="#22-集合运算" title="2.2. 集合运算">2.2. 集合运算</a> </li><li class="lv3"> <a href="#23-数学运算和统计" title="2.3. 数学运算和统计">2.3. 数学运算和统计</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/02-numpy核心语法-1/">← 上一篇：02 - Numpy核心语法[1]</a> <a class="series-next" href="/articles/python/numpy-pandas/04-numpy核心语法-3/">下一篇：04 - Numpy核心语法[3] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 3/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/02-numpy核心语法-1/">← 02 - Numpy核心语法[1]</a> <a href="/posts/tools/21天驯化AI打工仔/1_数据获取/">21天驯化AI打工仔 - 我如何获取 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li><li> <a href="/articles/python/numpy-pandas/19-pandas应用案例-2/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy-pandas/17-pandas核心语法-7/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-structured-array" title="1. Structured Array">1. Structured Array</a> </li><li class="lv3"> <a href="#23-数学运算和统计" title="2.3. 数学运算和统计">2.3. 数学运算和统计</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）
     (function () {

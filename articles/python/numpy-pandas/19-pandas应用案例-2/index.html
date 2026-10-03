@@ -64,15 +64,12 @@ df[cat_cols] = df[cat_cols].astype(<span class="hljs-string">&#x27;category&#x27
 <div class="admonition admonition-Tip"><p class="admonition-title">Tip</p>
 定期检查内存使用情况，比如用 `memory_usage` 方法，来评估优化效果。
 </div>
+​金融场景适用字段：
+- ​交易类型：如 `buy/sell（证券买卖）`、`order_type（限价单/市价单）`
+- ​资产类别：如 `stock`、`bond`、`ETF`
+- ​客户等级：如 `VIP`、`普通`、`机构`
+- 地域分类：如 `CN`、`US`、`HK（交易市场归属）`
 
-
-<p>​金融场景适用字段：</p>
-<ul>
-<li>​交易类型：如 <code>buy/sell（证券买卖）</code>、<code>order_type（限价单/市价单）</code></li>
-<li>​资产类别：如 <code>stock</code>、<code>bond</code>、<code>ETF</code></li>
-<li>​客户等级：如 <code>VIP</code>、<code>普通</code>、<code>机构</code></li>
-<li>地域分类：如 <code>CN</code>、<code>US</code>、<code>HK（交易市场归属）</code></li>
-</ul>
 <p>当列的唯一值较少且重复较多时，使用category效果最好。例如性别、地区代码等。如果分类变量的类别数量远小于总行数，转换后的内存节省会更明显。注意category类型不适合频繁变更类别的情况，这可能增加计算开销。另外，使用pd.Categorical或者cut函数创建分类数据需要注意处理缺失值的问题，因为category类型不支持NaN，所以在转换前需要处理缺失值。</p>
 <h4>1.1.2. 紧凑数据类型：精准狙击内存浪费</h4>
 <p><strong>​数值类型优化</strong></p>
@@ -223,26 +220,24 @@ df[<span class="hljs-string">&#x27;is_after_hours&#x27;</span>] = df[<span class
 - iterrows 每次迭代生成 Series 对象，触发内存分配和类型检查（面向对象开销）
 - itertuples 返回轻量级 namedtuple，直接通过属性访问数据（C语言层级优化）
 </div>
+2. **​apply 函数的优化机制**
+```python
+# 示例：计算股票交易费用（佣金率分档）
+def calc_fee(row):
+    if row['volume'] > 10000:
+        return row['amount'] * 0.0002
+    elif row['volume'] > 5000:
+        return row['amount'] * 0.0003
+    else:
+        return row['amount'] * 0.0005
 
-<ol start="2">
-<li><strong>​apply 函数的优化机制</strong></li>
-</ol>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body"><span class="hljs-comment"># 示例：计算股票交易费用（佣金率分档）</span>
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">calc_fee</span>(<span class="hljs-params">row</span>):
-    <span class="hljs-keyword">if</span> row[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">10000</span>:
-        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;amount&#x27;</span>] * <span class="hljs-number">0.0002</span>
-    <span class="hljs-keyword">elif</span> row[<span class="hljs-string">&#x27;volume&#x27;</span>] &gt; <span class="hljs-number">5000</span>:
-        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;amount&#x27;</span>] * <span class="hljs-number">0.0003</span>
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">return</span> row[<span class="hljs-string">&#x27;amount&#x27;</span>] * <span class="hljs-number">0.0005</span>
-
-<span class="hljs-comment"># 优化点：使用 axis=1 按行应用</span>
-df[<span class="hljs-string">&#x27;fee&#x27;</span>] = df.apply(calc_fee, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 比循环快3倍</span></span></code></pre>
-<h4>1.2.2. 金融数据综合优化案例</h4>
-<ol>
-<li>​<strong>生成模拟高频交易数据</strong></li>
-</ol>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-comment"># 生成100万条股票交易记录（含时间戳、代码、价格、成交量）</span>
+<h1 id="优化点使用-axis1-按行应用">优化点：使用 axis=1 按行应用</h1>
+<p>df[&#39;fee&#39;] = df.apply(calc_fee, axis=1)  # 比循环快3倍</p>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">
+<span class="hljs-comment">#### 1.2.2. 金融数据综合优化案例</span>
+<span class="hljs-number">1.</span> ​**生成模拟高频交易数据**
+```python
+<span class="hljs-comment"># 生成100万条股票交易记录（含时间戳、代码、价格、成交量）</span>
 dates = pd.date_range(<span class="hljs-string">&#x27;2025-03-28 09:30&#x27;</span>, periods=<span class="hljs-number">1_000_000</span>, freq=<span class="hljs-string">&#x27;S&#x27;</span>)
 symbols = [<span class="hljs-string">&#x27;AAPL&#x27;</span>, <span class="hljs-string">&#x27;MSFT&#x27;</span>, <span class="hljs-string">&#x27;GOOG&#x27;</span>, <span class="hljs-string">&#x27;AMZN&#x27;</span>, <span class="hljs-string">&#x27;TSLA&#x27;</span>]</span></code></pre>
 <hr>
@@ -331,9 +326,8 @@ t8 = time.time()
 - 优先使用 df['col'] = df['col1'] * df['col2'] 形式
 - 复杂逻辑用 np.where() 或 pd.cut() 替代循环
 </div>
+#### 1.2.4. 注意事项
 
-
-<h4>1.2.4. 注意事项</h4>
 <hr>
 <ol>
 <li><p><strong>数据预处理</strong></p>
@@ -448,14 +442,14 @@ result = monte_carlo_pricing(*params)  <span class="hljs-comment"># 约 320 ms�
 - 对 np.ufunc 函数进行二次加速（如 np.sqrt、np.exp）
 - 避免在 JIT 函数中混合使用 Python 原生类型与 Numpy 类型
 </div>
+#### 1.3.4. 扩展应用
+1. **与Pandas结合**
+```python
+@jit
+def pandas_apply_optimized(df: pd.DataFrame):
+    return df['price'].values * df['volume'].values  # 直接操作Numpy数组
+```
 
-<h4>1.3.4. 扩展应用</h4>
-<ol>
-<li><strong>与Pandas结合</strong></li>
-</ol>
-<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta">@jit</span>
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">pandas_apply_optimized</span>(<span class="hljs-params">df: pd.DataFrame</span>):
-    <span class="hljs-keyword">return</span> df[<span class="hljs-string">&#x27;price&#x27;</span>].values * df[<span class="hljs-string">&#x27;volume&#x27;</span>].values  <span class="hljs-comment"># 直接操作Numpy数组</span></span></code></pre>
 <hr>
 <ol start="2">
 <li>GPU加速（CUDA）​</li>
@@ -476,10 +470,11 @@ result = monte_carlo_pricing(*params)  <span class="hljs-comment"># 约 320 ms�
 - 调试限制：Numba 函数不支持 pdb 断点调试，需通过 print 输出中间值
 - 兼容性：部分 Numpy 高级功能（如 np.linalg.svd）在 Numba 中受限
 </div>
+通过合理运用 Numpy 的向量化操作与 Numba 的 JIT 编译，可在金融量化分析、高频交易等场景实现 ​C 语言级性能，同时保持 Python 的开发效率。建议结合 %%timeit 和 Numba 的 cache=True 参数持续优化热点代码。
 
-<p>通过合理运用 Numpy 的向量化操作与 Numba 的 JIT 编译，可在金融量化分析、高频交易等场景实现 ​C 语言级性能，同时保持 Python 的开发效率。建议结合 %%timeit 和 Numba 的 cache=True 参数持续优化热点代码。</p>
+
 <hr>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/18-pandas应用案例-1/">← 上一篇：18 - Pandas应用案例[1]</a> <a class="series-next" href="/articles/python/numpy-pandas/20-pandas应用案例-3/">下一篇：20 - Pandas应用案例[3] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 94/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">← 18 - Pandas应用案例[1]</a> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-pandas-性能" title="1. Pandas 性能">1. Pandas 性能</a> </li><li class="lv3"> <a href="#11-内存优化" title="1.1. 内存优化">1.1. 内存优化</a> </li><li class="lv3"> <a href="#12-优化迭代" title="1.2. 优化迭代">1.2. 优化迭代</a> </li><li class="lv3"> <a href="#13-使用numpy和numba" title="1.3. 使用numpy和numba">1.3. 使用numpy和numba</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/18-pandas应用案例-1/">← 上一篇：18 - Pandas应用案例[1]</a> <a class="series-next" href="/articles/python/numpy-pandas/20-pandas应用案例-3/">下一篇：20 - Pandas应用案例[3] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 94/96 篇</span> <span class="reading-path-links"> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">← 18 - Pandas应用案例[1]</a> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li><li> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy-pandas/17-pandas核心语法-7/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li><li> <a href="/articles/python/numpy-pandas/16-pandas核心语法-6/">16 - Pandas核心语法[6]</a> <p>“Pandas 提供了强大的日期时间处理功能，从字符串到时间戳的转换、时区调整到格式化输出，都可以轻松实现。此外，字符串操作如替换、分割、过滤等，也能通过 str 访问器高效完成。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-pandas-性能" title="1. Pandas 性能">1. Pandas 性能</a> </li><li class="lv3"> <a href="#11-内存优化" title="1.1. 内存优化">1.1. 内存优化</a> </li><li class="lv3"> <a href="#12-优化迭代" title="1.2. 优化迭代">1.2. 优化迭代</a> </li><li class> <a href="#优化点使用-axis1-按行应用" title="优化点：使用 axis=1 按行应用">优化点：使用 axis=1 按行应用</a> </li><li class="lv3"> <a href="#13-使用numpy和numba" title="1.3. 使用numpy和numba">1.3. 使用numpy和numba</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）
     (function () {

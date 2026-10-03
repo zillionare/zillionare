@@ -29,14 +29,13 @@ x = np.array ([<span class="hljs-number">2014</span>, <span class="hljs-number">
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 如何将 boolean array 转换成整数类型，特别是，将 True 转为 1，False 转为 - 1？
 在涉及到阴阳线的相关计算中，我们常常需要将 open > close 这样的条件转换为符号 1 和 - 1，以方便后续计算。这个转换可以用：
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">```python
-<span class="hljs-meta">&gt;&gt;&gt; </span>x = np.array ([<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>])
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-meta">&gt;&gt;&gt; </span>x = np.array ([<span class="hljs-literal">True</span>, <span class="hljs-literal">False</span>])
 <span class="hljs-meta">&gt;&gt;&gt; </span>x * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>
-<span class="hljs-meta">... </span>array ([ <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])
-```</span></code></pre>
-<hr>
+<span class="hljs-meta">... </span>array ([ <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>])</span></code></pre>
+</div>
+---
+
 <h3 id="12-numpy-类型与-python-内置类型转换">1.2. Numpy 类型与 Python 内置类型转换</h3>
 <p>如果我们要将 Numpy 数组转换成 Python 数组，可以使用 tolist 函数。</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body">x = np.array ([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
@@ -47,24 +46,22 @@ y = x.astype (<span class="hljs-string">&#x27;M8[s]&#x27;</span>)
 y [<span class="hljs-number">0</span>].item ()</span></code></pre>
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 一个容易忽略的事实是，当我们从 Numpy 数组中取出一个标量时，我们都应该把它转换成为 Python 对象后再使用。否则，会发生一些隐藏的错误，比如下面的例子：
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span></span><span class="cl-body">```python
-<span class="hljs-keyword">import</span> json
+<pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span></span><span class="cl-body"><span class="hljs-keyword">import</span> json
 x = np.arange (<span class="hljs-number">5</span>)
 <span class="hljs-built_in">print</span> (json.dumps ([<span class="hljs-number">0</span>]))
 <span class="hljs-built_in">print</span> (x [<span class="hljs-number">0</span>])
 
-json.dumps ([x [<span class="hljs-number">0</span>]])
-```</span></code></pre>
-<hr>
+json.dumps ([x [<span class="hljs-number">0</span>]])</span></code></pre>
+</div>
+---
+
 <div class="admonition admonition-warning"><p class="admonition-title">warning</p>
 这里最后一行会出错。提示 type int64 is not JSON serializable。把最后一行换成 `json.dumps ([x [0].item ()])` 则可以正常执行。
 </div>
+### 1.3. Typing
+从 Python 3.1 起，就开始引入类型注解 (type annotation)，到 Python 3.8，基本上形成了完整的类型注解体系。我们经常看到函数的参数类型注解，比如，下面的代码:
 
-
-<h3 id="13-typing">1.3. Typing</h3>
-<p>从 Python 3.1 起，就开始引入类型注解 (type annotation)，到 Python 3.8，基本上形成了完整的类型注解体系。我们经常看到函数的参数类型注解，比如，下面的代码:</p>
 <pre><code class="hljs language-python"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span> (a: <span class="hljs-type">List</span> [<span class="hljs-built_in">int</span>], b: <span class="hljs-built_in">int</span>) -&gt; <span class="hljs-type">List</span> [<span class="hljs-built_in">int</span>]:
     <span class="hljs-keyword">return</span> [i + b <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a]</span></code></pre>
@@ -173,10 +170,8 @@ json.dumps ([x [<span class="hljs-number">0</span>]])
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 np.nan 是 numpy 中的一个特殊值，表示“Not a Number”，即“不是数字”。注意，在 Numpy 中，尽管 np.nan 不是一个数字，但它确实数字类型。确切地说，它是 float 类型。此外，在 float 类型中，还存在 np.inf（正无穷大）和负无穷大 (np.NINF，或者-np.inf)。
 </div>
+又比如，在计算个股的 RSI 或者移动平均线时，最初的几期数据是无法计算出来的（在回测框架 backtrader 中，它把这种现象称之为技术指标的冷启动）。如果不要求返回的技术指标的取值与输入数据长度一致，则会返回短一些、但全部由有效数据组成的数组；否则，此时我们常常使用 np.NaN 或者 None 来进行填充，以确保返回的数据长度与输入数据长度一致。
 
-
-
-<p>又比如，在计算个股的 RSI 或者移动平均线时，最初的几期数据是无法计算出来的（在回测框架 backtrader 中，它把这种现象称之为技术指标的冷启动）。如果不要求返回的技术指标的取值与输入数据长度一致，则会返回短一些、但全部由有效数据组成的数组；否则，此时我们常常使用 np.NaN 或者 None 来进行填充，以确保返回的数据长度与输入数据长度一致。</p>
 <p>但是，如果我们要对返回的数组进行统计，比如求均值、最大值、排序，对包含 np.nan 或者 None 的数组，应该如何处理？</p>
 <h3 id="31-包含-npnan-和-npinf-的数组运算">3.1. 包含 np.nan 和 np.inf 的数组运算</h3>
 <p>在 numpy 中，提供了对带 np.nan 的数组进行运算的支持。比如有以下数组：</p>
@@ -294,10 +289,8 @@ x[pos] = np.nan
 <div class="admonition admonition-info"><p class="admonition-title">info</p>
 根据 bottleneck 的文档，它的许多函数，要比 Numpy 中的同名函数快 10 倍左右。
 </div>
-
-
-<hr>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/03-numpy核心语法-2/">← 上一篇：03 - Numpy处理表格数据</a> <a class="series-next" href="/articles/python/numpy-pandas/05-numpy核心语法-4/">下一篇：05 - Numpy核心语法[4] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 29/96 篇</span> <span class="reading-path-links"> <a href="/posts/python/it-is-π-thon/">← π-thon以及他的朋友们</a> <a href="/articles/python/numpy-pandas/05-numpy核心语法-4/">05 - Numpy核心语法[4] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/02-numpy核心语法-1/">02 - Numpy核心语法[1]</a> <p>NumPy 的核心数据结构是 ndarray（即 n-dimensional array，多维数组）数据结构。这是一个多维度、同质并且大小固定的数组对象。</p> </li><li> <a href="/articles/python/numpy-pandas/03-numpy核心语法-2/">03 - Numpy处理表格数据</a> <p>一开始，Numpy 的数组只能存放同质的元素，即元素必须有相同的数据类型。但对表格类数据而言，它们往往是由一条条记录组成的，而这些记录，又是由不同数据类型的数据组成的。</p> </li><li> <a href="/articles/python/numpy-pandas/05-numpy核心语法-4/">05 - Numpy核心语法[4]</a> <p>“随机数和采样是量化中的高频操作。通过 Numpy 的 random 模块，我们可以轻松生成符合正态分布的收益率数组，并利用 np.cumprod() 计算价格走势，快速模拟资产的</p> </li><li> <a href="/articles/python/numpy-pandas/06-numpy核心语法-5/">06 - Numpy核心语法[5]</a> <p>“日期和时间的处理从来都不简单。时区、夏令时、闰秒等问题让时间计算变得复杂。Numpy 提供了高效的日期时间处理工具，帮助我们轻松应对这些挑战。”</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-类型转换和-typing" title="1. 类型转换和 Typing">1. 类型转换和 Typing</a> </li><li class="lv3"> <a href="#11-numpy-内部类型转换" title="1.1. Numpy 内部类型转换">1.1. Numpy 内部类型转换</a> </li><li class="lv3"> <a href="#12-numpy-类型与-python-内置类型转换" title="1.2. Numpy 类型与 Python 内置类型转换">1.2. Numpy 类型与 Python 内置类型转换</a> </li><li class="lv3"> <a href="#13-typing" title="1.3. Typing">1.3. Typing</a> </li><li class> <a href="#2-拓展阅读" title="2. 拓展阅读">2. 拓展阅读</a> </li><li class="lv3"> <a href="#21-numpy-的数据类型" title="2.1. Numpy 的数据类型">2.1. Numpy 的数据类型</a> </li><li class> <a href="#3-处理包含-npnan-的数据" title="3. 处理包含 np.nan 的数据">3. 处理包含 np.nan 的数据</a> </li><li class="lv3"> <a href="#31-包含-npnan-和-npinf-的数组运算" title="3.1. 包含 np.nan 和 np.inf 的数组运算">3.1. 包含 np.nan 和 np.inf 的数组运算</a> </li><li class="lv3"> <a href="#32-包含-none-的数组运算" title="3.2. 包含 None 的数组运算">3.2. 包含 None 的数组运算</a> </li><li class="lv3"> <a href="#33-性能提升" title="3.3. 性能提升">3.3. 性能提升</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+---
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/python/numpy-pandas/03-numpy核心语法-2/">← 上一篇：03 - Numpy处理表格数据</a> <a class="series-next" href="/articles/python/numpy-pandas/05-numpy核心语法-4/">下一篇：05 - Numpy核心语法[4] →</a> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「Python量化编程」路径第 29/96 篇</span> <span class="reading-path-links"> <a href="/posts/python/it-is-π-thon/">← π-thon以及他的朋友们</a> <a href="/articles/python/numpy-pandas/05-numpy核心语法-4/">05 - Numpy核心语法[4] →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/python/numpy-pandas/01-introduction/"><strong>👉 免费教程：Numpy / Pandas 量化必修</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/python/numpy-pandas/20-pandas应用案例-3/">20 - Pandas应用案例[3]</a> <p>“Modin 通过多核并行加速 Pandas 操作，读取 10GB CSV 文件比 Pandas 快 4-8 倍；Polars 基于 Rust 架构，内存占用仅为 Pandas 的</p> </li><li> <a href="/articles/python/numpy-pandas/19-pandas应用案例-2/">19 - Pandas应用案例[2]</a> <p>“通过将字符串列转换为 category 类型，内存占用可减少 90% 以上；使用 itertuples 替代 iterrows，遍历速度提升 6 倍；结合 Numba 的 JIT</p> </li><li> <a href="/articles/python/numpy-pandas/18-pandas应用案例-1/">18 - Pandas应用案例[1]</a> <p>“Alphalens 要求因子数据是双重索引的 Series，价格数据是日期为索引、资产代码为列的 DataFrame。通过 Pandas 的 pivottable 和 setin</p> </li><li> <a href="/articles/python/numpy-pandas/17-pandas核心语法-7/">17 - Pandas核心语法[7]</a> <p>“Pandas 的 DataFrame 提供了强大的样式功能，可以通过 Styler 对象实现类似 Excel 的条件着色效果。此外，Pandas 内置的绘图方法支持多种图表类型，</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#1-类型转换和-typing" title="1. 类型转换和 Typing">1. 类型转换和 Typing</a> </li><li class="lv3"> <a href="#11-numpy-内部类型转换" title="1.1. Numpy 内部类型转换">1.1. Numpy 内部类型转换</a> </li><li class="lv3"> <a href="#12-numpy-类型与-python-内置类型转换" title="1.2. Numpy 类型与 Python 内置类型转换">1.2. Numpy 类型与 Python 内置类型转换</a> </li><li class> <a href="#2-拓展阅读" title="2. 拓展阅读">2. 拓展阅读</a> </li><li class="lv3"> <a href="#21-numpy-的数据类型" title="2.1. Numpy 的数据类型">2.1. Numpy 的数据类型</a> </li><li class> <a href="#3-处理包含-npnan-的数据" title="3. 处理包含 np.nan 的数据">3. 处理包含 np.nan 的数据</a> </li><li class="lv3"> <a href="#31-包含-npnan-和-npinf-的数组运算" title="3.1. 包含 np.nan 和 np.inf 的数组运算">3.1. 包含 np.nan 和 np.inf 的数组运算</a> </li><li class="lv3"> <a href="#32-包含-none-的数组运算" title="3.2. 包含 None 的数组运算">3.2. 包含 None 的数组运算</a> </li><li class="lv3"> <a href="#33-性能提升" title="3.3. 性能提升">3.3. 性能提升</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）
     (function () {

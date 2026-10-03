@@ -38,8 +38,8 @@ pre code {
 <div class="admonition admonition-tip"><p class="admonition-title">tip</p>
 安装文件目前仅对大富翁量化课程学员及重要客户开放。联系请加 quantfans_99 (宽粉) 微信
 </div>
+我们通过docker集群向大家提供zillionare 2.0。该集群包含以下容器：
 
-<p>我们通过docker集群向大家提供zillionare 2.0。该集群包含以下容器：</p>
 <table>
 <thead>
 <tr>
@@ -78,20 +78,22 @@ pre code {
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 登录密码默认为1234。如果您需要修改，请修改docker-compose安装目录下的.omega_env文件中的LAB_PASSWORD选项。
 </div>
+实盘交易安装东财量化交易客户端及gm-adaptor库，请情参见[实盘交易](#实盘交易)
 
-<p>实盘交易安装东财量化交易客户端及gm-adaptor库，请情参见<a href="#%E5%AE%9E%E7%9B%98%E4%BA%A4%E6%98%93">实盘交易</a></p>
 <h2 id="安装步骤">安装步骤</h2>
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
 
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 Zillionare 2.0基于docker容器技术构建，理论上可以运行于任何支持容器技术的操作系统上。但我们只测试了Ubunut Focal和Ubuntu Focal on WSL 2.0（即Windows）。
 如果您打算正式使用，建议硬件规格：
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body"><span class="hljs-number">1.</span> <span class="hljs-number">8</span>核CPU以上
-<span class="hljs-number">2.</span> <span class="hljs-number">32</span>GB内存以上（大家的课件环境是集群，单机<span class="hljs-number">96</span>GB）
-<span class="hljs-number">3.</span> 硬盘<span class="hljs-number">1</span><span class="hljs-built_in">T</span>以上（很占空间）</span></code></pre>
 <ol>
+<li><p>8核CPU以上</p>
+</li>
+<li><p>32GB内存以上（大家的课件环境是集群，单机96GB）</p>
+</li>
+<li><p>硬盘1T以上（很占空间）</p>
+</div></li>
 <li><p>先安装docker和docker-compose工具。如果只有windows机器，建议先安装 wsl2，再在wsl2下的ubunut环境中，安装docker/docker-compose</p>
 </li>
 <li><p>将zillionare.tar解压缩到安装目录（自定），修改其中的 .omega.env，该文件中，jqdata相关的账号和密码是需要提供的，其它的可以不变</p>
@@ -108,8 +110,7 @@ Zillionare 2.0基于docker容器技术构建，理论上可以运行于任何支
 <div class="admonition admonition-Info"><p class="admonition-title">Info</p>
 当前A股仅股票就有接近6000支，每天的分钟线数据接近140万条。Zillionare会在盘中实时请求所有股票和常用指数的分钟线数据，此外，还会在每晚2：00左右，再次请求前一交易日的分钟线、日线等数据，并且出于纠错的目的，会进行两次请求并进行数据校验。因此，每天会消耗quota 500万条以上。但如果要补齐历史分钟线数据，建议购买2亿条quota级别的数据。这样一天大概能向前追赶一个月的行情数据。
 </div>
-
-<h2 id="实盘交易">实盘交易</h2>
+## 实盘交易
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
 
 <p>该环境支持实盘交易。您可以通过lab编写策略，通过zillionare-trader-client执行下单。目前zillionare只提供了东财的量化接口。安装方式如下：</p>
@@ -171,39 +172,41 @@ LAB_USER=zillionare</span></code></pre>
 Akshare不能提供历史的板块数据。如果需要历史板块数据，可以向我们索取。在没有数据的时候，运行以下代码会出错：
 ```python
 from omicron.models.board import Board, BoardType
-</div>
 
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body"><span class="hljs-title class_">Board</span>.<span class="hljs-title function_">init</span>(<span class="hljs-string">&quot;omega&quot;</span>)
-concepts = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Board</span>.<span class="hljs-title function_">board_list</span>()
-concepts[:<span class="hljs-number">10</span>]
+<p>Board.init(&quot;omega&quot;)
+concepts = await Board.board_list()
+concepts[:10]</p>
+<p>--- raise TypeError ---
+TypeError: unhashable type: &#39;slice&#39;</p>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span></span><span class="cl-body">&lt;/div&gt;
+板块数据存放在omega容器的/data/zillionare/omega/boards.zarr目录下。如果同步任务正常运行，则会存在以下文件夹：
 
---- raise <span class="hljs-title class_">TypeError</span> ---
-<span class="hljs-title class_">TypeError</span>: unhashable <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;slice&#x27;</span>
-<span class="hljs-string">``</span><span class="hljs-string">`</span></span></code></pre>
-<p>板块数据存放在omega容器的/data/zillionare/omega/boards.zarr目录下。如果同步任务正常运行，则会存在以下文件夹：</p>
-<p><img src="ths-board-dir.png" alt="Alt text"></p>
-<h2 id="验证安装">验证安装</h2>
-<p>运行<code>docker-compose up</code>之后，正常情况下应该输出：</p>
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">zillionare<span class="hljs-operator">-</span>lab <span class="hljs-operator">|</span> [I <span class="hljs-number">2024</span><span class="hljs-number">-02</span><span class="hljs-number">-23</span> <span class="hljs-number">05</span>:<span class="hljs-number">55</span>:<span class="hljs-number">30.463</span> ServerApp] Skipped non<span class="hljs-operator">-</span>installed server(s):...
-zillionare<span class="hljs-operator">-</span>backtesting <span class="hljs-operator">|</span> <span class="hljs-number">2024</span><span class="hljs-number">-02</span><span class="hljs-number">-23</span> <span class="hljs-number">05</span>:<span class="hljs-number">55</span>:<span class="hljs-number">30</span>,<span class="hljs-number">693</span> I <span class="hljs-number">6</span> pyemit.emit:_listen:<span class="hljs-number">135</span> <span class="hljs-operator">|</span> listening <span class="hljs-keyword">on</span> <span class="hljs-operator">&lt;</span>aioredis.client.PubSub object <span class="hljs-keyword">at</span> <span class="hljs-number">0x7fab65abbd00</span><span class="hljs-operator">&gt;</span>
-...
-zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> waiting <span class="hljs-keyword">for</span> influxdb start...
-zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span>   <span class="hljs-operator">%</span> Total    <span class="hljs-operator">%</span> Received <span class="hljs-operator">%</span> Xferd  Average Speed   <span class="hljs-type">Time</span>    <span class="hljs-type">Time</span>     <span class="hljs-type">Time</span>  <span class="hljs-keyword">Current</span>
-...
-zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> 正在初始化系统数据...
-zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> 系统数据初始化完毕...
-zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> <span class="hljs-keyword">prepare</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">start</span> Omega <span class="hljs-type">real</span> price process <span class="hljs-keyword">for</span> stock ...
-zillionare<span class="hljs-operator">-</span>omega <span class="hljs-operator">|</span> Omega stock price process started ...
-...</span></code></pre>
-<h2 id="检查运行日志">检查运行日志</h2>
-<p>zillionare-omega的日志在/data/zillionare/omega/logs（宿主机）目录下。如果聚宽账号配置正确，经过了至少一个交易日的午夜，则应该可以看到以下日志：</p>
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-number">2024</span>-02-<span class="hljs-number">23</span> 01:<span class="hljs-number">15</span>:<span class="hljs-number">31</span>,082 I <span class="hljs-number">209</span> omega.master.tasks.calibration_task:sync_daily_bars_day:<span class="hljs-number">179</span> | daily_bars_sync_1d(<span class="hljs-number">2024</span>-02-<span class="hljs-number">22</span> <span class="hljs-number">15</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>)同步完成,参数为{<span class="hljs-string">&#x27;timeout&#x27;</span>: <span class="hljs-number">600</span>, <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;daily_bars_sync_1d&#x27;</span>, <span class="hljs-string">&#x27;frame_type&#x27;</span>: [&lt;FrameType.DAY: <span class="hljs-string">&#x27;1d&#x27;</span>&gt;], <span class="hljs-string">&#x27;end&#x27;</span>: datetime.datetime(<span class="hljs-number">2024</span>, <span class="hljs-number">2</span>, <span class="hljs-number">22</span>, <span class="hljs-number">15</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&#x27;n_bars&#x27;</span>: <span class="hljs-literal">None</span>, <span class="hljs-string">&#x27;state&#x27;</span>: <span class="hljs-string">&#x27;master.task.daily_bars_sync_1d.state&#x27;</span>, <span class="hljs-string">&#x27;scope&#x27;</span>: [<span class="hljs-string">&#x27;master.task.daily_bars_sync_1d.scope.stock.1d&#x27;</span>, <span class="hljs-string">&#x27;master.task.daily_bars_sync_1d.scope.index.1d&#x27;</span>]}
-<span class="hljs-number">2024</span>-02-<span class="hljs-number">23</span> 01:<span class="hljs-number">15</span>:<span class="hljs-number">31</span>,084 I <span class="hljs-number">209</span> omega.master.tasks.calibration_task:get_sync_date:<span class="hljs-number">63</span> | 所有数据已同步完毕
+![Alt text](ths-board-dir.png)
+
+<span class="hljs-comment">## 验证安装</span>
+运行`docker-compose up`之后，正常情况下应该输出：
 </span></code></pre>
-<p>这表明数据同步服务正常工作。</p>
-<h2 id="从这里开始">从这里开始！</h2>
-<p>可以在研究界面下新建一个notebook，上传以下<a href="/assets/getting-started.ipynb">notebook</a>，开始运行。</p>
-</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/products/zillionare-troubleshooting/">← 上一篇：Zillionare 2.0 故障排除</a> <span></span> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「产品与生态」路径第 4/16 篇</span> <span class="reading-path-links"> <a href="/articles/products/gm-adaptor-installation/">← 东财量化接口安装指南</a> <a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/">来自世坤！寻找Alpha 构建交易策 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/products/zillionare-maintain/">Zillionare 2.0维护指南</a> <p>在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下：</p> </li><li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/gm-adaptor-installation/">东财量化接口安装指南</a> <p>1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#安装步骤" title="安装步骤">安装步骤</a> </li><li class> <a href="#数据加载" title="数据加载">数据加载</a> </li><li class> <a href="#实盘交易" title="实盘交易">实盘交易</a> </li><li class> <a href="#配置" title="配置">配置</a> </li><li class="lv3"> <a href="#聚宽账号" title="聚宽账号">聚宽账号</a> </li><li class="lv3"> <a href="#邮件通知" title="邮件通知">邮件通知</a> </li><li class="lv3"> <a href="#钉钉通知" title="钉钉通知">钉钉通知</a> </li><li class="lv3"> <a href="#研究界面" title="研究界面">研究界面</a> </li><li class="lv3"> <a href="#配置获取板块数据任务" title="配置获取板块数据任务">配置获取板块数据任务</a> </li><li class="lv3"> <a href="#配置实时价格爬虫" title="配置实时价格爬虫">配置实时价格爬虫</a> </li><li class> <a href="#验证安装" title="验证安装">验证安装</a> </li><li class> <a href="#检查运行日志" title="检查运行日志">检查运行日志</a> </li><li class> <a href="#从这里开始" title="从这里开始！">从这里开始！</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
+<p>zillionare-lab | [I 2024-02-23 05:55:30.463 ServerApp] Skipped non-installed server(s):...
+zillionare-backtesting | 2024-02-23 05:55:30,693 I 6 pyemit.emit:_listen:135 | listening on &lt;aioredis.client.PubSub object at 0x7fab65abbd00&gt;
+...
+zillionare-omega | waiting for influxdb start...
+zillionare-omega |   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+...
+zillionare-omega | 正在初始化系统数据...
+zillionare-omega | 系统数据初始化完毕...
+zillionare-omega | prepare to start Omega real price process for stock ...
+zillionare-omega | Omega stock price process started ...
+...</p>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span></span><span class="cl-body"><span class="hljs-comment">## 检查运行日志</span>
+zillionare-omega的日志在/data/zillionare/omega/logs（宿主机）目录下。如果聚宽账号配置正确，经过了至少一个交易日的午夜，则应该可以看到以下日志：</span></code></pre>
+<p>2024-02-23 01:15:31,082 I 209 omega.master.tasks.calibration_task:sync_daily_bars_day:179 | daily_bars_sync_1d(2024-02-22 15:00:00)同步完成,参数为{&#39;timeout&#39;: 600, &#39;name&#39;: &#39;daily_bars_sync_1d&#39;, &#39;frame_type&#39;: [&lt;FrameType.DAY: &#39;1d&#39;&gt;], &#39;end&#39;: datetime.datetime(2024, 2, 22, 15, 0), &#39;n_bars&#39;: None, &#39;state&#39;: &#39;master.task.daily_bars_sync_1d.state&#39;, &#39;scope&#39;: [&#39;master.task.daily_bars_sync_1d.scope.stock.1d&#39;, &#39;master.task.daily_bars_sync_1d.scope.index.1d&#39;]}
+2024-02-23 01:15:31,084 I 209 omega.master.tasks.calibration_task:get_sync_date:63 | 所有数据已同步完毕</p>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span></span><span class="cl-body">这表明数据同步服务正常工作。
+
+<span class="hljs-comment">## 从这里开始！</span>
+
+可以在研究界面下新建一个notebook，上传以下[notebook](/assets/getting-started.ipynb)，开始运行。</span></code></pre>
+</div> <aside class="article-cta" aria-label="关注公众号"> <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="Quantide 公众号二维码" loading="lazy"> <div> <strong>关注公众号：Quantide</strong> <p>每日量化干货、策略研究与工具教程，扫码不错过更新。</p> </div> </aside> <nav class="series-nav" aria-label="本系列"> <div class="series-links"> <a class="series-prev" href="/articles/products/zillionare-troubleshooting/">← 上一篇：Zillionare 2.0 故障排除</a> <span></span> </div> </nav> <nav class="reading-path" aria-label="阅读路径"> <span>📖 本篇是「产品与生态」路径第 4/16 篇</span> <span class="reading-path-links"> <a href="/articles/products/gm-adaptor-installation/">← 东财量化接口安装指南</a> <a href="/posts/resources/book-intro-finding-alphas-a-quantitative-approach/">来自世坤！寻找Alpha 构建交易策 →</a> </span> </nav> <aside class="article-convert" aria-label="继续学习"> <a href="/articles/coursea/24lectures/intro/"><strong>👉 量化 24 课：从 Python 到实盘</strong></a> </aside> <nav class="related" aria-label="相关阅读"> <h2>相关阅读</h2> <ul> <li> <a href="/articles/products/zillionare-troubleshooting/">Zillionare 2.0 故障排除</a> <p>在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示</p> </li><li> <a href="/articles/products/zillionare-maintain/">Zillionare 2.0维护指南</a> <p>在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下：</p> </li><li> <a href="/articles/products/index/">大富翁开源产品系列</a> <p>大富翁是可以本地部署的开源量化框架，功能齐全，能容纳超大规模数据（目前在生产环境已存储超35亿条行情数据）。</p> </li><li> <a href="/articles/products/gm-adaptor-installation/">东财量化接口安装指南</a> <p>1.1. 安装 1.2. 申请权限 1.3. 模拟和测试 1.3.1. 配置账号 1.3.1.1. gmadaptor的配置文件 1.3.1.2. 配置EMC 1.3.2. 模拟运</p> </li> </ul> </nav> </article> <aside class="doc-toc" aria-label="本页目录"> <p class="toc-title">目录</p> <ul> <li class> <a href="#安装步骤" title="安装步骤">安装步骤</a> </li><li class> <a href="#数据加载" title="数据加载">数据加载</a> </li><li class> <a href="#配置" title="配置">配置</a> </li><li class="lv3"> <a href="#聚宽账号" title="聚宽账号">聚宽账号</a> </li><li class="lv3"> <a href="#邮件通知" title="邮件通知">邮件通知</a> </li><li class="lv3"> <a href="#钉钉通知" title="钉钉通知">钉钉通知</a> </li><li class="lv3"> <a href="#研究界面" title="研究界面">研究界面</a> </li><li class="lv3"> <a href="#配置获取板块数据任务" title="配置获取板块数据任务">配置获取板块数据任务</a> </li><li class="lv3"> <a href="#配置实时价格爬虫" title="配置实时价格爬虫">配置实时价格爬虫</a> </li> </ul> </aside> </div>  <footer class="foot"> <a class="foot-logo" href="/" title="匡醍量化首页"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gzh_512.jpg" alt="匡醍量化" loading="lazy"></a> <span>匡醍量化 · 专注量化投资研究与 Python 量化交易实战</span> <span class="foot-follow-links"><a href="https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c" target="_blank" rel="noopener">小红书</a> / <a href="https://www.zhihu.com/people/hbaaron" target="_blank" rel="noopener">知乎</a> / <a href="https://mp.weixin.qq.com/s/TkE6g9x-qRkiZ2sl1hwpMg" target="_blank" rel="noopener">公众号</a></span> <span class="pv" data-site-stats>本月访问量 <strong data-total-pv>—</strong> · 访客数 <strong data-total-uv>—</strong><span data-updated style="color:var(--text-light);"></span></span> </footer> <script>
     // 页脚 GA4 真实总数：优先 jsdelivr（每日 6 点 SEO 任务同步），localStorage 缓存 24h；
     // 失败回退构建期 site-stats.json（随发布更新）
     (function () {
