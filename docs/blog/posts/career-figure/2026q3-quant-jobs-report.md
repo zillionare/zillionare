@@ -3,7 +3,7 @@ title: "2026Q3量化招聘：入行技能全解析"
 date: 2026-10-05
 category: career
 slug: 2026q3-quant-jobs-report
-tags: [career, quant, hiring, python, skills]
+tags: "[量化职场, Python量化编程]"
 excerpt: "基于我们持续抓取的全球量化机构招聘库（JD 全文），盘点本季度岗位结构、最通用与最稀缺的技能要求，给准备入行和跳槽的读者一张能力地图。"
 ---
 
