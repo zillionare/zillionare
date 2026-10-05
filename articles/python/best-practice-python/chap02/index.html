@@ -35,12 +35,12 @@
 <ol>
 <li>首先，启用“适用于 Linux 的 Windows 子系统”功能：</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2020-05/20200503185200%5B1%5D.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503185200%5B1%5D.png" alt=""></p>
 <ol start="2">
 <li>设置后，需要重启一次电脑。</li>
 <li>从 Windows 应用商店搜索安装一个 Linux 发行版，在这里的示例中，我们使用 Ubuntu:</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2020-05/20200503191417%5B1%5D.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503191417%5B1%5D.png" alt=""></p>
 <p>现在，在搜索栏输入 Ubuntu，就会打开 Ubuntu shell。由于是第一次运行，此时会提示我们输入用户名和口令。这样 WSL 就安装成功了。此后，也可以从搜索框输入<code>wsl</code>命令来启动这个系统。</p>
 <h4>2.1.2. 定制 WSL</h4>
 <p>使用 WSL v1 版本是一种特殊的体验。它既像一个虚拟机，但又缺乏部分功能，比如，它没有后台服务 [^wsl] 这个概念。我们可以在其中安装一些服务，比如 Redis 缓存或者数据库，但这些后台服务并不会随 WSL 一同启动，必须得经由我们手动启动。但是，我们可以通过一些定制，来使得 WSL 的使用体验更接近一台虚拟机。</p>
@@ -99,19 +99,19 @@ command = <span class="hljs-string">&quot;/c &quot;&quot;&quot;</span> + CreateO
 UAC.ShellExecute <span class="hljs-string">&quot;C:\Windows\System32\cmd.exe&quot;</span>, command, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;runas&quot;</span>, <span class="hljs-number">0</span>
 <span class="hljs-keyword">Set</span> UAC = <span class="hljs-literal">Nothing</span></span></code></pre>
 <p>最后，我们向计划任务程序中添加一个新的开机启动任务：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215338.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215237.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215338.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215237.png" alt=""></p>
 <p>需要说明的是，通过 Windows 应用商店安装的 Ubuntu 子系统，它应该已经安装好了 ssh-server，我们在上述操作中所做的事，只不过是让它随 WSL 一起启动而已。但是，如果您发现您的 WSL 中并没有安装 ssh-server，您也可以自行安装。毕竟，这就是一台 Linux 服务器，您可以在上面安装 Linux 上的绝大多数软件。</p>
 <p>通过应用上述方案，您就在 Windows 上拥有了两个可以同时运行的操作系统。特别值得一提的是，在您不使用 WSL 的时候，它只占用很少的 CPU 和内存资源（仅限 WSL 1.0）。这是其它虚拟化方案所无法比拟的。</p>
 <p>在本书写作时，WSL 2.0 已经有了支持图形化界面的预览版，称之为 <a href="https://github.com/microsoft/wslg">wslg</a>。未来这个版本将合并到 WSL 中，随 Windows 一起发行的正式版发行。下图是 wslg 图形化界面的一个效果图：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png" alt=""></p>
 <p>虽然这与本书的主旨无关，但至少也给了我们一个使用 Linux 的理由，就连微软都这么认真地做 Linux[^Linux] 了，您还要继续使用 Windows 来做开发吗？</p>
 <h3 id="22-docker-方案">2.2. Docker 方案</h3>
 <p>WSL 的出现要比 Docker 晚。如果您购机时间较早，那么您的 Windows 可能不支持 WSL，但可以安装 Docker。在这种情况下，您可以尝试安装桌面版的 Docker，然后通过 Docker 来运行一个 Linux 虚拟机。</p>
 <p>安装 Docker 可以从其官方网站 [^docker] 下载，安装完成后，首次运行需要手动启动。可以从搜索框中搜索&quot;Docker&quot;，然后选择&quot;Docker Desktop&quot;来启动，见下图：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108docker-app-search.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108docker-app-search.png" alt=""></p>
 <p>当 Docker 启动后，就会在系统托盘区显示一个通知图标：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108whale-icon-systray.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108whale-icon-systray.png" alt=""></p>
 <p>上图中第三个，鲸鱼图标，即是 Docker 正在运行的标志。点击它可以进入管理界面。首次运行时需要做一些设置，可以参考官方文档。</p>
 <p>在 Windows 上运行 Docker，由于操作系统异构的原因，首先需要启用 Hyper-V 虚拟机，然后将 Docker 安装到这个虚拟机中。这就是为什么在 Windows 下安装运行 Docker，无论当前是否有容器在运行，系统资源也被静态分配切割的原因。但是大概从 2020 年 3 月起，Docker 开始支持运行基于 WSL2 的桌面版。基于 WSL2 的桌面版 Docker，Docker 后台服务启动更快，资源也仅在需要时才进行分配，因此在资源调度上更加灵活高效。</p>
 <h3 id="23-虚拟机方案">2.3. 虚拟机方案</h3>
@@ -172,9 +172,9 @@ UAC.ShellExecute <span class="hljs-string">&quot;C:\Windows\System32\cmd.exe&quo
 <h3 id="32-vs-code-及扩展">3.2. VS Code 及扩展</h3>
 <p>VS Code 是一个支持多语言编辑开发的平台，它本身只提供了文本编辑器、代码管理（Git）、扩展管理等基础功能。具体到某个语言的开发，则是通过加载该语言的扩展来完成的。因此，安装 VS Code 之后，还需要配置一系列的扩展。</p>
 <p>安装好 VS Code 之后，在侧边栏上就会出现如下图所示工具栏：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145433.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145433.png" alt=""></p>
 <p>被圆形框框住的图标对应着扩展管理。上部的矩形框可以用来搜索某个扩展，找到对应的扩展并点击，就可以在右边的窗口中看到该扩展的详细信息，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145930.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145930.png" alt=""></p>
 <p>在这个详细信息页，提供了安装按钮。</p>
 <p>VS Code 扩展管理除了搜索之外，还提供了过滤、排序等功能，读者可以自行探索。如果读者要在多个开发环境下使用 VS Code，可能希望这些扩展在不同的环境下都能使用，针对这个需求，VS Code 还提供了扩展同步机制。在上图中，在扩展详情页的&quot;Uninstall&quot;按键右侧，有一个同步图标，点击后，VS Code 会自动将该扩展同步到其他环境。</p>
 <p>下面，我们将讨论一些最常用、最重要的 VS Code 扩展。在使用这些扩展武装 VS Code 之后，您的开发效率将大大提高。</p>
@@ -187,10 +187,10 @@ UAC.ShellExecute <span class="hljs-string">&quot;C:\Windows\System32\cmd.exe&quo
 <p>Test Explorer 的主要作用是发现和搜集项目中定义的单元测试用例，构建 TestSuite，提供测试执行入口，并在测试完成之后，报告测试执行情况。</p>
 <p>Jupyter 是一个允许你在 VS Code 中阅读、开发 notebook 的扩展。与单独安装的 Jupyter notebook 相比，它能提供更强大的代码提示、变量查看和数据查看。此外，调试 notebook 一直是个比较麻烦的事。但在 VS Code 中，你可以象调试 Python 代码一样，逐行运行和调试 notebook。</p>
 <p>在 Python 扩展安装完成之后，就可以进行 Python 开发了。在开发之前，需要为工程选择 Python 解释器。可以从命令面板中输入 Python: Select Interpreter 来完成，也可以点击状态栏中的选择图标，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210806163607.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210806163607.png" alt=""></p>
 <h4>3.2.2. Remote - SSH</h4>
 <p>这是一个非常有用的扩展，是微软官方开发的扩展之一。它可以让你在 VS Code 中直接打开远程机上的文件夹，编辑并调试运行。如果您使用过 Pycharm 等 IDE，就会知道，尽管这些 IDE 也支持远程开发，但它们是在本地创建文件，调试运行前先要上传同步到远程机器上。频繁同步不仅降低了效率，而且也常常出现未能同步，导致行为与预期不一致，浪费时间查找问题的情况。这也是也是 VS Code 优于 Pycharm 的一个重要特性。</p>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145039.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145039.png" alt=""></p>
 <p>安装好这个扩展之后，在侧边栏会出现一个远程连接图标。同时，如果当前已经连接到远程机器，则在状态栏最左侧，还会显示该连接的概要信息。</p>
 <p>接下来我们需要安装版本管理类的扩展。</p>
 <p>VS Code 虽然提供了 git 的集成，但是许多功能并未通过 GUI 提供，我们还必须熟记 git 命令。此外，还有一些功能是 git 也没有的，比如以下功能：</p>
@@ -207,18 +207,18 @@ UAC.ShellExecute <span class="hljs-string">&quot;C:\Windows\System32\cmd.exe&quo
 <li>在文件修改历史中快速导航</li>
 <li>在代码行中提示 blame 信息，如下图所示：</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108hovers-current-line.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108hovers-current-line.png" alt=""></p>
 <ol start="3">
 <li>gutter change，如下图所示：</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809160826.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809160826.png" alt=""></p>
 <pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span></span><span class="cl-body">gutter change 是指在上图中，在编辑区行号指示的右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你回滚变更、或者提交变更。这个功能实际上是 git 的 <span class="hljs-built_in">interactive</span> staging 功能，只不过在命令行下使用这个功能时，它的易用性不太好。
 
 如果你在编辑文件之前没有做好规划，引入了本应该隶属于多个提交的修改，gutter change 是最好的补救方案。它允许你逐块、而不是按文件提交修改。因此，你可以将一个文件里的不同块分几次进行提交。</span></code></pre>
 <ol start="4">
 <li>GitLens 在侧边栏提供了丰富的工具条，如下图所示：</li>
 </ol>
-<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"> ![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108views-layout-gitlens.png)</span></code></pre>
+<pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"> ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108views-layout-gitlens.png)</span></code></pre>
 <p>通过这些工具条，你不再需要记忆太多的 git 命令，并且这些命令的结果也以可视化的方式展示，这也会比控制台界面效率高不少。在这些工具栏里，提供了提交视图、仓库视图、分支视图、文件历史视图、标签视图等。</p>
 <p>简单来说，GitLens 将几乎所有的 Git 功能进行了图形化展示和重构，提供了一个丰富的操作界面，让你可以更加方便地操作 Git 和理解代码变更。</p>
 <h4>3.2.4. 编辑提交信息的扩展</h4>
