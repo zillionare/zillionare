@@ -10,8 +10,12 @@
   </script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-L3VJKHX7K1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-L3VJKHX7K1');
+    // 过滤无头浏览器/采集器：它们渲染页面会触发 gtag，产生 0 互动的"直连"流量污染报表
+    var __bot = navigator.webdriver === true || /HeadlessChrome|PhantomJS/i.test(navigator.userAgent || '');
+    if (!__bot) {
+      gtag('js', new Date());
+      gtag('config', 'G-L3VJKHX7K1');
+    }
   </script></head> <body> <header class="topbar"> <a class="brand" href="/"> <img src="/img/logo.jpg" alt="匡醍量化" class="logo"> <span>匡醍量化|大富翁量化</span> </a> <div class="search-box"> <input id="blog-search" type="search" placeholder="搜索" aria-label="搜索"> <div id="blog-search-result" class="search-result" hidden></div> </div> <nav class="theme-switch" aria-label="主题"> <a href="?theme=material" data-theme-link="material" class="active">Material</a><a href="?theme=github" data-theme-link="github" class>GitHub 浅色</a><a href="?theme=dark" data-theme-link="dark" class>深色</a> </nav> </header> <nav class="tabs" aria-label="栏目"> <a href="/" class>最新文章</a><a href="/express/" class>资讯</a><a href="/articles/coursea/24lectures/intro/" class>量化课程</a><a href="/posts/tools/agent-on-tracks/" class>博客</a><a href="/articles/products/index/" class>量化产品</a><a href="/articles/python/best-practice-python/chap01/" class>免费教程</a><a href="/topics/" class="active" aria-current="page">专题</a><a href="/tags/" class>文章分类</a><a href="/contact/" class>Follow Us</a> </nav>  <div class="cards-wrap"> <h1>机器学习与LLM</h1> <p class="sub" style="line-height:1.9;">机器学习与 LLM 正在改写量化研究的做法。这个专题收录 GBDT 回归预测、XGBoost 自定义目标函数、神经网络时序建模等经典实践，也记录把大模型用于因子挖掘、资讯解析与 Agent 交易的真实实验——包括它们在哪里有效、在哪里不可靠。</p> <div class="md-body hub-body" data-pagefind-body><blockquote>
 <p>这是「机器学习与LLM」专题的判断长文：LLM 到底能不能做交易？不讲概念，只讲我们做过的三个实验、踩过的坑，和一个诚实的结论。</p>
 </blockquote>
