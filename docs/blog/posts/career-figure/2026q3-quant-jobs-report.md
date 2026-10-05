@@ -8,8 +8,9 @@ excerpt: "2026 Q3量化招聘大盘点：747个在招岗位中Python占比53%、
 cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
 ---
 
-> [!tip] 数据来源
-Quantide 量化岗位库（覆盖 QRT、WorldQuant、Jane Street、Point72、G-Research、Man Group、Akuna、IMC、DRW、Optiver、Citadel 等 20+ 家机构的在招岗位与 JD 全文）。本季在库岗位 **747** 条（JD 覆盖率 100%），其中明确发布于 2026 年 Q3 的 292 条，页面在架但未标注日期 455 条。
+
+!!! tip 数据来源
+    Quantide 量化岗位库（覆盖 QRT、WorldQuant、Jane Street、Point72、G-Research、Man Group、Akuna、IMC、DRW、Optiver、Citadel 等 20+ 家机构的在招岗位与 JD 全文）。本季在库岗位 **747** 条（JD 覆盖率 100%），其中明确发布于 2026 年 Q3 的 292 条，页面在架但未标注日期 455 条。
 
 
 ## 一、总量与结构
