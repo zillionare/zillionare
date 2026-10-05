@@ -9,7 +9,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261
 ---
 
 
-!!! tip 数据来源
+!!! tip "数据来源"
     Quantide 量化岗位库（覆盖 QRT、WorldQuant、Jane Street、Point72、G-Research、Man Group、Akuna、IMC、DRW、Optiver、Citadel 等 20+ 家机构的在招岗位与 JD 全文）。本季在库岗位 **747** 条（JD 覆盖率 100%），其中明确发布于 2026 年 Q3 的 292 条，页面在架但未标注日期 455 条。
 
 
