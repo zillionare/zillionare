@@ -10,7 +10,7 @@ tags: [quantstats, 几何收益]
 
 
 
-![](https://fastly.jsdelivr.net/gh/bucketio/img14@main/images/2025/08/1754140031515-8bc2da28-02cd-4083-8c6b-c698c4cf5e36.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064947-1754140031515-8bc2da28-02cd-4083-8c6b-c698c4cf5e36.png)
 
 
 Quantstats是 Ran Aroussi 的一个开源项目，是一款用于**交易策略绩效分析**的 Python 库，深受量化圈用户喜爱，在 Github 上获得了<span style="text-decoration: dashed underline #00A86B; text-decoration-thickness: 2px;">超过 5.8k 的 stars</span>。
@@ -60,7 +60,7 @@ cumulative = qs.stats.compsum(returns)
 compsum函数返回的是「一串序列」，且长度与输入序列一致! !它能用于「可视化收益率」是怎么从「初始状态」变化到「最终状态」的。它就像是一部纪录片,记载了一只股票在策略执行下的浮浮沉沉，效果类似于下图
 
 
-![](https://fastly.jsdelivr.net/gh/bucketio/img14@main/images/2025/08/1754138614424-3c94d9d1-2058-4ef3-a5d4-e1f2a5c0fab6.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064934-1754138614424-3c94d9d1-2058-4ef3-a5d4-e1f2a5c0fab6.png)
 
 
 **2. comp() : 计算总复合收益率（最终累积收益）- 整个期间的总收益率**
@@ -163,16 +163,16 @@ df_net_value.plot()
 
 
 
-![](https://fastly.jsdelivr.net/gh/bucketio/img1@main/images/2025/08/1754140954570-f3b2099a-7c1d-4f0d-a779-f72746745288.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065205-1754140954570-f3b2099a-7c1d-4f0d-a779-f72746745288.jpg)
 
-![](https://fastly.jsdelivr.net/gh/bucketio/img3@main/images/2025/08/1754141671086-ea326a34-7b55-4d94-bacb-f7a20f4f1452.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065228-1754141671086-ea326a34-7b55-4d94-bacb-f7a20f4f1452.png)
 
 
 !!! question 为什么无论上涨或是下跌，蓝线永远在红线上方？
 Answer：根据均值不等式: 算数平均数 ≥ 几何平均数
 
 
-![](https://fastly.jsdelivr.net/gh/bucketio/img16@main/images/2025/08/1754141556739-bab818f5-1e52-49f1-b1f7-31ed70cadc62.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065033-1754141556739-bab818f5-1e52-49f1-b1f7-31ed70cadc62.png)
 
 
 

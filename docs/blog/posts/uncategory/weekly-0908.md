@@ -629,7 +629,7 @@ def convert_to_int(arr: NDArray, dtype: DTypeLike) -> NDArray:
 
 ---
 
-## ![点击入会](https://meeting.tencent.com/dm/j6WuV9fNCB9w)
+## ![点击入会](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065435-j6WuV9fNCB9w.jpg)
 
 ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 

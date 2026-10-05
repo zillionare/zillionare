@@ -17,7 +17,7 @@ excerpt: "年，欧洲太空署（European Space Agency）打算向火星派出�
 
 2020 年，欧洲太空署（European Space Agency）打算向火星派出一个探测器（如图），把一些岩石样品带回地球，以检测火星上是否存在生命。受燃料限制，探测器只能带回 500g 的火星岩石。因此，只有精心挑选的样本才能被带回地球。科学家们准备构建一个现场挑选器，这个挑选器必须具有视觉重建能力，为此他们构建了一个人工神经网络。在这项任务中，无论是构建神经网络和多 CPU 集群，还是通过 PyCUDA 来使用 NVIDIA 的 CUDA 库，都重度依赖 Python。
 
-![50%](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/mars-67522_1920.jpg)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/mars-67522_1920.jpg)
 
 <cap>图片来源：[mars-rover-space-traveler]</cap>
 
@@ -208,11 +208,11 @@ PEP20 还藏着另一个彩蛋。我们说它应该有 20 条规则，但实际�
 
 其次，Python 的高效，还体现在它无需编译即可运行上。象 C，Java 这样的编译型语言，如果你写完一小段程序，想看看它是如何运行的，你必须等待它完成编译 -- 这个时间可能是几十秒或者以分钟、甚至小时计 — 这将导致程序员的工作被打断。下面的讽刺漫画反映了这种情况：
 
-![50%](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/27ed4c0b74066c8bb0ab8b5bfb2afe88_1440w.png)
+![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/27ed4c0b74066c8bb0ab8b5bfb2afe88_1440w.png)
 
 而在 Python 中，你随时可以打开它的交互式界面（即 IPython)，输入一小段代码，马上就看到它的运行结果。下图显示了如何在 ipython 界面下计算数学问题：
 
-![75%](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202105/20210522232747.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202105/20210522232747.png)
 
 如果你不喜欢使用 IPython 这种命令行式的接口，也可以安装一个 Jupyter Notebook 来编写和运行一些 Python 代码片段。关于 Jupyter Notebook，我们还会在介绍 IDE 时进一步介绍。此外，随手写一个 Unittest，通过 Unittest 来测试你刚写的方法也会比其它语言来得更容易。因此，使用 Python，你会发现学习和成长是如此容易！
 

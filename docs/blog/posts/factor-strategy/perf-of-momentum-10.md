@@ -4,7 +4,7 @@ slug: perf-of-momentum-10
 date: 2024-08-02
 category: factors
 motto: Learning how to fall teaches you how to land, and learning to land gives you the courage to jump higher
-img: https://m.media-amazon.com/images/I/61YULEKe2uL._SL1360_.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [因子策略, momentum, 因子评估]
@@ -125,7 +125,7 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 ---
 
-![L50](https://m.media-amazon.com/images/I/61YULEKe2uL._SL1360_.jpg)
+![L50](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg)
 
 前天，七八月之交，A股出现一轮牛市，跨越两个月，长达86400秒。随后再次进入休眠状态。这个现象，也许不能用今天的介绍的动量因子来预测，但动量因子表现如此之弱，却能在一定程度上，说明为什么连续上涨未能出现。
 

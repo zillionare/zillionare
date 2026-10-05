@@ -57,7 +57,7 @@ Pandas 生态环境
 ## 什么是 Numpy
 
 <div style="position:relative;float:left">
-<img src="https://numpy.org/doc/stable/_static/numpylogo.svg" align="left" style="width: 200px;margin:10px">
+<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065445-numpylogo.svg" align="left" style="width: 200px;margin:10px">
 <p style="font-size:10px;text-align:center">图片来源：numpy.org</p>
 </div>
 

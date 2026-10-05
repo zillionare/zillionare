@@ -52,7 +52,7 @@ excerpt: "央行表示，将在公开市场操作中增加国债买卖。坚决�
 
 # DATATHON-我的 CITADEL 量化岗之路！附历年比赛资料
 
-![](https://www.citadel.com/wp-content/uploads/2024/07/Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg)
 <cap>Kenneth Griffin Speak to Interns</cap>
 
 Citadel 是一家顶级的全球性对冲基金管理公司，由肯尼斯. 格里芬 (Kenneth Griffin) 创建于 1990 年，是许多量化人的梦中情司。

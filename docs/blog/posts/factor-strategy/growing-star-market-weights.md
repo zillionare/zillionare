@@ -4,7 +4,7 @@ date: 2024-08-06
 category: factors
 slug: growing-star-market-weights
 motto: 一只简简单单跟踪美股市场的基金<br>能够击败任何一位自信满满的对冲基金经理
-img: https://unsplash.com/photos/xFYYOpnxolw/download?force=true&w=1920
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065527-download.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: []

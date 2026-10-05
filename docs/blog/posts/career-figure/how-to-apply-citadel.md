@@ -4,7 +4,7 @@ date: 2024-08-11
 category: factors
 slug: how-to-apply-citadel
 motto: 这世上所有的坚持 都源自足够的热爱
-img: https://www.citadel.com/wp-content/uploads/2024/07/Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy]

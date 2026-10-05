@@ -29,7 +29,7 @@ layout: cover-random-img-portrait
 
 ---
 
-![](https://fastly.jsdelivr.net/gh/bucketio/img1@main/2026/01/14/1768390658578-df76ad03-e895-480c-9ccf-10d76c7738ff.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065153-1768390658578-df76ad03-e895-480c-9ccf-10d76c7738ff.png)
 
 ### 觉醒的冲浪少年
 故事要从佛罗里达州西北部说起。Max Dama 曾在一个采访中曾打趣说，那里是佛罗里达的“红脖子”区域。在那样的环境下，教育资源其实是相对匮乏的。

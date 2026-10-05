@@ -266,7 +266,7 @@ Sematic versioning 提议用一组简单的规则及条件来约束版本号的�
 
 ## 2. POETRY：简洁清晰的项目管理工具
   
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202104/1-BUUIee-t1I2eqTm0RtDNHQ.jpeg){width="50%"}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202104/1-BUUIee-t1I2eqTm0RtDNHQ.jpeg){width="50%"}
 
 [Poetry] 是一个依赖管理和打包工具。Poetry 的作者解释开发 Poetry 的初衷时说：
 

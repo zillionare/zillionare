@@ -69,4 +69,4 @@ Wes Mckinney的经历是一个传奇，他的成功也为现在想要进入金�
 
 ---
 
-![75%](https://wesmckinney.com/book/images/cover.png)
+![75%](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065548-cover.png)

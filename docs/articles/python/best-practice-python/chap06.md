@@ -108,7 +108,7 @@ tabnine 与 copilot 的值得一提的区别是它的付费模式。tabnine 提�
 
 Pylance 在上面提到的代码自动完成之外，还能实现依赖自动导入。此外，由于它脱胎于语法静态检查器，所以它还能提示代码中的错误并显示，这正是到目前为止，像 copilot 这样的人工智能还做不太好的地方。源码级的查错，使得我们可以尽早修正这些错误，这也正是很多使用静态语言的程序员认为诟病 Python 的地方 – 现在我们知道，这只是一种无知的偏见。
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202104/20210413172416.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202104/20210413172416.png)
 
 !!! Tips
     Pylance 安装后，需要进行配置。配置文件是 pyrightconfig.json，放置在项目根目录下。
@@ -655,7 +655,7 @@ pre-commit 安装后，会在你的项目目录下创建一个.git/hooks 目录�
 
 如果使用向导生成项目的话，向导已经为您安装了 pre-commit hooks, 当您运行``git commit``命令时，就会看到这样的输出：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202104/20210413181638.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202104/20210413181638.png)
 
 可以看出，pre-commit hooks 对换行符进行了检查和修复，调用 black 进行了格式化，以及调用 Flake8 进行了查错，并报告对 f-string 的错误使用。
 

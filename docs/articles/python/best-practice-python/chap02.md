@@ -47,12 +47,12 @@ wsl --install --set-defalut-version=1
 
 1. 首先，启用“适用于 Linux 的 Windows 子系统”功能：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2020-05/20200503185200[1].png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503185200[1].png)
 
 2. 设置后，需要重启一次电脑。
 3. 从 Windows 应用商店搜索安装一个 Linux 发行版，在这里的示例中，我们使用 Ubuntu:
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2020-05/20200503191417[1].png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503191417[1].png)
 
 现在，在搜索栏输入 Ubuntu，就会打开 Ubuntu shell。由于是第一次运行，此时会提示我们输入用户名和口令。这样 WSL 就安装成功了。此后，也可以从搜索框输入`wsl`命令来启动这个系统。
 
@@ -130,9 +130,9 @@ Set UAC = Nothing
 
 最后，我们向计划任务程序中添加一个新的开机启动任务：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215338.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215338.png)
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202106/20210616215237.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215237.png)
 
 需要说明的是，通过 Windows 应用商店安装的 Ubuntu 子系统，它应该已经安装好了 ssh-server，我们在上述操作中所做的事，只不过是让它随 WSL 一起启动而已。但是，如果您发现您的 WSL 中并没有安装 ssh-server，您也可以自行安装。毕竟，这就是一台 Linux 服务器，您可以在上面安装 Linux 上的绝大多数软件。
 
@@ -140,7 +140,7 @@ Set UAC = Nothing
 
 在本书写作时，WSL 2.0 已经有了支持图形化界面的预览版，称之为 [wslg](https://github.com/microsoft/wslg)。未来这个版本将合并到 WSL 中，随 Windows 一起发行的正式版发行。下图是 wslg 图形化界面的一个效果图：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png)
 
 虽然这与本书的主旨无关，但至少也给了我们一个使用 Linux 的理由，就连微软都这么认真地做 Linux[^Linux] 了，您还要继续使用 Windows 来做开发吗？
 
@@ -149,11 +149,11 @@ WSL 的出现要比 Docker 晚。如果您购机时间较早，那么您的 Wind
 
 安装 Docker 可以从其官方网站 [^docker] 下载，安装完成后，首次运行需要手动启动。可以从搜索框中搜索"Docker"，然后选择"Docker Desktop"来启动，见下图：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108docker-app-search.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108docker-app-search.png)
 
 当 Docker 启动后，就会在系统托盘区显示一个通知图标：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108whale-icon-systray.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108whale-icon-systray.png)
 
 上图中第三个，鲸鱼图标，即是 Docker 正在运行的标志。点击它可以进入管理界面。首次运行时需要做一些设置，可以参考官方文档。
 
@@ -202,11 +202,11 @@ VS Code 是一个支持多语言编辑开发的平台，它本身只提供了文
 
 安装好 VS Code 之后，在侧边栏上就会出现如下图所示工具栏：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145433.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145433.png)
 
 被圆形框框住的图标对应着扩展管理。上部的矩形框可以用来搜索某个扩展，找到对应的扩展并点击，就可以在右边的窗口中看到该扩展的详细信息，如下图所示：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145930.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145930.png)
 
 在这个详细信息页，提供了安装按钮。
 
@@ -231,13 +231,13 @@ Jupyter 是一个允许你在 VS Code 中阅读、开发 notebook 的扩展。�
 
 在 Python 扩展安装完成之后，就可以进行 Python 开发了。在开发之前，需要为工程选择 Python 解释器。可以从命令面板中输入 Python: Select Interpreter 来完成，也可以点击状态栏中的选择图标，如下图所示：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210806163607.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210806163607.png)
 
 #### 3.2.2. Remote - SSH
 
 这是一个非常有用的扩展，是微软官方开发的扩展之一。它可以让你在 VS Code 中直接打开远程机上的文件夹，编辑并调试运行。如果您使用过 Pycharm 等 IDE，就会知道，尽管这些 IDE 也支持远程开发，但它们是在本地创建文件，调试运行前先要上传同步到远程机器上。频繁同步不仅降低了效率，而且也常常出现未能同步，导致行为与预期不一致，浪费时间查找问题的情况。这也是也是 VS Code 优于 Pycharm 的一个重要特性。
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809145039.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145039.png)
 
 安装好这个扩展之后，在侧边栏会出现一个远程连接图标。同时，如果当前已经连接到远程机器，则在状态栏最左侧，还会显示该连接的概要信息。
 
@@ -259,11 +259,11 @@ Gitlens 的功能十分强大，是团队开发中常用的一个扩展。它的
    1. 在文件修改历史中快速导航
    2. 在代码行中提示 blame 信息，如下图所示：
     
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108hovers-current-line.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108hovers-current-line.png)
 
    3. gutter change，如下图所示：
       
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809160826.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809160826.png)
 
     gutter change 是指在上图中，在编辑区行号指示的右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你回滚变更、或者提交变更。这个功能实际上是 git 的 interactive staging 功能，只不过在命令行下使用这个功能时，它的易用性不太好。
     
@@ -271,7 +271,7 @@ Gitlens 的功能十分强大，是团队开发中常用的一个扩展。它的
 
    4. GitLens 在侧边栏提供了丰富的工具条，如下图所示：
 
-     ![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
+     ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
 
 通过这些工具条，你不再需要记忆太多的 git 命令，并且这些命令的结果也以可视化的方式展示，这也会比控制台界面效率高不少。在这些工具栏里，提供了提交视图、仓库视图、分支视图、文件历史视图、标签视图等。
 

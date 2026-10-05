@@ -54,7 +54,7 @@ __核心是，概率是一种积分（发生在某个取值范围内，而不是
 第 n 个点落在安全区（即最大夹角以外的区域）的概率，可以由下图来理解（均匀分布）：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://img2022.cnblogs.com/blog/2112523/202206/2112523-20220628160712307-1911457888.png'>
+<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065416-2112523-20220628160712307-1911457888.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图 1</span>
 </div>
 

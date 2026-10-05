@@ -88,4 +88,4 @@ excerpt: "投机是人的天性，也是人类永恒的话题。博一博，单�
 
 如果您喜欢《定价未来 - 撼动华尔街的量化金融史》这本书，可以在点击[这里](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BANcJK1olXgAAV1dfAE8XBV8IGloQWQcCVF5UDkIeBl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmoMGlsVXQ8EXVdYFxJSXzI4YCBQJnpgKVo4axdoW2hoTVsLPXxeNFJROEonA24JGV4SWgAGV25tCEwnQgEIGlkTXgAKUW5cOEsQBWkPHVkVVQYBUFttD0seMzZbSwtWA1kyZG5eOEwXCnsOaRpHSQBwZG5dOEgnA2YOGV4XVAcESF5cCUsSH28PHV0SWwQCU11dD0MnAW4JH1IlbQ)购买。
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}

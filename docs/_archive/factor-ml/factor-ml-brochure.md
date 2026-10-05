@@ -301,7 +301,7 @@ Zillionare 开源量化框架作者
 
 <div class="module top-18% left-5%">
 <div style='width:20%;float:left;padding: 0rem 1rem 0 0;text-align:center'>
-<img src='https://sli.dev/logo-title.png' style="margin: 0 !important;">
+<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065515-logo-title.png' style="margin: 0 !important;">
 </div>
 
 <li>由 Slidev 驱动 演示从未如此动感十足又紧随焦点</li>

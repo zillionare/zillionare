@@ -5,7 +5,7 @@ date: 2024-04-19
 category: arsenal
 motto: 要安静 要勇敢 -- 苏格拉底
 lunar:
-img: https://images.unsplash.com/photo-1530858085883-7ab22d96afcc?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065337-photo-1530858085883-7ab22d96afcc.jpg
 lineNumbers: true
 tags: [tools, copilot, vscode, AI]
 excerpt: "在投资界，巴菲特与查理.芒格的神仙友谊，是他们财富神话之外的另一段传奇。巴菲特曾这样评价芒格：他用思想的力量拓展了我的视野，让我以火箭的速度，从猩猩进化到人类。"

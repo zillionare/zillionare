@@ -4,7 +4,7 @@ slug: effective-pandas-1
 date: 2024-07-15
 category: arsenal
 motto: 知止而后有定 定而后能安 安而后能虑 虑而后能得 -- 大学
-img: https://images.unsplash.com/photo-1719014323201-d7ae3f83d260?q=80&w=1204
+img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065407-photo-1719014323201-d7ae3f83d260.jpg
 lineNumbers: true
 tags: [quantlib, pandas]
 excerpt: "在量化领域，Pandas是不可或缺的工具，它以强大的数据处理和分析功能，极大地简化了数据操作流程。"

@@ -653,7 +653,7 @@ $ git reset --hard HEAD~
 ### 4.5. gutter change
 在我们前面介绍暂存操作时，都是以整个文件为单位进行暂存。但是，有时候，我们可能应该把某一个文件分为几个不同的批次来添加。这个命令在 git 中称为交互式暂存 (interactive staging)。通过命令行执行比较繁琐，这里我们介绍 git lens 中的 gutter change 功能，如下图所示：
 
-![](https://cdn.jsdelivr.org/gh/zillionare/images@main/images/20210820210809160826.png)
+![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809160826.png)
 
 gutter change 是指如上图所示，在编辑区行号指示右侧，通过一个线条来指示当前区域存在变更，当你点击这个线条时，会弹出一个窗口，显示当前区域的变更历史，并且允许你仅对这几行变更进行回滚或者提交。
 ## 5. 谁引入了错误：如何追踪代码变化（案例）
