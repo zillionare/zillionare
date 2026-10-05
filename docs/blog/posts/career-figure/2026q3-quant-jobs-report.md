@@ -5,6 +5,7 @@ category: career
 slug: 2026q3-quant-jobs-report
 tags: "[量化职场, Python量化编程]"
 excerpt: "2026 Q3量化招聘大盘点：747个在招岗位中Python占比53%、核心岗高达72%，C++、统计、ML成硬门槛，稀缺高薪技能有哪些？"
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
 ---
 
 !!! tip 数据来源
