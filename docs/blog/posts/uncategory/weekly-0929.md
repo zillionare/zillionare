@@ -1,5 +1,5 @@
 ---
-title: "[0929] QuanTide Weekly"
+title: "沪指大涨12.8%：套利定价理论实践"
 date: 2024-09-29
 category: others
 slug: quantide-weekly-0929
