@@ -1,4 +1,5 @@
 ---
+title: 二十四课量化投资课程大纲
 slug: 24-lectures-syllabus
 excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---

@@ -1,5 +1,5 @@
 ---
-title: 07 代码单元测试
+title: 07 代码单元测试实践
 slug: unittest-mock
 excerpt: "!!! quote Testing leads to failure. Failure leads to understanding."
 ---

@@ -1,5 +1,5 @@
 ---
-title: 论如何白嫖论文
+title: 论如何白嫖论文：免费下载渠道
 date: 2024-08-04
 category: resources
 slug: free-paper-download-resources

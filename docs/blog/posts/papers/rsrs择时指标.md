@@ -1,5 +1,5 @@
 ---
-title: "RSRS 择时指标"
+title: "RSRS 择时指标回测研究"
 date: 2025-06-09
 category: papers
 img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png

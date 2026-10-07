@@ -1,5 +1,5 @@
 ---
-title: 球队和硬币因子
+title: 球队和硬币因子：体育博彩与资产定价
 date: 2023-12-23
 slug: hockey-and-coid
 lunar: 冬月十一

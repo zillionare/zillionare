@@ -3,7 +3,7 @@ date: 2023-12-24
 category: strategy
 tags: [因子, strategy]
 motto: 你当像鸟飞向你的山
-title: 净新高占比因子
+title: 净新高占比因子构建方法
 slug: net-high-net-low-factor
 lunar: 冬月十二
 excerpt: "个股的顶底强弱比较难以把握，它们的偶然性太强。董事长有可能跑路，个股也可能遇到突发利好（比如竞争对手仓库失火）。在个股的顶底处，情绪占据主导地位，理性退避次席，技术指标出现钝化，进入<red>现状不可描述，一切皆有可能</red>的状态。"

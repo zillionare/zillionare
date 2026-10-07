@@ -1,4 +1,5 @@
 ---
+title: 因子机器学习课程常见问题
 slug: factor-ml-faq
 excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传到了荔枝微课。"
 ---

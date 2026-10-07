@@ -1,7 +1,7 @@
 ---
 hide:
     - title
-title: 课程简介
+title: Numpy与Pandas数据处理课程简介
 slug: numpy-pandas-in-quant-trade
 category: 课程
 tags: [课程, 因子投资, 机器学习]

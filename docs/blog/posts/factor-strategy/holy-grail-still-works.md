@@ -1,5 +1,5 @@
 ---
-title: 圣杯依然闪耀
+title: 圣杯依然闪耀：RSI策略再验证
 slug: the-holy-grail-still-works
 date: 2024-07-22
 category: factors

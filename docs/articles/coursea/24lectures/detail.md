@@ -1,5 +1,5 @@
 ---
-title: 二十四课内容详情
+title: 二十四课量化课程内容详情
 slug: detailed-introduction-of-24-lectures
 date: 2024-01-04
 category: 课程

@@ -1,5 +1,5 @@
 ---
-title: 量化实盘接口
+title: 量化实盘接口与Easytrader实战
 slug: trader-api
 date: 2024-10-22
 category: tools

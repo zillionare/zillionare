@@ -1,5 +1,5 @@
 ---
-title: 11 发布应用
+title: 11 打包发布应用程序
 slug: publish-your-application
 excerpt: "我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。"
 ---
