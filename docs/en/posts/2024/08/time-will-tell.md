@@ -3,7 +3,7 @@ title: "First Movers: Exploiting Early Earnings Announcements in China A-Shares 
 date: 2024-08-08
 slug: en/posts/factor-strategy/time-will-tell
 tags: [Factor Investing, Earnings Timing, China A-Shares, Quantitative Strategy]
-excerpt: ""
+excerpt: "年报披露越早越利好？从Kross、Johnson经典研究出发，解析财报时机Alpha，构建申万一级行业中性、春节窗口实战的A股早披露多股策略。"
 lang: en
 translation_of: posts/factor-strategy/time-will-tell
 auto_translated: true

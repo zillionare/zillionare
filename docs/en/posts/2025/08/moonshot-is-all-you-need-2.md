@@ -3,7 +3,7 @@ title: "Moonshot 02: Mastering Monthly Backtests with Tushare & Local Caching ==
 date: 2025-08-15
 slug: en/posts/tools/moonshot/moonshot-is-all-you-need-2
 tags: [Factor Mining, Backtesting, Data Engineering, Tushare]
-excerpt: ""
+excerpt: "月频回测总踩复权坑？手把手教你用Tushare抓行情、前复权/后复权实战+Parquet本地缓存提速60倍，轻松复刻基本面量化研报。"
 lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-2
 auto_translated: true

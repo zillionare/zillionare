@@ -3,7 +3,7 @@ title: "Citadel Quant Internship: Datathon Strategy & Resources ===EXCUTIVE SUMM
 date: 2024-08-11
 slug: en/posts/career-figure/how-to-apply-citadel
 tags: [Citadel, Quantitative Finance, Datathon, Internship]
-excerpt: ""
+excerpt: "想进Citadel做量化研究？揭秘Datathon直通实习捷径，含历年真题、数据集与冠军代码，7天逆袭拿下1%Offer！"
 lang: en
 translation_of: posts/career-figure/how-to-apply-citadel
 auto_translated: true

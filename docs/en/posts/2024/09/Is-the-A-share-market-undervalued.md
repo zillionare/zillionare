@@ -3,7 +3,7 @@ title: "Is China A-Shares Undervalued? PE Trap vs. Opportunity ===EXCUTIVE SUMMA
 date: 2024-09-16
 slug: en/posts/factor-strategy/Is-the-A-share-market-undervalued
 tags: [Factor Investing, Valuation Analysis, China A-Shares, Quantitative Trading]
-excerpt: ""
+excerpt: "上证PE跌至1999年以来10.6%分位，看似低估却是低PE陷阱？本文用akshare数据揭示价格与盈利背离，量化视角拆解估值真相。"
 lang: en
 translation_of: posts/factor-strategy/Is-the-A-share-market-undervalued
 auto_translated: true

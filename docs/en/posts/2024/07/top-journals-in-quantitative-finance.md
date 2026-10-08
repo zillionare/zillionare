@@ -3,7 +3,7 @@ title: "Top Quant Finance Journals: Essential Reading for Quants ===EXCUTIVE SUM
 date: 2024-07-28
 slug: en/posts/resources/top-journals-in-quantitative-finance
 tags: [Quantitative Finance, Academic Journals, Factor Investing, Research]
-excerpt: ""
+excerpt: "量化研究员必读！七大顶刊从诺奖理论到Alpha、五因子模型全覆盖，帮你打通学术与实盘，点击收藏前沿利器。"
 lang: en
 translation_of: posts/resources/top-journals-in-quantitative-finance
 auto_translated: true

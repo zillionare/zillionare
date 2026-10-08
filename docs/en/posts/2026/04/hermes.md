@@ -3,7 +3,7 @@ title: "2026 Hermes Agent Review: From Install Fail to Eureka vs OpenClaw ===EXC
 date: 2026-04-13
 slug: en/posts/tools/hermes
 tags: [Hermes Agent, OpenClaw, Quantitative Automation, AI Agents]
-excerpt: ""
+excerpt: "从安装翻车到自我进化：实测Hermes Agent对比OpenClaw，多智能体协作+对接东财妙想抓热点，量化交易效率翻倍？"
 lang: en
 translation_of: posts/tools/hermes
 auto_translated: true

@@ -3,7 +3,7 @@ title: "7 Red Flags for Quant Traders Choosing Their First Job ===EXCUT=== New q
 date: 2025-10-23
 slug: en/posts/career-figure/successfully-starting-a-career-in-quant-research
 tags: [Quantitative Trading, Career Advice, Factor Investing, Risk Management]
-excerpt: ""
+excerpt: "初入量化交易如何避开坑公司？伯克利名师Max Dama总结7个求职红灯：脑筋急转弯面试、2年竞业、屏蔽源码与P&L等，帮新人选对第一份工作加速成长。"
 lang: en
 translation_of: posts/career-figure/successfully-starting-a-career-in-quant-research
 auto_translated: true

@@ -3,7 +3,7 @@ title: "Beyond Out-of-Sample Testing: Detecting Overfitting in Quant Strategies 
 date: 2024-08-19
 slug: en/posts/algo/noise-test
 tags: [Overfitting, Noise Testing, Parameter Stability, Backtest Validation]
-excerpt: ""
+excerpt: "回测漂亮实盘拉胯？多半是过拟合！本文详解样本外测试、滚动预测之外的新利器：噪音测试与参数平原，教你识破脆弱策略，选出真正稳健的参数。"
 lang: en
 translation_of: posts/algo/noise-test
 auto_translated: true
