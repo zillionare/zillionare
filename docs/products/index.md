@@ -10,6 +10,7 @@ excerpt: "大富翁是可以本地部署的开源量化框架，功能齐全，�
 
 ### 功能和特性
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
+
 1. 分体式回测系统设计，策略回测与实盘交易使用**完全一致**的API，无须更改
 2.  更精准的成交量匹配算法（需要分钟级数据）
 3.  基于InfluxDB的高性能本地量化平台，能容纳海量数据
@@ -30,6 +31,7 @@ excerpt: "大富翁是可以本地部署的开源量化框架，功能齐全，�
 ### 架构和组件
 
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
+
 大富翁量化框架由以下主要组件（服务）构成：
 
 ![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/11/zillionare-deployment.png)

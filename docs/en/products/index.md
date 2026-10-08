@@ -16,6 +16,7 @@ Zillionare is a locally deployable, open-source quantitative framework. It is fu
 
 ### Features
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
+
 1. **Decoupled backtest architecture**: Strategy backtesting and live trading use **identical** APIs, requiring no code changes.
 2. **Precise volume matching algorithm**: Optimized for minute-level data.
 3. **High-performance local platform based on InfluxDB**: Designed to handle massive data volumes.
@@ -36,6 +37,7 @@ Zillionare is a locally deployable, open-source quantitative framework. It is fu
 ### Architecture and Components
 
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
+
 The Zillionare quantitative framework consists of the following main components (services):
 
 ![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/11/zillionare-deployment.png)
