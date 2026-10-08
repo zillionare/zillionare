@@ -107,6 +107,6 @@ async def get_forward_returns(dt: datetime.date, n=10):
 
 你的钱就是这样被赚走的。打不过就加入吧！
 
-源代码自本文发布一周内，支持免费预览。预览方法见[【这里】](https://blog.quantide.cn/articles/coursea/24lectures/preview/)
+源代码自本文发布一周内，支持免费预览。预览方法见[【这里】](https://blog.quantide.cn/articles/course/24lectures/preview/)
 
 

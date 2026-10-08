@@ -1,7 +1,7 @@
 ---
 title: 因子投资 FAQ：CAPM、Alpha 到多因子的 7 个关键问题
 date: 2026-10-08
-slug: articles/coursea/factor-ml/factor-investing-faq
+slug: articles/course/factor-ml/factor-investing-faq
 tags: [课程, 因子投资, 因子分析]
 excerpt: "因子投资为什么源于 CAPM？Alpha 与因子是什么关系？规模、价值、动量因子从哪来？一文用 7 个问答讲清因子投资的起源、多因子模型发展史，以及为什么机器学习正在取代线性多因子模型。"
 ---
@@ -65,9 +65,9 @@ CAPM 只包含一个市场风险因子，无法完全解释资产回报，由此
 4. 学机器学习建模：sklearn 通用工具 → 交叉验证与调参 → XGBoost/LightGBM 策略示例；
 5. 拓展因子库：Alpha101、Ta-lib、基本面与另类因子。
 
-以上内容系统覆盖在[《因子分析与机器学习策略》课程](https://www.quantide.cn/articles/coursea/factor-ml/intro/)的第 1 章「导论」中，完整大纲见[课程大纲](https://www.quantide.cn/articles/coursea/factor-ml/syllabus/)。
+以上内容系统覆盖在[《因子分析与机器学习策略》课程](https://www.quantide.cn/articles/course/factor-ml/intro/)的第 1 章「导论」中，完整大纲见[课程大纲](https://www.quantide.cn/articles/course/factor-ml/syllabus/)。
 
 ## 延伸阅读
 
-- [因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做](https://www.quantide.cn/articles/coursea/factor-ml/factor-preprocessing-faq/)
+- [因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做](https://www.quantide.cn/articles/course/factor-ml/factor-preprocessing-faq/)
 - 马科维茨《Portfolio Selection》(1952)、夏普《Capital Asset Prices》(1964)、Ross《The Arbitrage Theory of Capital Asset Pricing》(1976)

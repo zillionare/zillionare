@@ -1,6 +1,6 @@
 ---
 title: 因子机器学习课程常见问题
-slug: articles/coursea/factor-ml/faq
+slug: articles/course/factor-ml/faq
 excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传到了荔枝微课。"
 ---
 
@@ -18,7 +18,7 @@ excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传
     课程视频会永久免费收看。专属课件服务器使用限为 6 个月，6个月后，您仍然可以在两年内登录，不过将使用共享服务器。<br><br>课件服务器仅供学习使用，不能用作云服务器。
 
 !!! abstract "哪些人适合学习这门课/前置条件？"
-    请见 [课程介绍](/articles/coursea/factor-ml/intro/) 中的先修条件。
+    请见 [课程介绍](/articles/course/factor-ml/intro/) 中的先修条件。
 
 !!! abstract "你们提供学习环境吗？"
     我们提供一个由 192CPU 核、256GB 内存构成的服务器集群为学员服务，学员通过浏览器登录后，即可在线学习和运行我们的示例代码。在该环境中，我们提供了供因子分析用的日线行情数据。其它数据，大家可以通过我们购买的高级别 Tushare 账号来获取。

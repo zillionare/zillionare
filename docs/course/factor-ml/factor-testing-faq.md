@@ -1,7 +1,7 @@
 ---
 title: 因子检验 FAQ：回归法、IC 分析与分层回溯怎么选
 date: 2026-10-08
-slug: articles/coursea/factor-ml/factor-testing-faq
+slug: articles/course/factor-ml/factor-testing-faq
 tags: [课程, 因子分析, 因子投资]
 excerpt: "因子检验的三种方法——回归法、IC 分析法、分层回溯法——分别怎么做、怎么看结果？t 值大于 2、IC 大于 0.02 意味着什么？三者有什么区别与联系？7 个问答 + 实操步骤讲清单因子检验的原理与代码流程。"
 ---
@@ -80,7 +80,7 @@ IC 为正表示因子值与未来收益正相关（如净利润增长率），�
 
 ## 延伸阅读
 
-- [因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做](https://www.quantide.cn/articles/coursea/factor-ml/factor-preprocessing-faq/)
+- [因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做](https://www.quantide.cn/articles/course/factor-ml/factor-preprocessing-faq/)
 - 《华泰单因子测试之海量技术因子》（林晓明等，2019）；方正《单因子测试之评价体系》（韩振国等，2018）
 
-以上内容系统覆盖在[《因子分析与机器学习策略》课程](https://www.quantide.cn/articles/coursea/factor-ml/intro/)的第 3 章「因子检验方法」中，完整大纲见[课程大纲](https://www.quantide.cn/articles/coursea/factor-ml/syllabus/)。
+以上内容系统覆盖在[《因子分析与机器学习策略》课程](https://www.quantide.cn/articles/course/factor-ml/intro/)的第 3 章「因子检验方法」中，完整大纲见[课程大纲](https://www.quantide.cn/articles/course/factor-ml/syllabus/)。

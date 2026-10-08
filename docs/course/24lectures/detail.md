@@ -1,6 +1,6 @@
 ---
 title: 二十四课量化课程内容详情
-slug: articles/coursea/24lectures/detail
+slug: articles/course/24lectures/detail
 date: 2024-01-04
 category: 课程
 tags: [课程]

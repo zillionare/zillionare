@@ -1,7 +1,7 @@
 ---
 title: 因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做
 date: 2026-10-08
-slug: articles/coursea/factor-ml/factor-preprocessing-faq
+slug: articles/course/factor-ml/factor-preprocessing-faq
 tags: [课程, 因子分析, 因子投资]
 excerpt: "因子数据从哪来？技术指标为什么有冷启动期？去极值的 3σ 法、Winsorize 与 MAD 法怎么选？缺失值、对数化和 z-score 标准化分别在什么场景做？行业与市值中性化怎么做？7 个问答讲清因子预处理全流程与正确顺序。"
 ---
@@ -79,7 +79,7 @@ excerpt: "因子数据从哪来？技术指标为什么有冷启动期？去极�
 
 ## 延伸阅读
 
-- [因子检验 FAQ：回归法、IC 分析与分层回溯怎么选](https://www.quantide.cn/articles/coursea/factor-ml/factor-testing-faq/)
+- [因子检验 FAQ：回归法、IC 分析与分层回溯怎么选](https://www.quantide.cn/articles/course/factor-ml/factor-testing-faq/)
 - Bryzgalova et al., *Missing Financial Data* (2022)；Ehsani, Harvey, Li, *Is Sector-neutrality in Factor Investing a Mistake?* (2022)
 
-以上内容系统覆盖在[《因子分析与机器学习策略》课程](https://www.quantide.cn/articles/coursea/factor-ml/intro/)的第 2 章「因子预处理流程」中，完整大纲见[课程大纲](https://www.quantide.cn/articles/coursea/factor-ml/syllabus/)。
+以上内容系统覆盖在[《因子分析与机器学习策略》课程](https://www.quantide.cn/articles/course/factor-ml/intro/)的第 2 章「因子预处理流程」中，完整大纲见[课程大纲](https://www.quantide.cn/articles/course/factor-ml/syllabus/)。

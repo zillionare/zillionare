@@ -1,6 +1,6 @@
 ---
 title: 二十四课量化投资课程大纲
-slug: articles/coursea/24lectures/syllabus
+slug: articles/course/24lectures/syllabus
 excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---
 

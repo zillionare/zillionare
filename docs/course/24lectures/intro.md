@@ -2,7 +2,7 @@
 hide:
     - title
 title: 二十四课量化投资课程简介
-slug: articles/coursea/24lectures/intro
+slug: articles/course/24lectures/intro
 category: 课程
 tags: [课程]
 excerpt: "本课程是量化交易的入门课程，它面向打算进入量化交易领域的学生、程序员和正在从事主观交易的机构投资者和个人投资者。"
@@ -47,7 +47,7 @@ excerpt: "本课程是量化交易的入门课程，它面向打算进入量化�
 ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-6.png)
 
 !!! tip
-    更详细的课程大纲见 [这里](articles/coursea/24lectures/intro.md)
+    更详细的课程大纲见 [这里](articles/course/24lectures/intro.md)
 
 ## 3. 量化知识体系与本课程定位
 

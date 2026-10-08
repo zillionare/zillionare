@@ -2,7 +2,7 @@
 hide:
     - title
 title: Numpy与Pandas数据处理课程简介
-slug: articles/coursea/numpy-pandas/intro
+slug: articles/course/numpy-pandas/intro
 category: 课程
 tags: [课程, 因子投资, 机器学习]
 excerpt: "正如死亡和税收不可避免，Numpy和Pandas对量化人而言，也具有同样的地位 -- 每个量化人都不可避免地要与这两个库打交道。"

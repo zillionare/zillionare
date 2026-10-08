@@ -2,7 +2,7 @@
 hide:
     - title
 title: 因子机器学习课程简介与指南
-slug: articles/coursea/factor-ml/intro
+slug: articles/course/factor-ml/intro
 category: 课程
 tags: [课程, 因子投资, 机器学习]
 description: "《因子分析与机器学习策略》课程简介：面向量化研究员与转岗者，掌握 Alphalens 因子分析框架、400+ 因子挖掘方法论、XGBoost 机器学习策略与 Pair Trading 中性策略。"
@@ -146,7 +146,7 @@ excerpt: "《因子分析与机器学习策略》简介 这门课面向的对象
 
 最后，还有两个无法归入到上面所有这些类别 -- 无论是机器学习、深度学习还是强化学习，但仍然非常重要的智能算法 -- Kalman Filter 和 Genentic Algorithm。
 
-整个课程的大纲可以在 [这里](https://blog.quantide.cn/articles/coursea/factor-ml/syllabus.html) 查阅。
+整个课程的大纲可以在 [这里](https://blog.quantide.cn/articles/course/factor-ml/syllabus.html) 查阅。
 
 ## 4. 课程编排
 
@@ -162,7 +162,7 @@ excerpt: "《因子分析与机器学习策略》简介 这门课面向的对象
 
 视频、教材和习题内容相互补充，相当于报一门课，得三门课！
 
-本课程只涵盖了量化交易中的部分知识。如果要独立从事交易或者做完量化全栈工作，建议补充学习 [《量化 24 课》](https://blog.quantide.cn/articles/coursea/24lectures/intro/)。本课程与《量化 24 课》的区别是，本课程内容更为专精，《量化 24 课》内容更广泛，涵盖更全面。
+本课程只涵盖了量化交易中的部分知识。如果要独立从事交易或者做完量化全栈工作，建议补充学习 [《量化 24 课》](https://blog.quantide.cn/articles/course/24lectures/intro/)。本课程与《量化 24 课》的区别是，本课程内容更为专精，《量化 24 课》内容更广泛，涵盖更全面。
 
 !!! tip "立即报名！"
     扫码报名，锁定最低价格！

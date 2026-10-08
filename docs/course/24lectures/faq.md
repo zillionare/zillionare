@@ -1,6 +1,6 @@
 ---
 title: "2025量化投资课程常见问题：多久能学会？学完能赚钱吗？"
-slug: articles/coursea/24lectures/faq
+slug: articles/course/24lectures/faq
 date: 2024-01-04
 category: 课程
 tags: [课程]
