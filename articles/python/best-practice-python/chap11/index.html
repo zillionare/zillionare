@@ -28,7 +28,7 @@
 <p>2008 年，PyPA 发布 pip，替换掉了 easy_install，随后将打包工具的行为标准化为 PEP 438。</p>
 <p>在 2012 年时，随着 PEP 427 的通过，一种新的打包格式，即 Wheel 格式取代了 egg 格式，成为构建和打包（二进制）Python 库的标准格式。</p>
 <p>尽管在《zen of Python》中写道，&quot;永远都应该只有一种显而易见的解决之道&quot;，但是，理想照进现实的过程总要经过曲折的投影。我们一路讲述下来，读者已经发现，Python 在虚拟环境、依赖解析和打包构建等领域都先后出现了好多个方案来解决相似的问题，出现了让人莫衷一是的“百花齐放”，如果没有经过系统的梳理，很多人会难免感到困惑，不知道哪一个方案能够通向未来，自己掌握的技术与资讯，是否已经被社区抛弃。好在 Python 社区现在已经通过一系列的 PEP 回答了标准问题，相关的工具和生态逐渐在遵循标准的基础上建立起来了，今后的这样的“百花齐放”，可能会少一些。是否遵循最新的 PEP，也正是 ppw 工具和本书选择某项技术的准则。</p>
-<p>在<code>ppw</code>中，我们的发布是在 Github Actions 中完成的。这部分我们已经在 <a href="chap09.md">持续集成</a> 那一章讲过了。万一你存在手工发布的需求，那么请回顾 [基于 Poetry 进行发行包的构建](chap05.md#基于 Poetry 进行发行包的构建)那一节。</p>
+<p>在<code>ppw</code>中，我们的发布是在 Github Actions 中完成的。这部分我们已经在 <a href="/articles/python/best-practice-python/chap09/">持续集成</a> 那一章讲过了。万一你存在手工发布的需求，那么请回顾 [基于 Poetry 进行发行包的构建](chap05.md#基于 Poetry 进行发行包的构建)那一节。</p>
 <p>这里简要地回顾一下，在 Poetry 出现之前，我们是如何发布 Python 库的，以防读者偶尔还会遇到需要维护老旧的 Python 项目的情况。在 Poetry 之前，我们需要通过 twine 这个命令来发布 Python 库。这个命令可以通过 pip 来安装：</p>
 <pre><code class="hljs language-shell"><span class="ln" aria-hidden="true"><span class="cl">1</span></span><span class="cl-body"><span class="hljs-meta prompt_">$ </span><span class="language-bash">pip install twine</span></span></code></pre>
 <p>尽管<code>ppw</code>生成的项目中，我们使用了别的技术来发布 Python 库，但这个命令也保留了下来。用在<code>poetry build</code>之后，检查构建物是否合乎 PyPI 的规定，以提前预防发布失败。</p>
@@ -175,7 +175,7 @@ This could take a while.
   Downloading cup-3.14.0-py2.py3-none-any.whl (372 kB)
      |████████████████████████████████| 372 kB 21.1 MB/s</span></code></pre>
 <p>要品一口香茗，除了好茶，你还得有热水，茶匙和杯子。在这里，<code>tea</code>依赖于<code>hot-water</code>, <code>spoon</code>和<code>cup</code>。当安装<code>tea</code>时，<code>pip</code>下载了最新的<code>spoon</code>和<code>cup</code>，发现两者不兼容，于是它不得不向前搜索兼容的版本，这个功能被称之为回溯，是从 20.3 起才有的功能。由于依赖信息不能通过查询 PyPI 得到，所以它不得不一次又一次的下载早前版本的包，从这些包中提取依赖信息，看是否与<code>spoon</code>兼容，不断重复这个过程直到找到一个兼容的版本。</p>
-<p>这个过程我们在 Poetry 进行依赖解析时也看到过。我们在 [第 5 章 poetry 依赖解析的工作原理](chap05.md#poetry 依赖解析的工作原理）中解释过，PyPI 上并没有某个库的依赖树，所以，Poetry 要知道某个库的依赖项，就必须先把它下载下来。这个说法其实只是部分正确。在读过 <a href="chap11.md#%E5%88%86%E5%8F%91%E5%8C%85%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE">分发包的元数据</a>那一节之后，我们已经知道，这些信息已经上传到了 PyPI，只是由于某些历史原因，PyPI 并没有把它们单独提取出来以供使用而已。</p>
+<p>这个过程我们在 Poetry 进行依赖解析时也看到过。我们在 [第 5 章 poetry 依赖解析的工作原理](chap05.md#poetry 依赖解析的工作原理）中解释过，PyPI 上并没有某个库的依赖树，所以，Poetry 要知道某个库的依赖项，就必须先把它下载下来。这个说法其实只是部分正确。在读过 <a href="/articles/python/best-practice-python/chap11/#%E5%88%86%E5%8F%91%E5%8C%85%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE">分发包的元数据</a>那一节之后，我们已经知道，这些信息已经上传到了 PyPI，只是由于某些历史原因，PyPI 并没有把它们单独提取出来以供使用而已。</p>
 <p>人们花了这么多功夫来解决依赖问题，看来“依赖地狱”一说，并非虚妄。</p>
 <p>问题是，既然 Poetry 在添加依赖时，已经进行过了依赖解析，又生成了 lock 文件，为何<code>pip</code>不能直接使用些信息，还要重新进行一次依赖解析呢？现在请你打开<code>sample</code>工程构建出来的 wheel 文件。我们说过，它是<code>zip</code>格式的压缩文件。打开后，其内容如下：</p>
 <pre><code class="hljs"><span class="ln" aria-hidden="true"><span class="cl">1</span><span class="cl">2</span><span class="cl">3</span><span class="cl">4</span><span class="cl">5</span><span class="cl">6</span><span class="cl">7</span><span class="cl">8</span><span class="cl">9</span><span class="cl">10</span><span class="cl">11</span></span><span class="cl-body">.
