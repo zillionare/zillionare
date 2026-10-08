@@ -1,6 +1,6 @@
 ---
 title: "Standard Python Project Layout & Automated Generation"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap04
 tags: [Python, Project Structure, Automation, CI/CD]
 excerpt: "Learn the standard Python project structure and use the Python Project Wizard to automate configuration, testing, and CI/CD workflows for reproducible, high-quality codebases."

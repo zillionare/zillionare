@@ -1,6 +1,6 @@
 ---
 title: "Dash Web Apps: Routing, Auth, and Pitfalls"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/visualize/dash
 tags: [Dash, Web Development, Routing, Authentication]
 excerpt: "Explore Dash’s core concepts, routing strategies, and authentication patterns. Learn to build scalable, multi-page Python web apps while avoiding common pitfalls in layout management and state handling."

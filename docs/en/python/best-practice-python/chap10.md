@@ -1,6 +1,6 @@
 ---
 title: "Writing Technical Docs: Sphinx vs MkDocs"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap10
 tags: [Technical Documentation, Sphinx, MkDocs, Python]
 excerpt: "A practical guide to Python technical documentation, comparing Sphinx and MkDocs workflows, formats, and deployment strategies for modern software projects."

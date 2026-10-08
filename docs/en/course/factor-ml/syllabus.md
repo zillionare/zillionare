@@ -1,6 +1,6 @@
 ---
 title: "Factor ML Course Syllabus: From Alpha Mining to Live Trading"
-date: 
+date: "2026-10-09"
 slug: en/articles/course/factor-ml/syllabus
 tags: [Factor Investing, Machine Learning, Quantitative Trading, Alphalens]
 excerpt: "A comprehensive syllabus for quantitative researchers covering factor mining, Alphalens analysis, and machine learning strategies using LightGBM and CNNs for systematic trading."

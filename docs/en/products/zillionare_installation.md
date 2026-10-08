@@ -1,6 +1,6 @@
 ---
 title: "Zillionare 2.0 Docker Setup: Deploying a Quant Research Environment"
-date: 
+date: "2026-10-09"
 slug: en/articles/products/zillionare_installation
 tags: [Docker, Quant Research, Live Trading, Data Sync]
 excerpt: "A step-by-step guide to deploying Zillionare 2.0 via Docker, covering container orchestration, data synchronization, and live trading integration."

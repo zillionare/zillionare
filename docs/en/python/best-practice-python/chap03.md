@@ -1,6 +1,6 @@
 ---
 title: "Chapter 3: Setting Up Python Virtual Environments"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap03
 tags: [Python, Virtual Environment, Anaconda, Quant Development]
 excerpt: "Learn to isolate Python dependencies using virtual environments to resolve dependency conflicts. This guide covers Anaconda, pip, and VS Code configuration for robust quantitative development workflows."

@@ -1,6 +1,6 @@
 ---
 title: "Mastering XtQuant: QMT Live Trading with Third-Party Frameworks"
-date: 
+date: "2026-10-09"
 slug: en/articles/course/qmt/intro
 tags: [XtQuant, QMT, Live Trading, Factor Investing]
 excerpt: "QMT offers a cost-effective live trading solution for China A-shares. This course details integrating XtQuant with third-party frameworks to bypass platform lock-in, enhance backtest speed, and enable advanced strategy development."

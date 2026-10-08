@@ -1,6 +1,6 @@
 ---
 title: "Chapter 2: Setting Up Your Python Quant Dev Environment"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap02
 tags: [Quant Development, Python Environment, VS Code, WSL]
 excerpt: "This chapter guides you through selecting the optimal OS, configuring WSL/Docker on Windows, and mastering VS Code extensions for efficient quantitative development."

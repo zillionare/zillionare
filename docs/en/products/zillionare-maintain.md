@@ -1,6 +1,6 @@
 ---
 title: "Zillionare 2.0 Data Sync & Maintenance Guide"
-date: 
+date: "2026-10-09"
 slug: en/articles/products/zillionare-maintain
 tags: [Data Synchronization, Backtesting, System Maintenance, Quant Infrastructure]
 excerpt: "Learn how Zillionare initializes and maintains market data. This guide explains the sync pointers, InfluxDB storage, and Redis caching for accurate backtesting."

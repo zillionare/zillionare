@@ -1,6 +1,6 @@
 ---
 title: "Why Python? The Case for Quantitative Finance"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap01
 tags: [Python, Quantitative Finance, Software Engineering, Factor Investing]
 excerpt: "Python dominates quantitative finance due to its readability, vast ecosystem, and AI integration. This article explores its history, design philosophy, and addresses common misconceptions about performance and scalability in large-scale applications."

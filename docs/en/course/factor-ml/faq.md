@@ -1,6 +1,6 @@
 ---
 title: "FAQ: Factor Machine Learning Course"
-date: 
+date: "2026-10-09"
 slug: en/articles/course/factor-ml/faq
 tags: [Factor Investing, Machine Learning, Quantitative Trading, Education]
 excerpt: "Comprehensive FAQ for the Factor Machine Learning course, covering enrollment, environment setup, prerequisites, and instructor background."

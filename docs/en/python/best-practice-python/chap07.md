@@ -1,6 +1,6 @@
 ---
 title: "Chapter 7: Python Unit Testing with Pytest and Mock"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap07
 tags: [Pytest, Unit Testing, Mocking, Code Coverage]
 excerpt: "A practical guide to unit testing in Python using pytest, covering fixtures, assertions, and advanced mocking techniques. Learn to manage test coverage with coverage.py and automate matrix testing with Tox for robust quantitative code."

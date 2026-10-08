@@ -1,6 +1,6 @@
 ---
 title: "Scaling and Normalization in Quant Strategies: Beyond ML"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/visualize/how-to-scale
 tags: [Quantitative Trading, Data Preprocessing, Signal Processing, Machine Learning]
 excerpt: "Scaling and normalization are critical in quantitative trading, not just machine learning. This article explores min-max pitfalls, non-linear mappings, and custom sigmoid functions for robust signal processing."

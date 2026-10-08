@@ -1,6 +1,6 @@
 ---
 title: "Git Version Control Best Practices for Quant Devs"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap08
 tags: [Git, Version Control, Quantitative Development, DevOps]
 excerpt: "Master Git workflows, branching strategies, and CLI tools to streamline quantitative development, ensure code integrity, and prevent catastrophic deployment errors."

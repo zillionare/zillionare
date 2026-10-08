@@ -1,6 +1,6 @@
 ---
 title: "Mastering Matplotlib Layouts: Subgridspec and Mosaic"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/visualize/matplotlib-2
 tags: [Matplotlib, Data Visualization, Python, Plotting]
 excerpt: "Learn advanced matplotlib layout techniques using subgridspec and subplot_mosaic. This guide covers top-down grid creation, semantic axis naming, and complex nested layouts for precise figure design."

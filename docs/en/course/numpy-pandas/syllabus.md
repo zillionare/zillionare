@@ -1,6 +1,6 @@
 ---
 title: "NumPy & Pandas Syllabus for Quant Data Processing"
-date: 
+date: "2026-10-09"
 slug: en/articles/course/numpy-pandas/syllabus
 tags: [Quantitative Trading, NumPy, Pandas, Data Processing]
 excerpt: "Comprehensive course outline covering NumPy and Pandas for quantitative trading, including core syntax, performance optimization, and real-world quant scenarios."

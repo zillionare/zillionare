@@ -1,6 +1,6 @@
 ---
 title: "Chapter 9: Continuous Integration & Automation with GitHub Actions"
-date: 
+date: "2026-10-09"
 slug: en/articles/python/best-practice-python/chap09
 tags: [Continuous Integration, Github Actions, Devops, Python Packaging]
 excerpt: "Learn to implement robust CI/CD pipelines using GitHub Actions. This chapter covers workflow definitions, matrix builds, and automated publishing for Python libraries, ensuring code quality and streamlined releases."
