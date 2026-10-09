@@ -1,13 +1,13 @@
 ---
 title: "Chapter 9: Continuous Integration & Automation with GitHub Actions"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap09
 tags: [Continuous Integration, Github Actions, Devops, Python Packaging]
 excerpt: "Learn to implement robust CI/CD pipelines using GitHub Actions. This chapter covers workflow definitions, matrix builds, and automated publishing for Python libraries, ensuring code quality and streamlined releases."
 lang: en
 translation_of: articles/python/best-practice-python/chap09
 auto_translated: true
-source_sha: 60bcbe1591cfc95ed89e7ed130c5e0111bb1d4ea
+source_sha: da1bc051983aaaa97fc27cb9ca8c8b170444fd5d
 ---
 
 When a team of developers collaborates on a project, conflicts seem inevitable. In Chapter 8, we introduced branching and the Gitflow workflow model to resolve code conflicts. However, merging code only achieves superficial harmony. Whether code developed by different people works together ultimately depends on testing.

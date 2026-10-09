@@ -1,13 +1,13 @@
 ---
 title: "24-Lesson Quantitative Investing: From Data to Live Trading"
-date: "2026-10-09"
+date: 2023-05-13
 slug: en/articles/course/24lectures/intro
 tags: [Quantitative Investing, Backtesting, Factor Mining, Live Trading]
 excerpt: "A comprehensive, hands-on course for quants and developers covering data pipelines, factor mining, backtesting, and live trading execution in China A-shares."
 lang: en
 translation_of: articles/course/24lectures/intro
 auto_translated: true
-source_sha: 3076e3921b18b04fc9042a7b061a842e17b34bce
+source_sha: 0596b07fb3a452cb5cd3ecc69cd57a0b48f44965
 ---
 
 ## 1. Introduction

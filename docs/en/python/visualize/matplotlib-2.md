@@ -1,13 +1,13 @@
 ---
 title: "Mastering Matplotlib Layouts: Subgridspec and Mosaic"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/visualize/matplotlib-2
 tags: [Matplotlib, Data Visualization, Python, Plotting]
 excerpt: "Learn advanced matplotlib layout techniques using subgridspec and subplot_mosaic. This guide covers top-down grid creation, semantic axis naming, and complex nested layouts for precise figure design."
 lang: en
 translation_of: articles/python/visualize/matplotlib-2
 auto_translated: true
-source_sha: 37b70e1b139d386c3545e1a77944314348b934f5
+source_sha: a005f0c84452df84e4be68356bddf97845fea3ad
 ---
 
 The previous article introduced how to use `GridSpec` for layout. When using `GridSpec`, the goal is typically to create complex layouts, such as irregular grids. In these cases, we usually generate several small grids first and then merge them using `span` to form the irregular structure.

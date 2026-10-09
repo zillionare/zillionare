@@ -1,5 +1,6 @@
 ---
 title: matplotlib的布局问题（1）
+date: 2023-12-13
 slug: articles/python/visualize/matplotlib-1
 excerpt: "这一篇笔记，我们来介绍matplotlib中的布局概念。"
 ---

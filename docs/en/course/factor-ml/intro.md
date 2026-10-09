@@ -1,13 +1,13 @@
 ---
 title: "Factor Analysis & ML Strategy: Course Guide"
-date: "2026-10-09"
+date: 2024-08-28
 slug: en/articles/course/factor-ml/intro
 tags: [Factor Investing, Machine Learning, Quantitative Research, Alphalens]
 excerpt: "A comprehensive guide to mastering factor analysis and machine learning for quantitative research. Covers Alphalens, XGBoost, and advanced strategy construction."
 lang: en
 translation_of: articles/course/factor-ml/intro
 auto_translated: true
-source_sha: 7fe8158da8455972c58990456b4db6ca2baa8e1a
+source_sha: 0c2a1a7995041627ae08639468c3aaf982ea93c5
 ---
 
 # Introduction to Factor Analysis and Machine Learning Strategies

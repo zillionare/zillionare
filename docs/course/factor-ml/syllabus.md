@@ -1,5 +1,6 @@
 ---
 title: 因子机器学习课程完整大纲
+date: 2024-08-27
 slug: articles/course/factor-ml/syllabus
 excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---

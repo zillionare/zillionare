@@ -1,13 +1,13 @@
 ---
 title: "Chapter 3: Setting Up Python Virtual Environments"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap03
 tags: [Python, Virtual Environment, Anaconda, Quant Development]
 excerpt: "Learn to isolate Python dependencies using virtual environments to resolve dependency conflicts. This guide covers Anaconda, pip, and VS Code configuration for robust quantitative development workflows."
 lang: en
 translation_of: articles/python/best-practice-python/chap03
 auto_translated: true
-source_sha: 18581563c2c5661fc1a6270b540e866348ff1741
+source_sha: e1b3b533184d814820cbb06137ba6ec335da0c8b
 ---
 
 In the previous chapter, we discussed the basic steps for building a development environment, such as selecting an operating system and an integrated development environment (IDE). Now that we are ready to start coding, we must specify the Python runtime (or interpreter) to run and debug programs. This step is particularly critical if you are using VS Code, as it is not designed exclusively for Python development and supports multiple programming languages. Therefore, you must explicitly configure the Python runtime for VS Code to recognize your project.

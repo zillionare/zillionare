@@ -1,5 +1,6 @@
 ---
 title: Dash-用Python也能做网页
+date: 2023-07-22
 slug: articles/python/visualize/dash
 excerpt: "Dash: 核心概念、路由、Auth 与 Pitfall"
 ---

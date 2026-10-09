@@ -1,13 +1,13 @@
 ---
 title: "Zillionare: Open-Source Quant Framework for Large-Scale Data"
-date: "2026-10-09"
+date: 2021-03-20
 slug: en/articles/products/index
 tags: [Quant Framework, Open Source, Backtesting, Python]
 excerpt: "Zillionare is a deployable open-source quantitative framework supporting massive data storage (3.5B+ records). It features unified backtest/live APIs, InfluxDB integration, and a modular architecture for robust quantitative investing."
 lang: en
 translation_of: articles/products/index
 auto_translated: true
-source_sha: ed32f7a85b26c925781db314b6e701454594618c
+source_sha: da45309a297ad1ca26728dd29384b525d79464f5
 ---
 
 ## Zillionare

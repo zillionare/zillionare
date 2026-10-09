@@ -1,13 +1,13 @@
 ---
 title: "Mastering Matplotlib GridSpec: Advanced Layouts and Subplots"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/visualize/matplotlib-1
 tags: [Data Visualization, Matplotlib, Python Programming, GridSpec]
 excerpt: "Learn advanced matplotlib layout techniques using GridSpec to create complex, merged-cell grids. This guide covers precise axis positioning and cross-axis drawing for professional data visualization."
 lang: en
 translation_of: articles/python/visualize/matplotlib-1
 auto_translated: true
-source_sha: a6460661bff3380e2bf4c1adb8f2d5bd036ed582
+source_sha: dd351ec7f7f63a9506773c1f4bd8a7e7c51f4857
 ---
 
 This note introduces layout concepts in Matplotlib.

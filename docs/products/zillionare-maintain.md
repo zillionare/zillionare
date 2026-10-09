@@ -1,5 +1,6 @@
 ---
 title: Zillionare 2.0维护指南
+date: 2024-02-23
 slug: articles/products/zillionare-maintain
 excerpt: "在Zillionare安装后，由于多方面的原理，数据库中的数据是不齐全的，需要经过一个维护过程。这个维护过程及其工作原理如下："
 ---

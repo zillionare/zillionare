@@ -1,13 +1,13 @@
 ---
 title: "10x Coding: AI, Type Hints, and Linting for Python"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap06
 tags: [Python, Type Hints, Linting, Code Quality]
 excerpt: "Master efficient Python development with AI assistants, strict type annotations, and automated linting. Learn to leverage tools like Copilot, Mypy, and Flake8 to write robust, maintainable code."
 lang: en
 translation_of: articles/python/best-practice-python/chap06
 auto_translated: true
-source_sha: b81c68144287e06840c320d99b2b5f41685a1f67
+source_sha: 6420dc7e7b3aa817dd93f6ce27aaa90bbff2f4cd
 ---
 
 ## 1. AI-Empowered Coding

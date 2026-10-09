@@ -1,13 +1,13 @@
 ---
 title: "Git Version Control Best Practices for Quant Devs"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap08
 tags: [Git, Version Control, Quantitative Development, DevOps]
 excerpt: "Master Git workflows, branching strategies, and CLI tools to streamline quantitative development, ensure code integrity, and prevent catastrophic deployment errors."
 lang: en
 translation_of: articles/python/best-practice-python/chap08
 auto_translated: true
-source_sha: ad601636c283b4355cb8505559557620d86d6c7a
+source_sha: e7526c203bcb99d27e87a682be70029cf7ff63d8
 ---
 
 ## 1. The Importance of Version Control

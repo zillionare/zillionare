@@ -1,13 +1,13 @@
 ---
 title: "24 Lessons in Quantitative Investing: Complete Syllabus"
-date: "2026-10-09"
+date: 2023-05-13
 slug: en/articles/course/24lectures/syllabus
 tags: [Quantitative Investing, Factor Analysis, Backtesting, Live Trading]
 excerpt: "Comprehensive syllabus for quantitative trading, covering data sources, strategy development, factor analysis, backtesting frameworks, and live trading integration for China A-shares."
 lang: en
 translation_of: articles/course/24lectures/syllabus
 auto_translated: true
-source_sha: 9cb26a5524f1bee6bfe7d574f44480c557fd6521
+source_sha: 56c33a5e675e61ef496a93fea19ed2fd970ad94a
 ---
 
 <style>

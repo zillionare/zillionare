@@ -2,6 +2,7 @@
 hide:
     - title
 title: 因子机器学习课程简介与指南
+date: 2024-08-28
 slug: articles/course/factor-ml/intro
 category: 课程
 tags: [课程, 因子投资, 机器学习]

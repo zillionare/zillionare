@@ -1,13 +1,13 @@
 ---
 title: "Standard Python Project Layout & Automated Generation"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap04
 tags: [Python, Project Structure, Automation, CI/CD]
 excerpt: "Learn the standard Python project structure and use the Python Project Wizard to automate configuration, testing, and CI/CD workflows for reproducible, high-quality codebases."
 lang: en
 translation_of: articles/python/best-practice-python/chap04
 auto_translated: true
-source_sha: e4780c5c14cd2a55425fb901b3a4db1406884b02
+source_sha: bb702f649209ee2c3f2c6ba019d6c056d954500e
 ---
 
 Having completed the first three chapters, we now understand how to set up a development environment and have written our first Python program—the classic "Hello World."

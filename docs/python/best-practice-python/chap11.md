@@ -1,5 +1,6 @@
 ---
 title: 11 打包发布应用程序
+date: 2023-12-13
 slug: articles/python/best-practice-python/chap11
 excerpt: "我们的探索之旅，就要接近 Python 开发流水线的终点了。终点站的主题是如何打包和发布应用。"
 ---

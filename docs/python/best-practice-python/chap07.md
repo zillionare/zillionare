@@ -1,5 +1,6 @@
 ---
 title: 07 代码单元测试实践
+date: 2023-12-13
 slug: articles/python/best-practice-python/chap07
 excerpt: "!!! quote Testing leads to failure. Failure leads to understanding."
 ---

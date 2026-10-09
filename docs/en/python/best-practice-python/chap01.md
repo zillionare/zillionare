@@ -1,13 +1,13 @@
 ---
 title: "Why Python? The Case for Quantitative Finance"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap01
 tags: [Python, Quantitative Finance, Software Engineering, Factor Investing]
 excerpt: "Python dominates quantitative finance due to its readability, vast ecosystem, and AI integration. This article explores its history, design philosophy, and addresses common misconceptions about performance and scalability in large-scale applications."
 lang: en
 translation_of: articles/python/best-practice-python/chap01
 auto_translated: true
-source_sha: 14402688cc86d3f762d61bb90bddec09d47c9d79
+source_sha: 85c6bc3cbe3ae74e05e3649f8019cb1228d4c428
 ---
 
 In 2020, the European Space Agency (ESA) planned to launch a Mars rover to collect rock samples for analysis, aiming to detect signs of life on the planet. Due to fuel constraints, the rover could only return 500g of Martian rocks. Consequently, only carefully selected samples could be brought back. To achieve this, scientists developed an on-site selection system requiring visual reconstruction capabilities, for which they built an artificial neural network. Whether constructing neural networks, managing multi-CPU clusters, or leveraging NVIDIA’s CUDA libraries via PyCUDA, this task relied heavily on Python.

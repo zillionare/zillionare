@@ -1,13 +1,13 @@
 ---
 title: "Packaging and Publishing Python Applications"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap11
 tags: [Python Packaging, PyPI, Docker, Desktop Apps]
 excerpt: "Covers Python library distribution via PyPI, wheel/sdist formats, and application deployment strategies including desktop, mobile, and cloud containerization with Docker."
 lang: en
 translation_of: articles/python/best-practice-python/chap11
 auto_translated: true
-source_sha: ad836a65f82a811407a0d1cef8fc5f4493c0025a
+source_sha: 8932b472c39f2e9e0a03b1178789b6265c509a8a
 ---
 
 Our exploration is nearing the end of the Python development pipeline. The final stop focuses on packaging and publishing applications.

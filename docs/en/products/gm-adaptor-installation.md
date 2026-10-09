@@ -1,13 +1,13 @@
 ---
 title: "East Money Quant Interface: Installation & Config Guide"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/products/gm-adaptor-installation
 tags: [East Money, Quant Trading, API Integration, Live Trading]
 excerpt: "Step-by-step guide to installing the East Money GM adapter, configuring accounts, and testing live trading simulations with conda and gmadaptor."
 lang: en
 translation_of: articles/products/gm-adaptor-installation
 auto_translated: true
-source_sha: bed76280daafba4b5785d4fd6d8cca027c1789b4
+source_sha: 54394abaacc701b5efe6ce4ded356f8e7d316f4e
 ---
 
 # Table of Contents

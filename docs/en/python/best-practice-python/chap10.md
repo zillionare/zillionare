@@ -1,13 +1,13 @@
 ---
 title: "Writing Technical Docs: Sphinx vs MkDocs"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap10
 tags: [Technical Documentation, Sphinx, MkDocs, Python]
 excerpt: "A practical guide to Python technical documentation, comparing Sphinx and MkDocs workflows, formats, and deployment strategies for modern software projects."
 lang: en
 translation_of: articles/python/best-practice-python/chap10
 auto_translated: true
-source_sha: 85f26fb6a7a6f3c5c3835515ce158077e9392468
+source_sha: 9f94a10c7ecfec041984e0e75416950d556f5c29
 ---
 
 Every good product should have a concise, easy-to-read user manual, with the exception of Apple. Apple users intuitively know how to use their products, so they don’t need documentation at all. This is true: almost all Apple products lack user manuals.

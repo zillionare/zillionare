@@ -1,5 +1,6 @@
 ---
 title: 为什么Q-Q图可用来进行统计推断
+date: 2023-12-13
 slug: articles/python/visualize/qq-plot
 excerpt: "假设有一个随机变量，我们想知道它是否服从某种分布，我们是否能够通过可视化的方式对它进行判定？"
 ---

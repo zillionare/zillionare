@@ -2,6 +2,7 @@
 hide:
     - title
 title: 二十四课量化投资课程简介
+date: 2023-05-13
 slug: articles/course/24lectures/intro
 category: 课程
 tags: [课程]

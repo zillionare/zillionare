@@ -1,5 +1,6 @@
 ---
 title: 01 为什么要学 Python
+date: 2023-12-13
 slug: articles/python/best-practice-python/chap01
 puppeteer:
     format: "A4"

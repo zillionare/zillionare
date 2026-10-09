@@ -1,13 +1,13 @@
 ---
 title: "Using Q-Q Plots for Statistical Inference"
-date: "2026-10-09"
+date: 2023-12-13
 slug: en/articles/python/visualize/qq-plot
 tags: [Q-Q Plot, Statistical Inference, Quantile Analysis, Python]
 excerpt: "Q-Q plots visually verify if a random variable follows a target distribution by comparing sample quantiles against theoretical ones. This guide explains the underlying principles and implementation in Python."
 lang: en
 translation_of: articles/python/visualize/qq-plot
 auto_translated: true
-source_sha: ee73665f031b34ef3a5286a23ba81a94e51d239b
+source_sha: c84fe0af160ff25c10c69544b66fba1c544f3389
 ---
 
 ## Principles
