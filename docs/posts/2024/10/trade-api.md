@@ -4,7 +4,7 @@ slug: posts/tools/trade-api
 date: 2024-10-22
 category: tools
 motto: Storms make people stronger and never last forever
-img: 
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154846-cover-posts-2024-10-trade-api.md.jpg"
 lunar:
 tags: [实盘, quantlib]
 excerpt: "Easytrader Easytrader是一个通过模拟键鼠事件，操作券商客户端来实现交易功能的交易代理。这种方式中，easytrader提供了buy, sell等交易API，策略调用这些API，easytrader把它转化成对券商交易客户端的鼠标点击事件，最终完成交易。 特点是接入不需要申请，支持的券商较多（除华泰、"
