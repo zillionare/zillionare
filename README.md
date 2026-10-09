@@ -8,6 +8,7 @@
 
 | 封面 | 标题 / 日期 / 摘要 |
 | ---- | ------------------ |
+| <a href="https://www.quantide.cn/articles/express/26/10/1009/"><img src="https://www.quantide.cn/img/logo.jpg" width="200" alt="vnpy4.5.0：回测Alpha大升级"/></a> | [vnpy4.5.0：回测Alpha大升级](https://www.quantide.cn/articles/express/26/10/1009/)<br/>2026-10-09<br/>Vnpy10月6日发布了4.5.0，上一次发布还是今年4月份。 |
 | <a href="https://www.quantide.cn/articles/express/26/10/1008/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261008031457-1008.jpg" width="200" alt="对冲基金杠杆危机与量化掘金机会"/></a> | [对冲基金杠杆危机与量化掘金机会](https://www.quantide.cn/articles/express/26/10/1008/)<br/>2026-10-08<br/>IMF警示对冲基金杠杆十年增超三倍，美债持有升至9%；Eisler亏14.3%清算，投资即压缩新解，大选次日做空年化1.86%，Point72实习揭秘。 |
 | <a href="https://www.quantide.cn/articles/course/factor-ml/factor-testing-faq/"><img src="https://www.quantide.cn/img/logo.jpg" width="200" alt="因子检验 FAQ：回归法、IC 分析与分层回溯怎么选"/></a> | [因子检验 FAQ：回归法、IC 分析与分层回溯怎么选](https://www.quantide.cn/articles/course/factor-ml/factor-testing-faq/)<br/>2026-10-08<br/>因子检验的三种方法——回归法、IC 分析法、分层回溯法——分别怎么做、怎么看结果？t 值大于 2、IC 大于 0.02 意味着什么？三者有什么区别与联系？7 个问答 + 实操步骤讲 |
 | <a href="https://www.quantide.cn/articles/course/factor-ml/factor-preprocessing-faq/"><img src="https://www.quantide.cn/img/logo.jpg" width="200" alt="因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做"/></a> | [因子预处理 FAQ：去极值、缺失值、标准化与中性化怎么做](https://www.quantide.cn/articles/course/factor-ml/factor-preprocessing-faq/)<br/>2026-10-08<br/>因子数据从哪来？技术指标为什么有冷启动期？去极值的 3σ 法、Winsorize 与 MAD 法怎么选？缺失值、对数化和 z-score 标准化分别在什么场景做？行业与市值中性化怎 |
@@ -19,7 +20,6 @@
 | <a href="https://www.quantide.cn/posts/tools/earnings-preview-with-llms/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg" width="200" alt="利好为何不涨？AI预测财报竞赛揭秘"/></a> | [利好为何不涨？AI预测财报竞赛揭秘](https://www.quantide.cn/posts/tools/earnings-preview-with-llms/)<br/>2026-10-01<br/>英伟达四连超预期股价却连跌？Optiver联手芝大发起AI预测财报行情竞赛，用R²实盘检验谁能真正破解利好不涨之谜。 |
 | <a href="https://www.quantide.cn/articles/express/26/10/1001/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065954-1001-cover.jpg" width="200" alt="Optiver 联合竞赛评估 AI 实时解读财报股价反应能力"/></a> | [Optiver 联合竞赛评估 AI 实时解读财报股价反应能力](https://www.quantide.cn/articles/express/26/10/1001/)<br/>2026-10-01<br/>AKShare v1.19.1修复上期所仓单解析、广期所增减字段映射，明确大商所反爬报错，保障期货仓单日报稳定获取，库存量化策略必看。 |
 | <a href="https://www.quantide.cn/articles/express/26/09/0930/"><img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005070004-0930-cover.jpg" width="200" alt="从工科生到WorldQuant咨询顾问，"/></a> | [从工科生到WorldQuant咨询顾问，](https://www.quantide.cn/articles/express/26/09/0930/)<br/>2026-09-30<br/>首套房贷贴息落地，全球低利率时代或终结，OpenAI新智能体上线，美债与通胀如何左右美股？回购市场微观结构全解析。 |
-| <a href="https://www.quantide.cn/articles/express/26/09/0929/"><img src="https://www.quantide.cn/img/logo.jpg" width="200" alt="每日资讯：段永平1230元加仓茅台"/></a> | [每日资讯：段永平1230元加仓茅台](https://www.quantide.cn/articles/express/26/09/0929/)<br/>2026-09-29<br/>段永平1230元加仓茅台，OpenAI Agent与Anthropic新模型同夜登场；纯代理订单簿现相变边界，Citadel、Millennium抢AI与数据人才——量化人本周必读 |
 
 ---
 
