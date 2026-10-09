@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/posts/tools/21%E5%A4%A9%E9%A9%AF%E5%8C%96AI%E6%89%93%E5%B7%A5%E4%BB%94/8_QMT%E5%AE%9E%E6%97%B6%E5%88%86%E9%92%9F%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AE%A2%E9%98%85%E7%B3%BB%E7%BB%9F/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题 | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/posts/tools/21%E5%A4%A9%E9%A9%AF%E5%8C%96AI%E6%89%93%E5%B7%A5%E4%BB%94/8_QMT%E5%AE%9E%E6%97%B6%E5%88%86%E9%92%9F%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AE%A2%E9%98%85%E7%B3%BB%E7%BB%9F/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题 | 匡醍量化"><meta property="og:description" content="当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！"><meta property="og:url" content="https://www.quantide.cn/posts/tools/21%E5%A4%A9%E9%A9%AF%E5%8C%96AI%E6%89%93%E5%B7%A5%E4%BB%94/8_QMT%E5%AE%9E%E6%97%B6%E5%88%86%E9%92%9F%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AE%A2%E9%98%85%E7%B3%BB%E7%BB%9F/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/2025/06/8_01.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/posts/tools/21%25E5%25A4%25A9%25E9%25A9%25AF%25E5%258C%2596AI%25E6%2589%2593%25E5%25B7%25A5%25E4%25BB%2594/8_QMT%25E5%25AE%259E%25E6%2597%25B6%25E5%2588%2586%25E9%2592%259F%25E7%25BA%25BF%25E6%2595%25B0%25E6%258D%25AE%25E8%25AE%25A2%25E9%2598%2585%25E7%25B3%25BB%25E7%25BB%259F/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261008b"><script>
+<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/posts/tools/21%E5%A4%A9%E9%A9%AF%E5%8C%96AI%E6%89%93%E5%B7%A5%E4%BB%94/8_QMT%E5%AE%9E%E6%97%B6%E5%88%86%E9%92%9F%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AE%A2%E9%98%85%E7%B3%BB%E7%BB%9F/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题 | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/posts/tools/21%E5%A4%A9%E9%A9%AF%E5%8C%96AI%E6%89%93%E5%B7%A5%E4%BB%94/8_QMT%E5%AE%9E%E6%97%B6%E5%88%86%E9%92%9F%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AE%A2%E9%98%85%E7%B3%BB%E7%BB%9F/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="21 天驯化 AI 打工仔: QMT 实时分笔数据订阅系统与多 Client 问题 | 匡醍量化"><meta property="og:description" content="当数据如潮水般涌来，如何让系统稳如磐石？本文带你深入 QMT 实时数据订阅的世界，见证 007 助手如何将一个简单的数据获取程序，升级为处理能力提升 10 倍的高性能系统！"><meta property="og:url" content="https://www.quantide.cn/posts/tools/21%E5%A4%A9%E9%A9%AF%E5%8C%96AI%E6%89%93%E5%B7%A5%E4%BB%94/8_QMT%E5%AE%9E%E6%97%B6%E5%88%86%E9%92%9F%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AE%A2%E9%98%85%E7%B3%BB%E7%BB%9F/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/2025/06/8_01.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/posts/tools/21%25E5%25A4%25A9%25E9%25A9%25AF%25E5%258C%2596AI%25E6%2589%2593%25E5%25B7%25A5%25E4%25BB%2594/8_QMT%25E5%25AE%259E%25E6%2597%25B6%25E5%2588%2586%25E9%2592%259F%25E7%25BA%25BF%25E6%2595%25B0%25E6%258D%25AE%25E8%25AE%25A2%25E9%2598%2585%25E7%25B3%25BB%25E7%25BB%259F/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261010a"><script>
     (function () {
       try {
         var q = new URLSearchParams(location.search).get('theme');
@@ -880,6 +880,31 @@ Mac端系统配置信息
           });
         });
       } catch (e) {}
+    })();
+  </script> <script>
+    // 首页卡片渐进 reveal：首屏 12 张，滚动触发下一批（不限总量；无 JS 时全部可见）
+    (function () {
+      var boxes = document.querySelectorAll('[data-reveal-batch]');
+      if (!boxes.length) return;
+      boxes.forEach(function (box) {
+        var batch = parseInt(box.getAttribute('data-reveal-batch'), 10) || 12;
+        var cards = box.querySelectorAll(':scope > .card');
+        if (cards.length <= batch) return;
+        for (var i = batch; i < cards.length; i++) cards[i].style.display = 'none';
+        var shown = batch;
+        var sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.height = '1px';
+        box.parentNode.insertBefore(sentinel, box.nextSibling);
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          var next = Math.min(shown + batch, cards.length);
+          for (var j = shown; j < next; j++) cards[j].style.display = '';
+          shown = next;
+          if (shown >= cards.length) { io.disconnect(); sentinel.remove(); }
+        }, { rootMargin: '800px' });
+        io.observe(sentinel);
+      });
     })();
   </script> <script>
     // 移动端抽屉导航（≤1024px）：栏目/主题/文档目录收进抽屉；桌面 >1024 时目录归位为侧栏

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/posts/tools/2026%E5%8D%81%E5%A4%A7%E9%87%8F%E5%8C%96%E6%8A%80%E6%9C%AF/uv-pydantic/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>UV &amp; Pydantic：重塑 2026 Python 工程化基石 | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/posts/tools/2026%E5%8D%81%E5%A4%A7%E9%87%8F%E5%8C%96%E6%8A%80%E6%9C%AF/uv-pydantic/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="UV &#38; Pydantic：重塑 2026 Python 工程化基石 | 匡醍量化"><meta property="og:description" content="本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。"><meta property="og:url" content="https://www.quantide.cn/posts/tools/2026%E5%8D%81%E5%A4%A7%E9%87%8F%E5%8C%96%E6%8A%80%E6%9C%AF/uv-pydantic/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/posts/tools/2026%25E5%258D%2581%25E5%25A4%25A7%25E9%2587%258F%25E5%258C%2596%25E6%258A%2580%25E6%259C%25AF/uv-pydantic/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261008b"><script>
+<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/posts/tools/2026%E5%8D%81%E5%A4%A7%E9%87%8F%E5%8C%96%E6%8A%80%E6%9C%AF/uv-pydantic/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>UV &amp; Pydantic：重塑 2026 Python 工程化基石 | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/posts/tools/2026%E5%8D%81%E5%A4%A7%E9%87%8F%E5%8C%96%E6%8A%80%E6%9C%AF/uv-pydantic/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="UV &#38; Pydantic：重塑 2026 Python 工程化基石 | 匡醍量化"><meta property="og:description" content="本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。"><meta property="og:url" content="https://www.quantide.cn/posts/tools/2026%E5%8D%81%E5%A4%A7%E9%87%8F%E5%8C%96%E6%8A%80%E6%9C%AF/uv-pydantic/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/posts/tools/2026%25E5%258D%2581%25E5%25A4%25A7%25E9%2587%258F%25E5%258C%2596%25E6%258A%2580%25E6%259C%25AF/uv-pydantic/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261010a"><script>
     (function () {
       try {
         var q = new URLSearchParams(location.search).get('theme');
@@ -334,6 +334,31 @@ xt_order = XtOrderType(**order_dict) <span class="hljs-comment"># ⑥</span></sp
           });
         });
       } catch (e) {}
+    })();
+  </script> <script>
+    // 首页卡片渐进 reveal：首屏 12 张，滚动触发下一批（不限总量；无 JS 时全部可见）
+    (function () {
+      var boxes = document.querySelectorAll('[data-reveal-batch]');
+      if (!boxes.length) return;
+      boxes.forEach(function (box) {
+        var batch = parseInt(box.getAttribute('data-reveal-batch'), 10) || 12;
+        var cards = box.querySelectorAll(':scope > .card');
+        if (cards.length <= batch) return;
+        for (var i = batch; i < cards.length; i++) cards[i].style.display = 'none';
+        var shown = batch;
+        var sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.height = '1px';
+        box.parentNode.insertBefore(sentinel, box.nextSibling);
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          var next = Math.min(shown + batch, cards.length);
+          for (var j = shown; j < next; j++) cards[j].style.display = '';
+          shown = next;
+          if (shown >= cards.length) { io.disconnect(); sentinel.remove(); }
+        }, { rootMargin: '800px' });
+        io.observe(sentinel);
+      });
     })();
   </script> <script>
     // 移动端抽屉导航（≤1024px）：栏目/主题/文档目录收进抽屉；桌面 >1024 时目录归位为侧栏

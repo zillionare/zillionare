@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" data-theme="material" data-alt-en data-alt-zh="/posts/factor-strategy/%E8%B7%9F%E7%9D%80%E5%9B%BD%E4%BC%9A%E5%B1%B1%E8%82%A1%E7%A5%9E%E5%8E%BB%E7%82%92%E8%82%A1/"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Analyzing public congressional trading records reveals consistent alpha generation. This article explores the data sources, tools, and quantitative implications"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>Political Alpha: Quantifying Congressional Trading Patterns | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/en/posts/factor-strategy/%E8%B7%9F%E7%9D%80%E5%9B%BD%E4%BC%9A%E5%B1%B1%E8%82%A1%E7%A5%9E%E5%8E%BB%E7%82%92%E8%82%A1/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="Political Alpha: Quantifying Congressional Trading Patterns | 匡醍量化"><meta property="og:description" content="Analyzing public congressional trading records reveals consistent alpha generation. This article explores the data sources, tools, and quantitative implications"><meta property="og:url" content="https://www.quantide.cn/en/posts/factor-strategy/%E8%B7%9F%E7%9D%80%E5%9B%BD%E4%BC%9A%E5%B1%B1%E8%82%A1%E7%A5%9E%E5%8E%BB%E7%82%92%E8%82%A1/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.quantide.cn/posts/factor-strategy/%25E8%25B7%259F%25E7%259D%2580%25E5%259B%25BD%25E4%25BC%259A%25E5%25B1%25B1%25E8%2582%25A1%25E7%25A5%259E%25E5%258E%25BB%25E7%2582%2592%25E8%2582%25A1/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261008b"><script>
+<!DOCTYPE html><html lang="en" data-theme="material" data-alt-en data-alt-zh="/posts/factor-strategy/%E8%B7%9F%E7%9D%80%E5%9B%BD%E4%BC%9A%E5%B1%B1%E8%82%A1%E7%A5%9E%E5%8E%BB%E7%82%92%E8%82%A1/"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Analyzing public congressional trading records reveals consistent alpha generation. This article explores the data sources, tools, and quantitative implications"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>Political Alpha: Quantifying Congressional Trading Patterns | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/en/posts/factor-strategy/%E8%B7%9F%E7%9D%80%E5%9B%BD%E4%BC%9A%E5%B1%B1%E8%82%A1%E7%A5%9E%E5%8E%BB%E7%82%92%E8%82%A1/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="Political Alpha: Quantifying Congressional Trading Patterns | 匡醍量化"><meta property="og:description" content="Analyzing public congressional trading records reveals consistent alpha generation. This article explores the data sources, tools, and quantitative implications"><meta property="og:url" content="https://www.quantide.cn/en/posts/factor-strategy/%E8%B7%9F%E7%9D%80%E5%9B%BD%E4%BC%9A%E5%B1%B1%E8%82%A1%E7%A5%9E%E5%8E%BB%E7%82%92%E8%82%A1/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.quantide.cn/posts/factor-strategy/%25E8%25B7%259F%25E7%259D%2580%25E5%259B%25BD%25E4%25BC%259A%25E5%25B1%25B1%25E8%2582%25A1%25E7%25A5%259E%25E5%258E%25BB%25E7%2582%2592%25E8%2582%25A1/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261010a"><script>
     (function () {
       try {
         var q = new URLSearchParams(location.search).get('theme');
@@ -166,6 +166,31 @@
           });
         });
       } catch (e) {}
+    })();
+  </script> <script>
+    // 首页卡片渐进 reveal：首屏 12 张，滚动触发下一批（不限总量；无 JS 时全部可见）
+    (function () {
+      var boxes = document.querySelectorAll('[data-reveal-batch]');
+      if (!boxes.length) return;
+      boxes.forEach(function (box) {
+        var batch = parseInt(box.getAttribute('data-reveal-batch'), 10) || 12;
+        var cards = box.querySelectorAll(':scope > .card');
+        if (cards.length <= batch) return;
+        for (var i = batch; i < cards.length; i++) cards[i].style.display = 'none';
+        var shown = batch;
+        var sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.height = '1px';
+        box.parentNode.insertBefore(sentinel, box.nextSibling);
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          var next = Math.min(shown + batch, cards.length);
+          for (var j = shown; j < next; j++) cards[j].style.display = '';
+          shown = next;
+          if (shown >= cards.length) { io.disconnect(); sentinel.remove(); }
+        }, { rootMargin: '800px' });
+        io.observe(sentinel);
+      });
     })();
   </script> <script>
     // 移动端抽屉导航（≤1024px）：栏目/主题/文档目录收进抽屉；桌面 >1024 时目录归位为侧栏

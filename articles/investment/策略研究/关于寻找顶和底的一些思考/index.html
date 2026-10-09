@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法："><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>关于寻找顶和底的一些研究 | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="关于寻找顶和底的一些研究 | 匡醍量化"><meta property="og:description" content="scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法："><meta property="og:url" content="https://www.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/202110/20211030231630.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/articles/investment/%25E7%25AD%2596%25E7%2595%25A5%25E7%25A0%2594%25E7%25A9%25B6/%25E5%2585%25B3%25E4%25BA%258E%25E5%25AF%25BB%25E6%2589%25BE%25E9%25A1%25B6%25E5%2592%258C%25E5%25BA%2595%25E7%259A%2584%25E4%25B8%2580%25E4%25BA%259B%25E6%2580%259D%25E8%2580%2583/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261008b"><script>
+<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法："><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>关于寻找顶和底的一些研究 | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="关于寻找顶和底的一些研究 | 匡醍量化"><meta property="og:description" content="scipy当中有一些信号处理函数，可以用来发现顶和底，比如argrelextrema。 比函数名上看，这是一个寻找相对极值点坐标的函数。我们来看一下它的用法："><meta property="og:url" content="https://www.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/%E5%85%B3%E4%BA%8E%E5%AF%BB%E6%89%BE%E9%A1%B6%E5%92%8C%E5%BA%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/202110/20211030231630.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/articles/investment/%25E7%25AD%2596%25E7%2595%25A5%25E7%25A0%2594%25E7%25A9%25B6/%25E5%2585%25B3%25E4%25BA%258E%25E5%25AF%25BB%25E6%2589%25BE%25E9%25A1%25B6%25E5%2592%258C%25E5%25BA%2595%25E7%259A%2584%25E4%25B8%2580%25E4%25BA%259B%25E6%2580%259D%25E8%2580%2583/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261010a"><script>
     (function () {
       try {
         var q = new URLSearchParams(location.search).get('theme');
@@ -227,6 +227,31 @@
           });
         });
       } catch (e) {}
+    })();
+  </script> <script>
+    // 首页卡片渐进 reveal：首屏 12 张，滚动触发下一批（不限总量；无 JS 时全部可见）
+    (function () {
+      var boxes = document.querySelectorAll('[data-reveal-batch]');
+      if (!boxes.length) return;
+      boxes.forEach(function (box) {
+        var batch = parseInt(box.getAttribute('data-reveal-batch'), 10) || 12;
+        var cards = box.querySelectorAll(':scope > .card');
+        if (cards.length <= batch) return;
+        for (var i = batch; i < cards.length; i++) cards[i].style.display = 'none';
+        var shown = batch;
+        var sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.height = '1px';
+        box.parentNode.insertBefore(sentinel, box.nextSibling);
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          var next = Math.min(shown + batch, cards.length);
+          for (var j = shown; j < next; j++) cards[j].style.display = '';
+          shown = next;
+          if (shown >= cards.length) { io.disconnect(); sentinel.remove(); }
+        }, { rootMargin: '800px' });
+        io.observe(sentinel);
+      });
     })();
   </script> <script>
     // 移动端抽屉导航（≤1024px）：栏目/主题/文档目录收进抽屉；桌面 >1024 时目录归位为侧栏

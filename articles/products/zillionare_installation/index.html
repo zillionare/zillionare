@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/articles/products/zillionare_installation/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，自带约 1.3G 两年日线和 30 分钟数据。启动后通过 8888 端口访问，默认密码 1234 可改；文末还说明东财实盘接入与 gm-ad"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？ | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/articles/products/zillionare_installation/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？ | 匡醍量化"><meta property="og:description" content="Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，自带约 1.3G 两年日线和 30 分钟数据。启动后通过 8888 端口访问，默认密码 1234 可改；文末还说明东财实盘接入与 gm-ad"><meta property="og:url" content="https://www.quantide.cn/articles/products/zillionare_installation/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/2023/12/lab.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/articles/products/zillionare_installation/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261008b"><script>
+<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/articles/products/zillionare_installation/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，自带约 1.3G 两年日线和 30 分钟数据。启动后通过 8888 端口访问，默认密码 1234 可改；文末还说明东财实盘接入与 gm-ad"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？ | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/articles/products/zillionare_installation/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="Zillionare 2.0大富翁安装指南：如何用Docker完整部署量化研究环境并避坑？ | 匡醍量化"><meta property="og:description" content="Zillionare 2.0（大富翁）安装指南：本文介绍如何用 Docker 集群快速部署完整量化研究环境，包含 Omega、InfluxDB、回测、Redis 与 Lab 容器，自带约 1.3G 两年日线和 30 分钟数据。启动后通过 8888 端口访问，默认密码 1234 可改；文末还说明东财实盘接入与 gm-ad"><meta property="og:url" content="https://www.quantide.cn/articles/products/zillionare_installation/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/2023/12/lab.png"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/articles/products/zillionare_installation/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261010a"><script>
     (function () {
       try {
         var q = new URLSearchParams(location.search).get('theme');
@@ -316,6 +316,31 @@ zillionare-omega的日志在/data/zillionare/omega/logs（宿主机）目录下�
           });
         });
       } catch (e) {}
+    })();
+  </script> <script>
+    // 首页卡片渐进 reveal：首屏 12 张，滚动触发下一批（不限总量；无 JS 时全部可见）
+    (function () {
+      var boxes = document.querySelectorAll('[data-reveal-batch]');
+      if (!boxes.length) return;
+      boxes.forEach(function (box) {
+        var batch = parseInt(box.getAttribute('data-reveal-batch'), 10) || 12;
+        var cards = box.querySelectorAll(':scope > .card');
+        if (cards.length <= batch) return;
+        for (var i = batch; i < cards.length; i++) cards[i].style.display = 'none';
+        var shown = batch;
+        var sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.height = '1px';
+        box.parentNode.insertBefore(sentinel, box.nextSibling);
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          var next = Math.min(shown + batch, cards.length);
+          for (var j = shown; j < next; j++) cards[j].style.display = '';
+          shown = next;
+          if (shown >= cards.length) { io.disconnect(); sentinel.remove(); }
+        }, { rootMargin: '800px' });
+        io.observe(sentinel);
+      });
     })();
   </script> <script>
     // 移动端抽屉导航（≤1024px）：栏目/主题/文档目录收进抽屉；桌面 >1024 时目录归位为侧栏

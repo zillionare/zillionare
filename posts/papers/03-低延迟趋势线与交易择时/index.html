@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/posts/papers/03-%E4%BD%8E%E5%BB%B6%E8%BF%9F%E8%B6%8B%E5%8A%BF%E7%BA%BF%E4%B8%8E%E4%BA%A4%E6%98%93%E6%8B%A9%E6%97%B6/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="传统移动平均线（MA）是技术分析中常用的趋势跟踪指标，通过对股票价格或指数在一定天数内的平均值进行计算，以刻画其变动方向。MA 的计算天数越多，其平滑性越好，但随之而来的时滞（延迟）影响也越严重。这意味着 MA 指标在跟踪趋势时容易出现“跟不紧”甚至“跟不上”的情况，平滑性和延迟性成为其不可避免的矛盾。"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？ | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/posts/papers/03-%E4%BD%8E%E5%BB%B6%E8%BF%9F%E8%B6%8B%E5%8A%BF%E7%BA%BF%E4%B8%8E%E4%BA%A4%E6%98%93%E6%8B%A9%E6%97%B6/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？ | 匡醍量化"><meta property="og:description" content="传统移动平均线（MA）是技术分析中常用的趋势跟踪指标，通过对股票价格或指数在一定天数内的平均值进行计算，以刻画其变动方向。MA 的计算天数越多，其平滑性越好，但随之而来的时滞（延迟）影响也越严重。这意味着 MA 指标在跟踪趋势时容易出现“跟不紧”甚至“跟不上”的情况，平滑性和延迟性成为其不可避免的矛盾。"><meta property="og:url" content="https://www.quantide.cn/posts/papers/03-%E4%BD%8E%E5%BB%B6%E8%BF%9F%E8%B6%8B%E5%8A%BF%E7%BA%BF%E4%B8%8E%E4%BA%A4%E6%98%93%E6%8B%A9%E6%97%B6/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/2025/07/neom-tSwRu3Jh0EM-unsplash.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/posts/papers/03-%25E4%25BD%258E%25E5%25BB%25B6%25E8%25BF%259F%25E8%25B6%258B%25E5%258A%25BF%25E7%25BA%25BF%25E4%25B8%258E%25E4%25BA%25A4%25E6%2598%2593%25E6%258B%25A9%25E6%2597%25B6/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261008b"><script>
+<!DOCTYPE html><html lang="zh-CN" data-theme="material" data-alt-en="/en/posts/papers/03-%E4%BD%8E%E5%BB%B6%E8%BF%9F%E8%B6%8B%E5%8A%BF%E7%BA%BF%E4%B8%8E%E4%BA%A4%E6%98%93%E6%8B%A9%E6%97%B6/" data-alt-zh> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="传统移动平均线（MA）是技术分析中常用的趋势跟踪指标，通过对股票价格或指数在一定天数内的平均值进行计算，以刻画其变动方向。MA 的计算天数越多，其平滑性越好，但随之而来的时滞（延迟）影响也越严重。这意味着 MA 指标在跟踪趋势时容易出现“跟不紧”甚至“跟不上”的情况，平滑性和延迟性成为其不可避免的矛盾。"><link rel="icon" href="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/quantide-alpha-yellow.jpg"><title>『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？ | 匡醍量化</title><link rel="canonical" href="https://www.quantide.cn/posts/papers/03-%E4%BD%8E%E5%BB%B6%E8%BF%9F%E8%B6%8B%E5%8A%BF%E7%BA%BF%E4%B8%8E%E4%BA%A4%E6%98%93%E6%8B%A9%E6%97%B6/"><meta property="og:site_name" content="匡醍量化|大富翁量化"><meta property="og:type" content="website"><meta property="og:title" content="『译研报03』Z变换改造均线，一个12年前的策略为何仍能跑赢大盘？ | 匡醍量化"><meta property="og:description" content="传统移动平均线（MA）是技术分析中常用的趋势跟踪指标，通过对股票价格或指数在一定天数内的平均值进行计算，以刻画其变动方向。MA 的计算天数越多，其平滑性越好，但随之而来的时滞（延迟）影响也越严重。这意味着 MA 指标在跟踪趋势时容易出现“跟不紧”甚至“跟不上”的情况，平滑性和延迟性成为其不可避免的矛盾。"><meta property="og:url" content="https://www.quantide.cn/posts/papers/03-%E4%BD%8E%E5%BB%B6%E8%BF%9F%E8%B6%8B%E5%8A%BF%E7%BA%BF%E4%B8%8E%E4%BA%A4%E6%98%93%E6%8B%A9%E6%97%B6/"><meta property="og:image" content="https://www.quantide.cn/gh/zillionare/images@main/images/2025/07/neom-tSwRu3Jh0EM-unsplash.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="en" href="https://www.quantide.cn/en/posts/papers/03-%25E4%25BD%258E%25E5%25BB%25B6%25E8%25BF%259F%25E8%25B6%258B%25E5%258A%25BF%25E7%25BA%25BF%25E4%25B8%258E%25E4%25BA%25A4%25E6%2598%2593%25E6%258B%25A9%25E6%2597%25B6/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","publisher":{"@id":"https://www.quantide.cn/#organization"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.quantide.cn/#organization","name":"匡醍量化|大富翁量化","alternateName":"Quantide","url":"https://www.quantide.cn","logo":{"@type":"ImageObject","url":"https://www.quantide.cn/img/logo.jpg"},"sameAs":["https://www.zhihu.com/people/hbaaron","https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c","https://github.com/zillionare"]}</script><link rel="alternate" type="application/rss+xml" title="匡醍量化|大富翁量化" href="https://www.quantide.cn/rss.xml"><link rel="stylesheet" href="/blog.css?v=20261010a"><script>
     (function () {
       try {
         var q = new URLSearchParams(location.search).get('theme');
@@ -451,6 +451,31 @@ backtest_llt(start, end, d = <span class="hljs-number">10</span>)</span></code><
           });
         });
       } catch (e) {}
+    })();
+  </script> <script>
+    // 首页卡片渐进 reveal：首屏 12 张，滚动触发下一批（不限总量；无 JS 时全部可见）
+    (function () {
+      var boxes = document.querySelectorAll('[data-reveal-batch]');
+      if (!boxes.length) return;
+      boxes.forEach(function (box) {
+        var batch = parseInt(box.getAttribute('data-reveal-batch'), 10) || 12;
+        var cards = box.querySelectorAll(':scope > .card');
+        if (cards.length <= batch) return;
+        for (var i = batch; i < cards.length; i++) cards[i].style.display = 'none';
+        var shown = batch;
+        var sentinel = document.createElement('div');
+        sentinel.setAttribute('aria-hidden', 'true');
+        sentinel.style.height = '1px';
+        box.parentNode.insertBefore(sentinel, box.nextSibling);
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries.some(function (e) { return e.isIntersecting; })) return;
+          var next = Math.min(shown + batch, cards.length);
+          for (var j = shown; j < next; j++) cards[j].style.display = '';
+          shown = next;
+          if (shown >= cards.length) { io.disconnect(); sentinel.remove(); }
+        }, { rootMargin: '800px' });
+        io.observe(sentinel);
+      });
     })();
   </script> <script>
     // 移动端抽屉导航（≤1024px）：栏目/主题/文档目录收进抽屉；桌面 >1024 时目录归位为侧栏

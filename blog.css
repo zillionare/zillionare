@@ -174,16 +174,17 @@ body {
 .foot-follow-links a:hover { text-decoration: underline; }
 .foot-logo img { width: 40px; height: 40px; border-radius: 8px; display: block; }
 
-/* ---- 首页卡片（瀑布流，原站 card-columns 还原） ---- */
+/* ---- 首页卡片（网格行优先：按时间顺序从左到右、从上到下） ---- */
 .cards-wrap { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1.25rem; }
 .cards-wrap h1 { font-size: 1.4rem; margin: 0 0 0.25rem; }
 .cards-wrap .sub { color: var(--muted); margin: 0 0 1.25rem; }
-.card-columns { column-gap: 1.25rem; }
-@media (min-width: 768px) { .card-columns { column-count: 2; } }
-@media (min-width: 1200px) { .card-columns { column-count: 3; } }
+.card-columns { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+@media (min-width: 768px) { .card-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .card-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .card {
-  break-inside: avoid;
-  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
