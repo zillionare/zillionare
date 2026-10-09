@@ -1,6 +1,7 @@
 ---
 title: 因子检验 FAQ：回归法、IC 分析与分层回溯怎么选
 date: 2026-10-08
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145624-cover-articles-course-factor-ml-factor-testing-faq.jpg"
 slug: articles/course/factor-ml/factor-testing-faq
 tags: [课程, 因子分析, 因子投资]
 excerpt: "因子检验的三种方法——回归法、IC 分析法、分层回溯法——分别怎么做、怎么看结果？t 值大于 2、IC 大于 0.02 意味着什么？三者有什么区别与联系？7 个问答 + 实操步骤讲清单因子检验的原理与代码流程。"

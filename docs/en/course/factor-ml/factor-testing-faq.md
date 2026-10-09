@@ -1,13 +1,14 @@
 ---
 title: "Factor Testing FAQ: Regression, IC, and Layered Backtests"
 date: 2026-10-08
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145624-cover-articles-course-factor-ml-factor-testing-faq.jpg"
 slug: en/articles/course/factor-ml/factor-testing-faq
 tags: [Factor Testing, Factor Analysis, Backtesting, Quantitative Investing]
 excerpt: "Compare regression, IC analysis, and layered backtests for single-factor testing. Learn thresholds for t-values and IC, and how to validate factor predictive power."
 lang: en
 translation_of: articles/course/factor-ml/factor-testing-faq
 auto_translated: true
-source_sha: 83ba74cd8a30ca426b5227de339e08ac98243137
+source_sha: 9970b5f0ef4966f5af896965d5a78c2200ecaffc
 ---
 
 Single-factor testing answers one core question: Does a factor have predictive power for future returns? There are three common methods: regression, IC analysis, and layered backtesting. This article extracts seven key questions from Chapter 3, "Factor Testing Methods," of *Factor Analysis and Machine Learning Strategies*.

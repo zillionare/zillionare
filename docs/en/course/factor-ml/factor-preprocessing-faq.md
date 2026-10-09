@@ -1,13 +1,14 @@
 ---
 title: "Factor Preprocessing FAQ: Outliers, Missing Values, Standardization, Neutralization"
 date: 2026-10-08
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145604-cover-articles-course-factor-ml-factor-preprocessing-faq.jpg"
 slug: en/articles/course/factor-ml/factor-preprocessing-faq
 tags: [Factor Investing, Factor Testing, Preprocessing, Neutralization]
 excerpt: "Learn the correct order for factor preprocessing: outlier clipping, missing value handling, distribution adjustment, standardization, and sector/market-cap neutralization."
 lang: en
 translation_of: articles/course/factor-ml/factor-preprocessing-faq
 auto_translated: true
-source_sha: 47cec8bdd46f833d5d053d09d15d9576870ce752
+source_sha: 740b9bf22035076c392980ee376d8a976c21e46b
 ---
 
 The quality of **factor testing** hinges on preprocessing. This article distills seven critical questions from Chapter 2, "Factor Preprocessing Workflow," of *Factor Analysis and Machine Learning Strategies*, covering data sourcing, generation, and the principles and practicalities of outlier clipping, missing value handling, distribution adjustment, standardization, and neutralization.

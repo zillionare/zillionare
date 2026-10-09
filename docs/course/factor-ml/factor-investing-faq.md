@@ -1,6 +1,7 @@
 ---
 title: 因子投资 FAQ：CAPM、Alpha 到多因子的 7 个关键问题
 date: 2026-10-08
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145545-cover-articles-course-factor-ml-factor-investing-faq.jpg"
 slug: articles/course/factor-ml/factor-investing-faq
 tags: [课程, 因子投资, 因子分析]
 excerpt: "因子投资为什么源于 CAPM？Alpha 与因子是什么关系？规模、价值、动量因子从哪来？一文用 7 个问答讲清因子投资的起源、多因子模型发展史，以及为什么机器学习正在取代线性多因子模型。"

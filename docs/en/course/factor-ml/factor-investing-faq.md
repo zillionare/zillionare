@@ -1,13 +1,14 @@
 ---
 title: "Factor Investing FAQ: From CAPM to Multi-Factor Models"
 date: 2026-10-08
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145545-cover-articles-course-factor-ml-factor-investing-faq.jpg"
 slug: en/articles/course/factor-ml/factor-investing-faq
 tags: [Factor Investing, Multi-Factor Models, Machine Learning, Quantitative Trading]
 excerpt: "Explore 7 key questions on factor investing origins, CAPM, Alpha, and multi-factor evolution. Understand why machine learning is replacing linear models in quantitative trading."
 lang: en
 translation_of: articles/course/factor-ml/factor-investing-faq
 auto_translated: true
-source_sha: 4d2d70332b4257bdb43cf4554c99089cca382171
+source_sha: 1fc19f9c516b12b369ed6f2a064495826d7aaebd
 ---
 
 Factor investing posits that asset returns can be decomposed into quantifiable, company-specific factors. By identifying effective factors and combining them appropriately, investors can construct robust investment strategies. This article distills seven of the most frequently asked questions from Chapter 1 ("Introduction") of *Factor Analysis and Machine Learning Strategies*.
