@@ -1,13 +1,14 @@
 ---
 title: "Mastering XtQuant: QMT Live Trading with Third-Party Frameworks"
 date: 2024-01-10
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154252-cover-course-qmt-intro.md.jpg"
 slug: en/articles/course/qmt/intro
 tags: [XtQuant, QMT, Live Trading, Factor Investing]
 excerpt: "QMT offers a cost-effective live trading solution for China A-shares. This course details integrating XtQuant with third-party frameworks to bypass platform lock-in, enhance backtest speed, and enable advanced strategy development."
 lang: en
 translation_of: articles/course/qmt/intro
 auto_translated: true
-source_sha: d5f9be0782da6d121dfa5b9969352674cb51bbbd
+source_sha: ed3f07ef46c1464b847c5d45309ffdf9cd5dce67
 ---
 
 QMT is a quantitative trading software developed by Xuntou. As an institution-side procurement solution, it provides direct interfaces for live quantitative trading. Currently, approximately 50 brokerages have customized and procured QMT. The threshold for activating quantitative permissions varies from tens of thousands to hundreds of thousands of RMB. Beyond securing favorable commission rates (as low as 1/10,000, or even zero commissions), activating these permissions grants free access to historical and real-time market data, making it one of the most cost-effective solutions for live trading integration today.

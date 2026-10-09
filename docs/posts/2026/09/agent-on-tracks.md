@@ -2,6 +2,7 @@
 slug: posts/tools/agent-on-tracks
 title: Vibe Coding 能做大项目吗？量化人替你试过了
 date: 2026-09-07
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154129-cover-posts-2026-09-agent-on-tracks.md.jpg"
 description: Vibe Coding 能做大项目吗？通过几个数万行代码的项目，发现了 vibe coding 的难以克服的问题。编程领域的 Lean 框架，正呼之欲出。
 categories: basic
 tags: [Agent, vibe coding, AI, coding]

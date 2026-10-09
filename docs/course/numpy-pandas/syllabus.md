@@ -1,6 +1,7 @@
 ---
 title: Numpy与Pandas数据处理课程大纲
 date: 2024-08-27
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154236-cover-course-numpy-pandas-syllabus.md.jpg"
 slug: articles/course/numpy-pandas/syllabus
 excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---

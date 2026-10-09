@@ -1,13 +1,14 @@
 ---
 title: "Build a 10x Faster QMT Real-Time Data System with Multi-Client Support"
 date: 2025-06-15
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154448-cover-posts-2025-06-8_QMT实时分钟线数据订阅系统.md.jpg"
 slug: en/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统
 tags: [Quantitative Trading, Real-Time Data, QMT, System Architecture]
 excerpt: "Transform a fragile prototype into a high-performance, 10x faster real-time minute-bar data subscription system using QMT’s whole-market API and Redis Streams for robust multi-client consumption."
 lang: en
 translation_of: posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统
 auto_translated: true
-source_sha: 5319385fd03b2ed214410e40c5c1a3337a9feb02
+source_sha: 456889bc2b8de2efb8faee287136939c02ea9975
 ---
 
 > When data floods in like a tide, how do you keep your system rock-solid? This article takes you deep into the world of QMT real-time data subscriptions, witnessing how the "007 Assistant" upgrades a simple data-fetching script into a high-performance system with 10x processing capacity!
@@ -45,7 +46,6 @@ After deep thinking, we outlined the following key requirements:
     - **Network environment**: Requires cross-network data transmission.
     - **Storage needs**: Efficient storage and querying of massive time-series data.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_01.png)
 
 "These requirements seem challenging, especially the cross-platform real-time data transmission." I said to 007.
 

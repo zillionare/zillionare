@@ -3,6 +3,7 @@ hide:
     - title
 title: Numpy与Pandas数据处理课程简介
 date: 2024-04-24
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154221-cover-course-numpy-pandas-intro.md.jpg"
 slug: articles/course/numpy-pandas/intro
 category: 课程
 tags: [课程, 因子投资, 机器学习]

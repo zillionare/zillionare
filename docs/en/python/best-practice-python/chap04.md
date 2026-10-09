@@ -1,13 +1,14 @@
 ---
 title: "Standard Python Project Layout & Automated Generation"
 date: 2023-12-13
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154503-cover-python-best-practice-python-chap04.md.jpg"
 slug: en/articles/python/best-practice-python/chap04
 tags: [Python, Project Structure, Automation, CI/CD]
 excerpt: "Learn the standard Python project structure and use the Python Project Wizard to automate configuration, testing, and CI/CD workflows for reproducible, high-quality codebases."
 lang: en
 translation_of: articles/python/best-practice-python/chap04
 auto_translated: true
-source_sha: bb702f649209ee2c3f2c6ba019d6c056d954500e
+source_sha: 3bc4a3f9355a46fc6ffcc3e63ff41496096c1e3b
 ---
 
 Having completed the first three chapters, we now understand how to set up a development environment and have written our first Python program—the classic "Hello World."
@@ -220,7 +221,6 @@ Now, we can use `ppw` to create a project.
 ppw
 ```
 Here, it will prompt you to enter some information.
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224180300.png)
 
 Note that `project_slug` is the name of the GitHub repo and is also the name of your library by default. This name cannot contain spaces or "-".
 

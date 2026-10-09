@@ -1,6 +1,7 @@
 ---
 title: 二十四课量化投资课程大纲
 date: 2023-05-13
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154146-cover-course-24lectures-syllabus.md.jpg"
 slug: articles/course/24lectures/syllabus
 excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---

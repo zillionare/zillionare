@@ -1,6 +1,7 @@
 ---
 title: Zillionare 2.0 故障排除
 date: 2024-02-23
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154342-cover-products-zillionare-troubleshooting.md.jpg"
 slug: articles/products/zillionare-troubleshooting
 excerpt: "在omega日志中出现failed to build unclosed bar for ...错误 这个错误如下图所示"
 ---

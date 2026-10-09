@@ -1,6 +1,7 @@
 ---
 title: 04 项目布局和项目生成向导
 date: 2023-12-13
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154503-cover-python-best-practice-python-chap04.md.jpg"
 slug: articles/python/best-practice-python/chap04
 excerpt: "通过前三章的学习，我们了解了如何构建开发环境，并且也完成了一个最简单的 python 程序 —— Hello World。"
 ---
@@ -205,7 +206,6 @@ pip install ppw
 ppw
 ```
 这里会提示输入一些信息。
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224180300.png)
 
 注意 project_slug 是 github repo 的名字，默认也是您的程序库的名字。这个名字中间不能有空格和"-"。
 

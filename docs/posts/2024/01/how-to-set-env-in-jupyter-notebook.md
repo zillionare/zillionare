@@ -2,6 +2,7 @@
 title: Jupyter Notebook中如何设置环境变量？
 slug: posts/python/how-to-set-env-in-jupyter-notebook
 date: 2024-01-14
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154055-cover-posts-2024-01-how-to-set-env-in-jupyter-notebook.md.jpg"
 category: arsenal
 motto:
 lunar:

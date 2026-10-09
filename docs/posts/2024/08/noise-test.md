@@ -4,7 +4,7 @@ date: 2024-08-19
 category: algo
 slug: posts/algo/noise-test
 motto: 
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-title-image.jpg
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154432-cover-posts-2024-08-noise-test.md.jpg"
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, 回测, 过拟合]

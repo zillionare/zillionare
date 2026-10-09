@@ -2,6 +2,7 @@
 title: Z-score 因子的深入思考
 slug: posts/factor-strategy/z-score-factor
 date: 2024-01-04
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154358-cover-posts-2024-01-z-score-factor.md.jpg"
 category: strategy
 motto: Be yourself; everyone else is already taken -- Oscar Wilde
 lunar: 冬月廿三
@@ -9,7 +10,6 @@ tags: [strategy, 因子, zscore]
 excerpt: "最新（2024 年 1 月）出版的 SC 技术分析（Techical Analysis of Stock & Commodities）的第 4 条文章给到了 Z-score，原文标题为《Z-score: How to use it in Trading》。今天的笔记，就借此机会，同步推出我们对通过Z-score来构建量"
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/normal-dist.jpg)
 
 最新（2024 年 1 月）出版的 SC 技术分析（Techical Analysis of Stock & Commodities）的第 4 条文章给到了 Z-score，原文标题为《Z-score: How to use it in Trading》。今天的笔记，就借此机会，同步推出我们对通过Z-score来构建量化因子的一些观点。
 

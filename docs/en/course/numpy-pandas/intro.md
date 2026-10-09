@@ -1,13 +1,14 @@
 ---
 title: "Numpy & Pandas for Quant: Essential Data Processing"
 date: 2024-04-24
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154221-cover-course-numpy-pandas-intro.md.jpg"
 slug: en/articles/course/numpy-pandas/intro
 tags: [Numpy, Pandas, Quantitative Finance, Data Science]
 excerpt: "Master Numpy and Pandas through real-world quantitative finance scenarios. This course covers core algorithms for factor analysis, backtesting, and data manipulation, tailored for quant developers and researchers."
 lang: en
 translation_of: articles/course/numpy-pandas/intro
 auto_translated: true
-source_sha: f352f2b0f9dfd7fed11ac317377b48e1e1437b46
+source_sha: 37751484b5303c8738741d84b0af66620e6665d3
 ---
 
 Just as death and taxes are inevitable, Numpy and Pandas hold an equally indispensable status for quantitative practitioners—every quant will inevitably interact with these two libraries.

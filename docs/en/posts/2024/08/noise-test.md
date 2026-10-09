@@ -7,8 +7,8 @@ excerpt: "This article explores overfitting detection methods beyond standard ou
 lang: en
 translation_of: posts/algo/noise-test
 auto_translated: true
-source_sha: bbe536fd19ea2b8edc0aa623422ffdaeead6c39d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-title-image.jpg"
+source_sha: c8110b1794f9fb5918a797b756fac6e1bd75208b
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154432-cover-posts-2024-08-noise-test.md.jpg"
 ---
 
 I came across a humorous post on Zhihu describing how some strategy sellers manipulate backtest results to look better by implanting numerous `if` statements in their code. These checks prevent trading on specific dates, but the "secret" lies in those dates: trades on those days were all losing.

@@ -2,6 +2,7 @@
 slug: posts/algo/tcn/tcn番外
 title: TCN 番外：回测高胜率与实盘失效，AI 模型在金融市场的客观困境
 date: 2025-11-26
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154112-cover-posts-2025-11-tcn番外.md.jpg"
 category: algo
 tags: [算法, 深度学习, 交易实战, 避坑指南]
 excerpt: "在学习了 TCN 的硬核原理并将其应用于历史数据回测后，许多研究者会得到非常漂亮的结果：验证集准确率高、模拟盘收益率曲线平滑。"

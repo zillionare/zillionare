@@ -1,16 +1,16 @@
 ---
 title: "Z-Score Factor: Signals, Limits, and Mean Reversion"
 date: 2024-01-04
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154358-cover-posts-2024-01-z-score-factor.md.jpg"
 slug: en/posts/factor-strategy/z-score-factor
 tags: [Z-Score, Mean Reversion, Factor Investing]
 excerpt: "Z-score flags statistically stretched prices by measuring distance from the mean in standard deviations. It works well as a high-win-rate mean-reversion factor, but not as a standalone strategy."
 lang: en
 translation_of: posts/factor-strategy/z-score-factor
 auto_translated: true
-source_sha: 94683a5bc9ee3532f2a4508607a8f7d0ab621a07
+source_sha: 5822b71378215273a24338413b3eff67dbca869c
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/normal-dist.jpg)
 
 The January 2024 issue of Technical Analysis of Stocks & Commodities features Z-score as its fourth article, titled *Z-score: How to use it in Trading*. We'll take this opportunity to share our own views on building quant factors with Z-score.
 

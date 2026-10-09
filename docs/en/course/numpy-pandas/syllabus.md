@@ -1,13 +1,14 @@
 ---
 title: "NumPy & Pandas Syllabus for Quant Data Processing"
 date: 2024-08-27
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154236-cover-course-numpy-pandas-syllabus.md.jpg"
 slug: en/articles/course/numpy-pandas/syllabus
 tags: [Quantitative Trading, NumPy, Pandas, Data Processing]
 excerpt: "Comprehensive course outline covering NumPy and Pandas for quantitative trading, including core syntax, performance optimization, and real-world quant scenarios."
 lang: en
 translation_of: articles/course/numpy-pandas/syllabus
 auto_translated: true
-source_sha: 89a19b37fcd8f6b17a5c3d5397d68ae45854637c
+source_sha: ab8a1e488129885b467d47f8743e804c5b0975ed
 ---
 
 <style>

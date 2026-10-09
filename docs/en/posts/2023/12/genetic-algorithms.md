@@ -1,13 +1,14 @@
 ---
 title: "Genetic Algorithms in Quantitative Trading"
 date: 2023-12-20
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154024-cover-posts-2023-12-genetic-algorithms.md.jpg"
 slug: en/posts/factor-strategy/genetic-algorithms
 tags: [Genetic Algorithms, Quantitative Trading, Parameter Optimization]
 excerpt: "Genetic algorithms use natural selection to find optimal solutions, tuning strategy parameters like MACD and RSI to maximize profit in quantitative trading."
 lang: en
 translation_of: posts/factor-strategy/genetic-algorithms
 auto_translated: true
-source_sha: 076b35baf96690e7a47a878e081716b59b739e1c
+source_sha: 2e180403504190c329de3557eee4fca90d3fafd9
 ---
 
 ## What Is a Genetic Algorithm?

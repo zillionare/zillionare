@@ -1,6 +1,7 @@
 ---
 title: 因子机器学习课程完整大纲
 date: 2024-08-27
+cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154203-cover-course-factor-ml-syllabus.md.jpg"
 slug: articles/course/factor-ml/syllabus
 excerpt: "cols { column-count: 2; column-gap: 2em; }"
 ---
