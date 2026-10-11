@@ -88,6 +88,14 @@ quantstats = "^0.0.77"
 pyarrow = "^21.0.0"
 mkdocs-git-revision-date-localized-plugin = "^1.5.1"
 
+# scripts/archive/pdf2md（已归档的 PDF -> Markdown 视觉转写链路，
+# 被 pdf2zh 路线取代，仅作参考）自带依赖声明，需要时可在其目录内
+# 独立建虚拟环境（python -m venv .venv && pip install -r requirements.txt）。
+
+# 论文翻译主工具：原位保留公式/图表/版式，输出 mono(纯译文) + dual(双语) PDF。
+# 术语一致性通过 --prompt 注入术语表实现（见 scripts/qa_pdf2zh.py 文件头）。
+# 注意：pdf2zh 要求 Python >=3.10,<3.13；其 pins pymupdf<1.25.3。
+pdf2zh = "^1.9"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,0 +1,19 @@
+[project]
+name = "pdf2md"
+version = "0.1.0"
+description = "PDF -> 高保真 Markdown（版面几何 + 视觉转写 + 校验复核）"
+requires-python = ">=3.9"
+dependencies = [
+    # 版面解析（块/行/字符坐标、矢量图形、页面渲染）与全部图像输出。
+    # 这是唯一的第三方依赖；LLM 调用走标准库 urllib，不引入 HTTP 客户端。
+    "pymupdf>=1.24",
+]
+
+# 依赖声明即可满足「换目录重建环境」的需求：
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install pymupdf>=1.24
+#   # 或用 requirements 文件（pip install -r requirements.txt）
+#
+# 刻意不声明 [build-system]：本目录是脚本而非可安装包，
+# 声明它会强制 pip 先联网装 setuptools/wheel 才能装本包，
+# 在离线或受限网络下反而装不成。脚本用 `python pdf2md.py` 直接跑。
