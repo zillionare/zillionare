@@ -14,7 +14,7 @@
      数学符号（∑ ∫ √ 或希腊字母），全无 = 可疑。
 
 用法：
-    python scripts/qa_pdf2zh.py <translations_dir> [--orig-dir <originals_dir>]
+    python scripts/pdftools/qa_pdf2zh.py <translations_dir>
 
 translations_dir 结构假定：
     <dir>/<PaperName>/original-en.pdf   （该文件夹对应的英文原文）
