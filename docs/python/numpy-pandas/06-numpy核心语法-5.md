@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/06-numpy核心语法-5
 date: 2025-03-23
 category: tools
 motto: Tough times never last, but tough people do.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy]

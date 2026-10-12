@@ -5,7 +5,7 @@ category: career
 slug: posts/career-figure/2026q3-quant-jobs-report
 tags: "[量化职场, Python量化编程]"
 excerpt: "2026 Q3量化招聘大盘点：747个在招岗位中Python占比53%、核心岗高达72%，C++、统计、ML成硬门槛，稀缺高薪技能有哪些？"
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
 ---
 
 
@@ -17,9 +17,9 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261
 
 我们通过来自 **21** 家公司共 **747** 条岗位进行分析，其中核心量化岗（研究 + 交易 + 机器学习/AI）**191** 条，占 26%。
 
-![岗位类别分布](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043915-2026-q3-category.svg)
+![岗位类别分布](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043915-2026-q3-category.svg)
 
-![资历结构](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043916-2026-q3-seniority.svg)
+![资历结构](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043916-2026-q3-seniority.svg)
 
 | 岗位类别 | 条数 | 占比 |
 |---|---:|---:|
@@ -44,7 +44,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261
 4. **Linux/Unix** — 22% 的 JD 明确要求
 5. **分布式/并发** — 19% 的 JD 明确要求
 
-![硬技能 Top15](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043918-2026-q3-skills-all.svg)
+![硬技能 Top15](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043918-2026-q3-skills-all.svg)
 
 如果只看核心量化岗（研究/交易/ML），要求会显著收紧：
 
@@ -59,7 +59,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261
 | 风险管理 | 25% |
 | 期权/衍生品 | 23% |
 
-![核心量化岗技能](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043919-2026-q3-skills-core.svg)
+![核心量化岗技能](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043919-2026-q3-skills-core.svg)
 
 ### 各方向 Top5
 
@@ -107,9 +107,9 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261
 
 ## 四、城市与公司
 
-![城市分布](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043921-2026-q3-cities.svg)
+![城市分布](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043921-2026-q3-cities.svg)
 
-![公司分布](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043922-2026-q3-companies.svg)
+![公司分布](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043922-2026-q3-companies.svg)
 
 | 城市 | 出现次数 | | 公司 | 条数 |
 |---|---:|---|---|---:|

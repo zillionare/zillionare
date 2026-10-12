@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/john-fawcett
 auto_translated: true
 source_sha: 86fb056ad0d1f5f77f3f748a7a7cc5d2f345c045
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg"
 ---
 
 After the 2008 financial crisis, Wall Street began building a brave new world around AI, algorithmic strategies, and massive datasets. Those who mastered programming and algorithms were the darlings of this new world. But there were also rebels who turned down Wall Street's call: they'd rather work in pajamas from a home study than sit upright in a cubicle in a luxury tower.
@@ -19,11 +19,11 @@ For those new to quant, the name John Fawcett may ring no bells. In this article
 
 Fawcett was born into an ordinary family. Before retiring, his parents typically juggled three or four jobs at a time just to make ends meet. Even so, they put their children's education first and sent him to Harvard. He has an older brother who chose a career in education and became a high school principal. That upbringing profoundly shaped his philosophy.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.avif)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.avif)
 
 Fawcett graduated from Harvard in materials science — famously one of the four "pitfall" majors. As the dot-com bubble heated up around the turn of the millennium, he fell in love with programming, moved to San Francisco, and joined Scient, a software consulting firm. There, he managed a video-encoding project for Major League Baseball.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett-2.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett-2.png)
 
 John Fawcett's path into quant began, fittingly enough, with love. His career at Scient was going well, but his girlfriend was in medical school in Boston, so he moved back east and took an analyst job at a hedge fund. Fawcett soon realized he wasn't much of an asset manager yet — his job was writing software for portfolio managers to automate information gathering and analysis.
 
@@ -35,7 +35,7 @@ At the same time, he realized that even though these people had strong coding an
 
 Fawcett set out to change that — to demystify finance and democratize quantitative investing. He wanted to open the door to quant for amateur traders of every stripe, from Cornell computer science students to senior data scientists at internet companies to mechanical engineers — the kind of lucky break he himself had once gotten, but that not everyone gets.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/quantopian.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/quantopian.png)
 
 Let there be light.
 
@@ -52,7 +52,7 @@ But perhaps the name Quantopian carried a touch of fateful tragedy, or perhaps t
 
 After Quantopian shut down, many users suddenly realized how many notebooks, ideas, conversations, and memories they had left behind in the community.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/quantopian-shutdown.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/quantopian-shutdown.png)
 
 One user wrote, "I have never in my life seen so many smart people willing to share so much with me and ask for nothing in return. I am and will forever be grateful for everything you have done for me."
 
@@ -64,7 +64,7 @@ Without this software, it's hard to imagine how an amateur quant or a smaller sh
 
 Quantopian's educational resources and platform helped many more make the leap.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/saeed.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/saeed.png)
 
 On Quantopian's website, Fawcett shared the transformation story of Saeed Rahman. Saeed was born in a country where the stock market is stigmatized and often equated with gambling. As an undergraduate he trained in time-series analysis and data science, and completed CFA Level I online. Further study at home was impossible, but studying in the US was a wrenching decision — not to mention the financial hurdle without a scholarship (studying finance in America is brutally expensive!). Luckily, during graduate school he discovered Quantopian. For Saeed, the platform was more than a tool; it was a beacon of knowledge and opportunity. It was there that he honed his skills and found inspiration and community.
 

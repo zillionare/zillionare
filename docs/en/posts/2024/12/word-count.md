@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/word-count
 auto_translated: true
 source_sha: 03960041fd17656a12128ecefa839655c900a328
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/my-company.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/my-company.jpg"
 ---
 
 If you visit a shopping mall, you’ll notice that the best-selling stores and products always occupy the prime, high-traffic spots. The same logic applies to the stock market: stocks frequently mentioned in news and social media tend to attract significantly higher trading volume.

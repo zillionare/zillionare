@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/rolf-banz
 auto_translated: true
 source_sha: ac0b1e274f63a7cb235f9a320dddd1c8bcab1b08
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/rolf-banz.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/rolf-banz.jpg"
 ---
 
 Rolf W. Banz, a Swiss national, earned his PhD from the University of Chicago in the 1970s and served as faculty there. He later ran an investment boutique in London focused on small-cap stocks, which he sold to Alliance Capital in 1991. In the final stage of his career, he returned to Switzerland, holding senior positions at the asset management subsidiary of a Swiss private bank.
@@ -21,7 +21,7 @@ Banz gained fame for discovering the small-cap factor. In his 1981 PhD thesis, h
 
 In China, research indicates that prior to 2016, the significance of the size factor in China A-shares even surpassed that of developed markets like Europe and the US. This factor underperformed large-cap assets during 2017–2018, but outperformed the CSI 300 starting from 2021.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230426161715.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230426161715.png)
 
 This chart comes from a backtest on the JoinQuant platform. The data shows that over two years, the small-cap strategy achieved a 51.98% excess return, which is quite impressive.
 

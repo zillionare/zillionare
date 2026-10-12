@@ -5,7 +5,7 @@ title: 研报复现之如何正确筛选『连续两年分红』股票（附代�
 category: tools
 excerpt: 这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金 2023 年 12 月的一份研报，名为《在手之鸟，红利优选策略》。
 tags: [Moonshot, 回测，研报，tushare]
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg
 ---
 
 这个系列的跨度有点久了，在开始之前，先做一个前情提要。这个系列我们选择的是中金 2023 年 12 月的一份研报，名为《在手之鸟，红利优选策略》。它是一个基本面策略，通过这份研报的实现，我们可以了解到：
@@ -170,7 +170,7 @@ store
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250905204554.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250905204554.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>原始分红记录</span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -336,7 +336,7 @@ df_[df_.div_proc == '实施'][["ts_code", "end_date", "ann_date"]]
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908181932.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908181932.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -413,7 +413,7 @@ clear_output()
 最终，我们得到以下报告：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908210330.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908210330.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -426,7 +426,7 @@ clear_output()
 如果你对本文代码感兴趣，可以加入会员，我们提供数据、代码和运行环境，立即运行和验证策略。如果对文中技术细节不太熟悉，可选修我们的课程。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/fa.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/fa.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

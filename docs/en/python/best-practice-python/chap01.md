@@ -12,7 +12,7 @@ source_sha: 85c6bc3cbe3ae74e05e3649f8019cb1228d4c428
 
 In 2020, the European Space Agency (ESA) planned to launch a Mars rover to collect rock samples for analysis, aiming to detect signs of life on the planet. Due to fuel constraints, the rover could only return 500g of Martian rocks. Consequently, only carefully selected samples could be brought back. To achieve this, scientists developed an on-site selection system requiring visual reconstruction capabilities, for which they built an artificial neural network. Whether constructing neural networks, managing multi-CPU clusters, or leveraging NVIDIA’s CUDA libraries via PyCUDA, this task relied heavily on Python.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/mars-67522_1920.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202106/mars-67522_1920.jpg)
 
 <cap>Image Source: [mars-rover-space-traveler]</cap>
 
@@ -20,11 +20,11 @@ The first programming language deployed on Mars was Java. It landed on January 4
 
 This choice was not surprising. Indeed, with the rise of artificial intelligence, Python has become the most sought-after development language, climbing year after year in the TIOBE Programming Language Index:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/toibe_2023_rank.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/toibe_2023_rank.png)
 
 Moreover, since TIOBE began compiling its rankings, Python has been named "Language of the Year" five times: in 2021, 2020, 2018, 2010, and 2007. It remains the only language to achieve this distinction five times:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/toibe_lang_trending.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/toibe_lang_trending.png)
 
 Furthermore, Python’s popularity is evident in the download statistics for its VS Code extension (over 110 million downloads, compared to 60 million for C/C++) and the over 1 billion downloads of Python images on Docker Hub.
 
@@ -203,11 +203,11 @@ Actually, the 20th rule is Guido’s privilege. For years, the community has wai
 
 Secondly, Python’s efficiency is reflected in its ability to run without compilation. In compiled languages like C and Java, if you write a small program and want to see how it runs, you must wait for it to compile -- this time could be tens of seconds, minutes, or even hours -- which interrupts the programmer’s workflow. The following satirical cartoon reflects this situation:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/27ed4c0b74066c8bb0ab8b5bfb2afe88_1440w.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202106/27ed4c0b74066c8bb0ab8b5bfb2afe88_1440w.png)
 
 In Python, you can open its interactive interface (i.e., IPython) at any time, input a small piece of code, and immediately see the result. The following image shows how to calculate mathematical problems in the IPython interface:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202105/20210522232747.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202105/20210522232747.png)
 
 If you do not like using IPython’s command-line interface, you can install Jupyter Notebook to write and run Python code snippets. We will introduce Jupyter Notebook further when discussing IDEs. Additionally, writing a quick Unittest to test your newly written methods is easier in Python than in other languages. Thus, using Python, you will find learning and growth so easy!
 
@@ -235,8 +235,8 @@ Therefore, in the author’s view, the reason some people doubt Python’s abili
 
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official copy of this book</a>

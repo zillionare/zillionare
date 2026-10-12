@@ -48,7 +48,7 @@ We provide Zillionare 2.0 via a Docker cluster. This cluster comprises the follo
 
 This system constitutes a complete research environment, pre-loaded with two years of daily and 30-minute data (approximately 1.3 GB). Once started, you can access the research environment via port 8888. For instance, if the machine hosting the cluster has the IP address 192.168.100.100, you can access it at http://192.168.100.100:8888/zillionare:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/lab.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/lab.png)
 
 !!! Info
     The default login password is `1234`. To change it, modify the `LAB_PASSWORD` option in the `.omega_env` file located in your Docker Compose installation directory.

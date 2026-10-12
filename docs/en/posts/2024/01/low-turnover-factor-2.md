@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 83471e44a715009572324a2c2193d16475b5bb7d
 ---
 
-![R33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kaiyun.jpg)
+![R33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kaiyun.jpg)
 In the previous note, we prepared the data for factor analysis. In this note, we'll run the actual factor analysis. In Alphalens the process is very simple — the key is knowing how to read its report.
 
 <!--more-->
@@ -38,7 +38,7 @@ This touches on several steps of the factor analysis pipeline, which we explain 
 
 This mind map shows how the Alphalens modules fit together:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/alphalens-framework.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/alphalens-framework.png)
 
 ---
 
@@ -48,7 +48,7 @@ utils and tears are the user-facing interfaces — you can work with just these 
 
 Now let's look at `factor_data` (see the previous note for how this dataset was built):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-data.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-data.jpg)
 
 <br>
 
@@ -81,11 +81,11 @@ Here's what we get:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-by-quantile.jpg)
 
 The output above only shows the first few periods for quantile 1. This level of detail is too granular for an overview — we'd rather see a summary. You can get that by setting `by_date=False`:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-retury-by-quantile-false.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-retury-by-quantile-false.jpg)
 
 Quantile 1 — the bottom turnover group — earns 0.063% per day. Compounded over 250 trading days, that's a **17.05% annualized return. With this single factor alone, you've already beaten more than 98% of mutual-fund (no typo for 'cemetery') managers!**
 
@@ -104,7 +104,7 @@ plot_quantile_returns_bar(mean_return_by_q_daily)
 sns.despine()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-plotting.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-plotting.jpg)
 
 Here we use seaborn's `despine()` to remove the top and right spines.
 
@@ -126,7 +126,7 @@ sns.despine()
 
 Here's the resulting chart:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-violin.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-violin.jpg)
 
 Let's focus on quantile 1. You can see (the chart is a bit small — try it on your own data!) that it's roughly normal with no long spikes, which suggests the positive returns aren't driven by a handful of outliers. Contrast that with the 10-day return for quantile 3, which shows a long spike — a likely outlier.
 
@@ -148,7 +148,7 @@ plot_mean_quantile_returns_spread_time_series(qrs, ses)
 
 This gives us the chart below (1-day horizon only):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-top-bottom-minus.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-top-bottom-minus.jpg)
 
 The red line is the monthly average. Most of the time it sits clearly and consistently above zero, suggesting a long-short strategy based on low turnover can deliver solid returns.
 
@@ -170,7 +170,7 @@ mean_return_by_q_daily, std_err = mean_return_by_quantile(
 plot_cumulative_returns_by_quantile(mean_return_by_q_daily, period='1D')
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-cumulative-return.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-cumulative-return.jpg)
 
 I think there's a bug in Alphalens here. We asked it to plot cumulative returns by quantile for the 1-day horizon only, but it also threw in the 5-day and 10-day lines, which only makes the chart harder to read — no thanks.
 

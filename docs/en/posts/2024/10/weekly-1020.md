@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-1020
 auto_translated: true
 source_sha: 99728db9b533d5f7e99e2147ac6620b233c20764
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 
 ### This Week’s Headlines
@@ -41,7 +41,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/tor
 
 Recently, I chatted with a prominent quantitative hedge fund manager about market trends. He sent me this image:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/roger-trend.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/roger-trend.jpg)
 
 He **once again** accurately pinpointed the bottom level (3143, not 3066; the Shanghai Composite actually dipped to 3152 on Friday). However, I was more curious about his research methodology, specifically the lower half of the image. Knowing the approximate bottom, and combining it with information such as gaps and previous lows, it is indeed possible to predict bottom levels with reasonable precision.
 
@@ -55,7 +55,7 @@ Before sharing my algorithm, I recommend an external [solution](https://www.yout
 
 The so-called "flag pattern" (or triangle detection) is illustrated below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-1.jpg)
 
 In this chart, connecting the local highs of each upward move forms a resistance line, while connecting the local lows of downward moves forms a support line.
 
@@ -69,11 +69,11 @@ The special feature of flag patterns is that the end of the consolidation period
 
 The following chart shows the narrowing oscillation amplitude over time:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-2.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-2.jpg)
 
 Eventually, the stock price will choose a direction. Once a direction is chosen, it is often followed by a significant market move (up or down):
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-3.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-3.jpg)
 
 ---
 
@@ -85,11 +85,11 @@ Therefore, automating the detection of flag patterns serves several purposes:
 
 Now, let’s look at how to implement this. First, consider this asset:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/605158-1.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/605158-1.png)
 
 This is after the price has risen. Now, look at its state before the rise:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/605158.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/605158.png)
 
 ---
 
@@ -202,7 +202,7 @@ def trendline(df):
 
 Finally, we detect the pattern of this asset before its rise, yielding the following result:
 
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-605148.png" style="position:relative;margin-top:-100px;z-index:-1; width:90%"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-605148.png" style="position:relative;margin-top:-100px;z-index:-1; width:90%"/>
 
 ---
 
@@ -210,17 +210,17 @@ This result indicates that when the flag pattern ends, the direction of the brea
 
 Let’s look at another asset that multiplied by 7x in the last month:
 
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830799-full-period.png" style="position:relative;margin-top:-100px;z-index:-1"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830799-full-period.png" style="position:relative;margin-top:-100px;z-index:-1"/>
 
 This is the pattern before the rise:
 
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830179-before-advance.png" style="position:relative;margin-top:-100px;z-index:-1"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830179-before-advance.png" style="position:relative;margin-top:-100px;z-index:-1"/>
 
 This is the detected flag pattern:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830179-detection.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/flag-pattern-830179-detection.jpg)
 
 Perfect capture!
 
@@ -228,7 +228,7 @@ Of course, this is just example code. In practical application, due to the use o
 
 The runnable code (`.ipynb` file) is available in the Knowledge Planet. As it is under construction, it is currently offered at the lowest price.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
 
 If you find some code or terminology confusing (such as why ATR is used to determine the end of consolidation), these are covered in our Quant 24 Lessons. Welcome to enroll!
 
@@ -236,16 +236,16 @@ If you find some code or terminology confusing (such as why ATR is used to deter
 
 ## Great Courses Are Starting!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## Clear Goals, Strong Sense of Achievement
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## Why Choose QuanTide Courses?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)

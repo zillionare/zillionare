@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/02-numpy核心语法-1
 auto_translated: true
 source_sha: 676ba7ed27ffcf59613234b7dc4c3c0f865c0294
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/grow-with-quantide.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/grow-with-quantide.jpg"
 ---
 
 ## 1. Basic Data Structures
@@ -137,7 +137,7 @@ The plotted graph is as follows:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg)
 
 <!--
     In many cases, we need to generate normal distribution arrays. For instance, if we want to study the relationship between stock price changes and volatility, such as whether continuous upward and continuous downward movements have the same volatility, we can do so. We can create return sequences from -0.1 (down) to 0.1 (up) in steps of 0.05, and then calculate their volatility. This can be done using:

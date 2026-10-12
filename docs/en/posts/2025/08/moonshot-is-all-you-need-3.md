@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-3
 auto_translated: true
 source_sha: 7983ed4205ee526de338848baf9da17fbcac392b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg"
 ---
 
 !!! abstract
@@ -150,7 +150,7 @@ Finally, the `screen` method executes, calculating returns and plotting strategy
 The strategy report reveals that from 2018 to 2023, screening by dividend yield itself generated significant alpha:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250828194603.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250828194603.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Cumulative Return Comparison</span>
 </div>
 
@@ -187,7 +187,7 @@ The pagination parameters are not explicitly documented in the official docs. Ho
 In the screenshot below, the left image shows the documentation for the `daily` API for fetching daily market data. Here, we see it does not support pagination queries. However, if we navigate to the Data Tools page, we can see that this API does support pagination.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815131309.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815131309.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/lof套利怎么做
 auto_translated: true
 source_sha: 2f7346da1edb5765f99dc69db32ba643bacc8165
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/cover.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/cover.jpg"
 ---
 
 Silver’s recent performance has been stunning. Driven by dual forces of global risk aversion and industrial demand, silver prices have skyrocketed. This one-way trend not only generated substantial profits for holders of physical silver or futures but also created a low-risk “money-grabbing” opportunity in the secondary market: **LOF (Listed Open-Ended Fund) cross-market premium arbitrage**.

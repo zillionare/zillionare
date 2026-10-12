@@ -4,7 +4,7 @@ date: 2025-01-07
 category: algo
 slug: posts/algo/hdbscan
 motto: 
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-by-ai.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-by-ai.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [算法,hdbscan,聚类,配对交易]
@@ -16,7 +16,7 @@ excerpt: "配对交易是一种交易策略，由摩根士丹利的量化分析�
 <!--more-->
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/Nunzio-Tartaglia.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/Nunzio-Tartaglia.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>农齐奥.塔尔塔里亚</span>
 </div>
 
@@ -26,7 +26,7 @@ excerpt: "配对交易是一种交易策略，由摩根士丹利的量化分析�
 
 例如，通用汽车和福特生产类似的产品（汽车），因此基于整体汽车市场，它们的股价走势相似。如果通用汽车的股价显著上涨而福特的股价保持不变，采用对冲交易策略的人就会卖出通用汽车的股票并买入福特的股票。假设股价会回到历史平衡点：如果通用汽车的股价下跌，投资者会获利；如果福特的股价上涨，投资者也会获利。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfans-promotion.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfans-promotion.jpg)
 
 这个策略的正确性和有效性无可质疑，它几乎像数学定理一样完美。但是，如何才能找到这样的配对股资产呢？
 
@@ -44,13 +44,13 @@ excerpt: "配对交易是一种交易策略，由摩根士丹利的量化分析�
 
 要如何检验协整关系呢？ Engle（恩格尔）和 Granger（格兰杰）在 1987 年提出了协整检验的两步法：先用 OLS 对两个变量 X 和 Y 进行回归，再用 **ADF** 检验 X 和 Y 是否平稳。他们俩人也因为在协整理论方面的开创性工作，获得了 2003 年的诺贝尔经济学奖。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/robert-engle.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/robert-engle.png)
 
 这里又涉及到另一个概念，即平稳时间序列和平稳性检验。
 
 平稳时间序列指随机变量的统计特性（如均值、方差、自协方差等）在时间上是不变的。比如，白噪声是平稳时间序列，它在均值和方差都是恒定的。下图显示了时间平稳序列（左上）和几种非时间平稳序列的对比：
 
-![各种时间序列](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-kinds-of-timeseries.jpg)
+![各种时间序列](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-kinds-of-timeseries.jpg)
 
 显然，对量化人来说，平稳时间序列有着非常有趣的特性：既然一个平稳时间序列的均值、方差恒定并且有自协相关特性，那么，一旦它偏离了均值，迟早都会回归到均值上，否则，它就不是平稳时间序列。
 
@@ -58,7 +58,7 @@ excerpt: "配对交易是一种交易策略，由摩根士丹利的量化分析�
 
 检验一个时间序列是否平稳，一般使用 Dickey-Fuller 检验。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/dickey-and-fuller.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/dickey-and-fuller.png)
 
 对量化人来说，资产价格序列和收益率是常见的两种时间序列。我们可以通过 Dickey-Fuller 检验来判断它们是否是平稳的：
 
@@ -108,13 +108,13 @@ df.T
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 这段代码显示结果如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/adf-test-of-payh.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/adf-test-of-payh.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 平稳性检验是协整检验的第二步。第一步则是对相关联的两个时间序列进行回归，构建残差序列。
@@ -170,7 +170,7 @@ t, p_value, *_ = result
 
 在我们的课程环境里，运算 3 万次协整运算的时间约 20 分钟，也就是一次协整运算大约耗时 40 毫秒。所以，如果要完成近 5000 万次的协整检验，大概需要运行 24 天左右：来不及等你算完，长在你卫生间水管里的小虫子 -- 白斑蛾蚋已经走过了它的一生。
 
-![白斑蛾蚋](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clogmia-albipunctata.jpg)
+![白斑蛾蚋](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clogmia-albipunctata.jpg)
 
 此时，聚类算法就可以发挥它的巨大威力了：如果我们能把这些资产分成若干簇，只在簇内进行协整检验，这样就可以大大减少协整检验的次数。
 
@@ -188,7 +188,7 @@ $$\sum_{i=1}^{K} \binom{N_i}{2} = \sum_{i=1}^{K} \frac{N_i (N_i - 1)}{2}$$
 
 下图是在同一个数据集上，hdbscan, dbscan 和 k-means 聚类的效果对比：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-cluster-algo.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-cluster-algo.jpg)
 
 DBSCAN 不能找出比指定的核密度更稀疏的簇；k-means 会把噪声也归划分到距离最近的簇中，并且你得告诉它这个数据集中有多少个簇；hdbscan 的表现几近完美。
 
@@ -258,7 +258,7 @@ fig_tsne.show()
      :enter='{opacity: 0, x:300, y:40}'
      :click-22-23='{opacity: 1}'>
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clustered-by-hdbscan.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clustered-by-hdbscan.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -343,7 +343,7 @@ print(len(pairs)/(len(cluster_12) * (len(cluster_12) - 1)) * 2)
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/cluster-12-all.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/cluster-12-all.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 从结果可以看出，簇类的个股走势几乎一样，但不是簇内所有的组合都是协整对。这也很容易理解，毕竟，**聚类有聚类的逻辑，协整又是协整的逻辑**。两者有重叠的空间，但决不是一码事儿。
@@ -354,7 +354,7 @@ print(len(pairs)/(len(cluster_12) * (len(cluster_12) - 1)) * 2)
 ## 摇人！赶快摇人！
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/log/quantide-alpha-yellow.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/log/quantide-alpha-yellow.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>匡醍科技 (Quantide) 新年开始，要招人啦！我们在各个招聘平台发了英雄贴，不过，最契合的候选人很可能应该来自于公众号的粉丝。如果你喜欢我的文章，也可能喜欢跟我一起工作，一起探索量化交易。
 
@@ -364,7 +364,7 @@ print(len(pairs)/(len(cluster_12) * (len(cluster_12) - 1)) * 2)
 
 _具体岗位请致电 hr@quantide.cn 查询，或者直接空投简历，在校生可投实习岗位_
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/optical-valley.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/optical-valley.jpg)
 
 热爱是最好的老师。在宇宙中心等你。
 <!-- END IPYNB STRIPOUT -->

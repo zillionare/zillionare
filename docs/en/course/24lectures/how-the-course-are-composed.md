@@ -76,7 +76,7 @@ For instance, many friends have read our article [How to Implement Normalization
 ### Structural Characteristics
 The course generally begins with a mind map outlining the knowledge points for the entire lesson, for example:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
 
 ### Experimental Environment
 

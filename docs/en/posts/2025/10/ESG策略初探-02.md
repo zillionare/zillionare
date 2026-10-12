@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/ESG策略初探-02
 auto_translated: true
 source_sha: 62c8e888dffd9357912f2cdbde72fd2ee339d52d
-cover: "https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg"
 ---
 
 ## 1. Introduction
@@ -56,7 +56,7 @@ df.to_parquet('daily_data.parquet')
 ```
 The downloaded data format is as follows:
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761133555915-8c4c75cb-c569-4926-83bc-4c5280648436.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761133555915-8c4c75cb-c569-4926-83bc-4c5280648436.png)
 
 From the returned results, we can see that the research platform’s data is comprehensive, recording metrics such as trading volume and amount for each stock. This same data can be used for other daily strategy backtests.
 
@@ -555,12 +555,12 @@ if wind_results['long_short_returns'] is not None:
 
 ## 3. Wind Results Analysis
 After executing the above code, we obtain the Wind ESG investment results, as shown below:<!--Supplement: as shown below-->:
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png)
 The differences between layers are limited, with frequent crossovers between layers; monotonicity does not hold.
 
 We observe the long-short return chart:
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761145513388-2e2076c5-e144-4335-ad53-2fe95c0399b8.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761145513388-2e2076c5-e144-4335-ad53-2fe95c0399b8.png)
 
 The strategy covers a relatively short period, experiencing a "2019–2021 uptrend followed by a 2022–2023 drawdown" cycle. It is effective in stages but then fades.
 
@@ -647,7 +647,7 @@ Huazheng provides more rating data, including **separate E, S, and G scores**. T
 
 ### 4.1 Huazheng Comprehensive Score
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png)
 
 The net value trends of each layer are highly synchronized, showing no significant monotonic increasing feature. This means that a higher ESG score does not necessarily imply higher returns.
 
@@ -659,7 +659,7 @@ From a performance perspective, annualized returns for each layer range between 
 
 ### 4.2 Huazheng E Score
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957301508-fa411527-8780-42d4-af52-5372b6d8e46f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957301508-fa411527-8780-42d4-af52-5372b6d8e46f.png)
 
 The E score shows slight differentiation across layers but does not form a stable monotonic relationship. Only a few medium-to-high score groups perform slightly better in specific periods.
 
@@ -669,7 +669,7 @@ The results indicate that the impact of environmental scores largely **depends o
 
 ### 4.3 Huazheng S Score
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957313634-c54ff265-0d5c-4601-8c03-37fa668509d2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957313634-c54ff265-0d5c-4601-8c03-37fa668509d2.png)
 
 The net values for social score layers remain highly synchronized. Mid-range layers occasionally perform better, but the overall ranking is unstable.
 
@@ -679,7 +679,7 @@ Overall performance is close to that of the comprehensive score and E score. Whi
 
 ### 4.4 Huazheng G Score
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957323586-168429c0-f664-4bc0-8c6c-0e0ba6845f3c.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957323586-168429c0-f664-4bc0-8c6c-0e0ba6845f3c.png)
 
 The governance score also does not present a stable monotonic return relationship. Its volatility and drawdown control are the most regular among the four score types, exhibiting characteristics similar to a **low-volatility factor**.
 

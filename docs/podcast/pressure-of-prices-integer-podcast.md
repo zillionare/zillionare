@@ -2,7 +2,7 @@
 title: 『让这束光照进股市：整数关口的物理密码』
 description: 为何3.99元比4元便宜很多？股价突破100元为何如此艰难？一位罗马尼亚学者竟用光学折射公式预测股价走势，让这束光照进股市之后，这套『物理密码』能否破解市场之谜？
 date: 2025-07-15
-audio: https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/01-final.MP3
+audio: https://gcore.jsdelivr.net/gh/zillionare/podcast@main/2025/07/01-final.MP3
 ---
 
 <style>

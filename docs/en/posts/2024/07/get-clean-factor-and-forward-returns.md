@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/get-clean-factor-and-forward-returns
 auto_translated: true
 source_sha: f69030cd5322ef55f7971d6732adb0d97d40bf6f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
 ---
 
 In Alphalens, the `get_clean_factor_and_forward_returns` function automates return calculation, layering, missing value handling, and standardization, significantly simplifying the workflow of factor analysis.
@@ -17,13 +17,13 @@ However, this function has 12 parameters and 48 possible parameter combinations.
 
 These twelve parameters can be categorized into five groups. The `factor` and `price` parameters serve as data inputs, which have been covered previously, so they are not displayed here.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/get-clean-factor-and-forward-returns-group-params.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/get-clean-factor-and-forward-returns-group-params.jpg)
 
 By controlling these parameters, Alphalens can assist us in completing return calculation, layering, missing value handling, and standardization.
 
 The position of these functions within the overall factor analysis framework is shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gcfafr-in-factor-analysis.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gcfafr-in-factor-analysis.png)
 <cap>Position and role of the function within the framework. Forward return calculation is not depicted.</cap>
 
 <!-- draw group plot

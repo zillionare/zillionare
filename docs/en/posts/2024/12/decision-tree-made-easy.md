@@ -96,7 +96,7 @@ features.tail()
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-made-easy-5.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-made-easy-5.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 The output is the feature dataset.
@@ -148,7 +148,7 @@ print("Classification Report:\n", classification_report(y_test, y_pred))
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-1.jpg)
 
 <!-- END IPYNB STRIPOUT -->
 
@@ -184,7 +184,7 @@ print("Resampled Classification Report:\n", classification_report(y_test_resampl
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decision-tree-made-easy-2.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 After class balancing, the overall accuracy remains largely unchanged, but the precision and recall for our classes of interest (class 1 and class 2) **improved by 8% and 3%, respectively**.
@@ -213,7 +213,7 @@ plt.show()
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-3.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-3.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -282,5 +282,5 @@ print("Classification Report:\n", classification_report(y_validation, y_pred))
 <!--027 6788 0230-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-4.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/12/decisiontree-made-easy-4.jpg)
 <!-- END IPYNB STRIPOUT -->

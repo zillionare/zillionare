@@ -46,7 +46,7 @@ source_sha: 9e8a2c217a64dc0b78492045feed7c7224ad1323
 
 !!! tip "Can you introduce the instructor?"
     <div style="width:150px; position: relative;float:right">
-        <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/me.png" style="width: 120px; display:inline-block"/>
+        <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/me.png" style="width: 120px; display:inline-block"/>
         <p style="text-align:center;width:120px"> Aaron </p>
     </div>
 

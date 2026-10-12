@@ -77,7 +77,7 @@ so the computation can reuse the original function value, which makes it faster.
 
 Their transformation curves look like this:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/comarison_tanh_sigmoid.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/comarison_tanh_sigmoid.png)
 
 ### Sine
 
@@ -129,7 +129,7 @@ def scaled_sigmoid(x, start, end):
 
 The chart below shows that when data is concentrated in different `[start, end]` intervals, the transformed sigmoid still gives the best response sensitivity around the center of the distribution — which is also why we do z-score transforms.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png)
 
 In subplot 1, we give data in [0,1] the best response sensitivity. In subplot 2, if data often sits around 50 and fluctuates by plus or minus 50, it still gets the best sensitivity. Subplot 4 shows the raw sigmoid over [0,100].
 

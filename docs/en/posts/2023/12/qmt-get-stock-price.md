@@ -92,7 +92,7 @@ display(bars['close'].T.tail())
 
 The final output looks like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/qmt_get_price.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/qmt_get_price.png)
 
 Note the date format used by xtquant: `"YYYYMMDD"` for the `1d` period, and `"YYYYMMDDHHmmss"` for intraday periods. If you start from a datetime.datetime, format it like this:
 

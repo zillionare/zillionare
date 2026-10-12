@@ -2,7 +2,7 @@
 slug: posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming
 title: 除了编程，量化人还能怎么用AI？
 date: 2025-08-05
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/brooke-lark-8beTH4VkhLI-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/brooke-lark-8beTH4VkhLI-unsplash.jpg
 excerpt: 当量化人面临信息过载的困境时，AI悄然成为破局关键。从Grok的私人定制资讯，到豆包和NotebookLM将研报秒变播客，再到TradingAgents项目——一个能模拟真实交易团队、年化收益提升30%的神秘框架。这个由UC伯克利开发的多智能体系统，究竟如何让一个人拥有整个交易团队的决策能力？
 category: tools
 tags: [tools, AI]
@@ -24,7 +24,7 @@ tags: [tools, AI]
 
 无他，只因我们差一个智能助手。如果有一个智能助手帮我们主动搜集、筛选，只把我们感兴趣的资讯，主动送到我们手上来，吃上信息特供，就不会有『营养』问题了。这方面，我们大概可以使用 Grok 订阅任务。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805151337.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805151337.png)
 
 用法很简单，没有一个量化人会需要我介绍。在最后，填上一个邮箱地址，这样资讯摘要就会准时抵达你的邮箱。
 
@@ -34,7 +34,7 @@ tags: [tools, AI]
 
 在制作节目的过程中，我们也发现了AI的一些新用法，这里分享给大家 -- 你也可以用它们来制作自己的专属播客，把来不及『看』的量化论文、研报，制作成播客读物，做到人在路上，学习在线上。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/voice.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/voice.jpg)
 
 
 这里有两个工具，一个是豆包的AI播客。只要你上传研报，豆包就会自动生成一个音频播客。标准男女双人搭配聊天，声音自然流畅、轻快活泼，就如同在听一场情感播客一样。
@@ -87,7 +87,7 @@ TrdingAgents 能解决什么问题呢？ 它能搜集并整合多维度的资讯
 这张图基本上刻画出了它的运行模式：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805160149.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805160149.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -99,7 +99,7 @@ TrdingAgents 能解决什么问题呢？ 它能搜集并整合多维度的资讯
 这个地方 AI 的优势就进一步体现出来了。AI Trader 只会基于事实和数据，而不是根据喜欢谁、厌恶谁来决定听取谁的意见，更不会出现一句顶一万句的领导决策。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/vitaly-gariev-VZQAo20ArSA-unsplash.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/vitaly-gariev-VZQAo20ArSA-unsplash.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

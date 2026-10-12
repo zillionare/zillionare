@@ -1,7 +1,7 @@
 ---
 title: "Can Vibe Coding Build Large Quant Projects? A Developer’s Test"
 date: 2026-09-07
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154129-cover-posts-2026-09-agent-on-tracks.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154129-cover-posts-2026-09-agent-on-tracks.md.jpg"
 slug: en/posts/tools/agent-on-tracks
 tags: [AI Coding, Quant Frameworks, Vibe Coding, Software Engineering]
 excerpt: "This article evaluates whether AI-driven \"vibe coding\" can handle complex quantitative trading frameworks. It explores the gap between rapid prototyping and production-ready code, highlighting the need for formal verification in large-scale systems."

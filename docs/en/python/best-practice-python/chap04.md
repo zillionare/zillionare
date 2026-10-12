@@ -1,7 +1,7 @@
 ---
 title: "Standard Python Project Layout & Automated Generation"
 date: 2023-12-13
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154503-cover-python-best-practice-python-chap04.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154503-cover-python-best-practice-python-chap04.md.jpg"
 slug: en/articles/python/best-practice-python/chap04
 tags: [Python, Project Structure, Automation, CI/CD]
 excerpt: "Learn the standard Python project structure and use the Python Project Wizard to automate configuration, testing, and CI/CD workflows for reproducible, high-quality codebases."
@@ -292,7 +292,7 @@ CI is set to automatically publish code coverage reports, but you need to import
 
 CI is set to automatically publish documentation to GitHub Pages. But you need to enable it in your project. The method to enable it is to select the following two items in `repo > settings > pages`:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221225094224.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202211/20221225094224.png)
 
 ### 3.10. GitHub Automation Script
 
@@ -340,7 +340,7 @@ To run the above script, you need to complete two things:
 
 Personal tokens need to be set in the path Account > Settings > Developer Settings > Personal Access Tokens:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/github_token.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/github_token.png)
 
 Once this token is set, you can add it to the environment variables on your development machine and reference it in the above script. Thereafter, when you create new projects, you no longer need to open the GitHub website but can directly complete the work of creating a new repo through the above script.
 
@@ -396,8 +396,8 @@ Now, a standardized new project has been created, and you have many cool feature
 Next, we will guide you to delve into these tools, understand why this particular tool was chosen among many, how they should be configured, how to use them, and so on.
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>

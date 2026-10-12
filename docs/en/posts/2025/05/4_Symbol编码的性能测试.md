@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试
 auto_translated: true
 source_sha: a18a2da6e97347245460b3a55f564b1f9cb8fb7f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 
 Now, we need to design a universal data exchange format, the Standard Quotes Exchange Protocol (SQEP). The workflow is straightforward: data producers (who understand the raw data formats best) convert data into this standard format and push it to Redis for consumers to process.
@@ -86,7 +86,7 @@ SQEP-BAR-DAY is primarily applied in:
 
 With the data exchange format for daily data defined, 007 can now design the code implementation.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_01.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_01.png)
 
 007 has provided two code files (`sqep_bar_day_producer.py` and `sqep_bar_day_consumer.py`), which can run normally after minor modifications.
 
@@ -248,9 +248,9 @@ if __name__ == "__main__":
     produce_sqep_data(STOCK_CODES, DATE_RANGE)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_02.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_02.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_03.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_03.png)
 
 ```python
 import redis
@@ -454,7 +454,7 @@ if __name__ == "__main__":
     consume_sqep_data()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_04.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_04.png)
 
 
 
@@ -472,7 +472,7 @@ factor-investing, quantitative-trading, data-engineering, benchmarking
 
 As with the previous section, this format excludes adjustment factors. This design ensures that consumer-side code remains unchanged regardless of the data source used in the future. Here, 007 and I design a performance test to compare the performance differences between two data exchange formats: JSON (with keys) and CSV (without keys).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_07.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_07.png)
 
 ### 2.1. Test Methodology
 

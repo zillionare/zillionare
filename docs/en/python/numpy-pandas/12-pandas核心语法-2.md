@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/12-pandas核心语法-2
 auto_translated: true
 source_sha: 0ad4e08b39c4aa834fc7d944439d8c20ae150e08
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg"
 ---
 
 ## 1. Series Fundamentals
@@ -43,7 +43,7 @@ print(s_reindexed)
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/009.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/009.png)
 
 Example 2: Using Fill Methods
 For ordered data such as time series, reindexing may require interpolation or filling. The `method` option serves this purpose; for instance, `ffill` can be used for forward filling.
@@ -53,7 +53,7 @@ s_reindexed = s.reindex(new_index, method='ffill')
 print(s_reindexed)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/010.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/010.png)
 
 ---
 
@@ -64,7 +64,7 @@ s_reindexed = s.reindex(new_index, fill_value=-1)
 print(s_reindexed)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/011.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/011.png)
 
 ### 1.2. Dropping Items on a Specific Axis
 In Pandas, dropping items from a specific axis in a Series is achieved via the `drop()` method. Since a Series is a one-dimensional data structure, deletion operations typically target the index (rows).
@@ -92,7 +92,7 @@ print(new_obj)
 print(obj.drop(["d","c"]))
 ```
 
-<!--![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/012.png)-->
+<!--![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/012.png)-->
 
 ### 1.3. Indexing, Selection, and Filtering
 [Index Selection]
@@ -161,7 +161,7 @@ print(result)
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/013.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/013.png)
 
 If you have experience with databases, you can consider this similar to a `join` operation.
 
@@ -259,7 +259,7 @@ obj
 ```
 
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/014.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/014.png)
 
 The `is_unique` attribute of the index indicates whether the index values are unique:
 ```python
@@ -275,4 +275,4 @@ print(obj["a"])
 print(obj["c"])
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/015.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/015.png)

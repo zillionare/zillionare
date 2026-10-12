@@ -40,7 +40,7 @@ cover: "stamp_width: 60%"
 
 Momentum and mean reversion are the most critical quantitative factors. While there are many algorithms to characterize momentum, the slope of a fitted line is undoubtedly the most intuitive.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
 
 ---
 
@@ -182,7 +182,7 @@ print(S)
 
 This code calculates the slope of the fitted line for the past 10 points starting from the 10th period, and we plot the tangent lines at the inflection points of the curve. These tangent lines are generated using the parameters of the fitted line.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
 
 ---
 
@@ -217,7 +217,7 @@ To accelerate this calculation process, we must rely on vectorization. However, 
 
 Considering a linear regression with `m` points, for each point, we have:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
 
 If all points fall on the same line, the following matrix equation holds:
 
@@ -414,16 +414,16 @@ The core point is to use the `as_strided` method to upsize the array, and then p
 
 ## The "Factor Investing and Machine Learning Strategies" Course is Now Open!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## Clear Goals, Strong Sense of Achievement
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## Why You Should Take QuanTide's Course?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)

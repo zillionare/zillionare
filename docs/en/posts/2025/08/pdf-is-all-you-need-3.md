@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/pdf-is-all-you-need-3
 auto_translated: true
 source_sha: 0e96693c9559aefa7c441a0109795454219fa72e
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg"
 ---
 
 In the previous installment, we introduced the binomial distribution and noted:
@@ -23,7 +23,7 @@ What does the binomial distribution actually signify? In fact, a device known as
 
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805184837.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805184837.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 1: Galton Board</span>
 </div>
 
@@ -41,7 +41,7 @@ In essence, the lower half of the Galton Board corresponds to the histograms com
 What happens if we increase the number of nails and the number of trials in such a device? The figure below shows a possible outcome with 20 layers of nails and 500 trials:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807154807.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807154807.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 2: Result after hitting nails 10,000 times!</span>
 </div>
 
@@ -61,7 +61,7 @@ from numpy.random import binomial, histogram
 如果我们增加层数，多试验几次，又会如何？下图显示了1000个凹槽、1百万次试验的一种可能结果：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807160423.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807160423.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图3 频率/随机变量图</span>
 </div>
 
@@ -88,7 +88,7 @@ Obviously, the sum of the areas of these 1,000 rectangles should equal 1, as it 
 If we further increase the number of slots and trials—for example, increasing the slots to 10,000—what happens? Eventually, each bin and its corresponding probability density will be so tightly packed that they become visually indistinguishable, yielding the following figure:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807161541.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807161541.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 4: Approaching a Normal Distribution</span>
 </div>
 
@@ -296,7 +296,7 @@ integral_g_up_to_6 = np.trapezoid(y_norm_g[mask], x_norm[mask])
 <!-- END IPYNB STRIPOUT -->
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807214437.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807214437.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 5: Normal Distribution and Expected Value</span>
 </div>
 

@@ -256,17 +256,17 @@ def mad_clip(df: Union[NDArray, pd.DataFrame], k: int = 3, axis=1):
 
 ## 《因子投资与机器学习策略》开课啦！
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## 目标清晰 获得感强
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## 为什么你值得QuanTide的课程？
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 

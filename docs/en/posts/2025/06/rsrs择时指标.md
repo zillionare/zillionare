@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/papers/rsrs择时指标
 auto_translated: true
 source_sha: f0f607dae81a4ae4425ffba10457f3b1d25e0734
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 
 The RSRS factor, applied to the CSI 500 index from March 2005 to March 2017, yielded a total return of **1432.36%** over 12 years, with an annualized return of **24.84%** and a Sharpe ratio of 1.42. In contrast, the benchmark index returned only 290.13% during the same period.
@@ -26,14 +26,14 @@ This is one of our series of research report interpretations. By following this 
 When interpreting each research report, we attach the original report:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/pdf.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/pdf.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
 Followed by our interpretation and replication:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -55,7 +55,7 @@ The strategy’s logic is quite ingenious and aligns with our trading intuition:
 The research report authors also hand-drew two figures to illustrate this idea:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250609182027.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250609182027.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -127,7 +127,7 @@ We see that `hs300_factor` is a `pd.Series` with dates as the index and factor v
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-factors.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-factors.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -174,7 +174,7 @@ The output results were somewhat unexpected. There was no high return as anticip
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-alphatest.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-alphatest.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -243,7 +243,7 @@ describe(hs300_factor.to_frame(), 'RSRS', '2018-2025 斜率数据分布')
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610152016.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610152016.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Slope Data Distribution</span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -371,7 +371,7 @@ strategy, benchmark = RSRS_Strategy(
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610170908.png'
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610170908.png'
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

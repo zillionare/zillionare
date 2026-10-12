@@ -2,7 +2,7 @@
 title: "多智能体交易框架：AI如何模拟真实交易团队决策？"
 description: "一个月内GitHub暴增7k星标的TradingAgents框架有何特别？本期节目揭秘这个由UC Berkeley和MIT学者开发的多智能体交易系统如何模拟真实交易团队协作。不同于传统金融大模型仅专注于NLP任务，TradingAgents通过结构化通讯协议让AI扮演分析师、研究员、交易员和风控等角色，实现『真理越辩越明』的决策机制。回测显示，该框架在Apple、Google等标的上年化收益提升30%，最大回撤仅2.11%。AI交易团队时代，人类金融专业人士将如何应对？"
 date: 2025-07-10
-audio: https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/10-final.mp3
+audio: https://gcore.jsdelivr.net/gh/zillionare/podcast@main/2025/07/10-final.mp3
 ---
 
 <style>

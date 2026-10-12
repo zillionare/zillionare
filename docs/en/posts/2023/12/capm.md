@@ -261,4 +261,4 @@ fig.show()
 
 The final plot is shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/capm-q-plot.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/capm-q-plot.png)

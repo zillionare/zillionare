@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/switch-to-decimal
 auto_translated: true
 source_sha: 45e6132a4b9e715e0663599c7f050395a6e31d3f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/switch-to-decimal.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/switch-to-decimal.jpg"
 ---
 
 My note [Left-Digit Effect, Round Numbers, and Light Refraction](https://blog.quantide.cn/blog/2024/01/23/left-side-effect-integer-pressure/) cited [a paper](/assets/ebooks/Stock-price-clustering-and-price-discreteness.pdf) by USC's Lawrence Harris on clustering in transaction prices. Such clustering matters for pinpointing resistance levels and refining execution algorithms.
@@ -29,7 +29,7 @@ According to Harris et al. in *Stock Price Clustering and Discreteness*, under f
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/stock-price-clustering.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/stock-price-clustering.jpg)
 
 When the minimum tick switched to decimals — a minimum unit of \$0.01 — several things happened: first, **the value of time priority in matching declined**. With a tiny tick, a trader could improve the price slightly to jump ahead and get filled. Before, with a large tick, improving the price gave up too much profit, so traders preferred to hold price and queue longer. Decimalization therefore modestly increased volume, because fills became easier.
 

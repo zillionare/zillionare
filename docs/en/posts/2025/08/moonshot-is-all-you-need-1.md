@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-1
 auto_translated: true
 source_sha: 724630e95ae7e61d909977eb3769aa1d66f8959b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/5.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/5.jpg"
 ---
 
 For fundamental strategy backtesting, you might find frameworks like `backtrader` too heavy, while `Alphalens` isn’t suitable for daily data. Additionally, as a beginner, you may want to implement a strategy backtest from scratch to understand the underlying mechanics. This is a valid approach, but the key question is: how do you implement it?
@@ -16,14 +16,14 @@ For fundamental strategy backtesting, you might find frameworks like `backtrader
 This series uses a 2023 research report from China International Capital Corporation (CICC) as a case study to demonstrate how to build a complex strategy backtest. We will cover key techniques such as data acquisition, preprocessing, and framework design.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250803162859.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250803162859.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 1: CICC Research Report</span>
 </div>
 
 This strategy approaches stock selection from three dimensions: dividend yield, capital gains, and risk aversion. It combines event-driven stock selection with factor investing. The final backtest results show an annualized return of 29% over the past five years.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806123607.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806123607.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 2: Fundamental Strategy Construction Logic</span>
 </div>
 
@@ -54,7 +54,7 @@ Assume we have already acquired daily stock price data. Since our strategy invol
 The data now looks like this:
 
 <div style='width:55%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806132427.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806132427.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 3: Monthly Price Data</span>
 </div>
 
@@ -69,14 +69,14 @@ df.groupby("month").apply(lambda x: (x.close / x.open - 1).mean())
 ```
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806133629.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806133629.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 4: Benchmark Return Calculation</span>
 </div>
 
 How do we calculate portfolio returns? We need to add a column to mark which stocks are in the stock pool for that month:
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806135848.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806135848.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Figure 5: Portfolio Return Calculation</span>
 </div>
 

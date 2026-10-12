@@ -4,7 +4,7 @@ title: 『Moonshot is all you need』 01 - 5分钟上手极简量化回测框架
 date: 2025-08-06
 excerpt: 中金的一个基本面策略，年化收益率达到了29%。但是，复现并不容易。它集合了事件选股和因子选股两种框架 -- 这导致没有现成的回测框架可用，同时，各种周期的数据对齐也让人如陷迷宫。在这个系列的视频里，你将和我一起，从零打造一个名为 Moonshot 的回测框架：清晰、模块化、易上手、易拓展。本期为第一期。我们将介绍关键思想，核心数据结构，链式调用技巧
 category: tools
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/5.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/5.jpg
 tags: [Moonshot, 回测, 研报]
 ---
 
@@ -13,14 +13,14 @@ tags: [Moonshot, 回测, 研报]
 这一系列文章，将以中金2023年的一期研报为例，介绍如何实现一个较复杂的策略回测。我们将学习到如何获取各种数据，如何进行数据预处理，如何设计回测框架等关键技术。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250803162859.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250803162859.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图1 中金研报</span>
 </div>
 
 这个策略从股息收益、资本利得和风险规避三大维度入手，综合了事件选股和因子选股的手段，最终回测结果表明，近5年年化收益率达到29%。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806123607.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806123607.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图2 基本面策略构建思路</span>
 </div>
 
@@ -52,7 +52,7 @@ tags: [Moonshot, 回测, 研报]
 现在，这份数据看起来如下图所示：
 
 <div style='width:55%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806132427.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806132427.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图3 月行情数据</span>
 </div>
 
@@ -67,14 +67,14 @@ df.groupby("month").apply(lambda x: (x.close / x.open - 1).mean())
 ```
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806133629.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806133629.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图4 基准收益计算</span>
 </div>
 
 如果要计算组合的收益率呢？我们需要增加一列，先标记出哪些股票在当月的股票池中：
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806135848.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250806135848.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图5 组合收益计算</span>
 </div>
 

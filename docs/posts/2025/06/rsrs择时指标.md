@@ -3,7 +3,7 @@ slug: posts/papers/rsrs择时指标
 title: "RSRS 择时指标回测研究"
 date: 2025-06-09
 category: papers
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
 tags: [papers, 研报]
 excerpt: "RSRS 因子在 2005 年 3 月到 2017 年 3 月的上证 50 指数上，12 年总收益 1432.36%，年化 24.84%，夏普 1.42。同期指数收益仅为 290.13%。"
 ---
@@ -23,14 +23,14 @@ RSRS(Resistance Support Relative Strength) 因子是光大证券于 2017 年起�
 在解读每一篇研报时，我们都会选附上研报原文：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/pdf.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/pdf.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
 然后才是我们对研报的解读和复现：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -53,7 +53,7 @@ RSRS(Resistance Support Relative Strength) 因子是光大证券于 2017 年起�
 研报作者还手绘了两幅图来说明这一思想：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250609182027.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250609182027.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -127,7 +127,7 @@ hs300_factor
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-factors.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-factors.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -175,7 +175,7 @@ _ = alphatest(universe, start, end, calc_rsrs_factor)
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-alphatest.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/rsrs-alphatest.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -245,7 +245,7 @@ describe(hs300_factor.to_frame(), 'RSRS', '2018-2025 斜率数据分布')
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610152016.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610152016.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>斜率数据分布</span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -374,7 +374,7 @@ strategy, benchmark = RSRS_Strategy(
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610170908.png'
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250610170908.png'
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

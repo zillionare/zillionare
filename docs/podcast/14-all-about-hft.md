@@ -2,7 +2,7 @@
 title: "高频变高危：监管新规下的市场变局"
 description: "深入解析高频交易的技术原理与监管挑战。从每秒300笔申报的新规定义出发，探讨套利、做市、延迟套利等30多种高频策略，揭示报价填充、spoofing等争议操作的市场影响。分析减速带等技术创新如何抑制过度投机，展望量化交易从拼速度向拼策略的转型趋势"
 date: 2025-07-10
-audio: https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2025/07/14-final.mp3
+audio: https://gcore.jsdelivr.net/gh/zillionare/podcast@main/2025/07/14-final.mp3
 ---
 
 <style>

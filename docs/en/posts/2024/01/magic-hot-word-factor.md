@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/magic-hot-word-factor
 auto_translated: true
 source_sha: c8dea80593a99576f7663e20c2b5759a1e8e2ad3
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/dragon-and-phoenix.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/dragon-and-phoenix.jpg"
 ---
 
 As quants, we watch the market closely and never let a potential profit opportunity slip by. Once we spot one, we don't care what others think or whether the textbooks cover it. **But: bold hypothesis, careful verification.**
@@ -97,7 +97,7 @@ During processing we already print the basket's 1-, 5- and 10-day forward return
 
 Finally, we ran it over Feb 10 – Mar 5, 2019, with these results:
 
-![Forward returns of the hot-word speculation basket, Feb 10 - Mar 5, 2019](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/magic-word-factor-forward-returns.jpg)
+![Forward returns of the hot-word speculation basket, Feb 10 - Mar 5, 2019](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/magic-word-factor-forward-returns.jpg)
 
 That's how your money gets taken. If you can't beat them, join them!
 

@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/04-numpy核心语法-3
 date: 2025-03-09
 category: tools
 motto: Be dazzling! You are qualified.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy]

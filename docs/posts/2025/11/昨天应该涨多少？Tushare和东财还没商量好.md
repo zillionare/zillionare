@@ -4,7 +4,7 @@ title: 关于昨天应该涨多少这件事，Tushare 和 东财还没商量好
 date: 2025-11-24
 category: algo
 excerpt: 最近在整一个适合个人使用的量化框架，数据源选择了 tushare，实时数据和交易 API 使用 QMT。在尝试一个策略时，发现该发出信号的时候，没有发出信号，于是就开始了排错之旅。这一查不要紧，发现就连最基本的每日涨跌幅数据也算不『对』了。
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/24.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/24.jpg
 tags: [算法, 复权, 数据, tushare, akshare]
 ---
 
@@ -44,7 +44,7 @@ df_ts
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124170919.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124170919.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -58,7 +58,7 @@ df_ts
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/a02d1071b2d08d2e279f379dfe92b71e.jpg"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/a02d1071b2d08d2e279f379dfe92b71e.jpg"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -95,7 +95,7 @@ df_ts[cols]
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180058.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180058.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -140,7 +140,7 @@ compare(df_ts, "pct_chg", "pct_chg_v2", title="原始涨跌幅与收盘价（复
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180334.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180334.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -197,7 +197,7 @@ df_ak
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124182423.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124182423.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -215,7 +215,7 @@ compare(df_ak, "ak_qfq", "pct_chg", df_ts, title="ak 前复权 vs tushare")
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183301.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183301.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -242,7 +242,7 @@ compare(df_ak, "ak_no_fq", "pct_chg", df_ts, title="Akshare 不复权 vs tushare
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183939.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183939.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -278,7 +278,7 @@ df_ts.adjust.plot()
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124185710.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124185710.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">

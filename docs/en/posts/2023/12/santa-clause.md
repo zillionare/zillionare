@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 8a445781d4fdae2badce5b5b4968efbc9862425c
 ---
 
-<!-- ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/santa-claus.png) -->
+<!-- ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/santa-claus.png) -->
 
 Posting every day. Around 1,000 words, with charts and illustrations.
 
@@ -40,7 +40,7 @@ The exact start date is actually disputed. Most investors think the uptrend begi
 
 Looking at the S&P 500's performance in the week before December 25 from 2002 to 2022, there is little evidence of a Santa Claus Rally. As the chart below shows, returns were positive in 13 years, negative in 5 years, and flat in 2 years. Although many investors attribute any strength in the weeks before Christmas to the Santa Claus Rally, December alone does not warrant excessive optimism — history includes plenty of negative years.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sp500_before_chrismas.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sp500_before_chrismas.png)
 
 #### What Happens in January
 
@@ -58,4 +58,4 @@ So while it's worth watching for a year-end rally, remember it involves an eleme
 
 China A-shares have a similar seasonal pattern, generally called the Spring Festival rally. Statistics put its occurrence at over 80%, but its timing varies. It can start in mid-December or sometime in January; it can end before the Lunar New Year or run all the way into the Two Sessions.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/merry-christmas.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/merry-christmas.jpg)

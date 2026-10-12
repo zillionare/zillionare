@@ -17,7 +17,7 @@ Factor mining is still predominantly manual. The most effective factors (strateg
 <!--more-->
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/private-equity-strategy-cta.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/private-equity-strategy-cta.png)
 
 In CTA strategies, broken down by fundamental, technical, and alternative factors, most firms still rely primarily on technicals. **Trend-following strategies were typically the main contributor to returns, while fundamental factors dragged on performance**.
 
@@ -27,7 +27,7 @@ Another distinctive feature of Semi-Martingale is its use of **NLP on overseas d
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/private-equity-strategy-long.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/private-equity-strategy-long.png)
 
 Among quant long strategies, factors are mainly hand-crafted, with an emphasis on interpretability. Volume-price factors still dominate and remain the main contributor to strategy returns. Factor counts are typically in the hundreds, though a few firms focused on automated mining maintain much larger libraries — Shanghai Zhuosheng (上海卓胜), for example, has built a 100K+ feature library.
 

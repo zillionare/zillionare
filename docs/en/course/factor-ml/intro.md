@@ -49,7 +49,7 @@ The course covers three major modules: factor mining, factor testing, and buildi
 Only by mastering factor testing methods can we determine if mined factors are effective. Therefore, factor testing is the starting point of this course, spanning from Chapter 2 to Chapter 7, totaling six chapters.
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg'>
 <span style='font-size:0.6rem'>Alphalens Logo</span>
 </div>
 
@@ -66,7 +66,7 @@ Factor mining, or feature engineering, is a crucial step in building trading str
 If mastering these factors is not enough, we will also introduce factor mining methodology in Chapter 12. You may have been attracted to us by our various articles on factor and strategy mining published online; here, we will teach you all the resources and methodologies we have mastered.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/factor-nav.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/factor-nav.jpg'>
 <span style='font-size:0.8em'>Various Factor Categories</span>
 </div>
 
@@ -75,7 +75,7 @@ When introducing Alpha 101 factors, we focus on understanding their data formats
 Regarding the implementation of Alpha 101 factors, since many open-source implementations already exist, we do not intend to reinvent the wheel. Instead, we will introduce an open-source library we believe is the most complete and accurate, which you can use directly in our appendix. You can then add it to your quantitative arsenal.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/better-sing-wave-indicator.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/better-sing-wave-indicator.jpg'>
 <span style='font-size:0.6rem'>Hilbert Sine Wave</span>
 </div>
 
@@ -86,32 +86,32 @@ In Chapter 10, we will introduce fundamental and alternative factors. Due to the
 In Chapter 11, we will introduce factors that do not fit into other categories but are still important, such as low-probability event (Black Swan) factors. We will introduce the concept of derivatives to present two effective first-order and second-order momentum factors, construct frequency-domain factors using time-frequency transformation, and introduce some behavioral finance factors, a hot concept in current finance that is very useful in short-term trading.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fft-decomposite.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fft-decomposite.jpg'>
 <span style='font-size:0.6rem'>Extracting Frequency-Domain Factors via FFT</span>
 </div>
 
 ### 3.3. Building Machine Learning-Based Trading Strategies
 
-<!-- ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/machine-learning.jpg?width=500){width="500"} -->
+<!-- ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/machine-learning.jpg?width=500){width="500"} -->
 
 This part begins with a rapid introduction to core machine learning concepts (Chapter 14). We will cover loss functions, objective functions, metric functions, distance functions, bias, variance, overfitting, and regularization penalties. These are applied-level concepts within machine learning that we must deal with.
 
-<!-- ![Machine Learning Basic Concepts](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/loss-objective-metrics.jpg?width=500) -->
+<!-- ![Machine Learning Basic Concepts](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/loss-objective-metrics.jpg?width=500) -->
 
 !!! tip
     If you need to deeply understand machine learning and neural networks, or invent new network models and algorithms, you will need to supplement your knowledge with linear algebra, gradient optimization, backpropagation, and activation functions. However, for mastering this course, achieving proficiency in known algorithm models and tuning, the concepts we introduce are sufficient.
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sklearn-logo.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sklearn-logo.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 The machine learning library selected for this course is `sklearn`. `sklearn` is a powerful library, loved for its rich models and easy-to-use interface. In Chapter 15, we introduce `sklearn`'s general toolkit, which handles common issues regardless of the algorithm model used, such as data preprocessing, model evaluation, model interpretation and visualization, and built-in datasets.
 
-<!-- ![Cross Validation](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png?width=500) -->
+<!-- ![Cross Validation](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png?width=500) -->
 In Chapter 16, we will introduce model optimization methods, a core skill for most people engaged in machine learning and AI, and a key to creating excellent machine learning trading models. We will demonstrate how to use cross-validation, grid search (GridSearch), random search (RandomizedSearch), and other methods.
 
-<!-- ![Rolling Forecasting](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp?width=500) -->
+<!-- ![Rolling Forecasting](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp?width=500) -->
 
 Machine learning in the quantitative field has its own特殊性 (special characteristics), particularly in cross-validation. We actually need to use a method called Rolling Forecasting (also known as Walk-Forward Optimization). We will detail this method and its implementation in the final part of Chapter 16.
 
@@ -120,7 +120,7 @@ Next, we introduce a clustering algorithm (Chapter 17). In quantitative trading,
 In Chapter 18, we will introduce XGBoost, a gradient boosting decision tree model. Due to the high noise in financial data and the difficulty in obtaining large amounts of effectively labeled data, gradient boosting decision trees remain the most widely applied and effective machine learning model in quantitative trading.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/scheme-of-xgbost-model.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/scheme-of-xgbost-model.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -137,7 +137,7 @@ These two examples point to the fundamental method for using machine learning to
 In Chapter 21, we will delve deeper into XGBoost models. We introduce another implementation of gradient boosting decision trees: LightGBM, developed by Microsoft. It is generally believed to outperform XGBoost in performance, with smaller memory usage, and each has its own advantages compared to XGBoost in other metrics.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lightGBM-by-Hossain-medium.jpeg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lightGBM-by-Hossain-medium.jpeg'>
 <span style='font-size:0.6rem'>LightGBM, by Hossain@medim</span>
 </div>
 
@@ -171,7 +171,7 @@ This course only covers part of the knowledge in quantitative trading. If you wi
 !!! tip "Enroll Now!"
     Scan the code to enroll and lock in the lowest price!
 
-    <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 150px;position:relative;float:right"/>
+    <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 150px;position:relative;float:right"/>
 
     * Exclusive in-depth analysis of Alphalens reports, helping you master factor testing and tuning.
     * Over 400 independent factors, categorized and deeply explained; take away 350+ factor implementations upon completion.

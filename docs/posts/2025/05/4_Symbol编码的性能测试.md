@@ -4,7 +4,7 @@ slug: posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试
 date: 2025-05-14
 category: tools
 motto: You only live once, but if you do it right, once is enough
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png
 tags: [tools, programming]
 excerpt: "现在，我们需要设计一种通用的数据交换格式（Standard Quotes Exchange Protocol, SQEP）。这种格式的工作原理是：由数据生产者（因为只有生产者才了解原始数据的具体格式）将数据转换为这种标准格式，然后再将其推送到Redis中供消费者使用。"
 ---
@@ -84,7 +84,7 @@ SQEP-BAR-DAY 主要应用于：
 
 既然规定好了日线场景下的数据交换格式，就可以让 007 设计代码实现了。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_01.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_01.png)
 
 007 为我们提供了两个代码文件（`sqep_bar_day_producer.py`和`sqep_bar_day_consumer.py`），简单修改后可以正常运行。
 
@@ -246,9 +246,9 @@ if __name__ == "__main__":
     produce_sqep_data(STOCK_CODES, DATE_RANGE)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_02.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_02.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_03.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_03.png)
 
 ```python
 import redis
@@ -452,7 +452,7 @@ if __name__ == "__main__":
     consume_sqep_data()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_04.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_04.png)
 
 
 
@@ -460,7 +460,7 @@ if __name__ == "__main__":
 
 接下来，我们将设计一个实验来测试股票代码编码方式对查询性能的影响。这个实验将比较字符串格式和整型编码格式在不同数据量下的查询性能差异。007 很 nice 地帮助我设计了一个实验方案：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_05.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_05.png)
 
 #### 1.5.1. 测试方案
 ```python
@@ -889,7 +889,7 @@ if __name__ == "__main__":
 
 ##### 1.5.2.2. 查询性能对比
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_06.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_06.png)
 
 | 数据量(记录数) | 单条查询时间(ms) |              | 性能提升  | 范围查询时间(ms) |              | 性能提升   |
 | -------------- | ---------------- | ------------ | --------- | ---------------- | ------------ | ---------- |
@@ -901,7 +901,7 @@ if __name__ == "__main__":
 | 1,260,000      | 0.19             | 0.28         | 0.70x     | 377.34           | 24.71        | 15.27x     |
 | **平均**       | -                | -            | **0.93x** | -                | -            | **15.99x** |
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/symbol_performance.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/symbol_performance.png)
 
 ##### 1.5.2.3. 结果分析
 
@@ -936,7 +936,7 @@ if __name__ == "__main__":
 ## 2. SQEP-BAR-MINITE 分钟线场景下的数据交换格式
 同上，但没有复权因子。这样，无论将来我们从哪个数据源获得的数据，消费者一端的代码都不需要更改。这里，我和 007 将设计一个性能测试方案，比较JSON(带key)和CSV(不带key)两种数据交换格式的性能差异。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_07.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_07.png)
 
 ### 2.1. 测试方案
 ```python
@@ -1396,7 +1396,7 @@ if __name__ == "__main__":
 
 ### 2.2. 测试结果
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_08.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/4_08.png)
 
 | 数据量(记录数) | JSON编码时间(ms) | CSV编码时间(ms) | JSON解码时间(ms) | CSV解码时间(ms) | JSON大小(KB) | CSV大小(KB) | 编码比率(JSON/CSV) | 解码比率(JSON/CSV) | 大小比率(JSON/CSV) |
 | -------------- | ---------------- | --------------- | ---------------- | --------------- | ------------ | ----------- | ------------------ | ------------------ | ------------------ |
@@ -1408,7 +1408,7 @@ if __name__ == "__main__":
 | 50,000         | 66.37            | 70.23           | 34.55            | 48.12           | 8,009.18     | 3,526.28    | 0.95x              | 0.72x              | 2.27x              |
 | 平均           | -                | -               | -                | -               | -            | -           | 0.95x              | 0.72x              | 2.27x              |
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/data_format_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/data_format_benchmark.png)
 
 #### 2.2.3. 结果分析
 1. 编码性能

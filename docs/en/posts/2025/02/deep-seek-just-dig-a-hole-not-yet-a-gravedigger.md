@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger
 auto_translated: true
 source_sha: a488b9f8a35072508426b6ece70f7349b2d34ba7
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg"
 ---
 
 In our *Factor Analysis and Machine Learning Strategies* course, we provide 18 years of daily data (over 11 million records from 2005 to 2023) for students to conduct **factor mining** and validation. Initially, we cached this data in memory using the `lru_cache` decorator from Python’s `functools`. This approach meant that while the first call took slightly longer (around 5 seconds), subsequent calls were processed in milliseconds.
@@ -20,7 +20,7 @@ However, this approach created a significant issue: excessive memory consumption
 Our data is organized as a dictionary and stored on disk:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210121041.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210121041.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -31,7 +31,7 @@ Before conducting **factor analysis**, users load market data by specifying a `u
 The function ultimately returns a DataFrame with a dual index of `date` and `asset` (stock ticker), containing columns for OHLC, volume, etc. These columns are adjusted forward based on the `end` date (a method known as dynamic forward adjustment). Additionally, an `amount` column is included, which remains unadjusted.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210202407.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210202407.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

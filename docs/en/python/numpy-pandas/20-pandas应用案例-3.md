@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/20-pandas应用案例-3
 auto_translated: true
 source_sha: 46b3a7810e7382d8fca8b4d391637cd3d9af6d8d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"
 ---
 
 “Modin accelerates Pandas operations via multi-core parallelism, reading 10GB CSV files 4-8x faster; Polars, built on Rust, uses only 1/3 of Pandas’ memory; Dask supports distributed computing, easily handling TB-scale data.”

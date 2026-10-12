@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/flag-pattern-detection
 auto_translated: true
 source_sha: 1f1f1812b7471ab331567deedfd0a84969bee521
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/daniel-thomas.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/daniel-thomas.jpg"
 ---
 
 The final module of the *Kuang Ti. Factor Analysis and Machine Learning Strategies* course covers the application of deep learning frameworks in quantitative trading. Since many technical traders rely on chart patterns—such as Elliott Wave theory, head-and-shoulders formations, and triangle consolidations—it makes sense to leverage Convolutional Neural Networks (CNNs). Given that CNNs have surpassed human capabilities in image pattern recognition, this article uses triangle consolidation detection as a case study.
@@ -18,7 +18,7 @@ To implement triangle detection via a CNN, the first step is data annotation. We
 <!-- BEGIN IPYNB STRIPOUT -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -27,7 +27,7 @@ If you wish to access the source code for this article, you can join our private
 
 !!! note
     <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-    <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/matryoshka-doll.jpg'>
+    <img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/matryoshka-doll.jpg'>
     <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
     </div>
     Initially, I considered annotating candlestick charts via algorithms and then recognizing them with a CNN, which felt like a "Matryoshka doll" approach. Consequently, I switched to a different example in the course: using 1D convolution with 4 channels to achieve 1% prediction error accuracy. This article represents a reworked excerpt from that course material.
@@ -35,7 +35,7 @@ If you wish to access the source code for this article, you can join our private
 The schematic diagram of the algorithm is as follows:
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/resist-support.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/resist-support.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Triangle Detection Schematic</span>
 </div>
 
@@ -59,7 +59,7 @@ Let $S_r$ denote the slope of the resistance line and $S_s$ denote the slope of 
 Some of these patterns are illustrated below:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/all-triangles.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/all-triangles.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -171,7 +171,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -196,7 +196,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-break-out.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-break-out.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -220,7 +220,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-sep-6.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-sep-6.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -243,7 +243,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-nov-20.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-nov-20.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -266,7 +266,7 @@ for key, df in barss.groupby("asset"):
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-dec-29.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/300814-dec-29.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

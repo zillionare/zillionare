@@ -5,13 +5,13 @@ date: 2026-09-14
 description: 直播里 LLM 读指标做交易很热闹，但热闹不等于有效。三个递进实验回答：LLM 能做交易吗、有效性在哪一层、为什么。
 tags: [大模型, Agent, 中证1000, 量化交易, 回测, AI量化]
 excerpt: "LLM 真能下单吗？nof1.ai 直播实验夏普仅 0.019，九个月后 AI 突飞猛进，结论会变吗？本文在中证 1000 上设计三个递进实验：先让模型只预测仓位，把趋势、波动、乖离率翻译成自然语言状态再回测，逐步逼近交易本质，并给出可复现的完整代码与指标对比。"
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg"
 ---
 Agent 能做交易吗？nof1.ai 在去年底做了一场实验并在互联网上进行了直播。和小龙虾一样，当时引起了巨大的轰动。不过，今天这个直播网站已是门前冷落鞍马稀了。
 
 部分原因是，参与交易的 Agent，最好的成绩也只取得了0.019的夏普率，还不如 A 股散户，这一局，Agent 完败。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260915111717.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260915111717.png)
 
 不过，时间又过去了9个月。这9个月，是有史以来，人工智能发展最迅速的时刻。9个月之后，情况又会如何？
 
@@ -319,9 +319,9 @@ def exp1_llm_policy(rows, model):
 
 **结论**：LLM 把波动（25%→9.3%）和回撤（-46.7%→-26.3%）砍半——它是合格的"风险调制器"；但在 2019–2026 的大牛市窗口里大幅跑输买入持有，且与规则基准几乎重合（92 个月里 LLM 的选择与规则逐日一致），说明这套统计表里没有方向 alpha。
 
-![实验一规则净值 vs 同窗买入持有、实验二周一动量净值、实验三周四 knn5+q 净值](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-curves.png)
+![实验一规则净值 vs 同窗买入持有、实验二周一动量净值、实验三周四 knn5+q 净值](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-curves.png)
 
-![knn5+q 周四与实验一规则的回撤对比](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-drawdowns.png)
+![knn5+q 周四与实验一规则的回撤对比](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-drawdowns.png)
 
 这基本上就是我们在 nof1.ai 上看到的情况。
 
@@ -513,7 +513,7 @@ def exp2_llm_forecast(record, model, prev_position=0.0):
 
 以下是实验二的结果（2026-09-16 用 `deepseek-v4-flash` 全量重跑，周一到周五五个调仓日各取最近 100 周；LLM 统一为 v2 自洽提示词，失败周降级空仓计入）：
 
-![实验二结果：买入持有 vs 动量规则 vs LLM 同窗同日对比，总收益、年化波动、Sharpe、Sortino、最大回撤五面板分组柱状图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-bars.png)
+![实验二结果：买入持有 vs 动量规则 vs LLM 同窗同日对比，总收益、年化波动、Sharpe、Sortino、最大回撤五面板分组柱状图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-bars.png)
 
 与实验一相比，实验二的成绩大幅提升。从 Sharpe 分布图中可以看出，几乎在每一个调仓日，**LLM 都取得了更好的夏普率**。通过观察总收益和最大回撤图，我们可以得出结论，夏普的提升主要是通过降低波动和回撤风险带来的。
 
@@ -650,9 +650,9 @@ def knn_llm_forecast(record, model, prev_position=0.0, knn_k=5, quantize=False):
 
 运行结果如下：
 
-![实验二 vs 实验三（knn5+quantize）同日对比：总收益、年化波动、Sharpe、Sortino、最大回撤五面板分组柱状图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-vs-exp3-bars.png)
+![实验二 vs 实验三（knn5+quantize）同日对比：总收益、年化波动、Sharpe、Sortino、最大回撤五面板分组柱状图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-vs-exp3-bars.png)
 
-![实验三 2×2 因子分解：检索（top-5 × 全历史48）× 离散化（连续 × 量化）的 Sharpe 矩阵与五日均值](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/exp2-vs-exp3-2x2.png)
+![实验三 2×2 因子分解：检索（top-5 × 全历史48）× 离散化（连续 × 量化）的 Sharpe 矩阵与五日均值](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/exp2-vs-exp3-2x2.png)
 
 第一张图的结果比较令人意外。从周一到周三，Sharpe 好于实验二，但周四到周五的结果却弱于实验二。但是，考虑到 sharpe 的绝对值，实验三中，周一和周二的表现即使占优，我们也不会采纳。这样看来，实验三对实验二，实际上是1胜两负的结果。
 

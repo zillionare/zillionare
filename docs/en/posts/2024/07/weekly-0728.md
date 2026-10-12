@@ -111,7 +111,7 @@ In trader's terms, this is a **buy** strategy during a **bull market** (index ab
 
 First, quantitativo conducted single-factor testing. The testing method involves buying and holding for 5 days all targets where the 2-day RSI closes below 5, then calculating returns.
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
 
 This statistics include over 21,000 targets and over 2.5 million events (S&P 500 closing above the 200-day MA). Highlights from the test:
 
@@ -161,7 +161,7 @@ So, what were quantitativo's experimental results?
 
 The test on SPY was simply a disaster. Over the entire backtest period (25 years), trading this strategy with SPY provided a 67% return. The main reason is the low number of trades, with only 157 trades executed.
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
 
 ---
 
@@ -179,7 +179,7 @@ Additionally, they restrict trading only to targets with good liquidity:
 1. Only trade targets that have not been suspended at all in the past 3 months
 2. Do not include targets with a median daily trading volume in the past 3 months less than 20 times the fund share
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
 
 ---
 
@@ -192,7 +192,7 @@ Why? By analyzing the 11,380 trades conducted during the 25-year backtest, quant
 
 ## Second Improvement: Reducing Delisting Risk
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
 
 quantitativo improved the strategy again, this time by limiting the universe to trade only large and mega-cap stocks, which have lower delisting probabilities (35% and 9% respectively).
 
@@ -260,15 +260,15 @@ $$
 
 Running Alphalens with default values simply yields the following results:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cum-returns-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cum-returns-by-quantile.jpg)
 <cap>Long-short portfolio returns</cap>
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-quantile.jpg)
 <cap>Factor layering under default parameters</cap>
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-quantiles.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-quantiles.jpg)
 <cap>mpwr chart by quantiles</cap>
 
 Looking at returns, there seems to be no problem. If you are doing pure data mining, you might think there's nothing wrong with it, since this factor is profitable, right?
@@ -289,12 +289,12 @@ Alphalens provides another layering method, i.e., by bins. We provide bins as [0
 
 Now the layering results are very reasonable:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-bins.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-bins.jpg)
 <cap>Layering by bins</cap>
 
 But if we look at the `mean period wise return by Factor quantile` chart, we will find a mirror-image linear relationship between factors and returns:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-bins.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-bins.jpg)
 
 If Alphalens could go long on Group 4 and short on Group 1, the strategy results should be good. But Alphalens cannot do this. We need to modify the factor.
 
@@ -306,14 +306,14 @@ Our method is to discard the part of the factor values greater than 50, and then
 
 This time, we obtained a very perfect linear relationship:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/rsi-filtered-50-mpwr.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/rsi-filtered-50-mpwr.jpg)
 <cap>Filtering out part of the factors</cap>
 
 In this case, we can consider Alphalens's analysis results to be valid.
 
 Of course, the returns are also very good.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/boost-returns.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/boost-returns.jpg)
 
 Too good to be true. Only the limit-up factor can surpass this strategy.
 

@@ -4,7 +4,7 @@ slug: posts/tools/effective-pandas-1
 date: 2024-07-15
 category: arsenal
 motto: 知止而后有定 定而后能安 安而后能虑 虑而后能得 -- 大学
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065407-photo-1719014323201-d7ae3f83d260.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065407-photo-1719014323201-d7ae3f83d260.jpg
 lineNumbers: true
 tags: [quantlib, pandas]
 excerpt: "在量化领域，Pandas是不可或缺的工具，它以强大的数据处理和分析功能，极大地简化了数据操作流程。"
@@ -27,7 +27,7 @@ excerpt: "在量化领域，Pandas是不可或缺的工具，它以强大的数�
 
 假设我们有以下数据：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m.jpg)
 
 ---
 
@@ -40,7 +40,7 @@ df.index = df.index.to_period(freq='M')
 
 经过转换，就会生成下面的结果：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m-result.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m-result.jpg)
 
 这样的转换尽管实现了对齐，但会丢失具体的日期信息。我们也可以使用groupby来实现同样的功能：
 
@@ -56,7 +56,7 @@ df.index = df.index.to_period(freq='M')
 结果是：
 
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/padas-group-by-m.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/padas-group-by-m.jpg)
 
 语法要点是，asset与index构成一个事实上的惟一索引，我们现在要调整索引的日期，按'asset'进行分组，并且通过Grouper来指定分组的频率。Grouper是作用在索引上的。
 
@@ -135,5 +135,5 @@ Name: asset, dtype: object
 
 今天介绍的两个小技巧，都是因子检验中常常遇到的。熟悉掌握Pandas技巧，就能快速搞定因子检验，加快我们因子研发的迭代速度，你学会了吗？
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quant-resources.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quant-resources.jpg)
 

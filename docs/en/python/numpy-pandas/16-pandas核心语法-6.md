@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/16-pandas核心语法-6
 auto_translated: true
 source_sha: 00970d024e5903ac0a4a74744ef4d40f44f5d10b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/three-books.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/three-books.png"
 ---
 
 “Pandas offers robust datetime handling, enabling seamless conversion from strings to timestamps, timezone adjustments, and formatted output. Additionally, string operations such as replacement, splitting, and filtering are efficiently executed via the `str` accessor.”

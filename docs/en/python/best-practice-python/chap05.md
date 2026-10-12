@@ -205,8 +205,8 @@ The question of the Ship of Theseus arises in many fields. For century-old compa
 In software development, we frequently encounter the same problem. Every time we encounter a bug, we replace a "plank." As these patches and replacements accumulate, the software inevitably faces the Ship of Theseus question: Is the current software still the original software? If not, when did it cease to be the original software?
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official book</a>
@@ -256,7 +256,7 @@ Additionally, every minor version from 0.1 to before 1.0 is considered unstable 
 
 ## 2. POETRY: A Concise and Clear Project Management Tool
   
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202104/1-BUUIee-t1I2eqTm0RtDNHQ.jpeg){width="50%"}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202104/1-BUUIee-t1I2eqTm0RtDNHQ.jpeg){width="50%"}
 
 [Poetry] is a dependency management and packaging tool. Explaining the original intention of developing Poetry, the author said:
 
@@ -793,8 +793,8 @@ virtualenvs.prompt = "{project_name}-py{python_version}"
 Among these, the most important is configuring the `pypi-token`. After configuration, you can release projects without logging in. However, we recommend not configuring this token locally for important projects. We should only configure this token in the CI/CD system to achieve publishing only from CI/CD.
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official book</a>

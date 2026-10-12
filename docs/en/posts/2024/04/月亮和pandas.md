@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/月亮和pandas
 auto_translated: true
 source_sha: 6bb2f48ea490193737a956f5ed41151cde86bce9
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney-cover.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney-cover.jpg"
 ---
 
 Just as death and taxes are inevitable, so is pandas for quants — everyone has to deal with it eventually. And Wes McKinney is the creator of pandas. One of the most successful Python libraries of all time, pandas almost single-handedly carved out a space for Python to survive and thrive.
@@ -23,7 +23,7 @@ Strickland, a finance man of the early 20th century, saw through worldly vanity 
 
 The story of Wes McKinney we are introducing today echoes Strickland's in many ways. Except that Wes McKinney went without income for only a very brief period before quickly finding professional success.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes4.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes4.jpg)
 
 ---
 
@@ -34,7 +34,7 @@ He joined investment manager AQR in 2007. A giant with around 1,000 employees an
 While at AQR, a huge amount of foundational data analysis and statistics was still done by hand in Microsoft Excel — extremely tedious and inefficient work. So starting in 2008, Wes McKinney began developing pandas, choosing Python as his implementation language.
 
 <div>
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/pandas-logo.png">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/pandas-logo.png">
 <p style="font-size:12px;text-align:center">Source: pandas logo</p>
 </div>
 
@@ -70,4 +70,4 @@ If you want a book on pandas, there is no doubt that no book is more authoritati
 
 ---
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065548-cover.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065548-cover.png)

@@ -5,7 +5,7 @@ date: 2024-04-19
 category: arsenal
 motto: 要安静 要勇敢 -- 苏格拉底
 lunar:
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065337-photo-1530858085883-7ab22d96afcc.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065337-photo-1530858085883-7ab22d96afcc.jpg
 lineNumbers: true
 tags: [tools, copilot, vscode, AI]
 excerpt: "在投资界，巴菲特与查理.芒格的神仙友谊，是他们财富神话之外的另一段传奇。巴菲特曾这样评价芒格：他用思想的力量拓展了我的视野，让我以火箭的速度，从猩猩进化到人类。"
@@ -21,7 +21,7 @@ excerpt: "在投资界，巴菲特与查理.芒格的神仙友谊，是他们财
 
 在讲统计推断方法时，需要介绍分位图（Quantile-Quantile Plot）这种可视化方法人类天生就有很强的通过视觉发现pattern的能力，所以介绍这种可视化方法几乎是不可缺少的。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-0.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-0.png)
 <cap>左偏、正态和右偏分布的QQ图示例</cap>
 
 但当时在编这部分教材时，我对QQ-plot的机制还有一点不太清晰：为什么要对相比较的两个随机变量进行排序，再进行绘图？为什么这样绘图如果得到的是一条直线，就意味着两个随机变量强相关？难道不应该是按随机变量发生的时间顺序为序吗？
@@ -108,7 +108,7 @@ plt.text(np.max(r1), np.max(r1), "x=x")
 
 我们将得到如下的分位图：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/hchj-vs-xrhj.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/hchj-vs-xrhj.jpg)
 
 这就非常直观地显示出，两支个股的走势确实相关：在涨幅4%以下的区域，如果A下跌，那么B也下跌，并且幅度都差不多；如果A上涨，那么B也上涨；幅度也差不多。这正是相关性的含义。这里我们排除了时间，只比较了两个随机变量即日收益率。
 
@@ -139,7 +139,7 @@ plt.text(np.max(r1), np.max(r1), "x=x")
 
 在刚刚过去的4月19日，是一个股指期货交割日。接下来的4月24日，则是ETF交割日。今年的交割日如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/交割日.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/交割日.jpg)
 
 ---
 
@@ -158,7 +158,7 @@ import calendar
 calendar.monthcalendar(2024, 4)
 ```
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/month-calendar.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/month-calendar.jpg)
 
 ---
 

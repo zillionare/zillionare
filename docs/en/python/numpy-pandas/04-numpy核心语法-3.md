@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/04-numpy核心语法-3
 auto_translated: true
 source_sha: d3e4a9a5d3a9ddd5ad70f0f12c1f3c43adf3e328
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
 ---
 
 Swapping data between different libraries often leads to format issues. For instance, market data obtained from third-party sources typically uses string fields for timestamps. Some libraries optimize OHLC fields for storage by using 4-byte floats, but if you need to pass this data to `talib` for indicator calculations, you must first convert it to 8-byte floats. This creates a need for type conversion.

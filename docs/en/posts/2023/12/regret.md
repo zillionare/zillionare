@@ -35,23 +35,23 @@ Gao hypothesizes that <red>aggressive buyers who end the day underwater become r
 
 Based on this hypothesis, he constructs the following four factors:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322102309.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322102309.png)
 
 ---
 
 To sign trade direction, he uses a neat trick: <red>ranking buy and sell order IDs</red> to classify trades as active buys or active sells.
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112354.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112354.png)
 
 In the chart above, take the first trade as an example: the buy order ID comes first and the sell order ID comes later, meaning the buyer posted first and the seller hit the bid — so it is classified as an active sell. The same logic applies to the rest.
 
 Backtesting on the CSI 1000 universe from 2016 to 2022 gives the following metrics:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112516.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112516.png)
 
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112800.png)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230322112800.png)
 
 For reference, here is the monthly chart of the CSI 1000 since January 2016 (the vertical dashed line marks January 2016):
 

@@ -2,7 +2,7 @@
 slug: posts/tools/2026十大量化技术/sqlite
 title: "2026量化新基建二：sqlite+sqlite-utils，突破并发瓶颈？"
 date: 2026-01-01
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg
 excerpt: "量化交易中，委托与成交数据如何高效存储？SQLite并非玩具，WAL模式支持多进程并发读写。配合sqlite-utils，用Pythonic方式简化数据库操作，提升表达力。本文详解性能优势与实战配置，助你构建轻量级交易数据库，告别传统sqlite3模块的繁琐。"
 categories: tools
 tags: [tools, sqlite, sqlite-utils, fastlite]
@@ -22,7 +22,7 @@ layout: cover-random-img-portrait
 但实际上， sqlite 是一个非常优秀的数据库。在过去的 2025 年中，它与 postgres 一起名列数据库前二；并且一直是最多人使用的数据库。
 
 <div style='width:90%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -52,7 +52,7 @@ layout: cover-random-img-portrait
 你可能得到的是这样的回答：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231110246.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231110246.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -244,7 +244,7 @@ sqlite-utils 巧妙地借用了**文档数据库**（如 MongoDB）的语法，�
 
 !!! tip
     你可能会好奇，如果在第 5 行之后，我们新插入一个对象，该对象包含了性别和年龄字段，那么，sqlite-utils 会如何处理？ 在内部，sqlite-utils 会判断表结构发生变化，自动调用 tranform 方法来完成新的表结构定义、数据迁移。请见下图所示。
-    ![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231153523.png)
+    ![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231153523.png)
 
 ---
 
@@ -378,7 +378,7 @@ user_from_db
 
 在所有能使用内置语法的地方，我更喜欢**只用内置语法，而不使用第三方**。如无必要，勿增实体。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231194006.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231194006.png)
 
 ## sqlite-utils 增删改查
 

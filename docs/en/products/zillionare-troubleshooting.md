@@ -1,7 +1,7 @@
 ---
 title: "Zillionare 2.0: Resolving 'Unclosed Bar' Build Failures"
 date: 2024-02-23
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154342-cover-products-zillionare-troubleshooting.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154342-cover-products-zillionare-troubleshooting.md.jpg"
 slug: en/articles/products/zillionare-troubleshooting
 tags: [Zillionare, Error Handling, Data Maintenance]
 excerpt: "Fix the \"failed to build unclosed bar\" error in Omega logs caused by missing minute-level data during initial post-market startup."

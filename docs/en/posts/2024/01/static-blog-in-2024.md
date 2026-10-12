@@ -22,7 +22,7 @@ Based on these technologies, we can go further: not only can we write technical 
 
 The image below shows a screenshot of the website interface for [Daifuweng Quant](https://blog.quantide.cn):
 
-![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/my-home-age.png)
+![66%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/my-home-age.png)
 
 ---
 
@@ -32,7 +32,7 @@ This is the homepage. The menu bar and search are standard configurations. The t
 
 All documentation has version control. I use GitHub to host documentation and images, so I also took the opportunity to beautify my GitHub personal profile:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/github-profile.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/github-profile.jpg)
 
 Honestly, I never imagined that a GitHub profile could look like a personal website. A good image certainly boosts the visual appeal.
 
@@ -119,7 +119,7 @@ My solution uses Slidev. It is a solution for creating online presentations base
 
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/xhs-sample.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/xhs-sample.jpg)
 
 Therefore, documents created with MkDocs+Material can be easily converted into images with minimal markup and customization.
 
@@ -135,7 +135,7 @@ We need to add `---` as page separators in the Markdown content at appropriate p
 
 ## Publishing to WeChat Official Accounts
 
-![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/md-nice.jpg)
+![L33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/md-nice.jpg)
 
 WeChat Official Account formatting has always been a problem. I even gave up creating content for it. As a tech geek, I rejected almost any formatting solution not based on Markdown. What era is this? Writing for self-media is already unprofitable, and platforms still dare to ask us to format specifically for them?
 
@@ -156,7 +156,7 @@ However, it handles Markdown image links well, saving me the time of uploading i
 However, Zhihu's document format is indeed too plain.
 
 ## Converting to PDF
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/mpe-export-as-pdf.jpg" width="180px" align="right">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/mpe-export-as-pdf.jpg" width="180px" align="right">
 
 Slidev can also be converted to PDF. However, I prefer using VS Code's Markdown Preview Enhanced to convert to PDF. The final conversion is provided by Chrome + Puppeteer. By adding appropriate markers in the document's front matter, headers and footers can be generated.
 

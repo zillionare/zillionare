@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/11-pandas核心语法-1
 date: 2025-03-28
 category: tools
 motto: You have within you right now, everything you need to deal with whatever the world can throw at you.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy, pandas]
@@ -42,7 +42,7 @@ obj
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/003.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/003.png)
 
 通过 `pd.Series()` 直接转换 Python 列表，默认生成从 0 开始的整数索引。
 
@@ -54,7 +54,7 @@ obj = Series({"a": 4, "b": 3, "c": 2, "d": 1})
 obj
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/004.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/004.png)
 
 ---
 
@@ -71,7 +71,7 @@ obj = Series([90, 85, 92], index=["数学", "英语", "物理"], dtype="float64"
 obj
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/005.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/005.png)
 
 ### 1.2.4. 创建带时间戳索引的Series
 生成时间序列数据：
@@ -82,7 +82,7 @@ s = Series([100, 200, 300, 400], index=dates)
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/006.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/006.png)
 
 ### 1.2.5. 查询数组值和索引对象
 可以通过Series的array和index属性获取其数组值和索引对象：
@@ -93,7 +93,7 @@ print("索引对象：{}", obj.index)
 ```
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/007.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/007.png)
 
 与Numpy数组相比，可以通过索引的标签选取Series中的单个或一组值：
 ```python
@@ -113,7 +113,7 @@ print(obj * 2)
 print(np.exp(obj))
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/008.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/008.png)
 
 ---
 

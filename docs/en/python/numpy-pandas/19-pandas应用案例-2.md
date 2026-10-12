@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/19-pandas应用案例-2
 auto_translated: true
 source_sha: 82f7f9d476157b208d3f8670c9b82ef329abd7e4
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg"
 ---
 
 "By converting string columns to `category` type, memory usage can be reduced by over 90%; replacing `iterrows` with `itertuples` improves iteration speed by 6x; and combining Numba’s JIT compilation allows numerical computation performance to rival C language."

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-0825
 auto_translated: true
 source_sha: 4da94fa3d56ff8de9fb928ca52ec75a99520cf94
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
 ---
 
 ### This Week’s Highlights
@@ -495,13 +495,13 @@ It randomly divides the dataset into K subsets of roughly equal size. For each r
 
 This process can be simply represented by the following diagram:
 
-![k-fold cross validation, by sklearn](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png)
+![k-fold cross validation, by sklearn](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png)
 
 However, in time series analysis (typical in securities analysis), the k-fold method is not suitable because time series analysis has a strict sequential order. Therefore, a specialized version of k-fold cross-validation, called rolling forecasting, has been developed. You can view it as a sequential version of k-fold cross-validation.
 
 It can be simply represented by the following diagram:
 
-![rolling forecasting, by tsfresh](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp)
+![rolling forecasting, by tsfresh](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp)
 
 ---
 
@@ -515,7 +515,7 @@ However, I recently learned about a novel method from the buildalpha website: no
 
 Buildalpha’s noise testing involves adding a certain ratio of random noise to backtest data, then performing backtesting, and comparing the backtest based on noise with the backtest based on real data.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/add-noise.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/add-noise.jpg)
 
 Its principle is that during backtesting, historical data is only *one possible* path. If time were to repeat, history might not change its overall direction, but randomness would alter its pace. A good strategy should be able to withstand randomness and grasp the overall direction of history. Therefore, adding some clever noise to a time series might invalidate overfitted strategies, while truly effective strategies will still shine.
 
@@ -529,16 +529,16 @@ Let’s compare real data with data overlaid with noise.
 
 <div style="display:flex">
 <div style="width:45%">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-real-price.jpg"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-real-price.jpg"/>
 </div>
-<div style="width: 45%"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-modified-price.jpg"/></div>
+<div style="width: 45%"><img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-modified-price.jpg"/></div>
 </div>
 
 The left image shows real data, and the right image shows data with some noise overlaid. After adding noise, randomness is introduced in some details, but the stock price trend is not changed (the overlay is independent). If the stock price trend were changed, this method would be invalid or even harmful.
 
 Finally, backtesting results for the same strategy are compared as follows:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-result.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-result.jpg)
 
 From the results, among the multiple possible paths in history, none of the backtest results are better than those based on real data.
 
@@ -558,7 +558,7 @@ Noise testing involves slightly perturbing historical data to assess robustness.
 
 Build Alpha provides visual detection of parameter plains.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/params-plaetu-original.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/params-plaetu-original.jpg)
 
 In this 3D plot, the selected parameters are X=9 and Y=4, indicated by the black dot. Clearly, this region is near a sensitive area where strategy performance degrades sharply. Following traditional recommendations, we should instead select parameters X=8 and Y=8, where the surface is flatter.
 

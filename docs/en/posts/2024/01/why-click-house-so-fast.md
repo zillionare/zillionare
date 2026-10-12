@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/why-click-house-so-fast
 auto_translated: true
 source_sha: aa9f04876a1d3f6bc5362581454699318d94601b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/query-buillion-rows-in-ms.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/query-buillion-rows-in-ms.jpg"
 ---
 
 In our last few notes, we covered personal setups for storing massive market data. We call them personal not because they are slow, but because the data lives locally and only supports single-machine queries.

@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/15-pandas核心语法-5
 date: 2025-04-01
 category: tools
 motto: Keep your face to the sunshine and you cannot see a shadow.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy, pandas]

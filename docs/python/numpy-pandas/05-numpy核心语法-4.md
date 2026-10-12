@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/05-numpy核心语法-4
 date: 2025-03-22
 category: tools
 motto: Adversity makes men, and prosperity makes monsters.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy]
@@ -55,7 +55,7 @@ plt.legend(lines, legend)
 
 从绘制的图形可以看出，当 alpha 为 1%时，夏普率可达 8.2。国内优秀的基金经理可以在一年内，做到 2~3 左右的夏普率。大家可以调整 alpha 这个参数，看看 alpha 与夏普率的关系。
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg)
 
 ### 1.1. The legacy: np.random module
 
@@ -96,7 +96,7 @@ plt.bar(x=value[1:],height=count)
 ```
 这样我们将得到一个接近于长方形的直方图，表明它服从均匀分布。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/random-histogram.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/random-histogram.jpg)
 
 -->
 
@@ -170,7 +170,7 @@ df.label.value_counts().plot(kind='bar')
 
 运行结果为：
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg)
 
 要在此基础上，得到一个新的平衡数据集，我们有两种思路，一种是 under sampling，即从多数类的数据中抽取部分数据，使得它与最小分类的数目相等；另一种是 over sampling，即从少数类的数据中复制部分数据，使得它与最大的类的数目相等。
 

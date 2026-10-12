@@ -30,7 +30,7 @@ Discrete Wavelet Transform (DWT) is a powerful tool for handling the time-varyin
 
 Traditional Fourier transforms assume signals are periodic and defined over the entire time interval, whereas wavelet transforms allow signals to be represented as superpositions of time-localized basis functions. This enables wavelet transforms to capture both time and frequency information of signals simultaneously.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/dwt.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/dwt.jpg)
 
 The foundation of wavelet transform is representing any function as a superposition of wavelets that constitute the wavelet basis. These wavelets are scaled and translated copies of finite-length oscillating waveforms (called mother wavelets), i.e., sub-wavelets. Selecting the optimal wavelet basis depends on the characteristics of the original signal to be analyzed and the expected analytical purpose. The final result is a set of time-frequency representations with different resolutions, which is why wavelet transforms are called multi-resolution analysis.
 
@@ -62,7 +62,7 @@ Research indicates that when applied to predicting stock market price directions
 
 ### System Architecture
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/architecture-of-xgboost.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/architecture-of-xgboost.jpg)
 
 ### Objective Equation
 
@@ -92,7 +92,7 @@ The technical analysis module receives outputs from the Financial Data Module an
 
 This module creates a dataset that will serve as input for the data preprocessing module. The dataset consists of combinations between the 26 used technical indicator sets and 5 original financial data features, producing a dataset with 31 features as shown in the table below. Technical indicator calculations are performed using the Python library TA-Lib.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/ta-moduel-output.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/ta-moduel-output.jpg)
 
 ### Data Preprocessing Module
 
@@ -160,7 +160,7 @@ We also use hypermutation, a method to reintroduce diversity into the population
 
 The following figure shows the important hyperparameters:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/most-important-hyper-params.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/most-important-hyper-params.jpg)
 
 The DEAP Python library is used to develop the MOO-GA module in this system.
 
@@ -183,7 +183,7 @@ Therefore, the value of the trading signal ranges within $[0,1]$, and the tradin
 
 The following figure shows a schematic of the training process.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/xgboost-training-process.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/xgboost-training-process.jpg)
 
 ### Case 1: Effect of Using PCA
 
@@ -197,7 +197,7 @@ In the improved system, PCA (Principal Component Analysis) technology is applied
 
 The following figure lists the experimental results for each system as well as the Buy-and-Hold strategy. The best results obtained for each financial market are highlighted in bold.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/influence-with-cpa.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/influence-with-cpa.png)
 
 By examining the obtained results, it can be concluded that the use of PCA technology plays an important role in improving system performance, as it not only achieves higher returns but also higher accuracy values.
 
@@ -207,7 +207,7 @@ In the other three sub-markets, using dimensionality reduction technology is cru
 
 Figure 4 shows a comparison chart of returns obtained using the basic system and the system with PCA during testing. It can be seen that, as mentioned earlier, introducing PCA allows the system to achieve higher returns.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/returns-compare-by-pca.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/returns-compare-by-pca.png)
 
 ### Case 2: Effect of Using Discrete Wavelet Analysis
 
@@ -215,7 +215,7 @@ In this case, we study combining DWT technology with PCA to simultaneously achie
 
 The following figure lists the results for each system and the Buy-and-Hold strategy. The best results obtained for each financial market are highlighted in bold. Due to the complexity of analyzing all combinations, only the two best combinations are shown in the figure.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/with-pca-dwt.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/with-pca-dwt.png)
 
 By examining the obtained results, it can be concluded that the combination of PCA and DWT denoising technologies enables the system to achieve better results than systems using only PCA.
 
@@ -229,7 +229,7 @@ In this case study, the performance of the proposed system is compared with a st
 
 The following figure shows the performance comparison of the two systems.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/final-comparison-pca-xgboost.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/final-comparison-pca-xgboost.png)
 
 ## Conclusion
 

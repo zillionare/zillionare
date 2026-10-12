@@ -12,7 +12,7 @@ source_sha: 3cd2a1ae5dd07ff07788df3bcbfcfc373d31f665
 
 Along the Huangpu River, near the Waibaidu Bridge, stands a British Neoclassical building with over a century of history. Once the famous Puxing Hotel, it is now known as the site of the first stock exchange in New China and has become a popular tourist attraction as the China Securities Museum.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/xshg_museum.jpeg){: .img-center-75 }
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/xshg_museum.jpeg){: .img-center-75 }
 <center><i style="font-size: small">China Securities Museum</i></center>
 
 At the end of 1990, the Shanghai Stock Exchange (SSE) was officially established. It was the first stock exchange in mainland China since the founding of the People's Republic. At that time, only eight stocks were listed, with a market capitalization of 1.234 billion RMB, making it the "smallest" securities market globally. Today, the number of China A-share listed companies has exceeded 5,000[^milestone1], making it the second-largest spot equity market after the United States and making significant contributions to China's economy.
@@ -25,7 +25,7 @@ The first cornerstone of this milestone was laid in the Netherlands around 1602.
 
 Everything begins with spices. In medieval Europe, spices were extremely expensive. By "spices," we do not mean modern perfumes or flavorings, but rather culinary spices such as pepper, cloves, cinnamon, nutmeg, and ginger.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/spices.jpg){: .img-center-75 }
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/spices.jpg){: .img-center-75 }
 
 European nobility highly valued food prepared with spices. In modern terms, meat without spices was considered "soulless." This fervent demand turned spices into luxury goods, even equating them with gold at times. Pepper, in particular, was known as "black gold."
 
@@ -35,7 +35,7 @@ Due to climate constraints, most spices could not be grown in Europe. However, d
 
 This company was the Dutch East India Company (VOC). Historically, there were at least two famous East India Companies. The other was the British East India Company, established in 1600, which held a monopoly on Indian trade for two centuries. Generally, when we refer to "the East India Company," we mean the British one. However, in the remainder of this article, "East India Company" refers to the Dutch East India Company.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/ship_Amsterdam.jpg){: .img-center-75}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/ship_Amsterdam.jpg){: .img-center-75}
 <center><i style="font-size: small">Ships of the East India Company</i></center>
 
 After its establishment, the Dutch East India Company publicly issued shares. In the capital alone, 1,000 people purchased shares, raising an initial capital of 6.5 million Dutch guilders. In contrast, the initial capital of the British East India Company at the same time was only 72,000 pounds, merely one-tenth of the Dutch company's capital.
@@ -52,7 +52,7 @@ Early laws stipulated that VOC shares could be redeemed by the company for their
 
 In 1609, the board of directors decided to stop returning the principal. If shareholders needed urgent cash or were dissatisfied with the company's performance, how could they exit and cash out? From that point on, the exchange added secondary market trading functions. Thus, the Amsterdam Exchange became the first fully modern stock exchange.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/amsterdam_exchange.jpeg){: .img-center-75 }
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/voc/amsterdam_exchange.jpeg){: .img-center-75 }
 <center><i style="font-size: small">Amsterdam Stock Exchange</i></center>
 
 Trading was active at this exchange. The VOC's average annual turnover rate was around 7%. By 1607, only two-thirds of the initial owners still held their shares. Based on this strong liquidity and the company's high annual dividends, VOC shares became high-quality collateral. Therefore, during the company's existence, it did not raise funds through new equity issuances. If financing was needed, the company issued 12-month bonds to meet its capital requirements.
@@ -67,7 +67,7 @@ This is the power and characteristic of the market: everyone aims to achieve the
 
 In the case of the Dutch East India Company, shares played the role of raising initial capital; while the securities trading market, by providing liquidity, allowed the company to use its raised funds continuously, stably, and efficiently (the company no longer needed to hold cash to应对 stock redemptions). Driven by capital, Dutch maritime trade and national power developed increasingly, earning the title "Maritime Coachman" and becoming the most powerful and wealthy nation in Europe for centuries.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/20230220202525.png){: .img-center-75}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/20230220202525.png){: .img-center-75}
 
 <center><i style="font-size: small">Image Source: Ray Dalio, *Principles*</i></center>
 
@@ -79,7 +79,7 @@ This was precisely the original intention behind the state's establishment of th
 
 If you enjoy this book, you can purchase it by clicking [here](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BANcJK1olXgAAV1dfAE8XBV8IGloQWQcCVF5UDkIeBl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmoMGlsVXQ8EXVdYFxJSXzI4YCBQJnpgKVo4axdoW2hoTVsLPXxeNFJROEonA24JGV4SWgAGV25tCEwnQgEIGlkTXgAKUW5cOEsQBWkPHVkVVQYBUFttD0seMzZbSwtWA1kyZG5eOEwXCnsOaRpHSQBwZG5dOEgnA2YOGV4XVAcESF5cCUsSH28PHV0SWwQCU11dD0MnAW4JH1IlbQ).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}
 
 
 [^milestone1]: On November 22, 2022, with the listing of Dingtai Hi-Tech and Matrix Shares on the SZSE, China's A-shares exceeded 5,000 listed companies. According to the *Shanghai Securities News*, it took 10 years for A-shares to grow from inception to 1,000 companies, another 10 years to reach 2,000, 6 years to reach 3,000, less than 4 years to reach 4,000, and 2 years and 2 months to reach 5,000.

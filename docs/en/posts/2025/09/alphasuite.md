@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/alphasuite
 auto_translated: true
 source_sha: 7061a58f913b2cc1b3f7bb56f1ab5a23ad1d2112
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg"
 ---
 
 Many quantitative researchers build their own libraries, investing significant time in the process. Is it truly worth it? My personal answer is yes, because I am among the countless developers who have built their own "wheels."
@@ -30,7 +30,7 @@ More importantly, the author seems to possess substantial domain expertise, prov
 This library demonstrates how to quickly build a "small yet functional" personal investment research system around your own investment philosophy. According to the author, he developed several strategy models based on LightGBM that performed well in the US and Canadian markets, prompting him to open-source the project:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250916210416.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250916210416.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Backtest curve, provided by Richard Shu</span>
 </div>
 
@@ -55,7 +55,7 @@ Commercial Real Estate (CRE) loans.
 Another interesting aspect of this project is its introduction of the CANSLIM investment model. CANSLIM is a classic growth stock investment strategy proposed by William O’Neil. Its core is to screen for high-quality stocks with high growth potential that can consistently outperform the market through seven key dimensions, essentially a stock selection framework combining "fundamentals + technicals."
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/CANSLIM.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/CANSLIM.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>CANSLIM Model</span>
 </div>
 

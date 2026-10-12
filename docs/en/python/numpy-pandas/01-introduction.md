@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/01-introduction
 auto_translated: true
 source_sha: 70a3b0689185c002838db517e404a45a1788e7d6
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/moon-and-sixpence.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/moon-and-sixpence.jpg"
 ---
 
 # 01 - This Is Your Quant Native Language
@@ -55,7 +55,7 @@ This course is specifically designed for quantitative trading practitioners, suc
 ## What Is Numpy
 
 <div style="position:relative;float:left">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065445-numpylogo.svg" align="left" style="width: 200px;margin:10px">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065445-numpylogo.svg" align="left" style="width: 200px;margin:10px">
 <p style="font-size:10px;text-align:center">Image Source: numpy.org</p>
 </div>
 
@@ -64,7 +64,7 @@ Numpy is the foundational package for scientific computing in Python. It is open
 Numpy provides multidimensional array objects, various derived objects (such as **masked arrays**), and high-performance routines for array operations, including mathematical, logical, shape manipulation, sorting, selection, I/O, discrete Fourier transforms, basic linear algebra, basic statistical operations, and random simulations. The following image provides a more detailed overview:
 
 <div style='width:80%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/numpy-features.jpg?1'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/numpy-features.jpg?1'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -121,7 +121,7 @@ Since becoming an open-source project in 2010, Pandas has grown into a substanti
 -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/pandas-features.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/pandas-features.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -132,7 +132,7 @@ Pandas provides two data structures: **Series** and **DataFrame**. It previously
 ## Extended Reading
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Source: Github README project</span>
 </div>
 

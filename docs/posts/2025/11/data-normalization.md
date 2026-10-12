@@ -1,23 +1,23 @@
 ---
 slug: posts/algo/data-normalization
 title: "夏普大于4的策略有多恐怖？A股策略夏普比率与数据标准化避坑"
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg
 excerpt: 本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Point-in-Time方法进行正确归一化的重要性，以避免自我欺骗，获得真实收益。
 category: algo
 tags: [机器学习, 回测, 数据标准化]
 date: 2025-11-28
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127215232.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127215232.png)
 
 学员问题: 我在交易领域的机器学习方面还是新手，一直在测试不同的预处理步骤来学习。其中一个模型突然表现得远好于我之前构建的任何模型，而唯一的主要变化是我如何对数据进行标准化（z-score 与 minmax 与 L2）。我确实很困惑，一个简单的标准化调整为何能产生如此大的差异，这里会有什么问题吗？
 
 这是他的回测报告：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127143830.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127143830.png)
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127144804.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127144804.png)
 
 
 从这个报告中其实看不出来任何问题。但正如华尔街那句老话所说：“如果一个策略看起来好得令人难以置信，那它通常就是假的。” (If it looks too good to be true, it probably is.)
@@ -39,11 +39,11 @@ date: 2025-11-28
 
 这是我们模拟出来的日收益分布：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213831.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213831.png)
 
 基于这些模拟的收益数据，我们就可以绘制出年化收益与夏普比率之间的关系，如下图所示：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213318.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213318.png)
 
 也许你会认为，日收益均值设置为0，scale 设置为0.02更合理。在这种情况下（更低的波动），如果策略的夏普达到了4，那么，年化收益的中位数值会是120%，仍然是过于优秀了。
 

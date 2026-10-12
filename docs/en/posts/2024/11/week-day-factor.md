@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/week-day-factor
 auto_translated: true
 source_sha: e7984fd3816103f95430d7a59ff802e384fcd0b1
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/caltech-Annenberg_center.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/caltech-Annenberg_center.jpg"
 ---
 
 In Lesson 12, we discussed how to expand factors (or strategies) across four dimensions: volume, price, time, and space. In the time dimension, we noted that buying at different points from Monday to Friday yields different returns. This article reveals which day offers the highest return.
@@ -37,7 +37,7 @@ Let’s first look at its overall trend:
 df.close.plot()
 ```
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/中证1000-2005-2024.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/中证1000-2005-2024.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 If we had bought and held since January 4, 2005, we would have achieved roughly a 5x return over 19 years. Remember this number.
@@ -318,7 +318,7 @@ returns_1d.swaplevel().unstack().plot()
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/week-day-factor-cum-returns-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/week-day-factor-cum-returns-1.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 From the cumulative return chart, we can see that buying on Friday yields the highest return, approximately 5.47x. This result looks only slightly better than a simple buy-and-hold strategy. However, the capital occupancy is only 20% of that required for buy-and-hold. Therefore, if we calculate the annualized Alpha, it is significantly higher than buy-and-hold.
@@ -349,7 +349,7 @@ Above, we only introduced the returns for buying on Friday and holding for one d
 You may have read many articles and spent considerable time trying to replicate them, only to end up with nothing: either the code was incomplete, the data was inaccessible, or the article was fundamentally flawed. But we don’t want to give you such a negative experience. Like other articles on this platform, the conclusions in this article are replicable, and the data used is equally accessible to you. You can join my community and run/verify this article via the Quantide Research platform. If you verify its effectiveness, you can then copy the code to your local environment and incorporate it into your timing strategy. If the results cannot be verified, you can also leave the community.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 

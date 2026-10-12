@@ -3,7 +3,7 @@ title: "不只是另一个量化轮子，AlphaSuite还带来了CANSLIM模型的�
 date: 2025-09-17
 category: tools
 slug: posts/tools/alphasuite
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg
 except: |
     AlphaSuite，又一个开源量化新项目。不过，这个轮子至少引入了 CANSLIM投资模型，也为我们使用 LLM 进行投资分析打了个样
 tags: [risk-management, llm, prompt, CANSLIM]
@@ -30,7 +30,7 @@ excerpt: "许多量化人都会构建自己的量化库，为此投入了大量�
 这个库展示了如何围绕自己的投资理念，快速搭建一个“小而能用”的个人投研体系。根据作者的自述，他自己做了若干个基于 lightgbm 的策略模型，并且在美国和加拿大市场上都取得了不错的成绩，因此决定把项目开源：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250916210416.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250916210416.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>回测曲线，由 Richard Shu 提供</span>
 </div>
 
@@ -55,7 +55,7 @@ Commercial Real Estate (CRE) loans.
 这个项目另一个有趣的地方，是它引入了 CANSLIM 投资模型。CANSLIM 是威廉.奥尼尔提出的一套经典成长股投资策略，核心是通过 7 个关键维度筛选具有高增长潜力、能持续跑赢市场的优质股票，本质是 “基本面 + 技术面” 结合的选股框架。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/CANSLIM.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/CANSLIM.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>CANSLIM 模型</span>
 </div>
 

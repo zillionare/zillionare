@@ -22,7 +22,7 @@ For institutional investors, the primary financial terminals used are Eastmoney 
 
 Individual and small-scale private equity investors mainly use data sources such as Tushare, AKShare, jqdatasdk, and QMT. These are the primary focus of this section.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson3-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson3-outline.png)
 
 This section consists of 5 lessons. We will focus on AKShare, Tushare, jqdatasdk, and Omicron—the data SDK built into the Daifuweng framework. We will also mention YFinance and other sources, clarifying which are viable and which are obsolete to save you time.
 
@@ -52,7 +52,7 @@ Some libraries are useful and well-written. But software is a technology full of
 
 We use three lessons to introduce three strategies from three dimensions. Placing strategies in the second part serves two purposes: first, after completing the first part, some students may be eager to try; more importantly, these strategies demonstrate from different angles what skills are required to build a robust strategy, helping you understand why the subsequent course is structured this way.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson6-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson6-outline.png)
 
 In Lesson 6, we introduce a small-cap strategy, which is a **fundamental dimension**. The small-cap factor is part of the Fama (FF) three-factor model. Its effectiveness has been validated by Wall Street for decades and was also highly effective in A-shares before 2017, entering a phase of intermittent effectiveness and失效 thereafter. This lesson answers several questions:
 
@@ -72,7 +72,7 @@ In Lesson 7, we introduce the Bollinger Bands strategy. This is a **technical an
 
 Technical analysis (broadly defined as excluding fundamental analysis and macro-timing) is the most effective strategy method for **medium and small-scale funds** in A-shares. From the latest Huatai Securities Research report (August 2023), we see that the most effective factors in July were still **reversal factors** and **volatility factors**, with small-cap ranking third. This remains an era where technology reigns.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/factor_performance_202307_1000.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/factor_performance_202307_1000.png)
 
 These factor performance data reveal the general direction of strategy research. You should have better methods to find reversals and master volatility. If you are interested in implementing these factors, you can find answers in our course *Factor Analysis and Machine Learning Strategies*.
 
@@ -90,13 +90,13 @@ Almost anyone who can code and has basic securities knowledge can implement this
 
 In this lesson, we cover almost all high-frequency NumPy functions in common quantitative frameworks. The exercises in this section are also technical; mastering them will quickly make you a NumPy/Pandas expert!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson9-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson9-outline.png)
 
 In Lesson 10, we introduce TA-Lib, one of the most important technical analysis libraries, integrated into many quantitative frameworks.
 
 In Lessons 11 and 12, we introduce some statistical knowledge. You will soon see its immense power!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson11-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson11-outline.png)
 
 In these two lessons, we verify the fundamental question of what probability distribution the Shanghai Composite Index follows, and answer questions like "If the Shanghai Composite Index drops by 4%, should we buy the dip?" For more similar questions, we believe that after completing this course, you will naturally be able to explore and answer them.
 
@@ -106,27 +106,27 @@ Combining what we have learned previously, we can now perform some relatively di
 
 K-line pattern detection is very useful in a market dominated by retail investors; it is the basis for programmatically executing the **Elliott Wave Theory**. The essence of short-term trading is chip distribution; any rise or fall must fall into a limited number of paradigms. Therefore, K-line pattern detection, even if not used for prediction, can be used for post-hoc confirmation.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
 
 In this lesson, we provide a fully adaptive method for detecting tops and bottoms: based on probability distribution theory, with a solid mathematical foundation.
 
 The red dots show the results of our adaptive algorithm detecting tops and bottoms. Based on these tops and bottoms, we calculated support and resistance lines. When the facts are laid before us, you have to admit that **chartists sometimes indeed control the A-share market**:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson12-resist_line.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson12-resist_line.png)
 
 We can certainly use it for more things, such as detecting M-top and W-bottom patterns:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/double_top_detected.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/double_top_detected.png)
 
 Or platform breakout detection (here we移植ed 2D clustering algorithms from machine learning to 1D time series):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/platform-breakout.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/platform-breakout.png)
 
 And the principles and algorithms for intelligent RSI, etc.
 
 If your goal in taking this course is to change jobs, then the content of Lesson 14—factor analysis—is indispensable. We detail all aspects of factor analysis: regression, IC, and layered backtesting, from principles to implementation.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson14_toc.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson14_toc.png)
 
 After completing the full process of factor analysis and having a panoramic view of most details and frameworks, Lesson 15 brings you to Alphalens. Now, learning Alphalens should be much easier, as you already know what it is and what it does.
 
@@ -137,7 +137,7 @@ After completing the full process of factor analysis and having a panoramic view
 
 Lessons 16 to 18 focus on visualization.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash.png)
 
 Plotting is not just for creating beautiful visualizations but also for unleashing the full potential of data and revealing hidden insights. It is the bridge between digital language and storytelling language, enabling individuals and organizations to make informed decisions and create meaningful change.
 
@@ -149,7 +149,7 @@ In the course, we introduce superstars in the plotting world: Matplotlib, Plotly
 
 Lessons 19 and 20 introduce Backtrader, the most popular pure backtesting framework currently.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson19-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson19-outline.png)
 
 In Lesson 21, after becoming proficient in backtesting, we learn how to evaluate our strategies. We introduce the Sharpe ratio, Sortino ratio, annual return, and many other metrics, explaining how they reveal the balance between risk and profitability in a strategy. We also introduce a professional yet easy-to-use strategy evaluation metric plotting library—QuantStats.
 

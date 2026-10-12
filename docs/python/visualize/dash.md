@@ -314,6 +314,6 @@ layout = html.Div(
 
 routing.py 能够提供路由的关键原因是，rootElement 是后面所有视图的父结点，只要这个节点存在，路由机制就有效。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash-gotcha.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash-gotcha.jpeg)
 
 从上图可以看出，即使切换到了 logout 视图，这个 rootElement 仍然存在。因此，在 routing 中，我们必须将新的视图更新到“page-content"节点下，而不是 rootElement 中。否则，我们将摧毁这个总路由。

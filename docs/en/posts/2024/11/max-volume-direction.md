@@ -8,11 +8,11 @@ lang: en
 translation_of: posts/factor-strategy/max-volume-direction
 auto_translated: true
 source_sha: 064199c6d376be45f8938f3316ee89939f5d7422
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg"
 ---
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Because of the night, we can see the starry sky more clearly | ©️ Nathan Jennings</span>
 </div>
 
@@ -51,7 +51,7 @@ Banz’s paper is not complex, spanning only 16 pages. It does not use advanced 
 In fact, we can understand the small-cap factor solely from the chart in his paper:
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/low-beta-factor.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/low-beta-factor.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Relationship between Returns and Market Cap Deciles</span>
 </div>
 
@@ -159,7 +159,7 @@ test(bars)
 !!! attention
     Since AKShare cannot fetch 30-minute bars by specific time ranges and only fetches fixed-length 30-minute bars (discarding earlier ones), the result of this code will differ from the image below.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/zlyz-tqly.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/zlyz-tqly.jpg)
 
 In the test, we set the threshold for `vr` to 5. For more aggressive individual stocks, setting it above 8 may yield better results.
 

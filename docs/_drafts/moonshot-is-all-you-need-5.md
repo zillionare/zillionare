@@ -17,14 +17,14 @@ title: 如何利用审计意见
 在 tushare 中，获取审计意见的 API 是 fina_audit。这个API 的方法签名是：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/20250922183044.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/20250922183044.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
 它将返回一个 DataFrame，包含以下字段：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/20250922183213.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/20250922183213.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>fina_audit 返回字段及示例</span>
 </div>
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/量化人也该开始装skills了
 auto_translated: true
 source_sha: 7a517946a464d8fc9f4bd99f4e742952fbd56f48
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png"
 ---
 
 In the AI era, developing strategies as an individual quant seems simpler: you can ask AI to hand-code a momentum strategy or explain multi-factor neutralization.
@@ -48,7 +48,7 @@ SkillsMP is currently the largest marketplace. As of March this year, it has lis
 !!! tip
     How popular are skills? When visiting SkillsMP, you have a high chance of encountering a "biological verification" test. Ordinary websites don't offer this "privilege."
 
-![Geek-style SkillsMP website](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png)
+![Geek-style SkillsMP website](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png)
 
 SkillsMP categorizes various skills. For quants, the Finance & Investment category, containing 20,270 skills, is worth exploring. Subcategories under Data & AI, such as machine learning and data analysis, are also valuable.
 
@@ -56,7 +56,7 @@ Next, we will recommend key skills for quants. First, let's introduce how to fin
 
 On SkillsMP, you can search directly rather than browsing by category. For example, if you want AI to use AkShare's data API more accurately, search for "akshare" and review the highest-rated skills.
 
-![High-rated skill cards found by searching akshare on SkillsMP](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/find-akshare.png)
+![High-rated skill cards found by searching akshare on SkillsMP](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/find-akshare.png)
 
 Clicking the card reveals the assets of the AkShare skill.
 
@@ -75,11 +75,11 @@ If you are using IDE tools like Trae or VS Code, download the corresponding zip 
 
 The following image shows how to download the skill's zip package.
 
-![Installation entry for downloading skills on SkillsMP](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skills-how-to-install.png)
+![Installation entry for downloading skills on SkillsMP](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skills-how-to-install.png)
 
 After installing the skill, you can use it via slash commands (or verify the installation). Using the Tushare skill as an example, we demonstrate how to verify successful installation in VS Code.
 
-![Verifying Tushare skill installation via slash command in VS Code](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/tushare-skill-verify.png)
+![Verifying Tushare skill installation via slash command in VS Code](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/tushare-skill-verify.png)
 
 The screenshot is from VS Code's AI chat window. Through the slash command and its prompts, we verified the successful installation. Thereafter, these skills will trigger automatically as you write code.
 
@@ -117,6 +117,6 @@ There is also an East Money skill, `eastmoney-trading.md`. The East Money Securi
 
 If you believe real-time tracking of financial news is important, you can install the `finance-news-source` skill.
 
-![Real-time capture of financial news by the finance-news-source skill](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260326151611.png)
+![Real-time capture of financial news by the finance-news-source skill](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260326151611.png)
 
 However, if you want to obtain these news in real-time, it may not work well in Trae/VS Code. It is better to install Claude Code or Openclaw. They are the best technicians.

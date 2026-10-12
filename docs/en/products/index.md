@@ -40,7 +40,7 @@ Zillionare is a locally deployable, open-source quantitative framework. It is fu
 
 The Zillionare quantitative framework consists of the following main components (services):
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/11/zillionare-deployment.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/11/zillionare-deployment.png)
 
 * [Omega](https://github.com/zillionare/omega): The data server for Zillionare, localizing data from upstream sources in real-time.
 * [Omicron](https://zillionare.github.io/omicron): The core module of Zillionare, providing data access APIs, strategy base classes, K-line charting, calendar and security list operations, and backtest return plotting.

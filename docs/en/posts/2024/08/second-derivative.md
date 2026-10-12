@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/second-derivative
 auto_translated: true
 source_sha: 09300781377fc84a1d436822fa837df318ae8100
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/psl.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/psl.jpg"
 ---
 
 In this episode, we introduce a second-derivative factor. We will demonstrate the exploration and optimization process for this factor, further explaining the principles of factor analysis, including:
@@ -34,7 +34,7 @@ The table below shows the performance under different periods and long-short con
 
 We randomly selected a sample from a single day, plotted its 7-day price trajectory, and fitted a trendline for the sample mean to verify the reliability of the factor analysis:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
 
 Upon purchasing this article, please send a private message to receive an online URL and login password. This provides access to all code, China A-share market data since 2005 (including minute-level data), and a backtest engine, supporting online execution and verification.
 
@@ -85,7 +85,7 @@ The factor's parameter is `win`, representing the time window over which the sec
 
 We then use Alphalens for factor testing. For the first call to Alphalens, we layer by quantiles with 10 layers.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg?1)
 
 From the layering chart, it is clear that continuing with收益 analysis is meaningless; we must optimize first.
 
@@ -109,7 +109,7 @@ Therefore, after obtaining the output from step 2, we can drop the 10th layer an
 
 The output of step 2 is a DataFrame with the following format:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
 
 Thus, to drop the 10th layer, we can do the following:
 
@@ -124,7 +124,7 @@ This time, we obtained a satisfactory layering mean收益 chart: monotonic and i
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
 
 This chart is essentially a complete reproduction of the previous one, except for the missing 10th layer. However, the 9th layer is now the top layer, which is the layer Alphalens will go long on when calculating long-short returns.
 
@@ -149,10 +149,10 @@ This time, the annualized Alpha is only 17.6%, with a Beta of -0.6. However, the
 
 Comparing the cumulative return charts from both scenarios, we can see that while the absolute return of the long-short portfolio is lower, its risk-mitigation capability is stronger:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
 <cap>Long-Short Portfolio</cap>
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
 <cap>Long-Only</cap>
 
 ---
@@ -209,7 +209,7 @@ plt.legend()
 
 -->
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
 
 This graph illustrates that the second derivative has a corrective effect on the trend of security prices. A stock in an uptrend, if the second derivative remains negative, will eventually reach a peak and then turn downward; conversely, a stock in a downtrend, if the second derivative remains positive, will eventually hit a bottom and then turn upward.
 
@@ -233,7 +233,7 @@ Therefore, I decided to plot the price trajectories of individual stocks in the 
 
 In the plot, we used a total of **199 samples**, which is sufficient for representativeness and robustness.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
 
 ---
 

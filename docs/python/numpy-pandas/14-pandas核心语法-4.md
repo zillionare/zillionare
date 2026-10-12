@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/14-pandas核心语法-4
 date: 2025-03-31
 category: tools
 motto: The greatest discovery of all time is that a person can change his future by merely changing his attitude.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy, pandas]

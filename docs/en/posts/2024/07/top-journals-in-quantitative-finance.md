@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/resources/top-journals-in-quantitative-finance
 auto_translated: true
 source_sha: 198339a0945554327b1ad213882fa3dbf83bc613
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/books-cover.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/books-cover.jpg"
 ---
 
 We have curated seven top-tier academic journals that every quantitative finance professional should follow. From the foundational Efficient Market Hypothesis to the latest research on cryptocurrencies, these publications represent the pinnacle of financial academia.
@@ -17,7 +17,7 @@ We have curated seven top-tier academic journals that every quantitative finance
 
 ### Journal of Finance
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/the-journal-of-finance.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/the-journal-of-finance.jpg)
 Undisputedly the No. 1 journal in the field.
 
 Launched in 1946, this premier academic journal is published by the American Finance Association (AFA).

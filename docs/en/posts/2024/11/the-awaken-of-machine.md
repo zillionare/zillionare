@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/the-awaken-of-machine
 auto_translated: true
 source_sha: 2f784933c9b82a5374cd2a350f5de4a4936eaa5b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"
 ---
 
 Machine learning is a subset of artificial intelligence (AI). AI refers to the technologies and methods that enable computer systems to perform tasks typically requiring human intelligence. AI encompasses various technologies and subfields, including machine learning, deep learning, natural language processing, computer vision, and expert systems.
@@ -16,7 +16,7 @@ Machine learning is a subset of artificial intelligence (AI). AI refers to the t
 The concept of AI was formally proposed at the Dartmouth Summer Research Project on Artificial Intelligence in 1956. Although small, Dartmouth College is one of the Ivy League universities. The workshop was initiated by John McCarthy, with participation from Claude Shannon and others. John McCarthy was a computer scientist and cognitive scientist, and one of the founders of the AI discipline. He was also the inventor of the famous programming language Lisp, which was used to write many early AI systems and algorithms.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/dartmouth-ai-summer-research.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/dartmouth-ai-summer-research.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Dartmouth AI Workshop</span>
 </div>
 
@@ -27,14 +27,14 @@ Along this journey, much like the historical debate between the particle and wav
 AI was first inspired by bionics. In the 1890s, Santiago Ramón Cajal proposed the neuron doctrine, which was later confirmed by Camillo Golgi using Golgi staining. In 1943, Warren McCulloch and Walter Pitts simplified complex neuronal electrochemical processes into relatively simple signal exchanges[^activation], laying a solid foundation for AI bionics.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/高尔基染色法和海马体.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/高尔基染色法和海马体.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Golgi Staining and Hippocampus</span>
 </div>
 
 In 1958, Frank Rosenblatt proposed the Perceptron based on bionic principles. This was one of the earliest neural network models, capable of solving binary classification problems by learning linear classifiers. Rosenblatt’s Perceptron was a brilliant invention because, at the time, computing technology was not yet digital. Training the Perceptron involved manually switching switches. Although primitive, the Perceptron eventually achieved reliable shape recognition capabilities through training.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/perceptron.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/perceptron.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Schematic of Perceptron</span>
 </div>
 
@@ -47,7 +47,7 @@ The Perceptron was a data-driven machine learning model. After the Perceptron wa
 Expert systems were humanity’s last hope for achieving AI at the time. Therefore, the failure of expert systems caused AI development to enter a low point, plunging into a frozen Cambrian period. However, just as Earth experienced the Cambrian period, evolution accelerated beneath the frozen ice, and revolutionary breakthroughs were imminent.
 
 <div style='width:20%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/geoffrey-hinton.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/geoffrey-hinton.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Geoffrey Hinton, 2024 Nobel Prize in Physics</span>
 </div>
 
@@ -56,7 +56,7 @@ In 1986, Geoffrey Hinton[^hinton], David Rumelhart, and Ronald Williams publishe
 Another 10+ years passed. In 1998, Yann LeCun proposed LeNet, the earliest convolutional neural network (CNN) and the first neural network in human history with practical utility. It was widely used on ATMs across the United States to read numbers on checks. Yann LeCun’s success sparked another AI wave, finally bringing the machine learning route back into the public eye.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/lenet.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/lenet.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>LeNet, by Yann LeCun</span>
 </div>
 
@@ -66,14 +66,14 @@ Behind this revival, two Chinese scientists—Jensen Huang and Fei-Fei Li—were
 
 !!! info
     <div style='width:10%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-    <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/the-worlds-i-see.png'>
+    <img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/the-worlds-i-see.png'>
     <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Fei-Fei Li</span>
     </div>Although Fei-Fei Li has been elected to the U.S. National Academy of Engineering, National Academy of Medicine, and American Academy of Arts and Sciences, the world may still significantly underestimate her primary contribution: the importance of ImageNet. Without Tycho Brahe’s astronomical observations spanning over 20 years, Kepler’s three laws would not have emerged, nor would Newton’s third law. Newton famously said he stood on the shoulders of giants; those giants were not Leibniz, but Tycho Brahe and Kepler.<br>Fei-Fei Li is the Tycho Brahe of our contemporary era.
 
 AlexNet is also a convolutional neural network, proposed by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton. In the 2012 ImageNet competition, it achieved an 85% recognition accuracy, improving upon the previous year’s champion by a full 10%! While LeNet could only be applied to very small scenarios and datasets, AlexNet performed recognition on images with over 1,000 categories. Its success was clearly more realistic and groundbreaking. AlexNet crowned data-driven machine learning as the king. To this day, despite various shortcomings in machine learning and the unknown distance to general AI, there seems to be no voice questioning machine learning or advocating a return to rule-based expert systems.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/alexnet.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/alexnet.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>AlexNet</span>
 </div>
 
@@ -82,7 +82,7 @@ The next breakthrough was machine vision surpassing human capabilities. Accordin
 This decisive victory was achieved by Chinese scientist Kaiming He in 2016. Through deep residual networks (ResNet), he increased the number of neural network layers to a staggering 152 (compared to the standards of the time). Through clever design, he allowed input data to bypass certain layers during the training phase, partially solving the gradient vanishing problem in deep networks.
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/resnet-18.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/resnet-18.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>ResNet-18</span>
 </div>
 

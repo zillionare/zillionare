@@ -2,7 +2,7 @@
 title: DeepSeek只是挖了个坑，还不是掘墓人，但中初级程序员是爬不出来了
 slug: posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger
 date: 2025-02-10
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg
 category: others
 tags: [others, story, AI, DeepSeek]
 excerpt: "在我们的《因子分析与机器学习策略》课程中，提供了从2005年到2023年，长达18年的日线数据（共1100多万条记录）供学员进行因子挖掘与验证。最初，我们是通过functools中的lrucache装饰器，将数据缓存到内存中的。这样一来，除了首次调用时时间会略长（比如，5秒左右）外，此后的调用都是毫秒级的。"
@@ -17,7 +17,7 @@ excerpt: "在我们的《因子分析与机器学习策略》课程中，提供�
 我们的数据是以字典的方式组织，并保存在磁盘上的：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210121041.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210121041.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -28,7 +28,7 @@ excerpt: "在我们的《因子分析与机器学习策略》课程中，提供�
 最终，它要返回一个DataFrame，以date和asset（即股票代码）为双重索引，包含了OHLC，volume等列，并且这些列要根据end进行前复权（这种复权方式称为动态前复权）。此外，还将包含一个amount列，这一列则无须复权。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210202407.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/20250210202407.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

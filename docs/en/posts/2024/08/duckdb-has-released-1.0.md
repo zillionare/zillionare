@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/duckdb-has-released-1.0
 auto_translated: true
 source_sha: 64d68d8d4a65cfc2a0b7dd2171d0629f8e6c451f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-duck.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-duck.jpg"
 ---
 
 # Milestone: DuckDB Releases Version 1.0
@@ -21,21 +21,21 @@ The primary criterion for DuckDB’s 1.0 release is that its data storage format
 
 Since the 1.0 release, DuckDB seems to have gained even greater popularity:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-star-history-2024816.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-star-history-2024816.png)
 
 Following this release, DuckDB also published benchmarks highlighting performance improvements over previous years:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-perf-benchmark-over-self.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-perf-benchmark-over-self.jpg)
 
 In horizontal performance comparisons, DuckDB remains at the top. Here is a comparison of `GROUP BY` queries:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-over-others-groupby.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-over-others-groupby.jpg)
 
 DuckDB, ClickHouse, and Polars take the top three spots. It was surprising to see Dask throw `out-of-memory` errors, raising questions about the need for big data or distributed systems. While Pandas took nearly 20 minutes, it eventually produced results. Modin, however, seemed far behind. How can one seamlessly replace Pandas under these conditions?
 
 This 50 GB, 1 billion row `JOIN` operation caused many competitors to fail:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-benchmark-join-50gb.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/duckdb-benchmark-join-50gb.jpg)
 
 Polars remains impressive, while ClickHouse stumbled, throwing exceptions.
 

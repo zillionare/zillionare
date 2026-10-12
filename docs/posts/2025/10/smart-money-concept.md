@@ -2,7 +2,7 @@
 slug: posts/factor-strategy/smart-money-concept
 title: 聪明钱概念策略，另一个价格行为交易策略？
 date: 2025-10-04
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg
 tags: [SMC, 聪明钱, 策略]
 category: strategy
 excerpt: "!!! abstract 什么是聪明钱概念交易策略？ SMC 关键概念 如何使用聪明钱概念交易策略进行交易 聪明钱概念与价格行为有什么区别？ SMC 是好的还是坏的交易方法？"
@@ -57,37 +57,37 @@ SMC 不仅仅是一种理论，它是一种完整的交易方法，有其独特�
 
 在价格图表上，订单块通常表现为横盘整理的市场（如下图所示）。但是，要正确识别市场中的订单块，您必须使用其他工具，例如 level 2数据和交易量指标。
 
-![订单块](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_3_Figure_8.jpeg)
+![订单块](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_3_Figure_8.jpeg)
 
 ### **2. 破坏块 (Breaker Blocks, BB)**
 
 这些是在给定趋势中未能守住价格水平的订单块。它们代表了做市商有意突破支撑位或阻力位以触发散户交易者止损订单的价格水平。
 
-![破坏块](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_1.jpeg)
+![破坏块](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_1.jpeg)
 
 ### **3. 公允价值缺口 (Fair Value Gaps, FVG)**
 
 公允价值缺口，也称为 FVG，是一种独特的交易概念，当市场从一个价格水平快速移动到另一个价格水平时出现，通常会在价格图表上留下缺口。SMC 交易者密切关注这些缺口，因为它们可以表明市场情绪的重大转变。
 
-![公允价值缺口](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_4.jpeg)
+![公允价值缺口](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_4.jpeg)
 
 ### **4. 结构性突破 (Break of Structure, BOS)**
 
 结构性突破是一个专注于识别市场整体趋势变化的概念。当价格创出新高或新低，同时突破先前的高点或低点时，就发生了结构性突破。
 
-![结构性突破](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_1.jpeg)
+![结构性突破](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_1.jpeg)
 
 ### **5. 特征改变 (Change of Charactor, Choch)**
 
 特征改变，通常缩写为 Choch，是指市场行为突然转变的情况。它是波动性、交易量或价格行为的突然变化，表明当前趋势疲软，可能出现逆转。
 
-![特征改变](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_4.jpeg)
+![特征改变](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_4.jpeg)
 
 ### **6. 流动性**
 
 流动性是 SMC 交易中的一个关键因素。它是资产价格中的一个点，订单要么位于该点之上，要么位于该点之下，等待被收集。流动性有不同类型，例如趋势线流动性、买方流动性、卖方流动性、双顶和双底等。
 
-![流动性](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_1.jpeg)
+![流动性](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_1.jpeg)
 
 ### **如何使用聪明钱概念交易策略进行交易**
 
@@ -99,7 +99,7 @@ SMC 不仅仅是一种理论，它是一种完整的交易方法，有其独特�
 
 正如我们所提到的，当价格向下跌破结构，形成一系列更低的高点和更低的低点时，我们处于下降趋势中。相反，一系列更高的高点和更高的低点则表示上升趋势。同样，特征改变 (Choch) 预示着趋势的改变。
 
-![Choch](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_7.jpeg)
+![Choch](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_7.jpeg)
 
 上图显示，在特征改变之后，趋势已从看跌转为看涨。这意味着我们不再寻求卖出该货币对。相反，当我们的入场标准出现在图表上时，我们希望买入。
 
@@ -107,11 +107,11 @@ SMC 不仅仅是一种理论，它是一种完整的交易方法，有其独特�
 
 在确定趋势之后，我们只关心确定做市商准备在哪里执行他们的订单并顺势而为，而这正是确定最佳订单块至关重要的地方。
 
-![高概率订单块](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_4.jpeg)
+![高概率订单块](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_4.jpeg)
 
 在我们的示例中，我们可以看到在第一个订单块下方建立了卖方流动性。虽然它向上突破了市场结构，但在供需区域正下方也存在一个公允价值缺口。我们预计做市商会在继续上升趋势之前拿走这部分流动性。
 
-![高概率订单块](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_6.jpeg)
+![高概率订单块](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_6.jpeg)
 
 流动性下方的订单区域是我们的高概率看涨订单块，原因有多种：它导致了向上的 CHoCH，并且其正上方存在流动性和公允价值缺口。我们预计价格会来到这个区域并继续上升趋势。
 
@@ -119,7 +119,7 @@ SMC 不仅仅是一种理论，它是一种完整的交易方法，有其独特�
 
 接下来，您必须确定大玩家进入市场的区域。在检测到有价值的供给或需求区域后，确定进出点就变得容易了。对于我们的示例，我们将把入场点设在看涨订单块的正上方，同时将止损设在该区域的正下方，目标利润将设在结构性高点。
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_8_Figure_3.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_8_Figure_3.jpeg)
 
 ### **聪明钱概念与价格行为——有什么区别？**
 

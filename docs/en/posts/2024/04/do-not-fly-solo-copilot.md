@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/do-not-fly-solo-copilot
 auto_translated: true
 source_sha: 6ce69ebe558b04e9566d6ac6afb91f50623f5713
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065337-photo-1530858085883-7ab22d96afcc.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065337-photo-1530858085883-7ab22d96afcc.jpg"
 ---
 
 In investing circles, the storied friendship between Warren Buffett and Charlie Munger is a legend in its own right, beyond their wealth myth. Buffett once said of Munger: he expanded my horizons with the power of thought, taking me from ape to human at rocket speed.
@@ -21,7 +21,7 @@ In this post, I'll share a few short stories about how I use AI.
 
 When teaching statistical inference, you almost have to introduce the Quantile-Quantile Plot as a visualization method. Humans are naturally gifted at spotting patterns visually, so this visualization is all but indispensable.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-0.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-0.png)
 <cap>Q-Q plot examples for left-skewed, normal, and right-skewed distributions</cap>
 
 But while writing that chapter, I was still a bit fuzzy on the mechanics of the Q-Q plot: why do we sort the two random variables being compared before plotting? Why does a straight line mean the two variables are strongly related? Shouldn't we plot them in time order?
@@ -108,7 +108,7 @@ plt.text(np.max(r1), np.max(r1), "x=x")
 
 We get the following quantile plot:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/hchj-vs-xrhj.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/hchj-vs-xrhj.jpg)
 
 This shows very intuitively that the two stocks are indeed related: in the region below +4%, if A falls, B falls too, by about the same magnitude; if A rises, B rises too, again by about the same. That is exactly what correlation means. Here we stripped out time and compared only the two random variables — daily returns.
 
@@ -139,7 +139,7 @@ Stock index futures expire on the third Friday of each month; ETF options expire
 
 April 19 just passed as an index futures expiry. Next up is April 24, an ETF expiry. This year's expiry calendar looks like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/交割日.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/交割日.jpg)
 
 ---
 
@@ -158,7 +158,7 @@ import calendar
 calendar.monthcalendar(2024, 4)
 ```
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/month-calendar.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/month-calendar.jpg)
 
 ---
 

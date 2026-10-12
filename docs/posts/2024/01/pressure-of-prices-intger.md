@@ -4,7 +4,7 @@ slug: posts/factor-strategy/pressure-of-prices-intger
 date: 2024-01-24
 category: strategy
 motto:
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-of-price-integer-cat.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-of-price-integer-cat.jpg
 lunar:
 tags: [strategy]
 excerpt: "常常有人问，新的因子/策略从哪里来？今天的笔记或许能启发你的思路。"
@@ -63,7 +63,7 @@ excerpt: "常常有人问，新的因子/策略从哪里来？今天的笔记或
 
 ---
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-reflection.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-reflection.jpg)
 
 
 
@@ -76,7 +76,7 @@ excerpt: "常常有人问，新的因子/策略从哪里来？今天的笔记或
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-refraction-ubi.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-refraction-ubi.jpg)
 
 育碧在10月26日达到10元整数关口。相关参数定义如下：
 

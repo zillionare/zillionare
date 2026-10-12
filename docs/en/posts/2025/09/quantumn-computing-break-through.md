@@ -8,11 +8,11 @@ lang: en
 translation_of: posts/uncategory/quantumn-computing-break-through
 auto_translated: true
 source_sha: e4fba4cffd91288ae7b29526187326d3469b0a7c
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/quantum.jpeg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/quantum.jpeg"
 ---
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/quantum.jpeg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/quantum.jpeg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Image source: IBM website</span>
 </div>
 

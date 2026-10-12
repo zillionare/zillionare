@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/21天驯化AI打工仔/5_SQEP再优化
 auto_translated: true
 source_sha: 94a39891b84e1b1c6e6a25927c6ac11a6d0af842
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 
 In the world of quantitative trading, data is blood, and the data transmission system is the vascular network. An efficient data transmission system empowers the entire quantitative trading platform, while inefficiency becomes a bottleneck.
@@ -682,15 +682,15 @@ Performance comparison of JSON and CSV across different data volumes:
 
 Time comparison of JSON and CSV serialization and deserialization:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_serialization_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_serialization_benchmark.png)
 
 Time comparison of JSON and CSV Redis operations (LPUSH and RPOP+deserialization):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_redis_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_redis_benchmark.png)
 
 Comparison of JSON and CSV data sizes:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_size_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/no_metadata_size_benchmark.png)
 
 
 **Me**: "These results are surprising! CSV performs better than JSON in almost all tests, especially in data size and deserialization performance."
@@ -1253,7 +1253,7 @@ for i in range(0, len(df), batch_size):
 
 The optimization method we considered: <font color=red>Test directly using df, without constructing dfs</font>.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_developped.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_developped.png)
 
 Note that we tested two methods here:
 
@@ -1276,15 +1276,15 @@ Test results show that batch size has a significant impact on performance.
 
 Comparison of operations for batched Redis operations (LPUSH and RPOP+deserialization):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_ops_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_ops_benchmark.png)
 
 Time comparison of batched Redis operations (LPUSH and RPOP+deserialization):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_time_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_time_benchmark.png)
 
 Impact of batch size on performance:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_optimal_benchmark.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/batch_size_optimal_benchmark.png)
 
 > **007**: "From the test results, the system performance is optimal when the batch size is <font color=red>10000</font>. This is because this size achieves a good balance between network communication overhead and memory pressure."
 >
@@ -1311,4 +1311,4 @@ Through this series of tests and optimizations, 007 and I deeply explored the ar
 
 In the world of quantitative trading, performance is money. Through this re-optimization of SQEP, we not only improved system performance but also deepened our understanding of the essence of data transmission. As 007 said, this is a contest measured in milliseconds and bytes, and we have found the winning path.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/quantide3.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/quantide3.jpg)

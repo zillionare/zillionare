@@ -2,7 +2,7 @@
 slug: posts/python/it-is-π-thon
 title: "π-thon以及他的朋友们"
 date: 2025-07-15
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png
 category: python
 motto: 相信自己能做到，你就已经成功了一半
 desc: 在6月中旬，Python发布了Python 3.14 beta3。它可不是一个普通的预发布版本 -- 它是第一个正式支持期待已久的自由线程或『无 GIL』的版本。而有没有GIL，绝对是Python发展史上的有一个分水岭。
@@ -48,7 +48,7 @@ Numpy是最重要的Python库之一。它刚刚在7月12发布了最新的2.3版
 如果你是一名严肃的开发者，那么很可能使用过各种lint工具了，也应该吐槽过Black, Flake8, isort, ...等等工具的速度。现在流行将所有的工具都有rust重写一篇，所以，这些工具现在也被重写了。这就是Ruff的目标。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/Ruff_v_0_12_0_header.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/Ruff_v_0_12_0_header.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

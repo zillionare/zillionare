@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/fft
 auto_translated: true
 source_sha: 037d62f9f05b9cbaa6254b476da3da301fd83987
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg"
 ---
 
 An undeniable fact: economic activity is cyclical. Yet, this reality has long been overlooked by the quantitative community. Whether in asset pricing theory or trend trading frameworks, there is scarcely a place for cycle research—in the latter context, practitioners prefer terms like "oscillation" rather than explicitly acknowledging "cycles."
@@ -40,7 +40,7 @@ plt.legend()
 
 The output we obtain is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg)
 
 In the field of digital signal processing, time-series data is referred to as time-domain signals, while the result after Fourier Transform is a frequency-domain signal. Time-domain and frequency-domain signals are mutually convertible. The `fft` library in Numpy provides `fft` and `ifft` functions to facilitate these transformations.
 
@@ -60,7 +60,7 @@ In the 1990s, the most advanced image compression algorithms were based on this 
 
 Those working on such compression algorithms at the time knew this beautiful woman—Lena. This photo is the standard test sample for image algorithms. Through long-term evolution, under survival pressure, humans developed superhuman abilities to recognize others' expressions. Therefore, compared to other samples, if compression degrades image quality, the human eye is more likely to detect changes in faces and expressions. Thus, facial images became the best test samples.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lena.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lena.jpg)
 
 Model Lena was a Playgirl model. This photo is a small portion of a seductive shot she took for the November 1972 issue of Playgirl. In the original photo, Lena boldly displayed her seductive hip curves, but those "unserious" scientists only shared her smile with us—which, from a research perspective, is also the part with the highest information ratio. Coincidentally, before Lena became the standard test sample for digital image processing, scientists used photos of another woman, also from Playgirl.
 
@@ -68,7 +68,7 @@ Enough about that. We have just shared a method to remove high-frequency noise f
 
 However, if we simply copy methods from other fields, it hardly constitutes research, and results are likely to be poor. In fact, for securities signals, we should focus more on signal energy than frequency, after all, we want to stand on the side of the most powerful players.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg)
 
 Therefore, we change our approach: we retain the parts with the strongest energy in the decomposed frequency-domain signals and observe their characteristics.
 
@@ -105,7 +105,7 @@ plt.show()
 
 The FFT always yields frequencies in positive-negative pairs. We can simply consider negative frequencies as meaningless to us—dark energy we cannot see and need not care about. Therefore, in the code, we ignore this part.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg)
 
 We observe that the wave with the strongest impact on the SSE index trend (orange) has a cycle of approximately 7 months: it takes 3.5 months from peak to trough, and another 3.5 months from trough to peak. Since its energy is nearly double that of other waves, it dominates the trend of the entire superimposed wave: if other waves are in phase with it, the superposition strengthens the trend; conversely, it cancels out the trend. The other waves have similar energy levels but different frequencies.
 
@@ -115,7 +115,7 @@ From this decomposition diagram, we can hypothesize that there is long-term capi
 
 Now, let us synthesize the operations of these capital flows and compare them with the actual trend to see how it goes:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-5-waves-synthetic.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-5-waves-synthetic.jpg)
 
 The large-cycle trends match almost perfectly, indicating that these capital flows essentially dictate the market's direction. Moreover, we seem able to assert that between March 15 and May 17, a divergence trend appeared between stock prices and main force capital: main force capital was withdrawing, while retail investors continued to operate. Thus, despite the stock price rising, the ultimate direction is determined by main force capital.
 
@@ -136,11 +136,11 @@ Here are three hypotheses:
 
 Below, we prove the second hypothesis (process omitted). Finally, we plot the DC component and trend line as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dc-regression.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dc-regression.jpg)
 
 And the annual lines and trend line of China A-shares since 2005 are as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/a-share-yearly.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/a-share-yearly.jpg)
 
 It is not just "similar"; it is almost identical.
 

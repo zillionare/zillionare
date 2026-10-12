@@ -27,11 +27,11 @@ ic = factor_information_coefficient(factor_data)
 ic.head()
 ```
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic.jpg)
 
 Of course, the best way to study a time series is still to visualize it:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-plot.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-plot.jpg)
 
 ---
 
@@ -39,7 +39,7 @@ What can we read from this chart? The mean IC looks very close to zero. By the d
 
 Before jumping to conclusions, let's first look at the distribution of the IC we got:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-describe.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-describe.jpg)
 
 Its mean is only 0.058, and the maximum is only 0.52 — quite far from the ideal value of 1. But does that really mean the turnover factor doesn't work?
 
@@ -50,7 +50,7 @@ JoinQuant is a 10-billion-RMB hedge fund, and it also runs a crowdsourced platfo
 ---
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-jq-factor-panel.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-jq-factor-panel.jpg)
 
 
 Among JoinQuant's three-year factors, the highest mean IC is 0.041, so our factor's predictive power already beats every factor in the JoinQuant library.
@@ -63,7 +63,7 @@ Out of curiosity, we also put the question to GPT-4. We first confirmed we were 
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-gpt4-ic.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-gpt4-ic.jpg)
 
 GPT-4's answer: a mean IC above 0.05 already indicates strong predictive power. While 1 is the theoretical optimum, 0.05 is the best you can realistically hope for in factor forecasting. High hopes, sobering reality.
 
@@ -77,7 +77,7 @@ from alphalens.plotting import plot_ic_hist
 plot_ic_hist(ic)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-hist.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-hist.jpg)
 
 With a histogram, the key is to see how the IC behaves most of the time, where IC values are likely to deteriorate, and whether there are fat tails. It still takes a lot of experience to judge IC quality from a histogram alone. With a QQ plot, it is much easier:
 
@@ -87,7 +87,7 @@ from alphalens.plotting import plot_ic_qq
 plot_ic_qq(ic)
 ```
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-qq.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-ic-qq.jpg)
 
 ---
 

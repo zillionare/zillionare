@@ -2,7 +2,7 @@
 slug: posts/tools/2026十大量化技术/pandas
 title: The Battle for a New Dawn<br>量化新基建（四）：Pandas 3.0 
 date: 2026-01-19
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg
 excerpt: 深度解析 pandas 3.0 在 2026 年量化技术栈中的核心地位，探讨从 NumPy 到 PyArrow 的架构转型、字符串处理革命、Copy-on-Write 机制以及开发者背后的故事。
 categories: tools
 tags: [pandas, python, 量化交易, 大数据, PyArrow]
@@ -22,7 +22,7 @@ layout: cover-random-img-portrait
 
 他就是 Patrick Hoefler， Pandas 3.0 核心团队最活跃的成员之一，现任 Citadel 的软件工程师。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260119151727.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260119151727.png)
 
 ---
 
@@ -194,7 +194,7 @@ pandas 3.0 的 RC 发布，标志着 Python 数据分析生态正式迈入了 **
 ## 今日名校
 
 <figure style="width: 100%; margin: 0 auto 1rem; padding: 0;">
-  <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+  <img src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg" style="width: 100%; height: auto; display: block; margin: 0 auto;">
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
     By Diliff - Own work, CC BY-SA 3.0
   </figcaption>

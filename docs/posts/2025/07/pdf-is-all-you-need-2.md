@@ -3,7 +3,7 @@ slug: posts/algo/pdf-is-all-you-need-2
 title: PDF is all you need(2)
 excerpt: "从赌场游戏到数学家们的战争，概率论如何摆脱直觉的束缚？柯尔莫哥洛夫的公理化革命，让微积分成为概率论的新武器，彻底改写了我们对随机世界的理解"
 date: 2025-07-31
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg
 categories: algo
 tags: [pdf, algo, 概率]
 ---
@@ -45,7 +45,7 @@ tags: [pdf, algo, 概率]
 题目要求的事件由基本事件构成，所有可能的基本事件组合是：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731161033.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731161033.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -135,7 +135,7 @@ P(A) = \frac{事件A包含的基本事件数}{所有可能的基本事件总数}
 但正是这种抽象的定义，使得连续随机变量与离散随机变量（离散事件）能够在同一框架下统一描述。两者的区别只体现在概率的计算方式上：离散情形下通过对各事件概率求和，连续情形下则需用积分来计算。实际上，积分可以看作是一种“连续求和”或“求面积”的过程，因此两类问题在本质上是统一的。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731160347.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731160347.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

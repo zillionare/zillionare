@@ -125,7 +125,7 @@ The method for obtaining individual stock quote data was detailed in recent note
 
 More code is not demonstrated one by one. We provide an example notebook. Ultimately, we can achieve an effect like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/nhnl.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/nhnl.png)
 
 
 ## Quiz

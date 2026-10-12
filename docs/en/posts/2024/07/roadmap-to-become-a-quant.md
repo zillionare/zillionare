@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/freshman/roadmap-to-become-a-quant
 auto_translated: true
 source_sha: f27787675bd7250289ae904e6f1d35e21d39713c
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/simmons-hall.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/simmons-hall.jpg"
 ---
 
 The header image features Simmons Hall at MIT. Copyright: wiki/public domain.
@@ -23,7 +23,7 @@ This is a self-study quant roadmap curated by **Stat Arb**. His blog boasts over
 
 I obtained the 2024–2025 edition, released just two weeks ago. He has published similar roadmaps annually, consistently updating them to reflect market changes. The content is so thorough that readers with different career objectives can all benefit.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/stat-arb-roadmap.png?2)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/stat-arb-roadmap.png?2)
 
 My favorite section is the data resources. A significant portion is free, particularly **crypto** projects and datasets from **Kaggle**, totaling dozens of gigabytes. He also offers some paid data dumps, though access may require passwords available on X (formerly Twitter).
 
@@ -31,17 +31,17 @@ Job seekers may prefer Chapter 17, which covers career planning and interview pr
 
 ## Chapter Contents
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap-2.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap8.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap8.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap12.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-chap12.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-careers.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-careers.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-pair-trading.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-pair-trading.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-blog.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/roadmap-blog.jpg)
 
 ## Chap 01
 Introduces textbooks on **machine learning** and algorithmic trading, including foundational and advanced texts such as *Quantitative Trading (2nd edition)*, *Algorithmic Trading*, and *Machine Trading*. It also evaluates various models and methodologies.

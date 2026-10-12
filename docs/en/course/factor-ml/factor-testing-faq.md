@@ -1,7 +1,7 @@
 ---
 title: "Factor Testing FAQ: Regression, IC, and Layered Backtests"
 date: 2026-10-08
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145624-cover-articles-course-factor-ml-factor-testing-faq.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145624-cover-articles-course-factor-ml-factor-testing-faq.jpg"
 slug: en/articles/course/factor-ml/factor-testing-faq
 tags: [Factor Testing, Factor Analysis, Backtesting, Quantitative Investing]
 excerpt: "Compare regression, IC analysis, and layered backtests for single-factor testing. Learn thresholds for t-values and IC, and how to validate factor predictive power."

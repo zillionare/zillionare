@@ -4,7 +4,7 @@ date: 2025-08-26
 category: factor&strategy
 slug: posts/factor-strategy/is-the-Ashare-market-overvalued
 motto: "如果这个世界不喜欢你，那它就是我的敌人了"
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg
 tags: [strategy, pe, tushare]
 excerpt: "这两天涨得喜气洋洋的，不过，对东财的程序小哥哥来说，可能还得加班了，因为涨得太好，程序溢出了："
 ---
@@ -14,7 +14,7 @@ excerpt: "这两天涨得喜气洋洋的，不过，对东财的程序小哥哥�
 <!-- more --->
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825205342.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825205342.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -108,7 +108,7 @@ plt.show()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825204156.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825204156.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

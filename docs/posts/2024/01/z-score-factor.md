@@ -2,7 +2,7 @@
 title: Z-score 因子的深入思考
 slug: posts/factor-strategy/z-score-factor
 date: 2024-01-04
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154358-cover-posts-2024-01-z-score-factor.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154358-cover-posts-2024-01-z-score-factor.md.jpg"
 category: strategy
 motto: Be yourself; everyone else is already taken -- Oscar Wilde
 lunar: 冬月廿三
@@ -52,7 +52,7 @@ def rolling_zscore(s, win=20):
 
 这篇笔记不打算走完整的流程，我们将随机选择一个标的，计算它最近 250 期的 zscore，把 zscore 小于-2 的点作为买入点，大于 2 的点作为卖出点，进行绘图显示，然后就图的走势，来进行深入讨论：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/z-score-signals.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/z-score-signals.jpg)
 
 ---
 

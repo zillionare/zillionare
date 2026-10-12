@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/holy-grail-still-works
 auto_translated: true
 source_sha: e09b192e27f50e8bb502c0063bcfc1666fb5e1d6
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/Indiana-Jones-and-the-Last-Crusade.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/Indiana-Jones-and-the-Last-Crusade.jpg"
 ---
 
 The Holy Grain Still Shines: Revalidating the RSI Strategy
@@ -50,7 +50,7 @@ In trader terminology, this is a buy strategy during a **bull market** (index ab
 
 First, Quantitativo conducted a single-factor test. The methodology involved buying and holding all assets with a 2-day RSI closing below 5 for 5 days, then calculating the returns.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
 
 This statistic includes over 21,000 assets and more than 2.5 million events (S&P 500 closing above the 200-day moving average). Highlights from the test:
 
@@ -104,7 +104,7 @@ The test on SPY was simply a disaster. Over the entire backtest period (25 years
 
 Next, Quantitativo switched to the Nasdaq 100 Index ETF (QQQ) and the 3x Leveraged Nasdaq 100 ETF (TQQQ). The results showed that TQQQ performed well:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
 
 The Sharpe ratios reached 2.3 (QQQ) and 1.92 (TQQQ), which are quite good indicators for index assets (especially when compared to China A-shares).
 
@@ -127,7 +127,7 @@ Additionally, they restricted trading to assets with good liquidity:
 3. How to ensure financial data is PIT (Point-in-Time)?
 -->
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
 
 ---
 
@@ -148,7 +148,7 @@ However, a pre-existing problem remains: the number of trades is still too high.
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
 
 <!-- After analyzing the 11,380 trades executed during the 25-year backtest, Quantitativo found many delistings, but this could have been avoided earlier -->
 

@@ -4,7 +4,7 @@ slug: posts/factor-strategy/second-derivative
 date: 2024-08-03
 category: factors
 motto: 巴黎高等师范大学 每年只招200人 不发文凭 却出了13位诺奖和无数大师 
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/psl.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/psl.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [因子策略, momentum, 因子评估]
@@ -34,7 +34,7 @@ excerpt: "这一期，我们将介绍一个二阶导因子。我们将演示二�
 
 我们任意抽取一天选出的样本，绘制7天的走势平及样本均值的趋势线，验证因子分析结果可靠：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
 
 全部代码及数据购买本文后，私信留言，您将会收到一个在线网址和登录密码。这里有本文全部代码、A股2005年以来的行情数据（含分钟线）和回测引擎，支持在线运行和验证。
 
@@ -85,7 +85,7 @@ def d2_factor(close: NDArray, win: int = 10) -> NDArray:
 
 然后我们通过 Alphalens 来进行因子检验。第一次调用 Alphalens，我们按 quantiles 分层，分层数为 10。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg?1)
 
 从分层图来看，继续进行收益分析是没有意义的，我们必须先进行优化。
 
@@ -109,7 +109,7 @@ Alphalens 是在第二步实现的分层。然后它将第二步的输出，用�
 
 第 2 步输出的是一个 DataFrame，它的格式如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
 
 所以，要 drop 掉第 10 层，可以这样做：
 
@@ -124,7 +124,7 @@ factor_data = factor_data[factor_data.factor_quantile <= 8]
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
 
 这个图其实基本上就是完全还原了上一个图，只不过缺少第 10 层而已。但是，现在第 9 层就成了 top 分层，这是 Alphalens 在计算多空收益时，将要做多的一层。
 
@@ -149,10 +149,10 @@ factor_data = factor_data[factor_data.factor_quantile <= 8]
 
 我们对比一下前后两次的累积收益图，可以发现，多空组合绝对收益低了一些，但平抑风险的能力更强了：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
 <cap>多空组合</cap>
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
 <cap>单边做多</cap>
 
 ---
@@ -209,7 +209,7 @@ plt.legend()
 
 -->
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
 
 这个图说明，二阶导对证券价格运行的趋势具有修正效应。本来处于上涨趋势的品种，如果二阶导持续为负，它迟早会到达峰顶、然后转为下跌；反之，本来处于下跌趋势的品种，如果二阶导持续为正，它迟早会触及谷底，然后转为上涨。
 
@@ -233,7 +233,7 @@ plt.legend()
 
 绘图中，我们共使用了**199个样本**，代表性和稳健性都足够了。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
 
 ---
 

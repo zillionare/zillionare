@@ -2,7 +2,7 @@
 slug: posts/resources/白嫖顶级AI算力指南
 title: 龙虾流量太贵？ 我一招搞定每天7500万词元
 date: 2026-04-11
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg
 excerpt: OpenClaw 是未来的操作系统。它非常强大，是你的第二大脑和智能装甲。但是，你可能正在未流量费用太贵而苦恼，却浑然不知，有人一天获得过7500万的免费 QWen 3.6的token.
 category: tools
 tags: [tools, OpenClaw, resources]
@@ -26,7 +26,7 @@ htmlAttrs:
 
 OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且提供大量免费配额。我养龙虾的第二天，就完全领会了 OpenRouter 的玩法。当时 QWen 3.6正在免费使用期，我**一天最高用到7500万的 Token**，用完了整整**一千次**请求。
 
-![OpenRouter免费模型配额与每日7500万Token用量截图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
+![OpenRouter免费模型配额与每日7500万Token用量截图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
 
 
 现在，QWen 3.6虽然不再免费提供了，但是仍然有一些非常不错的大模型仍在免费，非常值得一冲。
@@ -41,7 +41,7 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 输入网址 `https://openrouter.ai`。
 
 
-![step1：进入OpenRouter界面](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/390bb2f6807b7acd82e9fb4d36af7314.jpg)
+![step1：进入OpenRouter界面](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/390bb2f6807b7acd82e9fb4d36af7314.jpg)
 
 #### 登录账户
 
@@ -49,7 +49,7 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 
 
 
-![step2:成功注册登陆](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/e3e1cd2d2d821b2943a2f13b37739983.jpg)
+![step2:成功注册登陆](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/e3e1cd2d2d821b2943a2f13b37739983.jpg)
 
 #### 创建 API Key 与限额设置
 
@@ -59,7 +59,7 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 
 购买 credits 之后，我们一定要防止误用了付费模型。所以，要像下面这样，设置『防火墙』：
 
-![step3.3&step3.5&step3.9:API Key生成与限额设置](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0024f396bf94684c69653c1dd9290e46.png)
+![step3.3&step3.5&step3.9:API Key生成与限额设置](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0024f396bf94684c69653c1dd9290e46.png)
 
 在你购买 credits 之后，就可以编辑你的 API key,为它设置一个月度消耗最大值。这里设置为0.1就好了。
 
@@ -71,12 +71,12 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 
 按下图提示，找到 Prompt Pricing, 把价格区间设置为0，过滤大部分付费模型，然后注意选择 input/output 都是0的模型：
 
-![step4.1:模型选择列表](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d68e4742e47aed44da32ae583248b8d8.jpg)
-![step4.5&step4.9:选择免费的模型](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/6d1e194aff579914d57d40ce7d55af6e.png)
+![step4.1:模型选择列表](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d68e4742e47aed44da32ae583248b8d8.jpg)
+![step4.5&step4.9:选择免费的模型](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/6d1e194aff579914d57d40ce7d55af6e.png)
 
 #### 测试
 
-![step5:点击chat可使用大模型](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/53998e9666b1e3d008a7f074201269fc.jpg)
+![step5:点击chat可使用大模型](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/53998e9666b1e3d008a7f074201269fc.jpg)
 
 在现阶段有这样一些模型（仅限免费）可以推荐：
 
@@ -100,7 +100,7 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 输入网址：`https://build.nvidia.com`。注意登录时，可能根据你的地域和语言设置发生重定向到别的 URL。我们没有详细测试，但这个免费服务应该只能在这个网址上申请。
 
 
-![NVIDIA build.nvidia.com 免费模型页面截图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411194605.png)
+![NVIDIA build.nvidia.com 免费模型页面截图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411194605.png)
 
 使用这里的大模型很简单，主要就是申请 Api Key，然后找到模型卡。我们先看注册。
 
@@ -112,14 +112,14 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 2. **账号验证 (Verify)**：注册后必须点击上方的 Verify 进行验证，否则拿不到 API Key。
 3. **手机号 Bug 处理**：验证时需要手机号。这里有一个小 bug, 你需要**手动把区号修改为 `+86`** 。填完后点击发送验证码即可。
 
-![step2.1：注册后点击验证](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d393125c0d45e74414e2697cb68a79c7.png)
-![step2.5：手机号验证与区号修改界面](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/cd67c5026643192388341c05814ad153.png)
+![step2.1：注册后点击验证](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d393125c0d45e74414e2697cb68a79c7.png)
+![step2.5：手机号验证与区号修改界面](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/cd67c5026643192388341c05814ad153.png)
 
 #### 生成 API Key
 
 完成验证后，回到页面，点击右上角的**头像**，就会弹出一个“生成 API Key”的按钮。点击并保存好你的 Key，有了它就可以连接业务了。
 
-![step3：英伟达API Key生成位置](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/c4c0692308788a98412a25ff9c6e4313.jpg)
+![step3：英伟达API Key生成位置](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/c4c0692308788a98412a25ff9c6e4313.jpg)
 
 #### 模型选择与限制
 
@@ -128,11 +128,11 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 1. **选择模型**：在页面中找到 `models: glm-5`，这是我们目前推荐使用的顶级模型。
 2. **访问限制**：目前英伟达不限额度，但会限制访问速度（RPM）：**每分钟不要超过 50 次**。这个调用次数基本上对所有人来讲都不会超过。
 
-![step4:找到免费模型](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/8905936e111f8f604f92ffce17639bb9.jpg)
+![step4:找到免费模型](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/8905936e111f8f604f92ffce17639bb9.jpg)
 
 同样，你也可以对模型进行一下测试。可以如图在下面的 chat 窗口聊几句。
 
-![完成](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/eca539049d98716e1887897b3ba31e2e.jpg)
+![完成](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/eca539049d98716e1887897b3ba31e2e.jpg)
 
 
 ## 03 如何配置 OpenClaw?
@@ -157,11 +157,11 @@ OpenRouter 最大的优势是聚合了几乎市面上所有的主流模型，且
 2. **打开 OpenClaw 配置页面**： `openclaw config --section models`
 3. **按图示操作**
 
-![小龙虾配置界面截图 1](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/57691e8f86375e1b329a46dc510a4b3b.png)
+![小龙虾配置界面截图 1](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/57691e8f86375e1b329a46dc510a4b3b.png)
 
 如果是使用 OpenRouter 的服务，这里就要选择 OpenRouter。图中最后一项。接下来是填写 Base URL（如果是 OpenRouter，则无此步聚）、填写 Api Key和 Model ID，如下图所示：
 
-![小龙虾配置界面截图 2](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0fef218f3a20348f6bc9fac514ea7489.png)
+![小龙虾配置界面截图 2](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0fef218f3a20348f6bc9fac514ea7489.png)
 
 
 你可以直接参考下面的 Python 验证代码来对应填入 URL、API-Key 和 Model 模型：

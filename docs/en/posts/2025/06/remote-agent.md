@@ -8,13 +8,13 @@ lang: en
 translation_of: posts/tools/AI-tools/remote-agent
 auto_translated: true
 source_sha: 0e2564f9b8519a22fa52bab95926319711dadbbe
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png"
 ---
 
 On June 7, as I launched Augment to continue writing strategies, a notification popped up: "We just released Remote Agent. Want to try it?" Since this trial required logging into a GitHub account, my first instinct was to dismiss it—I didn't need it.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/get-remote-agent.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/get-remote-agent.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -27,7 +27,7 @@ This led me to reconsider the Remote Agent. Below is my test report.
 !!! tip
     1. **Concurrent feature development**: Similar to traditional teams developing multiple features simultaneously, Augment now assembles a new development team and provisions machines for you.
     2. **Documentation generation**: Automatically writes documentation based on implemented features.
-    3. **CI/CD and bug fixing**: Executes CI/CD tasks, fixes bugs, and improves test coverage. ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png)
+    3. **CI/CD and bug fixing**: Executes CI/CD tasks, fixes bugs, and improves test coverage. ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png)
     4. **Hotfixes**: Handles urgent bug fixes while developing new features.
     5. **Confident refactoring**: Enables safe code refactoring (ensure you have robust unit tests and CI/CD in place first!).
 
@@ -53,7 +53,7 @@ All code modifications occur within this directory.
 When it completes its task, it informs you via the chat panel about the changes made and may list the modified code:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-agent-apply.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-agent-apply.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -62,7 +62,7 @@ If you are unfamiliar with Remote Agent's workflow, this might feel unintuitive.
 So, what is the correct way to 'apply' changes? By creating a Pull Request (PR):
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/work-with-remote-agent.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/work-with-remote-agent.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

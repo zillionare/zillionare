@@ -2,7 +2,7 @@
 slug: posts/career-figure/does-arma-garch-matter-in-quant
 title: 在量化交易中，掌握ARMA/GARCH 的重要性？
 date: 2025-10-10
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg
 excerpt: 证券交易数据是非常典型的时间序列数据，而 ARMA 与 GARCH 又是两种常用的时间序列模型。如何评估这两种模型在量化交易中的作用？
 category: career
 tags: [career, arma, garch]
@@ -45,7 +45,7 @@ Prophet 是基于加法模型（趋势 + 季节性 + 节假日效应）设计，
 写完这一篇，刚好2025年诺贝尔物理学奖颁布。今年的诺奖授予加州大学等三位学者，以表彰他们『在电路中实现宏观量子力学隧穿效应和能量量子化』 的开创性工作。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251009230959.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251009230959.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

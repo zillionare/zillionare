@@ -21,7 +21,7 @@ excerpt: "几年前，我就推荐过用 Markdown 写作静态博客。静态博
 
 下图就是截取的 [大富翁量化](https://blog.quantide.cn) 的网站界面：
 
-![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/my-home-age.png)
+![66%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/my-home-age.png)
 
 ---
 
@@ -31,7 +31,7 @@ excerpt: "几年前，我就推荐过用 Markdown 写作静态博客。静态博
 
 所有的文档都有版本管理，我使用了 github 来托管文档和图片，所以，也顺便把 github 的个人主页美化了一下：
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/github-profile.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/github-profile.jpg)
 
 实在说，之前我没有想过，github 主页也可以做得像个人网站。不得不说一张好图，能大大提升颜值。
 
@@ -118,7 +118,7 @@ with ProcessPoolExecutor() as executor:
 
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/xhs-sample.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/xhs-sample.jpg)
 
 因此，我们基于 mkdocs+material 创作的文档，只要加上少量的标记和定制，就可以很容易地转换成为图片。
 
@@ -134,7 +134,7 @@ npx slidev export --format png -t /path/to/slidev_themes/special_theme_dir --out
 
 ## 发布到微信公众号
 
-![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/md-nice.jpg)
+![L33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/md-nice.jpg)
 
 微信公众号排版一直是个问题。我甚至一度放弃了公众号创作。作为技术极客，我拒绝了几乎任何不是基于 Markdown 的排版方案 -- 都什么年代了，写个自媒体都是赔钱的，平台还好意思要求我们专门为你们排版？
 
@@ -155,7 +155,7 @@ npx slidev export --format png -t /path/to/slidev_themes/special_theme_dir --out
 不过，知乎的文档格式确实太素净了。
 
 ## 转换为 pdf
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/mpe-export-as-pdf.jpg" width="180px" align="right">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/mpe-export-as-pdf.jpg" width="180px" align="right">
 
 slidev 也可以转换成为 pdf。不过，我更喜欢使用 vscode 的 markdown preview enhanced 来转换 pdf。最终提供转换的是 chrome+puppetter。通过在文档的 frontmatter 中加上适当的标记，就能生成页眉和页脚。
 

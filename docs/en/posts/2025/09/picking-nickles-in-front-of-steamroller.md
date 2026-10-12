@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/picking-nickles-in-front-of-steamroller
 auto_translated: true
 source_sha: e17028f86ff7bec9c64a233298e633bd33af8b1f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/photo-1642076572486-b4be9c5e5512.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/photo-1642076572486-b4be9c5e5512.jpg"
 ---
 
 In quantitative finance, a vivid metaphor precisely captures the essence of certain trading strategies: **"picking nickels in front of a steamroller."**

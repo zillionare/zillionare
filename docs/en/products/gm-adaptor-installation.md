@@ -38,7 +38,7 @@ source_sha: 54394abaacc701b5efe6ce4ded356f8e7d316f4e
 # 1. Installation and Configuration
 ## 1.1. Installation
 1. On a Windows machine, install [https://emt.eastmoneysec.com/down](https://emt.eastmoneysec.com/down). Download and install the second software listed:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230403154605.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230403154605.png)
 
 2. Install conda on the same machine. We recommend installing miniconda and creating a virtual runtime environment (Python version 3.8):
    ```
@@ -57,15 +57,15 @@ While waiting for live trading permissions to be approved, you can open a simula
 
 After applying, record your standard capital account number and password, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/仿真.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/仿真.jpg)
 
 In the login interface, select "Simulation Trading":
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/login.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/login.jpg)
 
 After logging in, the interface displays as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403200024.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403200024.png)
 
 ### 1.3.1. Account Configuration
 The following steps are valid for both live and simulation accounts.
@@ -103,21 +103,21 @@ The `gm_output/acct_input` files are automatically created by gmadaptor upon sta
 
 The value for `accounts > name` comes from the name you specified when creating a file order in the EMC terminal, as shown in item 2 in the image below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403194653.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403194653.png)
 
 The `accounts > acct_id` comes from item 3 below. Click `ID` to copy it:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403195425.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403195425.png)
 
 #### 1.3.1.2. Configuring EMC
 
 In **Quant > File Order > File Order Output**, configure items 4, 5, 6, and 7 in the image below. For item 4, select the path set in `gm_output` in our configuration file above; for item 5, select `csv` as the output format; for item 6, select "Auto Start"; and for item 7, select all items.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/output.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/output.jpg?1)
 
 In **Quant > File Order > File Order Input**, configure items 3 and 4 in the image below. For item 3, select the `acct_input` path set in our configuration file above; for item 4, select "Auto Start".
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/input.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/input.jpg?1)
 
 
 ### 1.3.2. Simulation Run
@@ -128,7 +128,7 @@ python -m gmadaptor.server
 ```
 If the following interface appears, the server has started successfully:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/started.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/started.jpg)
 
 At this point, open another `conda` window, using the same `gmclient` virtual environment, and test via the following command:
 ```
@@ -412,4 +412,4 @@ The content of this document in March 2023 was as follows:
 
 If you need help using this module or wish to participate in the [Big Fortune Quantitative Programming Practical Course](https://github.com/zillionare), please add Kuanfen’s WeChat:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.jpg)

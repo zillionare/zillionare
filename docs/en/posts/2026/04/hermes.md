@@ -39,11 +39,11 @@ I believe this is the correct way to use an Agent.
 
 I call this installation process “Hermes’ self-armament.” Since I didn’t know how to configure Hermes, I first asked it (essentially asking the LLM):
 
-![Detailed advice list obtained by asking AI for Hermes configuration methods](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174049.png)
+![Detailed advice list obtained by asking AI for Hermes configuration methods](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174049.png)
 
 This lists a lot of detailed content, but it wasn’t what I needed. So I directly told it: “Help me enable the Web and Browser tools.”
 
-![Conversation interface instructing Hermes to enable Web and Browser tools](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174220.png)
+![Conversation interface instructing Hermes to enable Web and Browser tools](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413174220.png)
 
 Then I decided to assign it a separate email address, as many websites, especially foreign ones, allow registration via email. As long as you receive the verification email, registration is complete.
 
@@ -57,7 +57,7 @@ The first Eureka moment appeared in the screenshot below, where it indicated a D
 
 A “stubborn AI idiot,” I thought. Like humans, it blames network fluctuations when errors occur.
 
-![Screenshot of Hermes attributing execution errors to network fluctuations](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413175016.png)
+![Screenshot of Hermes attributing execution errors to network fluctuations](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413175016.png)
 
 But soon, I noticed it called a tool for the first time and wrote a script. It was unclear at the time whether this was Hermes Agent’s capability or Kimi K2.5’s.
 
@@ -65,7 +65,7 @@ Then came the surprise. It wasn’t blocked by this error and still sent the ema
 
 Tremble, carbon-based lifeforms!
 
-![Hermes’ successful autonomous task execution interface](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413180418.png)
+![Hermes’ successful autonomous task execution interface](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413180418.png)
 
 Strangely, its responses were intermittent. Technically, this is due to the streaming mechanism enabled during responses, which sends results and messages incrementally to avoid long user wait times.
 
@@ -75,35 +75,35 @@ However, this ‘streaming’ output rarely appeared afterward, for reasons unkn
 
 Next, due to rate-limiting issues, I asked it to add a key for itself. This triggered the first security confirmation:
 
-![Security confirmation dialog when adding an API key for Hermes](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181203.png)
+![Security confirmation dialog when adding an API key for Hermes](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181203.png)
 
 Hermes showed some security awareness, but this time it didn’t follow instructions well, partly due to backend model switching.
 
 I then planned to enable multi-Agent operation. The goal is for each Agent to have its own session and memory, making their contexts purer and more friendly to LLMs. Additionally, I hope only complex tasks, such as complex programming, use higher-end models to save tokens, while routine task dispatch and tracking use free models.
 
-![Conversation process of Hermes planning a multi-Agent architecture](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181820.png)
+![Conversation process of Hermes planning a multi-Agent architecture](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181820.png)
 
 This is the architecture diagram it provided:
 
-![Multi-Agent architecture diagram provided by Hermes](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181858.png)
+![Multi-Agent architecture diagram provided by Hermes](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413181858.png)
 
 Conceptually, it got it right. But how did it perform in practice?
 
-![Execution results of the first multi-Agent architecture run](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182149.png)
+![Execution results of the first multi-Agent architecture run](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182149.png)
 
 From the implementation perspective, each Agent had generated its own folder and memory.
 
 However, the next session exposed that this architecture hadn’t been fully implemented; it was merely a “face project.” This was triggered by adding a new API KEY for Devon. At this point, the Agent said it couldn’t modify `.env` and asked me to do it, while simultaneously asking me to give it the Key.
 
-![Contradictory conversation where the Agent claims it cannot modify .env but requests the API Key](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182807.png)
+![Contradictory conversation where the Agent claims it cannot modify .env but requests the API Key](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182807.png)
 
 From this point on, the three Agents truly came into effect. This is the feedback from the main session:
 
-![Feedback information from the main session after the three Agents were implemented](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182901.png)
+![Feedback information from the main session after the three Agents were implemented](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413182901.png)
 
 Seeing is believing, so I checked the Hermes directory:
 
-![List of files generated in Hermes’ working directory](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183230.png)
+![List of files generated in Hermes’ working directory](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183230.png)
 
 Now, each Agent has its own `cron`, `state.db`, and `skills` folder. We can now confirm that these Agents are ‘physical’ Agents in a tangible sense, not just logical concepts.
 
@@ -115,7 +115,7 @@ Next, I observed its self-evolution capabilities.
 
 My first feedback was to have it report progress periodically. Since I had just set it up, I was worried it might not be “alive.”
 
-![Requesting Hermes to report task progress periodically](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183633.png)
+![Requesting Hermes to report task progress periodically](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183633.png)
 
 The issue that arose was that the reports were too long, so I gave it an instruction:
 
@@ -131,7 +131,7 @@ The first report format was messy, so I issued another instruction:
 
 It improved immediately:
 
-![Hermes’ output after improvement, reporting progress on time](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183934.png)
+![Hermes’ output after improvement, reporting progress on time](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413183934.png)
 
 During this period, an automatic skill creation was triggered. The first installation of `claude-code` actually failed, but the Agent reported it as successful. After I corrected the fact, the Agent self-reflected and, upon successful installation, created a new skill:
 
@@ -148,15 +148,15 @@ The installation of this skill is simple but requires application on the Dongfan
 
 First, search for Miaoxiang in the search bar, which will display the image below:
 
-![Result interface for searching Miaoxiang skills in the skill market](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/d834699600b7211d803ca3bb926b62bb.jpg)
+![Result interface for searching Miaoxiang skills in the skill market](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/d834699600b7211d803ca3bb926b62bb.jpg)
 
 Clicking on Miaoxiang skills will bring up this interface:
 
-![Miaoxiang skill detail page, including prompts and usage instructions](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/e6711f9a615f237d576af370ba60a24e.jpg)
+![Miaoxiang skill detail page, including prompts and usage instructions](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/e6711f9a615f237d576af370ba60a24e.jpg)
 
 Follow the prompts to copy the prompt and send it to the Agent. Soon, it was configured:
 
-![Conversation of sending Miaoxiang skill prompts to the Agent to complete configuration](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413194217.png)
+![Conversation of sending Miaoxiang skill prompts to the Agent to complete configuration](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413194217.png)
 
 Then I asked it a question:
 
@@ -167,7 +167,7 @@ The results are not shown and require blurring throughout. What can you currentl
 
 Let’s look at something displayable:
 
-![Display effect of Hermes applying Miaoxiang skill to generate content](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413200322.png)
+![Display effect of Hermes applying Miaoxiang skill to generate content](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260413200322.png)
 
 Trying it out is good, but eating it every day might not be sustainable yet. In terms of performance, it uses a method of querying each stock once, taking nearly 30 seconds to complete all queries.
 

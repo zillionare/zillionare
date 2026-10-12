@@ -8,10 +8,10 @@ lang: en
 translation_of: posts/factor-strategy/alpha042
 auto_translated: true
 source_sha: 4751adf6662d463afd39773a99f45cbfe203fbe9
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp"
 ---
 
-![Title Image: Free University of Tbilisi, where Kahushadze teaches](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp)
+![Title Image: Free University of Tbilisi, where Kahushadze teaches](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp)
 
 *101 Alpha Formulas* is a paper published by Zura Kahushadze in 2015. In it, he compiled approximately 80 factors widely used at WorldQuant that are suitable for formulaic representation, along with several self-developed factors, totaling 101. These were published as a preprint on arXiv.
 
@@ -26,9 +26,9 @@ However, giving up on Alpha101 would be a significant loss. For instance, we rec
 
 The backtest results indicate that this factor achieved an annualized return of 16.1% and a cumulative return of 7x (over 15 years).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-alpha-beta.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-alpha-beta.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-cumulative-return.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-cumulative-return.png)
 
 ---
 
@@ -71,17 +71,17 @@ This represents a factor of medium readability within Alpha101. If we expand it,
 
 Not only is understanding its meaning difficult, but implementing it is also challenging. Moreover, Alpha101 contains many areas for optimization and a few errors (which is still a valuable resource for a free, public article). For example, Factor 42 still has room for improvement. Below is the performance of our refactored version (source code available only to students under identical conditions):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactored-returns.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactored-returns.png)
 
 We observe a 1.5% increase in annualized alpha. The layer backtest (quantile) chart below is, to those in the know, simply perfect. Jim Simons’ notion of "following the beauty" likely refers to such charts.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-quantile.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-quantile.png)
 
 ---
 
 The cumulative return chart is equally impressive. After China A-shares peaked at 6,124 in 2008 and declined for several years, this factor’s returns continued to rise.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-culmulative-return.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/alpha042-refactor-culmulative-return.png)
 
 ---
 

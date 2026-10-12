@@ -19,7 +19,7 @@ On January 2 and 3 this year, two tourism stocks hit their daily limit-up one af
 
 ## One Tripled, One Posted Six Straight Limit-Ups
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-dlsy.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-dlsy.jpg)
 
 This chart shows closing prices for the 60 days through January 17, 2024. The red dashed lines mark when each stock took off. Stock A likely rode the Dong Yuhui essay controversy and the Harbin tourism boom, breaking out first on January 2.
 
@@ -80,7 +80,7 @@ plt.show()
 
 When plotting, we put $x_0$ on the x-axis and $x_i$ on the y-axis. If $x_0$ and $x_1$ are perfectly positively correlated, you get a $45^。$ upward-sloping straight line. That is actually the principle behind a QQ-Plot.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/correlation-three.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/correlation-three.jpg)
 
 To go from the left panel to the right, just keep adding noise to $x_0$. Feel free to try it yourself.
 
@@ -93,7 +93,7 @@ Pearson only captures linear relationships. Often we need to relax the condition
 
 The example above shows how to compute Pearson correlation using np.corrcoef. It returns a matrix, so the variable rho in that example actually looks like this:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/rho-by-numpy.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/rho-by-numpy.jpg)
 
 In this matrix, the diagonal holds the self-correlations, which are obviously all 1. To get the correlation between time series $s_1$ and $s_2$, take $\rho[0][1]$; for $s_1$ vs $s_3$, take $\rho[0][2]$, and so on — as you can see on line 13 of the code.
 
@@ -137,13 +137,13 @@ Suppose it's now 2pm on Jan 2, and we can be confident Stock A won't break its l
 
 Using pearson > 0.75 as the filter, 5 out of 22 stocks in the sector pass. Using spearman > 0.75, only 4 pass — all of them within the Pearson set. For cleaner layout, we show only those 4 overlapping names here:
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-xzly.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-xzly.jpg)
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-zxly.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-zxly.jpg)
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-stsd.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-vs-stsd.jpg)
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-corr-dlsy.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbs-corr-dlsy.jpg)
 
 ---
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/tcn/ai股票分析
 auto_translated: true
 source_sha: 789825118f671d2294c7aa3b3a57e27604fce4d0
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260423182355505.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260423182355505.png"
 ---
 
 # A Robust Stock Intelligence System

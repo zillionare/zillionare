@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/rd-agent-for-quant-intro
 auto_translated: true
 source_sha: d003f56fd600b5c938c84ec5bec65aa1635bd00a
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg"
 ---
 
 ## 1. The Dilemma of Quantitative Research

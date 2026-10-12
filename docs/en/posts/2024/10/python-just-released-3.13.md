@@ -8,10 +8,10 @@ lang: en
 translation_of: posts/python/python-just-released-3.13
 auto_translated: true
 source_sha: 043ac4c4a338a40386e03c6b1a861834ce252937
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png"
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png)
 
 Today, October 24, is celebrated globally as Programmers’ Day. It also marks the birthdays of notable figures such as Bo Qiu Jun, Chris Lattner, and Robert Kahn. Lattner is the founder of the LLVM open-source compiler and the primary designer of Swift and Mojo. Kahn, a foundational figure of the internet, co-invented the TCP/IP protocol with Vint Cerf.
 
@@ -23,7 +23,7 @@ This version introduces a new interactive interpreter and provides experimental 
 
 The term "new interactive interpreter" can be misleading. It refers to a new interactive shell, not the language interpreter itself. This shell is derived from the PyPy project and supports colored output, multi-line editing, history recall, and multi-line paste modes.
 
-![Chris Lattner and the Mojo language. Mojo claims to be 68,000 times faster than Python](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/chris-lattner.png)
+![Chris Lattner and the Mojo language. Mojo claims to be 68,000 times faster than Python](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/chris-lattner.png)
 
 Python’s interactive shell has long been one of its key strengths. To explore a function’s capabilities, developers can simply type `ipython` in the terminal to test it immediately. I often use `ipython` as a calculator, which is incredibly convenient.
 
@@ -37,7 +37,7 @@ Currently, JIT is still considered experimental and is disabled by default. The 
 
 ## Free Threaded CPython
 
-![Robert Kahn, Father of the Internet](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/robert-kahn.png)
+![Robert Kahn, Father of the Internet](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/robert-kahn.png)
 
 The long-discussed version without the Global Interpreter Lock (GIL) has officially been named **Free Threaded CPython**. In this version, CPython allows threads to run completely in parallel, potentially boosting Python’s performance by **several times**. However, this feature is also experimental.
 
@@ -88,7 +88,7 @@ def foo(*args):
 
 This is an internet meme referring to individuals who scrutinize images with extreme precision, searching for bugs like using a microscope. Leeuwenhoek, the inventor of the microscope, shares his birthday on October 24.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/abstract-raindrop.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/abstract-raindrop.jpg)
 
 Leeuwenhoek began as a tailor’s apprentice with no formal education. He later became a draper and purchased magnifying glasses to inspect fabric quality, which sparked his journey as a master craftsman (17th-century Holland was indeed a global power; the world’s first stock exchange, a hallmark of capitalism, was born there).
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试
 auto_translated: true
 source_sha: 15eefbeef1157dc6529fd38b3381e5606d284eb0
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 
 "007, we need to discuss a critical performance optimization issue," I said, typing away at my keyboard while addressing my AI assistant.
@@ -358,7 +358,7 @@ for _ in range(2500):
 print(f"已生成{len(trading_days)}个交易日")
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/generate_stock_data.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/generate_stock_data.png)
 
 ### 2.3. Redis Producer: Pushing Data to Redis Queue
 
@@ -398,7 +398,7 @@ print("数据生成完成，已全部推送到Redis队列")
 
 The process takes about 20 minutes to complete. During data generation, we can see the progress bar advancing steadily, indicating that data is being successfully generated and pushed to the Redis queue.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/redis_producer.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/redis_producer.png)
 
 "The data generation and pushing process completed successfully," I observed the progress bar. "Now we need to design the consumer side to handle this data."
 
@@ -615,7 +615,7 @@ finally:
         print(f"最终统计查询失败: {str(e)}")
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data.png)
 
 "The data has been successfully imported into ClickHouse," I said, looking at the terminal output. "Now we have a `stock_data` table containing a large number of records."
 
@@ -827,7 +827,7 @@ def recreate_table_without_symbol():
 recreate_table_without_symbol()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/recreate_table_without_symbol.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/recreate_table_without_symbol.png)
 
 
 ```python
@@ -882,7 +882,7 @@ def add_index_to_stock_data_with_int():
 add_index_to_stock_data_with_int()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data_with_int.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/stock_data_with_int.png)
 
 "The table creation was successful," I said, looking at the output on the screen. "Now we have two tables with similar structures but different stock code encoding methods."
 
@@ -896,7 +896,7 @@ add_index_to_stock_data_with_int()
 
 I carefully checked the structure of both tables. "Yes, only by ensuring that all other conditions are exactly the same can we draw reliable conclusions about the impact of the encoding method."
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_01.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_01.png)
 
 "I designed a series of check functions," 007 said. "They comprehensively compare the structure, indexes, partitioning methods, and data volume of both tables to ensure the rigor of the test."
 
@@ -937,7 +937,7 @@ def compare_table_structures():
 stock_data_columns, stock_data_with_int_columns = compare_table_structures()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/表结构对比.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/表结构对比.png)
 
 #### 2.6.2. Data Volume Comparison
 
@@ -976,7 +976,7 @@ def compare_data_volume():
 compare_data_volume()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/数据量对比.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/数据量对比.png)
 
 #### 2.6.3. Index Comparison
 
@@ -1062,7 +1062,7 @@ def compare_indexes_fixed():
 compare_indexes_fixed()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/索引对比.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/索引对比.png)
 
 #### 2.6.4. Sorting Key Comparison
 
@@ -1106,7 +1106,7 @@ def compare_sort_keys():
 compare_sort_keys()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/排序键对比.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/排序键对比.png)
 
 #### 2.6.5. Partition Comparison
 
@@ -1203,7 +1203,7 @@ def compare_partitions_fixed():
 compare_partitions_fixed()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/分区对比.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/分区对比.png)
 
 #### 2.6.6. Table Engine Comparison
 
@@ -1239,7 +1239,7 @@ def compare_engines():
 compare_engines()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/表引擎对比.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/表引擎对比.png)
 
 #### 2.6.7. Comprehensive Comparison
 
@@ -1524,7 +1524,7 @@ SYSTEM DROP UNCOMPRESSED CACHE;
 results = test_query_performance_fixed(num_tests=50)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/性能测试结果.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/性能测试结果.png)
 
 "The test results are in!" I exclaimed excitedly, looking at the performance data displayed on the screen.
 
@@ -1540,7 +1540,7 @@ results = test_query_performance_fixed(num_tests=50)
 
 I nodded. "Good idea. Charts can help us see the patterns and trends of performance differences more clearly."
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_02.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/007_02.png)
 
 "I have designed a comprehensive visualization plan," 007 said. "Including bar charts, box plots, and pie charts, among others, to display the performance test results from different perspectives."
 
@@ -1952,11 +1952,11 @@ if not results:
 visualize_performance_results(results)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/性能测试详细报告.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/性能测试详细报告.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/performance_test_report.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/performance_test_report.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/query_performance_comparision.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/query_performance_comparision.png)
 
 ## 3. Conclusions and Recommendations
 

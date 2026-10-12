@@ -62,7 +62,7 @@ We will also launch our own quantitative self-study roadmap by the end of August
 
 Until the outline is released, you can temporarily refer to this roadmap:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/cheese-course-roadmap.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/cheese-course-roadmap.png)
 
 ---
 
@@ -72,13 +72,13 @@ How can we apply machine learning methods to portfolio strategies? Recently, we 
 
 Here is a basic framework diagram abstracted from the paper.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-model-framework.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-model-framework.jpg)
 
 What problem does this framework solve? We know that in a portfolio strategy, the first key issue to consider is how to select a subset of stocks from a given universe to include in the strategy’s stock pool; the second is how to allocate positions among these stocks to achieve the highest risk-adjusted return for the portfolio.
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
 
 For the latter part, the most classic method is to use Modern Portfolio Theory (MPT) to find the efficient frontier. This can be solved using convex optimization or Monte Carlo methods. We previously had a series of articles on [Portfolio Theory and Practice](https://blog.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/), which clearly covered everything from basic concepts to practical details, so we won’t elaborate here.
 
@@ -100,7 +100,7 @@ The paper uses an XGBoost regression model. This is questionable. In asset prici
 
 The author’s method here is to train a regression model to predict next-day (or subsequent period) trends well.
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-prediction-result.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-prediction-result.jpg)
 
 The right graph shows one of the results obtained by the paper’s author. It appears the model predicts next-day trends almost perfectly.
 
@@ -110,7 +110,7 @@ Obviously, since the XGBoost regression model itself lacks the ability to predic
 
 However, the author still provides a clue on how to use XGBoost to find the best-performing individual stocks in a multi-factor model. We just need **to transform it into a classification model and then filter out the best-performing stocks via the classification model.**
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/classification_xgboost.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/classification_xgboost.png)
 
 The X part in the training set does not need to change, but we need to redefine the labels, i.e., the y part. For a given factor $X_i$, the corresponding $y_i$ needs to reflect whether the stock is rising or falling. If possible, we can set the labels into 5 categories: -2 for a sharp drop, 2 for a sharp rise, and so on for the middle parts.
 
@@ -145,7 +145,7 @@ Next, we need to analyze the use of the MAPE function in the paper. Using this a
 
 In machine learning, there are two types of important functions: one is the **objective function (loss function)**, and the other is the **metric function (metrics)**.
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gradient-descent.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gradient-descent.jpg)
 
 Loss functions are used for model training. During training, methods such as gradient descent are used to continuously reduce the value of the loss function until it can no longer decrease, at which point the model is trained.
 
@@ -157,7 +157,7 @@ sklearn provides a large number of loss functions and metric functions. The foll
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/sklearn-loss-metrics.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/sklearn-loss-metrics.jpg)
 
 It can be seen that the number of metric functions is far greater than that of loss functions. Why is this?
 

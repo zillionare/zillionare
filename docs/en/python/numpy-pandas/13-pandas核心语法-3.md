@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/13-pandas核心语法-3
 auto_translated: true
 source_sha: 02eee24122f4c15a35e36363e12d1dac1b1946b3
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
 ---
 
 “DataFrames are the core data structure in Pandas, supporting various data types and flexible operations. Whether converting nested dictionaries, NumPy arrays, or CSV files, DataFrames enable rapid data analysis tasks.”
@@ -30,7 +30,7 @@ frame = pd.DataFrame(data)
 frame
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/016.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/016.png)
 
 The generated DataFrame automatically assigns an index (similar to Series) and orders all columns according to the order of keys in the input dictionary (determined by insertion order).
 *(Note: In Jupyter notebooks, Pandas DataFrames render as browser-friendly HTML tables.)*
@@ -44,7 +44,7 @@ print(frame.head())
 print(frame.tail())
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/017.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/017.png)
 
 Below are additional methods for creating DataFrames:
 
@@ -67,7 +67,7 @@ frame3 = pd.DataFrame(populations)
 frame3
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/018.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/018.png)
 
 You can transpose a DataFrame (swapping rows and columns) using methods similar to those for NumPy arrays:
 
@@ -75,7 +75,7 @@ You can transpose a DataFrame (swapping rows and columns) using methods similar 
 frame3.T
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/019.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/019.png)
 
 The keys from the inner dictionaries are merged to form the resulting index. This behavior does not occur if an explicit index is specified:
 
@@ -85,7 +85,7 @@ The keys from the inner dictionaries are merged to form the resulting index. Thi
 pd.DataFrame(populations,index=["2001","2002","2003"])
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/020.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/020.png)
 
 Dictionaries composed of Series follow a similar usage pattern:
 
@@ -94,7 +94,7 @@ pdata = {"Ohio":frame3["Ohio"][:-1],"Nevada":frame3["Nevada"][:2]}
 pd.DataFrame(pdata)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/021.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/021.png)
 
 Data types that can be passed to the DataFrame constructor:
 
@@ -125,7 +125,7 @@ frame3
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/022.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/022.png)
 
 ```python
 # 二维的ndarray的DataFrame形式返回
@@ -135,7 +135,7 @@ frame3.to_numpy()
 frame2.to_numpy()
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/023.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/023.png)
 
 <!--_index, info, describe, columns, head, tail, etc._-->
 
@@ -250,7 +250,7 @@ del frame2["eastern"]
 print(frame2.columns)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/026.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/026.png)
 
 ### 1.1.4. Locating, Reading, and Modifying Data
 <!--_Introduction to Pandas indexing and data selection_-->
@@ -264,7 +264,7 @@ print(frame2.year)
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/024.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/024.png)
 
 Dot-attribute access is not supported if column names contain symbols other than spaces or underscores.
 
@@ -284,7 +284,7 @@ frame2["debt"] = val
 print(frame2)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/025.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/025.png)
 
 ---
 
@@ -296,7 +296,7 @@ print(frame2.loc[1])
 print(frame2.iloc[2])
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/027.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/027.png)
 
 ### 1.1.5. Transposition
 Transposition swaps the rows and columns of a DataFrame, converting rows into columns and vice versa. Pandas offers two methods for transposition:

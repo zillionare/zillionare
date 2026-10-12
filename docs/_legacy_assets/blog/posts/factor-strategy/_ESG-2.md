@@ -49,7 +49,7 @@ df.to_parquet('daily_data.parquet')
 此外，还为每个策略自动输出 QuantStats HTML 报告。
 ## 3.wind结果分析
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png)
 
 上图右上角为第十层和第一层多空交易的结果，可以看到从2019到2021年进行ESG投资是有盈利希望的，然而回顾大部分投资期限，也只有这3年的投资是可以呈现正收益的，其余情况表现并不好，那么从年化收益来看呢，ESG最高的第十组年化收益也并不出众。
 那ESG高的企业是一点都没用了吗？
@@ -60,19 +60,19 @@ df.to_parquet('daily_data.parquet')
 华政提供了更多的评级数据，包括单独的E，S和G评分，因此我们可以绘制四幅分层收益分析图：
 ### 4.1华政综合得分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png)
 
 ### 4.2华政E评分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957301508-fa411527-8780-42d4-af52-5372b6d8e46f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957301508-fa411527-8780-42d4-af52-5372b6d8e46f.png)
 
 ### 4.3华政S评分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957313634-c54ff265-0d5c-4601-8c03-37fa668509d2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957313634-c54ff265-0d5c-4601-8c03-37fa668509d2.png)
 
 ### 3.4华政G评分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957323586-168429c0-f664-4bc0-8c6c-0e0ba6845f3c.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957323586-168429c0-f664-4bc0-8c6c-0e0ba6845f3c.png)
 
 ## 5综合比较
 

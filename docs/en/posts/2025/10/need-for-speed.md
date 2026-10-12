@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/need-for-speed
 auto_translated: true
 source_sha: dbba9047f02a8b8663280a3e3c2d6d1a005383c5
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/11.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/11.jpg"
 ---
 
 Recently, three foreign high-frequency trading (HFT) giants were investigated by China Customs. This event has unveiled an open secret in the HFT world: the **Hardware Race**.

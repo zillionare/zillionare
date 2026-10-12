@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-4
 auto_translated: true
 source_sha: 57fd9534b66e3a218e197676402d6e1e2a2bce01
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg"
 ---
 
 This series has been running for quite some time. Before we begin, let’s set the context. For this installment, we are reproducing a CICC research report from December 2023 titled *"A Bird in the Hand: A Preferred Dividend Strategy."* It is a fundamental strategy. By implementing this report, we aim to learn:
@@ -173,7 +173,7 @@ store
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250905204554.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250905204554.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Raw Dividend Records</span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -339,7 +339,7 @@ df_[df_.div_proc == '实施'][["ts_code", "end_date", "ann_date"]]
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908181932.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908181932.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -416,7 +416,7 @@ clear_output()
 Finally, we obtain the following report:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908210330.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250908210330.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -429,7 +429,7 @@ Finally, we obtain the following report:
 If you are interested in the code in this article, you can become a member. We provide data, code, and a running environment to immediately run and verify strategies. If you are not familiar with the technical details in the article, you can take our courses.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/fa.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/fa.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

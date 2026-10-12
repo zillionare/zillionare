@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/18-pandas应用案例-1
 auto_translated: true
 source_sha: 1cdb1c584de292c551aac8aaa7b2f7c0e20ed98c
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg"
 ---
 
 “Alphalens requires factor data to be a double-indexed Series and price data to be a DataFrame with dates as the index and asset codes as columns. Using Pandas’ `pivot_table` and `set_index`, you can easily perform format conversions to lay the foundation for factor analysis.”
@@ -88,7 +88,7 @@ print(df)
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/078.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/078.png)
 
 ## 2. Filling Missing Adjustment Factors for Minute-Level Data
 In quantitative analysis, when processing minute-level stock data, adjustment factor (forward-adjustment factor) data may be missing. You need to perform nearest-neighbor matching based on time to ensure every minute-level data point has the correct adjustment factor. Adjustment factors are typically adjusted when stocks undergo splits or dividends; these event timestamps may not align exactly with every minute-level timestamp, for example:
@@ -172,7 +172,7 @@ merged = pd.merge_asof(
 merged
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/079.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/079.png)
 
 ---
 
@@ -196,7 +196,7 @@ df_adjust['time'] = df_adjust['time'] + pd.Timedelta(seconds=30)  # 延后30秒�
 df_adjust
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/080.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/080.png)
 
 ---
 
@@ -243,7 +243,7 @@ factor.index = pd.MultiIndex.from_arrays(
 factor
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
 
 #### 3.1.2. Price Data Format
 
@@ -264,7 +264,7 @@ prices.index = pd.to_datetime(prices.index)  # 日期转换为datetime类型
 ```
 
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/081.png)
 
 
 ### 3.2. Key Preprocessing Operations

@@ -4,7 +4,7 @@ title: ESG策略初探-01
 date: 2025-10-22
 tags: [ESG, 因子策略]
 category: strategy
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/22.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/22.jpg
 excerpt: 从化石燃料到金融市场，绿色转型已不可逆。到2024年，151个国家宣布碳中和目标，120个将其纳入法律，86个给出清晰路线图。资本正在用估值与资金流向表态：可持续发展是新的共识。而在资本对“可持续价值”的抉择中，**ESG**正成为衡量企业与经济体可持续竞争力的核心标尺
 ---
 
@@ -101,7 +101,7 @@ stock_esg_rate_sina_df
 <!-- BEGIN IPYNB STRIPOUT -->
 新浪ESG数据结构如下图所示:
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760933678173-69b7b822-57fa-4895-9aa5-b221b070c02f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760933678173-69b7b822-57fa-4895-9aa5-b221b070c02f.png)
 <!-- END IPYNB STRIPOUT -->
 
 针对这种ESG数据格式的分析中，我们通常有两条思路：
@@ -120,7 +120,7 @@ df_zhongxin = df_institution.get('中国国新')
 ```
 数据样例如下：
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959013313-27e7ad9f-4726-448a-8026-a0a885a6748b.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959013313-27e7ad9f-4726-448a-8026-a0a885a6748b.png)
 
 这样我们便能直观地看到中国国新对各个上市公司的评级
 
@@ -141,7 +141,7 @@ df_s
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959297518-fa04e23f-4d52-45e1-933f-99152583c75f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959297518-fa04e23f-4d52-45e1-933f-99152583c75f.png)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -161,7 +161,7 @@ stock_esg_msci_sina_df
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760937976592-2d8bbef4-b981-496f-befd-d366190330c1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760937976592-2d8bbef4-b981-496f-befd-d366190330c1.png)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -183,7 +183,7 @@ stock_esg_rft_sina_df
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938046488-4c76aa64-54f5-493c-b9c8-583fc3b44761.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938046488-4c76aa64-54f5-493c-b9c8-583fc3b44761.png)
 <!-- END IPYNB STRIPOUT -->
 
 路孚特采取了**评级和评分共同披露**的形式，但也是信息有限，一共只有100只股票的截面信息，大部分也是境外股票，同样不适合后续研究。
@@ -201,7 +201,7 @@ stock_esg_zd_sina_df
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938101162-ca596f14-75ca-4532-89f9-a8e34035d2b8.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938101162-ca596f14-75ca-4532-89f9-a8e34035d2b8.png)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -240,7 +240,7 @@ df_hold
 <!-- BEGIN IPYNB STRIPOUT -->
 持仓信息样例如下所示：
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938421730-33df0549-1610-4392-a6d2-78fc99446abd.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938421730-33df0549-1610-4392-a6d2-78fc99446abd.png)
 <!-- END IPYNB STRIPOUT -->
 
 有了持仓信息之后，我们与ESG数据进行匹配，然后按照持仓市值加权运算，就可以算出基金ESG在不同时期的分数了。
@@ -358,7 +358,7 @@ plt.show()
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938522635-63ca437e-2ebd-4aae-811c-b143bb97979a.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938522635-63ca437e-2ebd-4aae-811c-b143bb97979a.png)
 <!-- END IPYNB STRIPOUT -->
 
 <hr>

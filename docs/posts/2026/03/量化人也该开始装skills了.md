@@ -12,7 +12,7 @@ addons:
   - quantide-layout-xhs
 aspectRatio: 3/4
 canvasWidth: 600
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png
 layout: cover-photo-down
 ---
 
@@ -55,7 +55,7 @@ skillsmp 是目前规模最大的 marketplace，到今年3月止，已经上架�
     skills 现在火到什么程度？当你访问 skillsmp的时候，有很大机会遇到生物体校验。普通的网站上可享受不到这个『待遇』。
 
 
-![极客范的 skillsmp 网站](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png)
+![极客范的 skillsmp 网站](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png)
 
 skillsmp 按类别归类各种 skills，对量化人来说，可以多看看金融与投资分类，这里有20270个技能。当然数据与 AI分类下的机器学习、数据分析等子类，也是值得多看看的。
 
@@ -63,7 +63,7 @@ skillsmp 按类别归类各种 skills，对量化人来说，可以多看看金�
 
 在 skillsmp 上除了按分类浏览我们感兴趣的 skills 之外，你还可以直接搜索。比如，如果你想要让 AI 更准确地使用 akshare 的数据 API，就可以用 akshare 作为关键词来搜索，然后看看点赞数最高的几个就好。
 
-![在 skillsmp 中搜索 akshare 得到的高赞技能卡片](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/find-akshare.png)
+![在 skillsmp 中搜索 akshare 得到的高赞技能卡片](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/find-akshare.png)
 
 然后点击这个卡片，我们就可以看到 akshare 这个 skill 的各项资产。
 
@@ -84,11 +84,11 @@ npx skills add openclaw/skills
 
 下面的图显示了如何下载 skills 的 zip 包。
 
-![在 skillsmp 上下载 skills 安装包的操作入口](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skills-how-to-install.png)
+![在 skillsmp 上下载 skills 安装包的操作入口](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skills-how-to-install.png)
 
 安装好 skills之后，你就可以通过 slash 命令来使用它（或者验证安装成功）。我们以后面会安装的 tushare 为例，演示一下在 vscode 中如何验证安装成功。
 
-![在 vscode 中用 slash 命令验证 tushare skill 安装成功](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/tushare-skill-verify.png)
+![在 vscode 中用 slash 命令验证 tushare skill 安装成功](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/tushare-skill-verify.png)
 
 截图来自 vscode 的 AI chat窗口。通过 slash 命令及它的提示，我们验证了安装成功。此后，在你写代码时，这些 skills 会自动触发。
 
@@ -126,6 +126,6 @@ baostock 是一个免费的行情数据源。你也可以在skillsmp 上找到�
 
 如果你觉得实时跟踪财经新闻很重要，可以安装 finance-news-source 这个 skills。
 
-![finance-news-source 技能实时抓取财经新闻的运行效果](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260326151611.png)
+![finance-news-source 技能实时抓取财经新闻的运行效果](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260326151611.png)
 
 不过，如果想要实时获得这些新闻，这个在 trae/vscode 中不太行，还是安装一个 claude code 或者 openclaw 吧。他们是最好的技师。

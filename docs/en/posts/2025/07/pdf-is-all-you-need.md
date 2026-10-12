@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/pdf-is-all-you-need
 auto_translated: true
 source_sha: 57b3262670070408522c4f1e97c4e96cc1436773
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg"
 ---
 
 It is often asked: What mathematical foundation is required for quantitative trading?
@@ -80,7 +80,7 @@ Elementary probability focuses on intuitive understanding and basic calculations
 We first introduce the following figure:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250723145743.png?v=22'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250723145743.png?v=22'>
 
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>

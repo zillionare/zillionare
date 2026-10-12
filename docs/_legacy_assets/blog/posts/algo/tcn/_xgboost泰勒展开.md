@@ -10,7 +10,7 @@ addons:
   - quantide-layout-xhs
 aspectRatio: 3/4
 canvasWidth: 600
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/reading-content.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/reading-content.jpg
 layout: cover-photo-down
 installment: na
 ---
@@ -77,7 +77,7 @@ $$
 这个式子已经把核心说得很清楚了：$g$ 决定往哪边修，$h$ 决定这一步能修多大。$h$ 越大，更新幅度通常越小。
 
 
-![XGBoost局部二次近似](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/07848cee84f882c216f5fa07c8ef7a92.png)
+![XGBoost局部二次近似](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/07848cee84f882c216f5fa07c8ef7a92.png)
 
 
 - 黑色曲线：当前点附近的局部损失形状。
@@ -95,7 +95,7 @@ $$
 
 第 $t$ 轮时，模型已经有了当前预测 $\hat y_i^{(t-1)}$，现在它准备再加一棵树 $f_t(x_i)$，于是新预测变成：
 
-![XGBoost决策树原理图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331173749346.png)
+![XGBoost决策树原理图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331173749346.png)
 
 - 分裂节点：样本按条件往下走，不同条件对应不同分支。
 - 叶子节点：样本最后落到一个叶子里，拿到一个输出值 $w_j$。这个值表示这一轮要修多少。
@@ -163,7 +163,7 @@ $$
 \right) - \gamma
 $$
 
-![XGBoost分裂Gain示意图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260408111011416.png)
+![XGBoost分裂Gain示意图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260408111011416.png)
 
 
 - 父节点的 $G, H$：表示不分裂时，把这批样本放在一起算。

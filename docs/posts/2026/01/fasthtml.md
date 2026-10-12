@@ -2,7 +2,7 @@
 slug: posts/tools/2026十大量化技术/fasthtml
 title: "量化新基建(三) - FastHTML：Python 全栈开发的终极答案"
 date: 2026-01-11
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110212357.png
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110212357.png
 excerpt: 这是2026量化新基建的第三篇文章了。我们的目标是介绍2026年，要打造一个量化交易系统，你可能（应该）使用的那些技术。今天我们要介绍的是，在2026年，你该使用什么样的技术来构建量化交易系统的前端。
 categories: tools
 tags: [tools, sqlite, sqlite-utils, fastlite]
@@ -22,7 +22,7 @@ layout: cover-random-img-portrait
 今天我们要介绍的是，在2026年，你该使用什么样的技术来构建量化交易系统的前端。
 
 <div style='width:80%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110212357.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110212357.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>澳大利亚国立大学，抛物面太阳能聚光器</span>
 <span style='font-size:0.7em;display:inline-block;width:100%;text-align:center;color:grey'>by Toby Hudson@wikimedia</span>
 </div>
@@ -50,7 +50,7 @@ Treuille等人于是决定，要开发一个完全基于 Python 的 web 框架�
 
 这让 streamlit 获得了出圈的机会。凭借极致的简单，streamlit几乎将开发 web应用的门槛成功降到了零，成为了 Python 数据科学家展示工作的首选工具。截止目前，它已经在 github 上拿到了43k 的 stars，并且在2022年被 snowflake 以8亿美元收购。
 
-![使用 streamlit 开发的量化程序](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110174624.png)
+![使用 streamlit 开发的量化程序](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110174624.png)
 
 Streamlit 的成功是现象级的，就像当年的《疯狂动物城》一样，一经发布就凭借完美的设定横扫全场。 面对这样一部已经封神的经典，你可能会像现在审视《疯狂动物城2》一样心存疑问：在珠玉在前的情况下，这个赛道里真的还有讲新故事的空间吗？后来者还有机会超越前者留下的天花板吗？
 
@@ -162,7 +162,7 @@ serve()
 2.  `hx_target="#counter"`：告诉前端，拿到服务器返回的结果后，找到页面上 `id="counter"` 的元素。
 3.  `hx_swap="innerHTML"`：用返回的内容替换掉目标元素内部的内容。
    
-![fasthtml 生成的SPA应用](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110213304.png)
+![fasthtml 生成的SPA应用](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110213304.png)
 
 整个过程**没有一行 JavaScript**，不可思议地简洁，但用户体验却是无刷新的、流畅的单页应用（SPA）级体验。
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/augment-daily-dose
 auto_translated: true
 source_sha: 724184ca5d956bc07a8260220e4014b20b07b71d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/banner/IMG_20250510_112543.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/banner/IMG_20250510_112543.jpg"
 ---
 
 DuckDB is a young and charming database. Its backups can be as simple as copying a file—but only if no other process holds an exclusive lock. If your service uses DuckDB and is actively reading and writing to it, how do you back it up?

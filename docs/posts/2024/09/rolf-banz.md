@@ -3,7 +3,7 @@ title: 牛人太多：小市值因子之父，毕业论文被大佬狂怼
 date: 2024-09-12
 category: career&figure
 slug: posts/career-figure/rolf-banz
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/rolf-banz.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/rolf-banz.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [figure, Banz]
@@ -20,7 +20,7 @@ Banz 因发现小市值因子一战成名。1981 年，在他的博士毕业论�
 
 在国内，研究表明，A 股市场在 2016 年以前，规模因子的显著性甚至超过了欧美等发达国家市场。该因子在 2017-2018 年期间，弱于大市值资产，但从 2021 年起，又跑赢了沪深 300。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230426161715.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230426161715.png)
 
 这张图来自聚宽平台的回测，数据表明，两年时间里，小市值获得到 51.98%的超额收益，是相当不错的。
 

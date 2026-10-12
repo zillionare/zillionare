@@ -1,7 +1,7 @@
 ---
 title: "Z-Score Factor: Signals, Limits, and Mean Reversion"
 date: 2024-01-04
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154358-cover-posts-2024-01-z-score-factor.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154358-cover-posts-2024-01-z-score-factor.md.jpg"
 slug: en/posts/factor-strategy/z-score-factor
 tags: [Z-Score, Mean Reversion, Factor Investing]
 excerpt: "Z-score flags statistically stretched prices by measuring distance from the mean in standard deviations. It works well as a high-win-rate mean-reversion factor, but not as a standalone strategy."
@@ -53,7 +53,7 @@ def rolling_zscore(s, win=20):
 
 We won't run the full pipeline in this note. Instead, we'll pick a random ticker, compute its z-score over the last 250 bars, mark z-scores below -2 as buys and above +2 as sells, plot them, and dig deeper into what the chart tells us:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/z-score-signals.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/z-score-signals.jpg)
 
 ---
 

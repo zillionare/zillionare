@@ -3,7 +3,7 @@ slug: posts/algo/pdf-is-all-you-need
 title: "量化面试神题：圆上随机点的概率陷阱"
 date: 2025-07-24
 category: algo
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg
 tags: [数学, 概率, 面试题]
 excerpt: "常常有人问，做量化交易需要什么样的数学基础？"
 ---
@@ -77,7 +77,7 @@ excerpt: "常常有人问，做量化交易需要什么样的数学基础？"
 我们首先引入下图：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250723145743.png?v=22'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250723145743.png?v=22'>
 
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>

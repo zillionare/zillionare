@@ -434,7 +434,7 @@ expected.style.format("{:.2%}")
 Here is the data and the expected values:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704160054.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704160054.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -458,7 +458,7 @@ As expected, the results align perfectly with our expectations.
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704143609.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704143609.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -486,7 +486,7 @@ ms.plot_cumulative_returns_by_quantiles()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703193457.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703193457.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -555,7 +555,7 @@ ms.plot_cumulative_returns_by_quantiles()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703204913.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703204913.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -608,14 +608,14 @@ By changing `universe = 50` to 3000 in the code, we obtained similar group resul
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704124804.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704124804.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
 From the perspective of layered cumulative returns, it seems similar to that of the individual factors (i.e., the separate candlestick upper shadow standard deviation or the standalone Williams lower shadow mean). However, the key point is that the long-short combination exhibits very robust characteristics:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704125133.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704125133.png'>
 </div>
 
 In investing, we prefer "calm lakes in spring" over "distant peaks." We love these net value curves that look up at the stars at a 45-degree angle.

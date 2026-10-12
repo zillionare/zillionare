@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/is-the-Ashare-market-overvalued
 auto_translated: true
 source_sha: 36abb22a414a83e9af413f568b188e0873ec1e1c
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg"
 ---
 
 The market has been surging joyfully, but for the developers at Eastmoney, it might mean overtime. The rally is so strong that their programs are overflowing:
@@ -16,7 +16,7 @@ The market has been surging joyfully, but for the developers at Eastmoney, it mi
 <!-- more --->
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825205342.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825205342.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -110,7 +110,7 @@ plt.show()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825204156.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250825204156.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->

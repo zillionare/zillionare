@@ -112,11 +112,11 @@ A noteworthy difference between Tabnine and Copilot is its payment model. Tabnin
 Although AI-assisted programming functions are very useful, there are still some scenarios where we need to rely on traditional tools, such as Pylance. Pylance is an extension officially released by Microsoft. VS Code itself is only a general IDE framework; support for specific languages (editing, syntax highlighting, syntax checking, debugging, etc.) is implemented by extensions for that language and language servers (for Python, there are two implementations: Jedi and Pylance). Therefore, Pylance is an extension that must be installed when developing Python projects in VS Code.
 
 It can prompt function signatures, documentation, and parameter type hints as the user types, as shown in the figure below:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230112144603.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230112144603.png)
 
 In addition to the aforementioned code auto-completion, Pylance can also achieve automatic dependency imports. Furthermore, since it originated from a static syntax checker, it can also prompt and display errors in the code, which is precisely where artificial intelligence like Copilot still struggles. Source-level error checking allows us to correct these errors early, which is exactly what many programmers using static languages criticize about Python—now we know this is just an ignorant prejudice.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202104/20210413172416.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202104/20210413172416.png)
 
 !!! Tips
     After installing Pylance, configuration is required. The configuration file is `pyrightconfig.json`, placed in the project root directory.
@@ -210,7 +210,7 @@ foo(10)
 ```
 The `foo` function requires a string input, but we incorrectly passed an integer when calling it. This will not cause an error at runtime, but Pylance will detect this error and issue a warning. When we move the mouse to the error location, the following prompt will appear:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230114102202.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230114102202.png)
 
 Below, we briefly introduce some common usages of type hints:
 
@@ -365,7 +365,7 @@ else
     f4();
 ```
 The corresponding control flow graph can be drawn as:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230115111237.png){height="30%"}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230115111237.png){height="30%"}
 
 In the above control flow graph, there are 9 edges, 7 nodes, and 1 connection, so its complexity is 3.
 
@@ -470,8 +470,8 @@ Secondly, besides regular Python files and packages, Mypy also searches for stub
 4. If a Python module named `foo.py` is found, it matches.
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>
@@ -624,7 +624,7 @@ Generally, we prefer to specify ignoring a specific error rather than ignoring t
 
 There are many Formatter tools, but we hardly examined other formatters, choosing Black simply because of its logo:
 <figure>
-    <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230116214626.png" width="250"/>
+    <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/01/20230116214626.png" width="250"/>
     <figcaption> The Uncompromising Code Formatter</figcaption>
 </figure>
 
@@ -665,7 +665,7 @@ After pre-commit is installed, it will create a `.git/hooks` directory in your p
 
 If you use the wizard to generate a project, the wizard has already installed pre-commit hooks for you. When you run the ``git commit`` command, you will see output like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202104/20210413181638.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202104/20210413181638.png)
 
 It can be seen that pre-commit hooks checked and fixed line breaks, called Black for formatting, and called Flake8 for error checking, reporting misuse of f-strings.
 
@@ -742,8 +742,8 @@ Mypy’s configuration is somewhat unique. It did not use a remote repo but used
 The theme of this chapter is efficient coding. We first introduced code auto-completion tools, then discussed how to use syntax checking tools to discover and fix errors early, avoiding bringing these errors into testing or even production environments. In the solutions we introduced, syntax checking unfolds in real-time with your coding and is enforced once when submitting to the code repository. Later, you will also see that when running tests, another check will be performed. Through such layered defense and checks, we help your project avoid major errors.
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>

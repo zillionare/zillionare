@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/10-numpy应用案例-3
 auto_translated: true
 source_sha: 9d9a99102b21ac467b4898545dd25e818a16ea09
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png"
 ---
 
 Outlier clipping is an indispensable step in quantitative analysis preprocessing. Among various methods, the median pullback approach is widely adopted for its robustness and adaptability. By leveraging Numpy’s vectorized implementation, we can easily perform multi-asset outlier clipping, significantly boosting computational efficiency.
@@ -436,7 +436,7 @@ Testing shows that when the time series $s$ has a length of 1000, the calculatio
 
 The comparison chart of the MDD generated under the rolling window against the original sequence is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
 
 This method also simply encapsulates a function to convert a one-dimensional array into a rolling window view, which can be used elsewhere.
 

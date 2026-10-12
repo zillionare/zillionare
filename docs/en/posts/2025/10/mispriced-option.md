@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/mispriced-option
 auto_translated: true
 source_sha: 812401ca6be8e4b7fe8b7c27e1f7fab5c5b098aa
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/17.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/17.jpg"
 ---
 
 This article introduces a method for **using AI to discover mispriced options** and how to trade them. Published just yesterday, it already garnered over 1.1k upvotes. It is well worth a read. The core value lies not in the strategy itself, but in demonstrating how AI can make complex options trading more accessible. Pay close attention to the prompts in the screenshots; translating them is not difficult.
@@ -34,7 +34,7 @@ The key point is: **Black-Scholes assumes that implied volatility (IV) should re
 
 **Our opportunity arises when fear or greed pushes this tendency to extremes**. When market makers raise prices due to panic buying of puts or FOMO-driven buying of calls, you see abnormally rich skew. This is exactly what we are looking for.
 
-![Actual volatility skew of SPY compared to Black-Scholes, showing that far OTM options are priced much higher than theoretical predictions](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017153712.png)
+![Actual volatility skew of SPY compared to Black-Scholes, showing that far OTM options are priced much higher than theoretical predictions](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017153712.png)
 
 
 ## How To Find Options With Significant Skew?
@@ -49,14 +49,14 @@ Not all skew is created equal. As mentioned earlier, most skew is perfectly norm
 
 This compares the current skew to the stock’s historical average. A Z-score of -2.0 indicates that the skew is 2 standard deviations higher than normal, which is statistically rare and more likely to revert. In short: How much is the current pricing deviating from the historical average?
 
-![Prompt](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155026.png)
+![Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155026.png)
 
 
 
-![Chart Report](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155826.png)
+![Chart Report](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155826.png)
 
 
-![Detailed Analysis](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155934.png)
+![Detailed Analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155934.png)
 
 ### IV/RV Mismatch
 
@@ -67,12 +67,12 @@ Compare current IV with RV (Realized Volatility), which represents the market’
    
 When both conditions occur, you face an expensive option and a cheap one. This is your spread.
 
-![Prompt](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160140.png)
+![Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160140.png)
 
-![Chart Report](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160215.png)
+![Chart Report](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160215.png)
 
 
-![Detailed Analysis](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160719.png)
+![Detailed Analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160719.png)
 
 ### Momentum Confirmation
 
@@ -80,9 +80,9 @@ This tells you the direction of the trade:
 1.  **Positive Momentum + Call Skew** → Buy Call Spread (Buy ATM Call, Sell OTM Call)
 2.  **Negative Momentum + Put Skew** → Buy Put Spread (Buy ATM Put, Sell OTM Put)
 
-![Prompt](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160831.png)
-![Chart Report](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160917.png)
-![Detailed Analysis](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160943.png)
+![Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160831.png)
+![Chart Report](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160917.png)
+![Detailed Analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160943.png)
 
 ## Trading: Vertical Spreads
 
@@ -91,11 +91,11 @@ Once you identify significant skew, this is how you structure the trade. I prima
 1.  Buy ATM Option (Fairly priced, ~50 delta)
 2.  Sell OTM Option (Overpriced, ~10-25 delta)
 
-![Trading Prompt](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161137.png)
+![Trading Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161137.png)
 
-![Backtest](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161210.png)
+![Backtest](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161210.png)
 
-![Detailed Analysis](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161335.png)
+![Detailed Analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161335.png)
 
 !!! attention
     These images are examples from my Xynth chat. In this specific trade, the score was only 68/100, primarily because the ATM option was already overpriced, limiting the spread’s profit potential. However, the concept remains valid. Feel free to adjust the variables in the prompt and expand the scan range, running this scanner on more stocks daily or even hourly.

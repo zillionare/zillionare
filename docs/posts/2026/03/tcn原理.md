@@ -11,7 +11,7 @@ addons:
   - quantide-layout-xhs
 aspectRatio: 3/4
 canvasWidth: 600
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg
 layout: cover-photo-down
 installment: na
 ---
@@ -57,7 +57,7 @@ $$ y_t = \sum_{i=0}^{k-1} w_i \cdot x_{t-d\cdot i} $$
 
 也就是在时间轴上按步长 $d$ 去取样。
 
-![图1:多层时序卷积多依赖路径示意图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/364d64d07e4abbf22bd911617db132ff.jpg)
+![图1:多层时序卷积多依赖路径示意图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/364d64d07e4abbf22bd911617db132ff.jpg)
 
 当 $d=1$ 时，它和普通因果卷积没有区别；当 $d=2,4,8$ 逐层放大时，感受野就会指数级扩张。如果把每一层理解成一次卷积操作，一个常见的结果是：
 $$ RF = 1 + (k-1)(2^L - 1) $$
@@ -89,7 +89,7 @@ TCN 真正的精髓，在于它通过一套 **残差块（Residual Block）** �
 
 ### 残差块：从“预测价格”到“预测偏差”
 
-![图2：TCN 残差块结构图](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/abc871a0174ac1b9a65bda6b1b0c11f2.png)
+![图2：TCN 残差块结构图](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/abc871a0174ac1b9a65bda6b1b0c11f2.png)
 
 所以 TCN 的第二步，是给深层网络加一条“别把事情做坏”的约束。这就是残差块。它把每一层的输出写成
 $$ \mathbf{y} = \sigma(\mathbf{x} + \mathcal{F}(\mathbf{x})) $$
@@ -110,7 +110,7 @@ $$ \mathcal{F}(\mathbf{x}) = H(\mathbf{x}) - \mathbf{x} $$
 从优化角度看，这个结构还有一个更硬的好处。反向传播时，梯度对输入的导数会变成
 $$ \frac{\partial \mathbf{y}}{\partial \mathbf{x}} = I + \frac{\partial \mathcal{F}}{\partial \mathbf{x}} $$
 
-![图3：TCN 中的残差连接与恒等映射](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/99adc652312e2185541393dc549a3b87.png)
+![图3：TCN 中的残差连接与恒等映射](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/99adc652312e2185541393dc549a3b87.png)
 
 这里那个恒等映射里的 $I$ 很关键。它意味着哪怕卷积分支一开始什么都没学到，梯度依然有一条近乎直通的路可以往回传。
 

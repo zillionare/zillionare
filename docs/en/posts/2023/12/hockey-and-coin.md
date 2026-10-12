@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 2e5c1108b67b6f3edf8d65a405c1f86282bcf93d
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/tobias-moskowitz.png)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/tobias-moskowitz.png)
 
 The Teams and Coins factor traces back to a September 2021 paper by Yale professor Tobias Moskowitz. Since its release, it has earned more than 14 citations. The paper is titled *Asset Pricing and Sports Betting*.
 
@@ -44,7 +44,7 @@ Note that the `date` argument follows a strict pattern — you can only use quar
 
 That gives you sample output like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/akshare_yjyg.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/akshare_yjyg.png)
 
 As you can see, each announcement carries its own date, so the data can be considered PIT-compliant.
 

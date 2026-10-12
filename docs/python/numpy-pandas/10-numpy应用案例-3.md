@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/10-numpy应用案例-3
 date: 2025-03-27
 category: tools
 motto: You have within you right now, everything you need to deal with whatever the world can throw at you.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy]
@@ -454,7 +454,7 @@ plt.show()
 
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
 
 
 该方法中，还简单地封装了一个将一维数组转换为滑动窗口视图的函数，可以在其它地方使用。

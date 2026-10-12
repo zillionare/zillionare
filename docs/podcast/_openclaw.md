@@ -53,7 +53,7 @@ openclaw 与大模型、豆包、cursor 的区别。它究竟好在哪里
 
 比如，选择免费模型，这里怎么选？看发布日期。一般来说越新越好。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260408201710.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260408201710.png)
 
 为何要配置为 profile: user?
 

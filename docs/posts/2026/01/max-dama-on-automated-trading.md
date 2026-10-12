@@ -2,7 +2,7 @@
 slug: posts/career-figure/max-dama-on-automated-trading
 title: "我之为我，有路可寻：量化传奇 Max Dama 的非典型量化之路"
 date: 2026-01-15
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png
 excerpt: 讲述量化传奇 Max Dama 的逆袭之路：从冲浪少年到伯克利“四学位”学霸，再到高频交易核心。深入剖析 HFT 行业的垂直整合、透明文化及极短反馈机制，并分享他对 AI 应用与量化求职的独到见解。
 categories: career
 tags: [figure, career]
@@ -30,7 +30,7 @@ layout: cover-random-img-portrait
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065153-1768390658578-df76ad03-e895-480c-9ccf-10d76c7738ff.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065153-1768390658578-df76ad03-e895-480c-9ccf-10d76c7738ff.png)
 
 ### 觉醒的冲浪少年
 故事要从佛罗里达州西北部说起。Max Dama 曾在一个采访中曾打趣说，那里是佛罗里达的“红脖子”区域。在那样的环境下，教育资源其实是相对匮乏的。
@@ -172,7 +172,7 @@ Max 笑着说：“你知道的，孩子永远不会听爸爸的话。”
 本期题图是哪所大学，你或者你有什么朋友在这所美丽的大学就读过吗？在评论区告诉大家吧。
 
 <figure style="width: 100%; margin: 0 auto 1rem; padding: 0;">
-  <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+  <img src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
     这是哪所大学的校园？ @wikemedia
   </figcaption>

@@ -2,7 +2,7 @@
 slug: posts/factor-strategy/ESG策略初探-02
 date: 2025-10-26
 title: ESG评分多空投资策略：买ESG评分高的公司真的能赚钱吗？（附分层回测通用代码）
-img: https://fastly.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg
 excerpt: 本文对华证与 Wind 的 ESG 评分分别构建“按披露日横截面分层、T+1 生效、前向填充到日频、等权持有到下一次披露”的策略框架，在最长可追溯样本期内进行系统回测.
 category: strategy
 tags: [ESG,投资,策略]
@@ -57,7 +57,7 @@ df.to_parquet('daily_data.parquet')
   ```
 下载到的数据格式如下：
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761133555915-8c4c75cb-c569-4926-83bc-4c5280648436.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761133555915-8c4c75cb-c569-4926-83bc-4c5280648436.png)
 
 从返回结果中我们能看到，研究平台数据非常齐全，每个股票的交易量、交易金额等指标均有记录，其他的日线策略回测我们也可以采取该数据。
 
@@ -564,12 +564,12 @@ if wind_results['long_short_returns'] is not None:
 
 ## 3.wind结果分析
 按照以上代码执行之后，我们便会得到wind的ESG投资结果，如下图所示：<!--补充：如下图所示-->：
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760940713958-80d92966-3045-4d2a-8aad-171203d29ca3.png)
 分层差异有限，层间交叉多；单调性不成立。
 
 我们看到多空收益图：
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761145513388-2e2076c5-e144-4335-ad53-2fe95c0399b8.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/22/1761145513388-2e2076c5-e144-4335-ad53-2fe95c0399b8.png)
 
 该策略覆盖期较短，经历一段“2019–2021 上行后便进入“2022–2023 回撤”的大周期；阶段性有效，随后熄火。
 
@@ -657,7 +657,7 @@ for score_name, score_col in huazheng_scores:
 华证提供了更多的评级数据，包括**单独的E，S和G评分**，因此我们可以绘制四幅分层收益分析图：
 ### 4.1华证综合得分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957289256-6878833d-a75f-494b-b866-dd34cde18f1c.png)
 
 各分层净值走势高度同步，未呈现显著的单调递增特征，即ESG得分越高并不意味着收益越高。
 
@@ -669,7 +669,7 @@ for score_name, score_col in huazheng_scores:
 
 ### 4.2华证E评分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957301508-fa411527-8780-42d4-af52-5372b6d8e46f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957301508-fa411527-8780-42d4-af52-5372b6d8e46f.png)
 
 E评分在各分层间略有区分，但仍未形成稳定的单调关系，仅有个别中高分组合在特定阶段表现略优。
 
@@ -679,7 +679,7 @@ E评分在各分层间略有区分，但仍未形成稳定的单调关系，仅�
 
 ### 4.3华证S评分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957313634-c54ff265-0d5c-4601-8c03-37fa668509d2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957313634-c54ff265-0d5c-4601-8c03-37fa668509d2.png)
 
 社会评分各分层净值依然高度同步，中段分层偶尔表现更优，但整体排序不稳定。
 
@@ -689,7 +689,7 @@ E评分在各分层间略有区分，但仍未形成稳定的单调关系，仅�
 
 ### 4.4华证G评分
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957323586-168429c0-f664-4bc0-8c6c-0e0ba6845f3c.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760957323586-168429c0-f664-4bc0-8c6c-0e0ba6845f3c.png)
 
 治理评分同样未呈现稳定的单调收益关系，其波动与回撤控制在此四类评分中最为规整，显示出类似**低波因子**的特征。
 

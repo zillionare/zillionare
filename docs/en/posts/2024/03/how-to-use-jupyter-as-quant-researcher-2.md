@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/how-to-use-jupyter-as-quant-researcher-2
 auto_translated: true
 source_sha: 885199bf8bb34aaed8cdade70a20e7f98e0cfbec
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/galaxy.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/galaxy.jpg"
 ---
 
 When we work in Jupyter, our main goal is usually to explore data. This post shows how to query data with JupySQL — even as a replacement for Navicat, DBeaver, or pgAdmin. We'll also cover more agile ways to explore data — tools that can save you 90% of your coding time.
@@ -17,7 +17,7 @@ When we work in Jupyter, our main goal is usually to explore data. This post sho
 
 ## JupySQL - Replace Your Database Client
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/jupysql.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/jupysql.jpg)
 
 JupySQL is a SQL query tool that runs inside Jupyter. It supports traditional relational databases (PostgreSQL, MySQL, SQL Server), columnar stores (ClickHouse), data warehouses (Snowflake, BigQuery, Redshift, etc.) and embedded databases (SQLite, DuckDB).
 
@@ -195,7 +195,7 @@ mitosheet.sheet(analysis_to_replay="id-sjmynxdlon")
 
 And that cell is run automatically to bring up the mito UI. Here is an example of visualization in mito:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/mito-sheet.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/mito-sheet.jpg)
 
 mito comes in free and pro editions, and it seems to upload data to its servers for analysis, so it doesn't feel particularly snappy when accessed from inside China.
 
@@ -213,17 +213,17 @@ dtale.show(df)
 
 This loads the following UI:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-init.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-init.jpg)
 
 Click the small triangle arrow in the top-left corner to show the menu:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-menu.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-menu.jpg)
 
 ---
 
 Click the describe menu item — it is considerably more powerful than `df.describe`. While df.describe only gives mean, quartiles, variance, min and max, dtale also reports diff, outlier, kurtosis, and skew, and draws histograms and Q-Q plots (to check for normality).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-describe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/dtale-describe.jpg)
 
 Note that you can export the code used for these calculations! That's genuinely beginner-friendly for data analysis.
 

@@ -41,7 +41,7 @@ excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传
 
 !!! tip "可以介绍下老师吗？"
     <div style="width:150px; position: relative;float:right">
-        <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/me.png" style="width: 120px; display:inline-block"/>
+        <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/me.png" style="width: 120px; display:inline-block"/>
         <p style="text-align:center;width:120px"> Aaron </p>
     </div>
 

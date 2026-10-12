@@ -12,7 +12,7 @@ source_sha: edc9a8d4ca212ed5226c3b3dc02f97601857d4f4
 
 Assume we have built an investment strategy and obtained its daily historical **backtest** return data using a backtesting tool. The next core step is to comprehensively evaluate the strategy, including its effectiveness, risk level, and **return** performance. **QuantStats** is designed precisely for this purpose.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064947-1754140031515-8bc2da28-02cd-4083-8c6b-c698c4cf5e36.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064947-1754140031515-8bc2da28-02cd-4083-8c6b-c698c4cf5e36.png)
 
 QuantStats is an open-source project by Ran Aroussi, a Python library for **trading strategy performance analysis** that is highly popular among quants. It has garnered **over 5.8k stars** on GitHub.
 
@@ -59,7 +59,7 @@ cumulative = qs.stats.compsum(returns)
 !!! tip
 The `compsum` function returns a "sequence," with a length identical to the input sequence. It can be used to "visualize" how returns evolve from an "initial state" to a "final state." It acts like a documentary, recording the ups and downs of a stock under the strategy’s execution, similar to the effect shown below.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064934-1754138614424-3c94d9d1-2058-4ef3-a5d4-e1f2a5c0fab6.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064934-1754138614424-3c94d9d1-2058-4ef3-a5d4-e1f2a5c0fab6.png)
 
 **2. comp(): Calculates the total compound return (final cumulative return) - the total return for the entire period**
 
@@ -159,16 +159,16 @@ df_net_value.plot()
 
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065205-1754140954570-f3b2099a-7c1d-4f0d-a779-f72746745288.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065205-1754140954570-f3b2099a-7c1d-4f0d-a779-f72746745288.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065228-1754141671086-ea326a34-7b55-4d94-bacb-f7a20f4f1452.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065228-1754141671086-ea326a34-7b55-4d94-bacb-f7a20f4f1452.png)
 
 
 !!! question Why is the blue line always above the red line, regardless of market direction?
 Answer: According to the inequality of arithmetic and geometric means: Arithmetic Mean ≥ Geometric Mean.
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065033-1754141556739-bab818f5-1e52-49f1-b1f7-31ed70cadc62.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065033-1754141556739-bab818f5-1e52-49f1-b1f7-31ed70cadc62.png)
 
 
 

@@ -214,13 +214,13 @@ def _download_resource(url: str, cache_dir: Path, retries: int = 2) -> Path:
 
     # 下载逻辑，包含镜像切换和重试
     fast_url = url
-    if "cdn.jsdelivr.net" in url:
-        fast_url = url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+    if "gcore.jsdelivr.net" in url:
+        fast_url = url.replace("gcore.jsdelivr.net", "gcore.jsdelivr.net")
     elif "raw.githubusercontent.com" in url:
         fast_url = url.replace("raw.githubusercontent.com", "raw.fastgit.org") # 尝试镜像
     
     # 增加对 jsdelivr 的直接首选镜像
-    if "cdn.jsdelivr.net" in url:
+    if "gcore.jsdelivr.net" in url:
         url = fast_url # 直接用 fastly 镜像作为首选
     
     for attempt in range(retries + 1):
@@ -251,8 +251,8 @@ def _download_resource(url: str, cache_dir: Path, retries: int = 2) -> Path:
 def _download_to_data_url(url: str, retries: int = 2) -> str:
     # 如果是 jsdelivr 的域名，尝试切换到 fastly 镜像，通常国内访问更稳定
     fast_url = url
-    if "cdn.jsdelivr.net" in url:
-        fast_url = url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+    if "gcore.jsdelivr.net" in url:
+        fast_url = url.replace("gcore.jsdelivr.net", "gcore.jsdelivr.net")
 
     for attempt in range(retries + 1):
         try:
@@ -375,8 +375,8 @@ def _html(
     background_css = f"background: {background_color};"
     if background_image_url:
         # 如果是 jsdelivr 链接且没能 Base64 化，同样切换到镜像
-        if background_image_url.startswith("http") and "cdn.jsdelivr.net" in background_image_url:
-            background_image_url = background_image_url.replace("cdn.jsdelivr.net", "fastly.jsdelivr.net")
+        if background_image_url.startswith("http") and "gcore.jsdelivr.net" in background_image_url:
+            background_image_url = background_image_url.replace("gcore.jsdelivr.net", "gcore.jsdelivr.net")
         
         background_css = (
             f"background-color: {background_color};"
@@ -653,8 +653,8 @@ def main(
     # 特殊处理：如果 profile 是列表，或者我们有特定的 instructor 要求
     # 这里我们根据用户要求，直接支持双头像模式
     instructor_urls = [
-        "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/portrait-half.jpg",
-        "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/flora-2.jpg"
+        "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/portrait-half.jpg",
+        "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/instructor/flora-2.jpg"
     ]
     
     # 如果用户没有指定 profile，或者显式想用这两个头像

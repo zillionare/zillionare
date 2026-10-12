@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/papers/kronos
 auto_translated: true
 source_sha: e32d0ef07ddd4e24f82bb6fa805191956549070b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260112184713.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260112184713.png"
 ---
 
 ## The Dilemma: Why General Time-Series Models Struggle in Financial Markets
@@ -16,7 +16,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260
 In recent years, we have witnessed large language models (LLMs) like GPT learn human language, logic, and even creativity by “reading” massive text corpora. The success of the GPT paradigm has inspired the development of time-series foundation models such as TimeGPT. However, financial markets remain a highly challenging application scenario for these models. The core issue lies in the double mismatch between the “foundation of model training” and the “characteristics of financial data.”
 
 On one hand, the pre-training corpora of existing general time-series foundation models primarily consist of physical-scenario data such as power load, traffic flow, and solar generation. Financial sequences constitute a negligible portion of these corpora. General models learn stable, physics-driven patterns—such as daily cycles (“high power usage during the day, low at night”) or traffic “rush hour” bimodal distributions—from this data. These patterns exhibit strong stationarity and predictability. In contrast, K-line (candlestick) sequences are characterized by low signal-to-noise ratios and strong non-stationarity. These traits clash severely with the inductive biases of general time-series foundation models, resulting in performance often inferior to simple linear models and an inability to generalize effectively across broad quantitative finance scenarios.
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065326-1766287919774-91c482d9-7ce4-47f0-95f6-76a67c0bd2ad.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065326-1766287919774-91c482d9-7ce4-47f0-95f6-76a67c0bd2ad.png)
 
 On the other hand, K-lines are multivariate time series based on candlestick charts, recording six dimensions of data within fixed time intervals: open, high, low, close prices, plus volume and turnover. These sequences form a highly compact, information-dense “language” that market participants use to interpret price fluctuations, volatility states, liquidity changes, and shifts in collective sentiment.
 
@@ -26,13 +26,13 @@ To address these limitations, the Li Jian team at Tsinghua University launched *
 
 Before diving into Kronos’s workflow, let’s discuss its naming. The name reflects the research team’s ingenuity and ambition. In Greek mythology, **Kronos is the god of time, symbolizing the power to impose order on chaos and control the flow of time**. By naming the model “Kronos,” the team aims to reveal its core objective: to become a “time master” capable of understanding the chaotic fluctuations of financial time series and extracting patterns from them.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065216-1766286254614-0a8ff049-5132-491b-8674-a7122b14907e.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065216-1766286254614-0a8ff049-5132-491b-8674-a7122b14907e.png)
 
 
 ## Deep Dive: How Kronos Imparts “Semantics” to K-Lines
 
 Kronos’s architecture is clear, consisting of two core components: the “Tokenizer” and the “Autoregressive Model,” depicted in the left and right panels of the figure below. Let’s first focus on the first part—the tokenizer. The goal of this stage is to transform continuous K-line data into machine-understandable “financial semantic units (Tokens).”
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065046-1766288019202-d7c02d7d-eca8-459e-b99d-bb5d6c59a5da.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065046-1766288019202-d7c02d7d-eca8-459e-b99d-bb5d6c59a5da.png)
 
 In NLP, tokens are the smallest units of language. In Kronos’s system, the smallest unit of financial market language is a “semantic unit,” composed of one or more K-lines. However, raw K-lines contain six dimensions of continuous data (open, high, low, close, volume, turnover) and cannot directly serve as semantic “market language units.” Therefore, the research team designed a specialized tokenizer for K-lines.
 
@@ -45,7 +45,7 @@ The quantized Tokens then pass through the “Tokenizer Decoder” to reconstruc
 Here lies a technically profound highlight. **Financial data is continuous, theoretically allowing infinite values and forming an “infinite state space.”** Traditional discretization methods, such as equal-interval binning or fixed ranges, forcibly split cases that are “semantically similar but numerically slightly different” (e.g., 100.1 vs. 100.2). Furthermore, the infinite state space leads to parameter overload, resulting in high computational complexity and失效 (failure) of generalization capabilities.
 
 Therefore, Kronos introduces **Binary Spherical Quantization (BSQ) technology**. It projects high-dimensional vectors onto a hypersphere to find similar projections. This means that even if price values fluctuate slightly, if their patterns and directions are similar, they are encoded as the same Token. This process is akin to treating “happy” and “joyful” as synonyms in natural language. This is the source of Kronos’s noise resistance. Through this sophisticated tokenizer, Kronos has successfully compiled an exclusive “K-Line Dictionary” for financial markets.
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064743-1766288080681-cc84a9b3-a442-48f0-9887-794097a47477.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005064743-1766288080681-cc84a9b3-a442-48f0-9887-794097a47477.png)
 
 With exclusive “financial words” (Tokens), the next step is to teach the model to “read”—**Autoregressive Pre-training**. The goal of this stage is to enable the model to learn the “sequential logic of market language Tokens.” Kronos adopts an autoregressive pre-training objective consistent with GPT. Thanks to its Decoder-only architecture, Kronos inherently possesses generative capabilities. It predicts the next most likely “financial word” based on a sequence of past “financial vocabulary.”
 
@@ -86,7 +86,7 @@ In summary, Kronos reconstructs K-line sequences into semantically rich sentence
 For this issue’s cover image, we used a photo from a certain university. Guess which university it is.
 
 <figure style="width: 100%; margin: 0 auto 1rem; padding: 0;">
-  <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260112184713.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+  <img src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260112184713.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
     <i>Jthjthh@wikimedia</i>
   </figcaption>

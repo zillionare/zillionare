@@ -3,7 +3,7 @@ slug: posts/factor-strategy/sec-form-4-insider-purchases
 title: 内幕交易因子：局外人能否利用
 date: 2026-09-09
 excerpt: 掌握了内部信息，交易是否就能无往不胜？ 从 Form 4到大 A，让我们科学地研究一下。
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg
 categories: basic
 tags: [因子，事件研究，内幕交易，Form4, 董监高增减持，tushare]
 ---
@@ -629,10 +629,10 @@ for h in (1, 21):
 
 placebo 对照：真实 CAR_1 高于假日期面板的比例 **78.5%**；CAR_21 为 **61.1%**——均 **≤95%**。
 
-![买入信号 CAR 路径（相对沪深300，次日开盘入场）](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-car-path.png)
+![买入信号 CAR 路径（相对沪深300，次日开盘入场）](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-car-path.png)
 
-![真实 CAR_1 vs placebo 分布](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car1.png)
-![真实 CAR_21 vs placebo 分布](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car21.png)
+![真实 CAR_1 vs placebo 分布](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car1.png)
+![真实 CAR_21 vs placebo 分布](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car21.png)
 
 怎么理解这张表呢？
 

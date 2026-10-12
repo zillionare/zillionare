@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-0818
 auto_translated: true
 source_sha: 4a98ed9fa32116025381cbc7c9ebc276bf91ea63
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
 ---
 
 ### This Week's Headlines
@@ -74,9 +74,9 @@ After installation, there are multiple ways to use it.
 
 After installation, you can launch OpenBB from the command line.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-cli.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-cli.jpg)
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/open-bb-quotes-view.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/open-bb-quotes-view.jpg)
 
 You can then follow the prompts to input commands. For example, to obtain market data, you can sequentially input `equity > price`, followed by `historical --symbol LUV --start_date '2024-01-01' --end_date '2024-08-01'` to retrieve the historical data for this stock.
 
@@ -106,7 +106,7 @@ obb
 
 This `obb` object is our entry point for using OpenBB. When you directly input `obb` in a cell, it prompts you with its attributes and methods:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/help-openbb-jupyter.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/help-openbb-jupyter.jpg)
 
 Here, OpenBB maintains interface consistency. The content we see is similar to what we see in the CLI.
 
@@ -122,7 +122,7 @@ obb.equity.search("JPMorgan", provider="nasdaq").to_df().head(3)
 
 The output is:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-equity-search.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-equity-search.jpg)
 
 As a foreigner, figuring out the relationship between stock codes and data providers can be tricky. However, if you research it daily, spending some time is justified.
 
@@ -149,11 +149,11 @@ The real reason is that OpenBB has only one out-of-the-box free data source -- C
 
 Registering for FMP only requires an email address, so if 250 calls are insufficient, it appears easy to increase the quota. After registration, you can see your API key in the dashboard:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fmp-keys.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fmp-keys.jpg)
 
 Then, register for an OpenBB Hub account and add this API key to the OpenBB Hub.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-hub.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-hub.jpg)
 
 Now, we change the data source to FMP and run the previous code again to get the desired result.
 
@@ -165,7 +165,7 @@ obb.equity.price.historical("AMJB", provider="fmp").to_df().tail()
 
 We will get the following result:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-amjb-quotes.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-amjb-quotes.jpg)
 
 For another stock, Apple, we first use the `search` command to obtain its code, 'AAPL' (often misremembered as APPL), and then substitute it into the previous code to retrieve the data.
 
@@ -218,7 +218,7 @@ The effectiveness of HybridRAG was demonstrated through extensive experiments us
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/benchmark-hybrid-rag.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/benchmark-hybrid-rag.jpg)
 
 Analysis results indicate that HybridRAG outperforms both VectorRAG and GraphRAG across multiple metrics. HybridRAG achieved a faithfulness score of 0.96, indicating that the generated answers align with the provided context. Regarding answer relevance, HybridRAG scored 0.96, outperforming VectorRAG (0.91) and GraphRAG (0.89).
 

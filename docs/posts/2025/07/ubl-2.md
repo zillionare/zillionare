@@ -436,7 +436,7 @@ expected.style.format("{:.2%}")
 下面是数据及期望值：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704160054.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704160054.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -460,7 +460,7 @@ actual.style.format("{:.2%}")
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704143609.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704143609.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -488,7 +488,7 @@ ms.plot_cumulative_returns_by_quantiles()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703193457.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703193457.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -557,7 +557,7 @@ ms.plot_cumulative_returns_by_quantiles()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703204913.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250703204913.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -611,14 +611,14 @@ ms.plot_cumulative_returns_by_quantiles()
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704124804.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704124804.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
 从分层累计收益上看，似乎跟单个因子（即单独的蜡烛上影线标准差或者单的威廉下影线均值）差不多。不过关键在于，此时的多空组合表现出非常稳健的特性：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704125133.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250704125133.png'>
 </div>
 
 在投资中，比起**鳞鳞远峰见**，我们更喜欢**淡淡平湖春**。我们热爱这些 45 度仰望星空的净值曲线。

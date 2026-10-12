@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/09-numpy应用案例-2
 auto_translated: true
 source_sha: 0a07f43ec36741c47b8ce833a304f8a4d435eb68
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iphone-6.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iphone-6.jpg"
 ---
 
 “Linear regression is a common tool in quantitative analysis, but its implementation via loops is inefficient for large-scale data. By leveraging Numpy’s vectorization techniques, we can accelerate calculations by a hundredfold, easily handling complex requirements such as sliding windows and batch processing.”
@@ -19,7 +19,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iph
 
 Momentum and reversal are among the most critical factors in quantitative investing. While there are many algorithms to characterize momentum, fitting a line to calculate its slope is undoubtedly the most intuitive approach.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
 
 In the graphic above, if the two lines represent the moving average trends of two stocks, you would obviously prefer to buy the orange one because its slope is steeper, indicating a faster upward trend.
 
@@ -148,7 +148,7 @@ print(S)
 
 This code calculates the slope of the fitted line for the past 10 points starting from the 10th period, and at the turning points of the curve, we draw its tangents. These tangents are generated using the parameters of the fitted lines.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
 
 ---
 
@@ -183,7 +183,7 @@ To accelerate this solution, we must rely on vectorization. However, this time, 
 
 Consider a linear regression with `m` points. For each point, we have:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
 
 If all points lie on the same straight line, the following matrix equation holds:
 

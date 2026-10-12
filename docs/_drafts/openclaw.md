@@ -69,7 +69,7 @@ Openclaw 官方支持两种安装方式，一种是本地安装；另一种是�
 
 如果你的工作机是 mac，推荐使用免费的 orbstack 来创建虚拟机。Orbstack 是一个非常优秀的容器/虚拟机软件。
 
-![orbstack 管理的 linux 虚拟机](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331124419.png)
+![orbstack 管理的 linux 虚拟机](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331124419.png)
 
 选中虚拟机，在右边的面板有一个 Terminal 选项，就可以直接进入它的控制台。
 
@@ -88,7 +88,7 @@ curl -fsSL https://openclaw.ai/install.sh | bash
 
 最关键的信息就是大模型由谁提供，它的配置界面如下：
 
-![模型配置](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331124927.png)
+![模型配置](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331124927.png)
 
 我最初是选择了 openrouter，因为它有一些免费模型可用。但是，不知为何，几轮对话之后，就提示我产生了账单。所以，我开始寻找更明确的免费方案。
 
@@ -96,25 +96,25 @@ curl -fsSL https://openclaw.ai/install.sh | bash
 
 阿里的百炼平台为新注册用户提供了一定额度的免费 TOKEN。你要先在[百炼免费额度](https://bailian.console.aliyun.com/cn-beijing?tab=model#/model-usage/free-quota)这里开通：
 
-![开启免费额度](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331125442.png)
+![开启免费额度](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331125442.png)
 
 如果你不想付费使用的话，**必须**开启『免费额度用完即停』选项，否则会有账单。
 
 然后是要申请 API key, 从左侧的 Api Key 菜单进入，在右侧就有创建按钮：
 
-![创建 API key](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331125727.png)
+![创建 API key](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331125727.png)
 
 把新创建的 API key复制出来，再回到OpenClaw 的模型配置界面，选择 `Qwen (Alibaba Cloud Model Studio)这一项，就进入下面的选择菜单：
 
-![Auth mode](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331130018.png)
+![Auth mode](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331130018.png)
 
 在这里我们要选 Standard API Key for China 这一项。前面的 Coding Plan 目前是按月付费制，大约是200多一个月。再回车，就进入输入 api key 的地方：
 
-![输入 API key](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331130211.png)
+![输入 API key](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331130211.png)
 
 输入回车，就进行模型选择：
 
-![选择模型](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331130517.png)
+![选择模型](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331130517.png)
 
 为了使用上所有的免费额度，可以都选上。如果你最终要使用openclaw 来编程，可能还是再付费购买 Claude 4.6更好。
 
@@ -125,7 +125,7 @@ curl -fsSL https://openclaw.ai/install.sh | bash
 
 首先，我们要在微信 > 设置 > 插件下，启用微信ClawBot：
 
-![微信 ClawBot](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/1bff573db2c7c804b09171e485aeb628.jpg)
+![微信 ClawBot](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/1bff573db2c7c804b09171e485aeb628.jpg)
 
 继续在虚拟机的终端中输入：
 
@@ -143,7 +143,7 @@ openclaw configure --section channels
 
 现在我们会看到：
 
-![选择 channel](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331131033.png)
+![选择 channel](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260331131033.png)
 
 
 现在， openclaw-weixin 这个信道就出现在列表中了。选择它，回车，会出现一个二维码，此时使用微信扫码就可以了。
@@ -170,17 +170,17 @@ openclaw devices list
 
 来查看：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403130851.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403130851.png)
 
 然后你调用 `openclaw devices approve`命令，带上这个待批准的 Request ID就好了。只有过了这一步，你才能真正把龙虾用起来 -- 因为从现在起，龙虾才能用工具了。
 
 接下来，你还会遇到调用工具时，逐次要求审批的情况：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403132402.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403132402.png)
 
 这种情况下，你需要修改 openclaw.json（在~/.openclaw/目录下）
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403132210.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403132210.png)
 
 ## 财务安全
 
@@ -204,11 +204,11 @@ openclaw models set openrouter/qwen/qwen3.6-plus:free
 
 这个配置在 API tab里：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403134239.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403134239.png)
 
 一天究竟要用多少 token? 我试用第一天，不到10个小时，用了3千多万 token：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403203222.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/20260403203222.png)
 
 所以，一个 Agent，简单干活的话，要准备一个亿的 token。按流量买 token 肯定是很贵的。如果有便宜的按月付费的，就趁早拿下吧。另外，现在有一些大模型可以本地部署，也可以运行了。
 

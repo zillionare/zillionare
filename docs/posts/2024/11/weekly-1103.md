@@ -3,7 +3,7 @@ title: "[1103] QuanTide Weekly"
 date: 2024-11-03
 category: others
 slug: posts/uncategory/weekly-1103
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, factor]
@@ -44,7 +44,7 @@ excerpt: "本周要闻 英伟达和宣伟公司纳入道指 制造业PMI时隔5�
 
 # 一年十倍男发明了UO
 
-![Larry Williams，1987 年世界期货交易大赛冠军](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/larry-willimans-card.jpg)
+![Larry Williams，1987 年世界期货交易大赛冠军](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/larry-willimans-card.jpg)
 
 指标 Ultimate Oscillator（终极振荡器）是由 Larry Williams 在 1976 年发表的技术分析因子。
 
@@ -55,7 +55,7 @@ Larry 是个牛人，不打嘴炮的那种。他发明了 William's R（即 WR�
 ---
 
 <div style='width:50%;float:right;padding: 0.5rem 0rem 0 1rem;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/michell-williams.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/michell-williams.jpg'>
 <span style='font-size:0.6rem'>Michelle Williams</span>
 </div>
 
@@ -64,7 +64,7 @@ Larry 是个牛人，不打嘴炮的那种。他发明了 William's R（即 WR�
 这件事说明，老 williams 的一些交易技巧，历经 10 年仍然非常有效。
 
 <div style='width:72%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/worldcupchanpion-michelle-larry.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/worldcupchanpion-michelle-larry.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -91,7 +91,7 @@ $$
 用这个图来解释会更清楚。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -116,17 +116,17 @@ $$
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-visualize.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-visualize.jpg)
 
 
 这个因子在回测中的表现如何？在回测中，从 2018 年到 2023 年的 6 年中，它的 alpha 年化达到了 13.7%，表现还是很优秀的。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-alpha.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-alpha.jpg)
 
 不过因子收益主要由做空贡献。大家看这张分层收益图，收益主要由第 1 层做空时贡献。在纯多的情况下，alpha 并不高，只有 1.6%，收益主要由 beta 贡献，所以组合收益的波动比较大。
 
 <div style='width:90%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-quantile-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-quantile-returns.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -137,7 +137,7 @@ $$
 在多空组合下，6 年的收益达到了 2.2 倍。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-cumulative-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-cumulative-returns.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -145,7 +145,7 @@ $$
 最后我们看一下因子密度分布图。看上去很符合正态分布，尽显对称之美。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-factor-distplot.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-factor-distplot.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -157,7 +157,7 @@ $$
 我们保留了2023年的数据作为带外数据供测试。在这一年的回测中，年化Alpha达到了13%，表明并没有出现过拟合。2023年的累计收益曲线如下：
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-2023-cum-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-2023-cum-returns.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -165,7 +165,7 @@ $$
 同期沪指是以下跌为主。8月底开启的上涨，在时间上与DMA策略上涨巧合了。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/sh-2023-plot.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/sh-2023-plot.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -219,7 +219,7 @@ plt.legend()
 ---
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-and-revert-it-back.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-and-revert-it-back.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -270,14 +270,14 @@ _ = alphatest(2000, start, end, calc_factor=calc_wave_energy, args=(30,), top=9)
 ---
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-mean-wise-quantile.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-mean-wise-quantile.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 近20年累计收益17.5倍。
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-cumlative-returns.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-cumlative-returns.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 

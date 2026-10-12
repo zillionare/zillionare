@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/21天驯化AI打工仔/2_ClickHouse数据库
 auto_translated: true
 source_sha: fe376ec20a4a11eef1aebc89f86a86bb6fbf24de
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 
 Today is Day 2. My plan is to execute the following tasks:
@@ -41,7 +41,7 @@ ClickHouse is a column-oriented database management system (DBMS) for online ana
     - **Partitioning and Sharding**: Allows horizontal partitioning and sharding of data, distributing it across different nodes or disks to improve query efficiency and parallel processing capabilities.
 -->
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_01.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_01.png)
 
 I then asked 007 for a macOS installation tutorial for ClickHouse. It deemed the process straightforward, so I followed these steps:
 
@@ -88,7 +88,7 @@ ORDER BY (ts_code, trade_date);
 
 Following 007’s instructions, I created a table named `ohlc_data` to store OHLC (Open, High, Low, Close) data.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_03.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_03.png)
 
 ## 3. Modify Redis Message Queue Code to Support ClickHouse Storage
 
@@ -163,7 +163,7 @@ Data processing error: 'str' object has no attribute 'year'
 Data processing error: 'str' object has no attribute 'year'
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_04.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_04.png)
 
 007 (looking aggrieved but sincere): Based on the error message `Data processing error: 'str' object has no attribute 'year'`, the issue likely lies in the handling of the `trade_date` field. `trade_date` is a string (e.g., `"20230101"`), but ClickHouse expects a `Date` type. When inserting data, ClickHouse’s `Date` type requires a valid date format (e.g., `YYYY-MM-DD`).
 
@@ -230,6 +230,6 @@ This way, the program automatically stops once all data in the Redis queue has b
 
 After the above modifications, `data_consumer.py` can now successfully transfer data from the Redis queue to the ClickHouse database.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_05.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_05.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_06.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/2_06.png)

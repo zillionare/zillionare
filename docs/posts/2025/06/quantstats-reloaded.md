@@ -15,7 +15,7 @@ Quantstats 是一款用于交易策略绩效分析的 Python 库，深受量化�
 ---
 
 <div style='width:500px;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/Ran-Aroussi.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/Ran-Aroussi.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -26,11 +26,11 @@ Quantstats 是 Ran Aroussi 的一个开源项目。Ran Aroussi 是一位软件�
 
 也可能正是因为参与的活动太多，他不得不忽略了对 Quantstats 这一知名项目的维护责任。最后一次更新还是 8 个月前。此后，社区已提交了大量 issue report。例如，在 Python 3.12 版本下（其他版本新安装 Quantstats 也可能出现），会遇到如下错误：
 
-![issue 416](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-416.jpg)
+![issue 416](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-416.jpg)
 
 这是一个只在 Jupyter Notebook 下出现的问题，主要由于 nbformat 升级导致。该问题修复后，你还可能遇到如下错误：
 
-![issue 420](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-420.jpg)
+![issue 420](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-420.jpg)
 
 几个月来，尽管社区不断提交修复，但作者一直没有时间发布新版本。可能因为原版 Quantstats 没有单元测试和 CI，每次发布都需手动测试，极为繁琐，作者难以抽身。
 

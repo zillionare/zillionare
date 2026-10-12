@@ -4,7 +4,7 @@ slug: posts/tools/why-click-house-so-fast
 date: 2024-01-17
 category: arsenal
 motto: Storms make people stronger and never last forever
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/query-buillion-rows-in-ms.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/query-buillion-rows-in-ms.jpg
 lunar:
 tags: [clickhouse, 量化数据存储, quantlib]
 excerpt: "前面几篇笔记我们讨论了存储海量行情数据的个人技术方案。它们之所以被称之为个人方案，并不是因为性能弱，而是指在这些方案中，数据都存储在本地，也只适合单机查询。"

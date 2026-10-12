@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/growing-star-market-weights
 auto_translated: true
 source_sha: fd2ac0ce40156cb32ba687e3a42a880a500bc755
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065527-download.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065527-download.jpg"
 ---
 
 On Monday, news that Warren Buffett significantly reduced his positions in the second quarter and held cash levels exceeding historical records dealt a heavy blow to global stock markets.
@@ -27,7 +27,7 @@ However, we are not discussing how to track indices today—that is what various
 
 First, let’s look at index compilation data. We obtained the compilation catalogs for major Chinese indices, including SSE 50, CSI 300, CSI 500, and CSI 1000, from Wind (WanDe) over the years, and exported them into four Excel files, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sz50-screenshot.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sz50-screenshot.jpg)
 
 This displays the compilation data for the SSE 50. It is a dataset with over 3,000 rows and 50 columns. The index represents trading days, and the cell values are the codes of the constituent stocks for each trading day.
 
@@ -39,7 +39,7 @@ Then, we arrive at an important conclusion.
 
 ## The STAR Market Is Rapidly Entering Broad-Based Indices
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-include-count.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-include-count.png)
 
 This chart shows the inclusion of STAR Market stocks in various broad-based indices.
 
@@ -112,7 +112,7 @@ Here, `df` is still the total table containing all individual stocks. The code u
 
 Ultimately, we obtain the performance of the newly included STAR Market stocks in the CSI 1000 on December 14, 2020:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2020-12-14-comparison.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2020-12-14-comparison.jpg)
 
 The left chart is the return comparison. From the left chart, we can see that before inclusion, these stocks’ declines were greater than the market’s; after inclusion, their performance was better than the market’s.
 
@@ -120,7 +120,7 @@ The right chart is the ranking comparison. From the right chart, we can see that
 
 However, **do not be deceived by this conclusion**. The following chart shows the performance of STAR Market stocks included in the CSI 1000 at the end of last year:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2023-12-11-comparison.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2023-12-11-comparison.jpg)
 
 **This is another classic example proving that correlation does not imply causation.**
 

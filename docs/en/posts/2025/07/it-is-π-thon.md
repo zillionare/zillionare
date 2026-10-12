@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/python/it-is-π-thon
 auto_translated: true
 source_sha: ee1541d84bac6d24ca0259644acdfb81d5ad7c63
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png"
 ---
 
 The Python community has been buzzing with activity recently.
@@ -45,7 +45,7 @@ However, scikit-learn does not host overly complex models, so training remains f
 If you are a serious developer, you have likely used various linting tools and complained about the speed of Black, Flake8, isort, and others. The current trend involves rewriting all these tools in Rust, which is exactly what Ruff aims to achieve.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/Ruff_v_0_12_0_header.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/Ruff_v_0_12_0_header.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

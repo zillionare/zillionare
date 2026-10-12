@@ -490,7 +490,7 @@ plt.show()
 ---
 
 This will generate the following image:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg)
 
 # Python 3.10+ Type Hints & NumPy Type Conversion
 
@@ -623,18 +623,18 @@ In NumPy, the following common data types exist. Each numeric type has an alias.
 
 ## "Factor Investing and Machine Learning Strategies" Course is Now Open!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## Live Online Stream on September 8th, Be There or Be Square
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
-## ![Click to Join](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065435-j6WuV9fNCB9w.jpg)
+## ![Click to Join](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065435-j6WuV9fNCB9w.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 
 <about/>

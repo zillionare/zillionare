@@ -30,7 +30,7 @@ plt.scatter(sorted(X), sorted(Y), s=1)
 plt.plot(X, X, color='orange')
 ```
 
-![Q-Q plot of two sorted standard normal random samples, with points clustered around the 45-degree diagonal](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-2.png?1)
+![Q-Q plot of two sorted standard normal random samples, with points clustered around the 45-degree diagonal](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-2.png?1)
 
 In the example above, we sampled twice from a standard normal distribution to obtain $X$ and $Y$. After sorting them, we plotted the results, yielding a scatter plot distributed around the 45-degree line.
 
@@ -59,7 +59,7 @@ for i, n in enumerate((10, 20, 40, 80, 160, 320, 640, 1280)):
     ax.plot(X, X, '--', color='grey')
 ```
 
-![Q-Q plot matrix as sample size n doubles from 10 to 1280: larger n results in points closer to the diagonal](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-4.png)
+![Q-Q plot matrix as sample size n doubles from 10 to 1280: larger n results in points closer to the diagonal](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-4.png)
 
 From the figure, we can see that when $n \ge 320$, most points fall near the line.
 
@@ -86,7 +86,7 @@ plt.text(10, 2, "[X,Y]", color='blue')
 plt.text(10, 3.5, "[X, (X-loc)/scale]", color='red')
 ```
 
-![Q-Q plot of norm(5,3) normal samples vs. standard normal samples, with three reference lines for comparison](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-3.png)
+![Q-Q plot of norm(5,3) normal samples vs. standard normal samples, with three reference lines for comparison](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-3.png)
 
 Alternatively, we can first z-score $X$ and then plot it against samples from the standard normal distribution. If $X$ follows a normal distribution, the resulting plot will still show most points distributed around the $y=x$ line.
 
@@ -117,6 +117,6 @@ As we now understand, the `probplot` method simply generates theoretical distrib
 
 The above code generates the following plot:
 
-![Normal distribution Q-Q test plot created by scipy.stats.probplot, including the fitted regression line](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-5.png)
+![Normal distribution Q-Q test plot created by scipy.stats.probplot, including the fitted regression line](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson12-qq-plot-5.png)
 
 Additionally, the `statsmodels` library provides the `qqplot` method via `graphics.gofplots`.

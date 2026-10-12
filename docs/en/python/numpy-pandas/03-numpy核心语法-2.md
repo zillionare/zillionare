@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/03-numpy核心语法-2
 auto_translated: true
 source_sha: 314514da62bcb6e8fafcf0b41b57a13211ae8a9f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/02/fortune-favors-the-bold.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/fortune-favors-the-bold.jpg"
 ---
 
 Initially, Numpy arrays could only store homogeneous elements, meaning all elements had to share the same data type. However, tabular data often consists of records, where each record contains fields of different data types.
@@ -450,7 +450,7 @@ plt.show ()
 This will generate the following image:
 
 <div style='width:60%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

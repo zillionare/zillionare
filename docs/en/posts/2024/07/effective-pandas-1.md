@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/effective-pandas-1
 auto_translated: true
 source_sha: f7c8f2280fb6fece0b28807d527293a3c9f2fa48
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065407-photo-1719014323201-d7ae3f83d260.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065407-photo-1719014323201-d7ae3f83d260.jpg"
 ---
 
 In quant research, Pandas is an indispensable tool — its powerful data processing and analysis capabilities greatly simplify data workflows.
@@ -27,7 +27,7 @@ If you use Alphalens for factor testing, these misaligned dates will break forwa
 
 Suppose we have the following data:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m.jpg)
 
 ---
 
@@ -39,7 +39,7 @@ df.index = df.index.to_period(freq='M')
 
 After the conversion, you get the following result:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m-result.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/pandas-freq-m-result.jpg)
 
 This conversion achieves alignment, but it loses the specific date information. We can achieve the same thing with groupby:
 
@@ -54,7 +54,7 @@ This conversion achieves alignment, but it loses the specific date information. 
 
 The result is:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/padas-group-by-m.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/padas-group-by-m.jpg)
 
 The key syntax point is that asset plus the index form an effectively unique index. We now want to adjust the index dates, grouping by 'asset' and specifying the grouping frequency via Grouper. Grouper operates on the index.
 
@@ -133,4 +133,4 @@ Lines 5-6 flatten the extracted result — that is, they compress the assets lai
 
 Both tips introduced today come up all the time in factor testing. Master these Pandas techniques and you can power through factor testing and iterate much faster on factor research. Got it?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/quant-resources.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quant-resources.jpg)

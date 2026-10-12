@@ -51,7 +51,7 @@ def streaks(close):
 
 下图显示了每日收盘价，及由此计算的 streaks 指标：
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/how-to-calc-streak.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/how-to-calc-streak.png)
 
 第二个指标就是当日的涨跌幅，在过去一段时间内的的涨跌幅中的排名。percent_rank 是一个常用的统计函数，在 pandas 中就有实现。这里我们给出它的 numpy 实现：
 
@@ -74,7 +74,7 @@ $$
 
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/galton_box.png)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/galton_box.png)
 
 我们知道，从概率上讲，股票连涨周期数越长，则越可能反生反转（即下跌）；反之亦然。大家可以按照我们在《数据分析与 Python 实现》那几节课中，介绍的 PDF/CDF 的方法，来自行估计当某个标的连续上涨 N 天后，接下来继续上涨的概率有多大。
 
@@ -93,7 +93,7 @@ $$
 
 ## 实战中的 Connor's RSI
 
-![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/corners_rsi.png)
+![L33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/corners_rsi.png)
 
 我们先是用最近 1000 天的沪指，使用 backtrader 进行了测试。回测表明，最近 4 年以来（近似于 1000 个交易日），沪指仅上涨 5.76%，但通过 cornner's RSI 策略抄底逃顶，我们在指数上竟然获得超过 44%的收益。如果是对个股进行操作，收益很可能是数倍。
 
@@ -105,7 +105,7 @@ $$
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/crsi_hk_2021.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/crsi_hk_2021.png)
 <cap>图片来源：www.taindicators.com</cap>
 
 当然，我们最好不要去接下跌中的飞刀。但从他人的回测来看，Connor's RSI 还是能抓住其中的一些反弹，而躲过一些下跌，总体上看，要比指数强不少。
@@ -114,7 +114,7 @@ $$
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/connor-rsi-hnpc.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/connor-rsi-hnpc.png)
 
 
 这支个股近一年来一直在横盘。buy-and-hold 策略表明其收益仅为 2.26%，但使用 Connor's RSI，收益达到 12.14%，胜率则是 100%。
@@ -140,4 +140,4 @@ Nirvana Systems 对 RSI 的拓展，也反映了我们应该如何对待经典�
 !!! quote
     老兵不死，他们只是凋零。致敬 WELLES WILDER 和他的 RSI！
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/welles_wilder.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/welles_wilder.png)

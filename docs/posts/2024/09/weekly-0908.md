@@ -492,7 +492,7 @@ plt.show()
 ---
 
 这将生成下图：
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/np-polyfit.jpg)
 
 ## 3. 类型转换和Typing
 
@@ -619,18 +619,18 @@ def convert_to_int(arr: NDArray, dtype: DTypeLike) -> NDArray:
 
 ## 《因子投资与机器学习策略》开课啦！
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## 9月8日晚，在线直播，不见不散
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
-## ![点击入会](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065435-j6WuV9fNCB9w.jpg)
+## ![点击入会](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065435-j6WuV9fNCB9w.jpg)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 
 <about/>

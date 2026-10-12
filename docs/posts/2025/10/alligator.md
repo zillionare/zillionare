@@ -3,7 +3,7 @@ slug: posts/factor-strategy/alligator
 title: 鳄鱼线，让趋势成为你的朋友
 date: 2025-10-13
 category: strategy
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg
 tags: [strategy, Alligator, Indicator]
 excerpt: "策略核心观点 本文构建了一个包含短、中、长期综合考量的鳄鱼线投资策略。它通过吸纳不同时间跨度的信息生成投资信号。严格的多空信号标准使其有着优秀的beta收益。此外，通过不断地纳入AO、分形以及MACD因子，其投资表现越来越好。 引言"
 ---
@@ -29,7 +29,7 @@ excerpt: "策略核心观点 本文构建了一个包含短、中、长期综合
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760189852042-284b72cc-087d-4657-b78c-11b5809a4623.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760189852042-284b72cc-087d-4657-b78c-11b5809a4623.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -43,7 +43,7 @@ excerpt: "策略核心观点 本文构建了一个包含短、中、长期综合
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190022086-3d28c48f-5e72-4d36-b491-82e49b8f8210.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190022086-3d28c48f-5e72-4d36-b491-82e49b8f8210.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -57,7 +57,7 @@ excerpt: "策略核心观点 本文构建了一个包含短、中、长期综合
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190077480-c61f2bd6-1d9b-4673-8aae-f918d11eacdb.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190077480-c61f2bd6-1d9b-4673-8aae-f918d11eacdb.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -109,7 +109,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760182898590-539f49be-1ce6-4f02-afbb-bca25f1208c7.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760182898590-539f49be-1ce6-4f02-afbb-bca25f1208c7.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -146,7 +146,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183287136-eac9301d-9368-4952-abfa-b02113e2233d.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183287136-eac9301d-9368-4952-abfa-b02113e2233d.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -163,7 +163,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190730608-5997a993-f0d8-4377-8e22-139cc5596ea1.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190730608-5997a993-f0d8-4377-8e22-139cc5596ea1.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -205,7 +205,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183676577-6f29a67c-0560-4be2-a249-f24164f1f619.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183676577-6f29a67c-0560-4be2-a249-f24164f1f619.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -239,7 +239,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183695403-f3f3a1ab-04b1-448c-a712-0ab3a146423d.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183695403-f3f3a1ab-04b1-448c-a712-0ab3a146423d.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -255,7 +255,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183708678-ca858146-e5fc-4fbb-8fa9-ae6f92cd249b.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183708678-ca858146-e5fc-4fbb-8fa9-ae6f92cd249b.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -272,7 +272,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760184670268-13d24e17-42bb-4300-be5f-082edd9f5972.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760184670268-13d24e17-42bb-4300-be5f-082edd9f5972.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -286,7 +286,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760184798253-113c780e-b1be-445e-bb1d-f67b1366913e.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760184798253-113c780e-b1be-445e-bb1d-f67b1366913e.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">

@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 696935bddd635a8acd6a248a40a73d9a060800e6
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hdf5-book.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hdf5-book.jpg)
 
 In a note from the 15th of last year, I left a cliffhanger with a tech map for storing quant data and factors. This post starts to fill that gap.
 
@@ -29,7 +29,7 @@ Here is why:
 
 In this post we introduce HDF5, the best starter solution for individual traders. HDF5 can handle quite large datasets.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/hdf5-national-lab-report.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/hdf5-national-lab-report.jpg)
 
 According to research by Kesheng Wu and others, when they analyzed futures trading data from 2007 to July 2012 to build a VPIN factor, they processed 3 billion trades, with CSV files totaling 140GB. Computing VPIN on that much data **took 142 seconds with CSV files; after converting to HDF5 format, the same computation took only 0.4 seconds — HDF5 was more than 200x faster!**
 
@@ -41,7 +41,7 @@ The official HDF5 release is based on C/C++, but languages like MATLAB, Java, Py
 
 As quants, the library we use most is h5py.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/h5py-logo.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/h5py-logo.jpg)
 <cap>h5py logo</cap>
 
 ## HDF5 Basics
@@ -200,7 +200,7 @@ Although HDF5 provides the ability to store and access massive datasets, its doc
 
 One solution is to split the data into multiple datasets, with each dataset name tied to time, so time-related queries can be accelerated. Another approach is to use fastquery, which builds a bitmap-based index. However, I have not seen a ready-made Python library for it.
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/modin.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/modin.jpg)
 
 Another option might be to use HDF5 only as the underlying persistence layer, and route all queries through modin — a pandas replacement that can load files far larger than physical memory — to operate on the datasets.
 

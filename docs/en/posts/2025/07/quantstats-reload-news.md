@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/quantstats-reload-news
 auto_translated: true
 source_sha: 6e7ec3cee4fc6e42eccbdb43d22214e738f74cb5
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/kamil-pietrzak-AlA8S9tALAs-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/kamil-pietrzak-AlA8S9tALAs-unsplash.jpg"
 ---
 
 Quantstats is a widely recognized library for quantitative strategy evaluation and visualization. However, for about eight months starting late 2024, it received no active maintenance, leading to severe bugs such as complete failure to run on Python 3.12 and above.
@@ -56,7 +56,7 @@ If the stock price rises today, the tangent of the moving average may point upwa
 !!! tip
     According to the research report, the position building is done as follows:
 
-    ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250717143703.png)
+    ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250717143703.png)
 
 
 Although this statement does not contain implementation details, it essentially includes future data, but with less side effects: it only requires calculating the trend line tangent slope and signal after market close based on the closing price, and then buying at the closing price.
@@ -94,7 +94,7 @@ If you are familiar with `Alphalens`, you know that when calculating returns, it
 
 The figure below shows the complete process of the initial trades (using synthetic data with fixed alternating gains/losses of 5% and -5%):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/vector-backtest.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/vector-backtest.jpeg)
 
 On January 2, the strategy issued a long signal. Thus, we bought long at the opening on January 3 at a price of 104.73. With a daily gain of 5%, using the shifted signal of 1 as the position, the final long-short portfolio return is calculated as 2.5% (assuming 50% position for both long and short). The signal for January 3 was also 1, so we held the position; but since the price fell 5% that day, the portfolio return was -2.5%. The signal for the 4th was 0, so the strategy needed to sell at the opening on the 5th. On the 5th, since we held no position, the portfolio return was 0.
 
@@ -392,7 +392,7 @@ We let the parameter `d` take values between (9, 19, 39, 49, 59, 69), so the cor
 
 <!--PAID CONTENT START-->
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250718163528.png?1'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250718163528.png?1'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Parameter Optimization</span>
 </div>
 
@@ -437,7 +437,7 @@ s2 - s1
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250718165206.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250718165206.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Tangent Slope Distribution</span>
 </div>
 <!-- END IPYNB STRIPOUT -->

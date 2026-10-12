@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/pressure-of-prices-intger
 auto_translated: true
 source_sha: ed13d31e2db0d53b9b492c17f308c8986e20f79f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-of-price-integer-cat.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-of-price-integer-cat.jpg"
 ---
 
 People often ask where new factors and strategies come from. Today's note may spark some ideas.
@@ -64,7 +64,7 @@ At a suitable angle of incidence, light passes through the medium and refracts �
 
 ---
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-reflection.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-reflection.jpg)
 
 !!! info
     Similar dynamics occur beyond just round numbers. More generally, once price successfully breaks above a high-volume zone, overhead resistance thins out — like moving from dense water into thin air — and the rally can accelerate.
@@ -75,7 +75,7 @@ Take Ubisoft as an example:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-refraction-ubi.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/ray-refraction-ubi.jpg)
 
 Ubisoft hit the round number of 10 on October 26. The parameters are defined as follows:
 

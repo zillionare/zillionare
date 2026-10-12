@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/alligator
 auto_translated: true
 source_sha: af355e93bcd39405d8469c7ef44c90d69396f6e1
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg"
 ---
 
 ## 1. Strategy Core Thesis
@@ -32,7 +32,7 @@ To clarify, the alligator’s head consists of the white Lips line (5-day SMA sh
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760189852042-284b72cc-087d-4657-b78c-11b5809a4623.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760189852042-284b72cc-087d-4657-b78c-11b5809a4623.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -44,7 +44,7 @@ As shown in Figure 1, for a **long position**: Lips > Teeth > Jaw (the alligator
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190022086-3d28c48f-5e72-4d36-b491-82e49b8f8210.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190022086-3d28c48f-5e72-4d36-b491-82e49b8f8210.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -56,7 +56,7 @@ As shown in Figure 2, for a **short position**, the alligator’s head flips ups
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190077480-c61f2bd6-1d9b-4673-8aae-f918d11eacdb.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190077480-c61f2bd6-1d9b-4673-8aae-f918d11eacdb.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -105,7 +105,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760182898590-539f49be-1ce6-4f02-afbb-bca25f1208c7.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760182898590-539f49be-1ce6-4f02-afbb-bca25f1208c7.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -143,7 +143,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183287136-eac9301d-9368-4952-abfa-b02113e2233d.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183287136-eac9301d-9368-4952-abfa-b02113e2233d.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -160,7 +160,7 @@ Fractals are the **<strong>“local extrema of 5 candles”</strong>** markers: 
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190730608-5997a993-f0d8-4377-8e22-139cc5596ea1.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760190730608-5997a993-f0d8-4377-8e22-139cc5596ea1.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -199,7 +199,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183676577-6f29a67c-0560-4be2-a249-f24164f1f619.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183676577-6f29a67c-0560-4be2-a249-f24164f1f619.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -233,7 +233,7 @@ $$
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183695403-f3f3a1ab-04b1-448c-a712-0ab3a146423d.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/11/1760183695403-f3f3a1ab-04b1-448c-a712-0ab3a146423d.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">

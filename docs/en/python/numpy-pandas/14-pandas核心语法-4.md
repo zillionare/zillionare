@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/14-pandas核心语法-4
 auto_translated: true
 source_sha: ffa20392464f80e1a64f74138bf8c40fca969b9e
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg"
 ---
 
 In Pandas, logical and comparison operations are the foundational tools for data filtering. By leveraging operators such as AND (`&`), OR (`|`), and others, you can easily implement complex conditional filtering—for instance, selecting stocks with the highest Price-to-Earnings (PE) ratio and the lowest Price-to-Book (PB) ratio.

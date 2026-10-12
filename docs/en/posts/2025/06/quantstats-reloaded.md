@@ -18,7 +18,7 @@ We have brought an update.
 ---
 
 <div style='width:500px;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/Ran-Aroussi.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/Ran-Aroussi.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -28,11 +28,11 @@ Like us at Kuangti, he is dedicated to 'creating tools to help people work smart
 
 It is likely that due to his involvement in too many activities, he had to neglect the maintenance responsibilities for this well-known project. The last update was 8 months ago. Since then, the community has submitted numerous issue reports. For example, when using Python 3.12 (new installations on other versions may also encounter this), you might face the following error:
 
-![issue 416](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-416.jpg)
+![issue 416](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-416.jpg)
 
 This is an issue that occurs specifically in Jupyter Notebooks, primarily due to an upgrade in `nbformat`. After fixing this issue, you might still encounter the following error:
 
-![issue 420](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-420.jpg)
+![issue 420](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/quantstats-issue-420.jpg)
 
 For months, despite the community continuously submitting fixes, the author has not had time to release a new version. This is likely because the original Quantstats lacks unit tests and CI (Continuous Integration), requiring manual testing for every release, which is extremely tedious and difficult for the author to manage.
 

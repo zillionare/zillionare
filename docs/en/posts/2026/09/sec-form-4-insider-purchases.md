@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/sec-form-4-insider-purchases
 auto_translated: true
 source_sha: c86711e3e326c2e9f2601163dcd6815f59acbb78
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg"
 ---
 
 **Imagine this.** You open East Money, and a notification pops up in your watchlist:
@@ -624,10 +624,10 @@ Based on the data design above, the formal analysis **only takes signals where `
 
 Placebo control: The proportion of true CAR_1 higher than the fake date panel is **78.5%**; CAR_21 is **61.1%** — both **≤95%**.
 
-![Buy Signal CAR Path (Relative to CSI 300, Next-Day Open Entry)](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-car-path.png)
+![Buy Signal CAR Path (Relative to CSI 300, Next-Day Open Entry)](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-car-path.png)
 
-![True CAR_1 vs Placebo Distribution](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car1.png)
-![True CAR_21 vs Placebo Distribution](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car21.png)
+![True CAR_1 vs Placebo Distribution](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car1.png)
+![True CAR_21 vs Placebo Distribution](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/sec-form-4-placebo-car21.png)
 
 How to interpret this table?
 

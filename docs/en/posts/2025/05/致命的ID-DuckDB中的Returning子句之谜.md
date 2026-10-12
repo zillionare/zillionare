@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/致命的ID-DuckDB中的Returning子句之谜
 auto_translated: true
 source_sha: 4401a74aa01d34e45f581c4e65c130d9ab050fd9
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514210946.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514210946.png"
 ---
 
 DuckDB is a young but highly promising database. Yet, it has a rebellious side: a rare foreign key constraint violation occurred during a standard `UPDATE` statement execution. Relying on Augment, a powerful AI tool, we identified the root cause and validated our conclusions through rigorous experimentation.
@@ -64,7 +64,7 @@ CREATE TABLE if not exists resource_whitelist (
 
 ‘Unfortunately, my friend,’ Holmes frowned, ‘this developer’s skepticism was justified. I should have looked more carefully, identified the real culprit behind the scenes, and drawn conclusions. You know, after the *Hound of the Baskervilles*, I’ve been a bit off my game.’
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514205610.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514205610.png)
 
 The *Hound of the Baskervilles* involves an ancient family curse, where a giant demonic hound is said to roam the Baskerville estate, targeting family members. This supernatural element shrouded the case in mystery and terror from the start, making the investigation exceptionally difficult and temporarily damaging Holmes’s reputation. I completely agree.
 

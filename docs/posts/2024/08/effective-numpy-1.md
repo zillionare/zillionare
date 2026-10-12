@@ -4,7 +4,7 @@ date: 2024-08-25
 category: tools
 slug: posts/tools/effective-numpy-1
 motto: 
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154415-cover-posts-2024-08-effective-numpy-1.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154415-cover-posts-2024-08-effective-numpy-1.md.jpg"
 stamp_width: 60%
 stamp_height: 60%
 tags: [Numpy, code]

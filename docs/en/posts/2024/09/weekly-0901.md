@@ -86,7 +86,7 @@ plt.legend()
 
 We obtained the following output:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-synthetic.jpg)
 
 In the field of digital signal processing, time series are called time-domain signals, and after the Fourier Transform, we obtain frequency-domain signals. Time-domain signals and frequency-domain signals can be converted into each other. The `fft` library in Numpy provides `fft` and `ifft` functions to help us implement these two conversions.
 
@@ -102,7 +102,7 @@ Converting time-domain signals to the frequency domain reveals basic characteris
 
 If we set the energy of high-frequency signals to zero and then inverse-transform the signal back, we will get a new sequence similar to the original sequence, but smoother -- this is what we often call low-pass filtering -- various moving averages you are familiar with are also low-pass filters.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml-promotion.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml-promotion.png)
 
 In the above code, we only retained the energy of the first 20 low-frequency signals, resulting in a new sequence similar to the original sequence. If this method is applied in the image field, it achieves lossy compression -- the compression ratio is 250/20.
 
@@ -113,7 +113,7 @@ In the 1990s, the most advanced image compression algorithms were based on such 
 People working on such compression algorithms at that time all knew this beautiful young lady -- Lena. This photo is a standard test sample for image algorithms. Through long-term evolution, under the pressure of survival, humans have evolved super strong abilities to recognize others' expressions. Therefore, compared to other samples, once compression causes a decline in image quality, the human eye is more likely to detect changes in faces and expressions, making face images the best test samples.
 
 <div style='width:50%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lena.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/lena.jpg'>
 <span style='font-size:0.6rem'>Lena </span>
 </div>
 
@@ -128,7 +128,7 @@ But if we simply copy this method from other fields, it hardly counts as researc
 ---
 
 <div style='text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg'>
 <span style='font-size:0.6rem'>May the Force be with you -- Star Wars</span>
 </div>
 
@@ -173,7 +173,7 @@ plt.show()
 
 The FFT gives frequencies in pairs of positive and negative. We can simply consider that negative frequencies are meaningless to us; they are a kind of dark energy we cannot see and need not care about. Therefore, in the code, we ignored this part.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/individual-sine-wave.jpg)
 
 We see that the wave (orange) with the strongest impact on the Shanghai Composite Index trend has a cycle of about 7 months: it takes 3.5 months from peak to trough, and 3.5 months from trough to peak. Since its energy is almost double that of other waves, it dominates the trend of the entire superimposed wave: if other waves are in phase with it, the superimposed result will strengthen the trend; otherwise, it will offset the trend. The energies of other waves are similar, but their frequencies differ.
 
@@ -185,7 +185,7 @@ From this decomposition chart, we can hypothesize that there is long-term capita
 
 Now, let's synthesize the operations of these capital flows and compare them with the actual trend to see how it goes:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-5-waves-synthetic.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/real-vs-5-waves-synthetic.jpg)
 
 The major cycles basically match, meaning these capital flows basically control the market trend. Moreover, we seem to be able to assert that during the period from March 15 to May 17, there was a divergence trend between stock prices and main force capital: main force capital was retreating, but retail investors were still operating. Thus, although stock prices were still rising, the final direction was determined by main force capital.
 
@@ -212,11 +212,11 @@ Here are three hypotheses:
 
 Next, we will prove the second hypothesis (process omitted). Finally, we plot the DC component and trend line as follows:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dc-regression.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dc-regression.jpg)
 
 And the A-share annual lines and trend lines since 2005 are as follows:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/a-share-yearly.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/a-share-yearly.jpg)
 
 It cannot be said to be very similar, but almost completely consistent.
 
@@ -226,7 +226,7 @@ The p-value for trend line fitting is around 0.055, which basically meets the 0.
 
 This article is part of our "Factor Investing and Machine Learning Strategies," appearing in the section on exploring new factor methodologies. Some important results obtained from FFT transformation will become features used to train machine learning strategies. See you in class for more content!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml-promotion.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml-promotion.png)
 
 <!-- If I hadn't read Ray Dalio's "Principles," I would almost believe that stock price fluctuations are unrelated to economic cycles. But there has always been a faint belief that since economic activity exists in cycles, the fluctuations in securities prices must also exist in cycles. -->
 
@@ -348,7 +348,7 @@ for i, alpha in enumerate((-0.01, 0, 0.01)):
 
 The plotted graph is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/same-vol-different-trend.jpg)
 
 <!--
     In many cases, we need to generate normal distribution arrays. For example, if we want to study the relationship between stock price changes and volatility, such as whether continuous stock price increases and decreases have the same volatility, we can create several return sequences from a decrease of -0.1 to an increase of 0.1, with 0.05 as the step, and then calculate their volatility. At this point, we can use:

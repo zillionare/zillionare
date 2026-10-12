@@ -8,13 +8,13 @@ lang: en
 translation_of: posts/career-figure/successfully-starting-a-career-in-quant-research
 auto_translated: true
 source_sha: b4e5172be721e61655b52cf7e89d7c752006c4f8
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/23.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/23.jpg"
 ---
 
 !!! attention
    This article is a localized rewrite based on the original translation. The original text can be found in the blog section of headlandstech.com. The original author is Max Dama, Co-Chair of Headlands. He is the author of *Max Dama on Automated Trading* and has developed a quantitative trading course at UC Berkeley based on this book.
 
-![Max Dama, Co-present of HL](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/max-dama.png)
+![Max Dama, Co-present of HL](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/max-dama.png)
 
 For newcomers aiming to develop a career in quantitative trading, selecting the right firm can be daunting. Consequently, they are prone to making mistakes when choosing their first job. Such errors can lead to leaving the industry, even if you are inherently well-suited for it and could have succeeded. While lack of experience makes mistakes easy, I offer this guidance to help you avoid common traps.
 

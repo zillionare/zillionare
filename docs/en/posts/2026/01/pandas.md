@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/2026十大量化技术/pandas
 auto_translated: true
 source_sha: 63ea2ea01ce05954cb20ac2faf8084c8a89ef37e
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg"
 ---
 
 # The Battle for a New Dawn: Quantitative New Infrastructure (Part 4) — Pandas 3.0
@@ -19,7 +19,7 @@ Today, nearly 20 years after its inception, as many question whether pandas has 
 
 He is **Patrick Hoefler**, one of the most active members of the pandas 3.0 core team and a software engineer at Citadel.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260119151727.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260119151727.png)
 
 ---
 
@@ -201,7 +201,7 @@ When the "elephant" completes its turnaround, it may still remain the king of th
 ## Today’s Famous University
 
 <figure style="width: 100%; margin: 0 auto 1rem; padding: 0;">
-  <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+  <img src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/1280px-Oxford_University_Museum_of_Natural_History,_Oxford,_UK_-_Diliff.jpg" style="width: 100%; height: auto; display: block; margin: 0 auto;">
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
     By Diliff - Own work, CC BY-SA 3.0
   </figcaption>

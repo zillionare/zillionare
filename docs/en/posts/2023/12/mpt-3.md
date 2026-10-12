@@ -12,7 +12,7 @@ source_sha: 8f1f91961506123f529d52a05c36de4027ed6730
 
 Finding the minimum volatility for a given return, or the maximum Sharpe ratio for a given volatility, represents a common class of optimization problems:
 
-![Mathematical formula for optimal portfolio solution: minimizing volatility under constraints](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-optimize-formula.png)
+![Mathematical formula for optimal portfolio solution: minimizing volatility under constraints](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-optimize-formula.png)
 
 We can use the `scipy.optimize` library to solve such problems.
 

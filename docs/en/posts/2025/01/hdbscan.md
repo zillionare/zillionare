@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/hdbscan
 auto_translated: true
 source_sha: e2d589a05f1a564cc61dd95e7992a16ecfa2111f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-by-ai.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-by-ai.jpg"
 ---
 
 Pairs trading is a trading strategy pioneered in the 1980s by Nunzio Tartaglia, a quantitative analyst at Morgan Stanley. Tartaglia is now the founder of Athena Asset Management in Italy. The strategy involves monitoring two securities that have historically exhibited strong correlation and tracking the price spread between them. Once the spread exceeds a certain threshold (e.g., $n$ standard deviations), mean reversion becomes highly probable. Traders then short the overpriced asset and go long on the underpriced one to capture profits.
@@ -16,7 +16,7 @@ Pairs trading is a trading strategy pioneered in the 1980s by Nunzio Tartaglia, 
 <!--more-->
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/Nunzio-Tartaglia.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/Nunzio-Tartaglia.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>Nunzio Tartaglia</span>
 </div>
 
@@ -26,7 +26,7 @@ This strategy allows traders to profit in almost any market condition, making it
 
 For example, General Motors (GM) and Ford produce similar products (automobiles), so their stock prices tend to move similarly based on the broader automotive market. If GM’s stock price rises significantly while Ford’s remains unchanged, a trader employing a hedging strategy would sell GM stock and buy Ford stock. Assuming prices revert to their historical equilibrium: if GM’s price falls, the investor profits; if Ford’s price rises, the investor also profits.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfans-promotion.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfans-promotion.jpg)
 
 The logic and effectiveness of this strategy are undeniable, resembling a mathematical theorem in its perfection. However, how do we find such paired assets?
 
@@ -44,13 +44,13 @@ How should we describe the relationship between GM and Ford using mathematical l
 
 How do we test for cointegration? Engle and Granger proposed a two-step cointegration test in 1987: first, perform an OLS regression on two variables $X$ and $Y$, and then use the **ADF test** to check if $X$ and $Y$ are stationary. They won the 2003 Nobel Prize in Economics for their pioneering work in cointegration theory.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/robert-engle.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/robert-engle.png)
 
 This brings us to another concept: stationary time series and stationarity tests.
 
 A stationary time series is one where the statistical properties of random variables (such as mean, variance, autocovariance, etc.) remain constant over time. For example, white noise is a stationary time series with constant mean and variance. The figure below compares a stationary time series (top left) with several non-stationary time series:
 
-![Various Time Series](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-kinds-of-timeseries.jpg)
+![Various Time Series](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-kinds-of-timeseries.jpg)
 
 Obviously, for quants, stationary time series have very interesting properties: since a stationary time series has a constant mean, constant variance, and autocorrelation characteristics, once it deviates from the mean, it will eventually revert to the mean; otherwise, it would not be a stationary time series.
 
@@ -58,7 +58,7 @@ Thus, based on the assumption that a time series was stationary in the past and 
 
 To test whether a time series is stationary, we generally use the Dickey-Fuller test.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/dickey-and-fuller.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/dickey-and-fuller.png)
 
 For quants, asset price series and return series are two common types of time series. We can use the Dickey-Fuller test to determine if they are stationary:
 
@@ -108,13 +108,13 @@ df.T
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 The code above produces the following results:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/adf-test-of-payh.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/adf-test-of-payh.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 Stationarity testing is the second step of cointegration testing. The first step involves regressing two correlated time series to construct a residual series.
@@ -170,7 +170,7 @@ In a pool of assets, the computational load for finding cointegrated pairs is co
 
 In our course environment, running 30,000 cointegration tests takes about 20 minutes, meaning each test takes approximately 40 milliseconds. Therefore, completing nearly 50 million cointegration tests would take roughly 24 days: by the time you finish calculating, the small insects living in your bathroom pipes—the Asian house mosquito (*Clogmia albipunctata*)—will have completed their entire life cycle.
 
-![Clogmia albipunctata](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clogmia-albipunctata.jpg)
+![Clogmia albipunctata](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clogmia-albipunctata.jpg)
 
 At this point, clustering algorithms can exert their tremendous power: if we can divide these assets into several clusters and perform cointegration tests only within clusters, we can significantly reduce the number of cointegration tests.
 
@@ -188,7 +188,7 @@ There are many clustering algorithms; sklearn mentions over 10. However, for gen
 
 The figure below compares the clustering effects of HDBSCAN, DBSCAN, and K-Means on the same dataset:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-cluster-algo.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/all-cluster-algo.jpg)
 
 DBSCAN cannot find clusters sparser than the specified core density; K-Means assigns noise to the nearest cluster, and you must specify the number of clusters in the dataset. HDBSCAN’s performance is nearly perfect.
 
@@ -258,7 +258,7 @@ We will obtain a 3D t-SNE plot, where colors represent the clustering of each po
      :enter='{opacity: 0, x:300, y:40}'
      :click-22-23='{opacity: 1}'>
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clustered-by-hdbscan.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/clustered-by-hdbscan.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -343,7 +343,7 @@ print(len(pairs)/(len(cluster_12) * (len(cluster_12) - 1)) * 2)
 ```
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/cluster-12-all.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/cluster-12-all.jpg)
 <!-- END IPYNB STRIPOUT -->
 
 From the results, we can see that the individual stock trends within a cluster are almost identical, but not all combinations within the cluster are cointegrated pairs. This is easy to understand: **clustering has its own logic, and cointegration has its own logic**. There is overlapping space between them, but they are certainly not the same thing.
@@ -354,7 +354,7 @@ The important point is that we have significantly compressed the computation tim
 ## Help Wanted! Hurry Up and Recruit!
 
 <div style='width:33%;float:left;padding: 0.5rem 1rem 0 0;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/log/quantide-alpha-yellow.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/log/quantide-alpha-yellow.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>Quantide (匡醍科技) is hiring at the start of the new year! We have posted job openings on various recruitment platforms, but the most suitable candidates likely come from our公众号 (public account) followers. If you enjoy my articles, you might also enjoy working with me, exploring quantitative trading together.
 
@@ -364,7 +364,7 @@ Specifically, this position has the following (desensitized) typical symptoms: p
 
 _For specific positions, please call hr@quantide.cn for inquiries, or directly send your resume. Students can apply for internship positions._
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/optical-valley.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/optical-valley.jpg)
 
 Passion is the best teacher. Waiting for you at the center of the universe.
 <!-- END IPYNB STRIPOUT -->

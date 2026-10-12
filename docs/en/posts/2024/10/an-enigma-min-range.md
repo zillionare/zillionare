@@ -8,10 +8,10 @@ lang: en
 translation_of: posts/algo/an-enigma-min-range
 auto_translated: true
 source_sha: 8520fe0370922f19e108723f423a9d21d5e8272d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 
-![University of Toronto campus. Geoffrey Hinton, 2024 Nobel Prize in Physics laureate, teaches here.](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp)
+![University of Toronto campus. Geoffrey Hinton, 2024 Nobel Prize in Physics laureate, teaches here.](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp)
 
 The stock market adage goes: "High volume signals high price; low volume signals low price." Today, let’s put this to the test.
 
@@ -234,7 +234,7 @@ Here we use the `akshare` data source, so everyone can reproduce this.
 
 The output we get is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/min-range-and-sh.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/min-range-and-sh.jpg)
 
 This chart shows astonishing results. Almost every time "low volume" (greater than 50 days) appears, a small rebound follows immediately. However, major rebounds require not just low volume, but also increasing trading volume as capital continuously enters the market.
 

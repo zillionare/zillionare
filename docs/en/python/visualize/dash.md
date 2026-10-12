@@ -320,6 +320,6 @@ It provides a link that, when clicked, redirects to the `/logout` path (another 
 
 The key reason `routing.py` can provide routing is that `rootElement` is the parent node for all subsequent views. As long as this node exists, the routing mechanism is effective.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash-gotcha.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash-gotcha.jpeg)
 
 As shown in the image above, even when switching to the `logout` view, this `rootElement` still exists. Therefore, in `routing`, we must update new views under the `page-content` node, not under `rootElement`. Otherwise, we would destroy the global routing.

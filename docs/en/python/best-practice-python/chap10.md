@@ -121,7 +121,7 @@ restructured text example
 ```
 The above text will render in the following format:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/rst_headings.png){width="50%"}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/rst_headings.png){width="50%"}
 
 The tedious and difficult aspect of this syntax lies in the fact that the number of characters in the heading must match the number of punctuation marks below. If non-monospaced characters are used (e.g., using Chinese headings), matching becomes very difficult. You can try finding an editor that supports RST (e.g., installing the "RST Preview" extension in VS Code) and manually typing the above example to verify this.
 
@@ -238,8 +238,8 @@ In 2007, GitHub developer Chris Wanstrath encountered the Markdown language. In 
     John Gruber’s opposition to the standardization of Markdown and his prohibition of the working group using the name Markdown is somewhat regrettable. One wonders if this can be considered another instance of the dragon-slaying boy eventually becoming the dragon. However, this is not an isolated case in the tech industry. Some people also believe that the biggest obstacle to solving Python’s performance issues actually comes from its creator, Guido, because he believes Python’s performance is already good enough: if someone thinks Python’s performance is not good enough, they should switch to another language. In the process of improving Python’s performance, incompatible phenomena like those during the upgrade from version 2 to version 3 are not allowed.
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>
@@ -738,7 +738,7 @@ In the above configuration example, `attr_list`, `admonition`, `toc`, and `meta`
 
 Using third-party extensions is the same as using third-party themes. We must first install these extensions. For example, line 22 `pymakdownx.critic` comes from the third-party extension `pymdown-extensions`. We need to install this extension first, and then we can enable it in `mkdocs.yml`. `critic` provides annotation functions for documents, such as the following example:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/critics_markup.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/critics_markup.jpg)
 
 Its display effect is as follows:
 
@@ -997,8 +997,8 @@ The comparison of the two technology stacks is as follows:
 | Production Efficiency | General      | Efficient          | -                                                    |
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>

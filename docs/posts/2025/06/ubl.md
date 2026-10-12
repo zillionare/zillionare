@@ -2,7 +2,7 @@
 slug: posts/papers/ubl
 title: "『匡醍译研报 01』 驯龙高手，从股谚到量化因子的工程化落地"
 date: 2025-06-29
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png
 category: papers
 tags: [papers, 研报, UBL]
 excerpt: "头上三柱香，不死也赔光。这是一句股谚，说得是如果在高位出现三根长上影线，那么股价短期内很可能会下跌。因为上影线代表了上面的抛压特别大。这种说法能得到统计数据上的验证吗？来自东吴证券的一份研报，就讨论了这个问题。"
@@ -22,9 +22,9 @@ excerpt: "头上三柱香，不死也赔光。这是一句股谚，说得是如�
 
 最终，他们得到的回测结果（2009 年到 2020 年 4 月 30 日）如下：
 
-![来源：wind 资讯，东吴证券研究所](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195403.png?width=600)
+![来源：wind 资讯，东吴证券研究所](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195403.png?width=600)
 
-![来源：wind 资讯，东吴证券研究所](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195630.png?width=600)
+![来源：wind 资讯，东吴证券研究所](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195630.png?width=600)
 
 下面，我们就来实现这个因子。
 
@@ -32,7 +32,7 @@ excerpt: "头上三柱香，不死也赔光。这是一句股谚，说得是如�
 
 根据研报，因子的构建流程如下：
 
-![来源：wind 资讯，东吴证券研究所](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195742.png?width=600)
+![来源：wind 资讯，东吴证券研究所](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195742.png?width=600)
 
 我们按图索骥，先来实现上下影线。
 
@@ -168,7 +168,7 @@ def calc_candle_up_std_factor(barss, win = 20):
 现在我们得到的因子数据大致是：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629182432.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629182432.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -230,7 +230,7 @@ display(calc_wr_down_factor(barss, 20))
 <!-- BEGIN IPYNB STRIPOUT -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629203316.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629203316.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

@@ -3,13 +3,13 @@ title: "Pandas连续涨停统计"
 date: 2024-10-23
 category: tools
 slug: posts/tools/pandas-连续涨停统计
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg
 tags: [tools, pandas]
 excerpt: "常常需要快速统计出一段时间内，最强的股和最弱的股，以便研究该区间内，强势股和弱势股有什么特点。"
 ---
 
 
-![题图: 哈佛大学](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg)
+![题图: 哈佛大学](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg)
 
 常常需要快速统计出一段时间内，最强的股和最弱的股，以便研究该区间内，强势股和弱势股有什么特点。
 
@@ -21,7 +21,7 @@ excerpt: "常常需要快速统计出一段时间内，最强的股和最弱的�
 
 你可以对着屏幕把代码copy下来，自己找来数据验证。不过要是赶时间的话，建议加入我的部落：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
 
 加入部落者，即可获得Quantide研究环境账号，直接运行和下载本教程。
 
@@ -282,7 +282,7 @@ plot_candlestick(bars.to_records(index=False),
 
 我们来看下k线图：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/slgf-zt-2023-10-19.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/slgf-zt-2023-10-19.jpg)
 
 
 最后，我们把函数封装一下：

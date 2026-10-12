@@ -7,7 +7,7 @@ excerpt: "量化投研总在因子挖掘、回测调参和策略失效之间反�
 tags: [tools, RDAgent, qlib, Agent]
 category: tools
 date: 2026-04-30
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg
 ---
 
 ## 一、量化投研的困境

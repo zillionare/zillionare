@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/ORB-strategy
 auto_translated: true
 source_sha: 34ec2164be9d9da3de650019fd94a10f38b8078a
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg"
 ---
 
 This strategy comes from Carlo Zarattini et al., third-place winners at the Quantpedia 2023 competition. Studying the last six years of US equities, they found that a 5-minute ORB focused on Stocks in Play delivered over 1,600% in total net return, with a Sharpe of 2.81 and 36% annualized alpha. The S&P 500 returned just 198% over the same period.
@@ -35,7 +35,7 @@ Use the direction of the first 5 minutes after the open to **set the day's tradi
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/bldr-5-mins.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/bldr-5-mins.jpg)
 
 In the chart above (note: solid red is a bearish candle, hollow is bullish), the stock opened with a bearish candle, so the bias for the day is short. At 10am, price breaks down below the first 5-minute low, triggering a short entry, with a stop placed 10% of ATR away. The position is closed into the close.
 
@@ -43,7 +43,7 @@ The chart below shows two more examples, one long and one short, and when to ent
 
 ---
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg)
 
 If you're still waiting for me to say more about this strategy, sorry. I'm done.
 
@@ -83,7 +83,7 @@ If there weren't some logic to these tips, they wouldn't fool anyone.
 
 Zarattini et al., using extensive data, found a statistical link between relative volume and profitability (both long and short), vindicating those veteran stock-pickers. See below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/rv-profitability.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/rv-profitability.jpg)
 
 Relative volume here is exactly what you'd expect. For rigor, here is their exact formula:
 

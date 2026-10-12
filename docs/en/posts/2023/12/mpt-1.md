@@ -14,7 +14,7 @@ Modern Portfolio Theory (MPT) was proposed by Harry Markowitz in 1952 and stands
 
 All these portfolios form a curve (with the portfolio’s standard deviation on the x-axis and expected return on the y-axis), known as the **efficient frontier curve**. The upper portion of this curve is referred to as the **efficient frontier**.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
 
 This diagram is vertically symmetric. For every point on the lower half, there is a corresponding point on the upper half with the same risk but a higher expected return. Therefore, portfolios on the lower half are **not held by any rational investor**.
 

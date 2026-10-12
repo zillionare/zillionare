@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1
 auto_translated: true
 source_sha: b5d20395e556d5a25f52dfceac7dab7bf0ea0dbd
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/university-college-london-library.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/university-college-london-library.jpg"
 ---
 
 !!! quote
@@ -31,7 +31,7 @@ This is part one: the basic XGBoost-based framework built in the thesis.
 
 ## Basic Framework
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-model-framework.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-model-framework.jpg)
 
 [^mingxuan]: [PDF](https://blog.quantide.cn/assets/ebooks/A-Portfolio-Strategy-Based-on-XGBoost-Regression-and-Monte-Carlo-Method.pdf) 
 
@@ -42,7 +42,7 @@ This is the basic framework diagram abstracted from the thesis.
 
 What problem does this framework solve? In a portfolio strategy, the first key question is how to select a subset of stocks from a given universe for the strategy pool; the second is how to allocate weights to those stocks to maximize risk-adjusted return on the portfolio.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
 
 For the second part, the classic approach is MPT theory — finding the efficient frontier. This can be solved with convex optimization or with a Monte Carlo approach. We previously covered this in detail, from basic concepts to implementation, in our series [Portfolio Theory and Practice](https://blog.quantide.cn/articles/investment/%E7%AD%96%E7%95%A5%E7%A0%94%E7%A9%B6/mpt-1/), so we won’t repeat it here.
 
@@ -67,7 +67,7 @@ The thesis uses an XGBoost regression model. That choice is debatable. In asset 
 
 The author trains a regression model to predict the next day (or the move over a subsequent window). Below is one of the results reported in the thesis:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-prediction-result.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/xgboost-prediction-result.jpg)
 
 The model appears to predict the next-day move almost perfectly.
 
@@ -81,7 +81,7 @@ Clearly, since an XGBoost regression model has no ability to predict relative cr
 
 Still, the author offers a useful clue on how to find the best stocks in a multi-factor model with XGBoost. We just need to **turn it into a classification model, then use the classifier to filter for the best-performing stocks**.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/classification_xgboost.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/classification_xgboost.png)
 
 The X side of the training set can stay unchanged, but we need to redefine the labels, the y side. For a given factor $X_i$, the corresponding $y_i$ should indicate up or down. If possible, we can use 5 classes, with -2 for a large drop and 2 for a large rally, and so on for the buckets in between.
 
@@ -120,4 +120,4 @@ In this installment we introduced the model construction for an XGBoost-based mu
 
 In the next post, we will talk about MAPE as a metric.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/mouse-cursion.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/mouse-cursion.png)

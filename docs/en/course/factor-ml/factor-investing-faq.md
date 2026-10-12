@@ -1,7 +1,7 @@
 ---
 title: "Factor Investing FAQ: From CAPM to Multi-Factor Models"
 date: 2026-10-08
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145545-cover-articles-course-factor-ml-factor-investing-faq.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009145545-cover-articles-course-factor-ml-factor-investing-faq.jpg"
 slug: en/articles/course/factor-ml/factor-investing-faq
 tags: [Factor Investing, Multi-Factor Models, Machine Learning, Quantitative Trading]
 excerpt: "Explore 7 key questions on factor investing origins, CAPM, Alpha, and multi-factor evolution. Understand why machine learning is replacing linear models in quantitative trading."

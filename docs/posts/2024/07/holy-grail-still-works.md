@@ -4,7 +4,7 @@ slug: posts/factor-strategy/holy-grail-still-works
 date: 2024-07-22
 category: factors
 motto: 一念天堂 一念地狱 so choose wisely
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/Indiana-Jones-and-the-Last-Crusade.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/Indiana-Jones-and-the-Last-Crusade.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [策略]
@@ -48,7 +48,7 @@ $$
 
 首先 quantitativo 进行了单因子检验。检验方法是对对所有 2 天 RSI 收于 5 以下的标的进行买入并持有 5 天，再计算收益。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
 
 这个统计包含了超过 21000 个标的，超过 250 万次事件（标普 500 收于 200 天均线之上）。测试中的亮点：
 
@@ -103,7 +103,7 @@ quantitativo 还对两次测试是否属于同一分布进行了假设检验，�
 
 接着quantitativo改用了纳斯达克100指数ETF（QQQ）和三倍杠杆纳斯达克100ETF（TQQQ）。结果表明，在TQQQ上表现不错：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
 
 夏普比率分别达到了2.3（QQQ）和1.92（TQQQ），对指数标的而言，是相当不错的指标（特别是与A股对比）。
 
@@ -129,7 +129,7 @@ quantitativo 还对两次测试是否属于同一分布进行了假设检验，�
 3. 当使用财务数据时，如何确保它是PIT的？
 -->
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
 
 ---
 
@@ -151,7 +151,7 @@ quantitativo再次改进了策略，这次的改进是将universe限制在只交
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
 
 <!-- quantitativo 在对25年回测期间进行的11,380笔交易进行分析之后，发现了很多退市，但是，这个时间本可以避免 -->
 

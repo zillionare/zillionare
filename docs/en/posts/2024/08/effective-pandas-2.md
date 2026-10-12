@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/effective-pandas-2
 auto_translated: true
 source_sha: d746a528a7a469c771242b9c236c97ae6d53a880
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/priceton-1.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/priceton-1.jpg"
 ---
 
 *Cover image: Princeton University. Princeton University holds significant research strength in quantitative finance and counts renowned scholars such as Mark Brunnermeier and Professor Jianqing Fan (a Chinese-American statistician, Princeton Finance Professor, and Dean of the School of Data Science at Fudan University) among its faculty.*
@@ -41,7 +41,7 @@ df.tail()
 
 The resulting dataset is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/naive-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/naive-dataframe.jpg)
 
 We can set the index to `date` using the `set_index` method:
 
@@ -52,7 +52,7 @@ df1
 
 This yields a DataFrame with only the `date` index.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/simple-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/simple-dataframe.jpg)
 
 If we pass an array to `set_index`, we obtain a MultiIndex:
 
@@ -62,7 +62,7 @@ df.set_index(['date', 'asset'])
 
 This generates a DataFrame with a two-level index.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/multilevel-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/multilevel-dataframe.jpg)
 
 The `set_index` syntax is highly flexible; it can set a completely new index (discarding the previous one) or add columns as indices:
 
@@ -125,7 +125,7 @@ We see the following output:
 
 Both elements are referred to as Axis. The first is the row index, which we might reference using `axis = 0` or `axis = 'index'` when calling Pandas functions; the second is the column index, which we might reference using `axis = 1` or `axis = 'columns'`.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/pandas-axis-legend.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/pandas-axis-legend.jpg)
 
 So far, both indices have only one level (`level=0`) and no names. When we refer to Column A, Column B, and rename them, we are actually modifying the values of certain elements within `axis=1`.
 
@@ -142,7 +142,7 @@ df
 
 The displayed DataFrame will now show names for the row index and column index in the top-left corner.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/index-name-vs-columns-name.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/index-name-vs-columns-name.jpg)
 
 Similarly, we can infer that if rows have MultiIndex, columns can also have MultiIndex.
 
@@ -164,7 +164,7 @@ df = pd.DataFrame(data, columns=columns)
 df
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dataframe-with-multlevel-columns.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dataframe-with-multlevel-columns.jpg)
 
 The top-left corner is blank, meaning neither the row index nor the column index of this DataFrame has been named (which seems counter-intuitive at first glance; aren't the column indices `stock` and `bond`?).
 
@@ -176,7 +176,7 @@ The following example shows how to rename the column index of a MultiIndex DataF
 df.rename_axis(["type", "column"], axis=1)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/rename-multilevel-columns-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/rename-multilevel-columns-dataframe.jpg)
 
 This looks very similar to merged header cells in an Excel worksheet.
 

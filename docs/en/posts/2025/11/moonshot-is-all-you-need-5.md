@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-5
 auto_translated: true
 source_sha: 1439ce721267c9dc78ccaf87bd4c0f03002f6c54
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg"
 ---
 
 We have covered the Moonshot framework and dividend strategy implementation across four parts. This is the final installment of the series. Using the previously established Moonshot backtest framework, we will finally complete the construction of the dividend strategy.
@@ -335,11 +335,11 @@ clear_output()
 
 You can find `strategy.html` to view the complete backtest report. Compared to the CSI 300, the dividend strategy shows significant advantages. Here is the comparison chart of their cumulative returns:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251109220008.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251109220008.png)
 
 Here is a comparison of some important strategy evaluation indicators:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251110185908.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251110185908.png)
 
 Over the past 5 years, the cumulative return of the dividend strategy is 112.65%, while the CSI 300 is only 9.2%. The annualized return of the dividend strategy reached 16%; meanwhile, the CSI 300 was only 1.84%.
 

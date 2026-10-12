@@ -36,17 +36,17 @@ This is a rigorous, "hardcore" course. The content is structured sequentially, w
 
 ## 2. Course Syllabus and Structure
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-1.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-2.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-3.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-4.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-4.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-5.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-5.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-6.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-6.png)
 
 !!! tip
     For a more detailed syllabus, see [here](articles/course/24lectures/intro.md)
@@ -57,7 +57,7 @@ Quantitative trading is a relatively new phenomenon not only in China but also g
 
 Based on our experience, combined with insights from domestic and international similar courses, peer exchanges, and reviews of mainstream quantitative frameworks, libraries, and key papers, we have summarized the following learning roadmap:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-roadmap.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-roadmap.png)
 
 The bottom layer of this roadmap represents the prerequisites for learning quantitative trading. For Python basics, we recommend a concise English textbook that can be completed quickly and integrates seamlessly with our course. Tooling skills can be acquired through hands-on practice during the course. Mathematical knowledge only needs to meet foundational levels; we will guide you through reviewing relevant content within the course.
 
@@ -74,4 +74,4 @@ The top layer represents advanced topics that you can selectively pursue in dept
 
 The course experimental environment is depicted below:
 
- ![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/academy.jpg)
+ ![66%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/academy.jpg)

@@ -4,7 +4,7 @@ slug: posts/factor-strategy/perf-of-momentum-10
 date: 2024-08-02
 category: factors
 motto: Learning how to fall teaches you how to land, and learning to land gives you the courage to jump higher
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [因子策略, momentum, 因子评估]
@@ -78,13 +78,13 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 因子分层如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-factor-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-factor-quantile.jpg)
 
 
 
 分层收益均值图如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr.jpg)
 
 
 显然，10期的斜率因子成了反向指标，也就是短期上涨越快，买入后亏损越多。
@@ -94,11 +94,11 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 既然如此，我们就取斜率因子的负数作为新的因子，再运行一次：
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr-2.jpg)
 
 理所当然，这个图只是前面的图的镜像。我们来看看收益：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-1.jpg)
 
 
 7个月的累积收益接近15%了，最大回撤5%左右，在今年来看，表现还可以。
@@ -110,7 +110,7 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 再深入到分层累积收益：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-return-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-return-by-quantile.jpg)
 
 可以看出，因子的稳定性比较好，期间没有发生明显的风格转换的情况。
 
@@ -119,13 +119,13 @@ Momentum因子，即动量因子，是在金融领域中用来衡量证券价格
 
 如果我们没有机会做空，因子的表现又将如何？下图是纯多情况下的收益：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-long-only.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-long-only.jpg)
 
 这个表现并不出人意料。在2月有一个强反弹，在此期间，因子的表现不错。但随后市场越走越弱，动量因子的半衰期越来越短，单多收益就一路走低。
 
 ---
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg)
 
 前天，七八月之交，A股出现一轮牛市，跨越两个月，长达86400秒。随后再次进入休眠状态。这个现象，也许不能用今天的介绍的动量因子来预测，但动量因子表现如此之弱，却能在一定程度上，说明为什么连续上涨未能出现。
 

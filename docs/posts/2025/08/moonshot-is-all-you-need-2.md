@@ -3,7 +3,7 @@ slug: posts/tools/moonshot/moonshot-is-all-you-need-2
 title: 『Moonshot is all you need』 02 - 用tushare玩转月线回测：复权与本地缓存的秘密武器
 date: 2025-08-15
 excerpt: 本篇聚焦月线策略回测的『数据难题』，揭秘如何通过 tushare 高效获取、复权行情数据并实现本地缓存，彻底解决Alphalens在月线回测上的短板。跟随实战案例，掌握复权原理与缓存技巧，为复杂研报复现打下坚实基础。
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/4.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/4.jpg
 category: tools
 tags: [Moonshot, 回测, 研报, tushare]
 ---

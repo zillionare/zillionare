@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/effective-numpy-1
 auto_translated: true
 source_sha: 048c6ebf5b074ed045fa92820f0c378e4205c184
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154415-cover-posts-2024-08-effective-numpy-1.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154415-cover-posts-2024-08-effective-numpy-1.md.jpg"
 ---
 
 In many quantitative scenarios, we need to count the number of consecutive occurrences of a specific event, such as consecutive price limits (limit-up/limit-down), N-day winning streaks, or calculating streaks in Connor's RSI.

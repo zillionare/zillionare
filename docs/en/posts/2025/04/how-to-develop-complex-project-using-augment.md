@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/how-to-develop-complex-project-using-augment
 auto_translated: true
 source_sha: 3b3418b8a1191180cdf07f37d6b44d22963c3ac5
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png"
 ---
 
 People often ask: Has anyone really used AI to complete a complex project?
@@ -25,7 +25,7 @@ This exhausting yet ultimately rewarding afternoon is what drove me to work over
 
 When I recently interviewed candidates, I showed them this image and asked, "What information can you extract from this?"
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423192504.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423192504.png)
 
 If you were applying for an HR role, you’d obviously prioritize contacting the currently online "New Star" candidate, while also considering role fit. But this is a test of observation and归纳 (induction) skills: What categories of information do these small cards provide?
 
@@ -33,13 +33,13 @@ We need this ability in countless work scenarios. For example, if you’re manag
 
 Programmers need this skill too. Today, I was caught off guard by a similar challenge. The final issue was identified as the difference shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423193224.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423193224.png)
 
 These are the course catalogs for two of our courses. This is a course environment built with JupyterLab. When a user clicks on a specific lesson, the link may or may not open depending on their permissions and purchase duration. The problem now is that on the left, all links that should open do open; on the right, none of them open.
 
 When we placed the two catalogs side by side after finding the root cause, the differences were glaringly obvious. However, in a programming environment, inaccessible links appear like this:
 
-![Cannot Access](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423193715.png)
+![Cannot Access](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423193715.png)
 
 The file is clearly there, with no errors, yet it’s inaccessible. Meanwhile, accessible links throw strange errors to distract you.
 
@@ -47,7 +47,7 @@ To understand why this problem was complex, we must first introduce the system�
 
 ## System Architecture
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423194056.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423194056.png)
 
 This is a simplified system architecture diagram. Due to AI’s limitations in generating Mermaid diagrams, it differs slightly from our actual architecture:
 
@@ -73,7 +73,7 @@ Do you think this system is complex? I’d say yes. It uses two programming lang
 
 Anyway, this is what I got for my 299 RMB AI programming course:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423203338.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423203338.png)
 
 Completing such a project should only require one front-end developer. It has only two fixed interface layouts and doesn’t even consider PC compatibility.
 
@@ -81,19 +81,19 @@ Completing such a project should only require one front-end developer. It has on
 
 This afternoon, I was conducting final tests for the new course system launch. The system should work like this: adding a customer:
 
-![Plain Backend](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423200907.png)
+![Plain Backend](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423200907.png)
 
 After adding a user, you can register them for a course to generate a dedicated environment:
 
-![Create Container](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423200800.png)
+![Create Container](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423200800.png)
 
 Then, the student can log in via the browser:
 
-![Login](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png)
+![Login](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png)
 
 After logging in, they can see their enrolled courses:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201222.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201222.png)
 
 When the user clicks the pink course link, they should see the course content. The course link is:
 
@@ -103,7 +103,7 @@ http://*/course/l24/quantide/lab/tree/courseware/01.ipynb
 
 Clicking it should open the `01.ipynb` notebook, but instead, it returned an "access denied" error, taking me to the Jupyter Lab home interface:
 
-![Home](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423211330.png)
+![Home](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423211330.png)
 
 Here, all notebooks are clearly listed, but clicking them still results in "access denied."
 
@@ -113,7 +113,7 @@ It guided me through the afternoon. We checked if the entrypoint scripts of both
 
 After countless modifications, restarts, and rollbacks, I realized something: as the question setter, if I looked at this image myself:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423192504.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423192504.png)
 
 Could I instantly see all the differences between the top and bottom cards? Would I fall into some common-sense blind spot? For instance, it’s hard to distinguish "124" from "l24" with the naked eye. Who knows how many such subtle differences exist!
 

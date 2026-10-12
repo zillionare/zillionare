@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-2
 auto_translated: true
 source_sha: 4591cd5b487f2b6b575a477df027be1d7bd8b443
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/4.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/4.jpg"
 ---
 
 Being able to replicate research reports is a baseline requirement for our students. In our course, we detail the **Alphalens** factor analysis framework, which is ideal for rapid daily factor backtesting. However, Alphalens falls short when it comes to monthly strategies.

@@ -43,7 +43,7 @@ $$x^{\frac{-1}{2}}$$
 
 Most people never need this function, but it's essential for light and shadow tracing in games. Rather than explain further, just look at the picture:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/quake-vector.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/quake-vector.png)
 
 I won't elaborate. That picture doesn't look like game development — it looks like a programmer's hairline. The more you study it, the less hair you'll have left.
 

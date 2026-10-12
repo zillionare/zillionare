@@ -38,7 +38,7 @@ goto loop
 
 This script must be run from inside the `\bin.x64` directory. Once the copy succeeds, the script exits automatically. Now exit QMT as well, go to the bin.x64 directory, make a copy of linkMini_copy named linkMini, and then modify its security attributes:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/linkmini.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/linkmini.png)
 
 You need to clear all Allow permissions for the SYSTEM and Users groups, and check Deny for Write. After this change, the file becomes read-only and can no longer be deleted by QMT.
 

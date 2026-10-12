@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/all-about-openbb-as-a-newhand
 auto_translated: true
 source_sha: b27f619ba2b6edf48a90e398b115b617dbb142a8
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-claudio.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-claudio.jpg"
 ---
 
 Have you ever encountered this scenario? You come across foreign-language papers or blog posts with excellent methodologies and compelling conclusions, leaving you eager to replicate their results.
@@ -43,13 +43,13 @@ After installation, there are multiple ways to use it.
 
 Once installed, you can launch OpenBB from the command line.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-cli.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-cli.jpg)
 
 Follow the prompts to enter commands. For example, to obtain market data, you can navigate through `equity > price`, then input `historical --symbol LUV --start_date '2024-01-01' --end_date '2024-08-01'` to retrieve historical price data for that stock.
 
 OpenBB will pop up a window displaying the market data in a table format, allowing you to export the data.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/open-bb-quotes-view.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/open-bb-quotes-view.jpg)
 
 The result is somewhat surprising, haha.
 
@@ -73,7 +73,7 @@ obb
 
 The `obb` object is our entry point for using OpenBB. When you type `obb` directly into a cell, it prompts you with its attributes and methods:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/help-openbb-jupyter.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/help-openbb-jupyter.jpg)
 
 Here, OpenBB maintains interface consistency. The content we see is similar to what is displayed in the CLI.
 
@@ -87,7 +87,7 @@ obb.equity.search("JPMorgan", provider="nasdaq").to_df().head(3)
 
 The output is:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-equity-search.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-equity-search.jpg)
 
 As a non-native English speaker, understanding the relationship between stock tickers and data providers can be challenging. However, if you research this daily, spending some time to understand it is worthwhile.
 
@@ -112,11 +112,11 @@ The actual reason is that OpenBB has only one out-of-the-box free data source—
 
 Registering for FMP only requires an email address, so if 250 calls are insufficient, upgrading appears straightforward. After registration, you can view your API key in the dashboard:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fmp-keys.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/fmp-keys.jpg)
 
 Next, register for an OpenBB Hub account and add this API key to the OpenBB Hub.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-hub.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-hub.jpg)
 
 Now, change the data source to FMP and rerun the previous code to obtain the desired results.
 
@@ -126,7 +126,7 @@ obb.equity.price.historical("AMJB", provider="fmp").to_df().tail()
 
 We will obtain the following result:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-amjb-quotes.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/openbb-amjb-quotes.jpg)
 
 Let’s try another stock, Apple. We first use the `search` command to obtain its ticker `'AAPL'` (often mistakenly typed as 'APPL'), then substitute it into the previous code to retrieve the data.
 

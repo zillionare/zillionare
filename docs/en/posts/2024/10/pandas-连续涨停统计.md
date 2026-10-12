@@ -8,10 +8,10 @@ lang: en
 translation_of: posts/tools/pandas-连续涨停统计
 auto_translated: true
 source_sha: 255ffbf00d38ea4c3e236cfd977b13d4b0d8dfaa
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg"
 ---
 
-![Title Image: Harvard University](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg)
+![Title Image: Harvard University](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/harvard.jpg)
 
 There are often scenarios where we need to quickly identify the strongest and weakest stocks over a specific period to analyze the characteristics of momentum and mean-reversion stocks within that interval.
 
@@ -23,7 +23,7 @@ We will use 2023 data as an example. The goal is to identify stocks that hit the
 
 You can copy the code below and verify it with your own data. However, if you are short on time, consider joining my community:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
 
 Members of the community will receive a Quantide research environment account, allowing you to run and download this tutorial directly.
 
@@ -282,7 +282,7 @@ plot_candlestick(bars.to_records(index=False),
 
 Here is the candlestick chart:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/slgf-zt-2023-10-19.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/slgf-zt-2023-10-19.jpg)
 
 Lastly, let’s encapsulate the function:
 

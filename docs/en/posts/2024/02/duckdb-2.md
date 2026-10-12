@@ -158,7 +158,7 @@ Take power-plant generation data as an example:
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/power-plant.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/power-plant.jpg)
 
 The following query computes a 7-day moving average of daily output:
 
@@ -213,7 +213,7 @@ df.groupby('id')["value"].nlargest(2)
 
 Output:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/pandas-group-by-topk.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/02/pandas-group-by-topk.jpg)
 
 ---
 
@@ -271,11 +271,11 @@ For quants, reason #2 to use DuckDB (#1 being AsOf Join) is performance. In H2O.
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/duckdb-performance.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/02/duckdb-performance.jpg)
 
 That said, the standard database benchmark is TPC-DS. According to tests by Fivetran's CEO, DuckDB beats the best commercial databases when the stored files are under 250GB, but falls behind on a 1TB dataset (on 32 cores with 128GB RAM).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/duckdb-vs-database-x.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/02/duckdb-vs-database-x.jpg)
 
 The takeaway: DuckDB can at least handle around 1TB, but its sweet spot is under 100GB — so it's probably still not the right store for tick-level market data.
 

@@ -53,7 +53,7 @@ $$
 
 In special cases where sampled data exhibits periodic characteristics, and we wish to preserve periodic correlations after transformation, we can use $sin$ and $cos$ functions. This normalization method was employed in the seminal paper *Attention Is All You Need* (for encoding token positions):
 
-![10%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/attention_is_all_u_need_sin.png)
+![10%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/attention_is_all_u_need_sin.png)
 
 Considering the periodic nature of stock price fluctuations, similar methods might find application in quantitative trading.
 
@@ -77,7 +77,7 @@ $$
 
 The shape of the graph is primarily determined by parameter $b$. When $b=15$, the graph is as follows:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/scaled_sigmoid_b_15.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/scaled_sigmoid_b_15.png)
 
 The distribution range is $[-1, 1]$, with high distribution density when $x$ is in $[0, b]$.
 
@@ -114,6 +114,6 @@ ax4.plot(x, [sigmoid(i) for i in x])
 ax4.set_title("fit (0,100) with original")
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/scaled_sigmoid.png)
 
 As seen in the graph above, compared to the original sigmoid, the new `scaled_sigmoid` function exhibits excellent response sensitivity within the $[start, end]$ interval, where the distribution density is highest.

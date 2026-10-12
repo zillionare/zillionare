@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/06-numpy核心语法-5
 auto_translated: true
 source_sha: f26f76b4ef7cb14ee951898cfd31971a27535864
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg"
 ---
 
 “Handling dates and times has never been simple. Issues like time zones, daylight saving time, and leap seconds complicate time calculations. NumPy provides efficient datetime tools to help us easily tackle these challenges.”

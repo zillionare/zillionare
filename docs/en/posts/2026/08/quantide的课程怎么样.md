@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/quantide的课程怎么样
 auto_translated: true
 source_sha: 14c48bf961ef71eb7dad45350be2b7aa05062103
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg"
 ---
 
 I’ve been exploring the intersection of LLMs and quantitative finance, which led me to Quantinsti’s *LLM Trading Strategies* course. With a list price of $934, it’s a premium offering.

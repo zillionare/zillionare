@@ -8,10 +8,10 @@ lang: en
 translation_of: posts/factor-strategy/first-level-derivation
 auto_translated: true
 source_sha: 61216f6f8e8f2ea889f635357c1b247feb7f261c
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png"
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png)
 
 This article draws inspiration from John Ehlers, a former engineer at Lockheed Martin who worked on NASA rocket programs. With a deep background in digital signal processing (DSP), Ehlers invented Maximum Entropy Spectral Analysis (MESA) for oil exploration, providing high-resolution visualization of short-lived seismic echoes.
 
@@ -48,14 +48,14 @@ plt.plot(np.arange(100), y)
 This generates the following graph:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/advance-synthetic-wave.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/advance-synthetic-wave.jpg'>
 <span style='font-size:0.6rem'>Fig 1. Oscillating Upward Trend</span>
 </div>
 
 In fact, we have synthesized an Elliott-driven impulse wave:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/elliot-wave.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/elliot-wave.jpg'>
 <span style='font-size:0.6rem'>Elliott Upward 5-Wave</span>
 </div>
 
@@ -71,7 +71,7 @@ plt.plot(x, y)
 ```
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/m-top.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/m-top.jpg'>
 <span style='font-size:0.6rem'>Fig 2. Double Top</span>
 </div>
 
@@ -85,7 +85,7 @@ plt.plot(x, y)
 ```
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/header-shoulders.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/header-shoulders.jpg'>
 <span style='font-size:0.6rem'>Fig 3. Head-and-Shoulders Top</span>
 </div>
 
@@ -131,7 +131,7 @@ inference_and_plot(x[60:], y[60:])
 ```
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/double-top-and-inference.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/double-top-and-inference.jpg'>
 <span style='font-size:0.6rem'>Fig 4. Double Top Inference</span>
 </div>
 
@@ -174,7 +174,7 @@ plt.show()
 
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/derivative-sine.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/derivative-sine.jpg'>
 <span style='font-size:0.6rem'>Fig 5. Relationship Between Derivative and Original Function</span>
 </div>
 
@@ -196,7 +196,7 @@ In our *Factor Analysis and Machine Learning Strategies* course, we will convert
 The course assistant is waiting for you here!
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/promotion.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/promotion.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -232,14 +232,14 @@ I conducted factor testing on 2,000 randomly selected individual stocks from 201
 The cumulative annualized return chart over the 6 years is as follows:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/first-derivative-cum-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/first-derivative-cum-returns.jpg'>
 <span style='font-size:0.6rem'>Fig 6. Cumulative Returns Chart</span>
 </div>
 
 These returns have not yet been optimized. In fact, from the mean layered returns chart below, optimization is possible.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/first-derivative-mean-quantile-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/first-derivative-mean-quantile-returns.jpg'>
 <span style='font-size:0.6rem'>Fig 7. Mean Layered Returns Chart</span>
 </div>
 
@@ -250,7 +250,7 @@ Even for a pure long-only strategy, the annualized Alpha of this factor reaches 
 **Factor construction and verification code** will be available after joining the community.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -259,7 +259,7 @@ Even for a pure long-only strategy, the annualized Alpha of this factor reaches 
 John Ehlers proposed a method for finding cycles in [this article](https://www.mesasoftware.com/papers/RECURRING%20PHASE%20OF%20CYCLE%20ANALYSIS.pdf).
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/instantaneous-derived-cycle.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/instantaneous-derived-cycle.jpg'>
 <span style='font-size:0.6rem'>Fig 8. John Ehlers's Recurring Phase Analysis</span>
 </div>
 
@@ -305,5 +305,5 @@ plt.legend(lines, labels, loc="upper left")
 After performing FFT on the time series in Fig 1, removing the DC component, and inverse-transforming back, comparing the two yields a graph like this:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-remove-dc.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-remove-dc.jpg'>
 <span style='font-size:0.6rem

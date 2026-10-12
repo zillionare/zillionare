@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/昨天应该涨多少？Tushare和东财还没商量好
 auto_translated: true
 source_sha: db5f00379fd4991b1780ae2c5dc636c5b943f4b5
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/24.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/24.jpg"
 ---
 
 I’m currently building a quantitative framework for personal use, sourcing data from **Tushare** and using **QMT** for real-time market data and trading APIs. While testing a strategy, I noticed that signals weren’t triggering when they should have. This led to a debugging journey that uncovered a startling issue: even the most basic daily return data was inconsistent.
@@ -47,7 +47,7 @@ df_ts
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124170919.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124170919.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -60,7 +60,7 @@ However, when I compared these returns with those from East Money (Dongfang Caif
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/a02d1071b2d08d2e279f379dfe92b71e.jpg"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/a02d1071b2d08d2e279f379dfe92b71e.jpg"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -97,7 +97,7 @@ df_ts[cols]
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180058.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180058.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -142,7 +142,7 @@ compare(df_ts, "pct_chg", "pct_chg_v2", title="Comparison of Original vs Adjuste
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180334.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124180334.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -196,7 +196,7 @@ This gives us the various return series under AkShare.
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124182423.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124182423.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -213,7 +213,7 @@ compare(df_ak, "ak_qfq", "pct_chg", df_ts, title="Ak Forward-Adjusted vs Tushare
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183301.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183301.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -240,7 +240,7 @@ From the left chart, we can see that only two points differ.
 <!-- BEGIN IPYNB STRIPOUT -->
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183939.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124183939.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
@@ -275,7 +275,7 @@ df_ts.adjust.plot()
 
 <figure style="width: 66%; margin: 0 auto 1rem; padding: 0;">
   <img
-    src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124185710.png"
+    src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251124185710.png"
     style="width: 100%; height: auto; display: block; margin: 0 auto;"
   >
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">

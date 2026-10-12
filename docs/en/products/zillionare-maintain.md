@@ -16,7 +16,7 @@ After installing Zillionare, the database is initially incomplete due to various
 
 When building the Zillionare Docker container, we only packaged 30-minute and higher timeframe data from January 2022 to February 2023 for backtesting research purposes. Consequently, your database lacks comprehensive coverage immediately after installation. A fully covered dataset should include all minute-level and higher data (i.e., 5, 15, 30, 60 minutes, daily, weekly, and monthly bars) starting from January 2005.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/02/data-sync-pointer.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/02/data-sync-pointer.jpg)
 
 We determine the synchronized data range and the range requiring synchronization using the `epoch_start`, `sync_head`, and `sync_tail` pointers (located in Redis database, db1) along with the current time, as shown in the image above. When we released the Zillionare container, we set `sync_head` to `epoch_start`. Therefore, once you configure your JoinQuant account, data synchronization will prioritize catching up on data from December 30, 2022, to the present. Once this data catch-up is complete, you can modify the head pointer in the Redis database to align with the actual starting point of the data in InfluxDB. At this stage, Zillionare will use your remaining daily quota to backfill data until it reaches `epoch_start` (i.e., January 4, 2005). If you no longer need data earlier than a certain point after synchronizing a sufficient amount, you can reset the pointer back to `epoch_start` to halt synchronization.
 

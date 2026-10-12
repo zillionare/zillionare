@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 2f3fa2be52ccc317ffebbb08f73e26f9f3c8f565
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/structual-modeling-herd-behaviour.png)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/structual-modeling-herd-behaviour.png)
 
 In previous notes, we've repeatedly paired modern finance theory with popular China A-shares sayings, market lore, and lessons from star influencers — we jokingly call it the Sinicization of modern finance theory. This note continues that thread, covering the herd effect: how it shows up in China A-shares, how to factorize it, and more.
 
@@ -28,7 +28,7 @@ In investing, the herd effect is at work almost all the time. Even in value inve
 
 In 1995, Christie and Huang published the first empirical study of market-wide herd behavior. They found no evidence of herding in the US, Japanese, and Hong Kong markets, but found fairly conclusive evidence in Taiwan and South Korea.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/herd-behaviour.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/herd-behaviour.png)
 
 As a quant blogger, I care more about how to turn this effect into factors. Here are a few related ones.
 
@@ -48,7 +48,7 @@ accounts_df
 
 This gives us investor account data going back to April 2015.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/investor-account.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/investor-account.jpg)
 
 In the returned table, one column holds the data date in a format like "2015-04", which we need to convert into a proper date format.
 
@@ -95,7 +95,7 @@ fig.show()
 
 The relationship looks like this:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/20231227214221.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/20231227214221.png)
 
 ---
 
@@ -121,7 +121,7 @@ The output looks like this:
 
 ---
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hot_rank_detail_realtime.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hot_rank_detail_realtime.jpg)
 
 The data here is rich enough. Whether it can work as a factor is something you can test with Alphalens.
 

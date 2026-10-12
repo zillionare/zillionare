@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-1027
 auto_translated: true
 source_sha: 7861459f6fcea24e1d642a667b6e46d5603343e8
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 
 ### This Week’s Highlights
@@ -48,7 +48,7 @@ Therefore, before the rally, the "main force" (market makers/institutional inves
 
 This article addresses the quantitative implementation: How can we rapidly detect washout patterns?
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/washout-1.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/washout-1.jpg)
 
 Violent washout is an empirical pattern observed in securities markets and lacks a strict definition. Generally, a pattern of "two bullish candles sandwiching one bearish candle" with significant price swings is considered a violent washout.
 
@@ -110,7 +110,7 @@ The result generates an array composed of 1s and -1s. Whether up or down, we alw
 
 The following image shows an example of a high-open bearish candle washout:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/washout-with-high-open.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/washout-with-high-open.jpg)
 
 When judging whether the price swing or body amplitude of each bar exceeds the threshold, we use a simple trick: using `np.maximum` to select the maximum value from **multiple** arrays in an `element-wise` manner. That is, if there are arrays $A$ and $B$, then $np.maximum(A, B)$ returns an array where each element is the larger of the corresponding elements in $A$ and $B$.
 

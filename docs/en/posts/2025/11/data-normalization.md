@@ -8,19 +8,19 @@ lang: en
 translation_of: posts/algo/data-normalization
 auto_translated: true
 source_sha: cb46fa42dbbbe8ec9ade5c466cb05f36bce60bcc
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg"
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127215232.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127215232.png)
 
 **Student Question:** I am new to machine learning in trading and have been testing various preprocessing steps. One model suddenly performed far better than any I had previously built, with the only major change being how I standardized the data (Z-score vs. Min-Max vs. L2). I am confused: why does a simple standardization adjustment create such a massive difference? Is there a problem here?
 
 Here is his backtest report:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127143830.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127143830.png)
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127144804.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127144804.png)
 
 
 At first glance, this report shows no obvious issues. But as the old Wall Street saying goes: *“If it looks too good to be true, it probably is.”*
@@ -42,11 +42,11 @@ First, we must simulate reasonable daily return distributions based on the asset
 
 This is our simulated daily return distribution:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213831.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213831.png)
 
 Based on these simulated return data, we can plot the relationship between annualized returns and Sharpe ratios, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213318.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251127213318.png)
 
 You might argue that a daily return mean of 0 and a scale of 0.02 are more reasonable. In this case (lower volatility), if the strategy’s Sharpe reaches 4, the median annualized return would be 120%, which is still excessively high.
 

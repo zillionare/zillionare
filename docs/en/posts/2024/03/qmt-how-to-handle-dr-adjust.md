@@ -165,7 +165,7 @@ We set EPOCH to January 4, 2005 — the year China's split-share reform kicked o
 
 The core idea is simple: dd['dr'] is sparse, timestamped data. First we expand it into a dense series:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/convert-dr-factor.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/convert-dr-factor.jpg)
 
 ---
 

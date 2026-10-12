@@ -4,7 +4,7 @@ title: "花 930 美元买一门量化课? GPT 如何评估量化课程值不值"
 date: 2026-08-31
 categories: uncategory
 tags: [llm, quant, 课程, quantinsti, finbert]
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg
 excerpt: 花 934 美元参加 Quantinsti 的《llm-trading-strategies》值不值？用 GPT 逐模块评估后结论：课程核心还是 2019 年的 FinBERT 金融情绪分析，最多算 Financial NLP，称不上 2026 年的 LLM Trading。年已淘汰，不建议购买。
 ---
 

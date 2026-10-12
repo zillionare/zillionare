@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/2026十大量化技术/sqlite
 auto_translated: true
 source_sha: f5cf930b08fdad06649c640c32f5a0594f0e6ca3
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg"
 ---
 
 Many people (including myself) hold a misconception about SQLite: first, it’s a toy; second, it’s unsuitable for production environments.
@@ -16,7 +16,7 @@ Many people (including myself) hold a misconception about SQLite: first, it’s 
 In reality, SQLite is an exceptional database. In 2025, it ranked second only to PostgreSQL in popularity and remains the most widely used database globally.
 
 <div style='width:90%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -46,7 +46,7 @@ More critical than performance pressure is the support for concurrent read/write
 You might receive an answer like this:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231110246.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231110246.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -238,7 +238,7 @@ In the fifth line, we print all data in the `users` table.
 
 !!! tip
     You might wonder: if we insert a new object containing "gender" and "age" fields after line 5, how would `sqlite-utils` handle it? Internally, `sqlite-utils` detects the change in table structure and automatically calls the `transform` method to complete the new table structure definition and data migration. See the figure below.
-    ![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231153523.png)
+    ![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231153523.png)
 
 ---
 
@@ -372,7 +372,7 @@ This part shares conceptual similarities with the Pydantic section introduced in
 
 In places where built-in syntax can be used, I prefer **using only built-in syntax, avoiding third-party libraries**. Do not add entities unnecessarily.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231194006.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251231194006.png)
 
 ## SQLite-Utils CRUD Operations
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/11-pandas核心语法-1
 auto_translated: true
 source_sha: c0e4a6c3193fa7489d4ba37ea24bd2ce6fb3054d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png"
 ---
 
 Pandas holds a central position in quantitative trading. Many data sources returning data via Python SDKs typically output `pandas.DataFrame` objects. Factor analysis libraries like Alphalens and performance evaluation tools like empyrical rely heavily on Pandas.
@@ -36,7 +36,7 @@ obj
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/003.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/003.png)
 
 Converting a Python list directly via `pd.Series()` generates an integer index starting from 0 by default.
 
@@ -48,7 +48,7 @@ obj = Series({"a": 4, "b": 3, "c": 2, "d": 1})
 obj
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/004.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/004.png)
 
 ---
 
@@ -65,7 +65,7 @@ obj = Series([90, 85, 92], index=["数学", "英语", "物理"], dtype="float64"
 obj
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/005.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/005.png)
 
 ### 1.2.4. Creating Series with Timestamp Indices
 Generate time-series data:
@@ -76,7 +76,7 @@ s = Series([100, 200, 300, 400], index=dates)
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/006.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/006.png)
 
 ### 1.2.5. Querying Array Values and Index Objects
 You can retrieve the underlying array values and index objects using the `array` and `index` attributes of a `Series`:
@@ -87,7 +87,7 @@ print("索引对象：{}", obj.index)
 ```
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/007.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/007.png)
 
 Unlike NumPy arrays, `Series` allows selection of individual or grouped values via index labels:
 ```python
@@ -107,7 +107,7 @@ print(obj * 2)
 print(np.exp(obj))
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/008.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/008.png)
 
 ---
 

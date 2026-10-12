@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/python/pypinyin
 auto_translated: true
 source_sha: e3dd4d718080bb248de8873bbe346c4b75bb6a22
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/pypinyin.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/pypinyin.png"
 ---
 
 Searching securities by pinyin initials is a niche feature only a handful of quants will ever need — but once you've used it, you can't live without it. Type `ZGPA` and you instantly get Ping An Insurance (中国平安) or its ticker. It's standard in every market-data terminal.

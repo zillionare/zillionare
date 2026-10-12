@@ -1,7 +1,7 @@
 ---
 title: "Build a 10x Faster QMT Real-Time Data System with Multi-Client Support"
 date: 2025-06-15
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154448-cover-posts-2025-06-8_QMT实时分钟线数据订阅系统.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154448-cover-posts-2025-06-8_QMT实时分钟线数据订阅系统.md.jpg"
 slug: en/posts/tools/21天驯化AI打工仔/8_QMT实时分钟线数据订阅系统
 tags: [Quantitative Trading, Real-Time Data, QMT, System Architecture]
 excerpt: "Transform a fragile prototype into a high-performance, 10x faster real-time minute-bar data subscription system using QMT’s whole-market API and Redis Streams for robust multi-client consumption."
@@ -74,7 +74,7 @@ After deep thinking, we outlined the following key requirements:
     5. Real-time tick data acquisition interface
     `xtdata.get_full_tick(stock_list)`
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_02.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_02.png)
 
 ### Connection and Control Interfaces
 !!! tip
@@ -87,7 +87,7 @@ After deep thinking, we outlined the following key requirements:
     3. Cancel subscription
     `xtdata.unsubscribe_quote()`
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_03.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_03.png)
 
 ### Technical Architecture Design
 
@@ -546,7 +546,7 @@ class EnhancedDataConsumer:
 !!! question
     Why is the success rate in the logs not 100%?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_12.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_12.png)
 
 007 provided the following answer.
 
@@ -711,7 +711,7 @@ FROM minute_bars
 WHERE frame >= now() - INTERVAL 3 MINUTE;
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_05.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_05.png)
 
 "Fantastic!" I said excitedly, pointing at the query results. "Look:
 - **Real-Time Verification**: 5,434 records within the last 3 minutes.
@@ -724,7 +724,7 @@ WHERE frame >= now() - INTERVAL 3 MINUTE;
 !!! question
     If I want to support multiple clients (e.g., 5) consuming the same Redis data simultaneously, how should I design the solution?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_11.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_11.png)
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -746,7 +746,7 @@ WHERE frame >= now() - INTERVAL 3 MINUTE;
               └─────────────────┘              └─────────────────┘              └─────────────────┘
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_06.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_06.png)
 
 007 kindly provided the following solution:
 
@@ -880,17 +880,17 @@ class MultiClientDataConsumer:
 ### Implementation Effect
 
 We designed a multi-client consumer management page. When no input is provided, it returns the real-time price of Ping An Bank:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_10.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_10.png)
 
 #### 1. View Consumer Status
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_07.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_07.png)
 
 #### 2. View Statistics
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_08.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_08.png)
 
 #### 3. Stop Consumer
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_09.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/8_09.png)
 
 ### Summary
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/ml-predict-peaks-valleys-1
 auto_translated: true
 source_sha: be163e5ec302ee05e20047f2bf88248f1d72964f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/cmu.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/cmu.jpg"
 ---
 
 In the previous article, we labeled tops and bottoms on the CSI 1000 index. In this post, we'll use that labeled data to predict tops and bottoms with machine learning, and explore some of the underlying ML principles.
@@ -20,7 +20,7 @@ Their conclusion was that a composite factor built from variants of these two in
 ---
 
 !!! info
-    ![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/tqchen.jpg)
+    ![L33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/tqchen.jpg)
     In this experiment, we will use XGBoost.
     
     It was developed by Tianqi Chen, a 2006 graduate of Shanghai Jiao Tong University's ACM Class and a PhD from the University of Washington. He is now an assistant professor at Carnegie Mellon University.
@@ -31,7 +31,7 @@ Their conclusion was that a composite factor built from variants of these two in
 
 As mentioned last time, machine learning always reduces problems to two types: regression and classification. If the target to be predicted lives in a continuous real-valued space, it is usually a regression problem; if the target takes values from a finite set of discrete states, it is a classification problem.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/regression-vs-classification.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/regression-vs-classification.jpg)
 
 In practice, though, things are always more complicated. Beginners often assume that because stock prices live in a continuous real-valued space, predicting prices must be a regression problem to be solved with a neural network like LSTM. In reality, given the noise in financial data, that approach doesn't make much sense.
 
@@ -57,7 +57,7 @@ However, GPU acceleration for XGBoost is nowhere near as dramatic as it is for C
 
 After labeling tops and bottoms, we already have data in the following format:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/label-data-example.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/label-data-example.jpg?1)
 
 This file includes labels (the flag column), but not the feature-engineered data we need. So we first have to extract features from OHLC data.
 
@@ -65,7 +65,7 @@ We'll start with the simplest features — upper/lower shadows and a variant of 
 
 Their conclusion was that a composite factor built from the tr variant of these two indicators, tested on the full A-share universe from 2009 to April 2020 with a 5-group layered long-short backtest, delivered **an annualized return of 15.86% with a max drawdown of only 3.68%** — a remarkably strong signal.
 
-![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/东吴证券-ubl-因子表现.jpg)
+![66%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/东吴证券-ubl-因子表现.jpg)
 
 Building on that foundation, we'll redo it with machine learning. Here is how we extract the upper/lower shadows and WR:
 
@@ -201,7 +201,7 @@ sns.heatmap(mx/np.sum(mx), cmap="YlGnBu",
 
 We'll get a chart like this:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/confustion-matrix.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/confustion-matrix.jpg)
 
 This chart shows: about 3.8% of class-0 data was misclassified as label 1; about 3.2% of class-2 data was misclassified as label 1; all class-1 data was correctly classified as 1.
 

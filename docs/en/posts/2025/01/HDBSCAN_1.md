@@ -8,10 +8,10 @@ lang: en
 translation_of: posts/algo/HDBSCAN_1
 auto_translated: true
 source_sha: 2718043913db6c00585e7fb56442364f9cce7cf4
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-by-ai.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/quantfan-by-ai.jpg"
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112164819.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112164819.png)
 
 The previous article introduced using the HDBSCAN algorithm to cluster assets. After clustering, we perform cointegration tests on the results. By calculating hedge ratios, we can construct stationary sequences. We know that a stationary time series has constant mean and variance with autocorrelation properties. Consequently, once it deviates from the mean, it will eventually revert to it. We can leverage this characteristic to generate trading signals.
 
@@ -54,24 +54,24 @@ fig_tsne.show()
 ```
 
 After importing the necessary libraries and running the code, we obtain the following 3D visualization:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112155220.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112155220.png)
 
 The 3D plot displays the spatial distribution of stocks in three dimensions, with different colors representing distinct clusters. From the visualization, we observe that the 2,000 stocks during this period were divided into over 40 clusters. Aside from Cluster 39, which contains 420 stocks, all other clusters contain fewer than 20 stocks.
 
 Let’s analyze Cluster 35, which contains three stocks. As shown in the chart below, these three stocks exhibited a sustained upward trend starting around October 1, 2022.
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112155727.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112155727.png)
 
 Can we continue using HDBSCAN to cluster data from before October 2022 to see if these three stocks are grouped together? Using the same code but adjusting the time range to January 1, 2022, to October 1, 2022, we obtain the following 3D plot:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112161023.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112161023.png)
 
 Compared to the previous 3D plot, the stocks (features) grouped into a single cluster are more similar, resulting in denser aggregation. Will the three stocks from Cluster 35 still be grouped together? We can visualize every cluster (using the same method as in the previous article) to observe which cluster these three stocks fall into. Upon inspection, we find that these three stocks are indeed grouped together, but this cluster contains approximately 600 stocks. Let’s examine the visualization for these 600+ stocks:
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112162525.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112162525.png)
 
 We want to understand what characteristics these three stocks exhibit before their sustained upward trend. Although the data volume for this large cluster is substantial, observing the trend charts reveals that their price movements are roughly identical, which is why they are grouped together.
 
 Next, we re-cluster these 600+ stocks using HDBSCAN to see if the original three stocks are grouped together again. This step verifies whether the general trend of the three stocks was consistent before their sustained rise. Interested readers can try this themselves; below are the conclusions from my validation:
 
 When re-clustering these 600 stocks from January 2022 to October 2022, they were divided into three clusters. Two of the original three stocks were grouped together, while the third was in a different cluster. I believe this result sufficiently demonstrates that the trends of these 600 stocks between January 2022 and October 2022 were similar, explaining why they were only divided into three clusters.
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112173612.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/01/20250112173612.png)
 
 Thus, the HDBSCAN algorithm is effective for stock selection. It identifies groups with similar trends, allowing us to use the stationary sequence construction method described in the previous article to generate trading signals.

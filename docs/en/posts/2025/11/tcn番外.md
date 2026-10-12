@@ -1,7 +1,7 @@
 ---
 title: "TCN Postscript: Why High Win Rates Fail in Live Trading"
 date: 2025-11-26
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154112-cover-posts-2025-11-tcn番外.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154112-cover-posts-2025-11-tcn番外.md.jpg"
 slug: en/posts/algo/tcn/tcn番外
 tags: [Deep Learning, Factor Investing, Backtesting, Quantitative Trading]
 excerpt: "This article explores why deep learning models like TCN and XGBoost often fail in live trading despite excellent backtest results, highlighting issues like non-stationarity, calendar misalignment, and overfitting."

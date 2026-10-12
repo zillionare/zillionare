@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/resources/a-palette-of-colorful-websites
 auto_translated: true
 source_sha: 2392d8d7698ad639a0659b431683e25b643f5206
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/colors.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/colors.jpg"
 ---
 
 Creating presentations in PowerPoint can be exhausting due to the complexity of animating slides. That’s why I discovered Slidev. While Slidev is excellent, it requires manual color selection, which led me down a rabbit hole of color exploration.
@@ -19,7 +19,7 @@ Today, I’m sharing some of the most vibrant websites I’ve used for color ins
 
 ## Adobe Color
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/adobe-color.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/adobe-color.jpg)
 
 First is the most renowned, [Adobe Color](https://color.adobe.com/).
 
@@ -29,7 +29,7 @@ It leverages color theory to provide common color combinations and their transfo
 
 I was particularly fond of the stage design for the "Only This Green" performance during the Spring Festival Gala. It features a classic Chinese color palette. You can find similar palettes on [Zhongguose](https://www.zhongguose.com/).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/zhongguose.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/zhongguose.jpg)
 
 Its colors are drawn from scenes and objects familiar to Chinese people. The names alone evoke a sense of ancient elegance and beauty. Examples include "Distant Mountain Green," "Albizia Red," "Amaranth Red," and "Dark Plum Purple," instantly transporting you back to childhood memories. The highest level of art is to create emotional resonance and synesthesia with people. These designers truly understand design.
 
@@ -39,13 +39,13 @@ Its colors are drawn from scenes and objects familiar to Chinese people. The nam
 
 Indeed, color is a subjective and emotional matter. If it feels right, it’s right; it’s not a precise numerical game. Instead of meticulous planning, sometimes it’s better to follow intuition.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/coolors.co.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/coolors.co.jpg)
 
 ## Colorion
 
 [Colorion](https://colorion.co/) is similar to Coolors, offering pre-generated high-quality color combinations.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/colorion.co.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/colorion.co.jpg)
 
 If you’re tired of Coolors, you can try your luck here.
 
@@ -53,7 +53,7 @@ If you’re tired of Coolors, you can try your luck here.
 
 Gradients often create a dreamy and enchanting effect. This is the tempting beauty that [Web Gradients](https://webgradients.com/) can offer.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/web-gradients.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/web-gradients.jpg)
 
 ## 0to255
 
@@ -65,4 +65,4 @@ However, many people, including myself, highly value the "Less is more" philosop
 
 The 0to255 website embodies this design concept. It uses only one color, varying saturation and brightness to create combinations with different depths and tones. It is both concise and rich.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/0to255.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/0to255.jpg)

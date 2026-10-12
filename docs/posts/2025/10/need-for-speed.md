@@ -2,7 +2,7 @@
 slug: posts/uncategory/need-for-speed
 title: 外资高频量化巨头被中国海关调查，硬件竞速的末路狂奔！
 date: 2025-10-11
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/11.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/11.jpg
 excerpt: 近期，三家外资高频量化巨头被海关调查。这一事件揭开了高频交易领域一个公开的秘密：硬件竞速。本文盘点了高频量化的那些招数。
 category: 其它
 tags: [高频交易,新闻]

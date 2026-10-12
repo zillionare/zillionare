@@ -24,7 +24,7 @@ Later in this book, we will cover CI/CD, which relies heavily on container techn
 
 If these reasons do not persuade you, consider how experienced developers choose their OS. The following figure is from a 2022 StackOverflow[^stackoverflow] survey:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304160004.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304160004.png)
 
 The numbers to the right of each item indicate the percentage of respondents using that OS. Combining the usage of Linux itself with WSL (Windows Subsystem for Linux, a Linux variant), professional users’ share reaches 54.23%, exceeding those using Windows as their development platform (48.82%). Linux is now the top-ranked OS.
 
@@ -56,12 +56,12 @@ This installs WSL v1 on your machine. For slightly older systems, follow these s
 
 1. First, enable the "Windows Subsystem for Linux" feature:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503185200[1].png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503185200[1].png)
 
 2. After configuration, restart your computer.
 3. Search for and install a Linux distribution from the Microsoft Store. In this example, we use Ubuntu:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503191417[1].png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503191417[1].png)
 
 Now, typing "Ubuntu" in the search bar opens the Ubuntu shell. Since it is the first run, you will be prompted to enter a username and password. WSL is now installed. You can subsequently launch it by typing `wsl` in the search box.
 
@@ -73,7 +73,7 @@ Our customization will achieve two functions: first, allowing the WSL virtual ma
 
 We need to write three scripts: `start.vbs`, `control.bat`, and `commands.txt`, and add a scheduled task for automatic startup. When Windows starts, this task executes `start.vbs`, which calls `control.bat`. `control.bat` then starts WSL (and its dependent Windows services) and executes commands defined in `commands.txt` within the WSL environment—such as starting the SSH server. The entire process is illustrated below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304153221.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304153221.png)
 
 First, define the background services to run in WSL in the `commands.txt` file:
 
@@ -140,9 +140,9 @@ Set UAC = Nothing
 
 Finally, add a new startup task to the Task Scheduler:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215338.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215338.png)
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215237.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215237.png)
 
 Note that Ubuntu installed via the Microsoft Store should already have `ssh-server` installed. The steps above merely configure it to start with WSL. If you find that `ssh-server` is not installed in your WSL, you can install it manually. After all, it is a Linux server, and you can install most Linux software on it.
 
@@ -150,7 +150,7 @@ By applying this solution, you will have two operating systems running simultane
 
 At the time of writing, WSL 2.0 has a preview version supporting graphical interfaces, called [wslg](https://github.com/microsoft/wslg). This version will eventually merge into WSL and be released with Windows. The following image shows a rendering of the wslg graphical interface:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png)
 
 Although this is unrelated to the main theme of this book, it provides another reason to use Linux. Even Microsoft is taking Linux seriously[^Linux]; are you still using Windows for development?
 
@@ -160,11 +160,11 @@ WSL appeared later than Docker. If you purchased your machine earlier, your Wind
 
 Download Docker from its official website[^docker]. After installation, you must manually start it for the first run. Search for "Docker" in the search box and select "Docker Desktop" to start it, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108docker-app-search.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108docker-app-search.png)
 
 When Docker starts, a notification icon appears in the system tray:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108whale-icon-systray.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108whale-icon-systray.png)
 
 The third icon, a whale, indicates that Docker is running. Clicking it opens the management interface. Initial setup requires configuration; refer to the official documentation.
 
@@ -214,11 +214,11 @@ VS Code is a multi-language editing and development platform that provides basic
 
 After installing VS Code, a toolbar appears on the sidebar as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145433.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145433.png)
 
 The icon circled corresponds to extension management. The upper rectangular box can be used to search for an extension. After finding the corresponding extension and clicking it, you can see its detailed information in the right window, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145930.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145930.png)
 
 This detailed information page provides an installation button.
 
@@ -244,13 +244,13 @@ Jupyter is an extension that allows you to read and develop notebooks in VS Code
 
 After installing the Python extension, you can begin Python development. Before development, you need to select a Python interpreter for the project. This can be done by entering `Python: Select Interpreter` in the command palette or clicking the selection icon in the status bar, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210806163607.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210806163607.png)
 
 #### 3.2.2. Remote - SSH
 
 This is a highly useful extension, one of Microsoft’s official offerings. It allows you to directly open folders on a remote machine in VS Code, edit, and debug them. If you have used IDEs like PyCharm, you know that although they support remote development, they create files locally and sync them to the remote machine before debugging. Frequent syncing reduces efficiency and often leads to inconsistencies due to failed syncs, wasting time troubleshooting. This is a key advantage of VS Code over PyCharm.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145039.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145039.png)
 
 After installing this extension, a remote connection icon appears on the sidebar. If currently connected to a remote machine, the status bar’s leftmost side displays summary information about that connection.
 
@@ -266,18 +266,18 @@ To implement these features, we need to install further extensions, starting wit
 
 #### 3.2.3. GitLens
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306194047.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306194047.png)
 
 GitLens is powerful and commonly used in team development. Its features include:
 
    1. Quick navigation through file modification history.
    2. Displaying blame information on code lines, as shown below:
     
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108hovers-current-line.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108hovers-current-line.png)
 
    3. Gutter changes, as shown below:
       
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20210820210809160826.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809160826.png)
 
     Gutter changes refer to the lines on the right side of the line numbers in the editor area, indicating changes in the current region. Clicking this line pops up a window showing the change history of the current region, allowing you to rollback or commit changes. This function is essentially Git’s interactive staging feature, which is less user-friendly in the command line.
     
@@ -285,7 +285,7 @@ GitLens is powerful and commonly used in team development. Its features include:
 
    4. GitLens provides a rich toolbar in the sidebar, as shown below:
 
-     ![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
+     ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
 
 With these toolbars, you no longer need to memorize many Git commands, and the results of these commands are displayed visually, which is more efficient than the console interface. These toolbars provide views for commits, repositories, branches, file history, and tags.
 
@@ -297,11 +297,11 @@ Programmers who frequently use PyCharm will not forget its Git commit dialog. Re
 
 Here we recommend an extension named `git-commit-plugin`:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195918.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195918.png)
 
 This extension categorizes commit messages and adds emoji icons to each category, allowing us to identify categories more quickly:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926101451.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926101451.png)
 
 Correctly categorizing code is a crucial task. If we correctly categorize every code submission, we can automatically generate release notes for new versions based on these historical submission messages. The generated release notes may require slight modification but will absolutely avoid omitting important changes.
 
@@ -328,13 +328,13 @@ PyCharm provides a very useful local file history feature. In VS Code, this func
 
 Readers can install this extension:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195816.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195816.png)
 
 Note that this extension generates a folder named `.history` in the workspace to store local file history. This folder must be added to the `.gitignore` file; otherwise, you may commit this folder to the code repository, which is a lot of junk!
 
 The following figure shows how this extension tracks code changes:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926114236.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926114236.png)
 
 #### 3.2.7. Code Assistance and Auto-Completion
 
@@ -355,7 +355,7 @@ For program development, since syntax rules can be leveraged, these suggestions 
 
 Now, with the加持 of artificial intelligence, code assistance has evolved to an astonishing degree. In fact, this book was completed with the help of Github Copilot[^Github Copilot]. Let’s look at this example:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926150605.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926150605.png)
 
 Based on previous inputs, Copilot automatically generates a grammatically correct sentence (displayed in gray in the figure above), which is quite harmonious with the context. I do not intend to use the words it suggests here (mainly because I worry readers may not want to read a machine-written book), but I must admit that unless writing poetry, we do not need to agonize over every word as ancients did. Articles do not need to be meticulously crafted in every sentence; sometimes, it is perfectly fine to use Copilot’s suggested phrases for transitions. More often, when writing articles, Copilot can help open up ideas, which is undoubtedly beneficial.
 
@@ -366,8 +366,8 @@ There are many other extensions for VS Code. For example, if our project uses fi
 Besides extensions, VS Code has other customization options, such as themes. If you work in front of a computer for long periods, we recommend installing so-called "night mode" themes. Among these themes, Dracula PyCharm Theme is quite interesting. The theme’s name comes from Count Dracula, a character from Bram Stoker’s同名 novel—a bloodthirsty vampire who targets young women. The novel was adapted into movies multiple times. Considering that vampires only come out at night, using this name for a dark mode theme is apt.
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>
@@ -386,7 +386,7 @@ This method is called exploratory programming: exploratory work重于 following 
 
 Jupyter Notebook is a powerful tool for exploratory programming. It provides a web-based editor and runtime environment where user inputs are organized into cells; each cell can be a code cell or a text cell. Code cells also allow for output results, which can be text, charts, or images, as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926164037.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926164037.png)
 
 A running Notebook can be seen as a process, where variables and functions defined in the code cells of this Notebook have global scope, and each code cell can be executed individually. This mode has its extremely convenient aspects; you can run code in the Notebook at any time and switch between different code cells—whether exploring data characteristics or exploring the functionality of a new library becomes very easy.
 
@@ -396,7 +396,7 @@ Currently, the developers of Jupyter Notebook are promoting Jupyter Lab to repla
 
 Spyder[^spyder] is an open-source programming environment designed specifically for scientists, data analysts, and engineers. It combines the advanced editing, analysis, debugging, and profiling functions of an IDE with the unique combination of data exploration, interactive execution, deep inspection, and beautiful visualization functions of scientific libraries. We can easily see this from its interface:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202109/20210927163158.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210927163158.png)
 
 Spyder is included in the Anaconda distribution, so once Anaconda is installed, you can directly use Spyder to write Python code. Its official website also provides standalone installation packages for download.
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2
 auto_translated: true
 source_sha: d89982c68b3977a6ca608d7af264191b8f458085
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/ucl-wilkins-building.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/ucl-wilkins-building.jpg"
 ---
 
 &nbsp;
@@ -33,7 +33,7 @@ Today we'll look at how MAPE is used in the paper. We'll use it as an opportunit
 
 In machine learning, there are two important classes of functions: **objective functions, also known as loss functions**, and **metrics**.
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gradient-descent.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/gradient-descent.jpg)
 
 The loss function drives training. During training, methods like gradient descent keep pushing the loss lower until it cannot go any lower — at which point training is done.
 
@@ -41,7 +41,7 @@ Once training is finished, the model is tested on a test set, and its prediction
 
 sklearn provides a large collection of loss functions and metrics. The figure below shows a subset of what sklearn offers:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/sklearn-loss-metrics.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/sklearn-loss-metrics.jpg)
 
 Notice that there are far more metrics than loss functions. Why?
 
@@ -127,7 +127,7 @@ Also, the paper trains one model per stock. But what if you used a single model 
 
 ## Conclusion
 
-![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-wear-book.png)
+![L33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-wear-book.png)
 
 For most quants, building a machine learning framework from scratch like Chen Tianqi did is out of reach. So to get better results from the same model, the only levers are **data labeling, objective functions, evaluation functions, and hyperparameter tuning**. That usually demands both deep domain knowledge and a solid understanding of how the model actually works.
 

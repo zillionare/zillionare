@@ -4,7 +4,7 @@ date: 2024-08-06
 category: factors
 slug: posts/factor-strategy/growing-star-market-weights
 motto: 一只简简单单跟踪美股市场的基金<br>能够击败任何一位自信满满的对冲基金经理
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065527-download.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065527-download.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: []
@@ -27,7 +27,7 @@ excerpt: "周一，巴菲特二季度大幅减仓、持有现金量超历史的�
 
 先看指数编制数据。我们从万得拿到了历年各大股指，上证 50，沪深 300，中证 500 和 1000 的编制目录，导出为 4 个 excel 表，如下所示：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sz50-screenshot.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sz50-screenshot.jpg)
 
 这里展示的是上证 50 的编制数据。这是一个 3000 多行，50 列的数据。索引是交易日，单元格值则是每个交易日成分股的代码。
 
@@ -39,7 +39,7 @@ excerpt: "周一，巴菲特二季度大幅减仓、持有现金量超历史的�
 
 ## 科创板正跑步进入宽基指数
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-include-count.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-include-count.png)
 
 
 这张图显示了各个宽基指数纳入科创板个股的情况。
@@ -115,7 +115,7 @@ plt.show()
 
 最终，我们得到 2020 年 12 月 14 日，中证 1000 中新纳入的科创板个股表现如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2020-12-14-comparison.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2020-12-14-comparison.jpg)
 
 左图是收益对照图。从左图可以看出，在纳入指数前，这些个股的跌幅大于市场；在纳入指数之后，这些个股的表现都优于市场。
 
@@ -123,7 +123,7 @@ plt.show()
 
 但是，**不要被这个结论所欺骗**。下图是去年底纳入中证 1000 的科创板个股表现：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2023-12-11-comparison.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kcb-2023-12-11-comparison.jpg)
 
 **这是典型的相关性不等于因果性的另一个例证。**
 

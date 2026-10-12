@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/ipv6-how-to
 auto_translated: true
 source_sha: e1b093b4264e5b36c103d4cd076b0fefc643bcea
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"
 ---
 
 Our course environment runs on a cluster with 256GB of RAM and 192 CPU cores, which students access through a browser. Renting equivalent capacity from a major cloud provider isn't cheap. So we kept the servers in the office, and in our early startup days we only had residential broadband with no public IP — so we rented a small cloud VM just for port forwarding.
@@ -42,7 +42,7 @@ First, change the ONT's connection mode from PPPoE to Bridge. Once that's done, 
 
 In the network settings, find Broadband Settings and locate the profile that matches your current connection. In my case, it looked like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/original-connection.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/original-connection.jpg)
 
 It's the connection highlighted in red that we want to modify, not the others. It's currently set to PPPoE — bridge mode is usually in that same dropdown. Also, for IP protocol version, be sure to select IPv4/IPv6.
 
@@ -52,7 +52,7 @@ The password is masked. If you don't know it, open Developer Tools in Chrome, fi
 
 Here's my updated configuration:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/20240729094230.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/20240729094230.png)
 
 The key points are the IP protocol version and the mode — leave everything else unchanged.
 
@@ -65,15 +65,15 @@ In your router settings, you'll adjust both WAN and LAN. Some routers have their
 
 In WAN settings, change the connection type to PPPoE and enter the IP address, username, and password from the ONT. If it offers separate IPv4 and IPv6 options, enable IPv6 and set it to reuse the IPv4 dial-up session. Leave everything else at defaults.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-router-settings.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-router-settings.jpg)
 
 Then go to LAN settings, where we need to configure IPv6.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-lan-router.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-lan-router.jpg)
 
 We also need to enable the DHCPv6 service and set the IPv6 address pool, and — most importantly — configure DNS:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-dns-settings.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipv6-dns-settings.jpg)
 
 ## Testing for a Public IPv6 Address
 

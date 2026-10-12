@@ -267,11 +267,11 @@ We have created a virtual environment and installed Python. But to develop Pytho
 
 In VS Code, open the command palette (on Mac it is `cmd+shift+p`, on other operating systems it is `ctrl + shift + p`), and enter `Python: select Interpreter`, as shown in the following figure:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20220820220821195956.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20220820220821195956.png)
 
 A list will appear as shown in the following figure (the display on your computer may vary):
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/20220820220821200119.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20220820220821200119.png)
 
 To select the `test` environment created earlier, you can also directly enter it here:
 ```
@@ -280,7 +280,7 @@ To select the `test` environment created earlier, you can also directly enter it
 
 Additionally, you can look for prompts similar to the following in the status bar of VS Code:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224143053.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202211/20221224143053.png)
 
 And click it to enter the "Python: Select Interpreter" menu.
 
@@ -294,8 +294,8 @@ print("Hello World")
 Save this program as `helloworld.py`, and then you can run it via the command line using `python helloworld.py`!
 
 <div style="width:70%;height:380px">
-<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
+<div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
 <a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>

@@ -8,14 +8,14 @@ lang: en
 translation_of: posts/factor-strategy/llm-csi1000-three-experiments
 auto_translated: true
 source_sha: 71e99f204e0f4fa3f419c9360478f85cb5948d15
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg"
 ---
 
 Can Agents trade? At the end of last year, nof1.ai conducted an experiment, broadcasting it live on the internet. Much like the crayfish craze, it caused a huge sensation. However, today that live-streaming website is as quiet as a deserted saddle.
 
 Part of the reason is that the best-performing Agent in the trade achieved a Sharpe ratio of only 0.019, which is worse than China A-share retail investors. In this round, the Agent was completely defeated.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260915111717.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260915111717.png)
 
 However, nine months have passed. These nine months represent the most rapid period of artificial intelligence development in history. What will the situation be like nine months later?
 
@@ -323,9 +323,9 @@ Out-of-sample period 2019-01-02 → 2026-08-28 (Rules/LLM parallel daily settlem
 
 **Conclusion**: The LLM halved volatility (25%→9.3%) and drawdown (-46.7%→-26.3%)—it is a qualified "risk modulator"; but in the 2019–2026 bull market window, it significantly underperformed Buy & Hold, and almost coincided with the rule benchmark (in 92 months, the LLM's choices were identical to the rules daily). This indicates that this statistical table contains no directional alpha.
 
-![Experiment 1 Rule NAV vs Peer Buy & Hold, Experiment 2 Monday Momentum NAV, Experiment 3 Thursday KNN5+Q NAV](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-curves.png)
+![Experiment 1 Rule NAV vs Peer Buy & Hold, Experiment 2 Monday Momentum NAV, Experiment 3 Thursday KNN5+Q NAV](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-curves.png)
 
-![KNN5+Q Thursday vs Experiment 1 Rule Drawdown Comparison](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-drawdowns.png)
+![KNN5+Q Thursday vs Experiment 1 Rule Drawdown Comparison](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-drawdowns.png)
 
 This is basically the situation we saw on nof1.ai.
 
@@ -517,7 +517,7 @@ Evaluation takes the **last 100 weeks** (2024-08 → 2026-08, five rebalancing d
 
 Below are the results of Experiment 2 (re-run completely on 2026-09-16 using `deepseek-v4-flash`, taking the last 100 weeks for each of the five rebalancing days from Monday to Friday; LLM uniformly uses v2 self-consistent prompts, with failure weeks degraded to empty positions included):
 
-![Experiment 2 Results: Buy & Hold vs Momentum Rule vs LLM Same-Peer Same-Day Comparison, Total Return, Annualized Volatility, Sharpe, Sortino, Max Drawdown Five-Panel Grouped Bar Chart](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-bars.png)
+![Experiment 2 Results: Buy & Hold vs Momentum Rule vs LLM Same-Peer Same-Day Comparison, Total Return, Annualized Volatility, Sharpe, Sortino, Max Drawdown Five-Panel Grouped Bar Chart](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-bars.png)
 
 Compared to Experiment 1, Experiment 2's performance improved significantly. From the Sharpe distribution chart, it can be seen that on almost every rebalancing day, **the LLM achieved a better Sharpe ratio**. By observing the total return and max drawdown charts, we can conclude that the improvement in Sharpe was mainly achieved by reducing volatility and drawdown risks.
 
@@ -654,9 +654,9 @@ def knn_llm_forecast(record, model, prev_position=0.0, knn_k=5, quantize=False):
 
 The running results are as follows:
 
-![Experiment 2 vs Experiment 3 (KNN5+Quantize) Same-Day Comparison: Total Return, Annualized Volatility, Sharpe, Sortino, Max Drawdown Five-Panel Grouped Bar Chart](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-vs-exp3-bars.png)
+![Experiment 2 vs Experiment 3 (KNN5+Quantize) Same-Day Comparison: Total Return, Annualized Volatility, Sharpe, Sortino, Max Drawdown Five-Panel Grouped Bar Chart](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/llm-csi1000-exp2-vs-exp3-bars.png)
 
-![Experiment 3 2x2 Factor Decomposition: Retrieval (Top-5 × Full History 48) × Discretization (Continuous × Quantized) Sharpe Matrix and 5-Day Average](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/exp2-vs-exp3-2x2.png)
+![Experiment 3 2x2 Factor Decomposition: Retrieval (Top-5 × Full History 48) × Discretization (Continuous × Quantized) Sharpe Matrix and 5-Day Average](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/exp2-vs-exp3-2x2.png)
 
 The results of the first chart are somewhat surprising. From Monday to Wednesday, Sharpe is better than Experiment 2, but from Thursday to Friday, the results are weaker than Experiment 2. However, considering the absolute value of Sharpe, even if Monday and Tuesday perform better in Experiment 3, we would not adopt them. In this regard, compared to Experiment 2, Experiment 3 actually has 1 win and 2 losses.
 

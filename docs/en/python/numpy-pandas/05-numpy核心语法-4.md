@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/05-numpy核心语法-4
 auto_translated: true
 source_sha: 9b804f3f44ef81f0f1f1f6d4d178715d52291a55
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg"
 ---
 
 Random numbers and sampling are high-frequency operations in quantitative finance. Using NumPy’s `random` module, we can easily generate arrays of returns following a normal distribution, and calculate price trajectories via `np.cumprod()` to rapidly simulate an asset’s Sharpe ratio and price dynamics.
@@ -50,7 +50,7 @@ plt.legend(lines, legend)
 
 From the plotted graph, we can see that when `alpha` is 1%, the Sharpe ratio reaches 8.2. Top-tier domestic fund managers can achieve a Sharpe ratio of approximately 2–3 within a year. You are encouraged to adjust the `alpha` parameter to observe its relationship with the Sharpe ratio.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg)
 
 ### 1.1. The Legacy: `np.random` Module
 
@@ -91,7 +91,7 @@ plt.bar(x=value[1:],height=count)
 ```
 This yields a histogram close to a rectangle, indicating it follows a uniform distribution.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/random-histogram.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/random-histogram.jpg)
 
 -->
 
@@ -161,7 +161,7 @@ df.label.value_counts().plot(kind='bar')
 
 The output is:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg)
 
 To obtain a new balanced dataset from this, we have two approaches: under-sampling, which involves sampling part of the majority class data so that its count equals that of the minority class; and over-sampling, which involves copying part of the minority class data so that its count equals that of the majority class.
 

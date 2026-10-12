@@ -3,7 +3,7 @@ title: "?"
 seq: FA01-004 因子分析与机器学习策略
 slug: factor-analysis-4
 date: 2024-06-14
-background: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg
+background: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg
 category:
   - 因子分析
 tags: [因子分析, Alphalens]

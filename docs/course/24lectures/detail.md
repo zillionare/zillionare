@@ -19,7 +19,7 @@ excerpt: "共 40 万字，461 段超过 7000 行代码（另有若干策略代�
 
 个人及小型私募投资者主要使用的数据源有 tushare，akshare，jqdatasdk，qmt 等等。这也是这部分课程主要要介绍的内容。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson3-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson3-outline.png)
 
 这一部分总共 5 课时。我们会重点介绍 akshare, tushare, jqdatasdk 和 omicron -- 这是大富翁框架自带的数据 sdk。也会提及 yfinance 和其它一些数据源。我们会告诉你哪些能用，哪些现在不能用了，以免耽误时间。
 
@@ -49,7 +49,7 @@ excerpt: "共 40 万字，461 段超过 7000 行代码（另有若干策略代�
 
 我们用三个课时，从三个维度介绍了三个策略。我们把策略安排在第二部分，一方面上完第一部分的课，有的同学可能已经跃跃欲试了；更重要的是，这些策略会从不同的角度向我们展示，做好一个策略究竟需要哪些技能，帮助理解后面的课程为什么这样编排。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson6-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/05/lesson6-outline.png)
 
 第 6 课，我们介绍了一个小市值策略，这是**基本面维度**。小市值因子是 Fama（又称 FF) 三因子。该因子的有效性得到了华尔街数十年的验证，在 A 股 2017 年之前也是非常有效，此后进入阶段性有效、阶段性失效的状态。这节课解答了这样几个问题：
 
@@ -69,7 +69,7 @@ Easy saying than done. 当你自己手作过一次之后，对量化的理解一
 
 技术分析（广义来讲，即除开基本面分析和宏观择时之外）是 A 股**中等及以下规模资金**最有效的策略方法。我们从最新一期的华泰金工的研报（2023 年 8 月）可以看出，7 月最有效的因子仍然是**反转因子**、**波动率因子**，小市值因子排第三，这仍然是一个技术为王的时代。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/factor_performance_202307_1000.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/factor_performance_202307_1000.png)
 
 这些因子表现数据揭示了策略研究的大致方向，你应该有更好的方法去寻找反转、吃透波动。如果对这些因子的实现感兴趣，你可以在我们的《因子分析与机器学习策略》课程中找到答案。
 
@@ -87,13 +87,13 @@ Easy saying than done. 当你自己手作过一次之后，对量化的理解一
 
 这一课里，我们把常用量化框架中高频出现的 numpy 函数几乎都讲了一遍，这部分的习题也比较有技巧，掌握它们，快速成为 Numpy/Pandas 高手！
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson9-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson9-outline.png)
 
 第 10 课我们介绍 talib，这是最重要的技术分析库之一，很多量化框架都集成了它。
 
 第 11 课和第 12 课，我们介绍了一些统计知识。你很快就会看到它们的巨大威力！
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson11-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson11-outline.png)
 
 这两课当中，我们验证了沪指究竟服从什么概率分布这一基础性问题 ，也回答了“如果上证指数下跌 4%，能抄底吗？”这样的问题。更多的类似问题，相信学完后，你自然能探索和解答了。
 
@@ -103,27 +103,27 @@ Easy saying than done. 当你自己手作过一次之后，对量化的理解一
 
 K 线形态检测在一个散户为主的市场中非常有用，它是将**波浪理论**程序化执行的基础。短线交易的本质是筹码，任何上涨和下跌都必然落入有限的几种范式当中，因此，k 线形态检测，即使不能用来做预测，也能用来做事后确认。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
 
 这一课中我们给出了一个完全自适应的检测顶底的方法：基于概率分布理论，有坚实的数学基础。
 
 红点这是我们使用自适应算法检测顶底的结果，基于这些顶和底，我们进行了支撑线和压力线的测算。当事实摆在我们面前时，你不得不承认，**画线派有时确实在 A 股掌控了市场**：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson12-resist-line.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson12-resist-line.png)
 
 我们当然可以运用它来做更多的事情，比如检测 M 头和 W 底：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/double_top_detected.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/double_top_detected.png)
 
 或者平台整理突破（这里我们把机器学习里的二维聚类算法移植到了一维时间序列上）：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/platform-breakout.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/platform-breakout.png)
 
 还有智能 RSI 的原理和算法，等等。
 
 如果你学习课程的目标是为了换工作，那么第 14 课的内容--因子分析不可或缺。我们详细介绍了因子分析的方方面面：回归、IC 和分层，从原理到实现。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson14_toc.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/lesson14_toc.png)
 
 当你走完了因子分析的全流程，已一览大部分细节和框架之后，第 15 课把你带到了 Alphalens 面前。现在，学习 Alphalens 应该轻松许多，因为你已经知道它是什么，要干什么。
 
@@ -134,7 +134,7 @@ K 线形态检测在一个散户为主的市场中非常有用，它是将**波�
 
 第 16 课到第 18 课我们专注于可视化。
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/dash.png)
 
 绘图不仅仅为了创造美丽的可视化效果，更是为了释放数据的全部潜力，并揭示原本隐藏的 insights，它是数字语言和故事语言之间的桥梁，使得个人和组织能够做出有明智的决策，并创造有意义的变革。
 
@@ -145,7 +145,7 @@ K 线形态检测在一个散户为主的市场中非常有用，它是将**波�
 ## 五、 策略与回测
 第 19 课和第 20 课，我们介绍 backtrader, 当下最流行的纯回测框架。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson19-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson19-outline.png)
 
 第 21 课，在能够熟练地进行回测之后，我们来学习应该如何评价我们的策略。我们会介绍 sharpe 率，sortino， annual return 等等众多指标，它们是如何揭示策略在风险与盈利之间的平衡特性；我们还会介绍一个专业而简单易用的策略评估指标绘图库 - quantstats。
 

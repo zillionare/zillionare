@@ -8,14 +8,14 @@ lang: en
 translation_of: posts/factor-strategy/7-factor-model
 auto_translated: true
 source_sha: 791dce9bbabe80c9dee4076a0af138300f8bf567
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/duke.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/duke.jpg"
 ---
 
 This post was prompted by a reader question: beyond market, size, value and momentum, what are the other factors in the seven-factor model? It's the perfect excuse to introduce the Fung & Hsieh seven-factor model.
 
 The seven-factor model usually refers to the 7-factor model proposed by David Hsieh and William Fung in their 2004 paper, *Hedge Fund Benchmarks: A Risk Based Approach*.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/david-hsieh.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/david-hsieh.jpg)
 David Hsieh, pictured above, was born in Hong Kong and is a professor at Duke University with deep and wide-ranging research on hedge funds and alternative beta. William Fung is a visiting professor at the Centre for Hedge Fund Education and Research at London Business School.
 
 Since publication, the paper has been cited more than 1,300 times. It also earned the authors the CFA Institute's Graham and Dodd Award and the Fischer Black Memorial Foundation Award, among other honors. It holds an important place in quant history and is well worth studying.
@@ -49,7 +49,7 @@ Avoiding various systematic biases in quantitative research is an important skil
 
 Back to the original question: beyond market, size, value and momentum, what are the other factors in the seven-factor model? The question likely stems from an 8-factor model widely used for domestic private funds in China.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/20240326193718.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/20240326193718.png)
 
 This model was disclosed by Tsinghua University's National Institute of Financial Research in a March 2017 briefing ([Risk Factor Analysis for Chinese Private Funds](/assets/ebooks/中国私募基金风险因子分析.pdf)). Drawing on Fung and Hsieh's 7-factor model, it proposes eight factors:
 
@@ -66,7 +66,7 @@ As you can see, this 8-factor model starts from the classic Fama-French three fa
 
 In this model, the equity market risk factor is defined as:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/mkt-factor.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/mkt-factor.png)
 
 $RET_HS300_t$ is the monthly return of the CSI 300 in month $t$, and $RF_t$ is the monthly rate implied by the 1-year time-deposit rate in month $t$. This choice is somewhat surprising — government bonds are generally safer than bank deposits (large deposits are only insured up to RMB 500,000) and yield a bit more, so Treasury yields are more commonly used as the risk-free rate.
 
@@ -76,15 +76,15 @@ Its value factor and momentum factor are constructed in a similar way to the siz
 
 The bond factor is defined as:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/bond10.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/bond10.jpg)
 
 The credit risk factor is:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbmb10.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/cbmb10.jpg)
 
 The aggregate bond market factor is:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/bond_ret.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/bond_ret.jpg)
 
 It uses the ChinaBond Composite Full-Price Index. Although only ten pages long, the note explains factor construction in considerable detail — well worth reading if you are interested.
 

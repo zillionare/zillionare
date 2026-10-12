@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/pdf-is-all-you-need-2
 auto_translated: true
 source_sha: 5d4a07891823f4bcd89abdabf761cc1ec9b9f31b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg"
 ---
 
 In the previous article, we solved problems using elementary probability methods. This approach requires us to "count" the total number of sample points and the number of elementary events contained within specific events. The probability is the ratio of these two numbers.
@@ -47,7 +47,7 @@ Under the above premises, consider:
 The event requested in the problem is composed of elementary events. The combinations of all possible elementary events are:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731161033.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731161033.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -133,7 +133,7 @@ Although this definition is abstract and differs significantly from the intuitiv
 it is precisely this abstract definition that allows continuous random variables and discrete random variables (discrete events) to be described uniformly within the same framework. The only difference between them lies in the method of calculating probability: in the discrete case, we sum the probabilities of each event, while in the continuous case, we must use integration. In fact, integration can be viewed as a process of "continuous summation" or "finding area," so both types of problems are essentially unified.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731160347.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/20250731160347.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

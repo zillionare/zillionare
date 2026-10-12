@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-1103
 auto_translated: true
 source_sha: 7d3a01105616bfbbaca526dbdc2c4cae38153431
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft.jpg"
 ---
 
 ### This Week’s Highlights
@@ -41,7 +41,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft.jp
 
 # The “10x-in-a-Year” Man Invented the UO Indicator
 
-![Larry Williams, 1987 World Futures Trading Championship Champion](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/larry-willimans-card.jpg)
+![Larry Williams, 1987 World Futures Trading Championship Champion](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/larry-willimans-card.jpg)
 
 The Ultimate Oscillator (UO) is a technical analysis factor published by Larry Williams in 1976.
 
@@ -52,7 +52,7 @@ More impressively, the Williams family is a “triple crown” of trading excell
 ---
 
 <div style='width:50%;float:right;padding: 0.5rem 0rem 0 1rem;text-align:center'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/michell-williams.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/michell-williams.jpg'>
 <span style='font-size:0.6rem'>Michelle Williams</span>
 </div>
 
@@ -61,7 +61,7 @@ This is his daughter, Michelle Williams. She is a renowned actress, starring in 
 This demonstrates that the trading techniques of the elder Williams remain highly effective even after a decade.
 
 <div style='width:72%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/worldcupchanpion-michelle-larry.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/worldcupchanpion-michelle-larry.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -87,7 +87,7 @@ The calculation steps are somewhat complex, involving concepts such as true low,
 The following diagram clarifies the explanation.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -111,16 +111,16 @@ The following figure demonstrates what the UO indicator looks like in practice. 
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-visualize.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-visualize.jpg)
 
 How does this factor perform in backtesting? From 2018 to 2023, over six years, its annualized alpha reached 13.7%, showing excellent performance.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-alpha.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-alpha.jpg)
 
 However, the factor’s returns are primarily driven by short positions. As seen in the layered return chart, returns are mainly contributed by shorting in Layer 1. Under a pure long-only strategy, the alpha is modest at only 1.6%, with returns largely driven by beta, resulting in higher portfolio volatility.
 
 <div style='width:90%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-quantile-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-quantile-returns.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -131,14 +131,14 @@ Thus, this indicator performs better in futures markets.
 Under a long-short portfolio, the six-year return reached 2.2x.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-cumulative-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-cumulative-returns.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 Finally, let’s look at the factor density distribution. It appears to follow a normal distribution, showcasing symmetric beauty.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-factor-distplot.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/uo-factor-distplot.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -149,14 +149,14 @@ From the layered mean return chart, we can make minor optimizations in trading, 
 We retained 2023 data as out-of-sample data for testing. In the 2023 backtest, the annualized alpha reached 13%, indicating no overfitting. The cumulative return curve for 2023 is as follows:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-2023-cum-returns.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/ultimate-oscillator-2023-cum-returns.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 During the same period, the Shanghai Composite Index was predominantly in decline. The rally starting in late August coincidentally aligned with the timing of DMA strategy gains.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/sh-2023-plot.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/sh-2023-plot.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -208,7 +208,7 @@ We then use the inverse fast Fourier transform (IFFT) to convert the processed s
 ---
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-and-revert-it-back.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft-and-revert-it-back.jpg'>
 <span style='font-size:0.6rem'></span>
 </div>
 
@@ -257,14 +257,14 @@ Let’s look at the layered mean return chart. We have never seen such a perfect
 ---
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-mean-wise-quantile.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-mean-wise-quantile.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 
 Cumulative returns over nearly 20 years reached 17.5x.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-cumlative-returns.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/fft-cumlative-returns.png'>
 <span style='font-size:0.6rem'></span>
 </div>
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/Is-the-A-share-market-undervalued
 auto_translated: true
 source_sha: 41eb867eaa6e60d8be14405cfa66f8c1cb37d655
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png"
 ---
 
 A heart-stopping scene unfolded before the holidays, with major indices hitting their lowest weekly closes of the year. Naturally, we want to understand the current market state: are there undervaluation opportunities? In this article, we examine whether these conditions present genuine opportunities or potential traps through the lens of price-to-earnings (PE) ratios.
@@ -27,7 +27,7 @@ pe.tail(15)
 
 This yields all data since 1999, formatted as follows:
 
-![Table 1: PE vs. Index](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pe-vs-index.jpg)
+![Table 1: PE vs. Index](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pe-vs-index.jpg)
 
 ## Undervalued in August?
 
@@ -63,7 +63,7 @@ However, **percentiles are static and do not reflect the trend of the data**.
 
 If you open the Eastmoney client and view the Shanghai Composite Index’s profile page, you can see its historical PE trend. The chart over the past decade is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png)
 
 This chart, however, does not provide additional insight. From this view, the Shanghai Composite Index still appears undervalued.
 
@@ -104,21 +104,21 @@ plt.show()
 
 This generates the following plot:
 
-![1999-2024](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-1999-2024.png)
+![1999-2024](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-1999-2024.png)
 
 The chart reveals that from 1999 to 2024, there has been a general trend of rising Shanghai Composite Index prices accompanied by declining PE ratios. The index’s rise likely reflects the long-term trend of GDP growth, while the decline in PE is primarily due to the expansion of asset supply, which continuously squeezes out asset bubbles.
 
 To examine these details more closely, we have split the above chart into five subplots:
 
-![Jan 1999 - May 2004](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-199901-200405.jpg)
+![Jan 1999 - May 2004](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-199901-200405.jpg)
 
-![Jun 2004 - May 2009](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-200402-2009-05.png)
+![Jun 2004 - May 2009](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-200402-2009-05.png)
 
-![Jun 2009 - Jul 2014](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2009-06-2014-08.png)
+![Jun 2009 - Jul 2014](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2009-06-2014-08.png)
 
-![Jun 2014 - Oct 2019](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2014-05-2019-11.png)
+![Jun 2014 - Oct 2019](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2014-05-2019-11.png)
 
-![Aug 2019 - Aug 2024](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2019-08-2024-08.png)
+![Aug 2019 - Aug 2024](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/index-vs-pe-2019-08-2024-08.png)
 
 ## Reflections and Conclusions
 

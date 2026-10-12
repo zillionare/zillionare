@@ -4,7 +4,7 @@ date: 2024-08-11
 category: factors
 slug: posts/career-figure/how-to-apply-citadel
 motto: 这世上所有的坚持 都源自足够的热爱
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [strategy]
@@ -51,7 +51,7 @@ Wonderlic Select 并不是唯一的 Citadel 评估。如果您正在尝试 Citad
 所以，关于这个岗位，我很难给出建议，但是Citadel在面试筛选上，是和Wonderlic合作的，如果你确实很想申这个岗位，建议先报一个Wonderlic的培训，大约$50左右。Wonderlic Select会有认知、心理、文化和逻辑方面的测试，参加此类培训，将帮助你刷掉一批没有准备的人。
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
 <cap>11 weeks of extraordinary growth program</cap>
 
 一旦入选为实习生，Citadel将提供一个11周的在岗实训，实训内容可以帮助你快速成长。通过实训后，留用的概率很大。
@@ -77,7 +77,7 @@ HackerRank有可能遇到LeetCode上困难级的题目，但也有人反映会�
 
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
 <cap>Correlation One</cap>
 
 Datathon只针对在校生举办，你得使用学校邮箱来申请。通过官网在线报名后，你需要先进行一个90分钟的在线评估。这个评估有心理和价值观的、也有部分技术的。
@@ -118,7 +118,7 @@ Datathon看起来比赛的是数据分析能力，是硬技巧，但实际上，
 
 ## 2024年 Summer Datathon
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
 <cap>Problem Statement of 2024 Summer Datathon</cap>
 
 2024年的Datathon于8月5日刚刚结束。这次的题目是关于垃圾食品的，要求从提供的数据集中，得出关于美国食品加工的一些结论。除了指定数据集之外，也允许根据需要自行添加新的数据集。不过，这些数据集也提交给评委，并且不得超过2G。
@@ -148,7 +148,7 @@ Datathon看起来比赛的是数据分析能力，是硬技巧，但实际上，
 
 这些竞赛的资料也都上传到了我们的课程环境。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
 <cap>Datathon 历年资料</cap>
 
 

@@ -4,15 +4,15 @@ date: 2024-11-13
 category: factor&strategy
 slug: posts/factor-strategy/max-volume-direction
 motto: 因为黑夜，更能看见满天星光
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [factor, strategy, herd-behaviour]
-excerpt: "<div style='width:50%;text-align:center;margin: 0 auto 1rem'> <img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'> <sp"
+excerpt: "<div style='width:50%;text-align:center;margin: 0 auto 1rem'> <img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'> <sp"
 ---
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>因为黑夜，更能看见满天星光 | ©️ Nathan Jennings</span>
 </div>
 
@@ -53,7 +53,7 @@ Banz 的这篇论文并不复杂，只有 16 页纸。论文中并没有使用�
 甚至，我们可以仅凭他论文中的这张图来理解小市值因子：
 
 <div style='width:50%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/low-beta-factor.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/low-beta-factor.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>收益与市值分导关系</span>
 </div>
 
@@ -161,7 +161,7 @@ test(bars)
 !!! attention
     由于akshare无法按时间段获取30分钟线，并且只能获取固定长度的30分钟线（更早的会丢弃）k线，所以，这段代码运行的结果将会与下图不同。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/11/zlyz-tqly.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/zlyz-tqly.jpg)
 
 在测试中，我们设置vr的阈值为5。在一些比较激进的个股上，设置为8以上可能效果会更好。
 

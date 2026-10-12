@@ -112,7 +112,7 @@ $$
 
 首先 quantitativo 进行了单因子检验。检验方法是对对所有 2 天 RSI 收于 5 以下的标的进行买入并持有 5 天，再计算收益。
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/factor-rsi-2-buy-and-hold-5.jpg)
 
 这个统计包含了超过 21000 个标的，超过 250 万次事件（标普 500 收于 200 天均线之上）。测试中的亮点：
 
@@ -162,7 +162,7 @@ quantitativo 还对两次测试是否属于同一分布进行了假设检验，�
 
 在 SPY 上的测试简直就是灾难。在整个回测期（25 年）中，使用 SPY 交易此策略提供了 67% 的回报。主要原因是交易次数太少，仅执行了 157 笔交易。
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/performance-qqq-tqqq.jpeg)
 
 ---
 
@@ -180,7 +180,7 @@ quantitativo 还对两次测试是否属于同一分布进行了假设检验，�
 1. 只交易过去 3 个月内完全没有停牌的标的
 2. 如果标的过去 3 个月日均成交量中位数不足资金份额的 20 倍，则不纳入
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiments-1.jpg)
 
 ---
 
@@ -193,7 +193,7 @@ quantitativo 还对两次测试是否属于同一分布进行了假设检验，�
 
 ## 第二次改进：降低退市风险
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/new-experiment-2.jpg)
 
 quantitativo 再次改进了策略，这次的改进是将 universe 限制在只交易大型和超大盘股，这些股票的退市概率较低（分别为 35%和 9%）。
 
@@ -264,15 +264,15 @@ $$
 
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cum-returns-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cum-returns-by-quantile.jpg)
 <cap>多空组合的收益情况</cap>
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-quantile.jpg)
 <cap>默认参数下的因子分层情况</cap>
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-quantiles.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-quantiles.jpg)
 <cap>by quantiles分层下的mpwr图</cap>
 
 看收益看不出什么问题。如果你是做纯数据挖掘，就会觉得这也没什么，反正这个因子也是盈利了呀，对不对？
@@ -293,12 +293,12 @@ Alphalens提供另一种分层方式，即by bins。我们提供的分箱是[0,1
 
 现在分层的结果就很合理了：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-bins.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/cut-by-bins.jpg)
 <cap>by bins分层情况</cap>
 
 但是我们如果看一下 mean period wise return by Factor quantile图，就会发现，因子与收益之间镜像的线性关系：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-bins.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/nprw-by-bins.jpg)
 
 
 如果Alphalens能做多第4组，做空第1组，这样的策略结果应该不错。但是Alphalens并不能这么做。需要我们修改因子。
@@ -311,14 +311,14 @@ Alphalens提供另一种分层方式，即by bins。我们提供的分箱是[0,1
 
 这次我们得到了非常完美的线性关系：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/rsi-filtered-50-mpwr.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/rsi-filtered-50-mpwr.jpg)
 <cap>过滤掉部分因子</cap>
 
 在这种情况下，可以认为，Alphalens的分析结果是有效的。
 
 当然收益也很好看。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/boost-returns.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/boost-returns.jpg)
 
 过于好看了。能够超过这个策略的，只有涨停板因子。
 

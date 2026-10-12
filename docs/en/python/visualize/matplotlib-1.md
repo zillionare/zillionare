@@ -70,7 +70,7 @@ In this code, we first create two 3x3 grids using `GridSpec`, positioned side-by
 
 By binding subplots to different grid regions, we achieve an effect similar to merging cells in Excel, thereby creating irregular grid layouts.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/using_grid_spec.png?2))
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/using_grid_spec.png?2))
 
 This code demonstrates numerous plotting techniques worth studying in detail.
 
@@ -102,7 +102,7 @@ This note is part of the *Python Data Analysis and Visualization* series. The en
 
 ## matplotlib 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/matplotlib.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/matplotlib.png)
 
 This section covers fundamental knowledge in plotting, including chart composition, layouts, colors, and coordinates.
 
@@ -111,17 +111,17 @@ This section covers fundamental knowledge in plotting, including chart compositi
 
 Plotly is an advanced plotting tool capable of creating interactive plots and even animations! In this section, we will also introduce Dash. Once mastered, you can build web applications that render beautiful graphics and interact with users using only Dash.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/plotly.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/plotly.png)
 
 <!--page-->
 ### seaborn 
 Seaborn is an advanced plotting library built on Matplotlib. It abstracts away most of the low-level plotting details in Matplotlib, allowing you to focus on exploring relationships and semantics in your data!
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/seaborn.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/seaborn.png)
 
 ## PyEcharts 
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/echarts.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/echarts.png)
 
 <!--page-->
 This is an Apache top-level library contributed by Chinese developers. Similar to Plotly, it can generate interactive plots.

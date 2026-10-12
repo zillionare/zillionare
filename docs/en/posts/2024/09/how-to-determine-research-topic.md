@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/how-to-determine-research-topic
 auto_translated: true
 source_sha: 3fab21c9283b58da61a1ea5f46f76edf51692da8
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/north-chapel.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/north-chapel.jpg"
 ---
 
 Under the pressure of thesis writing, selecting a topic that balances practical value with personal interest is crucial. For students in finance or econometrics, quantitative trading is a strategic choice that leverages their expertise while supporting future career development.
@@ -22,7 +22,7 @@ The hardest part of a thesis is defining the research direction and topic. In sc
 As masters of thought have noted, sometimes the question itself is more important than the answer. Legend has it that someone once advised Hilbert to solve Fermat’s Last Theorem, to which Hilbert smiled and replied, “Why would I kill a goose that lays golden eggs?” In Hilbert’s view, a mathematical problem like Ferm’s Last Theorem was invaluable to mathematics.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/tomb-david-hilbert.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/tomb-david-hilbert.jpg'>
 <span style='font-size:0.6rem'>Tomb of David Hilbert, by Kassandro - Own work, CC BY-SA 3.0</span>
 </div>
 
@@ -38,13 +38,13 @@ Defining a research topic begins with understanding the industry’s historical 
 
 First is asset pricing research. Starting from the 1950s with Markowitz and his student William Sharpe, and developed by Stephen Ross, Fama, and others, this thread formed the theoretical framework for factor investing and portfolio management. It is also a major source of Nobel Prizes in Economics.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/carousel-miller-sharpe-fama.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/carousel-miller-sharpe-fama.jpg)
 
 Second is derivatives and option pricing research. Pioneered by Louis Bachelier starting in 1900, and developed by Itô Kiyoshi, Fischer Black, and Myron Scholes, this field reached its peak with the proposal of the option pricing formula—the BS formula.
 
 Third is the technical analysis school. This school is application-driven and lacks its own theoretical system, often adopting ideas from other fields. For example, Claude Shannon, the father of information theory, contributed the grid trading method. His colleague at Bell Labs, John Kelly, discovered the Kelly Criterion, which was later used by another colleague, Edward Thorp, in casinos and the stock market.
 
-![Kelly Criterion - From "All In" Intro](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/guzhuyizhi.jpg)
+![Kelly Criterion - From "All In" Intro](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/guzhuyizhi.jpg)
 
 Disciplines such as information theory, statistics, and digital signal processing have been applied to trading, forming a significant branch of quantitative trading. The most famous quantitative fund, Renaissance Technologies, initially hired the entire team from IBM’s ViaVoice lab, primarily valuing their digital signal processing capabilities.
 
@@ -58,7 +58,7 @@ Although bestsellers are less specialized, they are excellent for grasping resea
 
 These bestsellers are helpful in establishing your own perspective on industry history:
 
-![Pricing the Future, CITIC Press](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pricing-the-future.png)
+![Pricing the Future, CITIC Press](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/pricing-the-future.png)
 
 1.  *Inside the Black Box of Quantitative Trading* by Rishi K. Narang. This book is considered one of the best introductory texts for systematic quantitative trading.
 2.  *Quant Life: The Number Masters of Wall Street*. This book introduces the secrets behind the success of famous investors like Simons and Edward Thorp.
@@ -113,7 +113,7 @@ Cross-boundary integration and marriage are the easiest ways to achieve innovati
 
 The BS formula was partially derived from the heat conduction equation in physics; Edward Thorp applied the Kelly Criterion to casinos and stocks, achieving great success—a theory originally built to study noise in long-distance telephone lines. Many signal processing techniques used in communications became quantitative algorithms; Markowitz was among the first to apply statistics to finance (this statement might not be entirely correct; for many, Paul Samuelson was the pioneer. However, this mainly depends on how one distinguishes finance from economics), winning the Nobel Prize solely based on mean-variance theory. The genetic algorithms widely used in quantitative trading today are obviously inspired by some basic principles of biology.
 
-![Lcy++@cnblogs](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/gene-algo.jpg)
+![Lcy++@cnblogs](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/gene-algo.jpg)
 
 Now, many people have some knowledge reserves in machine learning and neural networks. If you cannot think of other directions for marriage, you can try linking AI with finance and attempting new directions such as cryptocurrencies.
 
@@ -136,7 +136,7 @@ So the question arises: how can an ordinary graduate student get guidance from v
 There is a Six Degrees of Separation theory, which means that between you and any person on this earth, there are at most five people in between. To find a specific person, you need to find the right node.
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/six-degrees-of-seperation.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/six-degrees-of-seperation.jpg'>
 <span style='font-size:0.6rem'>by C-C@sgpjbg.com</span>
 </div>
 

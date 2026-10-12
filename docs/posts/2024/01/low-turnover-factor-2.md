@@ -9,7 +9,7 @@ tags: [strategy, factor, 因子分析, Alphalens]
 excerpt: "上一篇笔记，我们已经为因子分析准备好了数据。这一篇笔记，我们就进行因子分析。分析过程在 Alphalens 中非常简单，核心是读懂它的报告。"
 ---
 
-![R33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kaiyun.jpg)
+![R33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kaiyun.jpg)
 上一篇笔记，我们已经为因子分析准备好了数据。这一篇笔记，我们就进行因子分析。分析过程在 Alphalens 中非常简单，核心是读懂它的报告。
 
 <!--more-->
@@ -37,7 +37,7 @@ max_loss is 35.0%, not exceeded: OK!
 
 这张导图显示了Alphalens的模块组织情况:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/alphalens-framework.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/alphalens-framework.png)
 
 ---
 
@@ -47,7 +47,7 @@ utils 与 tears 模块是用户接口，我们可以只使用这两个模块中�
 
 现在，我们来查看 factor_data（请回顾上一篇笔记，以了解这个数据是如何生成的）:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-data.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-data.jpg)
 
 <br>
 
@@ -80,11 +80,11 @@ mean_return_by_q_daily.head()
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-by-quantile.jpg)
 
 结果只显示了第 1 组的前几期数据。这个数据过于详尽，作为概览，我们更希望给出它的摘要信息。这可以通过设置 by_date = False 来实现：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-retury-by-quantile-false.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-retury-by-quantile-false.jpg)
 
 这样我们得到的因子分层第一组，它的日回报是0.063%。如果按250天来计算年复利的话，我们会得到**年化17.05%的回报，就凭这一个因子，你已经秒了98%以上的公墓（此处无错别字）基金经理了！**
 
@@ -103,7 +103,7 @@ plot_quantile_returns_bar(mean_return_by_q_daily)
 sns.despine()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-plotting.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-plotting.jpg)
 
 这里我们使用了seaborn的despine函数来去掉上方和右边的spine线。
 
@@ -125,7 +125,7 @@ sns.despine()
 
 我们得到的图如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-violin.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-violin.jpg)
 
 我们来分析第1组的数据。可以看出（当然图有点小，你可能啥也看不出来，自己拿数据试吧！），至少比较接近正态分布，没有很长的尖峰，这说明正的收益并不是少数几笔带来的。反观第3组的10日收益，它出现了很长的尖峰，这说明可能出现了离群值。
 
@@ -147,7 +147,7 @@ plot_mean_quantile_returns_spread_time_series(qrs, ses)
 
 最终我们得到了下图（这里只取了1天）：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-top-bottom-minus.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-top-bottom-minus.jpg)
 
 红色的线是月线。我们可以看到，多数时间，它比较明显地、稳定地居于零轴之上，这说明，基于低换手率的多空策略，能取得较好的收益。
 
@@ -169,7 +169,7 @@ mean_return_by_q_daily, std_err = mean_return_by_quantile(
 plot_cumulative_returns_by_quantile(mean_return_by_q_daily, period='1D')
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-cumulative-return.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-cumulative-return.jpg)
 
 我认为这里alphalens出现了一个错误。我们要求它只绘制以1天为单位的各分层的累积回报，但它却附赠了5天和10天的轨迹，但这增加了读图的难度，因此我们并不领情。
 

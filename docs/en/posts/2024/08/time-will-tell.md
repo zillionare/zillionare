@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/time-will-tell
 auto_translated: true
 source_sha: d77b9b7a1554e771357a11bd54a9cfe3d905635d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/purdue-engfountain.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/purdue-engfountain.jpg"
 ---
 
 Cover image: Engineering Fountain at Purdue University. Purdue is located in Indiana, 100 miles from Chicago, ranked 89th globally by QS. Its motto, "Every giant leap starts with one small step," reminds us that no journey begins without a single step.

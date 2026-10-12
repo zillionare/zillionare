@@ -22,7 +22,7 @@ alpha, beta = factor_alpha_beta(factor_data)
 
 This gives the following output:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-alpha-beta.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-alpha-beta.jpg)
 
 ---
 
@@ -60,9 +60,9 @@ Alphalens groups `factor_data` by date, then divides each asset's factor value b
 
 Suppose we have the following `factor_data` (left chart). If we compute weights the Alphalens way, we get the right chart:
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-sample-weight.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-sample-weight.jpg)
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-sample.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-sample.jpg)
 
 There are two issues here:
 
@@ -94,7 +94,7 @@ Now let's run the `mean_return_by_quantile` analysis again to see the difference
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-revers.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-revers.jpg)
 
 Visually, this is a horizontal flip of the corresponding chart from yesterday's note. This time quantile 10 performs best and quantile 2 performs worst — otherwise nothing else changed.
 

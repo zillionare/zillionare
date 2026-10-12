@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story
 auto_translated: true
 source_sha: ab1931d92af36d0826a6320b81f0ac0582d11d2d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/fencing.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/fencing.jpg"
 ---
 
 Over the past couple of days, I've been getting DMs asking: is it hard to break into quant?
@@ -21,7 +21,7 @@ Today's focus: what programming skills does finance actually need. The data come
 
 According to Revelio Labs, the top 10 most in-demand programming languages in financial services are:
 
-![Bar chart of the top 10 most popular programming languages in financial services from Revelio Labs, with SQL at No.1](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/coding-language-in-finance.png)
+![Bar chart of the top 10 most popular programming languages in financial services from Revelio Labs, with SQL at No.1](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/coding-language-in-finance.png)
 
 You might not expect it, but SQL rules finance. Across tech as a whole, only 18% of postings mention SQL, but in finance hiring it's around 25%.
 
@@ -31,7 +31,7 @@ That's why Python is the real king, not just in finance. It still tops the June 
 
 ---
 
-![TIOBE programming language popularity ranking for June 2024, with Python at No.1](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/tiobe-ranking-2024-6.png)
+![TIOBE programming language popularity ranking for June 2024, with Python at No.1](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/tiobe-ranking-2024-6.png)
 
 
 But finance doesn't have much demand for internet favorites like C++ and Rust. While both are indispensable in high-frequency trading, HFT is a niche that can't absorb large amounts of capital, so it's not where the industry's center of gravity lies.
@@ -45,7 +45,7 @@ Java in the top three is no surprise either. Plenty of transactional systems, in
 Javascript likely made the list for the same reason. To maintain a secretive, high-tech image, investment firms often build flashy websites. Millennium's official site, for example, loves to show off with Javascript. Their latest homepage features JS-powered magnetic field lines and various reveal effects.
 
 <div style='width:"75%";text-align:center;margin-bottom:1rem'>
-<img alt='Millennium homepage with Javascript-powered magnetic field animation' src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/06/millennium.png'>
+<img alt='Millennium homepage with Javascript-powered magnetic field animation' src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/millennium.png'>
 <span style='font-style:italic;font-size:0.8rem'>Millennium official site</span>
 </div>
 
@@ -78,6 +78,6 @@ If you're still in school, you probably know a bit of SQL and Python — but wha
 
 For Python, for engineering craft see my new book *Python High-Performance Programming in Practice* (on sale in July), and for algorithms grind LeetCode and Kaggle problems, or the puzzle columns from Jane Street and Millennium — our column also shares performance-optimization tips from time to time.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/book-cover-with-bridge.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/book-cover-with-bridge.jpg)
 
 For SQL, developers need to understand data partitioning, index optimization, and query tuning, while data analysts just need to build complex queries — mainly window functions, subqueries and self-joins, and complex filtering and grouping.

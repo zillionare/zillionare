@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: de5e7ac2329b070335c213b8c39dc16006c3ff9f
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg?2)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg?2)
 Factor analysis is one of the core skills in quant research. Once you find effective factors through factor analysis and remove redundant ones by correlation, you can combine them with machine learning, linear regression, and other methods to build a trading strategy.
 
 In this note we show how to run single-factor analysis with Alphalens. Our test case is a low-turnover factor.
@@ -46,7 +46,7 @@ Our low-turnover factor will be built on CSI 300 constituents. The full workflow
 
 Alphalens can produce a large number of reports (one example below), so step 4 will be covered in detail over several notes.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-violion.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-violion.jpg)
 
 A complete factor analysis workflow covers raw data acquisition, factor generation, data (and factor) preprocessing, and factor testing.
 
@@ -84,7 +84,7 @@ bars = ak.stock_zh_a_hist("000001", adjust="hfq", start_date="20150104")
 bars.tail()
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/bars-returned-by-akshare.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/bars-returned-by-akshare.jpg)
 
 The return has many columns; we only care about date, close, and turnover rate. This API has an `adjust` parameter for the adjustment method. In this example `qfq` and `hfq` make no difference, but unadjusted data must not be used.
 
@@ -115,7 +115,7 @@ def prepare_data(secs: List[str], start: str, end: str):
 
 The factor dataframe required by Alphalens for analysis looks like this:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/factor_df_format.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/factor_df_format.png)
 
 The key point is that it must be a DataFrame with a dual index of date + asset. The dataframe should have only one column. The column name is not mandated, but a name like `factor` is recommended because it is easier to understand (bad example here!).
 
@@ -144,7 +144,7 @@ def prepare_data(secs: List[str], start: str, end: str):
 
 The prices table must be converted into the following format:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/prices_df_format.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/prices_df_format.png)
 
 The point of the format is a dataframe indexed by date with each asset code as a column, where each cell holds the closing price of that asset on that day.
 
@@ -152,7 +152,7 @@ We first concatenate the per-stock price frames, then reshape with the pivot fun
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/pivot_table.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/pivot_table.png)
 
 We now have data that meets Alphalens requirements. Data preparation is done.
 
@@ -174,7 +174,7 @@ factor_data.tail()
 
 The cleaned result looks like this:
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-clean-factor-data.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-clean-factor-data.jpg)
 
 ---
 
@@ -190,13 +190,13 @@ We can group the result to check:
 factor_data.groupby("factor_quantile").count()
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-bins-by-quantile.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-bins-by-quantile.jpg)
 
 If instead of the `quantiles` parameter we set bins to 10, it evenly divides the interval [min(factor), max(factor)], so each bin has the same width but contains a different number of observations. The grouped result looks like this:
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-bins-by-bins.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-bins-by-bins.jpg)
 
 Placed side by side, the similarities and differences between the two parameters are self-evident.
 

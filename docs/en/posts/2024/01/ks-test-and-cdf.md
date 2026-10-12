@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 3d0e608f5424d6d854aeced7f4e13f9358c24893
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png) In our last note, we asked a question: when the Shanghai Index plunges 4%, can you buy the dip? In this note, we'll use the K-S test to pin down the probability distribution of the Shanghai Index and answer that question. In a later note, we'll answer the same question with a different method.
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png) In our last note, we asked a question: when the Shanghai Index plunges 4%, can you buy the dip? In this note, we'll use the K-S test to pin down the probability distribution of the Shanghai Index and answer that question. In a later note, we'll answer the same question with a different method.
 
 <!--more-->
 ## K-S Test
@@ -68,7 +68,7 @@ df.sort_values("pvalue", ascending=False).transpose()
 
 This gives the following output:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_kstest_result.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_kstest_result.png)
 
 The figure may be too wide to read clearly on a phone. But all you need to know is that the first row, genhyperbolic — the generalized hyperbolic distribution — has the highest p-value, reaching 0.97.
 
@@ -94,13 +94,13 @@ ax2 = ax.twinx()
 _ = ax2.hist(pct, bins=50)
 ```
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png)
 
 ---
 
 It's not just similar — it's virtually identical. The PDF curve neatly traces the outer contour of the empirical histogram.
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/sp-pdf.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/sp-pdf.jpg)
 
 In fact, the Shanghai Index is not the only index that follows a generalized hyperbolic distribution. According to Souto's paper, *Distribution Analysis of S&P 500 Financial Turbulence*, published in Financial Mathematics (February 2023), **the S&P 500 is also closest to this distribution**.
 

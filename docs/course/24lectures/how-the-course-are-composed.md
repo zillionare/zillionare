@@ -69,7 +69,7 @@ excerpt: "课程内容 本课程涵盖了从获得数据，到数据预处理、
 ### 编排特点
 课程一般以思维导图开始，勾连出全课知识点，比如：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/lesson13-outline.png)
 
 ### 实验环境
 

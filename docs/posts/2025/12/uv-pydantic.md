@@ -2,7 +2,7 @@
 slug: posts/tools/2026十大量化技术/uv-pydantic
 title: "UV & Pydantic：重塑 2026 Python 工程化基石"
 date: 2025-12-23
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png
 excerpt: "本文将探讨两项彻底改变 Python 开发体验的技术：Astral 的 UV —— 一个旨在替代 pip、poetry、pyenv 的全能包管理器；以及 Pydantic 2.0 —— 由 Rust 驱动的数据验证与解析库。它们的结合，构成了 2026 年高性能量化系统的标准地基。"
 categories:
   - Tools

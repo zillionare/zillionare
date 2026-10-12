@@ -5,7 +5,7 @@ date: 2025-08-28
 excerpt: 涨时重势，跌时重质。本文实战演示如何结合Parquet高性能缓存机制来获取并存储股息率数据，并且运用 moonshot 回测证明了股息率因子的有效性。
 category: tools
 tags: [Moonshot, 回测, 研报, tushare]
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/2.jpg
 ---
 
 !!! abstract
@@ -150,7 +150,7 @@ Moonshot 的代码很简单，但也很强大：要按股息率，在每月结�
 最后，策略报告显示，在2018年到2023年间，股息率筛选本身就具有一定的 alpha：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250828194603.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250828194603.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>累积收益对照</span>
 </div>
 
@@ -188,7 +188,7 @@ ParquetUnifiedStorage是一个简单的本地存储方案。我们在上一篇�
 在下面的截图中，左图显示了获取日线行情的 API `daily`的文档。在这里，我们发现它并不支持分页查询。但是，如果我们转到数据工具页面，就可以看到该 API 是支持分页查询的。
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815131309.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250815131309.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

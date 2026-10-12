@@ -92,7 +92,7 @@ ax_dict["image"].imshow([[1, 2], [2, 1]])
 identify_axes(ax_dict)
 ```
 
-![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvisual-matplot-2-1.png)
+![50%]](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvisual-matplot-2-1.png)
 
 The elegance of this method lies in the fact that we assign names to each subplot when creating them. Later, during plotting (lines 12 to 15), we can directly reference these subplots by name.
 
@@ -110,7 +110,7 @@ identify_axes(ax_dict)
 
 Here, we define four subplots (A, B, C, D) simply by setting `mosaic = "AB;CD"`.
 
-![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abcd.png)
+![50%]](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abcd.png)
 
 If we specify the mosaic as follows:
 ```
@@ -136,7 +136,7 @@ identify_axes(axd)
 
 Referencing the Axes is very intuitive; we can directly use `axd["A"]` or `axd["C"]`.
 
-![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abdccd.png)
+![50%]](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promotion-mosaic-abdccd.png)
 
 If we need some more unusual layouts, such as leaving a position empty:
 
@@ -149,7 +149,7 @@ If we need some more unusual layouts, such as leaving a position empty:
 
 Using "." in the layout will leave that area empty. This will generate the following figure:
 
-![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-4.png)
+![50%]](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-4.png)
 
 The subplots we generated above were of uniform length (before merging). `subplot_mosaic` accepts the `gridspec_kw` parameter:
 
@@ -186,6 +186,6 @@ axd = plt.figure(layout="constrained").subplot_mosaic(
 identify_axes(axd, fontsize=36)
 ```
 
-![50%]](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-2-5.png)
+![50%]](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/promo-pyvis-matplot-2-5.png)
 
 After reading this article, you should have mastered matplotlib layouts!

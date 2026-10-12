@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/8个ipython技巧
 auto_translated: true
 source_sha: f1c73471a55ebe98f63b6e93d96d14fbe7941a0f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/Mackey_Auditorium-Colorado.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/Mackey_Auditorium-Colorado.jpg"
 ---
 
 The cover image shows Macky Auditorium at the University of Colorado Boulder. Boulder is the flagship campus of the University of Colorado system, home to 5 Nobel laureates and 1 Turing Award winner.
@@ -25,7 +25,7 @@ Created by Fernando Pérez in 2001, IPython was designed to give scientists and 
 
 The success of IPython also gave rise to Jupyter. In 2014, Jupyter was spun off from the IPython project and extended to other languages. The name Jupyter itself comes from the first letters of Julia, Python, and R.
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter.jpg)
 
 Even with Jupyter Notebook around, there are still plenty of reasons to use IPython today. The core reason is that it is much more lightweight than Jupyter — both to install and to use. Lighter, yet remarkably capable.
 
@@ -47,7 +47,7 @@ Just like in Notebook, you can use magic commands in IPython. For example, %time
 
 Type pd. and press Tab to list all attributes and methods of the pandas module. Press Tab again to navigate to a specific API, then hit Enter to insert it!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-tips-2.gif)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-tips-2.gif)
 
 _Animation not visible to Xiaochong Book readers — sorry!_
 
@@ -126,7 +126,7 @@ After the error, immediately type %debug, then use the `l` command to list the c
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-debug.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/ipython-debug.jpg)
 
 ### 8. Use bookmarks
 
@@ -141,7 +141,7 @@ If you use IPython often, or juggle several projects at once, the bookmark featu
 
 .image {
     float: left;
-    shape-outside: url('https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png');
+    shape-outside: url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png');
     shape-margin: 1em;
     shape-image-threshold: 0.2;
 }
@@ -161,7 +161,7 @@ This creates a bookmark named my_project pointing to the ~/Projects/my-python-pr
 
 <div class="wrap">
 
-<img class="image" src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png"/>
+<img class="image" src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/jupyter-page-mockup.png"/>
 
 ## Related Posts
 <p>We have also published two notes on Jupyter tips — verified, 80% of people have never used them!</p>

@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/16-pandas核心语法-6
 date: 2025-04-02
 category: tools
 motto: Every adversity, every failure, every heartache carries with it the seed on an equivalent or greater benefit.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/three-books.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/three-books.png
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy, pandas]

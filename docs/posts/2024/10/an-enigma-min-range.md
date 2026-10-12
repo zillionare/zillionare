@@ -4,14 +4,14 @@ date: 2024-10-13
 category: algo
 slug: posts/algo/an-enigma-min-range
 motto: 
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, minimum, Numpy]
 excerpt: "股谚云，天量见天价、地量见地价。今天我们就来验证一下。"
 ---
 
-![多伦多大学校园。2024诺贝尔物理学奖获得者，Geoffrey Hinton在此任教。](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp)
+![多伦多大学校园。2024诺贝尔物理学奖获得者，Geoffrey Hinton在此任教。](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp)
 
 股谚云，天量见天价、地量见地价。今天我们就来验证一下。
 
@@ -232,7 +232,7 @@ df_one_year.plot(x='date', y='minrange', label='Min Range', color='red', seconda
 我们得到的输出如下：
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/min-range-and-sh.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/min-range-and-sh.jpg)
 
 这个图显示了惊人的结果。几乎在每一次地量（大于50天）出现之后，都能立刻迎来一个小的反弹。但大级别的反弹，还需要在地量之后，随着资金不断进场，成交量放大才能出现。
 

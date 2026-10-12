@@ -14,7 +14,7 @@ Here, we introduce a specialized and important library for asset portfolio optim
 
 [PyPortfolioOpt](https://pyportfolioopt.readthedocs.io), on the other hand, is a library dedicated specifically to portfolio optimization. It was originally developed by Robert Martin, a trader, Python enthusiast, and astrophysicist. The library has garnered nearly 4k stars on GitHub.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/pyportfolioopt.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/pyportfolioopt.png)
 
 PyPortfolioOpt provides the following features:
 
@@ -89,11 +89,11 @@ prices.tail()
 
 We will obtain the following result:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-5-price-df.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-5-price-df.png)
 
 We plot the price trends of each asset as shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-equity-wave.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-equity-wave.png)
 
 The trick in the above code is likely on line 24, where multiple dataframes are concatenated row-wise to form a wide table. This format was also used when performing factor analysis with Pyfolio.
 
@@ -110,7 +110,7 @@ sample_cov.head()
 ```
 The result is as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov.png)
 
 The difference is that if we use PyPortfolioOpt’s `sample_cov` method, we do not need to calculate returns or handle invalid values separately. This single step accomplishes the following:
 
@@ -126,7 +126,7 @@ We use the following command to visualize this matrix:
 plotting.plot_covariance(sample_cov, plot_correlation=True)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov-visualize.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cov-visualize.png)
 
 ### Solving for the Optimal Portfolio
 
@@ -195,7 +195,7 @@ plt.show()
 
 Ultimately, we obtain the following figure:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt_ef_with_random_port.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt_ef_with_random_port.png)
 
 A few points need clarification here:
 
@@ -212,7 +212,7 @@ Using the Dirichlet distribution looks more elegant. However, note that the dist
 
 The previous series covered CAPM. It has intricate connections with MPT. First, when solving for the best Sharpe ratio, we used the term **tangency portfolio** (see comment on line 6). A tangency portfolio is a portfolio located at the point where the efficient frontier in the risk-return space is tangent to the highest possible Capital Market Line (CML).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cml.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/mpt-cml.png)
 
 The slope of this tangent line is the Sharpe ratio.
 

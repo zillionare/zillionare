@@ -3,7 +3,7 @@ slug: posts/career-figure/successfully-starting-a-career-in-quant-research
 title: 如何选择量化交易基金，Max Dama 给你的7个建议
 date: 2025-10-23
 category: career
-img: https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/23.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/23.jpg
 excerpt: 对于想要在量化交易行业发展的新人，可能并不知道该如何挑选一家公司。因此，他们很容易在选择第一份工作时犯错。这个错误可能会导致你日后放弃这个行业，而事实上，你可能非常适合这个行业并取得成功。没有经验的人很容易犯错；但我想提供一些指导，帮助你避免一些常见的陷阱。
 tags: [career, figure]
 ---
@@ -11,7 +11,7 @@ tags: [career, figure]
 !!! attention
    本文在翻译的基础上进行了改写。原文可以在 headlandstech.com 网站上的 blog 栏目找到。原文作者是 Max Dama, Headlands 联合主席。著有《Max Dama on Automated Trading》一书，并以该书为基础，在 UC Berkeley 开设的量化交易课程。
 
-![Max Dama, Co-present of HL](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/max-dama.png)
+![Max Dama, Co-present of HL](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/max-dama.png)
 
 对于想要在量化交易行业发展的新人，可能并不知道该如何挑选一家公司。因此，他们很容易在选择第一份工作时犯错。这个错误可能会导致你日后放弃这个行业，而事实上，你可能非常适合这个行业并取得成功。没有经验的人很容易犯错；但我想提供一些指导，帮助你避免一些常见的陷阱。
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/17-pandas核心语法-7
 auto_translated: true
 source_sha: e0602cd10f940de336085e0d4adb8cc76840bf2e
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
 ---
 
 Pandas DataFrames offer robust styling capabilities, enabling Excel-like conditional formatting via the `Styler` object. Additionally, Pandas’ built-in plotting methods support a wide range of chart types, effortlessly meeting data visualization requirements.
@@ -25,7 +25,7 @@ Access styling features via `DataFrame.style`, which supports chained method cal
 df.style.set_caption("标题").set_properties(**{'background-color': 'lightgray'})
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/070.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/070.png)
 
 ### 1.2. Conditional Coloring
 ### 1.2.1. Single-Column Conditional Coloring
@@ -39,7 +39,7 @@ def color_negative_red(val):
 df.style.applymap(color_negative_red)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/071.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/071.png)
 
 ### 1.2.2. Multi-Column Conditional Coloring
 ```python
@@ -47,7 +47,7 @@ df.style.apply(lambda x: ['background: yellow' if v > 0.2 else '' for v in x],
                         subset=['A', 'C'])
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/072.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/072.png)
 
 ### 1.2.3. Highlighting Extremes
 
@@ -57,7 +57,7 @@ df.style.apply(lambda x: ['background: yellow' if v > 0.2 else '' for v in x],
 df.style.highlight_max(color='lightgreen').highlight_min(color='pink')
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/073.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/073.png)
 
 
 ### 1.2.4. Gradient Backgrounds
@@ -65,14 +65,14 @@ df.style.highlight_max(color='lightgreen').highlight_min(color='pink')
 df.style.background_gradient(cmap='Blues', subset=['B'])
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/074.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/074.png)
 
 ### 1.2.5. Bar Chart Styling
 ```python
 df.style.bar(subset=['C'], color='#5fba7d')
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/075.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/075.png)
 
 ---
 
@@ -83,7 +83,7 @@ headers = {'selector': 'th',
 df.style.set_table_styles([headers])
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/076.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/076.png)
 
 ### 1.2.7. Dynamic Conditional Coloring (Complex Logic)
 ```python
@@ -94,7 +94,7 @@ def highlight_risk(row):
 df.style.apply(highlight_risk, axis=1)  # axis=1表示按行处理
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/077.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/077.png)
 
 !!! Notes
     - Styling only applies in Jupyter Notebooks or when exported to HTML; it does not modify the underlying data.
@@ -114,7 +114,7 @@ s = pd.Series(np.random.standard_normal(10).cumsum(), index=np.arange(0, 100, 10
 s.plot()
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/065.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/065.png)
 
 ---
 
@@ -159,7 +159,7 @@ plt.style.use('grayscale')
 df.plot()
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/066.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/066.png)
 
 !!! Notes
     Here, `plt.style.use('grayscale')` is used to set the color scheme to grayscale.
@@ -194,7 +194,7 @@ data.plot.barh(ax=axes[1], color='k', alpha=0.7)
 
 ---
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/067.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/067.png)
 
 For DataFrames, bar charts group the values of each row and display them side by side.
 
@@ -205,7 +205,7 @@ df = pd.DataFrame(np.random.uniform(size=(6, 4)),
 df.plot.bar()
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/068.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/068.png)
 
 Note that the column name "Genus" is used as the legend title.
 
@@ -217,4 +217,4 @@ Passing `stacked=True` generates a stacked bar chart for the DataFrame, where th
 df.plot.bar(stacked=True,alpha=0.5)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/03/069.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/03/069.png)

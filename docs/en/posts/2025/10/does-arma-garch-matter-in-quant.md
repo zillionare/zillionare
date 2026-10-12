@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/does-arma-garch-matter-in-quant
 auto_translated: true
 source_sha: 38eb821d507976ef07ff0c0bffba6cb84964eb72
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg"
 ---
 
 Securities trading data is a classic example of time-series data, and ARMA (AutoRegressive Moving Average) and GARCH (Generalized AutoRegressive Conditional Heteroskedasticity) are two widely used time-series models. But how should we evaluate their actual role in quantitative trading?
@@ -48,7 +48,7 @@ The fundamental reason is that natural time-series patterns, once established, r
 Coincidentally, the 2025 Nobel Prize in Physics was announced shortly after I wrote this piece. The prize was awarded to three scholars from the University of California and others for their pioneering work on "achieving macroscopic quantum mechanical tunneling and energy quantization in circuits."
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251009230959.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251009230959.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/python/use-sql-query-with-pandas
 auto_translated: true
 source_sha: 7d0fec52695009d3d120b642aae54a72db714d7a
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/panda.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/panda.jpg"
 ---
 
 If you know some SQL, querying in pandas can feel tedious.
@@ -100,7 +100,7 @@ The resulting DataFrame looks like this:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-mixed-data.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-mixed-data.jpg)
 
 Now, let's run a query:
 
@@ -137,7 +137,7 @@ pysqldf("select A, C, count(*) as count
         from df group by B limit 2;")
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-pandasql-example.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-pandasql-example.jpg)
 
 Grouping, limiting rows, and renaming columns in one go — this example shows the power of SQL nicely.
 
@@ -145,7 +145,7 @@ But pandasql has a significant problem: it hasn't been updated for a long time. 
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-not-executable.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-not-executable.jpg)
 
 To fix it, you'd have to downgrade to SQLAlchemy 1.4.46. But since so many other libraries (including Pandas) depend on newer versions of SQLAlchemy, that fix only creates new chaos.
 
@@ -240,14 +240,14 @@ duckdb.sql(sql)
 
 The output is in DataFrame format, as follows:
 
-![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-duckdb-left-join.jpg)
+![66%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-duckdb-left-join.jpg)
 
 ---
 
 We can see an adjustment happened on June 14, 2023. Next, let's compare against the data fetched from zillionare-omicron to check whether the adjustment time, factor, and close price all match:
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-omicron-result.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pandas-sql-omicron-result.jpg)
 
 As you can see, the two results match. But the DuckDB implementation is quite a bit faster than zillionare.
 

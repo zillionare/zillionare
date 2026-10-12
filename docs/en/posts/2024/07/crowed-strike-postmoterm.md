@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/crowed-strike-postmoterm
 auto_translated: true
 source_sha: 127aff6c375590f657d9bd10991cee88209aa9d3
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/bsod.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/bsod.jpg"
 ---
 
 Yesterday afternoon, Microsoft gave everyone an unexpected day off. Windows crashed yet again — but this time it wasn't just a few machines, it was a massive global outage. For a moment, we were all flying the "Blue Banner."
@@ -17,7 +17,7 @@ The root cause has now been found, and most machines have been fixed. During a r
 
 That mistake was itself triggered by another, rarer failure. CrowdStrike relies on Microsoft's Azure cloud in US Central, and that data center happened to go down.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/crowd-strike.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/crowd-strike.jpg)
 
 That glitch caused CrowdStrike to pull in corrupted configuration data. Once pushed to endpoints, agents running on that bad config loaded an extra driver called csagent.sys on Windows terminals. That driver contained a bug that sent systems into a blue-screen boot loop.
 
@@ -27,7 +27,7 @@ It is still unclear how many trading firms and individuals in China were affecte
 
 Here are a few suggestions.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/CI-CD-process.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/CI-CD-process.png)
 
 First, achieve high unit-test coverage with a solid CI/CD pipeline. Always remember that any software or hardware system has bugs. When you build a quantitative trading system, high-coverage unit testing plus CI/CD is a must.
 
@@ -39,7 +39,7 @@ Software like CrowdStrike is actually tested quite rigorously in normal times, s
 
 Traditionally, quant teams are led by finance professionals who may lack software-engineering experience and are unfamiliar with testing and CI/CD. That is exactly why, after finishing my book *Efficient Python Programming in Practice*, I specifically invited two leading figures from the finance world to endorse it. Having worked in quant finance for many years, I know this field desperately needs systematic software-engineering methods to ensure software quality.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png)
 
 Second, turn off all auto-updates. In production, any automatic update is extremely dangerous and must be disabled. Only updates that have passed rigorous testing should be applied.
 
@@ -52,7 +52,7 @@ If CrowdStrike had implemented staged rollout — for example, deploying to just
 Staged rollout applies to quant systems too. On August 1, 2012, Knight Capital deployed new trading software on Nasdaq, but due to insufficient testing, the software triggered a cascade of erroneous orders upon activation, losing about $440 million in 45 minutes. It ultimately led to the firm being acquired by Jefferies Group.
 
 <div style='width:75%;text-align:center;margin-bottom:1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/knight-capital-case.jpg' style="box-shadow:0 2px 5px rgba(0,0,0,0.3)">
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/knight-capital-case.jpg' style="box-shadow:0 2px 5px rgba(0,0,0,0.3)">
 <span style='font-style:italic;font-size:0.8rem'>Knight Capital Case Report</span>
 </div>
 
@@ -64,7 +64,7 @@ Futures traders often say you make money 90% of the time — it's the less than 
 
 Fourth, build a controllable system.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/07/i-robot.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/i-robot.jpg)
 
 If your signal system is built on AI models, then your risk-control model must not be built on a black box. Always set circuit breakers and stop out unconditionally when triggered — yes, this may cause other quants to stop out alongside you, but on the flip side, if you run too late, you will be the one getting buried.
 

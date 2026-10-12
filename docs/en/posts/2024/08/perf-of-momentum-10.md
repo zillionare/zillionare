@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/perf-of-momentum-10
 auto_translated: true
 source_sha: e8c9dca6eb5688dcc0d42c3b88ccf7be31719f97
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg"
 ---
 
 <!-- This bull market lasted 86,400 seconds! Civilization entered hibernation again. -->
@@ -72,11 +72,11 @@ The testing parameters are as follows: We randomly selected 2,000 stocks and tes
 
 The factor layering results are as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-factor-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-factor-quantile.jpg)
 
 The mean returns by layer are shown below:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr.jpg)
 
 Clearly, the 10-period slope factor acts as a contrarian indicator: the faster the short-term rise, the greater the loss after buying.
 
@@ -84,11 +84,11 @@ Clearly, the 10-period slope factor acts as a contrarian indicator: the faster t
 
 Given this, we take the negative of the slope factor as the new signal and run the test again:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-mpwr-2.jpg)
 
 As expected, this chart is merely a mirror image of the previous one. Let us examine the returns:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-1.jpg)
 
 The cumulative return over seven months approaches 15%, with a maximum drawdown of around 5%. Considering the performance this year, the results are decent.
 
@@ -99,7 +99,7 @@ The cumulative return over seven months approaches 15%, with a maximum drawdown 
 
 Looking deeper into the cumulative returns by layer:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-return-by-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-return-by-quantile.jpg)
 
 The factor demonstrates good stability, with no significant style shifts occurring during the period.
 
@@ -107,13 +107,13 @@ However, if this factor were to be deployed in live trading, it might not be sui
 
 What would the performance look like without the ability to short? The following chart shows the returns under a long-only strategy:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-long-only.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/slope-cum-returns-long-only.jpg)
 
 This performance is not surprising. There was a strong rebound in February, during which the factor performed well. However, as the market weakened subsequently, the half-life of the momentum factor shortened, and the long-only returns declined steadily.
 
 ---
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg)
 
 On the cusp of July and August, China A-shares experienced a bull market spanning two months, lasting 86,400 seconds. It has since re-entered a hibernation state. This phenomenon may not be predictable using the momentum factor introduced today, but the factor’s weak performance does help explain why a continuous rally did not materialize.
 

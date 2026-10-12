@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/2026十大量化技术/uv-pydantic
 auto_translated: true
 source_sha: 4e6fb1280d32964ae88e75efb46280946694a79f
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png"
 ---
 
 Quantitative professionals have enjoyed a triumphant 2025. As we stand on the precipice of 2026, we observe an unprecedented restructuring of the quantitative trading technology landscape. The turn of the year is the ideal time to sharpen our tools, which is why we have curated the quantitative tech stack you need to master next year.

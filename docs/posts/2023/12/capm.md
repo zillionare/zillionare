@@ -250,4 +250,4 @@ fig.show()
 最终我们得到下图：
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/capm-q-plot.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/capm-q-plot.png)

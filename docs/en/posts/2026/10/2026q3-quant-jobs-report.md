@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/2026q3-quant-jobs-report
 auto_translated: true
 source_sha: 7606dac8a2d77ee8a6b67538c72d18a45c72edc9
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
 ---
 
 !!! tip "Data Source"
@@ -19,9 +19,9 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261
 
 We analyzed **747** job postings from **21** companies, of which **191** (26%) are core quantitative roles (Research + Trading + ML/AI).
 
-![Role Category Distribution](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043915-2026-q3-category.svg)
+![Role Category Distribution](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043915-2026-q3-category.svg)
 
-![Seniority Structure](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043916-2026-q3-seniority.svg)
+![Seniority Structure](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043916-2026-q3-seniority.svg)
 
 | Role Category | Count | Share |
 |---|---:|---:|
@@ -46,7 +46,7 @@ Across all roles, the **top five most common hard skills** are:
 4. **Linux/Unix** — Required in 22% of JDs
 5. **Distributed/Concurrency** — Required in 19% of JDs
 
-![Top 15 Hard Skills](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043918-2026-q3-skills-all.svg)
+![Top 15 Hard Skills](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043918-2026-q3-skills-all.svg)
 
 Focusing solely on core quant roles (Research/Trading/ML) tightens requirements significantly:
 
@@ -61,7 +61,7 @@ Focusing solely on core quant roles (Research/Trading/ML) tightens requirements 
 | Risk Management | 25% |
 | Options/Derivatives | 23% |
 
-![Core Quant Role Skills](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043919-2026-q3-skills-core.svg)
+![Core Quant Role Skills](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043919-2026-q3-skills-core.svg)
 
 ### Top 5 by Function
 
@@ -109,9 +109,9 @@ Among the 325 JDs mentioning experience years, the median minimum required exper
 
 ## IV. Geography and Companies
 
-![City Distribution](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043921-2026-q3-cities.svg)
+![City Distribution](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043921-2026-q3-cities.svg)
 
-![Company Distribution](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043922-2026-q3-companies.svg)
+![Company Distribution](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005043922-2026-q3-companies.svg)
 
 | City | Occurrences | | Company | Count |
 |---|---:|---|---|---:|

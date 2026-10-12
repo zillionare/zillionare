@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/smart-money-concept
 auto_translated: true
 source_sha: 38fd0006fac30aa7ef0172ca3e83c8450ae5f904
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg"
 ---
 
 !!! abstract
@@ -60,37 +60,37 @@ This concept is fundamental to understanding SMC. Essentially, an order block re
 
 On price charts, order blocks typically appear as periods of consolidation (as shown in the figure below). However, to correctly identify order blocks in the market, you must use other tools, such as Level 2 data and volume indicators.
 
-![Order Block](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_3_Figure_8.jpeg)
+![Order Block](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_3_Figure_8.jpeg)
 
 ### **2. Breaker Blocks (BB)**
 
 These are order blocks that failed to hold a price level within a given trend. They represent price levels where market makers intentionally break support or resistance to trigger retail traders’ stop-loss orders.
 
-![Breaker Block](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_1.jpeg)
+![Breaker Block](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_1.jpeg)
 
 ### **3. Fair Value Gaps (FVG)**
 
 Fair Value Gaps, or FVGs, are a unique trading concept that appears when the market moves rapidly from one price level to another, often leaving a gap on the price chart. SMC traders closely monitor these gaps because they can indicate significant shifts in market sentiment.
 
-![Fair Value Gap](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_4.jpeg)
+![Fair Value Gap](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_4_Figure_4.jpeg)
 
 ### **4. Break of Structure (BOS)**
 
 Break of Structure is a concept focused on identifying changes in the overall market trend. A BOS occurs when price makes a new high or low, breaking through previous highs or lows.
 
-![Break of Structure](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_1.jpeg)
+![Break of Structure](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_1.jpeg)
 
 ### **5. Change of Character (Choch)**
 
 Change of Character, often abbreviated as Choch, refers to a sudden shift in market behavior. It is an abrupt change in volatility, volume, or price action, indicating that the current trend is weakening and a reversal may be imminent.
 
-![Change of Character](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_4.jpeg)
+![Change of Character](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_5_Figure_4.jpeg)
 
 ### **6. Liquidity**
 
 Liquidity is a key factor in SMC trading. It refers to specific price levels where orders are placed above or below, waiting to be collected. There are different types of liquidity, such as trendline liquidity, buy-side liquidity, sell-side liquidity, double tops, and double bottoms.
 
-![Liquidity](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_1.jpeg)
+![Liquidity](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_1.jpeg)
 
 ### **How to Trade Using Smart Money Concepts**
 
@@ -102,7 +102,7 @@ The first thing you need to do when trading SMC is to determine the primary tren
 
 As mentioned, when price breaks down structure, forming a series of lower highs and lower lows, we are in a downtrend. Conversely, a series of higher highs and higher lows indicates an uptrend. Similarly, a Change of Character (Choch) signals a change in trend.
 
-![Choch](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_7.jpeg)
+![Choch](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_6_Figure_7.jpeg)
 
 The chart above shows that after a Choch, the trend has shifted from bearish to bullish. This means we are no longer seeking to sell the currency pair. Instead, when our entry criteria appear on the chart, we look to buy.
 
@@ -110,11 +110,11 @@ The chart above shows that after a Choch, the trend has shifted from bearish to 
 
 After determining the trend, we focus only on identifying where market makers are prepared to execute their orders and trade in that direction. This is where determining the optimal order block becomes crucial.
 
-![High-Probability Order Block](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_4.jpeg)
+![High-Probability Order Block](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_4.jpeg)
 
 In our example, we can see that sell-side liquidity was established below the first order block. Although it broke up through market structure, there is also a Fair Value Gap directly below the supply/demand zone. We expect market makers to take this liquidity before continuing the uptrend.
 
-![High-Probability Order Block](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_6.jpeg)
+![High-Probability Order Block](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_7_Figure_6.jpeg)
 
 The order zone below the liquidity is our high-probability bullish order block for several reasons: it triggered an upward CHoCH, and there is liquidity and a Fair Value Gap directly above it. We expect price to return to this zone and continue the uptrend.
 
@@ -122,7 +122,7 @@ The order zone below the liquidity is our high-probability bullish order block f
 
 Next, you must determine the area where large players enter the market. After detecting valuable supply or demand zones, determining entry and exit points becomes easier. For our example, we will set the entry point just above the bullish order block, the stop-loss just below that zone, and the profit target at the structural high.
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_8_Figure_3.jpeg)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/_page_8_Figure_3.jpeg)
 
 ### **Smart Money Concepts vs. Price Action—What’s the Difference?**
 

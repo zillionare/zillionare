@@ -35,7 +35,7 @@ excerpt: "大富翁是可以本地部署的开源量化框架，功能齐全，�
 
 大富翁量化框架由以下主要组件（服务）构成：
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/11/zillionare-deployment.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/11/zillionare-deployment.png)
 
 * [Omega](https://github.com/zillionare/omega)是大富翁的数据服务器，将上游数据源提供的数据实时本地化。
 

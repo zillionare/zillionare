@@ -5,7 +5,7 @@ date: 2025-09-26
 excerpt: 看似“稳稳赚”，实则“险相伴”：在压路机前捡硬币，迟早被碾一遍。动量、套息、做市皆负偏，做空Gamma埋祸根；大众逼空、LTCM为镜鉴。解法：多元化、买保护、动态降杠杆——慢慢赚，不赌命
 category: 策略
 tags: [量化交易, 策略分类, 回测, 风险管理]
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/photo-1642076572486-b4be9c5e5512.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/photo-1642076572486-b4be9c5e5512.jpg
 ---
 
 在量化金融领域，有一个生动的比喻精准概括了某些交易策略的本质 —— “在压路机前捡硬币”（picking nickels in front of a steamroller）。

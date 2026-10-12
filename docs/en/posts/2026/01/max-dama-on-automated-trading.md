@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/max-dama-on-automated-trading
 auto_translated: true
 source_sha: be96f3b56cdb035d17f26d108d881b528577744d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png"
 ---
 
 In the quantitative trading circle, we’ve heard countless stories of "geniuses."
@@ -23,7 +23,7 @@ His name is **Max Dama**.
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065153-1768390658578-df76ad03-e895-480c-9ccf-10d76c7738ff.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065153-1768390658578-df76ad03-e895-480c-9ccf-10d76c7738ff.png)
 
 ### The Awakened Surfer
 The story begins in northwest Florida. Max Dama once joked in an interview that it’s Florida’s "redneck" region. In such an environment, educational resources are relatively scarce.
@@ -168,7 +168,7 @@ For several consecutive episodes, our cover images have been university campus p
 Which university is featured in this episode’s cover image? Do you or your friends study at this beautiful university? Tell us in the comments.
 
 <figure style="width: 100%; margin: 0 auto 1rem; padding: 0;">
-  <img src="https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+  <img src="https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
   <figcaption style="font-size: 0.8em; color: grey; text-align: center; margin-top: 0.5rem;">
     Which university campus is this? @wikemedia
   </figcaption>

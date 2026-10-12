@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-1013
 auto_translated: true
 source_sha: b5194061312371419366b9bc017ca532748ab4b4
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 
 ### This Week's Highlights
@@ -461,7 +461,7 @@ The comparison chart of MDD generated under a sliding window versus the original
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
 
 
 This method also simply encapsulates a function to convert a 1D array into a sliding window view, which can be used elsewhere.
@@ -513,16 +513,16 @@ Here, we can also use the median-based outlier clipping method. Once the indicat
 
 ## "Factor Investing and Machine Learning Strategies" Course is Now Open!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## Clear Goals, Strong Sense of Achievement
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## Why You Should Take QuanTide's Course?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)

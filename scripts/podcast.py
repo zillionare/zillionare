@@ -72,7 +72,7 @@ def upload_audio_to_github(audio_path: str, year: int, month: int) -> str:
             if existing_file["content"].replace("\n", "") == audio_base64:
                 print(f"✅ Audio file already exists and is identical: {target_path}")
                 cdn_url = (
-                    f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+                    f"https://gcore.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
                 )
                 return cdn_url
 
@@ -93,7 +93,7 @@ def upload_audio_to_github(audio_path: str, year: int, month: int) -> str:
 
         if upload_response.status_code in [200, 201]:
             cdn_url = (
-                f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
+                f"https://gcore.jsdelivr.net/gh/zillionare/podcast@main/{target_path}"
             )
             print(f"✅ Audio uploaded successfully: {cdn_url}")
             return cdn_url
@@ -226,7 +226,7 @@ def to_commonmark(src: str, dst: Union[Path, str] = "", seq=1):
         "description: " + src_.stem,
         "date: " + arrow.now().format("YYYY-MM-DD"),
         "audio: "
-        + f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{year:04d}/{month:02d}/{seq:02d}-final.mp3",
+        + f"https://gcore.jsdelivr.net/gh/zillionare/podcast@main/{year:04d}/{month:02d}/{seq:02d}-final.mp3",
         "---",
         "",
     ]
@@ -347,7 +347,7 @@ def to_alternating(src: str, audio: str, dst: Union[Path, str] = ""):
         audio_url = upload_audio_to_github(audio, year, month)
     except Exception as e:
         print(f"⚠️  Failed to upload audio, using placeholder URL: {e}")
-        audio_url = f"https://cdn.jsdelivr.net/gh/zillionare/podcast@main/{year:04d}/{month:02d}/{audio_name}"
+        audio_url = f"https://gcore.jsdelivr.net/gh/zillionare/podcast@main/{year:04d}/{month:02d}/{audio_name}"
 
     frontmatter = [
         "---",

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/earnings-preview-with-llms
 auto_translated: true
 source_sha: ed9157ba40c214886108f925e574ca832f8a5b48
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg"
 ---
 
 The market on today (September 30) was volatile and erratic. On the news front, a major interest-rate subsidy policy was released the night before, theoretically a positive for the real estate sector. Yet, the relevant sectors opened lower and fell, dropping as much as 4.35% at one point. Fortunately, they dipped first and rose later, closing up 0.91%.
@@ -108,7 +108,7 @@ The earnings were released after the US Eastern Time market close on August 26, 
 | Gross Margin | Approx. 75% | Approx. 75% | $\ge$75%, not diluted by Rubin ramp |
 | Next Q Rev Guid | — | $103.8–104.1 billion | Above $105 billion |
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193726305.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193726305.png)
 
 This table represents exactly what previous models lacked. The report explicitly wrote: exceeding $92 billion is just an "entry ticket"; what truly distinguishes the outcome is above $95 billion.
 
@@ -116,7 +116,7 @@ This table represents exactly what previous models lacked. The report explicitly
 
 The report considered only one number to be most critical: **next-quarter revenue guidance**. $105 billion is the long-side dividing line, and $103 billion is the disappointment line. It also stated that the stock price reactions in the last four quarters were driven by the guidance relative to the buy-side threshold, not by the magnitude of this quarter's beat.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193947599.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193947599.png)
 
 This corresponds exactly to the phenomenon mentioned at the beginning: "four consecutive beats but price drops." The beat was against the sell-side numbers, not the buy-side.
 
@@ -152,7 +152,7 @@ With the research report as additional context, every model tested by the organi
 
 Reasoning intensity also began to play a role, especially for the smallest model: Luna increased from 24% at medium intensity to 29% at highest intensity, costing less than $3 per 1,000 events. **GPT-6 Astra, under ultra-high (xhigh) reasoning intensity, explained over 30% of the return variance.**
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930194053450.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930194053450.png)
 
 The official ranking on the leaderboard looks at $\Delta R^2$. The 30% in the blog is the full model's $R^2$, compared to a baseline of approx. 10%, with an increment of approximately 20 percentage points (this is my conversion; the blog does not give it directly).
 

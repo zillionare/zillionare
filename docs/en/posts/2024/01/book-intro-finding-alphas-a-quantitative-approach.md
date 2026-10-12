@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/resources/book-intro-finding-alphas-a-quantitative-approach
 auto_translated: true
 source_sha: 2c1420baad4eb2709deeea4e25a6ced0c6878648
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kitty-in-basket.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kitty-in-basket.jpg"
 ---
 
 Q: I keep seeing people talk about "alpha seeking" — what does it actually mean?
@@ -74,16 +74,16 @@ There is no Chinese edition of the book. If, like me, you prefer reading in Chin
 
 <div style="display:flex;">
 <div style="flex:50%; ">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas.jpg" style="height:200px"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas.jpg" style="height:200px"/>
 </div>
 <div style="flex:50%;">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-1.jpg" style="height:200px"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-1.jpg" style="height:200px"/>
 </div>
 <div style="flex:50%;">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-2.jpg" style="height:200px"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-2.jpg" style="height:200px"/>
 </div>
 <div style="flex:50%;">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-3.jpg" style="height:200px"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/finding-alphas-toc-3.jpg" style="height:200px"/>
 </div>
 </div>
 

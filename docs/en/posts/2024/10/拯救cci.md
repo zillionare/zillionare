@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/拯救cci
 auto_translated: true
 source_sha: 84c75ce8e9534a26da1dd77e59980eea78eb9385
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/quantide-research-env.gif"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/quantide-research-env.gif"
 ---
 
 The Commodity Channel Index (CCI), developed by Donald Lambert and first published in the *Commodity Futures* magazine in 1980, has long been highly regarded by traders. However, using this indicator directly as a factor for **factor testing** nearly obscured its value. Ultimately, the factor density distribution revealed the truth: through **factor purification**, the final testing results aligned with traditional experience.
@@ -59,7 +59,7 @@ plt.tight_layout()
 
 Here is the output:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-payh.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-payh.jpg)
 
 In the output, I marked trading signals at two points where CCI crossed $\pm 100$ to illustrate its signaling role. This is merely an observation of a single asset over a short period and does not prove much on its own.
 
@@ -95,7 +95,7 @@ with sns.axes_style('white'):
 
 Looking at the density distribution, the factor distribution is bimodal.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pdf.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pdf.jpg)
 
 As we discussed in the course, if a factor’s distribution is bimodal, it often contains multiple influences and is not pure. We are currently facing this situation. In such cases, for **factor analysis**, we must first "purify" the factor.
 
@@ -112,7 +112,7 @@ with sns.axes_style('white'):
 
 The output results are as follows:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pdf-pured.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pdf-pured.jpg)
 
 Now, the distribution of CCI is unimodal. Let’s proceed with **factor testing** to see the results:
 
@@ -136,23 +136,23 @@ Because we discarded half of the factors, when calling Alphalens, we need to set
 
 Based on the purified factor, the returns are impressive. It is not as strong as the RSI we tuned previously, but since we are in a pure **long position** scenario, the results are particularly attractive.
 
-![Annual Alpha Chart](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pured-annual-alpha.jpg)
+![Annual Alpha Chart](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pured-annual-alpha.jpg)
 
 Alpha reached 19% annually. Moreover, this factor exhibits good positive monotonicity, as seen in the **layered backtest** returns:
 
-![Factor Layered Returns Mean Chart](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pured-mean-period-wise-return.jpg)
+![Factor Layered Returns Mean Chart](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-pured-mean-period-wise-return.jpg)
 
 However, its cumulative return performance in a pure **long position** is not very stable. This is also evident from the beta value in the annual return chart above, showing significant sensitivity to market volatility.
 
-![Cumulative Return Chart](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-cumulative-return.jpg)
+![Cumulative Return Chart](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-cumulative-return.jpg)
 
 But we don’t necessarily have to stick to a pure **long position**; CCI was originally a futures indicator. Let’s look at the **long-short** portfolio scenario:
 
-![Alpha in Long-Short Portfolio](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-annual-alpha-with-long-short.jpg)
+![Alpha in Long-Short Portfolio](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-annual-alpha-with-long-short.jpg)
 
 Not only is the Alpha return strong, but the beta is **hedged** to nearly zero! With beta at zero, the cumulative return should be steadily upward with low volatility. Let’s see if this holds true:
 
-![Cumulative Return in Long-Short Portfolio](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-long-short-cumulative.jpg)
+![Cumulative Return in Long-Short Portfolio](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/cci-long-short-cumulative.jpg)
 
 This may be one reason why CCI is so highly regarded.
 
@@ -160,8 +160,8 @@ However, this **factor testing** is not equivalent to **live trading**, as the o
 
 This article includes code and data for reproducibility. Join the community to access the Jupyter Notebook research environment and run the code directly.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/logo/zsxq.png)
 
 In this environment, in addition to the code from this article, the code from previous paid articles is also available. Furthermore, any future articles that declare the inclusion of reproducible code and data can be found in this environment.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/quantide-research-env.gif)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/quantide-research-env.gif)

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming
 auto_translated: true
 source_sha: 52f146f4d2cb1eb98dc202ee4d6d8125335ab47a
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/brooke-lark-8beTH4VkhLI-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/brooke-lark-8beTH4VkhLI-unsplash.jpg"
 ---
 
 **Zhihu Question: Beyond Programming, How Can Quants Use AI?**
@@ -27,7 +27,7 @@ On one hand, we often lament information overload and advocate for "information 
 
 The missing piece is a smart assistant. If we had an assistant that proactively collected and filtered information, delivering only the news we care about directly to us, we wouldn’t have to worry about "nutrition." For this, we can use **Grok subscription tasks**.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805151337.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805151337.png)
 
 The usage is straightforward, and I assume no quant needs me to explain it. Simply enter an email address at the end, and the news summaries will arrive in your inbox on schedule.
 
@@ -37,7 +37,7 @@ Reading is a visual dimension, but when there is too much material to read, our 
 
 In the process of producing these programs, we discovered new uses for AI, which I’d like to share with you—you can use them to create your own exclusive podcasts, turning quantitative papers and research reports that you don’t have time to "read" into podcast content. This allows you to learn while on the road.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/voice.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/promotion/voice.jpg)
 
 There are two tools here. One is **Doubao’s AI Podcast**. Simply upload a research report, and Doubao will automatically generate an audio podcast. It features a standard male-female duo chat, with natural, fluent, light, and lively voices, akin to listening to an emotional talk show.
 
@@ -86,7 +86,7 @@ What problem does TradingAgents solve? It collects and integrates multi-dimensio
 This diagram basically illustrates its operational mode:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805160149.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805160149.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 
@@ -97,7 +97,7 @@ The agents in this layer are divided into two factions: the optimistic and the p
 This is where the advantage of AI is further demonstrated. The AI Trader bases decisions solely on facts and data, rather than on personal preferences or dislikes. It avoids the scenario where a leader’s single opinion overrides all others.
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/vitaly-gariev-VZQAo20ArSA-unsplash.jpg'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/vitaly-gariev-VZQAo20ArSA-unsplash.jpg'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

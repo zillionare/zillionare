@@ -3,7 +3,7 @@ title: "[1013] QuanTide Weekly"
 date: 2024-10-13
 category: others
 slug: posts/uncategory/weekly-1013
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp
 stamp_width: 60%
 stamp_height: 60%
 tags: [others, weekly, Numpy, pandas]
@@ -466,7 +466,7 @@ plt.show()
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/rolling-mdd.png)
 
 
 该方法中，还简单地封装了一个将一维数组转换为滑动窗口视图的函数，可以在其它地方使用。
@@ -518,17 +518,17 @@ array([-1.68, -2.4 , -1.97, -1.7 , -1.46])
 
 ## 《因子投资与机器学习策略》开课啦！
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## 目标清晰 获得感强
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## 为什么你值得QuanTide的课程？
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 

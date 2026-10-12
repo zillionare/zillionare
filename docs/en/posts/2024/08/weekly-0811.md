@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/uncategory/weekly-0811
 auto_translated: true
 source_sha: bc5bb271ebf1038f2b592a860c75aa9b015c17b1
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
 ---
 
 ## This Week's Highlights
@@ -52,7 +52,7 @@ cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kennet
 
 # DATATHON: My Path to a Citadel Quant Role! Includes Past Competition Materials
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg)
 <cap>Kenneth Griffin Speaks to Interns</cap>
 
 Citadel is a top-tier global hedge fund management company, founded by Kenneth Griffin in 1990, and is the dream company for many quants.
@@ -94,7 +94,7 @@ However, their requirement is "Extraordinary" -- this standard of extraordinarin
 
 Therefore, it is difficult to give specific advice for this role. However, Citadel collaborates with Wonderlic for interview screening. If you are determined to apply for this role, we recommend taking a Wonderlic training course, costing approximately $50. Wonderlic Select includes cognitive, psychological, cultural, and logical tests. Taking such training will help you filter out unprepared candidates.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
 <cap>11 weeks of extraordinary growth program</cap>
 
 ---
@@ -119,7 +119,7 @@ Its partners include well-known companies such as DoD, Amazon, Citadel, and Poin
 
 ---
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
 <cap>Correlation One</cap>
 
 Datathon is only for current students; you must use a school email to apply. After online registration via the official website, you must first take a **90-minute** online assessment. This assessment includes psychological and value-based questions, as well as some technical questions.
@@ -159,7 +159,7 @@ Here, we provide a brief introduction to the Summer 2024 Datathon.
 
 ## 2024 Summer Datathon
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
 <cap>Problem Statement of 2024 Summer Datathon</cap>
 
 The 2024 Datathon concluded on August 5. This year's topic concerned junk food, requiring conclusions about US food processing from the provided dataset. In addition to the specified dataset, you were allowed to add new datasets as needed. However, these datasets were also submitted to the judges and must not exceed 2GB.
@@ -188,7 +188,7 @@ Some teams have uploaded competition datasets, questions, and their answers to G
 
 These competition materials have also been uploaded to our Jupyter Lab server. For a small fee, you can use them. Without downloading or installing anything, you can run and debug answers submitted by others.
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
 <cap>Datathon Historical Materials</cap>
 
 ---
@@ -199,7 +199,7 @@ If you want to start practicing immediately, you can [apply to use our course en
 
 # Video Calls Can No Longer Be Trusted! DEEP-LIVE-CAM Went Viral Overnight; Fake Live Streams Require Only One Photo!
 
-![L50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/deep-live-cam.png)
+![L50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/deep-live-cam.png)
 
 Get Elon Musk to promote your products!
 

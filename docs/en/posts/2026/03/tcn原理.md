@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/tcn/tcn原理
 auto_translated: true
 source_sha: 1b5a84d762f6946a0ab9eb8f5420415689fa873b
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg"
 ---
 
 Many friends new to quantitative deep learning have a first reaction: run LSTM or GRU.
@@ -52,7 +52,7 @@ $$ y_t = \sum_{i=0}^{k-1} w_i \cdot x_{t-d\cdot i} $$
 
 Sampling along the time axis with stride $d$.
 
-![Figure 1: Multi-layer temporal convolution dependency paths](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/364d64d07e4abbf22bd911617db132ff.jpg)
+![Figure 1: Multi-layer temporal convolution dependency paths](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/364d64d07e4abbf22bd911617db132ff.jpg)
 
 When $d=1$, it’s identical to standard causal convolution; when $d=2, 4, 8$ expand layer by layer, the receptive field expands exponentially. If we view each layer as a convolution operation, a common result is:
 $$ RF = 1 + (k-1)(2^L - 1) $$
@@ -84,7 +84,7 @@ TCN’s true essence lies in finding an excellent balance between "depth" and "r
 
 ### Residual Blocks: From "Predicting Price" to "Predicting Deviation"
 
-![Figure 2: TCN Residual Block Structure](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/abc871a0174ac1b9a65bda6b1b0c11f2.png)
+![Figure 2: TCN Residual Block Structure](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/abc871a0174ac1b9a65bda6b1b0c11f2.png)
 
 So, TCN’s second step is adding a constraint to deep networks: "don’t mess things up." This is the residual block. It writes each layer’s output as:
 $$ \mathbf{y} = \sigma(\mathbf{x} + \mathcal{F}(\mathbf{x})) $$
@@ -105,7 +105,7 @@ The residual structure tells the model: you don’t need to reconstruct the enti
 From an optimization perspective, this structure has a harder benefit. During backpropagation, the gradient’s derivative with respect to input becomes:
 $$ \frac{\partial \mathbf{y}}{\partial \mathbf{x}} = I + \frac{\partial \mathcal{F}}{\partial \mathbf{x}} $$
 
-![Figure 3: Residual Connections and Identity Mapping in TCN](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/99adc652312e2185541393dc549a3b87.png)
+![Figure 3: Residual Connections and Identity Mapping in TCN](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/99adc652312e2185541393dc549a3b87.png)
 
 The $I$ in that identity mapping is critical. It means that even if the convolutional branch initially learns nothing, the gradient still has a nearly direct path back.
 

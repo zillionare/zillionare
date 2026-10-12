@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/factor-strategy/ESG策略初探-01
 auto_translated: true
 source_sha: aa440f5d040947351c91d45468dbf97406a72a4e
-cover: "https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/22.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/22.jpg"
 ---
 
 !!! info "Global capital is voting with its feet!"
@@ -96,7 +96,7 @@ stock_esg_rate_sina_df
 <!-- BEGIN IPYNB STRIPOUT -->
 The structure of Sina Finance’s ESG data is shown below:
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760933678173-69b7b822-57fa-4895-9aa5-b221b070c02f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760933678173-69b7b822-57fa-4895-9aa5-b221b070c02f.png)
 <!-- END IPYNB STRIPOUT -->
 
 For analyzing this ESG data format, we typically have two approaches:
@@ -115,7 +115,7 @@ df_zhongxin = df_institution.get('中国国新')
 ```
 The data sample is as follows:
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959013313-27e7ad9f-4726-a44a-8026-a0a885a6748b.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959013313-27e7ad9f-4726-a44a-8026-a0a885a6748b.png)
 
 This allows us to intuitively see the ratings of various listed companies by Sina Finance.
 
@@ -136,7 +136,7 @@ df_s
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959297518-fa04e23f-4d52-45e1-933f-99152583c75f.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760959297518-fa04e23f-4d52-45e1-933f-99152583c75f.png)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -157,7 +157,7 @@ stock_esg_msci_sina_df
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760937976592-2d8bbef4-b981-496f-befd-d366190330c1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760937976592-2d8bbef4-b981-496f-befd-d366190330c1.png)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -180,7 +180,7 @@ stock_esg_rft_sina_df
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938046488-4c76aa64-54f5-496f-b9c8-583fc3b44761.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938046488-4c76aa64-54f5-496f-b9c8-583fc3b44761.png)
 <!-- END IPYNB STRIPOUT -->
 
 Refinitiv adopts a form of **joint disclosure of ratings and scores**, but the information is limited. There is only cross-sectional information for 100 stocks, mostly overseas stocks, which is also unsuitable for subsequent research.
@@ -198,7 +198,7 @@ stock_esg_zd_sina_df
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938101162-ca596f14-75ca-4532-89f9-a8e34035d2b8.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938101162-ca596f14-75ca-4532-89f9-a8e34035d2b8.png)
 <!-- END IPYNB STRIPOUT -->
 
 
@@ -238,7 +238,7 @@ df_hold
 <!-- BEGIN IPYNB STRIPOUT -->
 The sample holding information is as follows:
 
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938421730-33df0549-1610-4392-a6d2-78fc99446abd.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938421730-33df0549-1610-4392-a6d2-78fc99446abd.png)
 <!-- END IPYNB STRIPOUT -->
 
 With the holding information, we match it with ESG data and perform a market-cap-weighted calculation to derive the fund’s ESG score over different periods.
@@ -356,7 +356,7 @@ plt.show()
 <!--PAID CONTENT END-->
 
 <!-- BEGIN IPYNB STRIPOUT -->
-![](https://fastly.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938522635-63ca437e-2ebd-4aae-811c-b143bb97979a.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/2025/10/20/1760938522635-63ca437e-2ebd-4aae-811c-b143bb97979a.png)
 <!-- END IPYNB STRIPOUT -->
 
 <hr>

@@ -22,7 +22,7 @@ source_sha: 341591292fdf0ee9ceba548973d00e945bbdae2b
 
 XtQuant is a market data and trading API library that can run independently of QMT — what the diagram on the right calls "Native Python." It doesn't ship as a wheel. To install it, [download](http://dict.thinktrader.net/nativeApi/download_xtquant.html) the source package from the ThinkTrader official site. XtQuant versions are identified by packaging date.
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/think-trader-wiki.png)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/think-trader-wiki.png)
 
 What you get is a zip archive containing Python files and Windows DLLs. It supports Python 3.8 through 3.11, which is an advantage over competing products. The docs hint that it can be installed on Linux, but documentation and examples are lacking, so we recommend holding off on that for now.
 
@@ -72,7 +72,7 @@ For example, version 20231209 added `get_etf_info` and historical price-limit da
 
 If your dev machine runs Windows, you can skip this section. If you develop on Linux or Mac, you can work directly from your local machine without logging in to the Windows box running QMT.
 
-![R33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/remote-explorer-on-sidebar.png)
+![R33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/remote-explorer-on-sidebar.png)
 
 The basic steps are:
 

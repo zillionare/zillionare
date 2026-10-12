@@ -1,7 +1,7 @@
 ---
 title: "How to Set Environment Variables in Jupyter Notebook?"
 date: 2024-01-14
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154055-cover-posts-2024-01-how-to-set-env-in-jupyter-notebook.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154055-cover-posts-2024-01-how-to-set-env-in-jupyter-notebook.md.jpg"
 slug: en/posts/python/how-to-set-env-in-jupyter-notebook
 tags: [Jupyter Notebook, Environment Variables, Python]
 excerpt: "Jupyter Notebook doesn't inherit host environment variables by default, complicating secure credential handling. Learn how to expose them via kernel.json for clean, shareable notebooks."

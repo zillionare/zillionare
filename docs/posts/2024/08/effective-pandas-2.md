@@ -4,7 +4,7 @@ date: 2024-08-25
 category: tools
 slug: posts/tools/effective-pandas-2
 motto: 人生很短。不要用你的一生，去过别人的生活。
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/university/priceton-1.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/priceton-1.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [pandas, code]
@@ -40,7 +40,7 @@ df.tail()
 
 生成的数据集如下：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/naive-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/naive-dataframe.jpg)
 
 我们可以通过set_index方法来将索引设置为date:
 
@@ -51,7 +51,7 @@ df1
 
 这样，我们就得到了一个只有date索引的DataFrame。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/simple-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/simple-dataframe.jpg)
 
 如果我们在调用set_index时，指定一个数组，就会得到一个多级索引：
 
@@ -61,7 +61,7 @@ df.set_index(['date', 'asset'])
 
 这样就生成了一个有两级索引的DataFrame。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/multilevel-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/multilevel-dataframe.jpg)
 
 set_index语法非常灵活，可以用来设置全新的索引（之前的索引被删除），也可以增加列作为索引：
 
@@ -124,7 +124,7 @@ df.axes
 
 这两个元素都称为Axis，其中第一个是行索引，我们在调用 Pandas函数时，可能会用 axis = 0，或者axis = 'index'来引用它；第二个是列索引，我们在调用Pandas函数时，可能会用axis = 1，或者axis = 'columns'来引用它。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/pandas-axis-legend.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/pandas-axis-legend.jpg)
 
 到目前为止，这两个索引都只有一级（level=0），并且都没有名字。当我们说列A，列B并且给列改名字时，我们实际上是在改axis=1中的某些元素的值。
 
@@ -141,7 +141,7 @@ df
 
 这样显示出来的DataFrame，会在左上角多出行索引和列索引的名字。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/index-name-vs-columns-name.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/index-name-vs-columns-name.jpg)
 
 同样地，我们也可以猜到，既然行存在多级索引，那么列也应该有多级索引。
 
@@ -164,7 +164,7 @@ df = pd.DataFrame(data, columns=columns)
 df
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dataframe-with-multlevel-columns.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/dataframe-with-multlevel-columns.jpg)
 
 左上角一片空白，因此，这个DataFrame的行索引和列索引都还没有命名（乍一看挺反直觉的，难道列索引不是stock, bond吗）！
 
@@ -176,7 +176,7 @@ df
 df.rename_axis(["type", "column"], axis=1)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/rename-multilevel-columns-dataframe.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/rename-multilevel-columns-dataframe.jpg)
 
 这非常像一个Excel工作表中，发生标题单元格合并的情况。
 

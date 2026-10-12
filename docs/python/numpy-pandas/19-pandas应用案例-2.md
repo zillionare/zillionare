@@ -8,7 +8,7 @@ slug: articles/python/numpy-pandas/19-pandas应用案例-2
 date: 2025-04-05
 category: tools
 motto: The gem cannot be polished without friction, nor man perfected without trials.
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg
 stamp_width: 60%
 stamp_height: 60%
 tags: [tools, programming, Numpy, pandas]

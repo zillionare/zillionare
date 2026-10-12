@@ -3,7 +3,7 @@ slug: posts/algo/pdf-is-all-you-need-3
 title: PDF is all you need(3)
 excerpt: "当小球在高尔顿板上穿梭，神奇地绘出正态分布曲线时，你是否想过这背后隐藏着怎样的数学奥秘？从概率密度到期望值，从离散到连续，这篇文章将带你揭开随机世界的神秘面纱。想知道如何用积分计算抄底成功率吗？准备好，数学的魔法即将开始！"
 date: 2025-08-08
-img: https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg
 category: algo
 tags: [pdf, algo, 概率]
 ---
@@ -21,7 +21,7 @@ tags: [pdf, algo, 概率]
 
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805184837.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250805184837.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图1 高尔顿板</span>
 </div>
 
@@ -39,7 +39,7 @@ tags: [pdf, algo, 概率]
 在这样一个装置中，如果钉子数越来越多，试验次数也越来越多，会发生什么情况呢？下图显示了在有20层钉子，试验500次时的一种可能结果：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807154807.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807154807.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图2 碰了1万次钉子，得到这个结果！</span>
 </div>
 
@@ -59,7 +59,7 @@ from numpy.random import binomial, histogram
 如果我们增加层数，多试验几次，又会如何？下图显示了1000个凹槽、1百万次试验的一种可能结果：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807160423.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807160423.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图3 频率/随机变量图</span>
 </div>
 
@@ -86,7 +86,7 @@ plt.hist(positions, bins=num_grooves, density=True)
 如果我们继续扩大凹槽数量和试验次数，比如说凹槽增加到1万个呢？最终，每个分箱和它们对应的概率密度在图上会紧挨在一起，从而在视觉上无法将其分开，我们将得到下面的图：
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807161541.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807161541.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图4 趋近于正态分布</span>
 </div>
 
@@ -294,7 +294,7 @@ integral_g_up_to_6 = np.trapezoid(y_norm_g[mask], x_norm[mask])
 <!-- END IPYNB STRIPOUT -->
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807214437.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/20250807214437.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>图5 正态分布与期望</span>
 </div>
 

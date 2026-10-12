@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/resources/barra-risk-model-handbook
 auto_translated: true
 source_sha: 04fb1fd1d0da1fc7e77f15ed2f6d9c17a311dd06
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-risk-model-cover.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-risk-model-cover.jpg"
 ---
 
 The Barra risk model is one of the best-known multi-factor models in the industry. It was originally proposed by Barra Inc. (founded by Barr Rosenberg) and later acquired by MSCI, so it is now an MSCI asset. You can still find the product pitch for BarraOne on the MSCI website.
@@ -31,14 +31,14 @@ The handbook spends about the first 10 pages explaining what a multi-factor mode
 
 Parts II and III first review the evolution from Markowitz to CAPM and APT, and then introduce the Barra equity multi-factor model:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-equity-mfm.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-equity-mfm.jpg)
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-handbook-toc-1.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-handbook-toc-1.jpg)
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-handbook-toc-2.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-handbook-toc-2.jpg)
 
 [Download](/assets/ebooks/barra_risk_model_handbook.pdf)

@@ -152,7 +152,7 @@ This displays:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/lsmagic.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/lsmagic.jpg)
 
 Indeed, there are way too many magics! Many of them, though, are just wrappers around operating-system commands. Another magic of a similar nature is `%quickref`, whose output looks roughly like this:
 
@@ -179,7 +179,7 @@ The output runs to several hundred lines — not quick at all!
 
 ## 2. Using Jupyter in VS Code
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/vscode-jupyter-debug.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/vscode-jupyter-debug.jpg)
 
 Whenever possible, we should do our Jupyter work in VS Code. Jupyter in VS Code may lag behind browser-based native Jupyter in UI layout — for example, spacing between cells is too generous, screen space isn't used efficiently, and there are fewer menu commands. But it still offers a few features that are hard to turn down.
 
@@ -197,7 +197,7 @@ Normally you can only insert markdown cells and use headings for quick navigatio
 
 Notebooks are great for exploration. But when it's time to move to production, you still have to convert them into Python files. VS Code provides an excellent notebook-to-Python conversion. Here is what the notebook version of this article looks like after conversion:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/notebook-to-python.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/notebook-to-python.jpg)
 
 ---
 
@@ -205,7 +205,7 @@ After conversion, the original markdown cells become comments starting with `# %
 
 The VS Code editor treats these markers as separators. Each separator starts a new cell that runs until the next separator. These cells are still executable. Due to my workspace settings, these toolbars are hidden, but they actually look like this.
 
-![66%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/vscode-interactive-window.png)
+![66%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/vscode-interactive-window.png)
 
 This feature is called the Python Interactive Window, as described in the VS Code docs [vscode](https://code.visualstudio.com/docs/python/jupyter-support-py).
 

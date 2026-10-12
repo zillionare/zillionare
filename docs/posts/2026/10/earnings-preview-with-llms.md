@@ -3,7 +3,7 @@ slug: posts/tools/earnings-preview-with-llms
 excerpt: "英伟达四连超预期股价却连跌？Optiver联手芝大发起AI预测财报行情竞赛，用R²实盘检验谁能真正破解利好不涨之谜。"
 title: "利好为何不涨？AI预测财报竞赛揭秘"
 tags: "[研报与论文, 机器学习与LLM]"
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg"
 date: "2026-10-01"
 ---
 
@@ -105,7 +105,7 @@ Ralph S. J. Koijen 和 Bradford (Lynch) Levy 都来自芝加哥大学布斯商�
 | 毛利率       | 约 75%         | 约 75%           | ≥75%，不受 Rubin 爬坡稀释 |
 | 下季营收指引 | —              | 1038–1041 亿美元 | 1050 亿美元以上           |
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193726305.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193726305.png)
 
 这张表正是此前模型缺少的东西。研报明确写道：超过 920 亿美元只是"入场券"，真正有区分度的是 950 亿美元以上。
 
@@ -113,7 +113,7 @@ Ralph S. J. Koijen 和 Bradford (Lynch) Levy 都来自芝加哥大学布斯商�
 
 研报认为最重要的只有一个数字：**下季营收指引**。1050 亿美元是多头分界线，1030 亿美元是失望线。它还称，最近四次股价反应是由指引相对买方门槛的高低驱动的，而不是本季超预期的幅度。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193947599.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930193947599.png)
 
 这正好对应开头那个"连续四次超预期却下跌"的现象：超的是卖方的数字，没超过买方的。
 
@@ -149,7 +149,7 @@ Ralph S. J. Koijen 和 Bradford (Lynch) Levy 都来自芝加哥大学布斯商�
 
 推理强度也开始发挥作用，尤其是对最小的模型：Luna 从中等强度的 24% 提高到最高强度的 29%，每 1000 个事件的成本不到 3 美元。**GPT-6 Astra 在超高（xhigh）推理强度下，解释了超过 30% 的收益差异。**
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930194053450.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260930194053450.png)
 
 排行榜的正式排名看的是 ΔR²。博客里的 30% 是完整模型的 R²，对照约 10% 的基准，增量大约是 20 个百分点（这是我的换算，博客没有直接给出）。
 

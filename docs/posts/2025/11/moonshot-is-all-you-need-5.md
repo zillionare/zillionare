@@ -2,7 +2,7 @@
 slug: posts/tools/moonshot/moonshot-is-all-you-need-5
 title: Moonshot is all you need - 红利策略完结篇
 date: 2025-11-09
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg
 excerpt: 本篇是本系列的最后一篇,运用之前的Moonshot回测框架，我们将最终完成红利策略的构建。5年回测结果表明，本策略年化达到11.6%，sharpe 高达4.55，远远超过同期沪深300.
 category: strategy
 tags: [strategy, dividend]
@@ -333,11 +333,11 @@ clear_output()
 
 你可以找到 strategy.html 以查看完整的回测报告。与沪深300对照，红利策略显示出巨大的优势。这是两者的累积收益对照图：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251109220008.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251109220008.png)
 
 这是一些重要的策略评估指标对照：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251110185908.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/20251110185908.png)
 
 5年来，红利策略的累计收益是112.65%，而沪深300只有9.2%。红利策略的年化达到了16%；同期沪深300只有1.84%。
 

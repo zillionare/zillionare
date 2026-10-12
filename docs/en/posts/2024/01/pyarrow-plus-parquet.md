@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 11a1b08d912f7936c419f7f3d89a3945bf154a07
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/apache-arrow.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/apache-arrow.jpg)
 In the previous note, we argued that HDF5 is more than enough if you only store daily bars and factors. Even querying 40 years of 1-minute bars for a single stock took just 0.2 seconds — plenty fast, as long as you don't need cross-sectional queries at the minute level.
 <!--more-->
 But if you as an individual trader do have the network and hardware for high-frequency trading, handling tick and Level-2 data becomes a must. That pushes you straight into terabyte territory, while you still want millisecond query latency. Or you may genuinely need cross-sectional queries on minute bars. In those cases, HDF5 is no longer up to the job.
@@ -19,7 +19,7 @@ But if you as an individual trader do have the network and hardware for high-fre
 
 Enter PyArrow + Parquet. They were built for big data in the first place. The “50TB” in the title is not from my own experiment — I don’t have that kind of storage — but the number isn’t made up either:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/parquet-with-50-tb-tick.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/parquet-with-50-tb-tick.jpg)
 
 !!! tip How Big Is Level-2 Data?
     According to DolphinDB, a high-performance time-series database, China A-shares Level-2 data runs to about 10GB per day.
@@ -197,7 +197,7 @@ dataset.filter(filter).to_table().to_pandas()
 
 Out of a vast sea of data, we take just one sip. This time we loaded only 480 records into memory.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pyarrow-filter.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pyarrow-filter.jpg)
 
 !!! tip TAKEAWAY
     1. Apache Arrow is a columnar-vector-based in-memory storage format

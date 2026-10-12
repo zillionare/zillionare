@@ -10,7 +10,7 @@ auto_translated: true
 source_sha: 17c50aad5bfe52834707d1b6725cd27cb9485f09
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sector-cloud.jpg?4)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sector-cloud.jpg?4)
 
 !!! tip Key Takeaways
 
@@ -57,7 +57,7 @@ About 80 names contain the word “index”. In other words, these sectors are c
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-sector.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-sector.jpg)
 
 Let us see which indices make up the HS Indices sector (沪深指数):
 
@@ -125,7 +125,7 @@ barss
 
 The output looks like this:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-gn-bars.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/xtquant-gn-bars.png)
 
 We compute the equal-weighted index as follows — note the transpose here, and the axis=1 argument when taking the mean.
 

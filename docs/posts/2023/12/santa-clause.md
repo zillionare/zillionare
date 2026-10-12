@@ -9,7 +9,7 @@ tags: [strategy]
 excerpt: "Santa Claus Rally 是指 12 月 25 日圣诞节前后股市的持续上涨这样一个现象。《股票交易员年鉴》的创始人 Yale Hirsch 于 1972 年创造了这个定义，他将当年最后五个交易日和次年前两个交易日的时间范围定义为反弹日期。"
 ---
 
-<!-- ![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/santa-claus.png) -->
+<!-- ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/santa-claus.png) -->
 
 
 每天坚持发贴 。千字左右，图文并茂。
@@ -41,7 +41,7 @@ J.P. Morgan 表示：投资者在庆祝节日时的乐观情绪，利用节日�
 
 当投资者考虑 S&P 500 在 2002 年至 2022 年 12 月 25 日前一周的 20 年表现时，几乎没有证据表明会出现 Santa Claus Rally 的迹象。我们参考下图可以发现，虽然有 13 年的回报率为正，但也有 5 年的回报率为负，2 年没有任何变化。虽然大部分投资者会将圣诞节前几周股票上涨也归于 Santa Claus Rally，但是我们不能对 12 月抱有过于乐观的情绪，毕竟历史还是存在收益率为负的情况。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sp500_before_chrismas.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sp500_before_chrismas.png)
 
 #### 1 月情况
 
@@ -59,4 +59,4 @@ J.P. Morgan 表示：投资者在庆祝节日时的乐观情绪，利用节日�
 
 A 股也有类似的行情，一般称之为春节行情。据统计，出现春节行情的概率在 80%以上，但是，春节行情开始的时间不确定。有从 12 月中旬开始的，也有从 1 月后的；有春节前结束的，也有持续到两会期间的。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/merry-christmas.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/merry-christmas.jpg)

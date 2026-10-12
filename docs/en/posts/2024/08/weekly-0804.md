@@ -106,7 +106,7 @@ The factor's parameter is `win`, representing the time window over which the sec
 
 We then use Alphalens for **factor testing**. For the first call to Alphalens, we use **quantiles** for layering, with 10 layers.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantile-10.jpg)
 
 From the layering chart, it is meaningless to proceed with return analysis; we must optimize first.
 
@@ -130,7 +130,7 @@ Therefore, after obtaining the output from step 2, we can drop the 9th and 10th 
 
 The output of step 2 is a DataFrame with the following format:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-factor-quantile.jpg)
 
 Thus, to drop the 9th and 10th layers, we can do:
 
@@ -146,7 +146,7 @@ factor_data = factor_data[factor_data.factor_quantile <= 8]
 
 This time, we obtained a satisfactory layering return mean chart: monotonic and increasing, fully suitable for further **factor analysis**.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-quantiles-8.jpg)
 
 This chart essentially reproduces the previous one, just missing the 9th and 10th layers. However, now the 8th layer becomes the top layer, which is the layer Alphalens will long when calculating long-short returns.
 
@@ -170,10 +170,10 @@ This time, annualized Alpha is only 17.6%, with a beta of -0.6. However, cumulat
 
 Comparing the cumulative return charts of the two scenarios, we can see that the long-short portfolio has lower absolute returns but stronger risk-mitigating capabilities:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-long-short-cum.jpg)
 <cap>Long-Short Portfolio</cap>
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-cum-long-only.jpg)
 <cap>Long-Only</cap>
 
 
@@ -232,7 +232,7 @@ plt.legend()
 
 -->
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/second-derivative-1.jpg)
 
 This graph illustrates that the second derivative has a corrective effect on the trend of security prices. A stock in an uptrend, if the second derivative remains negative, will eventually reach a peak and then turn downward; conversely, a stock in a downtrend, if the second derivative remains positive, will eventually hit a bottom and then turn upward.
 
@@ -257,7 +257,7 @@ Therefore, I decided to plot the price trends of individual stocks in the 8th la
 
 In the plot, we used **199 samples**, which is sufficient for representativeness and robustness.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/double-check-trendline.jpg)
 
 
 The red line in the chart is the trend line, with a slope of 0.001, indicating an overall upward trend; the depth of color represents the distribution density of the samples, showing that more samples are distributed above the zero line.

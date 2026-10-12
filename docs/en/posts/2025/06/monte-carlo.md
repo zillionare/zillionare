@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/algo/monte-carlo
 auto_translated: true
 source_sha: 0a962e19c91708a63ab6996fe3314caa55075333
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/fa-platinum.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/fa-platinum.png"
 ---
 
 We often want to know the maximum loss a portfolio might suffer on a future date. One estimation method is Monte Carlo. Although it doesn’t lead in computational performance, it offers the most psychological comfort—after all, it’s a method that walks nearly every possible path to report back on the risks and landscapes encountered along the way.
@@ -75,7 +75,7 @@ estimate_pi(n, visualization = True)
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605113602.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605113602.png'>
 </div>
 <!-- END IPYNB STRIPOUT -->
 
@@ -170,7 +170,7 @@ At this point, we have obtained 10,000 possible outcomes for the portfolio’s r
 
 <!-- BEGIN IPYNB STRIPOUT -->
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605145739.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250605145739.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'>10,000 Possible P&L Outcomes</span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -213,7 +213,7 @@ Obviously, we cannot simply compare the current drawdown with the maximum drawdo
 We discussed this issue in “Kuang Ti’s 24 Quantitative Lessons,” using the Monte Carlo method. Through 50 million simulations under different Sharpe indicators, we derived the following answers for reference in live trading:
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson21-draws-as-function-of-sharpe.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/lesson21-draws-as-function-of-sharpe.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

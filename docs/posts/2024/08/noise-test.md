@@ -4,7 +4,7 @@ date: 2024-08-19
 category: algo
 slug: posts/algo/noise-test
 motto: 
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154432-cover-posts-2024-08-noise-test.md.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154432-cover-posts-2024-08-noise-test.md.jpg"
 stamp_width: 60%
 stamp_height: 60%
 tags: [algo, 回测, 过拟合]
@@ -31,13 +31,13 @@ excerpt: "在知乎上看到一个搞笑的贴子，说是有人为了卖策略�
 
 这个过程可以简单地用下图表示：
 
-![k-fold cross validation，by sklearn](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png)
+![k-fold cross validation，by sklearn](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/k-fold-cross-validation.png)
 
 但在时间序列分析（证券分析是其中典型的一种）中，k-fold方法是不适合的，因为时间序列分析有严格的顺序性。因此，从k-fold cross-validation特化出来一个版本，称为 rolling forecasting。你可以把它看成顺序版本的k-fold cross-validation。
 
 它可以简单地用下图表示：
 
-![rolling forecasting, by tsfresh](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp)
+![rolling forecasting, by tsfresh](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/walk-forward-optimization.webp)
 
 从k-fold cross-validation到rolling forecasting的两张图可以看出，它们的区别在于一个是无序的，另一个则强调时间顺序，训练集和验证集之间必须是连续的。
 
@@ -53,7 +53,7 @@ buildalpha的噪声测试，是将一定比率的随机噪声叠加到回测数�
 
 buildalpha是一个类似tradingview的平台。要进行噪声测试，可以通过图形界面进行配置。
 
-![噪声测试设置, by buildalpha](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/add-noise.jpg)
+![噪声测试设置, by buildalpha](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/add-noise.jpg)
 
 通过这个对话框，buildalpha修改了20%左右的数据，并且对OHLC的修改幅度都控制在用ATR的20%以内。最下面的100表明我们将随机生成100组带噪声的数据。
 
@@ -61,16 +61,16 @@ buildalpha是一个类似tradingview的平台。要进行噪声测试，可以�
 
 <div style="display:flex">
 <div style="width:45%">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-real-price.jpg"/>
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-real-price.jpg"/>
 </div>
-<div style="width: 45%"><img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-modified-price.jpg"/></div>
+<div style="width: 45%"><img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-modified-price.jpg"/></div>
 </div>
 
 左图为真实数据，右图为叠加部分噪声的数据。叠加噪声后，在一些细节上，引入了随机性，但并没有改变股价走势（叠加是独立的）。如果股价走势被改变，那么这种方法就是无效的甚至有害的。
 
 最后，在同一个策略上，对照回测的结果是：
 
-![噪声测试结果, by buildalpha](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-result.jpg)
+![噪声测试结果, by buildalpha](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/noise-test-result.jpg)
 
 从结果上看，在历史的多条可能路径中，没有任何一条的回测结果能比真实数据好。换句话说，真实回测的结果之所以这么好，纯粹是因为制定策略的人，是带着上帝视角，从未来穿越回去的。
 
@@ -80,7 +80,7 @@ buildalpha是一个类似tradingview的平台。要进行噪声测试，可以�
 
 Build Alpha以可视化的方式，提供了参数平原检测。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/params-plaetu-original.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/params-plaetu-original.jpg)
 
 在这个3D图中，参数选择为 X= 9和Y=4,如黑色简单所示。显然，这一区域靠近敏感区域，在其周围，策略的性能下降非常厉害。按照传统的推荐，我们应该选择参数 X=8和Y=8，这一区域图形更为平坦。
 

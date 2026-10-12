@@ -52,7 +52,7 @@ def streaks(close):
 
 The chart below shows daily closes and the resulting Streaks indicator:
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/how-to-calc-streak.png)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/how-to-calc-streak.png)
 
 The second component is the percent rank of today's return within returns over a lookback window. percent_rank is a common statistical function, already available in pandas. Here is a numpy implementation:
 
@@ -74,7 +74,7 @@ Let's start with Streaks. The classic RSI is a score based on cumulative gains r
 
 ---
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/galton_box.png)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/galton_box.png)
 
 Probabilistically, the longer a stock's winning streak, the more likely a reversal — i.e., a down day — becomes, and vice versa. Using the PDF/CDF approach introduced in our *Data Analysis with Python* lessons, you can estimate for yourself the probability of another up day after a stock has risen for N consecutive days.
 
@@ -93,7 +93,7 @@ If you know candlesticks and Elliott Wave Theory, you'll recognize the pattern: 
 
 ## Conners RSI in Practice
 
-![L33](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/corners_rsi.png)
+![L33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/corners_rsi.png)
 
 We first tested the Shanghai Composite Index over the most recent 1,000 days using backtrader. The backtest shows that over roughly the last 4 years — about 1,000 trading days — the index rose only 5.76%, yet a Conners RSI strategy of buying dips and selling rallies returned over 44% on the index. Applied to individual stocks, the gains could easily have been several times larger.
 
@@ -105,7 +105,7 @@ The Hang Seng Index over the past two years is a perfect example — a classic f
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/08/crsi_hk_2021.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/08/crsi_hk_2021.png)
 <cap>Image source: www.taindicators.com</cap>
 
 Of course, you generally should not try to catch a falling knife. But other traders' backtests show Conners RSI still managed to catch some rebounds while sidestepping some declines, performing considerably better than the index overall.
@@ -114,7 +114,7 @@ We also randomly selected some individual stocks and ran backtests with our own 
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/connor-rsi-hnpc.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/connor-rsi-hnpc.png)
 
 This stock traded sideways for almost a year. Buy-and-hold returned only 2.26%, while Conners RSI returned 12.14% with a 100% win rate.
 
@@ -139,4 +139,4 @@ Only when you reach that level can you claim **truly independent thinking and st
 !!! quote
     Old soldiers never die, they just fade away. A tribute to WELLES WILDER and his RSI!
 
-![75%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/07/welles_wilder.png)
+![75%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/07/welles_wilder.png)

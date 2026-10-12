@@ -183,7 +183,7 @@ plt.legend(lines, legend)
 
 From the plotted graph, we can see that when alpha is 1%, the Sharpe ratio can reach 8.2. Top domestic fund managers can achieve a Sharpe ratio of 2–3 within a year. Readers are encouraged to adjust the `alpha` parameter to observe the relationship between alpha and the Sharpe ratio.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/sharpe-vs-returns.jpg)
 
 ### 2.1. The Legacy: `np.random` Module
 
@@ -221,7 +221,7 @@ plt.bar(x=value[1:],height=count)
 ```
 This yields a histogram close to a rectangle, indicating a uniform distribution.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/random-histogram.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/random-histogram.jpg)
 
 -->
 
@@ -293,7 +293,7 @@ df.label.value_counts().plot(kind='bar')
 
 The result is:
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/04-numpy-imbalance-dataset.jpg)
 
 To obtain a new balanced dataset from this, we have two approaches:
 1.  **Under-sampling:** Sample part of the majority class data so that its count equals that of the minority class.
@@ -856,7 +856,7 @@ plt.plot(xs)
 plt.plot([i, j], [xs[i], xs[j]], 'o', color='Red', markersize=10)
 ```
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg)
 
 **Simplicity is beauty.** After using `accumulate`, we find that calculating maximum drawdown is as simple as two or three lines of code.
 
@@ -884,7 +884,7 @@ The figure below shows the upper shadow:
 ---
 
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg)
 
 If $$upper\_shadow > threshold$$, a long upper shadow is considered to have occurred (of course, `upper_shadow` needs to be normalized). Detecting a single day’s upper shadow is simple. The following code demonstrates how to solve this vectorially:
 
@@ -914,19 +914,19 @@ To calculate the lower shadow length, use `minimum`.
 
 ## "Factor Investing and Machine Learning Strategies" Course is Now Open!
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## Clear Goals, Strong Sense of Achievement
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## Why You Should Choose QuanTide’s Courses?
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 
 ---
 

@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/papers/ubl
 auto_translated: true
 source_sha: 1ddbb0888538d1bc69372f4d0cec0e0fc0ce2814
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png"
 ---
 
 "Three incense sticks on the head, death or total loss." This Chinese stock proverb suggests that if three long upper shadows appear at high levels, the stock price is likely to drop in the short term. The rationale is that upper shadows indicate significant selling pressure above. Can this adage be validated statistically? A research report from Dongwu Securities explores this very question.
@@ -25,9 +25,9 @@ After factor testing, they found that the standardized candlestick upper shadow 
 
 The final backtest results (from 2009 to April 30, 2020) are as follows:
 
-![Source: Wind Information, Dongwu Securities Research Institute](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195403.png?width=600)
+![Source: Wind Information, Dongwu Securities Research Institute](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195403.png?width=600)
 
-![Source: Wind Information, Dongwu Securities Research Institute](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195630.png?width=600)
+![Source: Wind Information, Dongwu Securities Research Institute](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195630.png?width=600)
 
 Below, we implement this factor.
 
@@ -35,7 +35,7 @@ Below, we implement this factor.
 
 According to the report, the factor construction process is as follows:
 
-![Source: Wind Information, Dongwu Securities Research Institute](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195742.png?width=600)
+![Source: Wind Information, Dongwu Securities Research Institute](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250628195742.png?width=600)
 
 Following the diagram, we first implement the upper and lower shadows.
 
@@ -169,7 +169,7 @@ def calc_candle_up_std_factor(barss, win = 20):
 The factor data we currently have looks roughly like this:
 
 <div style='width:66%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629182432.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629182432.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 <!-- END IPYNB STRIPOUT -->
@@ -230,7 +230,7 @@ display(calc_wr_down_factor(barss, 20))
 <!-- BEGIN IPYNB STRIPOUT -->
 
 <div style='width:75%;text-align:center;margin: 0 auto 1rem'>
-<img src='https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629203316.png'>
+<img src='https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/20250629203316.png'>
 <span style='font-size:0.8em;display:inline-block;width:100%;text-align:center;color:grey'></span>
 </div>
 

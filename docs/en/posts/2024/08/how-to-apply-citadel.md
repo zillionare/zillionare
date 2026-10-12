@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/how-to-apply-citadel
 auto_translated: true
 source_sha: 28b84c4427a93da330469330d6d867c168a182fc
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg"
 ---
 
 Citadel is a top-tier global hedge fund founded by Kenneth Griffin in 1990, often considered the dream employer for many quantitative professionals.
@@ -31,7 +31,7 @@ However, the requirement is "Extraordinary"—a standard that is arguably higher
 
 Therefore, I find it difficult to offer specific advice for this role. However, since Citadel’s screening process involves Wonderlic, if you are serious about applying, I recommend taking a Wonderlic prep course for approximately $50. The Wonderlic Select assessment includes cognitive, psychological, cultural, and logical tests. Such preparation will help you filter out candidates who are unprepared.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/11-weeks-of-extraordianry-growth.jpg)
 <cap>11 weeks of extraordinary growth program</cap>
 
 Once selected as an intern, Citadel offers an 11-week on-the-job training program designed to accelerate your growth. Successful completion of this program significantly increases your chances of receiving a full-time offer.
@@ -52,7 +52,7 @@ The competition is hosted by Correlation One. Correlation One was founded by Ras
 
 Their clients include prominent firms such as the Department of Defense (DoD), Amazon, Citadel, and Point72. Likely due to the founder’s professional network, they secured the opportunity to host competitions and recruit for Citadel and Point72. You may also want to explore their training and recruitment programs on their website.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/correlation-one.jpg)
 <cap>Correlation One</cap>
 
 The Datathon is exclusively for current students, requiring a school email for registration. After online registration via the official website, you must complete a 90-minute online assessment. This assessment includes psychological, value-based, and some technical questions.
@@ -87,7 +87,7 @@ Below is a brief introduction to the Summer 2024 Datathon.
 
 ## 2024 Summer Datathon
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-2024-summer-ps.jpg)
 <cap>Problem Statement of 2024 Summer Datathon</cap>
 
 The 2024 Datathon concluded on August 5. The topic focused on junk food, requiring participants to draw conclusions about US food processing from the provided datasets. In addition to the specified datasets, participants were allowed to add new datasets as needed. However, these additional datasets were submitted to the judges and could not exceed 2GB.
@@ -114,7 +114,7 @@ Some teams have uploaded their competition datasets, questions, and solutions to
 
 These competition materials have also been uploaded to our course environment.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/datathon-screenshot.jpg)
 <cap>Datathon Historical Materials</cap>
 
 If you wish to start practicing immediately, you can apply for access to our course environment. This saves you time on downloading data and setting up environments. We have already debugged the code for the Summer 2024 competition, allowing you to run it while learning from others’ code.

@@ -24,7 +24,7 @@ alpha, beta = factor_alpha_beta(factor_data)
 
 我们将得到以下输出：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-alpha-beta.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-alpha-beta.jpg)
 
 ---
 
@@ -64,9 +64,9 @@ Alphalens是这样计算的：它将factor_data按天进行分组，然后对将
 假若我们有以下factor_data(左图)，如果我们对上述factor_data，用Alphalens的方法求各因子的权重，我们将得到右图：
 
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-sample-weight.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-sample-weight.jpg)
 
-![R50](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-sample.jpg)
+![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-factor-sample.jpg)
 
 
 这里有两个问题：
@@ -99,7 +99,7 @@ factor_alpha_beta(factor_data,demeaned=False)
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-revers.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens-mean-return-revers.jpg)
 
 这个结果在视觉上，是昨天笔记中对应结果的水平翻转。这一次，表现最好的是第10组因子，最差的是第二组因子。除此之外，并没有其它的不同。
 

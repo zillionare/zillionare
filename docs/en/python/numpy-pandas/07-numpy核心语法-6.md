@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/07-numpy核心语法-6
 auto_translated: true
 source_sha: ae1368b4c8b76d4b0e0fa192d134ac995f8a6985
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg"
 ---
 
 “Masked Array is a critical NumPy concept that allows us to perform computations while masking invalid values, preserving data integrity. Meanwhile, ufuncs leverage low-level C implementations for vectorized operations, making complex calculations efficient and concise.”
@@ -126,7 +126,7 @@ plt.plot(xs)
 plt.plot([i, j], [xs[i], xs[j]], 'o', color='Red', markersize=10)
 ```
 
-![50%](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg)
+![50%](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/max-drawdown.jpg)
 
 **Simplicity is beauty.** After using `accumulate`, we find that calculating maximum drawdown is as simple as just two or three lines of code.
 
@@ -149,7 +149,7 @@ The figure below also shows the upper shadow:
 
 ---
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/candle-stick-parts.jpg)
 
 If `upper_shadow > threshold`, a long upper shadow can be considered present (of course, `upper_shadow` needs to be normalized). Detecting a single day’s upper shadow is simple. The following code demonstrates how to solve this vectorially:
 

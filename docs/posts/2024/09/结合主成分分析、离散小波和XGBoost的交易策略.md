@@ -29,7 +29,7 @@ PCA 用于缩减金融输入数据集的维度，DWT 用于对每个特征进行
 
 传统傅立叶变换假设信号是周期性的并且在整个时间区间上定义，而小波变换则允许信号表示为时间局部化的基函数的叠加。这使得小波变换能够同时捕捉信号的时间和频率信息。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/dwt.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/dwt.jpg)
 
 小波变换的基础是将任何函数表示为一组构成小波变换基函数的小波的叠加。这些小波是有限长度振荡波形（称为母小波）的缩放和平移副本，即子小波。选择最佳的小波基依赖于待分析的原始信号特性和预期的分析目的。最终的结果是一组具有不同分辨率的时间-频率表示，这就是为什么小波变换被称为多分辨率分析的原因。
 
@@ -60,7 +60,7 @@ XGBoost 的一个重要特性是它允许用户自定义损失函数，并且能
 ## 提议中的方案
 ### 系统架构
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/architecture-of-xgboost.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/architecture-of-xgboost.jpg)
 
 ### 目标方程
 
@@ -90,7 +90,7 @@ y_t =
 
 该模块将创建数据集，该数据集将用作数据预处理模块的输入。该数据集由所使用的 26 个技术指标集和 5 个原始金融数据特征之间的组合组成，产生下表中所示的具有 31 个特征的数据集。技术指标的计算是使用 Python 库 TA-Lib 完成的。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/ta-moduel-output.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/ta-moduel-output.jpg)
 
 ### 数据预处理模块
 #### 数据标准化
@@ -157,7 +157,7 @@ XGBoost 二元分类器的超参数就是这种情况，这些参数定义了分
 
 下图显示了重要的超参数：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/most-important-hyper-params.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/most-important-hyper-params.jpg)
 
 DEAP python 库用于开发该系统中的 MOO-GA 模块。
 
@@ -180,7 +180,7 @@ DEAP python 库用于开发该系统中的 MOO-GA 模块。
 
 下图显示了训练过程的示意。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/xgboost-training-process.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/xgboost-training-process.jpg)
 
 ### 案例 1 使用 PCA 的效果
 
@@ -194,7 +194,7 @@ DEAP python 库用于开发该系统中的 MOO-GA 模块。
 
 下图列出了每个系统的实验结果以及买入并持有策略的结果。每个金融市场获得的最佳结果用粗体突出显示。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/influence-with-cpa.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/influence-with-cpa.png)
 
 通过检查获得的结果可以得出结论，PCA 技术的使用在提高系统性能方面发挥着重要作用，因为它不仅可以获得更高的回报，而且还可以获得更高的准确度值。
 
@@ -204,7 +204,7 @@ PAC 降维使得 XGBoost 二元分类器能够生成复杂度较低的模型，�
 
 图 4 显示了在测试期间使用基本系统和带有 PCA 的系统所得回报的对比图。可以看出，正如前面提到的，引入 PCA 后，系统能够获得更高的回报。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/returns-compare-by-pca.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/returns-compare-by-pca.png)
 
 ### 案例 2 使用离散小波分析的效果
 
@@ -212,7 +212,7 @@ PAC 降维使得 XGBoost 二元分类器能够生成复杂度较低的模型，�
 
 下图列出了每个系统的结果及买入并持有策略的结果。每个金融市场获得的最佳结果用粗体突出显示。由于所有组合分析过于复杂，图中仅展示了两种最佳组合。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/with-pca-dwt.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/with-pca-dwt.png)
 
 通过检查获得的结果可以得出结论，PCA 和 DWT 去噪技术的结合使系统比仅使用 PCA 的系统获得更好的结果。
 
@@ -226,7 +226,7 @@ PAC 降维使得 XGBoost 二元分类器能够生成复杂度较低的模型，�
 
 下图显示了两个系统的性能对比。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/09/final-comparison-pca-xgboost.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/final-comparison-pca-xgboost.png)
 
 ## 结论
 

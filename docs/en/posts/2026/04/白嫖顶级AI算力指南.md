@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/resources/白嫖顶级AI算力指南
 auto_translated: true
 source_sha: 74327284fc9f6c1501d367084652dd092234ea98
-cover: "https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg"
 ---
 
 # How to Get 75M Free Tokens Daily for OpenClaw
@@ -19,7 +19,7 @@ If you’re running OpenClaw, tokens are a real consumable. We recently deep-tes
 
 OpenRouter’s biggest advantage is that it aggregates almost all mainstream models on the market and offers substantial free quotas. On my second day of “raising lobsters” (running OpenClaw), I fully grasped how OpenRouter works. At the time, QWen 3.6 was in its free usage period, and I **used up to 75 million tokens in a single day**, making nearly **1,000 requests**.
 
-![OpenRouter free model quotas and daily 75M token usage screenshot](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
+![OpenRouter free model quotas and daily 75M token usage screenshot](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411191423.png)
 
 Although QWen 3.6 is no longer free, there are still excellent large models available for free that are definitely worth exploring.
 
@@ -32,13 +32,13 @@ Below, I’ll walk you through the step-by-step process to access OpenRouter’s
 
 Enter the URL `https://openrouter.ai`.
 
-![step1: Enter the OpenRouter interface](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/390bb2f6807b7acd82e9fb4d36af7314.jpg)
+![step1: Enter the OpenRouter interface](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/390bb2f6807b7acd82e9fb4d36af7314.jpg)
 
 #### Log In
 
 Register and verify your login using an email address.
 
-![step2: Successfully registered and logged in](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/e3e1cd2d2d821b2943a2f13b37739983.jpg)
+![step2: Successfully registered and logged in](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/e3e1cd2d2d821b2943a2f13b37739983.jpg)
 
 #### Create API Key and Set Limits
 
@@ -48,7 +48,7 @@ According to the official documentation, if you purchase 10 credits, your daily 
 
 After purchasing credits, we must prevent accidental use of paid models. Therefore, set up a “firewall” as shown below:
 
-![step3.3&step3.5&step3.9: API Key generation and limit settings](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0024f396bf94684c69653c1dd9290e46.png)
+![step3.3&step3.5&step3.9: API Key generation and limit settings](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0024f396bf94684c69653c1dd9290e46.png)
 
 After purchasing credits, you can edit your API key and set a maximum monthly spending limit. Setting it to $0.10 is sufficient.
 
@@ -60,12 +60,12 @@ Once the firewall is set, it’s time to do some good—choose free models and h
 
 As shown in the image below, find “Prompt Pricing,” set the price range to 0 to filter out most paid models, and then select models where both input and output are 0:
 
-![step4.1: Model selection list](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d68e4742e47aed44da32ae583248b8d8.jpg)
-![step4.5&step4.9: Select free models](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/6d1e194aff579914d57d40ce7d55af6e.png)
+![step4.1: Model selection list](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d68e4742e47aed44da32ae583248b8d8.jpg)
+![step4.5&step4.9: Select free models](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/6d1e194aff579914d57d40ce7d55af6e.png)
 
 #### Test
 
-![step5: Click chat to use large models](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/53998e9666b1e3d008a7f074201269fc.jpg)
+![step5: Click chat to use large models](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/53998e9666b1e3d008a7f074201269fc.jpg)
 
 At this stage, the following models (free only) are recommended:
 
@@ -88,7 +88,7 @@ So, believe that this “permanent” promise still has several years of shelf l
 
 Enter the URL: `https://build.nvidia.com`. Note that during login, you may be redirected to a different URL based on your region and language settings. We haven’t tested this in detail, but this free service should only be accessible via this URL.
 
-![NVIDIA build.nvidia.com free model page screenshot](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411194605.png)
+![NVIDIA build.nvidia.com free model page screenshot](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260411194605.png)
 
 Using large models here is simple: mainly apply for an API Key and find the model card. Let’s start with registration.
 
@@ -100,14 +100,14 @@ You can register with any email address. However, to apply for an API Key, you m
 2. **Account Verification (Verify)**: After registration, you must click “Verify” at the top to obtain the API Key.
 3. **Phone Number Bug Handling**: Verification requires a phone number. There’s a small bug here: you need to **manually change the country code to `+86`**. After filling it in, click to send the verification code.
 
-![step2.1: Click verify after registration](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d393125c0d45e74414e2697cb68a79c7.png)
-![step2.5: Phone number verification and country code modification interface](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/cd67c5026643192388341c05814ad153.png)
+![step2.1: Click verify after registration](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/d393125c0d45e74414e2697cb68a79c7.png)
+![step2.5: Phone number verification and country code modification interface](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/cd67c5026643192388341c05814ad153.png)
 
 #### Generate API Key
 
 After verification, return to the page, click the **avatar** in the top right corner, and a “Generate API Key” button will appear. Click and save your Key. With it, you can connect to the service.
 
-![step3: NVIDIA API Key generation location](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/c4c0692308788a98412a25ff9c6e4313.jpg)
+![step3: NVIDIA API Key generation location](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/c4c0692308788a98412a25ff9c6e4313.jpg)
 
 #### Model Selection and Limits
 
@@ -116,11 +116,11 @@ Below is how to check the model ID. For those familiar with large model operatio
 1. **Select Model**: Find `models: glm-5` on the page, which is our currently recommended top-tier model.
 2. **Access Limits**: Currently, NVIDIA has no quota limits but restricts access speed (RPM): **do not exceed 50 requests per minute**. This call frequency is basically below the limit for most users.
 
-![step4: Find free models](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/8905936e111f8f604f92ffce17639bb9.jpg)
+![step4: Find free models](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/8905936e111f8f604f92ffce17639bb9.jpg)
 
 Similarly, you can test the models. You can chat briefly in the chat window below as shown in the image.
 
-![Complete](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/eca539049d98716e1887897b3ba31e2e.jpg)
+![Complete](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/eca539049d98716e1887897b3ba31e2e.jpg)
 
 ## 03 How to Configure OpenClaw?
 
@@ -144,11 +144,11 @@ Here are the configuration steps:
 2. **Open OpenClaw Configuration Page**: `openclaw config --section models`
 3. **Follow the Diagram**
 
-![OpenClaw configuration interface screenshot 1](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/57691e8f86375e1b329a46dc510a4b3b.png)
+![OpenClaw configuration interface screenshot 1](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/57691e8f86375e1b329a46dc510a4b3b.png)
 
 If using OpenRouter’s service, select OpenRouter here, which is the last item in the image. Next, fill in the Base URL (if using OpenRouter, this step is skipped), API Key, and Model ID, as shown below:
 
-![OpenClaw configuration interface screenshot 2](https://cdn.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0fef218f3a20348f6bc9fac514ea7489.png)
+![OpenClaw configuration interface screenshot 2](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/0fef218f3a20348f6bc9fac514ea7489.png)
 
 You can directly refer to the Python verification code below to fill in the URL, API-Key, and Model:
 

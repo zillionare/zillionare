@@ -82,7 +82,7 @@ excerpt: "2025量化投资课程常见问题一次说清：24章、约30小时�
 
 !!! tip "可以介绍下老师吗？"
     <div style="width:150px; position: relative;float:right">
-        <img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/me.png" style="width: 120px; display:inline-block"/>
+        <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/me.png" style="width: 120px; display:inline-block"/>
         <p style="text-align:center;width:120px"> Aaron </p>
     </div>
 

@@ -4,7 +4,7 @@ slug: posts/tools/致命的ID-DuckDB中的Returning子句之谜
 date: 2025-05-14
 category: tools
 motto: You only live once, but if you do it right, once is enough
-img: https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514210946.png
+img: https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514210946.png
 tags: [tools, programming, AI, Augment, duckdb]
 excerpt: "Duckdb是一个年轻但非常有潜力的数据库。但它也有桀骜不驯的一面：在一个普通的update语句执行时，出现了罕见的违反外键约束的问题。最终，依靠Augment这个强大的AI工具，我们找到了根本原因，并且通过坚实的实验验证了结论。"
 ---
@@ -62,7 +62,7 @@ CREATE TABLE if not exists resource_whitelist (
 
 『不幸的是，我的朋友』，福尔摩斯皱了皱眉，『这位开发者的质疑是有道理的。我的确应该看到更仔细一些，查出背后真正的元凶，再下结论。你知道，巴斯克维尔的猎犬案之后，我一直有点没恢复过来』。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514205610.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514205610.png)
 
 巴斯克维尔的猎犬案涉及到一个古老的家族诅咒，传说中有一只巨大的恶魔猎犬在巴斯克维尔家族的领地上出没，专门袭击家族成员。这种超自然的元素使得案件一开始就笼罩在神秘和恐怖的氛围中，让调查变得异常困难，并且一度影响到了福尔摩斯的声誉。对此我完全赞同。
 

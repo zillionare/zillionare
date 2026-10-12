@@ -24,7 +24,7 @@ Tulips are said to have originated in the Tianshan Mountains. After the expansio
 
 To express their fondness for these plants, the Dutch used military ranks to categorize different varieties. The most prestigious variety, "Semper Augustus," was named for its purple streaks, which conveyed imperial dignity. The next tier was "Governor," followed by "Marshal" and "General."
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/augusidu.jpeg){: .img-center-75}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/augusidu.jpeg){: .img-center-75}
 
 Speculators traded tulip seeds—specifically, the bulbs. The most expensive variety, Semper Augustus, commanded a price equivalent to a property covering 500,000 square meters (slightly larger than the Forbidden City), or the value of eight fat pigs, four fat oxen, two tons of butter, 1,000 pounds of cheese, one silver cup, a set of clothes, a bed, and a boat.
 
@@ -48,7 +48,7 @@ Tulip bulbs must be planted in late summer and bloom in April or May of the foll
 
 Tulip bulbs can be dug up in early June but must be replanted in September. Therefore, spot trading of tulip seeds could only occur during the four summer months, but capital was unwilling to rest for the remaining eight months.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip01.jpg){: .img-center-75}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip01.jpg){: .img-center-75}
 
 During this period, buyers and sellers reached agreements to deliver tulip bulbs in the summer. These agreements specified the variety, quantity (or weight), price, delivery date, and payment date. Such pre-arranged transactions executed in the future are known as futures contracts.
 
@@ -60,7 +60,7 @@ Thus, buyers, who initially had an obligation to purchase bulbs according to the
 
 In this way, traditional forward agreements (i.e., **futures contracts**) evolved into what are known as **options contracts**. The Dutch Parliament promptly approved this proposal, enacting it into law. This was effectively the world's earliest legislation regarding options, paving the way for over 300 years of options trading and subsequent quantitative finance.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip02.jpg){: .img-center-75}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip02.jpg){: .img-center-75}
 
 **Options are a great invention. They provide stable price expectations for both supply and demand sides, enabling production enterprises to formulate effective production plans.**
 
@@ -74,7 +74,7 @@ The farmer agreed, and they reached a contract. Six months later, the fertilizer
 
 In this example, **options played a role in regulating production and smoothing volatility, enabling production and consumption to proceed in a continuous, predictable manner.** While options are indeed a speculative tool, we should not forget their original purpose.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip03.jpg){: .img-center-75}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/02/tulip03.jpg){: .img-center-75}
 
 Once options trading was born, a question arose: **How should the premium paid by the farmer to the intermediary be priced?**
 
@@ -94,4 +94,4 @@ These books are written vividly and engagingly. If you are not accustomed to rea
 
 If you enjoy the book *Pricing the Future: The Quantitative Finance History That Shook Wall Street*, you can purchase it by clicking [here](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BANcJK1olXgAAV1dfAE8XBV8IGloQWQcCVF5UDkIeBl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmoMGlsVXQ8EXVdYFxJSXzI4YCBQJnpgKVo4axdoW2hoTVsLPXxeNFJROEonA24JGV4SWgAGV25tCEwnQgEIGlkTXgAKUW5cOEsQBWkPHVkVVQYBUFttD0seMzZbSwtWA1kyZG5eOEwXCnsOaRpHSQBwZG5dOEgnA2YOGV4XVAcESF5cCUsSH28PHV0SWwQCU11dD0MnAW4JH1IlbQ).
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/s27351873.jpg){: .img-center-50}

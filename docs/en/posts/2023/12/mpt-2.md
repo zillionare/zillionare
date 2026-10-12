@@ -84,7 +84,7 @@ According to Modern Portfolio Theory (MPT), only combinations above the y-axis a
 
 We mark the scheme with the highest Sharpe ratio with a red dot.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/10/mpt-sharpe-vol.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/mpt-sharpe-vol.png)
 
 From the trend chart, the asset portfolio we derived is indeed optimal. However, if we compare it with the chart at the beginning of the article, what conclusion do we draw?
 
@@ -111,7 +111,7 @@ This is for a case with only 4 assets. Obviously, as the number of assets increa
 
 Before discussing feasibility, we can attempt some speed optimizations.
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2023/12/vectorize_vs_for.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/vectorize_vs_for.png)
 
 We can use the following algorithm to move some calculations out of the loop:
 

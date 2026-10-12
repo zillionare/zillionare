@@ -2,7 +2,7 @@
 title: "简街印度风波：量化巨头为何从算法竞争转向规则套利？"
 description: "全球顶级量化交易公司简街因在印度市场操纵指数被罚，引发行业震动。本期节目深入剖析简街如何利用Pump and Dump与Marking the Close手法操纵市场，探讨为何拥有顶尖人才的技术公司会选择钻规则空子而非突破算法。我们揭示了量化交易正从技术竞争转向规则竞争的行业趋势，以及IEX与城堡投资在规则制定权上的博弈。这一切背后，是否隐藏着量化交易Alpha衰减的残酷现实？"
 date: 2024-07-07
-audio: https://cdn.jsdelivr.net/gh/zillionare/podcast@main/2024/07/11-final.mp3
+audio: https://gcore.jsdelivr.net/gh/zillionare/podcast@main/2024/07/11-final.mp3
 
 <style>
 .bg-light {

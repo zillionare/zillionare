@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/15-pandas核心语法-5
 auto_translated: true
 source_sha: 650e223fb607f7d580708cf03aa44e03b20eaba6
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg"
 ---
 
 “Pandas 提供了丰富的 IO 操作功能，支持从 CSV、SQL、Parquet 等多种文件格式中读取数据。通过优化参数如 chunksize、usecols 和 dtype，可以显著提升读取速度并减少内存占用。”

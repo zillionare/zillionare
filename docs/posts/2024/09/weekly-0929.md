@@ -45,7 +45,7 @@ excerpt: "本周要闻 大涨！沪指本周大涨12.8%，沪深300上涨15.7%�
 
 动量和反转是最重要的量化因子。有很多种刻画动量的算法，但拟合直线的斜率无疑是最直观的一种。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
 
 ---
 
@@ -188,7 +188,7 @@ print(S)
 
 这段代码计算了从第10个周期起，过去10个点的拟合直线的斜率，并且在曲线的转折点上，我们绘制了它的切线。这些切线，正是通过拟合直线的参数来生成的。
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
 
 ---
 
@@ -223,7 +223,7 @@ def moving_lsq(ts, win: int):
 
 考虑到一个有`m`个点的线性回归，对其中的每一个点，都会有：
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
 
 如果所有的点都落在同一条直线上，那么意味着以下矩阵方程成立：
 
@@ -420,17 +420,17 @@ array([[ 2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11.],
 
 ## 《因子投资与机器学习策略》开课啦！
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
 ## 目标清晰 获得感强
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
 ## 为什么你值得QuanTide的课程？
 
-![](https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
+![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
 

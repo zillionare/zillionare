@@ -8,7 +8,7 @@ lang: en
 translation_of: articles/python/numpy-pandas/08-numpy应用案例-1
 auto_translated: true
 source_sha: e51270f8cf82f561cd703664ecab5a18563ba79d
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"
 ---
 
 In many quantitative scenarios, we need to count the number of consecutive occurrences of an event, such as consecutive price limits (limit-ups/limit-downs), N-day winning streaks, or calculating streaks in Connor's RSI. Through Numpy’s vectorized operations, we can quickly implement these requirements efficiently and concisely.

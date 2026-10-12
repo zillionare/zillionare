@@ -8,7 +8,7 @@ lang: en
 translation_of: posts/career-figure/Daniel-Kahneman
 auto_translated: true
 source_sha: 5759e41b40bf6cd8b56aa42af11ddaed12a35867
-cover: "https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/Hebrew.jpg"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/Hebrew.jpg"
 ---
 
 On March 27, Daniel Kahneman, the founding father of behavioral economics, passed away. As a branch of behavioral economics, behavioral finance is now widely used in quant, successfully explaining many drivers of price fluctuations along the time-series dimension.
@@ -37,7 +37,7 @@ Kahneman was Jewish, born in Tel Aviv. During World War II in Paris, his family 
 ---
 
 <div class="L50">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/03/Daniel_Kahneman_(3283955327)_(cropped).jpg">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/Daniel_Kahneman_(3283955327)_(cropped).jpg">
 <cap>Image from wiki, used under CC BY 2.0</cap>
 </div>
 
@@ -76,7 +76,7 @@ Let's start with the value function $v(x)$.
 The value function $v$ is an asymmetric $S$-shaped function: concave above the psychological neutral reference point — in the gain domain — and convex below it — in the loss domain. As a result, each additional unit of gain (or loss) yields diminishing **value**. In other words, the subjective feeling of moving from 0 to 100 in gains is stronger than moving from 100 to 200. Moreover, the value function is steeper in the loss domain, meaning **the pain of losing 100 yuan exceeds the pleasure of gaining 100 yuan**.
 
 <div class="L50">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/value-function.jpg">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/value-function.jpg">
 <cap>Image source: sciencedirect.com</cap>
 </div>
 
@@ -115,7 +115,7 @@ Kahneman's passing seems to have drawn little attention in the Chinese-speaking 
 ---
 
 <div class="L33">
-<img src="https://cdn.jsdelivr.net/gh/zillionare/images@main/images/2024/04/think-fast-and-slow.jpg">
+<img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/think-fast-and-slow.jpg">
 <cap>Thinking, Fast and Slow. Image from Douban</cap>
 </div>
 
