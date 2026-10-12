@@ -1,14 +1,14 @@
 ---
-title: "NumPy & Pandas Syllabus for Quant Data Processing"
+title: "NumPy & Pandas Syllabus for Quant Trading"
 date: 2024-08-27
-cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154236-cover-course-numpy-pandas-syllabus.md.jpg"
 slug: en/articles/course/numpy-pandas/syllabus
-tags: [Quantitative Trading, NumPy, Pandas, Data Processing]
-excerpt: "Comprehensive course outline covering NumPy and Pandas for quantitative trading, including core syntax, performance optimization, and real-world quant scenarios."
+tags: [Quantitative Trading, NumPy, Pandas, Data Science]
+excerpt: "Comprehensive course outline covering NumPy and Pandas fundamentals, high-performance computing, and practical quantitative finance applications."
 lang: en
 translation_of: articles/course/numpy-pandas/syllabus
 auto_translated: true
-source_sha: ab8a1e488129885b467d47f8743e804c5b0975ed
+source_sha: 402dc59355508251b64dc41b30d38582f630d9c2
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154236-cover-course-numpy-pandas-syllabus.md.jpg"
 ---
 
 <style>
@@ -70,11 +70,11 @@ em {
 <!--https://github.com/yingzk/100_numpy_exercises/blob/master/cn_100_numpy_exercises.md-->
 ### 2.1. Basic Data Structures
 #### 2.1.1. Creating Arrays
-_Common methods for creating arrays, along with several built-in arrays frequently used in quantitative finance._
+_Common methods for creating arrays, along with several built-in array types frequently used in quantitative finance._
 #### 2.1.2. Adding, Deleting, and Modifying Elements
 _How to append, insert, delete, and modify elements in an array?_
-#### 2.1.3. Indexing, Reading, and Searching
-_Introduction to indexing, slicing, searchsorted, etc._
+#### 2.1.3. Indexing, Slicing, and Searching
+_Introduces indexing, slicing, searchsorted, etc._
 <!--indexing,slicing and mask-->
 #### 2.1.4. Inspecting Arrays
 ### 2.2. Array Operations
@@ -84,48 +84,48 @@ _Introduction to indexing, slicing, searchsorted, etc._
 
 ## 3. NumPy Core Syntax (2)
 ### 3.1. Structured Arrays
-### 3.2. Arithmetic Operations
+### 3.2. Mathematical Operations
 #### 3.2.1. Logical Operations and Comparisons
 #### 3.2.2. Set Operations
-#### 3.2.3. Mathematical and Statistical Operations
-_Matrix operations and statistical functions such as mean, variance, covariance, and percentiles._
+#### 3.2.3. Mathematical and Statistical Functions
+_Matrix operations, as well as statistical functions such as mean, variance, covariance, and percentiles._
 ### 3.3. Type Conversion and Typing
-_In-depth understanding of NumPy data types and their conversions, along with the `typing` library, to help write robust code._
+_In-depth understanding of NumPy data types and conversions, along with the `typing` library, to help write robust code._
 ## 4. NumPy Core Syntax (3)
 ### 4.1. Handling Data with `np.nan`
-_Data obtained from third parties may contain `np.nan`; technical indicator values during the warm-up period are often `np.nan` as well. This section introduces `np.isnan`, `nanmean`, `nanmax`, and other `nan*` functions for calculating mean or maximum values when data contains `None` or `np.nan`._
+_Data obtained from third parties may contain `np.nan` values; technical indicator values during the warm-up period are often `np.nan`. This section introduces `np.isnan`, `nanmean`, `nanmax`, and other `nan*` functions for calculating mean or max when data contains `None` or `np.nan`._
 ### 4.2. Random Numbers and Sampling
 <!--https://github.com/Kyubyong/numpy_exercises-->
 _Random number generation and sampling are high-frequency operations in quantitative finance, particularly useful for synthetic data generation._
 ### 4.3. I/O Operations
-_Introduction to reading and saving CSV files and other I/O operations._
+_Introduces how to read and save CSV files and other I/O operations._
 ### 4.4. Dates and Times
 _How to convert time and date formats from market data obtained via other libraries?_
 ### 4.5. String Operations
 _How to perform string searches and other operations within NumPy arrays?_
-## 5. NumPy Quantitative Scenario Applications
+## 5. NumPy Quantitative Finance Use Cases
 ### 5.1. Continuous Value Statistics
-_Example: Efficiently finding consecutive price limits (up/down), N-day winning/losing streaks, and calculating `streaks` in Connor's RSI._
-### 5.2. Cumulative Sum and Intraday Average Price Line
-_The intraday average price line is crucial for intraday trading. Generally, two attacks on the average price line that fail to break it signal an intraday buy (or sell). How do we calculate this average price line?_
+_Example: How to efficiently identify consecutive price limits (limit-up/limit-down), N consecutive bullish/bearish days, and calculate streaks in Connor’s RSI._
+### 5.2. `cumsum` and Intraday Average Price Line Calculation
+_The intraday average price line is crucial for intraday trading. Generally, if the price fails to break the average line twice during an attack, it signals an intraday buy (or sell). How do we calculate this average line?_
 ### 5.3. Moving Average Calculation
-_How to quickly calculate moving averages using NumPy? Introduction to a convolution algorithm._
+_How to quickly calculate moving averages using NumPy? Introduces a convolution algorithm._
 ### 5.4. Rational Selection of Adaptive Parameters
 _Often, adaptive parameters are required. How to select them? Percentiles are often a good solution._
 ### 5.5. Calculating Maximum Drawdown
-_With experience, you can identify the major rebound on February 7th. On rebound days, you want to target stocks with the largest declines. How to select them?_
+_With experience, one can identify the major rebound on February 7th. On rebound days, we seek stocks with the largest declines. How to select them?_
 ### 5.6. Determining Long-Term Trends for Individual Stocks
 _Do not buy stocks with long-term bearish trends. The key is how to determine this. This section introduces polynomial regression._
-### 5.7. Function Routines in Alpha101
-_Alpha101 contains several basic functions upon which factors are built. How to implement them efficiently?_
+### 5.7. Alpha101 Function Routines
+_Alpha101 contains several basic functions on which factors are built. How to implement them efficiently?_
 ### 5.8. Finding Similar Candlestick Patterns
-_Introduction to `corrcoef` and `correlate`._
+_Introduces `corrcoef` and `correlate`._
 ### 5.9. Asset Portfolio Return and Volatility Example
-_Start by randomly generating several assets, then calculate their expected returns and volatility. This is one of the high-frequency application scenarios._
+_Starts with randomly generating several assets, then calculates expected return and volatility. This is one of the high-frequency application scenarios._
 <!--https://www.quantrocket.com/code/?repo=quant-finance-lectures&path=%2Fcodeload%2Fquant-finance-lectures%2Fquant_finance_lectures%2FLecture03-Introduction-to-NumPy.ipynb.html-->
 ## 6. NumPy High-Performance Programming Practices
 ### 6.1. Broadcasting
-_In-depth look at NumPy's efficient underlying principles._
+_In-depth exploration of NumPy’s efficient underlying principles._
 ### 6.2. Using NumExpr
 <!--https://github.com/aialgorithm/Blog/issues/48-->
 ### 6.3. Enabling Multithreading
@@ -145,61 +145,61 @@ _Index, info, describe, columns, head, tail, etc._
 <!--concat, join, merge-->
 #### 7.1.5. Deleting Rows and Columns
 #### 7.1.6. Indexing, Reading, and Modifying
-_Introduction to indexing and data selection in Pandas._
+_Introduces indexing and data selection in Pandas._
 #### 7.1.7. Transposition
 #### 7.1.8. Resampling
 _Intraday real-time minute-level data is surprisingly expensive. Therefore, we need to synthesize it from tick-level data ourselves. This is resampling._
 
 ## 8. Pandas Core Syntax (2)
 ### 8.1. Logical Operations and Comparisons
-_DataFrames contain the features we extract. How to select the top 30 columns with the highest PE and lowest PB?_
+_The DataFrame contains the features we extracted. How to select the top 30 columns with the highest PE and lowest PB?_
 ### 8.2. Groupby Operations
-_The factor analysis data table contains industry labels and each company's PE value. How to select the top 5 stocks with the strongest PE in each industry?_
+_The factor analysis data table contains industry labels and each company’s PE value. How to select the top 5 stocks with the strongest PE in each industry?_
 ### 8.3. Multi-Index and Advanced Indexing
 _One of the more difficult concepts in Pandas._
 ### 8.4. Window Functions
-_For calculating sliding window indicators such as moving averages._
-### 8.5. Mathematical and Statistical Operations
-_Basic quant functions including mean, variance, covariance, percentile, diff, pct_change, rank, etc._
+_Used to calculate moving averages and other indicators with sliding windows._
+### 8.5. Mathematical Operations and Statistics
+_Mean, variance, covariance, percentile, diff, pct_change, rank, and other statistical functions, forming the foundation of quantitative finance._
 ## 9. Pandas Core Syntax (3)
 ### 9.1. Data Preprocessing
-_What to do during factor analysis preprocessing, such as handling missing values, winsorization, and deduplication?_
+_What to do during factor analysis preprocessing, such as handling missing values, outlier clipping, and deduplication?_
 <!--fillna, clip, winsorize,dropna-->
 ### 9.2. I/O Operations
-_How to read data from CSVs, web pages, databases, Parquet files, etc.?_
+_How to read data from CSVs, web pages, databases, Parquet files, etc._
 #### 9.2.1. CSV
 _Beyond basic operations, we will also introduce how to accelerate CSV reading._
 #### 9.2.2. PKL and HDF5
 #### 9.2.3. Parquet
 #### 9.2.4. HTML and MD
-<!--Think of it as web scraping from another perspective-->
+<!--Approached differently, this is web scraping._
 #### 9.2.5. SQL
 ### 9.3. Dates and Times
 _How to convert time and date formats from market data obtained via other libraries?_
 ### 9.4. String Operations
-_DataFrames store basic security information, such as names and codes. How to exclude stocks from the STAR Market?_
+_The DataFrame stores basic security information, such as names and codes. How to exclude stocks from the STAR Market?_
 ## 10. Pandas Core Syntax (4)
 ### 10.1. Tables and Styling
 _Giving Pandas rich conditional formatting capabilities similar to Excel._
 ### 10.2. Pandas Built-in Plotting Functions
-## 11. Pandas Quantitative Scenario Applications
+## 11. Pandas Quantitative Finance Use Cases
 ### 11.1. Implementing TongdaXin Routines via Rolling Methods
-_Implementing TongdaXin formula methods such as HHV, LLV, HHVBARS, LAST, etc._
+_Implementing TongdaXin formula functions such as HHV, LLV, HHVBARS, LAST, etc._
 ### 11.2. Filling Missing Adjustment Factors for Minute-Level Data
-_Introduction to the newly introduced `as-of-join` feature. A must-know scenario for quantitative finance._
+_Introduces the newly introduced `as-of-join` feature. A must-know scenario for quantitative finance._
 ### 11.3. Preparing Data for Alphalens
 _The most common DataFrame operations when using Alphalens for factor analysis._
 ## 12. Pandas Performance
 ### 12.1. Memory Optimization
-_Compressing memory usage by using `category` dtype and more compact data types._
-### 12.2. Optimizing Iterations
-_Use `itertuples` instead of `iterrows`, use `apply` to optimize iterations, and filter before calculating._
+_Compress memory usage by using `category` dtype and more compact data types._
+### 12.2. Optimizing Iteration
+_Use `itertuples` instead of `iterrows`, use `apply` to optimize iteration, and filter before calculating._
 ### 12.3. Using NumPy and Numba
 ### 12.4. Using `eval` or `query`
 <!--Use isin for filtering https://zhuanlan.zhihu.com/p/97012199-->
 ### 12.5. Other Alternatives to Pandas
 #### 12.5.1. Modin
-_One line of code to replace Pandas, gaining multi-core and memory-unlimited computational power._
+_One line of code to replace Pandas, gaining multi-core and memory-unlimited computing capabilities._
 #### 12.5.2. Polars
 _The fastest table solution._
 #### 12.5.3. Dask
