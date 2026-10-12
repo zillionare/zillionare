@@ -1,14 +1,14 @@
 ---
-title: "24 Lessons in Quantitative Investing: Complete Syllabus"
+title: "24 Lessons in Quantitative Investing: Syllabus"
 date: 2023-05-13
-cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154146-cover-course-24lectures-syllabus.md.jpg"
 slug: en/articles/course/24lectures/syllabus
 tags: [Quantitative Investing, Factor Analysis, Backtesting, Live Trading]
-excerpt: "Comprehensive syllabus for quantitative trading, covering data sources, strategy development, factor analysis, backtesting frameworks, and live trading integration for China A-shares."
+excerpt: "A comprehensive syllabus for quantitative investing, covering data sources, strategy development, factor analysis, backtesting frameworks, and live trading integration for China A-shares."
 lang: en
 translation_of: articles/course/24lectures/syllabus
 auto_translated: true
-source_sha: ccb0857b7b991b558d1fb54935d1f50525306c2a
+source_sha: 4c71e5bbb2a9ab30cfd8c060299f5b6c517c2d3e
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154146-cover-course-24lectures-syllabus.md.jpg"
 ---
 
 <style>
@@ -60,10 +60,10 @@ em {
 </style>
 
 <p>§ 24 Lessons in Quantitative Investing</p>
-<h1 style="text-align:center">Course Syllabus</h1>
+<h1 style="text-align:center">Course Syllabus </h1>
 <div class="module">I. Securities Fundamentals and Data Sources</div>
 
-<em>This section covers the essential securities knowledge required for quantitative trading, such as price adjustment (adjusted prices). Adjusted prices are an unavoidable issue in quantitative trading and will permeate our entire course, yet many answers found online are incorrect. This section also reveals an unexpected issue: Python has problems with rounding.</em>
+<em>This section introduces the essential securities knowledge required for quantitative trading, such as price adjustment (adjusted prices). Adjusted prices are an unavoidable issue in quantitative trading and will run throughout our course. However, many answers found online are incorrect. This section also reveals an unexpected issue: Python has problems with rounding.</em>
 
 ## 1. Introduction
 ### 1.1. Development of Securities Investment and Quantitative Trading
@@ -84,50 +84,50 @@ em {
 ### 2.1. Exchanges and Security Codes
 ### 2.2. Knowledge of Price Adjustment (Adjusted Prices)
 ### 2.3. Akshare
-#### 2.3.1. Installing akshare in the Course Environment
-#### 2.3.2. Real-Time Stock Data
-#### 2.3.3. Historical Stock Data
-#### 2.3.4. Security Lists
-#### 2.3.5. Trading Calendars
-#### 2.3.6. Encapsulation and Improvement Suggestions
+#### 2.3.1. Installing akshare in the course environment
+#### 2.3.2. Real-time stock data
+#### 2.3.3. Historical stock data
+#### 2.3.4. Security lists
+#### 2.3.5. Trading calendars
+#### 2.3.6. Wrapping and improvement suggestions
 #### 2.3.7. Exercises
 
 ## 3. Data Sources: Tushare, JqDataSdk
 ### 3.1. TUSHARE
-#### 3.1.1. Installation and Token Setup in Course Environment
-#### 3.1.2. Historical Stock Data
-#### 3.1.3. Security Lists
-#### 3.1.4. Trading Calendars
-### 3.2. JoinQuant Local Data
-#### 3.2.1. Account Installation and Setup in Course Environment
-#### 3.2.2. Historical Stock Data
-#### 3.2.3. Security Lists
-#### 3.2.4. Trading Calendars
+#### 3.1.1. Installing and setting tokens in the course environment
+#### 3.1.2. Historical stock data
+#### 3.1.3. Security lists
+#### 3.1.4. Trading calendars
+### 3.2. JQData Local Data
+#### 3.2.1. Installing and setting up accounts in the course environment
+#### 3.2.2. Historical stock data
+#### 3.2.3. Security lists
+#### 3.2.4. Trading calendars
 ### 3.3. BAOSTOCK
-#### 3.3.1. Historical Stock Data
-#### 3.3.2. Security Lists
+#### 3.3.1. Historical stock data
+#### 3.3.2. Security lists
 ### 3.4. YFINANCE
-<em>The exercises in this section will highlight the linear transformation relationship between forward and backward adjusted prices.</em>
+<em>The exercises in this section will prompt the linear transformation relationship between forward and backward adjusted prices.</em>
   
-## 4. Using Zillionare for Data Retrieval
+## 4. Using Zillionare to Obtain Data
 ### 4.1. Omicron
-#### 4.1.1. Initializing Omicron
-#### 4.1.2. Real-Time Stock Data
-#### 4.1.3. Historical Stock Data
-#### 4.1.4. Security Lists
-#### 4.1.5. Trading Calendars
-#### 4.1.6. Sector Data
-### 4.2. Interpreting A-Share Data: Relationship Between Investor Count and Market Trends
+#### 4.1.1. Initializing omicron
+#### 4.1.2. Real-time stock data
+#### 4.1.3. Historical stock data
+#### 4.1.4. Security lists
+#### 4.1.5. Trading calendars
+#### 4.1.6. Sector data
+### 4.2. Interpreting A-Share Data: Relationship Between Investor Numbers and Market Trends
 
-## 5. Exercise Solutions (Video Only)
+## 5. Exercise Explanation (Video Only)
 
 <div class="module">
 II. Introduction to Strategies
 </div>
-<em>Lessons 6–8 constitute the second part of the course. We introduce three types of strategies from the perspectives of fundamentals, technicals, and trade execution, along with how to write strategy backtests and build a simple backtesting framework. In the examples, we also provide additional strategies, such as Connor's RSI strategy.</em>
+<em>Lessons 6–8 form the second part of the course. We introduce three types of strategies from the perspectives of fundamentals, technicals, and trade execution, along with how to write strategy backtests and build a simple backtesting framework. In the examples, we also provide additional strategies, such as Connor's RSI strategy.</em>
 
 ## 6. Small-Cap Strategy
-### 6.1. Introduction to Small-Cap Strategy
+### 6.1. Introduction to Small-Cap Strategies
 ### 6.2. Strategy Implementation - Manually Implementing the Simplest Backtest
 #### 6.2.1. Initialization
 #### 6.2.2. Plotting
@@ -138,8 +138,8 @@ II. Introduction to Strategies
 #### 6.3.3. Parameter Optimization
   
 ## 7. Bollinger Bands Strategy
-### 7.1. Initialization Using Coursea
-### 7.2. Bollinger Bands Strategy Based on Base Class - Frameworking the Backtest
+### 7.1. Initializing with coursea
+### 7.2. Bollinger Bands Strategy Based on Base Class - Backtesting Framework
 ### 7.3. Discussion on Strategy Optimization Directions
 #### 7.3.1. Parameter Optimization
 #### 7.3.2. Trend Judgment
@@ -152,26 +152,26 @@ II. Introduction to Strategies
 #### 8.2.3. Strategy Behavior Analysis
 ### 8.3. Technical Implementation Issues
 #### 8.3.1. Order Price and Trading Timing
-#### 8.3.2. Stock Split and Bonus Issues
+#### 8.3.2. Stock Split and Dividend Issues
 #### 8.3.3. Trading Units
 ### 8.4. Strategy Optimization: From 1.37% to 79.8%!
 #### 8.4.1. Selecting Underlying Assets with "Bounds"
 ##### 8.4.1.1. Large-Cap Stocks
-##### 8.4.1.2. Deeply Oversold Stocks
+##### 8.4.1.2. Oversold Stocks
 ##### 8.4.1.3. Convertible Bonds
 #### 8.4.2. Determining Grid Parameters Based on Historical Data
-#### 8.4.3. Improving Capital Efficiency
+#### 8.4.3. Improving Capital Utilization Efficiency
 ### 8.5. Trend-Following Grid
-
+  
 <div class="module">III. Data Analysis in Quantitative Trading: Theory and Implementation</div>
-<em>Lessons 9–13 cover the fundamentals of quantitative analysis, focusing on the usage of libraries such as Numpy, Pandas, and Talib. The exercises in Chapter 9 provide many clever and commonly used Numpy exercises in quantitative trading.</em>
+<em>Lessons 9–13 cover the basic skills of quantitative analysis, focusing on the usage of libraries such as Numpy, Pandas, and Talib. The exercises in Chapter 9 provide many clever and commonly used Numpy exercises in quantitative trading.</em>
 
 ## 9. Numpy and Pandas
 ### 9.1. Numpy
 #### 9.1.1. Creating Arrays
 ##### 9.1.1.1. Vanilla Version
-##### 9.1.1.2. Pre-defined Special Arrays
-##### 9.1.1.3. Conversion from Existing Arrays
+##### 9.1.1.2. Pre-set Special Arrays
+##### 9.1.1.3. Converting from Existing Arrays
 #### 9.1.2. Inspecting Array Properties
 #### 9.1.3. Array Operations
 ##### 9.1.3.1. Dimensionality Increase
@@ -198,13 +198,13 @@ II. Introduction to Strategies
 ### 9.2. Pandas
 #### 9.2.1. Creation
 #### 9.2.2. Data Access
-#### 9.2.3. Iterating DataFrames
+#### 9.2.3. Iterating Over DataFrames
 ### 9.3. Pandas vs. Numpy
   
 ## 10. Ta-Lib
 ### 10.1. Installing Ta-Lib
 #### 10.1.1. Installing the Native Library
-##### 10.1.1.1. macOS
+##### 10.1.1.1. MacOS
 ##### 10.1.1.2. Linux
 ##### 10.1.1.3. Windows
 ##### 10.1.1.4. Using Conda
@@ -228,7 +228,7 @@ II. Introduction to Strategies
 #### 10.4.1. CDL3LINESTRIKE
 #### 10.4.2. CDL3WHITESOLDIERS
   
-<em>Statistics and probability play a crucial role in quantitative analysis. Lessons 11–12 review the most common statistical and probabilistic knowledge in quantitative trading, including moments from first to fourth, PDF/CDF, and covariance. The examples in this chapter solve problems such as whether to buy the dip when the Shanghai Composite Index drops by 4%.</em>
+<em>Statistics and probability play an important role in quantitative analysis. Lessons 11–12 review the most commonly used statistical and probabilistic knowledge in quantitative trading, including moments from first to fourth, PDF/CDF, covariance, etc. In the examples of this chapter, we solve problems such as "Can we buy the dip when the Shanghai Composite Index drops by 4%?"</em>
 
 ## 11. Data Analysis and Python Implementation (1)
 ### 11.1. Examining Data Distribution
@@ -236,13 +236,13 @@ II. Introduction to Strategies
 ##### 11.1.1.1. Mean and Centroid
 ##### 11.1.1.2. Median
 ##### 11.1.1.3. Mode
-#### 11.1.2. Measuring Data Dispersion
+#### 11.1.2. Measuring the Dispersion of Quantitative Data
 ##### 11.1.2.1. Quantiles
 ##### 11.1.2.2. Variance and Standard Deviation
 ##### 11.1.2.3. Frequency, PMF, PDF, CDF, PPF, and Histograms
 ##### 11.1.2.4. Probability Density and Probability Density Function
 ##### 11.1.2.5. Cumulative Probability and Cumulative Distribution Function (CDF)
-##### 11.1.2.6. CDF Estimation and Applications
+##### 11.1.2.6. CDF Estimation and Its Applications
 ##### 11.1.2.7. Relationships Between Concepts
 #### 11.1.3. Distribution Shape of Data
 #### 11.1.4. Concept of Central Moments
@@ -261,8 +261,8 @@ II. Introduction to Strategies
 ##### 12.2.1.5. Rooted Mean Squared Error
 #### 12.2.2. Regression Analysis
 ### 12.3. Correlation
-#### 12.3.1. Covariance and Correlation Coefficient
-#### 12.3.2. Pearson and Spearman Correlation
+#### 12.3.1. Covariance and Correlation Coefficients
+#### 12.3.2. Pearson Correlation and Spearman Correlation
 #### 12.3.3. Correlation Analysis Examples
 ### 12.4. Distance and Similarity
 #### 12.4.1. Listing Common Distance Definitions
@@ -272,22 +272,22 @@ II. Introduction to Strategies
 
 ## 13. Practical Technical Analysis
 
-<em>Traditional technical analysis lacks strong theoretical support, but it is based on traders' experience and thus has its rationale. After learning Lessons 11–12, we apply our knowledge to technical analysis and discover new insights. Traditional technical analysis, empowered by statistical theory and adaptive parameters, significantly improves algorithm robustness and timing capabilities.</em>
+<em>Traditional technical analysis lacks strong theoretical support, but it is based on traders' experience and naturally has its merits. After learning Lessons 11–12, we apply the knowledge to technical analysis and find that it leads to new insights. With the support of statistical theory, traditional technical analysis significantly improves the robustness of algorithms and timing capabilities through adaptive parameters.</em>
 
 ### 13.1. Box Detection
-#### 13.1.1. Statistical-Based Methods
+#### 13.1.1. Statistics-Based Methods
 #### 13.1.2. Clustering-Based Algorithms
 ### 13.2. Finding Peaks and Valleys
 #### 13.2.1. Implementation in SciPy
 #### 13.2.2. Third-Party Library: Zigzag
-#### 13.2.3. Smoothing Curves
+#### 13.2.3. How to Smooth Curves
 #### 13.2.4. Double-Top Pattern Detection
 #### 13.2.5. Rounding Bottom Detection
 ### 13.3. Convexity/Concavity Detection
 
 ## 14. Factor Analysis
 
-<em>Factors are features with predictive power. Factor analysis and testing are rapid screening methods for their characteristics and are mandatory knowledge for entering quantitative institutions. We manually implement each step of factor analysis step-by-step, then introduce Alphalens, a common factor testing framework.</em>
+<em>Factors are features with predictive power. Factor analysis and testing are rapid screening methods for their characteristics and are mandatory knowledge for entering quantitative institutions. We manually implement each step of factor analysis step-by-step, and then introduce Alphalens, a common factor testing framework.</em>
 
 ### 14.1. Factor Classification
 ### 14.2. Factor Analysis
@@ -299,24 +299,24 @@ II. Introduction to Strategies
 ##### 14.2.1.5. Neutralization
 ### 14.3. Single-Factor Testing
 #### 14.3.1. Regression Method
-##### 14.3.1.1. Factor Evaluation via Regression
+##### 14.3.1.1. Factor Evaluation Using Regression
 #### 14.3.2. IC Analysis Method
-##### 14.3.2.1. Factor Evaluation via IC Analysis
+##### 14.3.2.1. Factor Evaluation Using IC Analysis
 #### 14.3.3. Layered Backtest Method
-#### 14.3.4. Differences and Connections Among the Three Methods
+#### 14.3.4. Differences and Connections Between the Three Methods
 ### 14.4. Factor Evaluation System
   
 ## 15. Alphalens and Others
 ### 15.1. Alphalens
-#### 15.1.1. Alphalens Call Flow
+#### 15.1.1. Alphalens Calling Process
 #### 15.1.2. Data Preprocessing
 #### 15.1.3. Factor Analysis
-#### 15.1.4. Common Alphalens Errors and Warnings
+#### 15.1.4. Common Errors and Warnings in Alphalens
 ##### 15.1.4.1. Timezone Issues
 ##### 15.1.4.2. MaxLossExceedError
 ##### 15.1.4.3. FutureWarning
 ### 15.2. JQFactor and jqfactor-analyzer
-### 15.3. SymPy
+### 15.3. Sympy
 ### 15.4. Statistics
 ### 15.5. Statsmodels
 #### 15.5.1. OLS (Ordinary Least Squares) Estimation
@@ -328,7 +328,7 @@ II. Introduction to Strategies
 
 <div class="module">IV. Data Visualization</div>
 
-<em>Plotting is not just for creating beautiful visualizations but also for unlocking the full potential of data and revealing hidden insights. This holds true in quantitative trading as well. We need the ability to plot candlestick charts and overlay backtest signals for strategy tuning, as well as generate backtest reports.</em>
+<em>Plotting is not just for creating beautiful visualizations but also for unleashing the full potential of data and revealing hidden insights. This is no different in quantitative trading. We need the ability to plot candlestick charts, overlay backtest signals for strategy tuning, and generate backtest reports.</em>
 
 ## 16. Matplotlib Plotting
 ### 16.1. Introduction to Matplotlib
@@ -352,12 +352,12 @@ II. Introduction to Strategies
 #### 17.2.1. Plotly Express
 #### 17.2.2. Graph Objects
 #### 17.2.3. Others
-### 17.3. Comparing Plotly Express with go.Figure
-### 17.4. Plotly Stock Analysis Chart Drawing
-#### 17.4.1. Candlestick Chart Drawing
+### 17.3. Comparing Plotly Express and go.Figure
+### 17.4. Plotting Stock Analysis Charts in Plotly
+#### 17.4.1. Candlestick Chart Plotting
 #### 17.4.2. Overlaying Technical Indicators
 #### 17.4.3. Subplots
-#### 17.4.4. Display Areas
+#### 17.4.4. Display Area
 #### 17.4.5. Interactive Tooltips
 ### 17.5. Colors
 #### 17.5.1. Discrete Color Sequences
@@ -396,7 +396,7 @@ II. Introduction to Strategies
 
 <div class="module">V. Backtesting Framework</div>
 
-<em>Backtrader is the most famous open-source backtesting framework. Many institutions lack the R&D capability for proprietary quantitative investment research systems and often use backtrader internally for backtesting. We dedicate two lessons to explaining backtrader in depth.</em>
+<em>Backtrader is the most famous open-source backtesting framework. Many institutions lack the R&D capability for internal quantitative investment research systems and often use backtrader for backtesting internally. We dedicate two lessons to explaining the usage of backtrader in depth.</em>
 
 ## 19. Backtrader Backtesting Framework (1)
 ### 19.1. Quick Start
@@ -406,7 +406,7 @@ II. Introduction to Strategies
 ### 19.3. Data Feeds
 #### 19.3.1. GenericCSVData
 #### 19.3.2. Pandas Feed
-#### 19.3.3. Customizing a Feed
+#### 19.3.3. Creating a Custom Feed
 #### 19.3.4. Adding New Data Columns
 ### 19.4. Multi-Timeframe Data
 #### 19.4.1. Comparing Multi-Timeframe Technical Indicators
@@ -457,12 +457,12 @@ II. Introduction to Strategies
 <em>How to interpret backtest results? This is a strategy evaluation issue. Here we also answer a question: If your strategy goes live but performs below expectations, under what circumstances should you abort the strategy? This is a common interview question.</em>
 
 ### 21.1. Return Rates
-#### 21.1.1. Simple Return Rate
-#### 21.1.2. Log Return Rate
+#### 21.1.1. Simple Return Rates
+#### 21.1.2. Logarithmic Return Rates
 #### 21.1.3. Cumulative Returns
 #### 21.1.4. Aggregate Returns
 #### 21.1.5. Annual Return
-### 21.2. Risk-Adjusted Returns
+### 21.2. Risk-Adjusted Return Rates
 #### 21.2.1. Sharpe Ratio
 #### 21.2.2. Relationship Between Sharpe Ratio and Asset Curve
 #### 21.2.3. Sortino Ratio
@@ -480,16 +480,20 @@ II. Introduction to Strategies
 #### 21.4.3. Basic and Full
 #### 21.4.4. HTML
   
-## 22. Backtesting Traps
+## 22. Backtesting Pitfalls
 
-<em>Have you heard of the phenomenon where strategies "feast" during backtesting but "starve" in live trading? How is it caused? This section introduces backtesting traps, using rich practical experience to help you quickly compensate for insufficient live trading experience.</em>
+<em>Have you heard of the phenomenon where backtests yield profits but live trading results in losses? How is it caused? In this section, we introduce backtesting pitfalls. With rich practical experience, we help you quickly compensate for the lack of live trading experience.</em>
 
 ### 22.1. Survivorship Bias
 ### 22.2. Look-Ahead Bias
 #### 22.2.1. Reference Errors
-#### 22.2.2. Price Stealing
+#### 22.2.2. Look-Ahead Pricing (Stealing Prices)
 #### 22.2.3. Look-Ahead Bias Caused by Price Adjustment
 #### 22.2.4. PIT (Point-in-Time) Data
+### 22.3. Issues Caused by Price Adjustment
+#### 22.3.1. Necessity of Using Adjusted Price Data
+#### 22.3.2. Issues with Backward-Adjusted Prices
+#### 22.3.3. Other Issues Related to Price Adjustment
 ### 22.4. Trading Rules
 #### 22.4.1. T+1 Trading
 #### 22.4.2. Price Limits (Up/Down Limits)
@@ -501,14 +505,14 @@ II. Introduction to Strategies
 #### 22.7.3. Impossible Execution Prices
 #### 22.7.4. Matching Issues
 ### 22.8. Monopoly Backtesting Framework
-#### 22.8.1. Backtest Function Overview
+#### 22.8.1. Introduction to Backtesting Features
 ##### 22.8.1.1. Architecture and Style
 #### 22.8.2. Strategy Framework
 ##### 22.8.2.1. Data and Data Formats
 ##### 22.8.2.2. Multi-Timeframe Data
-##### 22.8.2.3. Drive Mode and Performance
+##### 22.8.2.3. Driving Mode and Performance
 ##### 22.8.2.4. Backtest Reports
-#### 22.8.3. Complete Strategy Example
+#### 22.8.3. A Complete Strategy Example
 #### 22.8.4. Parameter Optimization
 ### 22.9. References
 
@@ -521,14 +525,14 @@ II. Introduction to Strategies
 #### 23.1.1. Installation
 #### 23.1.2. Lifecycle
 ##### 23.1.2.1. Connecting to Client
-##### 23.1.2.2. Retrieving Account Information
+##### 23.1.2.2. Obtaining Account Information
 ##### 23.1.2.3. Trading
 #### 23.1.3. Server Mode
-#### 23.1.4. Automated Copy Trading
+#### 23.1.4. Automatic Copy Trading
 ### 23.2. East Money EMC Smart Trading Terminal
 #### 23.2.1. Installation
 ##### 23.2.1.1. Single Directory for Configuration Files
-#### 23.2.2. Operation and Maintenance
+#### 23.2.2. Running and Maintenance
 ##### 23.2.2.1. Startup
 ##### 23.2.2.2. Daily Maintenance
 #### 23.2.3. Troubleshooting and Help
@@ -566,11 +570,11 @@ II. Introduction to Strategies
 ##### 24.2.2.3. Model Trading
 ### 24.3. QMT-Mini
 ### 24.4. XtData
-#### 24.4.1. Retrieving Security Lists
-#### 24.4.2. Retrieving Trading Calendars
-#### 24.4.3. Retrieving Market Data
+#### 24.4.1. Obtaining Security Lists
+#### 24.4.2. Obtaining Trading Calendars
+#### 24.4.3. Obtaining Market Data
 ### 24.5. XtTrader
-#### 24.5.1. Encapsulating as Web Service
+#### 24.5.1. Wrapping as a Web Service
   
     <script>
         var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
