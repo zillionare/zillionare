@@ -213,14 +213,73 @@ body {
 .doc-nav {
   position: sticky;
   top: 1rem;
+  height: calc(100vh - 2rem);
   max-height: calc(100vh - 2rem);
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: var(--sidebar-bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem 0.9rem;
   font-size: 0.85rem;
 }
+/* 上半部：索引滚动区（原整栏滚动行为移到这里） */
+.doc-nav-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.doc-nav-scroll::-webkit-scrollbar { width: 6px; }
+.doc-nav-scroll::-webkit-scrollbar-track { background: transparent; }
+.doc-nav-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.doc-nav-scroll::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+/* 下三分之一：课程广告区（固定在侧栏底部） */
+.side-courses {
+  flex: none;
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--border);
+}
+.side-courses-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.side-courses .side-course {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.6rem 0.55rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--link);
+  border-radius: 6px;
+  background: var(--card-bg);
+  text-decoration: none;
+  /* 覆盖 .doc-nav a 的索引样式（nowrap/ellipsis/颜色） */
+  color: var(--fg);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+.side-courses .side-course:hover { border-color: var(--link); box-shadow: var(--card-shadow); }
+/* [hidden] 需要显式 display:none（作者样式 display:block 会覆盖 UA 的 hidden） */
+.side-courses .side-course[hidden] { display: none; }
+.side-courses .side-course-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  color: var(--link);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0 0.5em;
+  margin-bottom: 0.25rem;
+}
+.side-courses .side-course strong { display: block; color: var(--fg); font-size: 0.85rem; line-height: 1.35; }
+.side-courses .side-course-desc { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
+.side-courses .side-course-cta { display: block; margin-top: 0.3rem; color: var(--link); font-size: 0.78rem; font-weight: 600; }
 .doc-nav .nav-group { font-weight: 700; margin: 0.6rem 0 0.3rem; }
 .doc-nav .nav-group:first-child { margin-top: 0; }
 .doc-nav ul { list-style: none; margin: 0; padding-left: 0.8rem; }
@@ -239,12 +298,6 @@ body {
 .doc-nav a { display: block; padding: 0.1rem 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg); }
 .doc-nav a:hover { color: var(--link); }
 .doc-nav a.current { font-weight: 700; color: var(--link); }
-/* 左栏滚动条收窄（默认约 15px → 6px） */
-.doc-nav { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
-.doc-nav::-webkit-scrollbar { width: 6px; }
-.doc-nav::-webkit-scrollbar-track { background: transparent; }
-.doc-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-.doc-nav::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 /* 左栏词云：密排 inline + 轻微旋转错位 + 允许轻微重叠 */
 .tag-cloud-side { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.5rem; }
 .tag-cloud { line-height: 1.9; }
@@ -386,6 +439,8 @@ details.admonition summary { cursor: pointer; }
 @media (max-width: 1024px) {
   .doc-layout { grid-template-columns: minmax(0, 1fr); }
   .doc-nav, .doc-toc { position: static; max-height: none; }
+  .doc-nav { height: auto; overflow: visible; }
+  .doc-nav-scroll { overflow: visible; }
   .doc-toc { border-left: none; border-top: 2px solid var(--border); padding: 0.75rem 0 0; }
 }
 
