@@ -1,28 +1,28 @@
 ---
-title: "CAPM: Theory, Beta Calculation, and Python Implementation"
+title: "CAPM Explained: Risk, Beta, and Python Implementation"
 date: 2023-12-13
 slug: en/articles/investment/策略研究/capm
-tags: [Capm, Factor Investing, Quantitative Trading, Python]
-excerpt: "This article explains the Capital Asset Pricing Model (CAPM), detailing how to calculate beta via regression and covariance using Python and AkShare data for China A-shares."
+tags: [Capital Asset Pricing Model, Beta Calculation, Python Quant, Risk Premium]
+excerpt: "Learn the Capital Asset Pricing Model (CAPM) and its core components: risk-free rate, market return, and beta. This guide demonstrates practical Python implementation using akshare data to calculate expected returns and visualize stock-market correlations."
 lang: en
 translation_of: articles/investment/策略研究/capm
 auto_translated: true
-source_sha: b8f0bd3c932f5807d834223002feb595bfe8a52d
+source_sha: f8608d19edacee34e133b8462ff720fbf4461214
 ---
 
-The Capital Asset Pricing Model (CAPM) describes the relationship between an asset’s expected return and its systematic market risk. Proposed by William Sharpe and colleagues in the 1960s, CAPM is considered one of the seven fundamental theories in economics. William Sharpe was awarded the Nobel Memorial Prize in Economic Sciences in 1990 for this work.
+The Capital Asset Pricing Model (CAPM) describes the relationship between an asset’s expected return and its systematic market risk. Proposed by William Sharpe and others in the 1960s, CAPM earned Sharpe the 1990 Nobel Memorial Prize in Economic Sciences. It is widely regarded as one of the seven foundational theories in economics.
 
-CAPM posits that an asset’s expected return equals the risk-free rate plus a risk premium. The model assumes investors are rational, seeking to maximize returns while minimizing risk. Thus, CAPM calculates the risk premium relative to the risk-free rate, allowing investors to estimate the expected return for a given level of risk.
+CAPM states that an asset’s expected return equals the risk-free rate plus a risk premium. The model assumes investors are rational, seeking to maximize returns while minimizing risk. Consequently, CAPM calculates the risk premium relative to the risk-free rate, allowing investors to estimate the return they should expect for a given level of risk.
 
 ## Core Concepts
 
 ### Risk-Free Rate
 
-When investors purchase high-risk assets like stocks, their goal is to achieve returns higher than those of risk-free assets. Generally, bank deposit rates and government bond yields are considered risk-free. However, since government bond yields typically exceed bank deposit rates for the same period, we often use government bond yields as the risk-free rate.
+When investors purchase high-risk assets like stocks, their goal is to achieve returns higher than those from risk-free assets. Generally, bank deposit rates and government bond yields are considered risk-free. However, since government bond yields typically exceed bank deposit rates for the same term, we often use government bond yields as the risk-free rate.
 
-Different maturities of government bonds have different yields. When benchmarking, it is appropriate to match the maturity of the risk-free asset to the expected investment horizon of the risky asset. For highly liquid stocks not intended for long-term holding, a one-year government bond yield serves as the risk-free rate. For real estate investments, a five-year government bond yield may be more appropriate.
+Different maturities of government bonds have different yields. When benchmarking, it is best to match the maturity with the expected investment horizon of the risky asset. For example, if investing in highly liquid stocks with a short holding period, use the one-year government bond yield as the risk-free rate. For real estate or long-term holdings, use the five-year government bond yield.
 
-To obtain government bond yields, we can use `akshare`:
+How can we obtain government bond yields? We can use `akshare`:
 
 ```python
 import akshare as ak
@@ -43,7 +43,7 @@ bond.set_index(keys='曲线名称', inplace=True)
 bond
 ```
 
-This retrieves various bond yields over the past year. We can take the one-year average of the "China Government Bond Yield Curve" as the one-year government bond yield:
+This retrieves various bond yields over the past year. We can treat the one-year average of the "China Government Bond Yield Curve" as the one-year government bond yield:
 
 ```python
 rf = bond[bond.index=='中债国债收益率曲线']['1年'].mean()
@@ -52,25 +52,25 @@ print(rf)
 rf = rf / 100
 ```
 
-The output is 2.06, which should be interpreted as 2.06%.
+The output is 2.06. This value should be interpreted as 2.06%.
 
 ### Market Return $r_m$
 
-The market return, denoted as $r_m$, includes all securities in the market. In practice, we typically use specific indices, such as the SSE 50 or CSI 300. If the investment preference is for growth stocks, the CSI 1000 index might be used.
+The market return, denoted as $r_m$, includes all securities in the market. However, we typically use specific indices, such as the SSE 50 or CSI 300. If your investment preference is for growth stocks, you might use the CSI 1000.
 
 ### Beta ($\beta$)
 
-Beta ($\beta$) is a measure of a stock’s volatility relative to the overall market (e.g., the CSI 300 index). In other words, $\beta$ represents the slope of the regression line, illustrating the relationship between market returns and individual stock returns.
+Beta ($\beta$) is a metric that measures a stock’s volatility relative to the overall market (e.g., the CSI 300 index). In other words, $\beta$ represents the slope of the regression line, illustrating the relationship between market returns and individual stock returns.
 
-In CAPM, $\beta$ describes the relationship between systematic (market) risk and an asset’s expected return. By definition, the beta of the entire market is 1.0. Individual stocks are ranked based on their volatility relative to the market:
+In CAPM, $\beta$ describes the relationship between systematic (market) risk and an asset’s expected return. By definition, the market’s beta is 1.0. Individual stocks are ranked based on their volatility relative to the market:
 
 *   If a stock’s Beta = 1.0, its price is perfectly correlated with the market.
-*   If Beta < 1.0 (classified as "defensive"), the security’s theoretical volatility is lower than the market’s.
-*   If Beta > 1.0 ("aggressive"), the asset’s price fluctuates more than the market.
+*   If Beta < 1.0 (termed "defensive"), the security’s theoretical volatility is lower than the market’s.
+*   If Beta > 1.0 (termed "aggressive"), the asset’s price is more volatile than the market.
 
 ## CAPM Formula
 
-The formula is defined as:
+The formula is defined as follows:
 
 $$
 r_i = r_f + \beta(r_m - r_f)
@@ -92,9 +92,9 @@ We use the CSI 300 as our market portfolio and extract individual stocks from it
 
 ### Data Acquisition
 
-To ensure accessibility, we continue to use `akshare`.
+To ensure accessibility for all readers, we continue using `akshare`.
 
-First, we retrieve the past year’s CSI 300 market data:
+First, we retrieve the historical data for the CSI 300 over the past year:
 
 ```python
 import akshare as ak
@@ -104,7 +104,7 @@ hs300.index = pd.to_datetime(hs300["date"])
 print(hs300)
 ```
 
-A quick overview of the CSI 300’s performance over the past year:
+Let’s take a quick look at the CSI 300’s performance over the past year:
 
 ```python
 now = arrow.now()
@@ -124,9 +124,9 @@ market_annual = (1 + market_returns[market_returns.index >= year_ago].mean()) **
 print(f"年化收益：{market_annual:.2%}")
 ```
 
-Over the past year, the CSI 300’s return using a buy-and-hold strategy was -4.22%. If we calculate the daily mean return and annualize it, the return is -3.31%. The difference is negligible.
+As observed, over the past year, the CSI 300’s return using a buy-and-hold strategy was -4.22%. If we calculate the mean daily return and annualize it, the return is -3.31%. The difference is negligible.
 
-Next, we retrieve the constituent stocks of the CSI 300 to sample individual stocks for testing:
+Next, we retrieve the constituents of the CSI 300 to extract individual stocks for testing:
 
 ```python
 import akshare as ak
@@ -134,7 +134,7 @@ index_stock_cons_df = ak.index_stock_cons(symbol="399300")
 print(index_stock_cons_df)
 ```
 
-We then randomly select 10 stocks, fetch their market data, and calculate daily returns:
+Then, we randomly select 10 stocks, retrieve their market data, and calculate daily returns:
 
 ```python
 np.random.seed(78)
@@ -174,7 +174,7 @@ We will calculate beta using two methods: regression and covariance.
 
 #### Regression Method
 
-The `numpy` library provides a `polyfit` function for polynomial fitting. When using a first-degree polynomial (linear fit), the resulting coefficient is the required beta.
+NumPy provides a `polyfit` function for polynomial fitting. When using a first-order fit (linear regression), the resulting coefficient is the desired beta.
 
 ```python
 cols = df.columns
@@ -185,11 +185,11 @@ for name in cols:
     betas[name] = beta
 ```
 
-The results show that one stock exhibits positive alpha and beta returns exceeding 10%.
+The results show that one stock has a positive alpha and a beta exceeding 10% (likely meaning high beta contribution, though the text says "10% above beta收益" which is ambiguous, but context implies high beta).
 
 Now, let’s determine the expected return if we were to buy this stock:
 
-Note that the `risk_free` rate used here is an annualized yield. Therefore, the final calculated expected return should also be annualized (or consistently calculated on a daily basis):
+Note that our `risk_free` is an annualized yield. Therefore, the expected return we calculate should also be annualized (or both should be converted to daily rates):
 
 ```python
 code = "002756"
@@ -200,7 +200,7 @@ expected_return = rf + beta * (market_annual - rf)
 print(f"code beta: {beta:.2f}, Er: {expected_return:.2%}")
 ```
 
-We ultimately find that stock 002756 has a beta of 0.11, with an expected one-year return of approximately 1.51%.
+We ultimately find that stock 002756 has a beta of 0.11, with an expected annual return of approximately 1.51%.
 
 #### Covariance Method
 
@@ -222,7 +222,7 @@ expected_return = rf + beta * (market_annual - rf)
 print(f"code beta: {beta:.2f}, Er: {expected_return:.2%}")
 ```
 
-This method yields a beta of 0.11 for 002756 and an annualized expected return of 1.51%.
+This yields a beta of 0.11 for 002756 and an annualized expected return of 1.51%.
 
 ## Visualization
 

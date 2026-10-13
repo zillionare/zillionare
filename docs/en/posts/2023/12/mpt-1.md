@@ -1,30 +1,29 @@
 ---
-title: "Modern Portfolio Theory: Basics, Efficient Frontier, and Sharpe Calculation"
+title: "Portfolio Theory & Practice (1): Core Concepts & MPT"
 date: 2023-12-13
 slug: en/articles/investment/策略研究/mpt-1
-tags: [Modern Portfolio Theory, Portfolio Optimization, Sharpe Ratio, Monte Carlo Simulation]
-excerpt: "This article introduces Modern Portfolio Theory (MPT), the efficient frontier, and practical implementation using Python to calculate portfolio returns, volatility, and Sharpe ratios via Monte Carlo simulation."
+tags: [Modern Portfolio Theory, Efficient Frontier, Portfolio Optimization, Monte Carlo]
+excerpt: "Modern Portfolio Theory (MPT) by Markowitz uses math to optimize risk-return tradeoffs. This article introduces the efficient frontier, Sharpe ratios, and Monte Carlo optimization for portfolio construction."
 lang: en
 translation_of: articles/investment/策略研究/mpt-1
 auto_translated: true
-source_sha: 9b902e1d6194d9116cc24795766c2e7f2b326624
+source_sha: 7c2d41b7a1538470cbfaca28c7cc351c4dd8cde1
 ---
 
-Modern Portfolio Theory (MPT) was proposed by Harry Markowitz in 1952 and stands as one of the seven foundational theories of modern finance. It uses mathematical terminology to describe concepts such as diversification and risk management, providing investors with a toolkit for constructing diversified portfolios. Specifically, it assumes that an investor holds multiple assets and seeks to optimize the portfolio to minimize risk while satisfying a given expected return constraint.
+Modern Portfolio Theory (MPT), proposed by Markowitz in 1952, is one of the seven foundational theories of modern finance. It uses mathematical terminology to describe concepts such as diversification and risk management, providing investors with a toolkit for constructing diversified portfolios. Specifically, assuming an investor holds multiple assets, optimization can identify the portfolio with the minimum risk for a given expected return.
 
 All these portfolios form a curve (with the portfolio’s standard deviation on the x-axis and expected return on the y-axis), known as the **efficient frontier curve**. The upper portion of this curve is referred to as the **efficient frontier**.
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/portfolio-optimisation.png)
 
-This diagram is vertically symmetric. For every point on the lower half, there is a corresponding point on the upper half with the same risk but a higher expected return. Therefore, portfolios on the lower half are **not held by any rational investor**.
+This graph is vertically symmetric. For every point on the lower half, there is a corresponding point on the upper half with the same risk but a higher expected return. Therefore, portfolios on the lower half are **not held by any rational investor**.
 
 Each investor selects their specific portfolio along the efficient frontier based on their risk tolerance (utility function).
 
-Markowitz was awarded the 1990 Nobel Memorial Prize in Economic Sciences for his contributions to MPT. He strongly advocated the idea of diversifying investment risk through portfolio construction, famously stating that “diversification is the only free lunch in investing.”
+Markowitz was awarded the 1990 Nobel Memorial Prize in Economic Sciences for his contributions to MPT. He strongly advocated for diversifying investment risk through portfolio construction, famously stating that “diversification is the only free lunch in investing.”
 
-## Basic Concepts
-
-We will explain the efficient frontier using the simplest case: a portfolio of two risky assets.
+## Core Concepts
+We explain the efficient frontier using the simplest case of a two-risk-asset portfolio:
 
 $$
 R_p = w_1R_1 + (1-w_1)R_2
@@ -61,18 +60,18 @@ $$
         = w_1\sigma_1 - w_2\sigma_2
 $$
 
-From these equations, we can see that if two assets are perfectly negatively correlated, an equal-weight allocation results in zero portfolio return, creating a risk-free combination. Since $\sigma_p$ equals zero, this point becomes the leftmost point on the graph.
+From these equations, we can see that if two assets are perfectly negatively correlated, an equal-weight allocation results in zero portfolio return, creating a risk-free portfolio. Since $\sigma_p$ equals zero, this point becomes the leftmost point on the graph.
 
-When one asset comprises 100% of the portfolio, it forms the top and bottom points on the graph.
+When one asset constitutes 100% of the portfolio, it forms the top and bottom points on the graph.
 
-In this series, we will first use a portfolio of four assets to demonstrate how to find the optimal asset allocation using both Monte Carlo methods and optimization algorithms. These are foundational approaches. Once we understand the principles, we can use third-party libraries to automate this work.
+In this series, we will first demonstrate how to find the optimal asset allocation using four assets, employing both Monte Carlo methods and optimization algorithms. These are lower-level approaches. Once we understand the principles, we can use third-party libraries to automate this process.
 
 ### Calculating Returns, Sharpe Ratio, and Volatility
 
-Let’s first assign a random set of weights to see how the portfolio’s **return**, **Sharpe ratio**, and other parameters perform. In this process, we aim to understand:
+Let’s first assign a random set of weights to observe the **return**, **Sharpe ratio**, and other parameters of the resulting portfolio. In this process, we primarily aim to understand:
 
-1. How to fetch data.
-2. How to generate random weight vectors (focusing on the constraint that weights sum to 1).
+1. How to fetch data
+2. How to generate random weight vectors (focusing on the constraint that weights sum to 1)
 3. How to calculate metrics such as the Sharpe ratio and volatility.
 
 Assume our asset portfolio consists of:
@@ -120,7 +119,7 @@ returns.dropna(how='any', inplace=True)
 display(returns.head().style.format('{:,.2%}'))
 ```
 
-We have already encountered this code in our previous article on CAPM.
+We have previously encountered this code when discussing CAPM in earlier articles.
 
 Next, we randomly assign a weight vector (the first step of the Monte Carlo method) and calculate its Sharpe ratio:
 
@@ -154,9 +153,9 @@ print("Sharpe Ratio and Vol")
 print(f"{sr:.2f} {port_vol:.2f}")
 ```
 
-In the code, we first randomly generate a weight matrix and then normalize it (ensuring the sum of the weight matrix elements equals 1).
+In the code, we first generate a random weight matrix and then normalize it (ensuring the sum of the weight matrix elements equals 1).
 
-Some articles use log returns. However, most practitioners consider geometric variance meaningless when calculating volatility (based on Google search results).
+Some articles use log returns. However, when calculating variance, most practitioners consider geometric variance meaningless (based on Google search results).
 
 We use the `sharpe_ratio` method from `empyrical` to calculate the Sharpe ratio. For simplicity, we set the `risk_free` rate to 0. `empyrical` is a tool developed and open-sourced by Quantopian for calculating various strategy metrics, such as Sharpe ratio, Sortino ratio, and max drawdown. Common quantitative libraries like this are introduced in the **Monopoly Quant Trading Course**.
 
@@ -172,6 +171,6 @@ Sharpe Ratio and Vol
 0.72 0.01
 ```
 
-We have determined that the Sharpe ratio for this portfolio is 0.72. Generally, a Sharpe ratio above 1 is considered acceptable for index or blue-chip investments; for other high-risk equity investments, it typically needs to exceed 1.8, though few assets surpass 3. In the **Monopoly Quant Trading Course**, we discuss the relationship between the Sharpe ratio and max drawdown using Monte Carlo methods—specifically, what max drawdown is likely to occur when the Sharpe ratio is 1, when it is 2, and so on.
+We have determined that the Sharpe ratio for this portfolio is 0.72. Generally, a Sharpe ratio above 1 is considered acceptable for index or blue-chip investments; for other high-risk equity investments, it typically needs to exceed 1.8, though few assets surpass 3. In the **Monopoly Quant Trading Course**, we discuss the relationship between the Sharpe ratio and max drawdown using Monte Carlo methods—specifically, what max drawdowns are likely to occur when the Sharpe ratio is 1, when it is 2, and so on.
 
 With all preparations complete, we will next introduce how to use the Monte Carlo method to determine the optimal allocation for the aforementioned portfolio.
