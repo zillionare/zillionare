@@ -1,5 +1,5 @@
 ---
-title: "网页设计师配色工具：颜色网站推荐"
+title: "配色网站推荐：全球最大的颜色网站与设计师配色工具"
 slug: posts/resources/a-palette-of-colorful-websites
 date: 2024-07-28
 category: arsenal
@@ -9,7 +9,7 @@ stamp: others
 stamp_width: 60%
 stamp_height: 60%
 tags: [工具, colors]
-excerpt: "用Powerpoint做课件，动画编排太累了，于是找到了slidev。Slidev好用是好用，但研墨调色都得自己来，一时竟误入藕花深处，沈醉不知归路。"
+excerpt: "找「全球最大的颜色网站」？本文整理了 Adobe Color、中国色、Coolors、Colorion 等最受欢迎的配色与颜色网站，附使用场景与实际截图，帮你快速挑出合适的配色工具。"
 ---
 
 用Powerpoint做课件，动画编排太累了，于是找到了slidev。Slidev好用是好用，但研墨调色都得自己来，一时竟误入藕花深处，沈醉不知归路。
@@ -17,6 +17,10 @@ excerpt: "用Powerpoint做课件，动画编排太累了，于是找到了slidev
 今天就此分享一下我用过的一些很“色”的网站。
 
 ---
+
+## 全球最大的颜色网站是哪个？
+
+严格说，配色站点并没有官方「最大」排名：论知名度，Adobe 官方的 [Adobe Color](https://color.adobe.com/) 最广为人知；论灵感库体量，Coolors 与 Colorion 收录了数以千计的流行配色方案，可按主题与色值检索；中文配色则首推中国色。下面逐一介绍我实际用过的这些网站。
 
 ## Adobe Color
 

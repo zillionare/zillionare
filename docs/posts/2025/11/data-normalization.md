@@ -2,7 +2,7 @@
 slug: posts/algo/data-normalization
 title: "夏普大于4的策略有多恐怖？A股策略夏普比率与数据标准化避坑"
 img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg
-excerpt: 本文通过一个回测收益异常的案例，揭示了数据标准化中常见的“前视偏差”陷阱。全局Z-score或Min-Max归一化会引入未来数据，导致模型表现虚高。文章强调了使用滚动窗口等Point-in-Time方法进行正确归一化的重要性，以避免自我欺骗，获得真实收益。
+excerpt: "本文通过一个回测收益异常案例，揭示数据标准化中的「前视偏差」陷阱：全局 Z-score 或 Min-Max 归一化会引入未来数据，导致夏普比率虚高（夏普大于4几乎必然包含未来数据）。文中用蒙特卡洛方法研究了夏普比率与年化收益的关系，并给出 A 股策略中正确的滚动窗口（Point-in-Time）归一化做法与量化交易应用案例。"
 category: algo
 tags: [机器学习, 回测, 数据标准化]
 date: 2025-11-28
