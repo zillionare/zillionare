@@ -1,19 +1,19 @@
 ---
-title: "East Money Quant Interface: Installation & Config Guide"
+title: "East Money Quant API: Installation, Config & Testing Guide"
 date: 2023-12-13
 slug: en/articles/products/gm-adaptor-installation
-tags: [East Money, Quant Trading, API Integration, Live Trading]
-excerpt: "Step-by-step guide to installing the East Money GM adapter, configuring accounts, and testing live trading simulations with conda and gmadaptor."
+tags: [East Money, Quant API, Gmadaptor, Simulation Testing]
+excerpt: "Step-by-step guide to installing the East Money quant interface, configuring gmadaptor, and running simulation tests for live trading readiness."
 lang: en
 translation_of: articles/products/gm-adaptor-installation
 auto_translated: true
-source_sha: 54394abaacc701b5efe6ce4ded356f8e7d316f4e
+source_sha: 96a98abcd4c9f15889758586ab4bb4cce80c67d2
 ---
 
-# Table of Contents
+[Table of Contents]
 
 - [1.1. Installation](#11-installation)
-- [1.2. Requesting Permissions](#12-requesting-permissions)
+- [1.2. Permission Request](#12-permission-request)
 - [1.3. Simulation and Testing](#13-simulation-and-testing)
   - [1.3.1. Account Configuration](#131-account-configuration)
     - [1.3.1.1. gmadaptor Configuration File](#1311-gmadaptor-configuration-file)
@@ -22,7 +22,7 @@ source_sha: 54394abaacc701b5efe6ce4ded356f8e7d316f4e
 - [1.4. Operation and Maintenance](#14-operation-and-maintenance)
   - [1.4.1. Startup](#141-startup)
   - [1.4.2. Daily Maintenance](#142-daily-maintenance)
-- [2.1. Client Requests](#21-client-requests)
+- [2.1. Client Request](#21-client-request)
 - [2.2. Return Results](#22-return-results)
 - [2.3. Asset Table](#23-asset-table)
 - [2.4. Position Table](#24-position-table)
@@ -37,10 +37,10 @@ source_sha: 54394abaacc701b5efe6ce4ded356f8e7d316f4e
 
 # 1. Installation and Configuration
 ## 1.1. Installation
-1. On a Windows machine, install [https://emt.eastmoneysec.com/down](https://emt.eastmoneysec.com/down). Download and install the second software listed:
+1. On your Windows machine, install [https://emt.eastmoneysec.com/down](https://emt.eastmoneysec.com/down) and download/install the second software:
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230403154605.png)
 
-2. Install conda on the same machine. We recommend installing miniconda and creating a virtual runtime environment (Python version 3.8):
+2. Install conda on the same machine. We recommend installing Miniconda and creating a virtual runtime environment (Python version 3.8):
    ```
    conda create -n gmclient python=3.8
    ```
@@ -48,12 +48,12 @@ source_sha: 54394abaacc701b5efe6ce4ded356f8e7d316f4e
     ```
     pip install gmadaptor-1.1.3-py3-none-any.whl
     ```
-## 1.2. Requesting Permissions
-Join the East Money Quantitative Simulation Group: 971584613, and contact the administrator to request live trading permissions. Please review the pinned files in the group first.
-The primary threshold for approval is an initial capital requirement of 1 million RMB. You can withdraw funds after approval.
+## 1.2. Permission Request
+Please join the East Money Quant Simulation Group: 971584613, and contact the administrator to request live trading permissions. Review the pinned files in the group first.
+The primary threshold for approval is a required initial capital of 1 million RMB. You can withdraw funds after approval.
 
 ## 1.3. Simulation and Testing
-While waiting for live trading permissions to be approved, you can open a simulation account at https://emt.18.cn/apply/test-apply-client to debug your program and configuration.
+While waiting for live trading permissions, you can open a simulation account at https://emt.18.cn/apply/test-apply-client to debug your program and configuration.
 
 After applying, record your standard capital account number and password, as shown below:
 
@@ -68,10 +68,10 @@ After logging in, the interface displays as follows:
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403200024.png)
 
 ### 1.3.1. Account Configuration
-The following steps are valid for both live and simulation accounts.
+The following steps apply to both live and simulation accounts.
 
 #### 1.3.1.1. gmadaptor Configuration File
-You need to configure your live trading account in the gmadaptor configuration file within the quantitative software. Create the `gmadaptor/config` directory in your user directory and place the following files there:
+You need to configure the live trading account from your quant software into the gmadaptor configuration file. In your user directory, create the `gmadaptor/config` directory and place the following file:
 ```yaml
 # defaults.yaml
 log_level: INFO
@@ -99,13 +99,13 @@ gm_info:
 ```
 In the above configuration, `access_token` can be any value you specify. Any client accessing this service must hold this token.
 
-The `gm_output/acct_input` files are automatically created by gmadaptor upon startup if they do not exist. Ensure that gmadaptor has read/write permissions for these folders.
+The `gm_output/acct_input` file will be automatically created by gmadaptor upon startup if it does not exist. Ensure that gmadaptor has read/write permissions for these folders.
 
-The value for `accounts > name` comes from the name you specified when creating a file order in the EMC terminal, as shown in item 2 in the image below:
+The value under `accounts > name` comes from the name you specified when creating a file order in the EMC terminal, as shown in item 2 in the image below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403194653.png)
 
-The `accounts > acct_id` comes from item 3 below. Click `ID` to copy it:
+The `accounts > acct_id` comes from item 3 below; click `ID` to copy it:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/20230403195425.png)
 
@@ -122,27 +122,27 @@ In **Quant > File Order > File Order Input**, configure items 3 and 4 in the ima
 
 ### 1.3.2. Simulation Run
 
-In the `gmclient` virtual environment generated earlier, execute the following command to start the gmadaptor server:
+In the `gmclient` virtual environment created earlier, execute the following command to start the gmadaptor server:
 ```
 python -m gmadaptor.server
 ```
-If the following interface appears, the server has started successfully:
+If the following interface appears, it indicates that the server has started successfully:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/04/started.jpg)
 
-At this point, open another `conda` window, using the same `gmclient` virtual environment, and test via the following command:
+At this point, open another `conda` window using the same `gmclient` virtual environment, and test via the following command:
 ```
 python -m gmtest %account %token %server %port
 ```
 
 Here, `account` refers to `gm_info > accounts > account_id` in the gmadaptor configuration file, and `token` refers to `server_info > access_token`.
 
-The `server` refers to the IP address of the machine where gmadaptor is located, and `port` is the port number. If not provided, these default to `localhost` and `9000`, respectively.
+Here, `server` refers to the IP address of the machine where gmadaptor is located, and `port` refers to the port number. If not provided, these default to `localhost` and `9000`, respectively.
 
-If the configuration is correct, this will print the initial account funds, current positions, and information about one buy and one sell transaction.
+If the configuration is correct, this will print the initial account funds, current positions, and information about one buy and one sell order.
 ## 1.4. Operation and Maintenance
 
-Additionally, set up a scheduled task to start EMC around 8:45 AM every day.
+Additionally, start a scheduled task to launch EMC around 8:45 AM every day.
 ### 1.4.1. Startup
 Use the following script to start:
 ```
@@ -154,7 +154,7 @@ pause
 ```
 
 ### 1.4.2. Daily Maintenance
-The EMC quantitative terminal can sometimes be unstable. We can improve stability by scheduling regular restarts. Use the following code to exit EMC after market close:
+The EMC quant terminal can sometimes be unstable. We can improve stability by scheduling automatic restarts. Use the following code to exit EMC after market close:
 ```
 REM kill process
 TASKKILL /F /IM EMCTrade.exe
@@ -168,16 +168,16 @@ DEL /Q C:\zillionare\FileOrders\real_input\*.csv
 ```
 
 !!! Warning
-    If there are unarchived files in the input/output directories, quantitative trading will not start automatically. The last line of the above code is designed to clean up unarchived files.
-    This also requires users to verify their orders themselves to ensure these files can be automatically deleted.
+    If there are unarchived files in the input/output directories, quantitative trading will not start automatically. The last line of the above code serves to clean up unarchived files.
+    This also requires users to manually verify orders to ensure these files can be automatically deleted.
 # 2. Client-Server Interaction
-## 2.1. Client Requests
+## 2.1. Client Request
 
-The client requests gmadaptor via HTTP requests. The following examples use synchronous requests, but you can change them to asynchronous requests as needed. Server authentication for the client is handled via `headers`. See the examples (any one example is sufficient) for details. Clients send data to the server using the POST method, and all gmadaptor methods only respond to POST requests. If the request completes successfully, the return code is 200.
+Clients request gmadaptor via HTTP requests. The following examples use synchronous requests, but you can change them to asynchronous requests as needed. Server authentication for clients is handled via `headers`; see the examples below (any one example is sufficient). Clients send data to the server using the POST method, and all gmadaptor methods only respond to POST requests. If the request completes successfully, the return code is 200.
 
-In all operations, stock codes must appear in the format of short code + exchange suffix, where the Shanghai Stock Exchange is `.XSHG` and the Shenzhen Stock Exchange is `.XSHE`. During simulation testing, operations on stocks have specific responses (e.g., for a certain stock, buying will always result in partial execution regardless of the parameters provided; for another stock, it will always return "limit buy restricted," etc.). For specific response documentation, contact the administrator in the East Money Quantitative Q Group.
+In all operations, stock codes must appear in the format of short code + exchange suffix, where SSE is `.XSHG` and SZSE is `.XSHE`. During simulation testing, operations on stocks have specific responses (e.g., for a certain stock, buying will always result in partial fills regardless of the parameters provided; for another stock, it will always return "limit buy restricted," etc.). For specific response documentation, please contact the administrator in the East Money Quant Q Group.
 
-In requests that change state (such as buy operations), the `cid` and `timeout` parameters are often required. Their function is that the call waits for the specified `timeout` period for EMC to process the request and return results; however, EMC may not return results within the specified timeout, such as when a buy order price is too low and never executes, resulting in no return. In such cases, the call returns after the timeout. Subsequent queries for buy results will depend on the `cid` parameter. Note that `cid` is a required parameter, while `timeout` is optional.
+In requests that change state (such as buy operations), you will often need the `cid` and `timeout` parameters. Their function is that the call waits for EMC to process the request and return results within the specified timeout period; however, EMC may not return results within the specified timeout period, such as when a buy order price is too low to ever fill, resulting in no return result. In such cases, the call returns after the timeout. Subsequent queries for buy results will then rely on the `cid` parameter. Note that `cid` is a required parameter, while `timeout` is optional.
 
 The `cid` parameter (client entrust ID) is generated by the client. We recommend using the following code:
 ```python
@@ -187,7 +187,7 @@ cid = str(uuid.uuid4())
 ```
 After generating the `cid`, please save it on the client side until the transaction ends and it is no longer needed.
 
-For brevity, the following examples may omit these codes:
+For brevity, the following examples may omit this code:
 ```python
 import httpx
 headers = {
@@ -202,17 +202,17 @@ sell_entrust_no = None
 ```
 
 ## 2.2. Return Results
-Errors can occur at three levels: the HTTP layer (including bad request or Internal server error), the gmadaptor layer, and the EMC layer.
+Errors can occur at three levels. First, the HTTP layer (including bad request or Internal server error); second, the gmadaptor layer; third, errors returned by EMC.
 
-For first-layer errors, we check via HTTP status codes. For example, if the client used is `httpx`, check if `response.status_code` is 200.
+For first-layer errors, we check via HTTP status codes. For example, if our client is httpx, we can check if `response.status_code` is 200.
 
-gmadaptor always returns responses via `json`. The response includes three fields:
+gmadaptor always returns responses via `json`, which includes three fields:
 ```
 status: int,如果为零，则表明在此层没有发生错误，即gmadaptor已经将请求正确上报
 msg: str, human readable message
 data: dict 如果一切顺利，则返回数据在此项中
 ```
-Third-layer errors are provided by the EMC trader. Even if gmadaptor correctly reports the request, the EMC trader may fail to execute it, at which point it will also provide error information via `status` and `reason`.
+Third-layer errors are provided by the emc trader. Even if gmadaptor correctly reports the request, the emc trader may fail to execute it, in which case it will also provide error information via `status` and `reason`.
 
 The following example shows the output of `response.json()`:
 ```json
@@ -238,7 +238,7 @@ The following example shows the output of `response.json()`:
     }
 }
 ```
-Therefore, even if the status provided by gmadaptor is successful, it does not necessarily mean the order was successfully executed. Another example is placing a buy order at an excessively low price; as long as the parameters are valid and received by EMC, gmadaptor will return success, but whether the order actually executes must be queried via `entrust_no`.
+Therefore, even if the status given by gmadaptor is successful, it does not necessarily mean the order was successfully placed. Another example is placing a buy order at an extremely low price; as long as the parameters are legal and accepted by EMC, gmadaptor will return success, but whether the order actually fills must be queried via `entrust_no`.
 ## 2.3. Asset Table
 ```python
 # 请求资金信息
@@ -370,17 +370,17 @@ def today_entrusts():
 
 # 3. Troubleshooting and Help
 
-For East Money File Order, please refer to: https://emquant.18.cn/file-help/?doc=file_order
-East Money Quantitative Q Group: 971584613
+For East Money File Orders, please refer to: https://emquant.18.cn/file-help/?doc=file_order
+East Money Quant Q Group: 971584613
 
-Even with daily automatic restarts of EMC, occasional connection anomalies or other errors may occur. In such cases, manual execution may be required:
+Even with automatic daily restarts of EMC, occasional connection anomalies or other errors may occur. In such cases, manual execution may be required:
 1. Reconnect
 2. Clear file orders and restart
 
 ## Matching Configuration Rules
-In simulation trading tests, EMTrader specifies corresponding responses for each product. For example, for product 000572, buying will always result in full execution, while for product 000010, it will always be rejected. This is for testing convenience. East Money provides a document titled "Matching Configuration Rules," which may be updated at any time. Therefore, you need to contact their technical staff via QQ to obtain it before testing.
+In simulation trading tests, EMTrader specifies corresponding responses for each instrument. For example, for instrument 000572, buying will always result in full fills, while for instrument 000010, it will always be rejected. This is for testing convenience. East Money provides a document titled "Matching Configuration Rules," which may be updated at any time. Therefore, you need to add their technical staff on QQ to obtain it before testing.
 
-The content of this document in March 2023 was as follows:
+Part of the content of this document in March 2023 is as follows:
 ```
 [全部成交]
 000572	full
@@ -410,6 +410,6 @@ The content of this document in March 2023 was as follows:
 
 ## Contact Information
 
-If you need help using this module or wish to participate in the [Big Fortune Quantitative Programming Practical Course](https://github.com/zillionare), please add Kuanfen’s WeChat:
+If you need help using this module or wish to participate in the [Big Fortune Quant Programming Practical Course](https://github.com/zillionare), please add Kuanfen’s WeChat:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.jpg)
