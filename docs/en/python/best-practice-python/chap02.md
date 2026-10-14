@@ -1,88 +1,88 @@
 ---
-title: "Chapter 2: Setting Up Your Python Quant Dev Environment"
+title: "02 Setting Up Your Python Dev Environment"
 date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap02
-tags: [Quant Development, Python Environment, VS Code, WSL]
-excerpt: "This chapter guides you through selecting the optimal OS, configuring WSL/Docker on Windows, and mastering VS Code extensions for efficient quantitative development."
+tags: [Development Environment, Linux, WSL, Visual Studio Code]
+excerpt: "Choosing the right OS and IDE is critical for quantitative developers. This chapter guides you through Linux, WSL, Docker, and VS Code configurations to streamline your workflow."
 lang: en
 translation_of: articles/python/best-practice-python/chap02
 auto_translated: true
-source_sha: 010c5605d092383b9404146b5040a3cc78007d5d
+source_sha: bedba943f5c363c7a768a831348b1f47f26804a1
 ---
 
-While all roads lead to Rome, some are smoother and faster, and some people even live there. For programmers, the better your development environment, the closer you are to Rome. Therefore, our journey begins here.
+While all roads lead to Rome, some are smoother and faster, and some developers even live in Rome. For programmers, the better your development environment, the closer you are to Rome. Therefore, our journey begins here.
 
 ## 1. Choosing an Operating System
 
-At first glance, the operating system (OS) seems unrelated to programming languages, especially for Python, whose programs can run on almost any OS. However, subtle differences warrant consideration. Python is better suited for data analysis, artificial intelligence, and backend development rather than desktop or mobile applications. Since big data analysis, AI, and backend development are often deployed on Linux servers, the associated ecosystems are typically built on Linux (e.g., big data platforms and distributed computing systems). Important libraries, while eventually compatible with multiple OSs, often have different release schedules due to OS-specific differences. Open-source projects and libraries frequently prioritize Linux, with more thorough testing on that platform.
+At first glance, the operating system seems unrelated to the programming language, especially for Python, whose programs can run on almost any OS. However, there are subtle differences to consider. First, Python is better suited for data analysis, artificial intelligence, and backend development rather than desktop or mobile applications. Both big data analysis and backend development are typically deployed on Linux servers. Consequently, the ecosystems they rely on are often built on Linux (e.g., big data platforms and distributed computing systems). Some critical libraries, while eventually compatible with multiple operating systems, often have different release schedules across platforms due to OS differences. Open-source programs and libraries often prioritize Linux, with more thorough testing on that platform.
 
-Consider quantitative trading, one of Python’s most critical applications. The `talib` library is commonly used for technical analysis in this domain. It relies on a C module that must be compiled during installation. Compiling on Windows requires downloading and configuring a suite of Visual C++ build tools, which can be challenging for Python programmers unfamiliar with these concepts. In contrast, on Linux, while compilation is still required, installation and building can be done with a single script.
+We can cite many such examples. Quantitative trading is one of Python’s most important application areas, and `python-talib` is a commonly used technical analysis library within it. This library uses a C module that requires compilation during installation. Compiling on Windows requires downloading and configuring a series of Visual C++ build tools, which can be difficult for Python developers since many of these concepts are unfamiliar. If you use Linux, compilation is still required, but installation and building can be done with a single script.
 
-This applies not only to Python libraries but also to various services we depend on. For instance, while you can install the desktop version of Docker on Windows and run Linux containers, Docker’s resource utilization on Windows is far inferior to that on Linux. Resources are statically allocated when the Docker service starts, regardless of whether containers are running, making them unavailable to other Windows programs. Fundamentally, this difference stems from Windows’ inability to provide container-level resource isolation.
+This applies not only to Python libraries but also to various services we depend on. For instance, while you can install the desktop version of Docker on Windows and run some Linux containers, Docker’s resource utilization on Windows is far less efficient than on Linux—resources are allocated from the system when the Docker service starts, regardless of whether containers are running, making them unavailable to other Windows programs. Fundamentally, this difference arises because Windows cannot provide container-level resource isolation.
 
-Later in this book, we will cover CI/CD, which relies heavily on container technology. At that point, you will appreciate the convenience of using Linux. For example, we will use containers provided by GitHub Actions for testing, but due to licensing restrictions, the free tier of GitHub CI does not include Windows containers.
+Later in this book, we will cover CI/CD, which requires container technology. At that point, you will appreciate the convenience of using Linux. For example, we will use containers provided by GitHub Actions to run tests, but due to licensing issues, the free version of GitHub CI containers will not include Windows.
 
-If these reasons do not persuade you, consider how experienced developers choose their OS. The following figure is from a 2022 StackOverflow[^stackoverflow] survey:
+If these reasons still do not convince you, consider how senior developers choose their operating systems. The following figure is from a 2022 survey on StackOverflow[^stackoverflow]:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304160004.png)
 
-The numbers to the right of each item indicate the percentage of respondents using that OS. Combining the usage of Linux itself with WSL (Windows Subsystem for Linux, a Linux variant), professional users’ share reaches 54.23%, exceeding those using Windows as their development platform (48.82%). Linux is now the top-ranked OS.
+The numbers to the right of each item indicate the percentage of respondents using that operating system. From the chart, if we combine Linux’s own usage with WSL usage (WSL is a type of Linux), the proportion of professional users reaches 54.23%, exceeding those who use Windows as their development platform (48.82%). Linux is now the number one operating system.
 
-For these reasons, we recommend Linux as the OS for your Python development projects. Unless otherwise specified, the tools, examples, and libraries mentioned in this book default to Linux as the runtime environment and have been tested on Linux.
+For the above reasons, we recommend using Linux as the operating system for your Python development projects. Unless otherwise specified, the tools, examples, and libraries mentioned in this book default to Linux as the runtime environment and have been tested on Linux.
 
-However, you may not appreciate this advice, as your computer likely runs MacOS or Windows.
+However, you may not like this suggestion because your computer likely runs MacOS or Windows.
 
-The good news is that MacOS and Linux are both "Unix-like" operating systems with high similarity. If you use MacOS, you do not need to install Linux separately. If you use Windows, we provide three solutions below to run a virtual Linux environment for development.
+The good news is that MacOS and Linux are both "Unix-like" operating systems with high similarity. So, if your computer runs MacOS, you do not need to install Linux separately. If your computer runs Windows, we provide three solutions below to allow your machine to run a virtual Linux operating system for development.
 
-## 2. Linux Environment on Windows
+## 2. Linux Environments on Windows
 
-There are three ways to build a Linux virtual environment on Windows. One is the native Windows solution: Windows Subsystem for Linux (WSL). The other two are Docker and virtual machine solutions.
+There are three ways to build a Linux virtual environment on Windows. One is Windows’ native solution, using Windows Subsystem for Linux (WSL for short). The other two are Docker and virtual machine solutions.
 
 ### 2.1. WSL Solution
 
-WSL is a new feature in Windows 10. It runs a GNU/Linux environment on top of Windows. In this environment, most Linux command-line tools and services can run without setting up a dual-boot system or incurring the overhead of a virtual machine.
+WSL is a new feature in Windows 10. Through WSL, a GNU/Linux environment runs on top of Windows. In this environment, most Linux command-line tools and services can run without setting up a dual-boot system or incurring the extra costs of a virtual machine.
 
-Two versions are currently available: v1 and v2. The author recommends v1. WSL v2 behaves more like a true virtual machine, resulting in poorer integration with Windows.
+There are currently two versions available, v1 and v2. The author recommends using v1. WSL v2 feels more like a true virtual machine, so its integration with Windows is slightly worse.
 
 #### 2.1.1. Installing WSL
 
-If your Windows 10 is version 2004 or higher, or if you use Windows 11, installation requires only one command:
+If your Windows 10 is version 2004 or higher, or if you use Windows 11, installation can be completed with a single command:
 
 ```shell
 wsl --install --set-defalut-version=1
 ```
 
-This installs WSL v1 on your machine. For slightly older systems, follow these steps:
+This will install WSL v1 on your machine. For slightly older systems, you need to follow these steps:
 
 1. First, enable the "Windows Subsystem for Linux" feature:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503185200[1].png)
 
-2. After configuration, restart your computer.
-3. Search for and install a Linux distribution from the Microsoft Store. In this example, we use Ubuntu:
+2. After setting, you need to restart your computer.
+3. Search for and install a Linux distribution from the Windows App Store. In this example, we use Ubuntu:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2020-05/20200503191417[1].png)
 
-Now, typing "Ubuntu" in the search bar opens the Ubuntu shell. Since it is the first run, you will be prompted to enter a username and password. WSL is now installed. You can subsequently launch it by typing `wsl` in the search box.
+Now, typing Ubuntu in the search bar will open the Ubuntu shell. Since it is the first run, you will be prompted to enter a username and password. This completes the WSL installation. You can also start this system by typing the `wsl` command in the search box.
 
 #### 2.1.2. Customizing WSL
 
-Using WSL v1 offers a unique experience. It resembles a virtual machine but lacks certain features, such as the concept of background services[^wsl]. You can install services like Redis cache or databases, but these background services do not start automatically with WSL; you must start them manually. However, you can customize WSL to make its experience closer to that of a virtual machine.
+Using WSL v1 offers a special experience. It resembles a virtual machine but lacks some features, such as the concept of background services[^wsl]. We can install some services, such as Redis cache or databases, but these background services will not start with WSL; they must be started manually. However, we can customize WSL to make its usage experience closer to that of a virtual machine.
 
-Our customization will achieve two functions: first, allowing the WSL virtual machine to start automatically with Windows; second, enabling an SSH service to run automatically when WSL starts, allowing you to connect to it at any time. After mastering this customization, readers can also configure WSL to start additional background services automatically.
+Our customization will achieve two functions: first, to make the WSL virtual machine start automatically with Windows. Second, when WSL starts, it will automatically run an SSH service so that we can connect and use this WSL virtual machine at any time. After learning this customization, readers can certainly configure WSL to automatically run more background services after startup.
 
-We need to write three scripts: `start.vbs`, `control.bat`, and `commands.txt`, and add a scheduled task for automatic startup. When Windows starts, this task executes `start.vbs`, which calls `control.bat`. `control.bat` then starts WSL (and its dependent Windows services) and executes commands defined in `commands.txt` within the WSL environment—such as starting the SSH server. The entire process is illustrated below:
+We need to write three scripts: `start.vbs`, `control.bat`, and `commands.txt`, and add a scheduled task for automatic startup. When Windows starts, this scheduled task executes automatically, calling `start.vbs` to run `control.bat`, which in turn starts WSL (and its dependent Windows services) and executes the commands defined in `commands.txt` within the WSL environment—such as the services to be run in WSL, like the SSH server. The entire process is shown in the figure below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230304153221.png)
 
-First, define the background services to run in WSL in the `commands.txt` file:
+First, we define the background services to be run in WSL in the `commands.txt` file:
 
 ```text
 /etc/init.d/cron
 /etc/init.d/ssh
 ```
 
-Next, write a batch script to start WSL and execute the above commands:
+Then, we write a batch script to start WSL and execute the above commands:
 
 ```bat
 REM control.bat
@@ -125,7 +125,7 @@ goto lxssDetect
 :end
 ```
 
-Then, write a `start.vbs` script to execute `control.bat`:
+Next, we write a `start.vbs` script to execute `control.bat`:
 
 ```vb
 ' start.vbs
@@ -138,232 +138,232 @@ UAC.ShellExecute "C:\Windows\System32\cmd.exe", command, "", "runas", 0
 Set UAC = Nothing
 ```
 
-Finally, add a new startup task to the Task Scheduler:
+Finally, we add a new startup task to the Task Scheduler:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215338.png)
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202106/20210616215237.png)
 
-Note that Ubuntu installed via the Microsoft Store should already have `ssh-server` installed. The steps above merely configure it to start with WSL. If you find that `ssh-server` is not installed in your WSL, you can install it manually. After all, it is a Linux server, and you can install most Linux software on it.
+It should be noted that the Ubuntu subsystem installed via the Windows App Store should already have the ssh-server installed. What we are doing in the above operation is simply to make it start with WSL. However, if you find that your WSL does not have the ssh-server installed, you can install it yourself. After all, it is a Linux server, and you can install most Linux software on it.
 
-By applying this solution, you will have two operating systems running simultaneously on Windows. Notably, when not in use, WSL consumes minimal CPU and memory resources (limited to WSL 1.0), a benefit unmatched by other virtualization solutions.
+By applying the above solution, you will have two operating systems running simultaneously on Windows. It is particularly worth mentioning that when you are not using WSL, it consumes very little CPU and memory resources (limited to WSL 1.0). This is incomparable to other virtualization solutions.
 
-At the time of writing, WSL 2.0 has a preview version supporting graphical interfaces, called [wslg](https://github.com/microsoft/wslg). This version will eventually merge into WSL and be released with Windows. The following image shows a rendering of the wslg graphical interface:
+At the time of this book’s writing, WSL 2.0 already had a preview version supporting graphical interfaces, called [wslg](https://github.com/microsoft/wslg). This version will be merged into WSL and released as an official version with Windows. The following figure is an effect image of the wslg graphical interface:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108WSLg_IntegratedDesktop.png)
 
-Although this is unrelated to the main theme of this book, it provides another reason to use Linux. Even Microsoft is taking Linux seriously[^Linux]; are you still using Windows for development?
+Although this is unrelated to the main theme of this book, it at least gives us another reason to use Linux. Even Microsoft is taking Linux seriously[^Linux]. Are you still going to use Windows for development?
 
 ### 2.2. Docker Solution
 
-WSL appeared later than Docker. If you purchased your machine earlier, your Windows may not support WSL but can install Docker. In this case, you can try installing the desktop version of Docker and run a Linux virtual machine via Docker.
+WSL appeared later than Docker. If you purchased your machine earlier, your Windows may not support WSL but can install Docker. In this case, you can try installing the desktop version of Docker and then run a Linux virtual machine through Docker.
 
-Download Docker from its official website[^docker]. After installation, you must manually start it for the first run. Search for "Docker" in the search box and select "Docker Desktop" to start it, as shown below:
+You can download Docker from its official website[^docker]. After installation, you need to start it manually for the first run. You can search for "Docker" from the search box and then select "Docker Desktop" to start it, as shown in the figure below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108docker-app-search.png)
 
-When Docker starts, a notification icon appears in the system tray:
+When Docker starts, a notification icon will appear in the system tray:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108whale-icon-systray.png)
 
-The third icon, a whale, indicates that Docker is running. Clicking it opens the management interface. Initial setup requires configuration; refer to the official documentation.
+The third icon in the above figure, the whale icon, indicates that Docker is running. Clicking it will take you to the management interface. Some settings need to be made for the first run; you can refer to the official documentation.
 
-Running Docker on Windows involves enabling the Hyper-V virtual machine due to OS heterogeneity, then installing Docker within that VM. This is why system resources are statically allocated when Docker runs on Windows, regardless of whether containers are active. However, since approximately March 2020, Docker has supported desktop versions based on WSL2. Docker Desktop based on WSL2 starts faster and allocates resources only when needed, making resource scheduling more flexible and efficient.
+Running Docker on Windows, due to OS heterogeneity, first requires enabling the Hyper-V virtual machine and then installing Docker into this virtual machine. This is why, when installing and running Docker on Windows, system resources are statically allocated and cut off regardless of whether containers are currently running. However, since approximately March 2020, Docker has supported running desktop versions based on WSL2. Desktop Docker based on WSL2 starts the Docker backend service faster, and resources are allocated only when needed, making resource scheduling more flexible and efficient.
 
 ### 2.3. Virtual Machine Solution
 
-Your machine may not support WSL or Docker. In this case, you can run Linux by installing a virtual machine like VirtualBox[^virtualbox]. This technology is well-known, so we will not elaborate further.
+It is also possible that your machine does not support installing WSL or Docker. In this case, you can run Linux by installing a virtual machine such as VirtualBox[^virtualbox]. The technology here should be familiar to everyone, so we will not elaborate further.
 
 ### 2.4. Summary
 
-We have introduced three solutions for building a Linux development environment on Windows. Whenever possible, you should install WSL first. WSL runs on almost all Windows 10 and later distributions, including Windows 10 Home.
+We have introduced three solutions for building a Linux development environment on Windows. Whenever possible, you should first install WSL. WSL can run on almost all Windows 10 and above distributions, including Windows 10 Home.
 
-If your machine does not support WSL, consider installing Docker. Even if your machine supports WSL, installing Docker is advisable for practicing CI/CD to experience containerized building and deployment. This requires a more powerful CPU and memory.
+If your machine does not support installing WSL, you can consider installing Docker. Even if your machine supports WSL, for the purpose of practicing CI/CD, you can also install Docker to experience containerized building and deployment. Of course, this requires your machine to have a more powerful CPU and memory.
 
-For older machines that cannot be upgraded to newer Windows versions, consider using a virtual machine, such as the free version of VirtualBox.
+For older machines, when upgrading to newer versions of Windows is not possible, you can consider using a virtual machine, such as the free version of VirtualBox.
 
 ## 3. Integrated Development Environment (IDE)
 
-As a scripting language, Python runs without compilation, so almost any text editor can serve as a Python development tool. However, for serious development, achieving the best balance between development progress and quality requires a more professional tool.
+As a scripting language, Python can run without compilation, so almost any text editor can serve as a Python development tool. However, to conduct serious development and achieve the best balance between development progress and quality, a more professional tool is needed.
 
-An Integrated Development Environment (IDE) improves development efficiency by providing code hints, detecting syntax errors early, and allowing debugging directly within the editor.
+An Integrated Development Environment (IDE) is a tool that improves development efficiency. It allows developers to receive various code hints, discover syntax errors earlier, and debug directly in the editor.
 
-PyCharm and VS Code are the two preferred tools for Python application development. For developers in data analysis and AI, Jupyter Lab (an upgraded Notebook) and Anaconda’s Spyder are also options.
+PyCharm and VS Code are the two preferred tools for Python application development. For developers engaged in data analysis and artificial intelligence, you can also consider Jupyter Lab (an upgraded version of Notebook) and Anaconda’s Spyder.
 
 ### 3.1. VS Code vs PyCharm: Which IDE to Use?
 
-PyCharm is an established IDE for Python development, while Visual Studio Code (VS Code) is a rising star in recent years. VS Code is completely free, whereas PyCharm offers Community and Professional editions. The Professional edition has more powerful features but requires payment. The following table summarizes the key differences:
+PyCharm is an established IDE for Python development, while Visual Studio Code (commonly known as VS Code) is a rising star in recent years. VS Code is completely free, while PyCharm offers both Community and Professional editions. The Professional edition has more powerful features but requires payment. The following table briefly outlines the most important differences between the two IDEs:
 
-| Feature       | PyCharm      | VS Code          | Description                                                                                                                            |
-| ---------- | ------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Remote Development   | Professional Edition Only | Supported             | In Professional PyCharm, files are edited locally and synced to the remote machine for debugging before execution; VS Code edits and debugs directly on the remote machine via file sharing protocols |
-| Three-Way Merge   | Supported         | Supported             | VS Code has provided a three-way merge editor since July 2022. This is a convenient way to resolve conflicts in code                             |
-| Data View   | Supported         | Not Supported           | PyCharm allows viewing database and DataFrame data in a GUI; VS Code requires plugins, which are weaker, but data can be viewed and managed via third-party tools   |
-| Startup Speed   | Slow           | Very Fast             | VS Code’s startup speed is excellent, making it suitable not only for development but also for document writing, journaling, and other scenarios requiring quick opening.                              |
-| Multi-Language Support | Python-centric  | Supports Multiple Languages | VS Code supports development in many languages, making it particularly suitable for professional developers                                                                        |
+| Feature         | PyCharm             | VS Code              | Description                                                                                                                            |
+| --------------- | ------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Remote Dev      | Professional only   | Supported            | In Professional PyCharm, files are edited locally and synced to the remote machine for debugging before debugging; VS Code edits and debugs directly on the remote machine via file-sharing protocols |
+| 3-Way Merge     | Supported           | Supported            | VS Code has provided a 3-way merge editor since July 2022. 3-way merge editing is a convenient way to resolve conflicts when code conflicts occur |
+| Data View       | Supported           | Not Supported        | PyCharm allows viewing database and DataFrame data in a graphical interface; VS Code requires plugins with weaker functionality, but data can be viewed and managed via third-party tools |
+| Startup Speed   | Slow                | Very Fast            | VS Code’s startup speed is excellent, making it suitable not only for development but also for document writing, diaries, and other scenarios requiring quick opening |
+| Multi-Language  | Python-centric      | Supports Multiple Languages | VS Code can support development in many languages, making it particularly suitable for professional developers |
 
-There are minor differences, such as VS Code implementing many features via plugins, each with its own log output window. If a feature does not work in VS Code, it may be caused by a plugin. This error might silently output in the plugin’s log window rather than in familiar interface windows, which can confuse beginners. In PyCharm, the arrangement of these windows and hint interfaces seems more intuitive.
+There are some minor differences. For example, many VS Code features are implemented through plugins, each with its own log output window. When using VS Code, if a feature does not work, it may be caused by a plugin. This error may be silently output in the plugin’s log window rather than in the interface windows you are familiar with. This may confuse beginners. In PyCharm, the arrangement of these windows and prompt interfaces seems more intuitive.
 
-In summary, PyCharm is an out-of-the-box IDE, while VS Code requires installing a series of plugins before formal development, which may take time to compare, configure, and learn. However, if you plan to engage in development long-term, investing time in VS Code is worthwhile. VS Code is a free product, and its license allows you to use it for any commercial development. Thus, whether you are an individual developer or employed by an organization, you can use it.
+In short, PyCharm is an IDE ready to use out of the box, while VS Code requires installing a series of plugins before formal development, which may take some time to compare, configure, and learn. However, if you plan to engage in development work for a long time, investing time in VS Code is worthwhile. VS Code is a free product, and its license allows you to use VS Code for any commercial development. Therefore, whether you are an individual developer or employed by an organization, you can use it.
 
-Since we prefer VS Code and PyCharm is easy to use with little need for instruction, we will skip the introduction of PyCharm and focus on configuring the VS Code development environment.
+Since we prefer to use VS Code and because PyCharm is simple and easy to use, requiring basically no teaching, we will skip the introduction of PyCharm here and focus on how to configure the VS Code development environment.
 
 ### 3.2. VS Code and Extensions
 
-VS Code is a multi-language editing and development platform that provides basic functions such as a text editor, code management (Git), and extension management. Development for specific languages is achieved by loading the corresponding language extensions. Therefore, after installing VS Code, you must configure a series of extensions.
+VS Code is a platform supporting multi-language editing and development. It only provides basic functions such as a text editor, code management (Git), and extension management. Specific language development is completed by loading the language’s extensions. Therefore, after installing VS Code, you need to configure a series of extensions.
 
-After installing VS Code, a toolbar appears on the sidebar as shown below:
+After installing VS Code, a toolbar will appear on the sidebar as shown in the figure below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145433.png)
 
-The icon circled corresponds to extension management. The upper rectangular box can be used to search for an extension. After finding the corresponding extension and clicking it, you can see its detailed information in the right window, as shown below:
+The icon circled corresponds to extension management. The rectangular box at the top can be used to search for a specific extension. After finding the corresponding extension and clicking it, you can see the extension’s detailed information in the right window, as shown in the figure below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145930.png)
 
-This detailed information page provides an installation button.
+On this detailed information page, an installation button is provided.
 
-VS Code’s extension management offers filtering, sorting, and other functions beyond search, which readers can explore. If you use VS Code in multiple development environments, you may want these extensions to work across different environments. To address this, VS Code provides an extension synchronization mechanism. On the extension detail page, to the right of the "Uninstall" button, there is a synchronization icon. Clicking it automatically synchronizes the extension to other environments.
+VS Code’s extension management provides not only search but also filtering and sorting functions. Readers can explore these on their own. If readers want to use VS Code across multiple development environments and hope these extensions can be used in different environments, VS Code also provides an extension synchronization mechanism. On the extension detail page in the above figure, to the right of the "Uninstall" button, there is a synchronization icon. Clicking it will automatically synchronize the extension to other environments.
 
-Below, we discuss some of the most common and important VS Code extensions. Armed with these extensions, your development efficiency will significantly improve.
+Below, we will discuss some of the most commonly used and important VS Code extensions. After arming VS Code with these extensions, your development efficiency will significantly improve.
 
 #### 3.2.1. Python Extension
 
-To develop Python applications in VS Code, you must install the Python extension, as shown in the previous figure.
+To develop Python applications in VS Code, you need to install the Python extension, as shown in the previous figure.
 
-The Python extension is developed by Microsoft and has over 100 million downloads. It provides IntelliSense, code syntax checking, debugging, navigation, formatting, refactoring, and unit testing features. Additionally, it offers a Jupyter Notebook integrated environment.
+The Python extension is developed by Microsoft and has over 100 million downloads. It provides IntelliSense, code syntax checking, debugging, navigation, formatting, refactoring, and unit testing features. Additionally, it provides a Jupyter Notebook integrated environment.
 
-Along with the Python extension, extensions such as Pylance, Python Test Explorer for Visual Studio Code, and Jupyter are installed.
+Along with the Python extension, extensions such as Pylance, Python Test Explorer for Visual Studio Code, and Jupyter are also installed.
 
-Pylance is a Language Server developed by Microsoft based on its acquisition of the Pyright static analysis tool. It provides syntax highlighting, code auto-completion, syntax checking, and parameter suggestions.
+Pylance is a Language Server developed by Microsoft based on its acquired Pyright static checking tool, featuring IntelliSense. It provides syntax highlighting, code auto-completion, syntax checking, and parameter suggestions.
 
-Although Pylance provides these features, we often treat Pylance as a Language Server. Functions such as syntax checking, code hints, and auto-completion should be handled by more specialized extensions (or third-party services). In this context, Pylance serves as an extension platform for these functions.
+Although Pylance provides these features, in practice, we often treat Pylance as a Language Server. Functions such as syntax checking, code hints, and auto-completion should still be completed through more specialized dedicated extensions (or third-party services). Here, Pylance can serve as an extension platform for these features.
 
-Test Explorer’s main role is to discover and collect unit test cases defined in the project, build a TestSuite, provide a test execution entry, and report test results after completion.
+Test Explorer’s main role is to discover and collect unit test cases defined in the project, build a TestSuite, provide a test execution entry, and report test execution results after testing is completed.
 
-Jupyter is an extension that allows you to read and develop notebooks in VS Code. Compared to a separately installed Jupyter notebook, it provides more powerful code hints, variable viewing, and data viewing. Additionally, debugging notebooks has traditionally been cumbersome. However, in VS Code, you can run and debug notebooks line by line, just like debugging Python code.
+Jupyter is an extension that allows you to read and develop notebooks in VS Code. Compared to separately installed Jupyter Notebook, it provides more powerful code hints, variable viewing, and data viewing. Additionally, debugging notebooks has always been a troublesome matter. But in VS Code, you can run and debug notebooks line by line, just like debugging Python code.
 
-After installing the Python extension, you can begin Python development. Before development, you need to select a Python interpreter for the project. This can be done by entering `Python: Select Interpreter` in the command palette or clicking the selection icon in the status bar, as shown below:
+After the Python extension is installed, you can proceed with Python development. Before development, you need to select a Python interpreter for the project. You can complete this by entering `Python: Select Interpreter` in the command palette or by clicking the selection icon in the status bar, as shown in the figure below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210806163607.png)
 
 #### 3.2.2. Remote - SSH
 
-This is a highly useful extension, one of Microsoft’s official offerings. It allows you to directly open folders on a remote machine in VS Code, edit, and debug them. If you have used IDEs like PyCharm, you know that although they support remote development, they create files locally and sync them to the remote machine before debugging. Frequent syncing reduces efficiency and often leads to inconsistencies due to failed syncs, wasting time troubleshooting. This is a key advantage of VS Code over PyCharm.
+This is a very useful extension, one of Microsoft’s official extensions. It allows you to directly open folders on a remote machine in VS Code, edit, and debug runs. If you have used IDEs like PyCharm, you would know that although these IDEs also support remote development, they create files locally and must upload and sync to the remote machine before debugging and running. Frequent syncing not only reduces efficiency but also often results in failure to sync, causing behavior inconsistent with expectations and wasting time looking for issues. This is also an important feature where VS Code is superior to PyCharm.
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809145039.png)
 
-After installing this extension, a remote connection icon appears on the sidebar. If currently connected to a remote machine, the status bar’s leftmost side displays summary information about that connection.
+After installing this extension, a remote connection icon will appear on the sidebar. Additionally, if currently connected to a remote machine, the status bar on the far left will display a summary of that connection.
 
 Next, we need to install version control-related extensions.
 
-Although VS Code provides Git integration, many features are not available via GUI, requiring us to memorize Git commands. Additionally, some features are missing from Git, such as:
+Although VS Code provides Git integration, many features are not provided through the GUI, and we must still memorize Git commands. Additionally, there are some features that Git does not have, such as the following:
 
-1. Editing commit messages in a GUI according to specified format standards during code submission.
-2. Managing `.gitignore` files.
-3. Managing local history.
+1. When submitting code, follow specified format specifications to edit commit messages graphically.
+2. Management of `.gitignore` files.
+3. Management of local history.
 
-To implement these features, we need to install further extensions, starting with GitLens.
+To achieve the above functions, we need to continue installing extensions. First is GitLens.
 
 #### 3.2.3. GitLens
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306194047.png)
 
-GitLens is powerful and commonly used in team development. Its features include:
+GitLens is a very powerful extension and is commonly used in team development. Its functions include:
 
-   1. Quick navigation through file modification history.
-   2. Displaying blame information on code lines, as shown below:
+   1. Quickly navigating through file modification history.
+   2. Prompting blame information in code lines, as shown in the figure below:
     
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108hovers-current-line.png)
 
-   3. Gutter changes, as shown below:
+   3. Gutter change, as shown in the figure below:
       
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/20210820210809160826.png)
 
-    Gutter changes refer to the lines on the right side of the line numbers in the editor area, indicating changes in the current region. Clicking this line pops up a window showing the change history of the current region, allowing you to rollback or commit changes. This function is essentially Git’s interactive staging feature, which is less user-friendly in the command line.
+    Gutter change refers to the line on the right side of the line number indicator in the editing area in the above figure, which indicates that there are changes in the current area. When you click this line, a window will pop up displaying the change history of the current area, and you can roll back changes or submit changes. This function is actually Git’s interactive staging function, but its usability is not very good when used in the command line.
     
-    If you did not plan well before editing a file and introduced modifications belonging to multiple commits, gutter change is the best remedy. It allows you to submit changes block by block, rather than by file. Thus, you can submit different blocks in a file in several commits.
+    If you did not plan well before editing the file and introduced modifications that should belong to multiple commits, gutter change is the best remedy. It allows you to submit changes block by block, rather than by file. Therefore, you can submit different blocks in a file in several commits.
 
-   4. GitLens provides a rich toolbar in the sidebar, as shown below:
+   4. GitLens provides a rich toolbar in the sidebar, as shown in the figure below:
 
      ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202108views-layout-gitlens.png)
 
-With these toolbars, you no longer need to memorize many Git commands, and the results of these commands are displayed visually, which is more efficient than the console interface. These toolbars provide views for commits, repositories, branches, file history, and tags.
+Through these toolbars, you no longer need to memorize too many Git commands, and the results of these commands are also displayed visually, which is much more efficient than the console interface. These toolbars provide commit views, repository views, branch views, file history views, tag views, etc.
 
-In short, GitLens graphically displays and reconstructs almost all Git functions, providing a rich operation interface that makes it easier to operate Git and understand code changes.
+In simple terms, GitLens graphically displays and reconstructs almost all Git functions, providing a rich operation interface that allows you to operate Git and understand code changes more conveniently.
 
-#### 3.2.4. Extensions for Editing Commit Messages
+#### 3.2.4. Extension for Editing Commit Messages
 
-Programmers who frequently use PyCharm will not forget its Git commit dialog. Regrettably, VS Code and its extensions have not yet addressed this shortcoming. However, there are some niche but useful extensions that can help us edit commit messages in a GUI and manage them in a standardized manner.
+Programmers who frequently use PyCharm will not forget its Git commit dialog. Unfortunately, so far, neither VS Code nor its extensions have filled this shortcoming. However, there are still some niche but useful extensions that can not only help us achieve graphical interface commit message editing but also help us manage commit messages in a standardized manner.
 
-Here we recommend an extension named `git-commit-plugin`:
+Here we recommend an extension called `git-commit-plugin`:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195918.png)
 
-This extension categorizes commit messages and adds emoji icons to each category, allowing us to identify categories more quickly:
+This extension will classify commit messages and add emoji icons to each category, allowing us to identify categories more quickly:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926101451.png)
 
-Correctly categorizing code is a crucial task. If we correctly categorize every code submission, we can automatically generate release notes for new versions based on these historical submission messages. The generated release notes may require slight modification but will absolutely avoid omitting important changes.
+Correctly classifying code is a very important task. If we correctly classify every code submission, we can automatically generate release notes based on these historical submission information when releasing a new version. The generated release notes may need some slight modification, but they will absolutely avoid missing important changes.
 
-Obviously, not all submission messages should appear in release notes. Especially submissions related to code style, documentation revisions, adding test cases, and build processes are often not of interest to end users and should not be included in release notes. If we correctly categorize every submission, tools for automatically generating release notes can extract only valid information according to our specified categories.
+Obviously, not all submission information should appear in release notes, especially submissions related to code style, document revisions, adding test cases, and build-related submissions, which are often not of concern to end users and should not be included in release notes. If we correctly classify every submission, then tools for automatically generating release notes can extract only valid information into release notes according to our specified categories.
 
-Later, we will mention tools for automatically generating Release Notes. We use tools to ensure the standardization of Commit Message formats, and Release Notes tools extract and analyze this information. The entire software development process works precisely like an assembly line.
+Later, we will mention tools for automatically generating Release notes. We use tools to ensure the standardization of Commit Message formats, and Release notes also extract and analyze this information through tools. The entire software development process will work precisely like an assembly line.
 
-This is the main theme of this book: **Software development processes should not be abstract concepts but software production assembly lines enforced through a series of tools.** Once the assembly line is calibrated, the produced products can pass 6 Sigma quality certification[^6-sigma].
+This is exactly the main theme of this book: **Software development processes should not be abstract concepts, but software production assembly lines enforced through a series of tools.** Once the assembly line is calibrated, the products produced can pass 6 Sigma quality certification[^6-sigma].
 
 #### 3.2.5. Gitignore Extension
 
-Code repositories should only retain useful files. However, during development, the workspace inevitably generates temporary files, junk files, and file types unsuitable for code repository storage, such as logs generated during debugging or binary files produced after compilation. If these temporary files are repeatedly uploaded, they waste repository storage space and reduce performance. To prevent these files from being committed to the code repository, we can create a `.gitignore` file in the code repository, containing the relative paths or matching pattern strings of these files. Consequently, Git automatically filters out these files when committing code.
+Code repositories should only keep useful files. However, during development, the workspace inevitably generates some temporary files, junk files, and file types unsuitable for storage in code repositories, such as logs generated during debugging or binary files generated after compilation. If these temporary files are repeatedly uploaded, they will greatly waste repository storage space and reduce performance. To prevent these files from being submitted to the code repository, we can create a `.gitignore` file in the code repository, which contains the relative paths or matching pattern strings of these files. In this way, Git will automatically filter out these files when submitting code.
 
-The format of the `.gitignore` file is very simple, with each line representing a file’s relative path. Therefore, we can manually edit this file. However, the Gitignore extension provides more features:
+The format of the `.gitignore` file is very simple, with each line being a relative path of a file. Therefore, we can manually edit this file. However, the gitignore extension provides more functions:
 
-   1. Generating `.gitignore` files from templates. A `.gitignore` file may have dozens of lines, with many parts common across different projects that do not need to be memorized.
-   2. Conveniently selecting files from the workspace and automatically adding them to the `.gitignore` file. This avoids path errors and is faster than manual editing.
+   1. Generate `.gitignore` files based on templates. After all, a `.gitignore` file may have dozens of lines, with a large number of parts common across different projects, which do not need to be memorized.
+   2. Conveniently select files from the workspace and automatically add them to the `.gitignore` file. This avoids path errors compared to manually editing the `.gitignore` file and is faster.
 
 #### 3.2.6. Local File History
 
-Although Git provides file version history management, it cannot track uncommitted modifications. However, before committing code, we may modify the same file multiple times and wish to view and reference these changes at some point. This requires a local file history management system.
+Although Git provides file version history management, it cannot track uncommitted modifications. However, before code submission, we may also make multiple modifications to the same file, and at some point, we may want to view and refer to these changes. This requires a local file history management system.
 
-PyCharm provides a very useful local file history feature. In VS Code, this function must be implemented through extensions.
+PyCharm provides a very useful local file history feature. In VS Code, this feature must be implemented through extensions.
 
 Readers can install this extension:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/03/20230306195816.png)
 
-Note that this extension generates a folder named `.history` in the workspace to store local file history. This folder must be added to the `.gitignore` file; otherwise, you may commit this folder to the code repository, which is a lot of junk!
+It should be noted that this extension will generate a folder named `.history` in the workspace to store local file history. This folder must be added to the `.gitignore` file, otherwise, you are very likely to submit this folder to the code repository. This is a lot of junk files!
 
-The following figure shows how this extension tracks code changes:
+The following figure shows this extension’s tracking of code changes:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926114236.png)
 
 #### 3.2.7. Code Assistance and Auto-Completion
 
-Code assistance and auto-completion are the most important reasons for using an IDE instead of a text editor. According to statistics from Kite[^kite], using Kite for assisted programming can save up to 47% of code typing, making code writing easier and faster.
+Code assistance and auto-completion are the most important reasons we use IDEs instead of text editors to write code. According to statistics from Kite[^kite], using Kite for assisted programming can save up to 47% of code typing, making code writing easier and faster.
 
-Of course, you may not agree that typing speed dictates programming efficiency. After all, we spend a lot of time thinking about how to implement algorithms and functions, recalling how to call certain library functions, and naming our own variables and constants. Surprisingly, with the enhancement of AI capabilities, a large part of this work can now be done by code assistance and auto-completion tools.
+Of course, you may not agree with the view that typing speed determines programming efficiency. After all, in programming, we spend a lot of time thinking about how to implement algorithms and functions, recalling how to call certain library functions, and naming our own variables and constants. Surprisingly, with the enhancement of artificial intelligence capabilities, a large part of this work can now be completed by code assistance and auto-completion tools.
 
 !!! Info
-    A female programmer once worked at my company. She wore exquisite makeup, and her long nails were engraved with beautiful, shimmering patterns. When typing, the patterns on her nails danced like butterflies. I knew how unpleasant the sound of nails scraping against keyboard caps was, so I always kept my nails trimmed to avoid interference during typing, which made me worry about the impact of long nails on typing speed. However, after interacting with her for a while, I found that her work efficiency was not low at all—even if her typing speed might still be affected by her long nails.
+    A female programmer once worked in our company. She had exquisite makeup, and beautiful patterns were engraved on her long nails, shimmering. When typing on the keyboard, the patterns on her nails danced like butterflies. I knew how unpleasant the sound of nails scraping on keyboard caps was, so I always kept my nails short to ensure uninterrupted typing, and thus worried about the impact of long nails on typing speed. But after contacting her for a period of time, I found that her work efficiency was not low at all—although her typing speed might still be affected by long nails.
 
-    Although Kite’s data suggests they saved programmers 47% of typing time, the example above shows that the resulting efficiency improvement may not be as significant as Kite imagined. We will have the opportunity to review Kite’s story later: if the direction of effort is wrong, diligence is futile.
+    Although Kite’s data indicates that they saved coders 47% of typing time, from the above example, it can be seen that the efficiency improvement brought by this may not be as large as Kite imagined. We will have the opportunity to review the story of Kite later: if the direction of effort is wrong, then diligence is useless.
 
-Just as we can define autonomous driving in five levels of automation, code assistance can also be divided into many levels.
+Just as we can define autonomous driving in five levels based on automation degree, code assistance can also be divided into many levels.
 
-The lowest level might be what ordinary text editors achieve: suggestions at the word level. If you have ever typed a word or a sentence, the next time you type the beginning of that word or sentence, the IDE will automatically suggest it. If you frequently use Excel, you will easily understand what kind of assistance this is. However, such suggestions are far from precise; often, they cannot provide the input we truly want.
+The lowest level might be what ordinary text editors can do, providing prompts at the word level. As long as you have entered a word or a sentence once, the next time you enter the first part of this word or sentence, the IDE will automatically prompt this word or sentence. If you frequently use Excel, you will easily understand what kind of assistance this is. But such prompts are far from precise enough; often, they cannot provide the input we truly want.
 
-For program development, since syntax rules can be leveraged, these suggestions can be more precise. For example, if you define a class, the next time you type the name of that class (or an instance variable of the class) and enter a prompt symbol (possibly ".", or "->", depending on the programming language), the IDE can suggest all methods or attributes of the class for selection. Additionally, if you import a namespace, the IDE can suggest all variables, functions, and classes in that space based on the same logic. These are strictly dependent on syntax, so IDE code hints can be excellent for static languages. For dynamic languages like Python, accurately hinting member variables without type annotations is somewhat difficult.
+For program development, since there are syntax rules to rely on, such prompts can be made more precise. For example, if you define a class, the next time you enter the name of a class (or an instance variable of a class) and type a prompt symbol (possibly ".", or "->", depending on the programming language), the IDE can prompt all methods or attributes of the class for us to select. Additionally, if a namespace is imported, the IDE can also prompt all variables, functions, classes, etc., in the space based on the same logic. These are strictly dependent on syntax, so IDE code prompts for static languages can be excellent. For dynamic languages like Python, without using type annotations, accurately prompting member variables is somewhat difficult.
 
-Now, with the加持 of artificial intelligence, code assistance has evolved to an astonishing degree. In fact, this book was completed with the help of Github Copilot[^Github Copilot]. Let’s look at this example:
+Now, with the support of artificial intelligence, code assistance has evolved to an astonishing degree. In fact, this book was completed with the help of Github Copilot[^Github Copilot]. We can look at this example:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926150605.png)
 
-Based on previous inputs, Copilot automatically generates a grammatically correct sentence (displayed in gray in the figure above), which is quite harmonious with the context. I do not intend to use the words it suggests here (mainly because I worry readers may not want to read a machine-written book), but I must admit that unless writing poetry, we do not need to agonize over every word as ancients did. Articles do not need to be meticulously crafted in every sentence; sometimes, it is perfectly fine to use Copilot’s suggested phrases for transitions. More often, when writing articles, Copilot can help open up ideas, which is undoubtedly beneficial.
+Copilot automatically generates a grammatically correct sentence based on previous input (this sentence is displayed in gray in the above figure) and coordinates well with the context. Here, I do not want to use the words it prompts (mainly worried that readers do not want to read a machine-written book), but I must admit that unless writing poetry, we do not need to, like ancients, grind one word and break several mustaches. Articles do not need every sentence to be meticulously crafted; sometimes, we can completely use Copilot’s prompted words and sentences for transitions. More often, when writing articles, Copilot can play a role in opening up ideas, which is undoubtedly very beneficial.
 
-The above is just one example of AI in general text-assisted writing. When we restrict the domain to programming, the results are even more astonishing. Often, if you write a comment, Copilot can help you complete the code to implement the function described in that comment. Especially when the function we want to implement is already realized in a certain library function or exists as a famous algorithm, you will find this feature very useful.
+The above is just one example of artificial intelligence in general text-assisted writing. When we restrict the domain to the programming field, the results are even more astonishing. Often, as long as you write a comment, Copilot can help you complete the code to implement the function of this comment. Especially when the function we want to implement has already been implemented in a certain library function, or when a famous algorithm exists, you will find this feature very useful.
 
-There are many other extensions for VS Code. For example, if our project uses files like JSON or YAML, or uses Markdown/RST to write documents, there are good tools for assistance and feature enhancement when editing these files. For instance, Markdown’s support for tables is poor, and manually editing Markdown tables is tedious. We can use some extensions to convert CSV block content within documents into Markdown tables.
+There are still many extensions for VS Code. For example, our projects may use json, ymal, etc., files, or use markdown/rst to write documents. When editing these files, there are also some good tools for assistance and functional enhancement. For example, Markdown’s support for tables is relatively poor, and manually editing Markdown tables is a tedious matter. We can use some extensions to convert csv block content in documents into Markdown tables through them.
 
-Besides extensions, VS Code has other customization options, such as themes. If you work in front of a computer for long periods, we recommend installing so-called "night mode" themes. Among these themes, Dracula PyCharm Theme is quite interesting. The theme’s name comes from Count Dracula, a character from Bram Stoker’s同名 novel—a bloodthirsty vampire who targets young women. The novel was adapted into movies multiple times. Considering that vampires only come out at night, using this name for a dark mode theme is apt.
+In addition to extensions, VS Code has other customizations, such as themes. If you work in front of a computer for a long time, it is recommended that you install some so-called night mode themes. Among these themes, Dracula PyCharm Theme is a particularly interesting one. The theme’s name comes from Count Dracula, a character in Bram Stoker’s同名 novel of the same name—a bloodthirsty vampire who specifically targets young women. This novel was later adapted into movies multiple times. Considering that vampires only come out at night, using this name for a dark mode theme is quite appropriate.
 
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
@@ -374,43 +374,44 @@ Besides extensions, VS Code has other customization options, such as themes. If 
 </div>
 </div>
 
-Due to space limitations, we cannot introduce all these extensions. Besides those with extremely high download counts, this chapter also introduces some niche extensions. These niche extensions may disappear in the future (e.g., if VS Code directly implements their functions) or be replaced. What is important is that the functions they implement significantly improve production efficiency. These methods and functions are what we should be familiar with.
+
+Due to space limitations, we cannot introduce all these extensions one by one. In addition to those popular extensions with huge downloads, this chapter also introduces some relatively niche extensions. These niche extensions may disappear in the future (e.g., if VS Code directly implements their functions) or be replaced. The important thing is that the functions they implement significantly improve production efficiency. These methods and functions are what we should be familiar with.
 
 ## 4. Other Development Environments
 
 ### 4.1. Jupyter Notebook
 
-PyCharm and VS Code are large development tools suitable for developing large, complex applications. However, in the Python domain, there is a class of problems better suited for exploratory programming, such as data analysis tasks. We obtain some data, view their characteristics through statistical methods, perform some visual analysis, preprocess the data, and then write some machine learning algorithms. If the results are unsatisfactory, we start over and explore new algorithms.
+PyCharm and VS Code are large development tools suitable for developing large, complex applications. However, in the Python field, there is a type of problem better suited for exploratory programming, such as data analysis tasks. We obtain some data, view their characteristics through statistical methods, perform some visual analysis, then preprocess the data, and further write some machine learning algorithms. If the results are not ideal, we start over and explore new algorithms.
 
-This method is called exploratory programming: exploratory work重于 following design patterns, with code interspersed with extensive explanatory documents and output results (including charts and images), which are part of the final result, unlike traditional programming where code, documents, and output results are separate.
+This method is called exploratory programming: exploratory work is heavier than following design patterns, and code is interspersed with a large amount of explanatory documentation and output results (including charts and images), which are part of the final result, rather than, like traditional programming, separating code, documentation, and output results.
 
-Jupyter Notebook is a powerful tool for exploratory programming. It provides a web-based editor and runtime environment where user inputs are organized into cells; each cell can be a code cell or a text cell. Code cells also allow for output results, which can be text, charts, or images, as shown below:
+Jupyter Notebook is a powerful tool for exploratory programming. It provides a web-based editor and runtime environment. User input is organized into cells, each of which can be a code cell or a text cell; code cells also allow output results, which can be text, charts, or images, as shown in the figure below:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210926164037.png)
 
-A running Notebook can be seen as a process, where variables and functions defined in the code cells of this Notebook have global scope, and each code cell can be executed individually. This mode has its extremely convenient aspects; you can run code in the Notebook at any time and switch between different code cells—whether exploring data characteristics or exploring the functionality of a new library becomes very easy.
+A running Notebook can be seen as a process. Variables and functions defined in the code cells of this Notebook have global scope, and each code cell can be executed separately. This mode has its extremely convenient aspects. You can run code in the Notebook at any time and switch between different code cells—whether exploring data characteristics or exploring the functionality of a new library becomes very easy.
 
-Currently, the developers of Jupyter Notebook are promoting Jupyter Lab to replace Jupyter Notebook. However, due to the integration of Jupyter Notebook in VS Code and PyCharm, Notebook will exist for a considerable time.
+Currently, Jupyter Notebook developers are pushing Jupyter Lab to replace Jupyter Notebook. However, due to the integration of Jupyter Notebook in VS Code and PyCharm, Notebook will still exist for a considerable time.
 
 ### 4.2. Spyder
 
-Spyder[^spyder] is an open-source programming environment designed specifically for scientists, data analysts, and engineers. It combines the advanced editing, analysis, debugging, and profiling functions of an IDE with the unique combination of data exploration, interactive execution, deep inspection, and beautiful visualization functions of scientific libraries. We can easily see this from its interface:
+Spyder[^spyder] is an open-source programming environment specifically designed for scientists, data analysts, and engineers. It has a unique combination of advanced editing, analysis, debugging, and profiling functions of an integrated development environment with data exploration, interactive execution, deep inspection, and beautiful visualization functions of scientific libraries. We can easily see this from its interface:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/202109/20210927163158.png)
 
 Spyder is included in the Anaconda distribution, so once Anaconda is installed, you can directly use Spyder to write Python code. Its official website also provides standalone installation packages for download.
 
-We have mainly introduced three types of Python development environments: PyCharm/VS Code for large-scale engineering development, Jupyter Notebook for exploratory programming, and Spyder, which integrates features of both. Of course, in PyCharm/VS Code, we can also open and run Jupyter Notebook; this feature has been integrated into these two IDEs for some time.
+We have mainly introduced three types of Python development environments: PyCharm/VS Code suitable for large-scale engineering development, Jupyter Notebook suitable for exploratory programming, and Spyder, which combines the characteristics of both. Of course, in PyCharm/VS Code, we can also open and run Jupyter Notebook. This feature has been integrated into these two IDEs for a period of time.
 
-If our frequent development work involves building highly reusable component libraries or complex applications, PyCharm/VS Code is undoubtedly the best choice. These two tools integrate almost perfectly with tools responsible for testing, continuous integration, code management, and document building. Conversely, if your work is more exploratory, it seems that using only Jupyter Notebook is sufficient. Spyder provides an option for users who need to balance both needs.
+If our frequent development work is to build highly reusable component libraries or complex applications, PyCharm/VS Code is definitely the best choice. These two tools are almost perfectly integrated with tools responsible for testing, continuous integration, code management, and document building. Conversely, if your work is more exploratory, it seems that only using Jupyter Notebook is sufficient. Spyder provides a choice for users who need to balance both aspects.
 
 
 [^stackoverflow]: stackoverflow.com is the world’s most well-known technical sharing community. Programmers often use this community to ask others about technical problems they encounter.
-[^Linux]: There is a saying that MacOS is the best Linux, Windows is also the best Linux, and only Linux does a bad job of Linux.
-[^wsl]: As of the time of this book’s drafting, this concept may have changed. Ubuntu 20 and later versions installed under WSL may already have the concept of services; please verify this yourself.
+[^Linux]: There is a saying that MacOS is the best Linux, Windows is also the best Linux, only Linux does not do Linux well.
+[^wsl]: As of the time this book was written, this concept may have changed. Versions of Ubuntu 20 and above installed under WSL may already have the concept of services; please verify this yourself.
 [^docker]: Docker’s official website is: https://desktop.docker.com/
-[^virtualbox]: VirtualBox is currently the most popular desktop-level virtual machine. Its use is completely free. Website address: https://www.virtualbox.org/
-[^6-sigma]: In statistics, 6 sigma means a confidence level of 99.99966%. In quality inspection scenarios, it indicates that products have reached a very high quality standard. Starting from the 1970s, Motorola discovered a positive correlation between improving quality and reducing production costs, thus developing a complete set of methods to improve industrial processes and eliminate defects. In 1986, Motorola officially named it 6-sigma. It emphasizes continuous improvement, stable and predictable improvement of process results; production and business processes can be improved through measurement, analysis, improvement, and control, etc. With the decline of Motorola’s influence, the influence of 6-sigma has also gradually declined, but its core viewpoints and methods, such as continuous improvement, are still widely recognized and disseminated.
+[^virtualbox]: Virtualbox is currently the most popular desktop-level virtual machine. Its use is completely free. Website address: https://www.virtualbox.org/
+[^6-sigma]: In statistics, 6 sigma means a confidence level of 99.99966%. In quality inspection scenarios, it indicates that products have reached a very high quality standard. Starting from the 1970s, Motorola discovered the positive correlation between improving quality and reducing production costs, thus developing a complete set of methods to improve industrial processes and eliminate defects. In 1986, Motorola officially named it 6-sigma. It emphasizes continuous improvement, stable and predictable improvement of process results; production and business processes can be improved through measurement, analysis, improvement, and control, etc. With the decline of Motorola’s influence, the influence of 6-sigma has also gradually declined, but its core viewpoints and methods, such as continuous improvement, are still widely recognized and disseminated.
 [^kite]: https://www.kite.com/
 [^Github Copilot]: https://www.copilot.ai/
 [^spyder]: https://www.spyder-ide.org/

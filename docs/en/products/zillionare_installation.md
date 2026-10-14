@@ -2,12 +2,12 @@
 title: "Zillionare 2.0 Docker Setup: Deploying a Quant Research Environment"
 date: 2023-12-13
 slug: en/articles/products/zillionare_installation
-tags: [Docker, Quant Research, Live Trading, Data Sync]
-excerpt: "A step-by-step guide to deploying Zillionare 2.0 via Docker, covering container orchestration, data synchronization, and live trading integration."
+tags: [Docker, Quant Research, Zillionare, Live Trading]
+excerpt: "Step-by-step guide to deploying Zillionare 2.0 via Docker for quantitative research. Covers container setup, data synchronization with JQData, and live trading integration with East Money."
 lang: en
 translation_of: articles/products/zillionare_installation
 auto_translated: true
-source_sha: 1d3b070743046dd6e874d7785490fc470757606c
+source_sha: 72eef05ce0f1698a045b7d04406e64a8905d3cc8
 ---
 
 <style>
@@ -33,7 +33,7 @@ pre code {
 
 <h1>Zillionare 2.0 Installation Guide</h1>
 !!! tip
-    The installation package is currently available exclusively to Zillionare Quant Course students and key clients. To request access, please contact quantfans_99 (VIP) on WeChat.
+    The installation package is currently available exclusively to Zillionare quantitative course students and key clients. To obtain access, add quantfans_99 (VIP) on WeChat.
 
 We provide Zillionare 2.0 via a Docker cluster. This cluster comprises the following containers:
 
@@ -46,67 +46,66 @@ We provide Zillionare 2.0 via a Docker cluster. This cluster comprises the follo
 | zillionare-lab         | zillionare/lab            | 0.0.0.0:8888->8888/tcp :::8888->8888/tcp   |
 
 
-This system constitutes a complete research environment, pre-loaded with two years of daily and 30-minute data (approximately 1.3 GB). Once started, you can access the research environment via port 8888. For instance, if the machine hosting the cluster has the IP address 192.168.100.100, you can access it at http://192.168.100.100:8888/zillionare:
+This system constitutes a complete research environment, pre-loaded with two years of daily and 30-minute bar data (approximately 1.3 GB). Once started, you can access the research environment via port 8888. For instance, if the machine hosting the cluster has the IP address 192.168.100.100, you can access it at http://192.168.100.100:8888/zillionare:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/lab.png)
 
 !!! Info
-    The default login password is `1234`. To change it, modify the `LAB_PASSWORD` option in the `.omega_env` file located in your Docker Compose installation directory.
+    The default login password is `1234`. To change it, modify the `LAB_PASSWORD` option in the `.omega_env` file located in your docker-compose installation directory.
 
-For live trading, install the East Money (Dongfang Caifu) quantitative trading client and the `gm-adaptor` library. Please refer to [Live Trading](#live-trading) for details.
+For live trading, install the East Money quantitative trading client and the `gm-adaptor` library. Please refer to [Live Trading](#live-trading).
 
 ## Installation Steps
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
 
 !!! Info
-    Zillionare 2.0 is built on Docker container technology and can theoretically run on any operating system that supports containerization. However, we have only tested it on Ubuntu Focal and Ubuntu Focal on WSL 2.0 (Windows).
-    If you plan to use it for production, we recommend the following hardware specifications:
+    Zillionare 2.0 is built on Docker container technology and can theoretically run on any operating system that supports containers. However, we have only tested it on Ubuntu Focal and Ubuntu Focal on WSL 2.0 (i.e., Windows).
+    If you plan to use it in production, we recommend the following hardware specifications:
 
     1. CPU: 8 cores or more
-    2. Memory: 32 GB or more (our courseware environment uses a cluster; a single machine has 96 GB)
-    3. Storage: 1 TB or more (it consumes significant disk space)
+    2. Memory: 32 GB or more (our courseware environment uses a cluster with 96 GB per machine)
+    3. Storage: 1 TB or more (it consumes significant space)
 
-1. Install Docker and Docker Compose. If you are using Windows, we recommend installing WSL 2 first, then installing Docker/Docker Compose within the Ubuntu environment on WSL 2.
+1. Install `docker` and `docker-compose`. If you are using only Windows, we recommend installing WSL2 first, then installing `docker`/`docker-compose` within the Ubuntu environment under WSL2.
    
-2. Extract `zillionare.tar` to your desired installation directory. Modify the `.omega.env` file within it. You must provide your JQData account credentials; other settings can remain unchanged.
+2. Extract `zillionare.tar` to your desired installation directory. Modify the `.omega.env` file within it. You must provide the account and password for JQData (JuQuan); other settings can remain unchanged.
    
-3. Start the cluster using `docker-compose up -d`. During startup, data will be downloaded and imported. Depending on your network speed, this should complete within 10 minutes.
+3. Start the cluster using `docker-compose up -d`. During startup, data will be downloaded and imported. Depending on your network, this should complete within 10 minutes.
 
-To stop the services later, run `docker-compose stop`; to restart, run `docker-compose start`. Both commands must be executed in the installation directory.
+To stop the services later, run `docker-compose stop`; to restart, run `docker-compose start`. These commands must be executed from the installation directory.
 
 ## Data Loading
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
 
-The data included in this environment is limited to market research. If you need to use the **backtesting service**, you must supplement it with minute-level data.
+The data included in this environment is limited to market research. If you wish to use the **backtesting service**, you need to supplement minute-level data.
 
 Zillionare officially supports integration with JQData (JuQuan) data services. You need to purchase JQData's data service. Your daily quota must be at least 5 million records to ensure normal data synchronization and to gradually catch up on missing data (down to the minute level).
 
 !!! Info
-    Currently, there are nearly 6,000 stocks in China A-shares, generating nearly 1.4 million minute-level data points per day. Zillionare will request minute-level data for all stocks and common indices in real-time during trading hours. Additionally, around 2:00 AM each night, it will request minute-level, daily, and other data for the previous trading day. For error correction purposes, it will make two requests and perform data validation. Therefore, it will consume over 5 million quota records daily. However, to catch up on historical minute-level data, we recommend purchasing a quota level of 200 million records. This allows you to catch up approximately one month of market data per day.
+    Currently, there are nearly 6,000 stocks in China A-shares alone, generating nearly 1.4 million minute-level data points per day. Zillionare will request minute-level data for all stocks and common indices in real-time during trading hours. Additionally, around 2:00 AM each night, it will request minute-level and daily data for the previous trading day. For error-correction purposes, it makes two requests and performs data validation. Therefore, it consumes over 5 million quota records daily. However, to catch up on historical minute-level data, we recommend purchasing a quota level of 200 million records. This allows you to catch up approximately one month of market data per day.
 
 ## Live Trading
 <div style="width:100%;border-top:1px solid rgba(0,0,0,.1)"/>
 
-This environment supports live trading. You can write strategies in Lab and execute orders via `zillionare-trader-client`. Currently, Zillionare only provides the East Money (Dongfang Caifu) quantitative interface. The installation method is as follows:
+This environment supports live trading. You can write strategies in the Lab and execute orders via `zillionare-trader-client`. Currently, Zillionare only provides the East Money quantitative interface. The installation method is as follows:
 
-1. Apply to East Money to enable the quantitative interface.
-2. Install and configure the East Money EMC client on a Windows machine.
+1. Apply to East Money to activate the quantitative interface.
+2. Install and configure the East Money EMC client on your Windows machine.
 3. Install `gmadaptor` on the same Windows machine.
-4. When placing orders via `trader-client`, point the URL to the Windows machine.
+4. When placing orders via `trader-client`, point the URL to your Windows machine.
 
 For installation and configuration details, please see the [East Money Live Trading Deployment Guide](docs/products/gm-adapter-installation.md).
 
 ## Configuration
 
 ### JQData Account
-
 ```
 JQ_ACCOUNT=notset
 JQ_PASSWORD=passwd
 ```
 
 ### Email Notifications
-After configuring email notifications, some built-in system alerts will be sent via email. You can configure an email list so that operations personnel can receive notifications. After configuration, you can also use the `omicron.notify` method in your strategies to send email notifications. [Documentation](https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail)
+After configuring email notifications, the system will send certain alert messages via email. You can configure an email list so that operations personnel receive notifications. After configuration, you can also use the `omicron.notify` method within your strategies to send email notifications. [Documentation](https://zillionare.github.io/omicron/latest/api/omicron/#omicron.notify.mail)
 
 ```
 MAIL_FROM=user@example.com
@@ -116,7 +115,7 @@ MAIL_SERVER=127.0.0.1
 ```
 ### DingTalk Notifications
 
-Email notifications are not real-time. If you require real-time alerts, you can create a DingTalk group, configure a bot in the group, and then set the token and secret in the configuration below:
+Email notifications may not be real-time enough. If you require real-time alerts, you can create a DingTalk group, configure a bot in the group, and then set the token and secret in the configuration below:
 
 ```
 DINGTALK_TOKEN=notset
@@ -133,13 +132,13 @@ LAB_PASSWORD=1234
 LAB_USER=zillionare
 ```
 
-### Configuring Sector Data Tasks
-Zillionare's sector data is sourced from Tonghuashun (10jqka) using web scraping techniques. These scrapers run as separate processes and are triggered by crontab.
+### Configuring Board Data Tasks
+Zillionare's board data comes from Tonghuashun (10jqka) and uses web scraping technology. These scrapers run as separate processes, initiated by `crontab`.
 
-We were unable to automatically add tasks to Docker containers during packaging. Therefore, to obtain Tonghuashun sector data, you must add tasks following these steps:
+Since we could not automatically add tasks to the Docker container during packaging, you must add the task to fetch Tonghuashun board data by following these steps:
 
 1. Enter the container's command-line mode via `docker exec -it zillionare-omega /bin/bash`.
-2. Add the following task via `crontab -e`:
+2. Add the following task using `crontab -e`:
 ```
     # fetch members
     35 11 * * * /root/zillionare/cronjobs/fetch_industry_list.sh
@@ -151,7 +150,7 @@ We were unable to automatically add tasks to Docker containers during packaging.
 
 ### Configuring Real-Time Price Scrapers
 
-Although Zillionare requires JQData's market data service, JQData does not provide real-time quotes. Therefore, Zillionare uses `akshare` to scrape real-time prices. After installing Zillionare, this service should already be running. To ensure everything is working correctly, please check as follows:
+Although Zillionare requires JQData for market data, JQData does not provide real-time quotes. Therefore, Zillionare uses `akshare` to scrape real-time prices. After installing Zillionare, this service should already be running. To ensure everything is working correctly, please check as follows:
 
 1. Enter the `zillionare-omega` container.
 2. Switch to the `app` user and navigate to the working directory `/home/app/zillionare/akshareprice`.
@@ -166,7 +165,7 @@ Although Zillionare requires JQData's market data service, JQData does not provi
 5. Check the logs to confirm the program has started normally.
 
 !!! warning
-    Akshare does not provide historical sector data. If you need historical sector data, please request it from us. Running the following code without data will result in an error:
+    Akshare cannot provide historical board data. If you need historical board data, please contact us. Running the following code when no data is available will result in an error:
     ```python
     from omicron.models.board import Board, BoardType
 
@@ -178,11 +177,11 @@ Although Zillionare requires JQData's market data service, JQData does not provi
     TypeError: unhashable type: 'slice'
     ```
 
-Sector data is stored in the `/data/zillionare/omega/boards.zarr` directory within the omega container. If the synchronization task runs normally, the following folders should exist:
+Board data is stored in the `/data/zillionare/omega/boards.zarr` directory within the Omega container. If the synchronization task runs normally, the following folders will exist:
 
 ![Alt text](ths-board-dir.png)
 
-## Verifying Installation
+## Verify Installation
 After running `docker-compose up`, you should normally see the following output:
 
 ```
@@ -198,8 +197,8 @@ zillionare-omega | prepare to start Omega real price process for stock ...
 zillionare-omega | Omega stock price process started ...
 ...
 ```
-## Checking Runtime Logs
-The logs for `zillionare-omega` are located in the `/data/zillionare/omega/logs` directory (on the host machine). If your JQData account is configured correctly and at least one trading day's midnight has passed, you should see the following logs:
+## Check Runtime Logs
+The logs for `zillionare-omega` are located in the `/data/zillionare/omega/logs` directory (on the host machine). If the JQData account is configured correctly and at least one trading day's midnight has passed, you should see the following logs:
 ```
 2024-02-23 01:15:31,082 I 209 omega.master.tasks.calibration_task:sync_daily_bars_day:179 | daily_bars_sync_1d(2024-02-22 15:00:00)同步完成,参数为{'timeout': 600, 'name': 'daily_bars_sync_1d', 'frame_type': [<FrameType.DAY: '1d'>], 'end': datetime.datetime(2024, 2, 22, 15, 0), 'n_bars': None, 'state': 'master.task.daily_bars_sync_1d.state', 'scope': ['master.task.daily_bars_sync_1d.scope.stock.1d', 'master.task.daily_bars_sync_1d.scope.index.1d']}
 2024-02-23 01:15:31,084 I 209 omega.master.tasks.calibration_task:get_sync_date:63 | 所有数据已同步完毕
