@@ -7,7 +7,7 @@ excerpt: "What does 'alpha seeking' really mean? This review of WorldQuant's Fin
 lang: en
 translation_of: posts/resources/book-intro-finding-alphas-a-quantitative-approach
 auto_translated: true
-source_sha: 2c1420baad4eb2709deeea4e25a6ced0c6878648
+source_sha: 882bf91b12d1f0b7a3bcdc7a8c9a05664048241b
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kitty-in-basket.jpg"
 ---
 

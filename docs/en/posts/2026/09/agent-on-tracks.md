@@ -8,7 +8,7 @@ excerpt: "This article evaluates whether AI-driven \"vibe coding\" can handle co
 lang: en
 translation_of: posts/tools/agent-on-tracks
 auto_translated: true
-source_sha: 658e3c8147a88fd2623a64f938b90e5fe7f00541
+source_sha: a949ca660271429ab58954af3511bd1f4873a911
 ---
 
 Vibe coding has indeed turned software development dreams into reality for many, including us veterans of traditional "hand-crafted" programming. We had many ideas in the past but hesitated to attempt them due to insufficient manpower or knowledge reserves. Now, we can’t help but feel eager to try.

@@ -7,7 +7,7 @@ excerpt: "This article benchmarks string vs. int64 stock code encoding in ClickH
 lang: en
 translation_of: posts/tools/21天驯化AI打工仔/5_通用的数据交换格式SQEP与symbol编码的性能测试
 auto_translated: true
-source_sha: 15eefbeef1157dc6529fd38b3381e5606d284eb0
+source_sha: 51671ec593099843769779c2cc64b790550879b1
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 

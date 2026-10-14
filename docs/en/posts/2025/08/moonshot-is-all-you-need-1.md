@@ -7,7 +7,7 @@ excerpt: "Build a modular, chain-callable backtesting framework from scratch. Th
 lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-1
 auto_translated: true
-source_sha: 724630e95ae7e61d909977eb3769aa1d66f8959b
+source_sha: 7a670bea2cdefd52dacf8ea29344c665371970cf
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/5.jpg"
 ---
 

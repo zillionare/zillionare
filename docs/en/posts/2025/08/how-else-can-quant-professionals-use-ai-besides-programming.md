@@ -7,7 +7,7 @@ excerpt: "Explore how AI transforms quant workflows: from Grok-curated news and 
 lang: en
 translation_of: posts/tools/AI-tools/how-else-can-quant-professionals-use-ai-besides-programming
 auto_translated: true
-source_sha: 52f146f4d2cb1eb98dc202ee4d6d8125335ab47a
+source_sha: f39575a812f36455e3f96db95a588d0814a234e6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/brooke-lark-8beTH4VkhLI-unsplash.jpg"
 ---
 

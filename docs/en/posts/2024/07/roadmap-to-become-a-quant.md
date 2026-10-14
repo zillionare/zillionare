@@ -7,7 +7,7 @@ excerpt: "A comprehensive 75-page roadmap by Stat Arb for aspiring quants, cover
 lang: en
 translation_of: posts/freshman/roadmap-to-become-a-quant
 auto_translated: true
-source_sha: f27787675bd7250289ae904e6f1d35e21d39713c
+source_sha: 32cad925f5d31f40017b3092d5efb5dcc8d1b7b6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/simmons-hall.jpg"
 ---
 

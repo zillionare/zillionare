@@ -7,7 +7,7 @@ excerpt: "Analysis of 747 quant roles in Q3 2026 reveals Python (53%) and C++ as
 lang: en
 translation_of: posts/career-figure/2026q3-quant-jobs-report
 auto_translated: true
-source_sha: 7606dac8a2d77ee8a6b67538c72d18a45c72edc9
+source_sha: e72723c5a2a04ebd47267e835547d02407bf5b0c
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005050021-2026q3-quant-jobs-report.jpg"
 ---
 

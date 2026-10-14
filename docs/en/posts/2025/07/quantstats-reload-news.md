@@ -7,7 +7,7 @@ excerpt: "We revived Quantstats after an 8-month hiatus, fixing critical Python 
 lang: en
 translation_of: posts/tools/quantstats-reload-news
 auto_translated: true
-source_sha: 6e7ec3cee4fc6e42eccbdb43d22214e738f74cb5
+source_sha: fd66dcb8eeaa50f903e3e53cd660219780bc6c68
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/kamil-pietrzak-AlA8S9tALAs-unsplash.jpg"
 ---
 

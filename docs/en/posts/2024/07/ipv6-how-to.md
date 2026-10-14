@@ -7,7 +7,7 @@ excerpt: "With a 256GB, 192-core teaching cluster stuck behind residential broad
 lang: en
 translation_of: posts/uncategory/ipv6-how-to
 auto_translated: true
-source_sha: e1b093b4264e5b36c103d4cd076b0fefc643bcea
+source_sha: 181eef53730215e1968085216d127f1a7b235d6f
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"
 ---
 

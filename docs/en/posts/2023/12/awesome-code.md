@@ -7,7 +7,7 @@ excerpt: "From a zero-line project with 50k stars to Quake's fast inverse square
 lang: en
 translation_of: posts/python/awesome-code
 auto_translated: true
-source_sha: 392f77c6545c49bee923fb82a668e4d0adc25cda
+source_sha: 1859d8e45bcb1ddf128f8f97882a24d0a4117f7b
 ---
 
 Since indexing in C/Java/Python starts at zero, our roundup also starts with a project that has no lines of code at all.

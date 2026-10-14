@@ -8,7 +8,7 @@ excerpt: "Genetic algorithms use natural selection to find optimal solutions, tu
 lang: en
 translation_of: posts/factor-strategy/genetic-algorithms
 auto_translated: true
-source_sha: 2e180403504190c329de3557eee4fca90d3fafd9
+source_sha: db97bc3ec104e55d5329955e0fe6b28976337ab0
 ---
 
 ## What Is a Genetic Algorithm?

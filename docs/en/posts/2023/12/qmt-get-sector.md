@@ -7,7 +7,7 @@ excerpt: "This guide maps xtquant's 5,000+ sectors, shows how to list constituen
 lang: en
 translation_of: posts/tools/qmt-get-sector
 auto_translated: true
-source_sha: 17c50aad5bfe52834707d1b6725cd27cb9485f09
+source_sha: 552e00c49bff2824b00d419a5d4d01c0d56ae4cf
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/sector-cloud.jpg?4)

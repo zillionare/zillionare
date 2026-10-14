@@ -7,7 +7,7 @@ excerpt: "Local market-data storage avoids quota limits and network latency that
 lang: en
 translation_of: posts/tools/hdf5
 auto_translated: true
-source_sha: 696935bddd635a8acd6a248a40a73d9a060800e6
+source_sha: 8c417c444ed1fde4ace89c22d249aff5066ffaee
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/hdf5-book.jpg)

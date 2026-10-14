@@ -7,7 +7,7 @@ excerpt: "This article explores ESG factor investing, comparing data sources lik
 lang: en
 translation_of: posts/factor-strategy/ESG策略初探-01
 auto_translated: true
-source_sha: aa440f5d040947351c91d45468dbf97406a72a4e
+source_sha: 24fc8d66dd74a7230bae47c4e4239d54e7174953
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/22.jpg"
 ---
 

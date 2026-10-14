@@ -7,7 +7,7 @@ excerpt: "Pandas is foundational in quantitative trading, powering data pipeline
 lang: en
 translation_of: articles/python/numpy-pandas/11-pandas核心语法-1
 auto_translated: true
-source_sha: c0e4a6c3193fa7489d4ba37ea24bd2ce6fb3054d
+source_sha: 5fc41af0db9503ad434713c5695fd3dfdd07469c
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png"
 ---
 

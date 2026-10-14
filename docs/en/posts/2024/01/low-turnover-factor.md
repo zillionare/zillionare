@@ -7,7 +7,7 @@ excerpt: "Learn single-factor analysis with Alphalens using a low-turnover facto
 lang: en
 translation_of: posts/factor-strategy/low-turnover-factor
 auto_translated: true
-source_sha: de5e7ac2329b070335c213b8c39dc16006c3ff9f
+source_sha: fb6af527883a0f9a0c5119dd6d8c4473d9186d1d
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/alphalens.jpg?2)

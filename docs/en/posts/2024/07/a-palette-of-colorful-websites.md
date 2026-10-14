@@ -7,7 +7,7 @@ excerpt: "Discover six essential color palette tools for web designers, from Ado
 lang: en
 translation_of: posts/resources/a-palette-of-colorful-websites
 auto_translated: true
-source_sha: 2392d8d7698ad639a0659b431683e25b643f5206
+source_sha: f4bc50864cb3de220635cb3bd107c83c1ffc254a
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/colors.jpg"
 ---
 

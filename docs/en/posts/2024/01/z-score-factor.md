@@ -8,7 +8,7 @@ excerpt: "Z-score flags statistically stretched prices by measuring distance fro
 lang: en
 translation_of: posts/factor-strategy/z-score-factor
 auto_translated: true
-source_sha: 5822b71378215273a24338413b3eff67dbca869c
+source_sha: c7973e4adda3169f86a4583deee2be2c309227cc
 ---
 
 

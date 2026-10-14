@@ -7,7 +7,7 @@ excerpt: "This article backtests a 10-day regression slope momentum factor on Ch
 lang: en
 translation_of: posts/factor-strategy/perf-of-momentum-10
 auto_translated: true
-source_sha: e8c9dca6eb5688dcc0d42c3b88ccf7be31719f97
+source_sha: c1e6c84fda105fc87d404ec297c625b421988b99
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065426-61YULEKe2uL._SL1360_.jpg"
 ---
 

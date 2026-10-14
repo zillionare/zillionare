@@ -7,7 +7,7 @@ excerpt: "Master Pandas Series operations including reindexing, dropping items, 
 lang: en
 translation_of: articles/python/numpy-pandas/12-pandas核心语法-2
 auto_translated: true
-source_sha: 0ad4e08b39c4aa834fc7d944439d8c20ae150e08
+source_sha: bcf29e049743d7b2b648d074781723f95d26a714
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-hand.jpg"
 ---
 

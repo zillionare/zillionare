@@ -7,7 +7,7 @@ excerpt: "Astral’s UV and Pydantic 2.0 redefine Python engineering for 2026. U
 lang: en
 translation_of: posts/tools/2026十大量化技术/uv-pydantic
 auto_translated: true
-source_sha: 4e6fb1280d32964ae88e75efb46280946694a79f
+source_sha: cfbf011c1638319e83fdff81ead8d96bb1d45f86
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/20251224163832.png"
 ---
 

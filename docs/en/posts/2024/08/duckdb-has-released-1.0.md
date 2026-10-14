@@ -7,7 +7,7 @@ excerpt: "DuckDB 1.0 stabilizes its storage format, ensuring backward compatibil
 lang: en
 translation_of: posts/tools/duckdb-has-released-1.0
 auto_translated: true
-source_sha: 64d68d8d4a65cfc2a0b7dd2171d0629f8e6c451f
+source_sha: c5ffd8c9b704603602ab2d82d0e3b3f55c5ad05b
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-duck.jpg"
 ---
 

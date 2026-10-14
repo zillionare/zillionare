@@ -7,7 +7,7 @@ excerpt: "When U.S. stocks switched from 1/16 fractions to decimals in 2001, pri
 lang: en
 translation_of: posts/factor-strategy/switch-to-decimal
 auto_translated: true
-source_sha: 45e6132a4b9e715e0663599c7f050395a6e31d3f
+source_sha: c8d7e2df7437473af9ef49640e090bc732ec568e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/switch-to-decimal.jpg"
 ---
 

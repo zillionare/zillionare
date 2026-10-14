@@ -7,7 +7,7 @@ excerpt: "ARMA and GARCH models require stationarity, which stock prices lack. T
 lang: en
 translation_of: posts/career-figure/does-arma-garch-matter-in-quant
 auto_translated: true
-source_sha: 38eb821d507976ef07ff0c0bffba6cb84964eb72
+source_sha: a70e4f0a7b6b48f5f2605d183146ef38f940b86f
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/10.jpg"
 ---
 

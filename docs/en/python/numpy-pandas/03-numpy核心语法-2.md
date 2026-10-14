@@ -7,7 +7,7 @@ excerpt: "Learn to handle heterogeneous tabular data in Numpy using structured a
 lang: en
 translation_of: articles/python/numpy-pandas/03-numpy核心语法-2
 auto_translated: true
-source_sha: 314514da62bcb6e8fafcf0b41b57a13211ae8a9f
+source_sha: 28e62a3294b93141a1073ad8ff43214dac9011fa
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/fortune-favors-the-bold.jpg"
 ---
 

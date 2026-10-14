@@ -7,7 +7,7 @@ excerpt: "This 31k-star GitHub project automates stock analysis by transforming 
 lang: en
 translation_of: posts/algo/tcn/ai股票分析
 auto_translated: true
-source_sha: 789825118f671d2294c7aa3b3a57e27604fce4d0
+source_sha: 081c57f90c3e4a19b780c9a027a86d3eb33296e7
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/20260423182355505.png"
 ---
 

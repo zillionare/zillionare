@@ -7,7 +7,7 @@ excerpt: "Max Dama’s journey from surfer to Headlands Technologies core member
 lang: en
 translation_of: posts/career-figure/max-dama-on-automated-trading
 auto_translated: true
-source_sha: be96f3b56cdb035d17f26d108d881b528577744d
+source_sha: 4ae8932ea73a6bb3609023fb8ae50d0dbb52fc33
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260114202111.png"
 ---
 

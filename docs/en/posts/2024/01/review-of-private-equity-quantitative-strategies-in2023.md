@@ -7,7 +7,7 @@ excerpt: "After reviewing roadshows from a dozen private funds, we summarize the
 lang: en
 translation_of: posts/factor-strategy/review-of-private-equity-quantitative-strategies-in2023
 auto_translated: true
-source_sha: ab55330728d94c56b352d78be5ec87382d22b25a
+source_sha: d9332a86296946d2f2919dad10594fd63cdfe1b7
 ---
 
 After reviewing roadshow decks from over a dozen private funds, here is our take on the most effective strategies of 2023!

@@ -7,7 +7,7 @@ excerpt: "A guide for finance and econometrics master’s students on selecting 
 lang: en
 translation_of: posts/career-figure/how-to-determine-research-topic
 auto_translated: true
-source_sha: 3fab21c9283b58da61a1ea5f46f76edf51692da8
+source_sha: 185fcf6146e9628dc078793535c8bb2166de1a09
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/north-chapel.jpg"
 ---
 

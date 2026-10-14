@@ -1,29 +1,28 @@
 ---
-title: "Chapter 9: Continuous Integration & Automation with GitHub Actions"
+title: "Chapter 9: Continuous Integration and Automation with GitHub Actions"
 date: 2023-12-13
 slug: en/articles/python/best-practice-python/chap09
-tags: [Continuous Integration, Github Actions, Devops, Python Packaging]
-excerpt: "Learn to implement robust CI/CD pipelines using GitHub Actions. This chapter covers workflow definitions, matrix builds, and automated publishing for Python libraries, ensuring code quality and streamlined releases."
+tags: [Continuous Integration, GitHub Actions, DevOps, Python Packaging]
+excerpt: "Learn how to implement robust CI/CD pipelines using GitHub Actions. This chapter covers workflow syntax, job dependencies, matrix builds, and automating Python package releases to ensure code quality and streamline deployment."
 lang: en
 translation_of: articles/python/best-practice-python/chap09
 auto_translated: true
-source_sha: da1bc051983aaaa97fc27cb9ca8c8b170444fd5d
+source_sha: 02bc9c5d3ca9f4a8f2f831b1056a2e5f22508aae
 ---
 
-When a team of developers collaborates on a project, conflicts seem inevitable. In Chapter 8, we introduced branching and the Gitflow workflow model to resolve code conflicts. However, merging code only achieves superficial harmony. Whether code developed by different people works together ultimately depends on testing.
+When a team of developers collaborates on a project, conflicts seem inevitable. In Chapter 8, we introduced branching and the Gitflow workflow model to resolve code conflicts. However, merging code only achieves superficial harmony. Whether code developed by different people works together in synergy can ultimately only be verified through testing.
 
-In the development workflows described earlier, developers should pass unit tests and code checks executed by `tox` before checking in code and pushing it to the remote server. However, if a developer intentionally skips these steps, poor-quality code can still slip into the repository. Furthermore, even though we virtualized the testing environment, it is still possible for tests that pass on one developer’s machine to fail in another. For example, new configuration items might have been introduced that exist in the local environment but are unknown to others; or local databases were modified, but the corresponding migration scripts were not integrated, and so on. If all tests are automatically executed on a public machine whenever new code is checked in, it ensures code correctness and allows us to identify issues earlier, reducing later maintenance costs. This is the essence of **Continuous Integration (CI)**.
+In the development workflows discussed so far, developers should pass unit tests and code checks executed by `tox` before committing code and pushing it to the remote server. However, if developers intentionally ignore these steps, poor-quality code can still slip into the repository. Furthermore, even though we have virtualized the testing environment, it is still possible for tests that pass on one developer’s machine to fail in another environment. For example, new configuration items might be introduced that exist in the local environment but are unknown to others; or local database changes might be made without integrating the corresponding migration scripts, and so on. If all tests are automatically executed on a public machine whenever new code is committed, it is obvious that issues can be identified earlier, reducing late-stage maintenance costs. This is the essence of Continuous Integration (CI).
 
-Continuous Integration is a DevOps software development practice. When adopting CI, developers regularly merge code changes into a central repository, after which the system automatically runs build and test operations. CI typically refers to the build or integration phase of the software release process, involving both automated components (e.g., CI or build services) and cultural components (e.g., organizational processes and norms, such as learning to integrate frequently). The primary goal of CI is to discover and resolve defects faster, improve software quality, and reduce the time required to verify and release new software updates.
+Continuous Integration is a DevOps software development practice. When adopting CI, developers regularly merge code changes into a central repository, after which the system automatically runs build and test operations. CI typically refers to the build or integration phase of the software release process, requiring both automated components (e.g., CI or build services) and cultural components (e.g., organizational processes and norms, such as learning to integrate frequently). The primary goal of CI is to discover and resolve defects faster, improve software quality, and reduce the time required to validate and release new software updates.
 
 !!! Info
-    The culture emphasized by CI is: *Fail fast, fail often.* However, once a robust CI/CD pipeline and culture are established, the ultimate result is *Move fast and don't break things*.
+    The culture emphasized by CI is: "Fail fast, fail often." In reality, however, once a robust CI/CD pipeline and culture are established, the outcome will be "Move fast and don't break things."
 
 ## 1. Surveying CI Software and Online Services
+Let’s first meet the leading players in the CI field. Jenkins is the veteran in the CI domain, having evolved for nearly 20 years since its inception, with the most complete community and ecosystem. GitLab, originally a code hosting platform based on Git, began providing CI functionality starting from version 8.0. Its advantage is seamless integration with code repositories, natively supporting pipeline triggers for various repository events. The downside is that both Jenkins and GitLab require self-hosted servers, which is too costly for open-source projects and individual developers.
 
-Let’s first meet the leading players in the CI field. Jenkins is the veteran in the CI space, having evolved over nearly 20 years since its inception, with the most complete community and ecosystem. GitLab, originally a Git-based code hosting platform, began providing CI functionality starting from version 8.0. Its advantage is seamless integration with code repositories, natively supporting pipeline triggers for various code repository events. The downside is that both Jenkins and GitLab require self-hosted servers, which can be costly for open-source projects and individual developers.
-
-The cost of building a CI server is expensive. Before virtual machines became widely used, this cost was even higher. You would need at least one machine for each operating system your application needs to deploy to. If your application needs to deploy across various versions of Windows, Linux, and macOS, you might need to prepare at least ten physical machines. The advent of virtualization significantly reduced CI costs, followed by containerization, which further lowered them. However, even with these advancements, the cost of self-hosting and maintaining a CI server remains high for open-source projects. For instance, if your application needs to deploy to macOS, you must have at least one Apple server, as macOS containers cannot be virtualized on other hardware.
+The cost of building a CI server is expensive. Before virtual machines became widely used, this cost was even higher. You would need at least one machine for each operating system your application is deployed to. If your application needs to be deployed across various versions of Windows, Linux, and macOS, you might need to prepare more than ten hardware machines. The emergence of virtualization significantly reduced CI costs, followed by containerization, which further lowered them. However, even then, the cost of self-hosting and maintaining CI servers remains high for open-source projects. For instance, if your application needs to be deployed on macOS, you must have at least one Apple server, as macOS containers cannot be virtualized on other hardware.
 
 This is why we recommend using online CI services. The good news is that many online CI services are free for open-source projects. Here, we will only introduce Travis CI and GitHub Actions.
 
@@ -31,23 +30,21 @@ Travis CI is a cloud-based continuous integration service that helps developers 
 
 GitHub Actions is a continuous integration service launched by GitHub around 2020. Its advantages, similar to GitLab CI, lie in its seamless integration with code hosting services. Regarding pricing, GitHub Actions is free for open-source projects, offering a more generous free quota compared to Travis CI, which is sufficient for most uses. Therefore, we will skip Travis CI in this chapter and directly introduce GitHub Actions.
 
-## 2. GITHUB ACTIONS
-
-GitHub Actions is a continuous integration and delivery platform that allows us to automate builds, tests, and deployments like a pipeline. You can create workflows to build and test every pull request to a repository, or deploy merged pull requests to production.
+## 2. GitHub Actions
+GitHub Actions is a continuous integration and delivery platform that allows us to automate builds, tests, and deployments like a production line. You can create workflows to build and test every pull request in a repository, or deploy merged pull requests to production.
 
 GitHub provides infrastructure for Linux, Windows, and macOS via cloud services, but also allows us to deploy locally on our own private clouds.
 
 ### 2.1. Architecture and Concepts of GitHub Actions
-
 GitHub Actions consists of components such as workflows, events, jobs, actions, and runners.
 
-A workflow is defined by a YAML file located in the `.github/workflows` directory at the root of the project. We can simply view this file as a script. It defines which events can trigger the workflow, what jobs the workflow should contain, and on which runners (containers) the jobs should run. A repository can have multiple workflows, each executing different sets of tasks.
+A workflow is defined by a YAML file located in the `.github/workflows` directory at the root of the project. We can simply understand this file as a script. It defines which events can trigger the workflow, which jobs should be included in the workflow, and on which runners (containers) the jobs should run. A repository can have multiple workflows, each executing different sets of tasks.
 
 An event is a specific occurrence that triggers a workflow, such as when someone creates a pull request or pushes a commit to the repository.
 
-A job is a set of steps executed on the same runner within a workflow. Each step is either a shell script to be executed or an action to be run. Steps are executed sequentially and are interdependent. Since each step runs on the same runner, you can share data from one step to another. For example, a step testing the generated application can follow a step building the application.
+A job is a set of steps executed on the same runner within a workflow. Each step is either a shell script to be executed or an action to be run. Steps are executed sequentially and are interdependent. Since each step runs on the same runner, you can share data from one step to another. For example, a step to test the generated application can follow the step to build the application.
 
-A workflow can contain multiple jobs. Jobs have no default dependencies and run in parallel. However, we can configure a job to depend on another, meaning it will wait for the dependent job to complete before running. For example, you might have multiple test jobs for different architectures with no dependencies, and a packaging job that depends on these tests. The test jobs will run in parallel, but the packaging job will only run after they all succeed.
+A workflow can contain multiple jobs. Jobs do not depend on each other by default and run in parallel. However, we can also configure a job to depend on another, in which case it will wait for the dependent job to complete before running. For instance, you might have multiple test jobs for different architectures with no dependencies, and a packaging job that depends on these tests. The test jobs will run in parallel, but the packaging job will only run after they all complete successfully.
 
 An action is a custom application for the GitHub Actions platform that performs complex but frequently repeated tasks. Using actions helps reduce the amount of repetitive code written in workflow files. Actions can pull git repositories from GitHub, set up the correct toolchain for your build environment, or set up authentication for cloud providers.
 
@@ -60,7 +57,6 @@ The following diagram illustrates the architecture of GitHub Actions:
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/overview-actions.png)
 
 ### 2.2. Workflow Syntax Overview
-
 After understanding the architecture of GitHub Actions, let’s explain how to define a workflow using an example.
 
 First, let’s look at a workflow file generated by `ppw`:
@@ -231,13 +227,12 @@ jobs:
             https://github.com/${{ needs.test.outputs.repo_owner }}/${{ needs.test.outputs.repo_name }}/actions
 ```
 
-This is a job named `dev build CI`, which triggers on commits and pull requests to any branch. It contains three jobs: `test` (executes unit tests), `publish_dev_build` (builds and publishes a development version to test_pypi), and `notification` (sends an email notification upon build success or failure). There are dependencies among them: if the `test` job fails, `publish_dev_build` is canceled; however, regardless of whether `test`/`publish_dev_build` succeeds, the `notification` job will execute and send emails with different content based on the status of the previous two jobs.
+This is a job named `dev build CI`, which triggers on commits and pull requests to any branch. It contains three jobs: `test` (executing unit tests), `publish_dev_build` (building and publishing a development version to test_pypi), and `notification` (sending email notifications upon build success or failure). There are dependencies among them: if the `test` job fails, `publish_dev_build` is canceled; however, regardless of whether the `test`/`publish_dev_build` jobs succeed, the `notification` job will execute and send emails with different content based on the status of the previous two jobs.
 
-This is a relatively simple job, but it involves almost everything we need to do in CI. The code includes many comments; readers are advised to read the code carefully in conjunction with the following explanation.
+This is a relatively simple job, but it involves almost everything we need to do in CI. We have added extensive comments to the code; readers are advised to read the code carefully in conjunction with the following explanation.
 
 #### 2.2.1. Defining Trigger Conditions
-
-Lines 4 to 14 configure the workflow’s trigger conditions. The trigger conditions section is introduced by the keyword **'on'**. Under this, we can define multiple trigger events and specify types and filters for each. A complete trigger condition configuration is as follows:
+Lines 4 to 14 configure the workflow’s trigger conditions. The trigger condition section is initiated by the keyword **'on'**. At the next level, we can define multiple trigger events and specify types and filters for each. A complete trigger condition configuration is as follows:
 
 ```yaml
 on:
@@ -254,38 +249,33 @@ on:
     schedule:
         - cron: '30 5 * * 1,3'
 ```
+In the example above, `'push'`, `'label'`, `'tags'`, and `'schedule'` are all event keywords. Available event keywords can be found in [Events that trigger workflows](https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows).
 
-In the above example, `'push'`, `'label'`, `'tags'`, and `'schedule'` are all event keywords. Available event keywords can be found in [Events that trigger workflows](https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows).
+At the next level of the event is where activity types and filters are defined. Not all events have activity types, and even if they do, their types may differ. For example, the `push` event has no activity type, while the `label` event has three activity types: `created`, `edited`, and `deleted`, and the `issues` event has activity types such as `opened` and `labeled`. To see what activity types an event has, refer to [Events that trigger workflows](https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows).
 
-Under the event level is where activity types and filters are defined. Not all events have activity types, and even if they do, their types may differ. For instance, the `push` event has no activity type, while the `label` event has three activity types: `created`, `edited`, and `deleted`. The `issues` event has activity types like `opened` and `labeled`. To see what activity types an event has, refer to [Events that trigger workflows](https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows).
+Filters come in two types: `branches` and `tags`, used to specify branches and tags respectively. From the example above, it can be seen that filter values support glob patterns, meaning we can use wildcards like `*`, `**`, `+`, `?`, and `!` to match branch and tag names. In addition to the positive matching in the example, we can also use `branches-ignore` or `tags-ignore` for negative matching.
 
-Filters come in two types: `branches` and `tags`, used to specify branches and tags, respectively. As seen in the example, filter values support glob patterns, meaning we can use wildcards like `*`, `**`, `+`, `?`, and `!` to match branch and tag names. In addition to the positive matching in the example, we can also use `branches-ignore` or `tags-ignore` for negative matching.
-
-The above example also demonstrates a special event: the `'schedule'` event. This causes the workflow to run periodically. This can be used to run security scans, dependency upgrade scans, and other tasks.
+The example above also demonstrates a special event, the `'schedule'` event. This causes the workflow to run periodically. This can be used to run security scans, dependency upgrade scans, and other tasks.
 
 #### 2.2.2. Defining Job Sets
+Next, the workflow declares three jobs: `test`, `publish_dev_build`, and `notification`. The job definition section is initiated by the keyword **'jobs'**. At the next level, we can define multiple jobs and specify the runtime environment and execution steps for each job.
 
-Next, the workflow declares three jobs: `test`, `publish_dev_build`, and `notification`. The job definition section is introduced by the keyword **'jobs'**. Under this, we can define multiple jobs and specify the runtime environment and execution steps for each job.
+Each job has its own ID and name. In the example above, `test`, `publish_dev_build`, and `notification` are all job IDs. Job IDs are mandatory, but job names are optional. If no job name is specified, the job name defaults to the job ID. Job names are used to display the job’s name on the GitHub Actions interface.
 
-Each job has its own ID and name. In the above example, `test`, `publish_dev_build`, and `notification` are all job IDs. The job ID is mandatory, but the job name is optional. If no job name is specified, the job name defaults to the job ID. The job name is used to display the job’s name on the GitHub Actions interface.
+In the job `publish_dev_build`, we define its dependency on the job `test` using the keyword `needs`. In line 114, we also see that jobs can depend on a set of jobs. When specifying job dependencies, note that only job IDs can be used, not job names.
 
-In the job `publish_dev_build`, we define its dependency on the job `test` using the keyword `needs`. In line 114, we also see that a job can depend on a set of jobs. When specifying job dependencies, note that only job IDs can be used, not job names.
+Next, we define the execution environment for the jobs. The execution environment is defined via the keyword `runs-on`. Some tasks only need to be executed on one machine, such as building and publishing Python packages; others need to run on all machines and with multiple Python runtimes, such as testing.
 
-Next, we define the execution environment for the job. The environment is defined via the keyword `runs-on`. Some tasks only need to run on one machine, such as building and publishing Python packages; others need to run on all machines and with multiple Python runtimes, such as testing.
+For example, the `publish_dev_build` job only needs to run on the combination of `ubuntu_latest` and Python 3.9, because the results should be the same regardless of which combination is used. Lines 78 and 84 are examples of specifying a single execution environment. However, for test tasks, we want them to run on all machines and across different Python versions. To express this concisely, GitHub Actions introduced the concept of a matrix.
 
-For example, the `publish_dev_build` job only needs to run on the combination of `ubuntu-latest` and Python 3.9, as the results should be identical regardless of the combination. Lines 78 and 84 are examples of specifying a single execution environment. However, for test tasks, we want them to run on all machines and across different Python versions. To express this concisely, GitHub Actions introduced the concept of a matrix.
+We define the test matrix via `strategy.matrix`. In the matrix defined in lines 20–23 of the example, we defined lists of Python versions and operating systems. This definition is subsequently used; in line 24, we reference the operating system definition via `{{matrix.os}}`. The `python-versions` in line 22 is a special keyword used to indicate the Python versions we want to use. If our development language is not Python, this specification would be meaningless.
 
-We define the test matrix via `strategy.matrix`. In the matrix defined in lines 20–23 of the example, we defined lists of Python versions and operating systems. This definition is subsequently used in line 24, where we reference the operating system definition via `{{matrix.os}}`. The `python-versions` in line 22 is a special keyword indicating the Python versions we want to use. If our development language is not Python, this specification would be meaningless.
-
-Next, we need to define the specific tasks for the job, which are categorized under the steps set (`steps`). The steps set is a list containing multiple steps. Each step is either a shell command (or a set of shell commands) or an action. To run shell commands, we use the following syntax:
-
+Next, we need to define the specific tasks for the jobs, which are categorized under the steps set (`steps`). The steps set is a list containing multiple steps. Each step is either a shell command (or a set of shell commands) or an action. To run shell commands, we use the following syntax:
 ```yaml
 - name: <step name>
   run: <shell command>
 ```
-
 To run a set of shell commands, we use:
-
 ```yaml
 - name: <step name>
   run: |
@@ -293,24 +283,22 @@ To run a set of shell commands, we use:
     <shell command 2>
     ...
 ```
+Note the differences between the two syntaxes above; do not confuse them.
 
-Note the differences between these two syntaxes; do not confuse them.
+As for actions, we discussed them earlier; they are custom applications for the GitHub Actions platform. You can write your own actions or find applications developed by others in the GitHub Marketplace.
 
-As mentioned earlier, actions are custom applications for the GitHub Actions platform. You can write your own actions or find applications developed by others in the GitHub Marketplace.
+Each step can specify a Python runtime. In line 48, we see that `{{ matrix.python-versions }}` uses the Python version defined in the matrix. In line 84, we directly specify a Python version. Note that the version number is a string; we can use `'3.10'`, but not `3.10`, as the latter will be parsed by YAML as `3.1`, leading to a "Python version not found" error.
 
-Each step can specify a Python runtime. In line 48, we see that `{{ matrix.python-versions }}` uses the Python version defined in the matrix. In line 84, we directly specify a Python version. Note that the version number is a string; we can use `'3.10'`, but not `3.10`, as the latter would be parsed by YAML as `3.1`, leading to a "Python version not found" error.
+Finally, we introduce runtime conditional control for jobs. We have already discussed dependencies between jobs, which counts as one type of condition. Another scenario, such as the `notification` job in the example, requires it to run only after the previous two jobs are completed (regardless of success or failure), but to send notification emails with different content based on the status of the previous jobs. In this case, we need to introduce `if` conditional control.
 
-Finally, we introduce runtime condition controls for jobs. We have already discussed dependencies between jobs, which can be considered a type of condition. Another scenario, such as in the example’s `notification` job, requires it to run only after the first two jobs are completed (regardless of success or failure), but to send different content notification emails based on the status of previous jobs. In this case, we need to introduce `if` conditional controls.
+The `if` conditional control can apply to the job scope (as shown in line 116) or the step scope (as shown in line 123). In the job scope, we can use functions like `success()`, `failure()`, `cancelled()`, and `always()` to specify under what conditions the job should run. In the step scope, we can perform simple conditional judgments to indicate whether the step should run.
 
-The `if` conditional control can apply at the job scope (as shown in line 116) or the step scope (as shown in line 123). At the job scope, we can use functions like `success()`, `failure()`, `cancelled()`, and `always()` to specify under what conditions this job should run. At the step scope, we can perform simple conditional judgments to indicate whether this step should run.
-
-Conditional judgments inevitably require variables. Now, we will comprehensively introduce the use of variables in workflows. By combining variables with various control conditions, we can achieve advanced techniques.
-
+When performing conditional judgments, we inevitably need to use variables. Now, we need to comprehensively introduce the use of variables in workflows. Through variables, combined with various control conditions, we can achieve advanced techniques.
 Variables in GitHub are divided into two types: system variables and job variables. System variables are provided by the GitHub platform, while job variables are defined by us. Regardless of the type, we reference them via `${{ }}`.
 
-System variables can be defined at the organization, repository, or environment level. For example, `secrets` are defined at the repository level. We can access its value via `${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}`, which requires us to pre-define the variable `BUILD_NOTIFY_MAIL_RCPT` in the repository. GitHub provides some default variables, such as `GITHUB_REPOSITORY` (the value of this variable is the repository owner and name, e.g., octocat/Hello-World; line 59 of the example uses this variable and demonstrates a string extraction technique).
+System variables can be defined at the organization, repository, or environment level. For example, `secrets` are defined at the repository level, and we can access their value via `${{ secrets.BUILD_NOTIFY_MAIL_RCPT }}`, which requires us to predefine the variable `BUILD_NOTIFY_MAIL_RCPT` in the repository. GitHub provides some default variables, such as `GITHUB_REPOSITORY` (the value of this variable is the repository owner and name, e.g., octocat/Hello-World; line 59 of the example uses this variable and demonstrates a string extraction technique).
 
-The following code demonstrates the usage of job variables (excerpted from lines 122–132 of the example):
+The following code demonstrates the usage technique for job variables (excerpted from lines 122–132 of the example):
 
 ```yaml
   notification:
@@ -322,11 +310,9 @@ The following code demonstrates the usage of job variables (excerpted from lines
         with:
           subject: ${{ needs.test.outputs.package_name }}.
 ```
+First, in the job `test`, the output of the step `variable_step` (lines 57–63) is promoted to the job’s output (lines 24–28), effectively declaring variables such as `package_name`. Then, in the code above, we reference these variables (e.g., `package_name`) via `${{ needs.test.outputs.package_name }}`. Variables are referenced via `{job_id}.outputs.{variable}`, which is not unusual. However, note that it also has a `needs` scope. This indicates that if the job where we use the variable does not declare a dependency on the `test` job, this variable cannot be referenced.
 
-First, in the job `test`, the output of the step `variable_step` (lines 57–63) is promoted to the job’s output (lines 24–28), effectively declaring four variables such as `package_name`. Then, in the code above, we reference these variables (e.g., `package_name`) via `${{ needs.test.outputs.package_name }}`. Variables are referenced via `{job_id}.outputs.{variable}`, which is straightforward. However, note that it also has a `needs` scope. This indicates that if the job where we use the variable does not declare a dependency on the `test` job, this variable cannot be referenced.
-
-The example does not show the usage of environment variables. Here is an example for readers to study with the comments:
-
+The example does not show the usage of environment variables; here is an example for readers to study with the comments:
 ```
 env:
   # 声明了一个全局上下文的环境变量
@@ -348,38 +334,33 @@ jobs:
           # 声明了步骤上下文的环境变量
           First_Name: Mona
 ```
-
 #### 2.2.3. Connecting to Other Services
-
 In lines 31 to 40 of the example, there is commented-out code used to enable the Redis service. GitHub Actions provides these services via container technology. Theoretically, as long as an image for a certain service exists on Docker Hub, we can use it in GitHub Actions.
 
 !!! Attention
-    Note that if we want to use services in a workflow, the runner must be the Ubuntu operating system, not other Linux systems, Windows, or macOS.
+    Note that if we want to use services in a workflow, the runner must be the Ubuntu operating system, not other Linux systems, or Windows and macOS.
 
-Our workflows can run on the runner or in a container (which runs on the runner). If the workflow runs in a container, we need to connect to services running in the container via a custom bridge network. If the workflow runs directly on the runner, we can map the container’s ports to the runner, allowing us to access the services in the container directly.
+Our workflows can run on the runner or in containers (which run on the runner). If the workflow runs in a container, we need to connect services running in containers via a custom bridge network. If the workflow runs directly on the runner, we can map the container’s ports to the runner, allowing us to directly access services in the container.
 
 Using services in a workflow generally requires waiting for the container to fully start and initialize. This is the purpose of line 35 (`REDIS-CLI PING`).
 
 ## 3. Third-Party Applications and Actions
+We have already seen some actions from the marketplace in the example, such as `actions/checkout`, `actions/setup-python`, `pypa/gh-action-pypi-publish`, `dawidd6/action-send-mail`, `codecove/Codecov`, and so on. The part before the '/' is the action’s author. Actions by `actions` are official GitHub actions, while others are third-party actions. The names of these actions already explain their functions, so we will not elaborate further here.
 
-We have already seen some actions from the marketplace in the example, such as `actions/checkout`, `actions/setup-python`, `pypa/gh-action-pypi-publish`, `dawidd6/action-send-mail`, `codecove/Codecov`, and so on. The part before the '/' is the action’s author. Actions authored by `actions` are official GitHub actions; others are third-party actions. The names of these actions already indicate their functions, so we will not elaborate further here.
-
-Below, we introduce some commonly used third-party actions, some of which we have briefly explained with usage examples. If we have not specified otherwise, or if you wish to learn more, you can visit the [marketplace](https://github.com/marketplace/actions) to view relevant documentation.
+Below are some commonly used third-party actions, some of which we have briefly explained with usage examples. If we have not specified otherwise, or if you want to learn more, you can visit the [marketplace](https://github.com/marketplace/actions) to view relevant documentation.
 
 <div style="width:70%;height:380px">
 <div style="width:100%; height: 360px; margin: 0 auto;background-image:url('https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/book-with-flower.png');background-size:contain;background-repeat:no-repeat">
 <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
-<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official edition of this book</a>
 </div>
 </div>
 
 
 ### 3.1. GitHub Pages Deployment
-
-This action can be used to deploy static websites to GitHub Pages. In projects generated by `ppw`, it is used in conjunction with `mkdocs/mike`. Its ID is `JamesIves/github-pages-deploy-action`. A usage example is as follows:
-
+This action can be used to deploy static websites to GitHub Pages. In projects generated by `ppw`, it works in conjunction with `mkdocs/mike`. Its ID is `JamesIves/github-pages-deploy-action`. An usage example is as follows:
 ```
 name: Build and Deploy
 on: [push]
@@ -405,39 +386,32 @@ jobs:
 ```
 
 ### 3.2. Building and Publishing Docker Images
-
-Obviously, as a step in continuous deployment, the building of Docker images should also be completed and published by the CI/CD server. Docker officially provides an action for this purpose, with the ID `docker/build-push-action`.
+Obviously, as a step in continuous deployment, the building of Docker images should also be completed and published via the CI/CD server. Docker officially provides an action to complete this function, with the ID `docker/build-push-action`.
 
 ### 3.3. GitHub Release
-
 Generally, Python projects are published via PyPI. However, we can also publish them to GitHub Releases. The ID for this action is `softprops/action-gh-release`.
 
 ### 3.4. Drafting Release Notes
+Writing release notes is a tedious task. `relase-drafter/release-drafter` can help us automatically generate draft release notes. It automatically finds useful information from code commit logs to organize a release note.
 
-Writing release notes is a tedious task. `release-drafter/release-drafter` can help us automatically generate draft release notes. It automatically finds useful information from code commit logs to organize a release note.
+When writing release notes, we usually only need to record functional changes, revisions (bug fixes), and performance enhancements that affect external usage. However, when we commit code, there are various types of commits. In addition to the aforementioned categories, there are also documentation revisions, code formatting, CI process changes, and so on. How does Release-drafter automatically filter out this useless information? This requires us to strictly categorize commits and follow standardized formats when writing commit messages. In Section 2 of Chapter 2, "Editing Commit Messages," we introduced an extension for editing commit messages. Using such tools ensures that our commit logs are well-categorized, allowing Release-drafter to automatically extract information to form a draft. Even if manual editing is still required afterward, the workload will be significantly reduced.
 
-When writing release notes, we usually only need to record functional changes, bug fixes, and performance enhancements that affect external usage. However, during code commits, there are various types of commits. In addition to the aforementioned categories, there are document revisions, code formatting, CI process changes, and so on. How does Release-drafter automatically filter out this useless information? This requires us to strictly categorize commits and follow standardized formats when committing. In Section 2 of Chapter 2, we introduced an extension for editing commit messages. By using such tools, we can ensure that our commit logs are well-categorized, allowing Release-drafter to perform automatic information extraction to form a draft. Even if manual editing is still required, the workload will be significantly reduced.
-
-As we stated at the beginning, good development habits cannot rely solely on cultivating programmers’ awareness. More importantly, we must use a series of interlinked tools to streamline our processes, thereby enforcing compliance.
+As we stated at the beginning, good development habits cannot rely solely on cultivating programmers’ awareness. The key is to use a series of interconnected tools to streamline our processes, thereby enforcing compliance.
 
 There are also some fun actions, such as an action that generates a Snake game, with the ID `Platane/snk`. It generates the following Snake game:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/github-contribution-grid-snake.svg)
 
 ### 3.5. Notification Messages
-
 We have introduced email notifications. In the marketplace, there are various notification actions, such as Slack notifications, which can be found via the ID `Ilshidur/action-slack`.
 
 ### 3.6. Giscus
-
-Giscus is a comment system based on GitHub Discussions. Its ID is `giscus/giscus`. If you use GitHub Pages as your blog and static site system, you can install it on GitHub and add comment functionality to your blog and static site system.
+Giscus is a comment system based on GitHub Discussions. Its ID is `giscus/giscus`. If you use GitPages as your blog and static site system, you can install it on GitHub and add comment functionality to your blog and static site system.
 
 ## 4. Publishing Python Libraries via GitHub CI
+The examples we saw earlier come from the `.github\workflows\dev.yml` file in projects generated by `ppw`. The workflow defined in this file applies to all branches and triggers on every push. Its purpose is to perform integration tests, build test packages, and publish them to testpypi, as well as publish unofficial documentation to GitHub Pages.
 
-The examples we saw earlier come from the `.github\workflows\dev.yml` file in the `ppw`-generated project. This workflow applies to all branches and triggers on every push. Its purpose is to perform integration tests, build test packages, and publish them to testpypi, as well as publish informal documentation to GitHub Pages.
-
-Formal version releases are handled by `release.yml`. This workflow applies only to the `main` branch and runs only when a tag event occurs on the `main` branch, and the tag starts with the letter 'v'. Below is the content of this workflow:
-
+Formal version releases are handled by `release.yml`. This workflow only applies to the `main` branch and runs only when a tag event occurs on the `main` branch, and the tag starts with the letter 'v'. Below is the content of this workflow:
 ```yaml title="release.yml"
 # PUBLISH PACKAGE ON RELEASE BRANCH IF IT'S TAGGED WITH 'V*'
 
@@ -533,7 +507,6 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
           skip_existing: true
 ```
-
 The syntax features used in this workflow have been explained previously, so we will not explain them here.
 
 <div style="width:70%;height:380px">
@@ -541,6 +514,6 @@ The syntax features used in this workflow have been explained previously, so we 
 <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/mybook-0914.png" style="position:relative; width: 20%;top:62%;left:35%"/>
 </div>
 <div style="margin-top: 10px;text-align:right;padding-right:10px;">
-<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official version of this book</a>
+<a style="border: 0px solid blue;" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQIJK1olXwMKVllVD0kUB18IHlwcXgYHVW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYHU1deCE4WHDZNRwYlOXleFilHbwl3CzdxcxxqDW9dMyEfaEcbM244G1oUXwMFU1hZC3snA2g4STXN67Da8e9B3OGY1uefK1olXQABVF9YCkMWCmgAHmsSXQ8yDQ0NWAhJXF84K1glWgYLQFgvSRkDBR04K1slXjYCVV5VC04VAGsKEkcVXQ8KVFhBCE0UA24NG1MWWwILVG5fCUoTCl84Kz5lDQVbDhslfANDdRQKXQJVLWUEDFY1fCUVAw8PYRxjVVF2AAo4eDZqWBg4Hms">Click this link to purchase the official edition of this book</a>
 </div>
 </div>

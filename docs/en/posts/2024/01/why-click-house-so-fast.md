@@ -7,7 +7,7 @@ excerpt: "Our earlier notes covered personal setups for storing massive market d
 lang: en
 translation_of: posts/tools/why-click-house-so-fast
 auto_translated: true
-source_sha: aa9f04876a1d3f6bc5362581454699318d94601b
+source_sha: df72b4a3ae67629493731038cad97b9487ecfaba
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/query-buillion-rows-in-ms.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "HSBC and IBM demonstrate a quantum-powered algorithmic trading system,
 lang: en
 translation_of: posts/uncategory/quantumn-computing-break-through
 auto_translated: true
-source_sha: e4fba4cffd91288ae7b29526187326d3469b0a7c
+source_sha: 3cbda5d04c6e0b1867be6c56083e77810fbbe14b
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/quantum.jpeg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "This article dissects a classic quant interview problem involving rand
 lang: en
 translation_of: posts/algo/pdf-is-all-you-need
 auto_translated: true
-source_sha: 57b3262670070408522c4f1e97c4e96cc1436773
+source_sha: 829c5b880ecee4f436c8af083dac317ee41879a9
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/07/banff-sunshine-village-UoBE_wJ-suk-unsplash.jpg"
 ---
 

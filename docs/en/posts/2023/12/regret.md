@@ -7,7 +7,7 @@ excerpt: "Built on regret-aversion theory, this intraday order-flow factor ident
 lang: en
 translation_of: posts/factor-strategy/regret
 auto_translated: true
-source_sha: 56aa0e1620f3a1f77f8ee2eb262dd0a51610564b
+source_sha: 8a38d1a4c813d987551482398269aeb7f2cb38cf
 ---
 
 If a stock drops right after you buy it, would you rush to sell the next day? Conversely, if it rallies right after you sell, would you chase it back?

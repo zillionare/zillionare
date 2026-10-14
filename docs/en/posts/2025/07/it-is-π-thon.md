@@ -7,7 +7,7 @@ excerpt: "Python 3.14 beta3 introduces free threading, ending the GIL era. This 
 lang: en
 translation_of: posts/python/it-is-π-thon
 auto_translated: true
-source_sha: ee1541d84bac6d24ca0259644acdfb81d5ad7c63
+source_sha: de3de7fbccfffd550e9e0b5ef9d5571068fe7e43
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/meme/π-thon.png"
 ---
 

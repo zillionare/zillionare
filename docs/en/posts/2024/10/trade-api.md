@@ -7,7 +7,7 @@ excerpt: "A comparative guide to live trading interfaces for China A-shares, eva
 lang: en
 translation_of: posts/tools/trade-api
 auto_translated: true
-source_sha: 6c36e44347d663eb6e94485bb807d6b3cd95861f
+source_sha: 8c8186c653fecb668dd10d46a9b5d3915be2816a
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154846-cover-posts-2024-10-trade-api.md.jpg"
 ---
 

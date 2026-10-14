@@ -7,7 +7,7 @@ excerpt: "The get_clean_factor_and_forward_returns function automates return cal
 lang: en
 translation_of: posts/tools/get-clean-factor-and-forward-returns
 auto_translated: true
-source_sha: f69030cd5322ef55f7971d6732adb0d97d40bf6f
+source_sha: c1547176e5c87e6e739fa3a6c02d8470325a79c1
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
 ---
 

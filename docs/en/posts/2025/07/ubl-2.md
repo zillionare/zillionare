@@ -7,7 +7,7 @@ excerpt: "This article exposes Alphalens limitations for monthly rebalancing and
 lang: en
 translation_of: posts/papers/ubl-2
 auto_translated: true
-source_sha: 867abb1f48039674843e48978fb84ee1dfb61a1d
+source_sha: 107e2181a731ac4aaffb1a7d56025b0561eb8512
 ---
 
 In the previous installment, we reproduced the factor construction from the research report, specifically the upper shadow factor, the Williams lower shadow factor, and the combined UBL factor. In this issue, we will put these factors to the test.

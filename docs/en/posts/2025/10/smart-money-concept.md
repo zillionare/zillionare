@@ -7,7 +7,7 @@ excerpt: "Smart Money Concepts (SMC) rebrands institutional order flow into reta
 lang: en
 translation_of: posts/factor-strategy/smart-money-concept
 auto_translated: true
-source_sha: 38fd0006fac30aa7ef0172ca3e83c8450ae5f904
+source_sha: ed5f6edb134b8054e83d595e5e7f54b361cbc2a5
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg"
 ---
 

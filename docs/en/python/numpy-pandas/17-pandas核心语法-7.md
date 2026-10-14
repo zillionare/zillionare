@@ -7,7 +7,7 @@ excerpt: "Master Pandas Styler for Excel-like conditional formatting and leverag
 lang: en
 translation_of: articles/python/numpy-pandas/17-pandas核心语法-7
 auto_translated: true
-source_sha: e0602cd10f940de336085e0d4adb8cc76840bf2e
+source_sha: 6bd87a95d2d4739bc4ffcbd44e2a57c3c9c6afca
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/women-sweatshirt-indoor.jpg"
 ---
 

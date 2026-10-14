@@ -7,7 +7,7 @@ excerpt: "This week’s QuanTide Weekly covers fiscal policy shifts and market u
 lang: en
 translation_of: posts/uncategory/weekly-1027
 auto_translated: true
-source_sha: 7861459f6fcea24e1d642a667b6e46d5603343e8
+source_sha: 0f4e19b4a666263215de119be0ad0ccb768f1754
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "GPT rates Quantinsti’s $934 LLM Trading course low (4/10) for using 
 lang: en
 translation_of: posts/uncategory/quantide的课程怎么样
 auto_translated: true
-source_sha: 14c48bf961ef71eb7dad45350be2b7aa05062103
+source_sha: a1ca245408cbdbc0d8f81a3f15c820409ac92c23
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/07/dom-fou-YRMWVcdyhmI-unsplash.jpg"
 ---
 

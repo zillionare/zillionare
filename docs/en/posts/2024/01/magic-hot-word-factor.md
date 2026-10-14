@@ -7,7 +7,7 @@ excerpt: "Quants never ignore a potential profit opportunity, no matter how irra
 lang: en
 translation_of: posts/factor-strategy/magic-hot-word-factor
 auto_translated: true
-source_sha: c8dea80593a99576f7663e20c2b5759a1e8e2ad3
+source_sha: 03eda4c68530cc00cf19020adff45295c458ea44
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/dragon-and-phoenix.jpg"
 ---
 

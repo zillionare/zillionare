@@ -7,7 +7,7 @@ excerpt: "Beyond SQL on DataFrames and AsOf Joins for aligning multi-timeframe b
 lang: en
 translation_of: posts/python/duckdb-2
 auto_translated: true
-source_sha: 6afce535ef779c1d290cd5827bdc6737b90dbf86
+source_sha: a6403f4e61d350981e661c4eb48d165260ec84d8
 ---
 
 In my last note, I showed how to manipulate DataFrames with SQL in DuckDB. I also highlighted its unique **AsOf Join** — incredibly handy for quants who constantly need to align multi-timeframe market data. But DuckDB has a lot more to offer.

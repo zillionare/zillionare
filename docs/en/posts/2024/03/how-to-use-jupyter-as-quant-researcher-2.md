@@ -7,7 +7,7 @@ excerpt: "Explore how quants can use JupySQL inside Jupyter to query databases a
 lang: en
 translation_of: posts/tools/how-to-use-jupyter-as-quant-researcher-2
 auto_translated: true
-source_sha: 885199bf8bb34aaed8cdade70a20e7f98e0cfbec
+source_sha: cdbce901979a05f70f629a86d2ee7eede73e02df
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/galaxy.jpg"
 ---
 

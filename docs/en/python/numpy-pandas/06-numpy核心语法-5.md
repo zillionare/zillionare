@@ -7,7 +7,7 @@ excerpt: "Master NumPy datetime64 conversions and char array operations to handl
 lang: en
 translation_of: articles/python/numpy-pandas/06-numpy核心语法-5
 auto_translated: true
-source_sha: f26f76b4ef7cb14ee951898cfd31971a27535864
+source_sha: 3d81fd10683bf05c28527d36bba82c6bc41a2335
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg"
 ---
 

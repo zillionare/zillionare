@@ -7,7 +7,7 @@ excerpt: "Learn to build a zero-cost, static blog using MkDocs and MkDocs-Materi
 lang: en
 translation_of: posts/python/static-blog-in-2024
 auto_translated: true
-source_sha: 552a06d0a079b626fb8a7f8b506e73315fe5a0d1
+source_sha: ef063cd8b8fd4af209eaec03744346c926f7b56f
 ---
 
 A few years ago, I recommended writing static blogs using Markdown. Static blogs have nearly zero hosting costs, making them ideal for personal blog startups. Markdown facilitates local search and can serve as a personal knowledge base.

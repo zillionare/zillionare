@@ -7,7 +7,7 @@ excerpt: "Shanghai Stock Exchange launches total return index; private funds den
 lang: en
 translation_of: posts/uncategory/weekly-0721
 auto_translated: true
-source_sha: 99153a97e98faa9a55a271b1d981d57a5882e913
+source_sha: ba3722b900d5c4a7d6a941a0752e593acc2530fc
 ---
 
 ## This Week’s Highlights

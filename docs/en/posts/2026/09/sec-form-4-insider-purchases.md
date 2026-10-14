@@ -7,7 +7,7 @@ excerpt: "We test whether retail investors can profit from insider buying disclo
 lang: en
 translation_of: posts/factor-strategy/sec-form-4-insider-purchases
 auto_translated: true
-source_sha: c86711e3e326c2e9f2601163dcd6815f59acbb78
+source_sha: 575017e13228ece47b17b27b8b9cf3862561be0e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/oxford.jpg"
 ---
 

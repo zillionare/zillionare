@@ -7,7 +7,7 @@ excerpt: "This article explores implementing linear regression for momentum fact
 lang: en
 translation_of: posts/uncategory/weekly-0929
 auto_translated: true
-source_sha: 6f4afdd61809f4b0c02cf5a8120e2c3169341f27
+source_sha: 0beaef68d49d1a4fc7ac0d7c5a8d6b5e81c2d410
 cover: "stamp_width: 60%"
 ---
 

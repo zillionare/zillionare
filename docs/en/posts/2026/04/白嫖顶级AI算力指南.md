@@ -7,7 +7,7 @@ excerpt: "Unlock 75M free daily tokens for OpenClaw via OpenRouter and NVIDIA’
 lang: en
 translation_of: posts/resources/白嫖顶级AI算力指南
 auto_translated: true
-source_sha: 74327284fc9f6c1501d367084652dd092234ea98
+source_sha: c2076f86e2ab31daac2e77eabe785d6f3ccc6685
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/coppertist-wu-42w64JPhABA-unsplash.jpg"
 ---
 

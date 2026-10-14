@@ -7,7 +7,7 @@ excerpt: "Building on our labeled tops and bottoms for the CSI 1000, this articl
 lang: en
 translation_of: posts/factor-strategy/ml-predict-peaks-valleys-1
 auto_translated: true
-source_sha: be163e5ec302ee05e20047f2bf88248f1d72964f
+source_sha: b0f35c918b8b9550f6eb5fa8c02a2286d77877fd
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/cmu.jpg"
 ---
 

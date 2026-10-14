@@ -7,7 +7,7 @@ excerpt: "DuckDB’s RETURNING clause in UPDATE statements can unexpectedly trig
 lang: en
 translation_of: posts/tools/致命的ID-DuckDB中的Returning子句之谜
 auto_translated: true
-source_sha: 4401a74aa01d34e45f581c4e65c130d9ab050fd9
+source_sha: 567aef420cb0d378a6c9b0987ea8270305f06217
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514210946.png"
 ---
 

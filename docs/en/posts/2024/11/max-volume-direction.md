@@ -7,7 +7,7 @@ excerpt: "Discover the Max Volume Factor, a novel quantitative strategy leveragi
 lang: en
 translation_of: posts/factor-strategy/max-volume-direction
 auto_translated: true
-source_sha: 064199c6d376be45f8938f3316ee89939f5d7422
+source_sha: 8979f23c769a64d0bd80762cf3d2eaea6edee487
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/11/starry-night.jpg"
 ---
 

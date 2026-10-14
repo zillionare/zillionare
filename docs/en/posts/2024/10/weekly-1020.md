@@ -7,7 +7,7 @@ excerpt: "Huaxing Quant reduces hedge positions to zero; China’s CPI and GDP d
 lang: en
 translation_of: posts/uncategory/weekly-1020
 auto_translated: true
-source_sha: 99728db9b533d5f7e99e2147ac6620b233c20764
+source_sha: 633168caa2fe7bd8874b8773876548566323ceb4
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 

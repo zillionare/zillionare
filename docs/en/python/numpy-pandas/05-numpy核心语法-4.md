@@ -7,7 +7,7 @@ excerpt: "Master NumPy’s random modules for generating price series and balanc
 lang: en
 translation_of: articles/python/numpy-pandas/05-numpy核心语法-4
 auto_translated: true
-source_sha: 9b804f3f44ef81f0f1f1f6d4d178715d52291a55
+source_sha: 76ed5f631e75bdcd75a13b37679487f0d881176c
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/man-wearing-tank-top.jpg"
 ---
 

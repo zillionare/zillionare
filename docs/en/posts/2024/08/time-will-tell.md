@@ -7,7 +7,7 @@ excerpt: "Research confirms that early earnings announcements signal positive ne
 lang: en
 translation_of: posts/factor-strategy/time-will-tell
 auto_translated: true
-source_sha: d77b9b7a1554e771357a11bd54a9cfe3d905635d
+source_sha: 2c11686967f6a6778a036f9232077b88cb9d9b25
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/purdue-engfountain.jpg"
 ---
 

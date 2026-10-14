@@ -7,7 +7,7 @@ excerpt: "This article analyzes CSI index constituent changes, revealing the gro
 lang: en
 translation_of: posts/factor-strategy/growing-star-market-weights
 auto_translated: true
-source_sha: fd2ac0ce40156cb32ba687e3a42a880a500bc755
+source_sha: c98a9c1383bf25614c0e83f7ea9db3c293e2290b
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065527-download.jpg"
 ---
 

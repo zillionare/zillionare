@@ -7,7 +7,7 @@ excerpt: "The CrowdStrike faulty update caused a global Windows outage hitting a
 lang: en
 translation_of: posts/uncategory/crowed-strike-postmoterm
 auto_translated: true
-source_sha: 127aff6c375590f657d9bd10991cee88209aa9d3
+source_sha: cad39c583979d4f5ed1c02a6fe03213173dc7e43
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/bsod.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "In the multi-factor era, Conners RSI stands out as a single factor pow
 lang: en
 translation_of: posts/factor-strategy/connors-rsi
 auto_translated: true
-source_sha: e8fc4759853aa2858c964dd55b7e22d3b92cd43a
+source_sha: 5f9b11d972784d88c3d17074ca9e1c06421e4c4a
 ---
 
 If you could build a strategy from a single factor alone in the multi-factor era — and still have a good chance of beating the market — this would be the one.

@@ -7,7 +7,7 @@ excerpt: "A practical guide to NumPy’s ndarray, covering creation, indexing, s
 lang: en
 translation_of: articles/python/numpy-pandas/02-numpy核心语法-1
 auto_translated: true
-source_sha: 676ba7ed27ffcf59613234b7dc4c3c0f865c0294
+source_sha: 997ffbd01bf54e53ac6be571691c5a285f2a6e6f
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/grow-with-quantide.jpg"
 ---
 

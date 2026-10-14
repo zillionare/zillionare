@@ -7,7 +7,7 @@ excerpt: "Microsoft’s RD-Agent(Q) automates factor mining via four LLM agents.
 lang: en
 translation_of: posts/tools/rd-agent-for-quant-intro
 auto_translated: true
-source_sha: d003f56fd600b5c938c84ec5bec65aa1635bd00a
+source_sha: 99a0e82b12a6d2e279e951efec1d098e604c3060
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/04/wolfgang-weiser-fIoBQ9i7Vjo-unsplash.jpg"
 ---
 

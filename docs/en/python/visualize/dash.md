@@ -7,7 +7,7 @@ excerpt: "Explore Dash’s core concepts, routing strategies, and authentication
 lang: en
 translation_of: articles/python/visualize/dash
 auto_translated: true
-source_sha: 56c6098c1daf3c2019d9024009c871cc339d2a2e
+source_sha: 7efd919f753e2f19e2b001217a9b03ec73f13d3f
 ---
 
 # Dash Web Apps: Core Concepts, Routing, Auth, and Pitfalls

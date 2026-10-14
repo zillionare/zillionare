@@ -7,7 +7,7 @@ excerpt: "Pandas is essential for quant research. This guide shows two practical
 lang: en
 translation_of: posts/tools/effective-pandas-1
 auto_translated: true
-source_sha: f7c8f2280fb6fece0b28807d527293a3c9f2fa48
+source_sha: a716de8ca4a51a9ea32fbc2d2c96736afa9742e3
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065407-photo-1719014323201-d7ae3f83d260.jpg"
 ---
 

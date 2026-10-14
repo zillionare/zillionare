@@ -7,7 +7,7 @@ excerpt: "Leverage John Ehlers’ DSP principles to detect Elliott waves and dou
 lang: en
 translation_of: posts/factor-strategy/first-level-derivation
 auto_translated: true
-source_sha: 61216f6f8e8f2ea889f635357c1b247feb7f261c
+source_sha: ae45f9a167b2710c70a0e399c333403310003956
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/John-Ehlers.png"
 ---
 

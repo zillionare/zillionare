@@ -7,7 +7,7 @@ excerpt: "Fung and Hsieh's 7-factor model extends beyond market, size, value and
 lang: en
 translation_of: posts/factor-strategy/7-factor-model
 auto_translated: true
-source_sha: 791dce9bbabe80c9dee4076a0af138300f8bf567
+source_sha: aaaeb56a925054361d457cd002de10b22281a9ce
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/duke.jpg"
 ---
 

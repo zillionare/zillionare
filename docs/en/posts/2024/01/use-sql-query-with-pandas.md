@@ -7,7 +7,7 @@ excerpt: "If you know SQL, pandas filtering can feel verbose. Learn how DuckDB l
 lang: en
 translation_of: posts/python/use-sql-query-with-pandas
 auto_translated: true
-source_sha: 7d0fec52695009d3d120b642aae54a72db714d7a
+source_sha: 4522deee82567a3d29a42d895e859a39e0a0e289
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/panda.jpg"
 ---
 

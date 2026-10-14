@@ -7,7 +7,7 @@ excerpt: "Master Numpy vectorization for quantitative preprocessing. Learn effic
 lang: en
 translation_of: articles/python/numpy-pandas/10-numpy应用案例-3
 auto_translated: true
-source_sha: 9d9a99102b21ac467b4898545dd25e818a16ea09
+source_sha: 22d4452dbaa981be8061581f60078bd76c2725cd
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-reading.png"
 ---
 

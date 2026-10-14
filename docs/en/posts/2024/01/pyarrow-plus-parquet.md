@@ -7,7 +7,7 @@ excerpt: "HDF5 handles daily bars with ease, but tick and Level-2 data quickly r
 lang: en
 translation_of: posts/tools/pyarrow-plus-parquet
 auto_translated: true
-source_sha: 11a1b08d912f7936c419f7f3d89a3945bf154a07
+source_sha: 36debc8a2151623489358046be364d2c7994c2f7
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/apache-arrow.jpg)

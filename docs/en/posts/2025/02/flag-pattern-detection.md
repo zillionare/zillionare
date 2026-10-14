@@ -7,7 +7,7 @@ excerpt: "This article details an algorithmic approach to detecting technical tr
 lang: en
 translation_of: posts/algo/flag-pattern-detection
 auto_translated: true
-source_sha: 1f1f1812b7471ab331567deedfd0a84969bee521
+source_sha: e4215eceb9edebe9f3f85ce79c4bd3dd406f9540
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/daniel-thomas.jpg"
 ---
 

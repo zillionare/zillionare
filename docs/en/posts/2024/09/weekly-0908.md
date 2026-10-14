@@ -7,7 +7,7 @@ excerpt: "PBOC signals room for reserve cuts amid rate constraints. Buffett trim
 lang: en
 translation_of: posts/uncategory/weekly-0908
 auto_translated: true
-source_sha: fbad87c33062f79ffa40a25bc42e94071c87f78c
+source_sha: 197ce50a8f7cc455e7cf0f1db1f29e175826b465
 cover: "stamp_width: 60%"
 ---
 

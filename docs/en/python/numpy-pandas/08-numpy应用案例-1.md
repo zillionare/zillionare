@@ -7,7 +7,7 @@ excerpt: "Learn to use Numpy vectorization to efficiently count consecutive even
 lang: en
 translation_of: articles/python/numpy-pandas/08-numpy应用案例-1
 auto_translated: true
-source_sha: e51270f8cf82f561cd703664ecab5a18563ba79d
+source_sha: 0ad20e84b2ebdeb96ffdaea406167c07ad216e42
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"
 ---
 

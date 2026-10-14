@@ -7,7 +7,7 @@ excerpt: "Wes McKinney created pandas at AQR to replace tedious Excel workflows,
 lang: en
 translation_of: posts/career-figure/月亮和pandas
 auto_translated: true
-source_sha: 6bb2f48ea490193737a956f5ed41151cde86bce9
+source_sha: 8b02f6c41190c6fa00102c61bf22db95e32530ec
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/wes-mckinney-cover.jpg"
 ---
 

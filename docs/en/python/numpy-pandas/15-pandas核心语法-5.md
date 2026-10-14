@@ -7,7 +7,7 @@ excerpt: "Master Pandas data preprocessing with fillna, clip, and winsorize. Opt
 lang: en
 translation_of: articles/python/numpy-pandas/15-pandas核心语法-5
 auto_translated: true
-source_sha: 650e223fb607f7d580708cf03aa44e03b20eaba6
+source_sha: 6f072d3105bf6abf8583fdbe3318849ae40e2861
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/gift.jpg"
 ---
 

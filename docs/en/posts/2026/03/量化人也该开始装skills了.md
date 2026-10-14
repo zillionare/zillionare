@@ -7,7 +7,7 @@ excerpt: "Skills Marketplace lets quants integrate A-share context from Tushare 
 lang: en
 translation_of: posts/uncategory/量化人也该开始装skills了
 auto_translated: true
-source_sha: 7a517946a464d8fc9f4bd99f4e742952fbd56f48
+source_sha: 1830a25b1caae627c98673d097b3633779aae777
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/skillsmp.png"
 ---
 

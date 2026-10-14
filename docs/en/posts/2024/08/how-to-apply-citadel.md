@@ -7,7 +7,7 @@ excerpt: "Discover the fastest path to a Citadel quantitative research internshi
 lang: en
 translation_of: posts/career-figure/how-to-apply-citadel
 auto_translated: true
-source_sha: 28b84c4427a93da330469330d6d867c168a182fc
+source_sha: 48b2dee6b6e3f8b17b009ac9859ff7d72bf0cc3d
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065601-Citadel_Intenship_KenSpeakstoInterns_YT_v2.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "Learn to efficiently fetch, adjust, and cache monthly stock data using
 lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-2
 auto_translated: true
-source_sha: 4591cd5b487f2b6b575a477df027be1d7bd8b443
+source_sha: 7c38d842265d14f1aab05ae2046a622cfdc671ed
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/4.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "China A-shares exhibit strong herd behavior. This note explains how re
 lang: en
 translation_of: posts/factor-strategy/herd-behaviour
 auto_translated: true
-source_sha: 2f3fa2be52ccc317ffebbb08f73e26f9f3c8f565
+source_sha: e57634fa6d6cd8291c8a88a1dede41af8137550c
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/structual-modeling-herd-behaviour.png)

@@ -7,7 +7,7 @@ excerpt: "A deep dive into why Tushare and East Money (via AkShare) report diffe
 lang: en
 translation_of: posts/algo/昨天应该涨多少？Tushare和东财还没商量好
 auto_translated: true
-source_sha: db5f00379fd4991b1780ae2c5dc636c5b943f4b5
+source_sha: ee6d461c94359d026c7198e09e410c7ba19035fa
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/24.jpg"
 ---
 

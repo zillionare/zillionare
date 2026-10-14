@@ -7,7 +7,7 @@ excerpt: "We introduce a second-derivative momentum factor that achieves 61.5% a
 lang: en
 translation_of: posts/factor-strategy/second-derivative
 auto_translated: true
-source_sha: 09300781377fc84a1d436822fa837df318ae8100
+source_sha: 26ba76fbaf9b5a5d26118d667f9bf0569ceb6f1c
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/psl.jpg"
 ---
 

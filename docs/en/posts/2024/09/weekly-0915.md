@@ -7,7 +7,7 @@ excerpt: "Major indices hit 5-year lows as Fed and PBOC decisions loom. This wee
 lang: en
 translation_of: posts/uncategory/weekly-0915
 auto_translated: true
-source_sha: bf2c97ca74905968edc8fb759ef14d63f4f3c10e
+source_sha: f6a6dba29aa16c23bdcb31835b7afed67b75f138
 cover: "stamp_width: 60%"
 ---
 

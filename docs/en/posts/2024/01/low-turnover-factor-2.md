@@ -7,7 +7,7 @@ excerpt: "With factor data ready, we run factor analysis in Alphalens. This guid
 lang: en
 translation_of: posts/factor-strategy/low-turnover-factor-2
 auto_translated: true
-source_sha: 83471e44a715009572324a2c2193d16475b5bb7d
+source_sha: 0b5794aa5b1b8586cba7b16cd75697620ff23e10
 ---
 
 ![R33](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/kaiyun.jpg)

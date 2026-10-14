@@ -7,7 +7,7 @@ excerpt: "Scaling and normalization are critical in quantitative trading, not ju
 lang: en
 translation_of: articles/python/visualize/how-to-scale
 auto_translated: true
-source_sha: 109a6338bd397cba045356f75ef51c13d10f0f06
+source_sha: 5536fc46908850a9b37fbef5510f8ced438fbfa2
 ---
 
 Scaling and normalization are inevitable challenges in machine learning. In quantitative trading, we frequently encounter similar issues, regardless of whether machine learning is employed.

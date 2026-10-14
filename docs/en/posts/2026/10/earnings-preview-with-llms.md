@@ -7,7 +7,7 @@ excerpt: "Optiver and UChicago test AI systems predicting stock reactions to ear
 lang: en
 translation_of: posts/tools/earnings-preview-with-llms
 auto_translated: true
-source_sha: ed9157ba40c214886108f925e574ca832f8a5b48
+source_sha: 9f0b9906ca10e91be44164516d1cd7f61bd11f1e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261001095444-earnings-preview-with-llms.jpg"
 ---
 

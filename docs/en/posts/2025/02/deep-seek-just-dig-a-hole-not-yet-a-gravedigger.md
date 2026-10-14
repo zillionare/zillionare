@@ -7,7 +7,7 @@ excerpt: "This case study benchmarks factor data retrieval using pandas, Polars,
 lang: en
 translation_of: posts/uncategory/deep-seek-just-dig-a-hole-not-yet-a-gravedigger
 auto_translated: true
-source_sha: a488b9f8a35072508426b6ece70f7349b2d34ba7
+source_sha: e058aea204d35952809ca5e2a78c05061e7e2e24
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/02/IMG_20250204_110950.jpg"
 ---
 

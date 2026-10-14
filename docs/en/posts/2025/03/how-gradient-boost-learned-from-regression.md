@@ -7,7 +7,7 @@ excerpt: "Decision trees transform hard-coded logic into data-driven models. Thi
 lang: en
 translation_of: posts/algo/how-gradient-boost-learned-from-regression
 auto_translated: true
-source_sha: beb87514c048c2cfed5ecb863fdeb852fe2d2313
+source_sha: 14d9081e722ac0a3786e034e6f2527141babb8d8
 cover: "stamp_width: 60%"
 ---
 

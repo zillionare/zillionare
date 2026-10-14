@@ -7,7 +7,7 @@ excerpt: "Revelio Labs data shows SQL is required in 25% of finance job postings
 lang: en
 translation_of: posts/career-figure/how-to-start-a-hedge-fund-alfonso-peccatiello-story
 auto_translated: true
-source_sha: ab1931d92af36d0826a6320b81f0ac0582d11d2d
+source_sha: a6de51a1525839edd75c2a30519ce5d08ee90d02
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/fencing.jpg"
 ---
 

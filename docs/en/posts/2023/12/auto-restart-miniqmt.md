@@ -7,7 +7,7 @@ excerpt: "The xtquant package lacks auto-reconnect, so an unstable MiniQMT must 
 lang: en
 translation_of: posts/tools/auto-restart-miniqmt
 auto_translated: true
-source_sha: fc5e1f4bcffdfbf9f1bfc5cc6223292554e74349
+source_sha: ff5883115e122059fa90c139f2fde811a5fb6e6b
 ---
 
 The live-trading interface MiniQMT can be unstable at times. The xtquant package does not yet provide automatic reconnection. When xtquant stops working properly, you need to restart MiniQMT and establish a new connection (be sure to use a new `sessionid`). The problem is that some QMT builds, such as the Sinolink Securities (国金) version, do not offer password-free login. What can you do?

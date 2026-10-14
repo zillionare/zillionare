@@ -7,7 +7,7 @@ excerpt: "Learn to detect consecutive events like limit-ups or N-day rallies in 
 lang: en
 translation_of: posts/tools/effective-numpy-1
 auto_translated: true
-source_sha: 048c6ebf5b074ed045fa92820f0c378e4205c184
+source_sha: 494e66409c3bfe937a72e2dc6ab0b49b863d1d0e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154415-cover-posts-2024-08-effective-numpy-1.md.jpg"
 ---
 

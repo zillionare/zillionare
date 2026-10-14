@@ -7,7 +7,7 @@ excerpt: "Max Dama outlines seven critical structural questions for new quant an
 lang: en
 translation_of: posts/career-figure/successfully-starting-a-career-in-quant-research
 auto_translated: true
-source_sha: b4e5172be721e61655b52cf7e89d7c752006c4f8
+source_sha: 1c2a9c5dbc55cafd96c5a2e375f5336fef0b4753
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/23.jpg"
 ---
 

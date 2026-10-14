@@ -7,7 +7,7 @@ excerpt: "Master Citadel’s Datathon for quant roles. Analyze July CPI/PPI, Fed
 lang: en
 translation_of: posts/uncategory/weekly-0811
 auto_translated: true
-source_sha: bc5bb271ebf1038f2b592a860c75aa9b015c17b1
+source_sha: 47b601a4124452c2603fbd116a0a8506dc2d89c8
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "Visualizing binomial distributions via Galton boards reveals the trans
 lang: en
 translation_of: posts/algo/pdf-is-all-you-need-3
 auto_translated: true
-source_sha: 0e96693c9559aefa7c441a0109795454219fa72e
+source_sha: f3a1cce08e3b2f3cfafea6258cf67a6bdda5dad1
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg"
 ---
 

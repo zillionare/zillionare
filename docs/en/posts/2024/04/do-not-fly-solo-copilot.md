@@ -7,7 +7,7 @@ excerpt: "From grilling GPT-4 on Q-Q plots to learning new Python tricks with Gi
 lang: en
 translation_of: posts/tools/do-not-fly-solo-copilot
 auto_translated: true
-source_sha: 6ce69ebe558b04e9566d6ac6afb91f50623f5713
+source_sha: a6d7629560466b0cc53d15fbe0a5e953c6687869
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261005065337-photo-1530858085883-7ab22d96afcc.jpg"
 ---
 

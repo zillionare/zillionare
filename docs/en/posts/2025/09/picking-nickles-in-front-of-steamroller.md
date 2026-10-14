@@ -7,7 +7,7 @@ excerpt: "High-frequency, low-risk strategies often mask tail risks. This articl
 lang: en
 translation_of: posts/algo/picking-nickles-in-front-of-steamroller
 auto_translated: true
-source_sha: e17028f86ff7bec9c64a233298e633bd33af8b1f
+source_sha: 7e5f12c31e3f0003f67ded819c89d600f0436e9a
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/09/photo-1642076572486-b4be9c5e5512.jpg"
 ---
 

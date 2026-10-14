@@ -7,7 +7,7 @@ excerpt: "Type ZGPA to instantly find Ping An Insurance (中国平安) — a sta
 lang: en
 translation_of: posts/python/pypinyin
 auto_translated: true
-source_sha: e3dd4d718080bb248de8873bbe346c4b75bb6a22
+source_sha: e103aa9828d6adeefd9ee3786230e5f7cc1d315e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/03/pypinyin.png"
 ---
 

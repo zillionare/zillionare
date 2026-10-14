@@ -7,7 +7,7 @@ excerpt: "Kolmogorov’s 1933 axioms transformed probability from intuitive gamb
 lang: en
 translation_of: posts/algo/pdf-is-all-you-need-2
 auto_translated: true
-source_sha: 5d4a07891823f4bcd89abdabf761cc1ec9b9f31b
+source_sha: 1f53b162ad077eccb40cf9293657959f78972176
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/07/haley-phelps-S-llxYh3GzI-unsplash.jpg"
 ---
 

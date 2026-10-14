@@ -7,7 +7,7 @@ excerpt: "After two tourism stocks hit limit-up on Jan 2-3, 2024 — one nearly 
 lang: en
 translation_of: posts/factor-strategy/hindsight-how-do-i-missed-dlsy
 auto_translated: true
-source_sha: e01735013c54f35fe8bff7f88fd8b42b75d5cfe3
+source_sha: 0c3746db3f56d5e44d34d9459f937e82643dc2d6
 ---
 
 On January 2 and 3 this year, two tourism stocks hit their daily limit-up one after another. One went on to nearly triple within a month, the other posted six consecutive limit-ups. With the benefit of hindsight, how could we have used quantitative analysis — right after the first limit-up on Jan 2 — to identify the second stock?

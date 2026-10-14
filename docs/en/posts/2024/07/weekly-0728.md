@@ -7,7 +7,7 @@ excerpt: "Regulators may hike HFT fees 10x; Paris Olympics spark new A-share the
 lang: en
 translation_of: posts/uncategory/weekly-0728
 auto_translated: true
-source_sha: 7689ee3554ca34149549216ee3d62aa7d98bc1d8
+source_sha: a7a9a7e0f592c31b676adb736afeda85ec158a2b
 ---
 
 ## This Week's Highlights

@@ -7,7 +7,7 @@ excerpt: "Monte Carlo simulation is often dismissed as brute-force computing, ye
 lang: en
 translation_of: posts/algo/monte-carlo
 auto_translated: true
-source_sha: 0a962e19c91708a63ab6996fe3314caa55075333
+source_sha: fb0c3136463e29131e1b5062cd84c0d503a0572f
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/fa-platinum.png"
 ---
 

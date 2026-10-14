@@ -7,7 +7,7 @@ excerpt: "Python 3.13 introduces experimental free-threading, JIT compilation, a
 lang: en
 translation_of: posts/python/python-just-released-3.13
 auto_translated: true
-source_sha: 043ac4c4a338a40386e03c6b1a861834ce252937
+source_sha: 63d9d9c92b351437f0ab75501af18eccaa59fae2
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/python-3.13.png"
 ---
 

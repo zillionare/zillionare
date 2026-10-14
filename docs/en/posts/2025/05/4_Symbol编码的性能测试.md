@@ -7,7 +7,7 @@ excerpt: "Designing a universal data exchange format (SQEP) and optimizing stock
 lang: en
 translation_of: posts/tools/21天驯化AI打工仔/4_Symbol编码的性能测试
 auto_translated: true
-source_sha: a18a2da6e97347245460b3a55f564b1f9cb8fb7f
+source_sha: 6c5aeda942d7581a50d7acf7942175441a6f5edb
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 

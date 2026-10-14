@@ -7,7 +7,7 @@ excerpt: "Master DataFrame creation from diverse sources, master merging strateg
 lang: en
 translation_of: articles/python/numpy-pandas/13-pandas核心语法-3
 auto_translated: true
-source_sha: 02eee24122f4c15a35e36363e12d1dac1b1946b3
+source_sha: bd717cfb2c1ae717e1142681a45cbc17f45bc6c5
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
 ---
 

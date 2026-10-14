@@ -7,7 +7,7 @@ excerpt: "The Santa Claus Rally refers to the stock market's tendency to rise ov
 lang: en
 translation_of: posts/factor-strategy/santa-clause
 auto_translated: true
-source_sha: 8a445781d4fdae2badce5b5b4968efbc9862425c
+source_sha: d6cb1521e8b951bb9f90c41629225785cbe39a73
 ---
 
 <!-- ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/santa-claus.png) -->

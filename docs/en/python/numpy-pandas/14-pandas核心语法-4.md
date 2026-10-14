@@ -7,7 +7,7 @@ excerpt: "Master Pandas for quantitative finance: logical filtering, groupby, Mu
 lang: en
 translation_of: articles/python/numpy-pandas/14-pandas核心语法-4
 auto_translated: true
-source_sha: ffa20392464f80e1a64f74138bf8c40fca969b9e
+source_sha: 6fd5e5479f3b405e06b59422b6be6bcfa9410061
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-hold-book-face.jpg"
 ---
 

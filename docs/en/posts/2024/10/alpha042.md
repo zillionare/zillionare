@@ -7,7 +7,7 @@ excerpt: "We backtest WorldQuant’s Alpha42 on China A-shares (2008-2022), achi
 lang: en
 translation_of: posts/factor-strategy/alpha042
 auto_translated: true
-source_sha: 4751adf6662d463afd39773a99f45cbfe203fbe9
+source_sha: f06d3aa26d5754d2475de5d799eb3ef89cb35165
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/Free-University-tibilisi.webp"
 ---
 

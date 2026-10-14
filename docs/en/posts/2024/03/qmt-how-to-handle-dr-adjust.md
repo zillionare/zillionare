@@ -7,7 +7,7 @@ excerpt: "Still looping with XtQuant's example to compute adjustment factors? Th
 lang: en
 translation_of: posts/python/qmt-how-to-handle-dr-adjust
 auto_translated: true
-source_sha: dce1d9e6871c54c0d9b5957e048afce55cce342b
+source_sha: b92a610b02c5e6b6a89e0490fc524dd8ea1730c4
 ---
 
 QMT's XtQuant library provides the data you need for quant research. Some of its APIs are designed fairly low-level, so application code usually needs an extra wrapper — adjustment is a good example.

@@ -8,7 +8,7 @@ excerpt: "This article explores why deep learning models like TCN and XGBoost of
 lang: en
 translation_of: posts/algo/tcn/tcn番外
 auto_translated: true
-source_sha: 4e103cb88c26e017c711b6628f62706daf3c33ce
+source_sha: ddb029295e1d6e140d665680a4bf76b8a48ae071
 ---
 
 After mastering the core principles of Temporal Convolutional Networks (TCN) and applying them to historical data backtests, many researchers achieve remarkably beautiful results: high accuracy on validation sets and smooth simulated portfolio return curves.

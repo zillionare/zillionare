@@ -7,7 +7,7 @@ excerpt: "This guide shows quants how to get more from Jupyter, from displaying 
 lang: en
 translation_of: posts/tools/how-to-use-jupyter-as-quant-researcher
 auto_translated: true
-source_sha: f22376934084a5508a77aa4720636205f83a3694
+source_sha: 28e0babb22cb7904852ffd22dee0067ffb026a3d
 ---
 
 There are plenty of Jupyter tips online. But I promise this one will genuinely level you up — with quite a few tricks you probably haven't seen.

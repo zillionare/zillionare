@@ -7,7 +7,7 @@ excerpt: "Master Pandas techniques for quantitative finance: converting data for
 lang: en
 translation_of: articles/python/numpy-pandas/18-pandas应用案例-1
 auto_translated: true
-source_sha: 1cdb1c584de292c551aac8aaa7b2f7c0e20ed98c
+source_sha: 0db9fc1af26ce09ab67d169387bb29ecddcea259
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/christmas.jpg"
 ---
 

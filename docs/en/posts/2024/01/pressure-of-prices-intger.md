@@ -7,7 +7,7 @@ excerpt: "Where do new factors and strategies come from? This note traces the le
 lang: en
 translation_of: posts/factor-strategy/pressure-of-prices-intger
 auto_translated: true
-source_sha: ed13d31e2db0d53b9b492c17f308c8986e20f79f
+source_sha: 2a418823f245dc57376ec0d32299b486a69755c6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/01/pressure-of-price-integer-cat.jpg"
 ---
 

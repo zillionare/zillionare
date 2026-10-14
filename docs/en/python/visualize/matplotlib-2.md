@@ -7,7 +7,7 @@ excerpt: "Learn advanced matplotlib layout techniques using subgridspec and subp
 lang: en
 translation_of: articles/python/visualize/matplotlib-2
 auto_translated: true
-source_sha: a005f0c84452df84e4be68356bddf97845fea3ad
+source_sha: 99ecd6892fcee70feadde03d3e924dca6dd1e61e
 ---
 
 The previous article introduced how to use `GridSpec` for layout. When using `GridSpec`, the goal is typically to create complex layouts, such as irregular grids. In these cases, we usually generate several small grids first and then merge them using `span` to form the irregular structure.

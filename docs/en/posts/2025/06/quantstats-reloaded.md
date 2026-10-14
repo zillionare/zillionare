@@ -7,7 +7,7 @@ excerpt: "Quantstats is a popular Python library for trading strategy performanc
 lang: en
 translation_of: posts/tools/quantstats-reloaded
 auto_translated: true
-source_sha: 81cf99f97b1ea6334572fe531aad2d7a6ea93bbd
+source_sha: 5cec0c70bc75b051373833c553efddd2b67fd491
 cover: "tags: [python, quantstats]"
 ---
 

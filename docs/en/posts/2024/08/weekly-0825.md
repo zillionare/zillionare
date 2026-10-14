@@ -7,7 +7,7 @@ excerpt: "Fed Chair Powell signals rate cut timing is right. JPMorgan shifts >HK
 lang: en
 translation_of: posts/uncategory/weekly-0825
 auto_translated: true
-source_sha: 4da94fa3d56ff8de9fb928ca52ec75a99520cf94
+source_sha: 14d9dc9c5e5e7035f877b61b6cd3455aa6dcedc8
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
 ---
 

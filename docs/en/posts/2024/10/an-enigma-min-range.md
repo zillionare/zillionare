@@ -7,7 +7,7 @@ excerpt: "Validating the stock market adage \"low volume signals low price\" usi
 lang: en
 translation_of: posts/algo/an-enigma-min-range
 auto_translated: true
-source_sha: 8520fe0370922f19e108723f423a9d21d5e8272d
+source_sha: c6c55bcf0b0f3ef34858660bc6b8db06590a8189
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/toronto.webp"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "Daniel Kahneman, founder of behavioral economics, died on March 27. Hi
 lang: en
 translation_of: posts/career-figure/Daniel-Kahneman
 auto_translated: true
-source_sha: 5759e41b40bf6cd8b56aa42af11ddaed12a35867
+source_sha: 2435edabb50e7dcc0419102b977474b01455e33d
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/04/Hebrew.jpg"
 ---
 

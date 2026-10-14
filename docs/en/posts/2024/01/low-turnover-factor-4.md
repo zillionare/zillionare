@@ -7,7 +7,7 @@ excerpt: "Unlike return analysis and factor alpha, Information Analysis is unaff
 lang: en
 translation_of: posts/factor-strategy/low-turnover-factor-4
 auto_translated: true
-source_sha: 5f25d6022eec08932f839d9f79de1c64e640e138
+source_sha: 0eb3a13dc63e13902eca3975780b9aee0c73529b
 ---
 
 In previous notes, both return analysis and factor alpha were affected by trading costs. Information Analysis, by contrast, is immune to that effect, and its core tool is the Information Coefficient (IC).

@@ -7,7 +7,7 @@ excerpt: "Alphalens alpha and beta look simple, but hidden weighting assumptions
 lang: en
 translation_of: posts/factor-strategy/low-turnover-factor-3
 auto_translated: true
-source_sha: 32d99165ce4a11a07fcfe6592793684af62d3485
+source_sha: 96c07ba11f3c20e77394540aefdcfc9dfe1ab342
 ---
 
 Continuing our walkthrough of Alphalens factor analysis reports. As noted in the previous two posts, running factor analysis with Alphalens is straightforward, but without understanding the mechanics underneath, it is easy to reach plausible-sounding but misleading conclusions.

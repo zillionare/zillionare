@@ -7,7 +7,7 @@ excerpt: "This article replicates the RSRS timing factor, analyzing its construc
 lang: en
 translation_of: posts/papers/rsrs择时指标
 auto_translated: true
-source_sha: f0f607dae81a4ae4425ffba10457f3b1d25e0734
+source_sha: d6b73474773686afd80da8002c5c5f79dc89238f
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 

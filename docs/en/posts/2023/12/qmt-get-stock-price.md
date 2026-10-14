@@ -7,7 +7,7 @@ excerpt: "XtQuant is QMT's standalone SDK for free market data and trading. This
 lang: en
 translation_of: posts/tools/qmt-get-stock-price
 auto_translated: true
-source_sha: ba07729828707b698698a6dd810e8d29ecadf208
+source_sha: d4f067f31fb30d5f48d4aeb393260f96412ddb16
 ---
 
 !!! tip "Key Takeaways"

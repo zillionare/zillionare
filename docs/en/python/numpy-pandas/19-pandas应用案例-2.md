@@ -7,7 +7,7 @@ excerpt: "Reduce memory by 90%+ using category types and compact dtypes. Boost i
 lang: en
 translation_of: articles/python/numpy-pandas/19-pandas应用案例-2
 auto_translated: true
-source_sha: 82f7f9d476157b208d3f8670c9b82ef329abd7e4
+source_sha: 50f61cd28054196eeb72d1bb2302c603862bebed
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg"
 ---
 

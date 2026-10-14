@@ -7,7 +7,7 @@ excerpt: "Leverage TF-IDF to build a word-count factor from news data. By compar
 lang: en
 translation_of: posts/factor-strategy/word-count
 auto_translated: true
-source_sha: 03960041fd17656a12128ecefa839655c900a328
+source_sha: cc70a73899093070ae66f711a1aa8724d645481f
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/my-company.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "Three foreign HFT giants face customs probes, exposing the hardware ra
 lang: en
 translation_of: posts/uncategory/need-for-speed
 auto_translated: true
-source_sha: dbba9047f02a8b8663280a3e3c2d6d1a005383c5
+source_sha: 30a2737285ebcc24c1a897fb0eef9e6b8136d0db
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/11.jpg"
 ---
 

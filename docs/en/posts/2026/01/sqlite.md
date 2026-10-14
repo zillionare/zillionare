@@ -7,7 +7,7 @@ excerpt: "SQLite’s WAL mode enables safe multi-process concurrency for trade d
 lang: en
 translation_of: posts/tools/2026十大量化技术/sqlite
 auto_translated: true
-source_sha: f5cf930b08fdad06649c640c32f5a0594f0e6ca3
+source_sha: fa002a0efb815713c0f120c817f3ee6a9f069586
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/12/153f985ba06d4a909bd17e097d904b20_3_with_two_logo.jpg"
 ---
 

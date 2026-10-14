@@ -7,7 +7,7 @@ excerpt: "This week, China’s economic working group met, regulators cracked do
 lang: en
 translation_of: posts/uncategory/weekly-0922
 auto_translated: true
-source_sha: c1037a2da8096587eef3f36548d2a943df2cc501
+source_sha: 512ced1c3b3fc5a318b865923252f12b625f23e8
 cover: "stamp_width: 60%"
 ---
 

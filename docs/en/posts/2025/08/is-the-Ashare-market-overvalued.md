@@ -7,7 +7,7 @@ excerpt: "Market volatility triggers system overflows. We analyze PE trends to a
 lang: en
 translation_of: posts/factor-strategy/is-the-Ashare-market-overvalued
 auto_translated: true
-source_sha: 36abb22a414a83e9af413f568b188e0873ec1e1c
+source_sha: ee5a5a1bf0f3a48e7e6d2bba5616ca4f1a51ebb8
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/08/title.jpg"
 ---
 

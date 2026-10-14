@@ -7,7 +7,7 @@ excerpt: "Tracing AI’s 70-year journey from the 1956 Dartmouth workshop to AGI
 lang: en
 translation_of: posts/uncategory/the-awaken-of-machine
 auto_translated: true
-source_sha: 2f784933c9b82a5374cd2a350f5de4a4936eaa5b
+source_sha: 0e620862f619607064031bba0f89296a0536b77d
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/by-swimming-pool.jpg"
 ---
 

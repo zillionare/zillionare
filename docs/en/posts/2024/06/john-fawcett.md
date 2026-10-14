@@ -7,7 +7,7 @@ excerpt: "From Harvard materials science to $70M exit to founding Quantopian, Jo
 lang: en
 translation_of: posts/career-figure/john-fawcett
 auto_translated: true
-source_sha: 86fb056ad0d1f5f77f3f748a7a7cc5d2f345c045
+source_sha: 7a379e07740fb91956db9aac662a258d889e8d57
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/john-fawcett.jpg"
 ---
 

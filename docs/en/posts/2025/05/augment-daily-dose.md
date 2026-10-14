@@ -7,7 +7,7 @@ excerpt: "Learn how to hot-backup DuckDB without stopping services using checkpo
 lang: en
 translation_of: posts/tools/augment-daily-dose
 auto_translated: true
-source_sha: 724184ca5d956bc07a8260220e4014b20b07b71d
+source_sha: ad2ca0f911a5b591f0415be4262444e08334619e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/banner/IMG_20250510_112543.jpg"
 ---
 

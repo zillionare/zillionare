@@ -7,7 +7,7 @@ excerpt: "This article demonstrates building a decision tree classifier for quan
 lang: en
 translation_of: posts/factor-strategy/decision-tree-made-easy
 auto_translated: true
-source_sha: 2405378490c4b4465bb1cff8a64f5e500f953604
+source_sha: 76f85e096f51d735253d3f587ca6c98c88319d8f
 cover: "stamp_width: 60%"
 ---
 

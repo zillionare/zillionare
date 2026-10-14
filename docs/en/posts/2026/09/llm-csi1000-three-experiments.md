@@ -7,7 +7,7 @@ excerpt: "LLM trading fails at alpha but excels at risk control. Three experimen
 lang: en
 translation_of: posts/factor-strategy/llm-csi1000-three-experiments
 auto_translated: true
-source_sha: 71e99f204e0f4fa3f419c9360478f85cb5948d15
+source_sha: d47ed4739dd562dd1cc44ca8d2e2dec594ecf17e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/09/20260920142100-llm-csi1000-three-experiments.jpg"
 ---
 

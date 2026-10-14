@@ -7,7 +7,7 @@ excerpt: "Augment's Remote Agent offers isolated, parallel development environme
 lang: en
 translation_of: posts/tools/AI-tools/remote-agent
 auto_translated: true
-source_sha: 0e2564f9b8519a22fa52bab95926319711dadbbe
+source_sha: df67c00f6be0046aff9ee99ff30691d5fa2ec5d2
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/remote-poster.png"
 ---
 

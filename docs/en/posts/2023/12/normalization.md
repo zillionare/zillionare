@@ -7,7 +7,7 @@ excerpt: "Learn the difference between normalization, standardization and regula
 lang: en
 translation_of: posts/algo/normalization
 auto_translated: true
-source_sha: 7527c05657b1532b23d9e0cccc763c07e6838028
+source_sha: da152376a4c50734260654105b936d7add4b40ee
 ---
 
 How should normalization be implemented in a deep-learning-based quant strategy? This article first distinguishes between normalization, standardization, and regularization, then analyzes common mistakes when using min-max, sine, sigmoid and other normalization functions in quant research, explains how to build a good normalization function, and closes with several factor-normalization examples.

@@ -7,7 +7,7 @@ excerpt: "This final article completes a dividend strategy using the Moonshot ba
 lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-5
 auto_translated: true
-source_sha: 1439ce721267c9dc78ccaf87bd4c0f03002f6c54
+source_sha: 0d08aee14056aea3a072c8d05cf1c6dda35d6bf2
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_193043.jpg"
 ---
 

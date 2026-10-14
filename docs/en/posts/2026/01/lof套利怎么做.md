@@ -7,7 +7,7 @@ excerpt: "This guide details LOF fund arbitrage mechanics, the T+2 execution wor
 lang: en
 translation_of: posts/factor-strategy/lof套利怎么做
 auto_translated: true
-source_sha: 2f7346da1edb5765f99dc69db32ba643bacc8165
+source_sha: 8c36a557d734db92447946bd0b718054629e4644
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/cover.jpg"
 ---
 

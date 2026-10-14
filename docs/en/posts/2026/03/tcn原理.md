@@ -7,7 +7,7 @@ excerpt: "TCN replaces black-box RNNs with transparent causal and dilated convol
 lang: en
 translation_of: posts/algo/tcn/tcn原理
 auto_translated: true
-source_sha: 1b5a84d762f6946a0ab9eb8f5420415689fa873b
+source_sha: e6a9df3c225533e9e1dcc42db338dd950ce1725a
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/03/80af4f7078e7361111b6e583ab206b88.jpg"
 ---
 

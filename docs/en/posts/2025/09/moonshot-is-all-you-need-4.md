@@ -7,7 +7,7 @@ excerpt: "This article details the implementation of a dividend screening strate
 lang: en
 translation_of: posts/tools/moonshot/moonshot-is-all-you-need-4
 auto_translated: true
-source_sha: 57fd9534b66e3a218e197676402d6e1e2a2bce01
+source_sha: 5e191c8d47aa293c8784eaeed4c200afb3a06fc4
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/4.jpg"
 ---
 

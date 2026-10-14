@@ -7,7 +7,7 @@ excerpt: "This article validates a short-term RSI mean reversion strategy, demon
 lang: en
 translation_of: posts/factor-strategy/holy-grail-still-works
 auto_translated: true
-source_sha: e09b192e27f50e8bb502c0063bcfc1666fb5e1d6
+source_sha: cd8c184a4f24d6ce9c861d8734f5f5c348163de3
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/Indiana-Jones-and-the-Last-Crusade.jpg"
 ---
 

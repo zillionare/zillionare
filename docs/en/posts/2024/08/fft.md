@@ -7,7 +7,7 @@ excerpt: "This article applies Fast Fourier Transform to decompose stock price t
 lang: en
 translation_of: posts/algo/fft
 auto_translated: true
-source_sha: 037d62f9f05b9cbaa6254b476da3da301fd83987
+source_sha: 170d368b8e319376038c62a5ede0ed191b47bb49
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/may-the-force-be-with-you.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "This case study exposes the \"look-ahead bias\" in data standardizatio
 lang: en
 translation_of: posts/algo/data-normalization
 auto_translated: true
-source_sha: cb46fa42dbbbe8ec9ade5c466cb05f36bce60bcc
+source_sha: 3bf839aef590520d4df3ff8dec3cc60bacea3c3a
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/11/dmytro-yarish-yNTrQwvYjno-unsplash.jpg"
 ---
 

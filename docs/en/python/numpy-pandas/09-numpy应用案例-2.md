@@ -7,7 +7,7 @@ excerpt: "Learn to accelerate quantitative factor computation by replacing Pytho
 lang: en
 translation_of: articles/python/numpy-pandas/09-numpy应用案例-2
 auto_translated: true
-source_sha: 0a07f43ec36741c47b8ce833a304f8a4d435eb68
+source_sha: 06dff4aefd6b714f8b791f4e5a7258ee353bfda6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/iphone-6.jpg"
 ---
 

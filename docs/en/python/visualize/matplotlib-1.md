@@ -7,7 +7,7 @@ excerpt: "Learn advanced matplotlib layout techniques using GridSpec to create c
 lang: en
 translation_of: articles/python/visualize/matplotlib-1
 auto_translated: true
-source_sha: dd351ec7f7f63a9506773c1f4bd8a7e7c51f4857
+source_sha: f4a1ce0e8869123d0ef9cfdf5f59303505ff35d5
 ---
 
 This note introduces layout concepts in Matplotlib.

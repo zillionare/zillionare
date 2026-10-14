@@ -8,7 +8,7 @@ excerpt: "Jupyter Notebook doesn't inherit host environment variables by default
 lang: en
 translation_of: posts/python/how-to-set-env-in-jupyter-notebook
 auto_translated: true
-source_sha: 90ffbb0144fa14d3d482f4aea0223ce487cf2a79
+source_sha: bc3d15b1c649374093f557395d69f0ac60aac93a
 ---
 
 We often use Jupyter Notebook to share code and present analysis results. Sometimes that code needs usernames and passwords — sharing those along with the notebook would be a serious problem. The right approach is to keep secrets in environment variables and read them from code. By default, however, Jupyter Notebook cannot see the host's environment variables.

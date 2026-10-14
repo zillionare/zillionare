@@ -7,7 +7,7 @@ excerpt: "Learn to construct the Net-High-NL (NHNL) factor using anchor effect t
 lang: en
 translation_of: posts/factor-strategy/nh-nl
 auto_translated: true
-source_sha: b15dc8d9e0e8f774c05befd395e2d3e400f3d759
+source_sha: edb0eebc27849206f53381a7fcf13e1c82148639
 ---
 
 Individual stock highs and lows are hard to gauge due to their high randomness. A chairman might flee, or a stock might encounter sudden positive news (e.g., a competitor’s warehouse catches fire). At individual stock peaks and troughs, **emotion dominates, rationality retreats, and technical indicators become钝ated (blunted)**, entering a state where <red>the current situation is indescribable, and anything is possible</red>.

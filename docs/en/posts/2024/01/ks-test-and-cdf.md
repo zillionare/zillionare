@@ -7,7 +7,7 @@ excerpt: "When the Shanghai Index drops 4%, should you buy the dip? We run K-S t
 lang: en
 translation_of: posts/algo/ks-test-and-cdf
 auto_translated: true
-source_sha: 3d0e608f5424d6d854aeced7f4e13f9358c24893
+source_sha: 6ce187d28262bd5c3afa1ecd4cfd7fb0211d60e2
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/06/sh_histo_pdf.png) In our last note, we asked a question: when the Shanghai Index plunges 4%, can you buy the dip? In this note, we'll use the K-S test to pin down the probability distribution of the Shanghai Index and answer that question. In a later note, we'll answer the same question with a different method.

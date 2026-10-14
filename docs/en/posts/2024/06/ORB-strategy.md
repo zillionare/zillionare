@@ -7,7 +7,7 @@ excerpt: "Carlo Zarattini's Quantpedia 2023 third-place entry found a 5-minute O
 lang: en
 translation_of: posts/factor-strategy/ORB-strategy
 auto_translated: true
-source_sha: 34ec2164be9d9da3de650019fd94a10f38b8078a
+source_sha: 5ca301dfd1b8d5899f6e5f82dee3550cbc2aa320
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/06/orb.jpg"
 ---
 

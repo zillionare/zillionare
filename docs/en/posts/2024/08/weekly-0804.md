@@ -7,7 +7,7 @@ excerpt: "We explore a second-derivative momentum factor that captures price acc
 lang: en
 translation_of: posts/uncategory/weekly-0804
 auto_translated: true
-source_sha: b93dac64e2bd11712617ffd6b93bb1ab787d11ae
+source_sha: 2b0775cd4ef53a979a29f7c2358fafe62a0d1771
 ---
 
 The previous **Important Calendar** warned that this week is "Super Central Bank Week," compounded by US tech earnings reports, creating significant volatility. Indeed, global equities suffered severe shocks this week. Intel plummeted over 26% in a single day.

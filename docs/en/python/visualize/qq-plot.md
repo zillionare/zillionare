@@ -7,7 +7,7 @@ excerpt: "Q-Q plots visually verify if a random variable follows a target distri
 lang: en
 translation_of: articles/python/visualize/qq-plot
 auto_translated: true
-source_sha: c84fe0af160ff25c10c69544b66fba1c544f3389
+source_sha: 1083c9014a98524a45a0dbbf32c210c8c7b4475b
 ---
 
 ## Principles

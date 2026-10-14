@@ -7,7 +7,7 @@ excerpt: "FastHTML replaces Streamlit’s limitations with HTMX and Starlette, e
 lang: en
 translation_of: posts/tools/2026十大量化技术/fasthtml
 auto_translated: true
-source_sha: bce87058ec0b61e40b9086e2cca22e5f5dff12f0
+source_sha: 5e15a6f89251df5935be2c63c662a14b0e77acd5
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260110212357.png"
 ---
 

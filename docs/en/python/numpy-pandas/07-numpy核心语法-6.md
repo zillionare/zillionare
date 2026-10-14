@@ -7,7 +7,7 @@ excerpt: "Master NumPy’s Masked Array for robust data handling and ufuncs for 
 lang: en
 translation_of: articles/python/numpy-pandas/07-numpy核心语法-6
 auto_translated: true
-source_sha: ae1368b4c8b76d4b0e0fa192d134ac995f8a6985
+source_sha: d902971e26e48068a67afeab5a102dbf5b03fab6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/poster-on-wall.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "We review an XGBoost-based portfolio framework from a PhD thesis, expl
 lang: en
 translation_of: posts/factor-strategy/a-portofolio-strategy-based-on-xgboost-1
 auto_translated: true
-source_sha: b5d20395e556d5a25f52dfceac7dab7bf0ea0dbd
+source_sha: 861d2ea5fdaf3a1ba72de49347cc804a8ca9e376
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/university-college-london-library.jpg"
 ---
 

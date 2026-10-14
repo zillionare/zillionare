@@ -7,7 +7,7 @@ excerpt: "Discover how to use AI to identify mispriced options via volatility sk
 lang: en
 translation_of: posts/factor-strategy/mispriced-option
 auto_translated: true
-source_sha: 812401ca6be8e4b7fe8b7c27e1f7fab5c5b098aa
+source_sha: b2aff921e0cfe2d799a18591c77d62c0085de0c9
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/17.jpg"
 ---
 

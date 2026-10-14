@@ -7,7 +7,7 @@ excerpt: "Master NumPy type conversion, Python interoperability, and static typi
 lang: en
 translation_of: articles/python/numpy-pandas/04-numpy核心语法-3
 auto_translated: true
-source_sha: d3e4a9a5d3a9ddd5ad70f0f12c1f3c43adf3e328
+source_sha: 5eab0aab484ad421beb9cb9bb53ebb2f5f8d77b3
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/girl-on-sofa.jpg"
 ---
 

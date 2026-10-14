@@ -7,7 +7,7 @@ excerpt: "Learn to set up QMT/XtQuant: install the source package in a Conda ven
 lang: en
 translation_of: posts/tools/work-with-xtquant
 auto_translated: true
-source_sha: 341591292fdf0ee9ceba548973d00e945bbdae2b
+source_sha: a31ae3b4c6331bcb1cb2eab27b8ad7588685650a
 ---
 
 !!! tip Key Takeaways

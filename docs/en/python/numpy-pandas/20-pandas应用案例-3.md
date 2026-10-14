@@ -7,7 +7,7 @@ excerpt: "Compare Modin, Polars, and Dask as high-performance Pandas alternative
 lang: en
 translation_of: articles/python/numpy-pandas/20-pandas应用案例-3
 auto_translated: true
-source_sha: 46b3a7810e7382d8fca8b4d391637cd3d9af6d8d
+source_sha: 8d1fb8b7856e64cd3e1b7798f452936a41e5d9db
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/mybook/men-wearing-tank.jpg"
 ---
 

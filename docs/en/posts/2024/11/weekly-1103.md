@@ -7,7 +7,7 @@ excerpt: "Nvidia and Sherwin-Williams join Dow Jones; manufacturing PMI rebounds
 lang: en
 translation_of: posts/uncategory/weekly-1103
 auto_translated: true
-source_sha: 7d3a01105616bfbbaca526dbdc2c4cae38153431
+source_sha: ed0bbdcf961d57bb71baae5093a81deb9c14a082
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/fft.jpg"
 ---
 

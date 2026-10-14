@@ -7,7 +7,7 @@ excerpt: "A developer details using Augment’s Agent Auto mode to debug a compl
 lang: en
 translation_of: posts/tools/how-to-develop-complex-project-using-augment
 auto_translated: true
-source_sha: 3b3418b8a1191180cdf07f37d6b44d22963c3ac5
+source_sha: 00eb2c39f816822f40bade41bf5175c614b22749
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/04/20250423201107.png"
 ---
 

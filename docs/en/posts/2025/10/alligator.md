@@ -7,7 +7,7 @@ excerpt: "This article builds an Alligator Indicator strategy integrating AO, fr
 lang: en
 translation_of: posts/factor-strategy/alligator
 auto_translated: true
-source_sha: af355e93bcd39405d8469c7ef44c90d69396f6e1
+source_sha: 7827a57436a563bee00eff6c699e470219d5faf6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2025/10/alligator.jpg"
 ---
 

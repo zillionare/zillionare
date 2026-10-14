@@ -7,7 +7,7 @@ excerpt: "This week: Monkeypox impacts markets, China's M2/M1 diverges, and US i
 lang: en
 translation_of: posts/uncategory/weekly-0818
 auto_translated: true
-source_sha: 4a98ed9fa32116025381cbc7c9ebc276bf91ea63
+source_sha: e34143264761eca01c4e1b5a86612d8e56cebe96
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/kenneth-griffin.jpg"
 ---
 

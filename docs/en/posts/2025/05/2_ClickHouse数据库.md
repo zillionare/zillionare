@@ -7,7 +7,7 @@ excerpt: "Day 2 of building a quantitative trading system: installing ClickHouse
 lang: en
 translation_of: posts/tools/21天驯化AI打工仔/2_ClickHouse数据库
 auto_translated: true
-source_sha: fe376ec20a4a11eef1aebc89f86a86bb6fbf24de
+source_sha: 27c1f3bcdf93e8b194e60caaf167e9ae3a8fe338
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 

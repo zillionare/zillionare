@@ -7,7 +7,7 @@ excerpt: "IPython is a lightweight yet powerful alternative to Jupyter for inter
 lang: en
 translation_of: posts/tools/8个ipython技巧
 auto_translated: true
-source_sha: f1c73471a55ebe98f63b6e93d96d14fbe7941a0f
+source_sha: 55aaa62580ef85e86ce1ff9c242c35b12d76999d
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/Mackey_Auditorium-Colorado.jpg"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "This article explores overfitting detection methods beyond standard ou
 lang: en
 translation_of: posts/algo/noise-test
 auto_translated: true
-source_sha: c8110b1794f9fb5918a797b756fac6e1bd75208b
+source_sha: a3f5864d1b28022b59550314c85f28315c8a6320
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261009154432-cover-posts-2024-08-noise-test.md.jpg"
 ---
 

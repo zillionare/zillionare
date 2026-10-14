@@ -7,7 +7,7 @@ excerpt: "The Teams and Coins factor comes from Yale's Tobias Moskowitz and his 
 lang: en
 translation_of: posts/factor-strategy/hockey-and-coin
 auto_translated: true
-source_sha: 2e5c1108b67b6f3edf8d65a405c1f86282bcf93d
+source_sha: 4586ad2bbc0f5f6b1086b65b9cff71a3101c45a1
 ---
 
 ![R50](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/12/tobias-moskowitz.png)

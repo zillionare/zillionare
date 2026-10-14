@@ -7,7 +7,7 @@ excerpt: "A practical guide to accessing academic papers without paying subscrip
 lang: en
 translation_of: posts/resources/free-paper-download
 auto_translated: true
-source_sha: 50c88f2c498e3a444861fa12325d3ce964b3e875
+source_sha: 15a42dee9e3866132a0d7e1dbf75655718170e50
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/sci-hub.jpg"
 ---
 

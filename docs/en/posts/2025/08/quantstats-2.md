@@ -7,7 +7,7 @@ excerpt: "QuantStats’ compsum and expected_return functions clarify why geomet
 lang: en
 translation_of: posts/tools/quantstats-2
 auto_translated: true
-source_sha: edc9a8d4ca212ed5226c3b3dc02f97601857d4f4
+source_sha: 056d7f8b45134830f8459542770e3b79fed4a247
 ---
 
 Assume we have built an investment strategy and obtained its daily historical **backtest** return data using a backtesting tool. The next core step is to comprehensively evaluate the strategy, including its effectiveness, risk level, and **return** performance. **QuantStats** is designed precisely for this purpose.

@@ -7,7 +7,7 @@ excerpt: "A curated list of seven top-tier academic journals essential for quant
 lang: en
 translation_of: posts/resources/top-journals-in-quantitative-finance
 auto_translated: true
-source_sha: 198339a0945554327b1ad213882fa3dbf83bc613
+source_sha: b9ee11bc444984dfd15549f3e884e601464a4b41
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/07/books-cover.jpg"
 ---
 

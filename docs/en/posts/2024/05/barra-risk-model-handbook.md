@@ -7,7 +7,7 @@ excerpt: "The Barra Risk Model Handbook is the authoritative 204-page guide to b
 lang: en
 translation_of: posts/resources/barra-risk-model-handbook
 auto_translated: true
-source_sha: 04fb1fd1d0da1fc7e77f15ed2f6d9c17a311dd06
+source_sha: fb30547abadf0c7053bbeded74249a7f871cd100
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/barra-risk-model-cover.jpg"
 ---
 

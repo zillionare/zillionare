@@ -7,7 +7,7 @@ excerpt: "XGBoost needs twice-differentiable objectives, so MAPE can only evalua
 lang: en
 translation_of: posts/factor-strategy/a-portfolio-strategy-based-on-xgboost-2
 auto_translated: true
-source_sha: d89982c68b3977a6ca608d7af264191b8f458085
+source_sha: 88c0aa80c937f2af218338e162ae10f20f944eff
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/ucl-wilkins-building.jpg"
 ---
 

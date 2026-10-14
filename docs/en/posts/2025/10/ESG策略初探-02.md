@@ -7,7 +7,7 @@ excerpt: "Systematic backtest of Huazheng and Wind ESG scores reveals weak alpha
 lang: en
 translation_of: posts/factor-strategy/ESG策略初探-02
 auto_translated: true
-source_sha: 62c8e888dffd9357912f2cdbde72fd2ee339d52d
+source_sha: ec583d16dd3341a6fc11b45de8735c31ac37d2f6
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_20251007_180707.jpg"
 ---
 

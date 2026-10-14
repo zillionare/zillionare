@@ -7,7 +7,7 @@ excerpt: "AlphaSuite offers a lightweight, open-source quantitative framework fo
 lang: en
 translation_of: posts/tools/alphasuite
 auto_translated: true
-source_sha: 7061a58f913b2cc1b3f7bb56f1ab5a23ad1d2112
+source_sha: 17f5bd3a3fa220f619843d55a765eb86c6393e7e
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/square/food/16.jpg"
 ---
 

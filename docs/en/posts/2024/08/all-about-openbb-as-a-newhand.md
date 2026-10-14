@@ -7,7 +7,7 @@ excerpt: "Learn to use OpenBB for free global market data. This guide covers CLI
 lang: en
 translation_of: posts/tools/all-about-openbb-as-a-newhand
 auto_translated: true
-source_sha: b27f619ba2b6edf48a90e398b115b617dbb142a8
+source_sha: e42bb6fa5ab03ae3189ceeb795993ae6e437bfab
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/08/unsplash-claudio.jpg"
 ---
 

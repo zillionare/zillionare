@@ -7,7 +7,7 @@ excerpt: "Learn to leverage Pandas MultiIndex for efficient factor analysis and 
 lang: en
 translation_of: posts/tools/effective-pandas-2
 auto_translated: true
-source_sha: d746a528a7a469c771242b9c236c97ae6d53a880
+source_sha: 32b916e2dd2ca9b37b8a1a7aeacb94f06f951c35
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/priceton-1.jpg"
 ---
 

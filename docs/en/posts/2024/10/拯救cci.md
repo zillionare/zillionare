@@ -7,7 +7,7 @@ excerpt: "Raw CCI signals fail factor testing due to bimodal distribution. Purif
 lang: en
 translation_of: posts/factor-strategy/拯救cci
 auto_translated: true
-source_sha: 84c75ce8e9534a26da1dd77e59980eea78eb9385
+source_sha: 1adaaf096caf08e87fedee557511f3e13309da36
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/10/quantide-research-env.gif"
 ---
 

@@ -7,7 +7,7 @@ excerpt: "This article analyzes China A-shares CSI 1000 index data to determine 
 lang: en
 translation_of: posts/factor-strategy/week-day-factor
 auto_translated: true
-source_sha: e7984fd3816103f95430d7a59ff802e384fcd0b1
+source_sha: e2e7cc56997414c6e77120f60d93c9dcc3680ace
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/university/caltech-Annenberg_center.jpg"
 ---
 

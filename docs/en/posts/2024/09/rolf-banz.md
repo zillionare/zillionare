@@ -7,7 +7,7 @@ excerpt: "Rolf Banz discovered the small-cap factor in his PhD thesis. Despite N
 lang: en
 translation_of: posts/career-figure/rolf-banz
 auto_translated: true
-source_sha: ac0b1e274f63a7cb235f9a320dddd1c8bcab1b08
+source_sha: d95219b545a748e92bbb259bc4808579e796f9a9
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/rolf-banz.jpg"
 ---
 

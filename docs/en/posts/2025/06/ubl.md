@@ -7,7 +7,7 @@ excerpt: "This article dissects a Chinese stock proverb about upper shadows, tra
 lang: en
 translation_of: posts/papers/ubl
 auto_translated: true
-source_sha: 1ddbb0888538d1bc69372f4d0cec0e0fc0ce2814
+source_sha: 6d90025ba52613a218d9cf44861a71149516a219
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/06/dragons.png"
 ---
 

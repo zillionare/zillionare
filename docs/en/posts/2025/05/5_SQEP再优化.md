@@ -7,7 +7,7 @@ excerpt: "Benchmarking SQEP data transfer reveals CSV outperforms JSON in size a
 lang: en
 translation_of: posts/tools/21天驯化AI打工仔/5_SQEP再优化
 auto_translated: true
-source_sha: 94a39891b84e1b1c6e6a25927c6ac11a6d0af842
+source_sha: 85a03c0c2838329994a12a9aed9ef7b36a9972da
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2025/05/20250514202750.png"
 ---
 

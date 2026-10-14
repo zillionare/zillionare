@@ -7,7 +7,7 @@ excerpt: "This paper reviews a 2019 study combining PCA, DWT, and XGBoost for st
 lang: en
 translation_of: posts/algo/结合主成分分析、离散小波和XGBoost的交易策略
 auto_translated: true
-source_sha: 737f0142ef071a71f4cef5a0912fa7bbdc9171d5
+source_sha: bd11dc57de895c5eeaf749076ebcc44c32add79e
 ---
 
 > This is a [paper](https://www.sciencedirect.com/science/article/abs/pii/S0957417419300995?via%3Dihub) published by Nobre and Neves in 2019. It generates a machine learning-based trading strategy that achieves better returns than a Buy-and-Hold strategy and another benchmark. The main text of this article is the abstract of the original paper; in the QuanTide commentary at the end, I provide some comments.

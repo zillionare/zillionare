@@ -7,7 +7,7 @@ excerpt: "A hands-on 2026 review of Hermes Agent vs OpenClaw. From installation 
 lang: en
 translation_of: posts/tools/hermes
 auto_translated: true
-source_sha: e1fab9f445db0bf050965af471e68e1a6388e2c5
+source_sha: 0a171bd58c4ca760914f3a8e3b2e1b9807dc26a1
 ---
 
 After using OpenClaw extensively, I was eager to try Hermes Agent. After a day of use, I can conclude that it’s hard to compare OpenClaw and Hermes, as both are iterating rapidly, with significant improvements emerging every day or two.

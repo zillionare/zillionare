@@ -7,7 +7,7 @@ excerpt: "Tsinghua’s Kronos uses binary spherical quantization to treat K-line
 lang: en
 translation_of: posts/papers/kronos
 auto_translated: true
-source_sha: e32d0ef07ddd4e24f82bb6fa805191956549070b
+source_sha: 783739fb989829af00e0cc3ce6f2f7faee0625f4
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/01/20260112184713.png"
 ---
 

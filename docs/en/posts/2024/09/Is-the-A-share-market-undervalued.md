@@ -7,7 +7,7 @@ excerpt: "Analyzing CSI 300 PE percentiles reveals apparent undervaluation, yet 
 lang: en
 translation_of: posts/factor-strategy/Is-the-A-share-market-undervalued
 auto_translated: true
-source_sha: 41eb867eaa6e60d8be14405cfa66f8c1cb37d655
+source_sha: 1573d70fc51a75d3574035d6639917d3e8d3baf4
 cover: "https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/09/eastmoney-pe-stats.png"
 ---
 
