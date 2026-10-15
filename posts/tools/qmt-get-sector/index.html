@@ -471,10 +471,12 @@ details.admonition summary { cursor: pointer; }
   .topbar { flex-wrap: nowrap; padding: 0.45rem 0.9rem; gap: 0.55rem; }
   .brand { min-width: 0; }
   .brand span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .search-box { min-width: 120px; }
   .search-box { flex: 1; min-width: 0; }
   .search-box input { width: 100%; }
   .theme-switch { display: none; }
   .topbar .theme-toggle { display: none; }  /* 移动端主题切换在抽屉内 */
+  .login-link { white-space: nowrap; }
   body.drawer-open .drawer-backdrop {
     display: block;
     position: fixed;
@@ -651,11 +653,16 @@ details.admonition summary { cursor: pointer; }
 .auth-modal[hidden] { display: none; }
 .auth-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; }
 .auth-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.52); }
-.auth-dialog { position: relative; display: grid; grid-template-columns: 290px minmax(0, 1fr); width: min(760px, 92vw); max-height: 90vh; background: var(--bg); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.32); }
+.auth-dialog { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(880px, 92vw, calc(86vh * 16 / 9)); aspect-ratio: 16 / 9; background: var(--bg); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.32); }
 .auth-visual { position: relative; overflow: hidden; background: #0b1220; }
-.auth-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.auth-scrim { position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: linear-gradient(to top, rgba(0,0,0,.62), rgba(0,0,0,0)); }
-.auth-slogan { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; color: #fff; font-size: 13.5px; text-shadow: 0 1px 4px rgba(0,0,0,.55); }
+.auth-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  -webkit-mask-image: radial-gradient(118% 132% at 42% 34%, #000 55%, transparent 96%), linear-gradient(102deg, transparent 2%, #000 16%, #000 84%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(118% 132% at 42% 34%, #000 55%, transparent 96%), linear-gradient(102deg, transparent 2%, #000 16%, #000 84%, transparent 98%);
+  mask-composite: intersect;
+}
+.login-link { white-space: nowrap; }
+.auth-slogan { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; color: #fff; font-size: 13.5px; text-shadow: 0 1px 3px rgba(0,0,0,.7), 0 0 14px rgba(0,0,0,.5); }
 .auth-panel { position: relative; padding: 24px 26px; overflow-y: auto; }
 .auth-x { position: absolute; top: 8px; right: 12px; border: 0; background: none; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; }
 .auth-tabs { display: flex; gap: 18px; margin-bottom: 14px; }
@@ -675,7 +682,8 @@ details.admonition summary { cursor: pointer; }
 .auth-ok { color: #2f9e44; font-size: 13px; margin: 10px 0 0; }
 body.auth-open { overflow: hidden; }
 @media (max-width: 720px) {
-  .auth-dialog { grid-template-columns: 1fr; width: min(420px, 94vw); }
+  .brand span { display: none; }  /* 小屏仅 logo，保证搜索可用 */
+  .auth-dialog { grid-template-columns: 1fr; width: min(420px, 94vw); aspect-ratio: auto; }
   .auth-visual { display: none; }
 }
 </style><script>
@@ -1077,7 +1085,7 @@ xtdata.get_instrument_detail(<span class="hljs-string">&quot;110047.SH&quot;</sp
         apply(next);
       });
     })();
-  </script> <!-- 登录/注册弹窗：桌面左图右表单；移动仅表单 --> <div class="auth-modal" data-auth-modal hidden> <div class="auth-backdrop" data-auth-close></div> <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title"> <div class="auth-visual" aria-hidden="true"> <img class="auth-photo" src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_0359.JPG" alt="" loading="lazy" decoding="async" width="580" height="435"> <span class="auth-scrim"></span> <p class="auth-slogan" data-i18n="auth_slogan" data-i18n-zh="量化投资研究与实战">量化投资研究与实战</p> </div> <div class="auth-panel"> <button class="auth-x" type="button" data-auth-close aria-label="关闭">×</button> <div class="auth-tabs" id="auth-title"> <button type="button" class="on" data-auth-tab="login" data-i18n="login" data-i18n-zh="登录">登录</button> <button type="button" data-auth-tab="register" data-i18n="register" data-i18n-zh="注册">注册</button> </div> <form data-auth-form="login"> <label data-i18n="auth_identity" data-i18n-zh="邮箱或用户名">邮箱或用户名</label> <input type="text" name="identity" required autocomplete="username"> <label data-i18n="auth_password" data-i18n-zh="密码">密码</label> <input type="password" name="password" required autocomplete="current-password"> <label class="auth-remember"><input type="checkbox" name="remember" checked> <span data-i18n="auth_remember" data-i18n-zh="记住我">记住我</span></label> <button type="submit" class="auth-submit" data-i18n="login" data-i18n-zh="登录">登录</button> <p class="auth-links"><a href="/members/forgot" data-i18n="auth_forgot" data-i18n-zh="忘记密码？">忘记密码？</a></p> </form> <form data-auth-form="register" hidden> <label data-i18n="auth_email" data-i18n-zh="邮箱">邮箱</label> <input type="email" name="email" required autocomplete="email"> <label data-i18n="auth_username" data-i18n-zh="用户名">用户名</label> <input type="text" name="username" required maxlength="32" autocomplete="username"> <label data-i18n="auth_password" data-i18n-zh="密码">密码</label> <input type="password" name="password" required minlength="8" autocomplete="new-password"> <label data-i18n="auth_password2" data-i18n-zh="确认密码">确认密码</label> <input type="password" name="password2" required minlength="8" autocomplete="new-password"> <button type="submit" class="auth-submit" data-i18n="register" data-i18n-zh="注册">注册</button> <p class="auth-links"><span data-i18n="auth_terms_prefix" data-i18n-zh="注册即表示同意">注册即表示同意</span><a href="/members/terms-cn" target="_blank" data-i18n="auth_terms_link" data-i18n-zh="《用户协议》">《用户协议》</a></p> </form> <p class="auth-err" data-auth-err hidden></p> <p class="auth-ok" data-auth-ok hidden></p> <span hidden data-auth-ok-src data-i18n="auth_reg_ok" data-i18n-zh="验证邮件已发送，请查收邮箱。">验证邮件已发送，请查收邮箱。</span> </div> </div> </div> <script>
+  </script> <!-- 登录/注册弹窗：桌面左图右表单；移动仅表单 --> <div class="auth-modal" data-auth-modal hidden> <div class="auth-backdrop" data-auth-close></div> <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title"> <div class="auth-visual" aria-hidden="true"> <img class="auth-photo" src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/gallery/4x3/IMG_0356.JPG" alt="" loading="lazy" decoding="async" width="580" height="435"> <p class="auth-slogan" data-i18n="auth_slogan" data-i18n-zh="量化投资研究与实战">量化投资研究与实战</p> </div> <div class="auth-panel"> <button class="auth-x" type="button" data-auth-close aria-label="关闭">×</button> <div class="auth-tabs" id="auth-title"> <button type="button" class="on" data-auth-tab="login" data-i18n="login" data-i18n-zh="登录">登录</button> <button type="button" data-auth-tab="register" data-i18n="register" data-i18n-zh="注册">注册</button> </div> <form data-auth-form="login"> <label data-i18n="auth_identity" data-i18n-zh="邮箱或用户名">邮箱或用户名</label> <input type="text" name="identity" required autocomplete="username"> <label data-i18n="auth_password" data-i18n-zh="密码">密码</label> <input type="password" name="password" required autocomplete="current-password"> <label class="auth-remember"><input type="checkbox" name="remember" checked> <span data-i18n="auth_remember" data-i18n-zh="记住我">记住我</span></label> <button type="submit" class="auth-submit" data-i18n="login" data-i18n-zh="登录">登录</button> <p class="auth-links"><a href="/members/forgot" data-i18n="auth_forgot" data-i18n-zh="忘记密码？">忘记密码？</a></p> </form> <form data-auth-form="register" hidden> <label data-i18n="auth_email" data-i18n-zh="邮箱">邮箱</label> <input type="email" name="email" required autocomplete="email"> <label data-i18n="auth_username" data-i18n-zh="用户名">用户名</label> <input type="text" name="username" required maxlength="32" autocomplete="username"> <label data-i18n="auth_password" data-i18n-zh="密码">密码</label> <input type="password" name="password" required minlength="8" autocomplete="new-password"> <label data-i18n="auth_password2" data-i18n-zh="确认密码">确认密码</label> <input type="password" name="password2" required minlength="8" autocomplete="new-password"> <button type="submit" class="auth-submit" data-i18n="register" data-i18n-zh="注册">注册</button> <p class="auth-links"><span data-i18n="auth_terms_prefix" data-i18n-zh="注册即表示同意">注册即表示同意</span><a href="/members/terms-cn" target="_blank" data-i18n="auth_terms_link" data-i18n-zh="《用户协议》">《用户协议》</a></p> </form> <p class="auth-err" data-auth-err hidden></p> <p class="auth-ok" data-auth-ok hidden></p> <span hidden data-auth-ok-src data-i18n="auth_reg_ok" data-i18n-zh="验证邮件已发送，请查收邮箱。">验证邮件已发送，请查收邮箱。</span> </div> </div> </div> <script>
     (function () {
       var API = '/members/api';
       var csrf = '';

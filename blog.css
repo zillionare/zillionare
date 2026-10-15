@@ -471,10 +471,12 @@ details.admonition summary { cursor: pointer; }
   .topbar { flex-wrap: nowrap; padding: 0.45rem 0.9rem; gap: 0.55rem; }
   .brand { min-width: 0; }
   .brand span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .search-box { min-width: 120px; }
   .search-box { flex: 1; min-width: 0; }
   .search-box input { width: 100%; }
   .theme-switch { display: none; }
   .topbar .theme-toggle { display: none; }  /* 移动端主题切换在抽屉内 */
+  .login-link { white-space: nowrap; }
   body.drawer-open .drawer-backdrop {
     display: block;
     position: fixed;
@@ -651,11 +653,16 @@ details.admonition summary { cursor: pointer; }
 .auth-modal[hidden] { display: none; }
 .auth-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; }
 .auth-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.52); }
-.auth-dialog { position: relative; display: grid; grid-template-columns: 290px minmax(0, 1fr); width: min(760px, 92vw); max-height: 90vh; background: var(--bg); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.32); }
+.auth-dialog { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(880px, 92vw, calc(86vh * 16 / 9)); aspect-ratio: 16 / 9; background: var(--bg); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.32); }
 .auth-visual { position: relative; overflow: hidden; background: #0b1220; }
-.auth-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.auth-scrim { position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: linear-gradient(to top, rgba(0,0,0,.62), rgba(0,0,0,0)); }
-.auth-slogan { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; color: #fff; font-size: 13.5px; text-shadow: 0 1px 4px rgba(0,0,0,.55); }
+.auth-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  -webkit-mask-image: radial-gradient(118% 132% at 42% 34%, #000 55%, transparent 96%), linear-gradient(102deg, transparent 2%, #000 16%, #000 84%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(118% 132% at 42% 34%, #000 55%, transparent 96%), linear-gradient(102deg, transparent 2%, #000 16%, #000 84%, transparent 98%);
+  mask-composite: intersect;
+}
+.login-link { white-space: nowrap; }
+.auth-slogan { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; color: #fff; font-size: 13.5px; text-shadow: 0 1px 3px rgba(0,0,0,.7), 0 0 14px rgba(0,0,0,.5); }
 .auth-panel { position: relative; padding: 24px 26px; overflow-y: auto; }
 .auth-x { position: absolute; top: 8px; right: 12px; border: 0; background: none; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; }
 .auth-tabs { display: flex; gap: 18px; margin-bottom: 14px; }
@@ -675,6 +682,7 @@ details.admonition summary { cursor: pointer; }
 .auth-ok { color: #2f9e44; font-size: 13px; margin: 10px 0 0; }
 body.auth-open { overflow: hidden; }
 @media (max-width: 720px) {
-  .auth-dialog { grid-template-columns: 1fr; width: min(420px, 94vw); }
+  .brand span { display: none; }  /* 小屏仅 logo，保证搜索可用 */
+  .auth-dialog { grid-template-columns: 1fr; width: min(420px, 94vw); aspect-ratio: auto; }
   .auth-visual { display: none; }
 }
