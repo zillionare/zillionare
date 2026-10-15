@@ -655,15 +655,9 @@ details.admonition summary { cursor: pointer; }
 .auth-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.52); }
 .auth-dialog { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(880px, 92vw, calc(86vh * 16 / 9)); aspect-ratio: 16 / 9; background: var(--bg); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.32); }
 .auth-visual { position: relative; overflow: hidden; background: #0b1220; }
-.auth-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  -webkit-mask-image: radial-gradient(118% 132% at 42% 34%, #000 55%, transparent 96%), linear-gradient(102deg, transparent 2%, #000 16%, #000 84%, transparent 98%);
-  -webkit-mask-composite: source-in;
-  mask-image: radial-gradient(118% 132% at 42% 34%, #000 55%, transparent 96%), linear-gradient(102deg, transparent 2%, #000 16%, #000 84%, transparent 98%);
-  mask-composite: intersect;
-}
+.auth-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
 .login-link { white-space: nowrap; }
-.auth-slogan { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; color: #fff; font-size: 13.5px; text-shadow: 0 1px 3px rgba(0,0,0,.7), 0 0 14px rgba(0,0,0,.5); }
-.auth-panel { position: relative; padding: 24px 26px; overflow-y: auto; }
+.auth-panel { position: relative; padding: 24px 26px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; }
 .auth-x { position: absolute; top: 8px; right: 12px; border: 0; background: none; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; }
 .auth-tabs { display: flex; gap: 18px; margin-bottom: 14px; }
 .auth-tabs button { border: 0; background: none; font-size: 16px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 2px 0; border-bottom: 2px solid transparent; }
