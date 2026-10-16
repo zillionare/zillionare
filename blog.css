@@ -630,6 +630,9 @@ details.admonition summary { cursor: pointer; }
 .topics-list .topic-count { font-size: 0.8rem; font-weight: 400; color: var(--muted); white-space: nowrap; }
 .topics-list .topic-intro { margin: 0; line-height: 1.85; color: var(--fg); }
 
+/* ===== 功能门控（机制见 docs/plan/FEATURE-GATES.md）：未验收功能在 prod 隐藏 ===== */
+html[data-env="prod"] .feat-member { display: none !important; }
+
 /* ===== 会员统一：主题图标 / 登录区 / 头像 / 弹窗（2026-10-15） ===== */
 .theme-toggle { border: 1px solid var(--topbar-fg); background: transparent; color: var(--topbar-fg); border-radius: 999px; padding: 0; cursor: pointer; margin-left: 0.75rem; line-height: 1; min-width: 26px; min-height: 26px; display: inline-flex; align-items: center; justify-content: center; }
 .theme-toggle:hover { background: var(--topbar-fg); color: var(--topbar-bg); }
