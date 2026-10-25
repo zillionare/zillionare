@@ -1,6 +1,6 @@
 ---
 slug: posts/tools/prism-insight
-title: "实盘跟踪390天之后，我们拆解了开源AI交易系统 PRISM-INSIGHT"
+title: "390天实盘：AI量化交易系统拆解"
 date: "2026-10-25"
 tags: "[Agent, 量化交易, 机器学习与LLM, CAN SLIM]"
 excerpt: "大模型和Agent进入量化交易快两年了，到底走到了哪一步？本文深入拆解已连续公开运行390天的开源项目PRISM-INSIGHT，探讨Python硬规则与多Agent的分工边界、自然语言空间的强化学习，以及如何用大模型补齐并修正欧奈尔的CAN SLIM体系。"
