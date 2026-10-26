@@ -8,36 +8,63 @@ excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传
 ## 报名流程和学习环境
 
 !!! abstract "课程怎么学？"
-    课程已全部录播完成，上传到了荔枝微课。
+    课程由视频、Notebook 教材和答疑组成。课程视频已全部录播完成，上传到了荔枝微课。
 
-    课程教材以 Jupyter Notebook 文档方式提供，由我们提供的服务器 host。在您购买课程后，我们将为您分配账号，创建专属您个人的计算环境。在该环境中可以阅读、运行我们提供的 Notebook，您也可以创建自己的 Notebook。学员享有独立运行环境，您的 Notebook 其它人无法看到。
+    本课共21课，合计22小时视频。
 
-    购买请点击 [链接](https://weike.fm/xw1UD19dca)
+    课程教材以 Jupyter Notebook 文档方式提供，由我们提供的服务器 host。在您购买课程后，我们将为您分配账号，创建专属您个人的计算环境。在该环境中可以阅读、运行我们提供的 Notebook，您也可以创建自己的 Notebook。
+
+    该环境中数据和依赖库都已配置好。代码可以直接运行，您也可以修改、调试代码。
+
+
+!!! abstract "课程价格？"
+    <div style="width:150px; position: relative;float:right">
+        <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 120px; display:inline-block"/>
+        <p style="text-align:center;width:120px"> 宽粉 </p>
+    </div>
+    课程当前定价是 3599 元。在购买前，建议加助教宽粉的微信 （quantfans_99），以了解购买流程，获取优惠价格及赠送礼品。
+
+
+!!! abstract "如何购买？"
+    <div style="width:150px; position: relative;float:right">
+        <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 120px; display:inline-block"/>
+        <p style="text-align:center;width:120px"> 宽粉 </p>
+    </div>
+
+    建议您先加助教宽粉的微信 （quantfans_99），以了解购买流程，获取优惠价格及赠送礼品。您也可以直接前往[荔枝微课](https://wk.nczzmn.com/channel2/1592085?es__at=1793007565855)下单，但为了帮您开通在线课程，您需要在购买后联系助教。
+
 
 !!! abstract "学这门课需要多久？"
     主要取决于你自己的时间。如果每天一课，应该在三周内能上完<br><br>
-    课程视频会永久免费收看。专属课件服务器使用限为 6 个月，6个月后，您仍然可以在两年内登录，不过将使用共享服务器。<br><br>课件服务器仅供学习使用，不能用作云服务器。
+    课程视频会永久免费收看。专属课件服务器使用限为 8 个月。<br><br>课件服务器仅供学习使用，不能用作云服务器。
+
 
 !!! abstract "哪些人适合学习这门课/前置条件？"
     请见 [课程介绍](/articles/course/factor-ml/intro/) 中的先修条件。
 
+
 !!! abstract "你们提供学习环境吗？"
     我们提供一个由 192CPU 核、256GB 内存构成的服务器集群为学员服务，学员通过浏览器登录后，即可在线学习和运行我们的示例代码。在该环境中，我们提供了供因子分析用的日线行情数据。其它数据，大家可以通过我们购买的高级别 Tushare 账号来获取。
+
 
 !!! abstract "你们的学习环境有何优势，自己搭环境可以吗？"
     我们的课程示例使用了专门的数据接口。如果要在本地搭建环境，需要修改这些接口，自行提供数据。这些接口很简单，有详细的教程。
 
+
 !!! abstract "你们的数据可以下载到本地使用吗"
     课程环境中使用的数据均为我们向第三方**采购**，按协议不得分发和转售。所以我们不能承诺提供数据下载。
 
+
 !!! abstract "我想了解更多关于课程的信息"
     我们提供课程预览环境，其中有这门课的部分课时（视频、notebook及练习题）。你可添加助教 quantfans_99 的微信，获取链接。
+
 
 ## 其它问题
 
 
 !!! tip "我该如何申请量化交易权限？有哪些门槛？"
     一般新开户可以同时申请量化交易权限。可以跟宽粉（quantfans_99）咨询，帮您找到门槛最低、资费最优的券商。
+
 
 !!! tip "可以介绍下老师吗？"
     <div style="width:150px; position: relative;float:right">
@@ -46,13 +73,8 @@ excerpt: "!!! abstract '课程怎么学？' 课程已全部录播完成，上传
     </div>
 
     -   IBM/Oracle 高级软件研发经理
-
     -   海豚浏览器（红杉资本投资）副总裁
-
     -   格物致知（量化投资）联合创始人
-  
     -   匡醍(Quantide)量化创始人
-
-    -   Zillionare 开源量化框架发起人
-
+    -   Zillionare 开源量化框架开发者
     -   《Python 高效编程实践指南》作者（机械工业出版社出版）。
