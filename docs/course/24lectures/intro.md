@@ -48,7 +48,7 @@ excerpt: "本课程是量化交易的入门课程，它面向打算进入量化�
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2023/10/cheese-course-brochure-6.png)
 
 !!! tip
-    更详细的课程大纲见 [这里](articles/course/24lectures/intro.md)
+    更详细的课程大纲见 [这里](/articles/course/24lectures/syllabus/)
 
 ## 3. 量化知识体系与本课程定位
 
