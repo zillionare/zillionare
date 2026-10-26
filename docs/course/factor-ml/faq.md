@@ -18,10 +18,6 @@ excerpt: "因子机器学习课程常见问题：如何学习、课程价格与�
 
 
 !!! abstract "课程价格？"
-    <div style="width:150px; position: relative;float:right">
-        <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 120px; display:inline-block"/>
-        <p style="text-align:center;width:120px"> 宽粉 </p>
-    </div>
     课程当前定价是 3599 元。在购买前，建议加助教宽粉的微信 （quantfans_99），以了解购买流程，获取优惠价格及赠送礼品。
 
 
