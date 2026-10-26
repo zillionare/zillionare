@@ -332,31 +332,71 @@ body {
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .admonition {
-  border-left: 4px solid var(--admon-border);
-  background: var(--admon-bg);
-  padding: 0.5rem 1rem;
+  --adm-border: var(--admon-info-bd, #0288d1);
+  --adm-title-bg: color-mix(in srgb, var(--adm-border) 18%, var(--bg));
+  --adm-title-fg: color-mix(in srgb, var(--adm-border) 72%, var(--fg));
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v5M12 8h.01'/%3E%3C/svg%3E");
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--adm-border);
+  background: var(--bg);
+  padding: 0 1rem 0.35rem;
   margin: 1rem 0;
-  border-radius: 4px;
+  border-radius: 6px;
+  overflow: hidden;
 }
-.admonition-title { font-weight: 600; margin: 0.2rem 0; }
+.admonition-title {
+  position: relative;
+  margin: 0 -1rem 0.55rem;
+  padding: 0.55rem 0.9rem 0.55rem 2.35rem;
+  background: var(--adm-title-bg);
+  color: var(--adm-title-fg);
+  font-weight: 700;
+  line-height: 1.45;
+  list-style: none;
+}
+.admonition-title::-webkit-details-marker { display: none; }
+.admonition-title::marker { content: ''; }
+.admonition-title::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  width: 1.05rem;
+  height: 1.05rem;
+  transform: translateY(-50%);
+  background-color: currentColor;
+  -webkit-mask: var(--adm-icon) center / contain no-repeat;
+  mask: var(--adm-icon) center / contain no-repeat;
+}
 details.admonition summary { cursor: pointer; }
 /* 按类型分色：蓝 info / 绿 tip / 黄 warning / 紫 quote，变量随主题切换 */
-.admonition-info, .admonition-note, .admonition-notes, .admonition-abstract {
-  border-left-color: var(--admon-info-bd, #0288d1);
-  background: var(--admon-info-bg, #e1f5fe);
+.admonition-note, .admonition-notes, .admonition-abstract {
+  --adm-border: var(--admon-info-bd, #0288d1);
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='4' width='14' height='17' rx='2'/%3E%3Cpath d='M9 9h6M9 13h6M9 17h4'/%3E%3C/svg%3E");
 }
 .admonition-tip, .admonition-tips, .admonition-hint {
-  border-left-color: var(--admon-tip-bd, #2e7d32);
-  background: var(--admon-tip-bg, #e8f5e9);
+  --adm-border: var(--admon-tip-bd, #2e7d32);
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E");
 }
-.admonition-warning, .admonition-attention, .admonition-question,
-.admonition-important, .admonition-notice, .admonition-faq {
-  border-left-color: var(--admon-warn-bd, #f9a825);
-  background: var(--admon-warn-bg, #fff8e1);
+.admonition-warning, .admonition-attention, .admonition-important, .admonition-notice {
+  --adm-border: var(--admon-warn-bd, #f9a825);
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 3.7 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z'/%3E%3Cpath d='M12 9v4M12 17h.01'/%3E%3C/svg%3E");
+}
+.admonition-question, .admonition-faq {
+  --adm-border: var(--admon-warn-bd, #f9a825);
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M9.5 9a2.5 2.5 0 1 1 4 2c-.9.6-1.5 1.1-1.5 2.5M12 17h.01'/%3E%3C/svg%3E");
 }
 .admonition-quote, .admonition-cite {
-  border-left-color: var(--admon-quote-bd, #6a1b9a);
-  background: var(--admon-quote-bg, #f3e5f5);
+  --adm-border: var(--admon-quote-bd, #6a1b9a);
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3v2a5 5 0 0 0 5-5V7Zm12 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3v2a5 5 0 0 0 5-5V7Z'/%3E%3C/svg%3E");
+}
+.admonition-success, .admonition-check, .admonition-done {
+  --adm-border: var(--admon-tip-bd, #2e7d32);
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='m8 12 3 3 5-6'/%3E%3C/svg%3E");
+}
+.admonition-danger, .admonition-error {
+  --adm-border: #c62828;
+  --adm-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='m15 9-6 6M9 9l6 6'/%3E%3C/svg%3E");
 }
 /* 代码块：苹果风（SF Mono + 圆角 + 顶部圆点条），高亮由 highlight.js 构建期生成 */
 .md-body code, .md-body tt {
