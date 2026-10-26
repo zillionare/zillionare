@@ -3,7 +3,7 @@ slug: posts/tools/prism-insight
 title: "390天实盘：AI 量化交易系统拆解"
 date: "2026-10-25"
 tags: "[机器学习与LLM, 因子策略, Python量化编程, 回测与风控, 算法与高频交易, 产品与生态, 量化通识]"
-excerpt: "开源AI交易系统跑了390天，KOSPI跌10.36%它却赚12.97%，实盘20.23%。我们拆解了它如何用Python硬规则加6个Agent跑通端到端闭环。"
+excerpt: "390天实盘账本公开：KOSPI跌10.36%仍赚12.97%，这套AI系统靠的是Python硬规则筛股、6个Agent分工分析，而非大模型看图下单。拆解它的四段流水线与踩坑改规则过程。"
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/10/20261026005742-prism-insight.jpg"
 ---
 
