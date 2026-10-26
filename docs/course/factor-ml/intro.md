@@ -174,18 +174,3 @@ excerpt: "《因子分析与机器学习策略》简介 这门课面向的对象
     * 超 400 个独立因子，分类精讲底层逻辑，学完带走 350+ 因子实现。
     * 三大实用模型，奠定未来研究框架：聚类算法搜索配对交易标的（中性策略核心）、基于 XGBoost 的资产定价、趋势交易模型。
     * 领先的教学手段：SBP（Slidev Based Presentation）、INI（In-place Notebook Interaction）和基于 Nbgrader（UCBerkley 使用中）的作业系统。
-
-
-
-<!-- 在交易中使用 DSP 技术一点也不奇怪。比如，网格交易法的鼻祖 -- 香农是信息论的发明人，这是现代通讯技术、包括 DSP 的源头；香农的同事，kelly？，发明了 kelly rule, 在赌场大赚特赚 -->
-
-
-<!--
-
-全网独家精讲 Alphalens 分析报告，助你精通因子检验和调优。
-超 400 个独立因子，分类精讲底层逻辑，学完带走 350+ 因子实现。
-课程核心价值观：课程核心价值观：Learning without thought is labor lost. Know-How & Know-Why
-三大实用模型，奠定未来研究框架：聚类算法搜索配对交易标的（中性策略核心）、基于 XGBoost 的资产定价、趋势交易模型。
-领先的教学手段：SBP（Slidev Based Presentation）、INI（In-place Notebook Interaction）和基于 Nbgrader（UCBerkley 使用中）的作业系统。
-
--->

@@ -62,14 +62,20 @@ excerpt: "本课程是量化交易的入门课程，它面向打算进入量化�
 
 最上面一层，您可以在入行之后，根据自己的目标，有选择性地深入学习。
 
-## 4. 课程注册流程
+## 4. 课程购买|注册流程
+
+<div style="width:150px; position: relative;float:right">
+    <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 120px; display:inline-block"/>
+    <p style="text-align:center;width:120px"> 宽粉 </p>
+</div>
+<div>
 
 * 联系 quantfans_99 （宽粉）进行咨询，获得下单链接
 * 通过平台购买课程
-* 购买完成当日，助教（宽粉）开通课程环境账号，将课程登录网址、账号密码发送给学员
+* 购买完成，助教（宽粉）开通课程环境账号，将课程登录网址、账号密码发送给学员
 * 助教建立课程辅导群，邀请老师和学员加入
 * 学员开始学习，学习中遇到问题，通过微信群提问，私课班当天答疑。其它班通过微信群答疑。
-* 课程视频仍可永久观看。服务器资源根据套餐决定。
+</div>
 
 课程实验环境如下：
 
