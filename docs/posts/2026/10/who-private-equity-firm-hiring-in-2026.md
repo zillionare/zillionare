@@ -1,5 +1,6 @@
 ---
 title: 不招初级员工了！2026如何才能进顶级对冲基金实习？
+slug: posts/career-figure/who-private-equity-firm-hiring-in-2026
 ---
 
 最近几个月，全球名校的计算机、数学和金融工程专业学生，普遍笼罩在一股真切的求职恐慌里。
