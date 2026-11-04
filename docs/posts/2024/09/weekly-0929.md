@@ -1,5 +1,5 @@
 ---
-title: "套利定价理论工程实践：量化交易应用案例（量化周刊第11期）"
+title: "套利定价理论工程实践：量化交易应用案例（第11期）"
 date: 2024-09-29
 category: others
 slug: posts/uncategory/weekly-0929
