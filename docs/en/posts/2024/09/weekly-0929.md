@@ -1,79 +1,80 @@
 ---
-title: "APT Engineering for Quant Trading: Numpy Vectorization Case"
+title: "Arbitrage Pricing Theory in Practice: Quant Trading Use Cases"
 date: 2024-09-29
 slug: en/posts/uncategory/weekly-0929
-tags: [Factor Investing, Linear Regression, Numpy, Quant Trading]
-excerpt: "Engineering APT in quant trading: factor exposure estimation, portfolio optimization, and transaction costs. Includes A-share case studies and Numpy linear regression vectorization."
+tags: [Arbitrage Pricing Theory, Factor Investing, Quantitative Trading, Numpy]
+excerpt: "How does arbitrage pricing theory translate into practice? A walkthrough of factor exposure estimation, portfolio optimization, and cost and capacity constraints, with China A-share use cases."
 lang: en
 translation_of: posts/uncategory/weekly-0929
 auto_translated: true
-source_sha: 6cc56b5f4ed4e343da71412dc03ae5833fbd27e4
+source_sha: a841b64de4795683a55f3f25e160112a73904c3e
 cover: "stamp_width: 60%"
 ---
 
-## Engineering Practice of Arbitrage Pricing Theory and Quantitative Trading Applications
+## Putting Arbitrage Pricing Theory into Practice: Quantitative Trading Use Cases
 
-Arbitrage Pricing Theory (APT) posits that asset returns are linearly driven by multiple common factors. As long as a portfolio has no net factor exposure, no predictable excess return should exist. Its engineering implementation typically involves three steps:
+Arbitrage Pricing Theory (APT) holds that asset returns are driven linearly by a set of common factors, so a portfolio with no net factor exposure should produce no predictable excess return. Putting it into production usually takes three steps:
 
-1. **Factor Exposure Estimation**: Use regression and rolling windows to estimate the portfolio’s exposure to style factors (market cap, momentum, volatility, industry, etc.);
-2. **Portfolio Optimization**: Formulate and solve a convex optimization problem with constraints on factor exposure, return targets, turnover, and costs to determine weights;
-3. **Trading and Capacity Control**: Execute under trading constraints and use attribution analysis to confirm that returns do not stem from hidden factor exposures.
+1. **Factor exposure estimation**: use regression over rolling windows to estimate the portfolio's exposure to style factors (size, momentum, volatility, sector, etc.);
+2. **Portfolio optimization**: frame "factor exposure constraints + return target + turnover and cost constraints" as a convex optimization problem and solve for the weights;
+3. **Execution and capacity control**: trade under execution constraints, then use attribution reviews to confirm the return is not coming from hidden factor exposure.
 
-In China A-shares, common applications include market-neutral and statistical arbitrage portfolios (stripping Beta using factor models), pricing relationships between baskets of stocks and index futures, and weight optimization for multi-factor stock selection. For a systematic study of factor analysis and regression methods, start with the [FAQs for the Factor Machine Learning Course](/articles/course/factor-ml/faq/); the accompanying Numpy linear regression practical case is provided in the second half of this article.
+In China A-shares, typical use cases include market-neutral and statistical arbitrage portfolios (stripping out beta with a factor model), the pricing relationship between a basket of stocks and index futures, and weight optimization in multi-factor stock selection. For a systematic treatment of factor analysis and regression methods, start with [the factor machine-learning course FAQ](/articles/course/factor-ml/faq/); the companion Numpy linear regression walkthrough is in the second half of this article.
 
-### This Week’s Headlines
-* Market surge! The Shanghai Composite Index rose 12.8% this week, and the CSI 300 rose 15.7%.
-* The first market-cap management guideline has been released, specifying requirements for index constituents and stocks trading below net asset value (NAV).
-* Changjiang Securities: Sectors such as banking, real estate, construction, and non-bank financials are more likely to benefit from the valuation enhancement plan for stocks trading below NAV.
+### This Week's Headlines
+* Big rally! The Shanghai Composite surged 12.8% this week, with the CSI 300 up 15.7%.
+* The first market-value management guidelines were released, setting out specific requirements for index constituents and stocks trading below book value.
+* Changjiang Securities: banks, real estate, construction, and non-bank financials may benefit most from revaluation plans for sub-book-value companies.
 
-### Next Week’s Outlook
+### What to Watch Next Week
 * Monday: Caixin releases September PMI data.
-* OpenAI hosts its 2024 DevDay event starting October 1.
-* Market closed from Tuesday (October 1) to October 7 for the National Day holiday.
+* OpenAI hosts its 2024 DevDay starting October 1.
+* Markets closed Tuesday (October 1) through October 7.
 
-### This Week’s Selection
+### This Week's Picks
 
-* Serial! Numpy Programming Essential for Quants (Part 5)
-
----
-
-* China A-shares surged across the board. On the news front, the State Council Information Office held a press conference on Tuesday to introduce financial support for high-quality economic development. Pre-market reserve requirement ratio (RRR) cuts and reduced interest rates on existing mortgages boosted market confidence. During trading, the capital market released a series of major positive signals: the CSRC is formulating the "M&A Six Guidelines," creating a 300 billion RMB initial stock buyback and increase loan, conducting a 500 billion RMB initial swap facility operation for securities, funds, and insurance companies, supporting long-term capital from entities like Huijin Company, and studying the creation of a market stabilization fund.
-<claimer>Source: East Money</claimer>
-* Caixin, September 28: Recently, the first market-cap management guideline for A-shares was released, clarifying specific requirements for index constituents and stocks trading below NAV. Industry insiders note that the new policy helps reprice undervalued high-quality assets, especially state-owned enterprises with deep discounts to NAV but stable profitability, which may have room for value revaluation and present investment opportunities. Another analyst noted that stocks trading below NAV while offering high dividend yields deserve particular attention from investors.
-* The People’s Bank of China (PBOC) adjusted the interest rate for 7-day reverse repo operations in the open market to 1.5%. This week, the PBOC also cut the RRR by 0.5%.
-
-<claimer>Source: Caixin</claimer>
+* Serialized! Numpy programming every quant must know (5)
 
 ---
 
-# Numpy Quantitative Application Case [2]
+* China A-shares rallied across the board this week. On the news front, the State Council Information Office held a press conference on Tuesday detailing financial support for high-quality economic development. Pre-market cuts to the reserve requirement ratio and to existing mortgage rates lifted confidence, and during the session capital markets saw a dense stream of major policy support: the CSRC is drafting the "M&A Six Measures," a first tranche of RMB 300 billion in relending for share buybacks and increases, a first tranche of RMB 500 billion in swap facilities for securities firms, funds, and insurers, support for medium- and long-term capital such as Central Huijin to enter the market, and a stabilization fund is under study.
+<claimer>Source: Eastmoney</claimer>
+* Cailian Press, September 28: China A-shares' first market-value management guidelines have been released, specifying requirements for index constituents and stocks trading below book value. Industry observers say the new policy helps repriced undervalued quality assets; in particular, deeply sub-book-value central SOEs with stable profitability may offer room for a value re-rating and thus investment opportunities. Other analysts note that stocks that are simultaneously below book value and high-yielding deserve even more attention.
+* The PBOC adjusted the rate on its 7-day reverse repurchase operations to 1.5%. It also cut the reserve requirement ratio by 0.5 percentage points this week.
 
-Momentum and mean reversion are the most important quantitative factors. There are many algorithms to characterize momentum, but the slope of a fitted line is undoubtedly the most intuitive one.
+<claimer>Source: Cailian Press</claimer>
+
+---
+
+# Numpy in Quantitative Finance: A Case Study [2]
+
+
+Momentum and reversal are the most important quantitative factors. There are many ways to characterize momentum, but the slope of a fitted line is surely the most intuitive.
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/two-crossed-line.jpg?1)
 
 ---
 
-In the graph above, if the two lines represent the moving average trends of two stocks, you would obviously prefer to buy the orange one because its slope is steeper, meaning it rises faster.
+In the chart above, if the two lines were moving averages for two stocks, you would clearly rather buy the orange one — its slope is steeper, meaning it is rising faster.
 
-Human vision has powerful pattern-recognition capabilities. We can easily see that the upward trend of the orange points is stronger. However, to enable a computer to identify which dataset is better, we must fit a line, find the trend line, and then compare the slopes of the trend lines. Line fitting, curve fitting, or polynomial fitting are all linear regression problems.
+Human vision is remarkably good at spotting patterns. We can easily see that the upward trend in the orange dots is stronger. But to make a computer recognize which dataset is better, we have to fit a line, find the trend line, and compare slopes. Line fitting — or curve fitting, or polynomial fitting — is a linear regression problem.
 
-In this chapter, we will discuss methods for line fitting, ranging from the most basic implementation to a vectorized implementation that accelerates performance by a hundredfold.
+In this chapter we discuss line fitting, starting from the most basic implementation and working up to a vectorized version that is a hundred times faster.
 
 ## Linear Regression and Least Squares
 
-How do we discover a line that best reflects the underlying trend hidden among a set of random numbers? This problem has puzzled scientists since the Age of Discovery.
+How do you find, among a pile of random numbers, the straight line that best captures the hidden trend? This question has vexed scientists since the Age of Exploration.
 
-During that era, sailors needed to determine their latitude using celestial observations (longitude was calculated using solar time), which required accurately describing celestial behavior based on human observations.
+In that era, sailors determined latitude from the stars (longitude was measured with chronometers), which required an accurate description of celestial behavior based on human observations.
 
 ---
 
-When addressing errors caused by celestial observations, French mathematician Adrien Marie Legendre first discovered the method of least squares (1805). Later, Carl Friedrich Gauss proposed this method in his 1809 work *Theoria Motus Corporum Coelestium in Sectionibus Conicis Solem Ambientium* (Theory of the Motion of the Celestial Bodies). Finally, in 1829, he provided the theoretical proof that least squares is the best fit for linear regression. This proof is known as the Gauss-Markov theorem.
+In tackling the errors induced by celestial observation, the Frenchman Adrien-Marie Legendre was the first to discover the method of least squares (1805). Gauss then presented the method in his 1809 work *Theoria Motus Corporum Coelestium*. Finally, in 1829, he supplied the theoretical proof that least squares is the best fit for linear regression — now known as the Gauss–Markov theorem.
 
 !!! info
-     There was a dispute over the discovery rights of least squares between Legendre and Gauss. This dispute was no less intense than the controversy between Newton and Leibniz over the discovery of calculus. However, when Legendre proposed least squares, it was merely a conjecture; the theoretical proof was completed by Gauss. Legendre was a prominent mathematician in the late 18th century, ranked alongside Lagrange and Laplace, and was known as the "Three Ls" (derived from the first letters of their names).
+      Legendre and Gauss fought over who discovered least squares — a dispute no less bitter than the Newton–Leibniz feud over calculus. But Legendre's least squares was only a conjecture; the theoretical proof came from Gauss. Legendre was a late-18th-century mathematician on par with Lagrange and Laplace; the three were known as the "three Ls" (after their names).
 
-Line fitting (or linear regression) involves finding a line in a set of (x, y) points such that the sum of the squared distances from all points to the line is minimized. In Numpy, the most common method for fitting is via `Polynomial.fit`:
+Line fitting (or linear regression) means finding, within a point set of (x, y), the line that minimizes the sum of squared distances from all points to that line. In Numpy, the most common approach is to fit with `Polynomial.fit`:
 
 ```python
 from numpy.polynomial import Polynomial
@@ -104,20 +105,20 @@ b, a = fitted.coef
 print("slope is {a:.3f}")
 ```
 
-In many tutorials, polynomial regression in Numpy is performed using `polyfit`. However, since version 1.4, we should use the classes and methods under the `polynomial` module. `polyfit` is considered a deprecated interface. Note that although `polynomial` was designed as a replacement for functions like `polyfit`, there are significant behavioral differences.
+Many tutorials show polynomial regression in Numpy using `polyfit`. But since version 1.4 we should be using the classes and methods in the `polynomial` module; `polyfit` is regarded as a legacy interface. Note that although `polynomial` was designed to replace functions like `polyfit`, its behavior differs considerably.
 
-<!--Polynomial.fit is the method for line fitting using least squares. It returns a Polynomial object, which has a __call__ attribute; passing x coordinates yields the corresponding y values.-->
+<!--Polynomial.fit is the method for least-squares line fitting. It returns a Polynomial object with a __call__ attribute, so passing x coordinates gives you the corresponding y values.-->
 
-Regarding `Polynomial.fit`, note that we passed two parameters: `deg=1` and `domain=[]`.
+With `Polynomial.fit`, note that we pass two parameters, `deg=1` and `domain=[]`.
 
-We specify `deg=1` because we want to fit the set of points represented by (x, y) into a straight line. If we wish to fit a quadratic curve, we can specify `deg=2`, and higher-order curves follow similarly.
+We specify `deg=1` because we want to fit the point set (x, y) with a straight line; specifying `deg=2` fits a quadratic, and higher degrees follow the same pattern.
 
 ---
 
-`domain` is an optional parameter. Omitting it does not affect our subsequent prediction of the fitted line via `fitted(x)`, but it does affect the slope we calculate (line 19). If we omit the `domain = []` parameter here, the coefficients we obtain would be [2.47, 4.57], which is far from the [0.05, 2] used when generating the data. However, when we specify `domain = []`, we see that the coefficients of the fitted line revert to our expected [0.05, 2].
+`domain` is an optional parameter. Omitting it does not affect our later use of `fitted(x)` to obtain the predicted line, but it does affect the slope we want (line 19). If we omit `domain = []` here, the coefficients we get are [2.47, 4.57], far from the [0.05, 2] used to generate the data. Once we specify `domain = []`, the fitted coefficients come back as the expected [0.05, 2].
 
 !!! tip
-    We can also call `fit` as follows:
+    We can also call `fit` like this:
     ```python
     fitted = Polynomial.fit(x, y, deg=1, window=(min(x), max(x)))
     intercept, slope = fitted.coef
@@ -131,29 +132,29 @@ We specify `deg=1` because we want to fit the set of points represented by (x, y
     print(f"slope is {slope:.3f}")
     ```
 
-    `convert` is a transformation function that translates and scales the domain and window.
+    `convert` is a transform that shifts and rescales the domain and window.
 
 
-<!--There are significant behavioral differences between Polynomial.fit and polyfit. polyfit returns coefficients, residuals, and other data; Polynomial.fit returns an object, from which coefficients, residuals, and other data must be further extracted via the object's attributes. Second, the order of coefficients differs: polyfit uses descending powers, while Polynomial uses ascending powers. Third, the coefficients differ: the object returned by Polynomial.fit automatically translates and scales the domain and window to the [-1, 1] interval.-->
+<!--Polynomial.fit differs considerably in behavior from polyfit. polyfit returns coefficients, residuals, and other data; Polynomial.fit returns an object whose attributes you use to retrieve them. Second, coefficient ordering differs: polyfit uses descending powers, Polynomial uses ascending powers. Third, the coefficients themselves differ: the object returned by Polynomial.fit automatically shifts and scales the domain and window to the [-1, 1] interval.-->
 
 
-Linear regression is a very common technique, with similar implementations available in libraries such as scipy, sklearn, and statsmodels.
+Linear regression is an extremely common technique, and scipy, sklearn, and statsmodels all offer similar implementations.
 
 ---
 
-For this reason, calculating slope factors for prices or moving averages is technically trivial.
+That is why computing a slope factor on prices or moving averages is technically trivial.
 
-However, what if we require a moving linear regression? This may require some ingenuity.
+But what if we want rolling linear regression? That takes a bit more finesse.
 
-## Moving Linear Regression
+## Rolling Linear Regression
 
-Moving linear regression refers to calculating another time series $S$ from a time series $T$ and a sliding window $win$, such that
+Rolling linear regression means that, given a time series $T$ and a sliding window $win$, we compute another time series $S$ such that
 
 $$
 S_i = Slope(T_{[i-win+1, i-win+2, ..., i]})
 $$
 
-The simplest and most direct implementation is via a loop:
+The simplest, most direct implementation uses a loop:
 
 ```python
 from numpy.polynomial import Polynomial
@@ -190,15 +191,15 @@ for i in range(win, len(y)):
 print(S)
 ```
 
-This code calculates the slope of the fitted line for the past 10 points starting from the 10th period, and we plot tangents at the turning points of the curve. These tangents are generated using the parameters of the fitted lines.
+This code computes, starting from the 10th period, the slope of the line fitted to the previous 10 points, and draws the tangent at each turning point of the curve. Those tangents are generated directly from the fitted line's parameters.
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/xplussinx.jpg)
 
 ---
 
-Here, we generated the curve using the equation `x + sin(x)`. You will notice that the resulting curve somewhat resembles stock price fluctuations. This is not surprising, as stock price fluctuations can essentially be decomposed into a DC component and a superposition of many sine waves. The DC component reflects the company’s ongoing operational capability, while the sine waves reflect the traces left by short-term speculative capital trading in the asset.
+Here we generated the curve with the equation `x + sin(x)`. You will notice that the result looks somewhat like stock price movement. Not surprising: a price series should decompose into a DC component plus a superposition of many sine waves. The DC component reflects the company's ability to keep operating; the sine waves reflect the traces left by short-term traders operating in the name.
 
-Returning to our main topic. Now, let’s remove the plotting functionality and test how long this code takes to execute:
+Back to the point. Now let's strip out the plotting and time how long this code takes:
 
 ```python
 x = np.linspace(0, 100, 100)
@@ -217,25 +218,25 @@ def moving_lsq(ts, win: int):
 %timeit moving_lsq(y, 10)
 ```
 
-90 loops took a total of 25ms. Considering that there are over 5,000 stocks in China A-shares, calculating all of them once would take more than 2 minutes.
+90 iterations took 25 ms in total. With over 5,000 stocks in China A-shares, a full pass would take more than two minutes.
 
 ---
 
-To accelerate this solution, we must leverage vectorization. However, this time, there is no magical API to call; we must roll up our sleeves, start by understanding the underlying mathematical principles, and implement it ourselves.
+To speed this up we need vectorization. But this time there is no magic API to call — we have to roll up our sleeves, start from the underlying math, and write our own implementation.
 
 ## Vectorization
 
-Consider a linear regression with `m` points. For each point, we have:
+Consider a linear regression over `m` points. For each point we have:
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/2024/05/linear-regression-group.jpg)
 
-If all points fall on the same line, the following matrix equation holds:
+If all points lie on the same line, the following matrix equation holds:
 
 $$
 Y = A\beta + b
 $$
 
-Here, $A$ is X, and $\beta$ is the coefficient to be solved:
+Here $A$ is X, and $\beta$ is the coefficient vector we need to solve for:
 
 $$
 \beta = {(A^TA)}^{-1}A^TY
@@ -243,9 +244,9 @@ $$
 
 ---
 
-For formula derivation, see [《Python programming and Numerical Methods - A Guide for Engineers and Scientists》](https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter16.04-Least-Squares-Regression-in-Python.html)
+For the derivation, see [*Python Programming and Numerical Methods: A Guide for Engineers and Scientists*](https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter16.04-Least-Squares-Regression-in-Python.html).
 
-We can manually verify this formula:
+We can verify the formula by hand:
 
 ```python
 x = np.linspace(0, 9, 10)
@@ -261,23 +262,23 @@ alpha_2 = Polynomial.fit(x, y, deg=1, domain=[]).coef[1]
 np.isclose(alpha_1, alpha_2, atol=1e-2)
 ```
 
-We solved for the slope using two methods, and the results show that, under an absolute error constraint of 1e-2, they are identical.
+We solved for the slope two ways, and the results agree to within an absolute error of 1e-2.
 
-Note that in line 7, we used the variable name `pinv`. This is because there is a function with the same name in `numpy.linalg`, which exactly calculates ${(A^TA)}^{-1}A^T$.
+Note that in line 7 we use the odd variable name `pinv`, because `numpy.linalg` has a function of that name that computes exactly ${(A^TA)}^{-1}A^T$.
 
-However, so far, we have only accomplished what `Polynomial.fit` does. How do we calculate the slopes of fitted lines for all sliding windows at once?
+But so far we have only reproduced what `Polynomial.fit` does. How do we compute the fitted slopes for all sliding windows at once?
 
 ---
 
-Note that we calculate the slope via matrix multiplication. In Numpy, matrix multiplication is inherently vectorized. In line 7, `pinv` is a (1, 10) matrix, and `y` is a (10,) vector. If we can stack the corresponding `pinv` for each group under the sliding window and stack `y` into a matrix, we can calculate all slopes at once via matrix multiplication.
+Note that we compute the slope via a matrix multiplication, and in Numpy matrix multiplication is inherently vectorized. In line 7, `pinv` is a (1, 10) matrix and `y` is a (10,) vector. If we can stack the `pinv` for each sliding window and stack the `y` values into a matrix, we can compute all the slopes in a single matrix multiplication.
 
-Let’s start with `y`. When we slide `y = np.arange(5)` with a window size of 3, we essentially obtain the following matrix:
+Start with `y`. Sliding over `y = np.arange(5)` with a window of 3 yields the matrix:
 
 $$
 \begin{bmatrix}0&1&2\\1&2&3\\2&3&4\\\end{bmatrix}
 $$
 
-To obtain this matrix, we can use fancy indexing:
+We can build it with fancy indexing:
 
 ```python
 y[
@@ -287,7 +288,7 @@ y[
 ]
 ```
 
-Therefore, to implement the matrix for `y` under a sliding window, we only need to construct this fancy index matrix. The good news is that the fancy index matrix is highly regular:
+So to build the matrix of y values across sliding windows, we only need to construct this fancy index matrix. Good news: the fancy index matrix is highly regular:
 
 ---
 
@@ -310,7 +311,7 @@ arr_1d = np.arange(10, 20)
 extract_windows_vectorized(arr_1d, 4)
 ```
 
-If you find this method difficult to understand, Numpy has already provided a function named `as_strided` that can achieve our functionality in one step and is faster (by a factor of 1) than the above method:
+If that feels hard to follow, Numpy already provides a function called `as_strided` that does the job in one step, and about twice as fast as the method above:
 
 ```python
 from numpy.lib.stride_tricks import as_strided
@@ -324,27 +325,27 @@ strides = (stride, stride)
 as_strided(y, shape, strides)
 ```
 
-The matrix `pinv` is generated from `x`. If the time series `y` has a length of 100 periods, the values of `x` will range from 0 to 99.
+The matrix `pinv` is generated from x. If the time series y is 100 periods long, then x ranges from 0 to 99.
 
 ---
 
-Where $[x0, x1, ..., x_{win-1}]$ corresponds to $[y0, y1, ..., y_{win-1}]$,
+Here $[x0, x1, ..., x_{win-1}]$ corresponds to $[y0, y1, ..., y_{win-1}]$,
 $[x1, x2, ..., x_{win}]$ corresponds to $[y1, y2, ..., y_{win}]$, and $[x_{-win}, x_{-win+1}, ... x_{-1}]$ corresponds to $[y_{-win}, y_{-win+1}, ..., y_{-1}]$.
 
-Therefore, the coefficient matrix $A$ we need to construct is:
+Therefore the coefficient matrix $A$ we need to build is:
 
 ```python
 A = as_strided(np.arange(len(y)), shape, strides)
 pinv = np.linalg.pinv(A)
 ```
 
-The subsequent regression operations are the same as before:
+The regression then proceeds exactly as before:
 
 ```python
 alpha = pinv.dot(y).sum(axis = 0)
 ```
 
-The complete code is as follows:
+Here is the complete code:
 
 ```python
 def moving_lsq_vector(ts, win:int):
@@ -359,11 +360,11 @@ def moving_lsq_vector(ts, win:int):
     return pinv.dot(y).sum(axis=0)
 ```
 
-This version is 100 times faster than the previous implementation using `Polynomial.fit` plus a loop. You might guess that this 100x speedup is approximately equal to the number of loop iterations. That is the cost of looping.
+This version is 100x faster than the earlier one using `Polynomial.fit` inside a loop. You may have guessed that the 100x roughly matches the number of iterations — that is the price of looping.
 
 ---
 
-Now, can we use the method here to accelerate other calculations? The answer is obviously yes. If you need to quickly calculate the 5-day moving average for the past 10 days for 5,000 stocks, after obtaining the recent 14-day stock prices for these stocks, you form a (5000, 14) matrix $A$. What remains is to convert this matrix into a 3D matrix and then multiply it by a convolution kernel:
+Now, can we use this approach to speed up other computations? Obviously yes. Suppose you want to compute the 5-day moving average over the past 10 days for 5,000 stocks. After fetching the last 14 days of prices for those stocks, you have a (5000, 14) matrix $A$. All you need to do now is convert it into a 3-D array and multiply by a convolution kernel:
 
 ```python
 from numpy.typing import NDArray
@@ -397,43 +398,43 @@ batch_move_mean(prices, 5)
 ```
 ---
 
-The output is:
+Output:
 
 ```
 array([[ 2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 11.],
        [12., 13., 14., 15., 16., 17., 18., 19., 20., 21.]])
 ```
 
-As expected, it is fast as lightning.
+Exactly as expected. But lightning fast.
 
-## Digression
+## A Digression
 
-Should we use fitted trend lines as a momentum factor? This is a topic worth discussing in depth. The biggest problem with slope factors is not that all time series have obvious trends. Mathematically, if the fitting residuals are large, it indicates that the time series has not yet formed a clear trend, and thus the slope factor should not be deployed. Another issue is the classic problem of linear regression: the significant impact of individual outliers on the fit. Should the fitted line minimize the sum of distances from all points to the line, or should it minimize the sum of distances for the majority of points (which is less than the former)?
+Should a fitted trend line be used as a momentum factor? That is a topic worth discussing in depth. The biggest problem with the slope factor is that not every time series has a clear trend. Mathematically, if the fit residual is large, the series has not yet formed a clear trend, and the slope factor should not be used. The other problem is the old bugbear of linear regression: individual outliers heavily influence the fit. Should the fitted line minimize the summed distance from all points, or make the distance smaller for most points (smaller than the former)?
 
 ## Conclusion
 
-We discussed how to perform linear regression (line fitting) using Numpy and introduced the latest `polynomial` API. We then introduced how to implement vectorization using matrix operations.
+We discussed how to do linear regression (line fitting) in Numpy and introduced the modern polynomial API. Then we showed how to vectorize using matrix operations.
 
 ---
 
-The core point is to use the `as_strided` method to updimension the array, and then perform matrix operations on the updimensioned array to achieve vectorization. We also used the same approach to solve the problem of calculating moving averages for 5,000 stocks at once. You also saw practical examples of fancy indexing. This chapter contains many techniques and serves as a summary of previous chapters.
+The key idea is to use `as_strided` to add dimensions to an array, then perform matrix operations on the expanded array to achieve vectorization. We used the same idea to compute moving averages for 5,000 stocks in one shot. You also saw a practical example of fancy indexing. This chapter is heavy on technique and serves as a wrap-up of the preceding ones.
 
 <about/>
 
 ---
 
-## The "Factor Investing and Machine Learning Strategies" Course is Now Open!
+## The "Factor Investing and Machine Learning Strategies" Course Is Open!
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/1.png)
 
 ---
 
-## Clear Goals, Strong Sense of Achievement
+## Clear Objectives, Tangible Results
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/2.png)
 
 ---
 
-## Why You Should Take QuanTide’s Course?
+## Why QuanTide's Course Is Worth It
 
 ![](https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/course/factor-ml/3.png)
