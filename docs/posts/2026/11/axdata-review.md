@@ -4,7 +4,7 @@ title: "AxData 把免费的 A 股数据留在本地"
 date: "2026-11-09"
 excerpt: "从通达信盘中行情到多源特色数据，AxData 把取数和本地存储接成一条研究链路。实测数据口径、Parquet 查询与上手过程，说明它值得试的地方和当前边界。"
 tags: "[数据源, Python量化编程, 量化通识]"
-cover: ""
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261111101854-axdata-review.jpg"
 ---
 
 做 A 股量化，首先遇到的拦路虎就是从哪里获得数据。你可能已经尝试过 AkShare、Pytdx、Tushare、JQData、BaoStock、xtquant 等。一个无法回避的问题是：
