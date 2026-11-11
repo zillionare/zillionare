@@ -3,7 +3,7 @@ slug: posts/tools/axdata-review
 title: "AxData：不止是另一个量化数据源"
 date: "2026-11-09"
 excerpt: "从通达信盘中行情到多源特色数据，AxData 把取数和本地存储接成一条研究链路。实测数据口径、Parquet 查询与上手过程，说明它值得试的地方和当前边界。"
-tags: "[数据源, Python量化编程, 量化通识]"
+tags: "[数据与存储, Python量化编程, 产品与生态, 开发效率, 回测与风控, 量化通识]"
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261111101854-axdata-review.jpg"
 ---
 
