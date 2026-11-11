@@ -1,4 +1,5 @@
 ---
+slug: posts/tools/axdata-review
 title: "AxData 把免费的 A 股数据留在本地"
 date: "2026-11-09"
 excerpt: "从通达信盘中行情到多源特色数据，AxData 把取数和本地存储接成一条研究链路。实测数据口径、Parquet 查询与上手过程，说明它值得试的地方和当前边界。"
