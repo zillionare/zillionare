@@ -29,29 +29,7 @@ From a strategy developer's point of view, the ideal data experience should real
 Probably because unifying different data sources is hard, AxData only puts a very small set of core data into local storage, collected on a schedule and read locally at use time; most data still goes the remote-fetch route for now. So AxData currently runs a dual-track system on the data side.
 
 
-```mermaid
-flowchart TD
-    subgraph 直取["源端直取（默认不入库）"]
-        A["client.call(接口名, 参数)"] --> B["Source Request Gateway<br/>参数校验 · 字段归一"]
-        B --> C["Provider 适配器<br/>通达信 / 腾讯 / 巨潮 …"]
-        C --> D["上游服务器"]
-        B --> E["返回 DataFrame"]
-    end
-
-    subgraph 入库["采集入库（显式触发）"]
-        F["Collector 任务<br/>手动 / 定时"] --> G["Collector Runner<br/>队列 · 重试 · 资源组"]
-        G --> H["raw<br/>原始快照，不可变"]
-        H --> I["staging<br/>类型转换 · 代码规范 · 日期规范 · 去重"]
-        I --> J["core<br/>统一业务语义"]
-        J --> K["factor<br/>因子宽表"]
-    end
-
-    J --> L["DuckDB 视图 / SQL"]
-    K --> L
-    L --> M["client.daily() · query()"]
-    L --> N["HTTP API 8666 · Web 8667"]
-    M --> O["Notebook / 回测"]
-```
+![AxData data pipeline](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261112131455-mermaid-axdata-review.jpg)
 
 As the diagram shows, AxData brings excellent engineering order:
 
