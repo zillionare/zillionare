@@ -1,6 +1,6 @@
 ---
 slug: posts/factor-strategy/mispriced-option
-title: "不写代码：AI做多资产期权定价工程实践"
+title: "多资产期权定价：AI工程实践不写代码"
 date: 2025-10-17
 img: https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/17.jpg
 excerpt: 这篇文章介绍了使用 AI 发现错误期权定价的方法，以及如何交易它。这篇文章昨天刚刚发布，就得到超过1.1k 个赞。非常值得一读。核心不是策略本身，而是如何使用 AI，让本来复杂的期权交易变得更容易参与。
