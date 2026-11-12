@@ -25,29 +25,7 @@ AxData 正是朝着这个方向演进的量化数据解决方案。它还在积�
 可能是由于统一不同数据源方面的困难，AxData 只将极小一部分核心数据纳入本地存储，定时采集，使用时从本地读取；多数数据暂时还是走的从远端服务器直取的方式。所以，AxData 目前在数据方面实行的是双轨制。
 
 
-```mermaid
-flowchart TD
-    subgraph 直取["源端直取（默认不入库）"]
-        A["client.call(接口名, 参数)"] --> B["Source Request Gateway<br/>参数校验 · 字段归一"]
-        B --> C["Provider 适配器<br/>通达信 / 腾讯 / 巨潮 …"]
-        C --> D["上游服务器"]
-        B --> E["返回 DataFrame"]
-    end
-
-    subgraph 入库["采集入库（显式触发）"]
-        F["Collector 任务<br/>手动 / 定时"] --> G["Collector Runner<br/>队列 · 重试 · 资源组"]
-        G --> H["raw<br/>原始快照，不可变"]
-        H --> I["staging<br/>类型转换 · 代码规范 · 日期规范 · 去重"]
-        I --> J["core<br/>统一业务语义"]
-        J --> K["factor<br/>因子宽表"]
-    end
-
-    J --> L["DuckDB 视图 / SQL"]
-    K --> L
-    L --> M["client.daily() · query()"]
-    L --> N["HTTP API 8666 · Web 8667"]
-    M --> O["Notebook / 回测"]
-```
+![AxData 数据链路](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261112131455-mermaid-axdata-review.jpg)
 
 如上图所示，AxData 提供了极佳的工程秩序：
 
