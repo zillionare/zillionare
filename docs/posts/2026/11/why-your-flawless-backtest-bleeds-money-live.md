@@ -1,5 +1,7 @@
 ---
 title: "回测封神实盘腰斩：两个致命陷阱"
+slug: posts/2026/11/why-your-flawless-backtest-bleeds-money-live
+date: "2026-11-16"
 tags: "[回测与风控, Python量化编程, 因子策略, 量化通识, 数据与存储, 产品与生态, 开发效率]"
 excerpt: "回测年化65%实盘却腰斩？90%新手栽在两个死因：回测偷看未来数据、错判策略有效期。本文拆解三大工程陷阱与A股规则雷区，帮你揪出净值缩水的真凶。"
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261116095318-why-your-flawless-backtest-bleeds-money-.jpg"
