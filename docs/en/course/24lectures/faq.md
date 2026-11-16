@@ -1,70 +1,85 @@
 ---
-title: "2025 Quant Course: Timeline, ROI, and Setup"
+title: "2025 Quant Investing Course FAQ: Study Time and Payoff"
 date: 2024-01-04
 slug: en/articles/course/24lectures/faq
-tags: [Quantitative Investing, Backtesting, Factor Mining, Career Planning]
-excerpt: "A 31-hour, 24-chapter course with live servers, commercial data, and T+1 backtesting. Ideal for Python/ math users. Learn how to turn strategies into code and assess real-world profitability."
+tags: [Quantitative Investing, Course FAQ, Backtesting, Career Planning]
+excerpt: "A 2025 FAQ on our quantitative investing course: 24 chapters, roughly 31 hours of video, a hosted notebook server with 4 billion+ commercial data records, plus straight answers on study time and profitability."
 lang: en
 translation_of: articles/course/24lectures/faq
 auto_translated: true
-source_sha: 0e00c065ec2fe9e379f9c93cfe98022bb7f76362
+source_sha: 4bc49182c3309f1eecc5f359a1be2ceb3ad6a19c
 ---
 
-## Enrollment Process and Learning Environment
+## Enrollment and Learning Environment
 
-!!! abstract "How do I take the course?"
-    The course is delivered via video lectures, Jupyter Notebooks, and Q&A sessions. Videos are distributed via Baidu Cloud, while the Notebooks are hosted on our dedicated course server.
-    Video access is permanent. The course server is available until June 2027.
-    The server comes pre-installed with necessary data and dependency libraries. You can run, modify, and debug the code in the Notebooks directly.
+!!! abstract "How is the course delivered?"
+    The course is delivered as videos, notebooks, and Q&A support. Videos are sent to you via Baidu Cloud Drive, and the notebooks are hosted on the courseware server we provide.
+    Videos are yours to watch permanently; the courseware server is available until June 2027.
+    On the courseware server, all data and dependencies are pre-installed, so the code in the notebooks runs out of the box — and you're free to modify and debug it yourself.
 
-!!! abstract "What is the course price?"
-    The current price is 2,099 RMB. Before purchasing, we recommend adding the teaching assistant on WeChat (quantfans_99) to understand the purchase process, obtain discounted pricing, and receive gift perks.
 
-!!! abstract "How do I purchase?"
+!!! abstract "What does the course cost?"
+    The current price is 2,099 RMB. Before you buy, we recommend adding our TA Kuanfen on WeChat (quantfans_99) to learn about the purchase process and to get discounted pricing and free gifts.
+
+
+!!! abstract "How do I buy it?"
     <div style="width:150px; position: relative;float:right">
         <img src="https://gcore.jsdelivr.net/gh/zillionare/images@main/images/hot/quantfans.png" style="width: 120px; display:inline-block"/>
-        <p style="text-align:center;width:120px"> Assistant </p>
+        <p style="text-align:center;width:120px"> 宽粉 </p>
     </div>
 
-    We recommend adding the teaching assistant on WeChat (quantfans_99) first to understand the purchase process, obtain discounts, and receive gifts. You can also place an order directly on [Lizhi Micro-Class](https://wk.nczzmn.com/channel/1704575?st=sharelink&inviter_id=88872237), but you must contact the assistant after purchase to activate your online course account.
+    We recommend first adding our TA Kuanfen on WeChat (quantfans_99) to learn about the purchase process and to get discounted pricing and free gifts. You can also order directly on [Lizhi Weike](https://wk.nczzmn.com/channel/1704575?st=sharelink&inviter_id=88872237), but you'll need to contact the TA after purchase so we can activate your online course access.
 
-!!! abstract "How long does it take to complete the course?"
-    The course consists of 24 chapters, approximately 400,000 bytes of content, with video lectures totaling about 31 hours.
 
-!!! abstract "Who is this course for / What are the prerequisites?"
-    Anyone with **basic Python programming knowledge** and **university-level mathematics** can enroll. For specific suitability, please consult the assistant on WeChat (quantfans_99) to evaluate if you meet the entry requirements.<br><br>If you have some programming background and are currently learning Python, you may enroll first, and the instructor can provide free tutoring.
+!!! abstract "How long does the course take?"
+    The course has 24 chapters, roughly 400,000 characters of text, and about 31 hours of video. How long it takes depends mainly on your own schedule. At one lesson per day, you should finish within four weeks.<br><br>
+    Course videos are free to watch forever. The dedicated courseware server is available until June 30, 2027.<br><br>The courseware server is for study use only and may not be used as a cloud server.
+
+
+!!! abstract "Who is this course for / what are the prerequisites?"
+    Anyone with **basic Python programming knowledge** and **university-level mathematics** can enroll. If you're unsure, ask Kuanfen (quantfans_99) and she'll help you assess whether you meet the entry requirements.<br><br>If you already have some programming background and are currently learning Python, you can also enroll first — the instructor offers free tutoring.
+
 
 !!! abstract "Do you provide a learning environment?"
-    We provide a server cluster with 192 CPU cores and 256GB of RAM for students. By logging in via a browser, you can learn online and run our example code. In this environment, we have purchased over 4 billion records of commercial data (measured by time-series database standards; sponsored by JoinQuant since 2024). The subscription fee for just this data exceeds 20,000 RMB.
+    We run a server cluster with 192 CPU cores and 256 GB of RAM for students. Log in through your browser and you can study and run our example code online. In that environment we have purchased more than 4 billion records of commercial data (measured in time-series database terms; sponsored by JoinQuant since 2024) — the subscription for this data alone costs over 20,000 RMB.
 
-!!! abstract "What are the advantages of your learning environment? Can I set up my own?"
-    The biggest advantage of our environment is the provision of backtesting capabilities (not based on backtrader) and commercial data. Our backtesting executes trades on a minute-by-minute basis and automatically implements T+1 settlement and price limit constraints, maximizing the realism of the trading environment. The data volume is massive and not easily replicable. Therefore, if you set up your own environment, you would still need to purchase data to realistically simulate trading conditions. **Strategy optimization is only meaningful when based on real data.**
 
-!!! abstract "I want to know more about the course"
-    We offer a preview environment containing selected course modules (videos, Notebooks, and exercises). You can add the assistant on WeChat (quantfans_99) to obtain the access link.
+!!! abstract "What's the advantage of your environment? Can I just build my own?"
+    The biggest advantage is that we provide backtesting (not backtrader-based) together with commercial data. Our backtest matches orders on minute bars and automatically enforces T+1 settlement and price-limit trading restrictions, reproducing real trading conditions as faithfully as possible. The data volume is enormous and cannot be replicated. So if you build your own environment, you would still have to buy the data to faithfully reproduce live trading conditions. **Strategy tuning is only meaningful when it is based on real data.**
+
+
+!!! abstract "I'd like to know more about the course"
+    We offer a preview environment containing selected lessons (videos, notebooks, and exercises). Add the TA on WeChat at quantfans_99 to get the link.
+
 
 ## Career Planning Questions
 
-!!! tip "Who is taking this course?"
-    According to incomplete statistics (not all students are willing to share their backgrounds), more than 2 PhDs from Ivy League universities and nearly 10 fund managers (including private equity heads) are taking this course. Several private equity firms have also purchased the course for their employees and interns. Other students include Hong Kong investment bank professionals, private equity staff, engineers from major internet companies, and university students.
+!!! tip "Who takes this course?"
+    Based on informal counts (not every student is willing to share their background), more than two Ivy League PhDs and close to ten fund managers (including heads of private funds) have taken this course, and several private funds have purchased it for their employees and interns. Other students include Hong Kong investment bankers, private fund staff, engineers from major internet companies, and university students.
+
 
 !!! tip "Why learn quantitative trading?"
-    Financial literacy is the key to passive income. Learning quantitative trading means you no longer work for money; instead, money works for you!
+    Only by learning to manage your money can you earn while you sleep. Learn quantitative trading and you stop working for money — money starts working for you.
 
-!!! tip "Will I make money after completing this course?"
-    Yes and No. This is a comprehensive course focused on solving the problem of how to programatically and scientifically implement a strategy if you already have one. Upon completion, if you are an experienced trader, you will be able to use the methods taught in this course to reorganize your trading experience, filtering out noise and solidifying effective experiences into code. This helps avoid emotional fluctuations, limitations in human computational capacity, and the inability to analyze the full market picture. If you have no trading experience, you will still master scientific quantitative theories and research methods, gaining the key to unlocking the strategy vault.<br><br>In short, whether comparing yourself to your past self or to other traders, you will see significant progress. However, profitability depends not only on your improved skills but also on market conditions. If the market is in a downtrend and shorting is not allowed, making money will be difficult.
 
-!!! tip "Do you know any recruiters who can help recommend jobs?"
-    Absolutely! Our account [Quant Fengyun](https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c) is ranked first in the quantitative sector on Xiaohongshu (Little Red Book). Headhunting firms actively collaborate with us.
+!!! tip "Will I make money once I finish this course?"
+    Yes and no. This is a comprehensive course, and its focus is on how to turn a strategy idea into a programmatic, scientific process. If you are an experienced trader, you will be able to use the methods taught here to re-examine your own trading experience, separate what works from what doesn't, and codify the effective parts as programs — freeing yourself from emotional swings, limited mental computation, and the inability to see and analyze the whole market. If you have no trading experience, you will still learn sound quantitative theory and research methods, and gain the key to a treasury of strategies.<br><br>In short, after this course you will have made obvious progress, whether measured against your past self or against other traders. But whether you make money depends not only on your own improvement but also heavily on the market. If the market is falling and you cannot short, making money is difficult.
+
+
+!!! tip "Do you know any headhunters who could help with referrals?"
+    Of course. Our Xiaohongshu account [量化风云](https://www.xiaohongshu.com/user/profile/5ba12feef7e8b9437f3aca0c) (Quant Winds) ranks first in the quantitative finance niche on the platform, and headhunting firms proactively partner with us.
+
 
 ## Other Questions
 
-!!! tip "I have a GPU. Can I use it for quantitative trading?"
-    If you start directly with price data, end-to-end AI techniques are not yet mature and may never be. Price data contains significant noise, or rather, it is a many-to-many mapping, making effective learning difficult.<br><br>
-    The most mature approach combining quantitative strategies with AI today involves manually extracting factors and using machine learning, particularly algorithms like XGBoost or LightGBM, for factor combination. Both XGBoost and LightGBM can partially utilize GPUs, though using a GPU is not mandatory. Especially since LightGBM’s training speed is already very fast.
+!!! tip "I have a GPU — can I use it for quant work?"
+    If you start directly from price data, end-to-end AI is not mature yet, and may never be. Price data contains a great deal of noise — or rather, it is a many-to-many mapping — so it is hard to learn from effectively.<br><br>
+    The most mature way to combine quantitative strategies with AI today is to hand-engineer factors and then use machine learning — especially XGBoost/LightGBM — to combine them into a factor model. Both can make partial use of a GPU, but a GPU is not required. LightGBM in particular already trains very fast.
 
-!!! tip "How do I apply for quantitative trading permissions? What are the thresholds?"
-    Generally, you can apply for quantitative trading permissions when opening a new account. You can consult the assistant on WeChat (quantfans_99) to help you find the broker with the lowest thresholds and optimal fees.
+
+!!! tip "How do I apply for quantitative trading permissions? What are the requirements?"
+    New brokerage accounts can usually apply for quantitative trading permissions at the same time. Ask Kuanfen (quantfans_99) and she'll help you find the broker with the lowest threshold and the best fees.
+
 
 !!! tip "Can you introduce the instructor?"
     <div style="width:150px; position: relative;float:right">
@@ -73,7 +88,7 @@ source_sha: 0e00c065ec2fe9e379f9c93cfe98022bb7f76362
     </div>
 
     -   Senior Software R&D Manager at IBM/Oracle
-    -   Vice President at Dolphin Browser (backed by Sequoia Capital)
-    -   Founder of KuangTi Quant
-    -   Initiator of the Zillionare open-source quantitative framework
-    -   Author of *Python Efficient Programming Practice Guide* (published by China Machine Press).
+    -   VP at Dolphin Browser (Sequoia Capital–backed)
+    -   Founder of Quantide
+    -   Initiator of the open-source Zillionare quantitative framework
+    -   Author of *Python High-Performance Programming Practices* (China Machine Press)
