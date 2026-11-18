@@ -2,7 +2,7 @@
 date: "2026-11-18"
 title: "夏普比率越高越好吗？三个致命盲区"
 tags: "[量化通识, 回测与风控]"
-excerpt: "夏普比率高就等于好策略？本文用真实对比拆解夏普的三大盲区：波动不等于风险、长期持有消解不了回撤、暴涨暴跌被一视同仁。看完再决定你的钱该投给谁。"
+excerpt: "夏普比率不是策略好坏的唯一答案：它无视收益来源、隐藏路径风险，还把暴涨暴跌一视同仁。本文拆解三个盲区，教你用回撤与Calmar比率看清真实风险。"
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261118090937-is-sharpe-ratio-the-higher-the-better.jpg"
 ---
 
