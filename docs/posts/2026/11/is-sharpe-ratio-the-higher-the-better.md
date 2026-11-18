@@ -1,3 +1,8 @@
+---
+date: "2026-11-18"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261118090703-is-sharpe-ratio-the-higher-the-better.jpg"
+---
+
 在量化圈和基金评估里，夏普比率（Sharpe Ratio）几乎是一块免检金牌。很多人看回测报告的第一眼，就是去找那个数字：夏普过 1.5 算及格，过 2.0 算优秀，要是能做到 3.0 以上，简直恨不得立刻砸锅卖铁满仓跟进。
 
 但如果把下面这两份策略摆在你面前（假设无风险利率 $R_f = 2\%$），你到底会把真金白银投给谁？
