@@ -3,6 +3,7 @@ date: "2026-11-18"
 title: "夏普比率高就稳？三个盲区先看清"
 tags: "[回测与风控, 量化通识]"
 excerpt: "夏普比率高就等于好策略？本文用真实对比拆解夏普的三大盲区：波动不等于风险、长期持有消解不了回撤、暴涨暴跌被一视同仁。看完再决定你的钱该投给谁。"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261118090824-is-sharpe-ratio-the-higher-the-better.jpg"
 ---
 
 在量化圈和基金评估里，夏普比率（Sharpe Ratio）几乎是一块免检金牌。很多人看回测报告的第一眼，就是去找那个数字：夏普过 1.5 算及格，过 2.0 算优秀，要是能做到 3.0 以上，简直恨不得立刻砸锅卖铁满仓跟进。
