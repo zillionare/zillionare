@@ -3,6 +3,7 @@ date: "2026-11-18"
 title: "无风险利率真相：零方差、久期与中债曲线"
 excerpt: "国债零违约也可能让机构破产？拆解金融学“无风险”真正含义：零方差而非保本，以及国内量化实务为何用中债国债收益率曲线定价。"
 tags: "量化通识, 回测与风控, 因子策略, Python量化编程, 无风险利率"
+cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261118093646-what-is-rf.jpg"
 ---
 
 
