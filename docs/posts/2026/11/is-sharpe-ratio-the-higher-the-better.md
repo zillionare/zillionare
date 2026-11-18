@@ -1,4 +1,5 @@
 ---
+slug: posts/2026/11/is-sharpe-ratio-the-higher-the-better
 date: "2026-11-18"
 title: "夏普比率越高越好吗？三个致命盲区"
 tags: "[量化通识, 回测与风控]"
