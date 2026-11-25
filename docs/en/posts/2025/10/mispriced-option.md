@@ -1,53 +1,53 @@
 ---
-title: "Finding Mispriced Options with AI: No Code Required"
+title: "AI Options Trading: Finding Mispriced Skew Without Code"
 date: 2025-10-17
 slug: en/posts/factor-strategy/mispriced-option
 tags: [Options Trading, AI, Volatility Skew, Vertical Spreads]
-excerpt: "A practitioner's guide to using AI to surface mispriced options — skew z-scores below −2, IV/RV mismatch, momentum confirmation — then a vertical spread to trade the edge."
+excerpt: "A no-code workflow for using AI to spot mispriced options through volatility skew, IV/RV mismatch, and momentum, then trade the edge with vertical spreads."
 lang: en
 translation_of: posts/factor-strategy/mispriced-option
 auto_translated: true
-source_sha: 9a2fd578ed96951f8def75d3ff9ca70fcba6df53
+source_sha: 0417e533ca8588648957c8517334fcab8d30040c
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/slidev/landscape/bakery/17.jpg"
 ---
 
-This post covers **using AI to find mispriced options** and how to trade them. It went up just yesterday and already has over 1.1k upvotes. Well worth a read. The point isn't the strategy itself — it's how AI can make options trading, normally a fairly complex thing to participate in, much more accessible. Pay attention to the prompts in the screenshots; translating them isn't hard.
+This article explains how to use **AI to find mispriced options** and how to trade them. It was published just yesterday and has already received more than 1.1k upvotes. It is well worth reading. The point is not the strategy itself, but how AI can make complex options trading more accessible. Pay attention to the prompts in the screenshots; translating them is not difficult.
 
 !!! attention
-    This article is a translation of a blog post by PandaMcGee3. You can find the original post and contact the author at [PandaMcGee3](https://www.reddit.com/r/options/comments/1o7prtk/my_method_on_making_money_trading_mispriced/).
+    This article is translated from a blog post by PandaMcGee3. You can find the original text and contact the author here: [PandaMcGee3](https://www.reddit.com/r/options/comments/1o7prtk/my_method_on_making_money_trading_mispriced/).
 
-    Reposting does not mean we endorse the views expressed here. All rights to this article belong to the original author. The first person "I" throughout refers to the original author.
+    Reposting does not mean we endorse the views expressed here. All rights to this article belong to the original author. The first person in the text below is the original author.
 
-I've been trading options for about three years. For basically all of that time, I was gambling — buying cheap calls because I saw something promising on Reddit or Twitter, then praying for a 10x. Lose money, win it back, lose it again. Standard retail-trader behavior.
+I have been trading options for about three years. For most of that time, I was essentially gambling. I would see something interesting on Reddit or Twitter, buy cheap calls, and pray for a 10x return. I would lose money, win some back, and lose again. The usual retail-trader cycle.
 
-About six months ago I got tired of the guessing game and decided to actually learn the math behind option pricing. Slowly I started building my own strategies, and with help from **artificial intelligence** I can now say with confidence that my profitability is pretty solid. More importantly, I finally feel like I have a genuinely deep understanding of the options market.
+About six months ago, I got tired of the guesswork and decided to actually learn the math behind option pricing. Slowly, I started building my own strategies, and with the help of **artificial intelligence**, I can confidently say that my profitability is now quite good. More importantly, I finally feel like I have a reasonably deep understanding of the options market.
 
-This is the article I wish I'd had when I started my options journey. It covers the strategy I currently use, plus some more foundational concepts. If you're more experienced, feel free to skip parts.
+This is the article I wish I had seen when I started trading options. It covers the strategy I currently use, along with some more basic concepts. If you are more experienced, feel free to skip parts of it.
 
-## What is volatility skew (and why does it exist)?
+## What Is Volatility Skew (and Why Does It Exist?)
 
-Think of option pricing like Vegas setting odds on the NBA Finals. The bookmaker starts from expert projections, then adjusts the odds as the season progresses and betting volume builds. Options work much the same way: market makers anchor to Black-Scholes, then prices get adjusted to real-world conditions.
+Think of option pricing as Las Vegas setting odds for the NBA Finals. The sportsbook starts with expert projections, then adjusts the odds as the season progresses and betting volume increases. Options work in much the same way: market makers use the Black-Scholes model as a baseline, then prices adjust to market realities.
 
-The key point: **Black-Scholes assumes implied volatility should be identical across all strikes.** In theory, a far out-of-the-money call and an at-the-money call should carry the same implied volatility, since they're bets on the same stock.
+The key point: **Black-Scholes assumes implied volatility should be constant across all strike prices**. In theory, a far out-of-the-money call and an at-the-money call should have the same implied volatility because they are claims on the same stock.
 
-**Reality disagrees.** Out-of-the-money options consistently trade at higher IV than ATM options. Plot that curve and you get the volatility skew. I know what you're thinking — isn't that just normal? After all, odds should shift as the season goes on, right? You're right, this is entirely normal market behavior.
+**But reality is different.** Out-of-the-money options consistently have higher implied volatility (IV) than at-the-money options. Plot that curve and you get volatility skew. I know what you are thinking: is that not normal? After all, odds should change as the season progresses, right? You are right. This is completely normal market behavior.
 
-**Our opportunity appears when fear or greed pushes that tendency to an extreme.** When market makers mark prices up because everyone is panic-buying puts or FOMO-buying calls, you see abnormally rich skew. That's exactly what we're hunting for.
+**Our opportunity arises when fear or greed pushes that tendency to an extreme.** When market makers mark prices higher because everyone is panic-buying puts or buying calls for fear of missing out, you see an abnormally rich skew. That is exactly what we are looking for.
 
-![SPY's actual volatility skew versus Black-Scholes: far OTM options are priced much higher than theory predicts](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017153712.png)
+![Actual volatility skew in SPY versus Black-Scholes. Notice that far OTM options are priced much higher than theory would predict.](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017153712.png)
 
 
-## How do you find options with significant skew?
+## How Do You Find Options with Significant Skew?
 
-Not all skew is created equal. As I said, most skew is perfectly normal and usually priced fairly. What you need is a system — a set of criteria — that helps you identify the more extreme, anomalous skew consistently.
+Not all skew is created equal. As I mentioned, most skew is completely normal and usually fairly priced. The key is to have a system or criteria that helps you identify more significant or abnormal skew consistently.
 
 !!! attention
-    Before you start prompting an AI, make sure it has real, up-to-date market data. You can use an AI with built-in market data like Xynth, or download data from TradingView or Polygon and upload the CSV to ChatGPT or Claude. Either approach works.
+    Before you start prompting AI, make sure it has real, up-to-date market data. To do this, you can use an AI with built-in market data such as Xynth, or download data from TradingView or Polygon and upload the CSV file to ChatGPT or Claude. Either approach works.
 
 
 ### Skew Z-Score Below -2.0
 
-This compares current skew against the stock's historical average. A z-score of -2.0 means skew sits two standard deviations from normal — statistically rare, and more likely to revert. In short: how far off is the option chain's current pricing relative to its historical average?
+This compares the current skew with the stock's historical average. A z-score of -2.0 means the skew is two standard deviations away from normal, which is statistically rare and more likely to revert. In short: how mispriced is the current skew relative to its historical average?
 
 ![Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017155026.png)
 
@@ -60,12 +60,12 @@ This compares current skew against the stock's historical average. A z-score of 
 
 ### IV/RV Mismatch
 
-Compare current IV against RV — realized volatility, i.e. what the market thinks the stock will do versus what it has actually been doing:
+Compare current IV with RV—realized volatility—that is, the move the market expects the stock to make versus how the stock has actually behaved recently:
 
-1. OTM strikes: IV should be significantly higher than realized volatility → overpriced
-2. ATM strikes: IV should be at or below realized volatility → fairly priced
+1. OTM strikes: implied volatility (IV) should be significantly higher than realized volatility → overpriced.
+2. ATM strikes: IV should be at or below realized volatility → fairly priced.
    
-When both conditions hold, you're looking at an expensive option and a cheap one. That's your spread.
+When both conditions hold, you have an expensive option and a cheap option. That is your spread.
 
 ![Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160140.png)
 
@@ -74,22 +74,22 @@ When both conditions hold, you're looking at an expensive option and a cheap one
 
 ![Detailed analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160719.png)
 
-### Momentum confirmation
+### Momentum Confirmation
 
-This tells you which direction to trade:
-1. Positive momentum + call skew → buy a call spread (buy the ATM call, sell the OTM call)
-2. Negative momentum + put skew → buy a put spread (buy the ATM put, sell the OTM put)
+This tells you the direction of the trade:
+1. Positive momentum + call skew → buy a call spread (buy ATM call, sell OTM call).
+2. Negative momentum + put skew → buy a put spread (buy ATM put, sell OTM put).
 
 ![Prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160831.png)
 ![Chart report](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160917.png)
 ![Detailed analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017160943.png)
 
-## The trade: vertical spreads
+## The Trade: Vertical Spread
 
-Once you've found significant skew, here's how to structure it. I mostly run bull spreads only, because I don't like shorting, but presumably you can try the mirror image:
+Once you have found significant skew, this is how you want to set up the trade. I mostly do bull call spreads because I do not like shorting, but you can presumably try the opposite as well:
 
-1. Buy the ATM option (fairly priced, ~50 delta)
-2. Sell the OTM option (overpriced, ~10-25 delta)
+1. Buy the ATM option (fairly priced, ~50 delta).
+2. Sell the OTM option (overpriced, ~10-25 delta).
 
 ![Trade prompt](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161137.png)
 
@@ -98,29 +98,29 @@ Once you've found significant skew, here's how to structure it. I mostly run bul
 ![Detailed analysis](https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main//images/2025/10/20251017161335.png)
 
 !!! attention
-    These screenshots are examples I saw in the Xynth chat. In this trade the score was only 68/100, mainly because the ATM option was already overpriced, so the spread doesn't leave us much profit potential. The concept is unchanged though. Feel free to tweak the variables in the prompt and widen the scan — run it on more tickers every day, or even every hour.
+    These images are examples I saw in a Xynth chat. In this trade, the score was only 68/100, mainly because the ATM option was already overpriced, so the spread did not offer much profit potential. The concept remains the same, though. Feel free to adjust the variables in the prompt and widen your scan, running this scanner on more stocks every day or even every hour.
 
 
-## Why vertical spreads?
+## Why Use a Vertical Spread?
 
-If you've read this far, you've probably realized the point of this strategy isn't pure direction — it's a relative-value play, which is a fancy way of saying you buy something cheap and sell something expensive at the same time.
+If you have read this far, you probably realize that the point of this strategy is not pure directionality. It is a relative-value play—a fancy way of saying you are simultaneously buying something cheap and selling something expensive.
 
-You're not just betting that the stock goes up or down; you're betting that the pricing relationship between two options is out of whack and will eventually normalize.
+You are not just betting that the stock will go up or down; you are betting that the pricing relationship between the two options is out of balance and will eventually normalize.
 
-On top of that, if the stock moves violently, your long option covers you. You're not carrying unlimited risk on either side.
+In addition, if the stock makes a sharp move, your long option also protects you. You are not exposed to unlimited risk on either side.
 
 ## Results
 
-I've been running this for about two months, so take these numbers with a grain of salt — it's early.
+I have been running this strategy for about two months, so take these numbers with a grain of salt—it is still early.
 
-Current stats:
+Current statistics:
 1. Win rate: ~38%
 2. Average return per winning trade: ~250%
 3. Average loss per losing trade: ~60%
-4. Net equity: still up overall, even though losses outnumber wins
+4. Equity curve: net positive overall, despite more losing trades than winners
 
-The nature of this strategy is asymmetric. Some trades return 300-400% within a few weeks; others lose 50-70% just as fast. But winning 4 out of 10 trades at 3-4x easily covers the 6 losers.
+This strategy is inherently asymmetric. I have had trades return 300-400% in a few weeks, and other trades lose 50-70% just as quickly. But if you win 4 out of 10 trades with a 3-4x return, that easily covers the 6 losses.
 
 <hr>
 
-More quantitative trading concepts like skew are covered systematically in 量化24课 (Quantitative 24 Lessons).
+For more quantitative trading concepts such as skew, the 24-lesson quantitative trading course covers them systematically.
