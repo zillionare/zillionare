@@ -2,7 +2,7 @@
 slug: posts/2026/11/event-driven-strategy-research-guide
 date: "2026-11-25"
 title: "德邦0.8%价差拆解：事件驱动套利定价"
-tags: "[量化通识, 事件驱动, 策略研究]"
+tags: "[量化通识, 因子策略, 回测与风控, 资讯, 研报与论文]"
 excerpt: "从2026年1月京东物流以19元/股收购德邦股份并主动退市的真实套利窗口讲起，先拆解“收购价20元、股价却停在18元”的定价逻辑与美股正反并购大案，再系统展开事件驱动策略的四大盈利来源、机构级6步研究框架与实战公告清单。"
 cover: "https://gcore.jsdelivr.net/gh/zillionare/imgbed2@main/images/2026/11/20261125073405-event-driven-strategy-research-guide.jpg"
 ---
